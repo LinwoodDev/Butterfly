@@ -2,15 +2,47 @@
 
 > Change the world
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+* Open source & free
+* Everything configurable
+  * Pack support
+    * [Color pack](https://linwood.tk/butterfly/wiki/pack/color) or configurable *(TODO)* 
+    * [Background pack](https://linwood.tk/butterfly/wiki/pack/background) or configurable *(TODO)*
+    * [Pen pack](https://linwood.tk/butterfly/wiki/pack/pen) or configurable *(TODO)*
+* Layer support
+  * [Markdown layer](https://linwood.tk/butterfly/wiki/layer/markdown) *(TODO)*
+  * [Text layer](https://linwood.tk/butterfly/wiki/layer/) *(TODO)*
+  * Image layer *(TODO)*
+  * Vector layer *(TODO)*
+  * Table layer *(TODO)*
+  * LaTex layer *(TODO)*
+  * Paint layer *(TODO)*
+  * Video layer *(TODO)*
+  * Group layer *(TODO)*
+* Component support (save your work to save time)
+* Presentation support
+  * Keyframes *(TODO)*
+  * Paths *(TODO)*
 
-A few resources to get you started if this is your first Flutter project:
+## Download
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Platforms:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* Web
+* Mobile (Android, iOS)
+* Desktop (Windows, Linux, Mac)
+
+### From website
+
+* Open the [web version](https://butterfly.linwood.tk)
+* Download the [mobile app](https://linwood.tk/butterfly/download/mobile)
+* Download the [desktop app](https://linwood.tk/butterfly/download/mobile)
+
+### Build your own
+
+```bash
+flutter pub get
+
+flutter build apk
+```

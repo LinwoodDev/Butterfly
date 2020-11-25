@@ -2,7 +2,7 @@ import 'package:butterfly/models/packs/background.dart';
 import 'package:flutter/material.dart';
 
 class BackgroundPacksPage extends StatelessWidget {
-  List<BackgroundPack> _packs = [];
+  final List<BackgroundPack> _packs = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class PaintElement extends LayerElement {
   @override
-  ListTile buildTile(AppDocument document) {
+  ListTile buildTile(BuildContext context, AppDocument document) {
     // TODO: implement buildTile
     return ListTile();
   }
