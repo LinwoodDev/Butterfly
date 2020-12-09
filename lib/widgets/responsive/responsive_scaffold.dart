@@ -1,3 +1,4 @@
+import 'package:butterfly/widgets/responsive/drawer.dart';
 import 'package:flutter/material.dart';
 
 /// A responsive scaffold for our application.

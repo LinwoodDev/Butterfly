@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 
 import 'document.dart';
 
-abstract class LayerElement {
+abstract class ElementLayer {
+  List<ElementLayer> children = [];
+
   ListTile buildTile(BuildContext context, AppDocument document);
 }
