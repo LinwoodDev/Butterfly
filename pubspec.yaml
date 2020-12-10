@@ -19,42 +19,36 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # UI
-  material_design_icons_flutter: ^4.0.5755
-
-  # Internal
   flutter_modular: ^2.0.1
+  hive: ^1.4.4+1
+  hive_flutter: ^0.3.1
+  material_design_icons_flutter: ^4.0.5755
+  pluto_menu_bar: ^0.1.4
   url_launcher: ^5.7.10
   url_launcher_web: ^0.1.5+1
 
-
-
 dev_dependencies:
+  hive_generator: ^0.8.2
+  build_runner: ^1.10.6
   flutter_test:
     sdk: flutter
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
