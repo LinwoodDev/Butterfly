@@ -29,7 +29,7 @@ dependencies:
 
 dev_dependencies:
   hive_generator: ^0.8.2
-  build_runner: ^1.10.6
+  build_runner: ^1.10.9
   flutter_test:
     sdk: flutter
 

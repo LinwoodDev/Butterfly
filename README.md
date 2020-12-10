@@ -2,6 +2,11 @@
 
 > Change the world
 
+## Introduction
+
+A multifunctional, opensource and free note app where you can create a pad by editing your layers.
+Export it as presentation, website or picture
+
 ## Features
 
 * Open source & free
@@ -20,6 +25,11 @@
   * Paint layer *(TODO)*
   * Video layer *(TODO)*
   * Group layer *(TODO)*
+* Export your work
+  * HTML *(TODO)*
+  * Vector format (SVG) *(TODO)*
+  * Pixel format (PNG, JPG) *(TODO)*
+  * PDF *(TODO)*
 * Component support (save your work to save time)
 * Presentation support
   * Keyframes *(TODO)*
@@ -46,3 +56,7 @@ flutter pub get
 
 flutter build apk
 ```
+
+## Contributing
+
+Go to our discord and open a ticket. Then ask me for an account.
