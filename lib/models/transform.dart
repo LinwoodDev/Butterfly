@@ -1,5 +1,3 @@
-import 'dart:html';
-
 class LayerTranform {
   Vector3 position;
   Vector3 rotation;
@@ -13,9 +11,7 @@ class LayerTranform {
   }
 }
 
-enum LayerAlignment {
-  start, center, end;
-}
+enum LayerAlignment { start, center, end }
 
 class Vector2 {
   final int x;

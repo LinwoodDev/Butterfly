@@ -4,5 +4,5 @@ import 'package:flutter/material.dart';
 
 class GroupElement extends ElementLayer {
   @override
-  ListTile buildTile(BuildContext context, AppDocument document) => ListTile();
+  Widget buildTile(BuildContext context, AppDocument document) => ListTile();
 }
