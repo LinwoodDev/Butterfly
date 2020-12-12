@@ -19,6 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  fab_circular_menu: ^1.0.1
   flutter_modular: ^2.0.1
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
