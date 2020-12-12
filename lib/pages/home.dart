@@ -1,4 +1,5 @@
 import 'package:butterfly/models/elements/document.dart';
+import 'package:butterfly/pages/project.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -38,7 +39,8 @@ class HomePage extends StatelessWidget {
                               return Card(
                                   margin: EdgeInsets.all(5),
                                   child: InkWell(
-                                      onTap: () {},
+                                      onTap: () => Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) => ProjectPage())),
                                       child: Padding(
                                           padding:
                                               EdgeInsets.symmetric(horizontal: 20, vertical: 10),

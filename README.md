@@ -52,6 +52,9 @@ Platforms:
 ### Build your own
 
 ```bash
+flutter channel beta
+flutter upgrade
+
 flutter pub get
 
 flutter build apk

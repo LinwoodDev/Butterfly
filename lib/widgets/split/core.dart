@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class SplitWindow {
-  final Widget widget;
-  final double minSize;
+typedef SplitWindowBuilder = Widget Function(
+    BuildContext context, SplitView view, SplitWindow window, bool expanded);
 
-  SplitWindow({this.widget, this.minSize});
+class SplitWindow {
+  final SplitWindowBuilder builder;
+  final double maxSize;
+  final double minSize;
+  final double size;
+
+  void expand(BuildContext context, SplitView view, SplitWindow window) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => builder(context, view, window, true)));
+  }
+
+  SplitWindow({@required this.builder, this.minSize, this.maxSize, this.size});
 }
 
 class SplitView extends StatefulWidget {
@@ -55,13 +65,14 @@ class _SplitViewState extends State<SplitView> {
       assert(_ratio >= 0);
       var constraintsSize =
           widget.axis == Axis.horizontal ? constraints.maxWidth : constraints.maxHeight;
-      if (_maxSize == null) _maxSize = constraintsSize - _dividerWidth;
-      if (_maxSize != constraintsSize) {
-        _maxSize = widget.axis == Axis.horizontal
-            ? constraints.maxWidth
-            : constraints.maxHeight - _dividerWidth;
+      if (_maxSize == null) {
+        _maxSize = constraintsSize - _dividerWidth;
+        if (widget.first.size != null) _ratio = widget.first.size / _maxSize;
+        if (widget.second.size != null) _ratio = (_maxSize - widget.second.size) / _maxSize;
       }
-      print(_ratio);
+      if (_maxSize != constraintsSize) {
+        _maxSize = constraintsSize - _dividerWidth;
+      }
       var list = widget.axis == Axis.horizontal
           ? Row(
               children: _buildBody(constraints),
@@ -76,28 +87,27 @@ class _SplitViewState extends State<SplitView> {
 
   _buildBody(BoxConstraints constraints) {
     return [
-      SizedBox(
-        width: widget.axis == Axis.horizontal ? _firstSize : null,
-        height: widget.axis == Axis.horizontal ? null : _firstSize,
-        child: widget.first.widget,
-      ),
+      Builder(
+          builder: (context) => SizedBox(
+              width: widget.axis == Axis.horizontal ? _firstSize : null,
+              height: widget.axis == Axis.horizontal ? null : _firstSize,
+              child: SizedBox.expand(
+                  child: widget.first.builder(context, widget, widget.first, false)))),
       GestureDetector(
         behavior: HitTestBehavior.translucent,
         child: SizedBox(
-          width: widget.axis == Axis.horizontal ? _dividerWidth : constraints.maxWidth,
-          height: widget.axis == Axis.horizontal ? constraints.maxHeight : _dividerWidth,
-          child: RotationTransition(
-            child: widget.icon,
-            turns: AlwaysStoppedAnimation(0.25),
-          ),
-        ),
+            width: widget.axis == Axis.horizontal ? _dividerWidth : constraints.maxWidth,
+            height: widget.axis == Axis.horizontal ? constraints.maxHeight : _dividerWidth,
+            child: RotationTransition(child: widget.icon, turns: AlwaysStoppedAnimation(0.25))),
         onPanUpdate: (DragUpdateDetails details) {
           setState(() {
             var last = _ratio;
             _ratio +=
                 (widget.axis == Axis.horizontal ? details.delta.dx : details.delta.dy) / _maxSize;
             if (widget.first.minSize != null && widget.first.minSize > _firstSize ||
-                widget.second.minSize != null && widget.second.minSize > _secondSize) _ratio = last;
+                widget.second.minSize != null && widget.second.minSize > _secondSize ||
+                widget.first.maxSize != null && widget.first.maxSize < _firstSize ||
+                widget.second.maxSize != null && widget.second.maxSize < _secondSize) _ratio = last;
             if (widget.first.minSize != null && widget.first.minSize > _firstSize ||
                 widget.second.minSize != null && widget.second.minSize > _secondSize)
               _ratio = widget.first.minSize /
@@ -108,11 +118,12 @@ class _SplitViewState extends State<SplitView> {
           });
         },
       ),
-      SizedBox(
-        width: widget.axis == Axis.horizontal ? _secondSize : null,
-        height: widget.axis == Axis.horizontal ? null : _secondSize,
-        child: widget.second.widget,
-      )
+      Builder(
+          builder: (context) => SizedBox(
+              width: widget.axis == Axis.horizontal ? _secondSize : null,
+              height: widget.axis == Axis.horizontal ? null : _secondSize,
+              child: SizedBox.expand(
+                  child: widget.second.builder(context, widget, widget.second, false))))
     ];
   }
 }
