@@ -23,16 +23,21 @@ class _ProjectPageState extends State<ProjectPage> {
           IconButton(icon: Icon(MdiIcons.export), tooltip: "Export", onPressed: () {}),
           IconButton(icon: Icon(MdiIcons.link), tooltip: "Share (not implemented)", onPressed: null)
         ]),
-        body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SplitView(
-                axis: Axis.horizontal,
-                second: SplitWindow(
-                    minSize: 200,
-                    size: 200,
-                    maxSize: 500,
-                    builder:
-                        (BuildContext context, SplitView view, SplitWindow window, bool expanded) =>
+        body: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+          bool isMobile = MediaQuery.of(context).size.width < 600;
+          if (isMobile)
+            return MainView();
+          else
+            return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SplitView(
+                    axis: Axis.horizontal,
+                    second: SplitWindow(
+                        minSize: 200,
+                        size: 200,
+                        maxSize: 500,
+                        builder: (BuildContext context, SplitView view, SplitWindow window,
+                                bool expanded) =>
                             SplitView(
                                 axis: Axis.vertical,
                                 first: SplitWindow(
@@ -57,10 +62,11 @@ class _ProjectPageState extends State<ProjectPage> {
                                             icon: Icon(MdiIcons.tuneVertical),
                                             window: window,
                                             expanded: expanded)))),
-                first: SplitWindow(
-                    builder:
-                        (BuildContext context, SplitView view, SplitWindow window, bool expanded) =>
-                            MainView(view: view, window: window, expanded: expanded)))));
+                    first: SplitWindow(
+                        builder: (BuildContext context, SplitView view, SplitWindow window,
+                                bool expanded) =>
+                            MainView(view: view, window: window, expanded: expanded))));
+        }));
   }
 
   void _showProjectSettings() {

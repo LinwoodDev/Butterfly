@@ -2,6 +2,9 @@ import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import 'inspector.dart';
+import 'layers.dart';
+
 class MainView extends StatefulWidget {
   final bool expanded;
   final SplitView view;
@@ -20,6 +23,7 @@ class _MainViewState extends State<MainView> {
   void _toggleTool(Tool tool) => setState(() => currentTool = currentTool == tool ? null : tool);
   @override
   Widget build(BuildContext context) {
+    bool isMobile = widget.window == null || widget.view == null || widget.expanded == null;
     return Scaffold(
         body: Container(
             decoration: BoxDecoration(
@@ -54,21 +58,30 @@ class _MainViewState extends State<MainView> {
                         ),
                         VerticalDivider(),
                         if (currentTool == Tool.view) ...[
-                          IconButton(
-                            icon: Icon(MdiIcons.cubeOutline),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: Icon(MdiIcons.tuneVertical),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                              icon: Icon(widget.expanded
-                                  ? MdiIcons.windowMinimize
-                                  : MdiIcons.windowMaximize),
-                              onPressed: widget.expanded
-                                  ? Navigator.of(context).pop
-                                  : () => widget.window.expand(context, widget.view, widget.window))
+                          if (isMobile) ...[
+                            IconButton(
+                              icon: Icon(MdiIcons.cubeOutline),
+                              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Scaffold(
+                                      appBar: AppBar(title: Text("Layers")), body: LayersView()))),
+                            ),
+                            IconButton(
+                              icon: Icon(MdiIcons.tuneVertical),
+                              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Scaffold(
+                                      appBar: AppBar(title: Text("Inspector")),
+                                      body: InspectorView()))),
+                            )
+                          ] else ...[
+                            IconButton(
+                                icon: Icon(widget.expanded
+                                    ? MdiIcons.windowMinimize
+                                    : MdiIcons.windowMaximize),
+                                onPressed: widget.expanded
+                                    ? Navigator.of(context).pop
+                                    : () =>
+                                        widget.window.expand(context, widget.view, widget.window))
+                          ]
                         ]
                       ])))
             ])));

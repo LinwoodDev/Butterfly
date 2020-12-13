@@ -28,6 +28,10 @@ class ButterflyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.amber,
           accentColor: Colors.yellow[900]),
+      darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.amber,
+          accentColor: Colors.yellow[900]),
       home: HomePage(),
     );
   }
