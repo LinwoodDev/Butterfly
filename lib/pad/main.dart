@@ -24,7 +24,7 @@ class _ProjectPageState extends State<ProjectPage> {
           IconButton(icon: Icon(MdiIcons.link), tooltip: "Share (not implemented)", onPressed: null)
         ]),
         body: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-          bool isMobile = MediaQuery.of(context).size.width < 600;
+          bool isMobile = MediaQuery.of(context).size.width < 800;
           if (isMobile)
             return MainView();
           else
@@ -75,27 +75,29 @@ class _ProjectPageState extends State<ProjectPage> {
         builder: (context) => Dialog(
             child: DefaultTabController(
                 length: 2,
-                child: Column(children: [
-                  TabBar(
-                    tabs: [
-                      Tab(icon: Icon(MdiIcons.tune), text: "General"),
-                      Tab(icon: Icon(MdiIcons.packageVariantClosed), text: "Packs")
-                    ],
-                  ),
-                  Expanded(
-                      child: Container(
-                          child: TabBarView(children: [
-                    Icon(Icons.directions_car),
-                    Icon(Icons.directions_transit)
-                  ]))),
-                  Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                        RaisedButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: Text("Ok", style: Theme.of(context).primaryTextTheme.button),
-                            color: Theme.of(context).primaryColor)
-                      ]))
-                ]))));
+                child: Container(
+                    constraints: BoxConstraints(maxWidth: 600, maxHeight: 800),
+                    child: Column(children: [
+                      TabBar(
+                        tabs: [
+                          Tab(icon: Icon(MdiIcons.tune), text: "General"),
+                          Tab(icon: Icon(MdiIcons.packageVariantClosed), text: "Packs")
+                        ],
+                      ),
+                      Expanded(
+                          child: Container(
+                              child: TabBarView(children: [
+                        Icon(Icons.directions_car),
+                        Icon(Icons.directions_transit)
+                      ]))),
+                      Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                          child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                            RaisedButton(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: Text("Ok", style: Theme.of(context).primaryTextTheme.button),
+                                color: Theme.of(context).primaryColor)
+                          ]))
+                    ])))));
   }
 }
