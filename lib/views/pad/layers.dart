@@ -13,10 +13,8 @@ class _LayersViewState extends State<LayersView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ListView.builder(
-        itemCount: widget.document.elements.length,
-        itemBuilder: (BuildContext context, int index) => widget,
-      ),
-    );
+        child: ListView(
+      children: [Text("Tree")],
+    ));
   }
 }

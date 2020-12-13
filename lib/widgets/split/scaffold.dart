@@ -8,6 +8,7 @@ class SplitScaffold extends StatelessWidget {
   final bool expanded;
   final String title;
   final Widget body;
+  final Icon icon;
   final FloatingActionButton floatingActionButton;
 
   SplitScaffold(
@@ -16,13 +17,17 @@ class SplitScaffold extends StatelessWidget {
       @required this.expanded,
       @required this.title,
       @required this.body,
+      this.icon,
       this.floatingActionButton});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          toolbarHeight: 50,
+          backgroundColor: Theme.of(context).accentColor,
           automaticallyImplyLeading: false,
           title: Text(title),
+          leading: icon,
           actions: [
             IconButton(
                 icon: Icon(expanded ? MdiIcons.windowMinimize : MdiIcons.windowMaximize),

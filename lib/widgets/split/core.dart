@@ -98,9 +98,12 @@ class _SplitViewState extends State<SplitView> {
         child: SizedBox(
             width: widget.axis == Axis.horizontal ? _dividerWidth : constraints.maxWidth,
             height: widget.axis == Axis.horizontal ? constraints.maxHeight : _dividerWidth,
-            child: RotationTransition(child: widget.icon, turns: AlwaysStoppedAnimation(0.25))),
+            child: RotationTransition(
+                child: widget.icon,
+                turns: AlwaysStoppedAnimation(widget.axis == Axis.horizontal ? 0.25 : 0))),
         onPanUpdate: (DragUpdateDetails details) {
           setState(() {
+            print("1");
             var last = _ratio;
             _ratio +=
                 (widget.axis == Axis.horizontal ? details.delta.dx : details.delta.dy) / _maxSize;
@@ -115,6 +118,7 @@ class _SplitViewState extends State<SplitView> {
             if (_ratio > 1)
               _ratio = 1;
             else if (_ratio < 0.0) _ratio = 0.0;
+            print("2");
           });
         },
       ),
