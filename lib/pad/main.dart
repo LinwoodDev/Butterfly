@@ -34,7 +34,7 @@ class _ProjectPageState extends State<ProjectPage> {
                     axis: Axis.horizontal,
                     second: SplitWindow(
                         minSize: 200,
-                        size: 200,
+                        size: 250,
                         maxSize: 500,
                         builder: (BuildContext context, SplitView view, SplitWindow window,
                                 bool expanded) =>
