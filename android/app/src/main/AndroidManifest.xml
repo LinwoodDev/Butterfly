@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tk.codedoctor.linwood.butterfly">
    <application
-        android:label="butterfly"
+        android:label="Butterfly"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

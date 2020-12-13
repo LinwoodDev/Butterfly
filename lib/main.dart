@@ -1,16 +1,21 @@
+import 'package:butterfly/module.dart';
 import 'package:butterfly/pages/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(ModularApp(module: AppModule()));
 
-class MyApp extends StatelessWidget {
+class ButterflyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Butterfly',
+      // set your initial route
+      initialRoute: "/",
+      navigatorKey: Modular.navigatorKey,
+      // add Modular to manage the routing system
+      onGenerateRoute: Modular.generateRoute,
       theme: ThemeData(
           // This is the theme of your application.
           //

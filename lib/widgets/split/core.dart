@@ -63,9 +63,14 @@ class _SplitViewState extends State<SplitView> {
     return LayoutBuilder(builder: (context, BoxConstraints constraints) {
       assert(_ratio <= 1);
       assert(_ratio >= 0);
+      print("test");
       var constraintsSize =
           widget.axis == Axis.horizontal ? constraints.maxWidth : constraints.maxHeight;
-      if (_maxSize == null) {
+      if (_maxSize == null ||
+          widget.first.minSize != null && widget.first.minSize > _firstSize ||
+          widget.second.minSize != null && widget.second.minSize > _secondSize ||
+          widget.first.maxSize != null && widget.first.maxSize < _firstSize ||
+          widget.second.maxSize != null && widget.second.maxSize < _secondSize) {
         _maxSize = constraintsSize - _dividerWidth;
         if (widget.first.size != null) _ratio = widget.first.size / _maxSize;
         if (widget.second.size != null) _ratio = (_maxSize - widget.second.size) / _maxSize;
@@ -110,10 +115,6 @@ class _SplitViewState extends State<SplitView> {
                 widget.second.minSize != null && widget.second.minSize > _secondSize ||
                 widget.first.maxSize != null && widget.first.maxSize < _firstSize ||
                 widget.second.maxSize != null && widget.second.maxSize < _secondSize) _ratio = last;
-            if (widget.first.minSize != null && widget.first.minSize > _firstSize ||
-                widget.second.minSize != null && widget.second.minSize > _secondSize)
-              _ratio = widget.first.minSize /
-                  (widget.axis == Axis.horizontal ? constraints.maxWidth : constraints.maxHeight);
             if (_ratio > 1)
               _ratio = 1;
             else if (_ratio < 0.0) _ratio = 0.0;
