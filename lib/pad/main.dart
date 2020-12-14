@@ -43,25 +43,15 @@ class _ProjectPageState extends State<ProjectPage> {
                                 first: SplitWindow(
                                   minSize: 100,
                                   size: 200,
-                                  builder: (context, view, window, expanded) => SplitScaffold(
-                                      view: view,
-                                      window: window,
-                                      expanded: expanded,
-                                      title: "Layers",
-                                      icon: Icon(Mdi.cubeOutline),
-                                      body: LayersView()),
+                                  builder: (context, view, window, expanded) =>
+                                      LayersView(view: view, window: window, expanded: expanded),
                                 ),
                                 second: SplitWindow(
                                     minSize: 100,
                                     builder: (BuildContext context, SplitView view,
                                             SplitWindow window, bool expanded) =>
-                                        SplitScaffold(
-                                            body: InspectorView(),
-                                            title: "Inspector",
-                                            view: view,
-                                            icon: Icon(Mdi.tuneVertical),
-                                            window: window,
-                                            expanded: expanded)))),
+                                        InspectorView(
+                                            view: view, window: window, expanded: expanded)))),
                     first: SplitWindow(
                         builder: (BuildContext context, SplitView view, SplitWindow window,
                                 bool expanded) =>

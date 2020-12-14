@@ -37,41 +37,33 @@ class _MainViewState extends State<MainView> {
                       scrollDirection: Axis.horizontal,
                       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                         IconButton(
-                          icon: Icon(Mdi.cursorDefaultOutline),
-                          color: currentTool == Tool.view ? Theme.of(context).primaryColor : null,
-                          onPressed: () => _toggleTool(Tool.view),
-                        ),
+                            icon: Icon(Mdi.cursorDefaultOutline),
+                            color: currentTool == Tool.view ? Theme.of(context).primaryColor : null,
+                            onPressed: () => _toggleTool(Tool.view)),
                         IconButton(
-                          icon: Icon(Mdi.select),
-                          color: currentTool == Tool.select ? Theme.of(context).primaryColor : null,
-                          onPressed: () => _toggleTool(Tool.select),
-                        ),
+                            icon: Icon(Mdi.select),
+                            color:
+                                currentTool == Tool.select ? Theme.of(context).primaryColor : null,
+                            onPressed: () => _toggleTool(Tool.select)),
                         IconButton(
-                          icon: Icon(Mdi.cursorMove),
-                          color: currentTool == Tool.move ? Theme.of(context).primaryColor : null,
-                          onPressed: () => _toggleTool(Tool.move),
-                        ),
+                            icon: Icon(Mdi.cursorMove),
+                            color: currentTool == Tool.move ? Theme.of(context).primaryColor : null,
+                            onPressed: () => _toggleTool(Tool.move)),
                         IconButton(
-                          icon: Icon(Mdi.pencilOutline),
-                          color: currentTool == Tool.edit ? Theme.of(context).primaryColor : null,
-                          onPressed: () => _toggleTool(Tool.edit),
-                        ),
+                            icon: Icon(Mdi.pencilOutline),
+                            color: currentTool == Tool.edit ? Theme.of(context).primaryColor : null,
+                            onPressed: () => _toggleTool(Tool.edit)),
                         VerticalDivider(),
                         if (currentTool == Tool.view) ...[
                           if (isMobile) ...[
                             IconButton(
-                              icon: Icon(Mdi.cubeOutline),
-                              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Scaffold(
-                                      appBar: AppBar(title: Text("Layers")), body: LayersView()))),
-                            ),
+                                icon: Icon(Mdi.cubeOutline),
+                                onPressed: () => Navigator.of(context)
+                                    .push(MaterialPageRoute(builder: (context) => LayersView()))),
                             IconButton(
-                              icon: Icon(Mdi.tuneVertical),
-                              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Scaffold(
-                                      appBar: AppBar(title: Text("Inspector")),
-                                      body: InspectorView()))),
-                            )
+                                icon: Icon(Mdi.tuneVertical),
+                                onPressed: () => Navigator.of(context)
+                                    .push(MaterialPageRoute(builder: (context) => InspectorView())))
                           ] else ...[
                             IconButton(
                                 icon:
