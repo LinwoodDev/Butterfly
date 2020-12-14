@@ -1,6 +1,6 @@
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:mdi/mdi.dart';
 
 import 'inspector.dart';
 import 'layers.dart';
@@ -37,22 +37,22 @@ class _MainViewState extends State<MainView> {
                       scrollDirection: Axis.horizontal,
                       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                         IconButton(
-                          icon: Icon(MdiIcons.cursorDefaultOutline),
+                          icon: Icon(Mdi.cursorDefaultOutline),
                           color: currentTool == Tool.view ? Theme.of(context).primaryColor : null,
                           onPressed: () => _toggleTool(Tool.view),
                         ),
                         IconButton(
-                          icon: Icon(MdiIcons.select),
+                          icon: Icon(Mdi.select),
                           color: currentTool == Tool.select ? Theme.of(context).primaryColor : null,
                           onPressed: () => _toggleTool(Tool.select),
                         ),
                         IconButton(
-                          icon: Icon(MdiIcons.cursorMove),
+                          icon: Icon(Mdi.cursorMove),
                           color: currentTool == Tool.move ? Theme.of(context).primaryColor : null,
                           onPressed: () => _toggleTool(Tool.move),
                         ),
                         IconButton(
-                          icon: Icon(MdiIcons.pencilOutline),
+                          icon: Icon(Mdi.pencilOutline),
                           color: currentTool == Tool.edit ? Theme.of(context).primaryColor : null,
                           onPressed: () => _toggleTool(Tool.edit),
                         ),
@@ -60,13 +60,13 @@ class _MainViewState extends State<MainView> {
                         if (currentTool == Tool.view) ...[
                           if (isMobile) ...[
                             IconButton(
-                              icon: Icon(MdiIcons.cubeOutline),
+                              icon: Icon(Mdi.cubeOutline),
                               onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => Scaffold(
                                       appBar: AppBar(title: Text("Layers")), body: LayersView()))),
                             ),
                             IconButton(
-                              icon: Icon(MdiIcons.tuneVertical),
+                              icon: Icon(Mdi.tuneVertical),
                               onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => Scaffold(
                                       appBar: AppBar(title: Text("Inspector")),
@@ -74,9 +74,8 @@ class _MainViewState extends State<MainView> {
                             )
                           ] else ...[
                             IconButton(
-                                icon: Icon(widget.expanded
-                                    ? MdiIcons.windowMinimize
-                                    : MdiIcons.windowMaximize),
+                                icon:
+                                    Icon(widget.expanded ? Mdi.windowMinimize : Mdi.windowMaximize),
                                 onPressed: widget.expanded
                                     ? Navigator.of(context).pop
                                     : () =>

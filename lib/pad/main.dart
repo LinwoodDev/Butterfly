@@ -4,7 +4,7 @@ import 'package:butterfly/pad/views/main.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/widgets/split/scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:mdi/mdi.dart';
 
 class ProjectPage extends StatefulWidget {
   @override
@@ -17,11 +17,11 @@ class _ProjectPageState extends State<ProjectPage> {
     return Scaffold(
         appBar: AppBar(title: Text("Project"), actions: [
           IconButton(
-              icon: Icon(MdiIcons.cogOutline),
+              icon: Icon(Mdi.cogOutline),
               tooltip: "Project settings",
               onPressed: _showProjectSettings),
-          IconButton(icon: Icon(MdiIcons.export), tooltip: "Export", onPressed: () {}),
-          IconButton(icon: Icon(MdiIcons.link), tooltip: "Share (not implemented)", onPressed: null)
+          IconButton(icon: Icon(Mdi.export), tooltip: "Export", onPressed: () {}),
+          IconButton(icon: Icon(Mdi.link), tooltip: "Share (not implemented)", onPressed: null)
         ]),
         body: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
           bool isMobile = MediaQuery.of(context).size.width < 800;
@@ -48,7 +48,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                       window: window,
                                       expanded: expanded,
                                       title: "Layers",
-                                      icon: Icon(MdiIcons.cubeOutline),
+                                      icon: Icon(Mdi.cubeOutline),
                                       body: LayersView()),
                                 ),
                                 second: SplitWindow(
@@ -59,7 +59,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                             body: InspectorView(),
                                             title: "Inspector",
                                             view: view,
-                                            icon: Icon(MdiIcons.tuneVertical),
+                                            icon: Icon(Mdi.tuneVertical),
                                             window: window,
                                             expanded: expanded)))),
                     first: SplitWindow(
@@ -80,8 +80,8 @@ class _ProjectPageState extends State<ProjectPage> {
                     child: Column(children: [
                       TabBar(
                         tabs: [
-                          Tab(icon: Icon(MdiIcons.tune), text: "General"),
-                          Tab(icon: Icon(MdiIcons.packageVariantClosed), text: "Packs")
+                          Tab(icon: Icon(Mdi.tune), text: "General"),
+                          Tab(icon: Icon(Mdi.packageVariantClosed), text: "Packs")
                         ],
                       ),
                       Expanded(

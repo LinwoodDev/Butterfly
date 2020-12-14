@@ -1,8 +1,7 @@
 import 'package:butterfly/models/elements/document.dart';
-import 'package:butterfly/pad/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:mdi/mdi.dart';
 
 class HomePage extends StatelessWidget {
   final List<AppDocument> _documents = [
@@ -52,7 +51,7 @@ class HomePage extends StatelessWidget {
                                           ]))));
                             })))))),
         floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(MdiIcons.plus),
+          icon: Icon(Mdi.plus),
           label: Text("New"),
           onPressed: () {},
         ));

@@ -317,13 +317,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.10-nullsafety.3"
-  material_design_icons_flutter:
+  mdi:
     dependency: "direct main"
     description:
-      name: material_design_icons_flutter
+      name: mdi
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.5755"
+    version: "4.0.0"
   meta:
     dependency: transitive
     description:
