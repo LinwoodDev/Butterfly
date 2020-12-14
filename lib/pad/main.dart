@@ -3,7 +3,6 @@ import 'package:butterfly/pad/views/inspector.dart';
 import 'package:butterfly/pad/views/layers.dart';
 import 'package:butterfly/pad/views/main.dart';
 import 'package:butterfly/widgets/split/core.dart';
-import 'package:butterfly/widgets/split/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 

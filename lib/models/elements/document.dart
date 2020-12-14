@@ -1,7 +1,6 @@
 import 'package:butterfly/models/elements/layer.dart';
 import 'package:butterfly/models/packs/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class AppDocument extends ElementLayer {
   String name;
