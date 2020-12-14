@@ -1,3 +1,4 @@
+import 'package:butterfly/models/elements/document.dart';
 import 'package:butterfly/pad/views/inspector.dart';
 import 'package:butterfly/pad/views/layers.dart';
 import 'package:butterfly/pad/views/main.dart';
@@ -12,6 +13,7 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectPageState extends State<ProjectPage> {
+  AppDocument _document = AppDocument();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +28,7 @@ class _ProjectPageState extends State<ProjectPage> {
         body: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
           bool isMobile = MediaQuery.of(context).size.width < 800;
           if (isMobile)
-            return MainView();
+            return MainView(document: _document);
           else
             return Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -41,10 +43,13 @@ class _ProjectPageState extends State<ProjectPage> {
                             SplitView(
                                 axis: Axis.vertical,
                                 first: SplitWindow(
-                                  minSize: 100,
-                                  size: 200,
-                                  builder: (context, view, window, expanded) =>
-                                      LayersView(view: view, window: window, expanded: expanded),
+                                  minSize: 150,
+                                  size: 250,
+                                  builder: (context, view, window, expanded) => LayersView(
+                                      view: view,
+                                      window: window,
+                                      expanded: expanded,
+                                      document: _document),
                                 ),
                                 second: SplitWindow(
                                     minSize: 100,
@@ -55,7 +60,11 @@ class _ProjectPageState extends State<ProjectPage> {
                     first: SplitWindow(
                         builder: (BuildContext context, SplitView view, SplitWindow window,
                                 bool expanded) =>
-                            MainView(view: view, window: window, expanded: expanded))));
+                            MainView(
+                                view: view,
+                                window: window,
+                                expanded: expanded,
+                                document: _document))));
         }));
   }
 

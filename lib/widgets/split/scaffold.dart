@@ -9,6 +9,7 @@ class SplitScaffold extends StatelessWidget {
   final String title;
   final Widget body;
   final Icon icon;
+  final List<Widget> actions;
   final FloatingActionButton floatingActionButton;
 
   SplitScaffold(
@@ -18,6 +19,7 @@ class SplitScaffold extends StatelessWidget {
       @required this.title,
       @required this.body,
       this.icon,
+      this.actions,
       this.floatingActionButton});
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,8 @@ class SplitScaffold extends StatelessWidget {
                 icon: Icon(!isSplitted || expanded ? Mdi.windowMinimize : Mdi.windowMaximize),
                 onPressed: !isSplitted || expanded
                     ? Navigator.of(context).pop
-                    : () => window.expand(context, view, window))
+                    : () => window.expand(context, view, window)),
+            if (actions != null) ...actions
           ],
         ),
         floatingActionButton: floatingActionButton,

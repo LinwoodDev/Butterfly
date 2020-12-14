@@ -1,3 +1,4 @@
+import 'package:butterfly/models/elements/document.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
@@ -9,8 +10,9 @@ class MainView extends StatefulWidget {
   final bool expanded;
   final SplitView view;
   final SplitWindow window;
+  final AppDocument document;
 
-  const MainView({Key key, this.expanded, this.view, this.window}) : super(key: key);
+  const MainView({Key key, this.expanded, this.view, this.window, this.document}) : super(key: key);
   @override
   _MainViewState createState() => _MainViewState();
 }
@@ -58,8 +60,8 @@ class _MainViewState extends State<MainView> {
                           if (isMobile) ...[
                             IconButton(
                                 icon: Icon(Mdi.cubeOutline),
-                                onPressed: () => Navigator.of(context)
-                                    .push(MaterialPageRoute(builder: (context) => LayersView()))),
+                                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => LayersView(document: widget.document)))),
                             IconButton(
                                 icon: Icon(Mdi.tuneVertical),
                                 onPressed: () => Navigator.of(context)

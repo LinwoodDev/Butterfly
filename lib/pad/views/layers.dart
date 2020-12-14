@@ -25,9 +25,13 @@ class _LayersViewState extends State<LayersView> {
         expanded: widget.expanded,
         title: "Layers",
         icon: Icon(Mdi.cubeOutline),
+        floatingActionButton:
+            FloatingActionButton(onPressed: () {}, child: Icon(Mdi.plus), tooltip: "Create layer"),
         body: Container(
-            child: ListView(
-          children: [Text("Tree")],
-        )));
+            child: ListView.builder(
+                itemCount: widget.document.currentLayer.children.length,
+                itemBuilder: (BuildContext context, int index) => Builder(
+                    builder: (context) => widget.document.currentLayer.children[index]
+                        .buildTile(context, widget.document)))));
   }
 }
