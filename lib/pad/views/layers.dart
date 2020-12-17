@@ -1,4 +1,5 @@
 import 'package:butterfly/models/elements/document.dart';
+import 'package:butterfly/pad/dialogs/create_layer.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/widgets/split/scaffold.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,11 @@ class _LayersViewState extends State<LayersView> {
         expanded: widget.expanded,
         title: "Layers",
         icon: Icon(Mdi.cubeOutline),
-        floatingActionButton:
-            FloatingActionButton(onPressed: () {}, child: Icon(Mdi.plus), tooltip: "Create layer"),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () =>
+                showDialog(builder: (context) => CreateLayerDialog(), context: context),
+            child: Icon(Mdi.plus),
+            tooltip: "Create layer"),
         body: Container(
             child: ListView.builder(
                 itemCount: widget.document.currentLayer.children.length,

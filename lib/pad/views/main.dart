@@ -17,7 +17,7 @@ class MainView extends StatefulWidget {
   _MainViewState createState() => _MainViewState();
 }
 
-enum Tool { view, select, move, edit }
+enum Tool { view, select, move, edit, marker }
 
 class _MainViewState extends State<MainView> {
   Tool currentTool = Tool.view;
@@ -39,22 +39,32 @@ class _MainViewState extends State<MainView> {
                       scrollDirection: Axis.horizontal,
                       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                         IconButton(
+                            tooltip: "View",
                             icon: Icon(Mdi.cursorDefaultOutline),
                             color: currentTool == Tool.view ? Theme.of(context).primaryColor : null,
                             onPressed: () => _toggleTool(Tool.view)),
                         IconButton(
+                            tooltip: "Select",
                             icon: Icon(Mdi.select),
                             color:
                                 currentTool == Tool.select ? Theme.of(context).primaryColor : null,
                             onPressed: () => _toggleTool(Tool.select)),
                         IconButton(
+                            tooltip: "Move",
                             icon: Icon(Mdi.cursorMove),
                             color: currentTool == Tool.move ? Theme.of(context).primaryColor : null,
                             onPressed: () => _toggleTool(Tool.move)),
                         IconButton(
+                            tooltip: "Edit",
                             icon: Icon(Mdi.pencilOutline),
                             color: currentTool == Tool.edit ? Theme.of(context).primaryColor : null,
                             onPressed: () => _toggleTool(Tool.edit)),
+                        IconButton(
+                            tooltip: "Marker",
+                            icon: Icon(Mdi.marker),
+                            color:
+                                currentTool == Tool.marker ? Theme.of(context).primaryColor : null,
+                            onPressed: () => _toggleTool(Tool.marker)),
                         VerticalDivider(),
                         if (currentTool == Tool.view) ...[
                           if (isMobile) ...[

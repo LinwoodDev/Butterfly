@@ -26,12 +26,10 @@ class ButterflyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primarySwatch: Colors.amber,
-          accentColor: Colors.yellow[900]),
+          primarySwatch: Colors.green,
+          accentColor: Colors.orange),
       darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: Colors.amber,
-          accentColor: Colors.yellow[900]),
+          brightness: Brightness.dark, primarySwatch: Colors.green, accentColor: Colors.orange),
       home: HomePage(),
     );
   }
