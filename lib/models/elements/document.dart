@@ -7,7 +7,7 @@ class AppDocument extends ElementLayer {
   String description;
   ElementLayer _currentLayer;
   PackCollection packs;
-  List<ElementLayer> elements = new List();
+  List<ElementLayer> elements = [];
 
   ElementLayer get currentLayer => _currentLayer == null ? this : _currentLayer;
   set currentLayer(ElementLayer value) => _currentLayer = value == this ? null : value;
