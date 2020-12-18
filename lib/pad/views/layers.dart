@@ -47,17 +47,18 @@ class _LayersViewState extends State<LayersView> {
                 child: Icon(Mdi.plus),
                 tooltip: "Create layer"),
             body: Container(
+                alignment: Alignment.center,
                 child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-              print("state updated!");
-              if (state is DocumentLoadSuccess && state.document.root != null) {
-                var document = state.document;
-                return ListView.builder(
-                    itemCount: document.root.children.length,
-                    itemBuilder: (BuildContext context, int index) => Builder(
-                        builder: (context) =>
-                            document.root.children[index].buildTile(context, document)));
-              } else
-                return CircularProgressIndicator();
-            }))));
+                  print("state updated!");
+                  if (state is DocumentLoadSuccess && state.document.root != null) {
+                    var document = state.document;
+                    return ListView.builder(
+                        itemCount: document.root.children.length,
+                        itemBuilder: (BuildContext context, int index) => Builder(
+                            builder: (context) =>
+                                document.root.children[index].buildTile(context, document)));
+                  } else
+                    return CircularProgressIndicator();
+                }))));
   }
 }

@@ -43,7 +43,6 @@ class _ProjectPageState extends State<ProjectPage> {
             builder: (context) => Scaffold(
                 appBar: AppBar(
                     centerTitle: true,
-                    toolbarHeight: 100,
                     title: Column(children: [
                       Text(
                         "Title",
@@ -51,9 +50,11 @@ class _ProjectPageState extends State<ProjectPage> {
                       BlocBuilder<DocumentBloc, DocumentState>(
                         builder: (context, state) {
                           print((_bloc.state as DocumentLoadSuccess).document.name);
-                          return Text(_bloc.state is DocumentLoadSuccess
-                              ? (_bloc.state as DocumentLoadSuccess).document.name
-                              : "Loading");
+                          return Text(
+                              _bloc.state is DocumentLoadSuccess
+                                  ? (_bloc.state as DocumentLoadSuccess).document.name
+                                  : "Loading",
+                              style: Theme.of(context).textTheme.subtitle1);
                         },
                       )
                     ]),
@@ -121,6 +122,6 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   void _showProjectSettings(bloc) {
-    showDialog(context: context, builder: (context) => PadSettingsDialog(bloc: bloc));
+    showDialog(context: context, builder: (context) => PadSettingsDialog(bloc: _bloc));
   }
 }
