@@ -1,6 +1,8 @@
 import 'package:butterfly/models/elements/document.dart';
+import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdi/mdi.dart';
 
 import 'inspector.dart';
@@ -10,9 +12,10 @@ class MainView extends StatefulWidget {
   final bool expanded;
   final SplitView view;
   final SplitWindow window;
-  final AppDocument document;
+  final DocumentBloc documentBloc;
 
-  const MainView({Key key, this.expanded, this.view, this.window, this.document}) : super(key: key);
+  const MainView({Key key, this.expanded, this.view, this.window, this.documentBloc})
+      : super(key: key);
   @override
   _MainViewState createState() => _MainViewState();
 }
@@ -67,7 +70,7 @@ class _MainViewState extends State<MainView> {
                     IconButton(
                         icon: Icon(Mdi.cubeOutline),
                         onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => LayersView(document: widget.document)))),
+                            builder: (context) => LayersView(documentBloc: widget.documentBloc)))),
                     IconButton(
                         icon: Icon(Mdi.tuneVertical),
                         onPressed: () => Navigator.of(context)

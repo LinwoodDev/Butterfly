@@ -7,10 +7,11 @@ abstract class DocumentEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LayerAdded extends DocumentEvent {
+class LayerCreated extends DocumentEvent {
   final ElementLayer layer;
+  final ElementLayer parent;
 
-  LayerAdded(this.layer);
+  LayerCreated({@required this.layer, this.parent});
   @override
   List<Object> get props => [layer];
 }

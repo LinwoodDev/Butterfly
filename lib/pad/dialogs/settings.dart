@@ -1,8 +1,5 @@
-import 'package:butterfly/models/elements/document.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/pad/cubit/appdocument_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdi/mdi.dart';
 
 class PadSettingsDialog extends StatefulWidget {
@@ -18,7 +15,7 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
 
   @override
   void initState() {
-    _nameController.text = widget.bloc.state.name;
+    _nameController.text = (widget.bloc.state as DocumentLoadSuccess).document.name;
     super.initState();
   }
 
