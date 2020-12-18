@@ -6,6 +6,8 @@ import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 
+import 'dialogs/settings.dart';
+
 class ProjectPage extends StatefulWidget {
   @override
   _ProjectPageState createState() => _ProjectPageState();
@@ -67,34 +69,6 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   void _showProjectSettings() {
-    showDialog(
-        context: context,
-        builder: (context) => Dialog(
-            child: DefaultTabController(
-                length: 2,
-                child: Container(
-                    constraints: BoxConstraints(maxWidth: 600, maxHeight: 800),
-                    child: Column(children: [
-                      TabBar(
-                        tabs: [
-                          Tab(icon: Icon(Mdi.tune), text: "General"),
-                          Tab(icon: Icon(Mdi.packageVariantClosed), text: "Packs")
-                        ],
-                      ),
-                      Expanded(
-                          child: Container(
-                              child: TabBarView(children: [
-                        Icon(Icons.directions_car),
-                        Icon(Icons.directions_transit)
-                      ]))),
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                          child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                            RaisedButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: Text("Ok", style: Theme.of(context).primaryTextTheme.button),
-                                color: Theme.of(context).primaryColor)
-                          ]))
-                    ])))));
+    showDialog(context: context, builder: (context) => PadSettingsDialog());
   }
 }

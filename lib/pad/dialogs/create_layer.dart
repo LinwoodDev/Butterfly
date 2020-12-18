@@ -16,14 +16,15 @@ class _CreateLayerDialogState extends State<CreateLayerDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+        scrollable: true,
         actions: [
           FlatButton(onPressed: () => Navigator.of(context).pop(), child: Text("CANCEL")),
           FlatButton(onPressed: () {}, child: Text("CREATE"))
         ],
+        title: Text("Create layer"),
         content: Container(
-            child: SingleChildScrollView(
-                child: Form(
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            child: Form(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           TextFormField(
               controller: _nameController,
               decoration:
@@ -40,6 +41,6 @@ class _CreateLayerDialogState extends State<CreateLayerDialog> {
               items: LayerType.values
                   .map((e) => DropdownMenuItem<LayerType>(child: Text(e.getName()), value: e))
                   .toList())
-        ])))));
+        ]))));
   }
 }
