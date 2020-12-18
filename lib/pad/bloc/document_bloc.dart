@@ -24,7 +24,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
       final AppDocument updatedDocument = (state as DocumentLoadSuccess).document
         ..name = event.name;
       yield DocumentLoadSuccess(updatedDocument);
-      _saveDocument();
+      _saveDocument(updatedDocument);
     }
   }
 
