@@ -42,7 +42,9 @@ class _LayersViewState extends State<LayersView> {
             icon: Icon(Mdi.cubeOutline),
             floatingActionButton: FloatingActionButton(
                 onPressed: () => showDialog(
-                    builder: (context) => CreateLayerDialog(documentBloc: widget.documentBloc),
+                    builder: (context) => CreateLayerDialog(
+                        documentBloc: widget.documentBloc,
+                        parent: (_bloc.state as DocumentLoadSuccess).document.root),
                     context: context),
                 child: Icon(Mdi.plus),
                 tooltip: "Create layer"),

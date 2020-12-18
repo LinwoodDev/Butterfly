@@ -25,7 +25,7 @@ class _CreateLayerDialogState extends State<CreateLayerDialog> {
           FlatButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pop();
+                if (widget.parent == null) Navigator.of(context).pop();
               },
               child: Text("CANCEL")),
           FlatButton(
