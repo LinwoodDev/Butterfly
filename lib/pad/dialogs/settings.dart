@@ -1,12 +1,27 @@
+import 'package:butterfly/models/elements/document.dart';
+import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/pad/cubit/appdocument_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdi/mdi.dart';
 
 class PadSettingsDialog extends StatefulWidget {
+  final DocumentBloc bloc;
+
+  const PadSettingsDialog({Key key, this.bloc}) : super(key: key);
   @override
   _PadSettingsDialogState createState() => _PadSettingsDialogState();
 }
 
 class _PadSettingsDialogState extends State<PadSettingsDialog> {
+  final TextEditingController _nameController = TextEditingController();
+
+  @override
+  void initState() {
+    _nameController.text = widget.bloc.state.name;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -24,14 +39,21 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                   Expanded(
                       child: Container(
                           child: TabBarView(children: [
-                    Icon(Icons.directions_car),
+                    Column(children: [
+                      TextField(
+                          controller: _nameController,
+                          decoration: InputDecoration(labelText: "Name"))
+                    ]),
                     Icon(Icons.directions_transit)
                   ]))),
                   Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                         RaisedButton(
-                            onPressed: () => Navigator.of(context).pop(),
+                            onPressed: () {
+                              widget.bloc.add(DocumentNameChanged(_nameController.text));
+                              Navigator.of(context).pop();
+                            },
                             child: Text("Ok", style: Theme.of(context).primaryTextTheme.button),
                             color: Theme.of(context).primaryColor)
                       ]))

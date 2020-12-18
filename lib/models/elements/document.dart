@@ -3,7 +3,7 @@ import 'package:butterfly/models/packs/collection.dart';
 import 'package:flutter/material.dart';
 
 class AppDocument extends ElementLayer {
-  String name;
+  String name = "Test";
   String description;
   ElementLayer _currentLayer;
   PackCollection packs;

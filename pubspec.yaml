@@ -19,7 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  equatable: ^1.2.5
   fab_circular_menu: ^1.0.1
+  flutter_bloc: ^6.1.0
   flutter_modular: ^2.0.1
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
