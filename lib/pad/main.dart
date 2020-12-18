@@ -21,7 +21,6 @@ class _ProjectPageState extends State<ProjectPage> {
               icon: Icon(Mdi.cogOutline),
               tooltip: "Project settings",
               onPressed: _showProjectSettings),
-          IconButton(icon: Icon(Mdi.export), tooltip: "Export", onPressed: () {}),
           IconButton(icon: Icon(Mdi.link), tooltip: "Share (not implemented)", onPressed: null)
         ]),
         body: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {

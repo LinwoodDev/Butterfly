@@ -12,7 +12,7 @@ Export it as presentation, website or picture
 * Open source & free
 * Everything configurable
   * Pack support
-    * [Color pack](https://linwood.tk/butterfly/wiki/pack/color) or configurable *(TODO)* 
+    * [Color pack](https://linwood.tk/butterfly/wiki/pack/color) or configurable *(TODO)*
     * [Background pack](https://linwood.tk/butterfly/wiki/pack/background) or configurable *(TODO)*
     * [Pen pack](https://linwood.tk/butterfly/wiki/pack/pen) or configurable *(TODO)*
 * Layer support

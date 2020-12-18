@@ -84,7 +84,14 @@ class _MainViewState extends State<MainView> {
                                     ? Navigator.of(context).pop
                                     : () =>
                                         widget.window.expand(context, widget.view, widget.window))
-                          ]
+                          ],
+                          VerticalDivider(),
+                          IconButton(icon: Icon(Mdi.export), tooltip: "Export", onPressed: () {}),
+                          IconButton(icon: Icon(Mdi.printer), tooltip: "Print", onPressed: () {}),
+                          IconButton(
+                              icon: Icon(Mdi.presentationPlay),
+                              tooltip: "Presentation",
+                              onPressed: () {}),
                         ]
                       ])))
             ])));
