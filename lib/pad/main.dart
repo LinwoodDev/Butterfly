@@ -3,6 +3,7 @@ import 'package:butterfly/pad/dialogs/create_layer.dart';
 import 'package:butterfly/pad/views/inspector.dart';
 import 'package:butterfly/pad/views/layers.dart';
 import 'package:butterfly/pad/views/main.dart';
+import 'package:butterfly/pad/views/project.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +50,6 @@ class _ProjectPageState extends State<ProjectPage> {
                       ),
                       BlocBuilder<DocumentBloc, DocumentState>(
                         builder: (context, state) {
-                          print((_bloc.state as DocumentLoadSuccess).document.name);
                           return Text(
                               _bloc.state is DocumentLoadSuccess
                                   ? (_bloc.state as DocumentLoadSuccess).document.name
@@ -77,7 +77,8 @@ class _ProjectPageState extends State<ProjectPage> {
                           icon: Icon(Mdi.link), tooltip: "Share (not implemented)", onPressed: null)
                     ]),
                 body: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-                  bool isMobile = MediaQuery.of(context).size.width < 800;
+                  bool isMobile = MediaQuery.of(context).size.width < 800 ||
+                      MediaQuery.of(context).size.height < 600;
                   if (isMobile)
                     return MainView(documentBloc: _bloc);
                   else
@@ -107,17 +108,21 @@ class _ProjectPageState extends State<ProjectPage> {
                                             builder: (BuildContext context, SplitView view,
                                                     SplitWindow window, bool expanded) =>
                                                 InspectorView(
+                                                  documentBloc: _bloc,
                                                     view: view,
                                                     window: window,
                                                     expanded: expanded)))),
                             first: SplitWindow(
-                                builder: (BuildContext context, SplitView view, SplitWindow window,
-                                        bool expanded) =>
-                                    MainView(
-                                        view: view,
-                                        window: window,
-                                        expanded: expanded,
-                                        documentBloc: _bloc))));
+                                builder: (BuildContext context, SplitView view, SplitWindow window, bool expanded) => SplitView(
+                                    axis: Axis.vertical,
+                                    second: SplitWindow(
+                                        minSize: 150,
+                                        size: 250,
+                                        maxSize: 350,
+                                        builder: (BuildContext context, SplitView view,
+                                                SplitWindow window, bool expanded) =>
+                                            ProjectView(view: view, window: window, expanded: expanded, documentBloc: _bloc)),
+                                    first: SplitWindow(builder: (BuildContext context, SplitView view, SplitWindow window, bool expanded) => MainView(view: view, window: window, expanded: expanded, documentBloc: _bloc))))));
                 }))));
   }
 

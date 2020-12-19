@@ -16,16 +16,13 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
   Stream<DocumentState> mapEventToState(
     DocumentEvent event,
   ) async* {
-    print("fe");
     if (event is DocumentNameChanged)
       yield* _mapDocumentNameChangedToState(event);
     else if (event is LayerCreated) yield* _mapLayerCreatedToState(event);
   }
 
   Stream<DocumentState> _mapLayerCreatedToState(LayerCreated event) async* {
-    print("ge");
     if (state is DocumentLoadSuccess) {
-      print("CREATED");
       yield DocumentLoadSuccess((state as DocumentLoadSuccess).document..root = event.layer);
       _saveDocument();
     }

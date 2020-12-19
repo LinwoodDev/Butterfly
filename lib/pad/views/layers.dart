@@ -32,35 +32,37 @@ class _LayersViewState extends State<LayersView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (_) => _bloc,
-        child: SplitScaffold(
-            view: widget.view,
-            window: widget.window,
-            expanded: widget.expanded,
-            title: "Layers",
-            icon: Icon(Mdi.cubeOutline),
-            floatingActionButton: FloatingActionButton(
-                onPressed: () => showDialog(
-                    builder: (context) => CreateLayerDialog(
-                        documentBloc: widget.documentBloc,
-                        parent: (_bloc.state as DocumentLoadSuccess).document.root),
-                    context: context),
-                child: Icon(Mdi.plus),
-                tooltip: "Create layer"),
-            body: Container(
-                alignment: Alignment.center,
-                child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                  print("state updated!");
-                  if (state is DocumentLoadSuccess && state.document.root != null) {
-                    var document = state.document;
-                    return ListView.builder(
-                        itemCount: document.root.children.length,
-                        itemBuilder: (BuildContext context, int index) => Builder(
-                            builder: (context) =>
-                                document.root.children[index].buildTile(context, document)));
-                  } else
-                    return CircularProgressIndicator();
-                }))));
+    return Hero(
+        tag: 'layers_view',
+        child: BlocProvider(
+            create: (_) => _bloc,
+            child: SplitScaffold(
+                view: widget.view,
+                window: widget.window,
+                expanded: widget.expanded,
+                title: "Layers",
+                icon: Icon(Mdi.cubeOutline),
+                floatingActionButton: FloatingActionButton(
+                    heroTag: null,
+                    onPressed: () => showDialog(
+                        builder: (context) => CreateLayerDialog(
+                            documentBloc: widget.documentBloc,
+                            parent: (_bloc.state as DocumentLoadSuccess).document.root),
+                        context: context),
+                    child: Icon(Mdi.plus),
+                    tooltip: "Create layer"),
+                body: Container(
+                    alignment: Alignment.center,
+                    child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                      if (state is DocumentLoadSuccess && state.document.root != null) {
+                        var document = state.document;
+                        return ListView.builder(
+                            itemCount: document.root.children.length,
+                            itemBuilder: (BuildContext context, int index) => Builder(
+                                builder: (context) =>
+                                    document.root.children[index].buildTile(context, document)));
+                      } else
+                        return CircularProgressIndicator();
+                    })))));
   }
 }

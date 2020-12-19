@@ -12,10 +12,17 @@ class SplitWindow {
 
   void expand(BuildContext context, SplitView view, SplitWindow window) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => builder(context, view, window, true)));
+        .push(CustomPageRoute(builder: (context) => builder(context, view, window, true)));
   }
 
   SplitWindow({@required this.builder, this.minSize, this.maxSize, this.size});
+}
+
+class CustomPageRoute extends MaterialPageRoute {
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 1000);
+
+  CustomPageRoute({builder}) : super(builder: builder);
 }
 
 class SplitView extends StatefulWidget {
