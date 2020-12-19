@@ -37,34 +37,30 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
 
   @override
   Widget build(BuildContext context) {
-    return IntrinsicHeight(
-        child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-          IconButton(
-              tooltip: "View",
-              icon: Icon(Mdi.cursorDefaultOutline),
-              color: currentTool == Tool.view ? Theme.of(context).primaryColor : null,
-              onPressed: () => _toggleTool(Tool.view)),
-          IconButton(
-              tooltip: "Select",
-              icon: Icon(Mdi.select),
-              color: currentTool == Tool.select ? Theme.of(context).primaryColor : null,
-              onPressed: () => _toggleTool(Tool.select)),
-          IconButton(
-              tooltip: "Move",
-              icon: Icon(Mdi.cursorMove),
-              color: currentTool == Tool.move ? Theme.of(context).primaryColor : null,
-              onPressed: () => _toggleTool(Tool.move)),
-          IconButton(
-              tooltip: "Edit",
-              icon: Icon(Mdi.pencilOutline),
-              color: currentTool == Tool.edit ? Theme.of(context).primaryColor : null,
-              onPressed: () => _toggleTool(Tool.edit)),
-          if (currentTool != null) VerticalDivider(),
-          ..._buildOptions(),
-        ]));
+    return ListView(scrollDirection: Axis.horizontal, shrinkWrap: true, children: [
+      IconButton(
+          tooltip: "View",
+          icon: Icon(Mdi.cursorDefaultOutline),
+          color: currentTool == Tool.view ? Theme.of(context).primaryColor : null,
+          onPressed: () => _toggleTool(Tool.view)),
+      IconButton(
+          tooltip: "Select",
+          icon: Icon(Mdi.select),
+          color: currentTool == Tool.select ? Theme.of(context).primaryColor : null,
+          onPressed: () => _toggleTool(Tool.select)),
+      IconButton(
+          tooltip: "Move",
+          icon: Icon(Mdi.cursorMove),
+          color: currentTool == Tool.move ? Theme.of(context).primaryColor : null,
+          onPressed: () => _toggleTool(Tool.move)),
+      IconButton(
+          tooltip: "Edit",
+          icon: Icon(Mdi.pencilOutline),
+          color: currentTool == Tool.edit ? Theme.of(context).primaryColor : null,
+          onPressed: () => _toggleTool(Tool.edit)),
+      if (currentTool != null) VerticalDivider(),
+      ..._buildOptions(),
+    ]);
   }
 
   List<Widget> _buildOptions() {

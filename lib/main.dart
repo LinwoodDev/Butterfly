@@ -27,6 +27,7 @@ class ButterflyApp extends StatelessWidget {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
           dividerColor: Colors.grey[800],
+          dividerTheme: DividerThemeData(thickness: 0.5),
           primarySwatch: Colors.green,
           accentColor: Colors.orange),
       darkTheme: ThemeData(
