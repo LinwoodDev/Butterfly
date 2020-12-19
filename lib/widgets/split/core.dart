@@ -9,18 +9,23 @@ class SplitWindow {
   final double maxSize;
   final double minSize;
   final double size;
+  final bool border;
 
   void expand(BuildContext context, SplitView view, SplitWindow window) {
     Navigator.of(context)
         .push(CustomPageRoute(builder: (context) => builder(context, view, window, true)));
   }
 
-  SplitWindow({@required this.builder, this.minSize, this.maxSize, this.size});
+  SplitWindow({@required this.builder, this.minSize, this.maxSize, this.size, this.border = true});
+
+  Widget build(BuildContext context, SplitView view, bool expanded) => Container(
+      decoration: border ? BoxDecoration(border: Border.all()) : null,
+      child: builder(context, view, this, expanded));
 }
 
 class CustomPageRoute extends MaterialPageRoute {
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 1000);
+  Duration get transitionDuration => const Duration(milliseconds: 500);
 
   CustomPageRoute({builder}) : super(builder: builder);
 }
@@ -50,7 +55,7 @@ class SplitView extends StatefulWidget {
 }
 
 class _SplitViewState extends State<SplitView> {
-  final _dividerWidth = 16.0;
+  final _dividerWidth = 20.0;
 
   //from 0-1
   double _ratio;
@@ -102,8 +107,7 @@ class _SplitViewState extends State<SplitView> {
           builder: (context) => SizedBox(
               width: widget.axis == Axis.horizontal ? _firstSize : null,
               height: widget.axis == Axis.horizontal ? null : _firstSize,
-              child: SizedBox.expand(
-                  child: widget.first.builder(context, widget, widget.first, false)))),
+              child: SizedBox.expand(child: widget.first.build(context, widget, false)))),
       GestureDetector(
         behavior: HitTestBehavior.translucent,
         child: SizedBox(
@@ -131,8 +135,7 @@ class _SplitViewState extends State<SplitView> {
           builder: (context) => SizedBox(
               width: widget.axis == Axis.horizontal ? _secondSize : null,
               height: widget.axis == Axis.horizontal ? null : _secondSize,
-              child: SizedBox.expand(
-                  child: widget.second.builder(context, widget, widget.second, false))))
+              child: SizedBox.expand(child: widget.second.build(context, widget, false))))
     ];
   }
 }

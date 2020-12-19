@@ -87,6 +87,7 @@ class _ProjectPageState extends State<ProjectPage> {
                         child: SplitView(
                             axis: Axis.horizontal,
                             second: SplitWindow(
+                                border: false,
                                 minSize: 200,
                                 size: 250,
                                 maxSize: 500,
@@ -108,11 +109,12 @@ class _ProjectPageState extends State<ProjectPage> {
                                             builder: (BuildContext context, SplitView view,
                                                     SplitWindow window, bool expanded) =>
                                                 InspectorView(
-                                                  documentBloc: _bloc,
+                                                    documentBloc: _bloc,
                                                     view: view,
                                                     window: window,
                                                     expanded: expanded)))),
                             first: SplitWindow(
+                                border: false,
                                 builder: (BuildContext context, SplitView view, SplitWindow window, bool expanded) => SplitView(
                                     axis: Axis.vertical,
                                     second: SplitWindow(
