@@ -17,6 +17,7 @@ class ButterflyApp extends StatelessWidget {
       // add Modular to manage the routing system
       onGenerateRoute: Modular.generateRoute,
       theme: ThemeData(
+          fontFamily: "Roboto",
           // This is the theme of your application.
           //
           // Try running your application with "flutter run". You'll see the
