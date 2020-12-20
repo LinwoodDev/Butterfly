@@ -1,7 +1,8 @@
-import 'package:butterfly/models/elements/document.dart';
 import 'package:butterfly/models/elements/layer.dart';
 import 'package:butterfly/models/packs/background.dart';
 import 'package:flutter/material.dart';
+
+import '../document.dart';
 
 class LayerContainer extends ElementLayer {
   Color backgroundColor;

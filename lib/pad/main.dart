@@ -1,4 +1,4 @@
-import 'package:butterfly/models/elements/document.dart';
+import 'package:butterfly/models/document.dart';
 import 'package:butterfly/pad/dialogs/create_layer.dart';
 import 'package:butterfly/pad/views/inspector.dart';
 import 'package:butterfly/pad/views/layers.dart';
