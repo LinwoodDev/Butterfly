@@ -1,14 +1,12 @@
+import 'package:butterfly/models/elements/container.dart';
 import 'package:butterfly/models/elements/layer.dart';
 import 'package:butterfly/models/packs/collection.dart';
-import 'package:flutter/rendering.dart';
 
-import 'container.dart';
-
-class AppDocument {
+class PadProjectItem extends ProjectItem {
   String name;
   String description = "";
   ElementLayer root = LayerContainer();
   PackCollection packs = PackCollection();
 
-  AppDocument({this.name = "Test", this.description});
+  PadProjectItem({this.name = "Test", this.description});
 }
