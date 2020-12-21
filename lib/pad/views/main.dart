@@ -1,6 +1,5 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/widgets/split/core.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'main/toolbar.dart';
@@ -27,7 +26,6 @@ class _MainViewState extends State<MainView> {
     super.initState();
   }
 
-  ScrollController _scrollController = new ScrollController();
   @override
   Widget build(BuildContext context) {
     bool isMobile = widget.window == null || widget.view == null || widget.expanded == null;
@@ -37,20 +35,17 @@ class _MainViewState extends State<MainView> {
             create: (_) => _bloc,
             child: Scaffold(
                 body: Container(
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                    child: Column(children: [
               Expanded(child: Center(child: FlutterLogo(size: 256))),
               Container(
+                  height: 44.0,
                   color: Theme.of(context).focusColor,
-                  child: SingleChildScrollView(
-                      controller: _scrollController,
-                      scrollDirection: Axis.horizontal,
-                      child: Container(
-                          child: MainViewToolbar(
-                              isMobile: isMobile,
-                              documentBloc: _bloc,
-                              expanded: widget.expanded,
-                              view: widget.view,
-                              window: widget.window))))
+                  child: MainViewToolbar(
+                      isMobile: isMobile,
+                      documentBloc: _bloc,
+                      expanded: widget.expanded,
+                      view: widget.view,
+                      window: widget.window))
             ])))));
   }
 }

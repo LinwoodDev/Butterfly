@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:butterfly/models/elements/document.dart';
+import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/layer.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';

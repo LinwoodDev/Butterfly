@@ -1,4 +1,3 @@
-import 'package:butterfly/models/elements/document.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/dialogs/create_layer.dart';
 import 'package:butterfly/widgets/split/core.dart';

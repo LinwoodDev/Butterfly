@@ -17,6 +17,7 @@ class ButterflyApp extends StatelessWidget {
       // add Modular to manage the routing system
       onGenerateRoute: Modular.generateRoute,
       theme: ThemeData(
+          fontFamily: "Roboto",
           // This is the theme of your application.
           //
           // Try running your application with "flutter run". You'll see the
@@ -27,6 +28,7 @@ class ButterflyApp extends StatelessWidget {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
           dividerColor: Colors.grey[800],
+          dividerTheme: DividerThemeData(thickness: 0.5),
           primarySwatch: Colors.green,
           accentColor: Colors.orange),
       darkTheme: ThemeData(
