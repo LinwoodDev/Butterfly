@@ -13,7 +13,10 @@ import 'bloc/document_bloc.dart';
 import 'dialogs/settings.dart';
 
 class ProjectPage extends StatefulWidget {
-  final AppDocument document = AppDocument();
+  final String path;
+  final String id;
+
+  const ProjectPage({Key key, this.path, @required this.id}) : super(key: key);
   @override
   _ProjectPageState createState() => _ProjectPageState();
 }
@@ -21,10 +24,11 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: close_sinks
   DocumentBloc _bloc;
+  final AppDocument document = AppDocument();
   @override
   void initState() {
     super.initState();
-    _bloc = DocumentBloc(widget.document);
+    _bloc = DocumentBloc(document);
     WidgetsBinding.instance.addPostFrameCallback((_) => _showRootDialog());
   }
 

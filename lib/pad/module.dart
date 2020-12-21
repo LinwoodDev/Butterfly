@@ -8,5 +8,9 @@ class PadModule extends ChildModule {
 
   // Provide all the routes for your module
   @override
-  List<ModularRouter> get routers => [ModularRouter('/', child: (_, args) => ProjectPage())];
+  List<ModularRouter> get routers => [
+        ModularRouter('/:id', child: (_, args) => ProjectPage(id: args.params['id'])),
+        ModularRouter('/:id/:path',
+            child: (_, args) => ProjectPage(id: args.params['id'], path: args.params['path']))
+      ];
 }
