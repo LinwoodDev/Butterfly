@@ -1,9 +1,6 @@
-import 'package:butterfly/models/elements/layer.dart';
 import 'package:butterfly/models/packs/collection.dart';
 import 'package:butterfly/models/project/folder.dart';
 import 'package:butterfly/models/project/pad.dart';
-
-import 'elements/container.dart';
 
 class AppDocument {
   String name;

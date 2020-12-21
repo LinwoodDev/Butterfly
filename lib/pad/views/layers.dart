@@ -46,20 +46,19 @@ class _LayersViewState extends State<LayersView> {
                     onPressed: () => showDialog(
                         builder: (context) => CreateLayerDialog(
                             documentBloc: widget.documentBloc,
-                            parent: (_bloc.state as DocumentLoadSuccess).document.root),
+                            parent: (_bloc.state as DocumentLoadSuccess).currentPad.root),
                         context: context),
                     child: Icon(Mdi.plus),
                     tooltip: "Create layer"),
                 body: Container(
                     alignment: Alignment.center,
                     child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                      if (state is DocumentLoadSuccess && state.document.root != null) {
-                        var document = state.document;
+                      if (state is DocumentLoadSuccess && state.currentPad.root != null) {
                         return ListView.builder(
-                            itemCount: document.root.children.length,
+                            itemCount: state.currentPad.root.children.length,
                             itemBuilder: (BuildContext context, int index) => Builder(
-                                builder: (context) =>
-                                    document.root.children[index].buildTile(context, document)));
+                                builder: (context) => state.currentPad.root.children[index]
+                                    .buildTile(context, state)));
                       } else
                         return CircularProgressIndicator();
                     })))));

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/layer.dart';
+import 'package:butterfly/models/project/pad.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
@@ -23,7 +24,9 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
 
   Stream<DocumentState> _mapLayerCreatedToState(LayerCreated event) async* {
     if (state is DocumentLoadSuccess) {
-      yield DocumentLoadSuccess((state as DocumentLoadSuccess).document..root = event.layer);
+      var current = (state as DocumentLoadSuccess);
+      current.currentPad.root = event.layer;
+      yield DocumentLoadSuccess(current.document);
       _saveDocument();
     }
   }

@@ -48,13 +48,15 @@ class _ProjectViewState extends State<ProjectView> {
                     builder: (context) => Container(
                         alignment: Alignment.center,
                         child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                          if (state is DocumentLoadSuccess && state.document.root != null) {
-                            var document = state.document;
+                          if (state is DocumentLoadSuccess &&
+                              state.currentPad != null &&
+                              state.currentPad.root != null) {
+                            var pad = state.currentPad;
                             return ListView.builder(
-                                itemCount: document.root.children.length,
+                                itemCount: pad.root.children.length,
                                 itemBuilder: (BuildContext context, int index) => Builder(
-                                    builder: (context) => document.root.children[index]
-                                        .buildTile(context, document)));
+                                    builder: (context) =>
+                                        pad.root.children[index].buildTile(context, state)));
                           } else
                             return CircularProgressIndicator();
                         }))))));

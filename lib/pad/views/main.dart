@@ -35,17 +35,19 @@ class _MainViewState extends State<MainView> {
             create: (_) => _bloc,
             child: Scaffold(
                 body: Container(
-                    child: Column(children: [
-              Expanded(child: Center(child: FlutterLogo(size: 256))),
-              Container(
-                  height: 44.0,
-                  color: Theme.of(context).focusColor,
-                  child: MainViewToolbar(
-                      isMobile: isMobile,
-                      documentBloc: _bloc,
-                      expanded: widget.expanded,
-                      view: widget.view,
-                      window: widget.window))
-            ])))));
+                    child: (_bloc.state as DocumentLoadSuccess).currentPad == null
+                        ? Center(child: Text("No pad opened"))
+                        : Column(children: [
+                            Expanded(child: Center(child: FlutterLogo(size: 256))),
+                            Container(
+                                height: 44.0,
+                                color: Theme.of(context).focusColor,
+                                child: MainViewToolbar(
+                                    isMobile: isMobile,
+                                    documentBloc: _bloc,
+                                    expanded: widget.expanded,
+                                    view: widget.view,
+                                    window: widget.window))
+                          ])))));
   }
 }

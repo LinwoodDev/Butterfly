@@ -33,8 +33,8 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   void _showRootDialog() async {
-    var document = (_bloc.state as DocumentLoadSuccess).document;
-    if (document.root == null) {
+    var pad = (_bloc.state as DocumentLoadSuccess).currentPad;
+    if (pad.root == null) {
       await showDialog(
           context: context, builder: (context) => CreateLayerDialog(documentBloc: _bloc));
     }

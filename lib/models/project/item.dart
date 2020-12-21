@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-@immutable
 abstract class ProjectItem {
   final String name;
   final String description;
