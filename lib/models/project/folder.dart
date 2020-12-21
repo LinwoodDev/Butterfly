@@ -1,11 +1,18 @@
+import 'package:flutter/foundation.dart';
+
 import 'item.dart';
 
 class FolderProjectItem extends ProjectItem {
-  List<ProjectItem> _files = [];
+  final List<ProjectItem> _files = [];
+  static final validFilename = RegExp(r"^[\w\-. ]+$");
+
+  FolderProjectItem({@required String name, String description})
+      : super(name: name, description: description);
+
   List<ProjectItem> get files => List.unmodifiable(_files);
 
   bool addFile(ProjectItem item) {
-    if (!hasFile(item.name) && item.name != null)
+    if (!hasFile(item.name) && validFilename.hasMatch(item.name))
       _files.add(item);
     else
       return false;
