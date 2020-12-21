@@ -113,6 +113,14 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
           IconButton(icon: Icon(Mdi.formatRotate90), tooltip: "Rotation", onPressed: () {}),
           IconButton(icon: Icon(Mdi.resize), tooltip: "Size", onPressed: () {})
         ];
+      case Tool.edit:
+        return [
+          IconButton(icon: Icon(Mdi.pencilOutline), tooltip: "Pencil", onPressed: () {}),
+          IconButton(icon: Icon(Mdi.marker), tooltip: "Marker", onPressed: () {}),
+          VerticalDivider(),
+          IconButton(icon: Icon(Mdi.hexagonOutline), tooltip: "Size", onPressed: () {}),
+          IconButton(icon: Icon(Mdi.palette), tooltip: "Color", onPressed: () {})
+        ];
     }
     return [];
   }
