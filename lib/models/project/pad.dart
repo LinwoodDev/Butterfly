@@ -8,7 +8,6 @@ class PadProjectItem extends ProjectItem {
   String name;
   String description = "";
   ElementLayer root = LayerContainer();
-  PackCollection packs = PackCollection();
 
   PadProjectItem({this.name = "Test", this.description});
 }
