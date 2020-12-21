@@ -5,7 +5,7 @@ class FolderProjectItem extends ProjectItem {
   List<ProjectItem> get files => List.unmodifiable(_files);
 
   bool addFile(ProjectItem item) {
-    if (!hasFile(item.name))
+    if (!hasFile(item.name) && item.name != null)
       _files.add(item);
     else
       return false;
