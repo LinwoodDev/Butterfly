@@ -8,3 +8,14 @@ abstract class PadState extends Equatable {
 }
 
 class PadInitial extends PadState {}
+
+class PadLoadSuccess extends PadState {
+  final PadProjectItem pad;
+
+  const PadLoadSuccess(this.pad);
+
+  @override
+  List<Object> get props => [pad];
+}
+
+class PadLoadFailure extends PadState {}

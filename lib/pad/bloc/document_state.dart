@@ -18,4 +18,4 @@ class DocumentLoadSuccess extends DocumentState {
   List<Object> get props => [document];
 }
 
-class TodosLoadFailure extends DocumentState {}
+class DocumentLoadFailure extends DocumentState {}
