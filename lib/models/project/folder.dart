@@ -1,12 +1,20 @@
 import 'package:flutter/foundation.dart';
 
 import 'item.dart';
+import 'type.dart';
 
 class FolderProjectItem extends ProjectItem {
-  final List<ProjectItem> _files = [];
+  final List<ProjectItem> _files;
 
   FolderProjectItem({@required String name, String description})
-      : super(name: name, description: description);
+      : _files = [],
+        super(name: name, description: description);
+
+  FolderProjectItem.fromJson(Map<String, dynamic> json)
+      : _files = (json['files'] as List<Map<String, dynamic>>).map((e) => ProjectItemType.values
+            .firstWhere((element) => element.toString() == json['type'])
+            .fromJson(e)),
+        super(name: json['name'], description: json['description']);
 
   List<ProjectItem> get files => List.unmodifiable(_files);
 
@@ -43,5 +51,10 @@ class FolderProjectItem extends ProjectItem {
       return current;
     else
       return this;
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return super.toJson()..addAll({'files': _files.map((file) => file.toJson())});
   }
 }

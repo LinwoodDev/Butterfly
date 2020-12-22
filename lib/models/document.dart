@@ -10,4 +10,10 @@ class AppDocument {
   List<PackCollection> packs = [];
 
   AppDocument({this.name, this.description});
+
+  AppDocument.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        description = json['description'],
+        mainPad = json['mainPad'],
+        folder = FolderProjectItem.fromJson(json['folder']);
 }
