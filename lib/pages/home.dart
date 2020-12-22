@@ -3,24 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mdi/mdi.dart';
 
-class HomePage extends StatelessWidget {
-  final List<AppDocument> _documents = [
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 1", description: "abc..."),
-    AppDocument(name: "Document 2", description: "def...")
-  ];
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<AppDocument> _documents;
+
+  @override
+  void initState() {
+    _documents = [
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 1", description: "abc..."),
+      AppDocument(name: "Document 2", description: "def...")
+    ];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

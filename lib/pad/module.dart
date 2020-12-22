@@ -1,4 +1,5 @@
 import 'package:butterfly/pad/main.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class PadModule extends ChildModule {
@@ -10,7 +11,7 @@ class PadModule extends ChildModule {
   @override
   List<ModularRouter> get routers => [
         ModularRouter('/:id', child: (_, args) => ProjectPage(id: args.params['id'])),
-        ModularRouter('/:id/:path',
-            child: (_, args) => ProjectPage(id: args.params['id'], path: args.params['path']))
+        /*ModularRouter('/:id/:path',
+            child: (_, args) => ProjectPage(id: args.params['id'], path: args.params['path']))*/
       ];
 }
