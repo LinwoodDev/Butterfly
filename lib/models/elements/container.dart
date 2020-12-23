@@ -13,6 +13,9 @@ class LayerContainer extends ElementLayer {
     throw UnimplementedError();
   }
 
+  LayerContainer({@required String name, String description})
+      : super(name: name, description: description);
+
   LayerContainer.fromJson(Map<String, dynamic> json)
       : backgroundColor = Color(json['backgroundColor']),
         super(name: json['name'], description: json['description']);

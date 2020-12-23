@@ -11,9 +11,9 @@ class FolderProjectItem extends ProjectItem {
         super(name: name, description: description);
 
   FolderProjectItem.fromJson(Map<String, dynamic> json)
-      : _files = (json['files'] as List<Map<String, dynamic>>).map((e) => ProjectItemType.values
-            .firstWhere((element) => element.toString() == json['type'])
-            .fromJson(e)),
+      : _files = (json['files'] as List<Map<String, dynamic>>)
+            .map((e) => ProjectItem.fromJson(e))
+            .toList(),
         super(name: json['name'], description: json['description']);
 
   List<ProjectItem> get files => List.unmodifiable(_files);

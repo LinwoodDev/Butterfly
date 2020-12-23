@@ -22,11 +22,11 @@ extension LayerTypeExtension on LayerType {
   ElementLayer create(String name, String description) {
     switch (this) {
       case LayerType.container:
-        return LayerContainer();
+        return LayerContainer(name: name, description: description);
       case LayerType.group:
-        return GroupElement();
+        return GroupElement(name: name, description: description);
       case LayerType.paint:
-        return PaintElement();
+        return PaintElement(name: name, description: description);
     }
     return null;
   }
