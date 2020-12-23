@@ -36,7 +36,7 @@ class _MainViewState extends State<MainView> {
             child: Scaffold(
                 body: Container(
                     child: (_bloc.state as DocumentLoadSuccess).currentPad == null
-                        ? Center(child: Text("No pad opened"))
+                        ? Center(child: Text("No file selected"))
                         : Column(children: [
                             Expanded(child: Center(child: FlutterLogo(size: 256))),
                             Container(
