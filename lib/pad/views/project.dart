@@ -62,32 +62,31 @@ class _ProjectViewState extends State<ProjectView> {
                           if (state is DocumentLoadSuccess) {
                             var path = state.currentPath;
                             var folder = state.document.getFile(path) as FolderProjectItem;
-                            print("Path: " + path + "Folder: " + folder.toString());
                             return SizedBox.expand(
                                 child: SingleChildScrollView(
                                     child: Wrap(
-                                        children: folder.files
-                                            .map((file) => Card(
-                                                child: InkWell(
-                                                    onTap: () {
-                                                      var currentPath = path.isNotEmpty
-                                                          ? path + '/'
-                                                          : '' + file.name;
-                                                      if (file is FolderProjectItem) {
-                                                        _bloc.add(PathChanged(currentPath));
-                                                      }
-                                                    },
-                                                    child: Container(
-                                                        constraints: BoxConstraints(maxWidth: 200),
-                                                        child: Padding(
-                                                            padding: EdgeInsets.symmetric(
-                                                                vertical: 20, horizontal: 50),
-                                                            child: Column(children: [
-                                                              Icon(file.icon, size: 50),
-                                                              Text(file.name,
-                                                                  overflow: TextOverflow.ellipsis)
-                                                            ]))))))
-                                            .toList())));
+                                        children: folder.files.map((file) {
+                              var currentPath = path.isNotEmpty ? path + '/' : '';
+                              currentPath += file.name;
+                              return Card(
+                                  child: InkWell(
+                                      onLongPress: () => _bloc.add(SelectedChanged(currentPath)),
+                                      onTap: () {
+                                        if (file is FolderProjectItem) {
+                                          _bloc.add(PathChanged(currentPath));
+                                        } else
+                                          _bloc.add(SelectedChanged(currentPath));
+                                      },
+                                      child: Container(
+                                          constraints: BoxConstraints(maxWidth: 200),
+                                          child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 20, horizontal: 50),
+                                              child: Column(children: [
+                                                Icon(file.icon, size: 50),
+                                                Text(file.name, overflow: TextOverflow.ellipsis)
+                                              ])))));
+                            }).toList())));
                           } else
                             return CircularProgressIndicator();
                         }))))));

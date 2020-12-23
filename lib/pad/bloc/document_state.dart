@@ -17,7 +17,7 @@ class DocumentLoadSuccess extends DocumentState {
   ProjectItem get currentSelected =>
       currentSelectedPath == null ? null : document.getFile(currentSelectedPath);
   PadProjectItem get currentPad =>
-      currentSelected == null || !(currentSelected is PadProjectItem) ? currentSelected : null;
+      currentSelected == null || !(currentSelected is PadProjectItem) ? null : currentSelected;
 
   const DocumentLoadSuccess(this.document, {this.currentSelectedPath, this.currentPath = ''});
 

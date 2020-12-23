@@ -40,12 +40,11 @@ class FolderProjectItem extends ProjectItem {
 
   ProjectItem getFile(String path) {
     List<String> directories = path.split('/');
-    print(directories);
     if (directories.isEmpty || directories[0].isEmpty) return this;
     var iterator = _files.where((element) => element.name == directories.first);
     if (iterator.isEmpty) return null;
     ProjectItem current = iterator.first;
-    var next = directories.sublist(0, directories.length - 1);
+    var next = directories.sublist(1, directories.length);
     if (current is FolderProjectItem)
       return current.getFile(next.join('/'));
     else if (next.isEmpty)

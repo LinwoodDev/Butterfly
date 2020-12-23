@@ -32,3 +32,12 @@ class PathChanged extends DocumentEvent {
   @override
   List<Object> get props => [path];
 }
+
+class SelectedChanged extends DocumentEvent {
+  final String path;
+
+  SelectedChanged(this.path);
+
+  @override
+  List<Object> get props => [path];
+}
