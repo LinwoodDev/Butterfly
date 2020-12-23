@@ -22,7 +22,7 @@ dependencies:
   equatable: ^1.2.5
   fab_circular_menu: ^1.0.1
   flutter_bloc: ^6.1.1
-  flutter_modular: ^2.0.1
+  flutter_modular: ^3.0.0-nullsafety.22
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
   pluto_menu_bar: ^0.1.4

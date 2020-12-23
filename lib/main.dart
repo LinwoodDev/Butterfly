@@ -13,9 +13,6 @@ class ButterflyApp extends StatelessWidget {
       title: 'Butterfly',
       // set your initial route
       initialRoute: "/",
-      navigatorKey: Modular.navigatorKey,
-      // add Modular to manage the routing system
-      onGenerateRoute: Modular.generateRoute,
       theme: ThemeData(
           fontFamily: "Roboto",
           // This is the theme of your application.
@@ -34,6 +31,6 @@ class ButterflyApp extends StatelessWidget {
       darkTheme: ThemeData(
           brightness: Brightness.dark, primarySwatch: Colors.green, accentColor: Colors.orange),
       home: HomePage(),
-    );
+    ).modular();
   }
 }

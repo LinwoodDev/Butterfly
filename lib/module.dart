@@ -8,17 +8,17 @@ import 'package:flutter_modular/flutter_modular.dart';
 class AppModule extends MainModule {
   // Provide a list of dependencies to inject into your project
   @override
-  List<Bind> get binds => [];
+  final List<Bind> binds = [];
 
   // Provide all the routes for your module
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter('/', child: (_, args) => HomePage()),
-        ModularRouter('/pad', module: PadModule())
-      ];
+  final List<ModularRoute> routes = [
+    ChildRoute('/', child: (_, args) => HomePage()),
+    ModuleRoute('/pad', module: PadModule())
+  ];
 
   // Provide the root widget associated with your module
   // In this case, it's the widget you created in the first step
   @override
-  Widget get bootstrap => ButterflyApp();
+  final Widget bootstrap = ButterflyApp();
 }
