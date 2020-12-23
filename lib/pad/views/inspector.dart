@@ -36,11 +36,21 @@ class _InspectorViewState extends State<InspectorView> {
             create: (_) => _bloc,
             child: SplitScaffold(
                 body: Container(
-                    child: ListView(
-                  children: [
-                    ExpansionTile(title: Text("Transform"), children: [Text("Some properties")])
-                  ],
-                )),
+                    alignment: Alignment.center,
+                    child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                      if (state is DocumentLoadSuccess &&
+                          state.currentPad != null &&
+                          state.currentPad.root != null) {
+                        return Container(
+                            child: ListView(
+                          children: [
+                            ExpansionTile(
+                                title: Text("Transform"), children: [Text("Some properties")])
+                          ],
+                        ));
+                      } else
+                        return CircularProgressIndicator();
+                    })),
                 view: widget.view,
                 window: widget.window,
                 expanded: widget.expanded,

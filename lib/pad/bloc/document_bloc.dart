@@ -25,7 +25,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
   Stream<DocumentState> _mapLayerCreatedToState(LayerCreated event) async* {
     if (state is DocumentLoadSuccess) {
       var current = (state as DocumentLoadSuccess);
-      current.currentPad.root = event.layer;
+      if (current.currentPad != null) current.currentPad.root = event.layer;
       yield DocumentLoadSuccess(current.document);
       _saveDocument();
     }

@@ -53,7 +53,9 @@ class _LayersViewState extends State<LayersView> {
                 body: Container(
                     alignment: Alignment.center,
                     child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                      if (state is DocumentLoadSuccess && state.currentPad.root != null) {
+                      if (state is DocumentLoadSuccess &&
+                          state.currentPad != null &&
+                          state.currentPad.root != null) {
                         return ListView.builder(
                             itemCount: state.currentPad.root.children.length,
                             itemBuilder: (BuildContext context, int index) => Builder(

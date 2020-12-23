@@ -24,7 +24,7 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: close_sinks
   DocumentBloc _bloc;
-  final AppDocument document = AppDocument();
+  final AppDocument document = AppDocument(name: "Document name");
   @override
   void initState() {
     super.initState();
@@ -34,7 +34,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   void _showRootDialog() async {
     var pad = (_bloc.state as DocumentLoadSuccess).currentPad;
-    if (pad.root == null) {
+    if (pad == null && pad.root == null) {
       await showDialog(
           context: context, builder: (context) => CreateLayerDialog(documentBloc: _bloc));
     }

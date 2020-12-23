@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
 import 'item.dart';
-import 'type.dart';
 
 class FolderProjectItem extends ProjectItem {
   final List<ProjectItem> _files;

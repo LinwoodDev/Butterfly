@@ -1,5 +1,4 @@
 import 'folder.dart';
-import 'image.dart';
 import 'item.dart';
 import 'pad.dart';
 
