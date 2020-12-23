@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:mdi/mdi.dart';
 
 import 'type.dart';
 
@@ -12,4 +14,6 @@ abstract class ProjectItem {
   static ProjectItem fromJson(Map<String, dynamic> json) => ProjectItemType.values
       .firstWhere((element) => element.toString() == json['type'])
       .fromJson(json);
+
+  IconData get icon => Mdi.helpCircleOutline;
 }

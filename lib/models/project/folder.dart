@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:mdi/mdi.dart';
 
 import 'item.dart';
 
@@ -39,7 +41,7 @@ class FolderProjectItem extends ProjectItem {
   ProjectItem getFile(String path) {
     List<String> directories = path.split('/');
     print(directories);
-    if (directories.isEmpty) return this;
+    if (directories.isEmpty || directories[0].isEmpty) return this;
     var iterator = _files.where((element) => element.name == directories.first);
     if (iterator.isEmpty) return null;
     ProjectItem current = iterator.first;
@@ -56,4 +58,7 @@ class FolderProjectItem extends ProjectItem {
   Map<String, dynamic> toJson() {
     return super.toJson()..addAll({'files': _files.map((file) => file.toJson())});
   }
+
+  @override
+  IconData get icon => Mdi.folderOutline;
 }

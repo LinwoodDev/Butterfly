@@ -12,13 +12,14 @@ class DocumentLoadInProgress extends DocumentState {}
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final String currentSelectedPath;
+  final String currentPath;
 
   ProjectItem get currentSelected =>
       currentSelectedPath == null ? null : document.folder.getFile(currentSelectedPath);
   PadProjectItem get currentPad =>
       currentSelected == null || !(currentSelected is PadProjectItem) ? currentSelected : null;
 
-  const DocumentLoadSuccess(this.document, {this.currentSelectedPath});
+  const DocumentLoadSuccess(this.document, {this.currentSelectedPath, this.currentPath = ''});
 
   @override
   List<Object> get props => [document];

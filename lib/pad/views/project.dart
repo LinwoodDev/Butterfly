@@ -1,3 +1,4 @@
+import 'package:butterfly/models/project/folder.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/widgets/split/scaffold.dart';
@@ -39,6 +40,13 @@ class _ProjectViewState extends State<ProjectView> {
                 expanded: widget.expanded,
                 title: "Project",
                 icon: Icon(Mdi.tableOfContents),
+                actions: [
+                  IconButton(icon: Icon(Mdi.homeOutline), tooltip: "Home", onPressed: () {}),
+                  IconButton(icon: Icon(Mdi.arrowUp), tooltip: "Up", onPressed: () {}),
+                  IconButton(icon: Icon(Mdi.magnify), tooltip: "Path", onPressed: () {}),
+                  IconButton(icon: Icon(Mdi.reload), tooltip: "Reload", onPressed: () {}),
+                  VerticalDivider()
+                ],
                 floatingActionButton: FloatingActionButton(
                     heroTag: null,
                     onPressed: () => _showNewSheet(context),
@@ -48,15 +56,18 @@ class _ProjectViewState extends State<ProjectView> {
                     builder: (context) => Container(
                         alignment: Alignment.center,
                         child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                          if (state is DocumentLoadSuccess &&
-                              state.currentPad != null &&
-                              state.currentPad.root != null) {
-                            var pad = state.currentPad;
-                            return ListView.builder(
-                                itemCount: pad.root.children.length,
-                                itemBuilder: (BuildContext context, int index) => Builder(
-                                    builder: (context) =>
-                                        pad.root.children[index].buildTile(context, state)));
+                          if (state is DocumentLoadSuccess) {
+                            var path = state.currentPath;
+                            var folder = state.document.folder.getFile(path) as FolderProjectItem;
+                            print("Path: " + path + "Folder: " + folder.toString());
+                            return Wrap(
+                                children: folder.files
+                                    .map((file) => Card(
+                                            child: Column(children: [
+                                          Icon(file.icon, size: 50),
+                                          Text(file.name)
+                                        ])))
+                                    .toList());
                           } else
                             return CircularProgressIndicator();
                         }))))));

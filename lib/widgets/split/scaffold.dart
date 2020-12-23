@@ -26,20 +26,19 @@ class SplitScaffold extends StatelessWidget {
     bool isSplitted = window != null && view != null && expanded != null;
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 50,
-          backgroundColor: Theme.of(context).accentColor,
-          automaticallyImplyLeading: !isSplitted,
-          title: Text(title),
-          leading: icon,
-          actions: [
-            IconButton(
-                icon: Icon(!isSplitted || expanded ? Mdi.windowMinimize : Mdi.windowMaximize),
-                onPressed: !isSplitted || expanded
-                    ? Navigator.of(context).pop
-                    : () => window.expand(context, view, window)),
-            if (actions != null) ...actions
-          ],
-        ),
+            toolbarHeight: 50,
+            backgroundColor: Theme.of(context).accentColor,
+            automaticallyImplyLeading: !isSplitted,
+            title: Text(title),
+            leading: icon,
+            actions: [
+              if (actions != null) ...actions,
+              IconButton(
+                  icon: Icon(!isSplitted || expanded ? Mdi.windowMinimize : Mdi.windowMaximize),
+                  onPressed: !isSplitted || expanded
+                      ? Navigator.of(context).pop
+                      : () => window.expand(context, view, window))
+            ]),
         floatingActionButton: floatingActionButton,
         body: body);
   }

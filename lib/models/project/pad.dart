@@ -1,6 +1,8 @@
 import 'package:butterfly/models/elements/container.dart';
 import 'package:butterfly/models/elements/layer.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:mdi/mdi.dart';
 
 import 'item.dart';
 
@@ -13,4 +15,5 @@ class PadProjectItem extends ProjectItem {
   PadProjectItem.fromJson(Map<String, dynamic> json)
       : root = ElementLayer.fromJson(json['root']),
         super(name: json['name'], description: json['description']);
+  IconData get icon => Mdi.monitor;
 }
