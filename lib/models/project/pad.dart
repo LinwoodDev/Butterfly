@@ -15,5 +15,6 @@ class PadProjectItem extends ProjectItem {
   PadProjectItem.fromJson(Map<String, dynamic> json)
       : root = ElementLayer.fromJson(json['root']),
         super(name: json['name'], description: json['description']);
+  @override
   IconData get icon => Mdi.monitor;
 }

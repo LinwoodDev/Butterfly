@@ -5,10 +5,10 @@ import 'package:mdi/mdi.dart';
 import 'type.dart';
 
 abstract class ProjectItem {
-  final String name;
-  final String description;
+  String name;
+  String description = '';
 
-  const ProjectItem({@required this.name, this.description = ""});
+  ProjectItem({@required this.name, this.description});
 
   Map<String, dynamic> toJson() => {'name': name, 'description': description};
   static ProjectItem fromJson(Map<String, dynamic> json) => ProjectItemType.values

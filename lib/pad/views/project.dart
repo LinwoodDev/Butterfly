@@ -41,7 +41,10 @@ class _ProjectViewState extends State<ProjectView> {
                 title: "Project",
                 icon: Icon(Mdi.tableOfContents),
                 actions: [
-                  IconButton(icon: Icon(Mdi.homeOutline), tooltip: "Home", onPressed: () {}),
+                  IconButton(
+                      icon: Icon(Mdi.homeOutline),
+                      tooltip: "Home",
+                      onPressed: () => _bloc.add(PathChanged(''))),
                   IconButton(icon: Icon(Mdi.arrowUp), tooltip: "Up", onPressed: () {}),
                   IconButton(icon: Icon(Mdi.magnify), tooltip: "Path", onPressed: () {}),
                   IconButton(icon: Icon(Mdi.reload), tooltip: "Reload", onPressed: () {}),
@@ -58,16 +61,33 @@ class _ProjectViewState extends State<ProjectView> {
                         child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
                           if (state is DocumentLoadSuccess) {
                             var path = state.currentPath;
-                            var folder = state.document.folder.getFile(path) as FolderProjectItem;
+                            var folder = state.document.getFile(path) as FolderProjectItem;
                             print("Path: " + path + "Folder: " + folder.toString());
-                            return Wrap(
-                                children: folder.files
-                                    .map((file) => Card(
-                                            child: Column(children: [
-                                          Icon(file.icon, size: 50),
-                                          Text(file.name)
-                                        ])))
-                                    .toList());
+                            return SizedBox.expand(
+                                child: SingleChildScrollView(
+                                    child: Wrap(
+                                        children: folder.files
+                                            .map((file) => Card(
+                                                child: InkWell(
+                                                    onTap: () {
+                                                      var currentPath = path.isNotEmpty
+                                                          ? path + '/'
+                                                          : '' + file.name;
+                                                      if (file is FolderProjectItem) {
+                                                        _bloc.add(PathChanged(currentPath));
+                                                      }
+                                                    },
+                                                    child: Container(
+                                                        constraints: BoxConstraints(maxWidth: 200),
+                                                        child: Padding(
+                                                            padding: EdgeInsets.symmetric(
+                                                                vertical: 20, horizontal: 50),
+                                                            child: Column(children: [
+                                                              Icon(file.icon, size: 50),
+                                                              Text(file.name,
+                                                                  overflow: TextOverflow.ellipsis)
+                                                            ]))))))
+                                            .toList())));
                           } else
                             return CircularProgressIndicator();
                         }))))));
