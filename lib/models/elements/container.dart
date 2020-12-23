@@ -12,4 +12,8 @@ class LayerContainer extends ElementLayer {
     // TODO: implement buildTile
     throw UnimplementedError();
   }
+
+  LayerContainer.fromJson(Map<String, dynamic> json)
+      : backgroundColor = Color(json['backgroundColor']),
+        super(name: json['name'], description: json['description']);
 }

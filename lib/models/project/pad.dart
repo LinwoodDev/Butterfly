@@ -1,5 +1,6 @@
 import 'package:butterfly/models/elements/container.dart';
 import 'package:butterfly/models/elements/layer.dart';
+import 'package:butterfly/models/elements/type.dart';
 import 'package:flutter/foundation.dart';
 
 import 'item.dart';
@@ -11,5 +12,9 @@ class PadProjectItem extends ProjectItem {
   PadProjectItem({@required String name, String description})
       : super(name: name, description: description);
 
-  static ProjectItem fromJson(Map<String, dynamic> json) {}
+  PadProjectItem.fromJson(Map<String, dynamic> json)
+      : root = LayerType.values
+            .firstWhere((element) => element.toString() == json['root']['type'])
+            .fromJson(json['root']),
+        super(name: json['name'], description: json['description']);
 }

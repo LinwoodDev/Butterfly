@@ -30,4 +30,20 @@ extension LayerTypeExtension on LayerType {
     }
     return null;
   }
+
+  ElementLayer fromJson(Map<String, dynamic> json) {
+    switch (this) {
+      case LayerType.container:
+        return LayerContainer.fromJson(json);
+      case LayerType.group:
+        return GroupElement.fromJson(json);
+      case LayerType.paint:
+        return PaintElement.fromJson(json);
+    }
+    return null;
+  }
+
+  Map<String, dynamic> toJson(Map<String, dynamic> json) {
+    return Map.from(json)..addAll({"type": toString()});
+  }
 }
