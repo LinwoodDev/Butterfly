@@ -48,7 +48,8 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
               tooltip: tool.name,
               icon: Icon(tool.icon),
               onPressed: () => _toggleTool(tool),
-              color: current.currentTool == tool ? Theme.of(context).primaryColor : null);
+              color:
+                  current.currentTool?.type == tool.type ? Theme.of(context).primaryColor : null);
         }).toList(),
         if (current.currentTool != null) ...[
           VerticalDivider(),

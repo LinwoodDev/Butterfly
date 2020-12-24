@@ -5,16 +5,46 @@ import 'package:mdi/mdi.dart';
 
 import 'type.dart';
 
+enum MoveToolType { location, rotation, scale }
+
 class MoveTool extends Tool {
+  final MoveToolType moveToolType;
+  MoveTool({this.moveToolType = MoveToolType.location});
   @override
   Widget buildInspector() {
     return ListView(children: [
-      TextField(decoration: InputDecoration(labelText: "X")),
-      TextField(decoration: InputDecoration(labelText: "Y")),
-      TextField(decoration: InputDecoration(labelText: "Z")),
-      Divider(),
-      TextField(decoration: InputDecoration(labelText: "Height")),
-      TextField(decoration: InputDecoration(labelText: "Width")),
+      ExpansionTile(
+          title: Text(
+            'Location',
+          ),
+          initiallyExpanded: true,
+          childrenPadding: EdgeInsets.symmetric(horizontal: 10),
+          children: <Widget>[
+            TextField(decoration: InputDecoration(labelText: "X")),
+            TextField(decoration: InputDecoration(labelText: "Y")),
+            TextField(decoration: InputDecoration(labelText: "Z")),
+          ]),
+      ExpansionTile(
+          title: Text(
+            'Rotation',
+          ),
+          initiallyExpanded: true,
+          childrenPadding: EdgeInsets.symmetric(horizontal: 10),
+          children: <Widget>[
+            TextField(decoration: InputDecoration(labelText: "X")),
+            TextField(decoration: InputDecoration(labelText: "Y")),
+            TextField(decoration: InputDecoration(labelText: "Z")),
+          ]),
+      ExpansionTile(
+          title: Text(
+            'Scale',
+          ),
+          childrenPadding: EdgeInsets.symmetric(horizontal: 10),
+          initiallyExpanded: true,
+          children: <Widget>[
+            TextField(decoration: InputDecoration(labelText: "Height")),
+            TextField(decoration: InputDecoration(labelText: "Width")),
+          ])
     ]);
   }
 
@@ -27,9 +57,21 @@ class MoveTool extends Tool {
       SplitWindow window,
       SplitView view}) {
     return [
-      IconButton(icon: Icon(Mdi.crosshairs), tooltip: "Location", onPressed: () {}),
-      IconButton(icon: Icon(Mdi.formatRotate90), tooltip: "Rotation", onPressed: () {}),
-      IconButton(icon: Icon(Mdi.resize), tooltip: "Size", onPressed: () {})
+      IconButton(
+          icon: Icon(Mdi.crosshairs),
+          tooltip: "Location",
+          color: moveToolType == MoveToolType.location ? Theme.of(context).primaryColor : null,
+          onPressed: () => bloc.add(ToolChanged(MoveTool(moveToolType: MoveToolType.location)))),
+      IconButton(
+          icon: Icon(Mdi.formatRotate90),
+          tooltip: "Rotation",
+          color: moveToolType == MoveToolType.rotation ? Theme.of(context).primaryColor : null,
+          onPressed: () => bloc.add(ToolChanged(MoveTool(moveToolType: MoveToolType.rotation)))),
+      IconButton(
+          icon: Icon(Mdi.resize),
+          tooltip: "Scale",
+          color: moveToolType == MoveToolType.scale ? Theme.of(context).primaryColor : null,
+          onPressed: () => bloc.add(ToolChanged(MoveTool(moveToolType: MoveToolType.scale))))
     ];
   }
 
@@ -41,4 +83,7 @@ class MoveTool extends Tool {
 
   @override
   String get name => "Move";
+
+  @override
+  List<Object> get props => [type, moveToolType];
 }
