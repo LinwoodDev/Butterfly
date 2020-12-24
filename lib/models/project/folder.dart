@@ -27,6 +27,10 @@ class FolderProjectItem extends ProjectItem {
     return true;
   }
 
+  List<ProjectItem> addFiles(List<ProjectItem> items) {
+    return items.where((element) => addFile(element)).toList();
+  }
+
   bool deleteFile(String path) {
     List<String> directories = path.split('/');
     List<String> parentPath = directories.sublist(0, directories.length - 1);

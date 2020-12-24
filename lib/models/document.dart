@@ -6,7 +6,7 @@ import 'project/pad.dart';
 
 class AppDocument extends FolderProjectItem {
   String mainPad = 'pads/main';
-  List<PackCollection> packs = [];
+  final List<PackCollection> packs = [];
 
   AppDocument({@required String name, String description})
       : super(name: name, description: description) {
@@ -16,4 +16,8 @@ class AppDocument extends FolderProjectItem {
   AppDocument.fromJson(Map<String, dynamic> json)
       : mainPad = json['mainPad'],
         super.fromJson(json);
+  AppDocument copyWith({String name, String description}) {
+    return AppDocument(name: name ?? this.name, description: description ?? this.description)
+      ..addFiles(files);
+  }
 }

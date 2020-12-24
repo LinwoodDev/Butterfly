@@ -36,7 +36,9 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
 
   Stream<DocumentState> _mapDocumentNameChangedToState(DocumentNameChanged event) async* {
     if (state is DocumentLoadSuccess) {
-      yield DocumentLoadSuccess((state as DocumentLoadSuccess).document..name = event.name);
+      var current = (state as DocumentLoadSuccess);
+      yield DocumentLoadSuccess(current.document.copyWith(name: event.name),
+          currentSelectedPath: current.currentSelectedPath);
       _saveDocument();
     }
   }
