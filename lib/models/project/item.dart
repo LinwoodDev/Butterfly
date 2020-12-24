@@ -1,5 +1,6 @@
 import 'package:butterfly/models/inspector.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mdi/mdi.dart';
 
@@ -17,4 +18,10 @@ abstract class ProjectItem with InspectorItem {
       .fromJson(json);
 
   IconData get icon => Mdi.helpCircleOutline;
+  Widget buildInspector() {
+    return ListView(children: [
+      TextField(decoration: InputDecoration(labelText: "Name")),
+      TextField(maxLength: null, minLines: 3, decoration: InputDecoration(labelText: "Decoration"))
+    ]);
+  }
 }

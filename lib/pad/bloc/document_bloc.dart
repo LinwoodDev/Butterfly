@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/layer.dart';
+import 'package:butterfly/models/inspector.dart';
 import 'package:butterfly/models/project/item.dart';
 import 'package:butterfly/models/project/pad.dart';
 import 'package:butterfly/models/tools/type.dart';
@@ -26,6 +27,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
     else if (event is SelectedChanged)
       yield* _mapSelectedChangedToState(event);
     else if (event is ToolChanged) yield* _mapToolChangedToState(event);
+    else if (event is InspectorChanged) yield* _mapInspectorChangedToState(event);
   }
 
   Stream<DocumentState> _mapLayerCreatedToState(LayerCreated event) async* {
@@ -55,6 +57,13 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
   Stream<DocumentState> _mapToolChangedToState(ToolChanged event) async* {
     if (state is DocumentLoadSuccess) {
       yield (state as DocumentLoadSuccess).copyWith(currentTool: event.tool);
+      _saveDocument();
+    }
+  }
+
+  Stream<DocumentState> _mapInspectorChangedToState(InspectorChanged event) async* {
+    if (state is DocumentLoadSuccess) {
+      yield (state as DocumentLoadSuccess).copyWith(currentInspectorItem: event.item);
       _saveDocument();
     }
   }

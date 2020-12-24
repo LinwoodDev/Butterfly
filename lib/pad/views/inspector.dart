@@ -41,9 +41,9 @@ class _InspectorViewState extends State<InspectorView> {
                       if (state is DocumentLoadSuccess &&
                           state.currentPad != null &&
                           state.currentPad.root != null) {
-                        if (state.currentTool == null)
-                          return Center(child: Text("No tool selected"));
-                        return Container(child: state.currentTool.buildInspector());
+                        if (state.currentInspectorItem == null)
+                          return Center(child: Text("Nothing selected"));
+                        return Container(child: state.currentInspectorItem.buildInspector());
                       } else
                         return CircularProgressIndicator();
                     })),

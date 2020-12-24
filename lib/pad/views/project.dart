@@ -89,6 +89,12 @@ class _ProjectViewSystem extends StatelessWidget {
   final String path;
 
   const _ProjectViewSystem({Key key, this.bloc, this.path = ''}) : super(key: key);
+
+  void _changeSelected(DocumentLoadSuccess state, String currentPath) {
+    bloc.add(SelectedChanged(currentPath));
+    bloc.add(InspectorChanged(state.document.getFile(currentPath)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -104,7 +110,7 @@ class _ProjectViewSystem extends StatelessWidget {
               currentPath += file.name;
               return Card(
                   child: InkWell(
-                      onLongPress: () => bloc.add(SelectedChanged(currentPath)),
+                      onLongPress: () => _changeSelected(state, currentPath),
                       onTap: () {
                         if (file is FolderProjectItem) {
                           Navigator.push(
@@ -113,7 +119,7 @@ class _ProjectViewSystem extends StatelessWidget {
                                   builder: (context) =>
                                       _ProjectViewSystem(bloc: bloc, path: currentPath)));
                         } else
-                          bloc.add(SelectedChanged(currentPath));
+                          _changeSelected(state, currentPath);
                       },
                       child: Container(
                           constraints: BoxConstraints(maxWidth: 200),
