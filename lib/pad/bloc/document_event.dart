@@ -24,15 +24,6 @@ class DocumentNameChanged extends DocumentEvent {
   List<Object> get props => [name];
 }
 
-class PathChanged extends DocumentEvent {
-  final String path;
-
-  PathChanged(this.path);
-
-  @override
-  List<Object> get props => [path];
-}
-
 class SelectedChanged extends DocumentEvent {
   final String path;
 

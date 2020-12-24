@@ -22,8 +22,6 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
       yield* _mapDocumentNameChangedToState(event);
     else if (event is LayerCreated)
       yield* _mapLayerCreatedToState(event);
-    else if (event is PathChanged)
-      yield* _mapPathChangedToState(event);
     else if (event is SelectedChanged) yield* _mapSelectedChangedToState(event);
   }
 
@@ -43,20 +41,10 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
     }
   }
 
-  Stream<DocumentState> _mapPathChangedToState(PathChanged event) async* {
-    if (state is DocumentLoadSuccess) {
-      var last = (state as DocumentLoadSuccess);
-      yield DocumentLoadSuccess(last.document,
-          currentSelectedPath: last.currentSelectedPath, currentPath: event.path);
-      _saveDocument();
-    }
-  }
-
   Stream<DocumentState> _mapSelectedChangedToState(SelectedChanged event) async* {
     if (state is DocumentLoadSuccess) {
       var last = (state as DocumentLoadSuccess);
-      yield DocumentLoadSuccess(last.document,
-          currentSelectedPath: event.path, currentPath: last.currentPath);
+      yield DocumentLoadSuccess(last.document, currentSelectedPath: event.path);
       _saveDocument();
     }
   }

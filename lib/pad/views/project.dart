@@ -28,6 +28,8 @@ class _ProjectViewState extends State<ProjectView> {
     super.initState();
   }
 
+  BuildContext _systemContext;
+
   @override
   Widget build(BuildContext context) {
     return Hero(
@@ -44,8 +46,14 @@ class _ProjectViewState extends State<ProjectView> {
                   IconButton(
                       icon: Icon(Mdi.homeOutline),
                       tooltip: "Home",
-                      onPressed: () => _bloc.add(PathChanged(''))),
-                  IconButton(icon: Icon(Mdi.arrowUp), tooltip: "Up", onPressed: () {}),
+                      onPressed: () =>
+                          Navigator.popUntil(_systemContext, (route) => route.isFirst)),
+                  IconButton(
+                      icon: Icon(Mdi.arrowUp),
+                      tooltip: "Up",
+                      onPressed: () {
+                        if (Navigator.canPop(_systemContext)) Navigator.pop(_systemContext);
+                      }),
                   IconButton(icon: Icon(Mdi.magnify), tooltip: "Path", onPressed: () {}),
                   IconButton(icon: Icon(Mdi.reload), tooltip: "Reload", onPressed: () {}),
                   VerticalDivider()
@@ -55,41 +63,11 @@ class _ProjectViewState extends State<ProjectView> {
                     onPressed: () => _showNewSheet(context),
                     child: Icon(Mdi.plus),
                     tooltip: "New"),
-                body: Builder(
-                    builder: (context) => Container(
-                        alignment: Alignment.center,
-                        child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                          if (state is DocumentLoadSuccess) {
-                            var path = state.currentPath;
-                            var folder = state.document.getFile(path) as FolderProjectItem;
-                            return SizedBox.expand(
-                                child: SingleChildScrollView(
-                                    child: Wrap(
-                                        children: folder.files.map((file) {
-                              var currentPath = path.isNotEmpty ? path + '/' : '';
-                              currentPath += file.name;
-                              return Card(
-                                  child: InkWell(
-                                      onLongPress: () => _bloc.add(SelectedChanged(currentPath)),
-                                      onTap: () {
-                                        if (file is FolderProjectItem) {
-                                          _bloc.add(PathChanged(currentPath));
-                                        } else
-                                          _bloc.add(SelectedChanged(currentPath));
-                                      },
-                                      child: Container(
-                                          constraints: BoxConstraints(maxWidth: 200),
-                                          child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 20, horizontal: 50),
-                                              child: Column(children: [
-                                                Icon(file.icon, size: 50),
-                                                Text(file.name, overflow: TextOverflow.ellipsis)
-                                              ])))));
-                            }).toList())));
-                          } else
-                            return CircularProgressIndicator();
-                        }))))));
+                body: Navigator(
+                    onGenerateRoute: (settings) => MaterialPageRoute(builder: (context) {
+                          _systemContext = context;
+                          return _ProjectViewSystem(bloc: _bloc);
+                        })))));
   }
 
   void _showNewSheet(BuildContext context) {
@@ -103,5 +81,51 @@ class _ProjectViewState extends State<ProjectView> {
               Divider(),
               ListTile(title: Text("Import"), leading: Icon(Mdi.import), onTap: () {})
             ])));
+  }
+}
+
+class _ProjectViewSystem extends StatelessWidget {
+  final DocumentBloc bloc;
+  final String path;
+
+  const _ProjectViewSystem({Key key, this.bloc, this.path = ''}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        alignment: Alignment.center,
+        child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+          if (state is DocumentLoadSuccess) {
+            var folder = state.document.getFile(path) as FolderProjectItem;
+            return SizedBox.expand(
+                child: SingleChildScrollView(
+                    child: Wrap(
+                        children: folder.files.map((file) {
+              var currentPath = path.isNotEmpty ? path + '/' : '';
+              currentPath += file.name;
+              return Card(
+                  child: InkWell(
+                      onLongPress: () => bloc.add(SelectedChanged(currentPath)),
+                      onTap: () {
+                        if (file is FolderProjectItem) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      _ProjectViewSystem(bloc: bloc, path: currentPath)));
+                        } else
+                          bloc.add(SelectedChanged(currentPath));
+                      },
+                      child: Container(
+                          constraints: BoxConstraints(maxWidth: 200),
+                          child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                              child: Column(children: [
+                                Icon(file.icon, size: 50),
+                                Text(file.name, overflow: TextOverflow.ellipsis)
+                              ])))));
+            }).toList())));
+          } else
+            return CircularProgressIndicator();
+        }));
   }
 }

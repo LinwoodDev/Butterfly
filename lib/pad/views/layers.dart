@@ -53,19 +53,22 @@ class _LayersViewState extends State<LayersView> {
                     },
                     child: Icon(Mdi.plus),
                     tooltip: "Create layer"),
-                body: Container(
-                    alignment: Alignment.center,
-                    child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                      if (state is DocumentLoadSuccess &&
-                          state.currentPad != null &&
-                          state.currentPad.root != null) {
-                        return ListView.builder(
-                            itemCount: state.currentPad.root.children.length,
-                            itemBuilder: (BuildContext context, int index) => Builder(
-                                builder: (context) => state.currentPad.root.children[index]
-                                    .buildTile(context, state)));
-                      } else
-                        return CircularProgressIndicator();
-                    })))));
+                body: Navigator(
+                    onGenerateRoute: (settings) => MaterialPageRoute(
+                        builder: (context) => Container(
+                            alignment: Alignment.center,
+                            child:
+                                BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                              if (state is DocumentLoadSuccess &&
+                                  state.currentPad != null &&
+                                  state.currentPad.root != null) {
+                                return ListView.builder(
+                                    itemCount: state.currentPad.root.children.length,
+                                    itemBuilder: (BuildContext context, int index) => Builder(
+                                        builder: (context) => state.currentPad.root.children[index]
+                                            .buildTile(context, state)));
+                              } else
+                                return CircularProgressIndicator();
+                            })))))));
   }
 }
