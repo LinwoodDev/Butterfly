@@ -1,10 +1,11 @@
+import 'package:butterfly/models/inspector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mdi/mdi.dart';
 
 import 'type.dart';
 
-abstract class ProjectItem {
+abstract class ProjectItem with InspectorItem {
   String name;
   String description = '';
 

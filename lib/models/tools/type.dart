@@ -3,12 +3,13 @@ import 'package:butterfly/widgets/split/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
+import '../inspector.dart';
 import 'edit.dart';
 import 'move.dart';
 import 'select.dart';
 import 'view.dart';
 
-abstract class Tool extends Equatable {
+abstract class Tool extends Equatable with InspectorItem {
   IconData get icon;
   List<Widget> buildOptions(
       {BuildContext context,
@@ -17,7 +18,6 @@ abstract class Tool extends Equatable {
       bool isMobile,
       SplitWindow window,
       SplitView view});
-  Widget buildInspector();
   ToolType get type;
   String get name;
 

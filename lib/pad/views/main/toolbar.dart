@@ -3,11 +3,6 @@ import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mdi/mdi.dart';
-
-import '../inspector.dart';
-import '../layers.dart';
-import '../project.dart';
 
 enum SelectMode { add, replace, remove }
 
