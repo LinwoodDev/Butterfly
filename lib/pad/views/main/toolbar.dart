@@ -52,7 +52,13 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
         }).toList(),
         if (current.currentTool != null) ...[
           VerticalDivider(),
-          ...current.currentTool.buildOptions()
+          ...current.currentTool.buildOptions(
+              bloc: _bloc,
+              context: context,
+              expanded: widget.expanded,
+              view: widget.view,
+              window: widget.window,
+              isMobile: widget.isMobile)
         ]
       ]);
     });

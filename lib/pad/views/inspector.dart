@@ -41,13 +41,9 @@ class _InspectorViewState extends State<InspectorView> {
                       if (state is DocumentLoadSuccess &&
                           state.currentPad != null &&
                           state.currentPad.root != null) {
-                        return Container(
-                            child: ListView(
-                          children: [
-                            ExpansionTile(
-                                title: Text("Transform"), children: [Text("Some properties")])
-                          ],
-                        ));
+                        if (state.currentTool == null)
+                          return Center(child: Text("No tool selected"));
+                        return Container(child: state.currentTool.buildInspector());
                       } else
                         return CircularProgressIndicator();
                     })),

@@ -1,6 +1,3 @@
-import 'package:butterfly/pad/views/inspector.dart';
-import 'package:butterfly/pad/views/layers.dart';
-import 'package:butterfly/pad/views/project.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +9,12 @@ class MoveTool extends Tool {
   @override
   Widget buildInspector() {
     return ListView(children: [
-      Row(children: [
-        TextField(decoration: InputDecoration(labelText: "X")),
-        TextField(decoration: InputDecoration(labelText: "Y")),
-        TextField(decoration: InputDecoration(labelText: "Z"))
-      ])
+      TextField(decoration: InputDecoration(labelText: "X")),
+      TextField(decoration: InputDecoration(labelText: "Y")),
+      TextField(decoration: InputDecoration(labelText: "Z")),
+      Divider(),
+      TextField(decoration: InputDecoration(labelText: "Height")),
+      TextField(decoration: InputDecoration(labelText: "Width")),
     ]);
   }
 
