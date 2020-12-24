@@ -5,6 +5,7 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/layer.dart';
 import 'package:butterfly/models/project/item.dart';
 import 'package:butterfly/models/project/pad.dart';
+import 'package:butterfly/models/tools/type.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
@@ -22,14 +23,16 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
       yield* _mapDocumentNameChangedToState(event);
     else if (event is LayerCreated)
       yield* _mapLayerCreatedToState(event);
-    else if (event is SelectedChanged) yield* _mapSelectedChangedToState(event);
+    else if (event is SelectedChanged)
+      yield* _mapSelectedChangedToState(event);
+    else if (event is ToolChanged) yield* _mapToolChangedToState(event);
   }
 
   Stream<DocumentState> _mapLayerCreatedToState(LayerCreated event) async* {
     if (state is DocumentLoadSuccess) {
       var current = (state as DocumentLoadSuccess);
       if (current.currentPad != null) current.currentPad.root = event.layer;
-      yield DocumentLoadSuccess(current.document);
+      yield current.copyWith(document: current.document);
       _saveDocument();
     }
   }
@@ -37,16 +40,21 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
   Stream<DocumentState> _mapDocumentNameChangedToState(DocumentNameChanged event) async* {
     if (state is DocumentLoadSuccess) {
       var current = (state as DocumentLoadSuccess);
-      yield DocumentLoadSuccess(current.document.copyWith(name: event.name),
-          currentSelectedPath: current.currentSelectedPath);
+      yield current.copyWith(document: current.document.copyWith(name: event.name));
       _saveDocument();
     }
   }
 
   Stream<DocumentState> _mapSelectedChangedToState(SelectedChanged event) async* {
     if (state is DocumentLoadSuccess) {
-      var last = (state as DocumentLoadSuccess);
-      yield DocumentLoadSuccess(last.document, currentSelectedPath: event.path);
+      yield (state as DocumentLoadSuccess).copyWith(currentSelectedPath: event.path);
+      _saveDocument();
+    }
+  }
+
+  Stream<DocumentState> _mapToolChangedToState(ToolChanged event) async* {
+    if (state is DocumentLoadSuccess) {
+      yield (state as DocumentLoadSuccess).copyWith(currentTool: event.tool);
       _saveDocument();
     }
   }
