@@ -8,9 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 
 class ViewTool extends Tool {
+  const ViewTool();
   @override
-  Widget buildInspector() {
-    return ListView(children: []);
+  Widget buildInspector(DocumentBloc bloc) {
+    return (bloc.state as DocumentLoadSuccess).currentSelected.buildInspector(bloc);
   }
 
   @override

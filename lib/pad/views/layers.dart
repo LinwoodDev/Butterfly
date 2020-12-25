@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/dialogs/create_layer.dart';
 import 'package:butterfly/widgets/split/core.dart';
@@ -5,6 +7,7 @@ import 'package:butterfly/widgets/split/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdi/mdi.dart';
+import 'package:butterfly/models/elements/type.dart';
 
 class LayersView extends StatefulWidget {
   final DocumentBloc documentBloc;
@@ -64,9 +67,17 @@ class _LayersViewState extends State<LayersView> {
                                   state.currentPad.root != null) {
                                 return ListView.builder(
                                     itemCount: state.currentPad.root.children.length,
-                                    itemBuilder: (BuildContext context, int index) => Builder(
-                                        builder: (context) => state.currentPad.root.children[index]
-                                            .buildTile(context, state)));
+                                    itemBuilder: (BuildContext context, int index) {
+                                      var current = state.currentPad.root.children[index];
+                                      return ListTile(
+                                        title: Text(current.name),
+                                        subtitle: Text(current.type.getName()),
+                                        leading: Icon(current.icon),
+                                        selected: state.currentLayer == current,
+                                        onTap: () => _bloc.add(LayerChanged(
+                                            state.currentLayer == current ? null : current)),
+                                      );
+                                    });
                               } else
                                 return CircularProgressIndicator();
                             })))))));

@@ -16,6 +16,14 @@ class LayerCreated extends DocumentEvent {
   List<Object> get props => [layer];
 }
 
+class LayerChanged extends DocumentEvent {
+  final ElementLayer layer;
+
+  LayerChanged(this.layer);
+  @override
+  List<Object> get props => [layer];
+}
+
 class DocumentNameChanged extends DocumentEvent {
   final String name;
 

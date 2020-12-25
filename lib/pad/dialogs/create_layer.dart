@@ -1,4 +1,3 @@
-import 'package:butterfly/models/elements/layer.dart';
 import 'package:butterfly/models/elements/type.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ class CreateLayerDialog extends StatefulWidget {
 class _CreateLayerDialogState extends State<CreateLayerDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  final LayerType _type = LayerType.container;
+  LayerType _type = LayerType.container;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class _CreateLayerDialogState extends State<CreateLayerDialog> {
           DropdownButtonFormField<LayerType>(
               decoration: InputDecoration(labelText: "Type"),
               value: _type,
-              onChanged: (value) => setState,
+              onChanged: (value) => setState(() => _type = value),
               items: LayerType.values
                   .map((e) => DropdownMenuItem<LayerType>(child: Text(e.getName()), value: e))
                   .toList())

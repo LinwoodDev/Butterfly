@@ -9,6 +9,7 @@ import 'move.dart';
 import 'select.dart';
 import 'view.dart';
 
+@immutable
 abstract class Tool extends Equatable with InspectorItem {
   IconData get icon;
   List<Widget> buildOptions(
@@ -23,6 +24,12 @@ abstract class Tool extends Equatable with InspectorItem {
 
   @override
   List<Object> get props => [type];
+
+  const Tool();
+  @override
+  Widget buildInspector(DocumentBloc bloc) {
+    return ListView(children: []);
+  }
 }
 
 enum ToolType { view, select, move, edit }

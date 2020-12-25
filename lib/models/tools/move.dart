@@ -11,7 +11,7 @@ class MoveTool extends Tool {
   final MoveToolType moveToolType;
   MoveTool({this.moveToolType = MoveToolType.location});
   @override
-  Widget buildInspector() {
+  Widget buildInspector(DocumentBloc bloc) {
     return ListView(children: [
       ExpansionTile(
           title: Text(

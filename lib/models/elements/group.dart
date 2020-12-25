@@ -1,13 +1,17 @@
-import 'package:butterfly/models/elements/layer.dart';
-import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/models/elements/type.dart';
 import 'package:flutter/material.dart';
+import 'package:mdi/mdi.dart';
 
 class GroupElement extends ElementLayer {
   @override
-  Widget buildTile(BuildContext context, DocumentLoadSuccess state) => ListTile();
+  IconData get icon => Mdi.group;
+
   GroupElement({@required String name, String description})
       : super(name: name, description: description);
 
   GroupElement.fromJson(Map<String, dynamic> json)
       : super(name: json['name'], description: json['description']);
+
+  @override
+  LayerType get type => LayerType.group;
 }

@@ -1,6 +1,6 @@
-import 'package:butterfly/models/elements/layer.dart';
-import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/models/elements/type.dart';
 import 'package:flutter/material.dart';
+import 'package:mdi/mdi.dart';
 
 class PaintElement extends ElementLayer {
   PaintElement({@required String name, String description})
@@ -8,8 +8,8 @@ class PaintElement extends ElementLayer {
   PaintElement.fromJson(Map<String, dynamic> json)
       : super(name: json['name'], description: json['description']);
   @override
-  Widget buildTile(BuildContext context, DocumentLoadSuccess state) {
-    // TODO: implement buildTile
-    return ListTile();
-  }
+  IconData get icon => Mdi.palette;
+
+  @override
+  LayerType get type => LayerType.paint;
 }

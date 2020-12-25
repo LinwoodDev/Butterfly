@@ -1,8 +1,24 @@
 import 'package:butterfly/models/elements/paint.dart';
+import 'package:flutter/widgets.dart';
+import 'package:mdi/mdi.dart';
 
 import 'container.dart';
 import 'group.dart';
-import 'layer.dart';
+
+abstract class ElementLayer {
+  final String name;
+  final String description;
+
+  final List<ElementLayer> children = [];
+
+  ElementLayer({@required this.name, this.description = ''});
+
+  IconData get icon => Mdi.checkboxBlankOutline;
+
+  static ElementLayer fromJson(Map<String, dynamic> json) =>
+      LayerType.values.firstWhere((element) => element.toString() == json['type']).fromJson(json);
+  LayerType get type;
+}
 
 enum LayerType { container, group, paint }
 

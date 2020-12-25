@@ -1,5 +1,5 @@
 import 'package:butterfly/models/elements/container.dart';
-import 'package:butterfly/models/elements/layer.dart';
+import 'package:butterfly/models/elements/type.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mdi/mdi.dart';

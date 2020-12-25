@@ -1,4 +1,4 @@
-import 'package:butterfly/models/elements/layer.dart';
+import 'package:butterfly/models/elements/type.dart';
 
 abstract class ElementLayerWithChild {
   ElementLayer get child => null;

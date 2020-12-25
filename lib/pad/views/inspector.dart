@@ -38,13 +38,9 @@ class _InspectorViewState extends State<InspectorView> {
                 body: Container(
                     alignment: Alignment.center,
                     child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                      if (state is DocumentLoadSuccess &&
-                          state.currentPad != null &&
-                          state.currentPad.root != null) {
-                        if (state.currentInspectorItem == null)
-                          return Center(child: Text("Nothing selected"));
-                        return Container(child: state.currentInspectorItem.buildInspector());
-                      } else
+                      if (state is DocumentLoadSuccess && state.currentInspectorItem != null)
+                        return Container(child: state.currentInspectorItem.buildInspector(_bloc));
+                      else
                         return CircularProgressIndicator();
                     })),
                 view: widget.view,

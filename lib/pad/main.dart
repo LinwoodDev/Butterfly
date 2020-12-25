@@ -7,6 +7,7 @@ import 'package:butterfly/pad/views/project.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mdi/mdi.dart';
 
 import 'bloc/document_bloc.dart';
@@ -28,6 +29,9 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void initState() {
     super.initState();
+    if (widget.id == null) {
+      Modular.to.navigate("/");
+    }
     _bloc = DocumentBloc(document);
     WidgetsBinding.instance.addPostFrameCallback((_) => _showRootDialog());
   }

@@ -24,7 +24,10 @@ class MainViewToolbar extends StatefulWidget {
 class _MainViewToolbarState extends State<MainViewToolbar> {
   DocumentBloc _bloc;
 
-  void _toggleTool(Tool tool) => _bloc.add(ToolChanged(tool));
+  void _toggleTool(Tool tool) {
+    _bloc.add(ToolChanged(tool));
+    _bloc.add(InspectorChanged(tool));
+  }
 
   @override
   void initState() {

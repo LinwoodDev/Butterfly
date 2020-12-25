@@ -6,11 +6,6 @@ import 'package:mdi/mdi.dart';
 
 class SelectTool extends Tool {
   @override
-  Widget buildInspector() {
-    return ListView(children: []);
-  }
-
-  @override
   List<Widget> buildOptions(
       {BuildContext context,
       DocumentBloc bloc,

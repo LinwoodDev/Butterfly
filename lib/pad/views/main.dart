@@ -35,8 +35,8 @@ class _MainViewState extends State<MainView> {
             create: (_) => _bloc,
             child: Scaffold(body: Container(
                 child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-              return (state as DocumentLoadSuccess).currentPad == null
-                  ? Center(child: Text("No file selected : "))
+              return (state as DocumentLoadSuccess).currentSelected == null
+                  ? Center(child: Text("No file selected"))
                   : Column(children: [
                       Expanded(child: Center(child: FlutterLogo(size: 256))),
                       Container(

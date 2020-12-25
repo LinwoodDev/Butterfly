@@ -2,11 +2,12 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/elements/layer.dart';
+import 'package:butterfly/models/elements/type.dart';
 import 'package:butterfly/models/inspector.dart';
 import 'package:butterfly/models/project/item.dart';
 import 'package:butterfly/models/project/pad.dart';
 import 'package:butterfly/models/tools/type.dart';
+import 'package:butterfly/models/tools/view.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
@@ -26,15 +27,24 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
       yield* _mapLayerCreatedToState(event);
     else if (event is SelectedChanged)
       yield* _mapSelectedChangedToState(event);
-    else if (event is ToolChanged) yield* _mapToolChangedToState(event);
-    else if (event is InspectorChanged) yield* _mapInspectorChangedToState(event);
+    else if (event is ToolChanged)
+      yield* _mapToolChangedToState(event);
+    else if (event is InspectorChanged)
+      yield* _mapInspectorChangedToState(event);
+    else if (event is LayerChanged) yield* _mapLayerChangedToState(event);
   }
 
   Stream<DocumentState> _mapLayerCreatedToState(LayerCreated event) async* {
     if (state is DocumentLoadSuccess) {
       var current = (state as DocumentLoadSuccess);
-      if (current.currentPad != null) current.currentPad.root = event.layer;
-      yield current.copyWith(document: current.document);
+      if (current.currentPad != null) {
+        if (event.parent == null)
+          current.currentPad.root = event.layer;
+        else
+          event.parent.children.add(event.layer);
+      }
+      var document = current.copyWith(document: current.document.copyWith());
+      yield document;
       _saveDocument();
     }
   }
@@ -64,6 +74,14 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
   Stream<DocumentState> _mapInspectorChangedToState(InspectorChanged event) async* {
     if (state is DocumentLoadSuccess) {
       yield (state as DocumentLoadSuccess).copyWith(currentInspectorItem: event.item);
+      _saveDocument();
+    }
+  }
+
+  Stream<DocumentState> _mapLayerChangedToState(LayerChanged event) async* {
+    if (state is DocumentLoadSuccess) {
+      yield (state as DocumentLoadSuccess)
+          .copyWith(currentLayer: event.layer, unselectLayer: event.layer == null);
       _saveDocument();
     }
   }
