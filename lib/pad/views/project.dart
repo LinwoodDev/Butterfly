@@ -1,5 +1,6 @@
 import 'package:butterfly/models/project/folder.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/pad/dialogs/path.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/widgets/split/scaffold.dart';
 import 'package:flutter/material.dart';
@@ -54,8 +55,18 @@ class _ProjectViewState extends State<ProjectView> {
                       onPressed: () {
                         if (Navigator.canPop(_systemContext)) Navigator.pop(_systemContext);
                       }),
-                  IconButton(icon: Icon(Mdi.magnify), tooltip: "Path", onPressed: () {}),
-                  IconButton(icon: Icon(Mdi.reload), tooltip: "Reload", onPressed: () {}),
+                  IconButton(
+                      icon: Icon(Mdi.magnify),
+                      tooltip: "Path",
+                      onPressed: () => showDialog(
+                          context: context,
+                          builder: (context) => FilePathDialog(
+                              callback: (path) => Navigator.of(_systemContext).push(
+                                  MaterialPageRoute(
+                                      builder: (_) =>
+                                          _ProjectViewSystem(bloc: _bloc, path: path)))))),
+                  IconButton(
+                      icon: Icon(Mdi.reload), tooltip: "Reload", onPressed: () => setState(() {})),
                   VerticalDivider()
                 ],
                 floatingActionButton: FloatingActionButton(

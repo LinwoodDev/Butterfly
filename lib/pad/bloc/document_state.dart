@@ -14,6 +14,7 @@ class DocumentLoadSuccess extends DocumentState {
   final String currentSelectedPath;
   final Tool currentTool;
   final ElementLayer currentLayer;
+  final String currentPath;
   final InspectorItem currentInspectorItem;
 
   ProjectItem get currentSelected =>
@@ -25,6 +26,7 @@ class DocumentLoadSuccess extends DocumentState {
       {this.currentSelectedPath,
       this.currentTool = const ViewTool(),
       this.currentInspectorItem,
+      this.currentPath = '',
       this.currentLayer});
 
   @override
@@ -36,12 +38,14 @@ class DocumentLoadSuccess extends DocumentState {
       String currentSelectedPath,
       Tool currentTool,
       ElementLayer currentLayer,
+      String currentPath,
       InspectorItem currentInspectorItem,
       bool unselectLayer = false}) {
     return DocumentLoadSuccess(document ?? this.document,
         currentSelectedPath: currentSelectedPath ?? this.currentSelectedPath,
         currentTool: currentTool ?? this.currentTool,
         currentLayer: unselectLayer ? null : currentLayer ?? this.currentLayer,
+        currentPath: currentPath ?? this.currentPath,
         currentInspectorItem: currentInspectorItem ?? this.currentInspectorItem);
   }
 }
