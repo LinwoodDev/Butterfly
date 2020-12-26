@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 
 class GroupElement extends ElementLayer {
+  String text;
+  int size;
+
   @override
-  IconData get icon => Mdi.group;
+  IconData get icon => Mdi.text;
 
   GroupElement({@required String name, String description})
       : super(name: name, description: description);
@@ -13,5 +16,5 @@ class GroupElement extends ElementLayer {
       : super(name: json['name'], description: json['description']);
 
   @override
-  LayerType get type => LayerType.group;
+  LayerType get type => LayerType.text;
 }

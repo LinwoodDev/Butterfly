@@ -112,7 +112,10 @@ class _ProjectViewSystem extends StatelessWidget {
         alignment: Alignment.center,
         child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
           if (state is DocumentLoadSuccess) {
-            var folder = state.document.getFile(path) as FolderProjectItem;
+            var file = state.document.getFile(path);
+            if (file == null || !(file is FolderProjectItem))
+              return Center(child: Text("Directory not found"));
+            var folder = file as FolderProjectItem;
             return SizedBox.expand(
                 child: SingleChildScrollView(
                     child: Wrap(

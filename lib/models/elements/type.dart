@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:mdi/mdi.dart';
 
 import 'container.dart';
-import 'group.dart';
+import 'text.dart';
 
 abstract class ElementLayer {
   final String name;
@@ -20,15 +20,15 @@ abstract class ElementLayer {
   LayerType get type;
 }
 
-enum LayerType { container, group, paint }
+enum LayerType { container, text, paint }
 
 extension LayerTypeExtension on LayerType {
   String getName() {
     switch (this) {
       case LayerType.container:
         return "Container";
-      case LayerType.group:
-        return "Group";
+      case LayerType.text:
+        return "Text";
       case LayerType.paint:
         return "Paint";
     }
@@ -39,7 +39,7 @@ extension LayerTypeExtension on LayerType {
     switch (this) {
       case LayerType.container:
         return LayerContainer(name: name, description: description);
-      case LayerType.group:
+      case LayerType.text:
         return GroupElement(name: name, description: description);
       case LayerType.paint:
         return PaintElement(name: name, description: description);
@@ -51,7 +51,7 @@ extension LayerTypeExtension on LayerType {
     switch (this) {
       case LayerType.container:
         return LayerContainer.fromJson(json);
-      case LayerType.group:
+      case LayerType.text:
         return GroupElement.fromJson(json);
       case LayerType.paint:
         return PaintElement.fromJson(json);
