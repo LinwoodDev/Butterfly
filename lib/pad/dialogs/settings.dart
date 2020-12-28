@@ -1,6 +1,5 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdi/mdi.dart';
 
 class PadSettingsDialog extends StatefulWidget {
@@ -13,12 +12,9 @@ class PadSettingsDialog extends StatefulWidget {
 
 class _PadSettingsDialogState extends State<PadSettingsDialog> {
   final TextEditingController _nameController = TextEditingController();
-  // ignore: close_sinks
-  DocumentBloc _bloc;
 
   @override
   void initState() {
-    _bloc = widget.bloc;
     _nameController.text = (widget.bloc.state as DocumentLoadSuccess).document.name;
     super.initState();
   }

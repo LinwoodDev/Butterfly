@@ -8,13 +8,11 @@ import 'package:mdi/mdi.dart';
 import 'package:butterfly/models/elements/type.dart';
 
 class LayersView extends StatefulWidget {
-  final DocumentBloc documentBloc;
   final SplitView view;
   final SplitWindow window;
   final bool expanded;
 
-  const LayersView({Key key, this.documentBloc, this.view, this.window, this.expanded})
-      : super(key: key);
+  const LayersView({Key key, this.view, this.window, this.expanded}) : super(key: key);
   @override
   _LayersViewState createState() => _LayersViewState();
 }
@@ -25,7 +23,6 @@ class _LayersViewState extends State<LayersView> {
 
   @override
   void initState() {
-    _bloc = widget.documentBloc;
     // TODO: implement initState
     super.initState();
   }
@@ -47,7 +44,6 @@ class _LayersViewState extends State<LayersView> {
                   if ((_bloc.state as DocumentLoadSuccess).currentPad != null)
                     showDialog(
                         builder: (context) => CreateLayerDialog(
-                            documentBloc: widget.documentBloc,
                             parent: (_bloc.state as DocumentLoadSuccess).currentPad.root),
                         context: context);
                 },

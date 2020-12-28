@@ -7,14 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 enum SelectMode { add, replace, remove }
 
 class MainViewToolbar extends StatefulWidget {
-  final DocumentBloc documentBloc;
   final bool isMobile;
   final bool expanded;
   final SplitView view;
   final SplitWindow window;
 
-  const MainViewToolbar(
-      {Key key, this.documentBloc, this.isMobile, this.expanded, this.view, this.window})
+  const MainViewToolbar({Key key, this.isMobile, this.expanded, this.view, this.window})
       : super(key: key);
 
   @override
@@ -22,17 +20,16 @@ class MainViewToolbar extends StatefulWidget {
 }
 
 class _MainViewToolbarState extends State<MainViewToolbar> {
-  DocumentBloc _bloc;
-
   void _toggleTool(Tool tool) {
     print("TEST");
-    _bloc.add(ToolChanged(tool));
-    _bloc.add(InspectorChanged(tool));
+    // ignore: close_sinks
+    var bloc = BlocProvider.of<DocumentBloc>(context);
+    bloc.add(ToolChanged(tool));
+    bloc.add(InspectorChanged(tool));
   }
 
   @override
   void initState() {
-    _bloc = widget.documentBloc;
     super.initState();
   }
 
@@ -53,7 +50,6 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
         if (current.currentTool != null) ...[
           VerticalDivider(),
           ...current.currentTool.buildOptions(
-              bloc: _bloc,
               context: context,
               expanded: widget.expanded,
               view: widget.view,

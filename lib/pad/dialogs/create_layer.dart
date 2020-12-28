@@ -1,12 +1,12 @@
 import 'package:butterfly/models/elements/type.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateLayerDialog extends StatefulWidget {
   final ElementLayer parent;
-  final DocumentBloc documentBloc;
 
-  CreateLayerDialog({Key key, @required this.documentBloc, this.parent}) : super(key: key);
+  CreateLayerDialog({Key key, this.parent}) : super(key: key);
   @override
   _CreateLayerDialogState createState() => _CreateLayerDialogState();
 }
@@ -29,7 +29,7 @@ class _CreateLayerDialogState extends State<CreateLayerDialog> {
               child: Text("CANCEL")),
           FlatButton(
               onPressed: () {
-                widget.documentBloc.add(LayerCreated(
+                BlocProvider.of<DocumentBloc>(context).add(LayerCreated(
                     parent: widget.parent,
                     layer: _type.create(_nameController.text, _descriptionController.text)));
                 Navigator.of(context).pop();

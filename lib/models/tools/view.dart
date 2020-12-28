@@ -26,16 +26,16 @@ class ViewTool extends Tool {
       if (isMobile) ...[
         IconButton(
             icon: Icon(Mdi.cubeOutline),
-            onPressed: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => LayersView(documentBloc: bloc)))),
+            onPressed: () =>
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => LayersView()))),
         IconButton(
             icon: Icon(Mdi.tuneVertical),
             onPressed: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => InspectorView(documentBloc: bloc)))),
+                .push(MaterialPageRoute(builder: (context) => InspectorView()))),
         IconButton(
             icon: Icon(Mdi.tableOfContents),
-            onPressed: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => ProjectView(documentBloc: bloc))))
+            onPressed: () =>
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProjectView())))
       ] else ...[
         IconButton(
             icon: Icon(expanded ? Mdi.windowMinimize : Mdi.windowMaximize),

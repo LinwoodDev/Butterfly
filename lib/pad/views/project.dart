@@ -8,24 +8,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdi/mdi.dart';
 
 class ProjectView extends StatefulWidget {
-  final DocumentBloc documentBloc;
   final SplitView view;
   final SplitWindow window;
   final bool expanded;
 
-  const ProjectView({Key key, this.documentBloc, this.view, this.window, this.expanded})
-      : super(key: key);
+  const ProjectView({Key key, this.view, this.window, this.expanded}) : super(key: key);
   @override
   _ProjectViewState createState() => _ProjectViewState();
 }
 
 class _ProjectViewState extends State<ProjectView> {
-  // ignore: close_sinks
-  DocumentBloc _bloc;
-
   @override
   void initState() {
-    _bloc = widget.documentBloc;
     super.initState();
   }
 
@@ -36,7 +30,7 @@ class _ProjectViewState extends State<ProjectView> {
     return Hero(
         tag: 'project_view',
         child: SplitScaffold(
-            bloc: _bloc,
+            bloc: BlocProvider.of<DocumentBloc>(context),
             view: widget.view,
             window: widget.window,
             expanded: widget.expanded,
@@ -59,8 +53,8 @@ class _ProjectViewState extends State<ProjectView> {
                   onPressed: () => showDialog(
                       context: context,
                       builder: (context) => FilePathDialog(
-                          callback: (path) => Navigator.of(_systemContext).push(MaterialPageRoute(
-                              builder: (_) => _ProjectViewSystem(bloc: _bloc, path: path)))))),
+                          callback: (path) => Navigator.of(_systemContext).push(
+                              MaterialPageRoute(builder: (_) => _ProjectViewSystem(path: path)))))),
               IconButton(
                   icon: Icon(Mdi.reload), tooltip: "Reload", onPressed: () => setState(() {})),
               VerticalDivider()
@@ -73,7 +67,7 @@ class _ProjectViewState extends State<ProjectView> {
             body: Navigator(
                 onGenerateRoute: (settings) => MaterialPageRoute(builder: (context) {
                       _systemContext = context;
-                      return _ProjectViewSystem(bloc: _bloc);
+                      return _ProjectViewSystem();
                     }))));
   }
 
@@ -92,18 +86,18 @@ class _ProjectViewState extends State<ProjectView> {
 }
 
 class _ProjectViewSystem extends StatelessWidget {
-  final DocumentBloc bloc;
   final String path;
 
-  const _ProjectViewSystem({Key key, this.bloc, this.path = ''}) : super(key: key);
+  const _ProjectViewSystem({Key key, this.path = ''}) : super(key: key);
 
-  void _changeSelected(DocumentLoadSuccess state, String currentPath) {
+  void _changeSelected(DocumentBloc bloc, DocumentLoadSuccess state, String currentPath) {
     bloc.add(SelectedChanged(currentPath));
     bloc.add(InspectorChanged(state.document.getFile(currentPath)));
   }
 
   @override
   Widget build(BuildContext context) {
+    var bloc = BlocProvider.of<DocumentBloc>(context);
     return Container(
         alignment: Alignment.center,
         child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
@@ -120,16 +114,15 @@ class _ProjectViewSystem extends StatelessWidget {
               currentPath += file.name;
               return Card(
                   child: InkWell(
-                      onLongPress: () => _changeSelected(state, currentPath),
+                      onLongPress: () => _changeSelected(bloc, state, currentPath),
                       onTap: () {
-                        if (file is FolderProjectItem) {
+                        if (file is FolderProjectItem)
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      _ProjectViewSystem(bloc: bloc, path: currentPath)));
-                        } else
-                          _changeSelected(state, currentPath);
+                                  builder: (context) => _ProjectViewSystem(path: currentPath)));
+                        else
+                          _changeSelected(bloc, state, currentPath);
                       },
                       child: Container(
                           constraints: BoxConstraints(maxWidth: 200),

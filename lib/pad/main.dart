@@ -40,7 +40,7 @@ class _ProjectPageState extends State<ProjectPage> {
     var pad = (_bloc.state as DocumentLoadSuccess).currentPad;
     if (pad != null && pad.root == null) {
       await showDialog(
-          context: context, builder: (context) => CreateLayerDialog(documentBloc: _bloc));
+          context: context, builder: (context) => CreateLayerDialog());
     }
   }
 
@@ -90,7 +90,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       bool isMobile = MediaQuery.of(context).size.width < 800 ||
                           MediaQuery.of(context).size.height < 600;
                       if (isMobile)
-                        return MainView(documentBloc: _bloc, expanded: true);
+                        return MainView(expanded: true);
                       else
                         return Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -112,15 +112,13 @@ class _ProjectPageState extends State<ProjectPage> {
                                                       LayersView(
                                                           view: view,
                                                           window: window,
-                                                          expanded: expanded,
-                                                          documentBloc: _bloc),
+                                                          expanded: expanded),
                                                 ),
                                                 second: SplitWindow(
                                                     minSize: 100,
                                                     builder: (BuildContext context, SplitView view,
                                                             SplitWindow window, bool expanded) =>
                                                         InspectorView(
-                                                            documentBloc: _bloc,
                                                             view: view,
                                                             window: window,
                                                             expanded: expanded)))),
@@ -134,8 +132,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                             maxSize: 350,
                                             builder: (BuildContext context, SplitView view,
                                                     SplitWindow window, bool expanded) =>
-                                                ProjectView(view: view, window: window, expanded: expanded, documentBloc: _bloc)),
-                                        first: SplitWindow(builder: (BuildContext context, SplitView view, SplitWindow window, bool expanded) => MainView(view: view, window: window, expanded: expanded, documentBloc: _bloc))))));
+                                                ProjectView(view: view, window: window, expanded: expanded)),
+                                        first: SplitWindow(builder: (BuildContext context, SplitView view, SplitWindow window, bool expanded) => MainView(view: view, window: window, expanded: expanded))))));
                     })))));
   }
 

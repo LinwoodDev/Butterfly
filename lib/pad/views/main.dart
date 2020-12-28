@@ -8,21 +8,15 @@ class MainView extends StatefulWidget {
   final bool expanded;
   final SplitView view;
   final SplitWindow window;
-  final DocumentBloc documentBloc;
 
-  const MainView({Key key, this.expanded, this.view, this.window, this.documentBloc})
-      : super(key: key);
+  const MainView({Key key, this.expanded, this.view, this.window}) : super(key: key);
   @override
   _MainViewState createState() => _MainViewState();
 }
 
 class _MainViewState extends State<MainView> {
-  // ignore: close_sinks
-  DocumentBloc _bloc;
-
   @override
   void initState() {
-    _bloc = widget.documentBloc;
     super.initState();
   }
 
@@ -43,11 +37,10 @@ class _MainViewState extends State<MainView> {
                 color: Theme.of(context).focusColor,
                 child: MainViewToolbar(
                     isMobile: isMobile,
-                    documentBloc: _bloc,
                     expanded: widget.expanded,
                     view: widget.view,
                     window: widget.window))
           ]);
-        }))));
+        })));
   }
 }
