@@ -25,6 +25,7 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
   DocumentBloc _bloc;
 
   void _toggleTool(Tool tool) {
+    print("TEST");
     _bloc.add(ToolChanged(tool));
     _bloc.add(InspectorChanged(tool));
   }

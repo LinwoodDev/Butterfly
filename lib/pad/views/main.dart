@@ -31,24 +31,23 @@ class _MainViewState extends State<MainView> {
     bool isMobile = widget.window == null || widget.view == null || widget.expanded == null;
     return Hero(
         tag: 'main_view',
-        child: BlocProvider(
-            create: (_) => _bloc,
-            child: Scaffold(body: Container(
-                child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-              return (state as DocumentLoadSuccess).currentSelected == null
-                  ? Center(child: Text("No file selected"))
-                  : Column(children: [
-                      Expanded(child: Center(child: FlutterLogo(size: 256))),
-                      Container(
-                          height: 44.0,
-                          color: Theme.of(context).focusColor,
-                          child: MainViewToolbar(
-                              isMobile: isMobile,
-                              documentBloc: _bloc,
-                              expanded: widget.expanded,
-                              view: widget.view,
-                              window: widget.window))
-                    ]);
-            })))));
+        child: Container(child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+          return Column(children: [
+            Expanded(
+                child: Center(
+                    child: (state as DocumentLoadSuccess).currentSelected == null
+                        ? Center(child: Text("No file selected"))
+                        : FlutterLogo(size: 256))),
+            Container(
+                height: 44.0,
+                color: Theme.of(context).focusColor,
+                child: MainViewToolbar(
+                    isMobile: isMobile,
+                    documentBloc: _bloc,
+                    expanded: widget.expanded,
+                    view: widget.view,
+                    window: widget.window))
+          ]);
+        }))));
   }
 }

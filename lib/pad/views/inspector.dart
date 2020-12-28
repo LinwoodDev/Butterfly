@@ -32,21 +32,20 @@ class _InspectorViewState extends State<InspectorView> {
   Widget build(BuildContext context) {
     return Hero(
         tag: 'inspector_view',
-        child: BlocProvider(
-            create: (_) => _bloc,
-            child: SplitScaffold(
-                body: Container(
-                    alignment: Alignment.center,
-                    child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                      if (state is DocumentLoadSuccess && state.currentInspectorItem != null)
-                        return Container(child: state.currentInspectorItem.buildInspector(_bloc));
-                      else
-                        return CircularProgressIndicator();
-                    })),
-                view: widget.view,
-                window: widget.window,
-                expanded: widget.expanded,
-                title: 'Inspector',
-                icon: Icon(Mdi.tuneVertical))));
+        child: SplitScaffold(
+            bloc: _bloc,
+            body: Container(
+                alignment: Alignment.center,
+                child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                  if (state is DocumentLoadSuccess && state.currentInspectorItem != null)
+                    return Container(child: state.currentInspectorItem.buildInspector(_bloc));
+                  else
+                    return CircularProgressIndicator();
+                })),
+            view: widget.view,
+            window: widget.window,
+            expanded: widget.expanded,
+            title: 'Inspector',
+            icon: Icon(Mdi.tuneVertical)));
   }
 }

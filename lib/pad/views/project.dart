@@ -35,50 +35,46 @@ class _ProjectViewState extends State<ProjectView> {
   Widget build(BuildContext context) {
     return Hero(
         tag: 'project_view',
-        child: BlocProvider(
-            create: (_) => _bloc,
-            child: SplitScaffold(
-                view: widget.view,
-                window: widget.window,
-                expanded: widget.expanded,
-                title: "Project",
-                icon: Icon(Mdi.tableOfContents),
-                actions: [
-                  IconButton(
-                      icon: Icon(Mdi.homeOutline),
-                      tooltip: "Home",
-                      onPressed: () =>
-                          Navigator.popUntil(_systemContext, (route) => route.isFirst)),
-                  IconButton(
-                      icon: Icon(Mdi.arrowUp),
-                      tooltip: "Up",
-                      onPressed: () {
-                        if (Navigator.canPop(_systemContext)) Navigator.pop(_systemContext);
-                      }),
-                  IconButton(
-                      icon: Icon(Mdi.magnify),
-                      tooltip: "Path",
-                      onPressed: () => showDialog(
-                          context: context,
-                          builder: (context) => FilePathDialog(
-                              callback: (path) => Navigator.of(_systemContext).push(
-                                  MaterialPageRoute(
-                                      builder: (_) =>
-                                          _ProjectViewSystem(bloc: _bloc, path: path)))))),
-                  IconButton(
-                      icon: Icon(Mdi.reload), tooltip: "Reload", onPressed: () => setState(() {})),
-                  VerticalDivider()
-                ],
-                floatingActionButton: FloatingActionButton(
-                    heroTag: null,
-                    onPressed: () => _showNewSheet(context),
-                    child: Icon(Mdi.plus),
-                    tooltip: "New"),
-                body: Navigator(
-                    onGenerateRoute: (settings) => MaterialPageRoute(builder: (context) {
-                          _systemContext = context;
-                          return _ProjectViewSystem(bloc: _bloc);
-                        })))));
+        child: SplitScaffold(
+            bloc: _bloc,
+            view: widget.view,
+            window: widget.window,
+            expanded: widget.expanded,
+            title: "Project",
+            icon: Icon(Mdi.tableOfContents),
+            actions: [
+              IconButton(
+                  icon: Icon(Mdi.homeOutline),
+                  tooltip: "Home",
+                  onPressed: () => Navigator.popUntil(_systemContext, (route) => route.isFirst)),
+              IconButton(
+                  icon: Icon(Mdi.arrowUp),
+                  tooltip: "Up",
+                  onPressed: () {
+                    if (Navigator.canPop(_systemContext)) Navigator.pop(_systemContext);
+                  }),
+              IconButton(
+                  icon: Icon(Mdi.magnify),
+                  tooltip: "Path",
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => FilePathDialog(
+                          callback: (path) => Navigator.of(_systemContext).push(MaterialPageRoute(
+                              builder: (_) => _ProjectViewSystem(bloc: _bloc, path: path)))))),
+              IconButton(
+                  icon: Icon(Mdi.reload), tooltip: "Reload", onPressed: () => setState(() {})),
+              VerticalDivider()
+            ],
+            floatingActionButton: FloatingActionButton(
+                heroTag: null,
+                onPressed: () => _showNewSheet(context),
+                child: Icon(Mdi.plus),
+                tooltip: "New"),
+            body: Navigator(
+                onGenerateRoute: (settings) => MaterialPageRoute(builder: (context) {
+                      _systemContext = context;
+                      return _ProjectViewSystem(bloc: _bloc);
+                    }))));
   }
 
   void _showNewSheet(BuildContext context) {
