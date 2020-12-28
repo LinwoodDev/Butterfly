@@ -21,7 +21,15 @@ abstract class ProjectItem with InspectorItem {
   IconData get icon => Mdi.helpCircleOutline;
   Widget buildInspector(DocumentBloc bloc) {
     return ListView(children: [
-      TextField(decoration: InputDecoration(labelText: "Name")),
+      TextField(
+          decoration: InputDecoration(labelText: "Name"),
+          controller: TextEditingController(text: name),
+          onSubmitted: (value) {
+            name = value;
+            var path = (bloc.state as DocumentLoadSuccess).currentSelectedPath.split('/');
+            path.last = name;
+            bloc.add(ProjectChanged(nextSelected: path.join('/')));
+          }),
       TextField(maxLines: null, minLines: 3, decoration: InputDecoration(labelText: "Decoration"))
     ]);
   }

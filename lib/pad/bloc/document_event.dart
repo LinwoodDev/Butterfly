@@ -7,6 +7,14 @@ abstract class DocumentEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class ProjectChanged extends DocumentEvent {
+  final String nextSelected;
+
+  ProjectChanged({this.nextSelected});
+  @override
+  List<Object> get props => [nextSelected];
+}
+
 class LayerCreated extends DocumentEvent {
   final ElementLayer layer;
   final ElementLayer parent;

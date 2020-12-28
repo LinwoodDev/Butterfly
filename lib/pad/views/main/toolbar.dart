@@ -35,7 +35,7 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+    return Material(child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       var current = state as DocumentLoadSuccess;
       return ListView(scrollDirection: Axis.horizontal, shrinkWrap: true, children: [
         ...ToolType.values.map((e) {
@@ -57,6 +57,6 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
               isMobile: widget.isMobile)
         ]
       ]);
-    });
+    }));
   }
 }

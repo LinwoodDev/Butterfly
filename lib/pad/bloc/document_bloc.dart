@@ -31,7 +31,18 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
       yield* _mapToolChangedToState(event);
     else if (event is InspectorChanged)
       yield* _mapInspectorChangedToState(event);
-    else if (event is LayerChanged) yield* _mapLayerChangedToState(event);
+    else if (event is LayerChanged)
+      yield* _mapLayerChangedToState(event);
+    else if (event is ProjectChanged) yield* _mapProjectChangedToState(event);
+  }
+
+  Stream<DocumentState> _mapProjectChangedToState(ProjectChanged event) async* {
+    if (state is DocumentLoadSuccess) {
+      var last = (state as DocumentLoadSuccess);
+      yield last.copyWith(
+          document: last.document.copyWith(), currentSelectedPath: event.nextSelected);
+      _saveDocument();
+    }
   }
 
   Stream<DocumentState> _mapLayerCreatedToState(LayerCreated event) async* {

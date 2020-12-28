@@ -18,21 +18,14 @@ class LayersView extends StatefulWidget {
 }
 
 class _LayersViewState extends State<LayersView> {
-  // ignore: close_sinks
-  DocumentBloc _bloc;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    // ignore: close_sinks
+    var bloc = BlocProvider.of<DocumentBloc>(context);
     return Hero(
         tag: 'layers_view',
         child: SplitScaffold(
-            bloc: _bloc,
+            bloc: bloc,
             view: widget.view,
             window: widget.window,
             expanded: widget.expanded,
@@ -41,10 +34,12 @@ class _LayersViewState extends State<LayersView> {
             floatingActionButton: FloatingActionButton(
                 heroTag: null,
                 onPressed: () {
-                  if ((_bloc.state as DocumentLoadSuccess).currentPad != null)
+                  if ((bloc.state as DocumentLoadSuccess).currentPad != null)
                     showDialog(
-                        builder: (context) => CreateLayerDialog(
-                            parent: (_bloc.state as DocumentLoadSuccess).currentPad.root),
+                        builder: (context) => BlocProvider(
+                            create: (_) => bloc,
+                            child: CreateLayerDialog(
+                                parent: (bloc.state as DocumentLoadSuccess).currentPad.root)),
                         context: context);
                 },
                 child: Icon(Mdi.plus),
@@ -66,7 +61,7 @@ class _LayersViewState extends State<LayersView> {
                                     subtitle: Text(current.type.getName()),
                                     leading: Icon(current.icon),
                                     selected: state.currentLayer == current,
-                                    onTap: () => _bloc.add(LayerChanged(
+                                    onTap: () => bloc.add(LayerChanged(
                                         state.currentLayer == current ? null : current)),
                                   );
                                 });
