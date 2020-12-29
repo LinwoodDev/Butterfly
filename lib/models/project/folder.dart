@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mdi/mdi.dart';
 
-import 'item.dart';
+import 'type.dart';
 
 class FolderProjectItem extends ProjectItem {
   final List<ProjectItem> _files;
@@ -63,5 +62,5 @@ class FolderProjectItem extends ProjectItem {
   }
 
   @override
-  IconData get icon => Mdi.folderOutline;
+  ProjectItemType get type => ProjectItemType.folder;
 }

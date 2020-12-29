@@ -1,20 +1,21 @@
-import 'package:butterfly/models/elements/type.dart';
+import 'package:butterfly/models/project/folder.dart';
+import 'package:butterfly/models/project/type.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CreateLayerDialog extends StatefulWidget {
-  final ElementLayer parent;
+class CreateItemDialog extends StatefulWidget {
+  final FolderProjectItem parent;
 
-  CreateLayerDialog({Key key, this.parent}) : super(key: key);
+  CreateItemDialog({Key key, this.parent}) : super(key: key);
   @override
-  _CreateLayerDialogState createState() => _CreateLayerDialogState();
+  _CreateItemDialogState createState() => _CreateItemDialogState();
 }
 
-class _CreateLayerDialogState extends State<CreateLayerDialog> {
+class _CreateItemDialogState extends State<CreateItemDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  LayerType _type = LayerType.container;
+  ProjectItemType _type = ProjectItemType.folder;
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +30,14 @@ class _CreateLayerDialogState extends State<CreateLayerDialog> {
               child: Text("CANCEL")),
           FlatButton(
               onPressed: () {
-                BlocProvider.of<DocumentBloc>(context).add(LayerCreated(
+                BlocProvider.of<DocumentBloc>(context).add(ItemCreated(
                     parent: widget.parent,
-                    layer: _type.create(_nameController.text, _descriptionController.text)));
+                    item: _type.create(_nameController.text, _descriptionController.text)));
                 Navigator.of(context).pop();
               },
               child: Text("CREATE"))
         ],
-        title: Text("Create layer"),
+        title: Text("Create item"),
         content: Container(
             child: Form(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -47,12 +48,12 @@ class _CreateLayerDialogState extends State<CreateLayerDialog> {
               maxLines: null,
               minLines: 3,
               decoration: InputDecoration(labelText: "Description")),
-          DropdownButtonFormField<LayerType>(
+          DropdownButtonFormField<ProjectItemType>(
               decoration: InputDecoration(labelText: "Type"),
               value: _type,
               onChanged: (value) => setState(() => _type = value),
-              items: LayerType.values
-                  .map((e) => DropdownMenuItem<LayerType>(child: Text(e.name), value: e))
+              items: ProjectItemType.values
+                  .map((e) => DropdownMenuItem<ProjectItemType>(child: Text(e.name), value: e))
                   .toList())
         ]))));
   }

@@ -1,5 +1,7 @@
 import 'package:butterfly/models/project/folder.dart';
+import 'package:butterfly/models/project/type.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/pad/dialogs/create_item.dart';
 import 'package:butterfly/pad/dialogs/path.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/widgets/split/scaffold.dart';
@@ -24,13 +26,16 @@ class _ProjectViewState extends State<ProjectView> {
   }
 
   BuildContext _systemContext;
+  _ProjectViewSystem _system;
 
   @override
   Widget build(BuildContext context) {
+    // ignore: close_sinks
+    var bloc = BlocProvider.of<DocumentBloc>(context);
     return Hero(
         tag: 'project_view',
         child: SplitScaffold(
-            bloc: BlocProvider.of<DocumentBloc>(context),
+            bloc: bloc,
             view: widget.view,
             window: widget.window,
             expanded: widget.expanded,
@@ -53,35 +58,33 @@ class _ProjectViewState extends State<ProjectView> {
                   onPressed: () => showDialog(
                       context: context,
                       builder: (context) => FilePathDialog(
-                          callback: (path) => Navigator.of(_systemContext).push(
-                              MaterialPageRoute(builder: (_) => _ProjectViewSystem(path: path)))))),
+                          callback: (path) =>
+                              Navigator.of(_systemContext).push(MaterialPageRoute(builder: (_) {
+                                _system = _ProjectViewSystem(path: path);
+                                return _system;
+                              }))))),
               IconButton(
                   icon: Icon(Mdi.reload), tooltip: "Reload", onPressed: () => setState(() {})),
               VerticalDivider()
             ],
             floatingActionButton: FloatingActionButton(
                 heroTag: null,
-                onPressed: () => _showNewSheet(context),
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => BlocProvider(
+                        create: (_) => bloc,
+                        child: CreateItemDialog(
+                            parent: (bloc.state as DocumentLoadSuccess)
+                                .document
+                                .getFile(_system.path)))),
                 child: Icon(Mdi.plus),
                 tooltip: "New"),
             body: Navigator(
                 onGenerateRoute: (settings) => MaterialPageRoute(builder: (context) {
                       _systemContext = context;
-                      return _ProjectViewSystem();
+                      _system = _ProjectViewSystem();
+                      return _system;
                     }))));
-  }
-
-  void _showNewSheet(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (context) => Container(
-            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Text("Create", style: Theme.of(context).textTheme.headline5),
-              ListTile(title: Text("Pad"), leading: Icon(Mdi.paletteOutline), onTap: () {}),
-              Divider(),
-              ListTile(title: Text("Import"), leading: Icon(Mdi.import), onTap: () {})
-            ])));
   }
 }
 
@@ -129,7 +132,7 @@ class _ProjectViewSystem extends StatelessWidget {
                           child: Padding(
                               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                               child: Column(children: [
-                                Icon(file.icon, size: 50),
+                                Icon(file.type.icon, size: 50),
                                 Text(file.name, overflow: TextOverflow.ellipsis)
                               ])))));
             }).toList())));

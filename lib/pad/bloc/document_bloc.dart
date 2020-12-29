@@ -4,8 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/type.dart';
 import 'package:butterfly/models/inspector.dart';
-import 'package:butterfly/models/project/item.dart';
+import 'package:butterfly/models/project/folder.dart';
 import 'package:butterfly/models/project/pad.dart';
+import 'package:butterfly/models/project/type.dart';
 import 'package:butterfly/models/tools/type.dart';
 import 'package:butterfly/models/tools/view.dart';
 import 'package:equatable/equatable.dart';
@@ -25,6 +26,8 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
       yield* _mapDocumentNameChangedToState(event);
     else if (event is LayerCreated)
       yield* _mapLayerCreatedToState(event);
+    else if (event is ItemCreated)
+      yield* _mapItemCreatedToState(event);
     else if (event is SelectedChanged)
       yield* _mapSelectedChangedToState(event);
     else if (event is ToolChanged)
@@ -54,6 +57,16 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         else
           event.parent.children.add(event.layer);
       }
+      var document = current.copyWith(document: current.document.copyWith());
+      yield document;
+      _saveDocument();
+    }
+  }
+
+  Stream<DocumentState> _mapItemCreatedToState(ItemCreated event) async* {
+    if (state is DocumentLoadSuccess) {
+      var current = (state as DocumentLoadSuccess);
+      event.parent.files.add(event.item);
       var document = current.copyWith(document: current.document.copyWith());
       yield document;
       _saveDocument();

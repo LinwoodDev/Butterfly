@@ -58,8 +58,8 @@ class _LayersViewState extends State<LayersView> {
                                   var current = state.currentPad.root.children[index];
                                   return ListTile(
                                     title: Text(current.name),
-                                    subtitle: Text(current.type.getName()),
-                                    leading: Icon(current.icon),
+                                    subtitle: Text(current.type.name),
+                                    leading: Icon(current.type.icon),
                                     selected: state.currentLayer == current,
                                     onTap: () => bloc.add(LayerChanged(
                                         state.currentLayer == current ? null : current)),

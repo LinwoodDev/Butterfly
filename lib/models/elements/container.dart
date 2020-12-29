@@ -1,7 +1,6 @@
 import 'package:butterfly/models/elements/type.dart';
 import 'package:butterfly/models/packs/background.dart';
 import 'package:flutter/material.dart';
-import 'package:mdi/mdi.dart';
 
 class LayerContainer extends ElementLayer {
   Color backgroundColor;
@@ -16,7 +15,4 @@ class LayerContainer extends ElementLayer {
 
   @override
   LayerType get type => LayerType.container;
-
-  @override
-  IconData get icon => Mdi.group;
 }

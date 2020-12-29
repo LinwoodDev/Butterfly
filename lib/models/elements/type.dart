@@ -13,8 +13,6 @@ abstract class ElementLayer {
 
   ElementLayer({@required this.name, this.description = ''});
 
-  IconData get icon => Mdi.checkboxBlankOutline;
-
   static ElementLayer fromJson(Map<String, dynamic> json) =>
       LayerType.values.firstWhere((element) => element.toString() == json['type']).fromJson(json);
   LayerType get type;
@@ -23,7 +21,7 @@ abstract class ElementLayer {
 enum LayerType { container, text, paint }
 
 extension LayerTypeExtension on LayerType {
-  String getName() {
+  String get name {
     switch (this) {
       case LayerType.container:
         return "Container";
@@ -33,6 +31,20 @@ extension LayerTypeExtension on LayerType {
         return "Paint";
     }
     return "";
+  }
+
+  IconData get icon {
+    switch (this) {
+      case LayerType.container:
+        return Mdi.group;
+      case LayerType.text:
+        return Mdi.text;
+        break;
+      case LayerType.paint:
+        return Mdi.paletteOutline;
+        break;
+    }
+    return null;
   }
 
   ElementLayer create(String name, String description) {
