@@ -25,6 +25,7 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: close_sinks
   DocumentBloc _bloc;
+  HeroController _heroController;
   final AppDocument document = AppDocument(name: "Document name");
   @override
   void initState() {
@@ -33,15 +34,19 @@ class _ProjectPageState extends State<ProjectPage> {
       Modular.to.navigate("/");
     }
     _bloc = DocumentBloc(document);
+    _heroController = HeroController(createRectTween: _createRectTween);
     WidgetsBinding.instance.addPostFrameCallback((_) => _showRootDialog());
   }
 
   void _showRootDialog() async {
     var pad = (_bloc.state as DocumentLoadSuccess).currentPad;
     if (pad != null && pad.root == null) {
-      await showDialog(
-          context: context, builder: (context) => CreateLayerDialog());
+      await showDialog(context: context, builder: (context) => CreateLayerDialog());
     }
+  }
+
+  RectTween _createRectTween(Rect begin, Rect end) {
+    return MaterialRectArcTween(begin: begin, end: end);
   }
 
   @override
@@ -49,6 +54,7 @@ class _ProjectPageState extends State<ProjectPage> {
     return BlocProvider(
         create: (_) => _bloc,
         child: Navigator(
+            observers: [_heroController],
             onGenerateRoute: (settings) => MaterialPageRoute(
                 builder: (context) => Scaffold(
                     appBar: AppBar(
