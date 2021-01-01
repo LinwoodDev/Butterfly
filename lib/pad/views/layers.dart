@@ -36,8 +36,8 @@ class _LayersViewState extends State<LayersView> {
                 onPressed: () {
                   if ((bloc.state as DocumentLoadSuccess).currentPad != null)
                     showDialog(
-                        builder: (context) => BlocProvider(
-                            create: (_) => bloc,
+                        builder: (context) => BlocProvider.value(
+                            value: bloc,
                             child: CreateLayerDialog(
                                 parent: (bloc.state as DocumentLoadSuccess).currentPad.root)),
                         context: context);

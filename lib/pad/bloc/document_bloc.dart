@@ -36,7 +36,19 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
       yield* _mapInspectorChangedToState(event);
     else if (event is LayerChanged)
       yield* _mapLayerChangedToState(event);
-    else if (event is ProjectChanged) yield* _mapProjectChangedToState(event);
+    else if (event is ProjectChanged)
+      yield* _mapProjectChangedToState(event);
+    else if (event is ItemCreated) yield* _mapItemCreatedToState(event);
+  }
+
+  Stream<DocumentState> _mapItemCreatedToState(ItemCreated event) async* {
+    if (state is DocumentLoadSuccess) {
+      var last = (state as DocumentLoadSuccess);
+      print("event");
+      print(event.parent.addFile(event.item));
+      yield last.copyWith(document: last.document.copyWith());
+      _saveDocument();
+    }
   }
 
   Stream<DocumentState> _mapProjectChangedToState(ProjectChanged event) async* {
@@ -57,18 +69,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         else
           event.parent.children.add(event.layer);
       }
-      var document = current.copyWith(document: current.document.copyWith());
-      yield document;
-      _saveDocument();
-    }
-  }
-
-  Stream<DocumentState> _mapItemCreatedToState(ItemCreated event) async* {
-    if (state is DocumentLoadSuccess) {
-      var current = (state as DocumentLoadSuccess);
-      event.parent.files.add(event.item);
-      var document = current.copyWith(document: current.document.copyWith());
-      yield document;
+      yield current.copyWith(document: current.document.copyWith());
       _saveDocument();
     }
   }

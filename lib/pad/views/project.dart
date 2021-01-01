@@ -25,8 +25,8 @@ class _ProjectViewState extends State<ProjectView> {
     super.initState();
   }
 
-  BuildContext _systemContext;
-  _ProjectViewSystem _system;
+  GlobalKey<NavigatorState> _navigator = GlobalKey<NavigatorState>();
+  List<String> history = [''];
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +45,18 @@ class _ProjectViewState extends State<ProjectView> {
               IconButton(
                   icon: Icon(Mdi.homeOutline),
                   tooltip: "Home",
-                  onPressed: () => Navigator.popUntil(_systemContext, (route) => route.isFirst)),
+                  onPressed: () {
+                    _navigator.currentState.popUntil((route) => route.isFirst);
+                    history.clear();
+                  }),
               IconButton(
                   icon: Icon(Mdi.arrowUp),
                   tooltip: "Up",
                   onPressed: () {
-                    if (Navigator.canPop(_systemContext)) Navigator.pop(_systemContext);
+                    if (_navigator.currentState.canPop()) {
+                      _navigator.currentState.pop();
+                      history.removeLast();
+                    }
                   }),
               IconButton(
                   icon: Icon(Mdi.magnify),
@@ -58,11 +64,9 @@ class _ProjectViewState extends State<ProjectView> {
                   onPressed: () => showDialog(
                       context: context,
                       builder: (context) => FilePathDialog(
-                          callback: (path) =>
-                              Navigator.of(_systemContext).push(MaterialPageRoute(builder: (_) {
-                                _system = _ProjectViewSystem(path: path);
-                                return _system;
-                              }))))),
+                          callback: (path) => _navigator.currentState
+                            ..push(MaterialPageRoute(
+                                builder: (_) => _ProjectViewSystem(path: path)))))),
               IconButton(
                   icon: Icon(Mdi.reload), tooltip: "Reload", onPressed: () => setState(() {})),
               VerticalDivider()
@@ -71,27 +75,26 @@ class _ProjectViewState extends State<ProjectView> {
                 heroTag: null,
                 onPressed: () => showDialog(
                     context: context,
-                    builder: (context) => BlocProvider(
-                        create: (_) => bloc,
+                    builder: (context) => BlocProvider.value(
+                        value: bloc,
                         child: CreateItemDialog(
                             parent: (bloc.state as DocumentLoadSuccess)
                                 .document
-                                .getFile(_system.path)))),
+                                .getFile(history.last)))),
                 child: Icon(Mdi.plus),
                 tooltip: "New"),
             body: Navigator(
-                onGenerateRoute: (settings) => MaterialPageRoute(builder: (context) {
-                      _systemContext = context;
-                      _system = _ProjectViewSystem();
-                      return _system;
-                    }))));
+                key: _navigator,
+                onGenerateRoute: (settings) => MaterialPageRoute(
+                    builder: (context) => _ProjectViewSystem(history: history, path: '')))));
   }
 }
 
 class _ProjectViewSystem extends StatelessWidget {
+  final List<String> history;
   final String path;
 
-  const _ProjectViewSystem({Key key, this.path = ''}) : super(key: key);
+  const _ProjectViewSystem({Key key, this.history, this.path}) : super(key: key);
 
   void _changeSelected(DocumentBloc bloc, DocumentLoadSuccess state, String currentPath) {
     bloc.add(SelectedChanged(currentPath));
@@ -119,11 +122,16 @@ class _ProjectViewSystem extends StatelessWidget {
                   child: InkWell(
                       onLongPress: () => _changeSelected(bloc, state, currentPath),
                       onTap: () {
+                        print(path);
+                        print(path.isNotEmpty);
+                        print(currentPath);
+                        print(history);
                         if (file is FolderProjectItem)
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => _ProjectViewSystem(path: currentPath)));
+                                  builder: (context) => _ProjectViewSystem(
+                                      path: currentPath, history: history..add(currentPath))));
                         else
                           _changeSelected(bloc, state, currentPath);
                       },
