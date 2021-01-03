@@ -1,7 +1,6 @@
-import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/pad/views/main/view.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'main/toolbar.dart';
 
 class MainView extends StatefulWidget {
@@ -26,22 +25,16 @@ class _MainViewState extends State<MainView> {
     return Container(
         child: Hero(
             tag: 'main_view',
-            child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-              return Column(children: [
-                Expanded(
-                    child: Center(
-                        child: (state as DocumentLoadSuccess).currentSelected == null
-                            ? Center(child: Text("No file selected"))
-                            : FlutterLogo(size: 256))),
-                Container(
-                    height: 44.0,
-                    color: Theme.of(context).focusColor,
-                    child: MainViewToolbar(
-                        isMobile: isMobile,
-                        expanded: widget.expanded,
-                        view: widget.view,
-                        window: widget.window))
-              ]);
-            })));
+            child: Column(children: [
+              MainViewViewport(),
+              Container(
+                  height: 44.0,
+                  color: Theme.of(context).focusColor,
+                  child: MainViewToolbar(
+                      isMobile: isMobile,
+                      expanded: widget.expanded,
+                      view: widget.view,
+                      window: widget.window))
+            ])));
   }
 }

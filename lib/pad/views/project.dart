@@ -40,17 +40,17 @@ class _ProjectViewState extends State<ProjectView> {
             window: widget.window,
             expanded: widget.expanded,
             title: "Project",
-            icon: Icon(Mdi.tableOfContents),
+            icon: Mdi.tableOfContents,
             actions: [
               IconButton(
-                  icon: Icon(Mdi.homeOutline),
+                  icon: Icon(Mdi.homeOutline, size: 20),
                   tooltip: "Home",
                   onPressed: () {
                     _navigator.currentState.popUntil((route) => route.isFirst);
                     history.clear();
                   }),
               IconButton(
-                  icon: Icon(Mdi.arrowUp),
+                  icon: Icon(Mdi.arrowUp, size: 20),
                   tooltip: "Up",
                   onPressed: () {
                     if (_navigator.currentState.canPop()) {
@@ -59,7 +59,7 @@ class _ProjectViewState extends State<ProjectView> {
                     }
                   }),
               IconButton(
-                  icon: Icon(Mdi.magnify),
+                  icon: Icon(Mdi.magnify, size: 20),
                   tooltip: "Path",
                   onPressed: () => showDialog(
                       context: context,
@@ -68,7 +68,9 @@ class _ProjectViewState extends State<ProjectView> {
                             ..push(MaterialPageRoute(
                                 builder: (_) => _ProjectViewSystem(path: path)))))),
               IconButton(
-                  icon: Icon(Mdi.reload), tooltip: "Reload", onPressed: () => setState(() {})),
+                  icon: Icon(Mdi.reload, size: 20),
+                  tooltip: "Reload",
+                  onPressed: () => setState(() {})),
               VerticalDivider()
             ],
             floatingActionButton: FloatingActionButton(

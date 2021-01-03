@@ -40,6 +40,6 @@ class _InspectorViewState extends State<InspectorView> {
             window: widget.window,
             expanded: widget.expanded,
             title: 'Inspector',
-            icon: Icon(Mdi.tuneVertical)));
+            icon: Mdi.tuneVertical));
   }
 }

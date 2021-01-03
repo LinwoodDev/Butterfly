@@ -30,7 +30,7 @@ class _LayersViewState extends State<LayersView> {
             window: widget.window,
             expanded: widget.expanded,
             title: "Layers",
-            icon: Icon(Mdi.cubeOutline),
+            icon: Mdi.cubeOutline,
             floatingActionButton: FloatingActionButton(
                 heroTag: null,
                 onPressed: () {
