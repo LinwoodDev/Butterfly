@@ -9,7 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<AppDocument> _documents;
+  late List<AppDocument> _documents;
 
   @override
   void initState() {
@@ -55,9 +55,9 @@ class _HomePageState extends State<HomePage> {
                                           padding:
                                               EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                                           child: Column(children: [
-                                            Text(document.name,
+                                            Text(document.name!,
                                                 style: Theme.of(context).textTheme.headline6),
-                                            Text(document.description,
+                                            Text(document.description!,
                                                 style: Theme.of(context).textTheme.overline)
                                           ]))));
                             })))))),

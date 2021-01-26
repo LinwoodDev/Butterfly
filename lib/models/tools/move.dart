@@ -50,28 +50,28 @@ class MoveTool extends Tool {
 
   @override
   List<Widget> buildOptions(
-      {BuildContext context,
-      DocumentBloc bloc,
-      bool expanded,
-      bool isMobile,
-      SplitWindow window,
-      SplitView view}) {
+      {BuildContext? context,
+      DocumentBloc? bloc,
+      bool? expanded,
+      bool? isMobile,
+      SplitWindow? window,
+      SplitView? view}) {
     return [
       IconButton(
           icon: Icon(Mdi.crosshairs),
           tooltip: "Location",
-          color: moveToolType == MoveToolType.location ? Theme.of(context).primaryColor : null,
-          onPressed: () => bloc.add(ToolChanged(MoveTool(moveToolType: MoveToolType.location)))),
+          color: moveToolType == MoveToolType.location ? Theme.of(context!).primaryColor : null,
+          onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.location)))),
       IconButton(
           icon: Icon(Mdi.formatRotate90),
           tooltip: "Rotation",
-          color: moveToolType == MoveToolType.rotation ? Theme.of(context).primaryColor : null,
-          onPressed: () => bloc.add(ToolChanged(MoveTool(moveToolType: MoveToolType.rotation)))),
+          color: moveToolType == MoveToolType.rotation ? Theme.of(context!).primaryColor : null,
+          onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.rotation)))),
       IconButton(
           icon: Icon(Mdi.resize),
           tooltip: "Scale",
-          color: moveToolType == MoveToolType.scale ? Theme.of(context).primaryColor : null,
-          onPressed: () => bloc.add(ToolChanged(MoveTool(moveToolType: MoveToolType.scale))))
+          color: moveToolType == MoveToolType.scale ? Theme.of(context!).primaryColor : null,
+          onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.scale))))
     ];
   }
 

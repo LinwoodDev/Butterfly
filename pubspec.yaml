@@ -14,26 +14,18 @@ description: Change the world.
 version: 1.0.0
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0-133.2.beta <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  equatable: ^1.2.5
-  fab_circular_menu: ^1.0.1
-  flutter_bloc: ^6.1.1
-  flutter_modular: ^3.0.0-nullsafety.24
-  hive: ^1.4.4+1
-  hive_flutter: ^0.3.1
-  pluto_menu_bar: ^0.1.4
-  shared_preferences: '>=0.5.12+4 <2.0.0'
-  url_launcher: ^5.7.10
-  url_launcher_web: ^0.1.5+1
-  mdi: ^4.0.0
+  equatable: ^2.0.0-nullsafety.1
+  flutter_bloc: ^7.0.0-nullsafety.0
+  flutter_modular: ^3.0.0-nullsafety.27
+  url_launcher: ^6.0.0-nullsafety.1
+  mdi: ^5.0.0-nullsafety.0
 
 dev_dependencies:
-  hive_generator: ^0.8.2
-  build_runner: ^1.10.11
   flutter_test:
     sdk: flutter
 

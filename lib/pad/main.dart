@@ -14,18 +14,18 @@ import 'bloc/document_bloc.dart';
 import 'dialogs/settings.dart';
 
 class ProjectPage extends StatefulWidget {
-  final String path;
-  final String id;
+  final String? path;
+  final String? id;
 
-  const ProjectPage({Key key, this.path, @required this.id}) : super(key: key);
+  const ProjectPage({Key? key, this.path, required this.id}) : super(key: key);
   @override
   _ProjectPageState createState() => _ProjectPageState();
 }
 
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: close_sinks
-  DocumentBloc _bloc;
-  HeroController _heroController;
+  DocumentBloc? _bloc;
+  HeroController? _heroController;
   final AppDocument document = AppDocument(name: "Document name");
   @override
   void initState() {
@@ -35,38 +35,38 @@ class _ProjectPageState extends State<ProjectPage> {
     }
     _bloc = DocumentBloc(document);
     _heroController = HeroController(createRectTween: _createRectTween);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _showRootDialog());
+    WidgetsBinding.instance!.addPostFrameCallback((_) => _showRootDialog());
   }
 
   void _showRootDialog() async {
-    var pad = (_bloc.state as DocumentLoadSuccess).currentPad;
+    var pad = (_bloc!.state as DocumentLoadSuccess).currentPad;
     if (pad != null && pad.root == null) {
       await showDialog(context: context, builder: (context) => CreateLayerDialog());
     }
   }
 
-  RectTween _createRectTween(Rect begin, Rect end) {
+  RectTween _createRectTween(Rect? begin, Rect? end) {
     return MaterialRectArcTween(begin: begin, end: end);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => _bloc,
+        create: (_) => _bloc!,
         child: Navigator(
-            observers: [_heroController],
+            observers: [_heroController!],
             onGenerateRoute: (settings) => MaterialPageRoute(
                 builder: (context) => Scaffold(
                     appBar: AppBar(
                         centerTitle: true,
                         title: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                          if (_bloc.state is DocumentLoadSuccess) {
-                            var current = _bloc.state as DocumentLoadSuccess;
+                          if (_bloc!.state is DocumentLoadSuccess) {
+                            var current = _bloc!.state as DocumentLoadSuccess;
                             return Column(children: [
                               if (current.currentSelectedPath != null)
-                                Text(current.currentSelectedPath,
+                                Text(current.currentSelectedPath!,
                                     style: Theme.of(context).textTheme.subtitle1),
-                              Text(current.document.name)
+                              Text(current.document.name!)
                             ]);
                           } else
                             return Text("Loading...");
@@ -108,7 +108,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                     size: 250,
                                     maxSize: 500,
                                     builder:
-                                        (BuildContext context, SplitView view, SplitWindow window, bool expanded) =>
+                                        (BuildContext context, SplitView? view, SplitWindow? window, bool expanded) =>
                                             SplitView(
                                                 axis: Axis.vertical,
                                                 first: SplitWindow(
@@ -122,24 +122,24 @@ class _ProjectPageState extends State<ProjectPage> {
                                                 ),
                                                 second: SplitWindow(
                                                     minSize: 100,
-                                                    builder: (BuildContext context, SplitView view,
-                                                            SplitWindow window, bool expanded) =>
+                                                    builder: (BuildContext context, SplitView? view,
+                                                            SplitWindow? window, bool expanded) =>
                                                         InspectorView(
                                                             view: view,
                                                             window: window,
                                                             expanded: expanded)))),
                                 first: SplitWindow(
                                     border: false,
-                                    builder: (BuildContext context, SplitView view, SplitWindow window, bool expanded) => SplitView(
+                                    builder: (BuildContext context, SplitView? view, SplitWindow? window, bool expanded) => SplitView(
                                         axis: Axis.vertical,
                                         second: SplitWindow(
                                             minSize: 150,
                                             size: 250,
                                             maxSize: 350,
-                                            builder: (BuildContext context, SplitView view,
-                                                    SplitWindow window, bool expanded) =>
+                                            builder: (BuildContext context, SplitView? view,
+                                                    SplitWindow? window, bool expanded) =>
                                                 ProjectView(view: view, window: window, expanded: expanded)),
-                                        first: SplitWindow(builder: (BuildContext context, SplitView view, SplitWindow window, bool expanded) => MainView(view: view, window: window, expanded: expanded))))));
+                                        first: SplitWindow(builder: (BuildContext context, SplitView? view, SplitWindow? window, bool expanded) => MainView(view: view, window: window, expanded: expanded))))));
                     })))));
   }
 

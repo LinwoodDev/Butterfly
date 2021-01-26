@@ -6,11 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdi/mdi.dart';
 
 class InspectorView extends StatefulWidget {
-  final SplitView view;
-  final SplitWindow window;
-  final bool expanded;
+  final SplitView? view;
+  final SplitWindow? window;
+  final bool? expanded;
 
-  const InspectorView({Key key, this.view, this.window, this.expanded}) : super(key: key);
+  const InspectorView({Key? key, this.view, this.window, this.expanded}) : super(key: key);
   @override
   _InspectorViewState createState() => _InspectorViewState();
 }
@@ -32,7 +32,7 @@ class _InspectorViewState extends State<InspectorView> {
                 alignment: Alignment.center,
                 child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
                   if (state is DocumentLoadSuccess && state.currentInspectorItem != null)
-                    return Container(child: state.currentInspectorItem.buildInspector(bloc));
+                    return Container(child: state.currentInspectorItem!.buildInspector(bloc));
                   else
                     return CircularProgressIndicator();
                 })),

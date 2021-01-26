@@ -10,8 +10,8 @@ import 'pad.dart';
 
 enum ProjectItemType { folder, image, pad }
 
-extension ProjectItemTypeExtension on ProjectItemType {
-  String get name {
+extension ProjectItemTypeExtension on ProjectItemType? {
+  String? get name {
     switch (this) {
       case ProjectItemType.folder:
         return "Folder";
@@ -19,11 +19,12 @@ extension ProjectItemTypeExtension on ProjectItemType {
         return "Image";
       case ProjectItemType.pad:
         return "Pad";
+      default:
+        return null;
     }
-    return null;
   }
 
-  IconData get icon {
+  IconData? get icon {
     switch (this) {
       case ProjectItemType.folder:
         return Mdi.folderOutline;
@@ -31,33 +32,35 @@ extension ProjectItemTypeExtension on ProjectItemType {
         return Mdi.imageOutline;
       case ProjectItemType.pad:
         return Mdi.monitor;
+      default:
+        return null;
     }
-    return null;
   }
 
-  ProjectItem create(String name, String description) {
+  ProjectItem? create(String name, String description) {
     switch (this) {
       case ProjectItemType.folder:
         return FolderProjectItem(name: name, description: description);
       case ProjectItemType.image:
         return ImageProjectItem(name: name, description: description);
-        break;
       case ProjectItemType.pad:
         return PadProjectItem(name: name, description: description);
-        break;
+      default:
+        return null;
     }
-    return null;
   }
 
-  ProjectItem fromJson(Map<String, dynamic> json) {
+  ProjectItem? fromJson(Map<String, dynamic> json) {
     switch (this) {
       case ProjectItemType.folder:
         return FolderProjectItem.fromJson(json);
       case ProjectItemType.pad:
         return PadProjectItem.fromJson(json);
       case ProjectItemType.image:
+        return ImageProjectItem.fromJson(json);
+      default:
+        return null;
     }
-    return null;
   }
 
   Map<String, dynamic> toJson(Map<String, dynamic> json) {
@@ -66,13 +69,13 @@ extension ProjectItemTypeExtension on ProjectItemType {
 }
 
 abstract class ProjectItem with InspectorItem {
-  String name;
-  String description = '';
+  String? name;
+  String? description = '';
 
-  ProjectItem({@required this.name, this.description});
+  ProjectItem({required this.name, this.description});
 
   Map<String, dynamic> toJson() => {'name': name, 'description': description};
-  static ProjectItem fromJson(Map<String, dynamic> json) => ProjectItemType.values
+  static ProjectItem? fromJson(Map<String, dynamic> json) => ProjectItemType.values
       .firstWhere((element) => element.toString() == json['type'])
       .fromJson(json);
 
@@ -83,7 +86,8 @@ abstract class ProjectItem with InspectorItem {
           controller: TextEditingController(text: name),
           onSubmitted: (value) {
             name = value;
-            var path = (bloc.state as DocumentLoadSuccess).currentSelectedPath.split('/');
+            List<String?> path =
+                (bloc.state as DocumentLoadSuccess).currentSelectedPath!.split('/');
             path.last = name;
             bloc.add(ProjectChanged(nextSelected: path.join('/')));
           }),

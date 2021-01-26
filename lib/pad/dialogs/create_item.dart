@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateItemDialog extends StatefulWidget {
-  final FolderProjectItem parent;
+  final FolderProjectItem? parent;
 
-  CreateItemDialog({Key key, this.parent}) : super(key: key);
+  CreateItemDialog({Key? key, this.parent}) : super(key: key);
   @override
   _CreateItemDialogState createState() => _CreateItemDialogState();
 }
@@ -15,7 +15,7 @@ class CreateItemDialog extends StatefulWidget {
 class _CreateItemDialogState extends State<CreateItemDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  ProjectItemType _type = ProjectItemType.folder;
+  ProjectItemType? _type = ProjectItemType.folder;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _CreateItemDialogState extends State<CreateItemDialog> {
                 print("ITEM ERSTELLT!");
                 BlocProvider.of<DocumentBloc>(context).add(ItemCreated(
                     parent: widget.parent,
-                    item: _type.create(_nameController.text, _descriptionController.text)));
+                    item: _type!.create(_nameController.text, _descriptionController.text)!));
                 Navigator.of(context).pop();
               },
               child: Text("CREATE"))
@@ -54,7 +54,7 @@ class _CreateItemDialogState extends State<CreateItemDialog> {
               value: _type,
               onChanged: (value) => setState(() => _type = value),
               items: ProjectItemType.values
-                  .map((e) => DropdownMenuItem<ProjectItemType>(child: Text(e.name), value: e))
+                  .map((e) => DropdownMenuItem<ProjectItemType>(child: Text(e.name!), value: e))
                   .toList())
         ]))));
   }

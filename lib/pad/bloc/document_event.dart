@@ -8,37 +8,37 @@ abstract class DocumentEvent extends Equatable {
 }
 
 class ProjectChanged extends DocumentEvent {
-  final String nextSelected;
+  final String? nextSelected;
 
   ProjectChanged({this.nextSelected});
   @override
-  List<Object> get props => [nextSelected];
+  List<Object> get props => [if (nextSelected != null) nextSelected!];
 }
 
 class LayerCreated extends DocumentEvent {
   final ElementLayer layer;
-  final ElementLayer parent;
+  final ElementLayer? parent;
 
-  LayerCreated({@required this.layer, this.parent});
+  LayerCreated({required this.layer, this.parent});
   @override
-  List<Object> get props => [parent, layer];
+  List<Object> get props => [if (parent != null) parent!, layer];
 }
 
 class ItemCreated extends DocumentEvent {
   final ProjectItem item;
-  final FolderProjectItem parent;
+  final FolderProjectItem? parent;
 
-  ItemCreated({@required this.item, this.parent});
+  ItemCreated({required this.item, this.parent});
   @override
-  List<Object> get props => [parent, item];
+  List<Object> get props => [if (parent != null) parent!, item];
 }
 
 class LayerChanged extends DocumentEvent {
-  final ElementLayer layer;
+  final ElementLayer? layer;
 
   LayerChanged(this.layer);
   @override
-  List<Object> get props => [layer];
+  List<Object> get props => [if (layer != null) layer!];
 }
 
 class DocumentNameChanged extends DocumentEvent {
@@ -59,12 +59,12 @@ class SelectedChanged extends DocumentEvent {
 }
 
 class InspectorChanged extends DocumentEvent {
-  final InspectorItem item;
+  final InspectorItem? item;
 
-  InspectorChanged(this.item);
+  InspectorChanged({required this.item});
 
   @override
-  List<Object> get props => [item];
+  List<Object> get props => [if (item != null) item!];
 }
 
 class ToolChanged extends DocumentEvent {

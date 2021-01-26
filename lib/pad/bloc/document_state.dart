@@ -11,16 +11,17 @@ class DocumentLoadInProgress extends DocumentState {}
 
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
-  final String currentSelectedPath;
-  final Tool currentTool;
-  final ElementLayer currentLayer;
+  final String? currentSelectedPath;
+  final Tool? currentTool;
+  final ElementLayer? currentLayer;
   final String currentPath;
-  final InspectorItem currentInspectorItem;
+  final InspectorItem? currentInspectorItem;
 
-  ProjectItem get currentSelected =>
-      (currentSelectedPath == null ? null : document.getFile(currentSelectedPath)) ?? document;
-  PadProjectItem get currentPad =>
-      currentSelected == null || !(currentSelected is PadProjectItem) ? null : currentSelected;
+  ProjectItem? get currentSelected =>
+      (currentSelectedPath == null ? null : document.getFile(currentSelectedPath!)) ?? document;
+  PadProjectItem? get currentPad => currentSelected == null || !(currentSelected is PadProjectItem)
+      ? null
+      : currentSelected as PadProjectItem?;
 
   const DocumentLoadSuccess(this.document,
       {this.currentSelectedPath,
@@ -30,16 +31,21 @@ class DocumentLoadSuccess extends DocumentState {
       this.currentLayer});
 
   @override
-  List<Object> get props =>
-      [document, currentSelectedPath, currentTool, currentInspectorItem, currentLayer];
+  List<Object> get props => [
+        document,
+        if (currentSelectedPath != null) currentSelectedPath!,
+        if (currentTool != null) currentTool!,
+        if (currentInspectorItem != null) currentInspectorItem!,
+        if (currentLayer != null) currentLayer!
+      ];
 
   DocumentLoadSuccess copyWith(
-      {AppDocument document,
-      String currentSelectedPath,
-      Tool currentTool,
-      ElementLayer currentLayer,
-      String currentPath,
-      InspectorItem currentInspectorItem,
+      {AppDocument? document,
+      String? currentSelectedPath,
+      Tool? currentTool,
+      ElementLayer? currentLayer,
+      String? currentPath,
+      InspectorItem? currentInspectorItem,
       bool unselectLayer = false}) {
     return DocumentLoadSuccess(document ?? this.document,
         currentSelectedPath: currentSelectedPath ?? this.currentSelectedPath,

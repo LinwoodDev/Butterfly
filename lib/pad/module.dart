@@ -11,8 +11,8 @@ class PadModule extends ChildModule {
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/:id',
-        child: (_, args) => ProjectPage(id: args.params != null ? args.params['id'] : null)),
+        child: (_, args) => ProjectPage(id: args!.params != null ? args.params!['id'] : null)),
     ChildRoute('/:id/:path',
-        child: (_, args) => ProjectPage(id: args.params['id'], path: args.params['path']))
+        child: (_, args) => ProjectPage(id: args!.params!['id'], path: args.params!['path']))
   ];
 }

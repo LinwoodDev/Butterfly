@@ -1,4 +1,4 @@
 abstract class ElementPack {
-  String name;
-  String description;
+  String? name;
+  String? description;
 }

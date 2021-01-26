@@ -7,12 +7,12 @@ import 'package:mdi/mdi.dart';
 class EditTool extends Tool {
   @override
   List<Widget> buildOptions(
-      {BuildContext context,
-      DocumentBloc bloc,
-      bool expanded,
-      bool isMobile,
-      SplitWindow window,
-      SplitView view}) {
+      {BuildContext? context,
+      DocumentBloc? bloc,
+      bool? expanded,
+      bool? isMobile,
+      SplitWindow? window,
+      SplitView? view}) {
     return [
       IconButton(icon: Icon(Mdi.pencilOutline), tooltip: "Pencil", onPressed: () {}),
       IconButton(icon: Icon(Mdi.marker), tooltip: "Marker", onPressed: () {})

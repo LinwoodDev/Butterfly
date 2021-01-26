@@ -8,11 +8,11 @@ import 'package:mdi/mdi.dart';
 import 'package:butterfly/models/elements/type.dart';
 
 class LayersView extends StatefulWidget {
-  final SplitView view;
-  final SplitWindow window;
-  final bool expanded;
+  final SplitView? view;
+  final SplitWindow? window;
+  final bool? expanded;
 
-  const LayersView({Key key, this.view, this.window, this.expanded}) : super(key: key);
+  const LayersView({Key? key, this.view, this.window, this.expanded}) : super(key: key);
   @override
   _LayersViewState createState() => _LayersViewState();
 }
@@ -39,7 +39,7 @@ class _LayersViewState extends State<LayersView> {
                         builder: (context) => BlocProvider.value(
                             value: bloc,
                             child: CreateLayerDialog(
-                                parent: (bloc.state as DocumentLoadSuccess).currentPad.root)),
+                                parent: (bloc.state as DocumentLoadSuccess).currentPad!.root)),
                         context: context);
                 },
                 child: Icon(Mdi.plus),
@@ -51,13 +51,13 @@ class _LayersViewState extends State<LayersView> {
                         child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
                           if (state is DocumentLoadSuccess &&
                               state.currentPad != null &&
-                              state.currentPad.root != null) {
+                              state.currentPad!.root != null) {
                             return ListView.builder(
-                                itemCount: state.currentPad.root.children.length,
+                                itemCount: state.currentPad!.root!.children.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  var current = state.currentPad.root.children[index];
+                                  var current = state.currentPad!.root!.children[index]!;
                                   return ListTile(
-                                    title: Text(current.name),
+                                    title: Text(current.name!),
                                     subtitle: Text(current.type.name),
                                     leading: Icon(current.type.icon),
                                     selected: state.currentLayer == current,

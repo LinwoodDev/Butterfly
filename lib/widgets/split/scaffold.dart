@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 
 class SplitScaffold extends StatelessWidget {
-  final SplitView view;
-  final SplitWindow window;
-  final bool expanded;
+  final SplitView? view;
+  final SplitWindow? window;
+  final bool? expanded;
   final String title;
   final Widget body;
-  final IconData icon;
-  final DocumentBloc bloc;
-  final List<Widget> actions;
-  final FloatingActionButton floatingActionButton;
+  final IconData? icon;
+  final DocumentBloc? bloc;
+  final List<Widget>? actions;
+  final FloatingActionButton? floatingActionButton;
 
   SplitScaffold(
       {this.view,
       this.window,
       this.expanded = true,
-      @required this.title,
-      @required this.body,
+      required this.title,
+      required this.body,
       this.icon,
       this.actions,
       this.bloc,
@@ -36,13 +36,13 @@ class SplitScaffold extends StatelessWidget {
             title: Text(title),
             leading: Icon(icon, size: 20),
             actions: [
-              if (actions != null) ...actions,
+              if (actions != null) ...actions!,
               IconButton(
-                  icon: Icon(!isSplitted || expanded ? Mdi.windowMinimize : Mdi.windowMaximize,
+                  icon: Icon(!isSplitted || expanded! ? Mdi.windowMinimize : Mdi.windowMaximize,
                       size: 20),
-                  onPressed: !isSplitted || expanded
+                  onPressed: !isSplitted || expanded!
                       ? Navigator.of(context).pop
-                      : () => window.expand(context, view, window))
+                      : () => window!.expand(context, view, window))
             ]),
         floatingActionButton: floatingActionButton,
         body: body);

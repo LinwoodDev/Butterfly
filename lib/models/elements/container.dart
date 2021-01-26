@@ -3,10 +3,10 @@ import 'package:butterfly/models/packs/background.dart';
 import 'package:flutter/material.dart';
 
 class LayerContainer extends ElementLayer {
-  Color backgroundColor;
-  BackgroundPack background;
+  Color? backgroundColor;
+  BackgroundPack? background;
 
-  LayerContainer({@required String name, String description})
+  LayerContainer({required String name, String? description})
       : super(name: name, description: description);
 
   LayerContainer.fromJson(Map<String, dynamic> json)

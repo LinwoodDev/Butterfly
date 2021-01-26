@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'main/toolbar.dart';
 
 class MainView extends StatefulWidget {
-  final bool expanded;
-  final SplitView view;
-  final SplitWindow window;
+  final bool? expanded;
+  final SplitView? view;
+  final SplitWindow? window;
 
-  const MainView({Key key, this.expanded, this.view, this.window}) : super(key: key);
+  const MainView({Key? key, this.expanded, this.view, this.window}) : super(key: key);
   @override
   _MainViewState createState() => _MainViewState();
 }

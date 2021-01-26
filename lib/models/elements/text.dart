@@ -1,11 +1,10 @@
 import 'package:butterfly/models/elements/type.dart';
-import 'package:flutter/material.dart';
 
 class GroupElement extends ElementLayer {
-  String text;
-  int size;
+  String? text;
+  int? size;
 
-  GroupElement({@required String name, String description})
+  GroupElement({required String name, String? description})
       : super(name: name, description: description);
 
   GroupElement.fromJson(Map<String, dynamic> json)

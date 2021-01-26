@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 /// Displays the navigation drawer alongside the [Scaffold] if the screen/window size is large enough
 class ResponsiveScaffold extends StatelessWidget {
   const ResponsiveScaffold(
-      {@required this.body,
-      @required this.pageTitle,
-      Key key,
+      {required this.body,
+      required this.pageTitle,
+      Key? key,
       this.floatingActionButton,
       this.bottom,
       this.drawer,
       this.actions})
       : super(key: key);
-  final List<Widget> actions;
+  final List<Widget>? actions;
 
-  final Widget drawer;
+  final Widget? drawer;
   final Widget body;
-  final FloatingActionButton floatingActionButton;
+  final FloatingActionButton? floatingActionButton;
 
-  final PreferredSizeWidget bottom;
+  final PreferredSizeWidget? bottom;
   final String pageTitle;
 
   @override
@@ -29,7 +29,7 @@ class ResponsiveScaffold extends StatelessWidget {
         SafeArea(
             right: false,
             child: Row(children: [
-              Expanded(child: drawer),
+              Expanded(child: drawer!),
               const VerticalDivider(
                 width: 5,
                 thickness: 0.5,

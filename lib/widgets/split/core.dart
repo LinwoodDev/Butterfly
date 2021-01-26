@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 typedef SplitWindowBuilder = Widget Function(
-    BuildContext context, SplitView view, SplitWindow window, bool expanded);
+    BuildContext context, SplitView? view, SplitWindow? window, bool expanded);
 
 class SplitWindow {
   final SplitWindowBuilder builder;
-  final double maxSize;
-  final double minSize;
-  final double size;
+  final double? maxSize;
+  final double? minSize;
+  final double? size;
   final bool border;
 
-  void expand(BuildContext context, SplitView view, SplitWindow window) {
+  void expand(BuildContext context, SplitView? view, SplitWindow? window) {
     Navigator.of(context)
         .push(CustomPageRoute(builder: (context) => builder(context, view, window, true)));
   }
 
-  SplitWindow({@required this.builder, this.minSize, this.maxSize, this.size, this.border = true});
+  SplitWindow({required this.builder, this.minSize, this.maxSize, this.size, this.border = true});
 
   Widget build(BuildContext context, SplitView view, bool expanded) => Container(
       decoration: border ? BoxDecoration(border: Border.all()) : null,
@@ -27,7 +27,7 @@ class CustomPageRoute extends MaterialPageRoute {
   @override
   Duration get transitionDuration => const Duration(milliseconds: 1000);
 
-  CustomPageRoute({builder}) : super(builder: builder);
+  CustomPageRoute({required builder}) : super(builder: builder);
 }
 
 class SplitView extends StatefulWidget {
@@ -38,15 +38,13 @@ class SplitView extends StatefulWidget {
   final Axis axis;
 
   const SplitView(
-      {Key key,
-      @required this.first,
-      @required this.second,
+      {Key? key,
+      required this.first,
+      required this.second,
       this.ratio = 0.5,
       this.axis = Axis.horizontal,
       this.icon = const Icon(Icons.drag_handle)})
-      : assert(first != null),
-        assert(second != null),
-        assert(ratio >= 0),
+      : assert(ratio >= 0),
         assert(ratio <= 1),
         super(key: key);
 
@@ -58,11 +56,11 @@ class _SplitViewState extends State<SplitView> {
   final _dividerWidth = 20.0;
 
   //from 0-1
-  double _ratio;
-  double _maxSize;
+  double? _ratio;
+  double? _maxSize;
 
-  get _firstSize => _ratio * _maxSize;
-  get _secondSize => (1 - _ratio) * _maxSize;
+  get _firstSize => _ratio! * _maxSize!;
+  get _secondSize => (1 - _ratio!) * _maxSize!;
 
   @override
   void initState() {
@@ -73,18 +71,18 @@ class _SplitViewState extends State<SplitView> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, BoxConstraints constraints) {
-      assert(_ratio <= 1);
-      assert(_ratio >= 0);
+      assert(_ratio! <= 1);
+      assert(_ratio! >= 0);
       var constraintsSize =
           widget.axis == Axis.horizontal ? constraints.maxWidth : constraints.maxHeight;
       if (_maxSize == null ||
-          widget.first.minSize != null && widget.first.minSize > _firstSize ||
-          widget.second.minSize != null && widget.second.minSize > _secondSize ||
-          widget.first.maxSize != null && widget.first.maxSize < _firstSize ||
-          widget.second.maxSize != null && widget.second.maxSize < _secondSize) {
+          widget.first.minSize != null && widget.first.minSize! > _firstSize ||
+          widget.second.minSize != null && widget.second.minSize! > _secondSize ||
+          widget.first.maxSize != null && widget.first.maxSize! < _firstSize ||
+          widget.second.maxSize != null && widget.second.maxSize! < _secondSize) {
         _maxSize = constraintsSize - _dividerWidth;
-        if (widget.first.size != null) _ratio = widget.first.size / _maxSize;
-        if (widget.second.size != null) _ratio = (_maxSize - widget.second.size) / _maxSize;
+        if (widget.first.size != null) _ratio = widget.first.size! / _maxSize!;
+        if (widget.second.size != null) _ratio = (_maxSize! - widget.second.size!) / _maxSize!;
       }
       if (_maxSize != constraintsSize) {
         _maxSize = constraintsSize - _dividerWidth;
@@ -118,16 +116,16 @@ class _SplitViewState extends State<SplitView> {
                 turns: AlwaysStoppedAnimation(widget.axis == Axis.horizontal ? 0.25 : 0))),
         onPanUpdate: (DragUpdateDetails details) {
           setState(() {
-            var last = _ratio;
-            _ratio +=
-                (widget.axis == Axis.horizontal ? details.delta.dx : details.delta.dy) / _maxSize;
-            if (widget.first.minSize != null && widget.first.minSize > _firstSize ||
-                widget.second.minSize != null && widget.second.minSize > _secondSize ||
-                widget.first.maxSize != null && widget.first.maxSize < _firstSize ||
-                widget.second.maxSize != null && widget.second.maxSize < _secondSize) _ratio = last;
-            if (_ratio > 1)
+            var last = _ratio! +
+                (widget.axis == Axis.horizontal ? details.delta.dx : details.delta.dy) / _maxSize!;
+            if (widget.first.minSize != null && widget.first.minSize! > _firstSize ||
+                widget.second.minSize != null && widget.second.minSize! > _secondSize ||
+                widget.first.maxSize != null && widget.first.maxSize! < _firstSize ||
+                widget.second.maxSize != null && widget.second.maxSize! < _secondSize)
+              _ratio = last;
+            if (_ratio! > 1)
               _ratio = 1;
-            else if (_ratio < 0.0) _ratio = 0.0;
+            else if (_ratio! < 0.0) _ratio = 0.0;
           });
         },
       ),

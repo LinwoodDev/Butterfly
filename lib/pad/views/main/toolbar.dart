@@ -7,12 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 enum SelectMode { add, replace, remove }
 
 class MainViewToolbar extends StatefulWidget {
-  final bool isMobile;
-  final bool expanded;
-  final SplitView view;
-  final SplitWindow window;
+  final bool? isMobile;
+  final bool? expanded;
+  final SplitView? view;
+  final SplitWindow? window;
 
-  const MainViewToolbar({Key key, this.isMobile, this.expanded, this.view, this.window})
+  const MainViewToolbar({Key? key, this.isMobile, this.expanded, this.view, this.window})
       : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
     // ignore: close_sinks
     var bloc = BlocProvider.of<DocumentBloc>(context);
     bloc.add(ToolChanged(tool));
-    bloc.add(InspectorChanged(tool));
+    bloc.add(InspectorChanged(item: tool));
   }
 
   @override
@@ -39,17 +39,17 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
       var current = state as DocumentLoadSuccess;
       return ListView(scrollDirection: Axis.horizontal, shrinkWrap: true, children: [
         ...ToolType.values.map((e) {
-          Tool tool = e.create();
+          Tool tool = e.create()!;
           return IconButton(
               tooltip: tool.name,
               icon: Icon(tool.icon),
               onPressed: () => _toggleTool(tool),
               color:
-                  current.currentTool?.type == tool.type ? Theme.of(context).primaryColor : null);
+                  current.currentTool!.type == tool.type ? Theme.of(context).primaryColor : null);
         }).toList(),
         if (current.currentTool != null) ...[
           VerticalDivider(),
-          ...current.currentTool.buildOptions(
+          ...current.currentTool!.buildOptions(
               context: context,
               expanded: widget.expanded,
               view: widget.view,

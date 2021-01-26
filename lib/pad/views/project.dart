@@ -10,11 +10,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdi/mdi.dart';
 
 class ProjectView extends StatefulWidget {
-  final SplitView view;
-  final SplitWindow window;
-  final bool expanded;
+  final SplitView? view;
+  final SplitWindow? window;
+  final bool? expanded;
 
-  const ProjectView({Key key, this.view, this.window, this.expanded}) : super(key: key);
+  const ProjectView({Key? key, this.view, this.window, this.expanded}) : super(key: key);
   @override
   _ProjectViewState createState() => _ProjectViewState();
 }
@@ -46,15 +46,15 @@ class _ProjectViewState extends State<ProjectView> {
                   icon: Icon(Mdi.homeOutline, size: 20),
                   tooltip: "Home",
                   onPressed: () {
-                    _navigator.currentState.popUntil((route) => route.isFirst);
+                    _navigator.currentState!.popUntil((route) => route.isFirst);
                     history.clear();
                   }),
               IconButton(
                   icon: Icon(Mdi.arrowUp, size: 20),
                   tooltip: "Up",
                   onPressed: () {
-                    if (_navigator.currentState.canPop()) {
-                      _navigator.currentState.pop();
+                    if (_navigator.currentState!.canPop()) {
+                      _navigator.currentState!.pop();
                       history.removeLast();
                     }
                   }),
@@ -64,7 +64,7 @@ class _ProjectViewState extends State<ProjectView> {
                   onPressed: () => showDialog(
                       context: context,
                       builder: (context) => FilePathDialog(
-                          callback: (path) => _navigator.currentState
+                          callback: (path) => _navigator.currentState!
                             ..push(MaterialPageRoute(
                                 builder: (_) => _ProjectViewSystem(path: path)))))),
               IconButton(
@@ -82,7 +82,7 @@ class _ProjectViewState extends State<ProjectView> {
                         child: CreateItemDialog(
                             parent: (bloc.state as DocumentLoadSuccess)
                                 .document
-                                .getFile(history.last)))),
+                                .getFile(history.last) as FolderProjectItem?))),
                 child: Icon(Mdi.plus),
                 tooltip: "New"),
             body: Navigator(
@@ -93,14 +93,14 @@ class _ProjectViewState extends State<ProjectView> {
 }
 
 class _ProjectViewSystem extends StatelessWidget {
-  final List<String> history;
-  final String path;
+  final List<String>? history;
+  final String? path;
 
-  const _ProjectViewSystem({Key key, this.history, this.path}) : super(key: key);
+  const _ProjectViewSystem({Key? key, this.history, this.path}) : super(key: key);
 
   void _changeSelected(DocumentBloc bloc, DocumentLoadSuccess state, String currentPath) {
     bloc.add(SelectedChanged(currentPath));
-    bloc.add(InspectorChanged(state.document.getFile(currentPath)));
+    bloc.add(InspectorChanged(item: state.document.getFile(currentPath)!));
   }
 
   @override
@@ -110,22 +110,22 @@ class _ProjectViewSystem extends StatelessWidget {
         alignment: Alignment.center,
         child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
           if (state is DocumentLoadSuccess) {
-            var file = state.document.getFile(path);
+            var file = state.document.getFile(path!);
             if (file == null || !(file is FolderProjectItem))
               return Center(child: Text("Directory not found"));
-            var folder = file as FolderProjectItem;
+            var folder = file;
             return SizedBox.expand(
                 child: SingleChildScrollView(
                     child: Wrap(
                         children: folder.files.map((file) {
-              var currentPath = path.isNotEmpty ? path + '/' : '';
-              currentPath += file.name;
+              var currentPath = path!.isNotEmpty ? path! + '/' : '';
+              currentPath += file.name!;
               return Card(
                   child: InkWell(
                       onLongPress: () => _changeSelected(bloc, state, currentPath),
                       onTap: () {
                         print(path);
-                        print(path.isNotEmpty);
+                        print(path!.isNotEmpty);
                         print(currentPath);
                         print(history);
                         if (file is FolderProjectItem)
@@ -133,7 +133,7 @@ class _ProjectViewSystem extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => _ProjectViewSystem(
-                                      path: currentPath, history: history..add(currentPath))));
+                                      path: currentPath, history: history!..add(currentPath))));
                         else
                           _changeSelected(bloc, state, currentPath);
                       },
@@ -143,7 +143,7 @@ class _ProjectViewSystem extends StatelessWidget {
                               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                               child: Column(children: [
                                 Icon(file.type.icon, size: 50),
-                                Text(file.name, overflow: TextOverflow.ellipsis)
+                                Text(file.name!, overflow: TextOverflow.ellipsis)
                               ])))));
             }).toList())));
           } else

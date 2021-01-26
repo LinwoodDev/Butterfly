@@ -1,12 +1,9 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
-
 import 'type.dart';
 
 class FolderProjectItem extends ProjectItem {
-  final List<ProjectItem> _files;
+  final List<ProjectItem?> _files;
 
-  FolderProjectItem({@required String name, String description})
+  FolderProjectItem({required String? name, String? description})
       : _files = [],
         super(name: name, description: description);
 
@@ -19,7 +16,7 @@ class FolderProjectItem extends ProjectItem {
   List<ProjectItem> get files => List.unmodifiable(_files);
 
   bool addFile(ProjectItem item) {
-    if (!hasFile(item.name))
+    if (!hasFile(item.name!))
       _files.add(item);
     else
       return false;
@@ -41,12 +38,12 @@ class FolderProjectItem extends ProjectItem {
 
   bool hasFile(String path) => getFile(path) != null;
 
-  ProjectItem getFile(String path) {
+  ProjectItem? getFile(String path) {
     List<String> directories = path.split('/');
     if (directories.isEmpty || directories[0].isEmpty) return this;
-    var iterator = _files.where((element) => element.name == directories.first);
+    var iterator = _files.where((element) => element!.name == directories.first);
     if (iterator.isEmpty) return null;
-    ProjectItem current = iterator.first;
+    ProjectItem? current = iterator.first;
     var next = directories.sublist(1, directories.length);
     if (current is FolderProjectItem)
       return current.getFile(next.join('/'));
@@ -58,7 +55,7 @@ class FolderProjectItem extends ProjectItem {
 
   @override
   Map<String, dynamic> toJson() {
-    return super.toJson()..addAll({'files': _files.map((file) => file.toJson())});
+    return super.toJson()..addAll({'files': _files.map((file) => file!.toJson())});
   }
 
   @override

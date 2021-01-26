@@ -7,12 +7,12 @@ import 'package:mdi/mdi.dart';
 class SelectTool extends Tool {
   @override
   List<Widget> buildOptions(
-      {BuildContext context,
-      DocumentBloc bloc,
-      bool expanded,
-      bool isMobile,
-      SplitWindow window,
-      SplitView view}) {
+      {BuildContext? context,
+      DocumentBloc? bloc,
+      bool? expanded,
+      bool? isMobile,
+      SplitWindow? window,
+      SplitView? view}) {
     return [
       IconButton(icon: Icon(Mdi.selectAll), tooltip: "Select all", onPressed: () {}),
       IconButton(icon: Icon(Mdi.selectOff), tooltip: "Deselect", onPressed: () {}),

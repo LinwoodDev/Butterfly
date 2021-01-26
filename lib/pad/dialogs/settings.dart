@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 
 class PadSettingsDialog extends StatefulWidget {
-  final DocumentBloc bloc;
+  final DocumentBloc? bloc;
 
-  const PadSettingsDialog({Key key, this.bloc}) : super(key: key);
+  const PadSettingsDialog({Key? key, this.bloc}) : super(key: key);
   @override
   _PadSettingsDialogState createState() => _PadSettingsDialogState();
 }
@@ -15,7 +15,7 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
 
   @override
   void initState() {
-    _nameController.text = (widget.bloc.state as DocumentLoadSuccess).document.name;
+    _nameController.text = (widget.bloc!.state as DocumentLoadSuccess).document.name!;
     super.initState();
   }
 
@@ -48,7 +48,7 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                       child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                         RaisedButton(
                             onPressed: () {
-                              widget.bloc.add(DocumentNameChanged(_nameController.text));
+                              widget.bloc!.add(DocumentNameChanged(_nameController.text));
                               Navigator.of(context).pop();
                             },
                             child: Text("Ok", style: Theme.of(context).primaryTextTheme.button),

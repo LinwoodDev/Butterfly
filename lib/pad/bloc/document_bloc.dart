@@ -10,7 +10,6 @@ import 'package:butterfly/models/project/type.dart';
 import 'package:butterfly/models/tools/type.dart';
 import 'package:butterfly/models/tools/view.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 part 'document_event.dart';
 part 'document_state.dart';
@@ -45,7 +44,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
     if (state is DocumentLoadSuccess) {
       var last = (state as DocumentLoadSuccess);
       print("event");
-      print(event.parent.addFile(event.item));
+      print(event.parent!.addFile(event.item));
       yield last.copyWith(document: last.document.copyWith());
       _saveDocument();
     }
@@ -65,9 +64,9 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
       var current = (state as DocumentLoadSuccess);
       if (current.currentPad != null) {
         if (event.parent == null)
-          current.currentPad.root = event.layer;
+          current.currentPad!.root = event.layer;
         else
-          event.parent.children.add(event.layer);
+          event.parent!.children.add(event.layer);
       }
       yield current.copyWith(document: current.document.copyWith());
       _saveDocument();

@@ -1,9 +1,9 @@
 class LayerTranform {
-  Vector3 position;
-  Vector3 rotation;
-  Vector2 size;
-  Vector2 minPivot;
-  Vector2 maxPivot;
+  Vector3? position;
+  Vector3? rotation;
+  Vector2? size;
+  Vector2? minPivot;
+  Vector2? maxPivot;
 
   LayerTranform();
   factory LayerTranform.fromJson(Map<String, dynamic> json) {

@@ -1,6 +1,6 @@
 class Image {
-  ImageType type;
-  String data;
+  ImageType? type;
+  String? data;
 }
 
 enum ImageType { pixel, vector }

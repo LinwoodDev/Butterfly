@@ -13,12 +13,12 @@ import 'view.dart';
 abstract class Tool extends Equatable with InspectorItem {
   IconData get icon;
   List<Widget> buildOptions(
-      {BuildContext context,
-      DocumentBloc bloc,
-      bool expanded,
-      bool isMobile,
-      SplitWindow window,
-      SplitView view});
+      {BuildContext? context,
+      DocumentBloc? bloc,
+      bool? expanded,
+      bool? isMobile,
+      SplitWindow? window,
+      SplitView? view});
   ToolType get type;
   String get name;
 
@@ -35,7 +35,7 @@ abstract class Tool extends Equatable with InspectorItem {
 enum ToolType { view, select, move, edit }
 
 extension ToolTypeExtension on ToolType {
-  Tool create() {
+  Tool? create() {
     switch (this) {
       case ToolType.edit:
         return EditTool();
@@ -45,7 +45,8 @@ extension ToolTypeExtension on ToolType {
         return SelectTool();
       case ToolType.move:
         return MoveTool();
+      default:
+        return null;
     }
-    return null;
   }
 }

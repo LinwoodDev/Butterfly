@@ -11,37 +11,38 @@ class ViewTool extends Tool {
   const ViewTool();
   @override
   Widget buildInspector(DocumentBloc bloc) {
-    return (bloc.state as DocumentLoadSuccess).currentSelected.buildInspector(bloc);
+    return (bloc.state as DocumentLoadSuccess).currentSelected!.buildInspector(bloc);
   }
 
   @override
   List<Widget> buildOptions(
-      {BuildContext context,
-      DocumentBloc bloc,
-      bool expanded,
-      bool isMobile,
-      SplitWindow window,
-      SplitView view}) {
+      {BuildContext? context,
+      DocumentBloc? bloc,
+      bool? expanded,
+      bool? isMobile,
+      SplitWindow? window,
+      SplitView? view}) {
     return [
-      if (isMobile) ...[
+      if (isMobile!) ...[
         IconButton(
             icon: Icon(Mdi.cubeOutline),
             onPressed: () =>
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => LayersView()))),
+                Navigator.of(context!).push(MaterialPageRoute(builder: (context) => LayersView()))),
         IconButton(
             icon: Icon(Mdi.tuneVertical),
-            onPressed: () => Navigator.of(context)
+            onPressed: () => Navigator.of(context!)
                 .push(MaterialPageRoute(builder: (context) => InspectorView()))),
         IconButton(
             icon: Icon(Mdi.tableOfContents),
             onPressed: () =>
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProjectView())))
+                Navigator.of(context!).push(MaterialPageRoute(builder: (context) => ProjectView())))
       ] else ...[
         IconButton(
-            icon: Icon(expanded ? Mdi.windowMinimize : Mdi.windowMaximize),
+            icon: Icon(expanded! ? Mdi.windowMinimize : Mdi.windowMaximize),
             tooltip: expanded ? 'Minimize' : 'Maximize',
-            onPressed:
-                expanded ? Navigator.of(context).pop : () => window.expand(context, view, window))
+            onPressed: expanded
+                ? Navigator.of(context!).pop
+                : () => window!.expand(context!, view, window))
       ],
       VerticalDivider(),
       IconButton(icon: Icon(Mdi.magnifyPlus), tooltip: "Zoom in", onPressed: () {}),

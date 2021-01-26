@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 typedef ChangePathCallback<String> = void Function(String path);
 
 class FilePathDialog extends StatefulWidget {
-  final String current;
-  final ChangePathCallback callback;
+  final String? current;
+  final ChangePathCallback? callback;
 
-  const FilePathDialog({Key key, this.current, this.callback}) : super(key: key);
+  const FilePathDialog({Key? key, this.current, this.callback}) : super(key: key);
   @override
   _FilePathDialogState createState() => _FilePathDialogState();
 }
 
 class _FilePathDialogState extends State<FilePathDialog> {
-  TextEditingController _pathController;
+  TextEditingController? _pathController;
   @override
   void initState() {
     _pathController = TextEditingController(text: widget.current);
@@ -29,7 +29,7 @@ class _FilePathDialogState extends State<FilePathDialog> {
         FlatButton(onPressed: () => Navigator.of(context).pop(), child: Text("CANCEL")),
         FlatButton(
             onPressed: () {
-              widget.callback(_pathController.text);
+              widget.callback!(_pathController!.text);
               Navigator.of(context).pop();
             },
             child: Text("NAVIGATE"))
