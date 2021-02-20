@@ -19,10 +19,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  equatable: ^2.0.0-nullsafety.1
-  flutter_bloc: ^7.0.0-nullsafety.0
-  flutter_modular: ^3.0.0-nullsafety.27
-  url_launcher: ^6.0.0-nullsafety.1
+  equatable: ^2.0.0-nullsafety.3
+  flutter_bloc: ^7.0.0-nullsafety.2
+  flutter_modular: ^3.0.0-nullsafety.45
+  hive: ^1.6.0-nullsafety.2
+  hive_flutter: ^1.0.0-nullsafety.0
+  pluto_menu_bar: ^1.0.0-nullsafety.0
+  shared_preferences: ^2.0.0-nullsafety.1
+  url_launcher: ^6.0.0-nullsafety.7
   mdi: ^5.0.0-nullsafety.0
 
 dev_dependencies:
