@@ -21,7 +21,6 @@ class MainViewToolbar extends StatefulWidget {
 
 class _MainViewToolbarState extends State<MainViewToolbar> {
   void _toggleTool(Tool tool) {
-    print("TEST");
     // ignore: close_sinks
     var bloc = BlocProvider.of<DocumentBloc>(context);
     bloc.add(ToolChanged(tool));
@@ -37,7 +36,8 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
   Widget build(BuildContext context) {
     return Material(child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       var current = state as DocumentLoadSuccess;
-      return ListView(scrollDirection: Axis.horizontal, shrinkWrap: true, children: [
+      return SingleChildScrollView(
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         ...ToolType.values.map((e) {
           Tool tool = e.create()!;
           return IconButton(
@@ -56,7 +56,7 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
               window: widget.window,
               isMobile: widget.isMobile)
         ]
-      ]);
+      ]));
     }));
   }
 }

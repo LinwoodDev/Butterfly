@@ -43,8 +43,6 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
   Stream<DocumentState> _mapItemCreatedToState(ItemCreated event) async* {
     if (state is DocumentLoadSuccess) {
       var last = (state as DocumentLoadSuccess);
-      print("event");
-      print(event.parent!.addFile(event.item));
       yield last.copyWith(document: last.document.copyWith());
       _saveDocument();
     }

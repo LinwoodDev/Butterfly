@@ -21,13 +21,13 @@ class _CreateLayerDialogState extends State<CreateLayerDialog> {
     return AlertDialog(
         scrollable: true,
         actions: [
-          FlatButton(
+          TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 if (widget.parent == null) Navigator.of(context).pop();
               },
               child: Text("CANCEL")),
-          FlatButton(
+          TextButton(
               onPressed: () {
                 BlocProvider.of<DocumentBloc>(context).add(LayerCreated(
                     parent: widget.parent,

@@ -10,10 +10,11 @@ class MainViewViewport extends StatefulWidget {
 class _MainViewViewportState extends State<MainViewViewport> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: BlocBuilder<DocumentBloc, DocumentState>(
-            builder: (context, state) => (state as DocumentLoadSuccess).currentSelected == null
-                ? Center(child: Text("No file selected"))
-                : Container(color: Colors.white, child: Stack(children: [FlutterLogo(size: 10)]))));
+    return Container(
+        child: Expanded(
+            child: BlocBuilder<DocumentBloc, DocumentState>(
+                builder: (context, state) => (state as DocumentLoadSuccess).currentSelected == null
+                    ? Center(child: Text("No file selected"))
+                    : Container(child: Stack(children: [FlutterLogo(size: 50)])))));
   }
 }

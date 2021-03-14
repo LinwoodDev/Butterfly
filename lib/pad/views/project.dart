@@ -124,10 +124,6 @@ class _ProjectViewSystem extends StatelessWidget {
                   child: InkWell(
                       onLongPress: () => _changeSelected(bloc, state, currentPath),
                       onTap: () {
-                        print(path);
-                        print(path!.isNotEmpty);
-                        print(currentPath);
-                        print(history);
                         if (file is FolderProjectItem)
                           Navigator.push(
                               context,

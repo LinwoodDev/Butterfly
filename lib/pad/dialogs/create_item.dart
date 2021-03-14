@@ -22,13 +22,13 @@ class _CreateItemDialogState extends State<CreateItemDialog> {
     return AlertDialog(
         scrollable: true,
         actions: [
-          FlatButton(
+          TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 if (widget.parent == null) Navigator.of(context).pop();
               },
               child: Text("CANCEL")),
-          FlatButton(
+          TextButton(
               onPressed: () {
                 print("ITEM ERSTELLT!");
                 BlocProvider.of<DocumentBloc>(context).add(ItemCreated(

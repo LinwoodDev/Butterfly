@@ -25,16 +25,19 @@ class _MainViewState extends State<MainView> {
     return Container(
         child: Hero(
             tag: 'main_view',
-            child: Column(children: [
-              MainViewViewport(),
-              Container(
-                  height: 44.0,
-                  color: Theme.of(context).focusColor,
-                  child: MainViewToolbar(
-                      isMobile: isMobile,
-                      expanded: widget.expanded,
-                      view: widget.view,
-                      window: widget.window))
-            ])));
+            child: Scaffold(
+                body: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  MainViewViewport(),
+                  Container(
+                      color: Theme.of(context).focusColor,
+                      child: MainViewToolbar(
+                          isMobile: isMobile,
+                          expanded: widget.expanded,
+                          view: widget.view,
+                          window: widget.window))
+                ]))));
   }
 }

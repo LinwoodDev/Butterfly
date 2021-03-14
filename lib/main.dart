@@ -3,7 +3,7 @@ import 'package:butterfly/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-void main() => runApp(ModularApp(module: AppModule()));
+void main() => runApp(ModularApp(module: AppModule(), child: ButterflyApp()));
 
 class ButterflyApp extends StatelessWidget {
   // This widget is the root of your application.

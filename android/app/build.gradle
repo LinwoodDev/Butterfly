@@ -38,7 +38,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "tk.codedoctor.linwood.butterfly"
+        applicationId "com.github.linwoodcloud.linwood.butterfly"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()

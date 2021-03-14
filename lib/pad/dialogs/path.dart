@@ -26,8 +26,8 @@ class _FilePathDialogState extends State<FilePathDialog> {
       content:
           TextField(controller: _pathController, decoration: InputDecoration(labelText: "path")),
       actions: [
-        FlatButton(onPressed: () => Navigator.of(context).pop(), child: Text("CANCEL")),
-        FlatButton(
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text("CANCEL")),
+        TextButton(
             onPressed: () {
               widget.callback!(_pathController!.text);
               Navigator.of(context).pop();

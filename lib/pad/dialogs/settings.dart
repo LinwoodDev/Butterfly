@@ -46,13 +46,12 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                   Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                        RaisedButton(
+                        ElevatedButton(
                             onPressed: () {
                               widget.bloc!.add(DocumentNameChanged(_nameController.text));
                               Navigator.of(context).pop();
                             },
-                            child: Text("Ok", style: Theme.of(context).primaryTextTheme.button),
-                            color: Theme.of(context).primaryColor)
+                            child: Text("Ok", style: Theme.of(context).primaryTextTheme.button))
                       ]))
                 ]))));
   }

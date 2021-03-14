@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="tk.codedoctor.linwood.butterfly">
+    package="com.github.linwoodcloud.linwood.butterfly">
    <application
         android:label="Butterfly"
         android:icon="@mipmap/ic_launcher">

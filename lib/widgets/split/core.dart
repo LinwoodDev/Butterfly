@@ -7,7 +7,7 @@ typedef SplitWindowBuilder = Widget Function(
 class SplitWindow {
   final SplitWindowBuilder builder;
   final double? maxSize;
-  final double? minSize;
+  final double minSize;
   final double? size;
   final bool border;
 
@@ -16,7 +16,8 @@ class SplitWindow {
         .push(CustomPageRoute(builder: (context) => builder(context, view, window, true)));
   }
 
-  SplitWindow({required this.builder, this.minSize, this.maxSize, this.size, this.border = true});
+  SplitWindow(
+      {required this.builder, this.minSize = 0, this.maxSize, this.size, this.border = true});
 
   Widget build(BuildContext context, SplitView view, bool expanded) => Container(
       decoration: border ? BoxDecoration(border: Border.all()) : null,
@@ -75,12 +76,15 @@ class _SplitViewState extends State<SplitView> {
       assert(_ratio! >= 0);
       var constraintsSize =
           widget.axis == Axis.horizontal ? constraints.maxWidth : constraints.maxHeight;
+      print(_maxSize);
       if (_maxSize == null ||
-          widget.first.minSize != null && widget.first.minSize! > _firstSize ||
-          widget.second.minSize != null && widget.second.minSize! > _secondSize ||
+          widget.first.minSize > _firstSize ||
+          widget.second.minSize > _secondSize ||
           widget.first.maxSize != null && widget.first.maxSize! < _firstSize ||
           widget.second.maxSize != null && widget.second.maxSize! < _secondSize) {
         _maxSize = constraintsSize - _dividerWidth;
+      }
+      if (_ratio == null) {
         if (widget.first.size != null) _ratio = widget.first.size! / _maxSize!;
         if (widget.second.size != null) _ratio = (_maxSize! - widget.second.size!) / _maxSize!;
       }
@@ -118,8 +122,8 @@ class _SplitViewState extends State<SplitView> {
           setState(() {
             var last = _ratio! +
                 (widget.axis == Axis.horizontal ? details.delta.dx : details.delta.dy) / _maxSize!;
-            if (widget.first.minSize != null && widget.first.minSize! > _firstSize ||
-                widget.second.minSize != null && widget.second.minSize! > _secondSize ||
+            if (widget.first.minSize > _firstSize ||
+                widget.second.minSize > _secondSize ||
                 widget.first.maxSize != null && widget.first.maxSize! < _firstSize ||
                 widget.second.maxSize != null && widget.second.maxSize! < _secondSize)
               _ratio = last;

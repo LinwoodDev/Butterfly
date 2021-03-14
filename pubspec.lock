@@ -14,7 +14,7 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0-nullsafety.2"
+    version: "7.0.0-nullsafety.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -70,7 +70,7 @@ packages:
       name: equatable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety.3"
+    version: "2.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -103,14 +103,14 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0-nullsafety.2"
+    version: "7.0.0-nullsafety.5"
   flutter_modular:
     dependency: "direct main"
     description:
       name: flutter_modular
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0-nullsafety.45"
+    version: "3.0.1"
   flutter_modular_annotations:
     dependency: transitive
     description:
@@ -134,14 +134,14 @@ packages:
       name: hive
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.0-nullsafety.2"
+    version: "2.0.0"
   hive_flutter:
     dependency: "direct main"
     description:
       name: hive_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-nullsafety.0"
+    version: "1.0.0"
   js:
     dependency: transitive
     description:
@@ -190,35 +190,35 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety.1"
+    version: "2.0.1"
   path_provider_linux:
     dependency: transitive
     description:
       name: path_provider_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0-nullsafety"
+    version: "2.0.0"
   path_provider_macos:
     dependency: transitive
     description:
       name: path_provider_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.5-nullsafety"
+    version: "2.0.0"
   path_provider_platform_interface:
     dependency: transitive
     description:
       name: path_provider_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   path_provider_windows:
     dependency: transitive
     description:
       name: path_provider_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0-nullsafety.3"
+    version: "2.0.0"
   platform:
     dependency: transitive
     description:
@@ -233,13 +233,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  pluto_menu_bar:
-    dependency: "direct main"
-    description:
-      name: pluto_menu_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0-nullsafety.0"
   process:
     dependency: transitive
     description:
@@ -253,49 +246,49 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0-nullsafety.4"
+    version: "5.0.0"
   shared_preferences:
     dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety.1"
+    version: "2.0.4"
   shared_preferences_linux:
     dependency: transitive
     description:
       name: shared_preferences_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.4-nullsafety"
+    version: "2.0.0"
   shared_preferences_macos:
     dependency: transitive
     description:
       name: shared_preferences_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2-nullsafety"
+    version: "2.0.0"
   shared_preferences_platform_interface:
     dependency: transitive
     description:
       name: shared_preferences_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety"
+    version: "2.0.0"
   shared_preferences_web:
     dependency: transitive
     description:
       name: shared_preferences_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0-nullsafety"
+    version: "2.0.0"
   shared_preferences_windows:
     dependency: transitive
     description:
       name: shared_preferences_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.3-nullsafety"
+    version: "2.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -349,7 +342,7 @@ packages:
       name: triple
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.27"
+    version: "1.0.0+1"
   typed_data:
     dependency: transitive
     description:
@@ -363,42 +356,42 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0-nullsafety.7"
+    version: "6.0.2"
   url_launcher_linux:
     dependency: transitive
     description:
       name: url_launcher_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0-nullsafety.3"
+    version: "2.0.0"
   url_launcher_macos:
     dependency: transitive
     description:
       name: url_launcher_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0-nullsafety.2"
+    version: "2.0.0"
   url_launcher_platform_interface:
     dependency: transitive
     description:
       name: url_launcher_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   url_launcher_web:
     dependency: transitive
     description:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety"
+    version: "2.0.0"
   url_launcher_windows:
     dependency: transitive
     description:
       name: url_launcher_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0-nullsafety.2"
+    version: "2.0.0"
   vector_math:
     dependency: transitive
     description:
@@ -412,7 +405,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.4"
   xdg_directories:
     dependency: transitive
     description:
@@ -421,5 +414,5 @@ packages:
     source: hosted
     version: "0.2.0"
 sdks:
-  dart: ">=2.12.0-259.9.beta <3.0.0"
+  dart: ">=2.12.0 <3.0.0"
   flutter: ">=1.22.0"
