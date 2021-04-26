@@ -5,7 +5,7 @@ import 'package:butterfly/pad/views/project.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:mdi/mdi.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ViewTool extends Tool {
   const ViewTool();
@@ -25,38 +25,38 @@ class ViewTool extends Tool {
     return [
       if (isMobile!) ...[
         IconButton(
-            icon: Icon(Mdi.cubeOutline),
+            icon: Icon(MdiIcons.cubeOutline),
             onPressed: () =>
                 Navigator.of(context!).push(MaterialPageRoute(builder: (context) => LayersView()))),
         IconButton(
-            icon: Icon(Mdi.tuneVertical),
+            icon: Icon(MdiIcons.tuneVertical),
             onPressed: () => Navigator.of(context!)
                 .push(MaterialPageRoute(builder: (context) => InspectorView()))),
         IconButton(
-            icon: Icon(Mdi.tableOfContents),
+            icon: Icon(MdiIcons.tableOfContents),
             onPressed: () =>
                 Navigator.of(context!).push(MaterialPageRoute(builder: (context) => ProjectView())))
       ] else ...[
         IconButton(
-            icon: Icon(expanded! ? Mdi.windowMinimize : Mdi.windowMaximize),
+            icon: Icon(expanded! ? MdiIcons.windowMinimize : MdiIcons.windowMaximize),
             tooltip: expanded ? 'Minimize' : 'Maximize',
             onPressed: expanded
                 ? Navigator.of(context!).pop
                 : () => window!.expand(context!, view, window))
       ],
       VerticalDivider(),
-      IconButton(icon: Icon(Mdi.magnifyPlus), tooltip: "Zoom in", onPressed: () {}),
-      IconButton(icon: Icon(Mdi.magnify), tooltip: "Reset zoom", onPressed: () {}),
-      IconButton(icon: Icon(Mdi.magnifyMinus), tooltip: "Zoom out", onPressed: () {}),
+      IconButton(icon: Icon(MdiIcons.magnifyPlus), tooltip: "Zoom in", onPressed: () {}),
+      IconButton(icon: Icon(MdiIcons.magnify), tooltip: "Reset zoom", onPressed: () {}),
+      IconButton(icon: Icon(MdiIcons.magnifyMinus), tooltip: "Zoom out", onPressed: () {}),
       VerticalDivider(),
-      IconButton(icon: Icon(Mdi.export), tooltip: "Export", onPressed: () {}),
-      IconButton(icon: Icon(Mdi.printer), tooltip: "Print", onPressed: () {}),
-      IconButton(icon: Icon(Mdi.presentationPlay), tooltip: "Presentation", onPressed: () {}),
+      IconButton(icon: Icon(MdiIcons.export), tooltip: "Export", onPressed: () {}),
+      IconButton(icon: Icon(MdiIcons.printer), tooltip: "Print", onPressed: () {}),
+      IconButton(icon: Icon(MdiIcons.presentationPlay), tooltip: "Presentation", onPressed: () {}),
     ];
   }
 
   @override
-  IconData get icon => Mdi.cursorDefaultOutline;
+  IconData get icon => MdiIcons.cursorDefaultOutline;
 
   @override
   ToolType get type => ToolType.view;

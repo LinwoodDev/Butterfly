@@ -1,7 +1,7 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mdi/mdi.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../inspector.dart';
 import 'folder.dart';
@@ -27,11 +27,11 @@ extension ProjectItemTypeExtension on ProjectItemType? {
   IconData? get icon {
     switch (this) {
       case ProjectItemType.folder:
-        return Mdi.folderOutline;
+        return MdiIcons.folderOutline;
       case ProjectItemType.image:
-        return Mdi.imageOutline;
+        return MdiIcons.imageOutline;
       case ProjectItemType.pad:
-        return Mdi.monitor;
+        return MdiIcons.monitor;
       default:
         return null;
     }

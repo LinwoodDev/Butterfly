@@ -8,7 +8,7 @@ import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mdi/mdi.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'bloc/document_bloc.dart';
 import 'dialogs/settings.dart';
@@ -73,21 +73,21 @@ class _ProjectPageState extends State<ProjectPage> {
                         }),
                         actions: [
                           IconButton(
-                            icon: Icon(Mdi.undo),
+                            icon: Icon(MdiIcons.undo),
                             tooltip: "Undo",
                             onPressed: () {},
                           ),
                           IconButton(
-                            icon: Icon(Mdi.redo),
+                            icon: Icon(MdiIcons.redo),
                             tooltip: "Redo",
                             onPressed: () {},
                           ),
                           IconButton(
-                              icon: Icon(Mdi.cogOutline),
+                              icon: Icon(MdiIcons.cogOutline),
                               tooltip: "Project settings",
                               onPressed: () => _showProjectSettings(context)),
                           IconButton(
-                              icon: Icon(Mdi.link),
+                              icon: Icon(MdiIcons.link),
                               tooltip: "Share (not implemented)",
                               onPressed: null)
                         ]),
@@ -135,7 +135,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                         second: SplitWindow(
                                             minSize: 150,
                                             size: 250,
-                                            maxSize: 350,
                                             builder: (BuildContext context, SplitView? view,
                                                     SplitWindow? window, bool expanded) =>
                                                 ProjectView(view: view, window: window, expanded: expanded)),

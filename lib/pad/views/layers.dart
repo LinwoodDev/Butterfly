@@ -4,7 +4,7 @@ import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/widgets/split/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mdi/mdi.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:butterfly/models/elements/type.dart';
 
 class LayersView extends StatefulWidget {
@@ -30,7 +30,7 @@ class _LayersViewState extends State<LayersView> {
             window: widget.window,
             expanded: widget.expanded,
             title: "Layers",
-            icon: Mdi.cubeOutline,
+            icon: MdiIcons.cubeOutline,
             floatingActionButton: FloatingActionButton(
                 heroTag: null,
                 onPressed: () {
@@ -42,7 +42,7 @@ class _LayersViewState extends State<LayersView> {
                                 parent: (bloc.state as DocumentLoadSuccess).currentPad!.root)),
                         context: context);
                 },
-                child: Icon(Mdi.plus),
+                child: Icon(MdiIcons.plus),
                 tooltip: "Create layer"),
             body: Navigator(
                 onGenerateRoute: (settings) => MaterialPageRoute(

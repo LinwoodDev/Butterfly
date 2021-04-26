@@ -1,6 +1,6 @@
 import 'package:butterfly/models/elements/paint.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mdi/mdi.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'container.dart';
 import 'text.dart';
@@ -37,11 +37,11 @@ extension LayerTypeExtension on LayerType? {
   IconData? get icon {
     switch (this) {
       case LayerType.container:
-        return Mdi.group;
+        return MdiIcons.group;
       case LayerType.text:
-        return Mdi.text;
+        return MdiIcons.text;
       case LayerType.paint:
-        return Mdi.paletteOutline;
+        return MdiIcons.paletteOutline;
       default:
         return null;
     }

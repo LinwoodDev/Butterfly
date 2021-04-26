@@ -1,7 +1,7 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
-import 'package:mdi/mdi.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SplitScaffold extends StatelessWidget {
   final SplitView? view;
@@ -38,7 +38,8 @@ class SplitScaffold extends StatelessWidget {
             actions: [
               if (actions != null) ...actions!,
               IconButton(
-                  icon: Icon(!isSplitted || expanded! ? Mdi.windowMinimize : Mdi.windowMaximize,
+                  icon: Icon(
+                      !isSplitted || expanded! ? MdiIcons.windowMinimize : MdiIcons.windowMaximize,
                       size: 20),
                   onPressed: !isSplitted || expanded!
                       ? Navigator.of(context).pop

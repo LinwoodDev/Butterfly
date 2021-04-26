@@ -1,7 +1,7 @@
 import 'package:butterfly/models/document.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mdi/mdi.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                               return Card(
                                   margin: EdgeInsets.all(5),
                                   child: InkWell(
-                                      onTap: () => Modular.to.pushNamed('/pad'),
+                                      onTap: () => Modular.to.pushNamed("/pad/$index"),
                                       child: Padding(
                                           padding:
                                               EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                                           ]))));
                             })))))),
         floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(Mdi.plus),
+          icon: Icon(MdiIcons.plus),
           label: Text("New"),
           onPressed: () {},
         ));

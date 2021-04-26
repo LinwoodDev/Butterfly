@@ -1,7 +1,7 @@
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:mdi/mdi.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'type.dart';
 
@@ -58,17 +58,17 @@ class MoveTool extends Tool {
       SplitView? view}) {
     return [
       IconButton(
-          icon: Icon(Mdi.crosshairs),
+          icon: Icon(MdiIcons.crosshairs),
           tooltip: "Location",
           color: moveToolType == MoveToolType.location ? Theme.of(context!).primaryColor : null,
           onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.location)))),
       IconButton(
-          icon: Icon(Mdi.formatRotate90),
+          icon: Icon(MdiIcons.formatRotate90),
           tooltip: "Rotation",
           color: moveToolType == MoveToolType.rotation ? Theme.of(context!).primaryColor : null,
           onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.rotation)))),
       IconButton(
-          icon: Icon(Mdi.resize),
+          icon: Icon(MdiIcons.resize),
           tooltip: "Scale",
           color: moveToolType == MoveToolType.scale ? Theme.of(context!).primaryColor : null,
           onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.scale))))
@@ -76,7 +76,7 @@ class MoveTool extends Tool {
   }
 
   @override
-  IconData get icon => Mdi.cursorMove;
+  IconData get icon => MdiIcons.cursorMove;
 
   @override
   ToolType get type => ToolType.move;

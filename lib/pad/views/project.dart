@@ -7,7 +7,7 @@ import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/widgets/split/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mdi/mdi.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ProjectView extends StatefulWidget {
   final SplitView? view;
@@ -40,17 +40,17 @@ class _ProjectViewState extends State<ProjectView> {
             window: widget.window,
             expanded: widget.expanded,
             title: "Project",
-            icon: Mdi.tableOfContents,
+            icon: MdiIcons.tableOfContents,
             actions: [
               IconButton(
-                  icon: Icon(Mdi.homeOutline, size: 20),
+                  icon: Icon(MdiIcons.homeOutline, size: 20),
                   tooltip: "Home",
                   onPressed: () {
                     _navigator.currentState!.popUntil((route) => route.isFirst);
                     history.clear();
                   }),
               IconButton(
-                  icon: Icon(Mdi.arrowUp, size: 20),
+                  icon: Icon(MdiIcons.arrowUp, size: 20),
                   tooltip: "Up",
                   onPressed: () {
                     if (_navigator.currentState!.canPop()) {
@@ -59,7 +59,7 @@ class _ProjectViewState extends State<ProjectView> {
                     }
                   }),
               IconButton(
-                  icon: Icon(Mdi.magnify, size: 20),
+                  icon: Icon(MdiIcons.magnify, size: 20),
                   tooltip: "Path",
                   onPressed: () => showDialog(
                       context: context,
@@ -68,7 +68,7 @@ class _ProjectViewState extends State<ProjectView> {
                             ..push(MaterialPageRoute(
                                 builder: (_) => _ProjectViewSystem(path: path)))))),
               IconButton(
-                  icon: Icon(Mdi.reload, size: 20),
+                  icon: Icon(MdiIcons.reload, size: 20),
                   tooltip: "Reload",
                   onPressed: () => setState(() {})),
               VerticalDivider()
@@ -79,11 +79,11 @@ class _ProjectViewState extends State<ProjectView> {
                     context: context,
                     builder: (context) => BlocProvider.value(
                         value: bloc,
-                        child: CreateItemDialog(
+                        child: CreateIteMdiIconsalog(
                             parent: (bloc.state as DocumentLoadSuccess)
                                 .document
                                 .getFile(history.last) as FolderProjectItem?))),
-                child: Icon(Mdi.plus),
+                child: Icon(MdiIcons.plus),
                 tooltip: "New"),
             body: Navigator(
                 key: _navigator,

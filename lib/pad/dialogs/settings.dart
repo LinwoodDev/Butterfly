@@ -1,6 +1,6 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:mdi/mdi.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class PadSettingsDialog extends StatefulWidget {
   final DocumentBloc? bloc;
@@ -29,8 +29,8 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                 child: Column(children: [
                   TabBar(
                     tabs: [
-                      Tab(icon: Icon(Mdi.tune), text: "General"),
-                      Tab(icon: Icon(Mdi.packageVariantClosed), text: "Packs")
+                      Tab(icon: Icon(MdiIcons.tune), text: "General"),
+                      Tab(icon: Icon(MdiIcons.packageVariantClosed), text: "Packs")
                     ],
                   ),
                   Expanded(
