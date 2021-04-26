@@ -1,0 +1,34 @@
+name: Dart
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v1
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'beta' # or: 'stable' or 'dev'
+      - uses: actions/checkout@v2
+      - name: Print Dart SDK version
+        run: |
+          dart --version
+          flutter --version
+      - name: Install dependencies
+        run: |
+          flutter pub get
+      # Uncomment this step to verify the use of 'dart format' on each commit.
+      # - name: Verify formatting
+      #   run: dart format --output=none --set-exit-if-changed .
+
+      # Consider passing '--fatal-infos' for slightly stricter analysis.
+      - name: Analyze project source
+        run: |
+          flutter analyze
+      # Your project will need to have tests in test/ and a dependency on
+      # package:test for this step to succeed. Note that Flutter projects will
+      # want to change this to 'flutter test'.
+      # - name: Run tests
+      #   run: flutter test
