@@ -13,8 +13,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
     return Container(
         child: Expanded(
             child: BlocBuilder<DocumentBloc, DocumentState>(
-                builder: (context, state) => (state as DocumentLoadSuccess).currentSelected == null
-                    ? Center(child: Text("No file selected"))
+                builder: (context, state) => (state as DocumentLoadSuccess).currentPad == null
+                    ? Center(child: Text("No pad selected"))
                     : Container(child: Stack(children: [FlutterLogo(size: 50)])))));
   }
 }

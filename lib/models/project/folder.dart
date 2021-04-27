@@ -3,7 +3,7 @@ import 'type.dart';
 class FolderProjectItem extends ProjectItem {
   final List<ProjectItem?> _files;
 
-  FolderProjectItem({required String? name, String? description})
+  FolderProjectItem({required String name, String description = ''})
       : _files = [],
         super(name: name, description: description);
 
@@ -16,7 +16,7 @@ class FolderProjectItem extends ProjectItem {
   List<ProjectItem> get files => List.unmodifiable(_files);
 
   bool addFile(ProjectItem item) {
-    if (!hasFile(item.name!))
+    if (!hasFile(item.name))
       _files.add(item);
     else
       return false;

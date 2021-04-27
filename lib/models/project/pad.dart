@@ -6,7 +6,7 @@ import 'type.dart';
 class PadProjectItem extends ProjectItem {
   ElementLayer? root = LayerContainer(name: 'root');
 
-  PadProjectItem({required String name, String? description})
+  PadProjectItem({required String name, String description = ''})
       : super(name: name, description: description);
 
   PadProjectItem.fromJson(Map<String, dynamic> json)

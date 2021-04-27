@@ -7,7 +7,7 @@ class AppDocument extends FolderProjectItem {
   String? mainPad = 'pads/main';
   final List<PackCollection> packs = [];
 
-  AppDocument({required String? name, String? description, bool blank = false})
+  AppDocument({required String name, String description = '', bool blank = false})
       : super(name: name, description: description) {
     if (!blank) addFile(FolderProjectItem(name: "pads")..addFile(PadProjectItem(name: "main")));
   }

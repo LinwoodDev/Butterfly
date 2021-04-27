@@ -24,8 +24,8 @@ class ProjectPage extends StatefulWidget {
 
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: close_sinks
-  DocumentBloc? _bloc;
-  HeroController? _heroController;
+  late DocumentBloc _bloc;
+  late HeroController _heroController;
   final AppDocument document = AppDocument(name: "Document name");
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   void _showRootDialog() async {
-    var pad = (_bloc!.state as DocumentLoadSuccess).currentPad;
+    var pad = (_bloc.state as DocumentLoadSuccess).currentPad;
     if (pad != null && pad.root == null) {
       await showDialog(context: context, builder: (context) => CreateLayerDialog());
     }
@@ -52,94 +52,96 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => _bloc!,
-        child: Navigator(
-            observers: [_heroController!],
-            onGenerateRoute: (settings) => MaterialPageRoute(
-                builder: (context) => Scaffold(
-                    appBar: AppBar(
-                        centerTitle: true,
-                        title: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                          if (_bloc!.state is DocumentLoadSuccess) {
-                            var current = _bloc!.state as DocumentLoadSuccess;
-                            return Column(children: [
-                              if (current.currentSelectedPath != null)
-                                Text(current.currentSelectedPath!,
-                                    style: Theme.of(context).textTheme.subtitle1),
-                              Text(current.document.name!)
-                            ]);
-                          } else
-                            return Text("Loading...");
-                        }),
-                        actions: [
-                          IconButton(
-                            icon: Icon(MdiIcons.undo),
-                            tooltip: "Undo",
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: Icon(MdiIcons.redo),
-                            tooltip: "Redo",
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                              icon: Icon(MdiIcons.cogOutline),
-                              tooltip: "Project settings",
-                              onPressed: () => _showProjectSettings(context)),
-                          IconButton(
-                              icon: Icon(MdiIcons.link),
-                              tooltip: "Share (not implemented)",
-                              onPressed: null)
-                        ]),
-                    body:
+        create: (_) => _bloc,
+        child: Scaffold(
+            appBar: AppBar(
+                centerTitle: true,
+                title: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                  if (_bloc.state is DocumentLoadSuccess) {
+                    var current = _bloc.state as DocumentLoadSuccess;
+                    return Column(children: [
+                      if (current.currentSelectedPath != null)
+                        Text(current.currentSelectedPath!,
+                            style: Theme.of(context).textTheme.subtitle1),
+                      Text(current.document.name)
+                    ]);
+                  } else
+                    return Text("Loading...");
+                }),
+                actions: [
+                  IconButton(
+                    icon: Icon(MdiIcons.undo),
+                    tooltip: "Undo",
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: Icon(MdiIcons.redo),
+                    tooltip: "Redo",
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                      icon: Icon(MdiIcons.cogOutline),
+                      tooltip: "Project settings",
+                      onPressed: () => _showProjectSettings(context)),
+                  IconButton(
+                      icon: Icon(MdiIcons.link),
+                      tooltip: "Share (not implemented)",
+                      onPressed: null)
+                ]),
+            body: Navigator(
+                observers: [_heroController],
+                onGenerateRoute: (settings) => MaterialPageRoute(
+                    builder: (context) =>
                         LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-                      bool isMobile = MediaQuery.of(context).size.width < 800 ||
-                          MediaQuery.of(context).size.height < 600;
-                      if (isMobile)
-                        return MainView(expanded: true);
-                      else
-                        return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SplitView(
-                                axis: Axis.horizontal,
-                                second: SplitWindow(
-                                    border: false,
-                                    minSize: 200,
-                                    size: 250,
-                                    maxSize: 500,
-                                    builder:
-                                        (BuildContext context, SplitView? view, SplitWindow? window, bool expanded) =>
-                                            SplitView(
-                                                axis: Axis.vertical,
-                                                first: SplitWindow(
-                                                  minSize: 150,
-                                                  size: 250,
-                                                  builder: (context, view, window, expanded) =>
-                                                      LayersView(
-                                                          view: view,
-                                                          window: window,
-                                                          expanded: expanded),
-                                                ),
-                                                second: SplitWindow(
-                                                    minSize: 100,
-                                                    builder: (BuildContext context, SplitView? view,
-                                                            SplitWindow? window, bool expanded) =>
-                                                        InspectorView(
-                                                            view: view,
-                                                            window: window,
-                                                            expanded: expanded)))),
-                                first: SplitWindow(
-                                    border: false,
-                                    builder: (BuildContext context, SplitView? view, SplitWindow? window, bool expanded) => SplitView(
-                                        axis: Axis.vertical,
-                                        second: SplitWindow(
-                                            minSize: 150,
-                                            size: 250,
-                                            builder: (BuildContext context, SplitView? view,
-                                                    SplitWindow? window, bool expanded) =>
-                                                ProjectView(view: view, window: window, expanded: expanded)),
-                                        first: SplitWindow(builder: (BuildContext context, SplitView? view, SplitWindow? window, bool expanded) => MainView(view: view, window: window, expanded: expanded))))));
-                    })))));
+                          bool isMobile = MediaQuery.of(context).size.width < 800 ||
+                              MediaQuery.of(context).size.height < 600;
+                          if (isMobile)
+                            return MainView(expanded: true);
+                          else
+                            return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SplitView(
+                                    axis: Axis.horizontal,
+                                    second: SplitWindow(
+                                        border: false,
+                                        minSize: 200,
+                                        size: 250,
+                                        maxSize: 500,
+                                        builder:
+                                            (BuildContext context, SplitView? view, SplitWindow? window, bool expanded) =>
+                                                SplitView(
+                                                    axis: Axis.vertical,
+                                                    first: SplitWindow(
+                                                      minSize: 150,
+                                                      size: 250,
+                                                      builder: (context, view, window, expanded) =>
+                                                          LayersView(
+                                                              view: view,
+                                                              window: window,
+                                                              expanded: expanded),
+                                                    ),
+                                                    second: SplitWindow(
+                                                        minSize: 100,
+                                                        builder: (BuildContext context,
+                                                                SplitView? view,
+                                                                SplitWindow? window,
+                                                                bool expanded) =>
+                                                            InspectorView(
+                                                                view: view,
+                                                                window: window,
+                                                                expanded: expanded)))),
+                                    first: SplitWindow(
+                                        border: false,
+                                        builder: (BuildContext context, SplitView? view, SplitWindow? window, bool expanded) => SplitView(
+                                            axis: Axis.vertical,
+                                            second: SplitWindow(
+                                                minSize: 150,
+                                                size: 250,
+                                                builder: (BuildContext context, SplitView? view,
+                                                        SplitWindow? window, bool expanded) =>
+                                                    ProjectView(view: view, window: window, expanded: expanded)),
+                                            first: SplitWindow(builder: (BuildContext context, SplitView? view, SplitWindow? window, bool expanded) => MainView(view: view, window: window, expanded: expanded))))));
+                        })))));
   }
 
   void _showProjectSettings(bloc) {

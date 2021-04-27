@@ -66,7 +66,7 @@ class _LayersViewState extends State<LayersView> {
                                   );
                                 });
                           } else
-                            return CircularProgressIndicator();
+                            return Text("No pad selected");
                         }))))));
   }
 }

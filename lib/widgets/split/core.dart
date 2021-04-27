@@ -78,7 +78,6 @@ class _SplitViewState extends State<SplitView> {
       assert(_ratio == null || _ratio! >= 0 && _ratio! <= 1);
       var constraintsSize =
           widget.axis == Axis.horizontal ? constraints.maxWidth : constraints.maxHeight;
-      print(_maxSize);
       if (_maxSize == null ||
           widget.first.minSize > _firstSize ||
           widget.second.minSize > _secondSize ||

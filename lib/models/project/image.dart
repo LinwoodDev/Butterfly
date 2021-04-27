@@ -5,7 +5,7 @@ import 'type.dart';
 class ImageProjectItem extends ProjectItem {
   final Uint8List? bytes;
 
-  ImageProjectItem({required String name, String? description, this.bytes})
+  ImageProjectItem({required String name, String description = '', this.bytes})
       : super(name: name, description: description);
   ImageProjectItem.fromJson(Map<String, dynamic> json)
       : bytes = Uint8List.fromList(json['root']),

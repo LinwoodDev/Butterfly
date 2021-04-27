@@ -15,7 +15,7 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
 
   @override
   void initState() {
-    _nameController.text = (widget.bloc!.state as DocumentLoadSuccess).document.name!;
+    _nameController.text = (widget.bloc!.state as DocumentLoadSuccess).document.name;
     super.initState();
   }
 
@@ -36,11 +36,14 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                   Expanded(
                       child: Container(
                           child: TabBarView(children: [
-                    Column(children: [
-                      TextField(
-                          controller: _nameController,
-                          decoration: InputDecoration(labelText: "Name"))
-                    ]),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(children: [
+                        TextField(
+                            controller: _nameController,
+                            decoration: InputDecoration(labelText: "Name"))
+                      ]),
+                    ),
                     Icon(Icons.directions_transit)
                   ]))),
                   Padding(

@@ -69,10 +69,10 @@ extension ProjectItemTypeExtension on ProjectItemType? {
 }
 
 abstract class ProjectItem with InspectorItem {
-  String? name;
-  String? description = '';
+  String name;
+  String description = '';
 
-  ProjectItem({required this.name, this.description});
+  ProjectItem({required this.name, this.description = ''});
 
   Map<String, dynamic> toJson() => {'name': name, 'description': description};
   static ProjectItem? fromJson(Map<String, dynamic> json) => ProjectItemType.values

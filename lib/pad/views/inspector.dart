@@ -34,7 +34,7 @@ class _InspectorViewState extends State<InspectorView> {
                   if (state is DocumentLoadSuccess && state.currentInspectorItem != null)
                     return Container(child: state.currentInspectorItem!.buildInspector(bloc));
                   else
-                    return CircularProgressIndicator();
+                    return Text("No object selected");
                 })),
             view: widget.view,
             window: widget.window,

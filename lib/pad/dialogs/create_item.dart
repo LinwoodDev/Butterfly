@@ -30,7 +30,6 @@ class _CreateIteMdiIconsalogState extends State<CreateIteMdiIconsalog> {
               child: Text("CANCEL")),
           TextButton(
               onPressed: () {
-                print("ITEM ERSTELLT!");
                 BlocProvider.of<DocumentBloc>(context).add(ItemCreated(
                     parent: widget.parent,
                     item: _type!.create(_nameController.text, _descriptionController.text)!));

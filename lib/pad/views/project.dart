@@ -119,7 +119,7 @@ class _ProjectViewSystem extends StatelessWidget {
                     child: Wrap(
                         children: folder.files.map((file) {
               var currentPath = path!.isNotEmpty ? path! + '/' : '';
-              currentPath += file.name!;
+              currentPath += file.name;
               return Card(
                   child: InkWell(
                       onLongPress: () => _changeSelected(bloc, state, currentPath),
@@ -139,7 +139,7 @@ class _ProjectViewSystem extends StatelessWidget {
                               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                               child: Column(children: [
                                 Icon(file.type.icon, size: 50),
-                                Text(file.name!, overflow: TextOverflow.ellipsis)
+                                Text(file.name, overflow: TextOverflow.ellipsis)
                               ])))));
             }).toList())));
           } else

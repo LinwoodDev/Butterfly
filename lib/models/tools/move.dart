@@ -20,9 +20,17 @@ class MoveTool extends Tool {
           initiallyExpanded: true,
           childrenPadding: EdgeInsets.symmetric(horizontal: 10),
           children: <Widget>[
-            TextField(decoration: InputDecoration(labelText: "X")),
-            TextField(decoration: InputDecoration(labelText: "Y")),
-            TextField(decoration: InputDecoration(labelText: "Z")),
+            Row(children: [
+              Expanded(
+                  child: TextField(
+                      decoration: InputDecoration(labelText: "X"), textAlign: TextAlign.center)),
+              Expanded(
+                  child: TextField(
+                      decoration: InputDecoration(labelText: "Y"), textAlign: TextAlign.center)),
+              Expanded(
+                  child: TextField(
+                      decoration: InputDecoration(labelText: "Z"), textAlign: TextAlign.center)),
+            ])
           ]),
       ExpansionTile(
           title: Text(
@@ -31,9 +39,17 @@ class MoveTool extends Tool {
           initiallyExpanded: true,
           childrenPadding: EdgeInsets.symmetric(horizontal: 10),
           children: <Widget>[
-            TextField(decoration: InputDecoration(labelText: "X")),
-            TextField(decoration: InputDecoration(labelText: "Y")),
-            TextField(decoration: InputDecoration(labelText: "Z")),
+            Row(children: [
+              Expanded(
+                  child: TextField(
+                      decoration: InputDecoration(labelText: "X"), textAlign: TextAlign.center)),
+              Expanded(
+                  child: TextField(
+                      decoration: InputDecoration(labelText: "Y"), textAlign: TextAlign.center)),
+              Expanded(
+                  child: TextField(
+                      decoration: InputDecoration(labelText: "Z"), textAlign: TextAlign.center))
+            ])
           ]),
       ExpansionTile(
           title: Text(
@@ -42,8 +58,15 @@ class MoveTool extends Tool {
           childrenPadding: EdgeInsets.symmetric(horizontal: 10),
           initiallyExpanded: true,
           children: <Widget>[
-            TextField(decoration: InputDecoration(labelText: "Height")),
-            TextField(decoration: InputDecoration(labelText: "Width")),
+            Row(children: [
+              Expanded(
+                  child: TextField(
+                      decoration: InputDecoration(labelText: "Height"),
+                      textAlign: TextAlign.center)),
+              Expanded(
+                  child: TextField(
+                      decoration: InputDecoration(labelText: "Width"), textAlign: TextAlign.center))
+            ])
           ])
     ]);
   }
