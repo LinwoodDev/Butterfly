@@ -18,6 +18,7 @@ jobs:
           flutter --version
       - name: Install dependencies
         run: |
+          cd app
           flutter pub get
       # Uncomment this step to verify the use of 'dart format' on each commit.
       # - name: Verify formatting
@@ -26,6 +27,7 @@ jobs:
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
         run: |
+          cd app
           flutter analyze
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
