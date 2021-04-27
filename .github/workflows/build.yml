@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build-apk:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v1
@@ -19,10 +19,12 @@ jobs:
         run: flutter config --enable-web
       - name: 📦 Get dependencies
         run: |
+          cd app
           flutter pub get
       #- run: flutter test
       - name: 🏭 Build
         run: |
+          cd app
           flutter doctor -v
           flutter build apk -v --release
       - name: Archive
@@ -42,9 +44,11 @@ jobs:
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
         run: |
+          cd app
           flutter pub get
       - name: 🏭 Build
         run: |
+          cd app
           flutter clean
           flutter doctor -v
           flutter build windows -v --release
@@ -56,7 +60,7 @@ jobs:
           path: |
             app/build/windows/runner/Release/**
   build-linux:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v1
@@ -71,9 +75,11 @@ jobs:
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
+          cd app
           flutter pub get
       - name: 🏭 Build
         run: |
+          cd app
           flutter clean
           flutter doctor -v
           flutter build linux -v --release
@@ -108,7 +114,7 @@ jobs:
   #        path: |
   #          build/windows/runner/Release/**
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs:
       - build-apk
       - build-windows
