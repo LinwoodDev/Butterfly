@@ -31,7 +31,6 @@ class SplitScaffold extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             toolbarHeight: 35,
-            backgroundColor: Theme.of(context).accentColor,
             automaticallyImplyLeading: !isSplitted,
             title: Text(title),
             leading: Icon(icon, size: 20),
