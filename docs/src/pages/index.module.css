@@ -23,3 +23,7 @@
   align-items: center;
   justify-content: center;
 }
+
+.indexCtas a {
+  margin: 10px 8px;
+}
