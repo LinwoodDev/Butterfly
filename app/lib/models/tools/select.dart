@@ -14,12 +14,10 @@ class SelectTool extends Tool {
       SplitWindow? window,
       SplitView? view}) {
     return [
-      IconButton(icon: Icon(PhosphorIcons.folderLight), tooltip: "Select all", onPressed: () {}),
-      IconButton(icon: Icon(PhosphorIcons.trashLight), tooltip: "Deselect", onPressed: () {}),
+      IconButton(icon: Icon(PhosphorIcons.xLight), tooltip: "Select all", onPressed: () {}),
+      IconButton(icon: Icon(PhosphorIcons.divideLight), tooltip: "Deselect", onPressed: () {}),
       IconButton(
-          icon: Icon(PhosphorIcons.arrowClockwiseLight),
-          tooltip: "Select inverse",
-          onPressed: () {}),
+          icon: Icon(PhosphorIcons.percentLight), tooltip: "Select inverse", onPressed: () {}),
       VerticalDivider(),
       IconButton(
           icon: Icon(PhosphorIcons.plusLight), tooltip: "Add to selection", onPressed: () {}),
@@ -31,7 +29,7 @@ class SelectTool extends Tool {
   }
 
   @override
-  IconData get icon => PhosphorIcons.plusMinusLight;
+  IconData get icon => PhosphorIcons.mathOperationsLight;
 
   @override
   ToolType get type => ToolType.select;

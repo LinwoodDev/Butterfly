@@ -91,7 +91,7 @@ class MoveTool extends Tool {
           color: moveToolType == MoveToolType.rotation ? Theme.of(context!).primaryColor : null,
           onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.rotation)))),
       IconButton(
-          icon: Icon(PhosphorIcons.arrowsOutSimpleLight),
+          icon: Icon(PhosphorIcons.arrowsOutLight),
           tooltip: "Scale",
           color: moveToolType == MoveToolType.scale ? Theme.of(context!).primaryColor : null,
           onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.scale))))
@@ -99,7 +99,7 @@ class MoveTool extends Tool {
   }
 
   @override
-  IconData get icon => PhosphorIcons.cursorLight;
+  IconData get icon => PhosphorIcons.arrowsOutCardinalLight;
 
   @override
   ToolType get type => ToolType.move;

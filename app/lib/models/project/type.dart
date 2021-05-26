@@ -10,8 +10,8 @@ import 'pad.dart';
 
 enum ProjectItemType { folder, image, pad }
 
-extension ProjectItemTypeExtension on ProjectItemType? {
-  String? get name {
+extension ProjectItemTypeExtension on ProjectItemType {
+  String get name {
     switch (this) {
       case ProjectItemType.folder:
         return "Folder";
@@ -19,12 +19,10 @@ extension ProjectItemTypeExtension on ProjectItemType? {
         return "Image";
       case ProjectItemType.pad:
         return "Pad";
-      default:
-        return null;
     }
   }
 
-  IconData? get icon {
+  IconData get icon {
     switch (this) {
       case ProjectItemType.folder:
         return PhosphorIcons.folderLight;
@@ -32,12 +30,10 @@ extension ProjectItemTypeExtension on ProjectItemType? {
         return PhosphorIcons.imageLight;
       case ProjectItemType.pad:
         return PhosphorIcons.monitorLight;
-      default:
-        return null;
     }
   }
 
-  ProjectItem? create(String name, String description) {
+  ProjectItem create(String name, String description) {
     switch (this) {
       case ProjectItemType.folder:
         return FolderProjectItem(name: name, description: description);
@@ -45,12 +41,10 @@ extension ProjectItemTypeExtension on ProjectItemType? {
         return ImageProjectItem(name: name, description: description);
       case ProjectItemType.pad:
         return PadProjectItem(name: name, description: description);
-      default:
-        return null;
     }
   }
 
-  ProjectItem? fromJson(Map<String, dynamic> json) {
+  ProjectItem fromJson(Map<String, dynamic> json) {
     switch (this) {
       case ProjectItemType.folder:
         return FolderProjectItem.fromJson(json);
@@ -58,8 +52,6 @@ extension ProjectItemTypeExtension on ProjectItemType? {
         return PadProjectItem.fromJson(json);
       case ProjectItemType.image:
         return ImageProjectItem.fromJson(json);
-      default:
-        return null;
     }
   }
 

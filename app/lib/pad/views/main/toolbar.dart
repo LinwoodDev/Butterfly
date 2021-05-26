@@ -36,27 +36,34 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
   Widget build(BuildContext context) {
     return Material(child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       var current = state as DocumentLoadSuccess;
-      return SingleChildScrollView(
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        ...ToolType.values.map((e) {
-          Tool tool = e.create()!;
-          return IconButton(
-              tooltip: tool.name,
-              icon: Icon(tool.icon),
-              onPressed: () => _toggleTool(tool),
-              color:
-                  current.currentTool!.type == tool.type ? Theme.of(context).primaryColor : null);
-        }).toList(),
-        if (current.currentTool != null) ...[
-          VerticalDivider(),
-          ...current.currentTool!.buildOptions(
-              context: context,
-              expanded: widget.expanded,
-              view: widget.view,
-              window: widget.window,
-              isMobile: widget.isMobile)
-        ]
-      ]));
+      return Container(
+        color: Theme.of(context).canvasColor,
+        child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Container(
+                height: 50,
+                child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                  ...ToolType.values.map((e) {
+                    Tool tool = e.create()!;
+                    return IconButton(
+                        tooltip: tool.name,
+                        icon: Icon(tool.icon),
+                        onPressed: () => _toggleTool(tool),
+                        color: current.currentTool!.type == tool.type
+                            ? Theme.of(context).primaryColor
+                            : null);
+                  }).toList(),
+                  if (current.currentTool != null) ...[
+                    VerticalDivider(),
+                    ...current.currentTool!.buildOptions(
+                        context: context,
+                        expanded: widget.expanded,
+                        view: widget.view,
+                        window: widget.window,
+                        isMobile: widget.isMobile)
+                  ]
+                ]))),
+      );
     }));
   }
 }

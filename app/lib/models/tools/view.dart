@@ -33,13 +33,12 @@ class ViewTool extends Tool {
             onPressed: () => Navigator.of(context!)
                 .push(MaterialPageRoute(builder: (context) => InspectorView()))),
         IconButton(
-            icon: Icon(PhosphorIcons.tableLight),
+            icon: Icon(PhosphorIcons.rowsLight),
             onPressed: () =>
                 Navigator.of(context!).push(MaterialPageRoute(builder: (context) => ProjectView())))
       ] else ...[
         IconButton(
-            icon: Icon(
-                expanded! ? PhosphorIcons.arrowsInSimpleLight : PhosphorIcons.arrowsOutSimpleLight),
+            icon: Icon(expanded! ? PhosphorIcons.arrowsInLight : PhosphorIcons.arrowsOutLight),
             tooltip: expanded ? 'Minimize' : 'Maximize',
             onPressed: expanded
                 ? Navigator.of(context!).pop
@@ -60,6 +59,11 @@ class ViewTool extends Tool {
       IconButton(icon: Icon(PhosphorIcons.printerLight), tooltip: "Print", onPressed: () {}),
       IconButton(
           icon: Icon(PhosphorIcons.monitorPlayLight), tooltip: "Presentation", onPressed: () {}),
+      VerticalDivider(),
+      IconButton(
+          icon: Icon(PhosphorIcons.mapPinLight),
+          tooltip: "Focus in project view",
+          onPressed: () {}),
     ];
   }
 

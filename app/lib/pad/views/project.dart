@@ -40,7 +40,7 @@ class _ProjectViewState extends State<ProjectView> {
             window: widget.window,
             expanded: widget.expanded,
             title: "Project",
-            icon: PhosphorIcons.tableLight,
+            icon: PhosphorIcons.rowsLight,
             actions: [
               IconButton(
                   icon: Icon(PhosphorIcons.houseLight, size: 20),
@@ -68,7 +68,7 @@ class _ProjectViewState extends State<ProjectView> {
                             ..push(MaterialPageRoute(
                                 builder: (_) => _ProjectViewSystem(path: path)))))),
               IconButton(
-                  icon: Icon(PhosphorIcons.arrowClockwiseLight, size: 20),
+                  icon: Icon(PhosphorIcons.arrowsCounterClockwiseLight, size: 20),
                   tooltip: "Reload",
                   onPressed: () => setState(() {})),
               VerticalDivider()

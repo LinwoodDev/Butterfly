@@ -39,8 +39,8 @@ class SplitScaffold extends StatelessWidget {
               IconButton(
                   icon: Icon(
                       !isSplitted || expanded!
-                          ? PhosphorIcons.arrowsInSimpleLight
-                          : PhosphorIcons.arrowsOutSimpleLight,
+                          ? PhosphorIcons.arrowsInLight
+                          : PhosphorIcons.arrowsOutLight,
                       size: 20),
                   onPressed: !isSplitted || expanded!
                       ? Navigator.of(context).pop
@@ -50,3 +50,5 @@ class SplitScaffold extends StatelessWidget {
         body: body);
   }
 }
+
+class MdiIcons {}

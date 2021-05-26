@@ -14,13 +14,13 @@ class EditTool extends Tool {
       SplitWindow? window,
       SplitView? view}) {
     return [
-      IconButton(icon: Icon(PhosphorIcons.pencilLight), tooltip: "Pencil", onPressed: () {}),
+      IconButton(icon: Icon(PhosphorIcons.penLight), tooltip: "Pencil", onPressed: () {}),
       IconButton(icon: Icon(PhosphorIcons.markerCircleLight), tooltip: "Marker", onPressed: () {})
     ];
   }
 
   @override
-  IconData get icon => PhosphorIcons.pencilLight;
+  IconData get icon => PhosphorIcons.penLight;
 
   @override
   ToolType get type => ToolType.edit;

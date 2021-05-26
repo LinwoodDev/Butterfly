@@ -30,9 +30,10 @@ class _CreateIteMdiIconsalogState extends State<CreateIteMdiIconsalog> {
               child: Text("CANCEL")),
           TextButton(
               onPressed: () {
-                BlocProvider.of<DocumentBloc>(context).add(ItemCreated(
-                    parent: widget.parent,
-                    item: _type!.create(_nameController.text, _descriptionController.text)!));
+                if (_type != null)
+                  BlocProvider.of<DocumentBloc>(context).add(ItemCreated(
+                      parent: widget.parent,
+                      item: _type!.create(_nameController.text, _descriptionController.text)));
                 Navigator.of(context).pop();
               },
               child: Text("CREATE"))
@@ -51,9 +52,9 @@ class _CreateIteMdiIconsalogState extends State<CreateIteMdiIconsalog> {
           DropdownButtonFormField<ProjectItemType>(
               decoration: InputDecoration(labelText: "Type"),
               value: _type,
-              onChanged: (value) => setState(() => _type = value),
+              onChanged: (value) => setState(() => _type = value!),
               items: ProjectItemType.values
-                  .map((e) => DropdownMenuItem<ProjectItemType>(child: Text(e.name!), value: e))
+                  .map((e) => DropdownMenuItem<ProjectItemType>(child: Text(e.name), value: e))
                   .toList())
         ]))));
   }

@@ -22,9 +22,7 @@ dependencies:
   equatable: ^2.0.2
   flutter_bloc: ^7.0.0
   flutter_modular: ^3.2.2+1
-  hive: ^2.0.4
-  hive_flutter: ^1.0.0
-  shared_preferences: ^2.0.5
+  shared_preferences: ^2.0.6
   url_launcher: ^6.0.4
   msix: ^2.1.1
   phosphor_flutter: ^1.2.0
