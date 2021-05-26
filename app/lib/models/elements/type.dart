@@ -1,6 +1,6 @@
 import 'package:butterfly/models/elements/paint.dart';
 import 'package:flutter/widgets.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'container.dart';
 import 'text.dart';
@@ -20,7 +20,7 @@ abstract class ElementLayer {
 
 enum LayerType { container, text, paint }
 
-extension LayerTypeExtension on LayerType? {
+extension LayerTypeExtension on LayerType {
   String get name {
     switch (this) {
       case LayerType.container:
@@ -29,25 +29,21 @@ extension LayerTypeExtension on LayerType? {
         return "Text";
       case LayerType.paint:
         return "Paint";
-      default:
-        return "";
     }
   }
 
-  IconData? get icon {
+  IconData get icon {
     switch (this) {
       case LayerType.container:
-        return MdiIcons.group;
+        return PhosphorIcons.squareLight;
       case LayerType.text:
-        return MdiIcons.text;
+        return PhosphorIcons.textAlignLeftLight;
       case LayerType.paint:
-        return MdiIcons.paletteOutline;
-      default:
-        return null;
+        return PhosphorIcons.imageLight;
     }
   }
 
-  ElementLayer? create(String name, String description) {
+  ElementLayer create(String name, String description) {
     switch (this) {
       case LayerType.container:
         return LayerContainer(name: name, description: description);
@@ -55,8 +51,6 @@ extension LayerTypeExtension on LayerType? {
         return GroupElement(name: name, description: description);
       case LayerType.paint:
         return PaintElement(name: name, description: description);
-      default:
-        return null;
     }
   }
 

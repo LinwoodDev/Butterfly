@@ -31,7 +31,7 @@ class _CreateLayerDialogState extends State<CreateLayerDialog> {
               onPressed: () {
                 BlocProvider.of<DocumentBloc>(context).add(LayerCreated(
                     parent: widget.parent,
-                    layer: _type!.create(_nameController.text, _descriptionController.text)!));
+                    layer: _type!.create(_nameController.text, _descriptionController.text)));
                 Navigator.of(context).pop();
               },
               child: Text("CREATE"))

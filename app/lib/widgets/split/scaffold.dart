@@ -1,7 +1,7 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SplitScaffold extends StatelessWidget {
   final SplitView? view;
@@ -38,7 +38,9 @@ class SplitScaffold extends StatelessWidget {
               if (actions != null) ...actions!,
               IconButton(
                   icon: Icon(
-                      !isSplitted || expanded! ? MdiIcons.windowMinimize : MdiIcons.windowMaximize,
+                      !isSplitted || expanded!
+                          ? PhosphorIcons.arrowsInLight
+                          : PhosphorIcons.arrowsOutLight,
                       size: 20),
                   onPressed: !isSplitted || expanded!
                       ? Navigator.of(context).pop
@@ -48,3 +50,5 @@ class SplitScaffold extends StatelessWidget {
         body: body);
   }
 }
+
+class MdiIcons {}

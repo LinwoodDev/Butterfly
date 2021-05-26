@@ -8,7 +8,7 @@ import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'bloc/document_bloc.dart';
 import 'dialogs/settings.dart';
@@ -70,21 +70,21 @@ class _ProjectPageState extends State<ProjectPage> {
                 }),
                 actions: [
                   IconButton(
-                    icon: Icon(MdiIcons.undo),
+                    icon: Icon(PhosphorIcons.arrowCounterClockwiseLight),
                     tooltip: "Undo",
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: Icon(MdiIcons.redo),
+                    icon: Icon(PhosphorIcons.arrowClockwiseLight),
                     tooltip: "Redo",
                     onPressed: () {},
                   ),
                   IconButton(
-                      icon: Icon(MdiIcons.cogOutline),
+                      icon: Icon(PhosphorIcons.gearLight),
                       tooltip: "Project settings",
                       onPressed: () => _showProjectSettings(context)),
                   IconButton(
-                      icon: Icon(MdiIcons.link),
+                      icon: Icon(PhosphorIcons.linkLight),
                       tooltip: "Share (not implemented)",
                       onPressed: null)
                 ]),

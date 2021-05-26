@@ -4,8 +4,8 @@ import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/widgets/split/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:butterfly/models/elements/type.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class LayersView extends StatefulWidget {
   final SplitView? view;
@@ -30,7 +30,7 @@ class _LayersViewState extends State<LayersView> {
             window: widget.window,
             expanded: widget.expanded,
             title: "Layers",
-            icon: MdiIcons.cubeOutline,
+            icon: PhosphorIcons.cubeLight,
             floatingActionButton: FloatingActionButton(
                 heroTag: null,
                 onPressed: () {
@@ -42,7 +42,7 @@ class _LayersViewState extends State<LayersView> {
                                 parent: (bloc.state as DocumentLoadSuccess).currentPad!.root)),
                         context: context);
                 },
-                child: Icon(MdiIcons.plus),
+                child: Icon(PhosphorIcons.plusLight),
                 tooltip: "Create layer"),
             body: Navigator(
                 onGenerateRoute: (settings) => MaterialPageRoute(

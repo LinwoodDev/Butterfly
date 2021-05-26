@@ -2,7 +2,7 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/project/folder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                                           ]))));
                             })))))),
         floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(MdiIcons.plus),
+          icon: Icon(PhosphorIcons.plusLight),
           label: Text("New"),
           onPressed: () {},
         ));
