@@ -19,15 +19,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  equatable: ^2.0.0
+  equatable: ^2.0.2
   flutter_bloc: ^7.0.0
-  flutter_modular: ^3.2.1
+  flutter_modular: ^3.2.2+1
   hive: ^2.0.4
   hive_flutter: ^1.0.0
   shared_preferences: ^2.0.5
-  url_launcher: ^6.0.3
+  url_launcher: ^6.0.4
   msix: ^2.1.1
-  material_design_icons_flutter: ^5.0.5955-rc.1
+  phosphor_flutter: ^1.2.0
 
 dev_dependencies:
   flutter_test:

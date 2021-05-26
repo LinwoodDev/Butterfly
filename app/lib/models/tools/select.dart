@@ -2,7 +2,7 @@ import 'package:butterfly/models/tools/type.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SelectTool extends Tool {
   @override
@@ -14,18 +14,24 @@ class SelectTool extends Tool {
       SplitWindow? window,
       SplitView? view}) {
     return [
-      IconButton(icon: Icon(MdiIcons.selectAll), tooltip: "Select all", onPressed: () {}),
-      IconButton(icon: Icon(MdiIcons.selectOff), tooltip: "Deselect", onPressed: () {}),
-      IconButton(icon: Icon(MdiIcons.selectInverse), tooltip: "Select inverse", onPressed: () {}),
+      IconButton(icon: Icon(PhosphorIcons.folderLight), tooltip: "Select all", onPressed: () {}),
+      IconButton(icon: Icon(PhosphorIcons.trashLight), tooltip: "Deselect", onPressed: () {}),
+      IconButton(
+          icon: Icon(PhosphorIcons.arrowClockwiseLight),
+          tooltip: "Select inverse",
+          onPressed: () {}),
       VerticalDivider(),
-      IconButton(icon: Icon(MdiIcons.plus), tooltip: "Add to selection", onPressed: () {}),
-      IconButton(icon: Icon(MdiIcons.selection), tooltip: "Replace selection", onPressed: () {}),
-      IconButton(icon: Icon(MdiIcons.minus), tooltip: "Remove from selection", onPressed: () {})
+      IconButton(
+          icon: Icon(PhosphorIcons.plusLight), tooltip: "Add to selection", onPressed: () {}),
+      IconButton(
+          icon: Icon(PhosphorIcons.plusMinusLight), tooltip: "Replace selection", onPressed: () {}),
+      IconButton(
+          icon: Icon(PhosphorIcons.minusLight), tooltip: "Remove from selection", onPressed: () {})
     ];
   }
 
   @override
-  IconData get icon => MdiIcons.select;
+  IconData get icon => PhosphorIcons.plusMinusLight;
 
   @override
   ToolType get type => ToolType.select;

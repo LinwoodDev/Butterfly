@@ -3,7 +3,7 @@ import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/widgets/split/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class InspectorView extends StatefulWidget {
   final SplitView? view;
@@ -40,6 +40,6 @@ class _InspectorViewState extends State<InspectorView> {
             window: widget.window,
             expanded: widget.expanded,
             title: 'Inspector',
-            icon: MdiIcons.tuneVertical));
+            icon: PhosphorIcons.fadersLight));
   }
 }

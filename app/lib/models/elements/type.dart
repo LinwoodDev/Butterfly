@@ -1,6 +1,6 @@
 import 'package:butterfly/models/elements/paint.dart';
 import 'package:flutter/widgets.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'container.dart';
 import 'text.dart';
@@ -37,11 +37,11 @@ extension LayerTypeExtension on LayerType? {
   IconData? get icon {
     switch (this) {
       case LayerType.container:
-        return MdiIcons.group;
+        return PhosphorIcons.packageLight;
       case LayerType.text:
-        return MdiIcons.text;
+        return PhosphorIcons.articleLight;
       case LayerType.paint:
-        return MdiIcons.paletteOutline;
+        return PhosphorIcons.paintBrushBroadLight;
       default:
         return null;
     }

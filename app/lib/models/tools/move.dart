@@ -1,7 +1,7 @@
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'type.dart';
 
@@ -81,17 +81,17 @@ class MoveTool extends Tool {
       SplitView? view}) {
     return [
       IconButton(
-          icon: Icon(MdiIcons.crosshairs),
+          icon: Icon(PhosphorIcons.arrowsOutCardinalLight),
           tooltip: "Location",
           color: moveToolType == MoveToolType.location ? Theme.of(context!).primaryColor : null,
           onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.location)))),
       IconButton(
-          icon: Icon(MdiIcons.formatRotate90),
+          icon: Icon(PhosphorIcons.arrowClockwiseLight),
           tooltip: "Rotation",
           color: moveToolType == MoveToolType.rotation ? Theme.of(context!).primaryColor : null,
           onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.rotation)))),
       IconButton(
-          icon: Icon(MdiIcons.resize),
+          icon: Icon(PhosphorIcons.arrowsOutSimpleLight),
           tooltip: "Scale",
           color: moveToolType == MoveToolType.scale ? Theme.of(context!).primaryColor : null,
           onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.scale))))
@@ -99,7 +99,7 @@ class MoveTool extends Tool {
   }
 
   @override
-  IconData get icon => MdiIcons.cursorMove;
+  IconData get icon => PhosphorIcons.cursorLight;
 
   @override
   ToolType get type => ToolType.move;

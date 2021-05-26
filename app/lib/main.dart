@@ -2,8 +2,12 @@ import 'package:butterfly/module.dart';
 import 'package:butterfly/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 
-void main() => runApp(ModularApp(module: AppModule(), child: ButterflyApp()));
+void main() {
+  setup();
+  runApp(ModularApp(module: AppModule(), child: ButterflyApp()));
+}
 
 class ButterflyApp extends StatelessWidget {
   // This widget is the root of your application.
