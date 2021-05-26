@@ -19,7 +19,7 @@ jobs:
         run: |
           cd docs
           yarn install --frozen-lockfile
-          npm run build
+          yarn build
   gh-release:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
@@ -40,4 +40,4 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "gh-actions"
           yarn install --frozen-lockfile
-          npm run deploy
+          yarn deploy
