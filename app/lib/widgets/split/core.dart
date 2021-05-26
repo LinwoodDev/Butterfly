@@ -30,7 +30,7 @@ class SplitWindow {
 
 class CustomPageRoute extends MaterialPageRoute {
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 1000);
+  Duration get transitionDuration => const Duration(milliseconds: 500);
 
   CustomPageRoute({required builder}) : super(builder: builder);
 }

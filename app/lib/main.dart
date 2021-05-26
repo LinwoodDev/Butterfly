@@ -13,6 +13,8 @@ class ButterflyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var primarySwatch = createMaterialColor(Color(0xFFF2B138));
+    var accentColor = Color(0xFF00469E);
     return MaterialApp(
       title: 'Butterfly',
       // set your initial route
@@ -28,10 +30,10 @@ class ButterflyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primarySwatch: createMaterialColor(Color(0xFFF2B138)),
-          accentColor: Color(0xFF6FADFC)),
+          primarySwatch: primarySwatch,
+          accentColor: accentColor),
       darkTheme: ThemeData(
-          brightness: Brightness.dark, primarySwatch: Colors.green, accentColor: Colors.orange),
+          brightness: Brightness.dark, primarySwatch: primarySwatch, accentColor: accentColor),
       home: HomePage(),
     ).modular();
   }

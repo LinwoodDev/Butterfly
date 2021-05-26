@@ -1,4 +1,3 @@
-import 'package:butterfly/models/tools/type.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +19,6 @@ class MainViewToolbar extends StatefulWidget {
 }
 
 class _MainViewToolbarState extends State<MainViewToolbar> {
-  void _toggleTool(Tool tool) {
-    // ignore: close_sinks
-    var bloc = BlocProvider.of<DocumentBloc>(context);
-    bloc.add(ToolChanged(tool));
-    bloc.add(InspectorChanged(item: tool));
-  }
-
   @override
   void initState() {
     super.initState();
@@ -36,34 +28,30 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
   Widget build(BuildContext context) {
     return Material(child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       var current = state as DocumentLoadSuccess;
-      return Container(
-        color: Theme.of(context).canvasColor,
-        child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Container(
-                height: 50,
-                child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                  ...ToolType.values.map((e) {
-                    Tool tool = e.create()!;
-                    return IconButton(
-                        tooltip: tool.name,
-                        icon: Icon(tool.icon),
-                        onPressed: () => _toggleTool(tool),
-                        color: current.currentTool!.type == tool.type
-                            ? Theme.of(context).primaryColor
-                            : null);
-                  }).toList(),
-                  if (current.currentTool != null) ...[
-                    VerticalDivider(),
-                    ...current.currentTool!.buildOptions(
-                        context: context,
-                        expanded: widget.expanded,
-                        view: widget.view,
-                        window: widget.window,
-                        isMobile: widget.isMobile)
-                  ]
-                ]))),
-      );
+      return BlocBuilder<DocumentBloc, DocumentState>(
+          builder: (context, state) => (state as DocumentLoadSuccess).currentPad == null
+              ? Container()
+              : Container(
+                  color: Theme.of(context).canvasColor,
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Container(
+                            height: 50,
+                            child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if (current.currentTool != null)
+                                    ...current.currentTool!.buildOptions(
+                                        context: context,
+                                        expanded: widget.expanded,
+                                        view: widget.view,
+                                        window: widget.window,
+                                        isMobile: widget.isMobile)
+                                ])),
+                      ))));
     }));
   }
 }

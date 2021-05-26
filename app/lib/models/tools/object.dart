@@ -7,9 +7,9 @@ import 'type.dart';
 
 enum MoveToolType { location, rotation, scale }
 
-class MoveTool extends Tool {
+class ObjectTool extends Tool {
   final MoveToolType moveToolType;
-  MoveTool({this.moveToolType = MoveToolType.location});
+  ObjectTool({this.moveToolType = MoveToolType.location});
   @override
   Widget buildInspector(DocumentBloc bloc) {
     return ListView(children: [
@@ -84,28 +84,28 @@ class MoveTool extends Tool {
           icon: Icon(PhosphorIcons.arrowsOutCardinalLight),
           tooltip: "Location",
           color: moveToolType == MoveToolType.location ? Theme.of(context!).primaryColor : null,
-          onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.location)))),
+          onPressed: () => bloc!.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.location)))),
       IconButton(
           icon: Icon(PhosphorIcons.arrowClockwiseLight),
           tooltip: "Rotation",
           color: moveToolType == MoveToolType.rotation ? Theme.of(context!).primaryColor : null,
-          onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.rotation)))),
+          onPressed: () => bloc!.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.rotation)))),
       IconButton(
           icon: Icon(PhosphorIcons.arrowsOutLight),
           tooltip: "Scale",
           color: moveToolType == MoveToolType.scale ? Theme.of(context!).primaryColor : null,
-          onPressed: () => bloc!.add(ToolChanged(MoveTool(moveToolType: MoveToolType.scale))))
+          onPressed: () => bloc!.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.scale))))
     ];
   }
 
   @override
-  IconData get icon => PhosphorIcons.arrowsOutCardinalLight;
+  IconData get icon => PhosphorIcons.cubeLight;
 
   @override
-  ToolType get type => ToolType.move;
+  ToolType get type => ToolType.object;
 
   @override
-  String get name => "Move";
+  String get name => "Object";
 
   @override
   List<Object> get props => [type, moveToolType];

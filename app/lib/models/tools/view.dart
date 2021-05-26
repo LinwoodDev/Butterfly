@@ -64,6 +64,10 @@ class ViewTool extends Tool {
           icon: Icon(PhosphorIcons.mapPinLight),
           tooltip: "Focus in project view",
           onPressed: () {}),
+      IconButton(
+          icon: Icon(PhosphorIcons.xLight),
+          tooltip: "Close pad",
+          onPressed: () => bloc?.add(SelectedChanged('')))
     ];
   }
 

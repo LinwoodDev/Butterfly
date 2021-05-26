@@ -30,14 +30,14 @@ class _MainViewState extends State<MainView> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                  Expanded(child: MainViewViewport()),
                   Container(
                       color: Theme.of(context).focusColor,
                       child: MainViewToolbar(
                           isMobile: isMobile,
                           expanded: widget.expanded,
                           view: widget.view,
-                          window: widget.window))
+                          window: widget.window)),
+                  Expanded(child: MainViewViewport())
                 ]))));
   }
 }
