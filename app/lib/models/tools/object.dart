@@ -1,6 +1,7 @@
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'type.dart';
@@ -73,28 +74,30 @@ class ObjectTool extends Tool {
 
   @override
   List<Widget> buildOptions(
-      {BuildContext? context,
-      DocumentBloc? bloc,
-      bool? expanded,
-      bool? isMobile,
-      SplitWindow? window,
-      SplitView? view}) {
+      {required BuildContext context,
+      required DocumentLoadSuccess state,
+      required bool? expanded,
+      required bool isMobile,
+      required GlobalKey<NavigatorState> navigator,
+      required SplitWindow? window,
+      required SplitView? view}) {
+    var bloc = BlocProvider.of<DocumentBloc>(context);
     return [
       IconButton(
           icon: Icon(PhosphorIcons.arrowsOutCardinalLight),
           tooltip: "Location",
-          color: moveToolType == MoveToolType.location ? Theme.of(context!).primaryColor : null,
-          onPressed: () => bloc!.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.location)))),
+          color: moveToolType == MoveToolType.location ? Theme.of(context).primaryColor : null,
+          onPressed: () => bloc.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.location)))),
       IconButton(
           icon: Icon(PhosphorIcons.arrowClockwiseLight),
           tooltip: "Rotation",
-          color: moveToolType == MoveToolType.rotation ? Theme.of(context!).primaryColor : null,
-          onPressed: () => bloc!.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.rotation)))),
+          color: moveToolType == MoveToolType.rotation ? Theme.of(context).primaryColor : null,
+          onPressed: () => bloc.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.rotation)))),
       IconButton(
           icon: Icon(PhosphorIcons.arrowsOutLight),
           tooltip: "Scale",
-          color: moveToolType == MoveToolType.scale ? Theme.of(context!).primaryColor : null,
-          onPressed: () => bloc!.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.scale))))
+          color: moveToolType == MoveToolType.scale ? Theme.of(context).primaryColor : null,
+          onPressed: () => bloc.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.scale))))
     ];
   }
 

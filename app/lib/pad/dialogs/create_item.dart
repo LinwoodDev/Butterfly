@@ -4,15 +4,15 @@ import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CreateIteMdiIconsalog extends StatefulWidget {
+class CreateItemDialog extends StatefulWidget {
   final FolderProjectItem? parent;
 
-  CreateIteMdiIconsalog({Key? key, this.parent}) : super(key: key);
+  CreateItemDialog({Key? key, this.parent}) : super(key: key);
   @override
-  _CreateIteMdiIconsalogState createState() => _CreateIteMdiIconsalogState();
+  _CreateItemDialogState createState() => _CreateItemDialogState();
 }
 
-class _CreateIteMdiIconsalogState extends State<CreateIteMdiIconsalog> {
+class _CreateItemDialogState extends State<CreateItemDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   ProjectItemType? _type = ProjectItemType.folder;

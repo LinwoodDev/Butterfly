@@ -7,12 +7,13 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class SelectTool extends Tool {
   @override
   List<Widget> buildOptions(
-      {BuildContext? context,
-      DocumentBloc? bloc,
-      bool? expanded,
-      bool? isMobile,
-      SplitWindow? window,
-      SplitView? view}) {
+      {required BuildContext context,
+      required DocumentLoadSuccess state,
+      required bool? expanded,
+      required bool isMobile,
+      required GlobalKey<NavigatorState> navigator,
+      required SplitWindow? window,
+      required SplitView? view}) {
     return [
       IconButton(icon: Icon(PhosphorIcons.xLight), tooltip: "Select all", onPressed: () {}),
       IconButton(icon: Icon(PhosphorIcons.divideLight), tooltip: "Deselect", onPressed: () {}),

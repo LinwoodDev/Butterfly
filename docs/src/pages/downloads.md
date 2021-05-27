@@ -4,7 +4,7 @@ title: Downloads
 
 # Downloads
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/LinwoodCloud/Flow?style=for-the-badge)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/LinwoodCloud/butterfly?style=for-the-badge)
 
 ## App
 
@@ -13,10 +13,10 @@ title: Downloads
   <button className="button button--outline button--primary">Web</button>
   <ul className="dropdown__menu">
     <li>
-      <a className="dropdown__link" href="https://flow.linwood.tk">
+      <a className="dropdown__link" href="https://butterfly.linwood.tk">
         Release
       </a>
-      <a className="dropdown__link" href="https://preview.flow.linwood.tk">
+      <a className="dropdown__link" href="https://preview.butterfly.linwood.tk">
         Preview
       </a>
     </li>
@@ -26,10 +26,10 @@ title: Downloads
   <button className="button button--outline button--info">Windows</button>
   <ul className="dropdown__menu">
     <li>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/release/windows.zip">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/release/windows.zip">
         Release
       </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/preview/windows.zip">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/preview/windows.zip">
         Preview
       </a>
     </li>
@@ -39,10 +39,10 @@ title: Downloads
   <button className="button button--outline button--info">Linux</button>
   <ul className="dropdown__menu">
     <li>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/release/linux.zip">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/release/linux.zip">
         Release
       </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/preview/linux.zip">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/preview/linux.zip">
         Preview
       </a>
     </li>
@@ -61,10 +61,10 @@ title: Downloads
       <a className="dropdown__link" href="https://www.f-droid.org/en/packages/com.github.linwoodcloud.dev_doctor/">
         F-Droid
       </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/release/app-release.apk">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/release/app-release.apk">
         Release
       </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/preview/app-release.apk">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/preview/app-release.apk">
         Preview
       </a>
     </li>
@@ -79,10 +79,10 @@ title: Downloads
   <button className="button button--outline button--danger">Windows</button>
   <ul className="dropdown__menu">
     <li>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/release/server-windows.exe">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/release/server-windows.exe">
         Release
       </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/preview/server-windows.exe">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/preview/server-windows.exe">
         Preview
       </a>
     </li>
@@ -92,10 +92,10 @@ title: Downloads
   <button className="button button--outline button--danger">Linux</button>
   <ul className="dropdown__menu">
     <li>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/release/server-linux">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/release/server-linux">
         Release
       </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/preview/server-linux">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/preview/server-linux">
         Preview
       </a>
     </li>
@@ -105,10 +105,10 @@ title: Downloads
   <button className="button button--outline button--danger">Mac</button>
   <ul className="dropdown__menu">
     <li>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/release/server-mac">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/release/server-mac">
         Release
       </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/preview/server-mac">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/preview/server-mac">
         Preview
       </a>
     </li>
@@ -119,6 +119,6 @@ title: Downloads
 ## Useful links
 
 - [Changelog](changelog)
-- [Older releases](https://github.com/LinwoodCloud/Flow/releases)
-- [Latest release](https://github.com/LinwoodCloud/Flow/releases/latest)
+- [Older releases](https://github.com/LinwoodCloud/butterfly/releases)
+- [Latest release](https://github.com/LinwoodCloud/butterfly/releases/latest)
 - [Support](https://discord.linwood.tk)

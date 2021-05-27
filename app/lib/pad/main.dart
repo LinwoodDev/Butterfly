@@ -4,7 +4,6 @@ import 'package:butterfly/pad/dialogs/create_layer.dart';
 import 'package:butterfly/pad/views/inspector.dart';
 import 'package:butterfly/pad/views/layers.dart';
 import 'package:butterfly/pad/views/main.dart';
-import 'package:butterfly/pad/views/project.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,7 +53,8 @@ class _ProjectPageState extends State<ProjectPage> {
   Widget build(BuildContext context) {
     var tools = ToolType.values.map((e) => e.create()).toList();
     return DefaultTabController(
-      length: 4,
+      length: tools.length,
+      initialIndex: 1,
       child: BlocProvider(
           create: (_) => _bloc,
           child: Scaffold(
@@ -119,7 +119,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                           minSize: 200,
                                           size: 250,
                                           maxSize: 500,
-                                          builder: (BuildContext context, SplitView? view, SplitWindow? window, bool expanded) =>
+                                          builder: (BuildContext context, SplitView? view,
+                                                  SplitWindow? window, bool expanded) =>
                                               SplitView(
                                                   axis: Axis.vertical,
                                                   first: SplitWindow(
@@ -142,19 +143,12 @@ class _ProjectPageState extends State<ProjectPage> {
                                                               window: window,
                                                               expanded: expanded)))),
                                       first: SplitWindow(
-                                          border: false,
-                                          builder: (BuildContext context, SplitView? view, SplitWindow? window, bool expanded) =>
-                                              SplitView(
-                                                  axis: Axis.vertical,
-                                                  second: SplitWindow(
-                                                      minSize: 150,
-                                                      size: 250,
-                                                      builder: (BuildContext context,
-                                                              SplitView? view,
-                                                              SplitWindow? window,
-                                                              bool expanded) =>
-                                                          ProjectView(view: view, window: window, expanded: expanded)),
-                                                  first: SplitWindow(builder: (BuildContext context, SplitView? view, SplitWindow? window, bool expanded) => MainView(view: view, window: window, expanded: expanded))))));
+                                          builder: (BuildContext context, SplitView? view,
+                                                  SplitWindow? window, bool expanded) =>
+                                              MainView(
+                                                  view: view,
+                                                  window: window,
+                                                  expanded: expanded))));
                           }))))),
     );
   }

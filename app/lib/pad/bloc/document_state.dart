@@ -12,9 +12,10 @@ class DocumentLoadInProgress extends DocumentState {}
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final String? currentSelectedPath;
-  final Tool? currentTool;
+  final Tool currentTool;
   final ElementLayer? currentLayer;
   final String currentPath;
+  final List<String> history;
   final InspectorItem? currentInspectorItem;
 
   ProjectItem? get currentSelected =>
@@ -25,6 +26,7 @@ class DocumentLoadSuccess extends DocumentState {
 
   const DocumentLoadSuccess(this.document,
       {this.currentSelectedPath,
+      this.history = const [""],
       this.currentTool = const ViewTool(),
       this.currentInspectorItem,
       this.currentPath = '',
@@ -34,7 +36,7 @@ class DocumentLoadSuccess extends DocumentState {
   List<Object> get props => [
         document,
         if (currentSelectedPath != null) currentSelectedPath!,
-        if (currentTool != null) currentTool!,
+        currentTool,
         if (currentInspectorItem != null) currentInspectorItem!,
         if (currentLayer != null) currentLayer!
       ];
@@ -46,12 +48,14 @@ class DocumentLoadSuccess extends DocumentState {
       ElementLayer? currentLayer,
       String? currentPath,
       InspectorItem? currentInspectorItem,
-      bool unselectLayer = false}) {
+      bool unselectLayer = false,
+      List<String>? history}) {
     return DocumentLoadSuccess(document ?? this.document,
         currentSelectedPath: currentSelectedPath ?? this.currentSelectedPath,
         currentTool: currentTool ?? this.currentTool,
         currentLayer: unselectLayer ? null : currentLayer ?? this.currentLayer,
         currentPath: currentPath ?? this.currentPath,
+        history: history ?? this.history,
         currentInspectorItem: currentInspectorItem ?? this.currentInspectorItem);
   }
 }

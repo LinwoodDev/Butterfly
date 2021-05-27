@@ -1,3 +1,4 @@
+import 'package:butterfly/models/tools/project.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +7,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 enum SelectMode { add, replace, remove }
 
 class MainViewToolbar extends StatefulWidget {
-  final bool? isMobile;
+  final bool isMobile;
   final bool? expanded;
   final SplitView? view;
   final SplitWindow? window;
+  final GlobalKey<NavigatorState> navigator;
 
-  const MainViewToolbar({Key? key, this.isMobile, this.expanded, this.view, this.window})
+  const MainViewToolbar(
+      {Key? key,
+      required this.isMobile,
+      this.expanded,
+      this.view,
+      this.window,
+      required this.navigator})
       : super(key: key);
 
   @override
@@ -29,7 +37,8 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
     return Material(child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       var current = state as DocumentLoadSuccess;
       return BlocBuilder<DocumentBloc, DocumentState>(
-          builder: (context, state) => (state as DocumentLoadSuccess).currentPad == null
+          builder: (context, state) => (state as DocumentLoadSuccess).currentPad == null &&
+                  !(state.currentTool is ProjectTool)
               ? Container()
               : Container(
                   color: Theme.of(context).canvasColor,
@@ -42,15 +51,14 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
                             child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  if (current.currentTool != null)
-                                    ...current.currentTool!.buildOptions(
-                                        context: context,
-                                        expanded: widget.expanded,
-                                        view: widget.view,
-                                        window: widget.window,
-                                        isMobile: widget.isMobile)
-                                ])),
+                                children: current.currentTool.buildOptions(
+                                    context: context,
+                                    state: current,
+                                    expanded: widget.expanded,
+                                    view: widget.view,
+                                    window: widget.window,
+                                    navigator: widget.navigator,
+                                    isMobile: widget.isMobile))),
                       ))));
     }));
   }

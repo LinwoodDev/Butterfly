@@ -6,20 +6,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class EditTool extends Tool {
   @override
-  List<Widget> buildOptions(
-      {BuildContext? context,
-      DocumentBloc? bloc,
-      bool? expanded,
-      bool? isMobile,
-      SplitWindow? window,
-      SplitView? view}) {
-    return [
-      IconButton(icon: Icon(PhosphorIcons.penLight), tooltip: "Pencil", onPressed: () {}),
-      IconButton(icon: Icon(PhosphorIcons.markerCircleLight), tooltip: "Marker", onPressed: () {})
-    ];
-  }
-
-  @override
   IconData get icon => PhosphorIcons.penLight;
 
   @override
@@ -27,4 +13,19 @@ class EditTool extends Tool {
 
   @override
   String get name => "Edit";
+
+  @override
+  List<Widget> buildOptions(
+      {required BuildContext context,
+      required DocumentLoadSuccess state,
+      required bool? expanded,
+      required bool isMobile,
+      required GlobalKey<NavigatorState> navigator,
+      required SplitWindow? window,
+      required SplitView? view}) {
+    return [
+      IconButton(icon: Icon(PhosphorIcons.penLight), tooltip: "Pencil", onPressed: () {}),
+      IconButton(icon: Icon(PhosphorIcons.markerCircleLight), tooltip: "Marker", onPressed: () {})
+    ];
+  }
 }
