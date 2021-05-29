@@ -11,12 +11,9 @@ import 'package:butterfly/models/project/type.dart';
 import 'type.dart';
 
 class ProjectView extends StatelessWidget {
-  final SplitView? view;
-  final SplitWindow? window;
-  final bool? expanded;
   final String path;
 
-  ProjectView({Key? key, this.view, this.window, this.expanded, this.path = ""}) : super(key: key);
+  ProjectView({Key? key, this.path = ""}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +21,6 @@ class ProjectView extends StatelessWidget {
     var bloc = BlocProvider.of<DocumentBloc>(context);
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-            heroTag: null,
             onPressed: () => showDialog(
                 context: context,
                 builder: (context) => BlocProvider.value(
@@ -36,7 +32,7 @@ class ProjectView extends StatelessWidget {
             tooltip: "New"),
         body: Container(
             alignment: Alignment.center,
-            child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+            child: BlocBuilder<DocumentBloc, DocumentState>(builder: (_, state) {
               if (state is DocumentLoadSuccess) {
                 var file = state.document.getFile(path);
                 if (file == null || !(file is FolderProjectItem))
@@ -86,8 +82,6 @@ class ProjectTool extends Tool {
     return ListView(children: []);
   }
 
-  final List<String> history = [''];
-
   @override
   List<Widget> buildOptions(
       {required BuildContext context,
@@ -103,7 +97,6 @@ class ProjectTool extends Tool {
           tooltip: "Home",
           onPressed: () {
             navigator.currentState?.popUntil((route) => route.isFirst);
-            history.clear();
           }),
       IconButton(
           icon: Icon(PhosphorIcons.arrowUpLight, size: 20),
@@ -111,7 +104,6 @@ class ProjectTool extends Tool {
           onPressed: () {
             if (navigator.currentState?.canPop() ?? false) {
               navigator.currentState?.pop();
-              history.removeLast();
             }
           }),
       IconButton(
@@ -125,8 +117,11 @@ class ProjectTool extends Tool {
       IconButton(
           icon: Icon(PhosphorIcons.arrowsCounterClockwiseLight, size: 20),
           tooltip: "Reload",
-          onPressed: () => navigator.currentState?.pushReplacement(
-              MaterialPageRoute(builder: (_) => ProjectView(path: history.last)))),
+          onPressed: () {
+            navigator.currentState?.popUntil((route) => route.isFirst);
+            navigator.currentState
+                ?.pushReplacement(MaterialPageRoute(builder: (_) => ProjectView(path: "")));
+          }),
     ];
   }
 

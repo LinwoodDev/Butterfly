@@ -18,9 +18,15 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
+  late HeroController _heroController;
   @override
   void initState() {
     super.initState();
+    _heroController = HeroController(createRectTween: _createRectTween);
+  }
+
+  RectTween _createRectTween(Rect? begin, Rect? end) {
+    return MaterialRectArcTween(begin: begin, end: end);
   }
 
   GlobalKey<NavigatorState> _navigator = GlobalKey();
@@ -28,33 +34,32 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     bool isMobile = widget.window == null || widget.view == null || widget.expanded == null;
-    return Container(
-        child: Hero(
-            tag: 'main_view',
-            child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-              var bloc = state as DocumentLoadSuccess;
-              print(bloc.currentTool);
-              return Scaffold(
-                  body: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                    Container(
-                        color: Theme.of(context).focusColor,
-                        child: MainViewToolbar(
-                            isMobile: isMobile,
-                            expanded: widget.expanded,
-                            view: widget.view,
-                            window: widget.window,
-                            navigator: _navigator)),
-                    Expanded(
-                        child: bloc.currentTool.type == ToolType.project
-                            ? Navigator(
-                                key: _navigator,
-                                onGenerateRoute: (settings) =>
-                                    MaterialPageRoute(builder: (context) => ProjectView()))
-                            : MainViewViewport(bloc: bloc))
-                  ]));
-            })));
+    return Container(child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+      var bloc = state as DocumentLoadSuccess;
+      return Scaffold(
+          body: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+            Container(
+                color: Theme.of(context).focusColor,
+                child: Hero(
+                    tag: 'main_view_toolbar',
+                    child: MainViewToolbar(
+                        isMobile: isMobile,
+                        expanded: widget.expanded,
+                        view: widget.view,
+                        window: widget.window,
+                        navigator: _navigator))),
+            Expanded(
+                child: bloc.currentTool.type == ToolType.project
+                    ? Navigator(
+                        key: _navigator,
+                        observers: [_heroController],
+                        onGenerateRoute: (settings) =>
+                            MaterialPageRoute(builder: (context) => ProjectView()))
+                    : Hero(tag: 'main_view', child: MainViewViewport(bloc: bloc)))
+          ]));
+    }));
   }
 }
