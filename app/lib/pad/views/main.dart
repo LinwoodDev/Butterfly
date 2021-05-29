@@ -41,6 +41,14 @@ class _MainViewState extends State<MainView> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+            Expanded(
+                child: bloc.currentTool.type == ToolType.project
+                    ? Navigator(
+                        key: _navigator,
+                        observers: [_heroController],
+                        onGenerateRoute: (settings) =>
+                            MaterialPageRoute(builder: (context) => ProjectView()))
+                    : Hero(tag: 'main_view', child: MainViewViewport(bloc: bloc))),
             Container(
                 color: Theme.of(context).focusColor,
                 child: Hero(
@@ -50,15 +58,7 @@ class _MainViewState extends State<MainView> {
                         expanded: widget.expanded,
                         view: widget.view,
                         window: widget.window,
-                        navigator: _navigator))),
-            Expanded(
-                child: bloc.currentTool.type == ToolType.project
-                    ? Navigator(
-                        key: _navigator,
-                        observers: [_heroController],
-                        onGenerateRoute: (settings) =>
-                            MaterialPageRoute(builder: (context) => ProjectView()))
-                    : Hero(tag: 'main_view', child: MainViewViewport(bloc: bloc)))
+                        navigator: _navigator)))
           ]));
     }));
   }

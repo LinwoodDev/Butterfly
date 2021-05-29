@@ -4,7 +4,7 @@ abstract class DocumentState extends Equatable {
   const DocumentState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class DocumentLoadInProgress extends DocumentState {}
@@ -25,7 +25,7 @@ class DocumentLoadSuccess extends DocumentState {
       : currentSelected as PadProjectItem?;
 
   const DocumentLoadSuccess(this.document,
-      {this.currentSelectedPath,
+      {this.currentSelectedPath = "pads/main",
       this.history = const [""],
       this.currentTool = const ViewTool(),
       this.currentInspectorItem,
@@ -33,13 +33,8 @@ class DocumentLoadSuccess extends DocumentState {
       this.currentLayer});
 
   @override
-  List<Object> get props => [
-        document,
-        if (currentSelectedPath != null) currentSelectedPath!,
-        currentTool,
-        if (currentInspectorItem != null) currentInspectorItem!,
-        if (currentLayer != null) currentLayer!
-      ];
+  List<Object?> get props =>
+      [document, currentSelectedPath, currentTool, currentInspectorItem, currentLayer];
 
   DocumentLoadSuccess copyWith(
       {AppDocument? document,

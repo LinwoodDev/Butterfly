@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 
 import '../inspector.dart';
 import 'edit.dart';
+import 'insert.dart';
 import 'object.dart';
 import 'project.dart';
 import 'select.dart';
@@ -34,7 +35,7 @@ abstract class Tool extends Equatable with InspectorItem {
   }
 }
 
-enum ToolType { project, view, select, object, edit }
+enum ToolType { project, view, select, object, edit, insert }
 
 extension ToolTypeExtension on ToolType {
   Tool create() {
@@ -49,6 +50,8 @@ extension ToolTypeExtension on ToolType {
         return ObjectTool();
       case ToolType.edit:
         return EditTool();
+      case ToolType.insert:
+        return InsertTool();
     }
   }
 }

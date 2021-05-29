@@ -4,7 +4,7 @@ abstract class DocumentEvent extends Equatable {
   const DocumentEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class ProjectChanged extends DocumentEvent {
@@ -12,7 +12,7 @@ class ProjectChanged extends DocumentEvent {
 
   ProjectChanged({this.nextSelected});
   @override
-  List<Object> get props => [if (nextSelected != null) nextSelected!];
+  List<Object?> get props => [nextSelected];
 }
 
 class LayerCreated extends DocumentEvent {
@@ -21,7 +21,7 @@ class LayerCreated extends DocumentEvent {
 
   LayerCreated({required this.layer, this.parent});
   @override
-  List<Object> get props => [if (parent != null) parent!, layer];
+  List<Object?> get props => [parent, layer];
 }
 
 class ItemCreated extends DocumentEvent {
@@ -30,7 +30,7 @@ class ItemCreated extends DocumentEvent {
 
   ItemCreated({required this.item, this.parent});
   @override
-  List<Object> get props => [if (parent != null) parent!, item];
+  List<Object?> get props => [parent, item];
 }
 
 class LayerChanged extends DocumentEvent {
@@ -38,7 +38,7 @@ class LayerChanged extends DocumentEvent {
 
   LayerChanged(this.layer);
   @override
-  List<Object> get props => [if (layer != null) layer!];
+  List<Object?> get props => [layer];
 }
 
 class DocumentNameChanged extends DocumentEvent {
@@ -46,7 +46,7 @@ class DocumentNameChanged extends DocumentEvent {
 
   DocumentNameChanged(this.name);
   @override
-  List<Object> get props => [name];
+  List<Object?> get props => [name];
 }
 
 class SelectedChanged extends DocumentEvent {
@@ -55,7 +55,7 @@ class SelectedChanged extends DocumentEvent {
   SelectedChanged(this.path);
 
   @override
-  List<Object> get props => [path];
+  List<Object?> get props => [path];
 }
 
 class InspectorChanged extends DocumentEvent {
@@ -64,7 +64,7 @@ class InspectorChanged extends DocumentEvent {
   InspectorChanged({required this.item});
 
   @override
-  List<Object> get props => [if (item != null) item!];
+  List<Object?> get props => [item];
 }
 
 class ToolChanged extends DocumentEvent {
@@ -73,5 +73,5 @@ class ToolChanged extends DocumentEvent {
   ToolChanged(this.tool);
 
   @override
-  List<Object> get props => [tool];
+  List<Object?> get props => [tool];
 }
