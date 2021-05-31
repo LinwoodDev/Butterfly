@@ -12,7 +12,7 @@ import 'type.dart';
 class ProjectView extends StatelessWidget {
   final String path;
 
-  ProjectView({Key? key, this.path = ""}) : super(key: key);
+  ProjectView({Key? key, this.path = "/"}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,71 +35,103 @@ class ProjectView extends StatelessWidget {
             child: BlocBuilder<DocumentBloc, DocumentState>(builder: (_, state) {
               if (state is DocumentLoadSuccess) {
                 var file = state.document.getFile(path);
-                if (file == null || !(file is FolderProjectItem))
-                  return Center(child: Text("Directory not found"));
+                if (!(file is FolderProjectItem)) return Center(child: Text("Directory not found"));
                 var folder = file;
                 var navigator = Navigator.of(context);
                 return Column(
                   children: [
-                    Row(children: [
-                      IconButton(
-                          icon: Icon(PhosphorIcons.houseLight, size: 20),
-                          tooltip: "Home",
-                          onPressed: () {
-                            navigator.popUntil((route) => route.isFirst);
-                            navigator.pushReplacement(
-                                MaterialPageRoute(builder: (_) => ProjectView(path: "")));
-                          }),
-                      IconButton(
-                          icon: Icon(PhosphorIcons.arrowUpLight, size: 20),
-                          tooltip: "Up",
-                          onPressed: () {
-                            if (navigator.canPop()) {
-                              navigator.pop();
-                            }
-                          }),
-                      SizedBox(width: 20),
-                      Expanded(
-                          child: Container(
-                        child: TextField(
-                            decoration: InputDecoration(labelText: "Path"),
-                            controller: _pathController,
-                            onSubmitted: (value) => _pushPath(context, value)),
-                      )),
-                      IconButton(
-                          icon: Icon(PhosphorIcons.arrowsCounterClockwiseLight, size: 20),
-                          tooltip: "Reload",
-                          onPressed: () {
-                            navigator.pushReplacement(
-                                MaterialPageRoute(builder: (_) => ProjectView(path: path)));
-                          })
-                    ]),
+                    Hero(
+                      tag: "project-bar",
+                      child: Row(children: [
+                        IconButton(
+                            icon: Icon(PhosphorIcons.houseLight, size: 20),
+                            tooltip: "Home",
+                            onPressed: () {
+                              navigator.popUntil((route) => route.isFirst);
+                              navigator.pushReplacement(
+                                  MaterialPageRoute(builder: (_) => ProjectView(path: "")));
+                            }),
+                        IconButton(
+                            icon: Icon(PhosphorIcons.arrowUpLight, size: 20),
+                            tooltip: "Up",
+                            onPressed: () {
+                              if (navigator.canPop()) {
+                                navigator.pop();
+                              }
+                            }),
+                        SizedBox(width: 20),
+                        Expanded(
+                            child: Container(
+                          child: TextField(
+                              decoration: InputDecoration(labelText: "Path"),
+                              controller: _pathController,
+                              onSubmitted: (value) => _pushPath(context, value)),
+                        )),
+                        IconButton(
+                            icon: Icon(PhosphorIcons.arrowsCounterClockwiseLight, size: 20),
+                            tooltip: "Reload",
+                            onPressed: () {
+                              navigator.pushReplacement(
+                                  MaterialPageRoute(builder: (_) => ProjectView(path: path)));
+                            }),
+                        IconButton(
+                            icon: Icon(
+                                state.gridView
+                                    ? PhosphorIcons.listLight
+                                    : PhosphorIcons.squaresFourLight,
+                                size: 20),
+                            tooltip: "Grid view",
+                            onPressed: () {
+                              bloc.add(ToggleGridView());
+                            })
+                      ]),
+                    ),
                     SizedBox(height: 50),
                     Expanded(
                       child: SizedBox.expand(
                           child: SingleChildScrollView(
-                              child: Wrap(
-                                  children: folder.files.map((file) {
-                        var currentPath = path.isNotEmpty ? path + '/' : '';
-                        currentPath += file.name;
-                        return Card(
-                            child: InkWell(
-                                onLongPress: () => _changeSelected(bloc, state, currentPath),
-                                onTap: () {
-                                  if (file is FolderProjectItem)
-                                    _pushPath(context, currentPath);
-                                  else
-                                    _changeSelected(bloc, state, currentPath);
-                                },
-                                child: Container(
-                                    constraints: BoxConstraints(maxWidth: 200),
-                                    child: Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-                                        child: Column(children: [
-                                          Icon(file.type.icon, size: 50),
-                                          Text(file.name, overflow: TextOverflow.ellipsis)
-                                        ])))));
-                      }).toList()))),
+                              child: state.gridView
+                                  ? Wrap(
+                                      children: folder.files.map((file) {
+                                      var currentPath = path + file.name;
+                                      return Card(
+                                          child: InkWell(
+                                              onLongPress: () =>
+                                                  _changeSelected(bloc, state, currentPath),
+                                              onTap: () {
+                                                if (file is FolderProjectItem)
+                                                  _pushPath(context, currentPath + "/");
+                                                else
+                                                  _changeSelected(bloc, state, currentPath + "/");
+                                              },
+                                              child: Container(
+                                                  constraints: BoxConstraints(maxWidth: 200),
+                                                  child: Padding(
+                                                      padding: EdgeInsets.symmetric(
+                                                          vertical: 20, horizontal: 50),
+                                                      child: Column(children: [
+                                                        Icon(file.type.icon, size: 50),
+                                                        Text(file.name,
+                                                            overflow: TextOverflow.ellipsis)
+                                                      ])))));
+                                    }).toList())
+                                  : Column(
+                                      children: List.generate(folder.files.length, (index) {
+                                      var file = folder.files[index];
+                                      var currentPath = path + file.name;
+                                      return ListTile(
+                                        onLongPress: () =>
+                                            _changeSelected(bloc, state, currentPath),
+                                        leading: Icon(file.type.icon, size: 30),
+                                        title: Text(file.name),
+                                        onTap: () {
+                                          if (file is FolderProjectItem)
+                                            _pushPath(context, currentPath + "/");
+                                          else
+                                            _changeSelected(bloc, state, currentPath + "/");
+                                        },
+                                      );
+                                    })))),
                     ),
                   ],
                 );
@@ -114,7 +146,7 @@ class ProjectView extends StatelessWidget {
 
   void _changeSelected(DocumentBloc bloc, DocumentLoadSuccess state, String currentPath) {
     bloc.add(SelectedChanged(currentPath));
-    bloc.add(InspectorChanged(item: state.document.getFile(currentPath)!));
+    bloc.add(InspectorChanged(item: state.document.getFile(currentPath)));
   }
 }
 

@@ -49,6 +49,12 @@ class DocumentNameChanged extends DocumentEvent {
   List<Object?> get props => [name];
 }
 
+class ToggleGridView extends DocumentEvent {
+  ToggleGridView();
+  @override
+  List<Object?> get props => [];
+}
+
 class SelectedChanged extends DocumentEvent {
   final String path;
 

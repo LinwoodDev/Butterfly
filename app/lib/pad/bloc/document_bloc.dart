@@ -37,7 +37,17 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
       yield* _mapLayerChangedToState(event);
     else if (event is ProjectChanged)
       yield* _mapProjectChangedToState(event);
-    else if (event is ItemCreated) yield* _mapItemCreatedToState(event);
+    else if (event is ItemCreated)
+      yield* _mapItemCreatedToState(event);
+    else if (event is ToggleGridView) yield* _mapToggleGridViewToState(event);
+  }
+
+  Stream<DocumentState> _mapToggleGridViewToState(ToggleGridView event) async* {
+    if (state is DocumentLoadSuccess) {
+      var last = (state as DocumentLoadSuccess);
+      yield last.copyWith(gridView: !last.gridView);
+      _saveDocument();
+    }
   }
 
   Stream<DocumentState> _mapItemCreatedToState(ItemCreated event) async* {

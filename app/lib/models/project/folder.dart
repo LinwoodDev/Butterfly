@@ -31,26 +31,22 @@ class FolderProjectItem extends ProjectItem {
     List<String> directories = path.split('/');
     List<String> parentPath = directories.sublist(0, directories.length - 1);
     var parent = getFile(parentPath.join('/'));
-    if (parent == null || !(parent is FolderProjectItem)) return false;
+    if (parent == this || !(parent is FolderProjectItem)) return false;
     (getFile(path) as FolderProjectItem)._files.remove(directories[directories.length - 1]);
     return true;
   }
 
-  bool hasFile(String path) => getFile(path) != null;
+  bool hasFile(String path) => getFile(path) != this;
 
-  ProjectItem? getFile(String path) {
+  ProjectItem getFile(String path) {
     List<String> directories = path.split('/');
-    if (directories.isEmpty || directories[0].isEmpty) return this;
-    var iterator = _files.where((element) => element!.name == directories.first);
-    if (iterator.isEmpty) return null;
-    ProjectItem? current = iterator.first;
-    var next = directories.sublist(1, directories.length);
-    if (current is FolderProjectItem)
-      return current.getFile(next.join('/'));
-    else if (next.isEmpty)
-      return current;
-    else
-      return this;
+    directories.removeWhere((element) => element.isEmpty);
+    if (directories.isEmpty) return this;
+    var current =
+        files.firstWhere((element) => element.name == directories.first, orElse: () => this);
+    directories.removeAt(0);
+    if (current is FolderProjectItem) return current.getFile(directories.join("/"));
+    return current;
   }
 
   @override

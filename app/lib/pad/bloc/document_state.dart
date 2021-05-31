@@ -17,6 +17,7 @@ class DocumentLoadSuccess extends DocumentState {
   final String currentPath;
   final List<String> history;
   final InspectorItem? currentInspectorItem;
+  final bool gridView;
 
   ProjectItem? get currentSelected =>
       (currentSelectedPath == null ? null : document.getFile(currentSelectedPath!)) ?? document;
@@ -27,6 +28,7 @@ class DocumentLoadSuccess extends DocumentState {
   const DocumentLoadSuccess(this.document,
       {this.currentSelectedPath = "pads/main",
       this.history = const [""],
+      this.gridView = false,
       this.currentTool = const ViewTool(),
       this.currentInspectorItem,
       this.currentPath = '',
@@ -34,7 +36,7 @@ class DocumentLoadSuccess extends DocumentState {
 
   @override
   List<Object?> get props =>
-      [document, currentSelectedPath, currentTool, currentInspectorItem, currentLayer];
+      [document, currentSelectedPath, currentTool, currentInspectorItem, currentLayer, gridView];
 
   DocumentLoadSuccess copyWith(
       {AppDocument? document,
@@ -44,6 +46,7 @@ class DocumentLoadSuccess extends DocumentState {
       String? currentPath,
       InspectorItem? currentInspectorItem,
       bool unselectLayer = false,
+      bool? gridView,
       List<String>? history}) {
     return DocumentLoadSuccess(document ?? this.document,
         currentSelectedPath: currentSelectedPath ?? this.currentSelectedPath,
@@ -51,6 +54,7 @@ class DocumentLoadSuccess extends DocumentState {
         currentLayer: unselectLayer ? null : currentLayer ?? this.currentLayer,
         currentPath: currentPath ?? this.currentPath,
         history: history ?? this.history,
+        gridView: gridView ?? this.gridView,
         currentInspectorItem: currentInspectorItem ?? this.currentInspectorItem);
   }
 }
