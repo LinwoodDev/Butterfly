@@ -52,7 +52,7 @@ class _CreateItemDialogState extends State<CreateItemDialog> {
           DropdownButtonFormField<ProjectItemType>(
               decoration: InputDecoration(labelText: "Type"),
               value: _type,
-              onChanged: (value) => setState(() => _type = value!),
+              onChanged: (value) => setState(() => _type = value),
               items: ProjectItemType.values
                   .map((e) => DropdownMenuItem<ProjectItemType>(child: Text(e.name), value: e))
                   .toList())

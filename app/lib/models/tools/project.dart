@@ -1,6 +1,5 @@
 import 'package:butterfly/models/project/folder.dart';
 import 'package:butterfly/pad/dialogs/create_item.dart';
-import 'package:butterfly/pad/dialogs/path.dart';
 import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +16,7 @@ class ProjectView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _pathController = TextEditingController(text: path);
     // ignore: close_sinks
     var bloc = BlocProvider.of<DocumentBloc>(context);
     return Scaffold(
@@ -38,36 +38,78 @@ class ProjectView extends StatelessWidget {
                 if (file == null || !(file is FolderProjectItem))
                   return Center(child: Text("Directory not found"));
                 var folder = file;
-                return SizedBox.expand(
-                    child: SingleChildScrollView(
-                        child: Wrap(
-                            children: folder.files.map((file) {
-                  var currentPath = path.isNotEmpty ? path + '/' : '';
-                  currentPath += file.name;
-                  return Card(
-                      child: InkWell(
-                          onLongPress: () => _changeSelected(bloc, state, currentPath),
-                          onTap: () {
-                            if (file is FolderProjectItem)
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProjectView(path: currentPath)));
-                            else
-                              _changeSelected(bloc, state, currentPath);
-                          },
+                var navigator = Navigator.of(context);
+                return Column(
+                  children: [
+                    Row(children: [
+                      IconButton(
+                          icon: Icon(PhosphorIcons.houseLight, size: 20),
+                          tooltip: "Home",
+                          onPressed: () {
+                            navigator.popUntil((route) => route.isFirst);
+                            navigator.pushReplacement(
+                                MaterialPageRoute(builder: (_) => ProjectView(path: "")));
+                          }),
+                      IconButton(
+                          icon: Icon(PhosphorIcons.arrowUpLight, size: 20),
+                          tooltip: "Up",
+                          onPressed: () {
+                            if (navigator.canPop()) {
+                              navigator.pop();
+                            }
+                          }),
+                      SizedBox(width: 20),
+                      Expanded(
                           child: Container(
-                              constraints: BoxConstraints(maxWidth: 200),
-                              child: Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-                                  child: Column(children: [
-                                    Icon(file.type.icon, size: 50),
-                                    Text(file.name, overflow: TextOverflow.ellipsis)
-                                  ])))));
-                }).toList())));
+                        child: TextField(
+                            decoration: InputDecoration(labelText: "Path"),
+                            controller: _pathController,
+                            onSubmitted: (value) => _pushPath(context, value)),
+                      )),
+                      IconButton(
+                          icon: Icon(PhosphorIcons.arrowsCounterClockwiseLight, size: 20),
+                          tooltip: "Reload",
+                          onPressed: () {
+                            navigator.pushReplacement(
+                                MaterialPageRoute(builder: (_) => ProjectView(path: path)));
+                          })
+                    ]),
+                    SizedBox(height: 50),
+                    Expanded(
+                      child: SizedBox.expand(
+                          child: SingleChildScrollView(
+                              child: Wrap(
+                                  children: folder.files.map((file) {
+                        var currentPath = path.isNotEmpty ? path + '/' : '';
+                        currentPath += file.name;
+                        return Card(
+                            child: InkWell(
+                                onLongPress: () => _changeSelected(bloc, state, currentPath),
+                                onTap: () {
+                                  if (file is FolderProjectItem)
+                                    _pushPath(context, currentPath);
+                                  else
+                                    _changeSelected(bloc, state, currentPath);
+                                },
+                                child: Container(
+                                    constraints: BoxConstraints(maxWidth: 200),
+                                    child: Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                                        child: Column(children: [
+                                          Icon(file.type.icon, size: 50),
+                                          Text(file.name, overflow: TextOverflow.ellipsis)
+                                        ])))));
+                      }).toList()))),
+                    ),
+                  ],
+                );
               } else
                 return CircularProgressIndicator();
             })));
+  }
+
+  void _pushPath(BuildContext context, String path) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ProjectView(path: path)));
   }
 
   void _changeSelected(DocumentBloc bloc, DocumentLoadSuccess state, String currentPath) {
@@ -91,38 +133,7 @@ class ProjectTool extends Tool {
       required GlobalKey<NavigatorState> navigator,
       required SplitWindow? window,
       required SplitView? view}) {
-    return [
-      IconButton(
-          icon: Icon(PhosphorIcons.houseLight, size: 20),
-          tooltip: "Home",
-          onPressed: () {
-            navigator.currentState?.popUntil((route) => route.isFirst);
-          }),
-      IconButton(
-          icon: Icon(PhosphorIcons.arrowUpLight, size: 20),
-          tooltip: "Up",
-          onPressed: () {
-            if (navigator.currentState?.canPop() ?? false) {
-              navigator.currentState?.pop();
-            }
-          }),
-      IconButton(
-          icon: Icon(PhosphorIcons.magnifyingGlassLight, size: 20),
-          tooltip: "Path",
-          onPressed: () => showDialog(
-              context: context,
-              builder: (context) => FilePathDialog(
-                  callback: (path) => navigator.currentState!
-                    ..push(MaterialPageRoute(builder: (_) => ProjectView(path: path)))))),
-      IconButton(
-          icon: Icon(PhosphorIcons.arrowsCounterClockwiseLight, size: 20),
-          tooltip: "Reload",
-          onPressed: () {
-            navigator.currentState?.popUntil((route) => route.isFirst);
-            navigator.currentState
-                ?.pushReplacement(MaterialPageRoute(builder: (_) => ProjectView(path: "")));
-          }),
-    ];
+    return [];
   }
 
   @override

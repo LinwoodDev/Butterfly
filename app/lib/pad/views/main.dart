@@ -49,16 +49,17 @@ class _MainViewState extends State<MainView> {
                         onGenerateRoute: (settings) =>
                             MaterialPageRoute(builder: (context) => ProjectView()))
                     : Hero(tag: 'main_view', child: MainViewViewport(bloc: bloc))),
-            Container(
-                color: Theme.of(context).focusColor,
-                child: Hero(
-                    tag: 'main_view_toolbar',
-                    child: MainViewToolbar(
-                        isMobile: isMobile,
-                        expanded: widget.expanded,
-                        view: widget.view,
-                        window: widget.window,
-                        navigator: _navigator)))
+            if (bloc.currentTool.type != ToolType.project)
+              Container(
+                  color: Theme.of(context).focusColor,
+                  child: Hero(
+                      tag: 'main_view_toolbar',
+                      child: MainViewToolbar(
+                          isMobile: isMobile,
+                          expanded: widget.expanded,
+                          view: widget.view,
+                          window: widget.window,
+                          navigator: _navigator)))
           ]));
     }));
   }
