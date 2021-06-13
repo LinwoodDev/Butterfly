@@ -2,17 +2,37 @@ import 'package:butterfly/module.dart';
 import 'package:butterfly/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
+import 'theme.dart';
 
-void main() {
+void main() async {
   setup();
-  runApp(ModularApp(module: AppModule(), child: ButterflyApp()));
+  var prefs = await SharedPreferences.getInstance();
+  runApp(ModularApp(
+      module: AppModule(), child: ButterflyApp(themeController: ThemeController(prefs))));
 }
 
 class ButterflyApp extends StatelessWidget {
+  final ThemeController? themeController;
+
+  const ButterflyApp({Key? key, this.themeController}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    if (themeController != null) {
+      return AnimatedBuilder(
+          animation: themeController!,
+          builder: (context, _) {
+            // wrap app in inherited widget to provide the ThemeController to all pages
+            return ThemeControllerProvider(controller: themeController!, child: _buildApp());
+          });
+    }
+    return _buildApp();
+  }
+
+  Widget _buildApp() {
     var primarySwatch = createMaterialColor(Color(0xFFF2B138));
     var accentColor = Color(0xFF00469E);
     return MaterialApp(
@@ -32,6 +52,7 @@ class ButterflyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: primarySwatch,
           accentColor: accentColor),
+      themeMode: themeController?.currentTheme,
       darkTheme: ThemeData(
           brightness: Brightness.dark, primarySwatch: primarySwatch, accentColor: accentColor),
       home: HomePage(),

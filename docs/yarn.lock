@@ -3683,9 +3683,9 @@ esutils@^2.0.2:
   integrity sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
 
 eta@^1.12.1:
-  version "1.12.1"
-  resolved "https://registry.yarnpkg.com/eta/-/eta-1.12.1.tgz#d985766591676c323f02dfc48a67539212745937"
-  integrity sha512-H8npoci2J/7XiPnVcCVulBSPsTNGvGaINyMjQDU8AFqp9LGsEYS88g2CiU+d01Sg44WtX7o4nb8wUJ9vnI+tiA==
+  version "1.12.2"
+  resolved "https://registry.yarnpkg.com/eta/-/eta-1.12.2.tgz#ac4425d4f9478a8b4110c7d02c94f6d382cac517"
+  integrity sha512-Z05sK2DRWAfBhG/2cwAOWuMoQIYaVYJCQrz2g2O/ekUjzWHNBv9L1pnblVDoDkKSb/AZ5tWZ0N/v4iaIU4+HjA==
 
 etag@~1.8.1:
   version "1.8.1"

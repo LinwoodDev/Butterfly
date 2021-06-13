@@ -128,7 +128,7 @@ class ProjectView extends StatelessWidget {
                                           if (file is FolderProjectItem)
                                             _pushPath(context, currentPath + "/");
                                           else
-                                            _changeSelected(bloc, state, currentPath + "/");
+                                            _changeSelected(bloc, state, currentPath);
                                         },
                                       );
                                     })))),

@@ -46,7 +46,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Butterfly")),
+        appBar: AppBar(title: Text("Butterfly"), actions: [
+          IconButton(
+              icon: Icon(PhosphorIcons.gearLight),
+              onPressed: () => Modular.to.pushNamed("/settings"))
+        ]),
         body: SizedBox.expand(
             child: Align(
                 alignment: Alignment.topCenter,
