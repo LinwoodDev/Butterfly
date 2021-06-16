@@ -19,7 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  equatable: ^2.0.2
+  equatable: ^2.0.3
   flutter_bloc: ^7.0.1
   flutter_modular: ^3.2.2+1
   shared_preferences: ^2.0.6

@@ -111,8 +111,13 @@ class ProjectView extends StatelessWidget {
                                                           vertical: 20, horizontal: 50),
                                                       child: Column(children: [
                                                         Icon(file.type.icon, size: 50),
-                                                        Text(file.name,
-                                                            overflow: TextOverflow.ellipsis)
+                                                        Row(children: [
+                                                          Expanded(
+                                                            child: Text(file.name,
+                                                                overflow: TextOverflow.ellipsis),
+                                                          ),
+                                                          _buildTrailing(file)
+                                                        ])
                                                       ])))));
                                     }).toList())
                                   : Column(
@@ -124,6 +129,7 @@ class ProjectView extends StatelessWidget {
                                             _changeSelected(bloc, state, currentPath),
                                         leading: Icon(file.type.icon, size: 30),
                                         title: Text(file.name),
+                                        trailing: _buildTrailing(file),
                                         onTap: () {
                                           if (file is FolderProjectItem)
                                             _pushPath(context, currentPath + "/");
@@ -139,6 +145,16 @@ class ProjectView extends StatelessWidget {
                 return CircularProgressIndicator();
             })));
   }
+
+  Widget _buildTrailing(ProjectItem item) => PopupMenuButton<VoidCallback>(
+      itemBuilder: (context) => [
+            PopupMenuItem(child: Text("Open"), value: () => print("Open")),
+            PopupMenuItem(child: Text("Rename"), value: () => print("Rename")),
+            PopupMenuItem(child: Text("Move"), value: () => print("Move")),
+            PopupMenuItem(child: Text("Copy"), value: () => print("Copy")),
+            PopupMenuItem(child: Text("Delete"), value: () => print("Delete"))
+          ],
+      onSelected: (value) => value());
 
   void _pushPath(BuildContext context, String path) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => ProjectView(path: path)));
