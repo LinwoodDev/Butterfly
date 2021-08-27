@@ -33,7 +33,8 @@ class ButterflyApp extends StatelessWidget {
   }
 
   Widget _buildApp() {
-    var primarySwatch = createMaterialColor(Color(0xFFF2B138));
+    var primaryColor = Color(0xFFF2B138);
+    var primarySwatch = createMaterialColor(primaryColor);
     var accentColor = Color(0xFF00469E);
     return MaterialApp(
       title: 'Butterfly',
@@ -51,10 +52,12 @@ class ButterflyApp extends StatelessWidget {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
           primarySwatch: primarySwatch,
-          accentColor: accentColor),
+          colorScheme: ColorScheme.light(primary: primaryColor, secondary: accentColor)),
       themeMode: themeController?.currentTheme,
       darkTheme: ThemeData(
-          brightness: Brightness.dark, primarySwatch: primarySwatch, accentColor: accentColor),
+          brightness: Brightness.dark,
+          primarySwatch: primarySwatch,
+          colorScheme: ColorScheme.dark(primary: primaryColor, secondary: accentColor)),
       home: HomePage(),
     ).modular();
   }

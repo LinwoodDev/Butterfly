@@ -30,6 +30,7 @@ class _CreateItemDialogState extends State<CreateItemDialog> {
               child: Text("CANCEL")),
           TextButton(
               onPressed: () {
+                if (_nameController.text.isEmpty) return;
                 if (_type != null)
                   BlocProvider.of<DocumentBloc>(context).add(ItemCreated(
                       parent: widget.parent,
