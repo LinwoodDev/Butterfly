@@ -30,11 +30,10 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Container(child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       var bloc = state as DocumentLoadSuccess;
-      return Scaffold(
-          body: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+      return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             Expanded(
                 child: bloc.currentTool.type == ToolType.project
                     ? Navigator(
@@ -43,12 +42,7 @@ class _MainViewState extends State<MainView> {
                         onGenerateRoute: (settings) =>
                             MaterialPageRoute(builder: (context) => ProjectView()))
                     : Hero(tag: 'main_view', child: MainViewViewport(bloc: bloc))),
-            if (bloc.currentTool.type != ToolType.project)
-              Container(
-                  color: Theme.of(context).focusColor,
-                  child:
-                      Hero(tag: 'main_view_toolbar', child: MainViewToolbar(navigator: _navigator)))
-          ]));
+          ]);
     }));
   }
 }

@@ -5,10 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SelectTool extends Tool {
   @override
-  List<Widget> buildOptions(
-      {required BuildContext context,
-      required DocumentLoadSuccess state,
-      required GlobalKey<NavigatorState> navigator}) {
+  List<Widget> buildOptions({required BuildContext context, required DocumentLoadSuccess state}) {
     return [
       IconButton(icon: Icon(PhosphorIcons.xLight), tooltip: "Select all", onPressed: () {}),
       IconButton(icon: Icon(PhosphorIcons.divideLight), tooltip: "Deselect", onPressed: () {}),
@@ -26,6 +23,9 @@ class SelectTool extends Tool {
 
   @override
   IconData get icon => PhosphorIcons.mathOperationsLight;
+
+  @override
+  IconData get activeIcon => PhosphorIcons.mathOperationsFill;
 
   @override
   ToolType get type => ToolType.select;

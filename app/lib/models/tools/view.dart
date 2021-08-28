@@ -14,10 +14,7 @@ class ViewTool extends Tool {
   }
 
   @override
-  List<Widget> buildOptions(
-      {required BuildContext context,
-      required DocumentLoadSuccess state,
-      required GlobalKey<NavigatorState> navigator}) {
+  List<Widget> buildOptions({required BuildContext context, required DocumentLoadSuccess state}) {
     var bloc = BlocProvider.of<DocumentBloc>(context);
     return [
       IconButton(
@@ -57,6 +54,9 @@ class ViewTool extends Tool {
 
   @override
   IconData get icon => PhosphorIcons.cursorLight;
+
+  @override
+  IconData get activeIcon => PhosphorIcons.cursorFill;
 
   @override
   ToolType get type => ToolType.view;

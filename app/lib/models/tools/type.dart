@@ -13,10 +13,8 @@ import 'view.dart';
 @immutable
 abstract class Tool extends Equatable with InspectorItem {
   IconData get icon;
-  List<Widget> buildOptions(
-      {required BuildContext context,
-      required DocumentLoadSuccess state,
-      required GlobalKey<NavigatorState> navigator});
+  IconData? get activeIcon;
+  List<Widget> buildOptions({required BuildContext context, required DocumentLoadSuccess state});
   ToolType get type;
   String get name;
 

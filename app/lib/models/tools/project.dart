@@ -172,15 +172,15 @@ class ProjectTool extends Tool {
   }
 
   @override
-  List<Widget> buildOptions(
-      {required BuildContext context,
-      required DocumentLoadSuccess state,
-      required GlobalKey<NavigatorState> navigator}) {
+  List<Widget> buildOptions({required BuildContext context, required DocumentLoadSuccess state}) {
     return [];
   }
 
   @override
   IconData get icon => PhosphorIcons.folderLight;
+
+  @override
+  IconData get activeIcon => PhosphorIcons.folderFill;
 
   @override
   ToolType get type => ToolType.project;

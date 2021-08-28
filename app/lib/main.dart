@@ -57,7 +57,11 @@ class ButterflyApp extends StatelessWidget {
       darkTheme: ThemeData(
           brightness: Brightness.dark,
           primarySwatch: primarySwatch,
-          colorScheme: ColorScheme.dark(primary: primaryColor, secondary: accentColor)),
+          colorScheme: ColorScheme.dark(
+              primary: primaryColor,
+              primaryVariant: primaryColor,
+              secondary: accentColor,
+              secondaryVariant: accentColor)),
       home: HomePage(),
     ).modular();
   }

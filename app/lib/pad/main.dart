@@ -9,6 +9,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'bloc/document_bloc.dart';
 import 'dialogs/settings.dart';
+import 'views/main/toolbar.dart';
 
 class ProjectPage extends StatefulWidget {
   final String? path;
@@ -58,14 +59,45 @@ class _ProjectPageState extends State<ProjectPage> {
                       } else
                         return Text("Loading...");
                     }),
-                    bottom: TabBar(
-                        isScrollable: true,
-                        onTap: (value) {
-                          var tool = tools[value];
-                          _bloc.add(ToolChanged(tool));
-                          _bloc.add(InspectorChanged(item: tool));
-                        },
-                        tabs: tools.map((e) => Tab(icon: Icon(e.icon), text: e.name)).toList()),
+                    bottom: PreferredSize(
+                        preferredSize: Size.fromHeight(50),
+                        child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                          if (_bloc.state is DocumentLoadSuccess) {
+                            var current = _bloc.state as DocumentLoadSuccess;
+                            return Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Row(children: [
+                                Expanded(
+                                    child: Row(
+                                        children: tools
+                                            .map((e) => IconButton(
+                                                  icon: Icon(
+                                                      current.currentTool.type == e.type
+                                                          ? e.activeIcon
+                                                          : e.icon,
+                                                      size: 26),
+                                                  color: current.currentTool.type == e.type
+                                                      ? Theme.of(context).colorScheme.primary
+                                                      : null,
+                                                  tooltip: e.name,
+                                                  onPressed: () {
+                                                    _bloc.add(ToolChanged(e));
+                                                    _bloc.add(InspectorChanged(item: e));
+                                                  },
+                                                ))
+                                            .toList())),
+                                Expanded(
+                                    child: Container(
+                                        padding: const EdgeInsets.all(12.0),
+                                        height: 50,
+                                        child: current.currentTool.type != ToolType.project
+                                            ? MainViewToolbar()
+                                            : null)),
+                              ]),
+                            );
+                          }
+                          return Container();
+                        })),
                     actions: [
                       IconButton(
                         icon: Icon(PhosphorIcons.arrowCounterClockwiseLight),
@@ -86,7 +118,11 @@ class _ProjectPageState extends State<ProjectPage> {
                           tooltip: "Share (not implemented)",
                           onPressed: null)
                     ]),
-                body: MainView())));
+                body: Column(
+                  children: [
+                    Expanded(child: MainView()),
+                  ],
+                ))));
   }
 
   void _showProjectSettings(bloc) {
