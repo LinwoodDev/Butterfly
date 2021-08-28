@@ -54,12 +54,7 @@ class _ProjectPageState extends State<ProjectPage> {
                     title: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
                       if (_bloc.state is DocumentLoadSuccess) {
                         var current = _bloc.state as DocumentLoadSuccess;
-                        return Column(children: [
-                          if (current.currentSelectedPath != null)
-                            Text(current.currentSelectedPath!,
-                                style: Theme.of(context).textTheme.subtitle1),
-                          Text(current.document.name)
-                        ]);
+                        return Text(current.document.name);
                       } else
                         return Text("Loading...");
                     }),

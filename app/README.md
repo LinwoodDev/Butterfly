@@ -12,12 +12,12 @@ Export it as presentation, website or picture
 * Open source & free
 * Everything configurable
   * Pack support
-    * [Color pack](https://linwood.tk/butterfly/wiki/pack/color) or configurable *(TODO)*
-    * [Background pack](https://linwood.tk/butterfly/wiki/pack/background) or configurable *(TODO)*
-    * [Pen pack](https://linwood.tk/butterfly/wiki/pack/pen) or configurable *(TODO)*
+    * [Color pack](https://linwood.dev/butterfly/wiki/pack/color) or configurable *(TODO)*
+    * [Background pack](https://linwood.dev/butterfly/wiki/pack/background) or configurable *(TODO)*
+    * [Pen pack](https://linwood.dev/butterfly/wiki/pack/pen) or configurable *(TODO)*
 * Layer support
-  * [Markdown layer](https://linwood.tk/butterfly/wiki/layer/markdown) *(TODO)*
-  * [Text layer](https://linwood.tk/butterfly/wiki/layer/) *(TODO)*
+  * [Markdown layer](https://linwood.dev/butterfly/wiki/layer/markdown) *(TODO)*
+  * [Text layer](https://linwood.dev/butterfly/wiki/layer/) *(TODO)*
   * Image layer *(TODO)*
   * Vector layer *(TODO)*
   * Table layer *(TODO)*
@@ -45,9 +45,9 @@ Platforms:
 
 ### From website
 
-* Open the [web version](https://butterfly.linwood.tk)
-* Download the [mobile app](https://linwood.tk/butterfly/download/mobile)
-* Download the [desktop app](https://linwood.tk/butterfly/download/mobile)
+* Open the [web version](https://butterfly.linwood.dev)
+* Download the [mobile app](https://linwood.dev/butterfly/download/mobile)
+* Download the [desktop app](https://linwood.dev/butterfly/download/mobile)
 
 ### Build your own
 

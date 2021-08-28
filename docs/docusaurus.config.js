@@ -2,7 +2,7 @@
 module.exports = {
   title: 'Linwood Butterfly Docs',
   tagline: 'Next future, advanced, serverless, free note app',
-  url: 'https://docs.butterfly.linwood.tk',
+  url: 'https://docs.butterfly.linwood.dev',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -28,7 +28,7 @@ module.exports = {
           label: 'Downloads',
           position: 'left'
         },
-        {href: 'https://linwood.tk/blog', label: 'Blog', position: 'left'},
+        {href: 'https://linwood.dev/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/LinwoodCloud/Butterfly',
           label: 'GitHub',
@@ -44,7 +44,7 @@ module.exports = {
           items: [
             {
               label: 'Discord',
-              href: 'https://discord.linwood.tk',
+              href: 'https://discord.linwood.dev',
             },
             {
               label: 'Twitter',

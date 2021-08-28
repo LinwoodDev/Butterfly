@@ -13,10 +13,10 @@ title: Downloads
   <button className="button button--outline button--primary">Web</button>
   <ul className="dropdown__menu">
     <li>
-      <a className="dropdown__link" href="https://butterfly.linwood.tk">
+      <a className="dropdown__link" href="https://butterfly.linwood.dev">
         Release
       </a>
-      <a className="dropdown__link" href="https://preview.butterfly.linwood.tk">
+      <a className="dropdown__link" href="https://preview.butterfly.linwood.dev">
         Preview
       </a>
     </li>
@@ -121,4 +121,4 @@ title: Downloads
 - [Changelog](changelog)
 - [Older releases](https://github.com/LinwoodCloud/butterfly/releases)
 - [Latest release](https://github.com/LinwoodCloud/butterfly/releases/latest)
-- [Support](https://discord.linwood.tk)
+- [Support](https://discord.linwood.dev)
