@@ -1,7 +1,6 @@
 import 'package:butterfly/models/tools/type.dart';
 import 'package:butterfly/pad/views/inspector.dart';
 import 'package:butterfly/pad/views/layers.dart';
-import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,29 +17,17 @@ class ViewTool extends Tool {
   List<Widget> buildOptions(
       {required BuildContext context,
       required DocumentLoadSuccess state,
-      required bool? expanded,
-      required bool isMobile,
-      required GlobalKey<NavigatorState> navigator,
-      required SplitWindow? window,
-      required SplitView? view}) {
+      required GlobalKey<NavigatorState> navigator}) {
     var bloc = BlocProvider.of<DocumentBloc>(context);
     return [
-      if (isMobile) ...[
-        IconButton(
-            icon: Icon(PhosphorIcons.cubeLight),
-            onPressed: () =>
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => LayersView()))),
-        IconButton(
-            icon: Icon(PhosphorIcons.fadersLight),
-            onPressed: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => InspectorView())))
-      ] else ...[
-        IconButton(
-            icon: Icon(expanded! ? PhosphorIcons.arrowsInLight : PhosphorIcons.arrowsOutLight),
-            tooltip: expanded ? 'Minimize' : 'Maximize',
-            onPressed:
-                expanded ? Navigator.of(context).pop : () => window!.expand(context, view, window))
-      ],
+      IconButton(
+          icon: Icon(PhosphorIcons.cubeLight),
+          onPressed: () =>
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => LayersView()))),
+      IconButton(
+          icon: Icon(PhosphorIcons.fadersLight),
+          onPressed: () =>
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => InspectorView()))),
       VerticalDivider(),
       IconButton(
           icon: Icon(PhosphorIcons.magnifyingGlassPlusLight), tooltip: "Zoom in", onPressed: () {}),

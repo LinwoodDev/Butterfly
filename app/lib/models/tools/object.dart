@@ -1,4 +1,3 @@
-import 'package:butterfly/widgets/split/core.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,11 +75,7 @@ class ObjectTool extends Tool {
   List<Widget> buildOptions(
       {required BuildContext context,
       required DocumentLoadSuccess state,
-      required bool? expanded,
-      required bool isMobile,
-      required GlobalKey<NavigatorState> navigator,
-      required SplitWindow? window,
-      required SplitView? view}) {
+      required GlobalKey<NavigatorState> navigator}) {
     var bloc = BlocProvider.of<DocumentBloc>(context);
     return [
       IconButton(

@@ -1,5 +1,4 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/widgets/split/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
@@ -17,11 +16,7 @@ abstract class Tool extends Equatable with InspectorItem {
   List<Widget> buildOptions(
       {required BuildContext context,
       required DocumentLoadSuccess state,
-      required bool? expanded,
-      required bool isMobile,
-      required GlobalKey<NavigatorState> navigator,
-      required SplitWindow? window,
-      required SplitView? view});
+      required GlobalKey<NavigatorState> navigator});
   ToolType get type;
   String get name;
 

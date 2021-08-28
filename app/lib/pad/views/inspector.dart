@@ -1,16 +1,10 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/widgets/split/core.dart';
-import 'package:butterfly/widgets/split/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class InspectorView extends StatefulWidget {
-  final SplitView? view;
-  final SplitWindow? window;
-  final bool? expanded;
-
-  const InspectorView({Key? key, this.view, this.window, this.expanded}) : super(key: key);
+  const InspectorView({Key? key}) : super(key: key);
   @override
   _InspectorViewState createState() => _InspectorViewState();
 }
@@ -26,8 +20,7 @@ class _InspectorViewState extends State<InspectorView> {
     var bloc = BlocProvider.of<DocumentBloc>(context);
     return Hero(
         tag: 'inspector_view',
-        child: SplitScaffold(
-            bloc: bloc,
+        child: Scaffold(
             body: Container(
                 alignment: Alignment.center,
                 child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
@@ -36,10 +29,6 @@ class _InspectorViewState extends State<InspectorView> {
                   else
                     return Text("No object selected");
                 })),
-            view: widget.view,
-            window: widget.window,
-            expanded: widget.expanded,
-            title: 'Inspector',
-            icon: PhosphorIcons.fadersLight));
+            appBar: AppBar(title: Text('Inspector'), leading: Icon(PhosphorIcons.fadersLight))));
   }
 }

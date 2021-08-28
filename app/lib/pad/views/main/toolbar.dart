@@ -1,26 +1,14 @@
 import 'package:butterfly/models/tools/project.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/widgets/split/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum SelectMode { add, replace, remove }
 
 class MainViewToolbar extends StatefulWidget {
-  final bool isMobile;
-  final bool? expanded;
-  final SplitView? view;
-  final SplitWindow? window;
   final GlobalKey<NavigatorState> navigator;
 
-  const MainViewToolbar(
-      {Key? key,
-      required this.isMobile,
-      this.expanded,
-      this.view,
-      this.window,
-      required this.navigator})
-      : super(key: key);
+  const MainViewToolbar({Key? key, required this.navigator}) : super(key: key);
 
   @override
   _MainViewToolbarState createState() => _MainViewToolbarState();
@@ -54,11 +42,7 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
                                 children: current.currentTool.buildOptions(
                                     context: context,
                                     state: current,
-                                    expanded: widget.expanded,
-                                    view: widget.view,
-                                    window: widget.window,
-                                    navigator: widget.navigator,
-                                    isMobile: widget.isMobile))),
+                                    navigator: widget.navigator))),
                       ))));
     }));
   }

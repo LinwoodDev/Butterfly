@@ -1,18 +1,12 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/dialogs/create_layer.dart';
-import 'package:butterfly/widgets/split/core.dart';
-import 'package:butterfly/widgets/split/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/models/elements/type.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class LayersView extends StatefulWidget {
-  final SplitView? view;
-  final SplitWindow? window;
-  final bool? expanded;
-
-  const LayersView({Key? key, this.view, this.window, this.expanded}) : super(key: key);
+  const LayersView({Key? key}) : super(key: key);
   @override
   _LayersViewState createState() => _LayersViewState();
 }
@@ -24,13 +18,8 @@ class _LayersViewState extends State<LayersView> {
     var bloc = BlocProvider.of<DocumentBloc>(context);
     return Hero(
         tag: 'layers_view',
-        child: SplitScaffold(
-            bloc: bloc,
-            view: widget.view,
-            window: widget.window,
-            expanded: widget.expanded,
-            title: "Layers",
-            icon: PhosphorIcons.cubeLight,
+        child: Scaffold(
+            appBar: AppBar(title: Text("Layers"), leading: Icon(PhosphorIcons.cubeLight)),
             floatingActionButton: FloatingActionButton(
                 heroTag: null,
                 onPressed: () {
