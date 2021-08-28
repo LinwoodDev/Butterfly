@@ -35,8 +35,8 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   void _showRootDialog() async {
-    var pad = (_bloc.state as DocumentLoadSuccess).currentPad;
-    if (pad != null && pad.root == null) {
+    var pad = (_bloc.state as DocumentLoadSuccess).document;
+    if (pad.root == null) {
       await showDialog(context: context, builder: (context) => CreateLayerDialog());
     }
   }
@@ -90,9 +90,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                     child: Container(
                                         padding: const EdgeInsets.all(12.0),
                                         height: 50,
-                                        child: current.currentTool.type != ToolType.project
-                                            ? MainViewToolbar()
-                                            : null)),
+                                        child: MainViewToolbar())),
                               ]),
                             );
                           }

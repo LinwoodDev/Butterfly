@@ -24,15 +24,6 @@ class LayerCreated extends DocumentEvent {
   List<Object?> get props => [parent, layer];
 }
 
-class ItemCreated extends DocumentEvent {
-  final ProjectItem item;
-  final FolderProjectItem? parent;
-
-  ItemCreated({required this.item, this.parent});
-  @override
-  List<Object?> get props => [parent, item];
-}
-
 class LayerChanged extends DocumentEvent {
   final ElementLayer? layer;
 

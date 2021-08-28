@@ -10,7 +10,7 @@ class ViewTool extends Tool {
   const ViewTool();
   @override
   Widget buildInspector(DocumentBloc bloc) {
-    return (bloc.state as DocumentLoadSuccess).currentSelected!.buildInspector(bloc);
+    return Container();
   }
 
   @override

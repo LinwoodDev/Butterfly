@@ -19,12 +19,6 @@ class DocumentLoadSuccess extends DocumentState {
   final InspectorItem? currentInspectorItem;
   final bool gridView;
 
-  ProjectItem? get currentSelected =>
-      (currentSelectedPath == null ? null : document.getFile(currentSelectedPath!)) ?? document;
-  PadProjectItem? get currentPad => currentSelected == null || !(currentSelected is PadProjectItem)
-      ? null
-      : currentSelected as PadProjectItem?;
-
   const DocumentLoadSuccess(this.document,
       {this.currentSelectedPath = "pads/main",
       this.history = const [""],

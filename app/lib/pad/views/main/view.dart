@@ -12,8 +12,6 @@ class MainViewViewport extends StatefulWidget {
 class _MainViewViewportState extends State<MainViewViewport> {
   @override
   Widget build(BuildContext context) {
-    return widget.bloc.currentPad == null
-        ? Center(child: Text("No pad selected"))
-        : Container(color: Colors.white, child: Stack(children: [FlutterLogo(size: 50)]));
+    return Container(color: Colors.white, child: Stack(children: [FlutterLogo(size: 50)]));
   }
 }

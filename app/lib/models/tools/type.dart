@@ -6,7 +6,6 @@ import '../inspector.dart';
 import 'edit.dart';
 import 'insert.dart';
 import 'object.dart';
-import 'project.dart';
 import 'select.dart';
 import 'view.dart';
 
@@ -28,13 +27,11 @@ abstract class Tool extends Equatable with InspectorItem {
   }
 }
 
-enum ToolType { project, view, select, object, edit, insert }
+enum ToolType { view, select, object, edit, insert }
 
 extension ToolTypeExtension on ToolType {
   Tool create() {
     switch (this) {
-      case ToolType.project:
-        return ProjectTool();
       case ToolType.view:
         return ViewTool();
       case ToolType.select:

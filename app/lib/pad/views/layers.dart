@@ -23,13 +23,12 @@ class _LayersViewState extends State<LayersView> {
             floatingActionButton: FloatingActionButton(
                 heroTag: null,
                 onPressed: () {
-                  if ((bloc.state as DocumentLoadSuccess).currentPad != null)
-                    showDialog(
-                        builder: (context) => BlocProvider.value(
-                            value: bloc,
-                            child: CreateLayerDialog(
-                                parent: (bloc.state as DocumentLoadSuccess).currentPad!.root)),
-                        context: context);
+                  showDialog(
+                      builder: (context) => BlocProvider.value(
+                          value: bloc,
+                          child: CreateLayerDialog(
+                              parent: (bloc.state as DocumentLoadSuccess).document.root)),
+                      context: context);
                 },
                 child: Icon(PhosphorIcons.plusLight),
                 tooltip: "Create layer"),
@@ -38,13 +37,11 @@ class _LayersViewState extends State<LayersView> {
                     builder: (context) => Container(
                         alignment: Alignment.center,
                         child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                          if (state is DocumentLoadSuccess &&
-                              state.currentPad != null &&
-                              state.currentPad!.root != null) {
+                          if (state is DocumentLoadSuccess && state.document.root != null) {
                             return ListView.builder(
-                                itemCount: state.currentPad!.root!.children.length,
+                                itemCount: state.document.root!.children.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  var current = state.currentPad!.root!.children[index]!;
+                                  var current = state.document.root!.children[index]!;
                                   return ListTile(
                                     title: Text(current.name!),
                                     subtitle: Text(current.type.name),

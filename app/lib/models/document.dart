@@ -1,23 +1,22 @@
-import 'package:butterfly/models/project/folder.dart';
-
+import 'elements/container.dart';
+import 'elements/type.dart';
 import 'packs/collection.dart';
-import 'project/pad.dart';
 
-class AppDocument extends FolderProjectItem {
-  String? mainPad = 'pads/main';
+class AppDocument {
+  final String name, description;
   final List<PackCollection> packs = [];
+  ElementLayer? root;
 
-  AppDocument({required String name, String description = '', bool blank = false})
-      : super(name: name, description: description) {
-    if (!blank) addFile(FolderProjectItem(name: "pads")..addFile(PadProjectItem(name: "main")));
-  }
+  AppDocument({required String name, String description = '', ElementLayer? root})
+      : name = name,
+        description = description,
+        root = root ?? LayerContainer(name: 'root');
 
   AppDocument.fromJson(Map<String, dynamic> json)
-      : mainPad = json['mainPad'],
-        super.fromJson(json);
+      : name = json['name'],
+        description = json['description'],
+        root = ElementLayer.fromJson(json['root']);
   AppDocument copyWith({String? name, String? description}) {
-    return AppDocument(
-        name: name ?? this.name, description: description ?? this.description, blank: true)
-      ..addFiles(files);
+    return AppDocument(name: name ?? this.name, description: description ?? this.description);
   }
 }
