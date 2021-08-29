@@ -1,4 +1,5 @@
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/elements/type.dart';
 import 'package:butterfly/models/tools/type.dart';
 import 'package:butterfly/pad/dialogs/create_layer.dart';
 import 'package:butterfly/pad/views/main.dart';
@@ -68,24 +69,35 @@ class _ProjectPageState extends State<ProjectPage> {
                               padding: const EdgeInsets.all(12.0),
                               child: Row(children: [
                                 Expanded(
-                                    child: Row(
-                                        children: tools
-                                            .map((e) => IconButton(
-                                                  icon: Icon(
-                                                      current.currentTool.type == e.type
-                                                          ? e.activeIcon
-                                                          : e.icon,
-                                                      size: 26),
-                                                  color: current.currentTool.type == e.type
-                                                      ? Theme.of(context).colorScheme.primary
-                                                      : null,
-                                                  tooltip: e.name,
-                                                  onPressed: () {
-                                                    _bloc.add(ToolChanged(e));
-                                                    _bloc.add(InspectorChanged(item: e));
-                                                  },
-                                                ))
-                                            .toList())),
+                                    child: Row(children: [
+                                  ...tools
+                                      .map((e) => IconButton(
+                                            icon: Icon(
+                                                current.currentTool.type == e.type
+                                                    ? e.activeIcon
+                                                    : e.icon,
+                                                size: 26),
+                                            color: current.currentTool.type == e.type
+                                                ? Theme.of(context).colorScheme.primary
+                                                : null,
+                                            tooltip: e.name,
+                                            onPressed: () {
+                                              _bloc.add(ToolChanged(e));
+                                              _bloc.add(InspectorChanged(item: e));
+                                            },
+                                          ))
+                                      .toList(),
+                                  PopupMenuButton<LayerType>(
+                                      itemBuilder: (context) => LayerType.values
+                                          .map((e) => PopupMenuItem<LayerType>(
+                                              child: ListTile(
+                                                  mouseCursor: MouseCursor.defer,
+                                                  leading: Icon(e.icon),
+                                                  title: Text(e.name)),
+                                              value: e))
+                                          .toList(),
+                                      icon: Icon(PhosphorIcons.plusLight, size: 26))
+                                ])),
                                 Expanded(
                                     child: Container(
                                         padding: const EdgeInsets.all(12.0),
