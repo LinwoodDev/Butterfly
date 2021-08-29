@@ -65,9 +65,10 @@ class _ProjectPageState extends State<ProjectPage> {
                         child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
                           if (_bloc.state is DocumentLoadSuccess) {
                             var current = _bloc.state as DocumentLoadSuccess;
-                            return Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Row(children: [
+                            return Container(
+                              height: 50,
+                              margin: const EdgeInsets.all(12.0),
+                              child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                                 Expanded(
                                     child: Row(children: [
                                   ...tools
@@ -87,6 +88,20 @@ class _ProjectPageState extends State<ProjectPage> {
                                             },
                                           ))
                                       .toList(),
+                                  VerticalDivider(),
+                                  IconButton(
+                                      icon: Icon(PhosphorIcons.magnifyingGlassPlusLight),
+                                      tooltip: "Zoom in",
+                                      onPressed: () {}),
+                                  IconButton(
+                                      icon: Icon(PhosphorIcons.magnifyingGlassLight),
+                                      tooltip: "Reset zoom",
+                                      onPressed: () {}),
+                                  IconButton(
+                                      icon: Icon(PhosphorIcons.magnifyingGlassMinusLight),
+                                      tooltip: "Zoom out",
+                                      onPressed: () {}),
+                                  VerticalDivider(),
                                   PopupMenuButton<LayerType>(
                                       itemBuilder: (context) => LayerType.values
                                           .map((e) => PopupMenuItem<LayerType>(

@@ -27,28 +27,10 @@ class ViewTool extends Tool {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => InspectorView()))),
       VerticalDivider(),
       IconButton(
-          icon: Icon(PhosphorIcons.magnifyingGlassPlusLight), tooltip: "Zoom in", onPressed: () {}),
-      IconButton(
-          icon: Icon(PhosphorIcons.magnifyingGlassLight), tooltip: "Reset zoom", onPressed: () {}),
-      IconButton(
-          icon: Icon(PhosphorIcons.magnifyingGlassMinusLight),
-          tooltip: "Zoom out",
-          onPressed: () {}),
-      VerticalDivider(),
-      IconButton(
           icon: Icon(PhosphorIcons.arrowSquareOutLight), tooltip: "Export", onPressed: () {}),
       IconButton(icon: Icon(PhosphorIcons.printerLight), tooltip: "Print", onPressed: () {}),
       IconButton(
-          icon: Icon(PhosphorIcons.monitorPlayLight), tooltip: "Presentation", onPressed: () {}),
-      VerticalDivider(),
-      IconButton(
-          icon: Icon(PhosphorIcons.mapPinLight),
-          tooltip: "Focus in project view",
-          onPressed: () {}),
-      IconButton(
-          icon: Icon(PhosphorIcons.xLight),
-          tooltip: "Close pad",
-          onPressed: () => bloc.add(SelectedChanged('')))
+          icon: Icon(PhosphorIcons.monitorPlayLight), tooltip: "Presentation", onPressed: () {})
     ];
   }
 
