@@ -2,7 +2,7 @@ import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 
 class MainViewViewport extends StatefulWidget {
-  final DocumentLoadSuccess bloc;
+  final DocumentBloc bloc;
 
   const MainViewViewport({Key? key, required this.bloc}) : super(key: key);
   @override

@@ -14,7 +14,7 @@ description: Change the world.
 version: 1.0.0
 
 environment:
-  sdk: '>=2.12.0-133.2.beta <3.0.0'
+  sdk: '>=2.13.0 <3.0.0'
 
 dependencies:
   flutter:

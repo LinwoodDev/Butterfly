@@ -1,7 +1,8 @@
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/pad/main.dart';
 import 'package:butterfly/pages/home.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import 'views/main.dart';
 
 class PadModule extends Module {
   // Provide a list of dependencies to inject into your project
