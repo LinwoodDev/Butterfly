@@ -3,7 +3,6 @@ import 'package:butterfly/pad/views/inspector.dart';
 import 'package:butterfly/pad/views/layers.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ViewTool extends Tool {
@@ -15,7 +14,7 @@ class ViewTool extends Tool {
 
   @override
   List<Widget> buildOptions({required BuildContext context, required DocumentLoadSuccess state}) {
-    var bloc = BlocProvider.of<DocumentBloc>(context);
+    // var bloc = BlocProvider.of<DocumentBloc>(context);
     return [
       IconButton(
           icon: Icon(PhosphorIcons.cubeLight),
@@ -35,10 +34,10 @@ class ViewTool extends Tool {
   }
 
   @override
-  IconData get icon => PhosphorIcons.cursorLight;
+  IconData get icon => PhosphorIcons.handLight;
 
   @override
-  IconData get activeIcon => PhosphorIcons.cursorFill;
+  IconData get activeIcon => PhosphorIcons.handFill;
 
   @override
   ToolType get type => ToolType.view;

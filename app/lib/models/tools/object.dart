@@ -75,6 +75,18 @@ class ObjectTool extends Tool {
   List<Widget> buildOptions({required BuildContext context, required DocumentLoadSuccess state}) {
     var bloc = BlocProvider.of<DocumentBloc>(context);
     return [
+      IconButton(icon: Icon(PhosphorIcons.xLight), tooltip: "Select all", onPressed: () {}),
+      IconButton(icon: Icon(PhosphorIcons.divideLight), tooltip: "Deselect", onPressed: () {}),
+      IconButton(
+          icon: Icon(PhosphorIcons.percentLight), tooltip: "Select inverse", onPressed: () {}),
+      VerticalDivider(),
+      IconButton(
+          icon: Icon(PhosphorIcons.plusLight), tooltip: "Add to selection", onPressed: () {}),
+      IconButton(
+          icon: Icon(PhosphorIcons.plusMinusLight), tooltip: "Replace selection", onPressed: () {}),
+      IconButton(
+          icon: Icon(PhosphorIcons.minusLight), tooltip: "Remove from selection", onPressed: () {}),
+      VerticalDivider(),
       IconButton(
           icon: Icon(PhosphorIcons.arrowsOutCardinalLight),
           tooltip: "Location",
@@ -94,10 +106,10 @@ class ObjectTool extends Tool {
   }
 
   @override
-  IconData get icon => PhosphorIcons.cubeLight;
+  IconData get icon => PhosphorIcons.cursorLight;
 
   @override
-  IconData get activeIcon => PhosphorIcons.cubeFill;
+  IconData get activeIcon => PhosphorIcons.cursorFill;
 
   @override
   ToolType get type => ToolType.object;
