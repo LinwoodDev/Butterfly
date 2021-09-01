@@ -131,10 +131,12 @@ class _ProjectPageState extends State<ProjectPage> {
                                 IconButton(
                                     icon: Icon(PhosphorIcons.cubeLight),
                                     onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                                        fullscreenDialog: true,
                                         builder: (context) => LayersView(bloc: _bloc)))),
                                 IconButton(
                                     icon: Icon(PhosphorIcons.fadersLight),
                                     onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                                        fullscreenDialog: true,
                                         builder: (context) => InspectorView(bloc: _bloc)))),
                                 PopupMenuButton<LayerType>(
                                     itemBuilder: (context) => LayerType.values

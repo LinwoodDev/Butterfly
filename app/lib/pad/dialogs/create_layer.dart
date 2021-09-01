@@ -14,7 +14,7 @@ class CreateLayerDialog extends StatefulWidget {
 class _CreateLayerDialogState extends State<CreateLayerDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  LayerType? _type = LayerType.container;
+  LayerType _type = LayerType.container;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _CreateLayerDialogState extends State<CreateLayerDialog> {
               onPressed: () {
                 BlocProvider.of<DocumentBloc>(context).add(LayerCreated(
                     parent: widget.parent,
-                    layer: _type!.create(_nameController.text, _descriptionController.text)));
+                    layer: _type.create(_nameController.text, _descriptionController.text)));
                 Navigator.of(context).pop();
               },
               child: Text("CREATE"))
@@ -40,20 +40,23 @@ class _CreateLayerDialogState extends State<CreateLayerDialog> {
         content: Container(
             child: Form(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          DropdownButtonFormField<LayerType>(
+              decoration: InputDecoration(labelText: "Type", border: OutlineInputBorder()),
+              value: _type,
+              onChanged: (value) => setState(() => _type = value ?? _type),
+              items: LayerType.values
+                  .map((e) => DropdownMenuItem<LayerType>(child: Text(e.name), value: e))
+                  .toList()),
+          SizedBox(height: 20),
           TextFormField(
-              controller: _nameController, decoration: InputDecoration(labelText: "Name")),
+              controller: _nameController,
+              decoration: InputDecoration(labelText: "Name", filled: true)),
+          SizedBox(height: 20),
           TextFormField(
               controller: _descriptionController,
               maxLines: null,
               minLines: 3,
-              decoration: InputDecoration(labelText: "Description")),
-          DropdownButtonFormField<LayerType>(
-              decoration: InputDecoration(labelText: "Type"),
-              value: _type,
-              onChanged: (value) => setState(() => _type = value),
-              items: LayerType.values
-                  .map((e) => DropdownMenuItem<LayerType>(child: Text(e.name), value: e))
-                  .toList())
+              decoration: InputDecoration(labelText: "Description", border: OutlineInputBorder()))
         ]))));
   }
 }
