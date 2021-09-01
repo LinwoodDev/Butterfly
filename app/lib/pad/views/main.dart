@@ -86,78 +86,77 @@ class _ProjectPageState extends State<ProjectPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
-                      height: 75,
-                      color: Theme.of(context).canvasColor,
-                      padding: const EdgeInsets.all(12.0),
-                      child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                        if (_bloc.state is DocumentLoadSuccess) {
-                          var current = _bloc.state as DocumentLoadSuccess;
-                          return Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Expanded(
-                                  child: Row(children: [
-                                ...tools
-                                    .map((e) => IconButton(
-                                          icon: Icon(
-                                              current.currentTool.type == e.type
-                                                  ? e.activeIcon
-                                                  : e.icon,
-                                              size: 26),
-                                          color: current.currentTool.type == e.type
-                                              ? Theme.of(context).colorScheme.primary
-                                              : null,
-                                          tooltip: e.name,
-                                          onPressed: () {
-                                            _bloc.add(ToolChanged(e));
-                                            _bloc.add(InspectorChanged(item: e));
-                                          },
-                                        ))
-                                    .toList(),
-                                VerticalDivider(),
-                                IconButton(
-                                    icon: Icon(PhosphorIcons.magnifyingGlassPlusLight),
-                                    tooltip: "Zoom in",
-                                    onPressed: () {}),
-                                IconButton(
-                                    icon: Icon(PhosphorIcons.magnifyingGlassLight),
-                                    tooltip: "Reset zoom",
-                                    onPressed: () {}),
-                                IconButton(
-                                    icon: Icon(PhosphorIcons.magnifyingGlassMinusLight),
-                                    tooltip: "Zoom out",
-                                    onPressed: () {}),
-                                VerticalDivider(),
-                                IconButton(
-                                    icon: Icon(PhosphorIcons.cubeLight),
-                                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) => LayersView(bloc: _bloc)))),
-                                IconButton(
-                                    icon: Icon(PhosphorIcons.fadersLight),
-                                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) => InspectorView(bloc: _bloc)))),
-                                PopupMenuButton<LayerType>(
-                                    itemBuilder: (context) => LayerType.values
-                                        .map((e) => PopupMenuItem<LayerType>(
-                                            child: ListTile(
-                                                mouseCursor: MouseCursor.defer,
-                                                leading: Icon(e.icon),
-                                                title: Text(e.name)),
-                                            value: e))
-                                        .toList(),
-                                    icon: Icon(PhosphorIcons.plusLight, size: 26))
-                              ])),
-                              Expanded(
-                                  child: Container(
-                                      padding: const EdgeInsets.all(12.0),
-                                      height: 50,
-                                      child: MainViewToolbar())),
-                            ],
-                          );
-                        }
-                        return Container();
-                      }),
-                    ),
+                        height: 75,
+                        color: Theme.of(context).canvasColor,
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(child:
+                                BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                              if (_bloc.state is DocumentLoadSuccess) {
+                                var current = _bloc.state as DocumentLoadSuccess;
+                                return Row(children: [
+                                  ...tools
+                                      .map((e) => IconButton(
+                                            icon: Icon(
+                                                current.currentTool.type == e.type
+                                                    ? e.activeIcon
+                                                    : e.icon,
+                                                size: 26),
+                                            color: current.currentTool.type == e.type
+                                                ? Theme.of(context).colorScheme.primary
+                                                : null,
+                                            tooltip: e.name,
+                                            onPressed: () {
+                                              _bloc.add(ToolChanged(e));
+                                              _bloc.add(InspectorChanged(item: e));
+                                            },
+                                          ))
+                                      .toList(),
+                                  VerticalDivider(),
+                                  IconButton(
+                                      icon: Icon(PhosphorIcons.magnifyingGlassPlusLight),
+                                      tooltip: "Zoom in",
+                                      onPressed: () {}),
+                                  IconButton(
+                                      icon: Icon(PhosphorIcons.magnifyingGlassLight),
+                                      tooltip: "Reset zoom",
+                                      onPressed: () {}),
+                                  IconButton(
+                                      icon: Icon(PhosphorIcons.magnifyingGlassMinusLight),
+                                      tooltip: "Zoom out",
+                                      onPressed: () {}),
+                                  VerticalDivider(),
+                                  IconButton(
+                                      icon: Icon(PhosphorIcons.cubeLight),
+                                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => LayersView(bloc: _bloc)))),
+                                  IconButton(
+                                      icon: Icon(PhosphorIcons.fadersLight),
+                                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => InspectorView(bloc: _bloc)))),
+                                  PopupMenuButton<LayerType>(
+                                      itemBuilder: (context) => LayerType.values
+                                          .map((e) => PopupMenuItem<LayerType>(
+                                              child: ListTile(
+                                                  mouseCursor: MouseCursor.defer,
+                                                  leading: Icon(e.icon),
+                                                  title: Text(e.name)),
+                                              value: e))
+                                          .toList(),
+                                      icon: Icon(PhosphorIcons.plusLight, size: 26))
+                                ]);
+                              } else
+                                return Container();
+                            })),
+                            Expanded(
+                                child: Container(
+                                    padding: const EdgeInsets.all(12.0),
+                                    height: 50,
+                                    child: MainViewToolbar())),
+                          ],
+                        )),
                     Expanded(child: MainViewViewport(bloc: _bloc)),
                   ],
                 ))));
