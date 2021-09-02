@@ -1,5 +1,7 @@
+import 'package:butterfly/models/tools/type.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainViewViewport extends StatefulWidget {
   final DocumentBloc bloc;
@@ -10,16 +12,57 @@ class MainViewViewport extends StatefulWidget {
 }
 
 class _MainViewViewportState extends State<MainViewViewport> {
+  Matrix4? _homeMatrix;
+  final GlobalKey _targetKey = GlobalKey();
+  final TransformationController _transformationController = TransformationController();
+  static const Size _paintViewport = const Size(1000, 2000);
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        child: Listener(
-          child: CustomPaint(
-            size: Size.infinite,
-            painter: PathPainter(),
-          ),
-        ));
+    return BlocBuilder<DocumentBloc, DocumentState>(
+        bloc: widget.bloc,
+        builder: (context, state) {
+          return LayoutBuilder(builder: (context, constraints) {
+            final viewportSize = Size(constraints.maxWidth, constraints.maxHeight);
+            if (_homeMatrix == null) {
+              _homeMatrix = Matrix4.identity()
+                ..translate(viewportSize.width / 2 - _paintViewport.width / 2,
+                    viewportSize.height / 2 - _paintViewport.height / 2);
+              _transformationController.value = _homeMatrix!;
+            }
+            var enabled = true;
+            if (state is DocumentLoadSuccess) enabled = state.currentTool.type == ToolType.view;
+            return ClipRect(
+              child: Container(
+                  color: Colors.white,
+                  child: Listener(
+                    child: InteractiveViewer(
+                      key: _targetKey,
+                      panEnabled: enabled,
+                      scaleEnabled: enabled,
+                      minScale: 0.1,
+                      maxScale: 5,
+                      transformationController: _transformationController,
+                      boundaryMargin: EdgeInsets.symmetric(
+                          horizontal: viewportSize.width, vertical: viewportSize.height),
+                      child: SizedBox.expand(
+                        child: Container(
+                          color: Colors.grey,
+                          child: CustomPaint(
+                            size: _paintViewport,
+                            painter: PathPainter(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )),
+            );
+          });
+        });
   }
 }
 
