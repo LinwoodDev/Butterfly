@@ -41,30 +41,28 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(PhosphorIcons.gearLight),
               onPressed: () => Modular.to.pushNamed("/settings"))
         ]),
-        body: SizedBox.expand(
+        body: SingleChildScrollView(
             child: Align(
                 alignment: Alignment.topCenter,
                 child: ConstrainedBox(
                     constraints: BoxConstraints(minWidth: 100, maxWidth: 1000),
-                    child: Container(
-                        child: Wrap(
-                            alignment: WrapAlignment.center,
-                            children: List.generate(_documents.length, (index) {
-                              var document = _documents[index];
-                              return Card(
-                                  margin: EdgeInsets.all(5),
-                                  child: InkWell(
-                                      onTap: () => Modular.to.pushNamed("/pad/$index"),
-                                      child: Padding(
-                                          padding:
-                                              EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                                          child: Column(children: [
-                                            Text(document.name,
-                                                style: Theme.of(context).textTheme.headline6),
-                                            Text(document.description,
-                                                style: Theme.of(context).textTheme.overline)
-                                          ]))));
-                            })))))),
+                    child: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: List.generate(_documents.length, (index) {
+                          var document = _documents[index];
+                          return Card(
+                              margin: EdgeInsets.all(5),
+                              child: InkWell(
+                                  onTap: () => Modular.to.pushNamed("/pad/$index"),
+                                  child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                      child: Column(children: [
+                                        Text(document.name,
+                                            style: Theme.of(context).textTheme.headline6),
+                                        Text(document.description,
+                                            style: Theme.of(context).textTheme.overline)
+                                      ]))));
+                        }))))),
         floatingActionButton: FloatingActionButton.extended(
           icon: Icon(PhosphorIcons.plusLight),
           label: Text("New"),

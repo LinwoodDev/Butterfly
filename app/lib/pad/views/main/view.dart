@@ -30,18 +30,21 @@ class PathPainter extends CustomPainter {
       ..color = Colors.yellow
       ..style = PaintingStyle.stroke
       ..strokeWidth = 8.0;
-
+    const offsetY = -200;
     Path path = Path();
     path.cubicTo(size.width / 4, 3 * size.height / 4, 3 * size.width / 4, size.height / 4,
         size.width, size.height);
+    path.addRect(Rect.fromLTWH(size.width / 2 - 125, size.height / 2 - 50 + offsetY, 250, 100));
     canvas.drawPath(path, paint);
     TextSpan span = new TextSpan(
         style: new TextStyle(fontSize: 24, color: Colors.blue[800]), text: "Welcome to Butterfly");
     TextPainter tp =
         new TextPainter(text: span, textAlign: TextAlign.left, textDirection: TextDirection.ltr);
     tp.layout();
-    tp.paint(canvas,
-        new Offset(size.width / 2 - (tp.size.width / 2), size.height / 2 - (tp.size.height / 2)));
+    tp.paint(
+        canvas,
+        new Offset(size.width / 2 - (tp.size.width / 2),
+            size.height / 2 - (tp.size.height / 2) + offsetY));
   }
 
   @override
