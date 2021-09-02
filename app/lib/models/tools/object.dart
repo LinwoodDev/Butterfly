@@ -90,17 +90,19 @@ class ObjectTool extends Tool {
       IconButton(
           icon: Icon(PhosphorIcons.arrowsOutCardinalLight),
           tooltip: "Location",
-          color: moveToolType == MoveToolType.location ? Theme.of(context).primaryColor : null,
+          color:
+              moveToolType == MoveToolType.location ? Theme.of(context).colorScheme.primary : null,
           onPressed: () => bloc.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.location)))),
       IconButton(
           icon: Icon(PhosphorIcons.arrowClockwiseLight),
           tooltip: "Rotation",
-          color: moveToolType == MoveToolType.rotation ? Theme.of(context).primaryColor : null,
+          color:
+              moveToolType == MoveToolType.rotation ? Theme.of(context).colorScheme.primary : null,
           onPressed: () => bloc.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.rotation)))),
       IconButton(
           icon: Icon(PhosphorIcons.arrowsOutLight),
           tooltip: "Scale",
-          color: moveToolType == MoveToolType.scale ? Theme.of(context).primaryColor : null,
+          color: moveToolType == MoveToolType.scale ? Theme.of(context).colorScheme.primary : null,
           onPressed: () => bloc.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.scale))))
     ];
   }
