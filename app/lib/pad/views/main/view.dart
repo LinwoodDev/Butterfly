@@ -1,5 +1,6 @@
 import 'package:butterfly/models/tools/type.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +22,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
     super.initState();
   }
 
+  bool? enabled;
+  bool disabledBecauseStylus = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(
@@ -34,16 +38,35 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     viewportSize.height / 2 - _paintViewport.height / 2);
               _transformationController.value = _homeMatrix!;
             }
-            var enabled = true;
-            if (state is DocumentLoadSuccess) enabled = state.currentTool.type == ToolType.view;
+            if (enabled == null && state is DocumentLoadSuccess)
+              enabled = state.currentTool.type == ToolType.view;
             return ClipRect(
               child: Container(
                   color: Colors.white,
                   child: Listener(
+                    onPointerDown: (event) {
+                      if (event.kind == PointerDeviceKind.stylus && (enabled ?? true)) {
+                        setState(() {
+                          print("Pointer enabled");
+
+                          enabled = false;
+                          disabledBecauseStylus = true;
+                        });
+                      }
+                    },
+                    onPointerUp: (event) {
+                      if (event.kind == PointerDeviceKind.stylus && disabledBecauseStylus) {
+                        setState(() {
+                          enabled = true;
+                          print("Pointer disabled");
+                          disabledBecauseStylus = false;
+                        });
+                      }
+                    },
                     child: InteractiveViewer(
                       key: _targetKey,
-                      panEnabled: enabled,
-                      scaleEnabled: enabled,
+                      panEnabled: enabled ?? false,
+                      scaleEnabled: enabled ?? false,
                       minScale: 0.1,
                       maxScale: 5,
                       transformationController: _transformationController,
