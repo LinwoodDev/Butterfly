@@ -23,7 +23,7 @@ dependencies:
   flutter_bloc: ^7.2.0
   flutter_modular: ^3.4.1+1
   shared_preferences: ^2.0.7
-  url_launcher: ^6.0.9
+  url_launcher: ^6.0.10
   msix: ^2.1.3
   phosphor_flutter: ^1.3.1
 
