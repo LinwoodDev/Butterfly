@@ -125,8 +125,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                   IconButton(
                                       icon: Icon(PhosphorIcons.magnifyingGlassMinusLight),
                                       tooltip: "Zoom out",
-                                      onPressed: () {}),
-                                  VerticalDivider()
+                                      onPressed: () {})
                                 ]);
                               } else
                                 return Container();
