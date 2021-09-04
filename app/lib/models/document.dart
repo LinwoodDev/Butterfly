@@ -1,21 +1,31 @@
-import 'elements/container.dart';
-import 'elements/type.dart';
+import 'package:butterfly/models/elements/element.dart';
+
+import 'elements/paint.dart';
+import 'elements/text.dart';
 import 'packs/collection.dart';
 
 class AppDocument {
   final String name, description;
   final List<PackCollection> packs = [];
-  ElementLayer? root;
+  final List<ElementLayer> content;
 
-  AppDocument({required String name, String description = '', ElementLayer? root})
+  AppDocument({required String name, String description = '', this.content = const []})
       : name = name,
-        description = description,
-        root = root ?? LayerContainer(name: 'root');
+        description = description;
 
   AppDocument.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         description = json['description'],
-        root = ElementLayer.fromJson(json['root']);
+        content = (json['content'] as List<Map<String, dynamic>>).map<ElementLayer>((e) {
+          switch (e['type']) {
+            case 'text':
+              return TextElement.fromJson(e);
+            case 'paint':
+              return PaintElement.fromJson(e);
+            default:
+              throw Exception('Unknown element type: ${e['type']}');
+          }
+        }).toList();
   AppDocument copyWith({String? name, String? description}) {
     return AppDocument(name: name ?? this.name, description: description ?? this.description);
   }

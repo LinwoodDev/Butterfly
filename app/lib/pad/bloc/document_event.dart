@@ -17,11 +17,10 @@ class ProjectChanged extends DocumentEvent {
 
 class LayerCreated extends DocumentEvent {
   final ElementLayer layer;
-  final ElementLayer? parent;
 
-  LayerCreated({required this.layer, this.parent});
+  LayerCreated({required this.layer});
   @override
-  List<Object?> get props => [parent, layer];
+  List<Object?> get props => [layer];
 }
 
 class LayerChanged extends DocumentEvent {

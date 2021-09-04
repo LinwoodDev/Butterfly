@@ -1,5 +1,5 @@
+import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/packs/background.dart';
-import 'package:butterfly/models/packs/layer.dart';
 
 class PackCollection {
   final String name;
@@ -8,7 +8,7 @@ class PackCollection {
   final String? website;
 
   final List<BackgroundPack> backgrounds = [];
-  final List<LayerPack> layers = [];
+  final List<ElementLayer> layers = [];
 
   PackCollection({required this.name, required this.author, this.description = "", this.website});
 }

@@ -22,9 +22,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
     super.initState();
   }
 
-  bool? enabled;
-  bool disabledBecauseStylus = false;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(
@@ -38,52 +35,32 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     viewportSize.height / 2 - _paintViewport.height / 2);
               _transformationController.value = _homeMatrix!;
             }
-            if (enabled == null && state is DocumentLoadSuccess)
-              enabled = state.currentTool.type == ToolType.view;
+            var enabled = false;
+            if (state is DocumentLoadSuccess) {
+              enabled = state.currentTool.type == ToolType.view ||
+                  state.currentTool.type == ToolType.object;
+            }
             return ClipRect(
-              child: Container(
-                  color: Colors.white,
-                  child: Listener(
-                    onPointerDown: (event) {
-                      if (event.kind == PointerDeviceKind.stylus && (enabled ?? true)) {
-                        setState(() {
-                          print("Pointer enabled");
-
-                          enabled = false;
-                          disabledBecauseStylus = true;
-                        });
-                      }
-                    },
-                    onPointerUp: (event) {
-                      if (event.kind == PointerDeviceKind.stylus && disabledBecauseStylus) {
-                        setState(() {
-                          enabled = true;
-                          print("Pointer disabled");
-                          disabledBecauseStylus = false;
-                        });
-                      }
-                    },
+                child: Container(
+                    color: Colors.white,
                     child: InteractiveViewer(
-                      key: _targetKey,
-                      panEnabled: enabled ?? false,
-                      scaleEnabled: enabled ?? false,
-                      minScale: 0.1,
-                      maxScale: 5,
-                      transformationController: _transformationController,
-                      boundaryMargin: EdgeInsets.symmetric(
-                          horizontal: viewportSize.width, vertical: viewportSize.height),
-                      child: SizedBox.expand(
-                        child: Container(
-                          color: Colors.grey,
-                          child: CustomPaint(
-                            size: _paintViewport,
-                            painter: PathPainter(),
+                        key: _targetKey,
+                        panEnabled: enabled,
+                        scaleEnabled: enabled,
+                        minScale: 0.1,
+                        maxScale: 5,
+                        transformationController: _transformationController,
+                        boundaryMargin: EdgeInsets.symmetric(
+                            horizontal: viewportSize.width, vertical: viewportSize.height),
+                        child: SizedBox.expand(
+                          child: Container(
+                            color: Colors.grey,
+                            child: CustomPaint(
+                              size: _paintViewport,
+                              painter: PathPainter(),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                  )),
-            );
+                        ))));
           });
         });
   }

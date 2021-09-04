@@ -1,16 +1,14 @@
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/elements/type.dart';
+import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/elements/text.dart';
 import 'package:butterfly/models/tools/type.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/pad/dialogs/create_layer.dart';
 import 'package:butterfly/pad/dialogs/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import 'inspector.dart';
-import 'layers.dart';
 import 'main/toolbar.dart';
 import 'main/view.dart';
 
@@ -34,14 +32,6 @@ class _ProjectPageState extends State<ProjectPage> {
       Modular.to.navigate("/");
     }
     _bloc = DocumentBloc(document);
-    WidgetsBinding.instance!.addPostFrameCallback((_) => _showRootDialog());
-  }
-
-  void _showRootDialog() async {
-    var pad = (_bloc.state as DocumentLoadSuccess).document;
-    if (pad.root == null) {
-      await showDialog(context: context, builder: (context) => CreateLayerDialog());
-    }
   }
 
   @override
@@ -114,6 +104,15 @@ class _ProjectPageState extends State<ProjectPage> {
                                             },
                                           ))
                                       .toList(),
+                                  PopupMenuButton<ElementLayer>(
+                                      itemBuilder: (context) => [TextElement()]
+                                          .map((e) => PopupMenuItem<ElementLayer>(
+                                              child: ListTile(
+                                                  mouseCursor: MouseCursor.defer,
+                                                  title: Text(e.toJson()["type"])),
+                                              value: e))
+                                          .toList(),
+                                      icon: Icon(PhosphorIcons.plusLight, size: 26)),
                                   VerticalDivider(),
                                   IconButton(
                                       icon: Icon(PhosphorIcons.magnifyingGlassPlusLight),
@@ -127,25 +126,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                       icon: Icon(PhosphorIcons.magnifyingGlassMinusLight),
                                       tooltip: "Zoom out",
                                       onPressed: () {}),
-                                  VerticalDivider(),
-                                  IconButton(
-                                      icon: Icon(PhosphorIcons.cubeLight),
-                                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => LayersView(bloc: _bloc)))),
-                                  IconButton(
-                                      icon: Icon(PhosphorIcons.fadersLight),
-                                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => InspectorView(bloc: _bloc)))),
-                                  PopupMenuButton<LayerType>(
-                                      itemBuilder: (context) => LayerType.values
-                                          .map((e) => PopupMenuItem<LayerType>(
-                                              child: ListTile(
-                                                  mouseCursor: MouseCursor.defer,
-                                                  leading: Icon(e.icon),
-                                                  title: Text(e.name)),
-                                              value: e))
-                                          .toList(),
-                                      icon: Icon(PhosphorIcons.plusLight, size: 26))
+                                  VerticalDivider()
                                 ]);
                               } else
                                 return Container();

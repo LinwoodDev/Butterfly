@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/elements/type.dart';
+import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/inspector.dart';
 import 'package:butterfly/models/tools/type.dart';
 import 'package:butterfly/models/tools/view.dart';
@@ -55,10 +55,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
   Stream<DocumentState> _mapLayerCreatedToState(LayerCreated event) async* {
     if (state is DocumentLoadSuccess) {
       var current = (state as DocumentLoadSuccess);
-      if (event.parent == null)
-        current.document.root = event.layer;
-      else
-        event.parent!.children.add(event.layer);
+      current.document.content.add(event.layer);
       yield current.copyWith(document: current.document.copyWith());
       _saveDocument();
     }

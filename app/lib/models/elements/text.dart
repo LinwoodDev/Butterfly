@@ -1,15 +1,12 @@
-import 'package:butterfly/models/elements/type.dart';
+import 'element.dart';
 
-class GroupElement extends ElementLayer {
+class TextElement extends ElementLayer {
   String? text;
-  int? size;
-
-  GroupElement({required String name, String? description})
-      : super(name: name, description: description);
-
-  GroupElement.fromJson(Map<String, dynamic> json)
-      : super(name: json['name'], description: json['description']);
-
+  int size = 12;
+  TextElement();
+  TextElement.fromJson(Map<String, dynamic> json)
+      : text = json['text'],
+        size = json['size'];
   @override
-  LayerType get type => LayerType.text;
+  Map<String, dynamic> toJson() => {'text': text, 'size': size, 'type': 'text'};
 }

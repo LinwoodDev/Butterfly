@@ -1,11 +1,11 @@
-import 'package:butterfly/models/elements/type.dart';
+import 'package:butterfly/models/elements/element.dart';
 
 class PaintElement extends ElementLayer {
-  PaintElement({required String name, String? description})
-      : super(name: name, description: description);
-  PaintElement.fromJson(Map<String, dynamic> json)
-      : super(name: json['name'], description: json['description']);
+  PaintElement();
+  PaintElement.fromJson(Map<String, dynamic> json);
 
   @override
-  LayerType get type => LayerType.paint;
+  Map<String, dynamic> toJson() => {
+        'type': 'paint',
+      };
 }

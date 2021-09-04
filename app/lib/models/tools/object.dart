@@ -103,7 +103,14 @@ class ObjectTool extends Tool {
           icon: Icon(PhosphorIcons.arrowsOutLight),
           tooltip: "Scale",
           color: moveToolType == MoveToolType.scale ? Theme.of(context).colorScheme.primary : null,
-          onPressed: () => bloc.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.scale))))
+          onPressed: () => bloc.add(ToolChanged(ObjectTool(moveToolType: MoveToolType.scale)))),
+      VerticalDivider(),
+      IconButton(icon: Icon(PhosphorIcons.scissorsLight), tooltip: "Cut", onPressed: () {}),
+      IconButton(icon: Icon(PhosphorIcons.copyLight), tooltip: "Copy", onPressed: () {}),
+      IconButton(icon: Icon(PhosphorIcons.clipboardLight), tooltip: "Paste", onPressed: () {}),
+      VerticalDivider(),
+      IconButton(icon: Icon(PhosphorIcons.filesLight), tooltip: "Duplicate", onPressed: () {}),
+      IconButton(icon: Icon(PhosphorIcons.trashLight), tooltip: "Delete", onPressed: () {})
     ];
   }
 
