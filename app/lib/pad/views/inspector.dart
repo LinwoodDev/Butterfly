@@ -1,7 +1,6 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class InspectorView extends StatefulWidget {
   final DocumentBloc bloc;
@@ -21,9 +20,7 @@ class _InspectorViewState extends State<InspectorView> {
     var bloc = widget.bloc;
     return BlocProvider.value(
       value: bloc,
-      child: Hero(
-          tag: 'inspector_view',
-          child: Scaffold(
+      child: Scaffold(
               body: Container(
                   alignment: Alignment.center,
                   child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
@@ -32,7 +29,7 @@ class _InspectorViewState extends State<InspectorView> {
                     else
                       return Text("No object selected");
                   })),
-              appBar: AppBar(title: Text('Inspector'), leading: Icon(PhosphorIcons.fadersLight)))),
+              appBar: AppBar(title: Text('Inspector')))
     );
   }
 }
