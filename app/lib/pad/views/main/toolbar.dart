@@ -1,4 +1,8 @@
+import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/pad/views/tool/edit.dart';
+import 'package:butterfly/pad/views/tool/object.dart';
+import 'package:butterfly/pad/views/tool/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,21 +25,25 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       var current = state as DocumentLoadSuccess;
+      Widget toolbar;
+      switch (current.currentTool) {
+        case ToolType.view:
+          toolbar = ViewToolbar();
+          break;
+        case ToolType.object:
+          toolbar = ObjectToolbar();
+          break;
+        case ToolType.edit:
+          toolbar = EditToolbar();
+          break;
+      }
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Align(
-              alignment: Alignment.centerRight,
-              child: Container(
-                  height: 50,
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children:
-                          current.currentTool.buildOptions(context: context, state: current))),
-            ),
+                alignment: Alignment.centerRight, child: Container(height: 50, child: toolbar)),
           ),
         ],
       );

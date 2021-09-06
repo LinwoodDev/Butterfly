@@ -12,33 +12,29 @@ class DocumentLoadInProgress extends DocumentState {}
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final String? currentSelectedPath;
-  final Tool currentTool;
+  final ToolType currentTool;
   final ElementLayer? currentLayer;
   final String currentPath;
   final List<String> history;
-  final InspectorItem? currentInspectorItem;
   final bool gridView;
 
   const DocumentLoadSuccess(this.document,
       {this.currentSelectedPath = "pads/main",
       this.history = const [""],
       this.gridView = false,
-      this.currentTool = const ViewTool(),
-      this.currentInspectorItem,
+      this.currentTool = ToolType.view,
       this.currentPath = '',
       this.currentLayer});
 
   @override
-  List<Object?> get props =>
-      [document, currentSelectedPath, currentTool, currentInspectorItem, currentLayer, gridView];
+  List<Object?> get props => [document, currentSelectedPath, currentTool, currentLayer, gridView];
 
   DocumentLoadSuccess copyWith(
       {AppDocument? document,
       String? currentSelectedPath,
-      Tool? currentTool,
+      ToolType? currentTool,
       ElementLayer? currentLayer,
       String? currentPath,
-      InspectorItem? currentInspectorItem,
       bool unselectLayer = false,
       bool? gridView,
       List<String>? history}) {
@@ -48,8 +44,7 @@ class DocumentLoadSuccess extends DocumentState {
         currentLayer: unselectLayer ? null : currentLayer ?? this.currentLayer,
         currentPath: currentPath ?? this.currentPath,
         history: history ?? this.history,
-        gridView: gridView ?? this.gridView,
-        currentInspectorItem: currentInspectorItem ?? this.currentInspectorItem);
+        gridView: gridView ?? this.gridView);
   }
 }
 

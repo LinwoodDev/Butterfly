@@ -54,17 +54,8 @@ class SelectedChanged extends DocumentEvent {
   List<Object?> get props => [path];
 }
 
-class InspectorChanged extends DocumentEvent {
-  final InspectorItem? item;
-
-  InspectorChanged({required this.item});
-
-  @override
-  List<Object?> get props => [item];
-}
-
 class ToolChanged extends DocumentEvent {
-  final Tool tool;
+  final ToolType tool;
 
   ToolChanged(this.tool);
 

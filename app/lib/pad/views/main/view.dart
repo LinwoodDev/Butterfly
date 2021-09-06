@@ -1,4 +1,4 @@
-import 'package:butterfly/models/tools/type.dart';
+import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +37,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
             }
             var enabled = false;
             if (state is DocumentLoadSuccess) {
-              enabled = state.currentTool.type == ToolType.view ||
-                  state.currentTool.type == ToolType.object;
+              enabled = state.currentTool == ToolType.view || state.currentTool == ToolType.object;
             }
             return ClipRect(
                 child: Container(
