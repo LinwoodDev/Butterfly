@@ -83,80 +83,85 @@ class _ProjectPageState extends State<ProjectPage> {
                           MainViewToolbar(),
                         ],
                       )));
+                  Widget toolsSelection = Row(
+                      mainAxisAlignment:
+                          isMobile ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                          if (_bloc.state is DocumentLoadSuccess) {
+                            var current = _bloc.state as DocumentLoadSuccess;
+                            return SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child:
+                                    Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                                  ...tools.map((e) {
+                                    IconData activeIcon, icon;
+                                    switch (e) {
+                                      case ToolType.view:
+                                        icon = PhosphorIcons.handLight;
+                                        activeIcon = PhosphorIcons.handFill;
+                                        break;
+                                      case ToolType.object:
+                                        icon = PhosphorIcons.cursorLight;
+                                        activeIcon = PhosphorIcons.cursorFill;
+                                        break;
+                                      case ToolType.edit:
+                                        icon = PhosphorIcons.penLight;
+                                        activeIcon = PhosphorIcons.penFill;
+                                        break;
+                                    }
+                                    return IconButton(
+                                      icon: Icon(current.currentTool == e ? activeIcon : icon,
+                                          size: 26),
+                                      color: current.currentTool == e
+                                          ? Theme.of(context).colorScheme.primary
+                                          : null,
+                                      tooltip: e.toString(),
+                                      onPressed: () {
+                                        _bloc.add(ToolChanged(e));
+                                      },
+                                    );
+                                  }).toList(),
+                                  PopupMenuButton<ElementLayer>(
+                                      itemBuilder: (context) => [TextElement()]
+                                          .map((e) => PopupMenuItem<ElementLayer>(
+                                              child: ListTile(
+                                                  mouseCursor: MouseCursor.defer,
+                                                  title: Text(e.toJson()["type"])),
+                                              value: e))
+                                          .toList(),
+                                      icon: Icon(PhosphorIcons.plusLight, size: 26)),
+                                  VerticalDivider(),
+                                  IconButton(
+                                      icon: Icon(PhosphorIcons.magnifyingGlassPlusLight),
+                                      tooltip: "Zoom in",
+                                      onPressed: () {}),
+                                  IconButton(
+                                      icon: Icon(PhosphorIcons.magnifyingGlassLight),
+                                      tooltip: "Reset zoom",
+                                      onPressed: () {}),
+                                  IconButton(
+                                      icon: Icon(PhosphorIcons.magnifyingGlassMinusLight),
+                                      tooltip: "Zoom out",
+                                      onPressed: () {}),
+                                  if (!isMobile) VerticalDivider()
+                                ]));
+                          } else
+                            return Container();
+                        }),
+                        if (!isMobile) Flexible(child: toolbar)
+                      ]);
+                  if (isMobile)
+                    toolsSelection = SingleChildScrollView(
+                        scrollDirection: Axis.horizontal, child: toolsSelection);
                   return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                     Container(
-                        height: 75,
-                        color: Theme.of(context).canvasColor,
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          mainAxisAlignment:
-                              isMobile ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                              if (_bloc.state is DocumentLoadSuccess) {
-                                var current = _bloc.state as DocumentLoadSuccess;
-                                return Row(
-                                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                                    children: [
-                                      ...tools.map((e) {
-                                        IconData activeIcon, icon;
-                                        switch (e) {
-                                          case ToolType.view:
-                                            icon = PhosphorIcons.handLight;
-                                            activeIcon = PhosphorIcons.handFill;
-                                            break;
-                                          case ToolType.object:
-                                            icon = PhosphorIcons.cursorLight;
-                                            activeIcon = PhosphorIcons.cursorFill;
-                                            break;
-                                          case ToolType.edit:
-                                            icon = PhosphorIcons.penLight;
-                                            activeIcon = PhosphorIcons.penFill;
-                                            break;
-                                        }
-                                        return IconButton(
-                                          icon: Icon(current.currentTool == e ? activeIcon : icon,
-                                              size: 26),
-                                          color: current.currentTool == e
-                                              ? Theme.of(context).colorScheme.primary
-                                              : null,
-                                          tooltip: e.toString(),
-                                          onPressed: () {
-                                            _bloc.add(ToolChanged(e));
-                                          },
-                                        );
-                                      }).toList(),
-                                      PopupMenuButton<ElementLayer>(
-                                          itemBuilder: (context) => [TextElement()]
-                                              .map((e) => PopupMenuItem<ElementLayer>(
-                                                  child: ListTile(
-                                                      mouseCursor: MouseCursor.defer,
-                                                      title: Text(e.toJson()["type"])),
-                                                  value: e))
-                                              .toList(),
-                                          icon: Icon(PhosphorIcons.plusLight, size: 26)),
-                                      VerticalDivider(),
-                                      IconButton(
-                                          icon: Icon(PhosphorIcons.magnifyingGlassPlusLight),
-                                          tooltip: "Zoom in",
-                                          onPressed: () {}),
-                                      IconButton(
-                                          icon: Icon(PhosphorIcons.magnifyingGlassLight),
-                                          tooltip: "Reset zoom",
-                                          onPressed: () {}),
-                                      IconButton(
-                                          icon: Icon(PhosphorIcons.magnifyingGlassMinusLight),
-                                          tooltip: "Zoom out",
-                                          onPressed: () {}),
-                                      if (!isMobile) VerticalDivider()
-                                    ]);
-                              } else
-                                return Container();
-                            }),
-                            if (!isMobile) Flexible(child: toolbar),
-                          ],
-                        )),
+                      height: 75,
+                      color: Theme.of(context).canvasColor,
+                      padding: const EdgeInsets.all(12.0),
+                      child: toolsSelection,
+                    ),
                     Expanded(child: MainViewViewport(bloc: _bloc)),
                     if (isMobile) Align(alignment: Alignment.center, child: toolbar)
                   ]);
