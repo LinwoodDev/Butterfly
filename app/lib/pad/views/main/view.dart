@@ -14,13 +14,13 @@ class MainViewViewport extends StatefulWidget {
 
 class _MainViewViewportState extends State<MainViewViewport> {
   Matrix4? _homeMatrix;
-  final GlobalKey _targetKey = GlobalKey();
-  final TransformationController _transformationController = TransformationController();
   static const Size _paintViewport = const Size(1000, 2000);
   @override
   void initState() {
     super.initState();
   }
+
+  late Matrix4 transform;
 
   @override
   Widget build(BuildContext context) {
@@ -33,33 +33,59 @@ class _MainViewViewportState extends State<MainViewViewport> {
               _homeMatrix = Matrix4.identity()
                 ..translate(viewportSize.width / 2 - _paintViewport.width / 2,
                     viewportSize.height / 2 - _paintViewport.height / 2);
-              _transformationController.value = _homeMatrix!;
+              transform = _homeMatrix!;
             }
-            var enabled = false;
             if (state is DocumentLoadSuccess) {
-              enabled = state.currentTool == ToolType.view || state.currentTool == ToolType.object;
-            }
-            return ClipRect(
-                child: Container(
-                    color: Colors.white,
-                    child: InteractiveViewer(
-                        key: _targetKey,
-                        panEnabled: enabled,
-                        scaleEnabled: enabled,
-                        minScale: 0.1,
-                        maxScale: 5,
-                        transformationController: _transformationController,
-                        boundaryMargin: EdgeInsets.symmetric(
-                            horizontal: viewportSize.width, vertical: viewportSize.height),
-                        child: SizedBox.expand(
-                          child: Container(
-                            color: Colors.grey,
-                            child: CustomPaint(
-                              size: _paintViewport,
-                              painter: PathPainter(),
-                            ),
+              return ClipRect(
+                  child: Container(
+                      color: Colors.white,
+                      child: RawGestureDetector(
+                        gestures: {
+                          ScaleGestureRecognizer:
+                              GestureRecognizerFactoryWithHandlers<ScaleGestureRecognizer>(
+                            () => ScaleGestureRecognizer(),
+                            (ScaleGestureRecognizer instance) {
+                              instance
+                                ..onUpdate = (details) {
+                                  setState(() {
+                                    transform = transform.scaled(details.scale);
+                                  });
+                                };
+                            },
                           ),
-                        ))));
+                        },
+                        child: Listener(
+                            onPointerSignal: (pointerSignal) {
+                              if (pointerSignal is PointerScrollEvent)
+                                setState(() {
+                                  // Scale the matrix
+                                  transform = transform
+                                    ..scale(1 - pointerSignal.scrollDelta.dy / 1000,
+                                        1 - pointerSignal.scrollDelta.dy / 1000, 1);
+                                });
+                            },
+                            onPointerMove: (PointerMoveEvent event) {
+                              if (event.kind != PointerDeviceKind.stylus)
+                                setState(
+                                    () => transform..translate(event.delta.dx, event.delta.dy));
+                              else {
+                                // Add
+                              }
+                            },
+                            child: Container(
+                                color: Colors.grey,
+                                child: Transform(
+                                  transform: transform,
+                                  child: SizedBox.expand(
+                                    child: CustomPaint(
+                                      size: _paintViewport,
+                                      painter: PathPainter(),
+                                    ),
+                                  ),
+                                ))),
+                      )));
+            }
+            return Container();
           });
         });
   }
