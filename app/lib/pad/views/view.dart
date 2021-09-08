@@ -1,4 +1,3 @@
-import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

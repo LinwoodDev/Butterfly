@@ -1,6 +1,6 @@
 // app_module.dart
 import 'package:butterfly/pad/module.dart';
-import 'package:butterfly/pages/home.dart';
+import 'package:butterfly/home.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'settings/module.dart';

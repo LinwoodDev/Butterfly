@@ -9,14 +9,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import 'main/toolbar.dart';
-import 'main/view.dart';
+import 'toolbar.dart';
+import 'view.dart';
 
 class ProjectPage extends StatefulWidget {
-  final String? path;
   final String? id;
 
-  const ProjectPage({Key? key, this.path, required this.id}) : super(key: key);
+  const ProjectPage({Key? key, required this.id}) : super(key: key);
   @override
   _ProjectPageState createState() => _ProjectPageState();
 }
