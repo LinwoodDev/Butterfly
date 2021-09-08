@@ -11,40 +11,19 @@ class DocumentLoadInProgress extends DocumentState {}
 
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
-  final String? currentSelectedPath;
   final ToolType currentTool;
-  final ElementLayer? currentLayer;
-  final String currentPath;
-  final List<String> history;
-  final bool gridView;
 
-  const DocumentLoadSuccess(this.document,
-      {this.currentSelectedPath = "pads/main",
-      this.history = const [""],
-      this.gridView = false,
-      this.currentTool = ToolType.view,
-      this.currentPath = '',
-      this.currentLayer});
+  const DocumentLoadSuccess(this.document, {this.currentTool = ToolType.view});
 
   @override
-  List<Object?> get props => [document, currentSelectedPath, currentTool, currentLayer, gridView];
+  List<Object?> get props => [document, currentTool];
 
-  DocumentLoadSuccess copyWith(
-      {AppDocument? document,
-      String? currentSelectedPath,
-      ToolType? currentTool,
-      ElementLayer? currentLayer,
-      String? currentPath,
-      bool unselectLayer = false,
-      bool? gridView,
-      List<String>? history}) {
+  DocumentLoadSuccess copyWith({
+    AppDocument? document,
+    ToolType? currentTool,
+  }) {
     return DocumentLoadSuccess(document ?? this.document,
-        currentSelectedPath: currentSelectedPath ?? this.currentSelectedPath,
-        currentTool: currentTool ?? this.currentTool,
-        currentLayer: unselectLayer ? null : currentLayer ?? this.currentLayer,
-        currentPath: currentPath ?? this.currentPath,
-        history: history ?? this.history,
-        gridView: gridView ?? this.gridView);
+        currentTool: currentTool ?? this.currentTool);
   }
 }
 

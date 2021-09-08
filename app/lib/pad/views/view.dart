@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/elements/paint.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +25,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
 
   late Matrix4 transform;
 
+  PaintElement? currentPaintElement;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(
@@ -34,6 +39,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     viewportSize.height / 2 - _paintViewport.height / 2);
               transform = _homeMatrix!;
             }
+            print("REPAINT!");
             if (state is DocumentLoadSuccess) {
               return ClipRect(
                   child: Container(
@@ -46,9 +52,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             (ScaleGestureRecognizer instance) {
                               instance
                                 ..onUpdate = (details) {
-                                  setState(() {
+                                  /*setState(() {
                                     transform = transform.scaled(details.scale);
-                                  });
+                                  });*/
                                 };
                             },
                           ),
@@ -59,16 +65,30 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 setState(() {
                                   // Scale the matrix
                                   transform = transform
-                                    ..scale(1 - pointerSignal.scrollDelta.dy / 1000,
-                                        1 - pointerSignal.scrollDelta.dy / 1000, 1);
+                                    ..scale(1 - pointerSignal.scrollDelta.dy / 100,
+                                        1 - pointerSignal.scrollDelta.dy / 100, 1);
                                 });
+                            },
+                            onPointerDown: (PointerDownEvent event) {
+                              if (event.kind == PointerDeviceKind.stylus)
+                                currentPaintElement = PaintElement();
+                            },
+                            onPointerUp: (PointerUpEvent event) {
+                              if (event.kind == PointerDeviceKind.stylus &&
+                                  currentPaintElement != null) {
+                                widget.bloc.add(LayerCreated(layer: currentPaintElement!));
+                                currentPaintElement = null;
+                              }
                             },
                             onPointerMove: (PointerMoveEvent event) {
                               if (event.kind != PointerDeviceKind.stylus)
                                 setState(
                                     () => transform..translate(event.delta.dx, event.delta.dy));
-                              else {
-                                // Add
+                              else if (currentPaintElement != null) {
+                                // Add point to custom paint
+                                setState(() => currentPaintElement = currentPaintElement?.copyWith(
+                                    points: List.from(currentPaintElement?.points ?? const [])
+                                      ..add(transform.absolute() event.localPosition)));
                               }
                             },
                             child: Container(
@@ -78,7 +98,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   child: SizedBox.expand(
                                     child: CustomPaint(
                                       size: _paintViewport,
-                                      painter: PathPainter(),
+                                      painter: PathPainter(state.document),
                                     ),
                                   ),
                                 ))),
@@ -91,6 +111,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
 }
 
 class PathPainter extends CustomPainter {
+  final AppDocument document;
+
+  PathPainter(this.document);
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
@@ -99,6 +122,7 @@ class PathPainter extends CustomPainter {
       ..strokeWidth = 8.0;
     const offsetY = -200;
     Path path = Path();
+    path.lineTo(size.width, size.height);
     path.cubicTo(size.width / 4, 3 * size.height / 4, 3 * size.width / 4, size.height / 4,
         size.width, size.height);
     path.addRect(Rect.fromLTWH(size.width / 2 - 125, size.height / 2 - 50 + offsetY, 250, 100));
@@ -112,8 +136,13 @@ class PathPainter extends CustomPainter {
         canvas,
         new Offset(size.width / 2 - (tp.size.width / 2),
             size.height / 2 - (tp.size.height / 2) + offsetY));
+    document.content.forEach((element) {
+      if (element is PaintElement) {
+        canvas.drawPath(element.buildPath(), element.buildPaint());
+      }
+    });
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
+  bool shouldRepaint(PathPainter oldDelegate) => document != oldDelegate.document;
 }
