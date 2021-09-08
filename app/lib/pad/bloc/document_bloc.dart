@@ -5,6 +5,7 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/rendering.dart';
 
 part 'document_event.dart';
 part 'document_state.dart';
@@ -20,7 +21,9 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
       yield* _mapDocumentNameChangedToState(event);
     else if (event is LayerCreated)
       yield* _mapLayerCreatedToState(event);
-    else if (event is ToolChanged) yield* _mapToolChangedToState(event);
+    else if (event is ToolChanged)
+      yield* _mapToolChangedToState(event);
+    else if (event is TransformChanged) yield* _mapTransformChangedToState(event);
   }
 
   Stream<DocumentState> _mapLayerCreatedToState(LayerCreated event) async* {
@@ -44,6 +47,16 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
   Stream<DocumentState> _mapToolChangedToState(ToolChanged event) async* {
     if (state is DocumentLoadSuccess) {
       yield (state as DocumentLoadSuccess).copyWith(currentTool: event.tool);
+      _saveDocument();
+    }
+  }
+
+  Stream<DocumentState> _mapTransformChangedToState(TransformChanged event) async* {
+    if (state is DocumentLoadSuccess) {
+      var current = (state as DocumentLoadSuccess);
+      yield current.copyWith(
+        transform: event.transform,
+      );
       _saveDocument();
     }
   }

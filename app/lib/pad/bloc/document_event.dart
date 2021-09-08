@@ -31,3 +31,12 @@ class ToolChanged extends DocumentEvent {
   @override
   List<Object?> get props => [tool];
 }
+
+class TransformChanged extends DocumentEvent {
+  final Matrix4 transform;
+
+  TransformChanged(this.transform);
+
+  @override
+  List<Object?> get props => [transform];
+}
