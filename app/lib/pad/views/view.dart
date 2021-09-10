@@ -50,7 +50,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   print(up);
                                   if (up.y < 3.5 && pointerSignal.scrollDelta.dy < 0 ||
                                       up.y > 0.5 && pointerSignal.scrollDelta.dy > 0) {
-                                    widget.bloc.add(TransformChanged(transform
+                                    widget.bloc.add(TransformChanged(Matrix4.copy(transform)
                                       ..scale(1 - pointerSignal.scrollDelta.dy / 200,
                                           1 - pointerSignal.scrollDelta.dy / 200, 1)));
                                   }
@@ -69,8 +69,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               },
                               onPointerMove: (PointerMoveEvent event) {
                                 if (event.kind != PointerDeviceKind.stylus)
-                                  widget.bloc.add(TransformChanged(
-                                      transform..translate(event.delta.dx, event.delta.dy)));
+                                  widget.bloc.add(TransformChanged(Matrix4.copy(transform)
+                                    ..translate(event.delta.dx, event.delta.dy)));
                                 else if (state.currentEditLayer != null &&
                                     state.currentEditLayer is PaintElement) {
                                   // Add point to custom paint
