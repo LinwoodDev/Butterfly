@@ -23,15 +23,29 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
       yield* _mapLayerCreatedToState(event);
     else if (event is ToolChanged)
       yield* _mapToolChangedToState(event);
-    else if (event is TransformChanged) yield* _mapTransformChangedToState(event);
+    else if (event is TransformChanged)
+      yield* _mapTransformChangedToState(event);
+    else if (event is EditingLayerChanged) yield* _mapEditingLayerChangedToState(event);
+  }
+
+  Stream<DocumentState> _mapEditingLayerChangedToState(EditingLayerChanged event) async* {
+    if (state is DocumentLoadSuccess) {
+      var current = (state as DocumentLoadSuccess);
+      yield current.copyWith(currentEditLayer: event.editingLayer);
+      _saveDocument();
+    }
   }
 
   Stream<DocumentState> _mapLayerCreatedToState(LayerCreated event) async* {
     if (state is DocumentLoadSuccess) {
       var current = (state as DocumentLoadSuccess);
       yield current.copyWith(
-          document: current.document
-              .copyWith(content: List.from(current.document.content)..add(event.layer)));
+          removeCurrentEditLayer: event.layer == null,
+          document: current.document.copyWith(
+              content: current.currentEditLayer == null && event.layer == null
+                  ? current.document.content
+                  : (List.from(current.document.content)
+                    ..add(event.layer ?? current.currentEditLayer!))));
       _saveDocument();
     }
   }

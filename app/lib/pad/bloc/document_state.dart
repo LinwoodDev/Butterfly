@@ -13,19 +13,25 @@ class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final ToolType currentTool;
   final Matrix4? transform;
+  final ElementLayer? currentEditLayer;
 
-  const DocumentLoadSuccess(this.document, {this.currentTool = ToolType.view, this.transform});
+  const DocumentLoadSuccess(this.document,
+      {this.currentTool = ToolType.view, this.transform, this.currentEditLayer});
 
   @override
-  List<Object?> get props => [document, currentTool];
+  List<Object?> get props => [document, currentTool, currentEditLayer, transform];
 
-  DocumentLoadSuccess copyWith({
-    AppDocument? document,
-    ToolType? currentTool,
-    Matrix4? transform,
-  }) {
+  DocumentLoadSuccess copyWith(
+      {AppDocument? document,
+      ToolType? currentTool,
+      Matrix4? transform,
+      ElementLayer? currentEditLayer,
+      bool removeCurrentEditLayer = false}) {
     return DocumentLoadSuccess(document ?? this.document,
-        currentTool: currentTool ?? this.currentTool, transform: transform ?? this.transform);
+        currentTool: currentTool ?? this.currentTool,
+        transform: transform ?? this.transform,
+        currentEditLayer:
+            removeCurrentEditLayer ? null : (currentEditLayer ?? this.currentEditLayer));
   }
 }
 
