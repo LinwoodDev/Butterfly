@@ -7,7 +7,7 @@ class PaintElement extends ElementLayer {
   final double strokeWidth;
   final Color color;
 
-  PaintElement({this.points = const [], this.strokeWidth = 2.0, this.color = Colors.black});
+  PaintElement({this.points = const [], this.strokeWidth = 8.0, this.color = Colors.black});
 
   PaintElement.fromJson(Map<String, dynamic> json)
       : points = (json['points'] as List<Map<String, dynamic>>)
@@ -26,7 +26,8 @@ class PaintElement extends ElementLayer {
   Paint buildPaint() => Paint()
     ..color = color
     ..strokeWidth = strokeWidth
-    ..style = PaintingStyle.stroke;
+    ..style = PaintingStyle.stroke
+    ..strokeCap = StrokeCap.round;
 
   Path buildPath() {
     var path = Path();

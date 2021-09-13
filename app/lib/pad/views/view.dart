@@ -17,6 +17,7 @@ class MainViewViewport extends StatefulWidget {
 
 class _MainViewViewportState extends State<MainViewViewport> {
   Matrix4? _homeMatrix;
+  GlobalKey transformKey = GlobalKey();
   @override
   void initState() {
     super.initState();
@@ -28,8 +29,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
         bloc: widget.bloc,
         builder: (context, state) {
           return LayoutBuilder(builder: (context, constraints) {
-            final viewportSize = Size(constraints.maxWidth, constraints.maxHeight);
-            final paintViewport = Size(viewportSize.width * 4, viewportSize.height * 4);
+            // final viewportSize = Size(constraints.maxWidth, constraints.maxHeight);
             if (_homeMatrix == null) {
               _homeMatrix = Matrix4.identity()
                   /*..translate(viewportSize.width / 2 - _paintViewport.width / 2,
@@ -37,77 +37,94 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   ;
             }
             if (state is DocumentLoadSuccess) {
+              print("EDITED!");
               Matrix4 transform = state.transform ?? _homeMatrix!;
+              var paintViewport = Size(1000,
+                      1000) /*Size(translation.x * 4 + viewportSize.width * 4,
+                  translation.y * 4 + viewportSize.height * 4)*/
+                  ;
               return ClipRect(
-                child: Transform(
-                  alignment: Alignment.center,
-                  transform: transform,
-                  child: SizedBox.fromSize(
-                    size: paintViewport,
-                    child: Container(
-                      child: Listener(
-                          onPointerSignal: (pointerSignal) {
-                            if (pointerSignal is PointerScrollEvent) {
-                              // Scale the matrix
-                              var up = transform.up;
-                              print(up);
-                              if (up.y < 3.5 && pointerSignal.scrollDelta.dy < 0 ||
-                                  up.y > 0.5 && pointerSignal.scrollDelta.dy > 0) {
-                                widget.bloc.add(TransformChanged(Matrix4.copy(transform)
-                                  ..scale(1 - pointerSignal.scrollDelta.dy / 200,
-                                      1 - pointerSignal.scrollDelta.dy / 200, 1)
-                                  ..translate(
-                                      pointerSignal.localPosition.dx *
-                                          pointerSignal.scrollDelta.dx /
-                                          200,
-                                      pointerSignal.localPosition.dy *
-                                          pointerSignal.scrollDelta.dy /
-                                          200,
-                                      0)));
-                              }
-                            }
-                          },
-                          onPointerDown: (PointerDownEvent event) {
-                            if (event.kind == PointerDeviceKind.stylus ||
-                                state.currentTool == ToolType.edit)
-                              widget.bloc.add(
-                                  EditingLayerChanged(PaintElement(points: [event.localPosition])));
-                          },
-                          onPointerUp: (PointerUpEvent event) {
-                            if ((event.kind == PointerDeviceKind.stylus ||
-                                    state.currentTool == ToolType.edit) &&
-                                state.currentEditLayer != null) {
-                              widget.bloc.add(LayerCreated());
-                            }
-                          },
-                          onPointerMove: (PointerMoveEvent event) {
-                            var translation = transform.getTranslation();
-                            print("------------");
-                            print(paintViewport);
-                            print(viewportSize);
-                            if (event.kind != PointerDeviceKind.stylus &&
-                                state.currentTool != ToolType.edit)
-                              widget.bloc.add(TransformChanged(Matrix4.copy(transform)
-                                ..translate(
-                                    (translation.x + event.delta.dx).clamp(
-                                            (paintViewport.width - viewportSize.width) / -1, 0) -
-                                        translation.x,
-                                    0)));
-                            else if (state.currentEditLayer != null &&
-                                state.currentEditLayer is PaintElement) {
-                              // Add point to custom paint
-                              var layer = state.currentEditLayer as PaintElement;
-                              widget.bloc.add(EditingLayerChanged(layer.copyWith(
-                                  points: List.from(layer.points)..add(event.localPosition))));
-                            }
-                          },
+                child: SizedBox.expand(
+                  child: Listener(
+                    onPointerSignal: (pointerSignal) {
+                      if (pointerSignal is PointerScrollEvent) {
+                        // Scale the matrix
+                        var up = transform.up;
+                        if (up.y < 3.5 && pointerSignal.scrollDelta.dy < 0 ||
+                            up.y > 0.5 && pointerSignal.scrollDelta.dy > 0) {
+                          widget.bloc.add(TransformChanged(Matrix4.copy(transform)
+                            ..scale(1 - pointerSignal.scrollDelta.dy / 200,
+                                1 - pointerSignal.scrollDelta.dy / 200, 1)
+                            ..translate(
+                                pointerSignal.localPosition.dx * pointerSignal.scrollDelta.dx / 200,
+                                pointerSignal.localPosition.dy * pointerSignal.scrollDelta.dy / 200,
+                                0)));
+                        }
+                      }
+                    },
+                    onPointerDown: (PointerDownEvent event) {
+                      print("HITTEST");
+                      if (event.kind == PointerDeviceKind.stylus ||
+                          state.currentTool == ToolType.edit)
+                        widget.bloc.add(EditingLayerChanged(PaintElement(points: [
+                          (transformKey.currentContext?.findRenderObject() as RenderBox)
+                              .globalToLocal(event.position)
+                        ])));
+                    },
+                    onPointerUp: (PointerUpEvent event) {
+                      if ((event.kind == PointerDeviceKind.stylus ||
+                              state.currentTool == ToolType.edit) &&
+                          state.currentEditLayer != null) {
+                        widget.bloc.add(LayerCreated());
+                      }
+                    },
+                    behavior: HitTestBehavior.translucent,
+                    onPointerMove: (PointerMoveEvent event) {
+                      var translation = transform.getTranslation();
+                      if (event.kind != PointerDeviceKind.stylus &&
+                          state.currentTool != ToolType.edit)
+                        widget.bloc.add(TransformChanged(Matrix4.copy(transform)
+                          ..translate(
+                            ((translation.x + event.delta.dx * 16).clamp(-paintViewport.width, 0) -
+                                    translation.x) *
+                                transform.up.y,
+                            ((translation.y + event.delta.dy * 16).clamp(-paintViewport.height, 0) -
+                                    translation.y) *
+                                transform.up.y,
+                          )));
+                      else if (state.currentEditLayer != null &&
+                          state.currentEditLayer is PaintElement) {
+                        // Add point to custom paint
+                        var layer = state.currentEditLayer as PaintElement;
+                        widget.bloc.add(EditingLayerChanged(layer.copyWith(
+                            points: List.from(layer.points)
+                              ..add((transformKey.currentContext?.findRenderObject() as RenderBox)
+                                  .globalToLocal(event.position)))));
+                      }
+                    },
+                    child: Transform(
+                      filterQuality: FilterQuality.high,
+                      alignment: Alignment.center,
+                      transform: transform,
+                      child: OverflowBox(
+                        minWidth: paintViewport.width,
+                        maxWidth: paintViewport.width,
+                        minHeight: paintViewport.height,
+                        maxHeight: paintViewport.height,
+                        child: SizedBox.fromSize(
+                          size: paintViewport,
                           child: Container(
-                            color: Colors.grey,
-                            child: CustomPaint(
-                              size: paintViewport,
-                              painter: PathPainter(state.document, state.currentEditLayer),
-                            ),
-                          )),
+                            child: SizedBox.expand(
+                                child: Container(
+                              child: CustomPaint(
+                                key: transformKey,
+                                size: paintViewport,
+                                painter: PathPainter(state.document, state.currentEditLayer),
+                              ),
+                            )),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
