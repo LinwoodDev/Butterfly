@@ -29,7 +29,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
         bloc: widget.bloc,
         builder: (context, state) {
           return LayoutBuilder(builder: (context, constraints) {
-            // final viewportSize = Size(constraints.maxWidth, constraints.maxHeight);
+            final viewportSize = Size(constraints.maxWidth, constraints.maxHeight);
             if (_homeMatrix == null) {
               _homeMatrix = Matrix4.identity()
                   /*..translate(viewportSize.width / 2 - _paintViewport.width / 2,
@@ -39,10 +39,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
             if (state is DocumentLoadSuccess) {
               print("EDITED!");
               Matrix4 transform = state.transform ?? _homeMatrix!;
-              var paintViewport = Size(1000,
-                      1000) /*Size(translation.x * 4 + viewportSize.width * 4,
-                  translation.y * 4 + viewportSize.height * 4)*/
-                  ;
+              var translation = -transform.getTranslation();
+              var paintViewport = Size(translation.x * 4 + viewportSize.width * 4,
+                  translation.y * 4 + viewportSize.height * 4);
               return ClipRect(
                 child: SizedBox.expand(
                   child: Listener(
@@ -63,7 +62,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       }
                     },
                     onPointerDown: (PointerDownEvent event) {
-                      print("HITTEST");
                       if (event.kind == PointerDeviceKind.stylus ||
                           state.currentTool == ToolType.edit)
                         widget.bloc.add(EditingLayerChanged(PaintElement(points: [
@@ -85,10 +83,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           state.currentTool != ToolType.edit)
                         widget.bloc.add(TransformChanged(Matrix4.copy(transform)
                           ..translate(
-                            ((translation.x + event.delta.dx * 16).clamp(-paintViewport.width, 0) -
+                            ((translation.x + event.delta.dx * 4).clamp(-paintViewport.width, 0) -
                                     translation.x) *
                                 transform.up.y,
-                            ((translation.y + event.delta.dy * 16).clamp(-paintViewport.height, 0) -
+                            ((translation.y + event.delta.dy * 4).clamp(-paintViewport.height, 0) -
                                     translation.y) *
                                 transform.up.y,
                           )));
@@ -114,14 +112,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         child: SizedBox.fromSize(
                           size: paintViewport,
                           child: Container(
-                            child: SizedBox.expand(
-                                child: Container(
-                              child: CustomPaint(
-                                key: transformKey,
-                                size: paintViewport,
-                                painter: PathPainter(state.document, state.currentEditLayer),
-                              ),
-                            )),
+                            color: Colors.white,
+                            child: CustomPaint(
+                              key: transformKey,
+                              size: paintViewport,
+                              painter: PathPainter(state.document, state.currentEditLayer),
+                            ),
                           ),
                         ),
                       ),
