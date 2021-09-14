@@ -96,10 +96,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           state.currentEditLayer is PaintElement) {
                         // Add point to custom paint
                         var layer = state.currentEditLayer as PaintElement;
-                        widget.bloc.add(EditingLayerChanged(layer.copyWith(
-                            points: List.from(layer.points)
-                              ..add((transformKey.currentContext?.findRenderObject() as RenderBox)
-                                  .globalToLocal(event.position)))));
+                        var offset = event.position;
+                        /*offset = Offset(offset.dx * transform.up.y * transform.up.y,
+                            offset.dy * transform.up.y);*/
+                        offset = ((transformKey.currentContext?.findRenderObject() as RenderBox)
+                            .globalToLocal(offset));
+                        widget.bloc.add(EditingLayerChanged(
+                            layer.copyWith(points: List.from(layer.points)..add(offset))));
                       }
                     },
                     child: Transform(
