@@ -23,6 +23,7 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: close_sinks
   late DocumentBloc _bloc;
+  final TextEditingController _scaleController = TextEditingController(text: "100");
   final AppDocument document = AppDocument(name: "Document name");
   @override
   void initState() {
@@ -90,6 +91,8 @@ class _ProjectPageState extends State<ProjectPage> {
                         BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
                           if (_bloc.state is DocumentLoadSuccess) {
                             var current = _bloc.state as DocumentLoadSuccess;
+                            _scaleController.text =
+                                ((current.transform?.up.y ?? 1) * 100).round().toString();
                             return SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child:
@@ -144,6 +147,22 @@ class _ProjectPageState extends State<ProjectPage> {
                                       icon: Icon(PhosphorIcons.magnifyingGlassMinusLight),
                                       tooltip: "Zoom out",
                                       onPressed: () {}),
+                                  ConstrainedBox(
+                                    constraints: BoxConstraints(maxWidth: 100),
+                                    child: TextField(
+                                      controller: _scaleController,
+                                      onSubmitted: (value) {
+                                        var scale = double.tryParse(value) ?? 100;
+                                        scale /= 100;
+                                        print("SCALE!");
+                                        setState(() => _bloc.add(TransformChanged(
+                                            Matrix4.copy(current.transform ?? Matrix4.identity()
+                                              ..scale(scale, scale, 1)))));
+                                      },
+                                      textAlign: TextAlign.center,
+                                      decoration: InputDecoration(labelText: "Zoom"),
+                                    ),
+                                  ),
                                   if (!isMobile) VerticalDivider()
                                 ]));
                           } else
