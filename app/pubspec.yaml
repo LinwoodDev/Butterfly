@@ -20,10 +20,10 @@ dependencies:
   flutter:
     sdk: flutter
   equatable: ^2.0.3
-  flutter_bloc: ^7.2.0
-  flutter_modular: ^3.4.1+1
-  shared_preferences: ^2.0.7
-  url_launcher: ^6.0.10
+  flutter_bloc: ^7.3.0
+  flutter_modular: ^4.0.1
+  shared_preferences: ^2.0.8
+  url_launcher: ^6.0.11
   msix: ^2.1.3
   phosphor_flutter: ^1.3.1
 
