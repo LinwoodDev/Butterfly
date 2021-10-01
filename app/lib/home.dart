@@ -4,6 +4,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -13,7 +15,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _documents = [
+    _documents = const [
       AppDocument(name: "Document 0", description: "abc..."),
       AppDocument(name: "Document 1", description: "abc..."),
       AppDocument(name: "Document 1", description: "abc..."),
@@ -36,26 +38,27 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Butterfly"), actions: [
+        appBar: AppBar(title: const Text("Butterfly"), actions: [
           IconButton(
-              icon: Icon(PhosphorIcons.gearLight),
+              icon: const Icon(PhosphorIcons.gearLight),
               onPressed: () => Modular.to.pushNamed("/settings"))
         ]),
         body: SingleChildScrollView(
             child: Align(
                 alignment: Alignment.topCenter,
                 child: ConstrainedBox(
-                    constraints: BoxConstraints(minWidth: 100, maxWidth: 1000),
+                    constraints: const BoxConstraints(minWidth: 100, maxWidth: 1000),
                     child: Wrap(
                         alignment: WrapAlignment.center,
                         children: List.generate(_documents.length, (index) {
                           var document = _documents[index];
                           return Card(
-                              margin: EdgeInsets.all(5),
+                              margin: const EdgeInsets.all(5),
                               child: InkWell(
                                   onTap: () => Modular.to.pushNamed("/pad/$index"),
                                   child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                                       child: Column(children: [
                                         Text(document.name,
                                             style: Theme.of(context).textTheme.headline6),
@@ -64,8 +67,8 @@ class _HomePageState extends State<HomePage> {
                                       ]))));
                         }))))),
         floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(PhosphorIcons.plusLight),
-          label: Text("New"),
+          icon: const Icon(PhosphorIcons.plusLight),
+          label: const Text("New"),
           onPressed: () {},
         ));
   }

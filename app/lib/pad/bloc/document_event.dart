@@ -10,7 +10,7 @@ abstract class DocumentEvent extends Equatable {
 class LayerCreated extends DocumentEvent {
   final ElementLayer? layer;
 
-  LayerCreated({this.layer});
+  const LayerCreated({this.layer});
   @override
   List<Object?> get props => [layer];
 }
@@ -18,7 +18,7 @@ class LayerCreated extends DocumentEvent {
 class DocumentNameChanged extends DocumentEvent {
   final String name;
 
-  DocumentNameChanged(this.name);
+  const DocumentNameChanged(this.name);
   @override
   List<Object?> get props => [name];
 }
@@ -26,7 +26,7 @@ class DocumentNameChanged extends DocumentEvent {
 class ToolChanged extends DocumentEvent {
   final ToolType tool;
 
-  ToolChanged(this.tool);
+  const ToolChanged(this.tool);
 
   @override
   List<Object?> get props => [tool];
@@ -35,7 +35,7 @@ class ToolChanged extends DocumentEvent {
 class TransformChanged extends DocumentEvent {
   final Matrix4 transform;
 
-  TransformChanged(this.transform);
+  const TransformChanged(this.transform);
 
   @override
   List<Object?> get props => [transform];
@@ -44,7 +44,7 @@ class TransformChanged extends DocumentEvent {
 class EditingLayerChanged extends DocumentEvent {
   final ElementLayer? editingLayer;
 
-  EditingLayerChanged(this.editingLayer);
+  const EditingLayerChanged(this.editingLayer);
 
   @override
   List<Object?> get props => [editingLayer];

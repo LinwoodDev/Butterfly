@@ -33,9 +33,9 @@ class ButterflyApp extends StatelessWidget {
   }
 
   Widget _buildApp() {
-    var primaryColor = Color(0xFFF2B138);
+    var primaryColor = const Color(0xFFF2B138);
     var primarySwatch = createMaterialColor(primaryColor);
-    var accentColor = Color(0xFF00469E);
+    var accentColor = const Color(0xFF00469E);
     return MaterialApp(
       title: 'Butterfly',
       // set your initial route
@@ -62,7 +62,7 @@ class ButterflyApp extends StatelessWidget {
               primaryVariant: primaryColor,
               secondary: accentColor,
               secondaryVariant: accentColor)),
-      home: HomePage(),
+      home: const HomePage(),
     ).modular();
   }
 
@@ -74,7 +74,7 @@ class ButterflyApp extends StatelessWidget {
     for (int i = 1; i < 10; i++) {
       strengths.add(0.1 * i);
     }
-    strengths.forEach((strength) {
+    for (var strength in strengths) {
       final double ds = 0.5 - strength;
       swatch[(strength * 1000).round()] = Color.fromRGBO(
         r + ((ds < 0 ? r : (255 - r)) * ds).round(),
@@ -82,7 +82,7 @@ class ButterflyApp extends StatelessWidget {
         b + ((ds < 0 ? b : (255 - b)) * ds).round(),
         1,
       );
-    });
+    }
     return MaterialColor(color.value, swatch);
   }
 }

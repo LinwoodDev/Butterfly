@@ -3,6 +3,7 @@ import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/paint.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,14 +32,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
         builder: (context, state) {
           return LayoutBuilder(builder: (context, constraints) {
             final viewportSize = Size(constraints.maxWidth, constraints.maxHeight);
-            if (_homeMatrix == null) {
-              _homeMatrix = Matrix4.identity()
-                  /*..translate(viewportSize.width / 2 - _paintViewport.width / 2,
-                    viewportSize.height / 2 - _paintViewport.height / 2)*/
-                  ;
-            }
+            _homeMatrix ??= Matrix4.identity();
             if (state is DocumentLoadSuccess) {
-              print("EDITED!");
               Matrix4 transform = state.transform ?? _homeMatrix!;
               var translation = -transform.getTranslation();
               var paintViewport = Size(translation.x * 4 + viewportSize.width * 4,
@@ -60,10 +55,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     .globalToLocal(offset);
                 var globalOffset = offset - localOffset;
                 globalOffset *= transform.up.y * transform.up.y;
-                print("----------");
-                print("Offset: $offset");
-                print("Scale: ${transform.up.y}");
-                print("----------");
+                // print("----------");
+                // print("Offset: $offset");
+                // print("Scale: ${transform.up.y}");
+                // print("----------");
 
                 return offset - globalOffset;
               }
@@ -88,22 +83,23 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   },
                   onPointerDown: (PointerDownEvent event) {
                     if (event.kind == PointerDeviceKind.stylus ||
-                        state.currentTool == ToolType.edit)
+                        state.currentTool == ToolType.edit) {
                       widget.bloc.add(
                           EditingLayerChanged(PaintElement(points: [getPoint(event.position)])));
+                    }
                   },
                   onPointerUp: (PointerUpEvent event) {
                     if ((event.kind == PointerDeviceKind.stylus ||
                             state.currentTool == ToolType.edit) &&
                         state.currentEditLayer != null) {
-                      widget.bloc.add(LayerCreated());
+                      widget.bloc.add(const LayerCreated());
                     }
                   },
                   behavior: HitTestBehavior.translucent,
                   onPointerMove: (PointerMoveEvent event) {
                     var translation = transform.getTranslation();
                     if (event.kind != PointerDeviceKind.stylus &&
-                        state.currentTool != ToolType.edit)
+                        state.currentTool != ToolType.edit) {
                       widget.bloc.add(TransformChanged(Matrix4.copy(transform)
                         ..translate(
                           ((translation.x + event.delta.dx * 4).clamp(-paintViewport.width, 0) -
@@ -113,7 +109,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   translation.y) *
                               transform.up.y,
                         )));
-                    else if (state.currentEditLayer != null &&
+                    } else if (state.currentEditLayer != null &&
                         state.currentEditLayer is PaintElement) {
                       // Add point to custom paint
                       var layer = state.currentEditLayer as PaintElement;
@@ -172,14 +168,14 @@ class PathPainter extends CustomPainter {
         size.width, size.height);
     path.addRect(Rect.fromLTWH(size.width / 2 - 125, size.height / 2 - 50 + offsetY, 250, 100));
     canvas.drawPath(path, paint);
-    TextSpan span = new TextSpan(
-        style: new TextStyle(fontSize: 24, color: Colors.blue[800]), text: "Welcome to Butterfly");
+    TextSpan span = TextSpan(
+        style: TextStyle(fontSize: 24, color: Colors.blue[800]), text: "Welcome to Butterfly");
     TextPainter tp =
-        new TextPainter(text: span, textAlign: TextAlign.left, textDirection: TextDirection.ltr);
+        TextPainter(text: span, textAlign: TextAlign.left, textDirection: TextDirection.ltr);
     tp.layout();
     tp.paint(
         canvas,
-        new Offset(size.width / 2 - (tp.size.width / 2),
+        Offset(size.width / 2 - (tp.size.width / 2),
             size.height / 2 - (tp.size.height / 2) + offsetY));
     List.from(document.content)
       ..addAll([if (editingLayer != null) editingLayer])

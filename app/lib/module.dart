@@ -13,7 +13,7 @@ class AppModule extends Module {
   // Provide all the routes for your module
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, args) => HomePage(), transition: TransitionType.downToUp),
+    ChildRoute('/', child: (_, args) => const HomePage(), transition: TransitionType.downToUp),
     ModuleRoute('/settings', module: SettingsModule(), transition: TransitionType.downToUp),
     ModuleRoute('/pad', module: PadModule(), transition: TransitionType.downToUp)
   ];

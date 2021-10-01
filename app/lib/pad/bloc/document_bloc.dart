@@ -17,15 +17,17 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
   Stream<DocumentState> mapEventToState(
     DocumentEvent event,
   ) async* {
-    if (event is DocumentNameChanged)
+    if (event is DocumentNameChanged) {
       yield* _mapDocumentNameChangedToState(event);
-    else if (event is LayerCreated)
+    } else if (event is LayerCreated) {
       yield* _mapLayerCreatedToState(event);
-    else if (event is ToolChanged)
+    } else if (event is ToolChanged) {
       yield* _mapToolChangedToState(event);
-    else if (event is TransformChanged)
+    } else if (event is TransformChanged) {
       yield* _mapTransformChangedToState(event);
-    else if (event is EditingLayerChanged) yield* _mapEditingLayerChangedToState(event);
+    } else if (event is EditingLayerChanged) {
+      yield* _mapEditingLayerChangedToState(event);
+    }
   }
 
   Stream<DocumentState> _mapEditingLayerChangedToState(EditingLayerChanged event) async* {

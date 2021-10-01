@@ -7,9 +7,7 @@ class AppDocument {
   //final List<PackCollection> packs;
   final List<ElementLayer> content;
 
-  const AppDocument({required String name, String description = '', this.content = const []})
-      : name = name,
-        description = description;
+  const AppDocument({required this.name, this.description = '', this.content = const []});
 
   AppDocument.fromJson(Map<String, dynamic> json)
       : name = json['name'],

@@ -13,10 +13,12 @@ class _ViewToolbarState extends State<ViewToolbar> {
   Widget build(BuildContext context) {
     return Row(children: [
       IconButton(
-          icon: Icon(PhosphorIcons.arrowSquareOutLight), tooltip: "Export", onPressed: () {}),
-      IconButton(icon: Icon(PhosphorIcons.printerLight), tooltip: "Print", onPressed: () {}),
+          icon: const Icon(PhosphorIcons.arrowSquareOutLight), tooltip: "Export", onPressed: () {}),
+      IconButton(icon: const Icon(PhosphorIcons.printerLight), tooltip: "Print", onPressed: () {}),
       IconButton(
-          icon: Icon(PhosphorIcons.monitorPlayLight), tooltip: "Presentation", onPressed: () {})
+          icon: const Icon(PhosphorIcons.monitorPlayLight),
+          tooltip: "Presentation",
+          onPressed: () {})
     ]);
   }
 }

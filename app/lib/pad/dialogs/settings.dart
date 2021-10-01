@@ -25,29 +25,28 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
         child: DefaultTabController(
             length: 2,
             child: Container(
-                constraints: BoxConstraints(maxWidth: 600, maxHeight: 800),
+                constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
                 child: Column(children: [
-                  TabBar(
+                  const TabBar(
                     tabs: [
                       Tab(icon: Icon(PhosphorIcons.fadersLight), text: "General"),
                       Tab(icon: Icon(PhosphorIcons.packageLight), text: "Packs")
                     ],
                   ),
                   Expanded(
-                      child: Container(
-                          child: TabBarView(children: [
+                      child: TabBarView(children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(children: [
                         TextField(
                             controller: _nameController,
-                            decoration: InputDecoration(labelText: "Name"))
+                            decoration: const InputDecoration(labelText: "Name"))
                       ]),
                     ),
-                    Icon(Icons.directions_transit)
-                  ]))),
+                    const Icon(Icons.directions_transit)
+                  ])),
                   Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                         ElevatedButton(
                             onPressed: () {

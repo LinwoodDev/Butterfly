@@ -28,13 +28,13 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
       Widget toolbar;
       switch (current.currentTool) {
         case ToolType.view:
-          toolbar = ViewToolbar();
+          toolbar = const ViewToolbar();
           break;
         case ToolType.object:
-          toolbar = ObjectToolbar();
+          toolbar = const ObjectToolbar();
           break;
         case ToolType.edit:
-          toolbar = EditToolbar();
+          toolbar = const EditToolbar();
           break;
       }
       return Row(
@@ -43,7 +43,7 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Align(
-                alignment: Alignment.centerRight, child: Container(height: 50, child: toolbar)),
+                alignment: Alignment.centerRight, child: SizedBox(height: 50, child: toolbar)),
           ),
         ],
       );
