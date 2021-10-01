@@ -6,7 +6,7 @@ import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vector_math/vector_math_64.dart' show Vector3;
+//import 'package:vector_math/vector_math_64.dart' show Vector3;
 
 class MainViewViewport extends StatefulWidget {
   final DocumentBloc bloc;
@@ -43,7 +43,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
               var translation = -transform.getTranslation();
               var paintViewport = Size(translation.x * 4 + viewportSize.width * 4,
                   translation.y * 4 + viewportSize.height * 4);
-              Offset toScene(Offset viewportPoint) {
+              /*Offset toScene(Offset viewportPoint) {
                 // On viewportPoint, perform the inverse transformation of the scene to get
                 // where the point would be in the scene before the transformation.
                 final Matrix4 inverseMatrix = Matrix4.inverted(transform);
@@ -53,7 +53,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   0,
                 ));
                 return Offset(untransformed.x, untransformed.y);
-              }
+              }*/
 
               Offset getPoint(Offset offset) {
                 var localOffset = (transformKey.currentContext?.findRenderObject() as RenderBox)
