@@ -18,7 +18,6 @@ class MainViewViewport extends StatefulWidget {
 }
 
 class _MainViewViewportState extends State<MainViewViewport> {
-  final TransformationController _transformationController = TransformationController();
   GlobalKey transformKey = GlobalKey();
   @override
   void initState() {
@@ -102,10 +101,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       widget.bloc.add(TransformChanged(Matrix4.copy(transform)
                         ..translate(
                           ((translation.x + event.delta.dx * 4).clamp(-paintViewport.width, 0) -
-                                  translation.x) *
+                                  translation.x) /
                               transform.up.y,
                           ((translation.y + event.delta.dy * 4).clamp(-paintViewport.height, 0) -
-                                  translation.y) *
+                                  translation.y) /
                               transform.up.y,
                         )));
                     } else if (state.currentEditLayer != null &&
@@ -163,17 +162,14 @@ class PathPainter extends CustomPainter {
     const offsetY = -200;
     Path path = Path();
     path.cubicTo(0, 500, 0, 500, 5000, 500);
-    path.addRect(Rect.fromLTWH(50, 50, 250, 100));
+    path.addRect(const Rect.fromLTWH(50, 50, 250, 100));
     canvas.drawPath(path, paint);
     TextSpan span = TextSpan(
         style: TextStyle(fontSize: 24, color: Colors.blue[800]), text: "Welcome to Butterfly");
     TextPainter tp =
         TextPainter(text: span, textAlign: TextAlign.left, textDirection: TextDirection.ltr);
     tp.layout();
-    tp.paint(
-        canvas,
-        Offset(size.width / 2 - (tp.size.width / 2),
-            size.height / 2 - (tp.size.height / 2) + offsetY));
+    tp.paint(canvas, const Offset(500, 500));
     List.from(document.content)
       ..addAll([if (editingLayer != null) editingLayer])
       ..forEach((element) {
