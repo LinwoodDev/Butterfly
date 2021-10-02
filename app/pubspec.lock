@@ -21,14 +21,14 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.2"
+    version: "2.8.1"
   bloc:
     dependency: transitive
     description:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.2.0"
+    version: "7.2.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -104,13 +104,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.3.0"
+  flutter_lints:
+    dependency: "direct dev"
+    description:
+      name: flutter_lints
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   flutter_modular:
     dependency: "direct main"
     description:
       name: flutter_modular
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.1+2"
   flutter_modular_annotations:
     dependency: transitive
     description:
@@ -142,13 +149,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  lints:
+    dependency: transitive
+    description:
+      name: lints
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   matcher:
     dependency: transitive
     description:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.11"
+    version: "0.12.10"
   meta:
     dependency: transitive
     description:
@@ -162,14 +176,14 @@ packages:
       name: modular_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.1.3"
   modular_interfaces:
     dependency: transitive
     description:
       name: modular_interfaces
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0+1"
+    version: "1.0.4"
   msix:
     dependency: "direct main"
     description:
@@ -239,7 +253,7 @@ packages:
       name: plugin_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   process:
     dependency: transitive
     description:
@@ -253,7 +267,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0"
+    version: "6.0.1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -342,7 +356,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.3"
+    version: "0.4.2"
   triple:
     dependency: transitive
     description:
@@ -363,7 +377,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.11"
+    version: "6.0.12"
   url_launcher_linux:
     dependency: transitive
     description:

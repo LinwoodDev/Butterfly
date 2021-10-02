@@ -12,8 +12,9 @@ class _EditToolbarState extends State<EditToolbar> {
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      IconButton(icon: Icon(PhosphorIcons.penLight), tooltip: "Pencil", onPressed: () {}),
-      IconButton(icon: Icon(PhosphorIcons.markerCircleLight), tooltip: "Marker", onPressed: () {})
+      IconButton(icon: const Icon(PhosphorIcons.penLight), tooltip: "Pencil", onPressed: () {}),
+      IconButton(
+          icon: const Icon(PhosphorIcons.markerCircleLight), tooltip: "Marker", onPressed: () {})
     ]);
   }
 }

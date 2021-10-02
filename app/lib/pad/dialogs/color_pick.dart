@@ -12,13 +12,13 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   @override
   Widget build(BuildContext context) {
     // TODO: Implement real gradient
-    return Container(
+    return SizedBox(
         width: 500,
         height: 500,
         child: Row(children: [
           Expanded(
               child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 gradient: LinearGradient(
               colors: [],
             )),
@@ -31,7 +31,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             width: 100,
                             height: 100,
                             decoration:
-                                ShapeDecoration(color: e, shape: RoundedRectangleBorder()))))
+                                ShapeDecoration(color: e, shape: const RoundedRectangleBorder()))))
                     .toList()),
           )
         ]));

@@ -3,9 +3,11 @@ import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/paint.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+//import 'package:vector_math/vector_math_64.dart' show Vector3;
 
 class MainViewViewport extends StatefulWidget {
   final DocumentBloc bloc;
@@ -25,92 +27,125 @@ class _MainViewViewportState extends State<MainViewViewport> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return BlocBuilder<DocumentBloc, DocumentState>(
-          bloc: widget.bloc,
-          builder: (context, state) {
+    return BlocBuilder<DocumentBloc, DocumentState>(
+        bloc: widget.bloc,
+        builder: (context, state) {
+          return LayoutBuilder(builder: (context, constraints) {
+            final viewportSize = Size(constraints.maxWidth, constraints.maxHeight);
             if (state is DocumentLoadSuccess) {
-              _transformationController.value = state.transform ?? _transformationController.value;
-              var transform = _transformationController.value;
-              var translation = transform.getTranslation();
-              final viewportSize = Size(constraints.maxWidth * 8 * translation.x,
-                  constraints.maxHeight * 8 * translation.y);
-              print("REBUILD!");
-              return Listener(
+              Matrix4 transform = state.transform ?? Matrix4.identity();
+              var translation = -transform.getTranslation();
+              var paintViewport = Size(translation.x * 4 + viewportSize.width * 4,
+                  translation.y * 4 + viewportSize.height * 4);
+              /*Offset toScene(Offset viewportPoint) {
+                // On viewportPoint, perform the inverse transformation of the scene to get
+                // where the point would be in the scene before the transformation.
+                final Matrix4 inverseMatrix = Matrix4.inverted(transform);
+                final Vector3 untransformed = inverseMatrix.transform3(Vector3(
+                  viewportPoint.dx,
+                  viewportPoint.dy,
+                  0,
+                ));
+                return Offset(untransformed.x, untransformed.y);
+              }*/
+
+              Offset getPoint(Offset offset) {
+                var localOffset = (transformKey.currentContext?.findRenderObject() as RenderBox)
+                    .globalToLocal(offset);
+                var globalOffset = offset - localOffset;
+                globalOffset *= transform.up.y * transform.up.y;
+                // print("----------");
+                // print("Offset: $offset");
+                // print("Scale: ${transform.up.y}");
+                // print("----------");
+
+                return offset - globalOffset;
+              }
+
+              return SizedBox.expand(
+                child: Listener(
                   onPointerSignal: (pointerSignal) {
-                    /*if (pointerSignal is PointerScrollEvent) {
-                          // Scale the matrix
-                          var up = transform.up;
-                          if (up.y < 3.5 && pointerSignal.scrollDelta.dy < 0 ||
-                              up.y > 0.5 && pointerSignal.scrollDelta.dy > 0) {
-                            widget.bloc.add(TransformChanged(Matrix4.copy(transform)
-                              ..scale(1 - pointerSignal.scrollDelta.dy / 200,
-                                  1 - pointerSignal.scrollDelta.dy / 200, 1)
-                              ..translate(
-                                  pointerSignal.localPosition.dx *
-                                      pointerSignal.scrollDelta.dx /
-                                      200,
-                                  pointerSignal.localPosition.dy *
-                                      pointerSignal.scrollDelta.dy /
-                                      200,
-                                  0)));
-                          }
-                        }*/
+                    if (pointerSignal is PointerScrollEvent) {
+                      // Scale the matrix
+                      var up = transform.up;
+                      if (up.y < 3.5 && pointerSignal.scrollDelta.dy < 0 ||
+                          up.y > 0.5 && pointerSignal.scrollDelta.dy > 0) {
+                        widget.bloc.add(TransformChanged(Matrix4.copy(transform)
+                          ..scale(1 - pointerSignal.scrollDelta.dy / 200,
+                              1 - pointerSignal.scrollDelta.dy / 200, 1)
+                          ..translate(
+                              pointerSignal.localPosition.dx * pointerSignal.scrollDelta.dx / 200,
+                              pointerSignal.localPosition.dy * pointerSignal.scrollDelta.dy / 200,
+                              0)));
+                      }
+                    }
                   },
                   onPointerDown: (PointerDownEvent event) {
                     if (event.kind == PointerDeviceKind.stylus ||
-                        state.currentTool == ToolType.edit)
-                      widget.bloc.add(EditingLayerChanged(PaintElement(points: [
-                        (transformKey.currentContext?.findRenderObject() as RenderBox)
-                            .globalToLocal(event.position)
-                      ])));
+                        state.currentTool == ToolType.edit) {
+                      widget.bloc.add(
+                          EditingLayerChanged(PaintElement(points: [getPoint(event.position)])));
+                    }
                   },
                   onPointerUp: (PointerUpEvent event) {
                     if ((event.kind == PointerDeviceKind.stylus ||
                             state.currentTool == ToolType.edit) &&
                         state.currentEditLayer != null) {
-                      widget.bloc.add(LayerCreated());
+                      widget.bloc.add(const LayerCreated());
                     }
                   },
-                  behavior: HitTestBehavior.opaque,
+                  behavior: HitTestBehavior.translucent,
                   onPointerMove: (PointerMoveEvent event) {
                     var translation = transform.getTranslation();
                     if (event.kind != PointerDeviceKind.stylus &&
                         state.currentTool != ToolType.edit) {
-                      var next = Matrix4.copy(transform)
+                      widget.bloc.add(TransformChanged(Matrix4.copy(transform)
                         ..translate(
-                          event.localPosition.dx,
-                          event.localPosition.dy,
-                        );
-                      print(next == state.transform);
-                      widget.bloc.add(TransformChanged(next));
+                          ((translation.x + event.delta.dx * 4).clamp(-paintViewport.width, 0) -
+                                  translation.x) *
+                              transform.up.y,
+                          ((translation.y + event.delta.dy * 4).clamp(-paintViewport.height, 0) -
+                                  translation.y) *
+                              transform.up.y,
+                        )));
                     } else if (state.currentEditLayer != null &&
                         state.currentEditLayer is PaintElement) {
                       // Add point to custom paint
                       var layer = state.currentEditLayer as PaintElement;
-                      var offset = event.position;
-                      /*offset = Offset(offset.dx * transform.up.y * transform.up.y,
-                            offset.dy * transform.up.y);*/
-                      offset = ((transformKey.currentContext?.findRenderObject() as RenderBox)
-                          .globalToLocal(offset));
-                      widget.bloc.add(EditingLayerChanged(
-                          layer.copyWith(points: List.from(layer.points)..add(offset))));
+                      widget.bloc.add(EditingLayerChanged(layer.copyWith(
+                          points: List.from(layer.points)..add(getPoint(event.position)))));
                     }
                   },
-                  child: InteractiveViewer(
-                      constrained: false,
-                      panEnabled: false,
-                      scaleEnabled: false,
-                      transformationController: _transformationController,
-                      child: CustomPaint(
-                        key: transformKey,
-                        size: viewportSize,
-                        painter: PathPainter(state.document, state.currentEditLayer),
-                      )));
+                  child: ClipRect(
+                    child: OverflowBox(
+                      alignment: Alignment.topLeft,
+                      minWidth: paintViewport.width,
+                      maxWidth: paintViewport.width,
+                      minHeight: paintViewport.height,
+                      maxHeight: paintViewport.height,
+                      child: Transform(
+                        filterQuality: FilterQuality.high,
+                        transform: transform,
+                        child: SizedBox.fromSize(
+                          size: paintViewport,
+                          child: Container(
+                            color: Colors.white,
+                            child: CustomPaint(
+                              key: transformKey,
+                              size: paintViewport,
+                              painter: PathPainter(state.document, state.currentEditLayer),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
             }
             return Container();
           });
-    });
+        });
   }
 }
 
@@ -130,14 +165,14 @@ class PathPainter extends CustomPainter {
     path.cubicTo(0, 500, 0, 500, 5000, 500);
     path.addRect(Rect.fromLTWH(50, 50, 250, 100));
     canvas.drawPath(path, paint);
-    TextSpan span = new TextSpan(
-        style: new TextStyle(fontSize: 24, color: Colors.blue[800]), text: "Welcome to Butterfly");
+    TextSpan span = TextSpan(
+        style: TextStyle(fontSize: 24, color: Colors.blue[800]), text: "Welcome to Butterfly");
     TextPainter tp =
-        new TextPainter(text: span, textAlign: TextAlign.left, textDirection: TextDirection.ltr);
+        TextPainter(text: span, textAlign: TextAlign.left, textDirection: TextDirection.ltr);
     tp.layout();
     tp.paint(
         canvas,
-        new Offset(size.width / 2 - (tp.size.width / 2),
+        Offset(size.width / 2 - (tp.size.width / 2),
             size.height / 2 - (tp.size.height / 2) + offsetY));
     List.from(document.content)
       ..addAll([if (editingLayer != null) editingLayer])

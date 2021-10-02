@@ -23,7 +23,8 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: close_sinks
   late DocumentBloc _bloc;
-  final AppDocument document = AppDocument(name: "Document name");
+  final TextEditingController _scaleController = TextEditingController(text: "100");
+  final AppDocument document = const AppDocument(name: "Document name");
   @override
   void initState() {
     super.initState();
@@ -48,25 +49,26 @@ class _ProjectPageState extends State<ProjectPage> {
                       if (_bloc.state is DocumentLoadSuccess) {
                         var current = _bloc.state as DocumentLoadSuccess;
                         return Text(current.document.name);
-                      } else
-                        return Text("Loading...");
+                      } else {
+                        return const Text("Loading...");
+                      }
                     }),
                     actions: [
                       IconButton(
-                        icon: Icon(PhosphorIcons.arrowCounterClockwiseLight),
+                        icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
                         tooltip: "Undo",
                         onPressed: () {},
                       ),
                       IconButton(
-                        icon: Icon(PhosphorIcons.arrowClockwiseLight),
+                        icon: const Icon(PhosphorIcons.arrowClockwiseLight),
                         tooltip: "Redo",
                         onPressed: () {},
                       ),
                       IconButton(
-                          icon: Icon(PhosphorIcons.gearLight),
+                          icon: const Icon(PhosphorIcons.gearLight),
                           tooltip: "Project settings",
                           onPressed: () => _showProjectSettings(context)),
-                      IconButton(
+                      const IconButton(
                           icon: Icon(PhosphorIcons.linkLight),
                           tooltip: "Share (not implemented)",
                           onPressed: null)
@@ -75,13 +77,12 @@ class _ProjectPageState extends State<ProjectPage> {
                   var isMobile = constraints.maxWidth < 600;
                   var toolbar = SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child: Container(
-                          child: Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                        children: const [
                           MainViewToolbar(),
                         ],
-                      )));
+                      ));
                   Widget toolsSelection = Row(
                       mainAxisAlignment:
                           isMobile ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
@@ -90,6 +91,8 @@ class _ProjectPageState extends State<ProjectPage> {
                         BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
                           if (_bloc.state is DocumentLoadSuccess) {
                             var current = _bloc.state as DocumentLoadSuccess;
+                            _scaleController.text =
+                                ((current.transform?.up.y ?? 1) * 100).round().toString();
                             return SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child:
@@ -130,30 +133,47 @@ class _ProjectPageState extends State<ProjectPage> {
                                                   title: Text(e.toJson()["type"])),
                                               value: e))
                                           .toList(),
-                                      icon: Icon(PhosphorIcons.plusLight, size: 26)),
-                                  VerticalDivider(),
+                                      icon: const Icon(PhosphorIcons.plusLight, size: 26)),
+                                  const VerticalDivider(),
                                   IconButton(
-                                      icon: Icon(PhosphorIcons.magnifyingGlassPlusLight),
+                                      icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
                                       tooltip: "Zoom in",
                                       onPressed: () {}),
                                   IconButton(
-                                      icon: Icon(PhosphorIcons.magnifyingGlassLight),
+                                      icon: const Icon(PhosphorIcons.magnifyingGlassLight),
                                       tooltip: "Reset zoom",
                                       onPressed: () {}),
                                   IconButton(
-                                      icon: Icon(PhosphorIcons.magnifyingGlassMinusLight),
+                                      icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
                                       tooltip: "Zoom out",
                                       onPressed: () {}),
-                                  if (!isMobile) VerticalDivider()
+                                  ConstrainedBox(
+                                    constraints: const BoxConstraints(maxWidth: 100),
+                                    child: TextField(
+                                      controller: _scaleController,
+                                      onSubmitted: (value) {
+                                        var scale = double.tryParse(value) ?? 100;
+                                        scale /= 100;
+                                        setState(() => _bloc.add(TransformChanged(
+                                            Matrix4.copy(current.transform ?? Matrix4.identity()
+                                              ..scale(scale, scale, 1)))));
+                                      },
+                                      textAlign: TextAlign.center,
+                                      decoration: const InputDecoration(labelText: "Zoom"),
+                                    ),
+                                  ),
+                                  if (!isMobile) const VerticalDivider()
                                 ]));
-                          } else
+                          } else {
                             return Container();
+                          }
                         }),
                         if (!isMobile) Flexible(child: toolbar)
                       ]);
-                  if (isMobile)
+                  if (isMobile) {
                     toolsSelection = SingleChildScrollView(
                         scrollDirection: Axis.horizontal, child: toolsSelection);
+                  }
                   return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                     Container(
                       height: 75,

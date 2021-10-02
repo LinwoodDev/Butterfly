@@ -7,12 +7,12 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Settings")),
+        appBar: AppBar(title: const Text("Settings")),
         body: Scrollbar(
             child: SingleChildScrollView(
                 child: Column(children: [
           ListTile(
-              title: Text("Personalization"),
+              title: const Text("Personalization"),
               onTap: () => Modular.to.pushNamed("/settings/personalization"))
         ]))));
   }

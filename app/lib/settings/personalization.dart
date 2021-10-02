@@ -12,11 +12,11 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Personalization")),
+        appBar: AppBar(title: const Text("Personalization")),
         body: Builder(
           builder: (context) => ListView(children: [
             ListTile(
-                title: Text("Theme"),
+                title: const Text("Theme"),
                 subtitle: Text(ThemeController.of(context)?.currentTheme.toString() ?? ""),
                 onTap: () => _openThemeModal())
           ]),
@@ -29,10 +29,10 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
         context: context,
         builder: (context) {
           return Container(
-              margin: EdgeInsets.only(bottom: 20),
+              margin: const EdgeInsets.only(bottom: 20),
               child: ListView(shrinkWrap: true, children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Text(
                     "Theme",
                     style: Theme.of(context).textTheme.headline5,
@@ -40,19 +40,19 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
                   ),
                 ),
                 ListTile(
-                    title: Text("System"),
+                    title: const Text("System"),
                     selected: _currentTheme == ThemeMode.system,
-                    leading: Icon(Icons.settings_outlined),
+                    leading: const Icon(Icons.settings_outlined),
                     onTap: () => Navigator.of(context).pop(ThemeMode.system)),
                 ListTile(
-                    title: Text("Light"),
+                    title: const Text("Light"),
                     selected: _currentTheme == ThemeMode.light,
-                    leading: Icon(Icons.wb_sunny_outlined),
+                    leading: const Icon(Icons.wb_sunny_outlined),
                     onTap: () => Navigator.of(context).pop(ThemeMode.light)),
                 ListTile(
-                    title: Text("Dark"),
+                    title: const Text("Dark"),
                     selected: _currentTheme == ThemeMode.dark,
-                    leading: Icon(Icons.nightlight_round),
+                    leading: const Icon(Icons.nightlight_round),
                     onTap: () => Navigator.of(context).pop(ThemeMode.dark)),
                 const SizedBox(height: 32),
               ]));
