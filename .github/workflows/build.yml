@@ -21,6 +21,9 @@ jobs:
         run: |
           cd app
           flutter pub get
+      - uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r21e
       #- run: flutter test
       - name: 🏭 Build
         run: |
