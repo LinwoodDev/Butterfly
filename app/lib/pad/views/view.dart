@@ -159,7 +159,6 @@ class PathPainter extends CustomPainter {
       ..color = Colors.yellow
       ..style = PaintingStyle.stroke
       ..strokeWidth = 8.0;
-    const offsetY = -200;
     Path path = Path();
     path.cubicTo(0, 500, 0, 500, 5000, 500);
     path.addRect(const Rect.fromLTWH(50, 50, 250, 100));
