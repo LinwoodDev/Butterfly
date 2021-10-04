@@ -41,31 +41,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
               var paintViewport = Size(translation.x * 4 + viewportSize.width * 4,
                   translation.y * 4 + viewportSize.height * 4);
               _controller.value = state.transform ?? _controller.value;
-              /*Offset toScene(Offset viewportPoint) {
-                // On viewportPoint, perform the inverse transformation of the scene to get
-                // where the point would be in the scene before the transformation.
-                final Matrix4 inverseMatrix = Matrix4.inverted(transform);
-                final Vector3 untransformed = inverseMatrix.transform3(Vector3(
-                  viewportPoint.dx,
-                  viewportPoint.dy,
-                  0,
-                ));
-                return Offset(untransformed.x, untransformed.y);
-              }*/
-
-              Offset getPoint(Offset offset) {
-                var localOffset = (transformKey.currentContext?.findRenderObject() as RenderBox)
-                    .globalToLocal(offset);
-                var globalOffset = offset - localOffset;
-                globalOffset *= transform.up.y * transform.up.y;
-                // print("----------");
-                // print("Offset: $offset");
-                // print("Scale: ${transform.up.y}");
-                // print("----------");
-
-                return offset - globalOffset;
-              }
-
               return SizedBox.expand(
                 child: Listener(
                   onPointerSignal: (pointerSignal) {
@@ -104,7 +79,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   },
                   behavior: HitTestBehavior.translucent,
                   onPointerMove: (PointerMoveEvent event) {
-                    var translation = transform.getTranslation();
                     if ((event.kind == PointerDeviceKind.stylus ||
                             state.currentTool == ToolType.edit) &&
                         state.currentEditLayer != null &&

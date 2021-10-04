@@ -91,8 +91,15 @@ class _ProjectPageState extends State<ProjectPage> {
                         BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
                           if (_bloc.state is DocumentLoadSuccess) {
                             var current = _bloc.state as DocumentLoadSuccess;
-                            _scaleController.text =
-                                ((current.transform?.up.y ?? 1) * 100).round().toString();
+                            var currentScale = current.transform?.up.y ?? 1;
+                            _scaleController.text = (currentScale * 100).round().toString();
+                            void setScale(double scale) {
+                              scale /= currentScale;
+                              setState(() => _bloc.add(TransformChanged(
+                                  Matrix4.copy(current.transform ?? Matrix4.identity()
+                                    ..scale(scale, scale, 1)))));
+                            }
+
                             return SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child:
@@ -138,15 +145,22 @@ class _ProjectPageState extends State<ProjectPage> {
                                   IconButton(
                                       icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
                                       tooltip: "Zoom in",
-                                      onPressed: () {}),
+                                      onPressed: () {
+                                        setScale(currentScale + 0.05);
+                                      }),
                                   IconButton(
                                       icon: const Icon(PhosphorIcons.magnifyingGlassLight),
                                       tooltip: "Reset zoom",
-                                      onPressed: () {}),
+                                      onPressed: () {
+                                        setScale(1);
+                                      }),
                                   IconButton(
                                       icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
                                       tooltip: "Zoom out",
-                                      onPressed: () {}),
+                                      onPressed: () {
+                                        setScale(currentScale - 0.05);
+                                      }),
+                                  const SizedBox(width: 20),
                                   ConstrainedBox(
                                     constraints: const BoxConstraints(maxWidth: 100),
                                     child: TextField(
@@ -154,9 +168,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                       onSubmitted: (value) {
                                         var scale = double.tryParse(value) ?? 100;
                                         scale /= 100;
-                                        setState(() => _bloc.add(TransformChanged(
-                                            Matrix4.copy(current.transform ?? Matrix4.identity()
-                                              ..scale(scale, scale, 1)))));
+                                        setScale(scale);
                                       },
                                       textAlign: TextAlign.center,
                                       decoration: const InputDecoration(labelText: "Zoom"),
