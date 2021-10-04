@@ -18,10 +18,14 @@ class MainViewViewport extends StatefulWidget {
 }
 
 class _MainViewViewportState extends State<MainViewViewport> {
+  bool _moveEnabled = false;
+  late TransformationController _controller;
   GlobalKey transformKey = GlobalKey();
   @override
   void initState() {
     super.initState();
+    _controller = TransformationController();
+    _controller.addListener(() => widget.bloc.add(TransformChanged(_controller.value)));
   }
 
   @override
@@ -36,6 +40,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
               var translation = -transform.getTranslation();
               var paintViewport = Size(translation.x * 4 + viewportSize.width * 4,
                   translation.y * 4 + viewportSize.height * 4);
+              _controller.value = state.transform ?? _controller.value;
               /*Offset toScene(Offset viewportPoint) {
                 // On viewportPoint, perform the inverse transformation of the scene to get
                 // where the point would be in the scene before the transformation.
@@ -82,8 +87,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   onPointerDown: (PointerDownEvent event) {
                     if (event.kind == PointerDeviceKind.stylus ||
                         state.currentTool == ToolType.edit) {
-                      widget.bloc.add(
-                          EditingLayerChanged(PaintElement(points: [getPoint(event.position)])));
+                      widget.bloc.add(EditingLayerChanged(
+                          PaintElement(points: [_controller.toScene(event.localPosition)])));
+                    } else if (event.kind != PointerDeviceKind.stylus &&
+                        state.currentTool == ToolType.view) {
+                      setState(() => _moveEnabled = true);
                     }
                   },
                   onPointerUp: (PointerUpEvent event) {
@@ -92,50 +100,33 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         state.currentEditLayer != null) {
                       widget.bloc.add(const LayerCreated());
                     }
+                    setState(() => _moveEnabled = false);
                   },
                   behavior: HitTestBehavior.translucent,
                   onPointerMove: (PointerMoveEvent event) {
                     var translation = transform.getTranslation();
-                    if (event.kind != PointerDeviceKind.stylus &&
-                        state.currentTool != ToolType.edit) {
-                      widget.bloc.add(TransformChanged(Matrix4.copy(transform)
-                        ..translate(
-                          ((translation.x + event.delta.dx * 4).clamp(-paintViewport.width, 0) -
-                                  translation.x) /
-                              transform.up.y,
-                          ((translation.y + event.delta.dy * 4).clamp(-paintViewport.height, 0) -
-                                  translation.y) /
-                              transform.up.y,
-                        )));
-                    } else if (state.currentEditLayer != null &&
+                    if ((event.kind == PointerDeviceKind.stylus ||
+                            state.currentTool == ToolType.edit) &&
+                        state.currentEditLayer != null &&
                         state.currentEditLayer is PaintElement) {
                       // Add point to custom paint
                       var layer = state.currentEditLayer as PaintElement;
                       widget.bloc.add(EditingLayerChanged(layer.copyWith(
-                          points: List.from(layer.points)..add(getPoint(event.position)))));
+                          points: List.from(layer.points)
+                            ..add(_controller.toScene(event.localPosition)))));
                     }
                   },
-                  child: ClipRect(
-                    child: OverflowBox(
-                      alignment: Alignment.topLeft,
-                      minWidth: paintViewport.width,
-                      maxWidth: paintViewport.width,
-                      minHeight: paintViewport.height,
-                      maxHeight: paintViewport.height,
-                      child: Transform(
-                        filterQuality: FilterQuality.high,
-                        transform: transform,
-                        child: SizedBox.fromSize(
-                          size: paintViewport,
-                          child: Container(
-                            color: Colors.white,
-                            child: CustomPaint(
-                              key: transformKey,
-                              size: paintViewport,
-                              painter: PathPainter(state.document, state.currentEditLayer),
-                            ),
-                          ),
-                        ),
+                  child: InteractiveViewer(
+                    constrained: false,
+                    transformationController: _controller,
+                    panEnabled: _moveEnabled,
+                    scaleEnabled: _moveEnabled,
+                    child: Container(
+                      color: Colors.white,
+                      child: CustomPaint(
+                        key: transformKey,
+                        size: paintViewport,
+                        painter: PathPainter(state.document, state.currentEditLayer),
                       ),
                     ),
                   ),

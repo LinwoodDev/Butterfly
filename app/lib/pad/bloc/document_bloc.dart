@@ -3,6 +3,7 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 
 part 'document_event.dart';
