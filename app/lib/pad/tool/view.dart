@@ -49,11 +49,11 @@ class _ViewToolbarState extends State<ViewToolbar> {
               });
             });
       }),
-      IconButton(icon: const Icon(PhosphorIcons.printerLight), tooltip: "Print", onPressed: () {}),
+      /*IconButton(icon: const Icon(PhosphorIcons.printerLight), tooltip: "Print", onPressed: () {}),
       IconButton(
           icon: const Icon(PhosphorIcons.monitorPlayLight),
           tooltip: "Presentation",
-          onPressed: () {})
+          onPressed: () {})*/
     ]);
   }
 }
