@@ -10,7 +10,7 @@ class PaintElement extends PathElement {
       : super(points: points, strokeWidth: strokeWidth);
 
   PaintElement.fromJson(Map<String, dynamic> json)
-      : color = Color(json['color']),
+      : color = json['color'] == null ? Colors.black : Color(json['color']),
         super.fromJson(json);
 
   @override

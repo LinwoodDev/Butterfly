@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'toolbar.dart';
 import 'view.dart';
@@ -20,32 +23,37 @@ class ProjectPage extends StatefulWidget {
 
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: close_sinks
-  late DocumentBloc _bloc;
+  DocumentBloc? _bloc;
   final TextEditingController _scaleController = TextEditingController(text: "100");
-  final AppDocument document = const AppDocument(name: "Document name");
   @override
   void initState() {
     super.initState();
     if (widget.id == null) {
       Modular.to.navigate("/");
     }
-    _bloc = DocumentBloc(document);
+    SharedPreferences.getInstance().then((value) {
+      var index = int.tryParse(widget.id ?? "") ?? 0;
+      setState(() => _bloc = DocumentBloc(
+          AppDocument.fromJson(jsonDecode((value.getStringList("documents") ?? [])[index])),
+          index));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var tools = ToolType.values;
+    if (_bloc == null) return const Center(child: CircularProgressIndicator());
     return DefaultTabController(
         length: tools.length,
         initialIndex: 1,
         child: BlocProvider(
-            create: (_) => _bloc,
+            create: (_) => _bloc!,
             child: Scaffold(
                 appBar: AppBar(
                     centerTitle: true,
                     title: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                      if (_bloc.state is DocumentLoadSuccess) {
-                        var current = _bloc.state as DocumentLoadSuccess;
+                      if (_bloc!.state is DocumentLoadSuccess) {
+                        var current = _bloc!.state as DocumentLoadSuccess;
                         return Text(current.document.name);
                       } else {
                         return const Text("Loading...");
@@ -78,7 +86,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          MainViewToolbar(bloc: _bloc),
+                          MainViewToolbar(bloc: _bloc!),
                         ],
                       ));
                   Widget toolsSelection = Row(
@@ -87,13 +95,13 @@ class _ProjectPageState extends State<ProjectPage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                          if (_bloc.state is DocumentLoadSuccess) {
-                            var current = _bloc.state as DocumentLoadSuccess;
+                          if (_bloc!.state is DocumentLoadSuccess) {
+                            var current = _bloc!.state as DocumentLoadSuccess;
                             var currentScale = current.transform?.up.y ?? 1;
                             _scaleController.text = (currentScale * 100).toStringAsFixed(2);
                             void setScale(double scale) {
                               scale /= currentScale;
-                              setState(() => _bloc.add(TransformChanged(
+                              setState(() => _bloc!.add(TransformChanged(
                                   Matrix4.copy(current.transform ?? Matrix4.identity()
                                     ..scale(scale, scale, 1)))));
                             }
@@ -122,7 +130,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                           : null,
                                       tooltip: e.toString(),
                                       onPressed: () {
-                                        _bloc.add(ToolChanged(e));
+                                        _bloc!.add(ToolChanged(e));
                                       },
                                     );
                                   }).toList(),
@@ -178,7 +186,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       padding: const EdgeInsets.all(12.0),
                       child: toolsSelection,
                     ),
-                    Expanded(child: MainViewViewport(bloc: _bloc)),
+                    Expanded(child: MainViewViewport(bloc: _bloc!)),
                     if (isMobile) Align(alignment: Alignment.center, child: toolbar)
                   ]);
                 }))));

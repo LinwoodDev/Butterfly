@@ -23,14 +23,14 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
   Widget build(BuildContext context) {
     return Dialog(
         child: DefaultTabController(
-            length: 2,
+            length: 1,
             child: Container(
                 constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
                 child: Column(children: [
                   const TabBar(
                     tabs: [
                       Tab(icon: Icon(PhosphorIcons.fadersLight), text: "General"),
-                      Tab(icon: Icon(PhosphorIcons.packageLight), text: "Packs")
+                      //Tab(icon: Icon(PhosphorIcons.packageLight), text: "Packs")
                     ],
                   ),
                   Expanded(
@@ -43,7 +43,7 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                             decoration: const InputDecoration(labelText: "Name"))
                       ]),
                     ),
-                    const Icon(Icons.directions_transit)
+                    //const Icon(Icons.directions_transit)
                   ])),
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

@@ -5,6 +5,8 @@ import 'package:flutter/painting.dart';
 class EraserElement extends PathElement {
   EraserElement({List<Offset> points = const [], double strokeWidth = 5})
       : super(points: points, strokeWidth: strokeWidth);
+  EraserElement.fromJson(Map<String, dynamic> json) : super.fromJson(json);
+
   @override
   Paint buildPaint() => Paint()
     ..strokeWidth = strokeWidth
@@ -23,6 +25,9 @@ class EraserElement extends PathElement {
     }
     return path;
   }
+
+  @override
+  Map<String, dynamic> toJson() => super.toJson()..addAll({'type': 'eraser'});
 
   @override
   EraserElement copyWith({List<Offset>? points, double? strokeWidth}) => EraserElement(

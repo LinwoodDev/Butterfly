@@ -7,7 +7,7 @@ abstract class PathElement extends ElementLayer {
 
   PathElement({this.points = const [], this.strokeWidth = 5});
   PathElement.fromJson(Map<String, dynamic> json)
-      : points = (json['points'] as List<Map<String, dynamic>>)
+      : points = List<Map<String, dynamic>>.from(json['points'])
             .map((e) => Offset(e['x'], e['y']))
             .toList(),
         strokeWidth = json['strokeWidth'];

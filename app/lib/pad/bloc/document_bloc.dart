@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
@@ -6,21 +8,22 @@ import 'package:butterfly/painter/painter.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'document_event.dart';
 part 'document_state.dart';
 
 class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
-  DocumentBloc(AppDocument document) : super(DocumentLoadSuccess(document)) {
-    on<EditingLayerChanged>((event, emit) {
+  DocumentBloc(AppDocument document, int documentIndex)
+      : super(DocumentLoadSuccess(document, documentIndex: documentIndex)) {
+    on<EditingLayerChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = (state as DocumentLoadSuccess);
         emit(current.copyWith(currentEditLayer: event.editingLayer));
-        _saveDocument();
       }
     });
 
-    on<LayerCreated>((event, emit) {
+    on<LayerCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = (state as DocumentLoadSuccess);
         emit(current.copyWith(
@@ -33,7 +36,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         _saveDocument();
       }
     });
-    on<LayersRemoved>((event, emit) {
+    on<LayersRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = (state as DocumentLoadSuccess);
         emit(current.copyWith(
@@ -43,7 +46,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         _saveDocument();
       }
     });
-    on<DocumentNameChanged>((event, emit) {
+    on<DocumentNameChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = (state as DocumentLoadSuccess);
         emit(current.copyWith(document: current.document.copyWith(name: event.name)));
@@ -51,26 +54,25 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
       }
     });
 
-    on<ToolChanged>((event, emit) {
+    on<ToolChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         emit((state as DocumentLoadSuccess).copyWith(currentTool: event.tool));
-        _saveDocument();
       }
     });
 
-    on<TransformChanged>((event, emit) {
+    on<TransformChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         emit((state as DocumentLoadSuccess).copyWith(transform: event.transform));
         _saveDocument();
       }
     });
-    on<CurrentPainterChanged>((event, emit) {
+    on<CurrentPainterChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         emit((state as DocumentLoadSuccess).copyWith(currentPainterIndex: event.painter));
         _saveDocument();
       }
     });
-    on<PainterCreated>((event, emit) {
+    on<PainterCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
@@ -79,7 +81,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         _saveDocument();
       }
     });
-    on<PainterChanged>((event, emit) {
+    on<PainterChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
@@ -88,7 +90,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         _saveDocument();
       }
     });
-    on<PainterRemoved>((event, emit) {
+    on<PainterRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
@@ -97,7 +99,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         _saveDocument();
       }
     });
-    on<PainterReordered>((event, emit) {
+    on<PainterReordered>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         var painters = List<Painter>.from(current.document.painters);
@@ -116,11 +118,14 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                     ? oldIndex
                     : current.currentPainterIndex));
         _saveDocument();
-        _saveDocument();
-        _saveDocument();
       }
     });
   }
 
-  void _saveDocument() {}
+  Future<void> _saveDocument() async {
+    if (state is DocumentLoadSuccess) {
+      var current = state as DocumentLoadSuccess;
+      await current.save();
+    }
+  }
 }

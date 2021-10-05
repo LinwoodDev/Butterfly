@@ -14,7 +14,7 @@ class PenPainter extends Painter {
       String name = ''})
       : super(name: name);
   PenPainter.fromJson(Map<String, dynamic> json)
-      : color = json['color'] ?? Colors.black,
+      : color = json['color'] == null ? Colors.black : Color(json['color']),
         strokeWidth = json['stroke-width'] ?? 5,
         strokeMultiplier = json['stroke-multiplier'] ?? 1,
         super.fromJson(json);
@@ -29,7 +29,7 @@ class PenPainter extends Painter {
   Map<String, dynamic> toJson() => super.toJson()
     ..addAll({
       "type": "pen",
-      "color": color,
+      "color": color.value,
       "stroke-width": strokeWidth,
       "stroke-multiplier": strokeMultiplier
     });

@@ -1,3 +1,4 @@
+import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/painter.dart';
 import 'package:butterfly/painter/path_eraser.dart';
@@ -25,30 +26,34 @@ class AppDocument {
   AppDocument.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         description = json['description'],
-        painters = (json['painters'] as List<Map<String, dynamic>>).map<Painter>((e) {
+        painters = List<Map<String, dynamic>>.from(json['painters']).map<Painter>((e) {
           switch (e['type']) {
             case 'eraser':
               return EraserPainter.fromJson(e);
             case 'path-eraser':
               return PathEraserPainter.fromJson(e);
-            case 'pen':
-              return PenPainter.fromJson(e);
             case 'label':
               return LabelPainter.fromJson(e);
             default:
-              throw Exception('Unknown element type: ${e['type']}');
+              return PenPainter.fromJson(e);
           }
         }).toList(),
-        content = (json['content'] as List<Map<String, dynamic>>).map<ElementLayer>((e) {
+        content = List<Map<String, dynamic>>.from(json['content']).map<ElementLayer>((e) {
           switch (e['type']) {
             case 'label':
               return LabelElement.fromJson(e);
-            case 'paint':
-              return PaintElement.fromJson(e);
+            case 'eraser':
+              return EraserElement.fromJson(e);
             default:
-              throw Exception('Unknown element type: ${e['type']}');
+              return PaintElement.fromJson(e);
           }
         }).toList();
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "description": description,
+        "painters": painters.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
+        "content": content.map<Map<String, dynamic>>((e) => e.toJson()).toList()
+      };
   AppDocument copyWith(
       {String? name, String? description, List<ElementLayer>? content, List<Painter>? painters}) {
     return AppDocument(
