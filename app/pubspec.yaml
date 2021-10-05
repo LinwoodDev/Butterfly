@@ -22,6 +22,7 @@ dependencies:
   equatable: ^2.0.3
   flutter_bloc: ^7.3.0
   flutter_modular: ^4.1.1
+  path_provider: ^2.0.5
   shared_preferences: ^2.0.8
   url_launcher: ^6.0.12
   msix: ^2.2.3

@@ -29,7 +29,7 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
       Widget toolbar;
       switch (current.currentTool) {
         case ToolType.view:
-          toolbar = const ViewToolbar();
+          toolbar = ViewToolbar(bloc: widget.bloc);
           break;
         case ToolType.edit:
           toolbar = EditToolbar(bloc: widget.bloc);
