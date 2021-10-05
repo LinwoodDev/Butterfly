@@ -43,4 +43,9 @@ class PaintElement extends ElementLayer {
       color: color ?? this.color,
       points: points ?? this.points,
       strokeWidth: strokeWidth ?? this.strokeWidth);
+
+  @override
+  bool hit(Offset offset) => points.any((element) =>
+      (element.dx - offset.dx).abs() <= strokeWidth &&
+      (element.dy - offset.dy).abs() <= strokeWidth);
 }

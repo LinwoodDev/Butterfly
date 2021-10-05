@@ -79,8 +79,8 @@ class _ProjectPageState extends State<ProjectPage> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          MainViewToolbar(),
+                        children: [
+                          MainViewToolbar(bloc: _bloc),
                         ],
                       ));
                   Widget toolsSelection = Row(

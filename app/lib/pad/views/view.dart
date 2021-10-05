@@ -41,6 +41,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
               var paintViewport = Size(translation.x * 4 + viewportSize.width * 4,
                   translation.y * 4 + viewportSize.height * 4);
               _controller.value = state.transform ?? _controller.value;
+              List<ElementLayer> raycast(Offset offset) {
+                return state.document.content.where((element) => element.hit(offset)).toList();
+              }
+
               return SizedBox.expand(
                 child: Listener(
                   onPointerSignal: (pointerSignal) {
@@ -51,19 +55,18 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           up.y > 0.5 && pointerSignal.scrollDelta.dy > 0) {
                         widget.bloc.add(TransformChanged(Matrix4.copy(transform)
                           ..scale(1 - pointerSignal.scrollDelta.dy / 200,
-                              1 - pointerSignal.scrollDelta.dy / 200, 1)
-                          ..translate(
-                              pointerSignal.localPosition.dx * pointerSignal.scrollDelta.dx / 200,
-                              pointerSignal.localPosition.dy * pointerSignal.scrollDelta.dy / 200,
-                              0)));
+                              1 - pointerSignal.scrollDelta.dy / 200, 1)));
                       }
                     }
                   },
                   onPointerDown: (PointerDownEvent event) {
                     if (event.kind == PointerDeviceKind.stylus ||
-                        state.currentTool == ToolType.edit) {
-                      widget.bloc.add(EditingLayerChanged(
-                          PaintElement(points: [_controller.toScene(event.localPosition)])));
+                        state.currentTool == ToolType.edit && !state.editOption.eraser) {
+                      widget.bloc.add(EditOptionChanged(state.editOption.copyWith(eraser: false)));
+                      widget.bloc.add(EditingLayerChanged(PaintElement(
+                          color: state.editOption.color,
+                          strokeWidth: state.editOption.strokeWidth,
+                          points: [_controller.toScene(event.localPosition)])));
                     } else if (event.kind != PointerDeviceKind.stylus &&
                         state.currentTool == ToolType.view) {
                       setState(() => _moveEnabled = true);
@@ -80,20 +83,26 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   behavior: HitTestBehavior.translucent,
                   onPointerMove: (PointerMoveEvent event) {
                     if ((event.kind == PointerDeviceKind.stylus ||
-                            state.currentTool == ToolType.edit) &&
-                        state.currentEditLayer != null &&
-                        state.currentEditLayer is PaintElement) {
-                      // Add point to custom paint
-                      var layer = state.currentEditLayer as PaintElement;
-                      widget.bloc.add(EditingLayerChanged(layer.copyWith(
-                          points: List.from(layer.points)
-                            ..add(_controller.toScene(event.localPosition)))));
+                        state.currentTool == ToolType.edit)) {
+                      if (state.editOption.eraser) {
+                        widget.bloc
+                            .add(LayersRemoved(raycast(_controller.toScene(event.localPosition))));
+                      } else if (state.currentEditLayer != null &&
+                          state.currentEditLayer is PaintElement) {
+                        // Add point to custom paint
+                        var layer = state.currentEditLayer as PaintElement;
+                        widget.bloc.add(EditingLayerChanged(layer.copyWith(
+                            points: List.from(layer.points)
+                              ..add(_controller.toScene(event.localPosition)))));
+                      }
                     }
                   },
                   child: InteractiveViewer(
                     constrained: false,
                     transformationController: _controller,
                     panEnabled: _moveEnabled,
+                    minScale: 0.5,
+                    maxScale: 2.5,
                     scaleEnabled: _moveEnabled,
                     child: Container(
                       color: Colors.white,

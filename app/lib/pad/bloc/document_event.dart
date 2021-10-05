@@ -15,6 +15,14 @@ class LayerCreated extends DocumentEvent {
   List<Object?> get props => [layer];
 }
 
+class LayersRemoved extends DocumentEvent {
+  final List<ElementLayer> layers;
+
+  const LayersRemoved(this.layers);
+  @override
+  List<Object?> get props => [layers];
+}
+
 class DocumentNameChanged extends DocumentEvent {
   final String name;
 
@@ -48,4 +56,13 @@ class EditingLayerChanged extends DocumentEvent {
 
   @override
   List<Object?> get props => [editingLayer];
+}
+
+class PainterChanged extends DocumentEvent {
+  final Painter? painter;
+
+  const PainterChanged(this.painter);
+
+  @override
+  List<Object?> get props => [painter];
 }

@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(title: const Text("Butterfly"), actions: [
           IconButton(
               icon: const Icon(PhosphorIcons.gearLight),
-              onPressed: () => Modular.to.pushNamed("/settings"))
+              onPressed: () => Modular.to.pushNamed("/settings/"))
         ]),
         body: SingleChildScrollView(
             child: Align(

@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/tool.dart';
+import 'package:butterfly/painter/painter.dart';
+import 'package:butterfly/painter/pen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
@@ -32,6 +34,16 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         _saveDocument();
       }
     });
+    on<LayersRemoved>((event, emit) {
+      if (state is DocumentLoadSuccess) {
+        var current = (state as DocumentLoadSuccess);
+        emit(current.copyWith(
+            document: current.document.copyWith(
+                content: List.from(current.document.content)
+                  ..removeWhere((element) => event.layers.contains(element)))));
+        _saveDocument();
+      }
+    });
     on<DocumentNameChanged>((event, emit) {
       if (state is DocumentLoadSuccess) {
         var current = (state as DocumentLoadSuccess);
@@ -50,6 +62,18 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
     on<TransformChanged>((event, emit) {
       if (state is DocumentLoadSuccess) {
         emit((state as DocumentLoadSuccess).copyWith(transform: event.transform));
+        _saveDocument();
+      }
+    });
+    on<EditOptionChanged>((event, emit) {
+      if (state is DocumentLoadSuccess) {
+        emit((state as DocumentLoadSuccess).copyWith(editOption: event.option));
+        _saveDocument();
+      }
+    });
+    on<PainterChanged>((event, emit) {
+      if (state is DocumentLoadSuccess) {
+        emit((state as DocumentLoadSuccess).copyWith(currentPainter: event.painter));
         _saveDocument();
       }
     });

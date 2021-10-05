@@ -9,7 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 enum SelectMode { add, replace, remove }
 
 class MainViewToolbar extends StatefulWidget {
-  const MainViewToolbar({Key? key}) : super(key: key);
+  final DocumentBloc bloc;
+  const MainViewToolbar({Key? key, required this.bloc}) : super(key: key);
 
   @override
   _MainViewToolbarState createState() => _MainViewToolbarState();
@@ -25,6 +26,7 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       var current = state as DocumentLoadSuccess;
+
       Widget toolbar;
       switch (current.currentTool) {
         case ToolType.view:
@@ -34,7 +36,7 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
           toolbar = const ObjectToolbar();
           break;
         case ToolType.edit:
-          toolbar = const EditToolbar();
+          toolbar = EditToolbar(bloc: widget.bloc);
           break;
       }
       return Row(

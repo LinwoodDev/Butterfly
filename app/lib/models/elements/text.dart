@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'element.dart';
 
 class TextElement extends ElementLayer {
@@ -9,4 +11,7 @@ class TextElement extends ElementLayer {
         size = json['size'];
   @override
   Map<String, dynamic> toJson() => {'text': text, 'size': size, 'type': 'text'};
+
+  @override
+  bool hit(Offset offset) => false;
 }
