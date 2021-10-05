@@ -1,4 +1,5 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/pad/dialogs/color_pick.dart';
 import 'package:butterfly/painter/pen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,9 +29,13 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
         return Container(
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: StatefulBuilder(builder: (context, setState) {
-              _nameController.text = painter.name;
-              _strokeWidthController.text = painter.strokeWidth.toStringAsFixed(2);
-              _strokeMultiplierController.text = painter.strokeMultiplier.toStringAsFixed(2);
+              if (_nameController.text != painter.name) _nameController.text = painter.name;
+              if (_strokeWidthController.text != painter.strokeWidth.toStringAsFixed(2)) {
+                _strokeWidthController.text = painter.strokeWidth.toStringAsFixed(2);
+              }
+              if (_strokeMultiplierController.text != painter.strokeMultiplier.toStringAsFixed(2)) {
+                _strokeMultiplierController.text = painter.strokeMultiplier.toStringAsFixed(2);
+              }
               return Scaffold(
                   appBar: AppBar(
                     title: const Text("Pen painter"),
@@ -44,7 +49,9 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                           child: ListView(children: [
                             TextField(
                                 decoration: const InputDecoration(labelText: "Name"),
-                                controller: _nameController),
+                                controller: _nameController,
+                                onChanged: (value) =>
+                                    setState(() => painter = painter.copyWith(name: value))),
                             Row(children: [
                               ConstrainedBox(
                                   constraints: const BoxConstraints(maxWidth: 100),
@@ -81,13 +88,60 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                     onChanged: (value) => setState(
                                         () => painter = painter.copyWith(strokeMultiplier: value))),
                               )
-                            ])
+                            ]),
+                            const SizedBox(height: 50),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                    onTap: () async {
+                                      var color = await showDialog(
+                                          context: context,
+                                          builder: (context) => const ColorPickerDialog());
+                                      if (color != null) {
+                                        setState(() => painter = painter.copyWith(color: color));
+                                      }
+                                    },
+                                    child: Container(
+                                        constraints:
+                                            const BoxConstraints(maxWidth: 100, maxHeight: 100),
+                                        color: painter.color)),
+                              ],
+                            )
                           ]),
                         ),
                         const Divider(),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+                            OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                  primary: Theme.of(context).colorScheme.error),
+                              child: const Text("DELETE"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                            actions: [
+                                              TextButton(
+                                                child: const Text("NO"),
+                                                onPressed: () => Navigator.of(context).pop(),
+                                              ),
+                                              TextButton(
+                                                child: const Text("YES"),
+                                                onPressed: () {
+                                                  widget.bloc
+                                                      .add(PainterRemoved(widget.painterIndex));
+                                                  Navigator.of(context).pop();
+                                                },
+                                              )
+                                            ],
+                                            title: const Text("Are you sure?"),
+                                            content: const Text(
+                                                "Do you really want to delete this pen?")));
+                              },
+                            ),
+                            Expanded(child: Container()),
                             TextButton(
                               child: const Text("CANCEL"),
                               onPressed: () => Navigator.of(context).pop(),

@@ -55,9 +55,12 @@ class _EditToolbarState extends State<EditToolbar> {
             var type = e.toJson()['type'];
             var selected =
                 i == state.currentPainterIndex.clamp(0, state.document.painters.length - 1);
+            String? tooltip = e.name.trim();
+            if (tooltip == "") tooltip = null;
             return MapEntry(
                 i,
                 IconButton(
+                    tooltip: tooltip,
                     color: selected ? Theme.of(context).colorScheme.primary : null,
                     icon: Icon(selected ? getPainterActiveIcon(type) : getPainterIcon(type)),
                     onPressed: () {

@@ -26,8 +26,12 @@ class DocumentLoadSuccess extends DocumentState {
   List<Object?> get props =>
       [document, currentTool, currentEditLayer, transform, currentPainterIndex];
 
-  Painter get currentPainter =>
-      document.painters[currentPainterIndex.clamp(0, document.painters.length - 1)];
+  Painter? get currentPainter {
+    if (document.painters.isEmpty) {
+      return null;
+    }
+    return document.painters[currentPainterIndex.clamp(0, document.painters.length - 1)];
+  }
 
   DocumentLoadSuccess copyWith(
       {AppDocument? document,

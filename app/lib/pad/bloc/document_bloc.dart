@@ -88,6 +88,15 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         _saveDocument();
       }
     });
+    on<PainterRemoved>((event, emit) {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        emit(current.copyWith(
+            document: current.document
+                .copyWith(painters: List.from(current.document.painters)..removeAt(event.index))));
+        _saveDocument();
+      }
+    });
   }
 
   void _saveDocument() {}

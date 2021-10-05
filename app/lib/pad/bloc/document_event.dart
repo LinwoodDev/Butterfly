@@ -85,3 +85,12 @@ class PainterChanged extends DocumentEvent {
   @override
   List<Object?> get props => [painter, index];
 }
+
+class PainterRemoved extends DocumentEvent {
+  final int index;
+
+  const PainterRemoved(this.index);
+
+  @override
+  List<Object?> get props => [index];
+}
