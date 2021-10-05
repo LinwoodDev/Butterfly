@@ -3,6 +3,8 @@ import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/paint.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/painter/path_eraser.dart';
+import 'package:butterfly/painter/pen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -60,12 +62,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     }
                   },
                   onPointerDown: (PointerDownEvent event) {
-                    if (event.kind == PointerDeviceKind.stylus ||
-                        state.currentTool == ToolType.edit && !state.editOption.eraser) {
-                      widget.bloc.add(EditOptionChanged(state.editOption.copyWith(eraser: false)));
+                    if ((event.kind == PointerDeviceKind.stylus ||
+                            state.currentTool == ToolType.edit) &&
+                        state.currentPainter is PenPainter) {
+                      var painter = state.currentPainter as PenPainter;
                       widget.bloc.add(EditingLayerChanged(PaintElement(
-                          color: state.editOption.color,
-                          strokeWidth: state.editOption.strokeWidth,
+                          color: painter.color,
+                          strokeWidth:
+                              painter.strokeWidth + event.pressure * painter.strokeMultiplier,
                           points: [_controller.toScene(event.localPosition)])));
                     } else if (event.kind != PointerDeviceKind.stylus &&
                         state.currentTool == ToolType.view) {
@@ -84,7 +88,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   onPointerMove: (PointerMoveEvent event) {
                     if ((event.kind == PointerDeviceKind.stylus ||
                         state.currentTool == ToolType.edit)) {
-                      if (state.editOption.eraser) {
+                      if (state.currentPainter is PathEraserPainter) {
                         widget.bloc
                             .add(LayersRemoved(raycast(_controller.toScene(event.localPosition))));
                       } else if (state.currentEditLayer != null &&

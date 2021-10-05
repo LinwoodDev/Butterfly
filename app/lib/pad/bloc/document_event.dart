@@ -58,11 +58,30 @@ class EditingLayerChanged extends DocumentEvent {
   List<Object?> get props => [editingLayer];
 }
 
-class PainterChanged extends DocumentEvent {
-  final Painter? painter;
+class CurrentPainterChanged extends DocumentEvent {
+  final int painter;
 
-  const PainterChanged(this.painter);
+  const CurrentPainterChanged(this.painter);
 
   @override
   List<Object?> get props => [painter];
+}
+
+class PainterCreated extends DocumentEvent {
+  final Painter painter;
+
+  const PainterCreated(this.painter);
+
+  @override
+  List<Object?> get props => [painter];
+}
+
+class PainterChanged extends DocumentEvent {
+  final Painter painter;
+  final int index;
+
+  const PainterChanged(this.painter, this.index);
+
+  @override
+  List<Object?> get props => [painter, index];
 }

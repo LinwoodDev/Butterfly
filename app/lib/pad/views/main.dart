@@ -1,6 +1,6 @@
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
-import 'package:butterfly/models/elements/text.dart';
+import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/dialogs/settings.dart';
@@ -133,7 +133,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                     );
                                   }).toList(),
                                   PopupMenuButton<ElementLayer>(
-                                      itemBuilder: (context) => [TextElement()]
+                                      itemBuilder: (context) => [LabelElement()]
                                           .map((e) => PopupMenuItem<ElementLayer>(
                                               child: ListTile(
                                                   mouseCursor: MouseCursor.defer,

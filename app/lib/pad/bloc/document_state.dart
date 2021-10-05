@@ -12,34 +12,34 @@ class DocumentLoadInProgress extends DocumentState {}
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final ToolType currentTool;
-  final Painter currentPainter;
+  final int currentPainterIndex;
   final Matrix4? transform;
-  final PaintOption editOption;
   final ElementLayer? currentEditLayer;
 
   const DocumentLoadSuccess(this.document,
       {this.currentTool = ToolType.view,
       this.transform,
-      this.currentPainter = const PenPainter(),
-      this.currentEditLayer,
-      this.editOption = const PaintOption()});
+      this.currentPainterIndex = 0,
+      this.currentEditLayer});
 
   @override
-  List<Object?> get props => [document, currentTool, currentEditLayer, transform, editOption];
+  List<Object?> get props =>
+      [document, currentTool, currentEditLayer, transform, currentPainterIndex];
+
+  Painter get currentPainter =>
+      document.painters[currentPainterIndex.clamp(0, document.painters.length - 1)];
 
   DocumentLoadSuccess copyWith(
       {AppDocument? document,
       ToolType? currentTool,
       Matrix4? transform,
-      PaintOption? editOption,
-      Painter? currentPainter,
+      int? currentPainterIndex,
       ElementLayer? currentEditLayer,
       bool removeCurrentEditLayer = false}) {
     return DocumentLoadSuccess(document ?? this.document,
         currentTool: currentTool ?? this.currentTool,
         transform: transform ?? this.transform,
-        editOption: editOption ?? this.editOption,
-        currentPainter: currentPainter ?? this.currentPainter,
+        currentPainterIndex: currentPainterIndex ?? this.currentPainterIndex,
         currentEditLayer:
             removeCurrentEditLayer ? null : (currentEditLayer ?? this.currentEditLayer));
   }

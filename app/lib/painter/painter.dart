@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 
 @immutable
 abstract class Painter {
-  const Painter();
-  const Painter.fromJson(Map<String, dynamic> json);
-  Map<String, dynamic> toJson();
+  final String name;
+  const Painter({this.name = ''});
+  Painter.fromJson(Map<String, dynamic> json) : name = json['name'] ?? "";
+  Map<String, dynamic> toJson() => {"name": name};
 }

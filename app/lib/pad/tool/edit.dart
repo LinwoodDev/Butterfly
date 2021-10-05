@@ -1,5 +1,10 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/pad/dialogs/color_pick.dart';
+import 'package:butterfly/pad/dialogs/painters/pen.dart';
+import 'package:butterfly/painter/eraser.dart';
+import 'package:butterfly/painter/painter.dart';
+import 'package:butterfly/painter/path_eraser.dart';
+import 'package:butterfly/painter/pen.dart';
+import 'package:butterfly/painter/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -13,64 +18,94 @@ class EditToolbar extends StatefulWidget {
 }
 
 class _EditToolbarState extends State<EditToolbar> {
+  IconData getPainterIcon(String type) {
+    switch (type) {
+      case "eraser":
+        return PhosphorIcons.eraserLight;
+      case "path-eraser":
+        return PhosphorIcons.pathLight;
+      case "label":
+        return PhosphorIcons.textTLight;
+      default:
+        return PhosphorIcons.penLight;
+    }
+  }
+
+  IconData getPainterActiveIcon(String type) {
+    switch (type) {
+      case "eraser":
+        return PhosphorIcons.eraserFill;
+      case "path-eraser":
+        return PhosphorIcons.pathFill;
+      case "label":
+        return PhosphorIcons.textTFill;
+      default:
+        return PhosphorIcons.penFill;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return Container();
+
         return Row(children: [
-          ...state.document.painters.map((e) {
-            IconData icon, activeIcon;
+          ...state.document.painters.asMap().map((i, e) {
             var type = e.toJson()['type'];
-            switch (type) {
-              case "eraser":
-                icon = PhosphorIcons.eraserLight;
-                activeIcon = PhosphorIcons.eraserFill;
-                break;
-              case "path-eraser":
-                icon = PhosphorIcons.pathLight;
-                activeIcon = PhosphorIcons.pathFill;
-                break;
-              case "text":
-                icon = PhosphorIcons.textTLight;
-                activeIcon = PhosphorIcons.textTFill;
-                break;
-              default:
-                icon = PhosphorIcons.penLight;
-                activeIcon = PhosphorIcons.penFill;
-                break;
-            }
-            var selected = type == state.currentPainter.toJson()['type'];
-            return IconButton(
-                icon: Icon(selected ? activeIcon : icon),
-                onPressed: () {
-                  if (!selected) widget.bloc.add(PainterChanged(e));
-                });
-          }),
-          IconButton(icon: const Icon(PhosphorIcons.penLight), tooltip: "Pencil", onPressed: () {}),
-          IconButton(
-              icon: const Icon(PhosphorIcons.markerCircleLight),
-              tooltip: "Marker",
-              onPressed: () {}),
-          IconButton(
-              icon: const Icon(PhosphorIcons.eraserLight),
-              tooltip: "Eraser",
-              color: state.editOption.eraser ? Theme.of(context).colorScheme.primary : null,
-              onPressed: () {
-                widget.bloc.add(
-                    EditOptionChanged(state.editOption.copyWith(eraser: !state.editOption.eraser)));
-              }),
-          IconButton(
-              icon: const Icon(PhosphorIcons.paletteLight),
-              tooltip: "Color",
-              color: state.editOption.color,
-              onPressed: () async {
-                var color = await showDialog(
-                    context: context, builder: (context) => const ColorPickerDialog());
-                if (color != null) {
-                  widget.bloc.add(EditOptionChanged(state.editOption.copyWith(color: color)));
-                }
-              })
+            var selected =
+                i == state.currentPainterIndex.clamp(0, state.document.painters.length - 1);
+            return MapEntry(
+                i,
+                IconButton(
+                    color: selected ? Theme.of(context).colorScheme.primary : null,
+                    icon: Icon(selected ? getPainterActiveIcon(type) : getPainterIcon(type)),
+                    onPressed: () {
+                      if (!selected) {
+                        widget.bloc.add(CurrentPainterChanged(i));
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              switch (type) {
+                                case 'pen':
+                                  return PenPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                default:
+                                  return Container();
+                              }
+                            });
+                      }
+                    }));
+          }).values,
+          const VerticalDivider(),
+          PopupMenuButton<Painter>(
+              onSelected: (value) => widget.bloc.add(PainterCreated(value)),
+              icon: const Icon(PhosphorIcons.plusLight),
+              itemBuilder: (context) => [
+                    ...["pen", "eraser", "path-eraser", "label"].map((e) {
+                      Painter painter;
+                      switch (e) {
+                        case "eraser":
+                          painter = const EraserPainter();
+                          break;
+                        case "path-eraser":
+                          painter = const PathEraserPainter();
+                          break;
+                        case "label":
+                          painter = const LabelPainter();
+                          break;
+                        default:
+                          painter = const PenPainter();
+                      }
+                      return PopupMenuItem<Painter>(
+                          value: painter,
+                          child: ListTile(
+                            mouseCursor: MouseCursor.defer,
+                            title: Text(e),
+                            leading: Icon(getPainterIcon(e)),
+                          ));
+                    })
+                  ])
         ]);
       },
     );
