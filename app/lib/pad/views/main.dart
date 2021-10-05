@@ -1,6 +1,4 @@
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/elements/element.dart';
-import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/dialogs/settings.dart';
@@ -111,10 +109,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                         icon = PhosphorIcons.handLight;
                                         activeIcon = PhosphorIcons.handFill;
                                         break;
-                                      case ToolType.object:
-                                        icon = PhosphorIcons.cursorLight;
-                                        activeIcon = PhosphorIcons.cursorFill;
-                                        break;
                                       case ToolType.edit:
                                         icon = PhosphorIcons.penLight;
                                         activeIcon = PhosphorIcons.penFill;
@@ -132,15 +126,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                       },
                                     );
                                   }).toList(),
-                                  PopupMenuButton<ElementLayer>(
-                                      itemBuilder: (context) => [LabelElement()]
-                                          .map((e) => PopupMenuItem<ElementLayer>(
-                                              child: ListTile(
-                                                  mouseCursor: MouseCursor.defer,
-                                                  title: Text(e.toJson()["type"])),
-                                              value: e))
-                                          .toList(),
-                                      icon: const Icon(PhosphorIcons.plusLight, size: 26)),
                                   const VerticalDivider(),
                                   IconButton(
                                       icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),

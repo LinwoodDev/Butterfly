@@ -1,21 +1,20 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/pad/dialogs/color_pick.dart';
-import 'package:butterfly/painter/pen.dart';
+import 'package:butterfly/painter/eraser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class PenPainterDialog extends StatefulWidget {
+class EraserPainterDialog extends StatefulWidget {
   final DocumentBloc bloc;
   final int painterIndex;
-  const PenPainterDialog({Key? key, required this.bloc, required this.painterIndex})
+  const EraserPainterDialog({Key? key, required this.bloc, required this.painterIndex})
       : super(key: key);
 
   @override
-  _PenPainterDialogState createState() => _PenPainterDialogState();
+  _EraserPainterDialogState createState() => _EraserPainterDialogState();
 }
 
-class _PenPainterDialogState extends State<PenPainterDialog> {
+class _EraserPainterDialogState extends State<EraserPainterDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _strokeWidthController = TextEditingController();
   final TextEditingController _strokeMultiplierController = TextEditingController();
@@ -25,7 +24,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
       value: widget.bloc,
       child: Dialog(child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
         if (state is! DocumentLoadSuccess) return Container();
-        var painter = state.document.painters[widget.painterIndex] as PenPainter;
+        var painter = state.document.painters[widget.painterIndex] as EraserPainter;
         return Container(
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: StatefulBuilder(builder: (context, setState) {
@@ -38,8 +37,8 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
               }
               return Scaffold(
                   appBar: AppBar(
-                    title: const Text("Pen"),
-                    leading: const Icon(PhosphorIcons.penLight),
+                    title: const Text("Eraser"),
+                    leading: const Icon(PhosphorIcons.eraserLight),
                   ),
                   body: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -63,9 +62,9 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                   )),
                               Expanded(
                                 child: Slider(
-                                    value: painter.strokeWidth.clamp(0, 10),
+                                    value: painter.strokeWidth.clamp(0, 20),
                                     min: 0,
-                                    max: 10,
+                                    max: 20,
                                     onChanged: (value) => setState(
                                         () => painter = painter.copyWith(strokeWidth: value))),
                               )
@@ -88,26 +87,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                     onChanged: (value) => setState(
                                         () => painter = painter.copyWith(strokeMultiplier: value))),
                               )
-                            ]),
-                            const SizedBox(height: 50),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                    onTap: () async {
-                                      var color = await showDialog(
-                                          context: context,
-                                          builder: (context) => const ColorPickerDialog());
-                                      if (color != null) {
-                                        setState(() => painter = painter.copyWith(color: color));
-                                      }
-                                    },
-                                    child: Container(
-                                        constraints:
-                                            const BoxConstraints(maxWidth: 100, maxHeight: 100),
-                                        color: painter.color)),
-                              ],
-                            )
+                            ])
                           ]),
                         ),
                         const Divider(),

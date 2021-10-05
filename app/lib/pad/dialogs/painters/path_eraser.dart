@@ -1,21 +1,22 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+// ignore: unused_import
 import 'package:butterfly/pad/dialogs/color_pick.dart';
-import 'package:butterfly/painter/pen.dart';
+import 'package:butterfly/painter/path_eraser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class PenPainterDialog extends StatefulWidget {
+class PathEraserPainterDialog extends StatefulWidget {
   final DocumentBloc bloc;
   final int painterIndex;
-  const PenPainterDialog({Key? key, required this.bloc, required this.painterIndex})
+  const PathEraserPainterDialog({Key? key, required this.bloc, required this.painterIndex})
       : super(key: key);
 
   @override
-  _PenPainterDialogState createState() => _PenPainterDialogState();
+  _PathEraserPainterDialogState createState() => _PathEraserPainterDialogState();
 }
 
-class _PenPainterDialogState extends State<PenPainterDialog> {
+class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _strokeWidthController = TextEditingController();
   final TextEditingController _strokeMultiplierController = TextEditingController();
@@ -25,7 +26,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
       value: widget.bloc,
       child: Dialog(child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
         if (state is! DocumentLoadSuccess) return Container();
-        var painter = state.document.painters[widget.painterIndex] as PenPainter;
+        var painter = state.document.painters[widget.painterIndex] as PathEraserPainter;
         return Container(
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: StatefulBuilder(builder: (context, setState) {
@@ -38,7 +39,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
               }
               return Scaffold(
                   appBar: AppBar(
-                    title: const Text("Pen"),
+                    title: const Text("Path eraser"),
                     leading: const Icon(PhosphorIcons.penLight),
                   ),
                   body: Padding(
@@ -89,25 +90,11 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                         () => painter = painter.copyWith(strokeMultiplier: value))),
                               )
                             ]),
-                            const SizedBox(height: 50),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                    onTap: () async {
-                                      var color = await showDialog(
-                                          context: context,
-                                          builder: (context) => const ColorPickerDialog());
-                                      if (color != null) {
-                                        setState(() => painter = painter.copyWith(color: color));
-                                      }
-                                    },
-                                    child: Container(
-                                        constraints:
-                                            const BoxConstraints(maxWidth: 100, maxHeight: 100),
-                                        color: painter.color)),
-                              ],
-                            )
+                            CheckboxListTile(
+                                value: painter.canDeleteEraser,
+                                title: const Text("Can delete eraser"),
+                                onChanged: (value) => setState(
+                                    () => painter = painter.copyWith(canDeleteEraser: value))),
                           ]),
                         ),
                         const Divider(),

@@ -1,34 +1,28 @@
-import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/elements/path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-class PaintElement extends ElementLayer {
-  final List<Offset> points;
-  final double strokeWidth;
+class PaintElement extends PathElement {
   final Color color;
 
-  PaintElement({this.points = const [], this.strokeWidth = 8.0, this.color = Colors.black});
+  PaintElement(
+      {List<Offset> points = const [], double strokeWidth = 5.0, this.color = Colors.black})
+      : super(points: points, strokeWidth: strokeWidth);
 
   PaintElement.fromJson(Map<String, dynamic> json)
-      : points = (json['points'] as List<Map<String, dynamic>>)
-            .map((e) => Offset(e['x'], e['y']))
-            .toList(),
-        strokeWidth = json['stroke-width'],
-        color = Color(json['color']);
+      : color = Color(json['color']),
+        super.fromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => {
-        'type': 'paint',
-        'points': points.map((e) => {"x": e.dx, "y": e.dy}),
-        'stroke-width': strokeWidth,
-        'color': color.value
-      };
+  Map<String, dynamic> toJson() => super.toJson()..addAll({'type': 'paint', 'color': color.value});
+  @override
   Paint buildPaint() => Paint()
     ..color = color
     ..strokeWidth = strokeWidth
     ..style = PaintingStyle.stroke
     ..strokeCap = StrokeCap.round;
 
+  @override
   Path buildPath() {
     var path = Path();
     if (points.length > 1) {
@@ -39,6 +33,7 @@ class PaintElement extends ElementLayer {
     return path;
   }
 
+  @override
   PaintElement copyWith({List<Offset>? points, double? strokeWidth, Color? color}) => PaintElement(
       color: color ?? this.color,
       points: points ?? this.points,

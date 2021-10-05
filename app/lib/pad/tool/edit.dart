@@ -1,4 +1,6 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/pad/dialogs/painters/eraser.dart';
+import 'package:butterfly/pad/dialogs/painters/path_eraser.dart';
 import 'package:butterfly/pad/dialogs/painters/pen.dart';
 import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/painter.dart';
@@ -73,6 +75,11 @@ class _EditToolbarState extends State<EditToolbar> {
                               switch (type) {
                                 case 'pen':
                                   return PenPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                case 'eraser':
+                                  return EraserPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                case 'path-eraser':
+                                  return PathEraserPainterDialog(
+                                      bloc: widget.bloc, painterIndex: i);
                                 default:
                                   return Container();
                               }

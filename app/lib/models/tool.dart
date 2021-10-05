@@ -1,1 +1,1 @@
-enum ToolType { view, object, edit }
+enum ToolType { view, edit }

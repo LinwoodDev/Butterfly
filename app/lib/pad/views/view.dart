@@ -1,8 +1,11 @@
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/models/elements/paint.dart';
+import 'package:butterfly/models/elements/path.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:butterfly/painter/pen.dart';
 import 'package:flutter/foundation.dart';
@@ -63,14 +66,22 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   },
                   onPointerDown: (PointerDownEvent event) {
                     if ((event.kind == PointerDeviceKind.stylus ||
-                            state.currentTool == ToolType.edit) &&
-                        state.currentPainter is PenPainter) {
-                      var painter = state.currentPainter as PenPainter;
-                      widget.bloc.add(EditingLayerChanged(PaintElement(
-                          color: painter.color,
-                          strokeWidth:
-                              painter.strokeWidth + event.pressure * painter.strokeMultiplier,
-                          points: [_controller.toScene(event.localPosition)])));
+                        state.currentTool == ToolType.edit)) {
+                      if (state.currentPainter is PenPainter) {
+                        var painter = state.currentPainter as PenPainter;
+                        widget.bloc.add(EditingLayerChanged(PaintElement(
+                            color: painter.color,
+                            strokeWidth:
+                                painter.strokeWidth + event.pressure * painter.strokeMultiplier,
+                            points: [_controller.toScene(event.localPosition)])));
+                      }
+                      if (state.currentPainter is EraserPainter) {
+                        var painter = state.currentPainter as EraserPainter;
+                        widget.bloc.add(EditingLayerChanged(EraserElement(
+                            strokeWidth:
+                                painter.strokeWidth + event.pressure * painter.strokeMultiplier,
+                            points: [_controller.toScene(event.localPosition)])));
+                      }
                     } else if (event.kind != PointerDeviceKind.stylus &&
                         state.currentTool == ToolType.view) {
                       setState(() => _moveEnabled = true);
@@ -89,12 +100,16 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     if ((event.kind == PointerDeviceKind.stylus ||
                         state.currentTool == ToolType.edit)) {
                       if (state.currentPainter is PathEraserPainter) {
-                        widget.bloc
-                            .add(LayersRemoved(raycast(_controller.toScene(event.localPosition))));
+                        widget.bloc.add(LayersRemoved(
+                            raycast(_controller.toScene(event.localPosition))
+                                .where((element) =>
+                                    element is! EraserElement ||
+                                    (state.currentPainter as PathEraserPainter).canDeleteEraser)
+                                .toList()));
                       } else if (state.currentEditLayer != null &&
-                          state.currentEditLayer is PaintElement) {
+                          state.currentEditLayer is PathElement) {
                         // Add point to custom paint
-                        var layer = state.currentEditLayer as PaintElement;
+                        var layer = state.currentEditLayer as PathElement;
                         widget.bloc.add(EditingLayerChanged(layer.copyWith(
                             points: List.from(layer.points)
                               ..add(_controller.toScene(event.localPosition)))));
@@ -147,13 +162,15 @@ class PathPainter extends CustomPainter {
         TextPainter(text: span, textAlign: TextAlign.left, textDirection: TextDirection.ltr);
     tp.layout();
     tp.paint(canvas, const Offset(500, 500));
+    canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     List.from(document.content)
       ..addAll([if (editingLayer != null) editingLayer])
       ..forEach((element) {
-        if (element is PaintElement) {
+        if (element is PathElement) {
           canvas.drawPath(element.buildPath(), element.buildPaint());
         }
       });
+    canvas.restore();
   }
 
   @override

@@ -1,7 +1,6 @@
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/tool/edit.dart';
-import 'package:butterfly/pad/tool/object.dart';
 import 'package:butterfly/pad/tool/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,9 +30,6 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
       switch (current.currentTool) {
         case ToolType.view:
           toolbar = const ViewToolbar();
-          break;
-        case ToolType.object:
-          toolbar = const ObjectToolbar();
           break;
         case ToolType.edit:
           toolbar = EditToolbar(bloc: widget.bloc);
