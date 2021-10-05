@@ -1,6 +1,7 @@
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/eraser.dart';
+import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/elements/paint.dart';
 import 'package:butterfly/models/elements/path.dart';
 import 'package:butterfly/models/tool.dart';
@@ -8,9 +9,11 @@ import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:butterfly/painter/pen.dart';
+import 'package:butterfly/painter/text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 //import 'package:vector_math/vector_math_64.dart' show Vector3;
 
@@ -81,6 +84,34 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             strokeWidth:
                                 painter.strokeWidth + event.pressure * painter.strokeMultiplier,
                             points: [_controller.toScene(event.localPosition)])));
+                      }
+                      if (state.currentPainter is LabelPainter) {
+                        var painter = state.currentPainter as LabelPainter;
+                        var _textController = TextEditingController();
+                        void submit() {
+                          Navigator.of(context).pop();
+                          widget.bloc.add(LayerCreated(LabelElement(
+                              text: _textController.text,
+                              size: painter.size,
+                              position: _controller.toScene(event.localPosition))));
+                        }
+
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                    title: const Text("Enter the text"),
+                                    content: TextField(
+                                      controller: _textController,
+                                      autofocus: true,
+                                      onSubmitted: (text) => submit(),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        child: const Text("CANCEL"),
+                                        onPressed: () => Navigator.of(context).pop(),
+                                      ),
+                                      TextButton(child: const Text("OK"), onPressed: submit)
+                                    ]));
                       }
                     } else if (event.kind != PointerDeviceKind.stylus &&
                         state.currentTool == ToolType.view) {
@@ -168,6 +199,16 @@ class PathPainter extends CustomPainter {
       ..forEach((element) {
         if (element is PathElement) {
           canvas.drawPath(element.buildPath(), element.buildPaint());
+        } else if (element is LabelElement) {
+          TextSpan span = TextSpan(
+              style: TextStyle(fontSize: element.size, color: Colors.black), text: element.text);
+          TextPainter tp = TextPainter(
+              text: span,
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.ltr,
+              textScaleFactor: 1.0);
+          tp.layout();
+          tp.paint(canvas, element.position);
         }
       });
     canvas.restore();

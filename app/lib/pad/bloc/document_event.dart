@@ -10,7 +10,7 @@ abstract class DocumentEvent extends Equatable {
 class LayerCreated extends DocumentEvent {
   final ElementLayer? layer;
 
-  const LayerCreated({this.layer});
+  const LayerCreated([this.layer]);
   @override
   List<Object?> get props => [layer];
 }

@@ -4,7 +4,7 @@ import 'painter.dart';
 
 class LabelPainter extends Painter {
   final Color color;
-  final int size;
+  final double size;
 
   const LabelPainter({this.color = Colors.black, this.size = 12, String name = ''})
       : super(name: name);
