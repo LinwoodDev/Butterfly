@@ -90,7 +90,7 @@ class _ProjectPageState extends State<ProjectPage> {
                           if (_bloc.state is DocumentLoadSuccess) {
                             var current = _bloc.state as DocumentLoadSuccess;
                             var currentScale = current.transform?.up.y ?? 1;
-                            _scaleController.text = (currentScale * 100).round().toString();
+                            _scaleController.text = (currentScale * 100).toStringAsFixed(2);
                             void setScale(double scale) {
                               scale /= currentScale;
                               setState(() => _bloc.add(TransformChanged(

@@ -94,3 +94,12 @@ class PainterRemoved extends DocumentEvent {
   @override
   List<Object?> get props => [index];
 }
+
+class PainterReordered extends DocumentEvent {
+  final int oldIndex, newIndex;
+
+  const PainterReordered(this.oldIndex, this.newIndex);
+
+  @override
+  List<Object?> get props => [oldIndex, newIndex];
+}

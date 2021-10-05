@@ -51,42 +51,55 @@ class _EditToolbarState extends State<EditToolbar> {
     return BlocBuilder<DocumentBloc, DocumentState>(
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return Container();
+        var painters = state.document.painters;
 
         return Row(children: [
-          ...state.document.painters.asMap().map((i, e) {
-            var type = e.toJson()['type'];
-            var selected =
-                i == state.currentPainterIndex.clamp(0, state.document.painters.length - 1);
-            String? tooltip = e.name.trim();
-            if (tooltip == "") tooltip = null;
-            return MapEntry(
-                i,
-                IconButton(
-                    tooltip: tooltip,
-                    color: selected ? Theme.of(context).colorScheme.primary : null,
-                    icon: Icon(selected ? getPainterActiveIcon(type) : getPainterIcon(type)),
-                    onPressed: () {
-                      if (!selected) {
-                        widget.bloc.add(CurrentPainterChanged(i));
-                      } else {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              switch (type) {
-                                case 'pen':
-                                  return PenPainterDialog(bloc: widget.bloc, painterIndex: i);
-                                case 'eraser':
-                                  return EraserPainterDialog(bloc: widget.bloc, painterIndex: i);
-                                case 'path-eraser':
-                                  return PathEraserPainterDialog(
-                                      bloc: widget.bloc, painterIndex: i);
-                                default:
-                                  return Container();
-                              }
-                            });
-                      }
-                    }));
-          }).values,
+          ReorderableListView.builder(
+              shrinkWrap: true,
+              buildDefaultDragHandles: false,
+              scrollDirection: Axis.horizontal,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: painters.length,
+              itemBuilder: (context, i) {
+                var e = painters[i];
+                var type = e.toJson()['type'];
+                var selected =
+                    i == state.currentPainterIndex.clamp(0, state.document.painters.length - 1);
+                String? tooltip = e.name.trim();
+                if (tooltip == "") tooltip = null;
+                return ReorderableDragStartListener(
+                  index: i,
+                  key: ObjectKey(e),
+                  child: IconButton(
+                      tooltip: tooltip,
+                      color: selected ? Theme.of(context).colorScheme.primary : null,
+                      icon: Icon(selected ? getPainterActiveIcon(type) : getPainterIcon(type),
+                          size: 24),
+                      onPressed: () {
+                        if (!selected) {
+                          widget.bloc.add(CurrentPainterChanged(i));
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                switch (type) {
+                                  case 'pen':
+                                    return PenPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                  case 'eraser':
+                                    return EraserPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                  case 'path-eraser':
+                                    return PathEraserPainterDialog(
+                                        bloc: widget.bloc, painterIndex: i);
+                                  default:
+                                    return Container();
+                                }
+                              });
+                        }
+                      }),
+                );
+              },
+              onReorder: (oldIndex, newIndex) =>
+                  widget.bloc.add(PainterReordered(oldIndex, newIndex))),
           const VerticalDivider(),
           PopupMenuButton<Painter>(
               onSelected: (value) => widget.bloc.add(PainterCreated(value)),

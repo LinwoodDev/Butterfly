@@ -97,6 +97,29 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         _saveDocument();
       }
     });
+    on<PainterReordered>((event, emit) {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        var painters = List<Painter>.from(current.document.painters);
+        var oldIndex = event.oldIndex;
+        var newIndex = event.newIndex;
+        if (oldIndex < newIndex) {
+          newIndex -= 1;
+        }
+        final item = painters.removeAt(oldIndex);
+        painters.insert(newIndex, item);
+        emit(current.copyWith(
+            document: current.document.copyWith(painters: painters),
+            currentPainterIndex: oldIndex == current.currentPainterIndex
+                ? newIndex
+                : newIndex == current.currentPainterIndex
+                    ? oldIndex
+                    : current.currentPainterIndex));
+        _saveDocument();
+        _saveDocument();
+        _saveDocument();
+      }
+    });
   }
 
   void _saveDocument() {}
