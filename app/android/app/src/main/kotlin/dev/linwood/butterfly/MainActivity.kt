@@ -1,4 +1,4 @@
-package com.github.linwoodcloud.butterfly
+package dev.linwood.butterfly
 
 import io.flutter.embedding.android.FlutterActivity
 
