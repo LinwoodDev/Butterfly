@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -38,6 +42,22 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Butterfly"), actions: [
+        IconButton(
+          icon: const Icon(PhosphorIcons.folderOpenLight),
+          onPressed: () {
+            FilePicker.platform
+                .pickFiles(type: FileType.custom, allowedExtensions: ["json"]).then((files) {
+              if (files?.files.isEmpty ?? true) return;
+
+              setState(() => _documents.addAll(files!.files.map((e) {
+                    var content = String.fromCharCodes(e.bytes ?? Uint8List(0));
+                    if (!kIsWeb) content = File(e.path ?? "").readAsStringSync();
+                    return AppDocument.fromJson(jsonDecode(content));
+                  })));
+              saveDocuments();
+            });
+          },
+        ),
         IconButton(
             icon: const Icon(PhosphorIcons.gearLight),
             onPressed: () => Modular.to.pushNamed("/settings/"))
