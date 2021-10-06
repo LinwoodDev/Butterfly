@@ -149,20 +149,20 @@ jobs:
             linux.zip
       - name: 🚀 Deploy preview
         if: github.ref == 'refs/heads/develop'
-        uses: "marvinpinto/action-automatic-releases@latest"
+        uses: eine/tip@master
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "preview"
-          prerelease: true
-          title: "Development Build"
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          tag: "preview"
           files: |
             app-release.apk
             windows.zip
             linux.zip
       - name: Release
-        uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/v')
+        uses: eine/tip@master
         with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          tag: "release"
           files: |
             app-release.apk
             windows.zip
