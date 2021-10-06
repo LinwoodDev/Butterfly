@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'toolbar.dart';
 import 'view.dart';
@@ -50,13 +51,12 @@ class _ProjectPageState extends State<ProjectPage> {
             create: (_) => _bloc!,
             child: Scaffold(
                 appBar: AppBar(
-                    centerTitle: true,
                     title: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
                       if (_bloc!.state is DocumentLoadSuccess) {
                         var current = _bloc!.state as DocumentLoadSuccess;
                         return Text(current.document.name);
                       } else {
-                        return const Text("Loading...");
+                        return Text(AppLocalizations.of(context)!.loading);
                       }
                     }),
                     actions: [
@@ -164,7 +164,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                         setScale(scale);
                                       },
                                       textAlign: TextAlign.center,
-                                      decoration: const InputDecoration(labelText: "Zoom"),
+                                      decoration: InputDecoration(
+                                          labelText: AppLocalizations.of(context)!.zoom),
                                     ),
                                   ),
                                   if (!isMobile) const VerticalDivider()

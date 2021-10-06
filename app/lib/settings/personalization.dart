@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:butterfly/theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PersonalizationSettingsPage extends StatefulWidget {
   const PersonalizationSettingsPage({Key? key}) : super(key: key);
@@ -9,15 +10,29 @@ class PersonalizationSettingsPage extends StatefulWidget {
 }
 
 class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPage> {
+  String getThemeName(ThemeMode mode) {
+    switch (mode) {
+      case ThemeMode.system:
+        return AppLocalizations.of(context)!.systemTheme;
+      case ThemeMode.light:
+        return AppLocalizations.of(context)!.lightTheme;
+      case ThemeMode.dark:
+        return AppLocalizations.of(context)!.darkTheme;
+      default:
+        return AppLocalizations.of(context)!.systemTheme;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Personalization")),
+        appBar: AppBar(title: Text(AppLocalizations.of(context)!.personalization)),
         body: Builder(
           builder: (context) => ListView(children: [
             ListTile(
-                title: const Text("Theme"),
-                subtitle: Text(ThemeController.of(context)?.currentTheme.toString() ?? ""),
+                title: Text(AppLocalizations.of(context)!.theme),
+                subtitle: Text(
+                    getThemeName(ThemeController.of(context)?.currentTheme ?? ThemeMode.system)),
                 onTap: () => _openThemeModal())
           ]),
         ));
@@ -34,23 +49,23 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Text(
-                    "Theme",
+                    AppLocalizations.of(context)!.theme,
                     style: Theme.of(context).textTheme.headline5,
                     textAlign: TextAlign.center,
                   ),
                 ),
                 ListTile(
-                    title: const Text("System"),
+                    title: Text(AppLocalizations.of(context)!.systemTheme),
                     selected: _currentTheme == ThemeMode.system,
                     leading: const Icon(Icons.settings_outlined),
                     onTap: () => Navigator.of(context).pop(ThemeMode.system)),
                 ListTile(
-                    title: const Text("Light"),
+                    title: Text(AppLocalizations.of(context)!.lightTheme),
                     selected: _currentTheme == ThemeMode.light,
                     leading: const Icon(Icons.wb_sunny_outlined),
                     onTap: () => Navigator.of(context).pop(ThemeMode.light)),
                 ListTile(
-                    title: const Text("Dark"),
+                    title: Text(AppLocalizations.of(context)!.darkTheme),
                     selected: _currentTheme == ThemeMode.dark,
                     leading: const Icon(Icons.nightlight_round),
                     onTap: () => Navigator.of(context).pop(ThemeMode.dark)),

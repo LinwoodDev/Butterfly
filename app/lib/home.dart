@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -60,6 +61,7 @@ class _HomePageState extends State<HomePage> {
         ),
         IconButton(
             icon: const Icon(PhosphorIcons.gearLight),
+            tooltip: AppLocalizations.of(context)?.settings,
             onPressed: () => Modular.to.pushNamed("/settings/"))
       ]),
       body: SingleChildScrollView(
@@ -92,17 +94,17 @@ class _HomePageState extends State<HomePage> {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                    title: const Text("Enter the name of the document"),
+                    title: Text(AppLocalizations.of(context)!.enterNameOfDocument),
                     content: TextField(
                       controller: _nameController,
                     ),
                     actions: [
                       TextButton(
-                        child: const Text("CANCEL"),
+                        child: Text(AppLocalizations.of(context)!.cancel),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       TextButton(
-                        child: const Text("CREATE"),
+                        child: Text(AppLocalizations.of(context)!.create),
                         onPressed: () {
                           setState(() => _documents.add(AppDocument(name: _nameController.text)));
                           saveDocuments();

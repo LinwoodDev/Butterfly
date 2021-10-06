@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/views/view.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -56,11 +57,11 @@ class _ViewToolbarState extends State<ViewToolbar> {
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                          title: const Text("Copied to clipboard"),
-                          content: const Text("You can now paste it into a text editor"),
+                          title: Text(AppLocalizations.of(context)!.copyTitle),
+                          content: Text(AppLocalizations.of(context)!.copyMessage),
                           actions: [
                             TextButton(
-                              child: const Text("OK"),
+                              child: Text(AppLocalizations.of(context)!.ok),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },

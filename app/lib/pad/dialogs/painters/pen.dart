@@ -1,6 +1,7 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/dialogs/color_pick.dart';
 import 'package:butterfly/painter/pen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -38,7 +39,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
               }
               return Scaffold(
                   appBar: AppBar(
-                    title: const Text("Pen"),
+                    title: Text(AppLocalizations.of(context)!.pen),
                     leading: const Icon(PhosphorIcons.penLight),
                   ),
                   body: Padding(
@@ -48,7 +49,8 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                         Expanded(
                           child: ListView(children: [
                             TextField(
-                                decoration: const InputDecoration(labelText: "Name"),
+                                decoration:
+                                    InputDecoration(labelText: AppLocalizations.of(context)!.name),
                                 controller: _nameController,
                                 onChanged: (value) =>
                                     setState(() => painter = painter.copyWith(name: value))),
@@ -56,7 +58,8 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                               ConstrainedBox(
                                   constraints: const BoxConstraints(maxWidth: 100),
                                   child: TextField(
-                                    decoration: const InputDecoration(labelText: "Stroke width"),
+                                    decoration: InputDecoration(
+                                        labelText: AppLocalizations.of(context)!.strokeWidth),
                                     controller: _strokeWidthController,
                                     onChanged: (value) => setState(() => painter =
                                         painter.copyWith(strokeWidth: double.tryParse(value))),
@@ -74,8 +77,8 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                               ConstrainedBox(
                                   constraints: const BoxConstraints(maxWidth: 100),
                                   child: TextField(
-                                    decoration:
-                                        const InputDecoration(labelText: "Stroke multiplier"),
+                                    decoration: InputDecoration(
+                                        labelText: AppLocalizations.of(context)!.strokeMultiplier),
                                     controller: _strokeMultiplierController,
                                     onChanged: (value) => setState(() => painter =
                                         painter.copyWith(strokeMultiplier: double.tryParse(value))),
@@ -116,7 +119,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                             OutlinedButton(
                               style: OutlinedButton.styleFrom(
                                   primary: Theme.of(context).colorScheme.error),
-                              child: const Text("DELETE"),
+                              child: Text(AppLocalizations.of(context)!.delete),
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 showDialog(
@@ -124,11 +127,11 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                     builder: (context) => AlertDialog(
                                             actions: [
                                               TextButton(
-                                                child: const Text("NO"),
+                                                child: Text(AppLocalizations.of(context)!.no),
                                                 onPressed: () => Navigator.of(context).pop(),
                                               ),
                                               TextButton(
-                                                child: const Text("YES"),
+                                                child: Text(AppLocalizations.of(context)!.yes),
                                                 onPressed: () {
                                                   widget.bloc
                                                       .add(PainterRemoved(widget.painterIndex));
@@ -136,18 +139,18 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                                 },
                                               )
                                             ],
-                                            title: const Text("Are you sure?"),
-                                            content: const Text(
-                                                "Do you really want to delete this pen?")));
+                                            title: Text(AppLocalizations.of(context)!.areYouSure),
+                                            content:
+                                                Text(AppLocalizations.of(context)!.reallyDelete)));
                               },
                             ),
                             Expanded(child: Container()),
                             TextButton(
-                              child: const Text("CANCEL"),
+                              child: Text(AppLocalizations.of(context)!.cancel),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
                             ElevatedButton(
-                              child: const Text("OK"),
+                              child: Text(AppLocalizations.of(context)!.ok),
                               onPressed: () {
                                 widget.bloc.add(PainterChanged(painter, widget.painterIndex));
                                 Navigator.of(context).pop();

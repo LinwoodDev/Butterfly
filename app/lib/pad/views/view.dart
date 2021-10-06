@@ -8,6 +8,7 @@ import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/path_eraser.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:butterfly/painter/pen.dart';
 import 'package:butterfly/painter/label.dart';
 import 'package:flutter/foundation.dart';
@@ -100,7 +101,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                                    title: const Text("Enter the text"),
+                                    title: Text(AppLocalizations.of(context)!.enterText),
                                     content: TextField(
                                       controller: _textController,
                                       autofocus: true,
@@ -108,10 +109,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     ),
                                     actions: [
                                       TextButton(
-                                        child: const Text("CANCEL"),
+                                        child: Text(AppLocalizations.of(context)!.cancel),
                                         onPressed: () => Navigator.of(context).pop(),
                                       ),
-                                      TextButton(child: const Text("OK"), onPressed: submit)
+                                      TextButton(
+                                          child: Text(AppLocalizations.of(context)!.ok),
+                                          onPressed: submit)
                                     ]));
                       }
                     } else if (event.kind != PointerDeviceKind.stylus &&

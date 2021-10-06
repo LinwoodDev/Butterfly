@@ -1,6 +1,7 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PadSettingsDialog extends StatefulWidget {
   final DocumentBloc? bloc;
@@ -40,7 +41,8 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                       child: Column(children: [
                         TextField(
                             controller: _nameController,
-                            decoration: const InputDecoration(labelText: "Name"))
+                            decoration:
+                                InputDecoration(labelText: AppLocalizations.of(context)!.name)),
                       ]),
                     ),
                     //const Icon(Icons.directions_transit)

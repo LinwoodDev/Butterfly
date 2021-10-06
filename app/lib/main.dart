@@ -3,6 +3,8 @@ import 'package:butterfly/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme.dart';
 
@@ -40,6 +42,8 @@ class ButterflyApp extends StatelessWidget {
       title: 'Butterfly',
       // set your initial route
       initialRoute: "/",
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
           fontFamily: "Roboto",
           // This is the theme of your application.
