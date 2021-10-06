@@ -1,3 +1,4 @@
+import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/eraser.dart';
@@ -183,20 +184,45 @@ class PathPainter extends CustomPainter {
   PathPainter(this.document, this.editingLayer);
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = Colors.yellow
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 8.0;
-    Path path = Path();
-    path.cubicTo(0, 500, 0, 500, 5000, 500);
-    path.addRect(const Rect.fromLTWH(50, 50, 250, 100));
-    canvas.drawPath(path, paint);
-    TextSpan span = TextSpan(
-        style: TextStyle(fontSize: 24, color: Colors.blue[800]), text: "Welcome to Butterfly");
-    TextPainter tp =
-        TextPainter(text: span, textAlign: TextAlign.left, textDirection: TextDirection.ltr);
-    tp.layout();
-    tp.paint(canvas, const Offset(500, 500));
+    var background = document.background;
+    if (background is BoxBackground) {
+      if (background.boxWidth > 0 && background.boxXCount > 0) {
+        double x = 0;
+        int count = 0;
+        while (x < size.width) {
+          canvas.drawLine(
+              Offset(x, 0),
+              Offset(x, size.height),
+              Paint()
+                ..strokeWidth = .5
+                ..color = Colors.black);
+          count++;
+          if (count >= background.boxXCount) {
+            count = 0;
+            x += background.boxXSpace;
+          }
+          x += background.boxWidth;
+        }
+      }
+      if (background.boxHeight > 0 && background.boxYCount > 0) {
+        double y = 0;
+        int count = 0;
+        while (y < size.width) {
+          canvas.drawLine(
+              Offset(0, y),
+              Offset(size.width, y),
+              Paint()
+                ..strokeWidth = .5
+                ..color = Colors.black);
+          count++;
+          if (count >= background.boxYCount) {
+            count = 0;
+            y += background.boxYSpace;
+          }
+          y += background.boxHeight;
+        }
+      }
+    }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     List.from(document.content)
       ..addAll([if (editingLayer != null) editingLayer])

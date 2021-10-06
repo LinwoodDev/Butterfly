@@ -120,6 +120,13 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         _saveDocument();
       }
     });
+    on<DocumentBackgroundChanged>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        emit(current.copyWith(document: current.document.copyWith(background: event.background)));
+        _saveDocument();
+      }
+    });
   }
 
   Future<void> _saveDocument() async {

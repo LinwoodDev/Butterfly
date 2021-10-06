@@ -103,3 +103,12 @@ class PainterReordered extends DocumentEvent {
   @override
   List<Object?> get props => [oldIndex, newIndex];
 }
+
+class DocumentBackgroundChanged extends DocumentEvent {
+  final dynamic background;
+
+  const DocumentBackgroundChanged(this.background);
+
+  @override
+  List<Object?> get props => [background];
+}
