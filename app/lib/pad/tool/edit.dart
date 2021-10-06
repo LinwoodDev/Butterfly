@@ -1,12 +1,13 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/dialogs/painters/eraser.dart';
+import 'package:butterfly/pad/dialogs/painters/label.dart';
 import 'package:butterfly/pad/dialogs/painters/path_eraser.dart';
 import 'package:butterfly/pad/dialogs/painters/pen.dart';
 import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/painter.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:butterfly/painter/pen.dart';
-import 'package:butterfly/painter/text.dart';
+import 'package:butterfly/painter/label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -90,6 +91,8 @@ class _EditToolbarState extends State<EditToolbar> {
                                   case 'path-eraser':
                                     return PathEraserPainterDialog(
                                         bloc: widget.bloc, painterIndex: i);
+                                  case 'label':
+                                    return LabelPainterDialog(bloc: widget.bloc, painterIndex: i);
                                   default:
                                     return Container();
                                 }

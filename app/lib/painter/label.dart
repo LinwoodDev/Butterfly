@@ -14,5 +14,8 @@ class LabelPainter extends Painter {
         super.fromJson(json);
   @override
   Map<String, dynamic> toJson() =>
-      super.toJson()..addAll({"type": "label", "color": color, "size": size});
+      super.toJson()..addAll({"type": "label", "color": color.value, "size": size});
+
+  LabelPainter copyWith({String? name, Color? color, double? size}) =>
+      LabelPainter(name: name ?? this.name, color: color ?? this.color, size: size ?? this.size);
 }

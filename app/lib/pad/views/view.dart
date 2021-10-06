@@ -9,7 +9,7 @@ import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:butterfly/painter/pen.dart';
-import 'package:butterfly/painter/text.dart';
+import 'package:butterfly/painter/label.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -93,6 +93,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           widget.bloc.add(LayerCreated(LabelElement(
                               text: _textController.text,
                               size: painter.size,
+                              color: painter.color,
                               position: _controller.toScene(event.localPosition))));
                         }
 
@@ -201,7 +202,7 @@ class PathPainter extends CustomPainter {
           canvas.drawPath(element.buildPath(), element.buildPaint());
         } else if (element is LabelElement) {
           TextSpan span = TextSpan(
-              style: TextStyle(fontSize: element.size, color: Colors.black), text: element.text);
+              style: TextStyle(fontSize: element.size, color: element.color), text: element.text);
           TextPainter tp = TextPainter(
               text: span,
               textAlign: TextAlign.center,

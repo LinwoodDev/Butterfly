@@ -3,7 +3,7 @@ import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/painter.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:butterfly/painter/pen.dart';
-import 'package:butterfly/painter/text.dart';
+import 'package:butterfly/painter/label.dart';
 import 'package:flutter/widgets.dart';
 
 import 'elements/element.dart';
