@@ -139,22 +139,19 @@ jobs:
           zip -r windows.zip windows-build/*
           zip -r linux.zip linux-build/*
       - name: 🚀 Deploy release
-        uses: eine/tip@master
+        uses: softprops/action-gh-release@v1
         if: github.ref == 'refs/heads/main'
         with:
-          tag: release
-          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: release
           files: |
             app-release.apk
             windows.zip
             linux.zip
       - name: 🚀 Deploy preview
-        uses: eine/tip@master
+        uses: softprops/action-gh-release@v1
         if: github.ref == 'refs/heads/develop'
         with:
-          tag: preview
-          token: ${{ secrets.GITHUB_TOKEN }}
-          rm: true
+          tag_name: preview
           files: |
             app-release.apk
             windows.zip
