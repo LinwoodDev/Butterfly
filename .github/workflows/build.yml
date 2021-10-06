@@ -21,9 +21,6 @@ jobs:
         run: |
           cd app
           flutter pub get
-      - uses: nttld/setup-ndk@v1
-        with:
-          ndk-version: r21e
       #- run: flutter test
       - name: 🏭 Build
         run: |
@@ -139,19 +136,25 @@ jobs:
           zip -r windows.zip windows-build/*
           zip -r linux.zip linux-build/*
       - name: 🚀 Deploy release
-        uses: softprops/action-gh-release@v1
         if: github.ref == 'refs/heads/main'
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          tag_name: release
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Latest release"
           files: |
             app-release.apk
             windows.zip
             linux.zip
       - name: 🚀 Deploy preview
-        uses: softprops/action-gh-release@v1
         if: github.ref == 'refs/heads/develop'
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          tag_name: preview
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "preview"
+          prerelease: true
+          title: "Development Build"
           files: |
             app-release.apk
             windows.zip
