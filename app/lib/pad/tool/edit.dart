@@ -69,38 +69,37 @@ class _EditToolbarState extends State<EditToolbar> {
                     i == state.currentPainterIndex.clamp(0, state.document.painters.length - 1);
                 String? tooltip = e.name.trim();
                 if (tooltip == "") tooltip = null;
-                return ReorderableDragStartListener(
-                  index: i,
-                  key: ObjectKey(e),
-                  child: IconButton(
-                      tooltip: tooltip,
-                      color: selected ? Theme.of(context).colorScheme.primary : null,
-                      icon: Icon(selected ? getPainterActiveIcon(type) : getPainterIcon(type),
-                          size: 24),
-                      onPressed: () {
-                        if (!selected) {
-                          widget.bloc.add(CurrentPainterChanged(i));
-                        } else {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                switch (type) {
-                                  case 'pen':
-                                    return PenPainterDialog(bloc: widget.bloc, painterIndex: i);
-                                  case 'eraser':
-                                    return EraserPainterDialog(bloc: widget.bloc, painterIndex: i);
-                                  case 'path-eraser':
-                                    return PathEraserPainterDialog(
-                                        bloc: widget.bloc, painterIndex: i);
-                                  case 'label':
-                                    return LabelPainterDialog(bloc: widget.bloc, painterIndex: i);
-                                  default:
-                                    return Container();
-                                }
-                              });
-                        }
-                      }),
-                );
+                Widget toolWidget = InkWell(
+                    child: Column(children: [
+                      Icon(selected ? getPainterActiveIcon(type) : getPainterIcon(type),
+                          color: selected ? Theme.of(context).colorScheme.primary : null, size: 24),
+                      if (selected) const Icon(PhosphorIcons.arrowDownLight, size: 24)
+                    ]),
+                    onTap: () {
+                      if (!selected) {
+                        widget.bloc.add(CurrentPainterChanged(i));
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              switch (type) {
+                                case 'pen':
+                                  return PenPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                case 'eraser':
+                                  return EraserPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                case 'path-eraser':
+                                  return PathEraserPainterDialog(
+                                      bloc: widget.bloc, painterIndex: i);
+                                case 'label':
+                                  return LabelPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                default:
+                                  return Container();
+                              }
+                            });
+                      }
+                    });
+                if (tooltip != null) toolWidget = Tooltip(message: tooltip, child: toolWidget);
+                return ReorderableDragStartListener(index: i, key: ObjectKey(e), child: toolWidget);
               },
               onReorder: (oldIndex, newIndex) =>
                   widget.bloc.add(PainterReordered(oldIndex, newIndex))),
