@@ -1,6 +1,6 @@
 part of 'document_bloc.dart';
 
-abstract class DocumentEvent extends Equatable {
+abstract class DocumentEvent extends ReplayEvent with EquatableMixin {
   const DocumentEvent();
 
   @override

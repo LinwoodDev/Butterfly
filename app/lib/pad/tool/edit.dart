@@ -11,6 +11,7 @@ import 'package:butterfly/painter/label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditToolbar extends StatefulWidget {
   final DocumentBloc bloc;
@@ -110,24 +111,29 @@ class _EditToolbarState extends State<EditToolbar> {
               itemBuilder: (context) => [
                     ...["pen", "eraser", "path-eraser", "label"].map((e) {
                       Painter painter;
+                      String name;
                       switch (e) {
                         case "eraser":
                           painter = const EraserPainter();
+                          name = AppLocalizations.of(context)!.eraser;
                           break;
                         case "path-eraser":
                           painter = const PathEraserPainter();
+                          name = AppLocalizations.of(context)!.pathEraser;
                           break;
                         case "label":
                           painter = const LabelPainter();
+                          name = AppLocalizations.of(context)!.label;
                           break;
                         default:
                           painter = const PenPainter();
+                          name = AppLocalizations.of(context)!.pen;
                       }
                       return PopupMenuItem<Painter>(
                           value: painter,
                           child: ListTile(
                             mouseCursor: MouseCursor.defer,
-                            title: Text(e),
+                            title: Text(name),
                             leading: Icon(getPainterIcon(e)),
                           ));
                     })

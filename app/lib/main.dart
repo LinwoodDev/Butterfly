@@ -11,6 +11,7 @@ import 'theme.dart';
 void main() async {
   setup();
   var prefs = await SharedPreferences.getInstance();
+  
   runApp(ModularApp(
       module: AppModule(), child: ButterflyApp(themeController: ThemeController(prefs))));
 }

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:bloc/bloc.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/tool.dart';
@@ -8,12 +7,13 @@ import 'package:butterfly/painter/painter.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+import 'package:replay_bloc/replay_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'document_event.dart';
 part 'document_state.dart';
 
-class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
+class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(AppDocument document, int documentIndex)
       : super(DocumentLoadSuccess(document, documentIndex: documentIndex)) {
     on<EditingLayerChanged>((event, emit) async {

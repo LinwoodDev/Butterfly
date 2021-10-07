@@ -63,12 +63,20 @@ class _ProjectPageState extends State<ProjectPage> {
                       IconButton(
                         icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
                         tooltip: AppLocalizations.of(context)!.undo,
-                        onPressed: () {},
+                        onPressed: () {
+                          _bloc?.undo();
+                          var state = _bloc?.state;
+                          if (state is DocumentLoadSuccess) state.save();
+                        },
                       ),
                       IconButton(
                         icon: const Icon(PhosphorIcons.arrowClockwiseLight),
                         tooltip: AppLocalizations.of(context)!.redo,
-                        onPressed: () {},
+                        onPressed: () {
+                          _bloc?.redo();
+                          var state = _bloc?.state;
+                          if (state is DocumentLoadSuccess) state.save();
+                        },
                       ),
                       IconButton(
                           icon: const Icon(PhosphorIcons.gearLight),
