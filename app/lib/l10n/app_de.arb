@@ -10,8 +10,8 @@
     "create": "Anlegen",
     "ok": "Ok",
     "cancel": "Abbrechen",
-    "view": "View",
-    "edit": "Edit",
+    "view": "Ansicht",
+    "edit": "Bearbeiten",
     "export": "Exportieren",
     "save": "Speichern",
     "zoom": "Zoom",
@@ -46,9 +46,9 @@
     "space": "Raum",
     "background": "Hintergrund",
     "box": "Kiste",
-    "locale": "Locale",
-    "english": "English",
-    "french": "French",
-    "german": "German",
-    "defaultLocale": "Default locale"
+    "locale": "Lokal",
+    "english": "Englisch",
+    "french": "Französisch",
+    "german": "Deutsch",
+    "defaultLocale": "Standard-Gebietsschema"
 }
