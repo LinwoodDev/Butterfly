@@ -101,53 +101,65 @@ class _ProjectPageState extends State<ProjectPage> {
                           MainViewToolbar(bloc: _bloc!),
                         ],
                       ));
-                  Widget toolsSelection = Row(
-                      mainAxisAlignment:
-                          isMobile ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        BlocBuilder<TransformCubit, Matrix4>(builder: (context, state) {
-                          if (_bloc!.state is DocumentLoadSuccess) {
-                            var current = _bloc!.state as DocumentLoadSuccess;
-                            var currentScale = state.up.y;
-                            _scaleController.text = (currentScale * 100).toStringAsFixed(2);
-                            void setScale(double scale) {
-                              scale /= currentScale;
-                              setState(() => _bloc!.add(
-                                  TransformChanged(Matrix4.copy(state..scale(scale, scale, 1)))));
-                            }
+                  var _toolScrollController = ScrollController();
+                  Widget toolsSelection =
+                      Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                    Expanded(
+                        child: Scrollbar(
+                      controller: _toolScrollController,
+                      child: SingleChildScrollView(
+                          controller: _toolScrollController,
+                          scrollDirection: Axis.horizontal,
+                          child: Row(children: [
+                            BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                              if (_bloc!.state is DocumentLoadSuccess) {
+                                var current = _bloc!.state as DocumentLoadSuccess;
 
-                            return SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child:
-                                    Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                                  ...tools.map((e) {
-                                    IconData activeIcon, icon;
-                                    switch (e) {
-                                      case ToolType.view:
-                                        icon = PhosphorIcons.handLight;
-                                        activeIcon = PhosphorIcons.handFill;
-                                        break;
-                                      case ToolType.edit:
-                                        icon = PhosphorIcons.penLight;
-                                        activeIcon = PhosphorIcons.penFill;
-                                        break;
-                                    }
-                                    return IconButton(
-                                      icon: Icon(current.currentTool == e ? activeIcon : icon,
-                                          size: 26),
-                                      color: current.currentTool == e
-                                          ? Theme.of(context).colorScheme.primary
-                                          : null,
-                                      tooltip: ToolType.edit == e
-                                          ? AppLocalizations.of(context)!.edit
-                                          : AppLocalizations.of(context)!.view,
-                                      onPressed: () {
-                                        _bloc!.add(ToolChanged(e));
-                                      },
-                                    );
-                                  }).toList(),
-                                  const VerticalDivider(),
+                                return Row(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      ...tools.map((e) {
+                                        IconData activeIcon, icon;
+                                        switch (e) {
+                                          case ToolType.view:
+                                            icon = PhosphorIcons.handLight;
+                                            activeIcon = PhosphorIcons.handFill;
+                                            break;
+                                          case ToolType.edit:
+                                            icon = PhosphorIcons.penLight;
+                                            activeIcon = PhosphorIcons.penFill;
+                                            break;
+                                        }
+                                        return IconButton(
+                                          icon: Icon(current.currentTool == e ? activeIcon : icon,
+                                              size: 26),
+                                          color: current.currentTool == e
+                                              ? Theme.of(context).colorScheme.primary
+                                              : null,
+                                          tooltip: ToolType.edit == e
+                                              ? AppLocalizations.of(context)!.edit
+                                              : AppLocalizations.of(context)!.view,
+                                          onPressed: () {
+                                            _bloc!.add(ToolChanged(e));
+                                          },
+                                        );
+                                      }).toList(),
+                                    ]);
+                              }
+                              return Container();
+                            }),
+                            const VerticalDivider(),
+                            BlocBuilder<TransformCubit, Matrix4>(builder: (context, transform) {
+                              var currentScale = transform.up.y;
+                              _scaleController.text = (currentScale * 100).toStringAsFixed(2);
+                              void setScale(double scale) {
+                                scale /= currentScale;
+                                setState(() => _bloc!.add(TransformChanged(
+                                    Matrix4.copy(transform..scale(scale, scale, 1)))));
+                              }
+
+                              return Row(
+                                children: [
                                   IconButton(
                                       icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
                                       tooltip: AppLocalizations.of(context)!.zoomIn,
@@ -182,17 +194,13 @@ class _ProjectPageState extends State<ProjectPage> {
                                     ),
                                   ),
                                   if (!isMobile) const VerticalDivider()
-                                ]));
-                          } else {
-                            return Container();
-                          }
-                        }),
-                        if (!isMobile) Flexible(child: toolbar)
-                      ]);
-                  if (isMobile) {
-                    toolsSelection = SingleChildScrollView(
-                        scrollDirection: Axis.horizontal, child: toolsSelection);
-                  }
+                                ],
+                              );
+                            }),
+                          ])),
+                    )),
+                    if (!isMobile) toolbar
+                  ]);
                   return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                     Container(
                       height: 75,
