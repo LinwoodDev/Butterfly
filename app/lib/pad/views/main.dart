@@ -62,22 +62,22 @@ class _ProjectPageState extends State<ProjectPage> {
                     actions: [
                       IconButton(
                         icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
-                        tooltip: "Undo",
+                        tooltip: AppLocalizations.of(context)!.undo,
                         onPressed: () {},
                       ),
                       IconButton(
                         icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                        tooltip: "Redo",
+                        tooltip: AppLocalizations.of(context)!.redo,
                         onPressed: () {},
                       ),
                       IconButton(
                           icon: const Icon(PhosphorIcons.gearLight),
-                          tooltip: "Project settings",
+                          tooltip: AppLocalizations.of(context)!.projectSettings,
                           onPressed: () => _showProjectSettings(context)),
-                      const IconButton(
+                      /*const IconButton(
                           icon: Icon(PhosphorIcons.linkLight),
                           tooltip: "Share (not implemented)",
-                          onPressed: null)
+                          onPressed: null)*/
                     ]),
                 body: LayoutBuilder(builder: (context, constraints) {
                   var isMobile = constraints.maxWidth < 600;
@@ -137,19 +137,19 @@ class _ProjectPageState extends State<ProjectPage> {
                                   const VerticalDivider(),
                                   IconButton(
                                       icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
-                                      tooltip: "Zoom in",
+                                      tooltip: AppLocalizations.of(context)!.zoomIn,
                                       onPressed: () {
                                         setScale(currentScale + 0.05);
                                       }),
                                   IconButton(
                                       icon: const Icon(PhosphorIcons.magnifyingGlassLight),
-                                      tooltip: "Reset zoom",
+                                      tooltip: AppLocalizations.of(context)!.resetZoom,
                                       onPressed: () {
                                         setScale(1);
                                       }),
                                   IconButton(
                                       icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
-                                      tooltip: "Zoom out",
+                                      tooltip: AppLocalizations.of(context)!.zoomOut,
                                       onPressed: () {
                                         setScale(currentScale - 0.05);
                                       }),

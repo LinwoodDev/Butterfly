@@ -35,7 +35,7 @@ class _ViewToolbarState extends State<ViewToolbar> {
       return Row(children: [
         IconButton(
           icon: const Icon(PhosphorIcons.imageLight),
-          tooltip: "Background",
+          tooltip: AppLocalizations.of(context)!.background,
           onPressed: () {
             final boxWidthController = TextEditingController();
             final boxHeightController = TextEditingController();
@@ -44,15 +44,16 @@ class _ViewToolbarState extends State<ViewToolbar> {
             final boxXSpaceController = TextEditingController();
             final boxYSpaceController = TextEditingController();
             var background = state.document.background;
+            int? currentExpansionOpened = 0;
             showDialog(
                 context: context,
                 builder: (context) => Dialog(
                         child: Container(
                       constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
                       child: Scaffold(
-                        appBar: AppBar(title: const Text("Background")),
+                        appBar: AppBar(title: Text(AppLocalizations.of(context)!.background)),
                         body: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 115),
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                             child: Column(
                               children: [
                                 Expanded(
@@ -69,14 +70,12 @@ class _ViewToolbarState extends State<ViewToolbar> {
                                             background!.boxHeight.toStringAsFixed(2);
                                       }
                                       if (boxXCountController.text !=
-                                          background!.boxXCount.toStringAsFixed(2)) {
-                                        boxXCountController.text =
-                                            background!.boxXCount.toStringAsFixed(2);
+                                          background!.boxXCount.toString()) {
+                                        boxXCountController.text = background!.boxXCount.toString();
                                       }
                                       if (boxYCountController.text !=
-                                          background!.boxYCount.toStringAsFixed(2)) {
-                                        boxYCountController.text =
-                                            background!.boxYCount.toStringAsFixed(2);
+                                          background!.boxYCount.toString()) {
+                                        boxYCountController.text = background!.boxYCount.toString();
                                       }
                                       if (boxXSpaceController.text !=
                                           background!.boxXSpace.toStringAsFixed(2)) {
@@ -93,7 +92,7 @@ class _ViewToolbarState extends State<ViewToolbar> {
                                     return ListView(children: [
                                       CheckboxListTile(
                                         value: background != null,
-                                        title: const Text("Box background"),
+                                        title: Text(AppLocalizations.of(context)!.background),
                                         onChanged: (value) {
                                           setState(() => background =
                                               value ?? true ? const BoxBackground() : null);
@@ -101,138 +100,220 @@ class _ViewToolbarState extends State<ViewToolbar> {
                                       ),
                                       const Divider(),
                                       if (background is BoxBackground) ...[
-                                        Row(children: [
-                                          ConstrainedBox(
-                                              constraints: const BoxConstraints(maxWidth: 100),
-                                              child: TextField(
-                                                decoration: InputDecoration(
-                                                    labelText: AppLocalizations.of(context)!
-                                                        .strokeMultiplier),
-                                                controller: boxWidthController,
-                                                onChanged: (value) => setState(() => background =
-                                                    background!.copyWith(
-                                                        boxWidth: double.tryParse(value))),
-                                              )),
-                                          Expanded(
-                                            child: Slider(
-                                                value: background!.boxWidth.clamp(0, 15),
-                                                min: 0,
-                                                max: 15,
-                                                onChanged: (value) => setState(() => background =
-                                                    background!.copyWith(boxWidth: value))),
-                                          )
-                                        ]),
-                                        Row(children: [
-                                          ConstrainedBox(
-                                              constraints: const BoxConstraints(maxWidth: 100),
-                                              child: TextField(
-                                                decoration: InputDecoration(
-                                                    labelText: AppLocalizations.of(context)!
-                                                        .strokeMultiplier),
-                                                controller: boxHeightController,
-                                                onChanged: (value) => setState(() => background =
-                                                    background!.copyWith(
-                                                        boxHeight: double.tryParse(value))),
-                                              )),
-                                          Expanded(
-                                            child: Slider(
-                                                value: background!.boxHeight.clamp(0, 15),
-                                                min: 0,
-                                                max: 15,
-                                                onChanged: (value) => setState(() => background =
-                                                    background!.copyWith(boxHeight: value))),
-                                          )
-                                        ]),
-                                        Row(children: [
-                                          ConstrainedBox(
-                                              constraints: const BoxConstraints(maxWidth: 100),
-                                              child: TextField(
-                                                decoration: InputDecoration(
-                                                    labelText: AppLocalizations.of(context)!
-                                                        .strokeMultiplier),
-                                                controller: boxXCountController,
-                                                onChanged: (value) => setState(() => background =
-                                                    background!
-                                                        .copyWith(boxXCount: int.tryParse(value))),
-                                              )),
-                                          Expanded(
-                                            child: Slider(
-                                                value:
-                                                    background!.boxXCount.clamp(0, 15).toDouble(),
-                                                min: 0,
-                                                max: 15,
-                                                divisions: 15,
-                                                onChanged: (value) => setState(() => background =
-                                                    background!
-                                                        .copyWith(boxXCount: value.toInt()))),
-                                          )
-                                        ]),
-                                        Row(children: [
-                                          ConstrainedBox(
-                                              constraints: const BoxConstraints(maxWidth: 100),
-                                              child: TextField(
-                                                decoration: InputDecoration(
-                                                    labelText: AppLocalizations.of(context)!
-                                                        .strokeMultiplier),
-                                                controller: boxYCountController,
-                                                onChanged: (value) => setState(() => background =
-                                                    background!
-                                                        .copyWith(boxYCount: int.tryParse(value))),
-                                              )),
-                                          Expanded(
-                                            child: Slider(
-                                                value:
-                                                    background!.boxYCount.clamp(0, 15).toDouble(),
-                                                min: 0,
-                                                max: 15,
-                                                divisions: 15,
-                                                onChanged: (value) => setState(() => background =
-                                                    background!
-                                                        .copyWith(boxYCount: value.toInt()))),
-                                          )
-                                        ]),
-                                        Row(children: [
-                                          ConstrainedBox(
-                                              constraints: const BoxConstraints(maxWidth: 100),
-                                              child: TextField(
-                                                decoration: InputDecoration(
-                                                    labelText: AppLocalizations.of(context)!
-                                                        .strokeMultiplier),
-                                                controller: boxXSpaceController,
-                                                onChanged: (value) => setState(() => background =
-                                                    background!.copyWith(
-                                                        boxXSpace: double.tryParse(value))),
-                                              )),
-                                          Expanded(
-                                            child: Slider(
-                                                value: background!.boxXSpace.clamp(0, 15),
-                                                min: 0,
-                                                max: 15,
-                                                onChanged: (value) => setState(() => background =
-                                                    background!.copyWith(boxXSpace: value))),
-                                          )
-                                        ]),
-                                        Row(children: [
-                                          ConstrainedBox(
-                                              constraints: const BoxConstraints(maxWidth: 100),
-                                              child: TextField(
-                                                decoration: InputDecoration(
-                                                    labelText: AppLocalizations.of(context)!
-                                                        .strokeMultiplier),
-                                                controller: boxYSpaceController,
-                                                onChanged: (value) => setState(() => background =
-                                                    background!.copyWith(
-                                                        boxYSpace: double.tryParse(value))),
-                                              )),
-                                          Expanded(
-                                            child: Slider(
-                                                value: background!.boxYSpace.clamp(0, 15),
-                                                min: 0,
-                                                max: 15,
-                                                onChanged: (value) => setState(() => background =
-                                                    background!.copyWith(boxYSpace: value))),
-                                          )
-                                        ])
+                                        ExpansionPanelList(
+                                            expansionCallback: (int item, bool status) {
+                                              setState(() {
+                                                currentExpansionOpened = !status ? item : null;
+                                              });
+                                            },
+                                            children: [
+                                              ExpansionPanel(
+                                                  isExpanded: currentExpansionOpened == 0,
+                                                  headerBuilder: (context, isExpanded) => Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment.center,
+                                                        children: [
+                                                          Text(AppLocalizations.of(context)!.box,
+                                                              style: Theme.of(context)
+                                                                  .textTheme
+                                                                  .subtitle1),
+                                                        ],
+                                                      ),
+                                                  body: Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Column(children: [
+                                                      Row(children: [
+                                                        ConstrainedBox(
+                                                            constraints:
+                                                                const BoxConstraints(maxWidth: 100),
+                                                            child: TextField(
+                                                              decoration: InputDecoration(
+                                                                  labelText:
+                                                                      AppLocalizations.of(context)!
+                                                                          .width),
+                                                              controller: boxWidthController,
+                                                              onChanged: (value) => setState(() =>
+                                                                  background = background!.copyWith(
+                                                                      boxWidth:
+                                                                          double.tryParse(value))),
+                                                            )),
+                                                        Expanded(
+                                                          child: Slider(
+                                                              value: background!.boxWidth
+                                                                  .clamp(0, 200),
+                                                              min: 0,
+                                                              max: 200,
+                                                              onChanged: (value) => setState(() =>
+                                                                  background = background!
+                                                                      .copyWith(boxWidth: value))),
+                                                        )
+                                                      ]),
+                                                      Row(children: [
+                                                        ConstrainedBox(
+                                                            constraints:
+                                                                const BoxConstraints(maxWidth: 100),
+                                                            child: TextField(
+                                                              decoration: InputDecoration(
+                                                                  labelText:
+                                                                      AppLocalizations.of(context)!
+                                                                          .height),
+                                                              controller: boxHeightController,
+                                                              onChanged: (value) => setState(() =>
+                                                                  background = background!.copyWith(
+                                                                      boxHeight:
+                                                                          double.tryParse(value))),
+                                                            )),
+                                                        Expanded(
+                                                          child: Slider(
+                                                              value: background!.boxHeight
+                                                                  .clamp(0, 200),
+                                                              min: 0,
+                                                              max: 200,
+                                                              onChanged: (value) => setState(() =>
+                                                                  background = background!
+                                                                      .copyWith(boxHeight: value))),
+                                                        )
+                                                      ])
+                                                    ]),
+                                                  )),
+                                              ExpansionPanel(
+                                                  isExpanded: currentExpansionOpened == 1,
+                                                  headerBuilder: (context, isExpanded) => Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment.center,
+                                                        children: [
+                                                          Text(AppLocalizations.of(context)!.count,
+                                                              style: Theme.of(context)
+                                                                  .textTheme
+                                                                  .subtitle1),
+                                                        ],
+                                                      ),
+                                                  body: Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Column(children: [
+                                                      Row(children: [
+                                                        ConstrainedBox(
+                                                            constraints:
+                                                                const BoxConstraints(maxWidth: 100),
+                                                            child: TextField(
+                                                              decoration: const InputDecoration(
+                                                                  labelText: "X"),
+                                                              controller: boxXCountController,
+                                                              onChanged: (value) => setState(() =>
+                                                                  background = background!.copyWith(
+                                                                      boxXCount:
+                                                                          int.tryParse(value))),
+                                                            )),
+                                                        Expanded(
+                                                          child: Slider(
+                                                              value: background!.boxXCount
+                                                                  .clamp(0, 20)
+                                                                  .toDouble(),
+                                                              min: 0,
+                                                              max: 20,
+                                                              divisions: 20,
+                                                              onChanged: (value) => setState(() =>
+                                                                  background = background!.copyWith(
+                                                                      boxXCount: value.toInt()))),
+                                                        )
+                                                      ]),
+                                                      Row(children: [
+                                                        ConstrainedBox(
+                                                            constraints:
+                                                                const BoxConstraints(maxWidth: 100),
+                                                            child: TextField(
+                                                              decoration: const InputDecoration(
+                                                                  labelText: "Y"),
+                                                              controller: boxYCountController,
+                                                              onChanged: (value) => setState(() =>
+                                                                  background = background!.copyWith(
+                                                                      boxYCount:
+                                                                          int.tryParse(value))),
+                                                            )),
+                                                        Expanded(
+                                                          child: Slider(
+                                                              value: background!.boxYCount
+                                                                  .clamp(0, 20)
+                                                                  .toDouble(),
+                                                              min: 0,
+                                                              max: 20,
+                                                              divisions: 20,
+                                                              onChanged: (value) => setState(() =>
+                                                                  background = background!.copyWith(
+                                                                      boxYCount: value.toInt()))),
+                                                        )
+                                                      ]),
+                                                    ]),
+                                                  )),
+                                              ExpansionPanel(
+                                                  isExpanded: currentExpansionOpened == 2,
+                                                  headerBuilder: (context, isExpanded) => Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment.center,
+                                                        children: [
+                                                          Text(AppLocalizations.of(context)!.space,
+                                                              style: Theme.of(context)
+                                                                  .textTheme
+                                                                  .subtitle1),
+                                                        ],
+                                                      ),
+                                                  body: Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Column(children: [
+                                                      Row(children: [
+                                                        ConstrainedBox(
+                                                            constraints:
+                                                                const BoxConstraints(maxWidth: 100),
+                                                            child: TextField(
+                                                              decoration: const InputDecoration(
+                                                                  labelText: "X"),
+                                                              controller: boxXSpaceController,
+                                                              onChanged: (value) => setState(() =>
+                                                                  background = background!.copyWith(
+                                                                      boxXSpace:
+                                                                          double.tryParse(value))),
+                                                            )),
+                                                        Expanded(
+                                                          child: Slider(
+                                                              value: background!.boxXSpace
+                                                                  .clamp(0, 100),
+                                                              min: 0,
+                                                              max: 100,
+                                                              onChanged: (value) => setState(() =>
+                                                                  background = background!
+                                                                      .copyWith(boxXSpace: value))),
+                                                        )
+                                                      ]),
+                                                      Row(children: [
+                                                        ConstrainedBox(
+                                                            constraints:
+                                                                const BoxConstraints(maxWidth: 100),
+                                                            child: TextField(
+                                                              decoration: const InputDecoration(
+                                                                  labelText: "Y"),
+                                                              controller: boxYSpaceController,
+                                                              onChanged: (value) => setState(() =>
+                                                                  background = background!.copyWith(
+                                                                      boxYSpace:
+                                                                          double.tryParse(value))),
+                                                            )),
+                                                        Expanded(
+                                                          child: Slider(
+                                                              value: background!.boxYSpace
+                                                                  .clamp(0, 100),
+                                                              min: 0,
+                                                              max: 100,
+                                                              onChanged: (value) => setState(() =>
+                                                                  background = background!
+                                                                      .copyWith(boxYSpace: value))),
+                                                        )
+                                                      ])
+                                                    ]),
+                                                  ))
+                                            ]),
                                       ],
                                     ]);
                                   }),
@@ -285,7 +366,7 @@ class _ViewToolbarState extends State<ViewToolbar> {
         ),
         IconButton(
             icon: const Icon(PhosphorIcons.arrowSquareOutLight),
-            tooltip: "Export",
+            tooltip: AppLocalizations.of(context)!.export,
             onPressed: () async {
               var recorder = PictureRecorder();
               var canvas = Canvas(recorder);
@@ -301,7 +382,7 @@ class _ViewToolbarState extends State<ViewToolbar> {
             }),
         IconButton(
             icon: const Icon(PhosphorIcons.floppyDiskLight),
-            tooltip: "Save",
+            tooltip: AppLocalizations.of(context)!.save,
             onPressed: () async {
               if (kIsWeb || Platform.isAndroid || Platform.isWindows) {
                 Clipboard.setData(ClipboardData(text: jsonEncode(state.document.toJson())));
