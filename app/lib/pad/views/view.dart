@@ -198,7 +198,7 @@ class PathPainter extends CustomPainter {
               Offset(x, size.height),
               Paint()
                 ..strokeWidth = .5
-                ..color = Colors.black);
+                ..color = Colors.blue);
           count++;
           if (count >= background.boxXCount) {
             count = 0;
@@ -217,7 +217,7 @@ class PathPainter extends CustomPainter {
               Offset(size.width, y),
               Paint()
                 ..strokeWidth = .5
-                ..color = Colors.black);
+                ..color = Colors.red);
           count++;
           if (count >= background.boxYCount) {
             count = 0;

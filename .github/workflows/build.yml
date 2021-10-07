@@ -137,12 +137,11 @@ jobs:
           zip -r linux.zip linux-build/*
       - name: 🚀 Deploy release
         if: github.ref == 'refs/heads/main'
-        uses: "marvinpinto/action-automatic-releases@latest"
+        uses: eine/tip@master
+        continue-on-error: true
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Latest release"
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          tag: "release"
           files: |
             app-release.apk
             windows.zip
@@ -150,6 +149,7 @@ jobs:
       - name: 🚀 Deploy preview
         if: github.ref == 'refs/heads/develop'
         uses: eine/tip@master
+        continue-on-error: true
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
           tag: "preview"
@@ -160,6 +160,7 @@ jobs:
       - name: Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: eine/tip@master
+        continue-on-error: true
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
           tag: "release"
