@@ -8,9 +8,9 @@ abstract class DocumentEvent extends ReplayEvent with EquatableMixin {
 }
 
 class LayerCreated extends DocumentEvent {
-  final ElementLayer? layer;
+  final ElementLayer layer;
 
-  const LayerCreated([this.layer]);
+  const LayerCreated(this.layer);
   @override
   List<Object?> get props => [layer];
 }
@@ -47,15 +47,6 @@ class TransformChanged extends DocumentEvent {
 
   @override
   List<Object?> get props => [transform];
-}
-
-class EditingLayerChanged extends DocumentEvent {
-  final ElementLayer? editingLayer;
-
-  const EditingLayerChanged(this.editingLayer);
-
-  @override
-  List<Object?> get props => [editingLayer];
 }
 
 class CurrentPainterChanged extends DocumentEvent {

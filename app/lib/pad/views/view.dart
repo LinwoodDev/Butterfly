@@ -31,6 +31,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
   bool _moveEnabled = false;
   late TransformationController _controller;
   GlobalKey transformKey = GlobalKey();
+  ElementLayer? currentEditingLayer;
+
   @override
   void initState() {
     super.initState();
@@ -74,18 +76,18 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         state.currentTool == ToolType.edit)) {
                       if (state.currentPainter is PenPainter) {
                         var painter = state.currentPainter as PenPainter;
-                        widget.bloc.add(EditingLayerChanged(PaintElement(
+                        setState(() => currentEditingLayer = PaintElement(
                             color: painter.color,
                             strokeWidth:
                                 painter.strokeWidth + event.pressure * painter.strokeMultiplier,
-                            points: [_controller.toScene(event.localPosition)])));
+                            points: [_controller.toScene(event.localPosition)]));
                       }
                       if (state.currentPainter is EraserPainter) {
                         var painter = state.currentPainter as EraserPainter;
-                        widget.bloc.add(EditingLayerChanged(EraserElement(
+                        setState(() => currentEditingLayer = EraserElement(
                             strokeWidth:
                                 painter.strokeWidth + event.pressure * painter.strokeMultiplier,
-                            points: [_controller.toScene(event.localPosition)])));
+                            points: [_controller.toScene(event.localPosition)]));
                       }
                       if (state.currentPainter is LabelPainter) {
                         var painter = state.currentPainter as LabelPainter;
@@ -128,8 +130,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   onPointerUp: (PointerUpEvent event) {
                     if ((event.kind == PointerDeviceKind.stylus ||
                             state.currentTool == ToolType.edit) &&
-                        state.currentEditLayer != null) {
-                      widget.bloc.add(const LayerCreated());
+                        currentEditingLayer != null) {
+                      widget.bloc.add(LayerCreated(currentEditingLayer!));
+                      setState(() => currentEditingLayer = null);
                     }
                     setState(() => _moveEnabled = false);
                   },
@@ -144,13 +147,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     element is! EraserElement ||
                                     (state.currentPainter as PathEraserPainter).canDeleteEraser)
                                 .toList()));
-                      } else if (state.currentEditLayer != null &&
-                          state.currentEditLayer is PathElement) {
+                      } else if (currentEditingLayer != null &&
+                          currentEditingLayer is PathElement) {
                         // Add point to custom paint
-                        var layer = state.currentEditLayer as PathElement;
-                        widget.bloc.add(EditingLayerChanged(layer.copyWith(
+                        var layer = currentEditingLayer as PathElement;
+                        setState(() => currentEditingLayer = layer.copyWith(
                             points: List.from(layer.points)
-                              ..add(_controller.toScene(event.localPosition)))));
+                              ..add(_controller.toScene(event.localPosition))));
                       }
                     }
                   },
@@ -166,7 +169,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       child: CustomPaint(
                         key: transformKey,
                         size: paintViewport,
-                        painter: PathPainter(state.document, state.currentEditLayer),
+                        painter: PathPainter(state.document, currentEditingLayer),
                       ),
                     ),
                   ),
