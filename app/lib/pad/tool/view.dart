@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/pad/views/view.dart';
+import 'package:butterfly/pad/dialogs/export.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
@@ -12,10 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import 'package:butterfly/api/open_image.dart'
-    if (dart.library.io) 'package:butterfly/api/open_image_io.dart'
-    if (dart.library.js) 'package:butterfly/api/open_image_html.dart';
 
 class ViewToolbar extends StatefulWidget {
   final DocumentBloc bloc;
@@ -324,7 +319,8 @@ class _ViewToolbarState extends State<ViewToolbar> {
                                     OutlinedButton(
                                       style: OutlinedButton.styleFrom(
                                           primary: Theme.of(context).colorScheme.error),
-                                      child: Text(AppLocalizations.of(context)!.delete),
+                                      child:
+                                          Text(AppLocalizations.of(context)!.delete.toUpperCase()),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                         showDialog(
@@ -332,8 +328,9 @@ class _ViewToolbarState extends State<ViewToolbar> {
                                             builder: (context) => AlertDialog(
                                                     actions: [
                                                       TextButton(
-                                                        child:
-                                                            Text(AppLocalizations.of(context)!.no),
+                                                        child: Text(AppLocalizations.of(context)!
+                                                            .no
+                                                            .toUpperCase()),
                                                         onPressed: () =>
                                                             Navigator.of(context).pop(),
                                                       ),
@@ -346,11 +343,12 @@ class _ViewToolbarState extends State<ViewToolbar> {
                                     ),
                                     Expanded(child: Container()),
                                     TextButton(
-                                      child: Text(AppLocalizations.of(context)!.cancel),
+                                      child:
+                                          Text(AppLocalizations.of(context)!.cancel.toUpperCase()),
                                       onPressed: () => Navigator.of(context).pop(),
                                     ),
                                     ElevatedButton(
-                                      child: Text(AppLocalizations.of(context)!.ok),
+                                      child: Text(AppLocalizations.of(context)!.ok.toUpperCase()),
                                       onPressed: () {
                                         widget.bloc.add(DocumentBackgroundChanged(background));
                                         Navigator.of(context).pop();
@@ -368,17 +366,7 @@ class _ViewToolbarState extends State<ViewToolbar> {
             icon: const Icon(PhosphorIcons.arrowSquareOutLight),
             tooltip: AppLocalizations.of(context)!.export,
             onPressed: () async {
-              var recorder = PictureRecorder();
-              var canvas = Canvas(recorder);
-              PathPainter(state.document, null).paint(canvas, const Size(1000, 1000));
-              var picture = recorder.endRecording();
-              var image = await picture.toImage(1000, 1000);
-              image.toByteData(format: ImageByteFormat.png).then((data) {
-                if (data == null) {
-                  return;
-                }
-                openImage(data.buffer.asUint8List());
-              });
+              showDialog(context: context, builder: (context) => ExportDialog(bloc: widget.bloc));
             }),
         IconButton(
             icon: const Icon(PhosphorIcons.floppyDiskLight),
@@ -393,7 +381,7 @@ class _ViewToolbarState extends State<ViewToolbar> {
                           content: Text(AppLocalizations.of(context)!.copyMessage),
                           actions: [
                             TextButton(
-                              child: Text(AppLocalizations.of(context)!.ok),
+                              child: Text(AppLocalizations.of(context)!.ok.toUpperCase()),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },

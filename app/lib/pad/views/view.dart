@@ -110,11 +110,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     ),
                                     actions: [
                                       TextButton(
-                                        child: Text(AppLocalizations.of(context)!.cancel),
+                                        child: Text(
+                                            AppLocalizations.of(context)!.cancel.toUpperCase()),
                                         onPressed: () => Navigator.of(context).pop(),
                                       ),
                                       TextButton(
-                                          child: Text(AppLocalizations.of(context)!.ok),
+                                          child:
+                                              Text(AppLocalizations.of(context)!.ok.toUpperCase()),
                                           onPressed: submit)
                                     ]));
                       }
@@ -183,11 +185,11 @@ class PathPainter extends CustomPainter {
 
   PathPainter(this.document, this.editingLayer);
   @override
-  void paint(Canvas canvas, Size size) {
+  void paint(Canvas canvas, Size size, {Offset? offset}) {
     var background = document.background;
     if (background is BoxBackground) {
       if (background.boxWidth > 0 && background.boxXCount > 0) {
-        double x = 0;
+        double x = offset?.dx ?? 0;
         int count = 0;
         while (x < size.width) {
           canvas.drawLine(
@@ -205,7 +207,7 @@ class PathPainter extends CustomPainter {
         }
       }
       if (background.boxHeight > 0 && background.boxYCount > 0) {
-        double y = 0;
+        double y = offset?.dy ?? 0;
         int count = 0;
         while (y < size.width) {
           canvas.drawLine(
@@ -228,7 +230,11 @@ class PathPainter extends CustomPainter {
       ..addAll([if (editingLayer != null) editingLayer])
       ..forEach((element) {
         if (element is PathElement) {
-          canvas.drawPath(element.buildPath(), element.buildPaint());
+          var path = element.buildPath();
+          if (offset != null) {
+            path = path.shift(offset);
+          }
+          canvas.drawPath(path, element.buildPaint());
         } else if (element is LabelElement) {
           TextSpan span = TextSpan(
               style: TextStyle(fontSize: element.size, color: element.color), text: element.text);
@@ -238,7 +244,11 @@ class PathPainter extends CustomPainter {
               textDirection: TextDirection.ltr,
               textScaleFactor: 1.0);
           tp.layout();
-          tp.paint(canvas, element.position);
+          var position = element.position;
+          if (offset != null) {
+            position += offset;
+          }
+          tp.paint(canvas, position);
         }
       });
     canvas.restore();

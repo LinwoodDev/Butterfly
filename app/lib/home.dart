@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     actions: [
                       TextButton(
-                        child: Text(AppLocalizations.of(context)!.cancel),
+                        child: Text(AppLocalizations.of(context)!.cancel.toUpperCase()),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       TextButton(

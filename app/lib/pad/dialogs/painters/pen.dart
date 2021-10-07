@@ -119,7 +119,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                             OutlinedButton(
                               style: OutlinedButton.styleFrom(
                                   primary: Theme.of(context).colorScheme.error),
-                              child: Text(AppLocalizations.of(context)!.delete),
+                              child: Text(AppLocalizations.of(context)!.delete.toUpperCase()),
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 showDialog(
@@ -127,11 +127,14 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                     builder: (context) => AlertDialog(
                                             actions: [
                                               TextButton(
-                                                child: Text(AppLocalizations.of(context)!.no),
+                                                child: Text(
+                                                    AppLocalizations.of(context)!.no.toUpperCase()),
                                                 onPressed: () => Navigator.of(context).pop(),
                                               ),
                                               TextButton(
-                                                child: Text(AppLocalizations.of(context)!.yes),
+                                                child: Text(AppLocalizations.of(context)!
+                                                    .yes
+                                                    .toUpperCase()),
                                                 onPressed: () {
                                                   widget.bloc
                                                       .add(PainterRemoved(widget.painterIndex));
@@ -146,11 +149,11 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                             ),
                             Expanded(child: Container()),
                             TextButton(
-                              child: Text(AppLocalizations.of(context)!.cancel),
+                              child: Text(AppLocalizations.of(context)!.cancel.toUpperCase()),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
                             ElevatedButton(
-                              child: Text(AppLocalizations.of(context)!.ok),
+                              child: Text(AppLocalizations.of(context)!.ok.toUpperCase()),
                               onPressed: () {
                                 widget.bloc.add(PainterChanged(painter, widget.painterIndex));
                                 Navigator.of(context).pop();
