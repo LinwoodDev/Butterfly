@@ -14,16 +14,12 @@ class DocumentLoadSuccess extends DocumentState {
   final int documentIndex;
   final ToolType currentTool;
   final int currentPainterIndex;
-  final Matrix4? transform;
 
   const DocumentLoadSuccess(this.document,
-      {this.currentTool = ToolType.view,
-      this.transform,
-      this.documentIndex = 0,
-      this.currentPainterIndex = 0});
+      {this.currentTool = ToolType.view, this.documentIndex = 0, this.currentPainterIndex = 0});
 
   @override
-  List<Object?> get props => [document, currentTool, transform, currentPainterIndex, documentIndex];
+  List<Object?> get props => [document, currentTool, currentPainterIndex, documentIndex];
 
   Painter? get currentPainter {
     if (document.painters.isEmpty) {
@@ -40,7 +36,6 @@ class DocumentLoadSuccess extends DocumentState {
       int? documentIndex}) {
     return DocumentLoadSuccess(document ?? this.document,
         currentTool: currentTool ?? this.currentTool,
-        transform: transform ?? this.transform,
         documentIndex: documentIndex ?? this.documentIndex,
         currentPainterIndex: currentPainterIndex ?? this.currentPainterIndex);
   }

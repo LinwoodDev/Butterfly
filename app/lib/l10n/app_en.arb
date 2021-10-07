@@ -10,8 +10,8 @@
     "create": "Create",
     "ok": "Ok",
     "cancel": "Cancel",
-    "viewTool": "View tool",
-    "editTool": "Edit tool",
+    "view": "View",
+    "edit": "Edit",
     "export": "Export",
     "save": "Save",
     "zoom": "Zoom",
@@ -45,5 +45,10 @@
     "count": "Count",
     "space": "Space",
     "background": "Background",
-    "box": "Box"
+    "box": "Box",
+    "locale": "Locale",
+    "english": "English",
+    "french": "French",
+    "german":"German",
+    "defaultLocale":"Default locale"
 }

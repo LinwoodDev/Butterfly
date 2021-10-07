@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(title: const Text("Butterfly"), actions: [
         IconButton(
           icon: const Icon(PhosphorIcons.folderOpenLight),
+          tooltip: AppLocalizations.of(context)!.open,
           onPressed: () {
             FilePicker.platform
                 .pickFiles(type: FileType.custom, allowedExtensions: ["json"]).then((files) {
@@ -104,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       TextButton(
-                        child: Text(AppLocalizations.of(context)!.create),
+                        child: Text(AppLocalizations.of(context)!.create.toUpperCase()),
                         onPressed: () {
                           setState(() => _documents.add(AppDocument(name: _nameController.text)));
                           saveDocuments();

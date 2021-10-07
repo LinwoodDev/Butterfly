@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/pad/cubits/transform.dart';
 import 'package:butterfly/pad/dialogs/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,8 +48,11 @@ class _ProjectPageState extends State<ProjectPage> {
     return DefaultTabController(
         length: tools.length,
         initialIndex: 1,
-        child: BlocProvider(
-            create: (_) => _bloc!,
+        child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => _bloc!),
+              BlocProvider(create: (context) => TransformCubit())
+            ],
             child: Scaffold(
                 appBar: AppBar(
                     title: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
@@ -102,16 +106,15 @@ class _ProjectPageState extends State<ProjectPage> {
                           isMobile ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                        BlocBuilder<TransformCubit, Matrix4>(builder: (context, state) {
                           if (_bloc!.state is DocumentLoadSuccess) {
                             var current = _bloc!.state as DocumentLoadSuccess;
-                            var currentScale = current.transform?.up.y ?? 1;
+                            var currentScale = state.up.y;
                             _scaleController.text = (currentScale * 100).toStringAsFixed(2);
                             void setScale(double scale) {
                               scale /= currentScale;
-                              setState(() => _bloc!.add(TransformChanged(
-                                  Matrix4.copy(current.transform ?? Matrix4.identity()
-                                    ..scale(scale, scale, 1)))));
+                              setState(() => _bloc!.add(
+                                  TransformChanged(Matrix4.copy(state..scale(scale, scale, 1)))));
                             }
 
                             return SingleChildScrollView(
@@ -136,7 +139,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                       color: current.currentTool == e
                                           ? Theme.of(context).colorScheme.primary
                                           : null,
-                                      tooltip: e.toString(),
+                                      tooltip: ToolType.edit == e
+                                          ? AppLocalizations.of(context)!.edit
+                                          : AppLocalizations.of(context)!.view,
                                       onPressed: () {
                                         _bloc!.add(ToolChanged(e));
                                       },

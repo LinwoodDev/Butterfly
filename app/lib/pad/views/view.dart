@@ -7,6 +7,7 @@ import 'package:butterfly/models/elements/paint.dart';
 import 'package:butterfly/models/elements/path.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/pad/cubits/transform.dart';
 import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -48,17 +49,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
           return LayoutBuilder(builder: (context, constraints) {
             final viewportSize = Size(constraints.maxWidth, constraints.maxHeight);
             if (state is DocumentLoadSuccess) {
-              Matrix4 transform = state.transform ?? Matrix4.identity();
-              var translation = -transform.getTranslation();
-              var paintViewport = Size(translation.x * 4 + viewportSize.width * 4,
-                  translation.y * 4 + viewportSize.height * 4);
-              _controller.value = state.transform ?? _controller.value;
               List<ElementLayer> raycast(Offset offset) {
                 return state.document.content.where((element) => element.hit(offset)).toList();
               }
 
               return SizedBox.expand(
-                child: Listener(
+                  child: BlocBuilder<TransformCubit, Matrix4>(builder: (context, transform) {
+                var translation = -transform.getTranslation();
+                var paintViewport = Size(translation.x * 4 + viewportSize.width * 4,
+                    translation.y * 4 + viewportSize.height * 4);
+                _controller.value = transform;
+                return Listener(
                   onPointerSignal: (pointerSignal) {
                     if (pointerSignal is PointerScrollEvent) {
                       // Scale the matrix
@@ -173,8 +174,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       ),
                     ),
                   ),
-                ),
-              );
+                );
+              }));
             }
             return Container();
           });

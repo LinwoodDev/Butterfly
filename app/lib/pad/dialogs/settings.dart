@@ -28,9 +28,11 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
             child: Container(
                 constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
                 child: Column(children: [
-                  const TabBar(
+                  TabBar(
                     tabs: [
-                      Tab(icon: Icon(PhosphorIcons.fadersLight), text: "General"),
+                      Tab(
+                          icon: const Icon(PhosphorIcons.fadersLight),
+                          text: AppLocalizations.of(context)!.general),
                       //Tab(icon: Icon(PhosphorIcons.packageLight), text: "Packs")
                     ],
                   ),
@@ -55,7 +57,8 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                               widget.bloc!.add(DocumentNameChanged(_nameController.text));
                               Navigator.of(context).pop();
                             },
-                            child: Text("Ok", style: Theme.of(context).primaryTextTheme.button))
+                            child: Text(AppLocalizations.of(context)!.ok.toUpperCase(),
+                                style: Theme.of(context).primaryTextTheme.button))
                       ]))
                 ]))));
   }
