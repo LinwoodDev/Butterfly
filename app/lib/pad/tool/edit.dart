@@ -72,8 +72,8 @@ class _EditToolbarState extends State<EditToolbar> {
                 Widget toolWidget = InkWell(
                     child: Column(children: [
                       Icon(selected ? getPainterActiveIcon(type) : getPainterIcon(type),
-                          color: selected ? Theme.of(context).colorScheme.primary : null, size: 24),
-                      if (selected) const Icon(PhosphorIcons.arrowDownLight, size: 24)
+                          color: selected ? Theme.of(context).colorScheme.primary : null, size: 32),
+                      if (selected) const Icon(PhosphorIcons.caretDownLight, size: 12)
                     ]),
                     onTap: () {
                       if (!selected) {
