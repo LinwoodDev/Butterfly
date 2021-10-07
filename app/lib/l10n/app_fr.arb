@@ -39,5 +39,11 @@
     "copyMessage": "You can now paste it into a text editor",
     "loading": "Loading...",
     "enterText": "Enter the text",
-    "size": "Size"
+    "size": "Size",
+    "width": "Width",
+    "height": "Height",
+    "count": "Count",
+    "space": "Space",
+    "background": "Background",
+    "box": "Box"
 }
