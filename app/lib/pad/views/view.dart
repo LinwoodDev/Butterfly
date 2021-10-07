@@ -192,6 +192,7 @@ class PathPainter extends CustomPainter {
   void paint(Canvas canvas, Size size, {Offset? offset}) {
     var background = document.background;
     if (background is BoxBackground) {
+      canvas.drawColor(Colors.white, BlendMode.color);
       if (background.boxWidth > 0 && background.boxXCount > 0) {
         double x = offset?.dx ?? 0;
         x += background.boxXSpace;
