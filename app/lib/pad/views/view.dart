@@ -38,7 +38,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
   void initState() {
     super.initState();
     _controller = TransformationController();
-    _controller.addListener(() => widget.bloc.add(TransformChanged(_controller.value)));
+    _controller.addListener(() => context.read<TransformCubit>().emit(_controller.value));
   }
 
   @override
@@ -66,9 +66,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       var up = transform.up;
                       if (up.y < 3.5 && pointerSignal.scrollDelta.dy < 0 ||
                           up.y > 0.5 && pointerSignal.scrollDelta.dy > 0) {
-                        widget.bloc.add(TransformChanged(Matrix4.copy(transform)
+                        context.read<TransformCubit>().emit(Matrix4.copy(transform)
                           ..scale(1 - pointerSignal.scrollDelta.dy / 200,
-                              1 - pointerSignal.scrollDelta.dy / 200, 1)));
+                              1 - pointerSignal.scrollDelta.dy / 200, 1));
                       }
                     }
                   },

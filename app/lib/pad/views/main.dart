@@ -154,8 +154,9 @@ class _ProjectPageState extends State<ProjectPage> {
                               _scaleController.text = (currentScale * 100).toStringAsFixed(2);
                               void setScale(double scale) {
                                 scale /= currentScale;
-                                setState(() => _bloc!.add(TransformChanged(
-                                    Matrix4.copy(transform..scale(scale, scale, 1)))));
+                                setState(() => context
+                                    .read<TransformCubit>()
+                                    .emit(Matrix4.copy(transform..scale(scale, scale, 1))));
                               }
 
                               return Row(

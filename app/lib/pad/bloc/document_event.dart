@@ -40,15 +40,6 @@ class ToolChanged extends DocumentEvent {
   List<Object?> get props => [tool];
 }
 
-class TransformChanged extends DocumentEvent {
-  final Matrix4 transform;
-
-  const TransformChanged(this.transform);
-
-  @override
-  List<Object?> get props => [transform];
-}
-
 class CurrentPainterChanged extends DocumentEvent {
   final int painter;
 

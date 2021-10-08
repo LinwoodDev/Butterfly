@@ -31,7 +31,6 @@ class DocumentLoadSuccess extends DocumentState {
   DocumentLoadSuccess copyWith(
       {AppDocument? document,
       ToolType? currentTool,
-      Matrix4? transform,
       int? currentPainterIndex,
       int? documentIndex}) {
     return DocumentLoadSuccess(document ?? this.document,

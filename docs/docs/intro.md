@@ -2,34 +2,17 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Introduction
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Welcome to Butterfly, the opensource note app.
+Use the sidebar to navigate through the wiki.
 
-## Getting Started
+## Getting started
 
-Get started by **creating a new site**.
+Visit [the downloads](/downloads) to download the app for your platform.
+Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
 
-Or **try Docusaurus immediately** with **[new.docusaurus.io](https://new.docusaurus.io)**.
-
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**:
-
-```shell
-npx @docusaurus/init@latest init my-website classic
-```
-
-## Start your site
-
-Run the development server:
-
-```shell
-cd my-website
-
-npx docusaurus start
-```
-
-Your site starts at `http://localhost:3000`.
-
-Open `docs/intro.md` and edit some lines: the site **reloads automatically** and display your changes.
+Then you can open the app. On the screen you can see all documents you can edit. On the first start it should be empty.
+To open a file, use the open button in the right corner. The settings button is also there.
+Create a document by clicking on the bottom right plus icon. Give the document a name.
+Click oo the document to open it.

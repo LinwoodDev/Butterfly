@@ -64,12 +64,13 @@ class AppDocument {
       String? description,
       List<ElementLayer>? content,
       List<Painter>? painters,
-      BoxBackground? background}) {
+      BoxBackground? background,
+      bool removeBackground = false}) {
     return AppDocument(
         name: name ?? this.name,
         description: description ?? this.description,
         content: content ?? this.content,
         painters: painters ?? this.painters,
-        background: background ?? this.background);
+        background: removeBackground ? null : (background ?? this.background));
   }
 }

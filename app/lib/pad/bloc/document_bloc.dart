@@ -5,8 +5,6 @@ import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/painter/painter.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,13 +44,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ToolChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         emit((state as DocumentLoadSuccess).copyWith(currentTool: event.tool));
-      }
-    });
-
-    on<TransformChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        emit((state as DocumentLoadSuccess).copyWith(transform: event.transform));
-        _saveDocument();
       }
     });
     on<CurrentPainterChanged>((event, emit) async {
@@ -112,7 +103,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentBackgroundChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        emit(current.copyWith(document: current.document.copyWith(background: event.background)));
+        emit(current.copyWith(
+            document: current.document.copyWith(
+                background: event.background, removeBackground: event.background == null)));
         _saveDocument();
       }
     });
