@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+sidebar_label: Introduction
 ---
 
 # Painters
@@ -11,3 +12,5 @@ Use the sidebar to learn more about the painters.
 
 Create a new painter by clicking on the plus icon. Change the painter order by dragging and change the painter by clicking.
 If you click on a selected tool you can configure the painter.
+
+The name of the painter will be displayed as tooltip on hover on the painter.

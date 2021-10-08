@@ -70,7 +70,7 @@ module.exports = {
           items: [
             {
               label: 'Imprint',
-              to: 'https://codedoctor.tk/impress',
+              href: 'https://codedoctor.tk/impress',
             },
             {
               label: 'Privacy Policy',
