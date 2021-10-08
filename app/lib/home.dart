@@ -77,7 +77,11 @@ class _HomePageState extends State<HomePage> {
                         return Card(
                             margin: const EdgeInsets.all(5),
                             child: InkWell(
-                                onTap: () => Modular.to.pushNamed("/pad/$index"),
+                                onTap: () {
+                                  Modular.to.pushNamed("/pad/$index").then((value) {
+                                    if (mounted) loadDocuments();
+                                  });
+                                },
                                 child: Padding(
                                     padding:
                                         const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

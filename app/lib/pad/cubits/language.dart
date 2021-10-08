@@ -16,6 +16,9 @@ class LanguageCubit extends Cubit<Locale?> {
       case 'de':
         locale = const Locale('de');
         break;
+      case 'fr':
+        locale = const Locale('fr');
+        break;
       default:
         locale = null;
     }
