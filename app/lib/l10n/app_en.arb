@@ -49,6 +49,13 @@
     "locale": "Locale",
     "english": "English",
     "french": "French",
-    "german":"German",
-    "defaultLocale":"Default locale"
+    "german": "German",
+    "defaultLocale": "Default locale",
+    "information": "Information",
+    "license": "License",
+    "imprint": "Imprint",
+    "privacypolicy": "Privacy policy",
+    "source": "Source",
+    "documentation": "Documentation",
+    "changelog": "Changelog"
 }

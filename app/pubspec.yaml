@@ -11,10 +11,10 @@ description: Change the world.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.0-alpha.0+1
 
 environment:
-  sdk: '>=2.13.0 <3.0.0'
+  sdk: ">=2.13.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -53,6 +53,8 @@ flutter:
         - asset: fonts/Roboto-Regular.ttf
         - asset: fonts/Roboto-Bold.ttf
           weight: 700
+  assets:
+    - images/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
