@@ -153,6 +153,7 @@ class _ProjectPageState extends State<ProjectPage> {
                               var currentScale = transform.up.y;
                               _scaleController.text = (currentScale * 100).toStringAsFixed(2);
                               void setScale(double scale) {
+                                scale = scale.clamp(0.5, 2.5);
                                 scale /= currentScale;
                                 setState(() => context
                                     .read<TransformCubit>()
@@ -162,10 +163,10 @@ class _ProjectPageState extends State<ProjectPage> {
                               return Row(
                                 children: [
                                   IconButton(
-                                      icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
-                                      tooltip: AppLocalizations.of(context)!.zoomIn,
+                                      icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
+                                      tooltip: AppLocalizations.of(context)!.zoomOut,
                                       onPressed: () {
-                                        setScale(currentScale + 0.05);
+                                        setScale(currentScale - 0.05);
                                       }),
                                   IconButton(
                                       icon: const Icon(PhosphorIcons.magnifyingGlassLight),
@@ -174,10 +175,10 @@ class _ProjectPageState extends State<ProjectPage> {
                                         setScale(1);
                                       }),
                                   IconButton(
-                                      icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
-                                      tooltip: AppLocalizations.of(context)!.zoomOut,
+                                      icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
+                                      tooltip: AppLocalizations.of(context)!.zoomIn,
                                       onPressed: () {
-                                        setScale(currentScale - 0.05);
+                                        setScale(currentScale + 0.05);
                                       }),
                                   const SizedBox(width: 20),
                                   ConstrainedBox(
