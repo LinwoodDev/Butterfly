@@ -72,50 +72,6 @@ title: Downloads
 </div>
 </div>
 
-## Server
-
-<div className="row margin-bottom--lg">
-<div className="dropdown dropdown--hoverable">
-  <button className="button button--outline button--danger">Windows</button>
-  <ul className="dropdown__menu">
-    <li>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/release/server-windows.exe">
-        Release
-      </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/preview/server-windows.exe">
-        Preview
-      </a>
-    </li>
-  </ul>
-</div>
-<div className="dropdown dropdown--hoverable">
-  <button className="button button--outline button--danger">Linux</button>
-  <ul className="dropdown__menu">
-    <li>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/release/server-linux">
-        Release
-      </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/preview/server-linux">
-        Preview
-      </a>
-    </li>
-  </ul>
-</div>
-<div className="dropdown dropdown--hoverable">
-  <button className="button button--outline button--danger">Mac</button>
-  <ul className="dropdown__menu">
-    <li>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/release/server-mac">
-        Release
-      </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/preview/server-mac">
-        Preview
-      </a>
-    </li>
-  </ul>
-</div>
-</div>
-
 ## Useful links
 
 - [Changelog](changelog)

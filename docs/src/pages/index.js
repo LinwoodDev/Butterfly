@@ -20,11 +20,6 @@ function HomepageHeader() {
             Getting started
           </Link>
           <Link
-            className="button button--info button--lg"
-            to="/docs/intro">
-            Own server
-          </Link>
-          <Link
             className="button button--success button--lg"
             to="/downloads">
             Downloads
@@ -40,7 +35,7 @@ export default function Home() {
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="Change the world">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
