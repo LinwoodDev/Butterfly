@@ -66,9 +66,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       var up = transform.up;
                       if (up.y < 3.5 && pointerSignal.scrollDelta.dy < 0 ||
                           up.y > 0.5 && pointerSignal.scrollDelta.dy > 0) {
-                        context.read<TransformCubit>().emit(Matrix4.copy(transform)
-                          ..scale(1 - pointerSignal.scrollDelta.dy / 200,
-                              1 - pointerSignal.scrollDelta.dy / 200, 1));
+                        var scale = 1 - pointerSignal.scrollDelta.dy / 100;
+                        var currentScale = transform.up.y;
+                        scale *= currentScale;
+                        scale = scale.clamp(0.5, 2.5);
+                        scale /= currentScale;
+                        context
+                            .read<TransformCubit>()
+                            .emit(Matrix4.copy(transform)..scale(scale, scale, scale));
                       }
                     }
                   },
@@ -186,12 +191,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
 class PathPainter extends CustomPainter {
   final AppDocument document;
   final ElementLayer? editingLayer;
+  final bool renderBackground;
 
-  PathPainter(this.document, this.editingLayer);
+  PathPainter(this.document, this.editingLayer, {this.renderBackground = true});
   @override
   void paint(Canvas canvas, Size size, {Offset? offset}) {
     var background = document.background;
-    if (background is BoxBackground) {
+    if (background is BoxBackground && renderBackground) {
       canvas.drawColor(Colors.white, BlendMode.color);
       if (background.boxWidth > 0 && background.boxXCount > 0) {
         double x = offset?.dx ?? 0;

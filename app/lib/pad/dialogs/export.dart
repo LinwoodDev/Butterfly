@@ -29,6 +29,8 @@ class _ExportDialogState extends State<ExportDialog> {
   final TextEditingController _widthController = TextEditingController(text: "1000");
 
   final TextEditingController _heightController = TextEditingController(text: "1000");
+
+  bool _renderBackground = true;
   int x = 0, y = 0, width = 1000, height = 1000;
 
   ByteData? _previewImage;
@@ -47,9 +49,10 @@ class _ExportDialogState extends State<ExportDialog> {
   Future<ByteData?> generateImage() async {
     var recorder = PictureRecorder();
     var canvas = Canvas(recorder);
-    PathPainter((widget.bloc.state as DocumentLoadSuccess).document, null).paint(
-        canvas, Size(width.toDouble(), height.toDouble()),
-        offset: Offset(x.toDouble(), y.toDouble()));
+    PathPainter((widget.bloc.state as DocumentLoadSuccess).document, null,
+            renderBackground: _renderBackground)
+        .paint(canvas, Size(width.toDouble(), height.toDouble()),
+            offset: -Offset(x.toDouble(), y.toDouble()));
     var picture = recorder.endRecording();
     var image = await picture.toImage(width, height);
     return await image.toByteData(format: ImageByteFormat.png);
@@ -81,10 +84,8 @@ class _ExportDialogState extends State<ExportDialog> {
                               if (state is! DocumentLoadSuccess || _previewImage == null) {
                                 return Container();
                               }
-                              return Container(
-                                  color: Colors.white,
-                                  child: ClipRect(
-                                      child: Image.memory(_previewImage!.buffer.asUint8List())));
+                              return InteractiveViewer(
+                                  child: Image.memory(_previewImage!.buffer.asUint8List()));
                             }),
                           ),
                         ),
@@ -112,6 +113,13 @@ class _ExportDialogState extends State<ExportDialog> {
                                   InputDecoration(labelText: AppLocalizations.of(context)!.height),
                               onChanged: (value) => height = int.tryParse(value) ?? height,
                               onSubmitted: (value) => _regeneratePreviewImage()),
+                          CheckboxListTile(
+                              value: _renderBackground,
+                              title: Text(AppLocalizations.of(context)!.background),
+                              onChanged: (value) {
+                                setState(() => _renderBackground = value ?? _renderBackground);
+                                _regeneratePreviewImage();
+                              })
                         ]))
                       ]),
                     ),

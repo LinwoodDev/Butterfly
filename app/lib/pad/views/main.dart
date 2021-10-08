@@ -156,7 +156,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                 scale /= currentScale;
                                 setState(() => context
                                     .read<TransformCubit>()
-                                    .emit(Matrix4.copy(transform..scale(scale, scale, 1))));
+                                    .emit(Matrix4.copy(transform..scale(scale, scale, scale))));
                               }
 
                               return Row(
