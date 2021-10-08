@@ -34,11 +34,11 @@ class SettingsPage extends StatelessWidget {
           ListTile(
               leading: const Icon(PhosphorIcons.articleLight),
               title: Text(AppLocalizations.of(context)!.documentation),
-              onTap: () => launch("https://docs.dev-doctor.linwood.dev/backend/overview")),
+              onTap: () => launch("https://docs.butterfly.linwood.dev")),
           ListTile(
               leading: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               title: Text(AppLocalizations.of(context)!.changelog),
-              onTap: () => launch("https://docs.dev-doctor.linwood.dev/changelog")),
+              onTap: () => launch("https://docs.butterfly.linwood.dev/changelog")),
           ListTile(
               leading: const Icon(PhosphorIcons.identificationCardLight),
               title: Text(AppLocalizations.of(context)!.imprint),

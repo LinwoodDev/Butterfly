@@ -127,5 +127,6 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
         });
     cubit.change(locale);
     cubit.save();
+    setState(() {});
   }
 }
