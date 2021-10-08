@@ -50,5 +50,12 @@
     "english": "Englisch",
     "french": "Französisch",
     "german": "Deutsch",
-    "defaultLocale": "Standard-Gebietsschema"
+    "defaultLocale": "Standard-Gebietsschema",
+    "information": "Information",
+    "license": "License",
+    "imprint": "Imprint",
+    "privacypolicy": "Privacy policy",
+    "source": "Source",
+    "documentation": "Documentation",
+    "changelog": "Changelog"
 }
