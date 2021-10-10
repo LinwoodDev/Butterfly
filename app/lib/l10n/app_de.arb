@@ -51,12 +51,12 @@
     "french": "Französisch",
     "german": "Deutsch",
     "defaultLocale": "Standard-Gebietsschema",
-    "information": "Information",
-    "license": "License",
-    "imprint": "Imprint",
-    "privacypolicy": "Privacy policy",
-    "source": "Source",
-    "documentation": "Documentation",
+    "information": "Informationen",
+    "license": "Lizenz",
+    "imprint": "Impressum",
+    "privacypolicy": "Datenschutzerklärung",
+    "source": "Quelle",
+    "documentation": "Dokumentation",
     "changelog": "Changelog",
-    "existOverride": "This element already exist. Overwrite?"
+    "existOverride": "Dieses Element existiert bereits. Überschreiben?"
 }
