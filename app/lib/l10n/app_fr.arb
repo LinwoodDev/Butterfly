@@ -52,11 +52,11 @@
     "german": "Allemand",
     "defaultLocale": "Langue par défaut",
     "information": "Information",
-    "license": "License",
-    "imprint": "Imprint",
-    "privacypolicy": "Privacy policy",
+    "license": "Licence",
+    "imprint": "Mentions légales",
+    "privacypolicy": "Politique de confidentialité",
     "source": "Source",
     "documentation": "Documentation",
-    "changelog": "Changelog",
-    "existOverride": "This element already exist. Overwrite?"
+    "changelog": "Historique des modifications",
+    "existOverride": "Cet élément existe déjà. Écraser ?"
 }
