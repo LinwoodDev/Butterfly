@@ -258,26 +258,6 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                     const Divider(),
                     Row(
                       children: [
-                        OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                              primary: Theme.of(context).colorScheme.error),
-                          child: Text(AppLocalizations.of(context)!.delete.toUpperCase()),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                        actions: [
-                                          TextButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)!.no.toUpperCase()),
-                                            onPressed: () => Navigator.of(context).pop(),
-                                          ),
-                                        ],
-                                        title: Text(AppLocalizations.of(context)!.areYouSure),
-                                        content: Text(AppLocalizations.of(context)!.reallyDelete)));
-                          },
-                        ),
                         Expanded(child: Container()),
                         TextButton(
                           child: Text(AppLocalizations.of(context)!.cancel.toUpperCase()),

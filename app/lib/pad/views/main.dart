@@ -35,9 +35,12 @@ class _ProjectPageState extends State<ProjectPage> {
     }
     SharedPreferences.getInstance().then((value) {
       var index = int.tryParse(widget.id ?? "") ?? 0;
+      // TODO: Dynamic api version
+      const apiVersion = 0;
       setState(() => _bloc = DocumentBloc(
           AppDocument.fromJson(jsonDecode((value.getStringList("documents") ?? [])[index])),
-          index));
+          index,
+          apiVersion));
     });
   }
 

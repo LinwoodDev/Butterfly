@@ -57,5 +57,6 @@
     "privacypolicy": "Privacy policy",
     "source": "Source",
     "documentation": "Documentation",
-    "changelog": "Changelog"
+    "changelog": "Changelog",
+    "existOverride":"This element already exist. Overwrite?"
 }

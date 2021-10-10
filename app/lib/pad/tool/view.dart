@@ -45,8 +45,10 @@ class _ViewToolbarState extends State<ViewToolbar> {
             icon: const Icon(PhosphorIcons.floppyDiskLight),
             tooltip: AppLocalizations.of(context)!.save,
             onPressed: () async {
-              if (kIsWeb || Platform.isAndroid || Platform.isWindows) {
-                Clipboard.setData(ClipboardData(text: jsonEncode(state.document.toJson())));
+              const encoder = JsonEncoder.withIndent("\t");
+              var json = encoder.convert(state.document.toJson());
+              if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
+                Clipboard.setData(ClipboardData(text: json));
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
@@ -69,7 +71,32 @@ class _ViewToolbarState extends State<ViewToolbar> {
                   if (value == null) {
                     return;
                   }
-                  File(value).writeAsStringSync(jsonEncode(state.document.toJson()));
+                  var file = File(value);
+                  void write() {
+                    file.writeAsStringSync(json);
+                  }
+
+                  if (!file.existsSync()) {
+                    write();
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text(AppLocalizations.of(context)!.areYouSure),
+                              content: Text(AppLocalizations.of(context)!.existOverride),
+                              actions: [
+                                TextButton(
+                                    child: Text(AppLocalizations.of(context)!.no),
+                                    onPressed: () => Navigator.of(context).pop()),
+                                TextButton(
+                                    child: Text(AppLocalizations.of(context)!.yes),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      write();
+                                    })
+                              ],
+                            ));
+                  }
                 });
               }
             }),

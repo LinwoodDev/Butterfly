@@ -69,35 +69,39 @@ class _EditToolbarState extends State<EditToolbar> {
                     i == state.currentPainterIndex.clamp(0, state.document.painters.length - 1);
                 String? tooltip = e.name.trim();
                 if (tooltip == "") tooltip = null;
-                Widget toolWidget = InkWell(
-                    child: Column(children: [
-                      Icon(selected ? getPainterActiveIcon(type) : getPainterIcon(type),
-                          color: selected ? Theme.of(context).colorScheme.primary : null, size: 32),
-                      if (selected) const Icon(PhosphorIcons.caretDownLight, size: 12)
-                    ]),
-                    onTap: () {
-                      if (!selected) {
-                        widget.bloc.add(CurrentPainterChanged(i));
-                      } else {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              switch (type) {
-                                case 'pen':
-                                  return PenPainterDialog(bloc: widget.bloc, painterIndex: i);
-                                case 'eraser':
-                                  return EraserPainterDialog(bloc: widget.bloc, painterIndex: i);
-                                case 'path-eraser':
-                                  return PathEraserPainterDialog(
-                                      bloc: widget.bloc, painterIndex: i);
-                                case 'label':
-                                  return LabelPainterDialog(bloc: widget.bloc, painterIndex: i);
-                                default:
-                                  return Container();
-                              }
-                            });
-                      }
-                    });
+                Widget toolWidget = Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: InkWell(
+                        child: Column(children: [
+                          Icon(selected ? getPainterActiveIcon(type) : getPainterIcon(type),
+                              color: selected ? Theme.of(context).colorScheme.primary : null,
+                              size: 32),
+                          if (selected) const Icon(PhosphorIcons.caretDownLight, size: 12)
+                        ]),
+                        onTap: () {
+                          if (!selected) {
+                            widget.bloc.add(CurrentPainterChanged(i));
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  switch (type) {
+                                    case 'pen':
+                                      return PenPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                    case 'eraser':
+                                      return EraserPainterDialog(
+                                          bloc: widget.bloc, painterIndex: i);
+                                    case 'path-eraser':
+                                      return PathEraserPainterDialog(
+                                          bloc: widget.bloc, painterIndex: i);
+                                    case 'label':
+                                      return LabelPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                    default:
+                                      return Container();
+                                  }
+                                });
+                          }
+                        }));
                 if (tooltip != null) toolWidget = Tooltip(message: tooltip, child: toolWidget);
                 return ReorderableDragStartListener(index: i, key: ObjectKey(e), child: toolWidget);
               },
@@ -105,6 +109,7 @@ class _EditToolbarState extends State<EditToolbar> {
                   widget.bloc.add(PainterReordered(oldIndex, newIndex))),
           const VerticalDivider(),
           PopupMenuButton<Painter>(
+              tooltip: AppLocalizations.of(context)!.create,
               onSelected: (value) => widget.bloc.add(PainterCreated(value)),
               icon: const Icon(PhosphorIcons.plusLight),
               itemBuilder: (context) => [

@@ -13,10 +13,14 @@ class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final int documentIndex;
   final ToolType currentTool;
+  final int apiVersion;
   final int currentPainterIndex;
 
   const DocumentLoadSuccess(this.document,
-      {this.currentTool = ToolType.view, this.documentIndex = 0, this.currentPainterIndex = 0});
+      {this.currentTool = ToolType.view,
+      this.documentIndex = 0,
+      this.currentPainterIndex = 0,
+      required this.apiVersion});
 
   @override
   List<Object?> get props => [document, currentTool, currentPainterIndex, documentIndex];
@@ -36,7 +40,8 @@ class DocumentLoadSuccess extends DocumentState {
     return DocumentLoadSuccess(document ?? this.document,
         currentTool: currentTool ?? this.currentTool,
         documentIndex: documentIndex ?? this.documentIndex,
-        currentPainterIndex: currentPainterIndex ?? this.currentPainterIndex);
+        currentPainterIndex: currentPainterIndex ?? this.currentPainterIndex,
+        apiVersion: apiVersion);
   }
 
   Future<void> save() {
