@@ -50,5 +50,13 @@
     "english": "Englisch",
     "french": "Französisch",
     "german": "Deutsch",
-    "defaultLocale": "Standard-Gebietsschema"
+    "defaultLocale": "Standard-Gebietsschema",
+    "information": "Informationen",
+    "license": "Lizenz",
+    "imprint": "Impressum",
+    "privacypolicy": "Datenschutzerklärung",
+    "source": "Quelle",
+    "documentation": "Dokumentation",
+    "changelog": "Changelog",
+    "existOverride": "Dieses Element existiert bereits. Überschreiben?"
 }

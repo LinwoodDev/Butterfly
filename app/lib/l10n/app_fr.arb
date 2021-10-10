@@ -50,5 +50,13 @@
     "english": "Anglais",
     "french": "Français",
     "german": "Allemand",
-    "defaultLocale": "Langue par défaut"
+    "defaultLocale": "Langue par défaut",
+    "information": "Information",
+    "license": "Licence",
+    "imprint": "Mentions légales",
+    "privacypolicy": "Politique de confidentialité",
+    "source": "Source",
+    "documentation": "Documentation",
+    "changelog": "Historique des modifications",
+    "existOverride": "Cet élément existe déjà. Écraser ?"
 }
