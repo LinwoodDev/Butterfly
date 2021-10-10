@@ -79,7 +79,6 @@ module.exports = {
           ],
         }
       ],
-      // Please do not remove the credits, help to publicize Docusaurus :)
       copyright: `Copyright © ${new Date().getFullYear()} LinwoodCloud.`,
     },
   },

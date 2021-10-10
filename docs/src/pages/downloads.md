@@ -8,6 +8,19 @@ title: Downloads
 
 ## App
 
+:::note
+
+For performance reasons, prefer using the native version instead of the web version.
+
+:::
+
+:::info
+
+This application is in alpha version. There are some missing features and is not ready for production.
+Currently the app store versions of this app are not ready.
+
+:::
+
 <div className="row margin-bottom--lg">
 <div className="dropdown dropdown--hoverable">
   <button className="button button--outline button--primary">Web</button>
@@ -52,15 +65,6 @@ title: Downloads
   <button className="button button--outline button--warning">Android</button>
   <ul className="dropdown__menu">
     <li>
-      <a className="dropdown__link" href="https://play.google.com/store/apps/details?id=com.github.linwoodcloud.dev_doctor">
-        Play Store
-      </a>
-      <a className="dropdown__link" href="https://to.skydroid.app/com.github.linwoodcloud.dev_doctor.izzyondroid">
-        SkyDroid
-      </a>
-      <a className="dropdown__link" href="https://www.f-droid.org/en/packages/com.github.linwoodcloud.dev_doctor/">
-        F-Droid
-      </a>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/release/app-release.apk">
         Release
       </a>

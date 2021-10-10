@@ -4,15 +4,19 @@ sidebar_position: 1
 
 # Introduction
 
-Welcome to Butterfly, the opensource note app.
-Use the sidebar to navigate through the wiki.
+![Banner](/img/banner.png)
+
+---
+
+> Welcome to Butterfly, the opensource note app.
+> Use the sidebar to navigate through the wiki.
 
 ## Getting started
 
 Visit [the downloads](/downloads) to download the app for your platform.
 Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
 
-![Home page](https://github.com/LinwoodCloud/butterfly/blob/f2960448351ea9539b5e2f1d24cef16cd5a75af7/assets/home.png)
+![Home page](/img/tutorial/home.png)
 
 Then you can open the app. On the screen you can see all documents you can edit. On the first start it should be empty.
 To open a file, use the open button in the right corner. The settings button is also there.
@@ -21,7 +25,7 @@ Click oo the document to open it.
 
 ## Main view
 
-![Main view](https://github.com/LinwoodCloud/butterfly/blob/0c5284875294ab113bba45191e1e0909cc954292/assets/main.png)
+![Main view](/img/tutorial/main.png)
 
 With the top left button you can go back to the document list.
 The document name will be displayed on the right of it.
