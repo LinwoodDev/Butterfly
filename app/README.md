@@ -2,7 +2,7 @@
   
 <img src="https://raw.githubusercontent.com/LinwoodCloud/butterfly/develop/app/images/logo.png" width="350px" />
 
- # Butterfly
+# Butterfly
 
 > Change the world
 

@@ -25,9 +25,10 @@ class PaintElement extends PathElement {
   @override
   Path buildPath() {
     var path = Path();
-    if (points.length > 1) {
+    if (points.isNotEmpty) {
       var first = points.first;
       path.moveTo(first.dx, first.dy);
+      path.lineTo(first.dx, first.dy);
       points.sublist(1).forEach((element) => path.lineTo(element.dx, element.dy));
     }
     return path;
