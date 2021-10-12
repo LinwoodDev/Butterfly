@@ -58,5 +58,7 @@
     "source": "Source",
     "documentation": "Documentation",
     "changelog": "Historique des modifications",
-    "existOverride": "Cet élément existe déjà. Écraser ?"
+    "existOverride": "Cet élément existe déjà. Écraser ?",
+    "color": "Color",
+    "description": "Description"
 }
