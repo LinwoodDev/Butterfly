@@ -8,7 +8,7 @@ import 'package:butterfly/models/elements/path.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/cubits/transform.dart';
-import 'package:butterfly/pad/dialogs/view.dart';
+import 'package:butterfly/pad/dialogs/object.dart';
 import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -144,7 +144,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       if (hit != null) {
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => ViewDialog(
+                            builder: (context) => ObjectDialog(
                                 index: state.document.content.indexOf(hit), bloc: widget.bloc));
                       }
                     }

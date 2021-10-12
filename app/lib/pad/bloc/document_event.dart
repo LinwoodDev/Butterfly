@@ -11,8 +11,18 @@ class LayerCreated extends DocumentEvent {
   final ElementLayer layer;
 
   const LayerCreated(this.layer);
+
   @override
   List<Object?> get props => [layer];
+}
+
+class LayerChanged extends DocumentEvent {
+  final ElementLayer layer;
+  final int index;
+  const LayerChanged(this.index, this.layer);
+
+  @override
+  List<Object?> get props => [layer, index];
 }
 
 class LayersRemoved extends DocumentEvent {

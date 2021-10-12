@@ -38,4 +38,11 @@ class LabelElement extends ElementLayer {
       offset.dy >= position.dy &&
       offset.dx <= position.dx + size &&
       offset.dy <= position.dy + size;
+
+  LabelElement copyWith({String? text, Color? color, double? size, Offset? position}) =>
+      LabelElement(
+          text: text ?? this.text,
+          color: color ?? this.color,
+          size: size ?? this.size,
+          position: position ?? this.position);
 }

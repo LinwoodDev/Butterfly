@@ -24,6 +24,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         _saveDocument();
       }
     });
+    on<LayerChanged>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = (state as DocumentLoadSuccess);
+        emit(current.copyWith(
+            document: current.document.copyWith(
+                content: (List.from(current.document.content)..[event.index] = event.layer))));
+        _saveDocument();
+      }
+    });
     on<LayersRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = (state as DocumentLoadSuccess);

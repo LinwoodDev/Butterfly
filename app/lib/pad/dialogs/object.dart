@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class ViewDialog extends StatelessWidget {
+class ObjectDialog extends StatelessWidget {
   final int index;
   final DocumentBloc bloc;
-  const ViewDialog({Key? key, required this.index, required this.bloc}) : super(key: key);
+  const ObjectDialog({Key? key, required this.index, required this.bloc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +39,39 @@ class ViewDialog extends StatelessWidget {
                 const Divider(thickness: 1),
                 Expanded(
                     child: ListView(children: [
+                  if (element is LabelElement)
+                    ListTile(
+                        title: Text(AppLocalizations.of(context)!.edit),
+                        leading: const Icon(PhosphorIcons.textTLight),
+                        onTap: () {
+                          var _textController = TextEditingController(text: element.text);
+                          void submit() {
+                            Navigator.of(context).pop();
+                            bloc.add(
+                                LayerChanged(index, element.copyWith(text: _textController.text)));
+                          }
+
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                      title: Text(AppLocalizations.of(context)!.enterText),
+                                      content: TextField(
+                                        controller: _textController,
+                                        autofocus: true,
+                                        onSubmitted: (text) => submit(),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          child: Text(
+                                              AppLocalizations.of(context)!.cancel.toUpperCase()),
+                                          onPressed: () => Navigator.of(context).pop(),
+                                        ),
+                                        TextButton(
+                                            child: Text(
+                                                AppLocalizations.of(context)!.ok.toUpperCase()),
+                                            onPressed: submit)
+                                      ]));
+                        }),
                   ListTile(
                       onTap: () {
                         showDialog(
