@@ -58,5 +58,7 @@
     "source": "Source",
     "documentation": "Documentation",
     "changelog": "Changelog",
-    "existOverride":"This element already exist. Overwrite?"
+    "existOverride": "This element already exist. Overwrite?",
+    "color": "Color",
+    "description": "Description"
 }

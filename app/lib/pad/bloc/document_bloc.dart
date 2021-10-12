@@ -12,8 +12,9 @@ part 'document_event.dart';
 part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
-  DocumentBloc(AppDocument document, int documentIndex, int apiVersion)
-      : super(DocumentLoadSuccess(document, documentIndex: documentIndex, apiVersion: apiVersion)) {
+  DocumentBloc(AppDocument document, int documentIndex, int fileVersion)
+      : super(
+            DocumentLoadSuccess(document, documentIndex: documentIndex, fileVersion: fileVersion)) {
     on<LayerCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = (state as DocumentLoadSuccess);
@@ -33,10 +34,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         _saveDocument();
       }
     });
-    on<DocumentNameChanged>((event, emit) async {
+    on<DocumentDescriptorChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = (state as DocumentLoadSuccess);
-        emit(current.copyWith(document: current.document.copyWith(name: event.name)));
+        emit(current.copyWith(
+            document: current.document.copyWith(name: event.name, description: event.description)));
         _saveDocument();
       }
     });

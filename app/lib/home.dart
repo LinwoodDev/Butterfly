@@ -107,6 +107,7 @@ class _HomePageState extends State<HomePage> {
           var document = _documents[index];
           return ListTile(
               title: Text(document.name),
+              subtitle: Text(document.description),
               onTap: () => _openDocument(index),
               trailing: IconButton(
                 icon: const Icon(PhosphorIcons.trashLight),

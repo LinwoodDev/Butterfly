@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'color_pick.dart';
+
 class BackgroundDialog extends StatefulWidget {
   final DocumentBloc bloc;
   const BackgroundDialog({Key? key, required this.bloc}) : super(key: key);
@@ -19,6 +21,8 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
   final boxYCountController = TextEditingController();
   final boxXSpaceController = TextEditingController();
   final boxYSpaceController = TextEditingController();
+  final boxXStrokeController = TextEditingController();
+  final boxYStrokeController = TextEditingController();
   int? currentExpansionOpened = 0;
   @override
   Widget build(BuildContext context) {
@@ -61,6 +65,14 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                               background!.boxYSpace.toStringAsFixed(2)) {
                             boxYSpaceController.text = background!.boxYSpace.toStringAsFixed(2);
                           }
+                          if (boxXStrokeController.text !=
+                              background!.boxXStroke.toStringAsFixed(2)) {
+                            boxXStrokeController.text = background!.boxXStroke.toStringAsFixed(2);
+                          }
+                          if (boxYStrokeController.text !=
+                              background!.boxYStroke.toStringAsFixed(2)) {
+                            boxYStrokeController.text = background!.boxYStroke.toStringAsFixed(2);
+                          }
                         }
 
                         return ListView(children: [
@@ -83,6 +95,117 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                 children: [
                                   ExpansionPanel(
                                       isExpanded: currentExpansionOpened == 0,
+                                      headerBuilder: (context, isExpanded) => Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Text(AppLocalizations.of(context)!.color,
+                                                  style: Theme.of(context).textTheme.subtitle1),
+                                            ],
+                                          ),
+                                      body: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(children: [
+                                          ListTile(
+                                              onTap: () async {
+                                                var value = await showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        const ColorPickerDialog());
+                                                if (value != null) {
+                                                  setState(() => background = background!
+                                                      .copyWith(boxColor: value as Color));
+                                                }
+                                              },
+                                              leading:
+                                                  Container(width: 50, color: background!.boxColor),
+                                              title:
+                                                  Text(AppLocalizations.of(context)!.background)),
+                                          ListTile(
+                                              leading: Container(
+                                                  width: 50, color: background!.boxXColor),
+                                              onTap: () async {
+                                                var value = await showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        const ColorPickerDialog());
+                                                if (value != null) {
+                                                  setState(() => background = background!
+                                                      .copyWith(boxXColor: value as Color));
+                                                }
+                                              },
+                                              title: const Text("X")),
+                                          ListTile(
+                                              leading: Container(
+                                                  width: 50, color: background!.boxYColor),
+                                              onTap: () async {
+                                                var value = await showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        const ColorPickerDialog());
+                                                if (value != null) {
+                                                  setState(() => background = background!
+                                                      .copyWith(boxYColor: value as Color));
+                                                }
+                                              },
+                                              title: const Text("Y")),
+                                        ]),
+                                      )),
+                                  ExpansionPanel(
+                                      isExpanded: currentExpansionOpened == 1,
+                                      headerBuilder: (context, isExpanded) => Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Text(AppLocalizations.of(context)!.strokeWidth,
+                                                  style: Theme.of(context).textTheme.subtitle1),
+                                            ],
+                                          ),
+                                      body: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(children: [
+                                          Row(children: [
+                                            ConstrainedBox(
+                                                constraints: const BoxConstraints(maxWidth: 100),
+                                                child: TextField(
+                                                  decoration: const InputDecoration(labelText: "X"),
+                                                  controller: boxXStrokeController,
+                                                  onChanged: (value) => setState(() => background =
+                                                      background!.copyWith(
+                                                          boxXStroke: double.tryParse(value))),
+                                                )),
+                                            Expanded(
+                                              child: Slider(
+                                                  value: background!.boxXStroke.clamp(0, 10),
+                                                  min: 0,
+                                                  max: 10,
+                                                  onChanged: (value) => setState(() => background =
+                                                      background!.copyWith(boxXStroke: value))),
+                                            )
+                                          ]),
+                                          Row(children: [
+                                            ConstrainedBox(
+                                                constraints: const BoxConstraints(maxWidth: 100),
+                                                child: TextField(
+                                                  decoration: const InputDecoration(labelText: "Y"),
+                                                  controller: boxYStrokeController,
+                                                  onChanged: (value) => setState(() => background =
+                                                      background!.copyWith(
+                                                          boxYStroke: double.tryParse(value))),
+                                                )),
+                                            Expanded(
+                                              child: Slider(
+                                                  value: background!.boxYStroke.clamp(0, 10),
+                                                  min: 0,
+                                                  max: 10,
+                                                  onChanged: (value) => setState(() => background =
+                                                      background!.copyWith(boxYStroke: value))),
+                                            )
+                                          ])
+                                        ]),
+                                      )),
+                                  ExpansionPanel(
+                                      isExpanded: currentExpansionOpened == 2,
                                       headerBuilder: (context, isExpanded) => Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -139,7 +262,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                         ]),
                                       )),
                                   ExpansionPanel(
-                                      isExpanded: currentExpansionOpened == 1,
+                                      isExpanded: currentExpansionOpened == 3,
                                       headerBuilder: (context, isExpanded) => Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -198,7 +321,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                         ]),
                                       )),
                                   ExpansionPanel(
-                                      isExpanded: currentExpansionOpened == 2,
+                                      isExpanded: currentExpansionOpened == 4,
                                       headerBuilder: (context, isExpanded) => Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             crossAxisAlignment: CrossAxisAlignment.center,

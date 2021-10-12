@@ -52,13 +52,13 @@ class AppDocument {
               return PaintElement.fromJson(e);
           }
         }).toList();
-  Map<String, dynamic> toJson([int? apiVersion]) => {
+  Map<String, dynamic> toJson([int? fileVersion]) => {
         "name": name,
         "description": description,
         "painters": painters.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "content": content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "background": background?.toJson(),
-        "apiVersion": apiVersion
+        "fileVersion": fileVersion
       };
   AppDocument copyWith(
       {String? name,

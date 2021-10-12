@@ -23,12 +23,12 @@ class LayersRemoved extends DocumentEvent {
   List<Object?> get props => [layers];
 }
 
-class DocumentNameChanged extends DocumentEvent {
-  final String name;
+class DocumentDescriptorChanged extends DocumentEvent {
+  final String? name, description;
 
-  const DocumentNameChanged(this.name);
+  const DocumentDescriptorChanged({this.name, this.description});
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [name, description];
 }
 
 class ToolChanged extends DocumentEvent {

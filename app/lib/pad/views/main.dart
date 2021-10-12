@@ -36,11 +36,11 @@ class _ProjectPageState extends State<ProjectPage> {
     SharedPreferences.getInstance().then((value) {
       var index = int.tryParse(widget.id ?? "") ?? 0;
       // TODO: Dynamic api version
-      const apiVersion = 0;
+      const fileVersion = 0;
       setState(() => _bloc = DocumentBloc(
           AppDocument.fromJson(jsonDecode((value.getStringList("documents") ?? [])[index])),
           index,
-          apiVersion));
+          fileVersion));
     });
   }
 
@@ -132,6 +132,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                             icon = PhosphorIcons.penLight;
                                             activeIcon = PhosphorIcons.penFill;
                                             break;
+                                          case ToolType.object:
+                                            icon = PhosphorIcons.cursorLight;
+                                            activeIcon = PhosphorIcons.cursorFill;
                                         }
                                         return IconButton(
                                           icon: Icon(current.currentTool == e ? activeIcon : icon,

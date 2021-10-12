@@ -13,10 +13,12 @@ class PadSettingsDialog extends StatefulWidget {
 
 class _PadSettingsDialogState extends State<PadSettingsDialog> {
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   @override
   void initState() {
     _nameController.text = (widget.bloc!.state as DocumentLoadSuccess).document.name;
+    _descriptionController.text = (widget.bloc!.state as DocumentLoadSuccess).document.description;
     super.initState();
   }
 
@@ -45,6 +47,12 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                             controller: _nameController,
                             decoration:
                                 InputDecoration(labelText: AppLocalizations.of(context)!.name)),
+                        TextField(
+                            minLines: 3,
+                            maxLines: 5,
+                            controller: _descriptionController,
+                            decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.description)),
                       ]),
                     ),
                     //const Icon(Icons.directions_transit)
@@ -54,7 +62,9 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                       child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                         ElevatedButton(
                             onPressed: () {
-                              widget.bloc!.add(DocumentNameChanged(_nameController.text));
+                              widget.bloc!.add(DocumentDescriptorChanged(
+                                  name: _nameController.text,
+                                  description: _descriptionController.text));
                               Navigator.of(context).pop();
                             },
                             child: Text(AppLocalizations.of(context)!.ok.toUpperCase(),

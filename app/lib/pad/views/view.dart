@@ -8,6 +8,7 @@ import 'package:butterfly/models/elements/path.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/cubits/transform.dart';
+import 'package:butterfly/pad/dialogs/view.dart';
 import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -18,7 +19,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-//import 'package:vector_math/vector_math_64.dart' show Vector3;
 
 class MainViewViewport extends StatefulWidget {
   final DocumentBloc bloc;
@@ -78,8 +78,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     }
                   },
                   onPointerDown: (PointerDownEvent event) {
-                    if ((event.kind == PointerDeviceKind.stylus ||
-                        state.currentTool == ToolType.edit)) {
+                    if (event.kind == PointerDeviceKind.stylus ||
+                        state.currentTool == ToolType.edit) {
                       if (state.currentPainter is PenPainter) {
                         var painter = state.currentPainter as PenPainter;
                         setState(() => currentEditingLayer = PaintElement(
@@ -128,8 +128,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                           onPressed: submit)
                                     ]));
                       }
-                    } else if (event.kind != PointerDeviceKind.stylus &&
-                        state.currentTool == ToolType.view) {
+                    } else if (state.currentTool == ToolType.view) {
                       setState(() => _moveEnabled = true);
                     }
                   },
@@ -139,6 +138,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         currentEditingLayer != null) {
                       widget.bloc.add(LayerCreated(currentEditingLayer!));
                       setState(() => currentEditingLayer = null);
+                    } else if (state.currentTool == ToolType.object) {
+                      var hits = raycast(_controller.toScene(event.localPosition));
+                      var hit = hits.isEmpty ? null : hits.last;
+                      if (hit != null) {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) => ViewDialog(
+                                index: state.document.content.indexOf(hit), bloc: widget.bloc));
+                      }
                     }
                     setState(() => _moveEnabled = false);
                   },
@@ -198,7 +206,7 @@ class PathPainter extends CustomPainter {
   void paint(Canvas canvas, Size size, {Offset? offset}) {
     var background = document.background;
     if (background is BoxBackground && renderBackground) {
-      canvas.drawColor(Colors.white, BlendMode.color);
+      canvas.drawColor(background.boxColor, BlendMode.srcOver);
       if (background.boxWidth > 0 && background.boxXCount > 0) {
         double x = offset?.dx ?? 0;
         x += background.boxXSpace;
@@ -208,8 +216,8 @@ class PathPainter extends CustomPainter {
               Offset(x, 0),
               Offset(x, size.height),
               Paint()
-                ..strokeWidth = .5
-                ..color = Colors.blue);
+                ..strokeWidth = background.boxXStroke
+                ..color = background.boxXColor);
           count++;
           if (count >= background.boxXCount) {
             count = 0;
@@ -227,8 +235,8 @@ class PathPainter extends CustomPainter {
               Offset(0, y),
               Offset(size.width, y),
               Paint()
-                ..strokeWidth = .5
-                ..color = Colors.red);
+                ..strokeWidth = background.boxYStroke
+                ..color = background.boxYColor);
           count++;
           if (count >= background.boxYCount) {
             count = 0;

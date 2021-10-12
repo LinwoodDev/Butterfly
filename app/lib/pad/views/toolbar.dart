@@ -1,6 +1,7 @@
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/tool/edit.dart';
+import 'package:butterfly/pad/tool/object.dart';
 import 'package:butterfly/pad/tool/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +35,8 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
         case ToolType.edit:
           toolbar = EditToolbar(bloc: widget.bloc);
           break;
+        case ToolType.object:
+          toolbar = ObjectToolbar(bloc: widget.bloc);
       }
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
