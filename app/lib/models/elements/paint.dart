@@ -19,7 +19,8 @@ class PaintElement extends PathElement {
         super.fromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => super.toJson()..addAll({'type': 'paint', 'color': color.value});
+  Map<String, dynamic> toJson() =>
+      super.toJson()..addAll({'type': 'paint', 'color': color.value, 'fill': fill});
   @override
   Paint buildPaint() => Paint()
     ..color = color
