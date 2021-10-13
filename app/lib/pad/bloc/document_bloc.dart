@@ -16,7 +16,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             DocumentLoadSuccess(document, documentIndex: documentIndex, fileVersion: fileVersion)) {
     on<LayerCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
-        var current = (state as DocumentLoadSuccess);
+        var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
             document: current.document
                 .copyWith(content: (List.from(current.document.content)..add(event.layer)))));
@@ -25,7 +25,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     });
     on<LayerChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
-        var current = (state as DocumentLoadSuccess);
+        var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
             document: current.document.copyWith(
                 content: (List.from(current.document.content)..[event.index] = event.layer))));
@@ -34,7 +34,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     });
     on<LayersRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
-        var current = (state as DocumentLoadSuccess);
+        var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
             document: current.document.copyWith(
                 content: List.from(current.document.content)
@@ -44,7 +44,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     });
     on<DocumentDescriptorChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
-        var current = (state as DocumentLoadSuccess);
+        var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
             document: current.document.copyWith(name: event.name, description: event.description)));
         _saveDocument();
@@ -53,7 +53,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
     on<ToolChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
-        emit((state as DocumentLoadSuccess).copyWith(editMode: event.editMode));
+        var current = state as DocumentLoadSuccess;
+        emit(current.copyWith(editMode: event.editMode ?? !current.editMode));
       }
     });
     on<CurrentPainterChanged>((event, emit) async {

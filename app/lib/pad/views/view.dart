@@ -85,6 +85,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         var painter = state.currentPainter as PenPainter;
                         setState(() => currentEditingLayer = PaintElement(
                             color: painter.color,
+                            fill: painter.fill,
                             strokeWidth:
                                 painter.strokeWidth + event.pressure * painter.strokeMultiplier,
                             points: [_controller.toScene(event.localPosition)]));

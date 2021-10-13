@@ -4,13 +4,18 @@ import 'package:flutter/painting.dart';
 
 class PaintElement extends PathElement {
   final Color color;
+  final bool fill;
 
   PaintElement(
-      {List<Offset> points = const [], double strokeWidth = 5.0, this.color = Colors.black})
+      {List<Offset> points = const [],
+      double strokeWidth = 5.0,
+      this.color = Colors.black,
+      this.fill = false})
       : super(points: points, strokeWidth: strokeWidth);
 
   PaintElement.fromJson(Map<String, dynamic> json)
       : color = json['color'] == null ? Colors.black : Color(json['color']),
+        fill = json['fill'] ?? false,
         super.fromJson(json);
 
   @override
@@ -19,7 +24,7 @@ class PaintElement extends PathElement {
   Paint buildPaint() => Paint()
     ..color = color
     ..strokeWidth = strokeWidth
-    ..style = PaintingStyle.stroke
+    ..style = fill ? PaintingStyle.fill : PaintingStyle.stroke
     ..strokeCap = StrokeCap.round;
 
   @override
@@ -35,10 +40,12 @@ class PaintElement extends PathElement {
   }
 
   @override
-  PaintElement copyWith({List<Offset>? points, double? strokeWidth, Color? color}) => PaintElement(
-      color: color ?? this.color,
-      points: points ?? this.points,
-      strokeWidth: strokeWidth ?? this.strokeWidth);
+  PaintElement copyWith({List<Offset>? points, double? strokeWidth, Color? color, bool? fill}) =>
+      PaintElement(
+          color: color ?? this.color,
+          points: points ?? this.points,
+          strokeWidth: strokeWidth ?? this.strokeWidth,
+          fill: fill ?? this.fill);
 
   @override
   bool hit(Offset offset) => points.any((element) =>

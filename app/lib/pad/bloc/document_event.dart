@@ -42,7 +42,7 @@ class DocumentDescriptorChanged extends DocumentEvent {
 }
 
 class ToolChanged extends DocumentEvent {
-  final bool editMode;
+  final bool? editMode;
 
   const ToolChanged(this.editMode);
 

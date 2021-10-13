@@ -110,7 +110,12 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                             const BoxConstraints(maxWidth: 100, maxHeight: 100),
                                         color: painter.color)),
                               ],
-                            )
+                            ),
+                            CheckboxListTile(
+                                value: painter.fill,
+                                title: Text(AppLocalizations.of(context)!.fill),
+                                onChanged: (value) =>
+                                    setState(() => painter = painter.copyWith(fill: value)))
                           ]),
                         ),
                         const Divider(),
