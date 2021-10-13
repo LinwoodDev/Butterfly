@@ -60,5 +60,6 @@
     "changelog": "Changelog",
     "existOverride": "Dieses Element existiert bereits. Überschreiben?",
     "color": "Color",
-    "description": "Description"
+    "description": "Description",
+    "fill": "Fill"
 }
