@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/cubits/transform.dart';
 import 'package:butterfly/pad/dialogs/settings.dart';
@@ -46,180 +45,154 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    var tools = ToolType.values;
     if (_bloc == null) return const Center(child: CircularProgressIndicator());
-    return DefaultTabController(
-        length: tools.length,
-        initialIndex: 1,
-        child: MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (_) => _bloc!),
-              BlocProvider(create: (context) => TransformCubit())
-            ],
-            child: Scaffold(
-                appBar: AppBar(
-                    title: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                      if (_bloc!.state is DocumentLoadSuccess) {
-                        var current = _bloc!.state as DocumentLoadSuccess;
-                        return Text(current.document.name);
-                      } else {
-                        return Text(AppLocalizations.of(context)!.loading);
-                      }
-                    }),
-                    actions: [
-                      IconButton(
-                        icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
-                        tooltip: AppLocalizations.of(context)!.undo,
-                        onPressed: () {
-                          _bloc?.undo();
-                          var state = _bloc?.state;
-                          if (state is DocumentLoadSuccess) state.save();
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                        tooltip: AppLocalizations.of(context)!.redo,
-                        onPressed: () {
-                          _bloc?.redo();
-                          var state = _bloc?.state;
-                          if (state is DocumentLoadSuccess) state.save();
-                        },
-                      ),
-                      IconButton(
-                          icon: const Icon(PhosphorIcons.gearLight),
-                          tooltip: AppLocalizations.of(context)!.projectSettings,
-                          onPressed: () => _showProjectSettings(context)),
-                      /*const IconButton(
-                          icon: Icon(PhosphorIcons.linkLight),
-                          tooltip: "Share (not implemented)",
-                          onPressed: null)*/
-                    ]),
-                body: LayoutBuilder(builder: (context, constraints) {
-                  var isMobile = constraints.maxWidth < 600;
-                  var toolbar = SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          MainViewToolbar(bloc: _bloc!),
-                        ],
-                      ));
-                  var _toolScrollController = ScrollController();
-                  Widget toolsSelection =
-                      Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                    Expanded(
-                        child: Scrollbar(
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => _bloc!),
+          BlocProvider(create: (context) => TransformCubit())
+        ],
+        child: Scaffold(
+            appBar: AppBar(
+                title: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                  if (_bloc!.state is DocumentLoadSuccess) {
+                    var current = _bloc!.state as DocumentLoadSuccess;
+                    return Text(current.document.name);
+                  } else {
+                    return Text(AppLocalizations.of(context)!.loading);
+                  }
+                }),
+                actions: [
+                  IconButton(
+                    icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
+                    tooltip: AppLocalizations.of(context)!.undo,
+                    onPressed: () {
+                      _bloc?.undo();
+                      var state = _bloc?.state;
+                      if (state is DocumentLoadSuccess) state.save();
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(PhosphorIcons.arrowClockwiseLight),
+                    tooltip: AppLocalizations.of(context)!.redo,
+                    onPressed: () {
+                      _bloc?.redo();
+                      var state = _bloc?.state;
+                      if (state is DocumentLoadSuccess) state.save();
+                    },
+                  ),
+                  IconButton(
+                      icon: const Icon(PhosphorIcons.gearLight),
+                      tooltip: AppLocalizations.of(context)!.projectSettings,
+                      onPressed: () => _showProjectSettings(context)),
+                  /*const IconButton(
+                      icon: Icon(PhosphorIcons.linkLight),
+                      tooltip: "Share (not implemented)",
+                      onPressed: null)*/
+                ]),
+            body: LayoutBuilder(builder: (context, constraints) {
+              var isMobile = constraints.maxWidth < 600;
+              var toolbar = SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      MainViewToolbar(bloc: _bloc!),
+                    ],
+                  ));
+              var _toolScrollController = ScrollController();
+              Widget toolsSelection =
+                  Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                Expanded(
+                    child: Scrollbar(
+                  controller: _toolScrollController,
+                  child: SingleChildScrollView(
                       controller: _toolScrollController,
-                      child: SingleChildScrollView(
-                          controller: _toolScrollController,
-                          scrollDirection: Axis.horizontal,
-                          child: Row(children: [
-                            BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-                              if (_bloc!.state is DocumentLoadSuccess) {
-                                var current = _bloc!.state as DocumentLoadSuccess;
+                      scrollDirection: Axis.horizontal,
+                      child: Row(children: [
+                        BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                          if (_bloc!.state is DocumentLoadSuccess) {
+                            var current = _bloc!.state as DocumentLoadSuccess;
+                            return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                              IconButton(
+                                  icon: Icon(current.editMode
+                                      ? PhosphorIcons.penLight
+                                      : PhosphorIcons.handLight),
+                                  tooltip: current.editMode
+                                      ? AppLocalizations.of(context)!.edit
+                                      : AppLocalizations.of(context)!.view,
+                                  onPressed: () {
+                                    _bloc!.add(ToolChanged(!current.editMode));
+                                  })
+                            ]);
+                          }
+                          return Container();
+                        }),
+                        const VerticalDivider(),
+                        BlocBuilder<TransformCubit, Matrix4>(builder: (context, transform) {
+                          var currentScale = transform.up.y;
+                          _scaleController.text = (currentScale * 100).toStringAsFixed(2);
+                          void setScale(double scale) {
+                            scale = scale.clamp(0.5, 2.5);
+                            scale /= currentScale;
+                            setState(() => context
+                                .read<TransformCubit>()
+                                .emit(Matrix4.copy(transform..scale(scale, scale, scale))));
+                          }
 
-                                return Row(
-                                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                                    children: [
-                                      ...tools.map((e) {
-                                        IconData activeIcon, icon;
-                                        switch (e) {
-                                          case ToolType.view:
-                                            icon = PhosphorIcons.handLight;
-                                            activeIcon = PhosphorIcons.handFill;
-                                            break;
-                                          case ToolType.edit:
-                                            icon = PhosphorIcons.penLight;
-                                            activeIcon = PhosphorIcons.penFill;
-                                            break;
-                                          case ToolType.object:
-                                            icon = PhosphorIcons.cursorLight;
-                                            activeIcon = PhosphorIcons.cursorFill;
-                                        }
-                                        return IconButton(
-                                          icon: Icon(current.currentTool == e ? activeIcon : icon,
-                                              size: 26),
-                                          color: current.currentTool == e
-                                              ? Theme.of(context).colorScheme.primary
-                                              : null,
-                                          tooltip: ToolType.edit == e
-                                              ? AppLocalizations.of(context)!.edit
-                                              : AppLocalizations.of(context)!.view,
-                                          onPressed: () {
-                                            _bloc!.add(ToolChanged(e));
-                                          },
-                                        );
-                                      }).toList(),
-                                    ]);
-                              }
-                              return Container();
-                            }),
-                            const VerticalDivider(),
-                            BlocBuilder<TransformCubit, Matrix4>(builder: (context, transform) {
-                              var currentScale = transform.up.y;
-                              _scaleController.text = (currentScale * 100).toStringAsFixed(2);
-                              void setScale(double scale) {
-                                scale = scale.clamp(0.5, 2.5);
-                                scale /= currentScale;
-                                setState(() => context
-                                    .read<TransformCubit>()
-                                    .emit(Matrix4.copy(transform..scale(scale, scale, scale))));
-                              }
-
-                              return Row(
-                                children: [
-                                  IconButton(
-                                      icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
-                                      tooltip: AppLocalizations.of(context)!.zoomOut,
-                                      onPressed: () {
-                                        setScale(currentScale - 0.05);
-                                      }),
-                                  IconButton(
-                                      icon: const Icon(PhosphorIcons.magnifyingGlassLight),
-                                      tooltip: AppLocalizations.of(context)!.resetZoom,
-                                      onPressed: () {
-                                        setScale(1);
-                                      }),
-                                  IconButton(
-                                      icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
-                                      tooltip: AppLocalizations.of(context)!.zoomIn,
-                                      onPressed: () {
-                                        setScale(currentScale + 0.05);
-                                      }),
-                                  const SizedBox(width: 20),
-                                  ConstrainedBox(
-                                    constraints: const BoxConstraints(maxWidth: 100),
-                                    child: TextField(
-                                      controller: _scaleController,
-                                      onSubmitted: (value) {
-                                        var scale = double.tryParse(value) ?? 100;
-                                        scale /= 100;
-                                        setScale(scale);
-                                      },
-                                      textAlign: TextAlign.center,
-                                      decoration: InputDecoration(
-                                          labelText: AppLocalizations.of(context)!.zoom),
-                                    ),
-                                  ),
-                                  if (!isMobile) const VerticalDivider()
-                                ],
-                              );
-                            }),
-                          ])),
-                    )),
-                    if (!isMobile) toolbar
-                  ]);
-                  return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                    Container(
-                      height: 75,
-                      color: Theme.of(context).canvasColor,
-                      padding: const EdgeInsets.all(12.0),
-                      child: toolsSelection,
-                    ),
-                    Expanded(child: MainViewViewport(bloc: _bloc!)),
-                    if (isMobile) Align(alignment: Alignment.center, child: toolbar)
-                  ]);
-                }))));
+                          return Row(
+                            children: [
+                              IconButton(
+                                  icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
+                                  tooltip: AppLocalizations.of(context)!.zoomOut,
+                                  onPressed: () {
+                                    setScale(currentScale - 0.05);
+                                  }),
+                              IconButton(
+                                  icon: const Icon(PhosphorIcons.magnifyingGlassLight),
+                                  tooltip: AppLocalizations.of(context)!.resetZoom,
+                                  onPressed: () {
+                                    setScale(1);
+                                  }),
+                              IconButton(
+                                  icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
+                                  tooltip: AppLocalizations.of(context)!.zoomIn,
+                                  onPressed: () {
+                                    setScale(currentScale + 0.05);
+                                  }),
+                              const SizedBox(width: 20),
+                              ConstrainedBox(
+                                constraints: const BoxConstraints(maxWidth: 100),
+                                child: TextField(
+                                  controller: _scaleController,
+                                  onSubmitted: (value) {
+                                    var scale = double.tryParse(value) ?? 100;
+                                    scale /= 100;
+                                    setScale(scale);
+                                  },
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                      labelText: AppLocalizations.of(context)!.zoom),
+                                ),
+                              ),
+                              if (!isMobile) const VerticalDivider()
+                            ],
+                          );
+                        }),
+                      ])),
+                )),
+                if (!isMobile) toolbar
+              ]);
+              return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                Container(
+                  height: 75,
+                  color: Theme.of(context).canvasColor,
+                  padding: const EdgeInsets.all(12.0),
+                  child: toolsSelection,
+                ),
+                Expanded(child: MainViewViewport(bloc: _bloc!)),
+                if (isMobile) Align(alignment: Alignment.center, child: toolbar)
+              ]);
+            })));
   }
 
   void _showProjectSettings(bloc) {

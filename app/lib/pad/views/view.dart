@@ -5,7 +5,6 @@ import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/elements/paint.dart';
 import 'package:butterfly/models/elements/path.dart';
-import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/cubits/transform.dart';
 import 'package:butterfly/pad/dialogs/object.dart';
@@ -29,7 +28,7 @@ class MainViewViewport extends StatefulWidget {
 }
 
 class _MainViewViewportState extends State<MainViewViewport> {
-  bool _moveEnabled = false;
+  bool _moveEnabled = false, _viewMode = false;
   late TransformationController _controller;
   GlobalKey transformKey = GlobalKey();
   ElementLayer? currentEditingLayer;
@@ -38,7 +37,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
   void initState() {
     super.initState();
     _controller = TransformationController();
-    _controller.addListener(() => context.read<TransformCubit>().emit(_controller.value));
+    _controller.addListener(() {
+      context.read<TransformCubit>().emit(_controller.value);
+      _viewMode = false;
+    });
   }
 
   @override
@@ -78,8 +80,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     }
                   },
                   onPointerDown: (PointerDownEvent event) {
-                    if (event.kind == PointerDeviceKind.stylus ||
-                        state.currentTool == ToolType.edit) {
+                    if (event.kind == PointerDeviceKind.stylus || state.editMode) {
                       if (state.currentPainter is PenPainter) {
                         var painter = state.currentPainter as PenPainter;
                         setState(() => currentEditingLayer = PaintElement(
@@ -128,17 +129,20 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                           onPressed: submit)
                                     ]));
                       }
-                    } else if (state.currentTool == ToolType.view) {
-                      setState(() => _moveEnabled = true);
+                    } else {
+                      setState(() {
+                        _moveEnabled = true;
+                        _viewMode = true;
+                      });
                     }
                   },
                   onPointerUp: (PointerUpEvent event) {
-                    if ((event.kind == PointerDeviceKind.stylus ||
-                            state.currentTool == ToolType.edit) &&
+                    if ((event.kind == PointerDeviceKind.stylus || state.editMode) &&
                         currentEditingLayer != null) {
                       widget.bloc.add(LayerCreated(currentEditingLayer!));
                       setState(() => currentEditingLayer = null);
-                    } else if (state.currentTool == ToolType.object) {
+                    } else if (_viewMode && !state.editMode) {
+                      _viewMode = false;
                       var hits = raycast(_controller.toScene(event.localPosition));
                       var hit = hits.isEmpty ? null : hits.last;
                       if (hit != null) {
@@ -152,8 +156,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   },
                   behavior: HitTestBehavior.translucent,
                   onPointerMove: (PointerMoveEvent event) {
-                    if ((event.kind == PointerDeviceKind.stylus ||
-                        state.currentTool == ToolType.edit)) {
+                    if ((event.kind == PointerDeviceKind.stylus || state.editMode)) {
                       if (state.currentPainter is PathEraserPainter) {
                         widget.bloc.add(LayersRemoved(
                             raycast(_controller.toScene(event.localPosition))

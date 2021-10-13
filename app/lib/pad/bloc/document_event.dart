@@ -42,12 +42,12 @@ class DocumentDescriptorChanged extends DocumentEvent {
 }
 
 class ToolChanged extends DocumentEvent {
-  final ToolType tool;
+  final bool editMode;
 
-  const ToolChanged(this.tool);
+  const ToolChanged(this.editMode);
 
   @override
-  List<Object?> get props => [tool];
+  List<Object?> get props => [editMode];
 }
 
 class CurrentPainterChanged extends DocumentEvent {

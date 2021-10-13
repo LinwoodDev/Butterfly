@@ -12,18 +12,18 @@ class DocumentLoadInProgress extends DocumentState {}
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final int documentIndex;
-  final ToolType currentTool;
+  final bool editMode;
   final int fileVersion;
   final int currentPainterIndex;
 
   const DocumentLoadSuccess(this.document,
-      {this.currentTool = ToolType.view,
+      {this.editMode = false,
       this.documentIndex = 0,
       this.currentPainterIndex = 0,
       required this.fileVersion});
 
   @override
-  List<Object?> get props => [document, currentTool, currentPainterIndex, documentIndex];
+  List<Object?> get props => [document, editMode, currentPainterIndex, documentIndex];
 
   Painter? get currentPainter {
     if (document.painters.isEmpty) {
@@ -33,12 +33,9 @@ class DocumentLoadSuccess extends DocumentState {
   }
 
   DocumentLoadSuccess copyWith(
-      {AppDocument? document,
-      ToolType? currentTool,
-      int? currentPainterIndex,
-      int? documentIndex}) {
+      {AppDocument? document, bool? editMode, int? currentPainterIndex, int? documentIndex}) {
     return DocumentLoadSuccess(document ?? this.document,
-        currentTool: currentTool ?? this.currentTool,
+        editMode: editMode ?? this.editMode,
         documentIndex: documentIndex ?? this.documentIndex,
         currentPainterIndex: currentPainterIndex ?? this.currentPainterIndex,
         fileVersion: fileVersion);

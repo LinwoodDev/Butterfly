@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
-import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/painter/painter.dart';
 import 'package:equatable/equatable.dart';
 import 'package:replay_bloc/replay_bloc.dart';
@@ -54,7 +53,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
     on<ToolChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
-        emit((state as DocumentLoadSuccess).copyWith(currentTool: event.tool));
+        emit((state as DocumentLoadSuccess).copyWith(editMode: event.editMode));
       }
     });
     on<CurrentPainterChanged>((event, emit) async {
