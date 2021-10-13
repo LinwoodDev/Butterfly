@@ -110,8 +110,9 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                               onTap: () async {
                                                 var value = await showDialog(
                                                     context: context,
-                                                    builder: (context) =>
-                                                        const ColorPickerDialog());
+                                                    builder: (context) => ColorPickerDialog(
+                                                        defaultColor: background!.boxColor,
+                                                        bloc: widget.bloc));
                                                 if (value != null) {
                                                   setState(() => background = background!
                                                       .copyWith(boxColor: value as Color));
@@ -127,8 +128,9 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                               onTap: () async {
                                                 var value = await showDialog(
                                                     context: context,
-                                                    builder: (context) =>
-                                                        const ColorPickerDialog());
+                                                    builder: (context) => ColorPickerDialog(
+                                                        defaultColor: background!.boxXColor,
+                                                        bloc: widget.bloc));
                                                 if (value != null) {
                                                   setState(() => background = background!
                                                       .copyWith(boxXColor: value as Color));
@@ -141,8 +143,9 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                               onTap: () async {
                                                 var value = await showDialog(
                                                     context: context,
-                                                    builder: (context) =>
-                                                        const ColorPickerDialog());
+                                                    builder: (context) => ColorPickerDialog(
+                                                        defaultColor: background!.boxYColor,
+                                                        bloc: widget.bloc));
                                                 if (value != null) {
                                                   setState(() => background = background!
                                                       .copyWith(boxYColor: value as Color));

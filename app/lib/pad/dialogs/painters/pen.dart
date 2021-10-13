@@ -100,7 +100,8 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                     onTap: () async {
                                       var color = await showDialog(
                                           context: context,
-                                          builder: (context) => const ColorPickerDialog());
+                                          builder: (context) => ColorPickerDialog(
+                                              bloc: widget.bloc, defaultColor: painter.color));
                                       if (color != null) {
                                         setState(() => painter = painter.copyWith(color: color));
                                       }
