@@ -89,7 +89,9 @@ class _HomePageState extends State<HomePage> {
                       TextButton(
                         child: Text(AppLocalizations.of(context)!.create.toUpperCase()),
                         onPressed: () {
-                          setState(() => _documents.add(AppDocument(name: _nameController.text)));
+                          setState(() => _documents.add(AppDocument(
+                              name: _nameController.text,
+                              palette: AppDocument.getDefaultPalette(context))));
                           saveDocuments();
                           Navigator.of(context).pop();
                         },

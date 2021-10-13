@@ -61,5 +61,7 @@
     "existOverride": "This element already exist. Overwrite?",
     "color": "Color",
     "description": "Description",
-    "fill": "Fill"
+    "fill": "Fill",
+    "defaultPalette": "Default palette",
+    "highlighter": "Highlighter"
 }

@@ -41,6 +41,14 @@ class DocumentDescriptorChanged extends DocumentEvent {
   List<Object?> get props => [name, description];
 }
 
+class DocumentPaletteChanged extends DocumentEvent {
+  final Map<String, List<Color>> palette;
+
+  const DocumentPaletteChanged(this.palette);
+  @override
+  List<Object?> get props => [palette];
+}
+
 class ToolChanged extends DocumentEvent {
   final bool? editMode;
 

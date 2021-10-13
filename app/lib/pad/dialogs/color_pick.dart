@@ -1,3 +1,4 @@
+import 'package:butterfly/models/document.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,34 +41,51 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         Material(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: DropdownButton<String>(
-                              alignment: Alignment.center,
-                              value: selected ?? state.document.palette.keys.first,
-                              onChanged: (value) {
-                                setState(() {
-                                  selected = value;
-                                });
-                              },
-                              items: state.document.palette.keys.map((color) {
-                                return DropdownMenuItem<String>(
-                                  value: color,
-                                  child: Text(color),
-                                );
-                              }).toList(),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: DropdownButton<String>(
+                                    alignment: Alignment.center,
+                                    value: selected ??
+                                        (state.document.palette.isNotEmpty
+                                            ? state.document.palette.keys.first
+                                            : null),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selected = value;
+                                      });
+                                    },
+                                    items: state.document.palette.keys.map((color) {
+                                      return DropdownMenuItem<String>(
+                                        value: color,
+                                        child: Text(color),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                                IconButton(
+                                    icon: const Icon(PhosphorIcons.arrowArcLeftLight),
+                                    onPressed: () {
+                                      widget.bloc.add(DocumentPaletteChanged(
+                                          AppDocument.getDefaultPalette(context)));
+                                    })
+                              ],
                             ),
                           ),
                         ),
                         Wrap(alignment: WrapAlignment.center, children: [
-                          ...(state.document.palette[selected ?? state.document.palette.keys.first]
-                                  ?.map<Widget>((e) => InkWell(
-                                      onTap: () => Navigator.of(context).pop(e),
-                                      child: Container(
-                                          width: 100,
-                                          height: 100,
-                                          decoration: ShapeDecoration(
-                                              color: e, shape: const RoundedRectangleBorder()))))
-                                  .toList() ??
-                              []),
+                          if (state.document.palette.isNotEmpty)
+                            ...(state
+                                    .document.palette[selected ?? state.document.palette.keys.first]
+                                    ?.map<Widget>((e) => InkWell(
+                                        onTap: () => Navigator.of(context).pop(e),
+                                        child: Container(
+                                            width: 100,
+                                            height: 100,
+                                            decoration: ShapeDecoration(
+                                                color: e, shape: const RoundedRectangleBorder()))))
+                                    .toList() ??
+                                []),
                           Material(
                             child: InkWell(
                               child: const SizedBox(

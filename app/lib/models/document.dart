@@ -6,6 +6,7 @@ import 'package:butterfly/painter/path_eraser.dart';
 import 'package:butterfly/painter/pen.dart';
 import 'package:butterfly/painter/label.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/widgets.dart';
 
 import 'elements/element.dart';
@@ -20,6 +21,11 @@ class AppDocument {
   final List<Painter> painters;
   final BoxBackground? background;
   final Map<String, List<Color>> palette;
+
+  static Map<String, List<Color>> getDefaultPalette(BuildContext context) => {
+        AppLocalizations.of(context)!.defaultPalette: colors,
+        AppLocalizations.of(context)!.highlighter: colors.map((e) => e.withOpacity(0.5)).toList()
+      };
 
   static const colors = [
     Colors.white,
@@ -55,7 +61,7 @@ class AppDocument {
         description = json['description'],
         palette = (json['palette'] as Map<String, List<int>>?)
                 ?.map((key, value) => MapEntry(key, value.map((color) => Color(color)).toList())) ??
-            {'default': colors},
+            {},
         background = json['background'] == null ? null : BoxBackground.fromJson(json['background']),
         painters = List<Map<String, dynamic>>.from(json['painters']).map<Painter>((e) {
           switch (e['type']) {
@@ -93,12 +99,14 @@ class AppDocument {
       List<ElementLayer>? content,
       List<Painter>? painters,
       BoxBackground? background,
+      Map<String, List<Color>>? palette,
       bool removeBackground = false}) {
     return AppDocument(
         name: name ?? this.name,
         description: description ?? this.description,
         content: content ?? this.content,
         painters: painters ?? this.painters,
+        palette: palette ?? this.palette,
         background: removeBackground ? null : (background ?? this.background));
   }
 }
