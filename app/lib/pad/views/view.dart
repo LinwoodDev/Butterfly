@@ -212,7 +212,7 @@ class PathPainter extends CustomPainter {
     if (background is BoxBackground && renderBackground) {
       canvas.drawColor(background.boxColor, BlendMode.srcOver);
       if (background.boxWidth > 0 && background.boxXCount > 0) {
-        double x = offset?.dx ?? 0;
+        double x = -(offset?.dx ?? 0);
         x += background.boxXSpace;
         int count = 0;
         while (x < size.width) {
@@ -231,7 +231,7 @@ class PathPainter extends CustomPainter {
         }
       }
       if (background.boxHeight > 0 && background.boxYCount > 0) {
-        double y = offset?.dy ?? 0;
+        double y = -(offset?.dy ?? 0);
         y += background.boxYSpace;
         int count = 0;
         while (y < size.width) {

@@ -17,6 +17,75 @@ class ColorPickerDialog extends StatefulWidget {
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
   String? selected;
+
+  void _showColorOperation(int index) {
+    if (selected == null) return;
+    showModalBottomSheet(
+        context: context,
+        builder: (context) => BlocProvider.value(
+              value: widget.bloc,
+              child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                if (state is! DocumentLoadSuccess) return Container();
+                var palettes = state.document.palettes[selected];
+                if ((palettes?.length ?? 0) <= index) return Container();
+                final color = palettes?[index] ?? Colors.white;
+                final newPalettes = Map<String, List<Color>>.from(state.document.palettes);
+                final newPalette = List<Color>.from(newPalettes[selected] ?? []);
+                return SizedBox(
+                    height: 300,
+                    child: Column(children: [
+                      SizedBox(
+                        height: 125,
+                        child: Center(child: Container(color: color, height: 100, width: 100)),
+                      ),
+                      const Divider(thickness: 1),
+                      Expanded(
+                          child: ListView(children: [
+                        ListTile(
+                            leading: const Icon(PhosphorIcons.penLight),
+                            title: Text(AppLocalizations.of(context)!.edit),
+                            onTap: () async {
+                              var value = await showDialog(
+                                  context: context,
+                                  builder: (context) => CustomColorPicker(defaultColor: color));
+                              if (value != null) {
+                                newPalette[index] = value;
+                                newPalettes[selected!] = newPalette;
+                                widget.bloc.add(DocumentPaletteChanged(newPalettes));
+                              }
+                            }),
+                        ListTile(
+                          leading: const Icon(PhosphorIcons.trashLight),
+                          title: Text(AppLocalizations.of(context)!.delete),
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                      title: Text(AppLocalizations.of(context)!.areYouSure),
+                                      content: Text(AppLocalizations.of(context)!.reallyDelete),
+                                      actions: [
+                                        TextButton(
+                                            child: Text(AppLocalizations.of(context)!.no),
+                                            onPressed: () => Navigator.of(context).pop()),
+                                        TextButton(
+                                            child: Text(AppLocalizations.of(context)!.yes),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context).pop();
+                                              newPalette.removeAt(index);
+                                              newPalettes[selected!] = newPalette;
+                                              widget.bloc.add(DocumentPaletteChanged(newPalettes));
+                                            })
+                                      ],
+                                    ));
+                          },
+                        )
+                      ]))
+                    ]));
+              }),
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -34,6 +103,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                     if (state is! DocumentLoadSuccess) {
                       return Container();
                     }
+                    selected ??=
+                        state.document.palettes.isEmpty ? null : state.document.palettes.keys.first;
+                    var palette = state.document.palettes.isEmpty
+                        ? []
+                        : state.document.palettes[selected ?? state.document.palettes.keys.first] ??
+                            [];
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,15 +122,15 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   child: DropdownButton<String>(
                                     alignment: Alignment.center,
                                     value: selected ??
-                                        (state.document.palette.isNotEmpty
-                                            ? state.document.palette.keys.first
+                                        (state.document.palettes.isNotEmpty
+                                            ? state.document.palettes.keys.first
                                             : null),
                                     onChanged: (value) {
                                       setState(() {
                                         selected = value;
                                       });
                                     },
-                                    items: state.document.palette.keys.map((color) {
+                                    items: state.document.palettes.keys.map((color) {
                                       return DropdownMenuItem<String>(
                                         value: color,
                                         child: Text(color),
@@ -63,6 +138,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     }).toList(),
                                   ),
                                 ),
+                                IconButton(
+                                    icon: const Icon(PhosphorIcons.plusLight), onPressed: () {}),
+                                IconButton(
+                                    icon: const Icon(PhosphorIcons.minusLight), onPressed: () {}),
                                 IconButton(
                                     icon: const Icon(PhosphorIcons.arrowArcLeftLight),
                                     onPressed: () {
@@ -74,28 +153,41 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           ),
                         ),
                         Wrap(alignment: WrapAlignment.center, children: [
-                          if (state.document.palette.isNotEmpty)
-                            ...(state
-                                    .document.palette[selected ?? state.document.palette.keys.first]
-                                    ?.map<Widget>((e) => InkWell(
-                                        onTap: () => Navigator.of(context).pop(e),
-                                        child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            decoration: ShapeDecoration(
-                                                color: e, shape: const RoundedRectangleBorder()))))
-                                    .toList() ??
-                                []),
-                          Material(
-                            child: InkWell(
-                              child: const SizedBox(
-                                width: 100,
-                                height: 100,
-                                child: Center(child: Icon(PhosphorIcons.plusLight, size: 42)),
+                          if (state.document.palettes.isNotEmpty)
+                            ...(List.generate(
+                                palette.length,
+                                (index) => InkWell(
+                                    onLongPress: () => _showColorOperation(index),
+                                    onTap: () => Navigator.of(context).pop(palette[index]),
+                                    child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        decoration: ShapeDecoration(
+                                            color: palette[index],
+                                            shape: const RoundedRectangleBorder())))).toList()),
+                          if (selected != null)
+                            Material(
+                              child: InkWell(
+                                child: const SizedBox(
+                                  width: 100,
+                                  height: 100,
+                                  child: Center(child: Icon(PhosphorIcons.plusLight, size: 42)),
+                                ),
+                                onTap: () async {
+                                  var value = await showDialog(
+                                      context: context,
+                                      builder: (context) => const CustomColorPicker());
+                                  if (value != null) {
+                                    var newPalettes =
+                                        Map<String, List<Color>>.from(state.document.palettes);
+                                    newPalettes[selected!] = List.from(newPalettes[selected!] ?? [])
+                                      ..add(value);
+
+                                    widget.bloc.add(DocumentPaletteChanged(newPalettes));
+                                  }
+                                },
                               ),
-                              onTap: () => Navigator.of(context).pop(null),
-                            ),
-                          )
+                            )
                         ]),
                       ],
                     );

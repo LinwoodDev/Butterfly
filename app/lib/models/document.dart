@@ -20,7 +20,7 @@ class AppDocument {
   final List<ElementLayer> content;
   final List<Painter> painters;
   final BoxBackground? background;
-  final Map<String, List<Color>> palette;
+  final Map<String, List<Color>> palettes;
 
   static Map<String, List<Color>> getDefaultPalette(BuildContext context) => {
         AppLocalizations.of(context)!.defaultPalette: colors,
@@ -53,13 +53,13 @@ class AppDocument {
       this.description = '',
       this.content = const [],
       this.background,
-      this.palette = const {},
+      this.palettes = const {},
       this.painters = const [PenPainter()]});
 
   AppDocument.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         description = json['description'],
-        palette = (json['palette'] as Map<String, List<int>>?)
+        palettes = (json['palettes'] as Map<String, List<int>>?)
                 ?.map((key, value) => MapEntry(key, value.map((color) => Color(color)).toList())) ??
             {},
         background = json['background'] == null ? null : BoxBackground.fromJson(json['background']),
@@ -88,6 +88,7 @@ class AppDocument {
   Map<String, dynamic> toJson([int? fileVersion]) => {
         "name": name,
         "description": description,
+        "palettes": palettes.map((key, value) => MapEntry(key, value.map((e) => e.value).toList())),
         "painters": painters.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "content": content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "background": background?.toJson(),
@@ -99,14 +100,14 @@ class AppDocument {
       List<ElementLayer>? content,
       List<Painter>? painters,
       BoxBackground? background,
-      Map<String, List<Color>>? palette,
+      Map<String, List<Color>>? palettes,
       bool removeBackground = false}) {
     return AppDocument(
         name: name ?? this.name,
         description: description ?? this.description,
         content: content ?? this.content,
         painters: painters ?? this.painters,
-        palette: palette ?? this.palette,
+        palettes: palettes ?? this.palettes,
         background: removeBackground ? null : (background ?? this.background));
   }
 }

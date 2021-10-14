@@ -66,9 +66,9 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                   )),
                               Expanded(
                                 child: Slider(
-                                    value: painter.strokeWidth.clamp(0, 10),
+                                    value: painter.strokeWidth.clamp(0, 50),
                                     min: 0,
-                                    max: 10,
+                                    max: 50,
                                     onChanged: (value) => setState(
                                         () => painter = painter.copyWith(strokeWidth: value))),
                               )

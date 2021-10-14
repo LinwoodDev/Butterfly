@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () {
                           setState(() => _documents.add(AppDocument(
                               name: _nameController.text,
-                              palette: AppDocument.getDefaultPalette(context))));
+                              palettes: AppDocument.getDefaultPalette(context))));
                           saveDocuments();
                           Navigator.of(context).pop();
                         },

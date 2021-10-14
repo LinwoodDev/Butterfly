@@ -55,7 +55,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentPaletteChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        emit(current.copyWith(document: current.document.copyWith(palette: event.palette)));
+        emit(current.copyWith(document: current.document.copyWith(palettes: event.palette)));
         _saveDocument();
       }
     });
