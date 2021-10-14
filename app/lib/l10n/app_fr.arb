@@ -6,7 +6,7 @@
     "darkTheme": "Thème sombre",
     "lightTheme": "Thème clair",
     "systemTheme": "Utiliser le thème système par défaut",
-    "enterNameOfDocument": "Veuillez entrer le nom du document",
+    "enterName": "Please enter the name",
     "create": "Créer",
     "ok": "Ok",
     "cancel": "Abandonner",
@@ -63,5 +63,10 @@
     "description": "Description",
     "fill": "Fill",
     "defaultPalette": "Default palette",
-    "highlighter": "Highlighter"
+    "highlighter": "Highlighter",
+    "add": "Add",
+    "remove": "Remove",
+    "resetPalette": "Reset palette",
+    "close": "Close",
+    "custom": "Custom"
 }
