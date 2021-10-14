@@ -6,7 +6,7 @@
     "darkTheme": "Thème sombre",
     "lightTheme": "Thème clair",
     "systemTheme": "Utiliser le thème système par défaut",
-    "enterNameOfDocument": "Veuillez entrer le nom du document",
+    "enterName": "Please enter the name",
     "create": "Créer",
     "ok": "Ok",
     "cancel": "Abandonner",
@@ -58,5 +58,15 @@
     "source": "Source",
     "documentation": "Documentation",
     "changelog": "Historique des modifications",
-    "existOverride": "Cet élément existe déjà. Écraser ?"
+    "existOverride": "Cet élément existe déjà. Écraser ?",
+    "color": "Color",
+    "description": "Description",
+    "fill": "Fill",
+    "defaultPalette": "Default palette",
+    "highlighter": "Highlighter",
+    "add": "Add",
+    "remove": "Remove",
+    "resetPalette": "Reset palette",
+    "close": "Close",
+    "custom": "Custom"
 }
