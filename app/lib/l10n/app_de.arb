@@ -6,7 +6,7 @@
     "darkTheme": "Dunkles Design",
     "lightTheme": "Helles Theme",
     "systemTheme": "Standard-System-Theme verwenden",
-    "enterNameOfDocument": "Bitte geben Sie den Namen des Dokuments ein",
+    "enterName": "Please enter the name",
     "create": "Anlegen",
     "ok": "Ok",
     "cancel": "Abbrechen",
@@ -45,7 +45,7 @@
     "count": "Anzahl",
     "space": "Raum",
     "background": "Hintergrund",
-    "box": "Kiste",
+    "box": "Box",
     "locale": "Lokal",
     "english": "Englisch",
     "french": "Französisch",
@@ -63,5 +63,10 @@
     "description": "Description",
     "fill": "Fill",
     "defaultPalette": "Default palette",
-    "highlighter": "Highlighter"
+    "highlighter": "Highlighter",
+    "add": "Add",
+    "remove": "Remove",
+    "resetPalette": "Reset palette",
+    "close": "Close",
+    "custom": "Custom"
 }
