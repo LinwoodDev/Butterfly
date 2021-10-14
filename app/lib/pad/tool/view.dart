@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/dialogs/background.dart';
+import 'package:butterfly/pad/dialogs/color_pick.dart';
 import 'package:butterfly/pad/dialogs/export.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -38,9 +39,18 @@ class _ViewToolbarState extends State<ViewToolbar> {
         IconButton(
             icon: const Icon(PhosphorIcons.arrowSquareOutLight),
             tooltip: AppLocalizations.of(context)!.export,
-            onPressed: () async {
-              showDialog(context: context, builder: (context) => ExportDialog(bloc: widget.bloc));
-            }),
+            onPressed: () => showDialog(
+                context: context, builder: (context) => ExportDialog(bloc: widget.bloc))),
+        IconButton(
+          icon: const Icon(PhosphorIcons.paletteLight),
+          tooltip: AppLocalizations.of(context)!.color,
+          onPressed: () => showDialog(
+              context: context,
+              builder: (context) => ColorPickerDialog(
+                    bloc: widget.bloc,
+                    viewMode: true,
+                  )),
+        ),
         IconButton(
             icon: const Icon(PhosphorIcons.floppyDiskLight),
             tooltip: AppLocalizations.of(context)!.save,
@@ -86,10 +96,10 @@ class _ViewToolbarState extends State<ViewToolbar> {
                               content: Text(AppLocalizations.of(context)!.existOverride),
                               actions: [
                                 TextButton(
-                                    child: Text(AppLocalizations.of(context)!.no),
+                                    child: Text(AppLocalizations.of(context)!.no.toUpperCase()),
                                     onPressed: () => Navigator.of(context).pop()),
                                 TextButton(
-                                    child: Text(AppLocalizations.of(context)!.yes),
+                                    child: Text(AppLocalizations.of(context)!.yes.toUpperCase()),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       write();

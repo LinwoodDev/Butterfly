@@ -6,7 +6,7 @@
     "darkTheme": "Dark theme",
     "lightTheme": "Light theme",
     "systemTheme": "Use default system theme",
-    "enterNameOfDocument": "Please enter the name of the document",
+    "enterName": "Please enter the name",
     "create": "Create",
     "ok": "Ok",
     "cancel": "Cancel",
@@ -63,5 +63,10 @@
     "description": "Description",
     "fill": "Fill",
     "defaultPalette": "Default palette",
-    "highlighter": "Highlighter"
+    "highlighter": "Highlighter",
+    "add": "Add",
+    "remove": "Remove",
+    "resetPalette":"Reset palette",
+    "close":"Close",
+    "custom":"Custom"
 }

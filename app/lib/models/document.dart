@@ -59,9 +59,8 @@ class AppDocument {
   AppDocument.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         description = json['description'],
-        palettes = (json['palettes'] as Map<String, List<int>>?)
-                ?.map((key, value) => MapEntry(key, value.map((color) => Color(color)).toList())) ??
-            {},
+        palettes = (Map<String, dynamic>.from(json['palettes'] ?? {})).map<String, List<Color>>(
+            (key, value) => MapEntry(key, value.map<Color>((color) => Color(color)).toList())),
         background = json['background'] == null ? null : BoxBackground.fromJson(json['background']),
         painters = List<Map<String, dynamic>>.from(json['painters']).map<Painter>((e) {
           switch (e['type']) {

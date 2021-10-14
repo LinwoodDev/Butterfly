@@ -77,9 +77,10 @@ class _HomePageState extends State<HomePage> {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                    title: Text(AppLocalizations.of(context)!.enterNameOfDocument),
+                    title: Text(AppLocalizations.of(context)!.enterName),
                     content: TextField(
                       controller: _nameController,
+                      autofocus: true,
                     ),
                     actions: [
                       TextButton(
