@@ -19,6 +19,8 @@ class LabelPainterDialog extends StatefulWidget {
 class _LabelPainterDialogState extends State<LabelPainterDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _sizeController = TextEditingController();
+  final TextEditingController _thicknessController = TextEditingController();
+  bool _decorationExpanded = false;
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -32,6 +34,9 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
               if (_nameController.text != painter.name) _nameController.text = painter.name;
               if (_sizeController.text != painter.size.toStringAsFixed(2)) {
                 _sizeController.text = painter.size.toStringAsFixed(2);
+              }
+              if (_thicknessController.text != painter.decorationThickness.toStringAsFixed(2)) {
+                _thicknessController.text = painter.decorationThickness.toStringAsFixed(2);
               }
               return Scaffold(
                   appBar: AppBar(
@@ -69,6 +74,132 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                         setState(() => painter = painter.copyWith(size: value))),
                               )
                             ]),
+                            ListTile(
+                                title: Text(AppLocalizations.of(context)!.fontWeight),
+                                trailing: DropdownButton<FontWeight>(
+                                    value: painter.fontWeight,
+                                    items: List.generate(FontWeight.values.length, (index) {
+                                      var text = ((index + 1) * 100).toString();
+                                      if (index == 3) {
+                                        text = AppLocalizations.of(context)!.normal;
+                                      } else if (index == 6) {
+                                        text = AppLocalizations.of(context)!.bold;
+                                      }
+                                      return DropdownMenuItem(
+                                          child: Text(text), value: FontWeight.values[index]);
+                                    }),
+                                    onChanged: (value) => setState(
+                                        () => painter = painter.copyWith(fontWeight: value)))),
+                            CheckboxListTile(
+                                title: Text(AppLocalizations.of(context)!.italic),
+                                value: painter.italic,
+                                onChanged: (value) =>
+                                    setState(() => painter = painter.copyWith(italic: value))),
+                            ExpansionPanelList(
+                              expansionCallback: (panelIndex, isExpanded) =>
+                                  setState(() => _decorationExpanded = !_decorationExpanded),
+                              children: [
+                                ExpansionPanel(
+                                    isExpanded: _decorationExpanded,
+                                    headerBuilder: (context, isExpanded) => Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Text(AppLocalizations.of(context)!.decoration,
+                                                style: Theme.of(context).textTheme.subtitle1),
+                                          ],
+                                        ),
+                                    body: Column(children: [
+                                      CheckboxListTile(
+                                          title: Text(AppLocalizations.of(context)!.lineThrough),
+                                          value: painter.lineThrough,
+                                          onChanged: (value) => setState(() =>
+                                              painter = painter.copyWith(lineThrough: value))),
+                                      CheckboxListTile(
+                                          title: Text(AppLocalizations.of(context)!.underline),
+                                          value: painter.underline,
+                                          onChanged: (value) => setState(
+                                              () => painter = painter.copyWith(underline: value))),
+                                      CheckboxListTile(
+                                          title: Text(AppLocalizations.of(context)!.overline),
+                                          value: painter.overline,
+                                          onChanged: (value) => setState(
+                                              () => painter = painter.copyWith(overline: value))),
+                                      ListTile(
+                                          title: Text(AppLocalizations.of(context)!.fontWeight),
+                                          trailing: DropdownButton<TextDecorationStyle>(
+                                              value: painter.decorationStyle,
+                                              items: List.generate(
+                                                  TextDecorationStyle.values.length, (index) {
+                                                String text;
+                                                var style = TextDecorationStyle.values[index];
+                                                switch (style) {
+                                                  case TextDecorationStyle.solid:
+                                                    text = AppLocalizations.of(context)!.solid;
+                                                    break;
+                                                  case TextDecorationStyle.dashed:
+                                                    text = AppLocalizations.of(context)!.dashed;
+                                                    break;
+                                                  case TextDecorationStyle.dotted:
+                                                    text = AppLocalizations.of(context)!.dotted;
+                                                    break;
+                                                  case TextDecorationStyle.double:
+                                                    text = AppLocalizations.of(context)!.double;
+                                                    break;
+                                                  case TextDecorationStyle.wavy:
+                                                    text = AppLocalizations.of(context)!.wavy;
+                                                }
+                                                return DropdownMenuItem(
+                                                    child: Text(text),
+                                                    value: TextDecorationStyle.values[index]);
+                                              }),
+                                              onChanged: (value) => setState(() => painter =
+                                                  painter.copyWith(decorationStyle: value)))),
+                                      ListTile(
+                                          onTap: () async {
+                                            var value = await showDialog(
+                                                context: context,
+                                                builder: (context) => ColorPickerDialog(
+                                                    defaultColor: painter.decorationColor,
+                                                    bloc: widget.bloc));
+                                            if (value != null) {
+                                              setState(() => painter = painter.copyWith(
+                                                  decorationColor: value as Color));
+                                            }
+                                          },
+                                          leading: Container(
+                                              width: 30,
+                                              height: 30,
+                                              color: painter.decorationColor),
+                                          title: Text(AppLocalizations.of(context)!.color)),
+                                      Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Row(children: [
+                                          ConstrainedBox(
+                                              constraints: const BoxConstraints(maxWidth: 100),
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    labelText:
+                                                        AppLocalizations.of(context)!.thickness),
+                                                controller: _thicknessController,
+                                                onChanged: (value) => setState(() => painter =
+                                                    painter.copyWith(
+                                                        decorationThickness:
+                                                            double.tryParse(value))),
+                                              )),
+                                          Expanded(
+                                            child: Slider(
+                                                value: painter.decorationThickness.clamp(0.1, 4),
+                                                min: 0.1,
+                                                max: 4,
+                                                onChanged: (value) => setState(() => painter =
+                                                    painter.copyWith(decorationThickness: value))),
+                                          )
+                                        ]),
+                                      ),
+                                    ]))
+                              ],
+                            ),
                             const SizedBox(height: 50),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -88,7 +219,7 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                             const BoxConstraints(maxWidth: 100, maxHeight: 100),
                                         color: painter.color)),
                               ],
-                            )
+                            ),
                           ]),
                         ),
                         const Divider(),

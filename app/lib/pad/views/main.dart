@@ -132,7 +132,7 @@ class _ProjectPageState extends State<ProjectPage> {
                           var currentScale = transform.up.y;
                           _scaleController.text = (currentScale * 100).toStringAsFixed(2);
                           void setScale(double scale) {
-                            scale = scale.clamp(0.5, 2.5);
+                            scale = scale.clamp(0.25, 5);
                             scale /= currentScale;
                             setState(() => context
                                 .read<TransformCubit>()

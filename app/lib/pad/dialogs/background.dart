@@ -118,13 +118,17 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                       .copyWith(boxColor: value as Color));
                                                 }
                                               },
-                                              leading:
-                                                  Container(width: 50, color: background!.boxColor),
+                                              leading: Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  color: background!.boxColor),
                                               title:
                                                   Text(AppLocalizations.of(context)!.background)),
                                           ListTile(
                                               leading: Container(
-                                                  width: 50, color: background!.boxXColor),
+                                                  width: 30,
+                                                  height: 30,
+                                                  color: background!.boxXColor),
                                               onTap: () async {
                                                 var value = await showDialog(
                                                     context: context,
@@ -139,7 +143,9 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                               title: const Text("X")),
                                           ListTile(
                                               leading: Container(
-                                                  width: 50, color: background!.boxYColor),
+                                                  width: 30,
+                                                  height: 30,
+                                                  color: background!.boxYColor),
                                               onTap: () async {
                                                 var value = await showDialog(
                                                     context: context,

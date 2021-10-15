@@ -67,11 +67,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       // Scale the matrix
                       var up = transform.up;
                       if (up.y < 3.5 && pointerSignal.scrollDelta.dy < 0 ||
-                          up.y > 0.5 && pointerSignal.scrollDelta.dy > 0) {
+                          up.y > 0.25 && pointerSignal.scrollDelta.dy > 0) {
                         var scale = 1 - pointerSignal.scrollDelta.dy / 100;
                         var currentScale = transform.up.y;
                         scale *= currentScale;
-                        scale = scale.clamp(0.5, 2.5);
+                        scale = scale.clamp(0.25, 5);
                         scale /= currentScale;
                         context
                             .read<TransformCubit>()
@@ -106,6 +106,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               text: _textController.text,
                               size: painter.size,
                               color: painter.color,
+                              decorationColor: painter.decorationColor,
+                              decorationStyle: painter.decorationStyle,
+                              decorationThickness: painter.decorationThickness,
+                              fontWeight: painter.fontWeight,
+                              italic: painter.italic,
+                              lineThrough: painter.lineThrough,
+                              overline: painter.overline,
+                              underline: painter.underline,
                               position: _controller.toScene(event.localPosition))));
                         }
 
@@ -179,8 +187,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     constrained: false,
                     transformationController: _controller,
                     panEnabled: _moveEnabled,
-                    minScale: 0.5,
-                    maxScale: 2.5,
+                    minScale: 0.25,
+                    maxScale: 5,
                     scaleEnabled: _moveEnabled,
                     child: Container(
                       color: Colors.white,

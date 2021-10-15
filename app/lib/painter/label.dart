@@ -57,6 +57,28 @@ class LabelPainter extends Painter {
       'decoration-thickness': decorationThickness
     });
 
-  LabelPainter copyWith({String? name, Color? color, double? size}) =>
-      LabelPainter(name: name ?? this.name, color: color ?? this.color, size: size ?? this.size);
+  LabelPainter copyWith(
+          {String? name,
+          Color? color,
+          double? size,
+          FontWeight? fontWeight,
+          bool? lineThrough,
+          bool? underline,
+          bool? overline,
+          bool? italic,
+          Color? decorationColor,
+          TextDecorationStyle? decorationStyle,
+          double? decorationThickness}) =>
+      LabelPainter(
+          name: name ?? this.name,
+          color: color ?? this.color,
+          size: size ?? this.size,
+          fontWeight: fontWeight ?? this.fontWeight,
+          lineThrough: lineThrough ?? this.lineThrough,
+          underline: underline ?? this.underline,
+          overline: overline ?? this.overline,
+          italic: italic ?? this.italic,
+          decorationColor: decorationColor ?? this.decorationColor,
+          decorationStyle: decorationStyle ?? this.decorationStyle,
+          decorationThickness: decorationThickness ?? this.decorationThickness);
 }
