@@ -65,9 +65,9 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                                   )),
                               Expanded(
                                 child: Slider(
-                                    value: painter.strokeWidth.clamp(0, 20),
+                                    value: painter.strokeWidth.clamp(0, 70),
                                     min: 0,
-                                    max: 20,
+                                    max: 70,
                                     onChanged: (value) => setState(
                                         () => painter = painter.copyWith(strokeWidth: value))),
                               )

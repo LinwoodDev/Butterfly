@@ -6,7 +6,7 @@ class PaintElement extends PathElement {
   final Color color;
   final bool fill;
 
-  PaintElement(
+  const PaintElement(
       {List<Offset> points = const [],
       double strokeWidth = 5.0,
       this.color = Colors.black,

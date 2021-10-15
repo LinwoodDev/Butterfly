@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class EraserElement extends PathElement {
-  EraserElement({List<Offset> points = const [], double strokeWidth = 5})
+  const EraserElement({List<Offset> points = const [], double strokeWidth = 5})
       : super(points: points, strokeWidth: strokeWidth);
   EraserElement.fromJson(Map<String, dynamic> json) : super.fromJson(json);
 

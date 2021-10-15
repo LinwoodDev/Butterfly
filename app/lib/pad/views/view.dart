@@ -262,7 +262,19 @@ class PathPainter extends CustomPainter {
           canvas.drawPath(path, element.buildPaint());
         } else if (element is LabelElement) {
           TextSpan span = TextSpan(
-              style: TextStyle(fontSize: element.size, color: element.color), text: element.text);
+              style: TextStyle(
+                  fontSize: element.size,
+                  color: element.color,
+                  fontWeight: element.fontWeight,
+                  decorationColor: element.decorationColor,
+                  decorationStyle: element.decorationStyle,
+                  decorationThickness: element.decorationThickness,
+                  decoration: TextDecoration.combine([
+                    if (element.underline) TextDecoration.underline,
+                    if (element.lineThrough) TextDecoration.lineThrough,
+                    if (element.overline) TextDecoration.overline,
+                  ])),
+              text: element.text);
           TextPainter tp = TextPainter(
               text: span,
               textAlign: TextAlign.center,
