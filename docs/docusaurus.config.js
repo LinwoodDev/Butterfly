@@ -30,10 +30,14 @@ module.exports = {
         },
         {href: 'https://linwood.dev/blog', label: 'Blog', position: 'left'},
         {
+          type: 'docsVersionDropdown',
+          position: 'right'
+        },
+        {
           href: 'https://github.com/LinwoodCloud/Butterfly',
           label: 'GitHub',
           position: 'right',
-        },
+        }
       ],
     },
     footer: {

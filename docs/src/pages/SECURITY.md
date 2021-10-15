@@ -6,6 +6,7 @@ Currently there is no production ready version.
 
 | Version       | Supported          |
 | ------------- | ------------------ | ------------------------------------------ |
+| 1.0.0-beta.0 | :white_check_mark: | [Docs](https://docs.butterfly.linwood.dev) |
 | 1.0.0-alpha.0 | :white_check_mark: | [Docs](https://docs.butterfly.linwood.dev) |
 
 ## Reporting a Vulnerability
