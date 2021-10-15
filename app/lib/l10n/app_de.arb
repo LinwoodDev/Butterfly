@@ -68,5 +68,20 @@
     "remove": "Entfernen",
     "resetPalette": "Reset palette",
     "close": "Schließen",
-    "custom": "Eigene"
+    "custom": "Eigene",
+    "decoration": "Dekoration",
+    "underline": "Unterstrichen",
+    "overline": "Überzeile",
+    "lineThrough": "Linie durch",
+    "thickness": "Dicke",
+    "style": "Stil",
+    "solid": "Solid",
+    "double": "Doppelt",
+    "dotted": "Gepunktet",
+    "dashed": "Gestattet",
+    "wavy": "Wellen",
+    "fontWeight": "Schriftgewicht",
+    "normal": "Normal",
+    "bold": "Bold",
+    "italic": "Italic"
 }
