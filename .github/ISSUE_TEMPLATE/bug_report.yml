@@ -25,39 +25,19 @@ body:
       description: What version of our software are you running?
       options:
         - 2.0.0-alpha.1 (Latest alpha)
-        - 2.0.0-alpha.2-SNAPSHOT (Latest snapshot)
+        - 2.0.0-beta.0-SNAPSHOT (Latest snapshot)
     validations:
       required: true
   - type: dropdown
-    id: server-type
+    id: platform
     attributes:
-      label: Server type
+      label: Platform
       description: What type is your server running on?
       options:
-        - Spigot
-        - Paper
-        - Airplane
-        - Purpur
-    validations:
-      required: true
-  - type: dropdown
-    id: server-version
-    attributes:
-      label: Server version
-      description: What version is your server running on?
-      options:
-        - "1.17.1"
-        - "1.17"
-        - "1.16.5"
-        - "1.16.4"
-        - "1.16.3"
-        - "1.16.2"
-        - "1.16.1"
-        - "1.16"
-        - "1.15.2"
-        - "1.15.1"
-        - "1.15"
-        - "1.14.4"
+        - Android
+        - Windows
+        - Linux
+        - Web
     validations:
       required: true
   - type: textarea
