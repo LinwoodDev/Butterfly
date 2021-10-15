@@ -7,7 +7,9 @@ import 'package:butterfly/models/elements/paint.dart';
 import 'package:butterfly/models/elements/path.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/cubits/transform.dart';
-import 'package:butterfly/pad/dialogs/object.dart';
+import 'package:butterfly/pad/dialogs/elements/eraser.dart';
+import 'package:butterfly/pad/dialogs/elements/label.dart';
+import 'package:butterfly/pad/dialogs/elements/paint.dart';
 import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -155,10 +157,21 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       var hits = raycast(_controller.toScene(event.localPosition));
                       var hit = hits.isEmpty ? null : hits.last;
                       if (hit != null) {
+                        var index = state.document.content.indexOf(hit);
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => ObjectDialog(
-                                index: state.document.content.indexOf(hit), bloc: widget.bloc));
+                            builder: (context) {
+                              if (hit is PaintElement) {
+                                return PaintElementDialog(index: index, bloc: widget.bloc);
+                              }
+                              if (hit is EraserElement) {
+                                return EraserElementDialog(index: index, bloc: widget.bloc);
+                              }
+                              if (hit is LabelElement) {
+                                return LabelElementDialog(index: index, bloc: widget.bloc);
+                              }
+                              return Container();
+                            });
                       }
                     }
                     setState(() => _moveEnabled = false);
