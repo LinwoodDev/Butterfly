@@ -1,0 +1,33 @@
+name: Feature request
+description: Suggest a feature
+title: "[Feature request]: "
+labels: ["enhancement", "triage"]
+assignees:
+  - CodeDoctorDE
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  - type: textarea
+    id: related-to-problem
+    attributes:
+      label: Is your feature request related to a problem? Please describe
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe your feature request!
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/LinwoodCloud/butterfly/blob/develop/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
