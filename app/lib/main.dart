@@ -11,6 +11,8 @@ import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   setup();
   var prefs = await SharedPreferences.getInstance();
 

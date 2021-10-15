@@ -22,7 +22,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   equatable: ^2.0.3
-  flutter_bloc: ^7.3.0
+  flutter_bloc: ^7.3.1
   intl: ^0.17.0
   flutter_modular: ^4.1.2
   path_provider: ^2.0.5
