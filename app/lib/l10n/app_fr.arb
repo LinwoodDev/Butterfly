@@ -68,5 +68,20 @@
     "remove": "Retirer",
     "resetPalette": "Reset palette",
     "close": "Fermer",
-    "custom": "Personnalisé"
+    "custom": "Personnalisé",
+    "decoration": "Décoration",
+    "underline": "Souligné",
+    "overline": "Surligne",
+    "lineThrough": "Ligne à travers",
+    "thickness": "Épaisseur",
+    "style": "Style",
+    "solid": "Solid",
+    "double": "Double",
+    "dotted": "Pointillé",
+    "dashed": "Tiret",
+    "wavy": "Vague",
+    "fontWeight": "Poids de la police",
+    "normal": "Normale",
+    "bold": "Bold",
+    "italic": "Italic"
 }
