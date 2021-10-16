@@ -126,7 +126,7 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                           onChanged: (value) => setState(
                                               () => painter = painter.copyWith(overline: value))),
                                       ListTile(
-                                          title: Text(AppLocalizations.of(context)!.fontWeight),
+                                          title: Text(AppLocalizations.of(context)!.style),
                                           trailing: DropdownButton<TextDecorationStyle>(
                                               value: painter.decorationStyle,
                                               items: List.generate(
