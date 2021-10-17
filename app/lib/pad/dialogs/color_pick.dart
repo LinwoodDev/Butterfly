@@ -302,9 +302,16 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                 tooltip: AppLocalizations.of(context)!.open,
                                                 icon: const Icon(PhosphorIcons.folderOpenLight),
                                                 onPressed: () {
-                                                  FilePicker.platform.pickFiles(
-                                                      type: FileType.custom,
-                                                      allowedExtensions: ["json"]).then((files) {
+                                                  var isMobile =
+                                                      Platform.isAndroid || Platform.isIOS;
+                                                  FilePicker.platform
+                                                      .pickFiles(
+                                                          type: isMobile
+                                                              ? FileType.any
+                                                              : FileType.custom,
+                                                          allowedExtensions:
+                                                              isMobile ? null : [".json"])
+                                                      .then((files) {
                                                     final palettes = <String, List<Color>>{};
                                                     if (files?.files.isEmpty ?? true) return;
 

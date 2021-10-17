@@ -51,8 +51,12 @@ class _HomePageState extends State<HomePage> {
           icon: const Icon(PhosphorIcons.folderOpenLight),
           tooltip: AppLocalizations.of(context)!.open,
           onPressed: () {
+            var isMobile = Platform.isAndroid || Platform.isIOS;
             FilePicker.platform
-                .pickFiles(type: FileType.custom, allowedExtensions: ["json"]).then((files) {
+                .pickFiles(
+                    type: isMobile ? FileType.any : FileType.custom,
+                    allowedExtensions: isMobile ? null : [".json"])
+                .then((files) {
               if (files?.files.isEmpty ?? true) return;
 
               setState(() => _documents.addAll(files!.files.map((e) {
