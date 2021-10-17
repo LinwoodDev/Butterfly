@@ -3,6 +3,7 @@ import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'color_pick.dart';
 
@@ -36,7 +37,11 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
           var background = state.document.background;
 
           return Scaffold(
-            appBar: AppBar(title: Text(AppLocalizations.of(context)!.background)),
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              title: Text(AppLocalizations.of(context)!.background),
+              leading: const Icon(PhosphorIcons.imageLight),
+            ),
             body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: Column(

@@ -47,6 +47,7 @@ class ButterflyApp extends StatelessWidget {
     var accentColor = const Color(0xFF00469E);
     buildThemeData(context) => ThemeData(
         fontFamily: "Roboto",
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         dialogTheme: DialogTheme(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
@@ -88,6 +89,7 @@ class ButterflyApp extends StatelessWidget {
         colorScheme: ColorScheme.light(primary: primaryColor, secondary: accentColor));
     buildDarkThemeData(context) => ThemeData(
         fontFamily: "Roboto",
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         brightness: Brightness.dark,
         dialogTheme: DialogTheme(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -109,7 +111,7 @@ class ButterflyApp extends StatelessWidget {
         ),
         // Modern appbar
         appBarTheme: AppBarTheme(
-            color: const Color(0xff303030),
+            color: Colors.transparent,
             elevation: 0,
             iconTheme: const IconThemeData(color: Colors.white),
             titleTextStyle: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white)),

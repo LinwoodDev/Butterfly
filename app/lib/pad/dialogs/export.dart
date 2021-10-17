@@ -66,6 +66,7 @@ class _ExportDialogState extends State<ExportDialog> {
         child: Container(
           constraints: const BoxConstraints(maxHeight: 500, maxWidth: 1000),
           child: Scaffold(
+              backgroundColor: Colors.transparent,
               appBar: AppBar(
                 title: Text(AppLocalizations.of(context)!.export),
                 leading: const Icon(PhosphorIcons.exportLight),

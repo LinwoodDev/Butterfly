@@ -123,6 +123,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Material(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(12))),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: LayoutBuilder(builder: (context, constraints) {
@@ -433,40 +435,55 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             }),
                           ),
                         ),
+                        const SizedBox(height: 10),
                         Wrap(alignment: WrapAlignment.center, children: [
                           if (state.document.palettes.isNotEmpty)
                             ...(List.generate(
                                 palette.length,
                                 (index) => InkWell(
+                                    borderRadius: const BorderRadius.all(Radius.circular(12)),
                                     onLongPress: () => _showColorOperation(index),
                                     onTap: () => Navigator.of(context).pop(palette[index]),
                                     child: Container(
-                                        width: 100,
-                                        height: 100,
-                                        decoration: ShapeDecoration(
-                                            color: palette[index],
-                                            shape: const RoundedRectangleBorder())))).toList()),
+                                      width: 100,
+                                      height: 100,
+                                      margin: const EdgeInsets.all(5),
+                                      decoration: ShapeDecoration(
+                                          color: palette[index],
+                                          shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(12)))),
+                                    )))).toList(),
                           if (selected != null)
-                            Material(
-                              child: InkWell(
-                                child: const SizedBox(
-                                  width: 100,
-                                  height: 100,
-                                  child: Center(child: Icon(PhosphorIcons.plusLight, size: 42)),
-                                ),
-                                onTap: () async {
-                                  var value = await showDialog(
-                                      context: context,
-                                      builder: (context) => const CustomColorPicker());
-                                  if (value != null) {
-                                    var newPalettes =
-                                        Map<String, List<Color>>.from(state.document.palettes);
-                                    newPalettes[selected!] = List.from(newPalettes[selected!] ?? [])
-                                      ..add(value);
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Material(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(12))),
+                                child: InkWell(
+                                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                  child: Container(
+                                    decoration: const ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(12)))),
+                                    width: 100,
+                                    height: 100,
+                                    child: const Center(
+                                        child: Icon(PhosphorIcons.plusLight, size: 42)),
+                                  ),
+                                  onTap: () async {
+                                    var value = await showDialog(
+                                        context: context,
+                                        builder: (context) => const CustomColorPicker());
+                                    if (value != null) {
+                                      var newPalettes =
+                                          Map<String, List<Color>>.from(state.document.palettes);
+                                      newPalettes[selected!] =
+                                          List.from(newPalettes[selected!] ?? [])..add(value);
 
-                                    widget.bloc.add(DocumentPaletteChanged(newPalettes));
-                                  }
-                                },
+                                      widget.bloc.add(DocumentPaletteChanged(newPalettes));
+                                    }
+                                  },
+                                ),
                               ),
                             )
                         ]),
