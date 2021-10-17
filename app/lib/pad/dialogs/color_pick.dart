@@ -74,12 +74,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       content: Text(AppLocalizations.of(context)!.reallyDelete),
                                       actions: [
                                         TextButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)!.no.toUpperCase()),
+                                            child: Text(AppLocalizations.of(context)!.no),
                                             onPressed: () => Navigator.of(context).pop()),
                                         TextButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)!.yes.toUpperCase()),
+                                            child: Text(AppLocalizations.of(context)!.yes),
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                               Navigator.of(context).pop();
@@ -174,8 +172,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                                         Navigator.of(context).pop(),
                                                                     child: Text(AppLocalizations.of(
                                                                             context)!
-                                                                        .cancel
-                                                                        .toUpperCase())),
+                                                                        .cancel)),
                                                                 TextButton(
                                                                     onPressed: () {
                                                                       Navigator.of(context).pop();
@@ -190,8 +187,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                                     },
                                                                     child: Text(AppLocalizations.of(
                                                                             context)!
-                                                                        .ok
-                                                                        .toUpperCase())),
+                                                                        .ok)),
                                                               ],
                                                               title: Text(
                                                                   AppLocalizations.of(context)!
@@ -216,8 +212,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                                         Navigator.of(context).pop(),
                                                                     child: Text(AppLocalizations.of(
                                                                             context)!
-                                                                        .cancel
-                                                                        .toUpperCase())),
+                                                                        .cancel)),
                                                                 TextButton(
                                                                     onPressed: () {
                                                                       Navigator.of(context).pop();
@@ -244,8 +239,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                                     },
                                                                     child: Text(AppLocalizations.of(
                                                                             context)!
-                                                                        .ok
-                                                                        .toUpperCase())),
+                                                                        .ok)),
                                                               ],
                                                               title: Text(
                                                                   AppLocalizations.of(context)!
@@ -273,8 +267,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                                       Navigator.of(context).pop(),
                                                                   child: Text(
                                                                       AppLocalizations.of(context)!
-                                                                          .no
-                                                                          .toUpperCase())),
+                                                                          .no)),
                                                               TextButton(
                                                                   onPressed: () {
                                                                     Navigator.of(context).pop();
@@ -292,8 +285,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                                   },
                                                                   child: Text(
                                                                       AppLocalizations.of(context)!
-                                                                          .yes
-                                                                          .toUpperCase())),
+                                                                          .yes)),
                                                             ],
                                                           ));
                                                 }),
@@ -361,8 +353,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                                 TextButton(
                                                                   child: Text(
                                                                       AppLocalizations.of(context)!
-                                                                          .ok
-                                                                          .toUpperCase()),
+                                                                          .ok),
                                                                   onPressed: () {
                                                                     Navigator.of(context).pop();
                                                                   },
@@ -399,8 +390,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                                         child: Text(
                                                                             AppLocalizations.of(
                                                                                     context)!
-                                                                                .no
-                                                                                .toUpperCase()),
+                                                                                .no),
                                                                         onPressed: () =>
                                                                             Navigator.of(context)
                                                                                 .pop()),
@@ -408,8 +398,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                                         child: Text(
                                                                             AppLocalizations.of(
                                                                                     context)!
-                                                                                .yes
-                                                                                .toUpperCase()),
+                                                                                .yes),
                                                                         onPressed: () {
                                                                           Navigator.of(context)
                                                                               .pop();
@@ -494,7 +483,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   CustomColorPicker(defaultColor: widget.defaultColor));
                           if (value != null) Navigator.of(context).pop(value);
                         },
-                        child: Text(AppLocalizations.of(context)!.custom.toUpperCase())),
+                        child: Text(AppLocalizations.of(context)!.custom)),
                 ],
               ),
             ),
@@ -640,10 +629,10 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                 const Divider(),
                 Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                   TextButton(
-                      child: Text(AppLocalizations.of(context)!.cancel.toUpperCase()),
+                      child: Text(AppLocalizations.of(context)!.cancel),
                       onPressed: () => Navigator.of(context).pop()),
                   ElevatedButton(
-                      child: Text(AppLocalizations.of(context)!.ok.toUpperCase()),
+                      child: Text(AppLocalizations.of(context)!.ok),
                       onPressed: () => Navigator.of(context).pop(color)),
                 ])
               ],

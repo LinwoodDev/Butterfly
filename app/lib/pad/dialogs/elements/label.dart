@@ -62,13 +62,11 @@ class LabelElementDialog extends StatelessWidget {
                                       ),
                                       actions: [
                                         TextButton(
-                                          child: Text(
-                                              AppLocalizations.of(context)!.cancel.toUpperCase()),
+                                          child: Text(AppLocalizations.of(context)!.cancel),
                                           onPressed: () => Navigator.of(context).pop(),
                                         ),
                                         TextButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)!.ok.toUpperCase()),
+                                            child: Text(AppLocalizations.of(context)!.ok),
                                             onPressed: submit)
                                       ]));
                         }),
@@ -81,15 +79,14 @@ class LabelElementDialog extends StatelessWidget {
                                     content: Text(AppLocalizations.of(context)!.reallyDelete),
                                     actions: [
                                       TextButton(
-                                        child: Text(AppLocalizations.of(context)!.no.toUpperCase()),
+                                        child: Text(AppLocalizations.of(context)!.no),
                                         onPressed: () {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
                                         },
                                       ),
                                       TextButton(
-                                        child:
-                                            Text(AppLocalizations.of(context)!.yes.toUpperCase()),
+                                        child: Text(AppLocalizations.of(context)!.yes),
                                         onPressed: () {
                                           Navigator.pop(context);
                                           Navigator.pop(context);

@@ -45,6 +45,89 @@ class ButterflyApp extends StatelessWidget {
     var primaryColor = const Color(0xFFF2B138);
     var primarySwatch = createMaterialColor(primaryColor);
     var accentColor = const Color(0xFF00469E);
+    buildThemeData(context) => ThemeData(
+        fontFamily: "Roboto",
+        dialogTheme: DialogTheme(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        ),
+        // Modern appbar
+        appBarTheme: AppBarTheme(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            elevation: 0,
+            iconTheme: IconThemeData(color: Theme.of(context).iconTheme.color),
+            titleTextStyle: Theme.of(context).textTheme.headline6),
+        // This is the theme of your application.
+        //
+        // Try running your application with "flutter run". You'll see the
+        // application has a blue toolbar. Then, without quitting the app, try
+        // changing the primarySwatch below to Colors.green and then invoke
+        // "hot reload" (press "r" in the console where you ran "flutter run",
+        // or simply save your changes to "hot reload" in a Flutter IDE).
+        // Notice that the counter didn't reset back to zero; the application
+        // is not restarted.
+        primarySwatch: primarySwatch,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: primarySwatch[200],
+            foregroundColor: Colors.black,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+        colorScheme: ColorScheme.light(primary: primaryColor, secondary: accentColor));
+    buildDarkThemeData(context) => ThemeData(
+        fontFamily: "Roboto",
+        brightness: Brightness.dark,
+        dialogTheme: DialogTheme(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        ),
+        // Modern appbar
+        appBarTheme: AppBarTheme(
+            color: const Color(0xff303030),
+            elevation: 0,
+            iconTheme: const IconThemeData(color: Colors.white),
+            titleTextStyle: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white)),
+        // This is the theme of your application.
+        //
+        // Try running your application with "flutter run". You'll see the
+        // application has a blue toolbar. Then, without quitting the app, try
+        // changing the primarySwatch below to Colors.green and then invoke
+        // "hot reload" (press "r" in the console where you ran "flutter run",
+        // or simply save your changes to "hot reload" in a Flutter IDE).
+        // Notice that the counter didn't reset back to zero; the application
+        // is not restarted.
+        primarySwatch: primarySwatch,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: primarySwatch[200],
+            foregroundColor: Colors.black,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+        colorScheme: ColorScheme.dark(primary: primaryColor, secondary: accentColor));
     return BlocProvider(
         create: (context) => LanguageCubit.fromLanguageCode(prefs?.getString('language')),
         child: BlocBuilder<LanguageCubit, Locale?>(builder: (context, lang) {
@@ -55,28 +138,9 @@ class ButterflyApp extends StatelessWidget {
             initialRoute: "/",
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            theme: ThemeData(
-                fontFamily: "Roboto",
-                // This is the theme of your application.
-                //
-                // Try running your application with "flutter run". You'll see the
-                // application has a blue toolbar. Then, without quitting the app, try
-                // changing the primarySwatch below to Colors.green and then invoke
-                // "hot reload" (press "r" in the console where you ran "flutter run",
-                // or simply save your changes to "hot reload" in a Flutter IDE).
-                // Notice that the counter didn't reset back to zero; the application
-                // is not restarted.
-                primarySwatch: primarySwatch,
-                colorScheme: ColorScheme.light(primary: primaryColor, secondary: accentColor)),
+            theme: buildThemeData(context),
             themeMode: themeController?.currentTheme,
-            darkTheme: ThemeData(
-                brightness: Brightness.dark,
-                primarySwatch: primarySwatch,
-                colorScheme: ColorScheme.dark(
-                    primary: primaryColor,
-                    primaryVariant: primaryColor,
-                    secondary: accentColor,
-                    secondaryVariant: accentColor)),
+            darkTheme: buildDarkThemeData(context),
             home: const HomePage(),
           ).modular();
         }));

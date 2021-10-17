@@ -392,11 +392,11 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                       children: [
                         Expanded(child: Container()),
                         TextButton(
-                          child: Text(AppLocalizations.of(context)!.cancel.toUpperCase()),
+                          child: Text(AppLocalizations.of(context)!.cancel),
                           onPressed: () => Navigator.of(context).pop(),
                         ),
                         ElevatedButton(
-                          child: Text(AppLocalizations.of(context)!.ok.toUpperCase()),
+                          child: Text(AppLocalizations.of(context)!.ok),
                           onPressed: () {
                             widget.bloc.add(DocumentBackgroundChanged(background));
                             Navigator.of(context).pop();

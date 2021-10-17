@@ -37,7 +37,9 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                 _strokeMultiplierController.text = painter.strokeMultiplier.toStringAsFixed(2);
               }
               return Scaffold(
+                  backgroundColor: Colors.transparent,
                   appBar: AppBar(
+                    backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.eraser),
                     leading: const Icon(PhosphorIcons.eraserLight),
                   ),
@@ -99,7 +101,7 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                             OutlinedButton(
                               style: OutlinedButton.styleFrom(
                                   primary: Theme.of(context).colorScheme.error),
-                              child: Text(AppLocalizations.of(context)!.delete.toUpperCase()),
+                              child: Text(AppLocalizations.of(context)!.delete),
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 showDialog(
@@ -107,14 +109,11 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                                     builder: (context) => AlertDialog(
                                             actions: [
                                               TextButton(
-                                                child: Text(
-                                                    AppLocalizations.of(context)!.no.toUpperCase()),
+                                                child: Text(AppLocalizations.of(context)!.no),
                                                 onPressed: () => Navigator.of(context).pop(),
                                               ),
                                               TextButton(
-                                                child: Text(AppLocalizations.of(context)!
-                                                    .yes
-                                                    .toUpperCase()),
+                                                child: Text(AppLocalizations.of(context)!.yes),
                                                 onPressed: () {
                                                   widget.bloc
                                                       .add(PainterRemoved(widget.painterIndex));
@@ -129,11 +128,11 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                             ),
                             Expanded(child: Container()),
                             TextButton(
-                              child: Text(AppLocalizations.of(context)!.cancel.toUpperCase()),
+                              child: Text(AppLocalizations.of(context)!.cancel),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
                             ElevatedButton(
-                              child: Text(AppLocalizations.of(context)!.ok.toUpperCase()),
+                              child: Text(AppLocalizations.of(context)!.ok),
                               onPressed: () {
                                 widget.bloc.add(PainterChanged(painter, widget.painterIndex));
                                 Navigator.of(context).pop();

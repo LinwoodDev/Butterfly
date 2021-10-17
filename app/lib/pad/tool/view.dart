@@ -66,7 +66,7 @@ class _ViewToolbarState extends State<ViewToolbar> {
                           content: Text(AppLocalizations.of(context)!.copyMessage),
                           actions: [
                             TextButton(
-                              child: Text(AppLocalizations.of(context)!.ok.toUpperCase()),
+                              child: Text(AppLocalizations.of(context)!.ok),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
@@ -96,10 +96,10 @@ class _ViewToolbarState extends State<ViewToolbar> {
                               content: Text(AppLocalizations.of(context)!.existOverride),
                               actions: [
                                 TextButton(
-                                    child: Text(AppLocalizations.of(context)!.no.toUpperCase()),
+                                    child: Text(AppLocalizations.of(context)!.no),
                                     onPressed: () => Navigator.of(context).pop()),
                                 TextButton(
-                                    child: Text(AppLocalizations.of(context)!.yes.toUpperCase()),
+                                    child: Text(AppLocalizations.of(context)!.yes),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       write();

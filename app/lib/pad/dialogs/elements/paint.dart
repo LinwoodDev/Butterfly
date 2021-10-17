@@ -39,15 +39,14 @@ class PaintElementDialog extends StatelessWidget {
                                     content: Text(AppLocalizations.of(context)!.reallyDelete),
                                     actions: [
                                       TextButton(
-                                        child: Text(AppLocalizations.of(context)!.no.toUpperCase()),
+                                        child: Text(AppLocalizations.of(context)!.no),
                                         onPressed: () {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
                                         },
                                       ),
                                       TextButton(
-                                        child:
-                                            Text(AppLocalizations.of(context)!.yes.toUpperCase()),
+                                        child: Text(AppLocalizations.of(context)!.yes),
                                         onPressed: () {
                                           Navigator.pop(context);
                                           Navigator.pop(context);

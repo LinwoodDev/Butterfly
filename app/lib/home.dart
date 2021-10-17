@@ -74,13 +74,15 @@ class _HomePageState extends State<HomePage> {
             onPressed: () => Modular.to.pushNamed("/settings/"))
       ]),
       body: gridView ? _buildGridView() : _buildListView(),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(PhosphorIcons.plusLight),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text(AppLocalizations.of(context)!.create),
+        icon: const Icon(PhosphorIcons.plusLight),
         onPressed: () {
           var _nameController = TextEditingController();
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     title: Text(AppLocalizations.of(context)!.enterName),
                     content: TextField(
                       controller: _nameController,
@@ -88,11 +90,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                     actions: [
                       TextButton(
-                        child: Text(AppLocalizations.of(context)!.cancel.toUpperCase()),
+                        child: Text(AppLocalizations.of(context)!.cancel),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       TextButton(
-                        child: Text(AppLocalizations.of(context)!.create.toUpperCase()),
+                        child: Text(AppLocalizations.of(context)!.create),
                         onPressed: () {
                           setState(() => _documents.add(AppDocument(
                               name: _nameController.text,
@@ -133,11 +135,11 @@ class _HomePageState extends State<HomePage> {
             content: Text(AppLocalizations.of(context)!.reallyDelete),
             actions: [
               TextButton(
-                child: Text(AppLocalizations.of(context)!.no.toUpperCase()),
+                child: Text(AppLocalizations.of(context)!.no),
                 onPressed: () => Navigator.of(context).pop(),
               ),
               TextButton(
-                child: Text(AppLocalizations.of(context)!.yes.toUpperCase()),
+                child: Text(AppLocalizations.of(context)!.yes),
                 onPressed: () {
                   setState(() => _documents.removeAt(index));
                   saveDocuments();

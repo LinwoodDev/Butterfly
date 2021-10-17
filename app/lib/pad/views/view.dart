@@ -130,13 +130,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     ),
                                     actions: [
                                       TextButton(
-                                        child: Text(
-                                            AppLocalizations.of(context)!.cancel.toUpperCase()),
+                                        child: Text(AppLocalizations.of(context)!.cancel),
                                         onPressed: () => Navigator.of(context).pop(),
                                       ),
                                       TextButton(
-                                          child:
-                                              Text(AppLocalizations.of(context)!.ok.toUpperCase()),
+                                          child: Text(AppLocalizations.of(context)!.ok),
                                           onPressed: submit)
                                     ]));
                       }

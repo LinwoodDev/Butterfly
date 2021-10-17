@@ -67,7 +67,7 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                                   description: _descriptionController.text));
                               Navigator.of(context).pop();
                             },
-                            child: Text(AppLocalizations.of(context)!.ok.toUpperCase(),
+                            child: Text(AppLocalizations.of(context)!.ok,
                                 style: Theme.of(context).primaryTextTheme.button))
                       ]))
                 ]))));

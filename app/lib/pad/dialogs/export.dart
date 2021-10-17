@@ -128,11 +128,11 @@ class _ExportDialogState extends State<ExportDialog> {
                       children: [
                         Expanded(child: Container()),
                         TextButton(
-                          child: Text(AppLocalizations.of(context)!.cancel.toUpperCase()),
+                          child: Text(AppLocalizations.of(context)!.cancel),
                           onPressed: () => Navigator.of(context).pop(),
                         ),
                         ElevatedButton(
-                          child: Text(AppLocalizations.of(context)!.export.toUpperCase()),
+                          child: Text(AppLocalizations.of(context)!.export),
                           onPressed: () async {
                             var data = await generateImage();
                             if (data == null) {
