@@ -27,19 +27,18 @@ class LabelPainter extends Painter {
   LabelPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : color = json['color'] == null ? Colors.black : Color(json['color']),
         size = json['size'] ?? 12,
-        fontWeight = json['font-weight'] != null
-            ? FontWeight.values[json['font-weight']]
-            : FontWeight.normal,
-        lineThrough = json['line-through'] ?? false,
+        fontWeight =
+            json['fontWeight'] != null ? FontWeight.values[json['fontWeight']] : FontWeight.normal,
+        lineThrough = json['lineThrough'] ?? false,
         underline = json['underline'] ?? false,
         overline = json['overline'] ?? false,
         italic = json['italic'] ?? false,
         decorationColor =
-            json['decoration-color'] != null ? Color(json['decoration-color']) : Colors.black,
-        decorationStyle = json['decoration-style'] != null
-            ? TextDecorationStyle.values[json['decoration-style']]
+            json['decorationColor'] != null ? Color(json['decorationColor']) : Colors.black,
+        decorationStyle = json['decorationStyle'] != null
+            ? TextDecorationStyle.values[json['decorationStyle']]
             : TextDecorationStyle.solid,
-        decorationThickness = json['decoration-thickness'] ?? 1,
+        decorationThickness = json['decorationThickness'] ?? 1,
         super.fromJson(json);
   @override
   Map<String, dynamic> toJson() => super.toJson()
@@ -47,14 +46,14 @@ class LabelPainter extends Painter {
       "type": "label",
       "color": color.value,
       "size": size,
-      'font-weight': FontWeight.values.indexOf(fontWeight),
-      'line-through': lineThrough,
+      'fontWeight': FontWeight.values.indexOf(fontWeight),
+      'lineThrough': lineThrough,
       'underline': underline,
       'overline': overline,
       'italic': italic,
-      'decoration-color': decorationColor.value,
-      'decoration-style': decorationStyle.index,
-      'decoration-thickness': decorationThickness
+      'decorationColor': decorationColor.value,
+      'decorationStyle': decorationStyle.index,
+      'decorationThickness': decorationThickness
     });
 
   LabelPainter copyWith(

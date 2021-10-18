@@ -63,27 +63,27 @@ class AppDocument {
             (key, value) => MapEntry(key, value.map<Color>((color) => Color(color)).toList())),
         background = json['background'] == null
             ? null
-            : BoxBackground.fromJson(json['background'], json['file-version']),
+            : BoxBackground.fromJson(json['background'], json['fileVersion']),
         painters = List<Map<String, dynamic>>.from(json['painters']).map<Painter>((e) {
           switch (e['type']) {
             case 'eraser':
-              return EraserPainter.fromJson(e, json['file-version']);
+              return EraserPainter.fromJson(e, json['fileVersion']);
             case 'path-eraser':
-              return PathEraserPainter.fromJson(e, json['file-version']);
+              return PathEraserPainter.fromJson(e, json['fileVersion']);
             case 'label':
-              return LabelPainter.fromJson(e, json['file-version']);
+              return LabelPainter.fromJson(e, json['fileVersion']);
             default:
-              return PenPainter.fromJson(e, json['file-version']);
+              return PenPainter.fromJson(e, json['fileVersion']);
           }
         }).toList(),
         content = List<Map<String, dynamic>>.from(json['content']).map<ElementLayer>((e) {
           switch (e['type']) {
             case 'label':
-              return LabelElement.fromJson(e, json['file-version']);
+              return LabelElement.fromJson(e, json['fileVersion']);
             case 'eraser':
-              return EraserElement.fromJson(e, json['file-version']);
+              return EraserElement.fromJson(e, json['fileVersion']);
             default:
-              return PaintElement.fromJson(e, json['file-version']);
+              return PaintElement.fromJson(e, json['fileVersion']);
           }
         }).toList();
   Map<String, dynamic> toJson() => {
@@ -93,7 +93,7 @@ class AppDocument {
         "painters": painters.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "content": content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "background": background?.toJson(),
-        "file-version": GetIt.I.get(instanceName: 'fileVersion')
+        "fileVersion": GetIt.I.get(instanceName: 'fileVersion')
       };
   AppDocument copyWith(
       {String? name,

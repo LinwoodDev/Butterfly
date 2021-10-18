@@ -11,16 +11,16 @@ class PathEraserPainter extends Painter {
       this.canDeleteEraser = false})
       : super(name: name);
   PathEraserPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
-      : strokeWidth = json['stroke-width'] ?? 5,
-        strokeMultiplier = json['stroke-multiplier'] ?? 1,
+      : strokeWidth = json['strokeWidth'] ?? 5,
+        strokeMultiplier = json['strokeMultiplier'] ?? 1,
         canDeleteEraser = json['can-delete-eraser'] ?? false,
         super.fromJson(json);
   @override
   Map<String, dynamic> toJson() => super.toJson()
     ..addAll({
       "type": "path-eraser",
-      "stroke-width": strokeWidth,
-      "stroke-multiplier": strokeMultiplier,
+      "strokeWidth": strokeWidth,
+      "strokeMultiplier": strokeMultiplier,
       "can-delete-eraser": canDeleteEraser
     });
 

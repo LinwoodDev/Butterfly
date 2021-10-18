@@ -25,13 +25,13 @@ abstract class PathElement extends ElementLayer {
       : points = List<Map<String, dynamic>>.from(json['points'] ?? [])
             .map((e) => PathPoint.fromJson(e))
             .toList(),
-        strokeMultiplier = json['stroke-multiplier'],
-        strokeWidth = json['stroke-width'] ?? 5;
+        strokeMultiplier = json['strokeMultiplier'],
+        strokeWidth = json['strokeWidth'] ?? 5;
 
   @override
   Map<String, dynamic> toJson() => {
         'points': points.map((e) => e.toJson()).toList(),
-        'stroke-width': strokeWidth,
+        'strokeWidth': strokeWidth,
       };
   @override
   bool hit(Offset offset) => points.any((element) =>

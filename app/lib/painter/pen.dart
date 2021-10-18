@@ -17,8 +17,8 @@ class PenPainter extends Painter {
       : super(name: name);
   PenPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : color = json['color'] == null ? Colors.black : Color(json['color']),
-        strokeWidth = json['stroke-width'] ?? 5,
-        strokeMultiplier = json['stroke-multiplier'] ?? 1,
+        strokeWidth = json['strokeWidth'] ?? 5,
+        strokeMultiplier = json['strokeMultiplier'] ?? 1,
         fill = json['fill'] ?? false,
         super.fromJson(json);
   PenPainter copyWith(
@@ -38,8 +38,8 @@ class PenPainter extends Painter {
     ..addAll({
       "type": "pen",
       "color": color.value,
-      "stroke-width": strokeWidth,
-      "stroke-multiplier": strokeMultiplier,
+      "strokeWidth": strokeWidth,
+      "strokeMultiplier": strokeMultiplier,
       "fill": fill
     });
 }

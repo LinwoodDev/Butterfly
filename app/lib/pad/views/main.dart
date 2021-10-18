@@ -23,7 +23,7 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectPageState extends State<ProjectPage> {
-  // ignore: close_sinks
+  // ignore: closeSinks
   DocumentBloc? _bloc;
   final TextEditingController _scaleController = TextEditingController(text: "100");
   @override

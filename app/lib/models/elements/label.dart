@@ -34,19 +34,18 @@ class LabelElement extends ElementLayer {
             ? Offset(json['position']['x'], json['position']['y'])
             : const Offset(0, 0),
         color = json['color'] == null ? Colors.black : Color(json['color']),
-        fontWeight = json['font-weight'] != null
-            ? FontWeight.values[json['font-weight']]
-            : FontWeight.normal,
-        lineThrough = json['line-through'] ?? false,
+        fontWeight =
+            json['fontWeight'] != null ? FontWeight.values[json['fontWeight']] : FontWeight.normal,
+        lineThrough = json['lineThrough'] ?? false,
         underline = json['underline'] ?? false,
         overline = json['overline'] ?? false,
         italic = json['italic'] ?? false,
         decorationColor =
-            json['decoration-color'] != null ? Color(json['decoration-color']) : Colors.black,
-        decorationStyle = json['decoration-style'] != null
-            ? TextDecorationStyle.values[json['decoration-style']]
+            json['decorationColor'] != null ? Color(json['decorationColor']) : Colors.black,
+        decorationStyle = json['decorationStyle'] != null
+            ? TextDecorationStyle.values[json['decorationStyle']]
             : TextDecorationStyle.solid,
-        decorationThickness = json['decoration-thickness'] ?? 1,
+        decorationThickness = json['decorationThickness'] ?? 1,
         super.fromJson(json);
 
   @override
@@ -56,14 +55,14 @@ class LabelElement extends ElementLayer {
         'size': size,
         'color': color.value,
         'position': {'x': position.dx, 'y': position.dy},
-        'font-weight': FontWeight.values.indexOf(fontWeight),
-        'line-through': lineThrough,
+        'fontWeight': FontWeight.values.indexOf(fontWeight),
+        'lineThrough': lineThrough,
         'underline': underline,
         'overline': overline,
         'italic': italic,
-        'decoration-color': decorationColor.value,
-        'decoration-style': decorationStyle.index,
-        'decoration-thickness': decorationThickness
+        'decorationColor': decorationColor.value,
+        'decorationStyle': decorationStyle.index,
+        'decorationThickness': decorationThickness
       };
 
   @override
