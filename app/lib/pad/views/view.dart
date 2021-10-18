@@ -194,6 +194,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           currentEditingLayer is PathElement) {
                         // Add point to custom paint
                         var layer = currentEditingLayer as PathElement;
+                        print(event.pressure);
                         setState(() => currentEditingLayer = layer.copyWith(
                             points: List.from(layer.points)
                               ..add(PathPoint.fromOffset(

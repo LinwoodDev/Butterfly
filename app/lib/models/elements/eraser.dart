@@ -6,7 +6,7 @@ class EraserElement extends PathElement {
   const EraserElement(
       {List<PathPoint> points = const [], double strokeWidth = 5, double strokeMultiplier = 1.0})
       : super(points: points, strokeWidth: strokeWidth, strokeMultiplier: strokeMultiplier);
-  EraserElement.fromJson(Map<String, dynamic> json, [int? fileVersion]) : super.fromJson(json);
+  EraserElement.fromJson(Map<String, dynamic> json, [String? fileVersion]) : super.fromJson(json);
 
   @override
   Paint buildPaint() => Paint()

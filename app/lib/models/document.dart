@@ -93,7 +93,7 @@ class AppDocument {
         "painters": painters.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "content": content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "background": background?.toJson(),
-        "fileVersion": GetIt.I.get(instanceName: 'fileVersion')
+        "fileVersion": GetIt.I.get<String>(instanceName: 'fileVersion')
       };
   AppDocument copyWith(
       {String? name,

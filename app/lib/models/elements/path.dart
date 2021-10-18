@@ -28,7 +28,7 @@ abstract class PathElement extends ElementLayer {
       : points = List<Map<String, dynamic>>.from(json['points'] ?? [])
             .map((e) => PathPoint.fromJson(e))
             .toList(),
-        strokeMultiplier = json['strokeMultiplier'],
+        strokeMultiplier = json['strokeMultiplier'] ?? 1,
         strokeWidth = json['strokeWidth'] ?? 5;
 
   @override
@@ -47,10 +47,9 @@ abstract class PathElement extends ElementLayer {
       var first = points.first;
       var paint = buildPaint();
       var previous = first;
-      points.add(first);
       for (var element in points) {
         canvas.drawLine(previous.toOffset() + offset, element.toOffset() + offset,
-            paint..strokeWidth = strokeWidth + first.pressure * strokeMultiplier);
+            paint..strokeWidth = strokeWidth + previous.pressure * strokeMultiplier);
         previous = element;
       }
     }

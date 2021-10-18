@@ -21,7 +21,7 @@ void main() async {
   // ignore: avoid_print
   print("Loading " + packageInfo.buildNumber);
 
-  GetIt.I.registerSingleton(packageInfo.buildNumber, instanceName: 'fileVersion');
+  GetIt.I.registerSingleton<String>(packageInfo.buildNumber, instanceName: 'fileVersion');
   var prefs = await SharedPreferences.getInstance();
 
   runApp(ModularApp(

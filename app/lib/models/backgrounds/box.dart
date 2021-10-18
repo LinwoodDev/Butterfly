@@ -17,7 +17,7 @@ class BoxBackground {
       this.boxColor = Colors.white,
       this.boxXStroke = .5,
       this.boxYStroke = .5});
-  BoxBackground.fromJson(Map<String, dynamic> json, [int? apiVersion])
+  BoxBackground.fromJson(Map<String, dynamic> json, [String? fileVersion])
       : boxWidth = json['width'] ?? 0,
         boxHeight = json['height'] ?? 0,
         boxXCount = json['xCount'] ?? 0,

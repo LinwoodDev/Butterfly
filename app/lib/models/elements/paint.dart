@@ -14,7 +14,7 @@ class PaintElement extends PathElement {
       this.fill = false})
       : super(points: points, strokeWidth: strokeWidth, strokeMultiplier: strokeMultiplier);
 
-  PaintElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
+  PaintElement.fromJson(Map<String, dynamic> json, [String? fileVersion])
       : color = json['color'] == null ? Colors.black : Color(json['color']),
         fill = json['fill'] ?? false,
         super.fromJson(json);

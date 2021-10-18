@@ -24,7 +24,7 @@ class LabelPainter extends Painter {
       this.decorationStyle = TextDecorationStyle.solid,
       this.decorationThickness = 1})
       : super(name: name);
-  LabelPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
+  LabelPainter.fromJson(Map<String, dynamic> json, [String? fileVersion])
       : color = json['color'] == null ? Colors.black : Color(json['color']),
         size = json['size'] ?? 12,
         fontWeight =

@@ -27,7 +27,7 @@ class LabelElement extends ElementLayer {
       this.decorationColor = Colors.black,
       this.decorationStyle = TextDecorationStyle.solid,
       this.decorationThickness = 1});
-  LabelElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
+  LabelElement.fromJson(Map<String, dynamic> json, [String? fileVersion])
       : text = json['text'] ?? "",
         size = json['size'] ?? 12,
         position = json['position'] != null

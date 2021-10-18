@@ -15,7 +15,7 @@ class PenPainter extends Painter {
       this.fill = false,
       String name = ''})
       : super(name: name);
-  PenPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
+  PenPainter.fromJson(Map<String, dynamic> json, [String? fileVersion])
       : color = json['color'] == null ? Colors.black : Color(json['color']),
         strokeWidth = json['strokeWidth'] ?? 5,
         strokeMultiplier = json['strokeMultiplier'] ?? 1,
