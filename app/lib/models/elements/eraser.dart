@@ -9,23 +9,11 @@ class EraserElement extends PathElement {
   EraserElement.fromJson(Map<String, dynamic> json, [int? fileVersion]) : super.fromJson(json);
 
   @override
-  Paint buildPaint(int index) => Paint()
-    ..strokeWidth = strokeWidth + strokeMultiplier
+  Paint buildPaint() => Paint()
     ..style = PaintingStyle.stroke
     ..color = Colors.transparent
     ..strokeCap = StrokeCap.round
     ..blendMode = BlendMode.clear;
-
-  @override
-  Path buildPath() {
-    var path = Path();
-    if (points.length > 1) {
-      var first = points.first;
-      path.moveTo(first.x, first.y);
-      points.sublist(1).forEach((element) => path.lineTo(element.x, element.y));
-    }
-    return path;
-  }
 
   @override
   Map<String, dynamic> toJson() => super.toJson()..addAll({'type': 'eraser'});

@@ -23,23 +23,10 @@ class PaintElement extends PathElement {
   Map<String, dynamic> toJson() =>
       super.toJson()..addAll({'type': 'paint', 'color': color.value, 'fill': fill});
   @override
-  Paint buildPaint(int index) => Paint()
+  Paint buildPaint() => Paint()
     ..color = color
-    ..strokeWidth = strokeWidth + points[index].pressure * strokeMultiplier
     ..style = fill ? PaintingStyle.fill : PaintingStyle.stroke
     ..strokeCap = StrokeCap.round;
-
-  @override
-  Path buildPath() {
-    var path = Path();
-    if (points.isNotEmpty) {
-      var first = points.first;
-      path.moveTo(first.x, first.y);
-      path.lineTo(first.x, first.y);
-      points.sublist(1).forEach((element) => path.lineTo(element.x, element.y));
-    }
-    return path;
-  }
 
   @override
   PaintElement copyWith({List<PathPoint>? points, double? strokeWidth, Color? color, bool? fill}) =>

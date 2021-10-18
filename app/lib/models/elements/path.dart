@@ -1,5 +1,6 @@
 import 'package:butterfly/models/elements/element.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 
 class PathPoint {
   final double x, y;
@@ -13,6 +14,8 @@ class PathPoint {
       : x = offset.dx,
         y = offset.dy;
   Map<String, dynamic> toJson() => {"x": x, "y": y, "pressure": pressure};
+
+  Offset toOffset() => Offset(x, y);
 }
 
 abstract class PathElement extends ElementLayer {
@@ -36,8 +39,22 @@ abstract class PathElement extends ElementLayer {
   @override
   bool hit(Offset offset) => points.any((element) =>
       (element.x - offset.dx).abs() <= strokeWidth && (element.y - offset.dy).abs() <= strokeWidth);
-  Paint buildPaint(int index);
-  Path buildPath();
+
+  Paint buildPaint();
+
+  void paint(Canvas canvas, [Offset offset = Offset.zero]) {
+    if (points.isNotEmpty) {
+      var first = points.first;
+      var paint = buildPaint();
+      var previous = first;
+      points.add(first);
+      for (var element in points) {
+        canvas.drawLine(previous.toOffset() + offset, element.toOffset() + offset,
+            paint..strokeWidth = strokeWidth + first.pressure * strokeMultiplier);
+        previous = element;
+      }
+    }
+  }
 
   PathElement copyWith({List<PathPoint>? points, double? strokeWidth});
 }

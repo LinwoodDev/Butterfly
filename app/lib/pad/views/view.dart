@@ -233,12 +233,12 @@ class PathPainter extends CustomPainter {
 
   PathPainter(this.document, this.editingLayer, {this.renderBackground = true});
   @override
-  void paint(Canvas canvas, Size size, {Offset? offset}) {
+  void paint(Canvas canvas, Size size, {Offset offset = Offset.zero}) {
     var background = document.background;
     if (background is BoxBackground && renderBackground) {
       canvas.drawColor(background.boxColor, BlendMode.srcOver);
       if (background.boxWidth > 0 && background.boxXCount > 0) {
-        double x = -(offset?.dx ?? 0);
+        double x = -offset.dx;
         x += background.boxXSpace;
         int count = 0;
         while (x < size.width) {
@@ -257,7 +257,7 @@ class PathPainter extends CustomPainter {
         }
       }
       if (background.boxHeight > 0 && background.boxYCount > 0) {
-        double y = -(offset?.dy ?? 0);
+        double y = -offset.dy;
         y += background.boxYSpace;
         int count = 0;
         while (y < size.width) {
@@ -281,11 +281,7 @@ class PathPainter extends CustomPainter {
       ..addAll([if (editingLayer != null) editingLayer!])
       ..asMap().forEach((index, element) {
         if (element is PathElement) {
-          var path = element.buildPath();
-          if (offset != null) {
-            path = path.shift(offset);
-          }
-          canvas.drawPath(path, element.buildPaint(index));
+          element.paint(canvas, offset);
         } else if (element is LabelElement) {
           TextSpan span = TextSpan(
               style: TextStyle(
@@ -308,9 +304,7 @@ class PathPainter extends CustomPainter {
               textScaleFactor: 1.0);
           tp.layout();
           var position = element.position;
-          if (offset != null) {
-            position += offset;
-          }
+          position += offset;
           tp.paint(canvas, position);
         }
       });
