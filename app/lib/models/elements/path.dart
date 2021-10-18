@@ -45,11 +45,10 @@ abstract class PathElement extends ElementLayer {
   void paint(Canvas canvas, [Offset offset = Offset.zero]) {
     if (points.isNotEmpty) {
       var first = points.first;
-      var paint = buildPaint();
       var previous = first;
       for (var element in points) {
         canvas.drawLine(previous.toOffset() + offset, element.toOffset() + offset,
-            paint..strokeWidth = strokeWidth + previous.pressure * strokeMultiplier);
+            buildPaint()..strokeWidth = strokeWidth + element.pressure * strokeMultiplier);
         previous = element;
       }
     }

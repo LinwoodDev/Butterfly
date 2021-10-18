@@ -88,8 +88,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         setState(() => currentEditingLayer = PaintElement(
                                 color: painter.color,
                                 fill: painter.fill,
-                                strokeWidth:
-                                    painter.strokeWidth + event.pressure * painter.strokeMultiplier,
+                                strokeMultiplier: painter.strokeMultiplier,
+                                strokeWidth: painter.strokeWidth,
                                 points: [
                                   PathPoint.fromOffset(
                                       _controller.toScene(event.localPosition), event.pressure)
@@ -100,6 +100,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         setState(() => currentEditingLayer = EraserElement(
                                 strokeWidth:
                                     painter.strokeWidth + event.pressure * painter.strokeMultiplier,
+                                strokeMultiplier: painter.strokeMultiplier,
                                 points: [
                                   PathPoint.fromOffset(
                                       _controller.toScene(event.localPosition), event.pressure)
@@ -194,7 +195,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           currentEditingLayer is PathElement) {
                         // Add point to custom paint
                         var layer = currentEditingLayer as PathElement;
-                        print(event.pressure);
                         setState(() => currentEditingLayer = layer.copyWith(
                             points: List.from(layer.points)
                               ..add(PathPoint.fromOffset(
