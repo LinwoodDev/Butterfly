@@ -5,7 +5,7 @@ class EraserPainter extends Painter {
 
   const EraserPainter({this.strokeWidth = 10, this.strokeMultiplier = 2, String name = ''})
       : super(name: name);
-  EraserPainter.fromJson(Map<String, dynamic> json)
+  EraserPainter.fromJson(Map<String, dynamic> json, [int? apiVersion])
       : strokeWidth = json['stroke-width'] ?? 10,
         strokeMultiplier = json['stroke-multiplier'] ?? 2,
         super.fromJson(json);

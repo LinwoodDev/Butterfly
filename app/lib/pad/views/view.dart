@@ -86,18 +86,24 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       if (state.currentPainter is PenPainter) {
                         var painter = state.currentPainter as PenPainter;
                         setState(() => currentEditingLayer = PaintElement(
-                            color: painter.color,
-                            fill: painter.fill,
-                            strokeWidth:
-                                painter.strokeWidth + event.pressure * painter.strokeMultiplier,
-                            points: [_controller.toScene(event.localPosition)]));
+                                color: painter.color,
+                                fill: painter.fill,
+                                strokeWidth:
+                                    painter.strokeWidth + event.pressure * painter.strokeMultiplier,
+                                points: [
+                                  PathPoint.fromOffset(
+                                      _controller.toScene(event.localPosition), event.pressure)
+                                ]));
                       }
                       if (state.currentPainter is EraserPainter) {
                         var painter = state.currentPainter as EraserPainter;
                         setState(() => currentEditingLayer = EraserElement(
-                            strokeWidth:
-                                painter.strokeWidth + event.pressure * painter.strokeMultiplier,
-                            points: [_controller.toScene(event.localPosition)]));
+                                strokeWidth:
+                                    painter.strokeWidth + event.pressure * painter.strokeMultiplier,
+                                points: [
+                                  PathPoint.fromOffset(
+                                      _controller.toScene(event.localPosition), event.pressure)
+                                ]));
                       }
                       if (state.currentPainter is LabelPainter) {
                         var painter = state.currentPainter as LabelPainter;
@@ -190,7 +196,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         var layer = currentEditingLayer as PathElement;
                         setState(() => currentEditingLayer = layer.copyWith(
                             points: List.from(layer.points)
-                              ..add(_controller.toScene(event.localPosition))));
+                              ..add(PathPoint.fromOffset(
+                                  _controller.toScene(event.localPosition), event.pressure))));
                       }
                     }
                   },
@@ -270,15 +277,15 @@ class PathPainter extends CustomPainter {
       }
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
-    List.from(document.content)
-      ..addAll([if (editingLayer != null) editingLayer])
-      ..forEach((element) {
+    List<ElementLayer>.from(document.content)
+      ..addAll([if (editingLayer != null) editingLayer!])
+      ..asMap().forEach((index, element) {
         if (element is PathElement) {
           var path = element.buildPath();
           if (offset != null) {
             path = path.shift(offset);
           }
-          canvas.drawPath(path, element.buildPaint());
+          canvas.drawPath(path, element.buildPaint(index));
         } else if (element is LabelElement) {
           TextSpan span = TextSpan(
               style: TextStyle(

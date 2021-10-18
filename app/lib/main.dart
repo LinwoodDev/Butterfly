@@ -3,8 +3,10 @@ import 'package:butterfly/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 
 import 'pad/cubits/language.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
@@ -14,6 +16,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   setup();
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+  // ignore: avoid_print
+  print("Loading " + packageInfo.buildNumber);
+
+  GetIt.I.registerSingleton(packageInfo.buildNumber, instanceName: 'fileVersion');
   var prefs = await SharedPreferences.getInstance();
 
   runApp(ModularApp(

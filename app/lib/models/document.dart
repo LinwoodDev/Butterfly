@@ -8,7 +8,7 @@ import 'package:butterfly/painter/label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/widgets.dart';
-
+import 'package:get_it/get_it.dart';
 import 'elements/element.dart';
 import 'elements/paint.dart';
 import 'elements/label.dart';
@@ -61,37 +61,39 @@ class AppDocument {
         description = json['description'],
         palettes = (Map<String, dynamic>.from(json['palettes'] ?? {})).map<String, List<Color>>(
             (key, value) => MapEntry(key, value.map<Color>((color) => Color(color)).toList())),
-        background = json['background'] == null ? null : BoxBackground.fromJson(json['background']),
+        background = json['background'] == null
+            ? null
+            : BoxBackground.fromJson(json['background'], json['file-version']),
         painters = List<Map<String, dynamic>>.from(json['painters']).map<Painter>((e) {
           switch (e['type']) {
             case 'eraser':
-              return EraserPainter.fromJson(e);
+              return EraserPainter.fromJson(e, json['file-version']);
             case 'path-eraser':
-              return PathEraserPainter.fromJson(e);
+              return PathEraserPainter.fromJson(e, json['file-version']);
             case 'label':
-              return LabelPainter.fromJson(e);
+              return LabelPainter.fromJson(e, json['file-version']);
             default:
-              return PenPainter.fromJson(e);
+              return PenPainter.fromJson(e, json['file-version']);
           }
         }).toList(),
         content = List<Map<String, dynamic>>.from(json['content']).map<ElementLayer>((e) {
           switch (e['type']) {
             case 'label':
-              return LabelElement.fromJson(e);
+              return LabelElement.fromJson(e, json['file-version']);
             case 'eraser':
-              return EraserElement.fromJson(e);
+              return EraserElement.fromJson(e, json['file-version']);
             default:
-              return PaintElement.fromJson(e);
+              return PaintElement.fromJson(e, json['file-version']);
           }
         }).toList();
-  Map<String, dynamic> toJson([int? fileVersion]) => {
+  Map<String, dynamic> toJson() => {
         "name": name,
         "description": description,
         "palettes": palettes.map((key, value) => MapEntry(key, value.map((e) => e.value).toList())),
         "painters": painters.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "content": content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "background": background?.toJson(),
-        "fileVersion": fileVersion
+        "file-version": GetIt.I.get(instanceName: 'fileVersion')
       };
   AppDocument copyWith(
       {String? name,

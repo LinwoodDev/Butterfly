@@ -7,13 +7,14 @@ class PaintElement extends PathElement {
   final bool fill;
 
   const PaintElement(
-      {List<Offset> points = const [],
+      {List<PathPoint> points = const [],
       double strokeWidth = 5.0,
+      double strokeMultiplier = 1.0,
       this.color = Colors.black,
       this.fill = false})
-      : super(points: points, strokeWidth: strokeWidth);
+      : super(points: points, strokeWidth: strokeWidth, strokeMultiplier: strokeMultiplier);
 
-  PaintElement.fromJson(Map<String, dynamic> json)
+  PaintElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : color = json['color'] == null ? Colors.black : Color(json['color']),
         fill = json['fill'] ?? false,
         super.fromJson(json);
@@ -22,9 +23,9 @@ class PaintElement extends PathElement {
   Map<String, dynamic> toJson() =>
       super.toJson()..addAll({'type': 'paint', 'color': color.value, 'fill': fill});
   @override
-  Paint buildPaint() => Paint()
+  Paint buildPaint(int index) => Paint()
     ..color = color
-    ..strokeWidth = strokeWidth
+    ..strokeWidth = strokeWidth + points[index].pressure * strokeMultiplier
     ..style = fill ? PaintingStyle.fill : PaintingStyle.stroke
     ..strokeCap = StrokeCap.round;
 
@@ -33,15 +34,15 @@ class PaintElement extends PathElement {
     var path = Path();
     if (points.isNotEmpty) {
       var first = points.first;
-      path.moveTo(first.dx, first.dy);
-      path.lineTo(first.dx, first.dy);
-      points.sublist(1).forEach((element) => path.lineTo(element.dx, element.dy));
+      path.moveTo(first.x, first.y);
+      path.lineTo(first.x, first.y);
+      points.sublist(1).forEach((element) => path.lineTo(element.x, element.y));
     }
     return path;
   }
 
   @override
-  PaintElement copyWith({List<Offset>? points, double? strokeWidth, Color? color, bool? fill}) =>
+  PaintElement copyWith({List<PathPoint>? points, double? strokeWidth, Color? color, bool? fill}) =>
       PaintElement(
           color: color ?? this.color,
           points: points ?? this.points,
@@ -50,6 +51,5 @@ class PaintElement extends PathElement {
 
   @override
   bool hit(Offset offset) => points.any((element) =>
-      (element.dx - offset.dx).abs() <= strokeWidth &&
-      (element.dy - offset.dy).abs() <= strokeWidth);
+      (element.x - offset.dx).abs() <= strokeWidth && (element.y - offset.dy).abs() <= strokeWidth);
 }
