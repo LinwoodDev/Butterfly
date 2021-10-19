@@ -83,5 +83,10 @@
     "fontWeight": "Schriftgewicht",
     "normal": "Normal",
     "bold": "Bold",
-    "italic": "Italic"
+    "italic": "Italic",
+    "clipboard": "Clipboard",
+    "file": "File",
+    "data": "Data",
+    "share": "Share",
+    "spacing": "Spacing"
 }
