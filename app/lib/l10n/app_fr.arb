@@ -83,5 +83,10 @@
     "fontWeight": "Poids de la police",
     "normal": "Normale",
     "bold": "Bold",
-    "italic": "Italic"
+    "italic": "Italic",
+    "clipboard": "Clipboard",
+    "file": "File",
+    "data": "Data",
+    "share": "Share",
+    "spacing": "Spacing"
 }
