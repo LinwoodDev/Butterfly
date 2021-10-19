@@ -1,16 +1,30 @@
 import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/elements/image.dart';
 import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/elements/path.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 class ViewPainter extends CustomPainter {
   final AppDocument document;
   final ElementLayer? editingLayer;
   final bool renderBackground;
+  final Map<ElementLayer, ui.Image> images = {};
 
   ViewPainter(this.document, this.editingLayer, {this.renderBackground = true});
+
+  Future<void> loadImages() async {
+    for (var layer in document.content) {
+      if (layer is ImageElement && !images.containsKey(layer)) {
+        var codec = await ui.instantiateImageCodec(layer.pixels);
+        var frame = await codec.getNextFrame();
+        images[layer] = frame.image;
+      }
+    }
+  }
+
   @override
   void paint(Canvas canvas, Size size, {Offset offset = Offset.zero}) {
     var background = document.background;
@@ -58,7 +72,7 @@ class ViewPainter extends CustomPainter {
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     List<ElementLayer>.from(document.content)
       ..addAll([if (editingLayer != null) editingLayer!])
-      ..asMap().forEach((index, element) {
+      ..asMap().forEach((index, element) async {
         if (element is PathElement) {
           element.paint(canvas, offset);
         } else if (element is LabelElement) {
@@ -86,6 +100,9 @@ class ViewPainter extends CustomPainter {
           var position = element.position;
           position += offset;
           tp.paint(canvas, position);
+        }
+        if (element is ImageElement && images.containsKey(element)) {
+          canvas.drawImage(images[element]!, element.position, Paint());
         }
       });
     canvas.restore();

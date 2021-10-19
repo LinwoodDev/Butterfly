@@ -1,9 +1,11 @@
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/dialogs/painters/eraser.dart';
+import 'package:butterfly/pad/dialogs/painters/image.dart';
 import 'package:butterfly/pad/dialogs/painters/label.dart';
 import 'package:butterfly/pad/dialogs/painters/path_eraser.dart';
 import 'package:butterfly/pad/dialogs/painters/pen.dart';
 import 'package:butterfly/painter/eraser.dart';
+import 'package:butterfly/painter/image.dart';
 import 'package:butterfly/painter/painter.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:butterfly/painter/pen.dart';
@@ -30,6 +32,8 @@ class _EditToolbarState extends State<EditToolbar> {
         return PhosphorIcons.pathLight;
       case "label":
         return PhosphorIcons.textTLight;
+      case "image":
+        return PhosphorIcons.imageLight;
       default:
         return PhosphorIcons.penLight;
     }
@@ -43,6 +47,8 @@ class _EditToolbarState extends State<EditToolbar> {
         return PhosphorIcons.pathFill;
       case "label":
         return PhosphorIcons.textTFill;
+      case "image":
+        return PhosphorIcons.imageFill;
       default:
         return PhosphorIcons.penFill;
     }
@@ -97,6 +103,8 @@ class _EditToolbarState extends State<EditToolbar> {
                                           bloc: widget.bloc, painterIndex: i);
                                     case 'label':
                                       return LabelPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                    case 'image':
+                                      return ImagePainterDialog(bloc: widget.bloc, painterIndex: i);
                                     default:
                                       return Container();
                                   }
@@ -114,7 +122,7 @@ class _EditToolbarState extends State<EditToolbar> {
               onSelected: (value) => widget.bloc.add(PainterCreated(value)),
               icon: const Icon(PhosphorIcons.plusLight),
               itemBuilder: (context) => [
-                    ...["pen", "eraser", "path-eraser", "label"].map((e) {
+                    ...["pen", "eraser", "path-eraser", "label", "image"].map((e) {
                       Painter painter;
                       String name;
                       switch (e) {
@@ -129,6 +137,10 @@ class _EditToolbarState extends State<EditToolbar> {
                         case "label":
                           painter = const LabelPainter();
                           name = AppLocalizations.of(context)!.label;
+                          break;
+                        case "image":
+                          painter = const ImagePainter();
+                          name = AppLocalizations.of(context)!.image;
                           break;
                         default:
                           painter = const PenPainter();

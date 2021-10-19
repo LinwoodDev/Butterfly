@@ -50,10 +50,11 @@ class _ExportDialogState extends State<ExportDialog> {
   Future<ByteData?> generateImage() async {
     var recorder = PictureRecorder();
     var canvas = Canvas(recorder);
-    ViewPainter((widget.bloc.state as DocumentLoadSuccess).document, null,
-            renderBackground: _renderBackground)
-        .paint(canvas, Size(width.toDouble(), height.toDouble()),
-            offset: -Offset(x.toDouble(), y.toDouble()));
+    var painter = ViewPainter((widget.bloc.state as DocumentLoadSuccess).document, null,
+        renderBackground: _renderBackground);
+    await painter.loadImages();
+    painter.paint(canvas, Size(width.toDouble(), height.toDouble()),
+        offset: -Offset(x.toDouble(), y.toDouble()));
     var picture = recorder.endRecording();
     var image = await picture.toImage(width, height);
     return await image.toByteData(format: ImageByteFormat.png);

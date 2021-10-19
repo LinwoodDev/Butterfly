@@ -1,6 +1,7 @@
 import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/painter/eraser.dart';
+import 'package:butterfly/painter/image.dart';
 import 'package:butterfly/painter/painter.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:butterfly/painter/pen.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'elements/element.dart';
+import 'elements/image.dart';
 import 'elements/pen.dart';
 import 'elements/label.dart';
 
@@ -72,6 +74,8 @@ class AppDocument {
               return PathEraserPainter.fromJson(e, json['fileVersion']);
             case 'label':
               return LabelPainter.fromJson(e, json['fileVersion']);
+            case 'image':
+              return ImagePainter.fromJson(e, json['fileVersion']);
             default:
               return PenPainter.fromJson(e, json['fileVersion']);
           }
@@ -82,6 +86,8 @@ class AppDocument {
               return LabelElement.fromJson(e, json['fileVersion']);
             case 'eraser':
               return EraserElement.fromJson(e, json['fileVersion']);
+            case 'image':
+              return ImageElement.fromJson(e, json['fileVersion']);
             default:
               return PenElement.fromJson(e, json['fileVersion']);
           }

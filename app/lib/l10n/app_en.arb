@@ -88,5 +88,7 @@
     "file": "File",
     "data": "Data",
     "share": "Share",
-    "spacing":"Spacing"
+    "spacing":"Spacing",
+    "image":"Image",
+    "enterUrl":"Enter the url"
 }
