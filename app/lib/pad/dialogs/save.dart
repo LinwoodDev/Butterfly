@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SaveDialog extends StatefulWidget {
@@ -92,6 +93,10 @@ class _SaveDialogState extends State<SaveDialog> {
                           });
                         },
                         child: Text(AppLocalizations.of(context)!.file)),
+                  if (!kIsWeb && isMobile)
+                    OutlinedButton(
+                        onPressed: () => Share.share(widget.data),
+                        child: Text(AppLocalizations.of(context)!.share)),
                   Expanded(child: Container()),
                   ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(),

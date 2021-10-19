@@ -67,6 +67,7 @@ class ViewPainter extends CustomPainter {
                   fontSize: element.size,
                   color: element.color,
                   fontWeight: element.fontWeight,
+                  letterSpacing: element.letterSpacing,
                   decorationColor: element.decorationColor,
                   decorationStyle: element.decorationStyle,
                   decorationThickness: element.decorationThickness,

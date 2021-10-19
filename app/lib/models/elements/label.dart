@@ -13,6 +13,7 @@ class LabelElement extends ElementLayer {
   final Color decorationColor;
   final TextDecorationStyle decorationStyle;
   final double decorationThickness;
+  final double letterSpacing;
 
   const LabelElement(
       {this.text = "",
@@ -24,12 +25,14 @@ class LabelElement extends ElementLayer {
       this.underline = false,
       this.overline = false,
       this.italic = false,
+      this.letterSpacing = 0,
       this.decorationColor = Colors.black,
       this.decorationStyle = TextDecorationStyle.solid,
       this.decorationThickness = 1});
   LabelElement.fromJson(Map<String, dynamic> json, [String? fileVersion])
       : text = json['text'] ?? "",
         size = json['size'] ?? 12,
+        letterSpacing = json['letterSpacing'] ?? 0,
         position = json['position'] != null
             ? Offset(json['position']['x'], json['position']['y'])
             : const Offset(0, 0),
@@ -62,7 +65,8 @@ class LabelElement extends ElementLayer {
         'italic': italic,
         'decorationColor': decorationColor.value,
         'decorationStyle': decorationStyle.index,
-        'decorationThickness': decorationThickness
+        'decorationThickness': decorationThickness,
+        'letterSpacing': letterSpacing
       };
 
   @override

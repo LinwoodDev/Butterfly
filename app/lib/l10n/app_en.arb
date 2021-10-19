@@ -85,6 +85,8 @@
     "bold": "Bold",
     "italic": "Italic",
     "clipboard": "Clipboard",
-    "file":"File",
-    "data":"Data"
+    "file": "File",
+    "data": "Data",
+    "share": "Share",
+    "spacing":"Spacing"
 }

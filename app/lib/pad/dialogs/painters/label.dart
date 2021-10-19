@@ -20,6 +20,7 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _sizeController = TextEditingController();
   final TextEditingController _thicknessController = TextEditingController();
+  final TextEditingController _spacingController = TextEditingController();
   bool _decorationExpanded = false;
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,9 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
               if (_nameController.text != painter.name) _nameController.text = painter.name;
               if (double.tryParse(_sizeController.text) != painter.size) {
                 _sizeController.text = painter.size.toStringAsFixed(2);
+              }
+              if (double.tryParse(_spacingController.text) != painter.letterSpacing) {
+                _spacingController.text = painter.letterSpacing.toStringAsFixed(2);
               }
               if (double.tryParse(_thicknessController.text) != painter.decorationThickness) {
                 _thicknessController.text = painter.decorationThickness.toStringAsFixed(2);
@@ -74,6 +78,25 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                     max: 96,
                                     onChanged: (value) =>
                                         setState(() => painter = painter.copyWith(size: value))),
+                              )
+                            ]),
+                            Row(children: [
+                              ConstrainedBox(
+                                  constraints: const BoxConstraints(maxWidth: 100),
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                        labelText: AppLocalizations.of(context)!.spacing),
+                                    controller: _spacingController,
+                                    onChanged: (value) => setState(() => painter =
+                                        painter.copyWith(letterSpacing: double.tryParse(value))),
+                                  )),
+                              Expanded(
+                                child: Slider(
+                                    value: painter.letterSpacing.clamp(-50, 50),
+                                    min: -50,
+                                    max: 50,
+                                    onChanged: (value) => setState(
+                                        () => painter = painter.copyWith(letterSpacing: value))),
                               )
                             ]),
                             ListTile(

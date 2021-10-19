@@ -41,14 +41,16 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                         child: Column(children: [
                           TextField(
                               controller: _nameController,
-                              decoration:
-                                  InputDecoration(labelText: AppLocalizations.of(context)!.name)),
+                              decoration: InputDecoration(
+                                  labelText: AppLocalizations.of(context)!.name, filled: true)),
+                          const SizedBox(height: 20),
                           TextField(
                               minLines: 3,
                               maxLines: 5,
                               controller: _descriptionController,
                               decoration: InputDecoration(
-                                  labelText: AppLocalizations.of(context)!.description)),
+                                  labelText: AppLocalizations.of(context)!.description,
+                                  border: const OutlineInputBorder())),
                         ]),
                       ),
                       //const Icon(Icons.directions_transit)

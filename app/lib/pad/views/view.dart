@@ -123,6 +123,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               lineThrough: painter.lineThrough,
                               overline: painter.overline,
                               underline: painter.underline,
+                              letterSpacing: painter.letterSpacing,
                               position: _controller.toScene(event.localPosition))));
                         }
 

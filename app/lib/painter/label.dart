@@ -10,6 +10,7 @@ class LabelPainter extends Painter {
   final Color decorationColor;
   final TextDecorationStyle decorationStyle;
   final double decorationThickness;
+  final double letterSpacing;
 
   const LabelPainter(
       {this.color = Colors.black,
@@ -20,6 +21,7 @@ class LabelPainter extends Painter {
       this.underline = false,
       this.overline = false,
       this.italic = false,
+      this.letterSpacing = 0,
       this.decorationColor = Colors.black,
       this.decorationStyle = TextDecorationStyle.solid,
       this.decorationThickness = 1})
@@ -39,6 +41,7 @@ class LabelPainter extends Painter {
             ? TextDecorationStyle.values[json['decorationStyle']]
             : TextDecorationStyle.solid,
         decorationThickness = json['decorationThickness'] ?? 1,
+        letterSpacing = json['letterSpacing'] ?? 0,
         super.fromJson(json);
   @override
   Map<String, dynamic> toJson() => super.toJson()
@@ -53,7 +56,8 @@ class LabelPainter extends Painter {
       'italic': italic,
       'decorationColor': decorationColor.value,
       'decorationStyle': decorationStyle.index,
-      'decorationThickness': decorationThickness
+      'decorationThickness': decorationThickness,
+      'letterSpacing': letterSpacing
     });
 
   LabelPainter copyWith(
@@ -67,7 +71,8 @@ class LabelPainter extends Painter {
           bool? italic,
           Color? decorationColor,
           TextDecorationStyle? decorationStyle,
-          double? decorationThickness}) =>
+          double? decorationThickness,
+          double? letterSpacing}) =>
       LabelPainter(
           name: name ?? this.name,
           color: color ?? this.color,
@@ -79,5 +84,6 @@ class LabelPainter extends Painter {
           italic: italic ?? this.italic,
           decorationColor: decorationColor ?? this.decorationColor,
           decorationStyle: decorationStyle ?? this.decorationStyle,
-          decorationThickness: decorationThickness ?? this.decorationThickness);
+          decorationThickness: decorationThickness ?? this.decorationThickness,
+          letterSpacing: letterSpacing ?? this.letterSpacing);
 }
