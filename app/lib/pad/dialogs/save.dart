@@ -64,7 +64,9 @@ class _SaveDialogState extends State<SaveDialog> {
                             if (value == null) {
                               return;
                             }
-                            var file = File(value);
+                            var fileName = value;
+                            if (!fileName.endsWith(".json")) fileName += ".json";
+                            var file = File(fileName);
                             void write() {
                               file.writeAsStringSync(widget.data);
                             }
