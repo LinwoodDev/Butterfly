@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:butterfly/pad/dialogs/open.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -51,20 +49,12 @@ class _HomePageState extends State<HomePage> {
           icon: const Icon(PhosphorIcons.folderOpenLight),
           tooltip: AppLocalizations.of(context)!.open,
           onPressed: () {
-            var isMobile = Platform.isAndroid || Platform.isIOS;
-            FilePicker.platform
-                .pickFiles(
-                    type: isMobile ? FileType.any : FileType.custom,
-                    allowedExtensions: isMobile ? null : [".json"])
-                .then((files) {
-              if (files?.files.isEmpty ?? true) return;
-
-              setState(() => _documents.addAll(files!.files.map((e) {
-                    var content = String.fromCharCodes(e.bytes ?? Uint8List(0));
-                    if (!kIsWeb) content = File(e.path ?? "").readAsStringSync();
-                    return AppDocument.fromJson(jsonDecode(content));
-                  })));
-              saveDocuments();
+            showDialog(builder: (context) => const OpenDialog(), context: context).then((content) {
+              if (content == null) return;
+              setState(() {
+                _documents.add(AppDocument.fromJson(jsonDecode(content)));
+                saveDocuments();
+              });
             });
           },
         ),

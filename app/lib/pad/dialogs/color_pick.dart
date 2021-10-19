@@ -1,16 +1,15 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:butterfly/pad/dialogs/open.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import 'save.dart';
 
 class ColorPickerDialog extends StatefulWidget {
   final DocumentBloc bloc;
@@ -296,35 +295,20 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                 tooltip: AppLocalizations.of(context)!.open,
                                                 icon: const Icon(PhosphorIcons.folderOpenLight),
                                                 onPressed: () {
-                                                  var isMobile =
-                                                      Platform.isAndroid || Platform.isIOS;
-                                                  FilePicker.platform
-                                                      .pickFiles(
-                                                          type: isMobile
-                                                              ? FileType.any
-                                                              : FileType.custom,
-                                                          allowedExtensions:
-                                                              isMobile ? null : [".json"])
-                                                      .then((files) {
+                                                  showDialog(
+                                                          builder: (context) => const OpenDialog(),
+                                                          context: context)
+                                                      .then((data) {
                                                     final palettes = <String, List<Color>>{};
-                                                    if (files?.files.isEmpty ?? true) return;
-
-                                                    for (var e in files!.files) {
-                                                      var content = String.fromCharCodes(
-                                                          e.bytes ?? Uint8List(0));
-                                                      if (!kIsWeb) {
-                                                        content =
-                                                            File(e.path ?? "").readAsStringSync();
-                                                      }
-                                                      palettes.addAll(Map<String, dynamic>.from(
-                                                              jsonDecode(content))
-                                                          .map((key, value) => MapEntry(
-                                                              key,
-                                                              List<int>.from(value)
-                                                                  .map<Color>((colorValue) =>
-                                                                      Color(colorValue))
-                                                                  .toList())));
-                                                    }
+                                                    if (data == null) return;
+                                                    palettes.addAll(
+                                                        Map<String, dynamic>.from(jsonDecode(data))
+                                                            .map((key, value) => MapEntry(
+                                                                key,
+                                                                List<int>.from(value)
+                                                                    .map<Color>((colorValue) =>
+                                                                        Color(colorValue))
+                                                                    .toList())));
                                                     selected = null;
                                                     widget.bloc
                                                         .add(DocumentPaletteChanged(palettes));
@@ -335,82 +319,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                 icon: const Icon(PhosphorIcons.floppyDiskLight),
                                                 onPressed: () {
                                                   const encoder = JsonEncoder.withIndent("\t");
-                                                  var json = encoder.convert(state.document.palettes
+                                                  var data = encoder.convert(state.document.palettes
                                                       .map((key, value) => MapEntry(key,
                                                           value.map((e) => e.value).toList())));
-                                                  if (kIsWeb ||
-                                                      Platform.isAndroid ||
-                                                      Platform.isIOS) {
-                                                    Clipboard.setData(ClipboardData(text: json));
-                                                    showDialog(
-                                                        context: context,
-                                                        builder: (context) => AlertDialog(
-                                                              title: Text(
-                                                                  AppLocalizations.of(context)!
-                                                                      .copyTitle),
-                                                              content: Text(
-                                                                  AppLocalizations.of(context)!
-                                                                      .copyMessage),
-                                                              actions: [
-                                                                TextButton(
-                                                                  child: Text(
-                                                                      AppLocalizations.of(context)!
-                                                                          .ok),
-                                                                  onPressed: () {
-                                                                    Navigator.of(context).pop();
-                                                                  },
-                                                                )
-                                                              ],
-                                                            ));
-                                                  } else {
-                                                    FilePicker.platform.saveFile(
-                                                        fileName: "palette.json",
-                                                        type: FileType.custom,
-                                                        allowedExtensions: ["json"]).then((value) {
-                                                      if (value == null) {
-                                                        return;
-                                                      }
-                                                      var file = File(value);
-                                                      void write() {
-                                                        file.writeAsStringSync(json);
-                                                      }
-
-                                                      if (!file.existsSync()) {
-                                                        write();
-                                                      } else {
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) => AlertDialog(
-                                                                  title: Text(
-                                                                      AppLocalizations.of(context)!
-                                                                          .areYouSure),
-                                                                  content: Text(
-                                                                      AppLocalizations.of(context)!
-                                                                          .existOverride),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                        child: Text(
-                                                                            AppLocalizations.of(
-                                                                                    context)!
-                                                                                .no),
-                                                                        onPressed: () =>
-                                                                            Navigator.of(context)
-                                                                                .pop()),
-                                                                    TextButton(
-                                                                        child: Text(
-                                                                            AppLocalizations.of(
-                                                                                    context)!
-                                                                                .yes),
-                                                                        onPressed: () {
-                                                                          Navigator.of(context)
-                                                                              .pop();
-                                                                          write();
-                                                                        })
-                                                                  ],
-                                                                ));
-                                                      }
-                                                    });
-                                                  }
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) => SaveDialog(data: data));
                                                 }),
                                             IconButton(
                                                 tooltip: AppLocalizations.of(context)!.resetPalette,

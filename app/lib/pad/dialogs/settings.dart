@@ -57,6 +57,7 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                     ),
                     //const Icon(Icons.directions_transit)
                   ])),
+                  const Divider(),
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [

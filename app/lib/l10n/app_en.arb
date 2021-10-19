@@ -83,5 +83,7 @@
     "fontWeight": "Font weight",
     "normal": "Normal",
     "bold": "Bold",
-    "italic": "Italic"
+    "italic": "Italic",
+    "clipboard": "Clipboard",
+    "file":"File"
 }
