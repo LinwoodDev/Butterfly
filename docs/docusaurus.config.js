@@ -78,7 +78,7 @@ module.exports = {
             },
             {
               label: 'Privacy Policy',
-              href: 'https://codedoctor.tk/privacy',
+              href: '/privacypolicy',
             },
           ],
         }
@@ -103,4 +103,17 @@ module.exports = {
       },
     ],
   ],
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            to: '/docs/privacypolicy', // string
+            from: ['/privacypolicy'], // string | string[]
+          },
+        ],
+      },
+    ],
+  ]
 };
