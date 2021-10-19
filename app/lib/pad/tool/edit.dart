@@ -72,6 +72,7 @@ class _EditToolbarState extends State<EditToolbar> {
                 Widget toolWidget = Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: InkWell(
+                        borderRadius: const BorderRadius.all(Radius.circular(32)),
                         child: Column(children: [
                           Icon(selected ? getPainterActiveIcon(type) : getPainterIcon(type),
                               color: selected ? Theme.of(context).colorScheme.primary : null,

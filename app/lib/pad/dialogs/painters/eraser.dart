@@ -30,11 +30,13 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: StatefulBuilder(builder: (context, setState) {
               if (_nameController.text != painter.name) _nameController.text = painter.name;
-              if (double.tryParse(_strokeWidthController.text) != painter.strokeWidth) {
-                _strokeWidthController.text = painter.strokeWidth.toStringAsFixed(2);
+              if (double.tryParse(_strokeWidthController.text) != painter.property.strokeWidth) {
+                _strokeWidthController.text = painter.property.strokeWidth.toStringAsFixed(2);
               }
-              if (double.tryParse(_strokeMultiplierController.text) != painter.strokeMultiplier) {
-                _strokeMultiplierController.text = painter.strokeMultiplier.toStringAsFixed(2);
+              if (double.tryParse(_strokeMultiplierController.text) !=
+                  painter.property.strokeMultiplier) {
+                _strokeMultiplierController.text =
+                    painter.property.strokeMultiplier.toStringAsFixed(2);
               }
               return Scaffold(
                   backgroundColor: Colors.transparent,
@@ -62,16 +64,17 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                                     decoration: InputDecoration(
                                         labelText: AppLocalizations.of(context)!.strokeWidth),
                                     controller: _strokeWidthController,
-                                    onChanged: (value) => setState(() => painter =
-                                        painter.copyWith(strokeWidth: double.tryParse(value))),
+                                    onChanged: (value) => setState(() => painter = painter.copyWith(
+                                        property: painter.property
+                                            .copyWith(strokeWidth: double.tryParse(value)))),
                                   )),
                               Expanded(
                                 child: Slider(
-                                    value: painter.strokeWidth.clamp(0, 70),
+                                    value: painter.property.strokeWidth.clamp(0, 70),
                                     min: 0,
                                     max: 70,
-                                    onChanged: (value) => setState(
-                                        () => painter = painter.copyWith(strokeWidth: value))),
+                                    onChanged: (value) => setState(() => painter = painter.copyWith(
+                                        property: painter.property.copyWith(strokeWidth: value)))),
                               )
                             ]),
                             Row(children: [
@@ -81,16 +84,18 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                                     decoration: InputDecoration(
                                         labelText: AppLocalizations.of(context)!.strokeMultiplier),
                                     controller: _strokeMultiplierController,
-                                    onChanged: (value) => setState(() => painter =
-                                        painter.copyWith(strokeMultiplier: double.tryParse(value))),
+                                    onChanged: (value) => setState(() => painter = painter.copyWith(
+                                        property: painter.property
+                                            .copyWith(strokeMultiplier: double.tryParse(value)))),
                                   )),
                               Expanded(
                                 child: Slider(
-                                    value: painter.strokeMultiplier.clamp(0, 100),
+                                    value: painter.property.strokeMultiplier.clamp(0, 100),
                                     min: 0,
                                     max: 100,
-                                    onChanged: (value) => setState(
-                                        () => painter = painter.copyWith(strokeMultiplier: value))),
+                                    onChanged: (value) => setState(() => painter = painter.copyWith(
+                                        property:
+                                            painter.property.copyWith(strokeMultiplier: value)))),
                               )
                             ])
                           ]),

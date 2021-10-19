@@ -1,20 +1,27 @@
+import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/elements/eraser.dart';
+import 'package:butterfly/models/elements/path.dart';
+import 'package:butterfly/models/properties/path.dart';
+
+import 'dart:ui';
+
 import 'painter.dart';
 
-class EraserPainter extends Painter {
-  final double strokeWidth, strokeMultiplier;
+class EraserPainter extends BuildedPainter {
+  final PathProperty property;
 
-  const EraserPainter({this.strokeWidth = 10, this.strokeMultiplier = 2, String name = ''})
-      : super(name: name);
+  const EraserPainter({this.property = const PathProperty(), String name = ''}) : super(name: name);
   EraserPainter.fromJson(Map<String, dynamic> json, [String? fileVersion])
-      : strokeWidth = json['strokeWidth'] ?? 10,
-        strokeMultiplier = json['strokeMultiplier'] ?? 2,
+      : property = PathProperty.fromJson(json),
         super.fromJson(json);
   @override
   Map<String, dynamic> toJson() => super.toJson()
-    ..addAll({"type": "eraser", "strokeWidth": strokeWidth, "strokeMultiplier": strokeMultiplier});
-  EraserPainter copyWith({String? name, double? strokeWidth, double? strokeMultiplier}) =>
-      EraserPainter(
-          name: name ?? this.name,
-          strokeWidth: strokeWidth ?? this.strokeWidth,
-          strokeMultiplier: strokeMultiplier ?? this.strokeMultiplier);
+    ..addAll({"type": "eraser"})
+    ..addAll(property.toJson());
+  EraserPainter copyWith({String? name, PathProperty? property}) =>
+      EraserPainter(name: name ?? this.name, property: property ?? this.property);
+
+  @override
+  ElementLayer buildLayer(Offset position, [double pressure = 0]) =>
+      EraserElement(points: [PathPoint.fromOffset(position, pressure)], property: property);
 }

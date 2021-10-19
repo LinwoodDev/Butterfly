@@ -364,11 +364,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                         width: 100,
                                         height: 100,
                                         margin: const EdgeInsets.all(5),
-                                        decoration: ShapeDecoration(
+                                        decoration: BoxDecoration(
                                             color: palette[index],
-                                            shape: const RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.all(Radius.circular(32)))),
+                                            borderRadius:
+                                                const BorderRadius.all(Radius.circular(32))),
                                       )))).toList(),
                             if (selected != null)
                               Padding(
@@ -380,10 +379,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   child: InkWell(
                                     borderRadius: const BorderRadius.all(Radius.circular(32)),
                                     child: Container(
-                                      decoration: const ShapeDecoration(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.all(Radius.circular(1322)))),
+                                      decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(1322))),
                                       width: 100,
                                       height: 100,
                                       child: const Center(

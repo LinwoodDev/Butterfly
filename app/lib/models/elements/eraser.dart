@@ -1,12 +1,17 @@
 import 'package:butterfly/models/elements/path.dart';
+import 'package:butterfly/models/properties/path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class EraserElement extends PathElement {
-  const EraserElement(
-      {List<PathPoint> points = const [], double strokeWidth = 5, double strokeMultiplier = 1.0})
-      : super(points: points, strokeWidth: strokeWidth, strokeMultiplier: strokeMultiplier);
-  EraserElement.fromJson(Map<String, dynamic> json, [String? fileVersion]) : super.fromJson(json);
+  @override
+  final PathProperty property;
+
+  const EraserElement({List<PathPoint> points = const [], this.property = const PathProperty()})
+      : super(points: points);
+  EraserElement.fromJson(Map<String, dynamic> json, [String? fileVersion])
+      : property = PathProperty.fromJson(json),
+        super.fromJson(json);
 
   @override
   Paint buildPaint() => Paint()
@@ -19,8 +24,8 @@ class EraserElement extends PathElement {
   Map<String, dynamic> toJson() => super.toJson()..addAll({'type': 'eraser'});
 
   @override
-  EraserElement copyWith({List<PathPoint>? points, double? strokeWidth}) => EraserElement(
+  EraserElement copyWith({List<PathPoint>? points, PathProperty? property}) => EraserElement(
         points: points ?? this.points,
-        strokeWidth: strokeWidth ?? this.strokeWidth,
+        property: property ?? this.property,
       );
 }

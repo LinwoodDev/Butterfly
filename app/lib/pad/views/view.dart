@@ -1,17 +1,16 @@
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/models/elements/label.dart';
-import 'package:butterfly/models/elements/paint.dart';
+import 'package:butterfly/models/elements/pen.dart';
 import 'package:butterfly/models/elements/path.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/cubits/transform.dart';
 import 'package:butterfly/pad/dialogs/elements/eraser.dart';
 import 'package:butterfly/pad/dialogs/elements/label.dart';
 import 'package:butterfly/pad/dialogs/elements/paint.dart';
-import 'package:butterfly/painter/eraser.dart';
+import 'package:butterfly/painter/painter.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:butterfly/painter/pen.dart';
 import 'package:butterfly/painter/label.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -83,28 +82,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   },
                   onPointerDown: (PointerDownEvent event) {
                     if (event.kind == PointerDeviceKind.stylus || state.editMode) {
-                      if (state.currentPainter is PenPainter) {
-                        var painter = state.currentPainter as PenPainter;
-                        setState(() => currentEditingLayer = PaintElement(
-                                color: painter.color,
-                                fill: painter.fill,
-                                strokeMultiplier: painter.strokeMultiplier,
-                                strokeWidth: painter.strokeWidth,
-                                points: [
-                                  PathPoint.fromOffset(
-                                      _controller.toScene(event.localPosition), event.pressure)
-                                ]));
-                      }
-                      if (state.currentPainter is EraserPainter) {
-                        var painter = state.currentPainter as EraserPainter;
-                        setState(() => currentEditingLayer = EraserElement(
-                                strokeWidth:
-                                    painter.strokeWidth + event.pressure * painter.strokeMultiplier,
-                                strokeMultiplier: painter.strokeMultiplier,
-                                points: [
-                                  PathPoint.fromOffset(
-                                      _controller.toScene(event.localPosition), event.pressure)
-                                ]));
+                      if (state.currentPainter is BuildedPainter) {
+                        var painter = state.currentPainter as BuildedPainter;
+                        setState(() => currentEditingLayer = painter.buildLayer(
+                            _controller.toScene(event.localPosition), event.pressure));
                       }
                       if (state.currentPainter is LabelPainter) {
                         var painter = state.currentPainter as LabelPainter;
@@ -112,18 +93,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         void submit() {
                           Navigator.of(context).pop();
                           widget.bloc.add(LayerCreated(LabelElement(
+                              property: painter.property,
                               text: _textController.text,
-                              size: painter.size,
-                              color: painter.color,
-                              decorationColor: painter.decorationColor,
-                              decorationStyle: painter.decorationStyle,
-                              decorationThickness: painter.decorationThickness,
-                              fontWeight: painter.fontWeight,
-                              italic: painter.italic,
-                              lineThrough: painter.lineThrough,
-                              overline: painter.overline,
-                              underline: painter.underline,
-                              letterSpacing: painter.letterSpacing,
                               position: _controller.toScene(event.localPosition))));
                         }
 
@@ -167,7 +138,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         showModalBottomSheet(
                             context: context,
                             builder: (context) {
-                              if (hit is PaintElement) {
+                              if (hit is PenElement) {
                                 return PaintElementDialog(index: index, bloc: widget.bloc);
                               }
                               if (hit is EraserElement) {

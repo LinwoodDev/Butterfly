@@ -33,14 +33,15 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: StatefulBuilder(builder: (context, setState) {
               if (_nameController.text != painter.name) _nameController.text = painter.name;
-              if (double.tryParse(_sizeController.text) != painter.size) {
-                _sizeController.text = painter.size.toStringAsFixed(2);
+              if (double.tryParse(_sizeController.text) != painter.property.size) {
+                _sizeController.text = painter.property.size.toStringAsFixed(2);
               }
-              if (double.tryParse(_spacingController.text) != painter.letterSpacing) {
-                _spacingController.text = painter.letterSpacing.toStringAsFixed(2);
+              if (double.tryParse(_spacingController.text) != painter.property.letterSpacing) {
+                _spacingController.text = painter.property.letterSpacing.toStringAsFixed(2);
               }
-              if (double.tryParse(_thicknessController.text) != painter.decorationThickness) {
-                _thicknessController.text = painter.decorationThickness.toStringAsFixed(2);
+              if (double.tryParse(_thicknessController.text) !=
+                  painter.property.decorationThickness) {
+                _thicknessController.text = painter.property.decorationThickness.toStringAsFixed(2);
               }
               return Scaffold(
                   backgroundColor: Colors.transparent,
@@ -68,16 +69,17 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                     decoration: InputDecoration(
                                         labelText: AppLocalizations.of(context)!.size),
                                     controller: _sizeController,
-                                    onChanged: (value) => setState(() =>
-                                        painter = painter.copyWith(size: double.tryParse(value))),
+                                    onChanged: (value) => setState(() => painter = painter.copyWith(
+                                        property: painter.property
+                                            .copyWith(size: double.tryParse(value)))),
                                   )),
                               Expanded(
                                 child: Slider(
-                                    value: painter.size.clamp(6, 96),
+                                    value: painter.property.size.clamp(6, 96),
                                     min: 6,
                                     max: 96,
-                                    onChanged: (value) =>
-                                        setState(() => painter = painter.copyWith(size: value))),
+                                    onChanged: (value) => setState(() => painter = painter.copyWith(
+                                        property: painter.property.copyWith(size: value)))),
                               )
                             ]),
                             Row(children: [
@@ -87,22 +89,24 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                     decoration: InputDecoration(
                                         labelText: AppLocalizations.of(context)!.spacing),
                                     controller: _spacingController,
-                                    onChanged: (value) => setState(() => painter =
-                                        painter.copyWith(letterSpacing: double.tryParse(value))),
+                                    onChanged: (value) => setState(() => painter = painter.copyWith(
+                                        property: painter.property
+                                            .copyWith(letterSpacing: double.tryParse(value)))),
                                   )),
                               Expanded(
                                 child: Slider(
-                                    value: painter.letterSpacing.clamp(-50, 50),
+                                    value: painter.property.letterSpacing.clamp(-50, 50),
                                     min: -50,
                                     max: 50,
-                                    onChanged: (value) => setState(
-                                        () => painter = painter.copyWith(letterSpacing: value))),
+                                    onChanged: (value) => setState(() => painter = painter.copyWith(
+                                        property:
+                                            painter.property.copyWith(letterSpacing: value)))),
                               )
                             ]),
                             ListTile(
                                 title: Text(AppLocalizations.of(context)!.fontWeight),
                                 trailing: DropdownButton<FontWeight>(
-                                    value: painter.fontWeight,
+                                    value: painter.property.fontWeight,
                                     items: List.generate(FontWeight.values.length, (index) {
                                       var text = ((index + 1) * 100).toString();
                                       if (index == 3) {
@@ -113,13 +117,13 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                       return DropdownMenuItem(
                                           child: Text(text), value: FontWeight.values[index]);
                                     }),
-                                    onChanged: (value) => setState(
-                                        () => painter = painter.copyWith(fontWeight: value)))),
+                                    onChanged: (value) => setState(() => painter = painter.copyWith(
+                                        property: painter.property.copyWith(fontWeight: value))))),
                             CheckboxListTile(
                                 title: Text(AppLocalizations.of(context)!.italic),
-                                value: painter.italic,
-                                onChanged: (value) =>
-                                    setState(() => painter = painter.copyWith(italic: value))),
+                                value: painter.property.italic,
+                                onChanged: (value) => setState(() => painter = painter.copyWith(
+                                    property: painter.property.copyWith(italic: value)))),
                             ExpansionPanelList(
                               expansionCallback: (panelIndex, isExpanded) =>
                                   setState(() => _decorationExpanded = !_decorationExpanded),
@@ -137,23 +141,29 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                     body: Column(children: [
                                       CheckboxListTile(
                                           title: Text(AppLocalizations.of(context)!.lineThrough),
-                                          value: painter.lineThrough,
-                                          onChanged: (value) => setState(() =>
-                                              painter = painter.copyWith(lineThrough: value))),
+                                          value: painter.property.lineThrough,
+                                          onChanged: (value) => setState(() => painter =
+                                              painter.copyWith(
+                                                  property: painter.property
+                                                      .copyWith(lineThrough: value)))),
                                       CheckboxListTile(
                                           title: Text(AppLocalizations.of(context)!.underline),
-                                          value: painter.underline,
-                                          onChanged: (value) => setState(
-                                              () => painter = painter.copyWith(underline: value))),
+                                          value: painter.property.underline,
+                                          onChanged: (value) => setState(() => painter =
+                                              painter.copyWith(
+                                                  property: painter.property
+                                                      .copyWith(underline: value)))),
                                       CheckboxListTile(
                                           title: Text(AppLocalizations.of(context)!.overline),
-                                          value: painter.overline,
-                                          onChanged: (value) => setState(
-                                              () => painter = painter.copyWith(overline: value))),
+                                          value: painter.property.overline,
+                                          onChanged: (value) => setState(() => painter =
+                                              painter.copyWith(
+                                                  property:
+                                                      painter.property.copyWith(overline: value)))),
                                       ListTile(
                                           title: Text(AppLocalizations.of(context)!.style),
                                           trailing: DropdownButton<TextDecorationStyle>(
-                                              value: painter.decorationStyle,
+                                              value: painter.property.decorationStyle,
                                               items: List.generate(
                                                   TextDecorationStyle.values.length, (index) {
                                                 String text;
@@ -179,23 +189,29 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                                     value: TextDecorationStyle.values[index]);
                                               }),
                                               onChanged: (value) => setState(() => painter =
-                                                  painter.copyWith(decorationStyle: value)))),
+                                                  painter.copyWith(
+                                                      property: painter.property
+                                                          .copyWith(decorationStyle: value))))),
                                       ListTile(
                                           onTap: () async {
                                             var value = await showDialog(
                                                 context: context,
                                                 builder: (context) => ColorPickerDialog(
-                                                    defaultColor: painter.decorationColor,
+                                                    defaultColor: painter.property.decorationColor,
                                                     bloc: widget.bloc));
                                             if (value != null) {
                                               setState(() => painter = painter.copyWith(
-                                                  decorationColor: value as Color));
+                                                  property: painter.property
+                                                      .copyWith(decorationColor: value as Color)));
                                             }
                                           },
                                           leading: Container(
                                               width: 30,
                                               height: 30,
-                                              color: painter.decorationColor),
+                                              decoration: BoxDecoration(
+                                                  color: painter.property.decorationColor,
+                                                  borderRadius:
+                                                      const BorderRadius.all(Radius.circular(32)))),
                                           title: Text(AppLocalizations.of(context)!.color)),
                                       Padding(
                                         padding: const EdgeInsets.all(16.0),
@@ -209,16 +225,20 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                                 controller: _thicknessController,
                                                 onChanged: (value) => setState(() => painter =
                                                     painter.copyWith(
-                                                        decorationThickness:
-                                                            double.tryParse(value))),
+                                                        property: painter.property.copyWith(
+                                                            decorationThickness:
+                                                                double.tryParse(value)))),
                                               )),
                                           Expanded(
                                             child: Slider(
-                                                value: painter.decorationThickness.clamp(0.1, 4),
+                                                value: painter.property.decorationThickness
+                                                    .clamp(0.1, 4),
                                                 min: 0.1,
                                                 max: 4,
                                                 onChanged: (value) => setState(() => painter =
-                                                    painter.copyWith(decorationThickness: value))),
+                                                    painter.copyWith(
+                                                        property: painter.property.copyWith(
+                                                            decorationThickness: value)))),
                                           )
                                         ]),
                                       ),
@@ -230,19 +250,25 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 InkWell(
+                                    borderRadius: const BorderRadius.all(Radius.circular(32)),
                                     onTap: () async {
                                       var color = await showDialog(
                                           context: context,
                                           builder: (context) => ColorPickerDialog(
-                                              bloc: widget.bloc, defaultColor: painter.color));
+                                              bloc: widget.bloc,
+                                              defaultColor: painter.property.color));
                                       if (color != null) {
-                                        setState(() => painter = painter.copyWith(color: color));
+                                        setState(() => painter = painter.copyWith(
+                                            property: painter.property.copyWith(color: color)));
                                       }
                                     },
                                     child: Container(
+                                        decoration: BoxDecoration(
+                                            color: painter.property.color,
+                                            borderRadius:
+                                                const BorderRadius.all(Radius.circular(32))),
                                         constraints:
-                                            const BoxConstraints(maxWidth: 100, maxHeight: 100),
-                                        color: painter.color)),
+                                            const BoxConstraints(maxWidth: 100, maxHeight: 100))),
                               ],
                             ),
                           ]),

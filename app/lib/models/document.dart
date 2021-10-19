@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'elements/element.dart';
-import 'elements/paint.dart';
+import 'elements/pen.dart';
 import 'elements/label.dart';
 
 @immutable
@@ -83,7 +83,7 @@ class AppDocument {
             case 'eraser':
               return EraserElement.fromJson(e, json['fileVersion']);
             default:
-              return PaintElement.fromJson(e, json['fileVersion']);
+              return PenElement.fromJson(e, json['fileVersion']);
           }
         }).toList();
   Map<String, dynamic> toJson() => {

@@ -1,4 +1,5 @@
 import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/properties/path.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 
@@ -20,25 +21,22 @@ class PathPoint {
 
 abstract class PathElement extends ElementLayer {
   final List<PathPoint> points;
-  final double strokeWidth;
-  final double strokeMultiplier;
+  PathProperty get property;
 
-  const PathElement({this.points = const [], this.strokeWidth = 5, required this.strokeMultiplier});
+  const PathElement({this.points = const []});
   PathElement.fromJson(Map<String, dynamic> json)
       : points = List<Map<String, dynamic>>.from(json['points'] ?? [])
             .map((e) => PathPoint.fromJson(e))
-            .toList(),
-        strokeMultiplier = json['strokeMultiplier'] ?? 1,
-        strokeWidth = json['strokeWidth'] ?? 5;
+            .toList();
 
   @override
   Map<String, dynamic> toJson() => {
         'points': points.map((e) => e.toJson()).toList(),
-        'strokeWidth': strokeWidth,
-      };
+      }..addAll(property.toJson());
   @override
   bool hit(Offset offset) => points.any((element) =>
-      (element.x - offset.dx).abs() <= strokeWidth && (element.y - offset.dy).abs() <= strokeWidth);
+      (element.x - offset.dx).abs() <= property.strokeWidth &&
+      (element.y - offset.dy).abs() <= property.strokeWidth);
 
   Paint buildPaint();
 
@@ -47,12 +45,15 @@ abstract class PathElement extends ElementLayer {
       var first = points.first;
       var previous = first;
       for (var element in points) {
-        canvas.drawLine(previous.toOffset() + offset, element.toOffset() + offset,
-            buildPaint()..strokeWidth = strokeWidth + element.pressure * strokeMultiplier);
+        canvas.drawLine(
+            previous.toOffset() + offset,
+            element.toOffset() + offset,
+            buildPaint()
+              ..strokeWidth = property.strokeWidth + element.pressure * property.strokeMultiplier);
         previous = element;
       }
     }
   }
 
-  PathElement copyWith({List<PathPoint>? points, double? strokeWidth});
+  PathElement copyWith({List<PathPoint>? points});
 }

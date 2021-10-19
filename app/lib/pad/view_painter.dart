@@ -64,17 +64,17 @@ class ViewPainter extends CustomPainter {
         } else if (element is LabelElement) {
           TextSpan span = TextSpan(
               style: TextStyle(
-                  fontSize: element.size,
-                  color: element.color,
-                  fontWeight: element.fontWeight,
-                  letterSpacing: element.letterSpacing,
-                  decorationColor: element.decorationColor,
-                  decorationStyle: element.decorationStyle,
-                  decorationThickness: element.decorationThickness,
+                  fontSize: element.property.size,
+                  color: element.property.color,
+                  fontWeight: element.property.fontWeight,
+                  letterSpacing: element.property.letterSpacing,
+                  decorationColor: element.property.decorationColor,
+                  decorationStyle: element.property.decorationStyle,
+                  decorationThickness: element.property.decorationThickness,
                   decoration: TextDecoration.combine([
-                    if (element.underline) TextDecoration.underline,
-                    if (element.lineThrough) TextDecoration.lineThrough,
-                    if (element.overline) TextDecoration.overline,
+                    if (element.property.underline) TextDecoration.underline,
+                    if (element.property.lineThrough) TextDecoration.lineThrough,
+                    if (element.property.overline) TextDecoration.overline,
                   ])),
               text: element.text);
           TextPainter tp = TextPainter(

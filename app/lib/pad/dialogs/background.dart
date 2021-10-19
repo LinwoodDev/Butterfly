@@ -122,16 +122,24 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 }
                                               },
                                               leading: Container(
-                                                  width: 30,
-                                                  height: 30,
-                                                  color: background!.boxColor),
+                                                width: 30,
+                                                height: 30,
+                                                decoration: BoxDecoration(
+                                                    color: background!.boxColor,
+                                                    borderRadius: const BorderRadius.all(
+                                                        Radius.circular(32))),
+                                              ),
                                               title:
                                                   Text(AppLocalizations.of(context)!.background)),
                                           ListTile(
                                               leading: Container(
-                                                  width: 30,
-                                                  height: 30,
-                                                  color: background!.boxXColor),
+                                                width: 30,
+                                                height: 30,
+                                                decoration: BoxDecoration(
+                                                    color: background!.boxXColor,
+                                                    borderRadius: const BorderRadius.all(
+                                                        Radius.circular(32))),
+                                              ),
                                               onTap: () async {
                                                 var value = await showDialog(
                                                     context: context,
@@ -148,7 +156,10 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                               leading: Container(
                                                   width: 30,
                                                   height: 30,
-                                                  color: background!.boxYColor),
+                                                  decoration: BoxDecoration(
+                                                      color: background!.boxYColor,
+                                                      borderRadius: const BorderRadius.all(
+                                                          Radius.circular(32)))),
                                               onTap: () async {
                                                 var value = await showDialog(
                                                     context: context,

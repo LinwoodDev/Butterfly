@@ -148,25 +148,34 @@ class _HomePageState extends State<HomePage> {
                   alignment: WrapAlignment.center,
                   children: List.generate(_documents.length, (index) {
                     var document = _documents[index];
-                    return Card(
-                      margin: const EdgeInsets.all(5),
-                      child: Column(
-                        children: [
-                          InkWell(
-                              onTap: () => _openDocument(index),
-                              child: Container(
-                                  width: 300,
-                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                                  child: Column(children: [
-                                    Text(document.name,
-                                        style: Theme.of(context).textTheme.headline6),
-                                    Text(document.description,
-                                        style: Theme.of(context).textTheme.overline)
-                                  ]))),
-                          IconButton(
-                              icon: const Icon(PhosphorIcons.trashLight),
-                              onPressed: () => _deleteDialog(index))
-                        ],
+                    return Container(
+                      child: Card(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(12))),
+                        margin: const EdgeInsets.all(5),
+                        child: Column(
+                          children: [
+                            InkWell(
+                                borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                                onTap: () => _openDocument(index),
+                                child: Container(
+                                    width: 300,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                                    ),
+                                    padding:
+                                        const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                    child: Column(children: [
+                                      Text(document.name,
+                                          style: Theme.of(context).textTheme.headline6),
+                                      Text(document.description,
+                                          style: Theme.of(context).textTheme.overline)
+                                    ]))),
+                            IconButton(
+                                icon: const Icon(PhosphorIcons.trashLight),
+                                onPressed: () => _deleteDialog(index))
+                          ],
+                        ),
                       ),
                     );
                   })))));
