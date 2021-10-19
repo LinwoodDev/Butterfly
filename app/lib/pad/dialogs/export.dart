@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/pad/views/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +10,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:butterfly/api/open_image.dart'
     if (dart.library.io) 'package:butterfly/api/open_image_io.dart'
     if (dart.library.js) 'package:butterfly/api/open_image_html.dart';
+
+import '../view_painter.dart';
 
 class ExportDialog extends StatefulWidget {
   final DocumentBloc bloc;
@@ -49,7 +50,7 @@ class _ExportDialogState extends State<ExportDialog> {
   Future<ByteData?> generateImage() async {
     var recorder = PictureRecorder();
     var canvas = Canvas(recorder);
-    PathPainter((widget.bloc.state as DocumentLoadSuccess).document, null,
+    ViewPainter((widget.bloc.state as DocumentLoadSuccess).document, null,
             renderBackground: _renderBackground)
         .paint(canvas, Size(width.toDouble(), height.toDouble()),
             offset: -Offset(x.toDouble(), y.toDouble()));
