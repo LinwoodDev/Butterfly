@@ -35,6 +35,9 @@ class _OpenDialogState extends State<OpenDialog> {
               children: [
                 Expanded(
                     child: TextField(
+                  decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: AppLocalizations.of(context)!.data),
                   controller: _textController,
                   maxLines: null,
                 )),

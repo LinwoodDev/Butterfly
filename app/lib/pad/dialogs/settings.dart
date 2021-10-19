@@ -25,51 +25,49 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        child: DefaultTabController(
-            length: 1,
-            child: Container(
-                constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
-                child: Column(children: [
-                  TabBar(
-                    tabs: [
-                      Tab(
-                          icon: const Icon(PhosphorIcons.fadersLight),
-                          text: AppLocalizations.of(context)!.general),
-                      //Tab(icon: Icon(PhosphorIcons.packageLight), text: "Packs")
-                    ],
-                  ),
-                  Expanded(
-                      child: TabBarView(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(children: [
-                        TextField(
-                            controller: _nameController,
-                            decoration:
-                                InputDecoration(labelText: AppLocalizations.of(context)!.name)),
-                        TextField(
-                            minLines: 3,
-                            maxLines: 5,
-                            controller: _descriptionController,
-                            decoration: InputDecoration(
-                                labelText: AppLocalizations.of(context)!.description)),
-                      ]),
+        child: Container(
+            constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+            child: Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: AppBar(
+                    title: Text(AppLocalizations.of(context)!.projectSettings),
+                    leading: const Icon(PhosphorIcons.gearLight)),
+                body: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  child: Column(children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(children: [
+                          TextField(
+                              controller: _nameController,
+                              decoration:
+                                  InputDecoration(labelText: AppLocalizations.of(context)!.name)),
+                          TextField(
+                              minLines: 3,
+                              maxLines: 5,
+                              controller: _descriptionController,
+                              decoration: InputDecoration(
+                                  labelText: AppLocalizations.of(context)!.description)),
+                        ]),
+                      ),
+                      //const Icon(Icons.directions_transit)
                     ),
-                    //const Icon(Icons.directions_transit)
-                  ])),
-                  const Divider(),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              widget.bloc!.add(DocumentDescriptorChanged(
-                                  name: _nameController.text,
-                                  description: _descriptionController.text));
-                              Navigator.of(context).pop();
-                            },
-                            child: Text(AppLocalizations.of(context)!.ok))
-                      ]))
-                ]))));
+                    const Divider(),
+                    Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                      TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Text(AppLocalizations.of(context)!.cancel)),
+                      ElevatedButton(
+                          onPressed: () {
+                            widget.bloc!.add(DocumentDescriptorChanged(
+                                name: _nameController.text,
+                                description: _descriptionController.text));
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(AppLocalizations.of(context)!.ok))
+                    ])
+                  ]),
+                ))));
   }
 }

@@ -16,14 +16,15 @@ class BackgroundDialog extends StatefulWidget {
 }
 
 class _BackgroundDialogState extends State<BackgroundDialog> {
-  final boxWidthController = TextEditingController();
-  final boxHeightController = TextEditingController();
-  final boxXCountController = TextEditingController();
-  final boxYCountController = TextEditingController();
-  final boxXSpaceController = TextEditingController();
-  final boxYSpaceController = TextEditingController();
-  final boxXStrokeController = TextEditingController();
-  final boxYStrokeController = TextEditingController();
+  final _boxWidthController = TextEditingController();
+  final _boxHeightController = TextEditingController();
+  final _boxXCountController = TextEditingController();
+  final _boxYCountController = TextEditingController();
+  final _boxXSpaceController = TextEditingController();
+  final _boxYSpaceController = TextEditingController();
+  final _boxXStrokeController = TextEditingController();
+  final _boxYStrokeController = TextEditingController();
+
   int? currentExpansionOpened = 0;
   @override
   Widget build(BuildContext context) {
@@ -49,34 +50,31 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                     Expanded(
                       child: StatefulBuilder(builder: (context, setState) {
                         if (background is BoxBackground) {
-                          if (boxWidthController.text != background!.boxWidth.toStringAsFixed(2)) {
-                            boxWidthController.text = background!.boxWidth.toStringAsFixed(2);
+                          if (double.tryParse(_boxWidthController.text) != background!.boxWidth) {
+                            _boxWidthController.text = background!.boxWidth.toStringAsFixed(2);
                           }
-                          if (boxHeightController.text !=
-                              background!.boxHeight.toStringAsFixed(2)) {
-                            boxHeightController.text = background!.boxHeight.toStringAsFixed(2);
+                          if (double.tryParse(_boxHeightController.text) != background!.boxHeight) {
+                            _boxHeightController.text = background!.boxHeight.toStringAsFixed(2);
                           }
-                          if (boxXCountController.text != background!.boxXCount.toString()) {
-                            boxXCountController.text = background!.boxXCount.toString();
+                          if (int.tryParse(_boxXCountController.text) != background!.boxXCount) {
+                            _boxXCountController.text = background!.boxXCount.toString();
                           }
-                          if (boxYCountController.text != background!.boxYCount.toString()) {
-                            boxYCountController.text = background!.boxYCount.toString();
+                          if (int.tryParse(_boxYCountController.text) != background!.boxYCount) {
+                            _boxYCountController.text = background!.boxYCount.toString();
                           }
-                          if (boxXSpaceController.text !=
-                              background!.boxXSpace.toStringAsFixed(2)) {
-                            boxXSpaceController.text = background!.boxXSpace.toStringAsFixed(2);
+                          if (double.tryParse(_boxXSpaceController.text) != background!.boxXSpace) {
+                            _boxXSpaceController.text = background!.boxXSpace.toStringAsFixed(2);
                           }
-                          if (boxYSpaceController.text !=
-                              background!.boxYSpace.toStringAsFixed(2)) {
-                            boxYSpaceController.text = background!.boxYSpace.toStringAsFixed(2);
+                          if (double.tryParse(_boxYSpaceController.text) != background!.boxYSpace) {
+                            _boxYSpaceController.text = background!.boxYSpace.toStringAsFixed(2);
                           }
-                          if (boxXStrokeController.text !=
-                              background!.boxXStroke.toStringAsFixed(2)) {
-                            boxXStrokeController.text = background!.boxXStroke.toStringAsFixed(2);
+                          if (double.tryParse(_boxXStrokeController.text) !=
+                              background!.boxXStroke) {
+                            _boxXStrokeController.text = background!.boxXStroke.toStringAsFixed(2);
                           }
-                          if (boxYStrokeController.text !=
-                              background!.boxYStroke.toStringAsFixed(2)) {
-                            boxYStrokeController.text = background!.boxYStroke.toStringAsFixed(2);
+                          if (double.tryParse(_boxYStrokeController.text) !=
+                              background!.boxYStroke) {
+                            _boxYStrokeController.text = background!.boxYStroke.toStringAsFixed(2);
                           }
                         }
 
@@ -183,7 +181,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 constraints: const BoxConstraints(maxWidth: 100),
                                                 child: TextField(
                                                   decoration: const InputDecoration(labelText: "X"),
-                                                  controller: boxXStrokeController,
+                                                  controller: _boxXStrokeController,
                                                   onChanged: (value) => setState(() => background =
                                                       background!.copyWith(
                                                           boxXStroke: double.tryParse(value))),
@@ -202,7 +200,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 constraints: const BoxConstraints(maxWidth: 100),
                                                 child: TextField(
                                                   decoration: const InputDecoration(labelText: "Y"),
-                                                  controller: boxYStrokeController,
+                                                  controller: _boxYStrokeController,
                                                   onChanged: (value) => setState(() => background =
                                                       background!.copyWith(
                                                           boxYStroke: double.tryParse(value))),
@@ -238,7 +236,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                   decoration: InputDecoration(
                                                       labelText:
                                                           AppLocalizations.of(context)!.width),
-                                                  controller: boxWidthController,
+                                                  controller: _boxWidthController,
                                                   onChanged: (value) => setState(() => background =
                                                       background!.copyWith(
                                                           boxWidth: double.tryParse(value))),
@@ -259,7 +257,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                   decoration: InputDecoration(
                                                       labelText:
                                                           AppLocalizations.of(context)!.height),
-                                                  controller: boxHeightController,
+                                                  controller: _boxHeightController,
                                                   onChanged: (value) => setState(() => background =
                                                       background!.copyWith(
                                                           boxHeight: double.tryParse(value))),
@@ -293,7 +291,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 constraints: const BoxConstraints(maxWidth: 100),
                                                 child: TextField(
                                                   decoration: const InputDecoration(labelText: "X"),
-                                                  controller: boxXCountController,
+                                                  controller: _boxXCountController,
                                                   onChanged: (value) => setState(() => background =
                                                       background!.copyWith(
                                                           boxXCount: int.tryParse(value))),
@@ -315,7 +313,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 constraints: const BoxConstraints(maxWidth: 100),
                                                 child: TextField(
                                                   decoration: const InputDecoration(labelText: "Y"),
-                                                  controller: boxYCountController,
+                                                  controller: _boxYCountController,
                                                   onChanged: (value) => setState(() => background =
                                                       background!.copyWith(
                                                           boxYCount: int.tryParse(value))),
@@ -352,7 +350,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 constraints: const BoxConstraints(maxWidth: 100),
                                                 child: TextField(
                                                   decoration: const InputDecoration(labelText: "X"),
-                                                  controller: boxXSpaceController,
+                                                  controller: _boxXSpaceController,
                                                   onChanged: (value) => setState(() => background =
                                                       background!.copyWith(
                                                           boxXSpace: double.tryParse(value))),
@@ -371,7 +369,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 constraints: const BoxConstraints(maxWidth: 100),
                                                 child: TextField(
                                                   decoration: const InputDecoration(labelText: "Y"),
-                                                  controller: boxYSpaceController,
+                                                  controller: _boxYSpaceController,
                                                   onChanged: (value) => setState(() => background =
                                                       background!.copyWith(
                                                           boxYSpace: double.tryParse(value))),

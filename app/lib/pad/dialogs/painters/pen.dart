@@ -31,10 +31,10 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: StatefulBuilder(builder: (context, setState) {
               if (_nameController.text != painter.name) _nameController.text = painter.name;
-              if (_strokeWidthController.text != painter.strokeWidth.toStringAsFixed(2)) {
+              if (double.tryParse(_strokeWidthController.text) != painter.strokeWidth) {
                 _strokeWidthController.text = painter.strokeWidth.toStringAsFixed(2);
               }
-              if (_strokeMultiplierController.text != painter.strokeMultiplier.toStringAsFixed(2)) {
+              if (double.tryParse(_strokeMultiplierController.text) != painter.strokeMultiplier) {
                 _strokeMultiplierController.text = painter.strokeMultiplier.toStringAsFixed(2);
               }
               return Scaffold(

@@ -32,10 +32,10 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: StatefulBuilder(builder: (context, setState) {
               if (_nameController.text != painter.name) _nameController.text = painter.name;
-              if (_sizeController.text != painter.size.toStringAsFixed(2)) {
+              if (double.tryParse(_sizeController.text) != painter.size) {
                 _sizeController.text = painter.size.toStringAsFixed(2);
               }
-              if (_thicknessController.text != painter.decorationThickness.toStringAsFixed(2)) {
+              if (double.tryParse(_thicknessController.text) != painter.decorationThickness) {
                 _thicknessController.text = painter.decorationThickness.toStringAsFixed(2);
               }
               return Scaffold(

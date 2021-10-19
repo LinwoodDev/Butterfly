@@ -41,6 +41,9 @@ class _SaveDialogState extends State<SaveDialog> {
               children: [
                 Expanded(
                     child: TextField(
+                  decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: AppLocalizations.of(context)!.data),
                   controller: _textController,
                   readOnly: true,
                   maxLines: null,
