@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -25,7 +26,7 @@ class ImageElement extends ElementLayer {
           scale: scale));
 
   ImageElement.fromJson(Map<String, dynamic> json, [String? fileVersion])
-      : pixels = Uint8List.fromList(List<int>.from(json['pixels'])),
+      : pixels = Uint8List.fromList(base64.decode(json['pixels'])),
         height = json['height'],
         width = json['width'],
         scale = json['scale'] ?? 1,
@@ -35,7 +36,7 @@ class ImageElement extends ElementLayer {
 
   @override
   Map<String, dynamic> toJson() => {
-        'pixels': pixels.toList(),
+        'pixels': base64.encode(pixels.toList()),
         'height': height,
         'width': width,
         'type': 'image',

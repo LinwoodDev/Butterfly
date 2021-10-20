@@ -53,8 +53,7 @@ class _ViewToolbarState extends State<ViewToolbar> {
             icon: const Icon(PhosphorIcons.floppyDiskLight),
             tooltip: AppLocalizations.of(context)!.save,
             onPressed: () async {
-              const encoder = JsonEncoder.withIndent("\t");
-              var data = encoder.convert(state.document.toJson());
+              var data = json.encode(state.document.toJson());
               showDialog(context: context, builder: (context) => SaveDialog(data: data));
             }),
       ]);

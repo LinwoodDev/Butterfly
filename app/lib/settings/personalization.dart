@@ -59,9 +59,15 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
 
   void _openThemeModal() async {
     var currentTheme = ThemeController.of(context)?.currentTheme;
-    var themeMode = await showModalBottomSheet<ThemeMode>(
+
+    await showModalBottomSheet<ThemeMode>(
         context: context,
         builder: (context) {
+          void changeTheme(ThemeMode themeMode) {
+            Navigator.of(context).pop();
+            setState(() => ThemeController.of(context)?.currentTheme = themeMode);
+          }
+
           return Container(
               margin: const EdgeInsets.only(bottom: 20),
               child: ListView(shrinkWrap: true, children: [
@@ -77,21 +83,20 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
                     title: Text(AppLocalizations.of(context)!.systemTheme),
                     selected: currentTheme == ThemeMode.system,
                     leading: const Icon(Icons.settings_outlined),
-                    onTap: () => Navigator.of(context).pop(ThemeMode.system)),
+                    onTap: () => changeTheme(ThemeMode.system)),
                 ListTile(
                     title: Text(AppLocalizations.of(context)!.lightTheme),
                     selected: currentTheme == ThemeMode.light,
                     leading: const Icon(Icons.wb_sunny_outlined),
-                    onTap: () => Navigator.of(context).pop(ThemeMode.light)),
+                    onTap: () => changeTheme(ThemeMode.light)),
                 ListTile(
                     title: Text(AppLocalizations.of(context)!.darkTheme),
                     selected: currentTheme == ThemeMode.dark,
                     leading: const Icon(Icons.nightlight_round),
-                    onTap: () => Navigator.of(context).pop(ThemeMode.dark)),
+                    onTap: () => changeTheme(ThemeMode.dark)),
                 const SizedBox(height: 32),
               ]));
         });
-    if (themeMode != null) setState(() => ThemeController.of(context)?.currentTheme = themeMode);
   }
 
   void _openLocaleModal() async {

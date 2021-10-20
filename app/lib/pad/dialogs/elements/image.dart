@@ -5,6 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import 'package:butterfly/api/open_image.dart'
+    if (dart.library.io) 'package:butterfly/api/open_image_io.dart'
+    if (dart.library.js) 'package:butterfly/api/open_image_html.dart';
+
 class ImageElementDialog extends StatefulWidget {
   final int index;
   final DocumentBloc bloc;
@@ -43,27 +47,37 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
                 const Divider(thickness: 1),
                 Expanded(
                     child: ListView(children: [
-                  Row(children: [
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 100),
-                      child: TextField(
-                          decoration:
-                              InputDecoration(labelText: AppLocalizations.of(context)!.scale),
-                          controller: _scaleController,
-                          onEditingComplete: () => _changeElement(),
-                          onChanged: (value) => setState(
-                              () => element = element?.copyWith(scale: double.tryParse(value)))),
-                    ),
-                    Expanded(
-                        child: Slider(
-                      value: element!.scale.clamp(0.1, 5),
-                      min: 0.1,
-                      max: 5,
-                      onChangeEnd: (value) => _changeElement(),
-                      onChanged: (value) =>
-                          setState(() => element = element?.copyWith(scale: value)),
-                    ))
-                  ]),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(children: [
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 100),
+                        child: TextField(
+                            decoration:
+                                InputDecoration(labelText: AppLocalizations.of(context)!.scale),
+                            controller: _scaleController,
+                            onEditingComplete: () => _changeElement(),
+                            onChanged: (value) => setState(
+                                () => element = element?.copyWith(scale: double.tryParse(value)))),
+                      ),
+                      Expanded(
+                          child: Slider(
+                        value: element!.scale.clamp(0.1, 5),
+                        min: 0.1,
+                        max: 5,
+                        onChangeEnd: (value) => _changeElement(),
+                        onChanged: (value) =>
+                            setState(() => element = element?.copyWith(scale: value)),
+                      ))
+                    ]),
+                  ),
+                  ListTile(
+                    title: Text(AppLocalizations.of(context)!.export),
+                    leading: const Icon(PhosphorIcons.exportLight),
+                    onTap: () {
+                      openImage(element!.pixels);
+                    },
+                  ),
                   ListTile(
                       onTap: () {
                         showDialog(

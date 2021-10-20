@@ -319,8 +319,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                 tooltip: AppLocalizations.of(context)!.save,
                                                 icon: const Icon(PhosphorIcons.floppyDiskLight),
                                                 onPressed: () {
-                                                  const encoder = JsonEncoder.withIndent("\t");
-                                                  var data = encoder.convert(state.document.palettes
+                                                  var data = json.encode(state.document.palettes
                                                       .map((key, value) => MapEntry(key,
                                                           value.map((e) => e.value).toList())));
                                                   showDialog(

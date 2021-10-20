@@ -8,107 +8,83 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SaveDialog extends StatefulWidget {
+class SaveDialog extends StatelessWidget {
   final String data;
   const SaveDialog({Key? key, required this.data}) : super(key: key);
-
-  @override
-  _SaveDialogState createState() => _SaveDialogState();
-}
-
-class _SaveDialogState extends State<SaveDialog> {
-  final TextEditingController _textController = TextEditingController();
-  @override
-  void initState() {
-    _textController.text = widget.data;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     var isMobile = Platform.isAndroid || Platform.isIOS;
-    return Dialog(
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            leading: const Icon(PhosphorIcons.floppyDiskLight),
-            title: Text(AppLocalizations.of(context)!.save),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: Column(
-              children: [
-                Expanded(
-                    child: TextField(
-                  decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(context)!.data),
-                  controller: _textController,
-                  readOnly: true,
-                  maxLines: null,
-                )),
-                const Divider(),
-                Row(children: [
-                  OutlinedButton(
-                      onPressed: () => Clipboard.setData(ClipboardData(text: widget.data)),
-                      child: Text(AppLocalizations.of(context)!.clipboard)),
-                  if (!kIsWeb && !isMobile)
-                    OutlinedButton(
-                        onPressed: () {
-                          FilePicker.platform.saveFile(
-                              fileName: "butterfly.json",
-                              type: FileType.custom,
-                              allowedExtensions: ["json"]).then((value) {
-                            if (value == null) {
-                              return;
-                            }
-                            var fileName = value;
-                            if (!fileName.endsWith(".json")) fileName += ".json";
-                            var file = File(fileName);
-                            void write() {
-                              file.writeAsStringSync(widget.data);
-                            }
-
-                            if (!file.existsSync()) {
-                              write();
-                            } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                        title: Text(AppLocalizations.of(context)!.areYouSure),
-                                        content: Text(AppLocalizations.of(context)!.existOverride),
-                                        actions: [
-                                          TextButton(
-                                              child: Text(AppLocalizations.of(context)!.no),
-                                              onPressed: () => Navigator.of(context).pop()),
-                                          TextButton(
-                                              child: Text(AppLocalizations.of(context)!.yes),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                                write();
-                                              })
-                                        ],
-                                      ));
-                            }
-                          });
-                        },
-                        child: Text(AppLocalizations.of(context)!.file)),
-                  if (!kIsWeb && isMobile)
-                    OutlinedButton(
-                        onPressed: () => Share.share(widget.data),
-                        child: Text(AppLocalizations.of(context)!.share)),
-                  Expanded(child: Container()),
-                  ElevatedButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text(AppLocalizations.of(context)!.ok))
-                ])
-              ],
+    return AlertDialog(
+        title: Row(
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Icon(PhosphorIcons.floppyDiskLight),
             ),
-          ),
+            Text(AppLocalizations.of(context)!.save),
+          ],
         ),
-      ),
-    );
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(AppLocalizations.of(context)!.cancel)),
+        ],
+        content: Column(mainAxisSize: MainAxisSize.min, children: [
+          ListTile(
+              onTap: () {
+                Clipboard.setData(ClipboardData(text: data));
+                Navigator.of(context).pop();
+              },
+              title: Text(AppLocalizations.of(context)!.clipboard)),
+          if (!kIsWeb && !isMobile)
+            ListTile(
+                onTap: () {
+                  FilePicker.platform.saveFile(
+                      fileName: "butterfly.json",
+                      type: FileType.custom,
+                      allowedExtensions: ["json"]).then((value) {
+                    if (value == null) {
+                      return;
+                    }
+                    var fileName = value;
+                    if (!fileName.endsWith(".json")) fileName += ".json";
+                    var file = File(fileName);
+                    void write() {
+                      file.writeAsStringSync(data);
+                      Navigator.of(context).pop();
+                    }
+
+                    if (!file.existsSync()) {
+                      write();
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text(AppLocalizations.of(context)!.areYouSure),
+                                content: Text(AppLocalizations.of(context)!.existOverride),
+                                actions: [
+                                  TextButton(
+                                      child: Text(AppLocalizations.of(context)!.no),
+                                      onPressed: () => Navigator.of(context).pop()),
+                                  TextButton(
+                                      child: Text(AppLocalizations.of(context)!.yes),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        write();
+                                      })
+                                ],
+                              ));
+                    }
+                  });
+                },
+                title: Text(AppLocalizations.of(context)!.file)),
+          if (!kIsWeb && isMobile)
+            ListTile(
+                onTap: () {
+                  Share.share(data);
+                  Navigator.of(context).pop();
+                },
+                title: Text(AppLocalizations.of(context)!.share)),
+        ]));
   }
 }
