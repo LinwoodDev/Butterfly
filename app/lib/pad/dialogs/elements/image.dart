@@ -1,4 +1,3 @@
-import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/models/elements/image.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';

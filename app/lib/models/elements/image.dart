@@ -18,7 +18,7 @@ class ImageElement extends ElementLayer {
           height: image.height,
           position: position));
 
-  ImageElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
+  ImageElement.fromJson(Map<String, dynamic> json, [String? fileVersion])
       : pixels = Uint8List.fromList(List<int>.from(json['pixels'])),
         height = json['height'],
         width = json['width'],
@@ -31,6 +31,7 @@ class ImageElement extends ElementLayer {
         'pixels': pixels.toList(),
         'height': height,
         'width': width,
+        'type': 'image',
         'position': {'x': position.dx, 'y': position.dy}
       };
   ImageElement copyWith({Uint8List? pixels, int? width, int? height, Offset? position}) {

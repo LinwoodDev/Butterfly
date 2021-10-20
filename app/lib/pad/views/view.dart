@@ -41,7 +41,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
   late TransformationController _controller;
   GlobalKey transformKey = GlobalKey();
   ElementLayer? currentEditingLayer;
-  late ViewPainter painter;
+  ViewPainter? painter;
 
   @override
   void initState() {
@@ -59,9 +59,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
         bloc: widget.bloc,
         builder: (context, state) {
           if (state is! DocumentLoadSuccess) return Container();
-          painter = ViewPainter(state.document, currentEditingLayer);
+          painter ??= ViewPainter(state.document, currentEditingLayer);
+          painter?.document = state.document;
+          painter?.editingLayer = currentEditingLayer;
           return FutureBuilder(
-              future: painter.loadImages(),
+              future: painter?.loadImages(),
               builder: (context, snapshot) {
                 return LayoutBuilder(builder: (context, constraints) {
                   final viewportSize = Size(constraints.maxWidth, constraints.maxHeight);

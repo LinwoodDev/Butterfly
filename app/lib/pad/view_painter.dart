@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
 class ViewPainter extends CustomPainter {
-  final AppDocument document;
-  final ElementLayer? editingLayer;
+  AppDocument document;
+  ElementLayer? editingLayer;
   final bool renderBackground;
   final Map<ElementLayer, ui.Image> images = {};
 
