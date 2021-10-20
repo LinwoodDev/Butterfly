@@ -1,3 +1,4 @@
+import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/painter/path_eraser.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,12 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                     backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.pathEraser),
                     leading: const Icon(PhosphorIcons.penLight),
+                    actions: [
+                      IconButton(
+                          tooltip: AppLocalizations.of(context)!.help,
+                          icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+                          onPressed: () => openHelp(["painters", "path_eraser"])),
+                    ],
                   ),
                   body: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

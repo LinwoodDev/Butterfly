@@ -1,3 +1,4 @@
+import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/dialogs/color_pick.dart';
 import 'package:butterfly/painter/label.dart';
@@ -49,6 +50,12 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                     backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.label),
                     leading: const Icon(PhosphorIcons.textTLight),
+                    actions: [
+                      IconButton(
+                          tooltip: AppLocalizations.of(context)!.help,
+                          icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+                          onPressed: () => openHelp(["painters", "label"])),
+                    ],
                   ),
                   body: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

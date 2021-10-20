@@ -1,3 +1,4 @@
+import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/painter/image.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,12 @@ class _ImagePainterDialogState extends State<ImagePainterDialog> {
                     backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.pathEraser),
                     leading: const Icon(PhosphorIcons.penLight),
+                    actions: [
+                      IconButton(
+                          tooltip: AppLocalizations.of(context)!.help,
+                          icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+                          onPressed: () => openHelp(["painters", "image"])),
+                    ],
                   ),
                   body: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

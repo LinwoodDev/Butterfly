@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/dialogs/open.dart';
@@ -326,6 +327,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                       context: context,
                                                       builder: (context) => SaveDialog(data: data));
                                                 }),
+                                            IconButton(
+                                                tooltip: AppLocalizations.of(context)!.help,
+                                                icon: const Icon(
+                                                    PhosphorIcons.circleWavyQuestionLight),
+                                                onPressed: () => openHelp(["color_picker"])),
                                             IconButton(
                                                 tooltip: AppLocalizations.of(context)!.resetPalette,
                                                 icon: const Icon(PhosphorIcons.clockClockwiseLight),

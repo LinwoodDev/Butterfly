@@ -1,3 +1,4 @@
+import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/dialogs/color_pick.dart';
 import 'package:butterfly/painter/pen.dart';
@@ -45,6 +46,12 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                     backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.pen),
                     leading: const Icon(PhosphorIcons.penLight),
+                    actions: [
+                      IconButton(
+                          tooltip: AppLocalizations.of(context)!.help,
+                          icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+                          onPressed: () => openHelp(["painters", "pen"])),
+                    ],
                   ),
                   body: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

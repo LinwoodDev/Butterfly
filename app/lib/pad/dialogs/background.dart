@@ -1,3 +1,4 @@
+import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,12 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
             appBar: AppBar(
               title: Text(AppLocalizations.of(context)!.background),
               leading: const Icon(PhosphorIcons.imageLight),
+              actions: [
+                IconButton(
+                    tooltip: AppLocalizations.of(context)!.help,
+                    icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+                    onPressed: () => openHelp(["background", "intro"])),
+              ],
             ),
             body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

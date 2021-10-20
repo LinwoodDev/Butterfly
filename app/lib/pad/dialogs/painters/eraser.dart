@@ -1,3 +1,4 @@
+import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/painter/eraser.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,12 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                     backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.eraser),
                     leading: const Icon(PhosphorIcons.eraserLight),
+                    actions: [
+                      IconButton(
+                          tooltip: AppLocalizations.of(context)!.help,
+                          icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+                          onPressed: () => openHelp(["painters", "eraser"])),
+                    ],
                   ),
                   body: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
