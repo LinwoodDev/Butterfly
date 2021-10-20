@@ -83,5 +83,14 @@
     "fontWeight": "Poids de la police",
     "normal": "Normale",
     "bold": "Bold",
-    "italic": "Italic"
+    "italic": "Italic",
+    "clipboard": "Presse-papiers",
+    "file": "Fichier",
+    "data": "Donnée",
+    "share": "Partager",
+    "spacing": "Espacement",
+    "image": "Image",
+    "enterUrl": "Entrez l'url",
+    "scale": "Échelle",
+    "help": "Aide"
 }
