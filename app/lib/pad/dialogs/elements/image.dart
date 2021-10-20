@@ -5,20 +5,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class ImageElementDialog extends StatelessWidget {
+class ImageElementDialog extends StatefulWidget {
   final int index;
   final DocumentBloc bloc;
+
   const ImageElementDialog({Key? key, required this.index, required this.bloc}) : super(key: key);
 
   @override
+  State<ImageElementDialog> createState() => _ImageElementDialogState();
+}
+
+class _ImageElementDialogState extends State<ImageElementDialog> {
+  final TextEditingController _scaleController = TextEditingController();
+  ImageElement? element;
+
+  void _changeElement() => widget.bloc.add(LayerChanged(widget.index, element!));
+  @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: bloc,
+      value: widget.bloc,
       child: BlocBuilder<DocumentBloc, DocumentState>(
         builder: (context, state) {
           if (state is! DocumentLoadSuccess) return Container();
-          if (state.document.content.length <= index) return Container();
-          var element = state.document.content[index] as ImageElement;
+          if (state.document.content.length <= widget.index) return Container();
+          element ??= state.document.content[widget.index] as ImageElement;
+          if (double.tryParse(_scaleController.text) != element!.scale) {
+            _scaleController.text = element!.scale.toStringAsFixed(2);
+          }
           return SizedBox(
             height: 300,
             child: Column(
@@ -30,6 +43,27 @@ class ImageElementDialog extends StatelessWidget {
                 const Divider(thickness: 1),
                 Expanded(
                     child: ListView(children: [
+                  Row(children: [
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 100),
+                      child: TextField(
+                          decoration:
+                              InputDecoration(labelText: AppLocalizations.of(context)!.scale),
+                          controller: _scaleController,
+                          onEditingComplete: () => _changeElement(),
+                          onChanged: (value) => setState(
+                              () => element = element?.copyWith(scale: double.tryParse(value)))),
+                    ),
+                    Expanded(
+                        child: Slider(
+                      value: element!.scale.clamp(0.1, 5),
+                      min: 0.1,
+                      max: 5,
+                      onChangeEnd: (value) => _changeElement(),
+                      onChanged: (value) =>
+                          setState(() => element = element?.copyWith(scale: value)),
+                    ))
+                  ]),
                   ListTile(
                       onTap: () {
                         showDialog(
@@ -50,7 +84,7 @@ class ImageElementDialog extends StatelessWidget {
                                         onPressed: () {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
-                                          bloc.add(LayersRemoved([element]));
+                                          widget.bloc.add(LayersRemoved([element!]));
                                         },
                                       ),
                                     ]));

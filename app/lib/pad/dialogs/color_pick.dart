@@ -389,7 +389,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     onTap: () async {
                                       var value = await showDialog(
                                           context: context,
-                                          builder: (context) => const CustomColorPicker());
+                                          builder: (context) =>
+                                              CustomColorPicker(defaultColor: widget.defaultColor));
                                       if (value != null) {
                                         var newPalettes =
                                             Map<String, List<Color>>.from(state.document.palettes);

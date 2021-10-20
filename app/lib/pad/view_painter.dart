@@ -18,9 +18,12 @@ class ViewPainter extends CustomPainter {
   Future<void> loadImages() async {
     for (var layer in document.content) {
       if (layer is ImageElement && !images.containsKey(layer)) {
-        var codec = await ui.instantiateImageCodec(layer.pixels);
+        var codec = await ui.instantiateImageCodec(layer.pixels,
+            targetWidth: (layer.width * layer.scale).round(),
+            targetHeight: (layer.height * layer.scale).round());
         var frame = await codec.getNextFrame();
-        images[layer] = frame.image;
+        var img = frame.image;
+        images[layer] = img;
       }
     }
   }
@@ -102,7 +105,7 @@ class ViewPainter extends CustomPainter {
           tp.paint(canvas, position);
         }
         if (element is ImageElement && images.containsKey(element)) {
-          canvas.drawImage(images[element]!, element.position, Paint());
+          canvas.drawImage(images[element]!, element.position, Paint()..strokeWidth = .05);
         }
       });
     canvas.restore();

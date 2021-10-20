@@ -90,5 +90,6 @@
     "share": "Share",
     "spacing":"Spacing",
     "image":"Image",
-    "enterUrl":"Enter the url"
+    "enterUrl":"Enter the url",
+    "scale":"Scale"
 }
