@@ -36,13 +36,26 @@ Currently the app store versions of this app are not ready.
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable">
-  <button className="button button--outline button--info">Windows</button>
+  <button className="button button--outline button--info">Windows Portable</button>
   <ul className="dropdown__menu">
     <li>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/release/windows.zip">
         Release
       </a>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/preview/windows.zip">
+        Preview
+      </a>
+    </li>
+  </ul>
+</div>
+<div className="dropdown dropdown--hoverable">
+  <button className="button button--outline button--info">Windows Setup</button>
+  <ul className="dropdown__menu">
+    <li>
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/release/Butterfly-Setup.exe">
+        Release
+      </a>
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/preview/Butterfly-Setup.exe">
         Preview
       </a>
     </li>
