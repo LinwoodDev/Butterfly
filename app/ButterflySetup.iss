@@ -59,7 +59,7 @@ Name: "portable"; Description: "Portable mode"
 Name: "full"; Description: "full"; Types: full
 
 [Icons]
-.
+
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 
 Name: "{group}\Visit Website"; Filename: "http://www.linwood.dev/"

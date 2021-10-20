@@ -52,10 +52,10 @@ jobs:
           flutter doctor -v
           flutter build windows -v --release
       - name: Build setup
-        shell: cmd
-        working-directory: app
+        shell: powershell
         run: |
-          "/c/Program Files (x86)/Inno Setup 6/ISCC.exe" -MyAppVersion=${version}_${buildnumber} ButterflySetup.iss
+          cd app
+          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=${version}_${buildnumber} ButterflySetup.iss
         # flutter pub run msix:create
       - name: Archive
         uses: actions/upload-artifact@v2
