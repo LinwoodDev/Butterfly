@@ -46,12 +46,13 @@ jobs:
           cd app
           flutter pub get
       - name: 🏭 Build
+        shell: cmd
         run: |
           cd app
           flutter clean
           flutter doctor -v
           flutter build windows -v --release
-          "/c/Program Files (x86)/Inno Setup 6/ISCC.exe" -DMyAppVersion=${version}_${buildnumber} ButterflySetup.iss
+          "/c/Program Files (x86)/Inno Setup 6/ISCC.exe" -MyAppVersion=${version}_${buildnumber} ButterflySetup.iss
         # flutter pub run msix:create
       - name: Archive
         uses: actions/upload-artifact@v2

@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Butterfly"
-#define MyAppVersion "1.6"
+#define MyAppVersion "1.0"
 #define MyAppPublisher "LinwoodCloud"
 #define MyAppURL "https://www.linwood.dev"
 #define MyAppExeName "butterfly.exe" 
