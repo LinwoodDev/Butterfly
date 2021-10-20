@@ -83,5 +83,14 @@
     "fontWeight": "Schriftgewicht",
     "normal": "Normal",
     "bold": "Bold",
-    "italic": "Italic"
+    "italic": "Italic",
+    "clipboard": "Zwischenablage",
+    "file": "Datei",
+    "data": "Daten",
+    "share": "Teilen",
+    "spacing": "Abstand",
+    "image": "Bild",
+    "enterUrl": "URL eingeben",
+    "scale": "Maßstab",
+    "help": "Hilfe"
 }
