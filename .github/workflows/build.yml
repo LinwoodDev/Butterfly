@@ -7,16 +7,14 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: 🔧 Setup java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
           java-version: "8.x"
       - uses: subosito/flutter-action@v1
         with:
           channel: "beta" # or: 'stable' or 'dev'
-      - name: ✅ Enable platforms
-        run: flutter config --enable-web
       - name: 📦 Get dependencies
         run: |
           cd app
@@ -36,7 +34,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
         with:
           channel: "beta" # or: 'stable' or 'dev'
@@ -52,7 +50,7 @@ jobs:
           flutter clean
           flutter doctor -v
           flutter build windows -v --release
-          flutter pub run msix:create
+        # flutter pub run msix:create
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
@@ -63,7 +61,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Get dependencies
         run: |
           sudo apt-get update
@@ -93,7 +91,7 @@ jobs:
   #  runs-on: macos-latest
   #  steps:
   #    - name: ⬆️ Checkout
-  #      uses: actions/checkout@v1
+  #      uses: actions/checkout@v2
   #    - uses: subosito/flutter-action@v1
   #      with:
   #        channel: "dev" # or: 'stable' or 'dev'
