@@ -75,26 +75,22 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       child: BlocBuilder<TransformCubit, Matrix4>(builder: (context, transform) {
                     var translation = -transform.getTranslation();
                     var scale = transform.up.y;
-                    scale *= scale;
-                    var paintViewport = Size(translation.x + viewportSize.width * 2 / scale,
-                        translation.y + viewportSize.height * 2 / scale);
+                    //scale *= scale;
+                    var paintViewport = Size((translation.x + viewportSize.width * 2) / scale,
+                        (translation.y + viewportSize.height * 2) / scale);
                     _controller.value = transform;
                     return Listener(
                       onPointerSignal: (pointerSignal) {
                         if (pointerSignal is PointerScrollEvent) {
                           // Scale the matrix
-                          var up = transform.up;
-                          if (up.y < 3.5 && pointerSignal.scrollDelta.dy < 0 ||
-                              up.y > 0.25 && pointerSignal.scrollDelta.dy > 0) {
-                            var scale = 1 - pointerSignal.scrollDelta.dy / 100;
-                            var currentScale = transform.up.y;
-                            scale *= currentScale;
-                            scale = scale.clamp(0.25, 5);
-                            scale /= currentScale;
-                            context
-                                .read<TransformCubit>()
-                                .emit(Matrix4.copy(transform)..scale(scale, scale, scale));
-                          }
+                          var scale = 1 - pointerSignal.scrollDelta.dy / 100;
+                          var currentScale = transform.up.y;
+                          scale *= currentScale;
+                          scale = scale.clamp(0.25, 5);
+                          scale /= currentScale;
+                          context
+                              .read<TransformCubit>()
+                              .emit(Matrix4.copy(transform)..scale(scale, scale, scale));
                         }
                       },
                       onPointerDown: (PointerDownEvent event) {
