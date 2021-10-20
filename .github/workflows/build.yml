@@ -63,6 +63,12 @@ jobs:
           name: windows-build
           path: |
             app/build/windows/runner/Release/**
+      - name: Archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-setup
+          path: |
+            app/build/windows/Butterfly-Setup.exe
   build-linux:
     runs-on: ubuntu-18.04
     steps:
@@ -135,6 +141,9 @@ jobs:
         with:
           name: linux-build
           path: linux-build/
+      - uses: actions/download-artifact@v2
+        with:
+          name: windows-setup
       - name: 📦 Zip artifacts
         run: |
           zip -r windows.zip windows-build/*

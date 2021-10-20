@@ -34,7 +34,7 @@ SetupIconFile={#RunnerSourceDir}\resources\app_icon.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-Uninstallable=not IsTaskSelected('portablemode')
+Uninstallable=not WizardIsTaskSelected('portablemode')
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
