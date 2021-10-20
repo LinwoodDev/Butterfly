@@ -6,7 +6,6 @@ import 'package:butterfly/pad/dialogs/color_pick.dart';
 import 'package:butterfly/pad/dialogs/export.dart';
 import 'package:butterfly/pad/dialogs/save.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';

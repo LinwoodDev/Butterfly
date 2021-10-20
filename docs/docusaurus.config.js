@@ -109,8 +109,8 @@ module.exports = {
       {
         redirects: [
           {
-            to: '/docs/privacypolicy', // string
-            from: ['/privacypolicy'], // string | string[]
+            to: '/privacypolicy', // string
+            from: ['/docs/privacypolicy'], // string | string[]
           },
         ],
       },

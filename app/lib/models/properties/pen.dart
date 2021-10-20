@@ -1,6 +1,5 @@
 import 'package:butterfly/models/properties/path.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 
 class PenProperty extends PathProperty {
   final Color color;

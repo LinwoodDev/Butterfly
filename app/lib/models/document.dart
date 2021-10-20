@@ -8,7 +8,6 @@ import 'package:butterfly/painter/pen.dart';
 import 'package:butterfly/painter/label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'elements/element.dart';
 import 'elements/image.dart';

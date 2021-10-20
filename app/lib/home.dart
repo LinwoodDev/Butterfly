@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/pad/dialogs/open.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
