@@ -105,7 +105,7 @@ class ViewPainter extends CustomPainter {
           tp.paint(canvas, position);
         }
         if (element is ImageElement && images.containsKey(element)) {
-          canvas.drawImage(images[element]!, element.position, Paint()..strokeWidth = .05);
+          canvas.drawImage(images[element]!, element.position + offset, Paint()..strokeWidth = .05);
         }
       });
     canvas.restore();
