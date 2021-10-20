@@ -50,6 +50,7 @@ jobs:
           flutter clean
           flutter doctor -v
           flutter build windows -v --release
+          "/c/Program Files (x86)/Inno Setup 6/ISCC.exe" -DMyAppVersion=${version}_${buildnumber} ButterflySetup.iss
         # flutter pub run msix:create
       - name: Archive
         uses: actions/upload-artifact@v2
@@ -141,6 +142,7 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           tag: "release"
           files: |
+            Butterfly-Setup.exe
             app-release.apk
             windows.zip
             linux.zip
@@ -152,17 +154,17 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           tag: "preview"
           files: |
+            Butterfly-Setup.exe
             app-release.apk
             windows.zip
             linux.zip
       - name: Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: eine/tip@master
+        uses: softprops/action-gh-release@v1
         continue-on-error: true
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-          tag: "release"
           files: |
+            Butterfly-Setup.exe
             app-release.apk
             windows.zip
             linux.zip
