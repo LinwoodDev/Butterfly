@@ -75,8 +75,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       child: BlocBuilder<TransformCubit, Matrix4>(builder: (context, transform) {
                     var translation = -transform.getTranslation();
                     var scale = transform.up.y;
-                    var paintViewport = Size((translation.x * 4 + viewportSize.width * 4) / scale,
-                        (translation.y * 4 + viewportSize.height * 4) / scale);
+                    scale *= scale;
+                    var paintViewport = Size(translation.x + viewportSize.width * 2 / scale,
+                        translation.y + viewportSize.height * 2 / scale);
                     _controller.value = transform;
                     return Listener(
                       onPointerSignal: (pointerSignal) {
