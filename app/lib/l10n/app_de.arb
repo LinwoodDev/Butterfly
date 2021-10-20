@@ -84,11 +84,13 @@
     "normal": "Normal",
     "bold": "Bold",
     "italic": "Italic",
-    "clipboard": "Clipboard",
-    "file": "File",
-    "data": "Data",
-    "share": "Share",
-    "spacing": "Spacing",
-    "image": "Image",
-    "enterUrl": "Enter the url"
+    "clipboard": "Zwischenablage",
+    "file": "Datei",
+    "data": "Daten",
+    "share": "Teilen",
+    "spacing": "Abstand",
+    "image": "Bild",
+    "enterUrl": "URL eingeben",
+    "scale": "Scale",
+    "help": "Help"
 }
