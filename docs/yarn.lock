@@ -1734,6 +1734,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@docusaurus/plugin-client-redirects@npm:2.0.0-beta.7":
+  version: 2.0.0-beta.7
+  resolution: "@docusaurus/plugin-client-redirects@npm:2.0.0-beta.7"
+  dependencies:
+    "@docusaurus/core": 2.0.0-beta.7
+    "@docusaurus/types": 2.0.0-beta.7
+    "@docusaurus/utils": 2.0.0-beta.7
+    "@docusaurus/utils-common": 2.0.0-beta.7
+    "@docusaurus/utils-validation": 2.0.0-beta.7
+    chalk: ^4.1.2
+    eta: ^1.12.3
+    fs-extra: ^10.0.0
+    globby: ^11.0.2
+    lodash: ^4.17.20
+    tslib: ^2.3.1
+  peerDependencies:
+    react: ^16.8.4 || ^17.0.0
+    react-dom: ^16.8.4 || ^17.0.0
+  checksum: 0c8deaea2251a706b90c301558329801153fcee8057bdf1473faeb85ae1d48d29f1a991acce2f11e595035e205c5a71ad5826b6e64d486b9029bb0d752ba102c
+  languageName: node
+  linkType: hard
+
 "@docusaurus/plugin-content-blog@npm:2.0.0-beta.7":
   version: 2.0.0-beta.7
   resolution: "@docusaurus/plugin-content-blog@npm:2.0.0-beta.7"
@@ -3474,6 +3496,7 @@ __metadata:
   resolution: "butterfly-docs@workspace:."
   dependencies:
     "@docusaurus/core": 2.0.0-beta.7
+    "@docusaurus/plugin-client-redirects": 2.0.0-beta.7
     "@docusaurus/preset-classic": 2.0.0-beta.7
     "@mdx-js/react": ^1.6.22
     clsx: ^1.1.1
