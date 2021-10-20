@@ -53,6 +53,7 @@ jobs:
           flutter build windows -v --release
       - name: Build setup
         shell: cmd
+        working-directory: app
         run: |
           "/c/Program Files (x86)/Inno Setup 6/ISCC.exe" -MyAppVersion=${version}_${buildnumber} ButterflySetup.iss
         # flutter pub run msix:create
