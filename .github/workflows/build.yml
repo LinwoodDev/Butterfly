@@ -149,12 +149,12 @@ jobs:
           zip -r windows.zip windows-build/*
           zip -r linux.zip linux-build/*
       - name: Retag stable
-        if: github.ref == "refs/heads/main"
+        if: github.ref == 'refs/heads/main'
         run: |
           git tag -fa stable
           git push origin stable
       - name: Retag nightly
-        if: github.ref == "refs/heads/develop"
+        if: github.ref == 'refs/heads/develop'
         run: |
           git tag -fa nightly
           git push origin nightly
