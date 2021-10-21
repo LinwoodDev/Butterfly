@@ -4,13 +4,15 @@ title: Branding
 
 ## Logo
 
-* SVG: [![Logo](/img/logo.svg)](/img/logo.svg)
-* PNG: [![Logo](/img/logo.png)](/img/logo.png)
+![Logo](/img/logo.svg)
+
+[SVG](/img/logo.svg) [PNG](/img/logo.png)
 
 ## Banner
 
-* SVG: [![Logo](/img/banner.svg)](/img/banner.svg)
-* PNG: [![Logo](/img/banner.png)](/img/banner.png)
+![Banner](/img/banner.svg)
+
+[SVG](/img/banner.svg) [PNG](/img/banner.png)
 
 ## Colors
 

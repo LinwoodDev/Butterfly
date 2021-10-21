@@ -21,8 +21,8 @@ Currently the app store versions of this app are not ready.
 
 :::
 
-<div className="row margin-bottom--lg">
-<div className="dropdown dropdown--hoverable">
+<div className="row margin-bottom--lg padding--sm">
+<div className="dropdown dropdown--hoverable margin--sm">
   <button className="button button--outline button--primary">Web</button>
   <ul className="dropdown__menu">
     <li>
@@ -35,7 +35,7 @@ Currently the app store versions of this app are not ready.
     </li>
   </ul>
 </div>
-<div className="dropdown dropdown--hoverable">
+<div className="dropdown dropdown--hoverable margin--sm">
   <button className="button button--outline button--info">Windows Portable</button>
   <ul className="dropdown__menu">
     <li>
@@ -48,7 +48,7 @@ Currently the app store versions of this app are not ready.
     </li>
   </ul>
 </div>
-<div className="dropdown dropdown--hoverable">
+<div className="dropdown dropdown--hoverable margin--sm">
   <button className="button button--outline button--info">Windows Setup</button>
   <ul className="dropdown__menu">
     <li>
@@ -61,7 +61,7 @@ Currently the app store versions of this app are not ready.
     </li>
   </ul>
 </div>
-<div className="dropdown dropdown--hoverable">
+<div className="dropdown dropdown--hoverable margin--sm">
   <button className="button button--outline button--info">Linux</button>
   <ul className="dropdown__menu">
     <li>
@@ -74,7 +74,7 @@ Currently the app store versions of this app are not ready.
     </li>
   </ul>
 </div>
-<div className="dropdown dropdown--hoverable">
+<div className="dropdown dropdown--hoverable margin--sm">
   <button className="button button--outline button--warning">Android</button>
   <ul className="dropdown__menu">
     <li>
