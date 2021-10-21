@@ -12,4 +12,4 @@ Currently there is no production ready version.
 
 ## Reporting a Vulnerability
 
-Please use [the bug tracker](https://github.com/LinwoodCloud/butterfly/issues) or use <bug@linwood.dev> if there are a critical bug.
+Please use [the bug tracker](https://github.com/LinwoodCloud/butterfly/issues) or use <bug@linwood.dev> for critical bugs.

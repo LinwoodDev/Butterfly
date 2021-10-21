@@ -57,6 +57,10 @@ module.exports = {
               label: 'Twitter',
               href: 'https://twitter.com/LinwoodCloud',
             },
+            {
+              label: 'Contribution guide',
+              href: 'https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md',
+            },
           ],
         },
         {
