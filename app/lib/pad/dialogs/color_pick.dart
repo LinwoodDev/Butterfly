@@ -233,6 +233,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                                       widget.bloc.add(
                                                                           DocumentPaletteChanged(
                                                                               newPalettes));
+                                                                      Navigator.of(context).pop();
                                                                     },
                                                                     child: Text(AppLocalizations.of(
                                                                             context)!
