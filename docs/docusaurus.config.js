@@ -24,6 +24,11 @@ module.exports = {
           label: 'Tutorial',
         },
         {
+          to: 'community',
+          position: 'left',
+          label: 'Community',
+        },
+        {
           to: 'downloads',
           label: 'Downloads',
           position: 'left'
@@ -121,6 +126,16 @@ module.exports = {
           },
         ],
       },
+    ],
+    [
+        '@docusaurus/plugin-content-docs',
+        {
+            id: 'community',
+            path: 'community',
+            routeBasePath: '/',
+            sidebarPath: require.resolve('./sidebarsCommunity.js'),
+
+        },
     ],
   ]
 };
