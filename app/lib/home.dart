@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/pad/dialogs/open.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () {
                           setState(() => _documents.add(AppDocument(
                               name: _nameController.text,
-                              palettes: AppDocument.getDefaultPalette(context))));
+                              palettes: ColorPalette.getMaterialPalette(context))));
                           saveDocuments();
                           Navigator.of(context).pop();
                         },

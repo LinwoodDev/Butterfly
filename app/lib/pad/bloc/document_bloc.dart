@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/painter/painter.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

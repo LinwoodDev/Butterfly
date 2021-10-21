@@ -1,5 +1,6 @@
 import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/models/elements/eraser.dart';
+import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/painter/eraser.dart';
 import 'package:butterfly/painter/image.dart';
 import 'package:butterfly/painter/painter.dart';
@@ -7,7 +8,6 @@ import 'package:butterfly/painter/path_eraser.dart';
 import 'package:butterfly/painter/pen.dart';
 import 'package:butterfly/painter/label.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'elements/element.dart';
 import 'elements/image.dart';
@@ -21,84 +21,77 @@ class AppDocument {
   final List<ElementLayer> content;
   final List<Painter> painters;
   final BoxBackground? background;
-  final Map<String, List<Color>> palettes;
-
-  static Map<String, List<Color>> getDefaultPalette(BuildContext context) => {
-        AppLocalizations.of(context)!.defaultPalette: colors,
-        AppLocalizations.of(context)!.highlighter: colors.map((e) => e.withOpacity(0.5)).toList()
-      };
-
-  static const colors = [
-    Colors.white,
-    Colors.pink,
-    Colors.red,
-    Colors.orange,
-    Colors.amber,
-    Colors.yellow,
-    Colors.lime,
-    Colors.green,
-    Colors.teal,
-    Colors.cyan,
-    Colors.lightBlue,
-    Colors.blue,
-    Colors.indigo,
-    Colors.blueGrey,
-    Colors.purple,
-    Colors.brown,
-    Colors.grey,
-    Colors.black
-  ];
+  final List<ColorPalette> palettes;
 
   const AppDocument(
       {required this.name,
       this.description = '',
       this.content = const [],
       this.background,
-      this.palettes = const {},
+      this.palettes = const [],
       this.painters = const [PenPainter()]});
 
-  AppDocument.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        description = json['description'],
-        palettes = (Map<String, dynamic>.from(json['palettes'] ?? {})).map<String, List<Color>>(
-            (key, value) => MapEntry(key, value.map<Color>((color) => Color(color)).toList())),
-        background = json['background'] == null
-            ? null
-            : BoxBackground.fromJson(json['background'], json['fileVersion']),
-        painters = List<Map<String, dynamic>>.from(json['painters']).map<Painter>((e) {
-          switch (e['type']) {
-            case 'eraser':
-              return EraserPainter.fromJson(e, json['fileVersion']);
-            case 'path-eraser':
-              return PathEraserPainter.fromJson(e, json['fileVersion']);
-            case 'label':
-              return LabelPainter.fromJson(e, json['fileVersion']);
-            case 'image':
-              return ImagePainter.fromJson(e, json['fileVersion']);
-            default:
-              return PenPainter.fromJson(e, json['fileVersion']);
-          }
-        }).toList(),
-        content = List<Map<String, dynamic>>.from(json['content']).map<ElementLayer>((e) {
-          switch (e['type']) {
-            case 'label':
-              return LabelElement.fromJson(e, json['fileVersion']);
-            case 'eraser':
-              return EraserElement.fromJson(e, json['fileVersion']);
-            case 'image':
-              return ImageElement.fromJson(e, json['fileVersion']);
-            default:
-              return PenElement.fromJson(e, json['fileVersion']);
-          }
-        }).toList();
+  factory AppDocument.fromJson(Map<String, dynamic> json) {
+    var version = json['fileVersion'] is int
+        ? json['fileVersion']
+        : int.tryParse(json['fileVersion']) ?? GetIt.I.get<int>(instanceName: "fileVersion");
+    if (version >= 0 && version < 4) {
+      json['palettes'] = List<dynamic>.from(Map<String, dynamic>.from(json['palettes'] ?? [])
+          .entries
+          .map<ColorPalette>((e) => ColorPalette(
+              colors: List<int>.from(e.value).map((e) => Color(e)).toList(), name: e.key))
+          .map((e) => e.toJson())
+          .toList());
+    }
+    var name = json['name'];
+    var description = json['description'];
+    var palettes = (List<Map<String, dynamic>>.from(json['palettes'] ?? []))
+        .map<ColorPalette>((e) => ColorPalette.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+    var background =
+        json['background'] == null ? null : BoxBackground.fromJson(json['background'], version);
+    var painters = List<Map<String, dynamic>>.from(json['painters']).map<Painter>((e) {
+      switch (e['type']) {
+        case 'eraser':
+          return EraserPainter.fromJson(e, version);
+        case 'path-eraser':
+          return PathEraserPainter.fromJson(e, version);
+        case 'label':
+          return LabelPainter.fromJson(e, version);
+        case 'image':
+          return ImagePainter.fromJson(e, version);
+        default:
+          return PenPainter.fromJson(e, version);
+      }
+    }).toList();
+    var content = List<Map<String, dynamic>>.from(json['content']).map<ElementLayer>((e) {
+      switch (e['type']) {
+        case 'label':
+          return LabelElement.fromJson(e, version);
+        case 'eraser':
+          return EraserElement.fromJson(e, version);
+        case 'image':
+          return ImageElement.fromJson(e, version);
+        default:
+          return PenElement.fromJson(e, version);
+      }
+    }).toList();
+    return AppDocument(
+        name: name,
+        background: background,
+        content: content,
+        description: description,
+        painters: painters,
+        palettes: palettes);
+  }
   Map<String, dynamic> toJson() => {
         "name": name,
         "description": description,
-        "palettes": palettes.map((key, value) => MapEntry(key, value.map((e) => e.value).toList())),
+        "palettes": palettes.map((e) => e.toJson()).toList(),
         "painters": painters.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "content": content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "background": background?.toJson(),
-        "fileVersion": GetIt.I.get<String>(instanceName: 'fileVersion')
+        "fileVersion": GetIt.I.get<int>(instanceName: 'fileVersion')
       };
   AppDocument copyWith(
       {String? name,
@@ -106,7 +99,7 @@ class AppDocument {
       List<ElementLayer>? content,
       List<Painter>? painters,
       BoxBackground? background,
-      Map<String, List<Color>>? palettes,
+      List<ColorPalette>? palettes,
       bool removeBackground = false}) {
     return AppDocument(
         name: name ?? this.name,

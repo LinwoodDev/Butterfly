@@ -8,7 +8,7 @@ class EraserElement extends PathElement {
 
   const EraserElement({List<PathPoint> points = const [], this.property = const PathProperty()})
       : super(points: points);
-  EraserElement.fromJson(Map<String, dynamic> json, [String? fileVersion])
+  EraserElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : property = PathProperty.fromJson(json),
         super.fromJson(json);
 

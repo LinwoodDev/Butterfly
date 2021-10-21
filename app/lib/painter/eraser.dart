@@ -11,7 +11,7 @@ class EraserPainter extends BuildedPainter {
   final PathProperty property;
 
   const EraserPainter({this.property = const PathProperty(), String name = ''}) : super(name: name);
-  EraserPainter.fromJson(Map<String, dynamic> json, [String? fileVersion])
+  EraserPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : property = PathProperty.fromJson(json),
         super.fromJson(json);
   @override

@@ -11,7 +11,7 @@ class LabelElement extends ElementLayer {
 
   const LabelElement(
       {this.text = "", this.position = const Offset(0, 0), this.property = const LabelProperty()});
-  LabelElement.fromJson(Map<String, dynamic> json, [String? fileVersion])
+  LabelElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : text = json['text'] ?? "",
         property = LabelProperty.fromJson(json),
         position = json['position'] != null
