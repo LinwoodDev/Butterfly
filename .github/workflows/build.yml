@@ -158,12 +158,12 @@ jobs:
       - name: Retag stable
         if: github.ref == 'refs/heads/main'
         run: |
-          git tag -fa stable
+          git tag -fa stable -m "Find all stable releases here"
           git push origin stable
       - name: Retag nightly
         if: github.ref == 'refs/heads/develop'
         run: |
-          git tag -fa nightly
+          git tag -fa nightly -m "Find all nightly releases here"
           git push origin nightly
       - name: 🚀 Deploy release
         if: github.ref == 'refs/heads/main'
