@@ -155,6 +155,7 @@ jobs:
           git --version
           git config --global user.email "actions@github.com"
           git config --global user.name "Actions"
+          git pull --tags
       - name: Retag stable
         if: github.ref == 'refs/heads/main'
         run: |
