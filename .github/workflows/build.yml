@@ -148,16 +148,16 @@ jobs:
         run: |
           zip -r windows.zip windows-build/*
           zip -r linux.zip linux-build/*
-      - name: Retag release
+      - name: Retag stable
         if: github.ref == "refs/heads/main"
         run: |
-          git tag -fa release
-          git push origin release
-      - name: Retag preview
+          git tag -fa stable
+          git push origin stable
+      - name: Retag nightly
         if: github.ref == "refs/heads/develop"
         run: |
-          git tag -fa preview
-          git push origin preview
+          git tag -fa nightly
+          git push origin nightly
       - name: 🚀 Deploy release
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v1
@@ -171,12 +171,12 @@ jobs:
             linux.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 🚀 Deploy preview
+      - name: 🚀 Deploy nightly
         if: github.ref == 'refs/heads/develop'
         uses: softprops/action-gh-release@v1
         continue-on-error: true
         with:
-          tag_name: preview
+          tag_name: nightly
           files: |
             Butterfly-Setup.exe
             app-release.apk
