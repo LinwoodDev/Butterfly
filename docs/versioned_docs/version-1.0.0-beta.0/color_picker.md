@@ -2,7 +2,7 @@
 title: Color picker
 ---
 
-![Color picker](/img/tutorial/color_picker.png)
+![Color picker](color_picker.png)
 
 * Open, save the dialog to access it in other documents
 * Reset the palette for the default material palette
