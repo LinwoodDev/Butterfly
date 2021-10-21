@@ -148,30 +148,42 @@ jobs:
         run: |
           zip -r windows.zip windows-build/*
           zip -r linux.zip linux-build/*
+      - name: Retag release
+        if: github.ref == "refs/heads/main"
+        run: |
+          git tag -fa release
+          git push origin release
+      - name: Retag preview
+        if: github.ref == "refs/heads/develop"
+        run: |
+          git tag -fa preview
+          git push origin preview
       - name: 🚀 Deploy release
         if: github.ref == 'refs/heads/main'
-        uses: eine/tip@master
+        uses: softprops/action-gh-release@v1
         continue-on-error: true
         with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-          tag: "release"
+          tag_name: release
           files: |
             Butterfly-Setup.exe
             app-release.apk
             windows.zip
             linux.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy preview
         if: github.ref == 'refs/heads/develop'
-        uses: eine/tip@master
+        uses: softprops/action-gh-release@v1
         continue-on-error: true
         with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-          tag: "preview"
+          tag_name: preview
           files: |
             Butterfly-Setup.exe
             app-release.apk
             windows.zip
             linux.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
         uses: softprops/action-gh-release@v1
         continue-on-error: true
