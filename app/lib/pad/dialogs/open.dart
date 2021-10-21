@@ -31,8 +31,8 @@ class _OpenDialogState extends State<OpenDialog> {
       ),
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         ListTile(
-            onTap: () =>
-                Clipboard.getData("text/plain").then((value) => Navigator.of(context).pop(value)),
+            onTap: () => Clipboard.getData("text/plain")
+                .then((value) => Navigator.of(context).pop(value?.text)),
             title: Text(AppLocalizations.of(context)!.clipboard)),
         ListTile(
             onTap: () {

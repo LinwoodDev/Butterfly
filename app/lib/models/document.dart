@@ -32,19 +32,21 @@ class AppDocument {
       this.painters = const [PenPainter()]});
 
   factory AppDocument.fromJson(Map<String, dynamic> json) {
-    var version = json['fileVersion'] ?? GetIt.I.get<int>(instanceName: "fileVersion");
+    var version = json['fileVersion'] is int
+        ? json['fileVersion']
+        : int.tryParse(json['fileVersion']) ?? GetIt.I.get<int>(instanceName: "fileVersion");
     if (version >= 0 && version < 4) {
-      json['palettes'] = Map<String, dynamic>.from(json['palettes'] ?? [])
+      json['palettes'] = List<dynamic>.from(Map<String, dynamic>.from(json['palettes'] ?? [])
           .entries
           .map<ColorPalette>((e) => ColorPalette(
               colors: List<int>.from(e.value).map((e) => Color(e)).toList(), name: e.key))
           .map((e) => e.toJson())
-          .toList();
+          .toList());
     }
     var name = json['name'];
     var description = json['description'];
     var palettes = (List<Map<String, dynamic>>.from(json['palettes'] ?? []))
-        .map<ColorPalette>((e) => ColorPalette.fromJson(e))
+        .map<ColorPalette>((e) => ColorPalette.fromJson(Map<String, dynamic>.from(e)))
         .toList();
     var background =
         json['background'] == null ? null : BoxBackground.fromJson(json['background'], version);

@@ -312,7 +312,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                 onPressed: () {
                                                   var data = json.encode({
                                                     "fileVersion": GetIt.I
-                                                        .get<String>(instanceName: "fileVersion"),
+                                                        .get<int>(instanceName: "fileVersion"),
                                                     "palettes": state.document.palettes
                                                         .map((e) => e.toJson())
                                                         .toList()
