@@ -31,7 +31,10 @@ module.exports = {
         {href: 'https://linwood.dev/blog', label: 'Blog', position: 'left'},
         {
           type: 'docsVersionDropdown',
-          position: 'right'
+          position: 'right',
+          dropdownItemsBefore: [],
+          dropdownItemsAfter: [{to: '/versions', label: 'All versions'}],
+          dropdownActiveClassDisabled: true
         },
         {
           href: 'https://github.com/LinwoodCloud/Butterfly',
