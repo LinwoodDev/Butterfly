@@ -27,10 +27,10 @@ Currently the app store versions of this app are not ready.
   <ul className="dropdown__menu">
     <li>
       <a className="dropdown__link" href="https://butterfly.linwood.dev">
-        Release
+        Stable
       </a>
       <a className="dropdown__link" href="https://preview.butterfly.linwood.dev">
-        Preview
+        Nightly
       </a>
     </li>
   </ul>
@@ -40,10 +40,10 @@ Currently the app store versions of this app are not ready.
   <ul className="dropdown__menu">
     <li>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/windows.zip">
-        Release
+        Stable
       </a>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/windows.zip">
-        Preview
+        Nightly
       </a>
     </li>
   </ul>
@@ -53,10 +53,10 @@ Currently the app store versions of this app are not ready.
   <ul className="dropdown__menu">
     <li>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/Butterfly-Setup.exe">
-        Release
+        Stable
       </a>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/Butterfly-Setup.exe">
-        Preview
+        Nightly
       </a>
     </li>
   </ul>
@@ -66,10 +66,10 @@ Currently the app store versions of this app are not ready.
   <ul className="dropdown__menu">
     <li>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linux.zip">
-        Release
+        Stable
       </a>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linux.zip">
-        Preview
+        Nightly
       </a>
     </li>
   </ul>
@@ -79,10 +79,10 @@ Currently the app store versions of this app are not ready.
   <ul className="dropdown__menu">
     <li>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/app-release.apk">
-        Release
+        Stable
       </a>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/app-release.apk">
-        Preview
+        Nightly
       </a>
     </li>
   </ul>
