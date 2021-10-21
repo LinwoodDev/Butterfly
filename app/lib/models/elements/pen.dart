@@ -10,7 +10,7 @@ class PenElement extends PathElement {
   const PenElement({List<PathPoint> points = const [], this.property = const PenProperty()})
       : super(points: points);
 
-  PenElement.fromJson(Map<String, dynamic> json, [String? fileVersion])
+  PenElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : property = PenProperty.fromJson(json),
         super.fromJson(json);
 

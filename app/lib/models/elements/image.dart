@@ -25,7 +25,7 @@ class ImageElement extends ElementLayer {
           position: position,
           scale: scale));
 
-  ImageElement.fromJson(Map<String, dynamic> json, [String? fileVersion])
+  ImageElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : pixels = Uint8List.fromList(base64.decode(json['pixels'])),
         height = json['height'],
         width = json['width'],

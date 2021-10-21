@@ -42,7 +42,7 @@ class DocumentDescriptorChanged extends DocumentEvent {
 }
 
 class DocumentPaletteChanged extends DocumentEvent {
-  final Map<String, List<Color>> palette;
+  final List<ColorPalette> palette;
 
   const DocumentPaletteChanged(this.palette);
   @override

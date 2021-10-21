@@ -9,7 +9,7 @@ class PenPainter extends BuildedPainter {
   final PenProperty property;
 
   const PenPainter({this.property = const PenProperty(), String name = ''}) : super(name: name);
-  PenPainter.fromJson(Map<String, dynamic> json, [String? fileVersion])
+  PenPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : property = PenProperty.fromJson(json),
         super.fromJson(json);
   PenPainter copyWith({String? name, PenProperty? property}) =>
