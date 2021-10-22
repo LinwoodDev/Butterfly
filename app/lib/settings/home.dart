@@ -32,6 +32,10 @@ class SettingsPage extends StatelessWidget {
               title: const Text("Discord"),
               onTap: () => launch("https://discord.linwood.dev")),
           ListTile(
+              leading: const Icon(PhosphorIcons.translateLight),
+              title: const Text("Crowdin"),
+              onTap: () => launch("https://linwood.crowdin.com")),
+          ListTile(
               leading: const Icon(PhosphorIcons.articleLight),
               title: Text(AppLocalizations.of(context)!.documentation),
               onTap: () => launch("https://docs.butterfly.linwood.dev")),
