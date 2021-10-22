@@ -8,7 +8,7 @@
     "systemTheme": "Utiliser le thème système par défaut",
     "enterName": "Veuillez entrer le nom",
     "create": "Créer",
-    "ok": "Okay",
+    "ok": "Ok",
     "cancel": "Abandonner",
     "view": "Voir",
     "edit": "Editer",
@@ -92,5 +92,22 @@
     "image": "Image",
     "enterUrl": "Entrez l'url",
     "scale": "Échelle",
-    "help": "Aide"
+    "help": "Aide",
+    "reallyReset": "Voulez-vous vraiment le réinitialiser ?",
+    "whatToDo": "Que voulez-vous faire ?",
+    "ignore": "Ignorer",
+    "backup": "Sauvegarde",
+    "createdInNewerVersion": "Le fichier {fileName} a été créé dans une version plus récente ({fileVersion}). Que faire de ce fichier ?",
+    "@createdInNewerVersion": {
+        "placeholders": {
+            "fileName": {
+                "type": "String",
+                "example": "Document"
+            },
+            "fileVersion": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    }
 }
