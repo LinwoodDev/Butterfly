@@ -99,13 +99,20 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
         });
   }
 
-  void _openLocaleModal() async {
+  void _openLocaleModal() {
     var cubit = context.read<LanguageCubit>();
     var currentLocale = cubit.state;
     var locales = AppLocalizations.supportedLocales;
-    var locale = await showModalBottomSheet<String>(
+    showModalBottomSheet<String>(
         context: context,
         builder: (context) {
+          void changeLocale(Locale? locale) {
+            cubit.change(locale?.languageCode);
+            cubit.save();
+            Navigator.of(context).pop();
+            setState(() {});
+          }
+
           return Container(
               margin: const EdgeInsets.only(bottom: 20),
               child: ListView(shrinkWrap: true, children: [
@@ -120,18 +127,15 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
                 ListTile(
                     title: Text(AppLocalizations.of(context)!.defaultLocale),
                     selected: currentLocale == null,
-                    onTap: () => Navigator.of(context).pop(null)),
+                    onTap: () => changeLocale(null)),
                 ...locales
                     .map((e) => ListTile(
                         title: Text(getLocaleName(e.languageCode)),
                         selected: currentLocale?.languageCode == e.languageCode,
-                        onTap: () => Navigator.of(context).pop(e.languageCode)))
+                        onTap: () => changeLocale(e)))
                     .toList(),
                 const SizedBox(height: 32),
               ]));
         });
-    cubit.change(locale);
-    cubit.save();
-    setState(() {});
   }
 }
