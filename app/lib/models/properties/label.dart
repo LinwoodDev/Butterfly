@@ -27,14 +27,16 @@ class LabelProperty {
       : size = json['size'] ?? 12,
         letterSpacing = json['letterSpacing'] ?? 0,
         color = json['color'] == null ? Colors.black : Color(json['color']),
-        fontWeight =
-            json['fontWeight'] != null ? FontWeight.values[json['fontWeight']] : FontWeight.normal,
+        fontWeight = json['fontWeight'] != null
+            ? FontWeight.values[json['fontWeight']]
+            : FontWeight.normal,
         lineThrough = json['lineThrough'] ?? false,
         underline = json['underline'] ?? false,
         overline = json['overline'] ?? false,
         italic = json['italic'] ?? false,
-        decorationColor =
-            json['decorationColor'] != null ? Color(json['decorationColor']) : Colors.black,
+        decorationColor = json['decorationColor'] != null
+            ? Color(json['decorationColor'])
+            : Colors.black,
         decorationStyle = json['decorationStyle'] != null
             ? TextDecorationStyle.values[json['decorationStyle']]
             : TextDecorationStyle.solid,

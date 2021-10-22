@@ -23,17 +23,22 @@ class DocumentLoadSuccess extends DocumentState {
       required this.fileVersion});
 
   @override
-  List<Object?> get props => [document, editMode, currentPainterIndex, documentIndex];
+  List<Object?> get props =>
+      [document, editMode, currentPainterIndex, documentIndex];
 
   Painter? get currentPainter {
     if (document.painters.isEmpty) {
       return null;
     }
-    return document.painters[currentPainterIndex.clamp(0, document.painters.length - 1)];
+    return document
+        .painters[currentPainterIndex.clamp(0, document.painters.length - 1)];
   }
 
   DocumentLoadSuccess copyWith(
-      {AppDocument? document, bool? editMode, int? currentPainterIndex, int? documentIndex}) {
+      {AppDocument? document,
+      bool? editMode,
+      int? currentPainterIndex,
+      int? documentIndex}) {
     return DocumentLoadSuccess(document ?? this.document,
         editMode: editMode ?? this.editMode,
         documentIndex: documentIndex ?? this.documentIndex,

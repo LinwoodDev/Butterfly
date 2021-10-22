@@ -17,8 +17,10 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
 
   @override
   void initState() {
-    _nameController.text = (widget.bloc!.state as DocumentLoadSuccess).document.name;
-    _descriptionController.text = (widget.bloc!.state as DocumentLoadSuccess).document.description;
+    _nameController.text =
+        (widget.bloc!.state as DocumentLoadSuccess).document.name;
+    _descriptionController.text =
+        (widget.bloc!.state as DocumentLoadSuccess).document.description;
     super.initState();
   }
 
@@ -33,7 +35,8 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                     title: Text(AppLocalizations.of(context)!.projectSettings),
                     leading: const Icon(PhosphorIcons.gearLight)),
                 body: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Column(children: [
                     Expanded(
                       child: Padding(
@@ -42,14 +45,16 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                           TextField(
                               controller: _nameController,
                               decoration: InputDecoration(
-                                  labelText: AppLocalizations.of(context)!.name, filled: true)),
+                                  labelText: AppLocalizations.of(context)!.name,
+                                  filled: true)),
                           const SizedBox(height: 20),
                           TextField(
                               minLines: 3,
                               maxLines: 5,
                               controller: _descriptionController,
                               decoration: InputDecoration(
-                                  labelText: AppLocalizations.of(context)!.description,
+                                  labelText:
+                                      AppLocalizations.of(context)!.description,
                                   border: const OutlineInputBorder())),
                         ]),
                       ),

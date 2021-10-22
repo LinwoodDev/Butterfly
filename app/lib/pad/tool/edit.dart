@@ -71,19 +71,27 @@ class _EditToolbarState extends State<EditToolbar> {
               itemBuilder: (context, i) {
                 var e = painters[i];
                 var type = e.toJson()['type'];
-                var selected =
-                    i == state.currentPainterIndex.clamp(0, state.document.painters.length - 1);
+                var selected = i ==
+                    state.currentPainterIndex
+                        .clamp(0, state.document.painters.length - 1);
                 String? tooltip = e.name.trim();
                 if (tooltip == "") tooltip = null;
                 Widget toolWidget = Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: InkWell(
-                        borderRadius: const BorderRadius.all(Radius.circular(32)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(32)),
                         child: Column(children: [
-                          Icon(selected ? getPainterActiveIcon(type) : getPainterIcon(type),
-                              color: selected ? Theme.of(context).colorScheme.primary : null,
+                          Icon(
+                              selected
+                                  ? getPainterActiveIcon(type)
+                                  : getPainterIcon(type),
+                              color: selected
+                                  ? Theme.of(context).colorScheme.primary
+                                  : null,
                               size: 32),
-                          if (selected) const Icon(PhosphorIcons.caretDownLight, size: 12)
+                          if (selected)
+                            const Icon(PhosphorIcons.caretDownLight, size: 12)
                         ]),
                         onTap: () {
                           if (!selected) {
@@ -94,7 +102,8 @@ class _EditToolbarState extends State<EditToolbar> {
                                 builder: (context) {
                                   switch (type) {
                                     case 'pen':
-                                      return PenPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                      return PenPainterDialog(
+                                          bloc: widget.bloc, painterIndex: i);
                                     case 'eraser':
                                       return EraserPainterDialog(
                                           bloc: widget.bloc, painterIndex: i);
@@ -102,17 +111,22 @@ class _EditToolbarState extends State<EditToolbar> {
                                       return PathEraserPainterDialog(
                                           bloc: widget.bloc, painterIndex: i);
                                     case 'label':
-                                      return LabelPainterDialog(bloc: widget.bloc, painterIndex: i);
+                                      return LabelPainterDialog(
+                                          bloc: widget.bloc, painterIndex: i);
                                     case 'image':
-                                      return ImagePainterDialog(bloc: widget.bloc, painterIndex: i);
+                                      return ImagePainterDialog(
+                                          bloc: widget.bloc, painterIndex: i);
                                     default:
                                       return Container();
                                   }
                                 });
                           }
                         }));
-                if (tooltip != null) toolWidget = Tooltip(message: tooltip, child: toolWidget);
-                return ReorderableDragStartListener(index: i, key: ObjectKey(e), child: toolWidget);
+                if (tooltip != null) {
+                  toolWidget = Tooltip(message: tooltip, child: toolWidget);
+                }
+                return ReorderableDragStartListener(
+                    index: i, key: ObjectKey(e), child: toolWidget);
               },
               onReorder: (oldIndex, newIndex) =>
                   widget.bloc.add(PainterReordered(oldIndex, newIndex))),
@@ -122,7 +136,8 @@ class _EditToolbarState extends State<EditToolbar> {
               onSelected: (value) => widget.bloc.add(PainterCreated(value)),
               icon: const Icon(PhosphorIcons.plusLight),
               itemBuilder: (context) => [
-                    ...["pen", "eraser", "path-eraser", "label", "image"].map((e) {
+                    ...["pen", "eraser", "path-eraser", "label", "image"]
+                        .map((e) {
                       Painter painter;
                       String name;
                       switch (e) {

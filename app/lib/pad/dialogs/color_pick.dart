@@ -17,7 +17,10 @@ class ColorPickerDialog extends StatefulWidget {
   final bool viewMode;
   final Color defaultColor;
   const ColorPickerDialog(
-      {Key? key, required this.bloc, this.defaultColor = Colors.white, this.viewMode = false})
+      {Key? key,
+      required this.bloc,
+      this.defaultColor = Colors.white,
+      this.viewMode = false})
       : super(key: key);
 
   @override
@@ -32,19 +35,23 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         context: context,
         builder: (context) => BlocProvider.value(
               value: widget.bloc,
-              child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+              child: BlocBuilder<DocumentBloc, DocumentState>(
+                  builder: (context, state) {
                 if (state is! DocumentLoadSuccess) return Container();
                 var palette = state.document.palettes[selected];
                 if ((palette.colors.length) <= index) return Container();
                 final color = palette.colors[index];
-                final newPalettes = List<ColorPalette>.from(state.document.palettes);
+                final newPalettes =
+                    List<ColorPalette>.from(state.document.palettes);
                 final newPalette = List<Color>.from(palette.colors);
                 return SizedBox(
                     height: 300,
                     child: Column(children: [
                       SizedBox(
                         height: 125,
-                        child: Center(child: Container(color: color, height: 100, width: 100)),
+                        child: Center(
+                            child: Container(
+                                color: color, height: 100, width: 100)),
                       ),
                       const Divider(thickness: 1),
                       Expanded(
@@ -55,11 +62,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             onTap: () async {
                               var value = await showDialog(
                                   context: context,
-                                  builder: (context) => CustomColorPicker(defaultColor: color));
+                                  builder: (context) =>
+                                      CustomColorPicker(defaultColor: color));
                               if (value != null) {
                                 newPalette[index] = value;
-                                newPalettes[selected] = palette.copyWith(colors: newPalette);
-                                widget.bloc.add(DocumentPaletteChanged(newPalettes));
+                                newPalettes[selected] =
+                                    palette.copyWith(colors: newPalette);
+                                widget.bloc
+                                    .add(DocumentPaletteChanged(newPalettes));
                               }
                             }),
                         ListTile(
@@ -69,21 +79,31 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                      title: Text(AppLocalizations.of(context)!.areYouSure),
-                                      content: Text(AppLocalizations.of(context)!.reallyDelete),
+                                      title: Text(AppLocalizations.of(context)!
+                                          .areYouSure),
+                                      content: Text(
+                                          AppLocalizations.of(context)!
+                                              .reallyDelete),
                                       actions: [
                                         TextButton(
-                                            child: Text(AppLocalizations.of(context)!.no),
-                                            onPressed: () => Navigator.of(context).pop()),
+                                            child: Text(
+                                                AppLocalizations.of(context)!
+                                                    .no),
+                                            onPressed: () =>
+                                                Navigator.of(context).pop()),
                                         TextButton(
-                                            child: Text(AppLocalizations.of(context)!.yes),
+                                            child: Text(
+                                                AppLocalizations.of(context)!
+                                                    .yes),
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                               Navigator.of(context).pop();
                                               newPalette.removeAt(index);
-                                              newPalettes[selected] =
-                                                  palette.copyWith(colors: newPalette);
-                                              widget.bloc.add(DocumentPaletteChanged(newPalettes));
+                                              newPalettes[selected] = palette
+                                                  .copyWith(colors: newPalette);
+                                              widget.bloc.add(
+                                                  DocumentPaletteChanged(
+                                                      newPalettes));
                                             })
                                       ],
                                     ));
@@ -108,7 +128,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+                  BlocBuilder<DocumentBloc, DocumentState>(
+                      builder: (context, state) {
                     if (state is! DocumentLoadSuccess) {
                       return Container();
                     }
@@ -121,18 +142,22 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       children: [
                         Material(
                           shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(12))),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12))),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: LayoutBuilder(builder: (context, constraints) {
+                            child:
+                                LayoutBuilder(builder: (context, constraints) {
                               return SingleChildScrollView(
                                 child: ConstrainedBox(
-                                  constraints: BoxConstraints(minWidth: constraints.maxWidth),
+                                  constraints: BoxConstraints(
+                                      minWidth: constraints.maxWidth),
                                   child: Wrap(
                                     verticalDirection: VerticalDirection.up,
                                     runAlignment: WrapAlignment.end,
                                     alignment: WrapAlignment.spaceAround,
-                                    crossAxisAlignment: WrapCrossAlignment.start,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.start,
                                     children: [
                                       DropdownButton<int>(
                                         alignment: Alignment.center,
@@ -158,215 +183,294 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
                                             IconButton(
-                                                tooltip: AppLocalizations.of(context)!.add,
-                                                icon: const Icon(PhosphorIcons.plusLight),
+                                                tooltip: AppLocalizations.of(
+                                                        context)!
+                                                    .add,
+                                                icon: const Icon(
+                                                    PhosphorIcons.plusLight),
                                                 onPressed: () {
-                                                  final _nameController = TextEditingController();
+                                                  final _nameController =
+                                                      TextEditingController();
                                                   showDialog(
                                                       context: context,
-                                                      builder: (context) => AlertDialog(
+                                                      builder: (context) =>
+                                                          AlertDialog(
                                                               actions: [
                                                                 TextButton(
                                                                     onPressed: () =>
-                                                                        Navigator.of(context).pop(),
-                                                                    child: Text(AppLocalizations.of(
-                                                                            context)!
-                                                                        .cancel)),
+                                                                        Navigator.of(context)
+                                                                            .pop(),
+                                                                    child: Text(
+                                                                        AppLocalizations.of(context)!
+                                                                            .cancel)),
                                                                 TextButton(
-                                                                    onPressed: () {
-                                                                      Navigator.of(context).pop();
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
 
-                                                                      widget.bloc.add(
-                                                                          DocumentPaletteChanged(
-                                                                        List<ColorPalette>.from(
-                                                                            state.document.palettes)
-                                                                          ..add(ColorPalette(
-                                                                              name: _nameController
-                                                                                  .text)),
+                                                                      widget
+                                                                          .bloc
+                                                                          .add(
+                                                                              DocumentPaletteChanged(
+                                                                        List<ColorPalette>.from(state
+                                                                            .document
+                                                                            .palettes)
+                                                                          ..add(
+                                                                              ColorPalette(name: _nameController.text)),
                                                                       ));
                                                                     },
-                                                                    child: Text(AppLocalizations.of(
-                                                                            context)!
-                                                                        .create)),
+                                                                    child: Text(
+                                                                        AppLocalizations.of(context)!
+                                                                            .create)),
                                                               ],
                                                               title: Text(
-                                                                  AppLocalizations.of(context)!
+                                                                  AppLocalizations.of(
+                                                                          context)!
                                                                       .enterName),
                                                               content: TextField(
-                                                                  autofocus: true,
-                                                                  controller: _nameController)));
+                                                                  autofocus:
+                                                                      true,
+                                                                  controller:
+                                                                      _nameController)));
                                                 }),
                                             IconButton(
-                                                tooltip: AppLocalizations.of(context)!.edit,
-                                                icon: const Icon(PhosphorIcons.penLight),
+                                                tooltip: AppLocalizations.of(
+                                                        context)!
+                                                    .edit,
+                                                icon: const Icon(
+                                                    PhosphorIcons.penLight),
                                                 onPressed: () {
-                                                  if (selected >= state.document.palettes.length) {
+                                                  if (selected >=
+                                                      state.document.palettes
+                                                          .length) {
                                                     return;
                                                   }
-                                                  final _nameController = TextEditingController(
-                                                      text: state.document.palettes[selected].name);
+                                                  final _nameController =
+                                                      TextEditingController(
+                                                          text: state
+                                                              .document
+                                                              .palettes[
+                                                                  selected]
+                                                              .name);
                                                   showDialog(
                                                       context: context,
-                                                      builder: (context) => AlertDialog(
+                                                      builder: (context) =>
+                                                          AlertDialog(
                                                               actions: [
                                                                 TextButton(
                                                                     onPressed: () =>
-                                                                        Navigator.of(context).pop(),
-                                                                    child: Text(AppLocalizations.of(
-                                                                            context)!
-                                                                        .cancel)),
+                                                                        Navigator.of(context)
+                                                                            .pop(),
+                                                                    child: Text(
+                                                                        AppLocalizations.of(context)!
+                                                                            .cancel)),
                                                                 TextButton(
-                                                                    onPressed: () {
-                                                                      var newPalettes =
-                                                                          List<ColorPalette>.from(
-                                                                              state.document
-                                                                                  .palettes);
+                                                                    onPressed:
+                                                                        () {
+                                                                      var newPalettes = List<ColorPalette>.from(state
+                                                                          .document
+                                                                          .palettes);
                                                                       newPalettes[
                                                                           selected] = newPalettes[
                                                                               selected]
                                                                           .copyWith(
-                                                                              name: _nameController
-                                                                                  .text);
-                                                                      widget.bloc.add(
-                                                                          DocumentPaletteChanged(
+                                                                              name: _nameController.text);
+                                                                      widget
+                                                                          .bloc
+                                                                          .add(DocumentPaletteChanged(
                                                                               newPalettes));
-                                                                      Navigator.of(context).pop();
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
                                                                     },
-                                                                    child: Text(AppLocalizations.of(
-                                                                            context)!
-                                                                        .ok)),
+                                                                    child: Text(
+                                                                        AppLocalizations.of(context)!
+                                                                            .ok)),
                                                               ],
                                                               title: Text(
-                                                                  AppLocalizations.of(context)!
+                                                                  AppLocalizations.of(
+                                                                          context)!
                                                                       .enterName),
                                                               content: TextField(
-                                                                  autofocus: true,
-                                                                  controller: _nameController)));
+                                                                  autofocus:
+                                                                      true,
+                                                                  controller:
+                                                                      _nameController)));
                                                 }),
                                             IconButton(
-                                                tooltip: AppLocalizations.of(context)!.remove,
-                                                icon: const Icon(PhosphorIcons.minusLight),
+                                                tooltip: AppLocalizations.of(
+                                                        context)!
+                                                    .remove,
+                                                icon: const Icon(
+                                                    PhosphorIcons.minusLight),
                                                 onPressed: () {
-                                                  if (selected >= state.document.palettes.length) {
+                                                  if (selected >=
+                                                      state.document.palettes
+                                                          .length) {
                                                     return;
                                                   }
                                                   showDialog(
                                                       context: context,
-                                                      builder: (context) => AlertDialog(
-                                                            title: Text(
-                                                                AppLocalizations.of(context)!
+                                                      builder:
+                                                          (context) =>
+                                                              AlertDialog(
+                                                                title: Text(AppLocalizations.of(
+                                                                        context)!
                                                                     .areYouSure),
-                                                            content: Text(
-                                                                AppLocalizations.of(context)!
-                                                                    .reallyDelete),
-                                                            actions: [
-                                                              TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.of(context).pop(),
-                                                                  child: Text(
-                                                                      AppLocalizations.of(context)!
-                                                                          .no)),
-                                                              TextButton(
-                                                                  onPressed: () {
-                                                                    Navigator.of(context).pop();
-                                                                    var newPalettes =
-                                                                        List<ColorPalette>.from(
-                                                                            state
-                                                                                .document.palettes);
-                                                                    newPalettes.removeAt(selected);
-                                                                    widget.bloc.add(
-                                                                        DocumentPaletteChanged(
-                                                                            newPalettes));
-                                                                  },
-                                                                  child: Text(
-                                                                      AppLocalizations.of(context)!
-                                                                          .yes)),
-                                                            ],
-                                                          ));
+                                                                content: Text(
+                                                                    AppLocalizations.of(
+                                                                            context)!
+                                                                        .reallyDelete),
+                                                                actions: [
+                                                                  TextButton(
+                                                                      onPressed: () =>
+                                                                          Navigator.of(context)
+                                                                              .pop(),
+                                                                      child: Text(
+                                                                          AppLocalizations.of(context)!
+                                                                              .no)),
+                                                                  TextButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.of(context)
+                                                                            .pop();
+                                                                        var newPalettes = List<ColorPalette>.from(state
+                                                                            .document
+                                                                            .palettes);
+                                                                        newPalettes
+                                                                            .removeAt(selected);
+                                                                        widget
+                                                                            .bloc
+                                                                            .add(DocumentPaletteChanged(newPalettes));
+                                                                      },
+                                                                      child: Text(
+                                                                          AppLocalizations.of(context)!
+                                                                              .yes)),
+                                                                ],
+                                                              ));
                                                 }),
                                             const VerticalDivider(),
                                             IconButton(
-                                                tooltip: AppLocalizations.of(context)!.open,
-                                                icon: const Icon(PhosphorIcons.folderOpenLight),
+                                                tooltip: AppLocalizations.of(
+                                                        context)!
+                                                    .open,
+                                                icon: const Icon(PhosphorIcons
+                                                    .folderOpenLight),
                                                 onPressed: () {
                                                   showDialog(
-                                                          builder: (context) => const OpenDialog(),
+                                                          builder: (context) =>
+                                                              const OpenDialog(),
                                                           context: context)
                                                       .then((data) {
-                                                    final palettes = <ColorPalette>[];
+                                                    final palettes =
+                                                        <ColorPalette>[];
                                                     if (data == null) return;
-                                                    var value = jsonDecode(data);
-                                                    palettes.addAll(List<Map<String, dynamic>>.from(
+                                                    var value =
+                                                        jsonDecode(data);
+                                                    palettes.addAll(List<
+                                                                Map<String,
+                                                                    dynamic>>.from(
                                                             value['palettes'])
-                                                        .map((e) => ColorPalette.fromJson(e))
+                                                        .map((e) => ColorPalette
+                                                            .fromJson(e))
                                                         .toList());
-                                                    widget.bloc
-                                                        .add(DocumentPaletteChanged(palettes));
+                                                    widget.bloc.add(
+                                                        DocumentPaletteChanged(
+                                                            palettes));
                                                   });
                                                 }),
                                             IconButton(
-                                                tooltip: AppLocalizations.of(context)!.save,
-                                                icon: const Icon(PhosphorIcons.floppyDiskLight),
+                                                tooltip: AppLocalizations.of(
+                                                        context)!
+                                                    .save,
+                                                icon: const Icon(PhosphorIcons
+                                                    .floppyDiskLight),
                                                 onPressed: () {
                                                   var data = json.encode({
                                                     "fileVersion": GetIt.I
-                                                        .get<int>(instanceName: "fileVersion"),
-                                                    "palettes": state.document.palettes
+                                                        .get<int>(
+                                                            instanceName:
+                                                                "fileVersion"),
+                                                    "palettes": state
+                                                        .document.palettes
                                                         .map((e) => e.toJson())
                                                         .toList()
                                                   });
                                                   showDialog(
                                                       context: context,
-                                                      builder: (context) => SaveDialog(data: data));
+                                                      builder: (context) =>
+                                                          SaveDialog(
+                                                              data: data));
                                                 }),
                                             IconButton(
-                                                tooltip: AppLocalizations.of(context)!.help,
-                                                icon: const Icon(
-                                                    PhosphorIcons.circleWavyQuestionLight),
-                                                onPressed: () => openHelp(["color_picker"])),
+                                                tooltip: AppLocalizations.of(
+                                                        context)!
+                                                    .help,
+                                                icon: const Icon(PhosphorIcons
+                                                    .circleWavyQuestionLight),
+                                                onPressed: () =>
+                                                    openHelp(["color_picker"])),
                                             IconButton(
-                                                tooltip: AppLocalizations.of(context)!.resetPalette,
-                                                icon: const Icon(PhosphorIcons.clockClockwiseLight),
+                                                tooltip: AppLocalizations.of(
+                                                        context)!
+                                                    .resetPalette,
+                                                icon: const Icon(PhosphorIcons
+                                                    .clockClockwiseLight),
                                                 onPressed: () {
                                                   showDialog(
                                                       context: context,
-                                                      builder: (context) => AlertDialog(
+                                                      builder: (context) =>
+                                                          AlertDialog(
                                                               title: Text(
-                                                                  AppLocalizations.of(context)!
+                                                                  AppLocalizations.of(
+                                                                          context)!
                                                                       .areYouSure),
                                                               content: Text(
-                                                                  AppLocalizations.of(context)!
+                                                                  AppLocalizations.of(
+                                                                          context)!
                                                                       .reallyReset),
                                                               actions: [
                                                                 TextButton(
                                                                     onPressed: () =>
-                                                                        Navigator.of(context).pop(),
-                                                                    child: Text(AppLocalizations.of(
-                                                                            context)!
-                                                                        .no)),
+                                                                        Navigator.of(context)
+                                                                            .pop(),
+                                                                    child: Text(
+                                                                        AppLocalizations.of(context)!
+                                                                            .no)),
                                                                 TextButton(
-                                                                    onPressed: () {
-                                                                      selected = 0;
-                                                                      widget.bloc.add(
-                                                                          DocumentPaletteChanged(
-                                                                              ColorPalette
-                                                                                  .getMaterialPalette(
-                                                                                      context)));
-                                                                      Navigator.of(context).pop();
+                                                                    onPressed:
+                                                                        () {
+                                                                      selected =
+                                                                          0;
+                                                                      widget
+                                                                          .bloc
+                                                                          .add(DocumentPaletteChanged(
+                                                                              ColorPalette.getMaterialPalette(context)));
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
                                                                     },
-                                                                    child: Text(AppLocalizations.of(
-                                                                            context)!
-                                                                        .yes))
+                                                                    child: Text(
+                                                                        AppLocalizations.of(context)!
+                                                                            .yes))
                                                               ]));
                                                 }),
                                             const VerticalDivider(),
                                             IconButton(
-                                                tooltip: AppLocalizations.of(context)!.close,
-                                                icon: const Icon(PhosphorIcons.xLight),
-                                                onPressed: () => Navigator.of(context).pop()),
+                                                tooltip: AppLocalizations.of(
+                                                        context)!
+                                                    .close,
+                                                icon: const Icon(
+                                                    PhosphorIcons.xLight),
+                                                onPressed: () =>
+                                                    Navigator.of(context)
+                                                        .pop()),
                                           ],
                                         ),
                                       ),
@@ -380,14 +484,18 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         const SizedBox(height: 10),
                         Align(
                           alignment: Alignment.center,
-                          child: Wrap(alignment: WrapAlignment.start, children: [
+                          child:
+                              Wrap(alignment: WrapAlignment.start, children: [
                             if (state.document.palettes.isNotEmpty)
                               ...(List.generate(
                                   palette.length,
                                   (index) => InkWell(
-                                      borderRadius: const BorderRadius.all(Radius.circular(32)),
-                                      onLongPress: () => _showColorOperation(index),
-                                      onTap: () => Navigator.of(context).pop(palette[index]),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(32)),
+                                      onLongPress: () =>
+                                          _showColorOperation(index),
+                                      onTap: () => Navigator.of(context)
+                                          .pop(palette[index]),
                                       child: Container(
                                         width: 100,
                                         height: 100,
@@ -395,38 +503,52 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                         decoration: BoxDecoration(
                                             color: palette[index],
                                             borderRadius:
-                                                const BorderRadius.all(Radius.circular(32))),
+                                                const BorderRadius.all(
+                                                    Radius.circular(32))),
                                       )))).toList(),
                             if (selected < state.document.palettes.length)
                               Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: Material(
-                                  color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
+                                  color: Theme.of(context)
+                                      .scaffoldBackgroundColor
+                                      .withOpacity(0.5),
                                   shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(32))),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(32))),
                                   child: InkWell(
-                                    borderRadius: const BorderRadius.all(Radius.circular(32)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(32)),
                                     child: Container(
                                       decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(Radius.circular(1322))),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(1322))),
                                       width: 100,
                                       height: 100,
                                       child: const Center(
-                                          child: Icon(PhosphorIcons.plusLight, size: 42)),
+                                          child: Icon(PhosphorIcons.plusLight,
+                                              size: 42)),
                                     ),
                                     onTap: () async {
                                       var value = await showDialog(
                                           context: context,
                                           builder: (context) =>
-                                              CustomColorPicker(defaultColor: widget.defaultColor));
+                                              CustomColorPicker(
+                                                  defaultColor:
+                                                      widget.defaultColor));
                                       if (value != null) {
                                         var newPalettes =
-                                            List<ColorPalette>.from(state.document.palettes);
-                                        newPalettes[selected] = newPalettes[selected].copyWith(
-                                            colors: List<Color>.from(newPalettes[selected].colors)
-                                              ..add(value));
+                                            List<ColorPalette>.from(
+                                                state.document.palettes);
+                                        newPalettes[selected] =
+                                            newPalettes[selected].copyWith(
+                                                colors: List<Color>.from(
+                                                    newPalettes[selected]
+                                                        .colors)
+                                                  ..add(value));
 
-                                        widget.bloc.add(DocumentPaletteChanged(newPalettes));
+                                        widget.bloc.add(DocumentPaletteChanged(
+                                            newPalettes));
                                       }
                                     },
                                   ),
@@ -443,8 +565,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         onPressed: () async {
                           var value = await showDialog(
                               context: context,
-                              builder: (context) =>
-                                  CustomColorPicker(defaultColor: widget.defaultColor));
+                              builder: (context) => CustomColorPicker(
+                                  defaultColor: widget.defaultColor));
                           if (value != null) Navigator.of(context).pop(value);
                         },
                         child: Text(AppLocalizations.of(context)!.custom)),
@@ -459,7 +581,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 class CustomColorPicker extends StatefulWidget {
   final Color defaultColor;
 
-  const CustomColorPicker({Key? key, this.defaultColor = Colors.white}) : super(key: key);
+  const CustomColorPicker({Key? key, this.defaultColor = Colors.white})
+      : super(key: key);
 
   @override
   _CustomColorPickerState createState() => _CustomColorPickerState();
@@ -479,9 +602,10 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
     super.initState();
   }
 
-  void _changeColor({int? red, int? green, int? blue, int? alpha}) => setState(() {
-        color = Color.fromARGB(
-            alpha ?? color.alpha, red ?? color.red, green ?? color.green, blue ?? color.blue);
+  void _changeColor({int? red, int? green, int? blue, int? alpha}) =>
+      setState(() {
+        color = Color.fromARGB(alpha ?? color.alpha, red ?? color.red,
+            green ?? color.green, blue ?? color.blue);
         _updateController();
       });
   void _updateController() {
@@ -521,9 +645,11 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                             ConstrainedBox(
                               constraints: const BoxConstraints(maxWidth: 100),
                               child: TextField(
-                                  decoration: const InputDecoration(labelText: "R"),
+                                  decoration:
+                                      const InputDecoration(labelText: "R"),
                                   controller: _redController,
-                                  onChanged: (value) => _changeColor(red: int.tryParse(value))),
+                                  onChanged: (value) =>
+                                      _changeColor(red: int.tryParse(value))),
                             ),
                             Expanded(
                                 child: Slider(
@@ -532,16 +658,19 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                               min: 0,
                               max: 255,
                               divisions: 255,
-                              onChanged: (value) => _changeColor(red: value.toInt()),
+                              onChanged: (value) =>
+                                  _changeColor(red: value.toInt()),
                             ))
                           ]),
                           Row(children: [
                             ConstrainedBox(
                               constraints: const BoxConstraints(maxWidth: 100),
                               child: TextField(
-                                  decoration: const InputDecoration(labelText: "G"),
+                                  decoration:
+                                      const InputDecoration(labelText: "G"),
                                   controller: _greenController,
-                                  onChanged: (value) => _changeColor(green: int.tryParse(value))),
+                                  onChanged: (value) =>
+                                      _changeColor(green: int.tryParse(value))),
                             ),
                             Expanded(
                                 child: Slider(
@@ -550,16 +679,19 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                               min: 0,
                               max: 255,
                               divisions: 255,
-                              onChanged: (value) => _changeColor(green: value.toInt()),
+                              onChanged: (value) =>
+                                  _changeColor(green: value.toInt()),
                             ))
                           ]),
                           Row(children: [
                             ConstrainedBox(
                               constraints: const BoxConstraints(maxWidth: 100),
                               child: TextField(
-                                  decoration: const InputDecoration(labelText: "B"),
+                                  decoration:
+                                      const InputDecoration(labelText: "B"),
                                   controller: _blueController,
-                                  onChanged: (value) => _changeColor(blue: int.tryParse(value))),
+                                  onChanged: (value) =>
+                                      _changeColor(blue: int.tryParse(value))),
                             ),
                             Expanded(
                                 child: Slider(
@@ -568,16 +700,19 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                               min: 0,
                               max: 255,
                               divisions: 255,
-                              onChanged: (value) => _changeColor(blue: value.toInt()),
+                              onChanged: (value) =>
+                                  _changeColor(blue: value.toInt()),
                             ))
                           ]),
                           Row(children: [
                             ConstrainedBox(
                               constraints: const BoxConstraints(maxWidth: 100),
                               child: TextField(
-                                  decoration: const InputDecoration(labelText: "A"),
+                                  decoration:
+                                      const InputDecoration(labelText: "A"),
                                   controller: _alphaController,
-                                  onChanged: (value) => _changeColor(alpha: int.tryParse(value))),
+                                  onChanged: (value) =>
+                                      _changeColor(alpha: int.tryParse(value))),
                             ),
                             Expanded(
                                 child: Slider(
@@ -585,7 +720,8 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                               min: 0,
                               max: 255,
                               divisions: 255,
-                              onChanged: (value) => _changeColor(alpha: value.toInt()),
+                              onChanged: (value) =>
+                                  _changeColor(alpha: value.toInt()),
                             ))
                           ])
                         ]))

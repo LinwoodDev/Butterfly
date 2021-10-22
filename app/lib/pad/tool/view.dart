@@ -30,14 +30,17 @@ class _ViewToolbarState extends State<ViewToolbar> {
           icon: const Icon(PhosphorIcons.imageLight),
           tooltip: AppLocalizations.of(context)!.background,
           onPressed: () {
-            showDialog(context: context, builder: (context) => BackgroundDialog(bloc: widget.bloc));
+            showDialog(
+                context: context,
+                builder: (context) => BackgroundDialog(bloc: widget.bloc));
           },
         ),
         IconButton(
             icon: const Icon(PhosphorIcons.arrowSquareOutLight),
             tooltip: AppLocalizations.of(context)!.export,
             onPressed: () => showDialog(
-                context: context, builder: (context) => ExportDialog(bloc: widget.bloc))),
+                context: context,
+                builder: (context) => ExportDialog(bloc: widget.bloc))),
         IconButton(
           icon: const Icon(PhosphorIcons.paletteLight),
           tooltip: AppLocalizations.of(context)!.color,
@@ -53,7 +56,9 @@ class _ViewToolbarState extends State<ViewToolbar> {
             tooltip: AppLocalizations.of(context)!.save,
             onPressed: () async {
               var data = json.encode(state.document.toJson());
-              showDialog(context: context, builder: (context) => SaveDialog(data: data));
+              showDialog(
+                  context: context,
+                  builder: (context) => SaveDialog(data: data));
             }),
       ]);
     });

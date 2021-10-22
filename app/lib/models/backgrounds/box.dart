@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 @immutable
 class BoxBackground {
-  final double boxWidth, boxHeight, boxXSpace, boxYSpace, boxXStroke, boxYStroke;
+  final double boxWidth,
+      boxHeight,
+      boxXSpace,
+      boxYSpace,
+      boxXStroke,
+      boxYStroke;
   final Color boxXColor, boxYColor, boxColor;
   final int boxXCount, boxYCount;
   const BoxBackground(
@@ -24,7 +29,8 @@ class BoxBackground {
         boxYCount = json['yCount'] ?? 0,
         boxXSpace = json['xSpace'] ?? 0,
         boxYSpace = json['ySpace'] ?? 0,
-        boxXColor = json['xColor'] != null ? Color(json['xColor']) : Colors.blue,
+        boxXColor =
+            json['xColor'] != null ? Color(json['xColor']) : Colors.blue,
         boxYColor = json['yColor'] != null ? Color(json['yColor']) : Colors.red,
         boxColor = json['color'] != null ? Color(json['color']) : Colors.white,
         boxXStroke = json['xStroke'] ?? .5,

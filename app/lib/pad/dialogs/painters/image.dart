@@ -9,7 +9,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class ImagePainterDialog extends StatefulWidget {
   final DocumentBloc bloc;
   final int painterIndex;
-  const ImagePainterDialog({Key? key, required this.bloc, required this.painterIndex})
+  const ImagePainterDialog(
+      {Key? key, required this.bloc, required this.painterIndex})
       : super(key: key);
 
   @override
@@ -23,13 +24,17 @@ class _ImagePainterDialogState extends State<ImagePainterDialog> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: widget.bloc,
-      child: Dialog(child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+      child: Dialog(child:
+          BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
         if (state is! DocumentLoadSuccess) return Container();
-        var painter = state.document.painters[widget.painterIndex] as ImagePainter;
+        var painter =
+            state.document.painters[widget.painterIndex] as ImagePainter;
         return Container(
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: StatefulBuilder(builder: (context, setState) {
-              if (_nameController.text != painter.name) _nameController.text = painter.name;
+              if (_nameController.text != painter.name) {
+                _nameController.text = painter.name;
+              }
               return Scaffold(
                   backgroundColor: Colors.transparent,
                   appBar: AppBar(
@@ -39,22 +44,25 @@ class _ImagePainterDialogState extends State<ImagePainterDialog> {
                     actions: [
                       IconButton(
                           tooltip: AppLocalizations.of(context)!.help,
-                          icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+                          icon:
+                              const Icon(PhosphorIcons.circleWavyQuestionLight),
                           onPressed: () => openHelp(["painters", "image"])),
                     ],
                   ),
                   body: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
                     child: Column(
                       children: [
                         Expanded(
                           child: ListView(children: [
                             TextField(
-                                decoration:
-                                    InputDecoration(labelText: AppLocalizations.of(context)!.name),
+                                decoration: InputDecoration(
+                                    labelText:
+                                        AppLocalizations.of(context)!.name),
                                 controller: _nameController,
-                                onChanged: (value) =>
-                                    setState(() => painter = painter.copyWith(name: value))),
+                                onChanged: (value) => setState(() =>
+                                    painter = painter.copyWith(name: value))),
                           ]),
                         ),
                         const Divider(),
@@ -71,21 +79,30 @@ class _ImagePainterDialogState extends State<ImagePainterDialog> {
                                     builder: (context) => AlertDialog(
                                             actions: [
                                               TextButton(
-                                                child: Text(AppLocalizations.of(context)!.no),
-                                                onPressed: () => Navigator.of(context).pop(),
+                                                child: Text(AppLocalizations.of(
+                                                        context)!
+                                                    .no),
+                                                onPressed: () =>
+                                                    Navigator.of(context).pop(),
                                               ),
                                               TextButton(
-                                                child: Text(AppLocalizations.of(context)!.yes),
+                                                child: Text(AppLocalizations.of(
+                                                        context)!
+                                                    .yes),
                                                 onPressed: () {
-                                                  widget.bloc
-                                                      .add(PainterRemoved(widget.painterIndex));
+                                                  widget.bloc.add(
+                                                      PainterRemoved(
+                                                          widget.painterIndex));
                                                   Navigator.of(context).pop();
                                                 },
                                               )
                                             ],
-                                            title: Text(AppLocalizations.of(context)!.areYouSure),
-                                            content:
-                                                Text(AppLocalizations.of(context)!.reallyDelete)));
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .areYouSure),
+                                            content: Text(
+                                                AppLocalizations.of(context)!
+                                                    .reallyDelete)));
                               },
                             ),
                             Expanded(child: Container()),
@@ -96,7 +113,8 @@ class _ImagePainterDialogState extends State<ImagePainterDialog> {
                             ElevatedButton(
                               child: Text(AppLocalizations.of(context)!.ok),
                               onPressed: () {
-                                widget.bloc.add(PainterChanged(painter, widget.painterIndex));
+                                widget.bloc.add(PainterChanged(
+                                    painter, widget.painterIndex));
                                 Navigator.of(context).pop();
                               },
                             ),

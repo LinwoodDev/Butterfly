@@ -31,8 +31,9 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> loadDocuments() {
     return SharedPreferences.getInstance().then<void>((prefs) async {
-      var loaded = await Future.wait(List<String>.from(prefs.getStringList("documents") ?? [])
-          .map<Future<AppDocument>>((e) async {
+      var loaded = await Future.wait(
+          List<String>.from(prefs.getStringList("documents") ?? [])
+              .map<Future<AppDocument>>((e) async {
         var data = jsonDecode(e);
         var fileVersion = data["fileVersion"] is int?
             ? data["fileVersion"]
@@ -43,16 +44,19 @@ class _HomePageState extends State<HomePage> {
               context: context,
               builder: (context) => AlertDialog(
                       title: Text(AppLocalizations.of(context)!.whatToDo),
-                      content: Text(AppLocalizations.of(context)!.createdInNewerVersion),
+                      content: Text(
+                          AppLocalizations.of(context)!.createdInNewerVersion),
                       actions: [
                         TextButton(
                             onPressed: () => Navigator.of(context).pop(),
-                            child: Text(AppLocalizations.of(context)!.iDontCare)),
+                            child:
+                                Text(AppLocalizations.of(context)!.iDontCare)),
                         TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
                               showDialog(
-                                  context: context, builder: (context) => SaveDialog(data: e));
+                                  context: context,
+                                  builder: (context) => SaveDialog(data: e));
                             },
                             child: Text(AppLocalizations.of(context)!.backup)),
                       ]));
@@ -65,8 +69,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> saveDocuments() {
-    return SharedPreferences.getInstance().then((prefs) =>
-        prefs.setStringList("documents", _documents.map((e) => jsonEncode(e.toJson())).toList()));
+    return SharedPreferences.getInstance().then((prefs) => prefs.setStringList(
+        "documents", _documents.map((e) => jsonEncode(e.toJson())).toList()));
   }
 
   @override
@@ -74,13 +78,17 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Butterfly"), actions: [
         IconButton(
-            icon: Icon(gridView ? PhosphorIcons.listLight : PhosphorIcons.gridFourLight),
+            icon: Icon(gridView
+                ? PhosphorIcons.listLight
+                : PhosphorIcons.gridFourLight),
             onPressed: () => setState(() => gridView = !gridView)),
         IconButton(
           icon: const Icon(PhosphorIcons.folderOpenLight),
           tooltip: AppLocalizations.of(context)!.open,
           onPressed: () {
-            showDialog(builder: (context) => const OpenDialog(), context: context).then((content) {
+            showDialog(
+                    builder: (context) => const OpenDialog(), context: context)
+                .then((content) {
               if (content == null) return;
               setState(() {
                 _documents.add(AppDocument.fromJson(jsonDecode(content)));
@@ -103,7 +111,8 @@ class _HomePageState extends State<HomePage> {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
                     title: Text(AppLocalizations.of(context)!.enterName),
                     content: TextField(
                       controller: _nameController,
@@ -119,7 +128,8 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () {
                           setState(() => _documents.add(AppDocument(
                               name: _nameController.text,
-                              palettes: ColorPalette.getMaterialPalette(context))));
+                              palettes:
+                                  ColorPalette.getMaterialPalette(context))));
                           saveDocuments();
                           Navigator.of(context).pop();
                         },
@@ -146,7 +156,8 @@ class _HomePageState extends State<HomePage> {
         },
       );
 
-  void _openDocument(int index) => Modular.to.pushNamed("/pad/$index").then((value) {
+  void _openDocument(int index) =>
+      Modular.to.pushNamed("/pad/$index").then((value) {
         if (mounted) loadDocuments();
       });
   void _deleteDialog(int index) => showDialog(
@@ -186,19 +197,26 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         children: [
                           InkWell(
-                              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(12)),
                               onTap: () => _openDocument(index),
                               child: Container(
                                   width: 300,
                                   decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(32)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(32)),
                                   ),
-                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
                                   child: Column(children: [
                                     Text(document.name,
-                                        style: Theme.of(context).textTheme.headline6),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6),
                                     Text(document.description,
-                                        style: Theme.of(context).textTheme.overline)
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .overline)
                                   ]))),
                           IconButton(
                               icon: const Icon(PhosphorIcons.trashLight),

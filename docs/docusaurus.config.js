@@ -24,14 +24,14 @@ module.exports = {
           label: 'Tutorial',
         },
         {
-          to: 'community',
-          position: 'left',
-          label: 'Community',
-        },
-        {
           to: 'downloads',
           label: 'Downloads',
           position: 'left'
+        },
+        {
+          to: 'community',
+          position: 'left',
+          label: 'Community',
         },
         {href: 'https://linwood.dev/blog', label: 'Blog', position: 'left'},
         {

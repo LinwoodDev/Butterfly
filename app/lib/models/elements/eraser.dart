@@ -6,7 +6,8 @@ class EraserElement extends PathElement {
   @override
   final PathProperty property;
 
-  const EraserElement({List<PathPoint> points = const [], this.property = const PathProperty()})
+  const EraserElement(
+      {List<PathPoint> points = const [], this.property = const PathProperty()})
       : super(points: points);
   EraserElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : property = PathProperty.fromJson(json),
@@ -23,7 +24,8 @@ class EraserElement extends PathElement {
   Map<String, dynamic> toJson() => super.toJson()..addAll({'type': 'eraser'});
 
   @override
-  EraserElement copyWith({List<PathPoint>? points, PathProperty? property}) => EraserElement(
+  EraserElement copyWith({List<PathPoint>? points, PathProperty? property}) =>
+      EraserElement(
         points: points ?? this.points,
         property: property ?? this.property,
       );

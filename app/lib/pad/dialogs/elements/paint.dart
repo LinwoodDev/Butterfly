@@ -8,7 +8,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class PaintElementDialog extends StatelessWidget {
   final int index;
   final DocumentBloc bloc;
-  const PaintElementDialog({Key? key, required this.index, required this.bloc}) : super(key: key);
+  const PaintElementDialog({Key? key, required this.index, required this.bloc})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,18 +36,22 @@ class PaintElementDialog extends StatelessWidget {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                                    title: Text(AppLocalizations.of(context)!.areYouSure),
-                                    content: Text(AppLocalizations.of(context)!.reallyDelete),
+                                    title: Text(AppLocalizations.of(context)!
+                                        .areYouSure),
+                                    content: Text(AppLocalizations.of(context)!
+                                        .reallyDelete),
                                     actions: [
                                       TextButton(
-                                        child: Text(AppLocalizations.of(context)!.no),
+                                        child: Text(
+                                            AppLocalizations.of(context)!.no),
                                         onPressed: () {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
                                         },
                                       ),
                                       TextButton(
-                                        child: Text(AppLocalizations.of(context)!.yes),
+                                        child: Text(
+                                            AppLocalizations.of(context)!.yes),
                                         onPressed: () {
                                           Navigator.pop(context);
                                           Navigator.pop(context);

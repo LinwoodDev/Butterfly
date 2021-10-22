@@ -34,23 +34,29 @@ class AppDocument {
   factory AppDocument.fromJson(Map<String, dynamic> json) {
     var version = json['fileVersion'] is int
         ? json['fileVersion']
-        : int.tryParse(json['fileVersion']) ?? GetIt.I.get<int>(instanceName: "fileVersion");
+        : int.tryParse(json['fileVersion']) ??
+            GetIt.I.get<int>(instanceName: "fileVersion");
     if (version >= 0 && version < 4) {
-      json['palettes'] = List<dynamic>.from(Map<String, dynamic>.from(json['palettes'] ?? [])
-          .entries
-          .map<ColorPalette>((e) => ColorPalette(
-              colors: List<int>.from(e.value).map((e) => Color(e)).toList(), name: e.key))
-          .map((e) => e.toJson())
-          .toList());
+      json['palettes'] = List<dynamic>.from(
+          Map<String, dynamic>.from(json['palettes'] ?? [])
+              .entries
+              .map<ColorPalette>((e) => ColorPalette(
+                  colors: List<int>.from(e.value).map((e) => Color(e)).toList(),
+                  name: e.key))
+              .map((e) => e.toJson())
+              .toList());
     }
     var name = json['name'];
     var description = json['description'];
     var palettes = (List<Map<String, dynamic>>.from(json['palettes'] ?? []))
-        .map<ColorPalette>((e) => ColorPalette.fromJson(Map<String, dynamic>.from(e)))
+        .map<ColorPalette>(
+            (e) => ColorPalette.fromJson(Map<String, dynamic>.from(e)))
         .toList();
-    var background =
-        json['background'] == null ? null : BoxBackground.fromJson(json['background'], version);
-    var painters = List<Map<String, dynamic>>.from(json['painters']).map<Painter>((e) {
+    var background = json['background'] == null
+        ? null
+        : BoxBackground.fromJson(json['background'], version);
+    var painters =
+        List<Map<String, dynamic>>.from(json['painters']).map<Painter>((e) {
       switch (e['type']) {
         case 'eraser':
           return EraserPainter.fromJson(e, version);
@@ -64,7 +70,8 @@ class AppDocument {
           return PenPainter.fromJson(e, version);
       }
     }).toList();
-    var content = List<Map<String, dynamic>>.from(json['content']).map<ElementLayer>((e) {
+    var content =
+        List<Map<String, dynamic>>.from(json['content']).map<ElementLayer>((e) {
       switch (e['type']) {
         case 'label':
           return LabelElement.fromJson(e, version);
@@ -88,8 +95,10 @@ class AppDocument {
         "name": name,
         "description": description,
         "palettes": palettes.map((e) => e.toJson()).toList(),
-        "painters": painters.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
-        "content": content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
+        "painters":
+            painters.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
+        "content":
+            content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         "background": background?.toJson(),
         "fileVersion": GetIt.I.get<int>(instanceName: 'fileVersion')
       };

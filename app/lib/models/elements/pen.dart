@@ -7,7 +7,8 @@ class PenElement extends PathElement {
   @override
   final PenProperty property;
 
-  const PenElement({List<PathPoint> points = const [], this.property = const PenProperty()})
+  const PenElement(
+      {List<PathPoint> points = const [], this.property = const PenProperty()})
       : super(points: points);
 
   PenElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
@@ -24,7 +25,8 @@ class PenElement extends PathElement {
 
   @override
   PenElement copyWith({List<PathPoint>? points, PenProperty? property}) =>
-      PenElement(points: points ?? this.points, property: property ?? this.property);
+      PenElement(
+          points: points ?? this.points, property: property ?? this.property);
 
   @override
   bool hit(Offset offset) => points.any((element) =>

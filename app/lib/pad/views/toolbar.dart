@@ -25,15 +25,17 @@ class _MainViewToolbarState extends State<MainViewToolbar> {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       var current = state as DocumentLoadSuccess;
 
-      Widget toolbar =
-          current.editMode ? EditToolbar(bloc: widget.bloc) : ViewToolbar(bloc: widget.bloc);
+      Widget toolbar = current.editMode
+          ? EditToolbar(bloc: widget.bloc)
+          : ViewToolbar(bloc: widget.bloc);
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Align(
-                alignment: Alignment.centerRight, child: SizedBox(height: 50, child: toolbar)),
+                alignment: Alignment.centerRight,
+                child: SizedBox(height: 50, child: toolbar)),
           ),
         ],
       );

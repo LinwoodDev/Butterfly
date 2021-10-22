@@ -18,7 +18,11 @@ class PenProperty extends PathProperty {
         super.fromJson(json);
 
   @override
-  PenProperty copyWith({Color? color, bool? fill, double? strokeWidth, double? strokeMultiplier}) =>
+  PenProperty copyWith(
+          {Color? color,
+          bool? fill,
+          double? strokeWidth,
+          double? strokeMultiplier}) =>
       PenProperty(
           color: color ?? this.color,
           fill: fill ?? this.fill,

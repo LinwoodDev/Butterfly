@@ -24,6 +24,6 @@ Help me to translate the app on [crowdin](https://linwood.crowdin.com/flow).
 
 A project without a community isn't a good project. You can [join the discord](https://discord.linwood.dev)!
 
-## Security
+## Security/Branches
 
 Read more about security [here](https://docs.butterfly.linwood.dev/versions)

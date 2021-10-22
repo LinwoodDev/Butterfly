@@ -8,10 +8,12 @@ class PersonalizationSettingsPage extends StatefulWidget {
   const PersonalizationSettingsPage({Key? key}) : super(key: key);
 
   @override
-  _PersonalizationSettingsPageState createState() => _PersonalizationSettingsPageState();
+  _PersonalizationSettingsPageState createState() =>
+      _PersonalizationSettingsPageState();
 }
 
-class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPage> {
+class _PersonalizationSettingsPageState
+    extends State<PersonalizationSettingsPage> {
   String getThemeName(ThemeMode mode) {
     switch (mode) {
       case ThemeMode.system:
@@ -41,17 +43,20 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(AppLocalizations.of(context)!.personalization)),
+        appBar:
+            AppBar(title: Text(AppLocalizations.of(context)!.personalization)),
         body: Builder(
           builder: (context) => ListView(children: [
             ListTile(
                 title: Text(AppLocalizations.of(context)!.theme),
-                subtitle: Text(
-                    getThemeName(ThemeController.of(context)?.currentTheme ?? ThemeMode.system)),
+                subtitle: Text(getThemeName(
+                    ThemeController.of(context)?.currentTheme ??
+                        ThemeMode.system)),
                 onTap: () => _openThemeModal()),
             ListTile(
                 title: Text(AppLocalizations.of(context)!.locale),
-                subtitle: Text(getLocaleName(context.read<LanguageCubit>().state?.languageCode)),
+                subtitle: Text(getLocaleName(
+                    context.read<LanguageCubit>().state?.languageCode)),
                 onTap: () => _openLocaleModal())
           ]),
         ));
@@ -65,14 +70,16 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
         builder: (context) {
           void changeTheme(ThemeMode themeMode) {
             Navigator.of(context).pop();
-            setState(() => ThemeController.of(context)?.currentTheme = themeMode);
+            setState(
+                () => ThemeController.of(context)?.currentTheme = themeMode);
           }
 
           return Container(
               margin: const EdgeInsets.only(bottom: 20),
               child: ListView(shrinkWrap: true, children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Text(
                     AppLocalizations.of(context)!.theme,
                     style: Theme.of(context).textTheme.headline5,
@@ -117,7 +124,8 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
               margin: const EdgeInsets.only(bottom: 20),
               child: ListView(shrinkWrap: true, children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Text(
                     AppLocalizations.of(context)!.theme,
                     style: Theme.of(context).textTheme.headline5,

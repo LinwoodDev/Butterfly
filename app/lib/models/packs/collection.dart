@@ -10,5 +10,9 @@ class PackCollection {
   final List<BackgroundPack> backgrounds = [];
   final List<ElementLayer> layers = [];
 
-  PackCollection({required this.name, required this.author, this.description = "", this.website});
+  PackCollection(
+      {required this.name,
+      required this.author,
+      this.description = "",
+      this.website});
 }

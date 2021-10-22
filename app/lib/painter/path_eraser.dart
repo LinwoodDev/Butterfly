@@ -25,7 +25,10 @@ class PathEraserPainter extends Painter {
     });
 
   PathEraserPainter copyWith(
-          {String? name, double? strokeWidth, double? strokeMultiplier, bool? canDeleteEraser}) =>
+          {String? name,
+          double? strokeWidth,
+          double? strokeMultiplier,
+          bool? canDeleteEraser}) =>
       PathEraserPainter(
         name: name ?? this.name,
         strokeWidth: strokeWidth ?? this.strokeWidth,

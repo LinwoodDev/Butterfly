@@ -8,8 +8,8 @@ class ColorPack extends ElementPack {
   });
 
   ColorPack.fromJson(Map<String, dynamic> json)
-      : colors =
-            (json['colors'] as Map<String, int>).map((key, value) => MapEntry(key, Color(value))) {
+      : colors = (json['colors'] as Map<String, int>)
+            .map((key, value) => MapEntry(key, Color(value))) {
     name = json['name'];
     description = json['description'];
   }

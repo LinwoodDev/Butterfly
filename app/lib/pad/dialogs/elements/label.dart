@@ -9,7 +9,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class LabelElementDialog extends StatelessWidget {
   final int index;
   final DocumentBloc bloc;
-  const LabelElementDialog({Key? key, required this.index, required this.bloc}) : super(key: key);
+  const LabelElementDialog({Key? key, required this.index, required this.bloc})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,17 +45,19 @@ class LabelElementDialog extends StatelessWidget {
                         title: Text(AppLocalizations.of(context)!.edit),
                         leading: const Icon(PhosphorIcons.textTLight),
                         onTap: () {
-                          var _textController = TextEditingController(text: element.text);
+                          var _textController =
+                              TextEditingController(text: element.text);
                           void submit() {
                             Navigator.of(context).pop();
-                            bloc.add(
-                                LayerChanged(index, element.copyWith(text: _textController.text)));
+                            bloc.add(LayerChanged(index,
+                                element.copyWith(text: _textController.text)));
                           }
 
                           showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
-                                      title: Text(AppLocalizations.of(context)!.enterText),
+                                      title: Text(AppLocalizations.of(context)!
+                                          .enterText),
                                       content: TextField(
                                         controller: _textController,
                                         autofocus: true,
@@ -62,11 +65,16 @@ class LabelElementDialog extends StatelessWidget {
                                       ),
                                       actions: [
                                         TextButton(
-                                          child: Text(AppLocalizations.of(context)!.cancel),
-                                          onPressed: () => Navigator.of(context).pop(),
+                                          child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .cancel),
+                                          onPressed: () =>
+                                              Navigator.of(context).pop(),
                                         ),
                                         TextButton(
-                                            child: Text(AppLocalizations.of(context)!.ok),
+                                            child: Text(
+                                                AppLocalizations.of(context)!
+                                                    .ok),
                                             onPressed: submit)
                                       ]));
                         }),
@@ -75,18 +83,22 @@ class LabelElementDialog extends StatelessWidget {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                                    title: Text(AppLocalizations.of(context)!.areYouSure),
-                                    content: Text(AppLocalizations.of(context)!.reallyDelete),
+                                    title: Text(AppLocalizations.of(context)!
+                                        .areYouSure),
+                                    content: Text(AppLocalizations.of(context)!
+                                        .reallyDelete),
                                     actions: [
                                       TextButton(
-                                        child: Text(AppLocalizations.of(context)!.no),
+                                        child: Text(
+                                            AppLocalizations.of(context)!.no),
                                         onPressed: () {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
                                         },
                                       ),
                                       TextButton(
-                                        child: Text(AppLocalizations.of(context)!.yes),
+                                        child: Text(
+                                            AppLocalizations.of(context)!.yes),
                                         onPressed: () {
                                           Navigator.pop(context);
                                           Navigator.pop(context);

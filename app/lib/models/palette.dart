@@ -27,7 +27,9 @@ class ColorPalette {
     Colors.black
   ];
   static List<ColorPalette> getMaterialPalette(BuildContext context) => [
-        ColorPalette(name: AppLocalizations.of(context)!.defaultPalette, colors: materialColors),
+        ColorPalette(
+            name: AppLocalizations.of(context)!.defaultPalette,
+            colors: materialColors),
         ColorPalette(
             name: AppLocalizations.of(context)!.highlighter,
             colors: materialColors.map((e) => e.withOpacity(0.5)).toList())
@@ -37,7 +39,8 @@ class ColorPalette {
   ColorPalette.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         colors = List<int>.from(json['colors']).map((e) => Color(e)).toList();
-  Map<String, dynamic> toJson() => {"name": name, "colors": colors.map((e) => e.value).toList()};
+  Map<String, dynamic> toJson() =>
+      {"name": name, "colors": colors.map((e) => e.value).toList()};
 
   ColorPalette copyWith({String? name, List<Color>? colors}) =>
       ColorPalette(name: name ?? this.name, colors: colors ?? this.colors);

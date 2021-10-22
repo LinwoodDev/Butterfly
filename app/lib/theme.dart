@@ -28,18 +28,21 @@ class ThemeController extends ChangeNotifier {
 
   /// get the controller from any page of your app
   static ThemeController? of(BuildContext context) {
-    final provider = context.dependOnInheritedWidgetOfExactType<ThemeControllerProvider>();
+    final provider =
+        context.dependOnInheritedWidgetOfExactType<ThemeControllerProvider>();
     return provider?.controller;
   }
 }
 
 /// provides the theme controller to any page of your app
 class ThemeControllerProvider extends InheritedWidget {
-  const ThemeControllerProvider({Key? key, required this.controller, required Widget child})
+  const ThemeControllerProvider(
+      {Key? key, required this.controller, required Widget child})
       : super(key: key, child: child);
 
   final ThemeController controller;
 
   @override
-  bool updateShouldNotify(ThemeControllerProvider oldWidget) => controller != oldWidget.controller;
+  bool updateShouldNotify(ThemeControllerProvider oldWidget) =>
+      controller != oldWidget.controller;
 }

@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 class PenPainter extends BuildedPainter {
   final PenProperty property;
 
-  const PenPainter({this.property = const PenProperty(), String name = ''}) : super(name: name);
+  const PenPainter({this.property = const PenProperty(), String name = ''})
+      : super(name: name);
   PenPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : property = PenProperty.fromJson(json),
         super.fromJson(json);
@@ -22,6 +23,6 @@ class PenPainter extends BuildedPainter {
     ..addAll(property.toJson());
 
   @override
-  PenElement buildLayer(Offset position, [double pressure = 0]) =>
-      PenElement(property: property, points: [PathPoint.fromOffset(position, pressure)]);
+  PenElement buildLayer(Offset position, [double pressure = 0]) => PenElement(
+      property: property, points: [PathPoint.fromOffset(position, pressure)]);
 }

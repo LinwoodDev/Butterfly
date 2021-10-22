@@ -10,7 +10,8 @@ import 'painter.dart';
 class EraserPainter extends BuildedPainter {
   final PathProperty property;
 
-  const EraserPainter({this.property = const PathProperty(), String name = ''}) : super(name: name);
+  const EraserPainter({this.property = const PathProperty(), String name = ''})
+      : super(name: name);
   EraserPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : property = PathProperty.fromJson(json),
         super.fromJson(json);
@@ -19,9 +20,12 @@ class EraserPainter extends BuildedPainter {
     ..addAll({"type": "eraser"})
     ..addAll(property.toJson());
   EraserPainter copyWith({String? name, PathProperty? property}) =>
-      EraserPainter(name: name ?? this.name, property: property ?? this.property);
+      EraserPainter(
+          name: name ?? this.name, property: property ?? this.property);
 
   @override
   ElementLayer buildLayer(Offset position, [double pressure = 0]) =>
-      EraserElement(points: [PathPoint.fromOffset(position, pressure)], property: property);
+      EraserElement(
+          points: [PathPoint.fromOffset(position, pressure)],
+          property: property);
 }

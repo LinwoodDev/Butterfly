@@ -6,6 +6,7 @@ class SettingsModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, args) => const SettingsPage()),
-    ChildRoute('/personalization', child: (_, args) => const PersonalizationSettingsPage())
+    ChildRoute('/personalization',
+        child: (_, args) => const PersonalizationSettingsPage())
   ];
 }

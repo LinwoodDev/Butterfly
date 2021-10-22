@@ -13,7 +13,8 @@ class ImageElementDialog extends StatefulWidget {
   final int index;
   final DocumentBloc bloc;
 
-  const ImageElementDialog({Key? key, required this.index, required this.bloc}) : super(key: key);
+  const ImageElementDialog({Key? key, required this.index, required this.bloc})
+      : super(key: key);
 
   @override
   State<ImageElementDialog> createState() => _ImageElementDialogState();
@@ -23,7 +24,8 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
   final TextEditingController _scaleController = TextEditingController();
   ImageElement? element;
 
-  void _changeElement() => widget.bloc.add(LayerChanged(widget.index, element!));
+  void _changeElement() =>
+      widget.bloc.add(LayerChanged(widget.index, element!));
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -42,7 +44,8 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
               children: [
                 const SizedBox(
                   height: 70,
-                  child: Center(child: Icon(PhosphorIcons.imageLight, size: 36)),
+                  child:
+                      Center(child: Icon(PhosphorIcons.imageLight, size: 36)),
                 ),
                 const Divider(thickness: 1),
                 Expanded(
@@ -53,12 +56,13 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
                       ConstrainedBox(
                         constraints: const BoxConstraints(maxWidth: 100),
                         child: TextField(
-                            decoration:
-                                InputDecoration(labelText: AppLocalizations.of(context)!.scale),
+                            decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.scale),
                             controller: _scaleController,
                             onEditingComplete: () => _changeElement(),
-                            onChanged: (value) => setState(
-                                () => element = element?.copyWith(scale: double.tryParse(value)))),
+                            onChanged: (value) => setState(() => element =
+                                element?.copyWith(
+                                    scale: double.tryParse(value)))),
                       ),
                       Expanded(
                           child: Slider(
@@ -66,8 +70,8 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
                         min: 0.1,
                         max: 5,
                         onChangeEnd: (value) => _changeElement(),
-                        onChanged: (value) =>
-                            setState(() => element = element?.copyWith(scale: value)),
+                        onChanged: (value) => setState(
+                            () => element = element?.copyWith(scale: value)),
                       ))
                     ]),
                   ),
@@ -83,22 +87,27 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                                    title: Text(AppLocalizations.of(context)!.areYouSure),
-                                    content: Text(AppLocalizations.of(context)!.reallyDelete),
+                                    title: Text(AppLocalizations.of(context)!
+                                        .areYouSure),
+                                    content: Text(AppLocalizations.of(context)!
+                                        .reallyDelete),
                                     actions: [
                                       TextButton(
-                                        child: Text(AppLocalizations.of(context)!.no),
+                                        child: Text(
+                                            AppLocalizations.of(context)!.no),
                                         onPressed: () {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
                                         },
                                       ),
                                       TextButton(
-                                        child: Text(AppLocalizations.of(context)!.yes),
+                                        child: Text(
+                                            AppLocalizations.of(context)!.yes),
                                         onPressed: () {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
-                                          widget.bloc.add(LayersRemoved([element!]));
+                                          widget.bloc
+                                              .add(LayersRemoved([element!]));
                                         },
                                       ),
                                     ]));

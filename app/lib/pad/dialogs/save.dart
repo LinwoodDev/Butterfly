@@ -60,14 +60,19 @@ class SaveDialog extends StatelessWidget {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                title: Text(AppLocalizations.of(context)!.areYouSure),
-                                content: Text(AppLocalizations.of(context)!.existOverride),
+                                title: Text(
+                                    AppLocalizations.of(context)!.areYouSure),
+                                content: Text(AppLocalizations.of(context)!
+                                    .existOverride),
                                 actions: [
                                   TextButton(
-                                      child: Text(AppLocalizations.of(context)!.no),
-                                      onPressed: () => Navigator.of(context).pop()),
+                                      child: Text(
+                                          AppLocalizations.of(context)!.no),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop()),
                                   TextButton(
-                                      child: Text(AppLocalizations.of(context)!.yes),
+                                      child: Text(
+                                          AppLocalizations.of(context)!.yes),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                         write();

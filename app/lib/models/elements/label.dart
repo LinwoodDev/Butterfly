@@ -10,7 +10,9 @@ class LabelElement extends ElementLayer {
   final LabelProperty property;
 
   const LabelElement(
-      {this.text = "", this.position = const Offset(0, 0), this.property = const LabelProperty()});
+      {this.text = "",
+      this.position = const Offset(0, 0),
+      this.property = const LabelProperty()});
   LabelElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : text = json['text'] ?? "",
         property = LabelProperty.fromJson(json),
@@ -33,8 +35,10 @@ class LabelElement extends ElementLayer {
       offset.dx <= position.dx + property.size &&
       offset.dy <= position.dy + property.size;
 
-  LabelElement copyWith({String? text, LabelProperty? property, Offset? position}) => LabelElement(
-      text: text ?? this.text,
-      property: property ?? this.property,
-      position: position ?? this.position);
+  LabelElement copyWith(
+          {String? text, LabelProperty? property, Offset? position}) =>
+      LabelElement(
+          text: text ?? this.text,
+          property: property ?? this.property,
+          position: position ?? this.position);
 }

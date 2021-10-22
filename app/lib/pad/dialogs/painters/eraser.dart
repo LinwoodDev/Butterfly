@@ -9,7 +9,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class EraserPainterDialog extends StatefulWidget {
   final DocumentBloc bloc;
   final int painterIndex;
-  const EraserPainterDialog({Key? key, required this.bloc, required this.painterIndex})
+  const EraserPainterDialog(
+      {Key? key, required this.bloc, required this.painterIndex})
       : super(key: key);
 
   @override
@@ -19,20 +20,27 @@ class EraserPainterDialog extends StatefulWidget {
 class _EraserPainterDialogState extends State<EraserPainterDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _strokeWidthController = TextEditingController();
-  final TextEditingController _strokeMultiplierController = TextEditingController();
+  final TextEditingController _strokeMultiplierController =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: widget.bloc,
-      child: Dialog(child: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+      child: Dialog(child:
+          BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
         if (state is! DocumentLoadSuccess) return Container();
-        var painter = state.document.painters[widget.painterIndex] as EraserPainter;
+        var painter =
+            state.document.painters[widget.painterIndex] as EraserPainter;
         return Container(
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: StatefulBuilder(builder: (context, setState) {
-              if (_nameController.text != painter.name) _nameController.text = painter.name;
-              if (double.tryParse(_strokeWidthController.text) != painter.property.strokeWidth) {
-                _strokeWidthController.text = painter.property.strokeWidth.toStringAsFixed(2);
+              if (_nameController.text != painter.name) {
+                _nameController.text = painter.name;
+              }
+              if (double.tryParse(_strokeWidthController.text) !=
+                  painter.property.strokeWidth) {
+                _strokeWidthController.text =
+                    painter.property.strokeWidth.toStringAsFixed(2);
               }
               if (double.tryParse(_strokeMultiplierController.text) !=
                   painter.property.strokeMultiplier) {
@@ -48,61 +56,77 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                     actions: [
                       IconButton(
                           tooltip: AppLocalizations.of(context)!.help,
-                          icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+                          icon:
+                              const Icon(PhosphorIcons.circleWavyQuestionLight),
                           onPressed: () => openHelp(["painters", "eraser"])),
                     ],
                   ),
                   body: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
                     child: Column(
                       children: [
                         Expanded(
                           child: ListView(children: [
                             TextField(
-                                decoration:
-                                    InputDecoration(labelText: AppLocalizations.of(context)!.name),
+                                decoration: InputDecoration(
+                                    labelText:
+                                        AppLocalizations.of(context)!.name),
                                 controller: _nameController,
-                                onChanged: (value) =>
-                                    setState(() => painter = painter.copyWith(name: value))),
+                                onChanged: (value) => setState(() =>
+                                    painter = painter.copyWith(name: value))),
                             Row(children: [
                               ConstrainedBox(
-                                  constraints: const BoxConstraints(maxWidth: 100),
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 100),
                                   child: TextField(
                                     decoration: InputDecoration(
-                                        labelText: AppLocalizations.of(context)!.strokeWidth),
+                                        labelText: AppLocalizations.of(context)!
+                                            .strokeWidth),
                                     controller: _strokeWidthController,
-                                    onChanged: (value) => setState(() => painter = painter.copyWith(
-                                        property: painter.property
-                                            .copyWith(strokeWidth: double.tryParse(value)))),
+                                    onChanged: (value) => setState(() =>
+                                        painter = painter.copyWith(
+                                            property: painter.property.copyWith(
+                                                strokeWidth:
+                                                    double.tryParse(value)))),
                                   )),
                               Expanded(
                                 child: Slider(
-                                    value: painter.property.strokeWidth.clamp(0, 70),
+                                    value: painter.property.strokeWidth
+                                        .clamp(0, 70),
                                     min: 0,
                                     max: 70,
-                                    onChanged: (value) => setState(() => painter = painter.copyWith(
-                                        property: painter.property.copyWith(strokeWidth: value)))),
+                                    onChanged: (value) => setState(() =>
+                                        painter = painter.copyWith(
+                                            property: painter.property.copyWith(
+                                                strokeWidth: value)))),
                               )
                             ]),
                             Row(children: [
                               ConstrainedBox(
-                                  constraints: const BoxConstraints(maxWidth: 100),
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 100),
                                   child: TextField(
                                     decoration: InputDecoration(
-                                        labelText: AppLocalizations.of(context)!.strokeMultiplier),
+                                        labelText: AppLocalizations.of(context)!
+                                            .strokeMultiplier),
                                     controller: _strokeMultiplierController,
-                                    onChanged: (value) => setState(() => painter = painter.copyWith(
-                                        property: painter.property
-                                            .copyWith(strokeMultiplier: double.tryParse(value)))),
+                                    onChanged: (value) => setState(() =>
+                                        painter = painter.copyWith(
+                                            property: painter.property.copyWith(
+                                                strokeMultiplier:
+                                                    double.tryParse(value)))),
                                   )),
                               Expanded(
                                 child: Slider(
-                                    value: painter.property.strokeMultiplier.clamp(0, 100),
+                                    value: painter.property.strokeMultiplier
+                                        .clamp(0, 100),
                                     min: 0,
                                     max: 100,
-                                    onChanged: (value) => setState(() => painter = painter.copyWith(
-                                        property:
-                                            painter.property.copyWith(strokeMultiplier: value)))),
+                                    onChanged: (value) => setState(() =>
+                                        painter = painter.copyWith(
+                                            property: painter.property.copyWith(
+                                                strokeMultiplier: value)))),
                               )
                             ])
                           ]),
@@ -121,21 +145,30 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                                     builder: (context) => AlertDialog(
                                             actions: [
                                               TextButton(
-                                                child: Text(AppLocalizations.of(context)!.no),
-                                                onPressed: () => Navigator.of(context).pop(),
+                                                child: Text(AppLocalizations.of(
+                                                        context)!
+                                                    .no),
+                                                onPressed: () =>
+                                                    Navigator.of(context).pop(),
                                               ),
                                               TextButton(
-                                                child: Text(AppLocalizations.of(context)!.yes),
+                                                child: Text(AppLocalizations.of(
+                                                        context)!
+                                                    .yes),
                                                 onPressed: () {
-                                                  widget.bloc
-                                                      .add(PainterRemoved(widget.painterIndex));
+                                                  widget.bloc.add(
+                                                      PainterRemoved(
+                                                          widget.painterIndex));
                                                   Navigator.of(context).pop();
                                                 },
                                               )
                                             ],
-                                            title: Text(AppLocalizations.of(context)!.areYouSure),
-                                            content:
-                                                Text(AppLocalizations.of(context)!.reallyDelete)));
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .areYouSure),
+                                            content: Text(
+                                                AppLocalizations.of(context)!
+                                                    .reallyDelete)));
                               },
                             ),
                             Expanded(child: Container()),
@@ -146,7 +179,8 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                             ElevatedButton(
                               child: Text(AppLocalizations.of(context)!.ok),
                               onPressed: () {
-                                widget.bloc.add(PainterChanged(painter, widget.painterIndex));
+                                widget.bloc.add(PainterChanged(
+                                    painter, widget.painterIndex));
                                 Navigator.of(context).pop();
                               },
                             ),

@@ -5,7 +5,8 @@ import 'package:flutter/cupertino.dart';
 abstract class Painter {
   final String name;
   const Painter({this.name = ''});
-  Painter.fromJson(Map<String, dynamic> json, [int? fileVersion]) : name = json['name'] ?? "";
+  Painter.fromJson(Map<String, dynamic> json, [int? fileVersion])
+      : name = json['name'] ?? "";
   Map<String, dynamic> toJson() => {"name": name};
 }
 

@@ -22,11 +22,13 @@ class SettingsPage extends StatelessWidget {
           ListTile(
               leading: const Icon(PhosphorIcons.stackLight),
               title: Text(AppLocalizations.of(context)!.license),
-              onTap: () => launch("https://github.com/LinwoodCloud/butterfly/blob/main/LICENSE")),
+              onTap: () => launch(
+                  "https://github.com/LinwoodCloud/butterfly/blob/main/LICENSE")),
           ListTile(
               leading: const Icon(PhosphorIcons.codeLight),
               title: Text(AppLocalizations.of(context)!.source),
-              onTap: () => launch("https://github.com/LinwoodCloud/dev_doctor")),
+              onTap: () =>
+                  launch("https://github.com/LinwoodCloud/dev_doctor")),
           ListTile(
               leading: const Icon(PhosphorIcons.usersLight),
               title: const Text("Discord"),
@@ -42,7 +44,8 @@ class SettingsPage extends StatelessWidget {
           ListTile(
               leading: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               title: Text(AppLocalizations.of(context)!.changelog),
-              onTap: () => launch("https://docs.butterfly.linwood.dev/changelog")),
+              onTap: () =>
+                  launch("https://docs.butterfly.linwood.dev/changelog")),
           ListTile(
               leading: const Icon(PhosphorIcons.identificationCardLight),
               title: Text(AppLocalizations.of(context)!.imprint),
@@ -50,12 +53,14 @@ class SettingsPage extends StatelessWidget {
           ListTile(
               leading: const Icon(PhosphorIcons.shieldLight),
               title: Text(AppLocalizations.of(context)!.privacypolicy),
-              onTap: () => launch("https://docs.butterfly.linwood.dev/docs/privacypolicy")),
+              onTap: () => launch(
+                  "https://docs.butterfly.linwood.dev/docs/privacypolicy")),
           ListTile(
               leading: const Icon(PhosphorIcons.infoLight),
               title: Text(AppLocalizations.of(context)!.information),
               onTap: () => showAboutDialog(
-                  context: context, applicationIcon: Image.asset("images/logo.png", height: 50))),
+                  context: context,
+                  applicationIcon: Image.asset("images/logo.png", height: 50))),
         ]))));
   }
 }

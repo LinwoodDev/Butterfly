@@ -90,7 +90,8 @@ class ViewPainter extends CustomPainter {
                   decorationThickness: element.property.decorationThickness,
                   decoration: TextDecoration.combine([
                     if (element.property.underline) TextDecoration.underline,
-                    if (element.property.lineThrough) TextDecoration.lineThrough,
+                    if (element.property.lineThrough)
+                      TextDecoration.lineThrough,
                     if (element.property.overline) TextDecoration.overline,
                   ])),
               text: element.text);
@@ -105,12 +106,14 @@ class ViewPainter extends CustomPainter {
           tp.paint(canvas, position);
         }
         if (element is ImageElement && images.containsKey(element)) {
-          canvas.drawImage(images[element]!, element.position + offset, Paint()..strokeWidth = .05);
+          canvas.drawImage(images[element]!, element.position + offset,
+              Paint()..strokeWidth = .05);
         }
       });
     canvas.restore();
   }
 
   @override
-  bool shouldRepaint(ViewPainter oldDelegate) => document != oldDelegate.document;
+  bool shouldRepaint(ViewPainter oldDelegate) =>
+      document != oldDelegate.document;
 }

@@ -49,7 +49,8 @@ abstract class PathElement extends ElementLayer {
             previous.toOffset() + offset,
             element.toOffset() + offset,
             buildPaint()
-              ..strokeWidth = property.strokeWidth + element.pressure * property.strokeMultiplier);
+              ..strokeWidth = property.strokeWidth +
+                  element.pressure * property.strokeMultiplier);
         previous = element;
       }
     }

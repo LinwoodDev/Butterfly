@@ -13,14 +13,15 @@ part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(AppDocument document, int documentIndex, int fileVersion)
-      : super(
-            DocumentLoadSuccess(document, documentIndex: documentIndex, fileVersion: fileVersion)) {
+      : super(DocumentLoadSuccess(document,
+            documentIndex: documentIndex, fileVersion: fileVersion)) {
     on<LayerCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
-            document: current.document
-                .copyWith(content: (List.from(current.document.content)..add(event.layer)))));
+            document: current.document.copyWith(
+                content: (List.from(current.document.content)
+                  ..add(event.layer)))));
         _saveDocument();
       }
     });
@@ -29,7 +30,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
             document: current.document.copyWith(
-                content: (List.from(current.document.content)..[event.index] = event.layer))));
+                content: (List.from(current.document.content)
+                  ..[event.index] = event.layer))));
         _saveDocument();
       }
     });
@@ -47,7 +49,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
-            document: current.document.copyWith(name: event.name, description: event.description)));
+            document: current.document
+                .copyWith(name: event.name, description: event.description)));
         _saveDocument();
       }
     });
@@ -55,7 +58,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentPaletteChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        emit(current.copyWith(document: current.document.copyWith(palettes: event.palette)));
+        emit(current.copyWith(
+            document: current.document.copyWith(palettes: event.palette)));
         _saveDocument();
       }
     });
@@ -68,7 +72,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     });
     on<CurrentPainterChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
-        emit((state as DocumentLoadSuccess).copyWith(currentPainterIndex: event.painter));
+        emit((state as DocumentLoadSuccess)
+            .copyWith(currentPainterIndex: event.painter));
         _saveDocument();
       }
     });
@@ -76,8 +81,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
-            document: current.document
-                .copyWith(painters: List.from(current.document.painters)..add(event.painter))));
+            document: current.document.copyWith(
+                painters: List.from(current.document.painters)
+                  ..add(event.painter))));
         _saveDocument();
       }
     });
@@ -86,7 +92,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
             document: current.document.copyWith(
-                painters: List.from(current.document.painters)..[event.index] = event.painter)));
+                painters: List.from(current.document.painters)
+                  ..[event.index] = event.painter)));
         _saveDocument();
       }
     });
@@ -94,8 +101,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
-            document: current.document
-                .copyWith(painters: List.from(current.document.painters)..removeAt(event.index))));
+            document: current.document.copyWith(
+                painters: List.from(current.document.painters)
+                  ..removeAt(event.index))));
         _saveDocument();
       }
     });
@@ -125,7 +133,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         var current = state as DocumentLoadSuccess;
         emit(current.copyWith(
             document: current.document.copyWith(
-                background: event.background, removeBackground: event.background == null)));
+                background: event.background,
+                removeBackground: event.background == null)));
         _saveDocument();
       }
     });

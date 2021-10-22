@@ -17,13 +17,15 @@ class ImageElement extends ElementLayer {
       required this.height,
       required this.position,
       this.scale = 1});
-  static Future<ImageElement> fromImage(ui.Image image, Offset position, [double scale = 1]) =>
-      image.toByteData(format: ui.ImageByteFormat.rawRgba).then((value) => ImageElement(
-          pixels: value?.buffer.asUint8List() ?? Uint8List(0),
-          width: image.width,
-          height: image.height,
-          position: position,
-          scale: scale));
+  static Future<ImageElement> fromImage(ui.Image image, Offset position,
+          [double scale = 1]) =>
+      image.toByteData(format: ui.ImageByteFormat.rawRgba).then((value) =>
+          ImageElement(
+              pixels: value?.buffer.asUint8List() ?? Uint8List(0),
+              width: image.width,
+              height: image.height,
+              position: position,
+              scale: scale));
 
   ImageElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : pixels = Uint8List.fromList(base64.decode(json['pixels'])),
@@ -44,7 +46,11 @@ class ImageElement extends ElementLayer {
         'position': {'x': position.dx, 'y': position.dy}
       };
   ImageElement copyWith(
-      {Uint8List? pixels, int? width, int? height, Offset? position, double? scale}) {
+      {Uint8List? pixels,
+      int? width,
+      int? height,
+      Offset? position,
+      double? scale}) {
     return ImageElement(
         pixels: pixels ?? this.pixels,
         width: width ?? this.width,
