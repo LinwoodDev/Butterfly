@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
@@ -6,6 +8,7 @@ import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/elements/path.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
+import 'package:image/image.dart' as image;
 
 class ViewPainter extends CustomPainter {
   AppDocument document;
@@ -18,12 +21,15 @@ class ViewPainter extends CustomPainter {
   Future<void> loadImages() async {
     for (var layer in document.content) {
       if (layer is ImageElement && !images.containsKey(layer)) {
-        var codec = await ui.instantiateImageCodec(layer.pixels,
-            targetWidth: (layer.width * layer.scale).round(),
-            targetHeight: (layer.height * layer.scale).round());
-        var frame = await codec.getNextFrame();
-        var img = frame.image;
-        images[layer] = img;
+        image.Image baseSizeImage =
+            image.decodeImage(layer.pixels) ?? image.Image(0, 0);
+        image.Image resizeImage = image.copyResize(baseSizeImage,
+            height: (layer.height * layer.scale).round(),
+            width: (layer.width * layer.scale).round());
+        ui.Codec codec = await ui.instantiateImageCodec(
+            Uint8List.fromList(image.encodePng(resizeImage)));
+        ui.FrameInfo frameInfo = await codec.getNextFrame();
+        images[layer] = frameInfo.image;
       }
     }
   }

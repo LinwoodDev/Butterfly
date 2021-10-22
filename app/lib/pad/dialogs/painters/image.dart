@@ -39,7 +39,7 @@ class _ImagePainterDialogState extends State<ImagePainterDialog> {
                   backgroundColor: Colors.transparent,
                   appBar: AppBar(
                     backgroundColor: Colors.transparent,
-                    title: Text(AppLocalizations.of(context)!.pathEraser),
+                    title: Text(AppLocalizations.of(context)!.image),
                     leading: const Icon(PhosphorIcons.penLight),
                     actions: [
                       IconButton(
