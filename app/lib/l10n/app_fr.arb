@@ -93,11 +93,11 @@
     "enterUrl": "Entrez l'url",
     "scale": "Échelle",
     "help": "Aide",
-    "reallyReset": "Do you really want to reset it?",
-    "whatToDo": "What do you want to do?",
-    "ignore": "Ignore",
-    "backup": "Backup",
-    "createdInNewerVersion": "The file {fileName} was created in a newer version ({fileVersion}). What should be done with this file?",
+    "reallyReset": "Voulez-vous vraiment le réinitialiser ?",
+    "whatToDo": "Que voulez-vous faire ?",
+    "ignore": "Ignorer",
+    "backup": "Sauvegarde",
+    "createdInNewerVersion": "Le fichier {fileName} a été créé dans une version plus récente ({fileVersion}). Que faire de ce fichier ?",
     "@createdInNewerVersion": {
         "placeholders": {
             "fileName": {
