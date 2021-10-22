@@ -92,5 +92,10 @@
     "image": "Bild",
     "enterUrl": "URL eingeben",
     "scale": "Maßstab",
-    "help": "Hilfe"
+    "help": "Hilfe",
+    "reallyReset": "Do you really want to reset it?",
+    "whatToDo": "What do you want to do?",
+    "iDontCare": "I don't care",
+    "backup": "Backup",
+    "createdInNewerVersion": "The file %s was created in a newer version. What should be done with this file?"
 }
