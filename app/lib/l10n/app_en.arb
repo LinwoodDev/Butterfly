@@ -95,7 +95,19 @@
     "help": "Help",
     "reallyReset": "Do you really want to reset it?",
     "whatToDo": "What do you want to do?",
-    "iDontCare": "I don't care",
+    "ignore": "Ignore",
     "backup": "Backup",
-    "createdInNewerVersion": "The file %s was created in a newer version. What should be done with this file?"
+    "createdInNewerVersion": "The file {fileName} was created in a newer version ({fileVersion}). What should be done with this file?",
+    "@createdInNewerVersion": {
+        "placeholders": {
+            "fileName": {
+              "type": "String",
+              "example": "Document"
+            },
+            "fileVersion": {
+              "type": "int",
+              "example": "5"
+            }
+        }
+      }
 }

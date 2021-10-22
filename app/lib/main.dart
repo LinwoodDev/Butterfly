@@ -130,6 +130,7 @@ class ButterflyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
             color: Colors.transparent,
             elevation: 0,
+            centerTitle: true,
             iconTheme: const IconThemeData(color: Colors.white),
             titleTextStyle: Theme.of(context)
                 .textTheme

@@ -39,18 +39,17 @@ class _HomePageState extends State<HomePage> {
             ? data["fileVersion"]
             : int.tryParse(data["fileVersion"]) ?? -1;
         if (fileVersion > GetIt.I.get<int>(instanceName: "fileVersion")) {
-          // TODO: Replace placeholder
           await showDialog(
               context: context,
               builder: (context) => AlertDialog(
                       title: Text(AppLocalizations.of(context)!.whatToDo),
-                      content: Text(
-                          AppLocalizations.of(context)!.createdInNewerVersion),
+                      content: Text(AppLocalizations.of(context)!
+                          .createdInNewerVersion(
+                              data["name"], data["fileVersion"])),
                       actions: [
                         TextButton(
                             onPressed: () => Navigator.of(context).pop(),
-                            child:
-                                Text(AppLocalizations.of(context)!.iDontCare)),
+                            child: Text(AppLocalizations.of(context)!.ignore)),
                         TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
