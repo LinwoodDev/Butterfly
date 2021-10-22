@@ -103,7 +103,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 500),
+            constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -331,9 +331,36 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                 tooltip: AppLocalizations.of(context)!.resetPalette,
                                                 icon: const Icon(PhosphorIcons.clockClockwiseLight),
                                                 onPressed: () {
-                                                  selected = 0;
-                                                  widget.bloc.add(DocumentPaletteChanged(
-                                                      ColorPalette.getMaterialPalette(context)));
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) => AlertDialog(
+                                                              title: Text(
+                                                                  AppLocalizations.of(context)!
+                                                                      .areYouSure),
+                                                              content: Text(
+                                                                  AppLocalizations.of(context)!
+                                                                      .reallyReset),
+                                                              actions: [
+                                                                TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.of(context).pop(),
+                                                                    child: Text(AppLocalizations.of(
+                                                                            context)!
+                                                                        .no)),
+                                                                TextButton(
+                                                                    onPressed: () {
+                                                                      selected = 0;
+                                                                      widget.bloc.add(
+                                                                          DocumentPaletteChanged(
+                                                                              ColorPalette
+                                                                                  .getMaterialPalette(
+                                                                                      context)));
+                                                                      Navigator.of(context).pop();
+                                                                    },
+                                                                    child: Text(AppLocalizations.of(
+                                                                            context)!
+                                                                        .yes))
+                                                              ]));
                                                 }),
                                             const VerticalDivider(),
                                             IconButton(

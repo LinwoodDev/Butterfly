@@ -2,7 +2,7 @@ class PathProperty {
   final double strokeWidth;
   final double strokeMultiplier;
 
-  const PathProperty({this.strokeWidth = 5, this.strokeMultiplier = 1});
+  const PathProperty({this.strokeWidth = 5, this.strokeMultiplier = 5});
   PathProperty.fromJson(Map<String, dynamic> json)
       : strokeWidth = json['strokeWidth'] ?? 5,
         strokeMultiplier = json['strokeMultiplier'] ?? 1;

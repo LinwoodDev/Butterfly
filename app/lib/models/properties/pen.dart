@@ -7,7 +7,7 @@ class PenProperty extends PathProperty {
 
   const PenProperty(
       {double strokeWidth = 5,
-      double strokeMultiplier = 1,
+      double strokeMultiplier = 10,
       this.color = Colors.black,
       this.fill = false})
       : super(strokeWidth: strokeWidth, strokeMultiplier: strokeMultiplier);

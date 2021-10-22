@@ -6,7 +6,7 @@ class PathEraserPainter extends Painter {
 
   const PathEraserPainter(
       {this.strokeWidth = 5,
-      this.strokeMultiplier = 1,
+      this.strokeMultiplier = 10,
       String name = '',
       this.canDeleteEraser = false})
       : super(name: name);

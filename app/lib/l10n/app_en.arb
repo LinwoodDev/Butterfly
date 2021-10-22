@@ -92,5 +92,6 @@
     "image": "Image",
     "enterUrl": "Enter the url",
     "scale": "Scale",
-    "help": "Help"
+    "help": "Help",
+    "reallyReset": "Do you really want to reset it?"
 }
