@@ -16,7 +16,7 @@ If you want to help me to code, you can open a pull request. Fork this project a
 
 ![Locale chart](https://badges.awesome-crowdin.com/translation-200008942-15.png)
 
-Help me to translate the app on [crowdin](https://linwood.crowdin.com/flow).
+Help me to translate the app on [crowdin](https://linwood.crowdin.com/butterfly).
 
 ## Community Server
 

@@ -30,5 +30,5 @@ The paper has an infinite size, perfect for your ideas and notes.
 * **Try the app** [in the web](https://docs.butterfly.linwood.dev). You have nothing to lose!
 * **To download the app**, visit the [download page](https://docs.butterfly.linwood.dev/downloads). Please
   [use the guide](https://docs.butterfly.linwood.dev/app) if you need help.
-* **To contribute**, visit the [contribution guide](https://github.com/LinwoodCloud/Flow/blob/develop/CONTRIBUTING.md)
+* **To contribute**, visit the [contribution guide](https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md)
 * **To communicate with us**, visit [the discord server](https://discord.linwood.dev)
