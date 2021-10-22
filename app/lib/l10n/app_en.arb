@@ -93,5 +93,9 @@
     "enterUrl": "Enter the url",
     "scale": "Scale",
     "help": "Help",
-    "reallyReset": "Do you really want to reset it?"
+    "reallyReset": "Do you really want to reset it?",
+    "whatToDo": "What do you want to do?",
+    "iDontCare": "I don't care",
+    "backup": "Backup",
+    "createdInNewerVersion": "The file %s was created in a newer version. What should be done with this file?"
 }

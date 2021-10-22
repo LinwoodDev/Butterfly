@@ -1,10 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/pad/dialogs/open.dart';
+import 'package:butterfly/pad/dialogs/save.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,10 +30,38 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> loadDocuments() {
-    return SharedPreferences.getInstance().then((prefs) => setState(() => _documents =
-        List<String>.from(prefs.getStringList("documents") ?? [])
-            .map((e) => AppDocument.fromJson(jsonDecode(e)))
-            .toList()));
+    return SharedPreferences.getInstance().then<void>((prefs) async {
+      var loaded = await Future.wait(List<String>.from(prefs.getStringList("documents") ?? [])
+          .map<Future<AppDocument>>((e) async {
+        var data = jsonDecode(e);
+        var fileVersion = data["fileVersion"] is int?
+            ? data["fileVersion"]
+            : int.tryParse(data["fileVersion"]) ?? -1;
+        if (fileVersion > GetIt.I.get<int>(instanceName: "fileVersion")) {
+          // TODO: Replace placeholder
+          await showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                      title: Text(AppLocalizations.of(context)!.whatToDo),
+                      content: Text(AppLocalizations.of(context)!.createdInNewerVersion),
+                      actions: [
+                        TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text(AppLocalizations.of(context)!.iDontCare)),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              showDialog(
+                                  context: context, builder: (context) => SaveDialog(data: e));
+                            },
+                            child: Text(AppLocalizations.of(context)!.backup)),
+                      ]));
+        }
+        return AppDocument.fromJson(data);
+      }).toList());
+      saveDocuments();
+      setState(() => _documents = loaded);
+    });
   }
 
   Future<void> saveDocuments() {
