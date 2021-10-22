@@ -92,5 +92,22 @@
     "image": "Bild",
     "enterUrl": "URL eingeben",
     "scale": "Maßstab",
-    "help": "Hilfe"
+    "help": "Hilfe",
+    "reallyReset": "Wollen Sie wirklich zurücksetzen?",
+    "whatToDo": "Was möchtest du tun?",
+    "ignore": "Ignorieren",
+    "backup": "Sichern",
+    "createdInNewerVersion": "Die Datei {fileName} wurde in einer neueren Version ({fileVersion}) erstellt. Was soll mit dieser Datei gemacht werden?",
+    "@createdInNewerVersion": {
+        "placeholders": {
+            "fileName": {
+                "type": "String",
+                "example": "Document"
+            },
+            "fileVersion": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    }
 }
