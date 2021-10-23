@@ -42,6 +42,9 @@ class ViewPainter extends CustomPainter {
   ViewPainter(this.document, this.editingLayer, {this.renderBackground = true});
 
   Future<List<ui.Image>> loadImages() async {
+    if (kIsWeb) {
+      await Future.delayed(const Duration(milliseconds: 1));
+    }
     for (var layer in document.content) {
       if (layer is ImageElement && !images.containsKey(layer)) {
         image.Image loadedImage;
