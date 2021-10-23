@@ -1,3 +1,4 @@
+import 'dart:isolate';
 import 'dart:typed_data';
 
 import 'package:butterfly/models/backgrounds/box.dart';
@@ -10,6 +11,23 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:image/image.dart' as image;
 
+class DecodeParam {
+  final Uint8List data;
+  final int width, height;
+  final double scale;
+  final SendPort sendPort;
+  DecodeParam(this.data, this.sendPort, this.width, this.height, this.scale);
+}
+
+void decodeIsolate(DecodeParam param) {
+  image.Image baseSizeImage =
+      image.decodeImage(param.data) ?? image.Image(0, 0);
+  image.Image resizeImage = image.copyResize(baseSizeImage,
+      height: (param.height * param.scale).round(),
+      width: (param.width * param.scale).round());
+  param.sendPort.send(resizeImage);
+}
+
 class ViewPainter extends CustomPainter {
   AppDocument document;
   ElementLayer? editingLayer;
@@ -18,20 +36,27 @@ class ViewPainter extends CustomPainter {
 
   ViewPainter(this.document, this.editingLayer, {this.renderBackground = true});
 
-  Future<void> loadImages() async {
+  Future<List<ui.Image>> loadImages() async {
     for (var layer in document.content) {
       if (layer is ImageElement && !images.containsKey(layer)) {
-        image.Image baseSizeImage =
-            image.decodeImage(layer.pixels) ?? image.Image(0, 0);
-        image.Image resizeImage = image.copyResize(baseSizeImage,
-            height: (layer.height * layer.scale).round(),
-            width: (layer.width * layer.scale).round());
+        var receivePort = ReceivePort();
+
+        await Isolate.spawn(
+            decodeIsolate,
+            DecodeParam(layer.pixels, receivePort.sendPort, layer.width,
+                layer.height, layer.scale));
+
+        // Get the processed image from the isolate.
+        var loadedImage = await receivePort.first as image.Image;
+
         ui.Codec codec = await ui.instantiateImageCodec(
-            Uint8List.fromList(image.encodePng(resizeImage)));
+            Uint8List.fromList(image.encodePng(loadedImage)));
         ui.FrameInfo frameInfo = await codec.getNextFrame();
         images[layer] = frameInfo.image;
       }
     }
+    images.removeWhere((key, value) => !document.content.contains(key));
+    return images.entries.map((entry) => entry.value).toList();
   }
 
   @override
@@ -121,5 +146,8 @@ class ViewPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ViewPainter oldDelegate) =>
-      document != oldDelegate.document;
+      document != oldDelegate.document ||
+      editingLayer != oldDelegate.editingLayer ||
+      renderBackground != oldDelegate.renderBackground ||
+      images != oldDelegate.images;
 }

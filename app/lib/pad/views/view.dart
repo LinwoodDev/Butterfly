@@ -50,6 +50,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
       context.read<TransformCubit>().emit(_controller.value);
       _viewMode = false;
     });
+    var state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
+    painter ??= ViewPainter(state.document, currentEditingLayer);
   }
 
   @override
@@ -58,12 +60,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
         bloc: widget.bloc,
         builder: (context, state) {
           if (state is! DocumentLoadSuccess) return Container();
-          painter ??= ViewPainter(state.document, currentEditingLayer);
-          painter?.document = state.document;
-          painter?.editingLayer = currentEditingLayer;
           return FutureBuilder(
               future: painter?.loadImages(),
               builder: (context, snapshot) {
+                painter?.document = state.document;
+                painter?.editingLayer = currentEditingLayer;
                 return LayoutBuilder(builder: (context, constraints) {
                   final viewportSize =
                       Size(constraints.maxWidth, constraints.maxHeight);
@@ -238,22 +239,26 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           }
                         }
                       },
-                      child: InteractiveViewer(
-                        constrained: false,
-                        transformationController: _controller,
-                        panEnabled: _moveEnabled,
-                        minScale: 0.25,
-                        maxScale: 5,
-                        scaleEnabled: _moveEnabled,
-                        child: Container(
-                          color: Colors.white,
-                          child: CustomPaint(
-                            key: transformKey,
-                            size: paintViewport,
-                            painter: painter,
+                      child: Stack(children: [
+                        InteractiveViewer(
+                          constrained: false,
+                          transformationController: _controller,
+                          panEnabled: _moveEnabled,
+                          minScale: 0.25,
+                          maxScale: 5,
+                          scaleEnabled: _moveEnabled,
+                          child: Container(
+                            color: Colors.white,
+                            child: CustomPaint(
+                              key: transformKey,
+                              size: paintViewport,
+                              painter: painter,
+                            ),
                           ),
                         ),
-                      ),
+                        if (snapshot.connectionState == ConnectionState.waiting)
+                          const Center(child: CircularProgressIndicator()),
+                      ]),
                     );
                   }));
                 });
