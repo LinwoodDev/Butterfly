@@ -7,6 +7,7 @@ import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/image.dart';
 import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/elements/path.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:image/image.dart' as image;
@@ -19,12 +20,16 @@ class DecodeParam {
   DecodeParam(this.data, this.sendPort, this.width, this.height, this.scale);
 }
 
-void decodeIsolate(DecodeParam param) {
-  image.Image baseSizeImage =
-      image.decodeImage(param.data) ?? image.Image(0, 0);
+image.Image loadImage(Uint8List data, int width, int height, double scale) {
+  image.Image baseSizeImage = image.decodeImage(data) ?? image.Image(0, 0);
   image.Image resizeImage = image.copyResize(baseSizeImage,
-      height: (param.height * param.scale).round(),
-      width: (param.width * param.scale).round());
+      height: (height * scale).round(), width: (width * scale).round());
+  return resizeImage;
+}
+
+void decodeIsolate(DecodeParam param) {
+  var resizeImage =
+      loadImage(param.data, param.width, param.height, param.scale);
   param.sendPort.send(resizeImage);
 }
 
@@ -39,15 +44,21 @@ class ViewPainter extends CustomPainter {
   Future<List<ui.Image>> loadImages() async {
     for (var layer in document.content) {
       if (layer is ImageElement && !images.containsKey(layer)) {
-        var receivePort = ReceivePort();
+        image.Image loadedImage;
 
-        await Isolate.spawn(
-            decodeIsolate,
-            DecodeParam(layer.pixels, receivePort.sendPort, layer.width,
-                layer.height, layer.scale));
+        if (kIsWeb) {
+          loadedImage =
+              loadImage(layer.pixels, layer.width, layer.height, layer.scale);
+        } else {
+          var receivePort = ReceivePort();
+          await Isolate.spawn(
+              decodeIsolate,
+              DecodeParam(layer.pixels, receivePort.sendPort, layer.width,
+                  layer.height, layer.scale));
+          loadedImage = await receivePort.first as image.Image;
+        }
 
         // Get the processed image from the isolate.
-        var loadedImage = await receivePort.first as image.Image;
 
         ui.Codec codec = await ui.instantiateImageCodec(
             Uint8List.fromList(image.encodePng(loadedImage)));

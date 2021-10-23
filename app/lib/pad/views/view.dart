@@ -257,7 +257,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           ),
                         ),
                         if (snapshot.connectionState == ConnectionState.waiting)
-                          const Center(child: CircularProgressIndicator()),
+                          Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Container(
+                                margin: const EdgeInsets.all(8),
+                                child: const CircularProgressIndicator(),
+                                height: 20.0,
+                                width: 20.0,
+                              )),
                       ]),
                     );
                   }));
