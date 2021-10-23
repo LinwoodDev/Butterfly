@@ -29,7 +29,12 @@ class AppDocument {
       this.content = const [],
       this.background,
       this.palettes = const [],
-      this.painters = const [PenPainter()]});
+      this.painters = const [
+        PenPainter(),
+        EraserPainter(),
+        LabelPainter(),
+        ImagePainter()
+      ]});
 
   factory AppDocument.fromJson(Map<String, dynamic> json) {
     var version = json['fileVersion'] is int
