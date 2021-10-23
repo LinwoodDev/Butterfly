@@ -89,7 +89,7 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.github.linwoodcloud.butterfly" "\0"
+            VALUE "CompanyName", "dev.linwood.butterfly" "\0"
             VALUE "FileDescription", "Linwood Butterfly." "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "Butterfly" "\0"

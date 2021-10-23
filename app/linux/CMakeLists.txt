@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "butterfly")
-set(APPLICATION_ID "com.github.linwoodcloud.butterfly")
+set(APPLICATION_ID "dev.linwood.butterfly")
 
 cmake_policy(SET CMP0063 NEW)
 
