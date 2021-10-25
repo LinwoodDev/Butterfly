@@ -13,7 +13,7 @@ class SaveDialog extends StatelessWidget {
   const SaveDialog({Key? key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var isMobile = Platform.isAndroid || Platform.isIOS;
+    var isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
     return AlertDialog(
         title: Row(
           children: [

@@ -18,7 +18,7 @@ class OpenDialog extends StatefulWidget {
 class _OpenDialogState extends State<OpenDialog> {
   @override
   Widget build(BuildContext context) {
-    var isMobile = Platform.isAndroid || Platform.isIOS;
+    var isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
     return AlertDialog(
       title: Row(
         children: [
