@@ -41,6 +41,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
   GlobalKey transformKey = GlobalKey();
   ElementLayer? currentEditingLayer;
   ViewPainter? painter;
+  ForegroundPainter? foregroundPainter;
 
   @override
   void initState() {
@@ -51,7 +52,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
       _viewMode = false;
     });
     var state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
-    painter ??= ViewPainter(state.document, currentEditingLayer);
+    painter ??= ViewPainter(state.document);
+    foregroundPainter ??= ForegroundPainter(currentEditingLayer);
   }
 
   @override
@@ -64,7 +66,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
               future: painter?.loadImages(),
               builder: (context, snapshot) {
                 painter?.document = state.document;
-                painter?.editingLayer = currentEditingLayer;
+                foregroundPainter?.editingLayer = currentEditingLayer;
                 return LayoutBuilder(builder: (context, constraints) {
                   final viewportSize =
                       Size(constraints.maxWidth, constraints.maxHeight);
@@ -251,6 +253,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             color: Colors.white,
                             child: CustomPaint(
                               key: transformKey,
+                              foregroundPainter: foregroundPainter,
                               size: paintViewport,
                               painter: painter,
                             ),

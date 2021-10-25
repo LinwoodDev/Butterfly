@@ -53,7 +53,7 @@ class _ExportDialogState extends State<ExportDialog> {
     var recorder = PictureRecorder();
     var canvas = Canvas(recorder);
     var painter = ViewPainter(
-        (widget.bloc.state as DocumentLoadSuccess).document, null,
+        (widget.bloc.state as DocumentLoadSuccess).document,
         renderBackground: _renderBackground);
     await painter.loadImages();
     painter.paint(canvas, Size(width.toDouble(), height.toDouble()),

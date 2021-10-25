@@ -33,13 +33,62 @@ void decodeIsolate(DecodeParam param) {
   param.sendPort.send(resizeImage);
 }
 
+void paintElement(Canvas canvas, ElementLayer element,
+    [Map<ElementLayer, ui.Image> images = const {},
+    Offset offset = Offset.zero]) {
+  if (element is PathElement) {
+    element.paint(canvas, offset);
+  } else if (element is LabelElement) {
+    TextSpan span = TextSpan(
+        style: TextStyle(
+            fontSize: element.property.size,
+            color: element.property.color,
+            fontWeight: element.property.fontWeight,
+            letterSpacing: element.property.letterSpacing,
+            decorationColor: element.property.decorationColor,
+            decorationStyle: element.property.decorationStyle,
+            decorationThickness: element.property.decorationThickness,
+            decoration: TextDecoration.combine([
+              if (element.property.underline) TextDecoration.underline,
+              if (element.property.lineThrough) TextDecoration.lineThrough,
+              if (element.property.overline) TextDecoration.overline,
+            ])),
+        text: element.text);
+    TextPainter tp = TextPainter(
+        text: span,
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.ltr,
+        textScaleFactor: 1.0);
+    tp.layout();
+    var position = element.position;
+    position += offset;
+    tp.paint(canvas, position);
+  }
+  if (element is ImageElement && images.containsKey(element)) {
+    canvas.drawImage(images[element]!, element.position + offset,
+        Paint()..strokeWidth = .05);
+  }
+}
+
+class ForegroundPainter extends CustomPainter {
+  ElementLayer? editingLayer;
+  ForegroundPainter(this.editingLayer);
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (editingLayer != null) paintElement(canvas, editingLayer!);
+  }
+
+  @override
+  bool shouldRepaint(ForegroundPainter oldDelegate) =>
+      oldDelegate.editingLayer != editingLayer;
+}
+
 class ViewPainter extends CustomPainter {
   AppDocument document;
-  ElementLayer? editingLayer;
   final bool renderBackground;
   final Map<ElementLayer, ui.Image> images = {};
 
-  ViewPainter(this.document, this.editingLayer, {this.renderBackground = true});
+  ViewPainter(this.document, {this.renderBackground = true});
 
   Future<List<ui.Image>> loadImages() async {
     if (kIsWeb) {
@@ -118,50 +167,14 @@ class ViewPainter extends CustomPainter {
       }
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
-    List<ElementLayer>.from(document.content)
-      ..addAll([if (editingLayer != null) editingLayer!])
-      ..asMap().forEach((index, element) async {
-        if (element is PathElement) {
-          element.paint(canvas, offset);
-        } else if (element is LabelElement) {
-          TextSpan span = TextSpan(
-              style: TextStyle(
-                  fontSize: element.property.size,
-                  color: element.property.color,
-                  fontWeight: element.property.fontWeight,
-                  letterSpacing: element.property.letterSpacing,
-                  decorationColor: element.property.decorationColor,
-                  decorationStyle: element.property.decorationStyle,
-                  decorationThickness: element.property.decorationThickness,
-                  decoration: TextDecoration.combine([
-                    if (element.property.underline) TextDecoration.underline,
-                    if (element.property.lineThrough)
-                      TextDecoration.lineThrough,
-                    if (element.property.overline) TextDecoration.overline,
-                  ])),
-              text: element.text);
-          TextPainter tp = TextPainter(
-              text: span,
-              textAlign: TextAlign.center,
-              textDirection: TextDirection.ltr,
-              textScaleFactor: 1.0);
-          tp.layout();
-          var position = element.position;
-          position += offset;
-          tp.paint(canvas, position);
-        }
-        if (element is ImageElement && images.containsKey(element)) {
-          canvas.drawImage(images[element]!, element.position + offset,
-              Paint()..strokeWidth = .05);
-        }
-      });
+    document.content.asMap().forEach(
+        (index, element) => paintElement(canvas, element, images, offset));
     canvas.restore();
   }
 
   @override
   bool shouldRepaint(ViewPainter oldDelegate) =>
       document != oldDelegate.document ||
-      editingLayer != oldDelegate.editingLayer ||
       renderBackground != oldDelegate.renderBackground ||
       images != oldDelegate.images;
 }
