@@ -68,22 +68,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
                 painter?.document = state.document;
                 foregroundPainter?.editingLayer = currentEditingLayer;
                 return LayoutBuilder(builder: (context, constraints) {
-                  final viewportSize =
-                      Size(constraints.maxWidth, constraints.maxHeight);
+                  final viewportSize = Size(constraints.maxWidth, constraints.maxHeight);
                   List<ElementLayer> raycast(Offset offset) {
-                    return state.document.content
-                        .where((element) => element.hit(offset))
-                        .toList();
+                    return state.document.content.where((element) => element.hit(offset)).toList();
                   }
 
-                  return SizedBox.expand(child:
-                      BlocBuilder<TransformCubit, Matrix4>(
-                          builder: (context, transform) {
+                  return SizedBox.expand(
+                      child: BlocBuilder<TransformCubit, Matrix4>(builder: (context, transform) {
                     var translation = -transform.getTranslation();
                     var scale = transform.up.y;
                     //scale *= scale;
-                    var paintViewport = Size(
-                        (translation.x + viewportSize.width * 2) / scale,
+                    var paintViewport = Size((translation.x + viewportSize.width * 2) / scale,
                         (translation.y + viewportSize.height * 2) / scale);
                     _controller.value = transform;
                     return Listener(
@@ -95,21 +90,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           scale *= currentScale;
                           scale = scale.clamp(0.25, 5);
                           scale /= currentScale;
-                          context.read<TransformCubit>().emit(
-                              Matrix4.copy(transform)
-                                ..scale(scale, scale, scale));
+                          context
+                              .read<TransformCubit>()
+                              .emit(Matrix4.copy(transform)..scale(scale, scale, scale));
                         }
                       },
                       onPointerDown: (PointerDownEvent event) {
-                        if (event.kind == PointerDeviceKind.stylus ||
-                            state.editMode) {
+                        if (event.kind == PointerDeviceKind.stylus || state.editMode) {
                           if (state.currentPainter is BuildedPainter) {
-                            var painter =
-                                state.currentPainter as BuildedPainter;
-                            setState(() => currentEditingLayer =
-                                painter.buildLayer(
-                                    _controller.toScene(event.localPosition),
-                                    event.pressure));
+                            var painter = state.currentPainter as BuildedPainter;
+                            setState(() => currentEditingLayer = painter.buildLayer(
+                                _controller.toScene(event.localPosition), event.pressure));
                           }
                           if (state.currentPainter is LabelPainter) {
                             var painter = state.currentPainter as LabelPainter;
@@ -119,16 +110,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               widget.bloc.add(LayerCreated(LabelElement(
                                   property: painter.property,
                                   text: _textController.text,
-                                  position: _controller
-                                      .toScene(event.localPosition))));
+                                  position: _controller.toScene(event.localPosition))));
                             }
 
                             showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .enterText),
+                                        title: Text(AppLocalizations.of(context)!.enterText),
                                         content: TextField(
                                           controller: _textController,
                                           autofocus: true,
@@ -136,23 +124,16 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         ),
                                         actions: [
                                           TextButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .cancel),
-                                            onPressed: () =>
-                                                Navigator.of(context).pop(),
+                                            child: Text(AppLocalizations.of(context)!.cancel),
+                                            onPressed: () => Navigator.of(context).pop(),
                                           ),
                                           TextButton(
-                                              child: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .ok),
+                                              child: Text(AppLocalizations.of(context)!.ok),
                                               onPressed: submit)
                                         ]));
                           }
                           if (state.currentPainter is ImagePainter) {
-                            FilePicker.platform
-                                .pickFiles(type: FileType.image)
-                                .then((files) {
+                            FilePicker.platform.pickFiles(type: FileType.image).then((files) {
                               if (files?.files.isEmpty ?? true) return;
                               var e = files!.files.first;
                               var content = e.bytes ?? Uint8List(0);
@@ -160,15 +141,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 content = File(e.path ?? "").readAsBytesSync();
                               }
                               ui.decodeImageFromList(content, (image) async {
-                                var bytes = await image.toByteData(
-                                    format: ui.ImageByteFormat.png);
+                                var bytes = await image.toByteData(format: ui.ImageByteFormat.png);
                                 widget.bloc.add(LayerCreated(ImageElement(
                                     height: image.height,
                                     width: image.width,
-                                    pixels: bytes?.buffer.asUint8List() ??
-                                        Uint8List(0),
-                                    position: _controller
-                                        .toScene(event.localPosition))));
+                                    pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
+                                    position: _controller.toScene(event.localPosition))));
                               });
                             });
                           }
@@ -180,15 +158,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         }
                       },
                       onPointerUp: (PointerUpEvent event) {
-                        if ((event.kind == PointerDeviceKind.stylus ||
-                                state.editMode) &&
+                        if ((event.kind == PointerDeviceKind.stylus || state.editMode) &&
                             currentEditingLayer != null) {
                           widget.bloc.add(LayerCreated(currentEditingLayer!));
                           setState(() => currentEditingLayer = null);
                         } else if (_viewMode && !state.editMode) {
                           _viewMode = false;
-                          var hits =
-                              raycast(_controller.toScene(event.localPosition));
+                          var hits = raycast(_controller.toScene(event.localPosition));
                           var hit = hits.isEmpty ? null : hits.last;
                           if (hit != null) {
                             var index = state.document.content.indexOf(hit);
@@ -196,20 +172,16 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 context: context,
                                 builder: (context) {
                                   if (hit is PenElement) {
-                                    return PaintElementDialog(
-                                        index: index, bloc: widget.bloc);
+                                    return PaintElementDialog(index: index, bloc: widget.bloc);
                                   }
                                   if (hit is EraserElement) {
-                                    return EraserElementDialog(
-                                        index: index, bloc: widget.bloc);
+                                    return EraserElementDialog(index: index, bloc: widget.bloc);
                                   }
                                   if (hit is LabelElement) {
-                                    return LabelElementDialog(
-                                        index: index, bloc: widget.bloc);
+                                    return LabelElementDialog(index: index, bloc: widget.bloc);
                                   }
                                   if (hit is ImageElement) {
-                                    return ImageElementDialog(
-                                        index: index, bloc: widget.bloc);
+                                    return ImageElementDialog(index: index, bloc: widget.bloc);
                                   }
                                   return Container();
                                 });
@@ -219,16 +191,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       },
                       behavior: HitTestBehavior.translucent,
                       onPointerMove: (PointerMoveEvent event) {
-                        if ((event.kind == PointerDeviceKind.stylus ||
-                            state.editMode)) {
+                        if ((event.kind == PointerDeviceKind.stylus || state.editMode)) {
                           if (state.currentPainter is PathEraserPainter) {
-                            widget.bloc.add(LayersRemoved(raycast(
-                                    _controller.toScene(event.localPosition))
-                                .where((element) =>
-                                    element is! EraserElement ||
-                                    (state.currentPainter as PathEraserPainter)
-                                        .canDeleteEraser)
-                                .toList()));
+                            widget.bloc.add(LayersRemoved(
+                                raycast(_controller.toScene(event.localPosition))
+                                    .where((element) =>
+                                        element is! EraserElement ||
+                                        (state.currentPainter as PathEraserPainter).canDeleteEraser)
+                                    .toList()));
                           } else if (currentEditingLayer != null &&
                               currentEditingLayer is PathElement) {
                             // Add point to custom paint
@@ -236,8 +206,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             setState(() => currentEditingLayer = layer.copyWith(
                                 points: List.from(layer.points)
                                   ..add(PathPoint.fromOffset(
-                                      _controller.toScene(event.localPosition),
-                                      event.pressure))));
+                                      _controller.toScene(event.localPosition), event.pressure))));
                           }
                         }
                       },
@@ -256,6 +225,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               foregroundPainter: foregroundPainter,
                               size: paintViewport,
                               painter: painter,
+                              isComplex: true,
+                              willChange: true,
                             ),
                           ),
                         ),
