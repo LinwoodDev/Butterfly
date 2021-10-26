@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:image/image.dart' as image;
 
+import 'cubits/transform.dart';
+
 class DecodeParam {
   final Uint8List data;
   final int width, height;
@@ -28,14 +30,12 @@ image.Image loadImage(Uint8List data, int width, int height, double scale) {
 }
 
 void decodeIsolate(DecodeParam param) {
-  var resizeImage =
-      loadImage(param.data, param.width, param.height, param.scale);
+  var resizeImage = loadImage(param.data, param.width, param.height, param.scale);
   param.sendPort.send(resizeImage);
 }
 
 void paintElement(Canvas canvas, ElementLayer element,
-    [Map<ElementLayer, ui.Image> images = const {},
-    Offset offset = Offset.zero]) {
+    [Map<ElementLayer, ui.Image> images = const {}, Offset offset = Offset.zero]) {
   if (element is PathElement) {
     element.paint(canvas, offset);
   } else if (element is LabelElement) {
@@ -65,30 +65,31 @@ void paintElement(Canvas canvas, ElementLayer element,
     tp.paint(canvas, position);
   }
   if (element is ImageElement && images.containsKey(element)) {
-    canvas.drawImage(images[element]!, element.position + offset,
-        Paint()..strokeWidth = .05);
+    canvas.drawImage(images[element]!, element.position + offset, Paint()..strokeWidth = .05);
   }
 }
 
 class ForegroundPainter extends CustomPainter {
   ElementLayer? editingLayer;
-  ForegroundPainter(this.editingLayer);
+  CameraTransform transform;
+  ForegroundPainter(this.editingLayer, [this.transform = const CameraTransform()]);
   @override
   void paint(Canvas canvas, Size size) {
-    if (editingLayer != null) paintElement(canvas, editingLayer!);
+    if (editingLayer != null) paintElement(canvas, editingLayer!, {}, transform.position);
   }
 
   @override
-  bool shouldRepaint(ForegroundPainter oldDelegate) =>
-      oldDelegate.editingLayer != editingLayer;
+  bool shouldRepaint(ForegroundPainter oldDelegate) => oldDelegate.editingLayer != editingLayer;
 }
 
 class ViewPainter extends CustomPainter {
   AppDocument document;
   final bool renderBackground;
   final Map<ElementLayer, ui.Image> images = {};
+  CameraTransform transform;
 
-  ViewPainter(this.document, {this.renderBackground = true});
+  ViewPainter(this.document,
+      {this.renderBackground = true, this.transform = const CameraTransform()});
 
   Future<List<ui.Image>> loadImages() async {
     if (kIsWeb) {
@@ -99,21 +100,20 @@ class ViewPainter extends CustomPainter {
         image.Image loadedImage;
 
         if (kIsWeb) {
-          loadedImage =
-              loadImage(layer.pixels, layer.width, layer.height, layer.scale);
+          loadedImage = loadImage(layer.pixels, layer.width, layer.height, layer.scale);
         } else {
           var receivePort = ReceivePort();
           await Isolate.spawn(
               decodeIsolate,
-              DecodeParam(layer.pixels, receivePort.sendPort, layer.width,
-                  layer.height, layer.scale));
+              DecodeParam(
+                  layer.pixels, receivePort.sendPort, layer.width, layer.height, layer.scale));
           loadedImage = await receivePort.first as image.Image;
         }
 
         // Get the processed image from the isolate.
 
-        ui.Codec codec = await ui.instantiateImageCodec(
-            Uint8List.fromList(image.encodePng(loadedImage)));
+        ui.Codec codec =
+            await ui.instantiateImageCodec(Uint8List.fromList(image.encodePng(loadedImage)));
         ui.FrameInfo frameInfo = await codec.getNextFrame();
         images[layer] = frameInfo.image;
       }
@@ -123,12 +123,13 @@ class ViewPainter extends CustomPainter {
   }
 
   @override
-  void paint(Canvas canvas, Size size, {Offset offset = Offset.zero}) {
+  void paint(Canvas canvas, Size size) {
     var background = document.background;
+    print("PAINT!");
     if (background is BoxBackground && renderBackground) {
       canvas.drawColor(background.boxColor, BlendMode.srcOver);
       if (background.boxWidth > 0 && background.boxXCount > 0) {
-        double x = -offset.dx;
+        double x = -transform.position.dx;
         x += background.boxXSpace;
         int count = 0;
         while (x < size.width) {
@@ -147,7 +148,7 @@ class ViewPainter extends CustomPainter {
         }
       }
       if (background.boxHeight > 0 && background.boxYCount > 0) {
-        double y = -offset.dy;
+        double y = -transform.position.dy;
         y += background.boxYSpace;
         int count = 0;
         while (y < size.width) {
@@ -167,8 +168,9 @@ class ViewPainter extends CustomPainter {
       }
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
-    document.content.asMap().forEach(
-        (index, element) => paintElement(canvas, element, images, offset));
+    document.content
+        .asMap()
+        .forEach((index, element) => paintElement(canvas, element, images, transform.position));
     canvas.restore();
   }
 
@@ -176,5 +178,6 @@ class ViewPainter extends CustomPainter {
   bool shouldRepaint(ViewPainter oldDelegate) =>
       document != oldDelegate.document ||
       renderBackground != oldDelegate.renderBackground ||
-      images != oldDelegate.images;
+      images != oldDelegate.images ||
+      transform != transform;
 }
