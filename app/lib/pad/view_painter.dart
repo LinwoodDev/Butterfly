@@ -30,14 +30,17 @@ image.Image loadImage(Uint8List data, int width, int height, double scale) {
 }
 
 void decodeIsolate(DecodeParam param) {
-  var resizeImage = loadImage(param.data, param.width, param.height, param.scale);
+  var resizeImage =
+      loadImage(param.data, param.width, param.height, param.scale);
   param.sendPort.send(resizeImage);
 }
 
 void paintElement(Canvas canvas, ElementLayer element,
-    [Map<ElementLayer, ui.Image> images = const {}, Offset offset = Offset.zero]) {
+    [Map<ElementLayer, ui.Image> images = const {},
+    Offset offset = Offset.zero,
+    bool preview = false]) {
   if (element is PathElement) {
-    element.paint(canvas, offset);
+    element.paint(canvas, offset, preview);
   } else if (element is LabelElement) {
     TextSpan span = TextSpan(
         style: TextStyle(
@@ -65,18 +68,21 @@ void paintElement(Canvas canvas, ElementLayer element,
     tp.paint(canvas, position);
   }
   if (element is ImageElement && images.containsKey(element)) {
-    canvas.drawImage(images[element]!, element.position + offset, Paint()..strokeWidth = .05);
+    canvas.drawImage(images[element]!, element.position + offset,
+        Paint()..strokeWidth = .05);
   }
 }
 
 class ForegroundPainter extends CustomPainter {
   final ElementLayer? editingLayer;
   final CameraTransform transform;
-  ForegroundPainter(this.editingLayer, [this.transform = const CameraTransform()]);
+  ForegroundPainter(this.editingLayer,
+      [this.transform = const CameraTransform()]);
   @override
   void paint(Canvas canvas, Size size) {
     canvas.scale(transform.size);
-    if (editingLayer != null) paintElement(canvas, editingLayer!, {}, transform.position);
+    if (editingLayer != null)
+      paintElement(canvas, editingLayer!, {}, transform.position, true);
   }
 
   @override
@@ -95,20 +101,21 @@ Future<Map<ElementLayer, ui.Image>> loadImages(AppDocument document,
       image.Image loadedImage;
 
       if (kIsWeb) {
-        loadedImage = loadImage(layer.pixels, layer.width, layer.height, layer.scale);
+        loadedImage =
+            loadImage(layer.pixels, layer.width, layer.height, layer.scale);
       } else {
         var receivePort = ReceivePort();
         await Isolate.spawn(
             decodeIsolate,
-            DecodeParam(
-                layer.pixels, receivePort.sendPort, layer.width, layer.height, layer.scale));
+            DecodeParam(layer.pixels, receivePort.sendPort, layer.width,
+                layer.height, layer.scale));
         loadedImage = await receivePort.first as image.Image;
       }
 
       // Get the processed image from the isolate.
 
-      ui.Codec codec =
-          await ui.instantiateImageCodec(Uint8List.fromList(image.encodePng(loadedImage)));
+      ui.Codec codec = await ui.instantiateImageCodec(
+          Uint8List.fromList(image.encodePng(loadedImage)));
       ui.FrameInfo frameInfo = await codec.getNextFrame();
       images[layer] = frameInfo.image;
     }
@@ -135,7 +142,8 @@ class ViewPainter extends CustomPainter {
     if (background is BoxBackground && renderBackground) {
       canvas.drawColor(background.boxColor, BlendMode.srcOver);
       if (background.boxWidth > 0 && background.boxXCount > 0) {
-        double x = (transform.position.dx % background.boxWidth * transform.size);
+        double x =
+            (transform.position.dx % background.boxWidth * transform.size);
         int count = 0;
         while (x < size.width) {
           canvas.drawLine(
@@ -153,7 +161,8 @@ class ViewPainter extends CustomPainter {
         }
       }
       if (background.boxHeight > 0 && background.boxYCount > 0) {
-        double y = (transform.position.dy % background.boxHeight * transform.size);
+        double y =
+            (transform.position.dy % background.boxHeight * transform.size);
         int count = 0;
         while (y < size.width) {
           canvas.drawLine(
@@ -173,9 +182,8 @@ class ViewPainter extends CustomPainter {
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     canvas.scale(transform.size, transform.size);
-    document.content
-        .asMap()
-        .forEach((index, element) => paintElement(canvas, element, images, transform.position));
+    document.content.asMap().forEach((index, element) =>
+        paintElement(canvas, element, images, transform.position));
     canvas.restore();
   }
 

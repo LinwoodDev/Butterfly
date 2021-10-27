@@ -14,11 +14,11 @@ class EraserElement extends PathElement {
         super.fromJson(json);
 
   @override
-  Paint buildPaint() => Paint()
+  Paint buildPaint([bool preview = false]) => Paint()
     ..style = PaintingStyle.stroke
-    ..color = Colors.transparent
+    ..color = Colors.white
     ..strokeCap = StrokeCap.round
-    ..blendMode = BlendMode.clear;
+    ..blendMode = preview ? BlendMode.srcOver : BlendMode.clear;
 
   @override
   Map<String, dynamic> toJson() => super.toJson()..addAll({'type': 'eraser'});

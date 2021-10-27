@@ -230,24 +230,16 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         },
                         child: BlocBuilder<TransformCubit, CameraTransform>(
                             builder: (context, transform) {
-                          var backgroundPaint = CustomPaint(
-                            size: Size.infinite,
-                            painter: ViewPainter(state.document,
-                                transform: transform, images: images),
-                            isComplex: true,
-                            willChange: true,
-                          );
-                          var foregroundPaint = CustomPaint(
-                            painter: ForegroundPainter(
-                                currentEditingLayer, transform),
-                            size: Size.infinite,
-                            isComplex: true,
-                            willChange: true,
-                          );
                           return Stack(children: [
-                            Container(
-                                color: Colors.white, child: backgroundPaint),
-                            foregroundPaint,
+                            CustomPaint(
+                              size: Size.infinite,
+                              foregroundPainter: ForegroundPainter(
+                                  currentEditingLayer, transform),
+                              painter: ViewPainter(state.document,
+                                  transform: transform, images: images),
+                              isComplex: true,
+                              willChange: true,
+                            ),
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting)
                               Align(

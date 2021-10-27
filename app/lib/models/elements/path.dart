@@ -38,9 +38,10 @@ abstract class PathElement extends ElementLayer {
       (element.x - offset.dx).abs() <= property.strokeWidth &&
       (element.y - offset.dy).abs() <= property.strokeWidth);
 
-  Paint buildPaint();
+  Paint buildPaint([bool preview = false]);
 
-  void paint(Canvas canvas, [Offset offset = Offset.zero]) {
+  void paint(Canvas canvas,
+      [Offset offset = Offset.zero, bool preview = false]) {
     if (points.isNotEmpty) {
       var first = points.first;
       var previous = first;
@@ -48,7 +49,7 @@ abstract class PathElement extends ElementLayer {
         canvas.drawLine(
             previous.toOffset() + offset,
             element.toOffset() + offset,
-            buildPaint()
+            buildPaint(preview)
               ..strokeWidth = property.strokeWidth +
                   element.pressure * property.strokeMultiplier);
         previous = element;
