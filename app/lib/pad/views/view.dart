@@ -58,13 +58,28 @@ class _MainViewViewportState extends State<MainViewViewport> {
             return FutureBuilder<Map<ElementLayer, ui.Image>>(
                 future: loadImages(state.document, images),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    images.clear();
-                    images.addAll(snapshot.data!);
-                  }
-
                   return StatefulBuilder(
                     builder: (context, setState) {
+                      if (snapshot.hasData) {
+                        images.clear();
+                        images.addAll(snapshot.data!);
+                      } else if (kIsWeb) {
+                        return Align(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: CircularProgressIndicator(),
+                                ),
+                                Text(
+                                  AppLocalizations.of(context)!.loading,
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                )
+                              ]),
+                            ));
+                      }
                       return Listener(
                         onPointerSignal: (pointerSignal) {
                           if (pointerSignal is PointerScrollEvent) {
@@ -200,7 +215,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           var transform = context.read<TransformCubit>().state;
                           if (!state.editMode &&
                               event.kind != ui.PointerDeviceKind.stylus) {
-                            context.read<TransformCubit>().move(event.delta);
+                            context
+                                .read<TransformCubit>()
+                                .move(event.delta / transform.size);
                             return;
                           }
                           if ((event.kind == PointerDeviceKind.stylus ||
@@ -241,14 +258,16 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               willChange: true,
                             ),
                             if (snapshot.connectionState ==
-                                ConnectionState.waiting)
+                                    ConnectionState.waiting &&
+                                images.isEmpty &&
+                                !kIsWeb)
                               Align(
                                   alignment: Alignment.bottomLeft,
                                   child: Container(
                                     margin: const EdgeInsets.all(8),
                                     child: const CircularProgressIndicator(),
-                                    height: 20.0,
-                                    width: 20.0,
+                                    height: 50.0,
+                                    width: 50.0,
                                   )),
                           ]);
                         }),

@@ -15,23 +15,22 @@ import 'package:image/image.dart' as image;
 import 'cubits/transform.dart';
 
 class DecodeParam {
-  final Uint8List data;
-  final int width, height;
-  final double scale;
+  final ImageElement element;
   final SendPort sendPort;
-  DecodeParam(this.data, this.sendPort, this.width, this.height, this.scale);
+  DecodeParam(this.element, this.sendPort);
 }
 
-image.Image loadImage(Uint8List data, int width, int height, double scale) {
-  image.Image baseSizeImage = image.decodeImage(data) ?? image.Image(0, 0);
+image.Image loadImage(ImageElement layer) {
+  image.Image baseSizeImage =
+      image.decodeImage(layer.pixels) ?? image.Image(0, 0);
   image.Image resizeImage = image.copyResize(baseSizeImage,
-      height: (height * scale).round(), width: (width * scale).round());
+      height: (layer.height * layer.scale).round(),
+      width: (layer.width * layer.scale).round());
   return resizeImage;
 }
 
 void decodeIsolate(DecodeParam param) {
-  var resizeImage =
-      loadImage(param.data, param.width, param.height, param.scale);
+  var resizeImage = loadImage(param.element);
   param.sendPort.send(resizeImage);
 }
 
@@ -81,8 +80,9 @@ class ForegroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.scale(transform.size);
-    if (editingLayer != null)
+    if (editingLayer != null) {
       paintElement(canvas, editingLayer!, {}, transform.position, true);
+    }
   }
 
   @override
@@ -94,7 +94,7 @@ Future<Map<ElementLayer, ui.Image>> loadImages(AppDocument document,
     [Map<ElementLayer, ui.Image> loadedImages = const {}]) async {
   var images = Map<ElementLayer, ui.Image>.from(loadedImages);
   if (kIsWeb) {
-    await Future.delayed(const Duration(milliseconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
   }
   for (var layer in document.content) {
     if (layer is ImageElement && !images.containsKey(layer)) {
@@ -102,13 +102,11 @@ Future<Map<ElementLayer, ui.Image>> loadImages(AppDocument document,
 
       if (kIsWeb) {
         loadedImage =
-            loadImage(layer.pixels, layer.width, layer.height, layer.scale);
+            await compute<ImageElement, image.Image>(loadImage, layer);
       } else {
         var receivePort = ReceivePort();
         await Isolate.spawn(
-            decodeIsolate,
-            DecodeParam(layer.pixels, receivePort.sendPort, layer.width,
-                layer.height, layer.scale));
+            decodeIsolate, DecodeParam(layer, receivePort.sendPort));
         loadedImage = await receivePort.first as image.Image;
       }
 
