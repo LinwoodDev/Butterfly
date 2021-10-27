@@ -186,10 +186,9 @@ class ViewPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(ViewPainter oldDelegate) {
-    var shouldRepaint = document != oldDelegate.document ||
-        renderBackground != oldDelegate.renderBackground ||
-        transform != oldDelegate.transform;
-    return shouldRepaint;
-  }
+  bool shouldRepaint(ViewPainter oldDelegate) =>
+      document != oldDelegate.document ||
+      renderBackground != oldDelegate.renderBackground ||
+      transform != oldDelegate.transform ||
+      images != oldDelegate.images;
 }
