@@ -63,7 +63,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
             }
 
             return BlocBuilder<TransformCubit, CameraTransform>(builder: (context, transform) {
-              print("REBUILD!");
               painter?.transform = transform;
               foregroundPainter?.transform = transform;
               return FutureBuilder(

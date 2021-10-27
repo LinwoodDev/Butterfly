@@ -129,7 +129,6 @@ class ViewPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var background = document.background;
-    print("PAINT!");
     if (background is BoxBackground && renderBackground) {
       canvas.drawColor(background.boxColor, BlendMode.srcOver);
       if (background.boxWidth > 0 && background.boxXCount > 0) {
