@@ -76,7 +76,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   }
                   return GestureDetector(
                     onScaleUpdate: (details) {
-                      print("SCALE!");
                       var transform = context.read<TransformCubit>().state;
                       // Scale the matrix
                       var scale = details.scale;
