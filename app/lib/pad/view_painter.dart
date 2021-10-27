@@ -75,21 +75,25 @@ class ForegroundPainter extends CustomPainter {
   ForegroundPainter(this.editingLayer, [this.transform = const CameraTransform()]);
   @override
   void paint(Canvas canvas, Size size) {
+    canvas.scale(transform.size);
     if (editingLayer != null) paintElement(canvas, editingLayer!, {}, transform.position);
   }
 
   @override
-  bool shouldRepaint(ForegroundPainter oldDelegate) => oldDelegate.editingLayer != editingLayer;
+  bool shouldRepaint(ForegroundPainter oldDelegate) =>
+      oldDelegate.editingLayer != editingLayer || transform != transform;
 }
 
 class ViewPainter extends CustomPainter {
   AppDocument document;
   final bool renderBackground;
-  final Map<ElementLayer, ui.Image> images = {};
+  final Map<ElementLayer, ui.Image> images;
   CameraTransform transform;
 
   ViewPainter(this.document,
-      {this.renderBackground = true, this.transform = const CameraTransform()});
+      {this.renderBackground = true,
+      this.transform = const CameraTransform(),
+      this.images = const {}});
 
   Future<List<ui.Image>> loadImages() async {
     if (kIsWeb) {
@@ -129,8 +133,7 @@ class ViewPainter extends CustomPainter {
     if (background is BoxBackground && renderBackground) {
       canvas.drawColor(background.boxColor, BlendMode.srcOver);
       if (background.boxWidth > 0 && background.boxXCount > 0) {
-        double x = -transform.position.dx;
-        x += background.boxXSpace;
+        double x = transform.position.dy % background.boxHeight * transform.size;
         int count = 0;
         while (x < size.width) {
           canvas.drawLine(
@@ -144,12 +147,11 @@ class ViewPainter extends CustomPainter {
             count = 0;
             x += background.boxXSpace;
           }
-          x += background.boxWidth;
+          x += background.boxWidth * transform.size;
         }
       }
       if (background.boxHeight > 0 && background.boxYCount > 0) {
-        double y = -transform.position.dy;
-        y += background.boxYSpace;
+        double y = transform.position.dy % background.boxHeight * transform.size;
         int count = 0;
         while (y < size.width) {
           canvas.drawLine(
@@ -163,11 +165,12 @@ class ViewPainter extends CustomPainter {
             count = 0;
             y += background.boxYSpace;
           }
-          y += background.boxHeight;
+          y += background.boxHeight * transform.size;
         }
       }
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
+    canvas.scale(transform.size, transform.size);
     document.content
         .asMap()
         .forEach((index, element) => paintElement(canvas, element, images, transform.position));

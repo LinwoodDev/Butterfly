@@ -1,8 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @immutable
-class CameraTransform {
+class CameraTransform extends Equatable {
   final Offset position;
   final double size;
 
@@ -12,7 +13,10 @@ class CameraTransform {
   CameraTransform withScale(double scale) => CameraTransform(position, size * scale);
   CameraTransform withSize(double size) => CameraTransform(position, size);
 
-  Offset localToGlobal(Offset local) => (local - position) * size;
+  Offset localToGlobal(Offset local) => local / size - position;
+
+  @override
+  List<Object?> get props => [position, size];
 }
 
 class TransformCubit extends Cubit<CameraTransform> {
