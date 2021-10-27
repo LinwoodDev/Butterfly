@@ -37,18 +37,8 @@ class MainViewViewport extends StatefulWidget {
 
 class _MainViewViewportState extends State<MainViewViewport> {
   bool _viewMode = false;
+  final Map<ElementLayer, ui.Image> images = {};
   GlobalKey transformKey = GlobalKey();
-  ElementLayer? currentEditingLayer;
-  ViewPainter? painter;
-  ForegroundPainter? foregroundPainter;
-
-  @override
-  void initState() {
-    super.initState();
-    var state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
-    painter ??= ViewPainter(state.document);
-    foregroundPainter ??= ForegroundPainter(currentEditingLayer);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,24 +46,30 @@ class _MainViewViewportState extends State<MainViewViewport> {
         bloc: widget.bloc,
         builder: (context, state) {
           if (state is! DocumentLoadSuccess) return Container();
-          return SizedBox.expand(
-              child: ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
+          return SizedBox.expand(child:
+              ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
             List<ElementLayer> raycast(Offset offset) {
-              return state.document.content.where((element) => element.hit(offset)).toList();
+              return state.document.content
+                  .where((element) => element.hit(offset))
+                  .toList();
             }
 
-            return BlocBuilder<TransformCubit, CameraTransform>(builder: (context, transform) {
-              painter?.transform = transform;
-              foregroundPainter?.transform = transform;
-              return FutureBuilder(
-                  future: painter?.loadImages(),
-                  builder: (context, snapshot) {
-                    painter?.document = state.document;
-                    foregroundPainter?.editingLayer = currentEditingLayer;
-                    return Listener(
+            ElementLayer? currentEditingLayer;
+            return FutureBuilder<Map<ElementLayer, ui.Image>>(
+                future: loadImages(state.document, images),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    images.clear();
+                    images.addAll(snapshot.data!);
+                  }
+
+                  return StatefulBuilder(
+                    builder: (context, setState) {
+                      return Listener(
                         onPointerSignal: (pointerSignal) {
                           if (pointerSignal is PointerScrollEvent) {
-                            var transform = context.read<TransformCubit>().state;
+                            var transform =
+                                context.read<TransformCubit>().state;
                             // Scale the matrix
                             var scale = 1 - pointerSignal.scrollDelta.dy / 100;
                             var currentScale = transform.size;
@@ -85,27 +81,36 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         },
                         onPointerDown: (PointerDownEvent event) {
                           var transform = context.read<TransformCubit>().state;
-                          if (event.kind == PointerDeviceKind.stylus || state.editMode) {
+                          if (event.kind == PointerDeviceKind.stylus ||
+                              state.editMode) {
                             if (state.currentPainter is BuildedPainter) {
-                              var painter = state.currentPainter as BuildedPainter;
-                              setState(() => currentEditingLayer = painter.buildLayer(
-                                  transform.localToGlobal(event.localPosition), event.pressure));
+                              var painter =
+                                  state.currentPainter as BuildedPainter;
+                              setState(() => currentEditingLayer =
+                                  painter.buildLayer(
+                                      transform
+                                          .localToGlobal(event.localPosition),
+                                      event.pressure));
                             }
                             if (state.currentPainter is LabelPainter) {
-                              var painter = state.currentPainter as LabelPainter;
+                              var painter =
+                                  state.currentPainter as LabelPainter;
                               var _textController = TextEditingController();
                               void submit() {
                                 Navigator.of(context).pop();
                                 widget.bloc.add(LayerCreated(LabelElement(
                                     property: painter.property,
                                     text: _textController.text,
-                                    position: transform.localToGlobal(event.localPosition))));
+                                    position: transform
+                                        .localToGlobal(event.localPosition))));
                               }
 
                               showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
-                                          title: Text(AppLocalizations.of(context)!.enterText),
+                                          title: Text(
+                                              AppLocalizations.of(context)!
+                                                  .enterText),
                                           content: TextField(
                                             controller: _textController,
                                             autofocus: true,
@@ -113,30 +118,40 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                           ),
                                           actions: [
                                             TextButton(
-                                              child: Text(AppLocalizations.of(context)!.cancel),
-                                              onPressed: () => Navigator.of(context).pop(),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .cancel),
+                                              onPressed: () =>
+                                                  Navigator.of(context).pop(),
                                             ),
                                             TextButton(
-                                                child: Text(AppLocalizations.of(context)!.ok),
+                                                child: Text(AppLocalizations.of(
+                                                        context)!
+                                                    .ok),
                                                 onPressed: submit)
                                           ]));
                             }
                             if (state.currentPainter is ImagePainter) {
-                              FilePicker.platform.pickFiles(type: FileType.image).then((files) {
+                              FilePicker.platform
+                                  .pickFiles(type: FileType.image)
+                                  .then((files) {
                                 if (files?.files.isEmpty ?? true) return;
                                 var e = files!.files.first;
                                 var content = e.bytes ?? Uint8List(0);
                                 if (!kIsWeb) {
-                                  content = File(e.path ?? "").readAsBytesSync();
+                                  content =
+                                      File(e.path ?? "").readAsBytesSync();
                                 }
                                 ui.decodeImageFromList(content, (image) async {
-                                  var bytes =
-                                      await image.toByteData(format: ui.ImageByteFormat.png);
+                                  var bytes = await image.toByteData(
+                                      format: ui.ImageByteFormat.png);
                                   widget.bloc.add(LayerCreated(ImageElement(
                                       height: image.height,
                                       width: image.width,
-                                      pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
-                                      position: transform.localToGlobal(event.localPosition))));
+                                      pixels: bytes?.buffer.asUint8List() ??
+                                          Uint8List(0),
+                                      position: transform.localToGlobal(
+                                          event.localPosition))));
                                 });
                               });
                             }
@@ -144,13 +159,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         },
                         onPointerUp: (PointerUpEvent event) {
                           var transform = context.read<TransformCubit>().state;
-                          if ((event.kind == PointerDeviceKind.stylus || state.editMode) &&
+                          if ((event.kind == PointerDeviceKind.stylus ||
+                                  state.editMode) &&
                               currentEditingLayer != null) {
                             widget.bloc.add(LayerCreated(currentEditingLayer!));
                             setState(() => currentEditingLayer = null);
                           } else if (_viewMode && !state.editMode) {
                             _viewMode = false;
-                            var hits = raycast(transform.localToGlobal(event.localPosition));
+                            var hits = raycast(
+                                transform.localToGlobal(event.localPosition));
                             var hit = hits.isEmpty ? null : hits.last;
                             if (hit != null) {
                               var index = state.document.content.indexOf(hit);
@@ -158,16 +175,20 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   context: context,
                                   builder: (context) {
                                     if (hit is PenElement) {
-                                      return PaintElementDialog(index: index, bloc: widget.bloc);
+                                      return PaintElementDialog(
+                                          index: index, bloc: widget.bloc);
                                     }
                                     if (hit is EraserElement) {
-                                      return EraserElementDialog(index: index, bloc: widget.bloc);
+                                      return EraserElementDialog(
+                                          index: index, bloc: widget.bloc);
                                     }
                                     if (hit is LabelElement) {
-                                      return LabelElementDialog(index: index, bloc: widget.bloc);
+                                      return LabelElementDialog(
+                                          index: index, bloc: widget.bloc);
                                     }
                                     if (hit is ImageElement) {
-                                      return ImageElementDialog(index: index, bloc: widget.bloc);
+                                      return ImageElementDialog(
+                                          index: index, bloc: widget.bloc);
                                     }
                                     return Container();
                                   });
@@ -177,53 +198,72 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         behavior: HitTestBehavior.translucent,
                         onPointerMove: (PointerMoveEvent event) {
                           var transform = context.read<TransformCubit>().state;
-                          if (!state.editMode && event.kind != ui.PointerDeviceKind.stylus) {
+                          if (!state.editMode &&
+                              event.kind != ui.PointerDeviceKind.stylus) {
                             context.read<TransformCubit>().move(event.delta);
                             return;
                           }
-                          if ((event.kind == PointerDeviceKind.stylus || state.editMode)) {
+                          if ((event.kind == PointerDeviceKind.stylus ||
+                              state.editMode)) {
                             if (state.currentPainter is PathEraserPainter) {
-                              widget.bloc.add(LayersRemoved(
-                                  raycast(transform.localToGlobal(event.localPosition))
-                                      .where((element) =>
-                                          element is! EraserElement ||
-                                          (state.currentPainter as PathEraserPainter)
-                                              .canDeleteEraser)
-                                      .toList()));
+                              widget.bloc.add(LayersRemoved(raycast(transform
+                                      .localToGlobal(event.localPosition))
+                                  .where((element) =>
+                                      element is! EraserElement ||
+                                      (state.currentPainter
+                                              as PathEraserPainter)
+                                          .canDeleteEraser)
+                                  .toList()));
                             } else if (currentEditingLayer != null &&
                                 currentEditingLayer is PathElement) {
                               // Add point to custom paint
                               var layer = currentEditingLayer as PathElement;
-                              setState(() => currentEditingLayer = layer.copyWith(
-                                  points: List.from(layer.points)
-                                    ..add(PathPoint.fromOffset(
-                                        transform.localToGlobal(event.localPosition),
-                                        event.pressure))));
+                              setState(() => currentEditingLayer =
+                                  layer.copyWith(
+                                      points: List.from(layer.points)
+                                        ..add(PathPoint.fromOffset(
+                                            transform.localToGlobal(
+                                                event.localPosition),
+                                            event.pressure))));
                             }
                           }
                         },
-                        child: Stack(children: [
-                          Container(
-                              color: Colors.white,
-                              child: CustomPaint(
-                                foregroundPainter: foregroundPainter,
-                                size: Size.infinite,
-                                painter: painter,
-                                isComplex: true,
-                                willChange: true,
-                              )),
-                          if (snapshot.connectionState == ConnectionState.waiting)
-                            Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Container(
-                                  margin: const EdgeInsets.all(8),
-                                  child: const CircularProgressIndicator(),
-                                  height: 20.0,
-                                  width: 20.0,
-                                )),
-                        ]));
-                  });
-            });
+                        child: BlocBuilder<TransformCubit, CameraTransform>(
+                            builder: (context, transform) {
+                          var backgroundPaint = CustomPaint(
+                            size: Size.infinite,
+                            painter: ViewPainter(state.document,
+                                transform: transform, images: images),
+                            isComplex: true,
+                            willChange: true,
+                          );
+                          var foregroundPaint = CustomPaint(
+                            painter: ForegroundPainter(
+                                currentEditingLayer, transform),
+                            size: Size.infinite,
+                            isComplex: true,
+                            willChange: true,
+                          );
+                          return Stack(children: [
+                            Container(
+                                color: Colors.white, child: backgroundPaint),
+                            foregroundPaint,
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting)
+                              Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Container(
+                                    margin: const EdgeInsets.all(8),
+                                    child: const CircularProgressIndicator(),
+                                    height: 20.0,
+                                    width: 20.0,
+                                  )),
+                          ]);
+                        }),
+                      );
+                    },
+                  );
+                });
           })));
         });
   }
