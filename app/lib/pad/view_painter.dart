@@ -132,7 +132,7 @@ class ViewPainter extends CustomPainter {
     if (background is BoxBackground && renderBackground) {
       canvas.drawColor(background.boxColor, BlendMode.srcOver);
       if (background.boxWidth > 0 && background.boxXCount > 0) {
-        double x = transform.position.dy % background.boxHeight * transform.size;
+        double x = transform.position.dx % (background.boxWidth * transform.size);
         int count = 0;
         while (x < size.width) {
           canvas.drawLine(
@@ -150,7 +150,7 @@ class ViewPainter extends CustomPainter {
         }
       }
       if (background.boxHeight > 0 && background.boxYCount > 0) {
-        double y = transform.position.dy % background.boxHeight * transform.size;
+        double y = transform.position.dy % (background.boxHeight * transform.size);
         int count = 0;
         while (y < size.width) {
           canvas.drawLine(
