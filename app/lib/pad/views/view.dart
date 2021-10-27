@@ -76,6 +76,72 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           ]),
                         ));
                   }
+                  void createLayer(Offset localPosition, double pressure) {
+                    var transform = context.read<TransformCubit>().state;
+                    if (state.currentPainter is BuildedPainter) {
+                      var painter = state.currentPainter as BuildedPainter;
+                      setState(() => currentEditingLayer = painter.buildLayer(
+                          transform.localToGlobal(localPosition), pressure));
+                    }
+                    if (state.currentPainter is LabelPainter) {
+                      var painter = state.currentPainter as LabelPainter;
+                      var _textController = TextEditingController();
+                      void submit() {
+                        Navigator.of(context).pop();
+                        widget.bloc.add(LayerCreated(LabelElement(
+                            property: painter.property,
+                            text: _textController.text,
+                            position: transform.localToGlobal(localPosition))));
+                      }
+
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                  title: Text(
+                                      AppLocalizations.of(context)!.enterText),
+                                  content: TextField(
+                                    controller: _textController,
+                                    autofocus: true,
+                                    onSubmitted: (text) => submit(),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      child: Text(
+                                          AppLocalizations.of(context)!.cancel),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                    ),
+                                    TextButton(
+                                        child: Text(
+                                            AppLocalizations.of(context)!.ok),
+                                        onPressed: submit)
+                                  ]));
+                    }
+                    if (state.currentPainter is ImagePainter) {
+                      FilePicker.platform
+                          .pickFiles(type: FileType.image)
+                          .then((files) {
+                        if (files?.files.isEmpty ?? true) return;
+                        var e = files!.files.first;
+                        var content = e.bytes ?? Uint8List(0);
+                        if (!kIsWeb) {
+                          content = File(e.path ?? "").readAsBytesSync();
+                        }
+                        ui.decodeImageFromList(content, (image) async {
+                          var bytes = await image.toByteData(
+                              format: ui.ImageByteFormat.png);
+                          widget.bloc.add(LayerCreated(ImageElement(
+                              height: image.height,
+                              width: image.width,
+                              pixels:
+                                  bytes?.buffer.asUint8List() ?? Uint8List(0),
+                              position:
+                                  transform.localToGlobal(localPosition))));
+                        });
+                      });
+                    }
+                  }
+
                   return GestureDetector(
                     onScaleUpdate: (details) {
                       var transform = context.read<TransformCubit>().state;
@@ -101,82 +167,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           }
                         },
                         onPointerDown: (PointerDownEvent event) {
-                          var transform = context.read<TransformCubit>().state;
                           if (event.kind == PointerDeviceKind.stylus ||
                               state.editMode &&
                                   event.buttons != kMiddleMouseButton) {
-                            if (state.currentPainter is BuildedPainter) {
-                              var painter =
-                                  state.currentPainter as BuildedPainter;
-                              setState(() => currentEditingLayer =
-                                  painter.buildLayer(
-                                      transform
-                                          .localToGlobal(event.localPosition),
-                                      event.pressure));
-                            }
-                            if (state.currentPainter is LabelPainter) {
-                              var painter =
-                                  state.currentPainter as LabelPainter;
-                              var _textController = TextEditingController();
-                              void submit() {
-                                Navigator.of(context).pop();
-                                widget.bloc.add(LayerCreated(LabelElement(
-                                    property: painter.property,
-                                    text: _textController.text,
-                                    position: transform
-                                        .localToGlobal(event.localPosition))));
-                              }
-
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                          title: Text(
-                                              AppLocalizations.of(context)!
-                                                  .enterText),
-                                          content: TextField(
-                                            controller: _textController,
-                                            autofocus: true,
-                                            onSubmitted: (text) => submit(),
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              child: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .cancel),
-                                              onPressed: () =>
-                                                  Navigator.of(context).pop(),
-                                            ),
-                                            TextButton(
-                                                child: Text(AppLocalizations.of(
-                                                        context)!
-                                                    .ok),
-                                                onPressed: submit)
-                                          ]));
-                            }
-                            if (state.currentPainter is ImagePainter) {
-                              FilePicker.platform
-                                  .pickFiles(type: FileType.image)
-                                  .then((files) {
-                                if (files?.files.isEmpty ?? true) return;
-                                var e = files!.files.first;
-                                var content = e.bytes ?? Uint8List(0);
-                                if (!kIsWeb) {
-                                  content =
-                                      File(e.path ?? "").readAsBytesSync();
-                                }
-                                ui.decodeImageFromList(content, (image) async {
-                                  var bytes = await image.toByteData(
-                                      format: ui.ImageByteFormat.png);
-                                  widget.bloc.add(LayerCreated(ImageElement(
-                                      height: image.height,
-                                      width: image.width,
-                                      pixels: bytes?.buffer.asUint8List() ??
-                                          Uint8List(0),
-                                      position: transform.localToGlobal(
-                                          event.localPosition))));
-                                });
-                              });
-                            }
+                            createLayer(event.localPosition, event.pressure);
                           }
                         },
                         onPointerUp: (PointerUpEvent event) {
@@ -231,6 +225,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           }
                           if ((event.kind == PointerDeviceKind.stylus ||
                               state.editMode)) {
+                            if (currentEditingLayer == null) {
+                              createLayer(event.localPosition, event.pressure);
+                            }
                             if (state.currentPainter is PathEraserPainter) {
                               widget.bloc.add(LayersRemoved(raycast(transform
                                       .localToGlobal(event.localPosition))
