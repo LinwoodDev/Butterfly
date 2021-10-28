@@ -142,18 +142,18 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     }
                   }
 
-                  var scaling = false, moving = false;
+                  var size = 1.0, scaling = false, moving = false;
 
                   return GestureDetector(
                     onScaleUpdate: (details) {
                       var transform = context.read<TransformCubit>().state;
                       // Scale the matrix
                       if (!scaling) scaling = details.scale != 1;
-                      var scale = details.scale - 1;
-                      scale /= 100;
-                      context.read<TransformCubit>().scale(scale);
+                      var scale = size + details.scale - 1;
+                      context.read<TransformCubit>().size(scale);
                     },
-                    onScaleEnd: (details) => scaling = false,
+                    onScaleStart: (details) =>
+                        size = context.read<TransformCubit>().state.size,
                     child: Listener(
                         onPointerSignal: (pointerSignal) {
                           if (pointerSignal is PointerScrollEvent) {
