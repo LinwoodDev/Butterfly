@@ -5,19 +5,32 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  final bool isDialog;
+  const SettingsPage({Key? key, this.isDialog = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings)),
+        backgroundColor: isDialog ? Colors.transparent : null,
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context)!.settings),
+          leading: isDialog
+              ? IconButton(
+                  icon: const Icon(PhosphorIcons.xLight),
+                  onPressed: () => Navigator.of(context).pop(),
+                )
+              : null,
+        ),
         body: Scrollbar(
             child: SingleChildScrollView(
                 child: Column(children: [
           ListTile(
               leading: const Icon(PhosphorIcons.monitorLight),
               title: Text(AppLocalizations.of(context)!.personalization),
-              onTap: () => Modular.to.pushNamed("/settings/personalization")),
+              onTap: () {
+                Navigator.of(context).pop();
+                Modular.to.pushNamed("/settings/personalization");
+              }),
           const Divider(),
           ListTile(
               leading: const Icon(PhosphorIcons.stackLight),

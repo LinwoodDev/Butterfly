@@ -271,9 +271,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     alignment: Alignment.bottomLeft,
                                     child: Container(
                                       margin: const EdgeInsets.all(8),
-                                      child: const CircularProgressIndicator(),
-                                      height: 50.0,
-                                      width: 50.0,
+                                      child: const CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                      height: 20.0,
+                                      width: 20.0,
                                     )),
                             ]);
                           },

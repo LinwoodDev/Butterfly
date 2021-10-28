@@ -5,6 +5,7 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/pad/dialogs/open.dart';
 import 'package:butterfly/pad/dialogs/save.dart';
+import 'package:butterfly/settings/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
@@ -99,7 +100,13 @@ class _HomePageState extends State<HomePage> {
         IconButton(
             icon: const Icon(PhosphorIcons.gearLight),
             tooltip: AppLocalizations.of(context)?.settings,
-            onPressed: () => Modular.to.pushNamed("/settings/"))
+            onPressed: () => showDialog(
+                context: context,
+                builder: (context) => Dialog(
+                    child: ConstrainedBox(
+                        constraints:
+                            const BoxConstraints(maxHeight: 400, maxWidth: 600),
+                        child: const SettingsPage(isDialog: true)))))
       ]),
       body: gridView ? _buildGridView() : _buildListView(),
       floatingActionButton: FloatingActionButton.extended(
