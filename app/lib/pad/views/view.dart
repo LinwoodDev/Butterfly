@@ -142,16 +142,18 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     }
                   }
 
+                  var scaling = false, moving = false;
+
                   return GestureDetector(
                     onScaleUpdate: (details) {
                       var transform = context.read<TransformCubit>().state;
                       // Scale the matrix
-                      var scale = details.scale;
-                      scale += transform.size;
-                      scale = scale.clamp(0.25, 5);
-                      scale -= transform.size;
-                      context.read<TransformCubit>().scale(details.scale);
+                      if (!scaling) scaling = details.scale != 1;
+                      var scale = details.scale - 1;
+                      scale /= 100;
+                      context.read<TransformCubit>().scale(scale);
                     },
+                    onScaleEnd: (details) => scaling = false,
                     child: Listener(
                         onPointerSignal: (pointerSignal) {
                           if (pointerSignal is PointerScrollEvent) {
@@ -174,6 +176,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           }
                         },
                         onPointerUp: (PointerUpEvent event) {
+                          if (scaling || moving) {
+                            moving = false;
+                            return;
+                          }
                           var transform = context.read<TransformCubit>().state;
                           if ((event.kind == PointerDeviceKind.stylus ||
                                   state.editMode) &&
@@ -218,6 +224,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           if (!state.editMode &&
                                   event.kind != ui.PointerDeviceKind.stylus ||
                               event.buttons == kMiddleMouseButton) {
+                            if (!moving) {
+                              moving =
+                                  (event.delta / transform.size) != Offset.zero;
+                            }
                             context
                                 .read<TransformCubit>()
                                 .move(event.delta / transform.size);
