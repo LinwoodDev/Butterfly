@@ -1,0 +1,8 @@
+## Your data will be saved locally
+
+Everything will be saved local on your computer. The data is saved in json files.
+
+## Customizable
+
+Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper.
+The paper has an infinite size, perfect for your ideas and notes.
