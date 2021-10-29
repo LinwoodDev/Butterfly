@@ -1,0 +1,9 @@
+* Add new design system
+* Add image painter and layer
+  * Add scale property
+* Add open/save dialog
+* Add letter spacing to text painter and element
+* Add internal property class to simplify equal variables on painter and layer
+* Normalize json keys
+* Fix lag when zooming out of the viewport
+* Split custom painter from view internally

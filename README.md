@@ -16,7 +16,7 @@
 
 ## Introduction
 
-### Your data is local
+### Your data will be saved locally
 
 Everything will be saved local on your computer. The data is saved in json files.
 
