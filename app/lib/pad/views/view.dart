@@ -262,6 +262,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         child: BlocBuilder<TransformCubit, CameraTransform>(
                           builder: (context, transform) {
                             return Stack(children: [
+                              Container(color: Colors.white),
                               CustomPaint(
                                 size: Size.infinite,
                                 foregroundPainter: ForegroundPainter(

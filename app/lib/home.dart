@@ -23,6 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<AppDocument> _documents = [];
   bool gridView = true;
+  final GlobalKey<FormState> _createFormKey = GlobalKey();
 
   @override
   void initState() {
@@ -116,31 +117,46 @@ class _HomePageState extends State<HomePage> {
           var _nameController = TextEditingController();
           showDialog(
               context: context,
-              builder: (context) => AlertDialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                    title: Text(AppLocalizations.of(context)!.enterName),
-                    content: TextField(
-                      controller: _nameController,
-                      autofocus: true,
-                    ),
-                    actions: [
-                      TextButton(
-                        child: Text(AppLocalizations.of(context)!.cancel),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
-                      TextButton(
-                        child: Text(AppLocalizations.of(context)!.create),
-                        onPressed: () {
-                          setState(() => _documents.add(AppDocument(
-                              name: _nameController.text,
-                              palettes:
-                                  ColorPalette.getMaterialPalette(context))));
-                          saveDocuments();
-                          Navigator.of(context).pop();
+              builder: (context) => Form(
+                    key: _createFormKey,
+                    child: AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      title: Text(AppLocalizations.of(context)!.create),
+                      content: TextFormField(
+                        decoration: InputDecoration(
+                            filled: true,
+                            labelText: AppLocalizations.of(context)!.name),
+                        validator: (value) {
+                          if (value?.isEmpty ?? true) {
+                            return AppLocalizations.of(context)!.shouldNotEmpty;
+                          }
+                          return null;
                         },
+                        controller: _nameController,
+                        autofocus: true,
                       ),
-                    ],
+                      actions: [
+                        TextButton(
+                          child: Text(AppLocalizations.of(context)!.cancel),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                        TextButton(
+                          child: Text(AppLocalizations.of(context)!.create),
+                          onPressed: () {
+                            if (_createFormKey.currentState?.validate() ??
+                                false) {
+                              setState(() => _documents.add(AppDocument(
+                                  name: _nameController.text,
+                                  palettes: ColorPalette.getMaterialPalette(
+                                      context))));
+                              saveDocuments();
+                              Navigator.of(context).pop();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   ));
         },
       ),
