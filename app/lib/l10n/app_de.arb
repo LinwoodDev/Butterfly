@@ -110,5 +110,5 @@
             }
         }
     },
-    "shouldNotEmpty": "This value should not be empty"
+    "shouldNotEmpty": "Dieser Wert darf nicht leer sein"
 }
