@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.0-rc.1 (October 30th, 2021)
+
+* Add new graphic engine to allow moving in the negative direction
+* Big performance issues were fixed
+* New loading screen on web
+* Add separate color palette class (new color palette file format)
+* Fixing empty names in document name ([#14](https://github.com/LinwoodCloud/butterfly/issues/14))
+* Fixing open/save dialog
+
+
 ## 1.0.0-rc.0 (October 20th, 2021)
 
 * Add new design system
