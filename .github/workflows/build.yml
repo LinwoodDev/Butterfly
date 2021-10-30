@@ -152,6 +152,7 @@ jobs:
           zip -r windows.zip windows-build/*
           zip -r linux.zip linux-build/*
       - name: Configure git
+        if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
           git --version
           git config --global user.email "actions@github.com"
@@ -167,12 +168,12 @@ jobs:
         run: |
           git tag -fa nightly -m "Find all nightly releases here"
           git push origin nightly -f
-      - name: 🚀 Deploy release
+      - name: 🚀 Deploy stable
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v1
         continue-on-error: true
         with:
-          tag_name: release
+          tag_name: stable
           files: |
             Butterfly-Setup.exe
             app-release.apk
