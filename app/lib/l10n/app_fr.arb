@@ -109,5 +109,6 @@
                 "example": "5"
             }
         }
-    }
+    },
+    "shouldNotEmpty": "Cette valeur ne doit pas être vide"
 }
