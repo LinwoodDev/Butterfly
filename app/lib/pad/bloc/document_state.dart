@@ -48,7 +48,7 @@ class DocumentLoadSuccess extends DocumentState {
 
   Future<void> save() {
     return SharedPreferences.getInstance().then((prefs) {
-      var documents = List<String>.from(prefs.getStringList("documents") ?? []);
+      var documents = List<String>.from(prefs.getStringList('documents') ?? []);
       var content = jsonEncode(document.toJson());
       if (documents.length <= documentIndex) {
         documents.add(content);

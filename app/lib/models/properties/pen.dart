@@ -31,9 +31,9 @@ class PenProperty extends PathProperty {
 
   @override
   Map<String, dynamic> toJson() => {
-        "color": color.value,
-        "strokeWidth": strokeWidth,
-        "strokeMultiplier": strokeMultiplier,
-        "fill": fill
+        'color': color.value,
+        'strokeWidth': strokeWidth,
+        'strokeMultiplier': strokeMultiplier,
+        'fill': fill
       };
 }

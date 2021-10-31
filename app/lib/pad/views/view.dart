@@ -125,7 +125,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         var e = files!.files.first;
                         var content = e.bytes ?? Uint8List(0);
                         if (!kIsWeb) {
-                          content = File(e.path ?? "").readAsBytesSync();
+                          content = File(e.path ?? '').readAsBytesSync();
                         }
                         ui.decodeImageFromList(content, (image) async {
                           var bytes = await image.toByteData(

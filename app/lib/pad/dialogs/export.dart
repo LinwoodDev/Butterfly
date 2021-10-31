@@ -24,15 +24,15 @@ class ExportDialog extends StatefulWidget {
 }
 
 class _ExportDialogState extends State<ExportDialog> {
-  final TextEditingController _xController = TextEditingController(text: "0");
+  final TextEditingController _xController = TextEditingController(text: '0');
 
-  final TextEditingController _yController = TextEditingController(text: "0");
+  final TextEditingController _yController = TextEditingController(text: '0');
 
   final TextEditingController _widthController =
-      TextEditingController(text: "1000");
+      TextEditingController(text: '1000');
 
   final TextEditingController _heightController =
-      TextEditingController(text: "1000");
+      TextEditingController(text: '1000');
 
   bool _renderBackground = true;
   int x = 0, y = 0, width = 1000, height = 1000;

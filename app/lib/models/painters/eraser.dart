@@ -17,7 +17,7 @@ class EraserPainter extends BuildedPainter {
         super.fromJson(json);
   @override
   Map<String, dynamic> toJson() => super.toJson()
-    ..addAll({"type": "eraser"})
+    ..addAll({'type': 'eraser'})
     ..addAll(property.toJson());
   EraserPainter copyWith({String? name, PathProperty? property}) =>
       EraserPainter(

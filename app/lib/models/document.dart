@@ -40,7 +40,7 @@ class AppDocument {
     var version = json['fileVersion'] is int
         ? json['fileVersion']
         : int.tryParse(json['fileVersion']) ??
-            GetIt.I.get<int>(instanceName: "fileVersion");
+            GetIt.I.get<int>(instanceName: 'fileVersion');
     if (version >= 0 && version < 4) {
       json['palettes'] = List<dynamic>.from(
           Map<String, dynamic>.from(json['palettes'] ?? [])
@@ -97,15 +97,15 @@ class AppDocument {
         palettes: palettes);
   }
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "description": description,
-        "palettes": palettes.map((e) => e.toJson()).toList(),
-        "painters":
+        'name': name,
+        'description': description,
+        'palettes': palettes.map((e) => e.toJson()).toList(),
+        'painters':
             painters.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
-        "content":
+        'content':
             content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
-        "background": background?.toJson(),
-        "fileVersion": GetIt.I.get<int>(instanceName: 'fileVersion')
+        'background': background?.toJson(),
+        'fileVersion': GetIt.I.get<int>(instanceName: 'fileVersion')
       };
   AppDocument copyWith(
       {String? name,

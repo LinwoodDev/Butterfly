@@ -59,7 +59,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                           tooltip: AppLocalizations.of(context)!.help,
                           icon:
                               const Icon(PhosphorIcons.circleWavyQuestionLight),
-                          onPressed: () => openHelp(["painters", "pen"])),
+                          onPressed: () => openHelp(['painters', 'pen'])),
                     ],
                   ),
                   body: Padding(

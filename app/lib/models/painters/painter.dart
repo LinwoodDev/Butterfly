@@ -6,8 +6,8 @@ abstract class Painter {
   final String name;
   const Painter({this.name = ''});
   Painter.fromJson(Map<String, dynamic> json, [int? fileVersion])
-      : name = json['name'] ?? "";
-  Map<String, dynamic> toJson() => {"name": name};
+      : name = json['name'] ?? '';
+  Map<String, dynamic> toJson() => {'name': name};
 }
 
 abstract class BuildedPainter extends Painter {

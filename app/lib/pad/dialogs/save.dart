@@ -40,14 +40,14 @@ class SaveDialog extends StatelessWidget {
             ListTile(
                 onTap: () {
                   FilePicker.platform.saveFile(
-                      fileName: "butterfly.json",
+                      fileName: 'butterfly.json',
                       type: FileType.custom,
-                      allowedExtensions: ["json"]).then((value) {
+                      allowedExtensions: ['json']).then((value) {
                     if (value == null) {
                       return;
                     }
                     var fileName = value;
-                    if (!fileName.endsWith(".json")) fileName += ".json";
+                    if (!fileName.endsWith('.json')) fileName += '.json';
                     var file = File(fileName);
                     void write() {
                       file.writeAsStringSync(data);

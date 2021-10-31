@@ -13,6 +13,6 @@ class PackCollection {
   PackCollection(
       {required this.name,
       required this.author,
-      this.description = "",
+      this.description = '',
       this.website});
 }

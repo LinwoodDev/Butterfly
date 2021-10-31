@@ -18,10 +18,10 @@ class PathEraserPainter extends Painter {
   @override
   Map<String, dynamic> toJson() => super.toJson()
     ..addAll({
-      "type": "path-eraser",
-      "strokeWidth": strokeWidth,
-      "strokeMultiplier": strokeMultiplier,
-      "can-delete-eraser": canDeleteEraser
+      'type': 'path-eraser',
+      'strokeWidth': strokeWidth,
+      'strokeMultiplier': strokeMultiplier,
+      'can-delete-eraser': canDeleteEraser
     });
 
   PathEraserPainter copyWith(

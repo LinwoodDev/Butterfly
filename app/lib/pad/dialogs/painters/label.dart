@@ -64,7 +64,7 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                           tooltip: AppLocalizations.of(context)!.help,
                           icon:
                               const Icon(PhosphorIcons.circleWavyQuestionLight),
-                          onPressed: () => openHelp(["painters", "label"])),
+                          onPressed: () => openHelp(['painters', 'label'])),
                     ],
                   ),
                   body: Padding(

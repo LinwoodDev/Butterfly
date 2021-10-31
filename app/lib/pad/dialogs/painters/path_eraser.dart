@@ -60,7 +60,7 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                           icon:
                               const Icon(PhosphorIcons.circleWavyQuestionLight),
                           onPressed: () =>
-                              openHelp(["painters", "path_eraser"])),
+                              openHelp(['painters', 'path_eraser'])),
                     ],
                   ),
                   body: Padding(

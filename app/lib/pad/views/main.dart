@@ -26,20 +26,20 @@ class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
   final TextEditingController _scaleController =
-      TextEditingController(text: "100");
+      TextEditingController(text: '100');
   @override
   void initState() {
     super.initState();
     if (widget.id == null) {
-      Modular.to.navigate("/");
+      Modular.to.navigate('/');
     }
     SharedPreferences.getInstance().then((value) {
-      var index = int.tryParse(widget.id ?? "") ?? 0;
+      var index = int.tryParse(widget.id ?? '') ?? 0;
       // TODO: Dynamic api version
       const fileVersion = 0;
       setState(() => _bloc = DocumentBloc(
           AppDocument.fromJson(
-              jsonDecode((value.getStringList("documents") ?? [])[index])),
+              jsonDecode((value.getStringList('documents') ?? [])[index])),
           index,
           fileVersion));
     });

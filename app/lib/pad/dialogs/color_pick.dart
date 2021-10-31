@@ -393,11 +393,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                     .floppyDiskLight),
                                                 onPressed: () {
                                                   var data = json.encode({
-                                                    "fileVersion": GetIt.I
+                                                    'fileVersion': GetIt.I
                                                         .get<int>(
                                                             instanceName:
-                                                                "fileVersion"),
-                                                    "palettes": state
+                                                                'fileVersion'),
+                                                    'palettes': state
                                                         .document.palettes
                                                         .map((e) => e.toJson())
                                                         .toList()
@@ -415,7 +415,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                 icon: const Icon(PhosphorIcons
                                                     .circleWavyQuestionLight),
                                                 onPressed: () =>
-                                                    openHelp(["color_picker"])),
+                                                    openHelp(['color_picker'])),
                                             IconButton(
                                                 tooltip: AppLocalizations.of(
                                                         context)!
@@ -646,7 +646,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                               constraints: const BoxConstraints(maxWidth: 100),
                               child: TextField(
                                   decoration:
-                                      const InputDecoration(labelText: "R"),
+                                      const InputDecoration(labelText: 'R'),
                                   controller: _redController,
                                   onChanged: (value) =>
                                       _changeColor(red: int.tryParse(value))),
@@ -667,7 +667,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                               constraints: const BoxConstraints(maxWidth: 100),
                               child: TextField(
                                   decoration:
-                                      const InputDecoration(labelText: "G"),
+                                      const InputDecoration(labelText: 'G'),
                                   controller: _greenController,
                                   onChanged: (value) =>
                                       _changeColor(green: int.tryParse(value))),
@@ -688,7 +688,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                               constraints: const BoxConstraints(maxWidth: 100),
                               child: TextField(
                                   decoration:
-                                      const InputDecoration(labelText: "B"),
+                                      const InputDecoration(labelText: 'B'),
                                   controller: _blueController,
                                   onChanged: (value) =>
                                       _changeColor(blue: int.tryParse(value))),
@@ -709,7 +709,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                               constraints: const BoxConstraints(maxWidth: 100),
                               child: TextField(
                                   decoration:
-                                      const InputDecoration(labelText: "A"),
+                                      const InputDecoration(labelText: 'A'),
                                   controller: _alphaController,
                                   onChanged: (value) =>
                                       _changeColor(alpha: int.tryParse(value))),

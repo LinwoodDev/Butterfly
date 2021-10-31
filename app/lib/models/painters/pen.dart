@@ -18,7 +18,7 @@ class PenPainter extends BuildedPainter {
   @override
   Map<String, dynamic> toJson() => super.toJson()
     ..addAll({
-      "type": "pen",
+      'type': 'pen',
     })
     ..addAll(property.toJson());
 

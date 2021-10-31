@@ -15,5 +15,5 @@ class ColorPack extends ElementPack {
   }
 
   Map<String, dynamic> toJson() =>
-      {"colors": colors.map((key, value) => MapEntry(key, value.value))};
+      {'colors': colors.map((key, value) => MapEntry(key, value.value))};
 }

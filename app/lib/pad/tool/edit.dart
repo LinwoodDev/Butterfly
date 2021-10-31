@@ -26,13 +26,13 @@ class EditToolbar extends StatefulWidget {
 class _EditToolbarState extends State<EditToolbar> {
   IconData getPainterIcon(String type) {
     switch (type) {
-      case "eraser":
+      case 'eraser':
         return PhosphorIcons.eraserLight;
-      case "path-eraser":
+      case 'path-eraser':
         return PhosphorIcons.pathLight;
-      case "label":
+      case 'label':
         return PhosphorIcons.textTLight;
-      case "image":
+      case 'image':
         return PhosphorIcons.imageLight;
       default:
         return PhosphorIcons.penLight;
@@ -41,13 +41,13 @@ class _EditToolbarState extends State<EditToolbar> {
 
   IconData getPainterActiveIcon(String type) {
     switch (type) {
-      case "eraser":
+      case 'eraser':
         return PhosphorIcons.eraserFill;
-      case "path-eraser":
+      case 'path-eraser':
         return PhosphorIcons.pathFill;
-      case "label":
+      case 'label':
         return PhosphorIcons.textTFill;
-      case "image":
+      case 'image':
         return PhosphorIcons.imageFill;
       default:
         return PhosphorIcons.penFill;
@@ -75,7 +75,7 @@ class _EditToolbarState extends State<EditToolbar> {
                     state.currentPainterIndex
                         .clamp(0, state.document.painters.length - 1);
                 String? tooltip = e.name.trim();
-                if (tooltip == "") tooltip = null;
+                if (tooltip == '') tooltip = null;
                 Widget toolWidget = Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: InkWell(
@@ -136,24 +136,24 @@ class _EditToolbarState extends State<EditToolbar> {
               onSelected: (value) => widget.bloc.add(PainterCreated(value)),
               icon: const Icon(PhosphorIcons.plusLight),
               itemBuilder: (context) => [
-                    ...["pen", "eraser", "path-eraser", "label", "image"]
+                    ...['pen', 'eraser', 'path-eraser', 'label', 'image']
                         .map((e) {
                       Painter painter;
                       String name;
                       switch (e) {
-                        case "eraser":
+                        case 'eraser':
                           painter = const EraserPainter();
                           name = AppLocalizations.of(context)!.eraser;
                           break;
-                        case "path-eraser":
+                        case 'path-eraser':
                           painter = const PathEraserPainter();
                           name = AppLocalizations.of(context)!.pathEraser;
                           break;
-                        case "label":
+                        case 'label':
                           painter = const LabelPainter();
                           name = AppLocalizations.of(context)!.label;
                           break;
-                        case "image":
+                        case 'image':
                           painter = const ImagePainter();
                           name = AppLocalizations.of(context)!.image;
                           break;

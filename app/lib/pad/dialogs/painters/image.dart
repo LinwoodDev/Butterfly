@@ -46,7 +46,7 @@ class _ImagePainterDialogState extends State<ImagePainterDialog> {
                           tooltip: AppLocalizations.of(context)!.help,
                           icon:
                               const Icon(PhosphorIcons.circleWavyQuestionLight),
-                          onPressed: () => openHelp(["painters", "image"])),
+                          onPressed: () => openHelp(['painters', 'image'])),
                     ],
                   ),
                   body: Padding(

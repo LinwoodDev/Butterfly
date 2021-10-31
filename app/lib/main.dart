@@ -53,7 +53,7 @@ class ButterflyApp extends StatelessWidget {
     var primarySwatch = createMaterialColor(primaryColor);
     var accentColor = const Color(0xFF00469E);
     buildThemeData(context) => ThemeData(
-        fontFamily: "Roboto",
+        fontFamily: 'Roboto',
         visualDensity: VisualDensity.adaptivePlatformDensity,
         dialogTheme: DialogTheme(
           shape:
@@ -101,7 +101,7 @@ class ButterflyApp extends StatelessWidget {
         colorScheme:
             ColorScheme.light(primary: primaryColor, secondary: accentColor));
     buildDarkThemeData(context) => ThemeData(
-        fontFamily: "Roboto",
+        fontFamily: 'Roboto',
         visualDensity: VisualDensity.adaptivePlatformDensity,
         brightness: Brightness.dark,
         dialogTheme: DialogTheme(
@@ -161,7 +161,7 @@ class ButterflyApp extends StatelessWidget {
             locale: lang,
             title: 'Butterfly',
             // set your initial route
-            initialRoute: "/",
+            initialRoute: '/',
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             theme: buildThemeData(context),

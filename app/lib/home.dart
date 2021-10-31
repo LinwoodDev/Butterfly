@@ -34,20 +34,20 @@ class _HomePageState extends State<HomePage> {
   Future<void> loadDocuments() {
     return SharedPreferences.getInstance().then<void>((prefs) async {
       var loaded = await Future.wait(
-          List<String>.from(prefs.getStringList("documents") ?? [])
+          List<String>.from(prefs.getStringList('documents') ?? [])
               .map<Future<AppDocument>>((e) async {
         var data = jsonDecode(e);
-        var fileVersion = data["fileVersion"] is int?
-            ? data["fileVersion"]
-            : int.tryParse(data["fileVersion"]) ?? -1;
-        if (fileVersion > GetIt.I.get<int>(instanceName: "fileVersion")) {
+        var fileVersion = data['fileVersion'] is int?
+            ? data['fileVersion']
+            : int.tryParse(data['fileVersion']) ?? -1;
+        if (fileVersion > GetIt.I.get<int>(instanceName: 'fileVersion')) {
           await showDialog(
               context: context,
               builder: (context) => AlertDialog(
                       title: Text(AppLocalizations.of(context)!.whatToDo),
                       content: Text(AppLocalizations.of(context)!
                           .createdInNewerVersion(
-                              data["name"], data["fileVersion"])),
+                              data['name'], data['fileVersion'])),
                       actions: [
                         TextButton(
                             onPressed: () => Navigator.of(context).pop(),
@@ -71,13 +71,13 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> saveDocuments() {
     return SharedPreferences.getInstance().then((prefs) => prefs.setStringList(
-        "documents", _documents.map((e) => jsonEncode(e.toJson())).toList()));
+        'documents', _documents.map((e) => jsonEncode(e.toJson())).toList()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Butterfly"), actions: [
+      appBar: AppBar(title: const Text('Butterfly'), actions: [
         IconButton(
             icon: Icon(gridView
                 ? PhosphorIcons.listLight
@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
       );
 
   void _openDocument(int index) =>
-      Modular.to.pushNamed("/pad/$index").then((value) {
+      Modular.to.pushNamed('/pad/$index').then((value) {
         if (mounted) loadDocuments();
       });
   void _deleteDialog(int index) => showDialog(

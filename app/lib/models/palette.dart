@@ -35,12 +35,12 @@ class ColorPalette {
             colors: materialColors.map((e) => e.withOpacity(0.5)).toList())
       ];
 
-  const ColorPalette({this.name = "", this.colors = const []});
+  const ColorPalette({this.name = '', this.colors = const []});
   ColorPalette.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         colors = List<int>.from(json['colors']).map((e) => Color(e)).toList();
   Map<String, dynamic> toJson() =>
-      {"name": name, "colors": colors.map((e) => e.value).toList()};
+      {'name': name, 'colors': colors.map((e) => e.value).toList()};
 
   ColorPalette copyWith({String? name, List<Color>? colors}) =>
       ColorPalette(name: name ?? this.name, colors: colors ?? this.colors);

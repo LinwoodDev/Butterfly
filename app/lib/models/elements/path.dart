@@ -14,7 +14,7 @@ class PathPoint {
   PathPoint.fromOffset(Offset offset, [this.pressure = 1])
       : x = offset.dx,
         y = offset.dy;
-  Map<String, dynamic> toJson() => {"x": x, "y": y, "pressure": pressure};
+  Map<String, dynamic> toJson() => {'x': x, 'y': y, 'pressure': pressure};
 
   Offset toOffset() => Offset(x, y);
 }

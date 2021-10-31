@@ -29,11 +29,11 @@ class _PersonalizationSettingsPageState
 
   String getLocaleName(String? locale) {
     switch (locale) {
-      case "fr":
+      case 'fr':
         return AppLocalizations.of(context)!.french;
-      case "de":
+      case 'de':
         return AppLocalizations.of(context)!.german;
-      case "en":
+      case 'en':
         return AppLocalizations.of(context)!.english;
       default:
         return AppLocalizations.of(context)!.defaultLocale;

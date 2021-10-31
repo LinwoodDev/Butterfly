@@ -58,7 +58,7 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                           tooltip: AppLocalizations.of(context)!.help,
                           icon:
                               const Icon(PhosphorIcons.circleWavyQuestionLight),
-                          onPressed: () => openHelp(["painters", "eraser"])),
+                          onPressed: () => openHelp(['painters', 'eraser'])),
                     ],
                   ),
                   body: Padding(

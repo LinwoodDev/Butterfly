@@ -6,12 +6,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 void openImage(List<int> bytes) {
   getApplicationDocumentsDirectory().then((dir) {
-    var file = File("${dir.path}/export.png");
+    var file = File('${dir.path}/export.png');
     file.writeAsBytesSync(bytes);
     if (Platform.isAndroid || Platform.isIOS) {
       Share.shareFiles([file.path]);
     } else {
-      launch("file://${file.path}");
+      launch('file://${file.path}');
     }
   });
 }

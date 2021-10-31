@@ -48,7 +48,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                 IconButton(
                     tooltip: AppLocalizations.of(context)!.help,
                     icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
-                    onPressed: () => openHelp(["background", "intro"])),
+                    onPressed: () => openHelp(['background', 'intro'])),
               ],
             ),
             body: Padding(
@@ -199,7 +199,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                               value as Color));
                                                 }
                                               },
-                                              title: const Text("X")),
+                                              title: const Text('X')),
                                           ListTile(
                                               leading: Container(
                                                   width: 30,
@@ -228,7 +228,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                               value as Color));
                                                 }
                                               },
-                                              title: const Text("Y")),
+                                              title: const Text('Y')),
                                         ]),
                                       )),
                                   ExpansionPanel(
@@ -259,7 +259,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 child: TextField(
                                                   decoration:
                                                       const InputDecoration(
-                                                          labelText: "X"),
+                                                          labelText: 'X'),
                                                   controller:
                                                       _boxXStrokeController,
                                                   onChanged: (value) => setState(
@@ -290,7 +290,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 child: TextField(
                                                   decoration:
                                                       const InputDecoration(
-                                                          labelText: "Y"),
+                                                          labelText: 'Y'),
                                                   controller:
                                                       _boxYStrokeController,
                                                   onChanged: (value) => setState(
@@ -431,7 +431,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 child: TextField(
                                                   decoration:
                                                       const InputDecoration(
-                                                          labelText: "X"),
+                                                          labelText: 'X'),
                                                   controller:
                                                       _boxXCountController,
                                                   onChanged: (value) => setState(
@@ -464,7 +464,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 child: TextField(
                                                   decoration:
                                                       const InputDecoration(
-                                                          labelText: "Y"),
+                                                          labelText: 'Y'),
                                                   controller:
                                                       _boxYCountController,
                                                   onChanged: (value) => setState(
@@ -519,7 +519,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 child: TextField(
                                                   decoration:
                                                       const InputDecoration(
-                                                          labelText: "X"),
+                                                          labelText: 'X'),
                                                   controller:
                                                       _boxXSpaceController,
                                                   onChanged: (value) => setState(
@@ -550,7 +550,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                                 child: TextField(
                                                   decoration:
                                                       const InputDecoration(
-                                                          labelText: "Y"),
+                                                          labelText: 'Y'),
                                                   controller:
                                                       _boxYSpaceController,
                                                   onChanged: (value) => setState(

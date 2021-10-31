@@ -31,7 +31,7 @@ class _OpenDialogState extends State<OpenDialog> {
       ),
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         ListTile(
-            onTap: () => Clipboard.getData("text/plain")
+            onTap: () => Clipboard.getData('text/plain')
                 .then((value) => Navigator.of(context).pop(value?.text)),
             title: Text(AppLocalizations.of(context)!.clipboard)),
         ListTile(
@@ -39,12 +39,12 @@ class _OpenDialogState extends State<OpenDialog> {
               FilePicker.platform
                   .pickFiles(
                       type: isMobile ? FileType.any : FileType.custom,
-                      allowedExtensions: isMobile ? null : ["json"])
+                      allowedExtensions: isMobile ? null : ['json'])
                   .then((files) {
                 if (files?.files.isEmpty ?? true) return;
                 var e = files!.files.first;
                 var content = String.fromCharCodes(e.bytes ?? Uint8List(0));
-                if (!kIsWeb) content = File(e.path ?? "").readAsStringSync();
+                if (!kIsWeb) content = File(e.path ?? '').readAsStringSync();
                 Navigator.of(context).pop(content);
               });
             },
