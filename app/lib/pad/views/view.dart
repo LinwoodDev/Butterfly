@@ -45,10 +45,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
         bloc: widget.bloc,
         builder: (context, state) {
           if (state is! DocumentLoadSuccess) return Container();
-          return SizedBox.expand(
-              child: ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
+          return SizedBox.expand(child:
+              ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
             List<ElementLayer> raycast(Offset offset) {
-              return state.document.content.where((element) => element.hit(offset)).toList();
+              return state.document.content
+                  .where((element) => element.hit(offset))
+                  .toList();
             }
 
             ElementLayer? currentEditingLayer;
@@ -79,8 +81,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     var transform = context.read<TransformCubit>().state;
                     if (state.currentPainter is BuildedPainter) {
                       var painter = state.currentPainter as BuildedPainter;
-                      setState(() => currentEditingLayer =
-                          painter.buildLayer(transform.localToGlobal(localPosition), pressure));
+                      setState(() => currentEditingLayer = painter.buildLayer(
+                          transform.localToGlobal(localPosition), pressure));
                     }
                     if (state.currentPainter is LabelPainter) {
                       var painter = state.currentPainter as LabelPainter;
@@ -96,7 +98,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                  title: Text(AppLocalizations.of(context)!.enterText),
+                                  title: Text(
+                                      AppLocalizations.of(context)!.enterText),
                                   content: TextField(
                                     controller: _textController,
                                     autofocus: true,
@@ -104,16 +107,21 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   ),
                                   actions: [
                                     TextButton(
-                                      child: Text(AppLocalizations.of(context)!.cancel),
-                                      onPressed: () => Navigator.of(context).pop(),
+                                      child: Text(
+                                          AppLocalizations.of(context)!.cancel),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
                                     ),
                                     TextButton(
-                                        child: Text(AppLocalizations.of(context)!.ok),
+                                        child: Text(
+                                            AppLocalizations.of(context)!.ok),
                                         onPressed: submit)
                                   ]));
                     }
                     if (state.currentPainter is ImagePainter) {
-                      FilePicker.platform.pickFiles(type: FileType.image).then((files) {
+                      FilePicker.platform
+                          .pickFiles(type: FileType.image)
+                          .then((files) {
                         if (files?.files.isEmpty ?? true) return;
                         var e = files!.files.first;
                         var content = e.bytes ?? Uint8List(0);
@@ -121,12 +129,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           content = File(e.path ?? '').readAsBytesSync();
                         }
                         ui.decodeImageFromList(content, (image) async {
-                          var bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+                          var bytes = await image.toByteData(
+                              format: ui.ImageByteFormat.png);
                           widget.bloc.add(LayerCreated(ImageElement(
                               height: image.height,
                               width: image.width,
-                              pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
-                              position: transform.localToGlobal(localPosition))));
+                              pixels:
+                                  bytes?.buffer.asUint8List() ?? Uint8List(0),
+                              position:
+                                  transform.localToGlobal(localPosition))));
                         });
                       });
                     }
@@ -136,23 +147,27 @@ class _MainViewViewportState extends State<MainViewViewport> {
 
                   return GestureDetector(
                     onScaleUpdate: (details) {
-                      if (size == context.read<TransformCubit>().state.size) return;
+                      if (size == context.read<TransformCubit>().state.size)
+                        return;
                       if (!scaling) scaling = details.scale != 1;
                       var scale = size + details.scale - 1;
                       context.read<TransformCubit>().size(scale);
                     },
-                    onScaleStart: (details) => size = context.read<TransformCubit>().state.size,
+                    onScaleStart: (details) =>
+                        size = context.read<TransformCubit>().state.size,
                     child: Listener(
                         onPointerSignal: (pointerSignal) {
                           if (pointerSignal is PointerScrollEvent) {
-                            var scale = pointerSignal.scrollDelta.dx + pointerSignal.scrollDelta.dy;
+                            var scale = pointerSignal.scrollDelta.dx +
+                                pointerSignal.scrollDelta.dy;
                             scale /= -100;
                             context.read<TransformCubit>().scale(scale);
                           }
                         },
                         onPointerDown: (PointerDownEvent event) {
                           if (event.kind == PointerDeviceKind.stylus ||
-                              state.editMode && event.buttons != kMiddleMouseButton) {
+                              state.editMode &&
+                                  event.buttons != kMiddleMouseButton) {
                             createLayer(event.localPosition, event.pressure);
                           }
                         },
@@ -162,12 +177,16 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             return;
                           }
                           var transform = context.read<TransformCubit>().state;
-                          if ((event.kind == PointerDeviceKind.stylus || state.editMode) &&
+                          if ((event.kind == PointerDeviceKind.stylus ||
+                                  state.editMode) &&
                               currentEditingLayer != null) {
                             widget.bloc.add(LayerCreated(currentEditingLayer!));
                             setState(() => currentEditingLayer = null);
-                          } else if (event.kind != ui.PointerDeviceKind.stylus && !state.editMode) {
-                            var hits = raycast(transform.localToGlobal(event.localPosition));
+                          } else if (event.kind !=
+                                  ui.PointerDeviceKind.stylus &&
+                              !state.editMode) {
+                            var hits = raycast(
+                                transform.localToGlobal(event.localPosition));
                             var hit = hits.isEmpty ? null : hits.last;
                             if (hit != null) {
                               var index = state.document.content.indexOf(hit);
@@ -175,16 +194,20 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   context: context,
                                   builder: (context) {
                                     if (hit is PenElement) {
-                                      return PaintElementDialog(index: index, bloc: widget.bloc);
+                                      return PaintElementDialog(
+                                          index: index, bloc: widget.bloc);
                                     }
                                     if (hit is EraserElement) {
-                                      return EraserElementDialog(index: index, bloc: widget.bloc);
+                                      return EraserElementDialog(
+                                          index: index, bloc: widget.bloc);
                                     }
                                     if (hit is LabelElement) {
-                                      return LabelElementDialog(index: index, bloc: widget.bloc);
+                                      return LabelElementDialog(
+                                          index: index, bloc: widget.bloc);
                                     }
                                     if (hit is ImageElement) {
-                                      return ImageElementDialog(index: index, bloc: widget.bloc);
+                                      return ImageElementDialog(
+                                          index: index, bloc: widget.bloc);
                                     }
                                     return Container();
                                   });
@@ -194,35 +217,43 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         behavior: HitTestBehavior.translucent,
                         onPointerMove: (PointerMoveEvent event) {
                           var transform = context.read<TransformCubit>().state;
-                          if (!state.editMode && event.kind != ui.PointerDeviceKind.stylus ||
+                          if (!state.editMode &&
+                                  event.kind != ui.PointerDeviceKind.stylus ||
                               event.buttons == kMiddleMouseButton) {
                             if (!moving) {
-                              moving = (event.delta / transform.size) != Offset.zero;
+                              moving =
+                                  (event.delta / transform.size) != Offset.zero;
                             }
-                            context.read<TransformCubit>().move(event.delta / transform.size);
+                            context
+                                .read<TransformCubit>()
+                                .move(event.delta / transform.size);
                             return;
                           }
-                          if ((event.kind == PointerDeviceKind.stylus || state.editMode)) {
+                          if ((event.kind == PointerDeviceKind.stylus ||
+                              state.editMode)) {
                             if (currentEditingLayer == null) {
                               createLayer(event.localPosition, event.pressure);
                             }
                             if (state.currentPainter is PathEraserPainter) {
-                              widget.bloc.add(LayersRemoved(
-                                  raycast(transform.localToGlobal(event.localPosition))
-                                      .where((element) =>
-                                          element is! EraserElement ||
-                                          (state.currentPainter as PathEraserPainter)
-                                              .canDeleteEraser)
-                                      .toList()));
+                              widget.bloc.add(LayersRemoved(raycast(transform
+                                      .localToGlobal(event.localPosition))
+                                  .where((element) =>
+                                      element is! EraserElement ||
+                                      (state.currentPainter
+                                              as PathEraserPainter)
+                                          .canDeleteEraser)
+                                  .toList()));
                             } else if (currentEditingLayer != null &&
                                 currentEditingLayer is PathElement) {
                               // Add point to custom paint
                               var layer = currentEditingLayer as PathElement;
-                              setState(() => currentEditingLayer = layer.copyWith(
-                                  points: List.from(layer.points)
-                                    ..add(PathPoint.fromOffset(
-                                        transform.localToGlobal(event.localPosition),
-                                        event.pressure))));
+                              setState(() => currentEditingLayer =
+                                  layer.copyWith(
+                                      points: List.from(layer.points)
+                                        ..add(PathPoint.fromOffset(
+                                            transform.localToGlobal(
+                                                event.localPosition),
+                                            event.pressure))));
                             }
                           }
                         },
@@ -232,14 +263,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               Container(color: Colors.white),
                               CustomPaint(
                                 size: Size.infinite,
-                                foregroundPainter:
-                                    ForegroundPainter(currentEditingLayer, transform),
+                                foregroundPainter: ForegroundPainter(
+                                    currentEditingLayer, transform),
                                 painter: ViewPainter(state.document,
                                     transform: transform, images: images),
                                 isComplex: true,
                                 willChange: true,
                               ),
-                              if (snapshot.connectionState == ConnectionState.waiting &&
+                              if (snapshot.connectionState ==
+                                      ConnectionState.waiting &&
                                   images.isEmpty &&
                                   !kIsWeb)
                                 Align(
