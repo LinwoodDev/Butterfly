@@ -147,8 +147,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
 
                   return GestureDetector(
                     onScaleUpdate: (details) {
-                      if (size == context.read<TransformCubit>().state.size)
+                      if (size == context.read<TransformCubit>().state.size) {
                         return;
+                      }
                       if (!scaling) scaling = details.scale != 1;
                       var scale = size + details.scale - 1;
                       context.read<TransformCubit>().size(scale);
