@@ -1,0 +1,35 @@
+name: butterfly
+version: 1.0.0-rc.1
+summary: Change the world.
+description: |
+  **Your data will be saved locally**
+
+  Everything will be saved local on your computer. The data is saved in json files.
+
+  **Customizable**
+
+  Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
+
+confinement: strict
+base: core18
+grade: stable
+
+slots:
+  dbus-butterfly: # adjust accordingly to your app name
+    interface: dbus
+    bus: session
+    name: dev.linwood.butterfly # adjust accordingly to your app name and
+    
+apps:
+  butterfly:
+    command: butterfly
+    extensions: [flutter-beta] # Where "beta" defines which Flutter channel to use for the build
+    plugs:
+    - network
+    slots:
+      - dbus-butterfly
+parts:
+  butterfly:
+    source: .
+    plugin: flutter
+    flutter-target: lib/main.dart # The main entry-point file of the application
