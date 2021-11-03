@@ -6,10 +6,10 @@ import 'package:butterfly/pad/cubits/transform.dart';
 import 'package:butterfly/pad/dialogs/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'toolbar.dart';
 import 'view.dart';
@@ -51,7 +51,7 @@ class _ProjectPageState extends State<ProjectPage> {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => _bloc!),
-          BlocProvider(create: (context) => TransformCubit())
+          BlocProvider(create: (_) => TransformCubit())
         ],
         child: Scaffold(
             appBar: AppBar(

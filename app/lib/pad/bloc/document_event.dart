@@ -112,3 +112,21 @@ class DocumentBackgroundChanged extends DocumentEvent {
   @override
   List<Object?> get props => [background];
 }
+
+class WaypointCreated extends DocumentEvent {
+  final Waypoint waypoint;
+
+  const WaypointCreated(this.waypoint);
+
+  @override
+  List<Object?> get props => [waypoint];
+}
+
+class WaypointRemoved extends DocumentEvent {
+  final int index;
+
+  const WaypointRemoved(this.index);
+
+  @override
+  List<Object?> get props => [index];
+}

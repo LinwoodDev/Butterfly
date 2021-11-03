@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
-import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/painters/painter.dart';
+import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/models/waypoint.dart';
 import 'package:equatable/equatable.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -136,6 +137,24 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 background: event.background,
                 removeBackground: event.background == null)));
         _saveDocument();
+      }
+    });
+    on<WaypointCreated>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        emit(current.copyWith(
+            document: current.document.copyWith(
+                waypoints: List<Waypoint>.from(current.document.waypoints)
+                  ..add(event.waypoint))));
+      }
+    });
+    on<WaypointRemoved>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        emit(current.copyWith(
+            document: current.document.copyWith(
+                waypoints: List<Waypoint>.from(current.document.waypoints)
+                  ..removeAt(event.index))));
       }
     });
   }

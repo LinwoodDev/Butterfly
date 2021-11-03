@@ -1,3 +1,4 @@
+import 'package:butterfly/models/waypoint.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,4 +29,7 @@ class TransformCubit extends Cubit<CameraTransform> {
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
   void scale(double scale) => emit(state.withScale(scale));
   void size(double size) => emit(state.withSize(size));
+  void moveToWaypoint(Waypoint waypoint) => emit(state
+      .withPosition(waypoint.position)
+      .withSize(waypoint.scale ?? state.size));
 }

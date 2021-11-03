@@ -1,27 +1,31 @@
 import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/models/elements/eraser.dart';
-import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/painters/eraser.dart';
 import 'package:butterfly/models/painters/image.dart';
+import 'package:butterfly/models/painters/label.dart';
 import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/painters/path_eraser.dart';
 import 'package:butterfly/models/painters/pen.dart';
-import 'package:butterfly/models/painters/label.dart';
+import 'package:butterfly/models/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+
 import 'elements/element.dart';
 import 'elements/image.dart';
-import 'elements/pen.dart';
 import 'elements/label.dart';
+import 'elements/pen.dart';
+import 'waypoint.dart';
 
 @immutable
 class AppDocument {
   final String name, description;
+
   //final List<PackCollection> packs;
   final List<ElementLayer> content;
   final List<Painter> painters;
   final BoxBackground? background;
   final List<ColorPalette> palettes;
+  final List<Waypoint> waypoints;
 
   const AppDocument(
       {required this.name,
@@ -29,6 +33,7 @@ class AppDocument {
       this.content = const [],
       this.background,
       this.palettes = const [],
+      this.waypoints = const [],
       this.painters = const [
         PenPainter(),
         EraserPainter(),
@@ -60,8 +65,11 @@ class AppDocument {
     var background = json['background'] == null
         ? null
         : BoxBackground.fromJson(json['background'], version);
-    var painters =
-        List<Map<String, dynamic>>.from(json['painters']).map<Painter>((e) {
+    var waypoints = List<Map<String, dynamic>>.from(json['waypoints'] ?? [])
+        .map((e) => Waypoint.fromJson(e))
+        .toList();
+    var painters = List<Map<String, dynamic>>.from(json['painters'] ?? [])
+        .map<Painter>((e) {
       switch (e['type']) {
         case 'eraser':
           return EraserPainter.fromJson(e, version);
@@ -94,8 +102,10 @@ class AppDocument {
         content: content,
         description: description,
         painters: painters,
-        palettes: palettes);
+        palettes: palettes,
+        waypoints: waypoints);
   }
+
   Map<String, dynamic> toJson() => {
         'name': name,
         'description': description,
@@ -104,9 +114,11 @@ class AppDocument {
             painters.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         'content':
             content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
+        'waypoints': waypoints.map((e) => e.toJson()).toList(),
         'background': background?.toJson(),
         'fileVersion': GetIt.I.get<int>(instanceName: 'fileVersion')
       };
+
   AppDocument copyWith(
       {String? name,
       String? description,
@@ -114,6 +126,7 @@ class AppDocument {
       List<Painter>? painters,
       BoxBackground? background,
       List<ColorPalette>? palettes,
+      List<Waypoint>? waypoints,
       bool removeBackground = false}) {
     return AppDocument(
         name: name ?? this.name,
@@ -121,6 +134,7 @@ class AppDocument {
         content: content ?? this.content,
         painters: painters ?? this.painters,
         palettes: palettes ?? this.palettes,
+        waypoints: waypoints ?? this.waypoints,
         background: removeBackground ? null : (background ?? this.background));
   }
 }

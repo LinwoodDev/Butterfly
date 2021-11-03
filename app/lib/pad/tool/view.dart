@@ -1,13 +1,15 @@
 import 'dart:convert';
 
 import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/pad/cubits/transform.dart';
 import 'package:butterfly/pad/dialogs/background.dart';
 import 'package:butterfly/pad/dialogs/color_pick.dart';
 import 'package:butterfly/pad/dialogs/export.dart';
 import 'package:butterfly/pad/dialogs/save.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/pad/dialogs/waypoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ViewToolbar extends StatefulWidget {
@@ -59,6 +61,16 @@ class _ViewToolbarState extends State<ViewToolbar> {
               showDialog(
                   context: context,
                   builder: (context) => SaveDialog(data: data));
+            }),
+        IconButton(
+            icon: const Icon(PhosphorIcons.mapPinLight),
+            tooltip: AppLocalizations.of(context)!.waypoints,
+            onPressed: () async {
+              var transformCubit = context.read<TransformCubit>();
+              showDialog(
+                  context: context,
+                  builder: (context) => WaypointsDialog(
+                      bloc: widget.bloc, cameraCubit: transformCubit));
             }),
       ]);
     });
