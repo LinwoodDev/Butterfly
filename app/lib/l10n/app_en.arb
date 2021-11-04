@@ -112,5 +112,5 @@
   },
   "shouldNotEmpty": "This value should not be empty",
   "waypoints": "Waypoints",
-  "goToOrigin": "Go to the origin"
+  "origin": "Origin"
 }

@@ -63,8 +63,8 @@ class _WaypointsDialogState extends State<WaypointsDialog> {
                                           .moveToWaypoint(Waypoint.origin);
                                       Navigator.of(context).pop();
                                     },
-                                    title: Text(AppLocalizations.of(context)!
-                                        .goToOrigin)),
+                                    title: Text(
+                                        AppLocalizations.of(context)!.origin)),
                                 const Divider(),
                                 ...List.generate(
                                     waypoints.length,
