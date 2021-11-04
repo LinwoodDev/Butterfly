@@ -1,5 +1,6 @@
 import 'dart:isolate';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/models/document.dart';
@@ -9,7 +10,6 @@ import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/elements/path.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 import 'package:image/image.dart' as image;
 
 import 'cubits/transform.dart';
@@ -159,9 +159,17 @@ class ViewPainter extends CustomPainter {
         }
       }
       if (background.boxHeight > 0 && background.boxYCount > 0) {
-        double y =
-            (transform.position.dy % background.boxHeight * transform.size);
-        int count = 0;
+        double exactCount = background.boxYCount -
+            ((transform.position.dy / background.boxHeight) %
+                background.boxYCount);
+        int count = exactCount.floor();
+        print(exactCount);
+        double y = exactCount > 0 && exactCount < 1
+            ? (1 - exactCount) *
+                (background.boxYSpace + background.boxHeight) *
+                transform.size
+            : 0 +
+                (transform.position.dy % background.boxHeight * transform.size);
         while (y < size.width) {
           canvas.drawLine(
               Offset(0, y),
@@ -172,7 +180,7 @@ class ViewPainter extends CustomPainter {
           count++;
           if (count >= background.boxYCount) {
             count = 0;
-            y += background.boxYSpace;
+            y += background.boxYSpace * transform.size;
           }
           y += background.boxHeight * transform.size;
         }
