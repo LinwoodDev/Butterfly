@@ -112,5 +112,5 @@
     },
     "shouldNotEmpty": "Cette valeur ne doit pas être vide",
     "waypoints": "Waypoints",
-    "origin": "Origin"
+    "origin": "Origine"
 }
