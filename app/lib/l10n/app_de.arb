@@ -111,6 +111,6 @@
         }
     },
     "shouldNotEmpty": "Dieser Wert darf nicht leer sein",
-    "waypoints": "Waypoints",
-    "origin": "Origin"
+    "waypoints": "Wegpunkte",
+    "origin": "Ursprung"
 }
