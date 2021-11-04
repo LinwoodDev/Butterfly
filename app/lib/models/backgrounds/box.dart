@@ -13,8 +13,8 @@ class BoxBackground {
   const BoxBackground(
       {this.boxWidth = 0,
       this.boxHeight = 0,
-      this.boxXCount = 0,
-      this.boxYCount = 0,
+      this.boxXCount = 1,
+      this.boxYCount = 1,
       this.boxXSpace = 0,
       this.boxYSpace = 0,
       this.boxXColor = Colors.blue,
@@ -25,8 +25,8 @@ class BoxBackground {
   BoxBackground.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : boxWidth = json['width'] ?? 0,
         boxHeight = json['height'] ?? 0,
-        boxXCount = json['xCount'] ?? 0,
-        boxYCount = json['yCount'] ?? 0,
+        boxXCount = json['xCount'] ?? 1,
+        boxYCount = json['yCount'] ?? 1,
         boxXSpace = json['xSpace'] ?? 0,
         boxYSpace = json['ySpace'] ?? 0,
         boxXColor =

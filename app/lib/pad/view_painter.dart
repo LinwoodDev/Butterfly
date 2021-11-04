@@ -159,17 +159,9 @@ class ViewPainter extends CustomPainter {
         }
       }
       if (background.boxHeight > 0 && background.boxYCount > 0) {
-        double exactCount = background.boxYCount -
-            ((transform.position.dy / background.boxHeight) %
-                background.boxYCount);
-        int count = exactCount.floor();
-        print(exactCount);
-        double y = exactCount > 0 && exactCount < 1
-            ? (1 - exactCount) *
-                (background.boxYSpace + background.boxHeight) *
-                transform.size
-            : 0 +
-                (transform.position.dy % background.boxHeight * transform.size);
+        double y =
+            (transform.position.dy % background.boxHeight * transform.size);
+        int count = 0;
         while (y < size.width) {
           canvas.drawLine(
               Offset(0, y),

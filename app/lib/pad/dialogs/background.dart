@@ -491,7 +491,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                           ]),
                                         ]),
                                       )),
-                                  ExpansionPanel(
+                                  /*ExpansionPanel(
                                       isExpanded: currentExpansionOpened == 4,
                                       headerBuilder: (context, isExpanded) =>
                                           Row(
@@ -574,7 +574,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
                                             )
                                           ])
                                         ]),
-                                      ))
+                                      ))*/
                                 ]),
                           ],
                         ]);
