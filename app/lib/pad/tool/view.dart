@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/cubits/transform.dart';
 import 'package:butterfly/pad/dialogs/background.dart';
 import 'package:butterfly/pad/dialogs/color_pick.dart';
-import 'package:butterfly/pad/dialogs/export.dart';
-import 'package:butterfly/pad/dialogs/save.dart';
 import 'package:butterfly/pad/dialogs/waypoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,12 +34,6 @@ class _ViewToolbarState extends State<ViewToolbar> {
           },
         ),
         IconButton(
-            icon: const Icon(PhosphorIcons.arrowSquareOutLight),
-            tooltip: AppLocalizations.of(context)!.export,
-            onPressed: () => showDialog(
-                context: context,
-                builder: (context) => ExportDialog(bloc: widget.bloc))),
-        IconButton(
           icon: const Icon(PhosphorIcons.paletteLight),
           tooltip: AppLocalizations.of(context)!.color,
           onPressed: () => showDialog(
@@ -53,15 +43,6 @@ class _ViewToolbarState extends State<ViewToolbar> {
                     viewMode: true,
                   )),
         ),
-        IconButton(
-            icon: const Icon(PhosphorIcons.floppyDiskLight),
-            tooltip: AppLocalizations.of(context)!.save,
-            onPressed: () async {
-              var data = json.encode(state.document.toJson());
-              showDialog(
-                  context: context,
-                  builder: (context) => SaveDialog(data: data));
-            }),
         IconButton(
             icon: const Icon(PhosphorIcons.mapPinLight),
             tooltip: AppLocalizations.of(context)!.waypoints,

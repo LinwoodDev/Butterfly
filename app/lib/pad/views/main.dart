@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/pad/bloc/document_bloc.dart';
 import 'package:butterfly/pad/cubits/transform.dart';
+import 'package:butterfly/pad/dialogs/export.dart';
+import 'package:butterfly/pad/dialogs/save.dart';
 import 'package:butterfly/pad/dialogs/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +20,7 @@ class ProjectPage extends StatefulWidget {
   final String? id;
 
   const ProjectPage({Key? key, required this.id}) : super(key: key);
+
   @override
   _ProjectPageState createState() => _ProjectPageState();
 }
@@ -27,6 +30,7 @@ class _ProjectPageState extends State<ProjectPage> {
   DocumentBloc? _bloc;
   final TextEditingController _scaleController =
       TextEditingController(text: '100');
+
   @override
   void initState() {
     super.initState();
@@ -83,10 +87,49 @@ class _ProjectPageState extends State<ProjectPage> {
                       if (state is DocumentLoadSuccess) state.save();
                     },
                   ),
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.gearLight),
-                      tooltip: AppLocalizations.of(context)!.projectSettings,
-                      onPressed: () => _showProjectSettings(context)),
+                  PopupMenuButton(
+                    itemBuilder: (context) => <PopupMenuEntry>[
+                      PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          child: ListTile(
+                              leading:
+                                  const Icon(PhosphorIcons.floppyDiskLight),
+                              title: Text(AppLocalizations.of(context)!.save),
+                              onTap: () async {
+                                var data = json.encode(
+                                    (_bloc?.state as DocumentLoadSuccess)
+                                        .document
+                                        .toJson());
+                                showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        SaveDialog(data: data));
+                              })),
+                      PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          child: ListTile(
+                              leading:
+                                  const Icon(PhosphorIcons.arrowSquareOutLight),
+                              title: Text(AppLocalizations.of(context)!.export),
+                              onTap: () => showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      ExportDialog(bloc: _bloc!)))),
+                      const PopupMenuDivider(),
+                      PopupMenuItem(
+                          child: ListTile(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        PadSettingsDialog(bloc: _bloc));
+                              },
+                              leading: const Icon(PhosphorIcons.gearLight),
+                              title: Text(AppLocalizations.of(context)!
+                                  .projectSettings)),
+                          padding: EdgeInsets.zero)
+                    ],
+                  ),
                   /*const IconButton(
                       icon: Icon(PhosphorIcons.linkLight),
                       tooltip: "Share (not implemented)",
@@ -216,10 +259,5 @@ class _ProjectPageState extends State<ProjectPage> {
                       Align(alignment: Alignment.center, child: toolbar)
                   ]);
             })));
-  }
-
-  void _showProjectSettings(bloc) {
-    showDialog(
-        context: context, builder: (context) => PadSettingsDialog(bloc: _bloc));
   }
 }
