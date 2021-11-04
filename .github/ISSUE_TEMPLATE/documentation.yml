@@ -1,0 +1,33 @@
+name: Documentation request
+description: Related to the documentation
+title: "[Documentation request]: "
+labels: ["documentation", "triage"]
+assignees:
+  - CodeDoctorDE
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this documentation request!
+  - type: input
+    id: related-to-problem
+    attributes:
+      label: To which page is your issue related?
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe your documentation request!
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/LinwoodCloud/butterfly/blob/develop/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
