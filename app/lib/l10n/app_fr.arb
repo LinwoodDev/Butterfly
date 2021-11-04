@@ -110,5 +110,7 @@
             }
         }
     },
-    "shouldNotEmpty": "Cette valeur ne doit pas être vide"
+    "shouldNotEmpty": "Cette valeur ne doit pas être vide",
+    "waypoints": "Waypoints",
+    "origin": "Origine"
 }
