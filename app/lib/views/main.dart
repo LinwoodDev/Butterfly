@@ -38,7 +38,7 @@ class _ProjectPageState extends State<ProjectPage> {
       AppDocument document;
       var documents = value.getStringList('documents') ?? [];
       if (widget.id == null) {
-        document = const AppDocument(name: '');
+        document = AppDocument(name: '', createdAt: DateTime.now());
         index = documents.length;
         value.setStringList('documents',
             List.from(documents)..add(jsonEncode(document.toJson())));

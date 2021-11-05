@@ -26,6 +26,8 @@ class AppDocument {
   final BoxBackground? background;
   final List<ColorPalette> palettes;
   final List<Waypoint> waypoints;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   const AppDocument(
       {required this.name,
@@ -34,12 +36,15 @@ class AppDocument {
       this.background,
       this.palettes = const [],
       this.waypoints = const [],
+      required this.createdAt,
+      DateTime? updatedAt,
       this.painters = const [
         PenPainter(),
         EraserPainter(),
         LabelPainter(),
         ImagePainter()
-      ]});
+      ]})
+      : updatedAt = updatedAt ?? createdAt;
 
   factory AppDocument.fromJson(Map<String, dynamic> json) {
     var version = json['fileVersion'] is int
@@ -96,7 +101,12 @@ class AppDocument {
           return PenElement.fromJson(e, version);
       }
     }).toList();
+    var createdAt =
+        DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now();
+    var updatedAt = DateTime.tryParse(json['updatedAt'] ?? '') ?? createdAt;
     return AppDocument(
+        createdAt: createdAt,
+        updatedAt: updatedAt,
         name: name,
         background: background,
         content: content,
@@ -116,7 +126,9 @@ class AppDocument {
             content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         'waypoints': waypoints.map((e) => e.toJson()).toList(),
         'background': background?.toJson(),
-        'fileVersion': GetIt.I.get<int>(instanceName: 'fileVersion')
+        'fileVersion': GetIt.I.get<int>(instanceName: 'fileVersion'),
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String()
       };
 
   AppDocument copyWith(
@@ -127,8 +139,12 @@ class AppDocument {
       BoxBackground? background,
       List<ColorPalette>? palettes,
       List<Waypoint>? waypoints,
-      bool removeBackground = false}) {
+      bool removeBackground = false,
+      DateTime? createdAt,
+      DateTime? updatedAt}) {
     return AppDocument(
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
         name: name ?? this.name,
         description: description ?? this.description,
         content: content ?? this.content,

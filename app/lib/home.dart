@@ -147,6 +147,7 @@ class _HomePageState extends State<HomePage> {
                             if (_createFormKey.currentState?.validate() ??
                                 false) {
                               setState(() => _documents.add(AppDocument(
+                                  createdAt: DateTime.now(),
                                   name: _nameController.text,
                                   palettes: ColorPalette.getMaterialPalette(
                                       context))));
