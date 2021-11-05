@@ -27,7 +27,7 @@ class _WaypointsDialogState extends State<WaypointsDialog> {
           BlocProvider.value(value: widget.cameraCubit)
         ],
         child: Dialog(
-            child: Container(
+            child: ConstrainedBox(
                 constraints:
                     const BoxConstraints(maxWidth: 600, maxHeight: 800),
                 child: Scaffold(

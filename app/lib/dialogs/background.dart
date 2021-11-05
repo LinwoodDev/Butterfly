@@ -30,7 +30,7 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        child: Container(
+        child: ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
       child: BlocProvider.value(
         value: widget.bloc,

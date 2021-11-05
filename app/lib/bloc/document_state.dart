@@ -17,7 +17,7 @@ class DocumentLoadSuccess extends DocumentState {
   final int currentPainterIndex;
 
   const DocumentLoadSuccess(this.document,
-      {this.editMode = false,
+      {this.editMode = true,
       this.documentIndex = 0,
       this.currentPainterIndex = 0,
       required this.fileVersion});

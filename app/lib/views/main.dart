@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:butterfly/dialogs/file_system.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -96,7 +97,17 @@ class _ProjectPageState extends State<ProjectPage> {
                           padding: EdgeInsets.zero,
                           child: ListTile(
                               leading:
-                                  const Icon(PhosphorIcons.floppyDiskLight),
+                              const Icon(PhosphorIcons.folderOpenLight),
+                              title: Text(AppLocalizations.of(context)!.open),
+                              onTap: () =>
+                                showDialog(
+                                    context: context,
+                                    builder: (context) =>FileSystemDialog(bloc: _bloc!)))),
+                      PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          child: ListTile(
+                              leading:
+                              const Icon(PhosphorIcons.floppyDiskLight),
                               title: Text(AppLocalizations.of(context)!.save),
                               onTap: () async {
                                 var data = json.encode(
@@ -108,11 +119,34 @@ class _ProjectPageState extends State<ProjectPage> {
                                     builder: (context) =>
                                         SaveDialog(data: data));
                               })),
+
+                      /*PopupMenuItem(
+                        padding: EdgeInsets.zero,
+                        child: PopupMenuButton(
+                          tooltip: '',
+                        child: ListTile(
+                          mouseCursor: MouseCursor.defer,
+                            leading:const Icon(PhosphorIcons.arrowSquareOutLight),title: Text(AppLocalizations.of(context)!.export)),
+                        onSelected: (value) { },
+                        itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                          PopupMenuItem(
+                              padding: EdgeInsets.zero,
+                              child: ListTile(
+                                  leading:
+                                  const Icon(PhosphorIcons.imageLight),
+                                  title: Text(AppLocalizations.of(context)!.image),
+                                  onTap: () => showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          ExportDialog(bloc: _bloc!)))),
+                        ],
+                      ),
+                    ),*/
                       PopupMenuItem(
                           padding: EdgeInsets.zero,
                           child: ListTile(
                               leading:
-                                  const Icon(PhosphorIcons.arrowSquareOutLight),
+                              const Icon(PhosphorIcons.exportLight),
                               title: Text(AppLocalizations.of(context)!.export),
                               onTap: () => showDialog(
                                   context: context,

@@ -1,26 +1,30 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/open.dart';
 import 'package:butterfly/dialogs/save.dart';
+import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/settings/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class FileSystemDialog extends StatefulWidget {
+  final DocumentBloc bloc;
+
+  const FileSystemDialog({Key? key, required this.bloc}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _FileSystemDialogState createState() => _FileSystemDialogState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _FileSystemDialogState extends State<FileSystemDialog> {
   List<AppDocument> _documents = [];
   bool gridView = true;
   final GlobalKey<FormState> _createFormKey = GlobalKey();
@@ -76,90 +80,104 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Butterfly'), actions: [
-        IconButton(
-            icon: Icon(gridView
-                ? PhosphorIcons.listLight
-                : PhosphorIcons.gridFourLight),
-            onPressed: () => setState(() => gridView = !gridView)),
-        IconButton(
-          icon: const Icon(PhosphorIcons.folderOpenLight),
-          tooltip: AppLocalizations.of(context)!.open,
-          onPressed: () {
-            showDialog(
-                    builder: (context) => const OpenDialog(), context: context)
-                .then((content) {
-              if (content == null) return;
-              setState(() {
-                _documents.add(AppDocument.fromJson(jsonDecode(content)));
-                saveDocuments();
-              });
-            });
-          },
+    return BlocProvider.value(
+      value: widget.bloc,
+      child: Dialog(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+          child: Scaffold(
+            appBar: AppBar(title: const Text('Butterfly'), actions: [
+              IconButton(
+                  icon: Icon(gridView
+                      ? PhosphorIcons.listLight
+                      : PhosphorIcons.gridFourLight),
+                  onPressed: () => setState(() => gridView = !gridView)),
+              IconButton(
+                icon: const Icon(PhosphorIcons.folderOpenLight),
+                tooltip: AppLocalizations.of(context)!.open,
+                onPressed: () {
+                  showDialog(
+                          builder: (context) => const OpenDialog(),
+                          context: context)
+                      .then((content) {
+                    if (content == null) return;
+                    setState(() {
+                      _documents.add(AppDocument.fromJson(jsonDecode(content)));
+                      saveDocuments();
+                    });
+                  });
+                },
+              ),
+              IconButton(
+                  icon: const Icon(PhosphorIcons.gearLight),
+                  tooltip: AppLocalizations.of(context)?.settings,
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => Dialog(
+                          child: ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                  maxHeight: 400, maxWidth: 600),
+                              child: const SettingsPage(isDialog: true)))))
+            ]),
+            body: gridView ? _buildGridView() : _buildListView(),
+            floatingActionButton: FloatingActionButton.extended(
+              label: Text(AppLocalizations.of(context)!.create),
+              icon: const Icon(PhosphorIcons.plusLight),
+              onPressed: () {
+                var _nameController = TextEditingController();
+                showDialog(
+                    context: context,
+                    builder: (context) => Form(
+                          key: _createFormKey,
+                          child: AlertDialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                            title: Text(AppLocalizations.of(context)!.create),
+                            content: TextFormField(
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  labelText:
+                                      AppLocalizations.of(context)!.name),
+                              validator: (value) {
+                                if (value?.isEmpty ?? true) {
+                                  return AppLocalizations.of(context)!
+                                      .shouldNotEmpty;
+                                }
+                                return null;
+                              },
+                              controller: _nameController,
+                              autofocus: true,
+                            ),
+                            actions: [
+                              TextButton(
+                                child:
+                                    Text(AppLocalizations.of(context)!.cancel),
+                                onPressed: () => Navigator.of(context).pop(),
+                              ),
+                              TextButton(
+                                child:
+                                    Text(AppLocalizations.of(context)!.create),
+                                onPressed: () {
+                                  if (_createFormKey.currentState?.validate() ??
+                                      false) {
+                                    setState(() => _documents.add(AppDocument(
+                                        createdAt: DateTime.now(),
+                                        name: _nameController.text,
+                                        palettes:
+                                            ColorPalette.getMaterialPalette(
+                                                context))));
+                                    saveDocuments();
+                                    Navigator.of(context).pop();
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ));
+              },
+            ),
+          ),
         ),
-        IconButton(
-            icon: const Icon(PhosphorIcons.gearLight),
-            tooltip: AppLocalizations.of(context)?.settings,
-            onPressed: () => showDialog(
-                context: context,
-                builder: (context) => Dialog(
-                    child: ConstrainedBox(
-                        constraints:
-                            const BoxConstraints(maxHeight: 400, maxWidth: 600),
-                        child: const SettingsPage(isDialog: true)))))
-      ]),
-      body: gridView ? _buildGridView() : _buildListView(),
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text(AppLocalizations.of(context)!.create),
-        icon: const Icon(PhosphorIcons.plusLight),
-        onPressed: () {
-          var _nameController = TextEditingController();
-          showDialog(
-              context: context,
-              builder: (context) => Form(
-                    key: _createFormKey,
-                    child: AlertDialog(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      title: Text(AppLocalizations.of(context)!.create),
-                      content: TextFormField(
-                        decoration: InputDecoration(
-                            filled: true,
-                            labelText: AppLocalizations.of(context)!.name),
-                        validator: (value) {
-                          if (value?.isEmpty ?? true) {
-                            return AppLocalizations.of(context)!.shouldNotEmpty;
-                          }
-                          return null;
-                        },
-                        controller: _nameController,
-                        autofocus: true,
-                      ),
-                      actions: [
-                        TextButton(
-                          child: Text(AppLocalizations.of(context)!.cancel),
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
-                        TextButton(
-                          child: Text(AppLocalizations.of(context)!.create),
-                          onPressed: () {
-                            if (_createFormKey.currentState?.validate() ??
-                                false) {
-                              setState(() => _documents.add(AppDocument(
-                                  createdAt: DateTime.now(),
-                                  name: _nameController.text,
-                                  palettes: ColorPalette.getMaterialPalette(
-                                      context))));
-                              saveDocuments();
-                              Navigator.of(context).pop();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ));
-        },
       ),
     );
   }
@@ -183,6 +201,7 @@ class _HomePageState extends State<HomePage> {
       Modular.to.pushNamed('/$index').then((value) {
         if (mounted) loadDocuments();
       });
+
   void _deleteDialog(int index) => showDialog(
       context: context,
       builder: (context) => AlertDialog(

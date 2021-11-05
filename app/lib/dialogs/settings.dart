@@ -30,7 +30,7 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
     return Form(
       key: _formKey,
       child: Dialog(
-          child: Container(
+          child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
               child: Scaffold(
                   backgroundColor: Colors.transparent,
