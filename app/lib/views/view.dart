@@ -161,7 +161,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           if (pointerSignal is PointerScrollEvent) {
                             var scale = pointerSignal.scrollDelta.dx +
                                 pointerSignal.scrollDelta.dy;
-                            scale /= -100;
+                            scale /= -500;
                             context.read<TransformCubit>().scale(scale);
                           }
                         },
