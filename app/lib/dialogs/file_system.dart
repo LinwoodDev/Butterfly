@@ -2,15 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/dialogs/open.dart';
 import 'package:butterfly/dialogs/save.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
-import 'package:butterfly/settings/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -86,39 +83,16 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
           child: Scaffold(
-            appBar: AppBar(title: const Text('Butterfly'), actions: [
-              IconButton(
-                  icon: Icon(gridView
-                      ? PhosphorIcons.listLight
-                      : PhosphorIcons.gridFourLight),
-                  onPressed: () => setState(() => gridView = !gridView)),
-              IconButton(
-                icon: const Icon(PhosphorIcons.folderOpenLight),
-                tooltip: AppLocalizations.of(context)!.open,
-                onPressed: () {
-                  showDialog(
-                          builder: (context) => const OpenDialog(),
-                          context: context)
-                      .then((content) {
-                    if (content == null) return;
-                    setState(() {
-                      _documents.add(AppDocument.fromJson(jsonDecode(content)));
-                      saveDocuments();
-                    });
-                  });
-                },
-              ),
-              IconButton(
-                  icon: const Icon(PhosphorIcons.gearLight),
-                  tooltip: AppLocalizations.of(context)?.settings,
-                  onPressed: () => showDialog(
-                      context: context,
-                      builder: (context) => Dialog(
-                          child: ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                  maxHeight: 400, maxWidth: 600),
-                              child: const SettingsPage(isDialog: true)))))
-            ]),
+            appBar: AppBar(
+                title: Text(AppLocalizations.of(context)!.open),
+                leading: const Icon(PhosphorIcons.folderLight),
+                actions: [
+                  IconButton(
+                      icon: Icon(gridView
+                          ? PhosphorIcons.listLight
+                          : PhosphorIcons.gridFourLight),
+                      onPressed: () => setState(() => gridView = !gridView)),
+                ]),
             body: gridView ? _buildGridView() : _buildListView(),
             floatingActionButton: FloatingActionButton.extended(
               label: Text(AppLocalizations.of(context)!.create),
@@ -197,10 +171,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
         },
       );
 
-  void _openDocument(int index) =>
-      Modular.to.pushNamed('/$index').then((value) {
-        if (mounted) loadDocuments();
-      });
+  void _openDocument(int index) => Navigator.of(context).pop(index);
 
   void _deleteDialog(int index) => showDialog(
       context: context,

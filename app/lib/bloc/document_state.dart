@@ -11,16 +11,14 @@ class DocumentLoadInProgress extends DocumentState {}
 
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
-  final int documentIndex;
+  final int? documentIndex;
   final bool editMode;
-  final int fileVersion;
   final int currentPainterIndex;
 
   const DocumentLoadSuccess(this.document,
       {this.editMode = true,
-      this.documentIndex = 0,
-      this.currentPainterIndex = 0,
-      required this.fileVersion});
+      this.documentIndex,
+      this.currentPainterIndex = 0});
 
   @override
   List<Object?> get props =>
@@ -42,20 +40,22 @@ class DocumentLoadSuccess extends DocumentState {
     return DocumentLoadSuccess(document ?? this.document,
         editMode: editMode ?? this.editMode,
         documentIndex: documentIndex ?? this.documentIndex,
-        currentPainterIndex: currentPainterIndex ?? this.currentPainterIndex,
-        fileVersion: fileVersion);
+        currentPainterIndex: currentPainterIndex ?? this.currentPainterIndex);
   }
 
-  Future<void> save() {
+  Future<int> save() {
     return SharedPreferences.getInstance().then((prefs) {
       var documents = List<String>.from(prefs.getStringList('documents') ?? []);
       var content = jsonEncode(document.toJson());
-      if (documents.length <= documentIndex) {
+      var index = documentIndex;
+      if (documentIndex == null || documents.length <= documentIndex!) {
+        index = documents.length;
         documents.add(content);
       } else {
-        documents[documentIndex] = content;
+        documents[documentIndex!] = content;
       }
       prefs.setStringList('documents', documents);
+      return index!;
     });
   }
 }

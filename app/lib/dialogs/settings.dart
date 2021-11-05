@@ -37,7 +37,7 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                   appBar: AppBar(
                       title:
                           Text(AppLocalizations.of(context)!.projectSettings),
-                      leading: const Icon(PhosphorIcons.gearLight)),
+                      leading: const Icon(PhosphorIcons.wrenchLight)),
                   body: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 15),
