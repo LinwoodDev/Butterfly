@@ -1,6 +1,6 @@
 import 'package:butterfly/api/open_help.dart';
-import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/pad/dialogs/color_pick.dart';
+import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/dialogs/color_pick.dart';
 import 'package:butterfly/models/painters/label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

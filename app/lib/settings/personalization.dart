@@ -1,4 +1,4 @@
-import 'package:butterfly/pad/cubits/language.dart';
+import 'package:butterfly/cubits/language.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -1,5 +1,5 @@
 import 'package:butterfly/api/open_help.dart';
-import 'package:butterfly/pad/bloc/document_bloc.dart';
+import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/models/painters/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

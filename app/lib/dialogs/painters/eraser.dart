@@ -1,24 +1,23 @@
 import 'package:butterfly/api/open_help.dart';
-import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/pad/dialogs/color_pick.dart';
-import 'package:butterfly/models/painters/pen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/models/painters/eraser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class PenPainterDialog extends StatefulWidget {
+class EraserPainterDialog extends StatefulWidget {
   final DocumentBloc bloc;
   final int painterIndex;
-  const PenPainterDialog(
+  const EraserPainterDialog(
       {Key? key, required this.bloc, required this.painterIndex})
       : super(key: key);
 
   @override
-  _PenPainterDialogState createState() => _PenPainterDialogState();
+  _EraserPainterDialogState createState() => _EraserPainterDialogState();
 }
 
-class _PenPainterDialogState extends State<PenPainterDialog> {
+class _EraserPainterDialogState extends State<EraserPainterDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _strokeWidthController = TextEditingController();
   final TextEditingController _strokeMultiplierController =
@@ -31,7 +30,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
           BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
         if (state is! DocumentLoadSuccess) return Container();
         var painter =
-            state.document.painters[widget.painterIndex] as PenPainter;
+            state.document.painters[widget.painterIndex] as EraserPainter;
         return Container(
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: StatefulBuilder(builder: (context, setState) {
@@ -52,14 +51,14 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                   backgroundColor: Colors.transparent,
                   appBar: AppBar(
                     backgroundColor: Colors.transparent,
-                    title: Text(AppLocalizations.of(context)!.pen),
-                    leading: const Icon(PhosphorIcons.penLight),
+                    title: Text(AppLocalizations.of(context)!.eraser),
+                    leading: const Icon(PhosphorIcons.eraserLight),
                     actions: [
                       IconButton(
                           tooltip: AppLocalizations.of(context)!.help,
                           icon:
                               const Icon(PhosphorIcons.circleWavyQuestionLight),
-                          onPressed: () => openHelp(['painters', 'pen'])),
+                          onPressed: () => openHelp(['painters', 'eraser'])),
                     ],
                   ),
                   body: Padding(
@@ -94,9 +93,9 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                               Expanded(
                                 child: Slider(
                                     value: painter.property.strokeWidth
-                                        .clamp(0, 50),
+                                        .clamp(0, 70),
                                     min: 0,
-                                    max: 50,
+                                    max: 70,
                                     onChanged: (value) => setState(() =>
                                         painter = painter.copyWith(
                                             property: painter.property.copyWith(
@@ -129,46 +128,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                             property: painter.property.copyWith(
                                                 strokeMultiplier: value)))),
                               )
-                            ]),
-                            const SizedBox(height: 50),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(32)),
-                                    onTap: () async {
-                                      var color = await showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              ColorPickerDialog(
-                                                  bloc: widget.bloc,
-                                                  defaultColor:
-                                                      painter.property.color));
-                                      if (color != null) {
-                                        setState(() => painter =
-                                            painter.copyWith(
-                                                property: painter.property
-                                                    .copyWith(color: color)));
-                                      }
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: painter.property.color,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(32))),
-                                      constraints: const BoxConstraints(
-                                          maxWidth: 100, maxHeight: 100),
-                                    )),
-                              ],
-                            ),
-                            CheckboxListTile(
-                                value: painter.property.fill,
-                                title: Text(AppLocalizations.of(context)!.fill),
-                                onChanged: (value) => setState(() => painter =
-                                    painter.copyWith(
-                                        property: painter.property
-                                            .copyWith(fill: value))))
+                            ])
                           ]),
                         ),
                         const Divider(),

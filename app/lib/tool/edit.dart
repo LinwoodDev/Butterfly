@@ -1,9 +1,9 @@
-import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/pad/dialogs/painters/eraser.dart';
-import 'package:butterfly/pad/dialogs/painters/image.dart';
-import 'package:butterfly/pad/dialogs/painters/label.dart';
-import 'package:butterfly/pad/dialogs/painters/path_eraser.dart';
-import 'package:butterfly/pad/dialogs/painters/pen.dart';
+import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/dialogs/painters/eraser.dart';
+import 'package:butterfly/dialogs/painters/image.dart';
+import 'package:butterfly/dialogs/painters/label.dart';
+import 'package:butterfly/dialogs/painters/path_eraser.dart';
+import 'package:butterfly/dialogs/painters/pen.dart';
 import 'package:butterfly/models/painters/eraser.dart';
 import 'package:butterfly/models/painters/image.dart';
 import 'package:butterfly/models/painters/painter.dart';

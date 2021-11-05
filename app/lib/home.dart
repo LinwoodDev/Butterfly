@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
-import 'package:butterfly/pad/dialogs/open.dart';
-import 'package:butterfly/pad/dialogs/save.dart';
+import 'package:butterfly/dialogs/open.dart';
+import 'package:butterfly/dialogs/save.dart';
 import 'package:butterfly/settings/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
       );
 
   void _openDocument(int index) =>
-      Modular.to.pushNamed('/pad/$index').then((value) {
+      Modular.to.pushNamed('/$index').then((value) {
         if (mounted) loadDocuments();
       });
   void _deleteDialog(int index) => showDialog(

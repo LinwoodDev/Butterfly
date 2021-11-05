@@ -1,15 +1,14 @@
 import 'dart:convert';
 
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/pad/bloc/document_bloc.dart';
-import 'package:butterfly/pad/cubits/transform.dart';
-import 'package:butterfly/pad/dialogs/export.dart';
-import 'package:butterfly/pad/dialogs/save.dart';
-import 'package:butterfly/pad/dialogs/settings.dart';
+import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/dialogs/export.dart';
+import 'package:butterfly/dialogs/save.dart';
+import 'package:butterfly/dialogs/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +18,7 @@ import 'view.dart';
 class ProjectPage extends StatefulWidget {
   final String? id;
 
-  const ProjectPage({Key? key, required this.id}) : super(key: key);
+  const ProjectPage({Key? key, this.id}) : super(key: key);
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
@@ -34,18 +33,22 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.id == null) {
-      Modular.to.navigate('/');
-    }
     SharedPreferences.getInstance().then((value) {
-      var index = int.tryParse(widget.id ?? '') ?? 0;
+      int index;
+      AppDocument document;
+      var documents = value.getStringList('documents') ?? [];
+      if (widget.id == null) {
+        document = const AppDocument(name: '');
+        index = documents.length;
+        value.setStringList('documents',
+            List.from(documents)..add(jsonEncode(document.toJson())));
+      } else {
+        index = int.tryParse(widget.id ?? '') ?? 0;
+        document = AppDocument.fromJson(jsonDecode(documents[index]));
+      }
       // TODO: Dynamic api version
       const fileVersion = 0;
-      setState(() => _bloc = DocumentBloc(
-          AppDocument.fromJson(
-              jsonDecode((value.getStringList('documents') ?? [])[index])),
-          index,
-          fileVersion));
+      setState(() => _bloc = DocumentBloc(document, index, fileVersion));
     });
   }
 

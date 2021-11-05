@@ -1,20 +1,11 @@
-// app_module.dart
-import 'package:butterfly/pad/module.dart';
-import 'package:butterfly/home.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'settings/module.dart';
+import 'views/main.dart';
 
 class AppModule extends Module {
-  // Provide a list of dependencies to inject into your project
-  @override
-  final List<Bind> binds = [];
-
-  // Provide all the routes for your module
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, args) => const HomePage()),
-    ModuleRoute('/settings', module: SettingsModule()),
-    ModuleRoute('/pad', module: PadModule())
+    ChildRoute(Modular.initialRoute, child: (_, __) => const ProjectPage()),
+    ChildRoute('/:id', child: (_, args) => ProjectPage(id: args.params['id']))
   ];
 }
