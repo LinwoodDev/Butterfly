@@ -8,14 +8,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class OpenDialog extends StatefulWidget {
-  const OpenDialog({Key? key}) : super(key: key);
+class ImportDialog extends StatefulWidget {
+  const ImportDialog({Key? key}) : super(key: key);
 
   @override
-  _OpenDialogState createState() => _OpenDialogState();
+  _ImportDialogState createState() => _ImportDialogState();
 }
 
-class _OpenDialogState extends State<OpenDialog> {
+class _ImportDialogState extends State<ImportDialog> {
   @override
   Widget build(BuildContext context) {
     var isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
@@ -24,9 +24,9 @@ class _OpenDialogState extends State<OpenDialog> {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Icon(PhosphorIcons.folderOpenLight),
+            child: Icon(PhosphorIcons.arrowSquareInLight),
           ),
-          Text(AppLocalizations.of(context)!.open),
+          Text(AppLocalizations.of(context)!.import),
         ],
       ),
       content: Column(mainAxisSize: MainAxisSize.min, children: [

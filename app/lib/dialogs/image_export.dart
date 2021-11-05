@@ -1,16 +1,15 @@
 import 'dart:ui' as ui;
 
+import 'package:butterfly/api/open_image.dart'
+    if (dart.library.io) 'package:butterfly/api/open_image_io.dart'
+    if (dart.library.js) 'package:butterfly/api/open_image_html.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'package:butterfly/api/open_image.dart'
-    if (dart.library.io) 'package:butterfly/api/open_image_io.dart'
-    if (dart.library.js) 'package:butterfly/api/open_image_html.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../view_painter.dart';
 

@@ -1,16 +1,16 @@
 import 'dart:convert';
 
 import 'package:butterfly/api/open_help.dart';
-import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/dialogs/open.dart';
+import 'package:butterfly/dialogs/import.dart';
+import 'package:butterfly/models/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import 'save.dart';
+import 'data_export.dart';
 
 class ColorPickerDialog extends StatefulWidget {
   final DocumentBloc bloc;
@@ -359,13 +359,13 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                             IconButton(
                                                 tooltip: AppLocalizations.of(
                                                         context)!
-                                                    .open,
+                                                    .import,
                                                 icon: const Icon(PhosphorIcons
-                                                    .folderOpenLight),
+                                                    .arrowSquareInLight),
                                                 onPressed: () {
                                                   showDialog(
                                                           builder: (context) =>
-                                                              const OpenDialog(),
+                                                              const ImportDialog(),
                                                           context: context)
                                                       .then((data) {
                                                     final palettes =
@@ -388,9 +388,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                             IconButton(
                                                 tooltip: AppLocalizations.of(
                                                         context)!
-                                                    .save,
-                                                icon: const Icon(PhosphorIcons
-                                                    .floppyDiskLight),
+                                                    .export,
+                                                icon: const Icon(
+                                                    PhosphorIcons.exportLight),
                                                 onPressed: () {
                                                   var data = json.encode({
                                                     'fileVersion': GetIt.I

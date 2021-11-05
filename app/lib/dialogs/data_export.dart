@@ -4,9 +4,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SaveDialog extends StatelessWidget {
   final String data;
@@ -19,9 +19,9 @@ class SaveDialog extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Icon(PhosphorIcons.floppyDiskLight),
+              child: Icon(PhosphorIcons.exportLight),
             ),
-            Text(AppLocalizations.of(context)!.save),
+            Text(AppLocalizations.of(context)!.export),
           ],
         ),
         actions: [

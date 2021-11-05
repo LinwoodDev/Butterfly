@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/dialogs/export.dart';
+import 'package:butterfly/dialogs/data_export.dart';
 import 'package:butterfly/dialogs/file_system.dart';
-import 'package:butterfly/dialogs/open.dart';
-import 'package:butterfly/dialogs/save.dart';
+import 'package:butterfly/dialogs/image_export.dart';
+import 'package:butterfly/dialogs/import.dart';
 import 'package:butterfly/dialogs/settings.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/settings/home.dart';
@@ -98,6 +98,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                 Text(AppLocalizations.of(context)!.newContent),
                             onTap: () {
                               Navigator.of(context).pop();
+                              _bloc?.clearHistory();
                               _bloc?.emit(DocumentLoadSuccess(AppDocument(
                                   name: '', createdAt: DateTime.now())));
                             },
@@ -115,11 +116,15 @@ class _ProjectPageState extends State<ProjectPage> {
                                     builder: (context) =>
                                         FileSystemDialog(bloc: _bloc!)).then(
                                     (value) => SharedPreferences.getInstance()
-                                        .then((prefs) => _bloc?.emit(
-                                            DocumentLoadSuccess(
-                                                AppDocument.fromJson(
-                                                    jsonDecode((prefs.getStringList('documents') ?? [])[value])),
-                                                documentIndex: value))));
+                                            .then((prefs) {
+                                          _bloc?.clearHistory();
+                                          _bloc?.emit(DocumentLoadSuccess(
+                                              AppDocument.fromJson(jsonDecode(
+                                                  (prefs.getStringList(
+                                                          'documents') ??
+                                                      [])[value])),
+                                              documentIndex: value));
+                                        }));
                               })),
                       PopupMenuItem(
                           padding: EdgeInsets.zero,
@@ -130,7 +135,8 @@ class _ProjectPageState extends State<ProjectPage> {
                             onTap: () {
                               Navigator.of(context).pop();
                               showDialog(
-                                      builder: (context) => const OpenDialog(),
+                                      builder: (context) =>
+                                          const ImportDialog(),
                                       context: context)
                                   .then((content) {
                                 if (content == null) return;
@@ -139,6 +145,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                       prefs.getStringList('documents') ?? []);
                                   documents.add(jsonEncode(content));
                                   prefs.setStringList('documents', documents);
+                                  _bloc?.clearHistory();
                                   _bloc?.emit(DocumentLoadSuccess(
                                       AppDocument.fromJson(content),
                                       documentIndex: documents.length - 1));
@@ -148,37 +155,55 @@ class _ProjectPageState extends State<ProjectPage> {
                           )),
                       PopupMenuItem(
                           padding: EdgeInsets.zero,
-                          child: ListTile(
-                              leading:
-                                  const Icon(PhosphorIcons.floppyDiskLight),
-                              title: Text(AppLocalizations.of(context)!.save),
-                              onTap: () async {
-                                Navigator.of(context).pop();
-                                var data = json.encode(
-                                    (_bloc?.state as DocumentLoadSuccess)
-                                        .document
-                                        .toJson());
-                                showDialog(
-                                    context: context,
-                                    builder: (context) =>
-                                        SaveDialog(data: data));
-                              })),
-                      PopupMenuItem(
-                          padding: EdgeInsets.zero,
-                          child: ListTile(
-                              leading: const Icon(PhosphorIcons.exportLight),
-                              title: Text(AppLocalizations.of(context)!.export),
-                              onTap: () {
-                                Navigator.of(context).pop();
-                                showDialog(
-                                    context: context,
-                                    builder: (context) =>
-                                        ExportDialog(bloc: _bloc!));
-                              })),
+                          child: PopupMenuButton(
+                              itemBuilder: (context) => [
+                                    PopupMenuItem(
+                                        padding: EdgeInsets.zero,
+                                        child: ListTile(
+                                            leading: const Icon(
+                                                PhosphorIcons.databaseLight),
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .data),
+                                            onTap: () async {
+                                              Navigator.of(context).pop();
+                                              var data = json.encode((_bloc
+                                                          ?.state
+                                                      as DocumentLoadSuccess)
+                                                  .document
+                                                  .toJson());
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      SaveDialog(data: data));
+                                            })),
+                                    PopupMenuItem(
+                                        padding: EdgeInsets.zero,
+                                        child: ListTile(
+                                            leading: const Icon(
+                                                PhosphorIcons.imageLight),
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .image),
+                                            onTap: () {
+                                              Navigator.of(context).pop();
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      ExportDialog(
+                                                          bloc: _bloc!));
+                                            })),
+                                  ],
+                              child: ListTile(
+                                  leading:
+                                      const Icon(PhosphorIcons.exportLight),
+                                  title: Text(
+                                      AppLocalizations.of(context)!.export)))),
                       const PopupMenuDivider(),
                       PopupMenuItem(
                           child: ListTile(
                               onTap: () {
+                                Navigator.of(context).pop();
                                 showDialog(
                                     context: context,
                                     builder: (context) =>
