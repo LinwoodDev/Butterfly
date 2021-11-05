@@ -84,6 +84,12 @@ Currently the app store versions of this app are not ready.
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/app-release.apk">
         Nightly
       </a>
+      <a className="dropdown__link" href="https://f-droid.org/de/packages/dev.linwood.butterfly/">
+        F-Droid
+      </a>
+      <a className="dropdown__link" href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
+        PlayStore
+      </a>
     </li>
   </ul>
 </div>
