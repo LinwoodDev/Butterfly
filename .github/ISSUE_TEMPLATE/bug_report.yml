@@ -18,16 +18,20 @@ body:
       value: "A bug happened!"
     validations:
       required: true
-  - type: dropdown
+  - type: input
     id: version
     attributes:
       label: Version
       description: What version of our software are you running?
-      options:
-        - 2.0.0-rc.2 (Latest release)
-        - 2.0.0-rc.1 (Latest snapshot)
     validations:
       required: true
+  - type: checkboxes
+    id: newest-version
+    attributes:
+      label: Test it on thedevelopment version
+      description: Do you try this bug in the [newest development version](https://preview.butterfly.linwood.dev)? Maybe this bug is already fixed.
+      options:
+        - label: I tried this bug in the newest development version.
   - type: dropdown
     id: platform
     attributes:
