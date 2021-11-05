@@ -117,7 +117,7 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.3.1"
+    version: "7.3.2"
   flutter_lints:
     dependency: "direct dev"
     description:

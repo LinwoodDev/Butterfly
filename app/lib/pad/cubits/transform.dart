@@ -13,9 +13,9 @@ class CameraTransform extends Equatable {
   CameraTransform withPosition(Offset position) =>
       CameraTransform(position, size);
   CameraTransform withScale(double scale) =>
-      CameraTransform(position, (size + scale).clamp(0.25, 5));
+      CameraTransform(position, (size + scale).clamp(0.1, 10));
   CameraTransform withSize(double size) =>
-      CameraTransform(position, size.clamp(0.25, 5));
+      CameraTransform(position, size.clamp(0.1, 10));
 
   Offset localToGlobal(Offset local) => local / size - position;
 
