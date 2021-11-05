@@ -28,8 +28,4 @@ class PenElement extends PathElement {
       PenElement(
           points: points ?? this.points, property: property ?? this.property);
 
-  @override
-  bool hit(Offset offset) => points.any((element) =>
-      (element.x - offset.dx).abs() <= property.strokeWidth &&
-      (element.y - offset.dy).abs() <= property.strokeWidth);
 }

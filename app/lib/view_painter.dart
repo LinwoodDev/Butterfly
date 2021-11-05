@@ -6,8 +6,6 @@ import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/image.dart';
-import 'package:butterfly/models/elements/label.dart';
-import 'package:butterfly/models/elements/path.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as image;
@@ -38,37 +36,11 @@ void paintElement(Canvas canvas, ElementLayer element,
     [Map<ElementLayer, ui.Image> images = const {},
     Offset offset = Offset.zero,
     bool preview = false]) {
-  if (element is PathElement) {
-    element.paint(canvas, offset, preview);
-  } else if (element is LabelElement) {
-    TextSpan span = TextSpan(
-        style: TextStyle(
-            fontSize: element.property.size,
-            color: element.property.color,
-            fontWeight: element.property.fontWeight,
-            letterSpacing: element.property.letterSpacing,
-            decorationColor: element.property.decorationColor,
-            decorationStyle: element.property.decorationStyle,
-            decorationThickness: element.property.decorationThickness,
-            decoration: TextDecoration.combine([
-              if (element.property.underline) TextDecoration.underline,
-              if (element.property.lineThrough) TextDecoration.lineThrough,
-              if (element.property.overline) TextDecoration.overline,
-            ])),
-        text: element.text);
-    TextPainter tp = TextPainter(
-        text: span,
-        textAlign: TextAlign.center,
-        textDirection: TextDirection.ltr,
-        textScaleFactor: 1.0);
-    tp.layout();
-    var position = element.position;
-    position += offset;
-    tp.paint(canvas, position);
-  }
   if (element is ImageElement && images.containsKey(element)) {
     canvas.drawImage(images[element]!, element.position + offset,
         Paint()..strokeWidth = .05);
+  } else {
+    element.paint(canvas, offset, preview);
   }
 }
 

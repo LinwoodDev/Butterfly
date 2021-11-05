@@ -1,5 +1,5 @@
-import 'package:butterfly/models/elements/pen.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/models/elements/pen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -18,7 +18,8 @@ class PaintElementDialog extends StatelessWidget {
       child: BlocBuilder<DocumentBloc, DocumentState>(
         builder: (context, state) {
           if (state is! DocumentLoadSuccess) return Container();
-          if (state.document.content.length <= index) return Container();
+          if (state.document.content.length <= index ||
+              state.document.content[index] is! PenElement) return Container();
           var element = state.document.content[index] as PenElement;
           return SizedBox(
             height: 300,
