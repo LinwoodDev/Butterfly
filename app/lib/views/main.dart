@@ -97,7 +97,9 @@ class _ProjectPageState extends State<ProjectPage> {
                             title:
                                 Text(AppLocalizations.of(context)!.newContent),
                             onTap: () {
-                              // TODO: Add new content
+                              Navigator.of(context).pop();
+                              _bloc?.emit(DocumentLoadSuccess(AppDocument(
+                                  name: '', createdAt: DateTime.now())));
                             },
                           )),
                       PopupMenuItem(
@@ -106,13 +108,19 @@ class _ProjectPageState extends State<ProjectPage> {
                               leading:
                                   const Icon(PhosphorIcons.folderOpenLight),
                               title: Text(AppLocalizations.of(context)!.open),
-                              onTap: () => showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      FileSystemDialog(bloc: _bloc!)).then(
-                                  (value) => SharedPreferences.getInstance()
-                                      .then((prefs) => _bloc?.emit(
-                                          DocumentLoadSuccess(AppDocument.fromJson(jsonDecode((prefs.getStringList('documents') ?? [])[value])), documentIndex: value)))))),
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        FileSystemDialog(bloc: _bloc!)).then(
+                                    (value) => SharedPreferences.getInstance()
+                                        .then((prefs) => _bloc?.emit(
+                                            DocumentLoadSuccess(
+                                                AppDocument.fromJson(
+                                                    jsonDecode((prefs.getStringList('documents') ?? [])[value])),
+                                                documentIndex: value))));
+                              })),
                       PopupMenuItem(
                           padding: EdgeInsets.zero,
                           child: ListTile(
@@ -120,15 +128,20 @@ class _ProjectPageState extends State<ProjectPage> {
                                 const Icon(PhosphorIcons.arrowSquareInLight),
                             title: Text(AppLocalizations.of(context)!.import),
                             onTap: () {
+                              Navigator.of(context).pop();
                               showDialog(
                                       builder: (context) => const OpenDialog(),
                                       context: context)
                                   .then((content) {
                                 if (content == null) return;
-                                setState(() {
-                                  // TODO: Implement import
-                                  //_documents.add(AppDocument.fromJson(jsonDecode(content)));
-                                  //saveDocuments();
+                                SharedPreferences.getInstance().then((prefs) {
+                                  var documents = List<String>.from(
+                                      prefs.getStringList('documents') ?? []);
+                                  documents.add(jsonEncode(content));
+                                  prefs.setStringList('documents', documents);
+                                  _bloc?.emit(DocumentLoadSuccess(
+                                      AppDocument.fromJson(content),
+                                      documentIndex: documents.length - 1));
                                 });
                               });
                             },
@@ -140,6 +153,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                   const Icon(PhosphorIcons.floppyDiskLight),
                               title: Text(AppLocalizations.of(context)!.save),
                               onTap: () async {
+                                Navigator.of(context).pop();
                                 var data = json.encode(
                                     (_bloc?.state as DocumentLoadSuccess)
                                         .document
@@ -149,38 +163,18 @@ class _ProjectPageState extends State<ProjectPage> {
                                     builder: (context) =>
                                         SaveDialog(data: data));
                               })),
-
-                      /*PopupMenuItem(
-                        padding: EdgeInsets.zero,
-                        child: PopupMenuButton(
-                          tooltip: '',
-                        child: ListTile(
-                          mouseCursor: MouseCursor.defer,
-                            leading:const Icon(PhosphorIcons.arrowSquareOutLight),title: Text(AppLocalizations.of(context)!.export)),
-                        onSelected: (value) { },
-                        itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                          PopupMenuItem(
-                              padding: EdgeInsets.zero,
-                              child: ListTile(
-                                  leading:
-                                  const Icon(PhosphorIcons.imageLight),
-                                  title: Text(AppLocalizations.of(context)!.image),
-                                  onTap: () => showDialog(
-                                      context: context,
-                                      builder: (context) =>
-                                          ExportDialog(bloc: _bloc!)))),
-                        ],
-                      ),
-                    ),*/
                       PopupMenuItem(
                           padding: EdgeInsets.zero,
                           child: ListTile(
                               leading: const Icon(PhosphorIcons.exportLight),
                               title: Text(AppLocalizations.of(context)!.export),
-                              onTap: () => showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      ExportDialog(bloc: _bloc!)))),
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        ExportDialog(bloc: _bloc!));
+                              })),
                       const PopupMenuDivider(),
                       PopupMenuItem(
                           child: ListTile(
@@ -200,14 +194,17 @@ class _ProjectPageState extends State<ProjectPage> {
                               leading: const Icon(PhosphorIcons.gearLight),
                               title:
                                   Text(AppLocalizations.of(context)!.settings),
-                              onTap: () => showDialog(
-                                  context: context,
-                                  builder: (context) => Dialog(
-                                      child: ConstrainedBox(
-                                          constraints: const BoxConstraints(
-                                              maxHeight: 400, maxWidth: 600),
-                                          child: const SettingsPage(
-                                              isDialog: true))))))
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => Dialog(
+                                        child: ConstrainedBox(
+                                            constraints: const BoxConstraints(
+                                                maxHeight: 400, maxWidth: 600),
+                                            child: const SettingsPage(
+                                                isDialog: true))));
+                              }))
                     ],
                   ),
                   /*const IconButton(

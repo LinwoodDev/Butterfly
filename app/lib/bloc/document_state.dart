@@ -16,9 +16,7 @@ class DocumentLoadSuccess extends DocumentState {
   final int currentPainterIndex;
 
   const DocumentLoadSuccess(this.document,
-      {this.editMode = true,
-      this.documentIndex,
-      this.currentPainterIndex = 0});
+      {this.editMode = true, this.documentIndex, this.currentPainterIndex = 0});
 
   @override
   List<Object?> get props =>
