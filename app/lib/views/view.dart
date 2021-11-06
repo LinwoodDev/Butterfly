@@ -154,8 +154,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       }
                       if (!scaling) scaling = details.scale != 1;
                       if (scaling) {
-                        var scale = size + details.scale - 1;
-                        context.read<TransformCubit>().size(scale);
+                        var cubit = context.read<TransformCubit>();
+                        cubit.scale(details.scale - 1,
+                            cubit.state.localToGlobal(details.focalPoint));
                       }
                     },
                     onScaleStart: (details) {
@@ -170,9 +171,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             var cubit = context.read<TransformCubit>();
                             cubit.scale(
                                 scale,
-                                //cubit.state.localToGlobal(pointerSignal.position
-                                //)
-                                cubit.state.position);
+                                cubit.state
+                                    .localToGlobal(pointerSignal.position));
                           }
                         },
                         onPointerDown: (PointerDownEvent event) {
