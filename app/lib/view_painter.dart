@@ -48,9 +48,10 @@ void paintElement(Canvas canvas, ElementLayer element,
 class ForegroundPainter extends CustomPainter {
   final ElementLayer? editingLayer;
   final CameraTransform transform;
+  final ElementLayer? selection;
 
   ForegroundPainter(this.editingLayer,
-      [this.transform = const CameraTransform()]);
+      [this.transform = const CameraTransform(), this.selection]);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -58,12 +59,26 @@ class ForegroundPainter extends CustomPainter {
     if (editingLayer != null) {
       paintElement(canvas, editingLayer!, {}, transform.position, true);
     }
+    if (selection != null) {
+      var rect = selection!.rect;
+      canvas.drawRRect(
+          RRect.fromRectAndRadius(rect.inflate(5), const Radius.circular(5)),
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..shader = ui.Gradient.linear(
+              rect.topLeft,
+              rect.bottomRight,
+              [Colors.red, Colors.yellow],
+            )
+            ..strokeWidth = 5);
+    }
   }
 
   @override
   bool shouldRepaint(ForegroundPainter oldDelegate) =>
       oldDelegate.editingLayer != editingLayer ||
-      oldDelegate.transform != transform;
+      oldDelegate.transform != transform ||
+      oldDelegate.selection != selection;
 }
 
 Future<Map<ElementLayer, ui.Image>> loadImages(AppDocument document,
@@ -154,7 +169,7 @@ class ViewPainter extends CustomPainter {
         }
       }
     }
-    canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
+    canvas.saveLayer(Offset.zero & size, Paint());
     canvas.scale(transform.size, transform.size);
     document.content.asMap().forEach((index, element) =>
         paintElement(canvas, element, images, transform.position));

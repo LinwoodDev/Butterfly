@@ -71,4 +71,8 @@ class ImageElement extends ElementLayer {
   void paint(Canvas canvas,
           [Offset offset = Offset.zero, bool preview = false]) =>
       throw UnimplementedError();
+
+  @override
+  ui.Rect get rect =>
+      Rect.fromLTWH(position.dx, position.dy, width * scale, height * scale);
 }

@@ -72,4 +72,10 @@ class LabelElement extends ElementLayer {
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
       textScaleFactor: 1.0);
+
+  @override
+  Rect get rect {
+    var tp = _createPainter();
+    return Rect.fromLTWH(position.dx, position.dy, tp.width, tp.height);
+  }
 }

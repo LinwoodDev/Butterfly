@@ -13,4 +13,6 @@ abstract class ElementLayer {
       [Offset offset = Offset.zero, bool preview = false]);
 
   bool hit(Offset offset);
+
+  Rect get rect;
 }

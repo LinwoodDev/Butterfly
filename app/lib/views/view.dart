@@ -3,11 +3,13 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/elements/eraser.dart';
 import 'package:butterfly/dialogs/elements/image.dart';
 import 'package:butterfly/dialogs/elements/label.dart';
 import 'package:butterfly/dialogs/elements/paint.dart';
+import 'package:butterfly/dialogs/select.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/models/elements/image.dart';
@@ -165,7 +167,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             var scale = pointerSignal.scrollDelta.dx +
                                 pointerSignal.scrollDelta.dy;
                             scale /= -500;
-                            context.read<TransformCubit>().scale(scale);
+                            var cubit = context.read<TransformCubit>();
+                            cubit.scale(
+                                scale,
+                                cubit.state
+                                    .localToGlobal(pointerSignal.position));
                           }
                         },
                         onPointerDown: (PointerDownEvent event) {
@@ -191,30 +197,59 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               !state.editMode) {
                             var hits = raycast(
                                 transform.localToGlobal(event.localPosition));
-                            var hit = hits.isEmpty ? null : hits.last;
-                            if (hit != null) {
-                              var index = state.document.content.indexOf(hit);
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    if (hit is PenElement) {
-                                      return PaintElementDialog(
-                                          index: index, bloc: widget.bloc);
-                                    }
-                                    if (hit is EraserElement) {
-                                      return EraserElementDialog(
-                                          index: index, bloc: widget.bloc);
-                                    }
-                                    if (hit is LabelElement) {
-                                      return LabelElementDialog(
-                                          index: index, bloc: widget.bloc);
-                                    }
-                                    if (hit is ImageElement) {
-                                      return ImageElementDialog(
-                                          index: index, bloc: widget.bloc);
-                                    }
-                                    return Container();
-                                  });
+                            if (hits.isNotEmpty) {
+                              void showSelection() {
+                                var selection =
+                                    context.read<SelectionCubit>().state;
+                                if (selection == null) return;
+                                var index =
+                                    state.document.content.indexOf(selection);
+                                showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) {
+                                          if (selection is PenElement) {
+                                            return PaintElementDialog(
+                                                index: index,
+                                                bloc: widget.bloc);
+                                          }
+                                          if (selection is EraserElement) {
+                                            return EraserElementDialog(
+                                                index: index,
+                                                bloc: widget.bloc);
+                                          }
+                                          if (selection is LabelElement) {
+                                            return LabelElementDialog(
+                                                index: index,
+                                                bloc: widget.bloc);
+                                          }
+                                          if (selection is ImageElement) {
+                                            return ImageElementDialog(
+                                                index: index,
+                                                bloc: widget.bloc);
+                                          }
+                                          return Container();
+                                        })
+                                    .then((value) =>
+                                        context.read<SelectionCubit>().reset());
+                              }
+
+                              context.read<SelectionCubit>().change(hits.first);
+                              if (hits.length == 1) {
+                                showSelection();
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => SelectLayerDialog(
+                                        cubit:
+                                            this.context.read<SelectionCubit>(),
+                                        layers: hits)).then((value) {
+                                  if (value != true) {
+                                    this.context.read<SelectionCubit>().reset();
+                                  } else {
+                                    showSelection();
+                                  }
+                                });
+                              }
                             }
                           }
                         },
@@ -265,15 +300,20 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           builder: (context, transform) {
                             return Stack(children: [
                               Container(color: Colors.white),
-                              CustomPaint(
-                                size: Size.infinite,
-                                foregroundPainter: ForegroundPainter(
-                                    currentEditingLayer, transform),
-                                painter: ViewPainter(state.document,
-                                    transform: transform, images: images),
-                                isComplex: true,
-                                willChange: true,
-                              ),
+                              BlocBuilder<SelectionCubit, ElementLayer?>(
+                                  builder: (context, selection) {
+                                return CustomPaint(
+                                  size: Size.infinite,
+                                  foregroundPainter: ForegroundPainter(
+                                      currentEditingLayer,
+                                      transform,
+                                      selection),
+                                  painter: ViewPainter(state.document,
+                                      transform: transform, images: images),
+                                  isComplex: true,
+                                  willChange: true,
+                                );
+                              }),
                               if (snapshot.connectionState ==
                                       ConnectionState.waiting &&
                                   images.isEmpty &&

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/data_export.dart';
 import 'package:butterfly/dialogs/file_system.dart';
@@ -56,7 +57,8 @@ class _ProjectPageState extends State<ProjectPage> {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => _bloc!),
-          BlocProvider(create: (_) => TransformCubit())
+          BlocProvider(create: (_) => TransformCubit()),
+          BlocProvider(create: (_) => SelectionCubit())
         ],
         child: Scaffold(
             appBar: AppBar(

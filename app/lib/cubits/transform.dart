@@ -12,8 +12,11 @@ class CameraTransform extends Equatable {
 
   CameraTransform withPosition(Offset position) =>
       CameraTransform(position, size);
-  CameraTransform withScale(double scale) =>
-      CameraTransform(position, (size + scale).clamp(0.1, 10));
+
+  CameraTransform withScale(double scale, [Offset? cursor]) => CameraTransform(
+      position + (position - (cursor ?? position)) * scale,
+      (size + scale).clamp(0.1, 10));
+
   CameraTransform withSize(double size) =>
       CameraTransform(position, size.clamp(0.1, 10));
 
@@ -27,7 +30,10 @@ class TransformCubit extends Cubit<CameraTransform> {
   TransformCubit() : super(const CameraTransform());
 
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
-  void scale(double scale) => emit(state.withScale(scale));
+
+  void scale(double scale, [Offset? cursor]) =>
+      emit(state.withScale(scale, cursor));
+
   void size(double size) => emit(state.withSize(size));
   void moveToWaypoint(Waypoint waypoint) => emit(state
       .withPosition(waypoint.position)

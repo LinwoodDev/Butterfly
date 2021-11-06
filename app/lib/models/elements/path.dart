@@ -92,5 +92,19 @@ abstract class PathElement extends ElementLayer {
     }
   }
 
+  @override
+  Rect get rect {
+    var topLeftCorner = points.first.toOffset();
+    var bottomRightCorner = points.first.toOffset();
+    for (var element in points) {
+      topLeftCorner = Offset(
+          min(topLeftCorner.dx, element.x), min(topLeftCorner.dy, element.y));
+      bottomRightCorner = Offset(max(bottomRightCorner.dx, element.x),
+          max(bottomRightCorner.dy, element.y));
+    }
+    return Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
+        bottomRightCorner.dx, bottomRightCorner.dy);
+  }
+
   PathElement copyWith({List<PathPoint>? points});
 }
