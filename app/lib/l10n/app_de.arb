@@ -114,5 +114,6 @@
     "waypoints": "Wegpunkte",
     "origin": "Ursprung",
     "import": "Importieren",
-    "newContent": "Neu"
+    "newContent": "Neu",
+    "selectLayer": "Select layer"
 }
