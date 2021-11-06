@@ -66,9 +66,4 @@ class ImageElement extends ElementLayer {
         offset.dx <= position.dx + width * scale &&
         offset.dy <= position.dy + height * scale;
   }
-
-  @override
-  void paint(Canvas canvas,
-          [Offset offset = Offset.zero, bool preview = false]) =>
-      throw UnimplementedError();
 }
