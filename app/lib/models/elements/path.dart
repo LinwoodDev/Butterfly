@@ -74,6 +74,7 @@ abstract class PathElement extends ElementLayer {
 
   Paint buildPaint([bool preview = false]);
 
+  @override
   void paint(Canvas canvas,
       [Offset offset = Offset.zero, bool preview = false]) {
     if (points.isNotEmpty) {
