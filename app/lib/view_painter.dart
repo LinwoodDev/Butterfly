@@ -61,6 +61,7 @@ class ForegroundPainter extends CustomPainter {
     }
     if (selection != null) {
       var rect = selection!.rect;
+      rect = rect.translate(transform.position.dx, transform.position.dy);
       canvas.drawRRect(
           RRect.fromRectAndRadius(rect.inflate(5), const Radius.circular(5)),
           Paint()
