@@ -59,7 +59,6 @@ class SelectLayerDialog extends StatelessWidget {
                         icon = PhosphorIcons.penLight;
                         break;
                     }
-                    print(state == layer);
                     return IconButton(
                       icon: Icon(icon),
                       color: state == layer
