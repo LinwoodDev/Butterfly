@@ -29,12 +29,11 @@ class LabelElement extends ElementLayer {
       }..addAll(property.toJson());
 
   @override
-  bool hit(Offset offset) {
-    var tp = _createPainter();
-    tp.layout();
-    return (offset.dx - position.dx).abs() < tp.width &&
-        (offset.dy - position.dy).abs() < tp.height;
-  }
+  bool hit(Offset offset) =>
+      offset.dx >= position.dx &&
+      offset.dy >= position.dy &&
+      offset.dx <= position.dx + property.size &&
+      offset.dy <= position.dy + property.size;
 
   LabelElement copyWith(
           {String? text, LabelProperty? property, Offset? position}) =>
@@ -42,34 +41,4 @@ class LabelElement extends ElementLayer {
           text: text ?? this.text,
           property: property ?? this.property,
           position: position ?? this.position);
-
-  @override
-  void paint(Canvas canvas,
-      [Offset offset = Offset.zero, bool preview = false]) {
-    var tp = _createPainter();
-    tp.layout();
-    var current = position;
-    current += offset;
-    tp.paint(canvas, current);
-  }
-
-  TextPainter _createPainter() => TextPainter(
-      text: TextSpan(
-          style: TextStyle(
-              fontSize: property.size,
-              color: property.color,
-              fontWeight: property.fontWeight,
-              letterSpacing: property.letterSpacing,
-              decorationColor: property.decorationColor,
-              decorationStyle: property.decorationStyle,
-              decorationThickness: property.decorationThickness,
-              decoration: TextDecoration.combine([
-                if (property.underline) TextDecoration.underline,
-                if (property.lineThrough) TextDecoration.lineThrough,
-                if (property.overline) TextDecoration.overline,
-              ])),
-          text: text),
-      textAlign: TextAlign.center,
-      textDirection: TextDirection.ltr,
-      textScaleFactor: 1.0);
 }
