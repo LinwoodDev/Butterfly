@@ -112,5 +112,7 @@
   },
   "shouldNotEmpty": "This value should not be empty",
   "waypoints": "Waypoints",
-  "origin": "Origin"
+  "origin": "Origin",
+  "import":"Import",
+  "newContent":"New"
 }

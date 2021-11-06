@@ -1,5 +1,5 @@
 import 'package:butterfly/module.dart';
-import 'package:butterfly/home.dart';
+import 'package:butterfly/views/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
-import 'pad/cubits/language.dart';
+import 'cubits/language.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme.dart';
 
@@ -167,7 +167,7 @@ class ButterflyApp extends StatelessWidget {
             theme: buildThemeData(context),
             themeMode: themeController?.currentTheme,
             darkTheme: buildDarkThemeData(context),
-            home: const HomePage(),
+            home: const ProjectPage(),
           ).modular();
         }));
   }
