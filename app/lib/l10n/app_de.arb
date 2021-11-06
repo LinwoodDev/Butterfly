@@ -113,6 +113,6 @@
     "shouldNotEmpty": "Dieser Wert darf nicht leer sein",
     "waypoints": "Wegpunkte",
     "origin": "Ursprung",
-    "import": "Import",
-    "newContent": "New"
+    "import": "Importieren",
+    "newContent": "Neu"
 }
