@@ -113,6 +113,6 @@
     "shouldNotEmpty": "Cette valeur ne doit pas être vide",
     "waypoints": "Waypoints",
     "origin": "Origine",
-    "import": "Import",
-    "newContent": "New"
+    "import": "Importation",
+    "newContent": "Nouveau"
 }
