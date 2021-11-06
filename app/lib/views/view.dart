@@ -2,28 +2,28 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:butterfly/models/elements/element.dart';
-import 'package:butterfly/models/elements/eraser.dart';
-import 'package:butterfly/models/elements/image.dart';
-import 'package:butterfly/models/elements/label.dart';
-import 'package:butterfly/models/elements/pen.dart';
-import 'package:butterfly/models/elements/path.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/elements/eraser.dart';
 import 'package:butterfly/dialogs/elements/image.dart';
 import 'package:butterfly/dialogs/elements/label.dart';
 import 'package:butterfly/dialogs/elements/paint.dart';
+import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/elements/eraser.dart';
+import 'package:butterfly/models/elements/image.dart';
+import 'package:butterfly/models/elements/label.dart';
+import 'package:butterfly/models/elements/path.dart';
+import 'package:butterfly/models/elements/pen.dart';
 import 'package:butterfly/models/painters/image.dart';
+import 'package:butterfly/models/painters/label.dart';
 import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/painters/path_eraser.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:butterfly/models/painters/label.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../view_painter.dart';
 
@@ -151,11 +151,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         return;
                       }
                       if (!scaling) scaling = details.scale != 1;
-                      var scale = size + details.scale - 1;
-                      context.read<TransformCubit>().size(scale);
+                      if (scaling) {
+                        var scale = size + details.scale - 1;
+                        context.read<TransformCubit>().size(scale);
+                      }
                     },
-                    onScaleStart: (details) =>
-                        size = context.read<TransformCubit>().state.size,
+                    onScaleStart: (details) {
+                      size = context.read<TransformCubit>().state.size;
+                    },
                     child: Listener(
                         onPointerSignal: (pointerSignal) {
                           if (pointerSignal is PointerScrollEvent) {

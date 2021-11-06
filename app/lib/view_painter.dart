@@ -15,6 +15,7 @@ import 'cubits/transform.dart';
 class DecodeParam {
   final ImageElement element;
   final SendPort sendPort;
+
   DecodeParam(this.element, this.sendPort);
 }
 
@@ -47,8 +48,10 @@ void paintElement(Canvas canvas, ElementLayer element,
 class ForegroundPainter extends CustomPainter {
   final ElementLayer? editingLayer;
   final CameraTransform transform;
+
   ForegroundPainter(this.editingLayer,
       [this.transform = const CameraTransform()]);
+
   @override
   void paint(Canvas canvas, Size size) {
     canvas.scale(transform.size);
@@ -59,7 +62,8 @@ class ForegroundPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ForegroundPainter oldDelegate) =>
-      oldDelegate.editingLayer != editingLayer || transform != transform;
+      oldDelegate.editingLayer != editingLayer ||
+      oldDelegate.transform != transform;
 }
 
 Future<Map<ElementLayer, ui.Image>> loadImages(AppDocument document,
