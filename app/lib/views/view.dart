@@ -170,8 +170,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             var cubit = context.read<TransformCubit>();
                             cubit.scale(
                                 scale,
-                                cubit.state
-                                    .localToGlobal(pointerSignal.position));
+                                //cubit.state.localToGlobal(pointerSignal.position
+                                //)
+                                cubit.state.position);
                           }
                         },
                         onPointerDown: (PointerDownEvent event) {
