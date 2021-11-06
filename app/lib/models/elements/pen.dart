@@ -27,5 +27,4 @@ class PenElement extends PathElement {
   PenElement copyWith({List<PathPoint>? points, PenProperty? property}) =>
       PenElement(
           points: points ?? this.points, property: property ?? this.property);
-
 }

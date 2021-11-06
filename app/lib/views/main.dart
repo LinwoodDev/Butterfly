@@ -167,6 +167,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                     .data),
                                             onTap: () async {
                                               Navigator.of(context).pop();
+                                              Navigator.of(context).pop();
                                               var data = json.encode((_bloc
                                                           ?.state
                                                       as DocumentLoadSuccess)
@@ -187,6 +188,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                     .image),
                                             onTap: () {
                                               Navigator.of(context).pop();
+                                              Navigator.of(context).pop();
                                               showDialog(
                                                   context: context,
                                                   builder: (context) =>
@@ -194,7 +196,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                                           bloc: _bloc!));
                                             })),
                                   ],
+                              tooltip: '',
                               child: ListTile(
+                                  mouseCursor: MouseCursor.defer,
                                   leading:
                                       const Icon(PhosphorIcons.exportLight),
                                   title: Text(
