@@ -112,5 +112,7 @@
     },
     "shouldNotEmpty": "Dieser Wert darf nicht leer sein",
     "waypoints": "Wegpunkte",
-    "origin": "Ursprung"
+    "origin": "Ursprung",
+    "import": "Import",
+    "newContent": "New"
 }
