@@ -49,7 +49,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
           if (state is! DocumentLoadSuccess) return Container();
           return SizedBox.expand(child:
               ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
-            List<ElementLayer> raycast(Offset offset) {
+            List<ElementLayer> rayCast(Offset offset) {
               return state.document.content
                   .where((element) => element.hit(offset))
                   .toList();
@@ -145,11 +145,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     }
                   }
 
-                  var scaling = false, moving = false;
+                  var openView = false;
 
                   return GestureDetector(
                     onScaleUpdate: (details) {
-                      if (!scaling) scaling = details.scale != 1;
+                      if (state.editMode) return;
+                      if (openView) openView = details.scale == 1;
                       var current = size + details.scale - 1;
                       var cubit = context.read<TransformCubit>();
                       cubit.scale(
@@ -172,6 +173,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           }
                         },
                         onPointerDown: (PointerDownEvent event) {
+                          openView = true;
                           if (event.kind == PointerDeviceKind.stylus ||
                               state.editMode &&
                                   event.buttons != kMiddleMouseButton) {
@@ -179,8 +181,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           }
                         },
                         onPointerUp: (PointerUpEvent event) {
-                          if (scaling || moving) {
-                            moving = false;
+                          if (!openView) {
                             return;
                           }
                           var transform = context.read<TransformCubit>().state;
@@ -192,7 +193,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           } else if (event.kind !=
                                   ui.PointerDeviceKind.stylus &&
                               !state.editMode) {
-                            var hits = raycast(
+                            var hits = rayCast(
                                 transform.localToGlobal(event.localPosition));
                             if (hits.isNotEmpty) {
                               void showSelection() {
@@ -256,9 +257,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           if (!state.editMode &&
                                   event.kind != ui.PointerDeviceKind.stylus ||
                               event.buttons == kMiddleMouseButton) {
-                            if (!moving) {
-                              moving =
-                                  (event.delta / transform.size) != Offset.zero;
+                            if (openView) {
+                              openView =
+                                  (event.delta / transform.size) == Offset.zero;
                             }
                             context
                                 .read<TransformCubit>()
@@ -271,7 +272,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               createLayer(event.localPosition, event.pressure);
                             }
                             if (state.currentPainter is PathEraserPainter) {
-                              widget.bloc.add(LayersRemoved(raycast(transform
+                              widget.bloc.add(LayersRemoved(rayCast(transform
                                       .localToGlobal(event.localPosition))
                                   .where((element) =>
                                       element is! EraserElement ||

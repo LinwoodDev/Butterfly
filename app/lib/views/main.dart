@@ -325,7 +325,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                         var cubit =
                                             context.read<TransformCubit>();
                                         cubit.scale(
-                                            cubit.state.size - 1,
+                                            1 - cubit.state.size,
                                             Offset(
                                                 MediaQuery.of(context)
                                                         .size
@@ -367,7 +367,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                         var cubit =
                                             context.read<TransformCubit>();
                                         cubit.scale(
-                                            cubit.state.size - scale,
+                                            scale - cubit.state.size,
                                             Offset(
                                                 MediaQuery.of(context)
                                                         .size
