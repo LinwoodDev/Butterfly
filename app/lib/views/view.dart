@@ -204,31 +204,31 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     state.document.content.indexOf(selection);
                                 showModalBottomSheet(
                                         context: context,
-                                    builder: (context) {
-                                      if (selection is PenElement) {
-                                        return PaintElementDialog(
-                                            index: index,
-                                            bloc: widget.bloc);
-                                      }
-                                      if (selection is EraserElement) {
-                                        return EraserElementDialog(
-                                            index: index,
-                                            bloc: widget.bloc);
-                                      }
-                                      if (selection is LabelElement) {
-                                        return LabelElementDialog(
-                                            index: index,
-                                            bloc: widget.bloc);
-                                      }
-                                      if (selection is ImageElement) {
-                                        return ImageElementDialog(
-                                            index: index,
-                                            bloc: widget.bloc);
-                                      }
-                                      return Container();
-                                    })
+                                        builder: (context) {
+                                          if (selection is PenElement) {
+                                            return PaintElementDialog(
+                                                index: index,
+                                                bloc: widget.bloc);
+                                          }
+                                          if (selection is EraserElement) {
+                                            return EraserElementDialog(
+                                                index: index,
+                                                bloc: widget.bloc);
+                                          }
+                                          if (selection is LabelElement) {
+                                            return LabelElementDialog(
+                                                index: index,
+                                                bloc: widget.bloc);
+                                          }
+                                          if (selection is ImageElement) {
+                                            return ImageElementDialog(
+                                                index: index,
+                                                bloc: widget.bloc);
+                                          }
+                                          return Container();
+                                        })
                                     .then((value) =>
-                                    context.read<SelectionCubit>().reset());
+                                        context.read<SelectionCubit>().reset());
                               }
 
                               context.read<SelectionCubit>().change(hits.first);
@@ -239,7 +239,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     context: context,
                                     builder: (context) => SelectLayerDialog(
                                         cubit:
-                                        this.context.read<SelectionCubit>(),
+                                            this.context.read<SelectionCubit>(),
                                         layers: hits)).then((value) {
                                   if (value != true) {
                                     this.context.read<SelectionCubit>().reset();

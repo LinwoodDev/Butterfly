@@ -115,18 +115,24 @@ class _ProjectPageState extends State<ProjectPage> {
                                 Navigator.of(context).pop();
                                 showDialog(
                                     context: context,
-                                    builder: (context) =>
-                                        FileSystemDialog(bloc: _bloc!)).then(
-                                    (value) => SharedPreferences.getInstance()
-                                            .then((prefs) {
-                                          _bloc?.clearHistory();
-                                          _bloc?.emit(DocumentLoadSuccess(
-                                              AppDocument.fromJson(jsonDecode(
-                                                  (prefs.getStringList(
-                                                          'documents') ??
-                                                      [])[value])),
-                                              documentIndex: value));
-                                        }));
+                                    builder: (context) => FileSystemDialog(
+                                        bloc: _bloc!)).then((value) =>
+                                    SharedPreferences.getInstance()
+                                        .then((prefs) {
+                                      if (value == null) return;
+                                      _bloc?.clearHistory();
+                                      var documents =
+                                          prefs.getStringList('documents') ??
+                                              [];
+                                      _bloc?.emit(DocumentLoadSuccess(
+                                          documents.length <= value
+                                              ? AppDocument(
+                                                  name: '',
+                                                  createdAt: DateTime.now())
+                                              : AppDocument.fromJson(
+                                                  jsonDecode(documents[value])),
+                                          documentIndex: value));
+                                    }));
                               })),
                       PopupMenuItem(
                           padding: EdgeInsets.zero,
