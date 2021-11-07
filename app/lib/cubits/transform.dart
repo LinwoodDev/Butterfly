@@ -14,7 +14,7 @@ class CameraTransform extends Equatable {
       CameraTransform(position, size);
 
   CameraTransform withScale(double scale, [Offset? cursor]) => CameraTransform(
-      position - ((cursor ?? position) - position) * scale / size,
+      position - ((cursor ?? position) - position) * scale / size / size,
       (size + scale).clamp(0.1, 10));
 
   CameraTransform withSize(double size) =>

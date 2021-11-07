@@ -295,10 +295,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                 builder: (context, transform) {
                               _scaleController.text =
                                   (transform.size * 100).toStringAsFixed(2);
-                              void setScale(double scale) {
-                                setState(() =>
-                                    context.read<TransformCubit>().size(scale));
-                              }
 
                               return Row(
                                 children: [
@@ -308,7 +304,17 @@ class _ProjectPageState extends State<ProjectPage> {
                                       tooltip:
                                           AppLocalizations.of(context)!.zoomOut,
                                       onPressed: () {
-                                        setScale(transform.size - 0.05);
+                                        context.read<TransformCubit>().scale(
+                                            -0.1,
+                                            Offset(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2,
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    2));
                                       }),
                                   IconButton(
                                       icon: const Icon(
@@ -316,7 +322,19 @@ class _ProjectPageState extends State<ProjectPage> {
                                       tooltip: AppLocalizations.of(context)!
                                           .resetZoom,
                                       onPressed: () {
-                                        setScale(1);
+                                        var cubit =
+                                            context.read<TransformCubit>();
+                                        cubit.scale(
+                                            cubit.state.size - 1,
+                                            Offset(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2,
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    2));
                                       }),
                                   IconButton(
                                       icon: const Icon(PhosphorIcons
@@ -324,7 +342,17 @@ class _ProjectPageState extends State<ProjectPage> {
                                       tooltip:
                                           AppLocalizations.of(context)!.zoomIn,
                                       onPressed: () {
-                                        setScale(transform.size + 0.05);
+                                        context.read<TransformCubit>().scale(
+                                            0.1,
+                                            Offset(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2,
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    2));
                                       }),
                                   const SizedBox(width: 20),
                                   ConstrainedBox(
@@ -336,7 +364,19 @@ class _ProjectPageState extends State<ProjectPage> {
                                         var scale =
                                             double.tryParse(value) ?? 100;
                                         scale /= 100;
-                                        setScale(scale);
+                                        var cubit =
+                                            context.read<TransformCubit>();
+                                        cubit.scale(
+                                            cubit.state.size - scale,
+                                            Offset(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2,
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    2));
                                       },
                                       textAlign: TextAlign.center,
                                       decoration: InputDecoration(

@@ -39,7 +39,7 @@ class MainViewViewport extends StatefulWidget {
 
 class _MainViewViewportState extends State<MainViewViewport> {
   Map<ElementLayer, ui.Image> images = {};
-  var size = 1.0;
+  double size = 1.0;
 
   @override
   Widget build(BuildContext context) {
@@ -149,15 +149,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
 
                   return GestureDetector(
                     onScaleUpdate: (details) {
-                      if (size == context.read<TransformCubit>().state.size) {
-                        return;
-                      }
                       if (!scaling) scaling = details.scale != 1;
-                      if (scaling) {
-                        var cubit = context.read<TransformCubit>();
-                        cubit.scale(details.scale - 1,
-                            cubit.state.localToGlobal(details.focalPoint));
-                      }
+                      var current = size + details.scale - 1;
+                      var cubit = context.read<TransformCubit>();
+                      cubit.scale(
+                          current - cubit.state.size, details.focalPoint);
                     },
                     onScaleStart: (details) {
                       size = context.read<TransformCubit>().state.size;
@@ -167,7 +163,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           if (pointerSignal is PointerScrollEvent) {
                             var scale = pointerSignal.scrollDelta.dx +
                                 pointerSignal.scrollDelta.dy;
-                            scale /= -500;
+                            scale /= -300;
                             var cubit = context.read<TransformCubit>();
                             cubit.scale(
                                 scale,
