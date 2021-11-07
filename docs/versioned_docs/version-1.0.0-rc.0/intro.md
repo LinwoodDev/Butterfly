@@ -27,13 +27,9 @@ Click oo the document to open it.
 
 ![Main view](main.png)
 
-With the top left button you can go back to the document list.
-The document name will be displayed on the right of it.
-Undo, redo and project settings are on the top right corner.
+With the top left button you can go back to the document list. The document name will be displayed on the right of it. Undo, redo and project settings are in the top right corner.
 
-Below it, you can find the toolbar. Left, you can switch between view and edit mode.
-Right to it, there you find the zoom options.
-In the top right corner there are the tool options.
+Below it, you can find the toolbar. Left, you can switch between view and edit mode. Right to it, there you find the zoom options. In the top right corner there are the tool options.
 
 - The view toolbar options are background, export and save.
 - The edit toolbar options are the painters. You can find [here](background/intro) more.

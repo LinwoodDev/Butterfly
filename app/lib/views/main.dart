@@ -9,6 +9,7 @@ import 'package:butterfly/dialogs/image_export.dart';
 import 'package:butterfly/dialogs/import.dart';
 import 'package:butterfly/dialogs/settings.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/settings/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +43,10 @@ class _ProjectPageState extends State<ProjectPage> {
       AppDocument document;
       var documents = value.getStringList('documents') ?? [];
       if (widget.id == null) {
-        document = AppDocument(name: '', createdAt: DateTime.now());
+        document = AppDocument(
+            name: '',
+            createdAt: DateTime.now(),
+            palettes: ColorPalette.getMaterialPalette(context));
       } else {
         index = int.tryParse(widget.id ?? '') ?? 0;
         document = AppDocument.fromJson(jsonDecode(documents[index]));
@@ -102,7 +106,10 @@ class _ProjectPageState extends State<ProjectPage> {
                               Navigator.of(context).pop();
                               _bloc?.clearHistory();
                               _bloc?.emit(DocumentLoadSuccess(AppDocument(
-                                  name: '', createdAt: DateTime.now())));
+                                  name: '',
+                                  createdAt: DateTime.now(),
+                                  palettes: ColorPalette.getMaterialPalette(
+                                      context))));
                             },
                           )),
                       PopupMenuItem(
@@ -128,6 +135,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                           documents.length <= value
                                               ? AppDocument(
                                                   name: '',
+                                                  palettes: ColorPalette
+                                                      .getMaterialPalette(
+                                                          context),
                                                   createdAt: DateTime.now())
                                               : AppDocument.fromJson(
                                                   jsonDecode(documents[value])),
