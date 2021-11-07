@@ -181,9 +181,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           }
                         },
                         onPointerUp: (PointerUpEvent event) {
-                          if (!openView) {
-                            return;
-                          }
                           var transform = context.read<TransformCubit>().state;
                           if ((event.kind == PointerDeviceKind.stylus ||
                                   state.editMode) &&
@@ -193,6 +190,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           } else if (event.kind !=
                                   ui.PointerDeviceKind.stylus &&
                               !state.editMode) {
+                            if (!openView) {
+                              return;
+                            }
                             var hits = rayCast(
                                 transform.localToGlobal(event.localPosition));
                             if (hits.isNotEmpty) {
@@ -204,31 +204,31 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     state.document.content.indexOf(selection);
                                 showModalBottomSheet(
                                         context: context,
-                                        builder: (context) {
-                                          if (selection is PenElement) {
-                                            return PaintElementDialog(
-                                                index: index,
-                                                bloc: widget.bloc);
-                                          }
-                                          if (selection is EraserElement) {
-                                            return EraserElementDialog(
-                                                index: index,
-                                                bloc: widget.bloc);
-                                          }
-                                          if (selection is LabelElement) {
-                                            return LabelElementDialog(
-                                                index: index,
-                                                bloc: widget.bloc);
-                                          }
-                                          if (selection is ImageElement) {
-                                            return ImageElementDialog(
-                                                index: index,
-                                                bloc: widget.bloc);
-                                          }
-                                          return Container();
-                                        })
+                                    builder: (context) {
+                                      if (selection is PenElement) {
+                                        return PaintElementDialog(
+                                            index: index,
+                                            bloc: widget.bloc);
+                                      }
+                                      if (selection is EraserElement) {
+                                        return EraserElementDialog(
+                                            index: index,
+                                            bloc: widget.bloc);
+                                      }
+                                      if (selection is LabelElement) {
+                                        return LabelElementDialog(
+                                            index: index,
+                                            bloc: widget.bloc);
+                                      }
+                                      if (selection is ImageElement) {
+                                        return ImageElementDialog(
+                                            index: index,
+                                            bloc: widget.bloc);
+                                      }
+                                      return Container();
+                                    })
                                     .then((value) =>
-                                        context.read<SelectionCubit>().reset());
+                                    context.read<SelectionCubit>().reset());
                               }
 
                               context.read<SelectionCubit>().change(hits.first);
@@ -239,7 +239,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     context: context,
                                     builder: (context) => SelectLayerDialog(
                                         cubit:
-                                            this.context.read<SelectionCubit>(),
+                                        this.context.read<SelectionCubit>(),
                                         layers: hits)).then((value) {
                                   if (value != true) {
                                     this.context.read<SelectionCubit>().reset();
