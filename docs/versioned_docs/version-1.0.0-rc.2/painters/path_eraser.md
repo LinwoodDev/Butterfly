@@ -1,5 +1,6 @@
 ---
-sidebar_label: Path eraser sidebar_position: 4
+sidebar_label: "Path eraser"
+sidebar_position: 4
 ---
 
 # Path eraser painter
