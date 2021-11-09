@@ -116,7 +116,7 @@
     "import": "Importieren",
     "newContent": "Neu",
     "selectLayer": "Ebene auswählen",
-    "ctrlKey": "Ctrl",
-    "shiftKey": "Shift",
+    "ctrlKey": "Strg",
+    "shiftKey": "Umschalt",
     "altKey": "Alt"
 }
