@@ -117,5 +117,6 @@
     "newContent": "Nouveau",
     "selectLayer": "Sélectionner la couche",
     "ctrlKey": "Ctrl",
-    "shiftKey": "Shift"
+    "shiftKey": "Shift",
+    "altKey": "Alt"
 }
