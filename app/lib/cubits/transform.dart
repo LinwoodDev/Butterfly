@@ -14,16 +14,15 @@ class CameraTransform extends Equatable {
       CameraTransform(position, size);
 
   CameraTransform withSize(double size, [Offset? cursor]) {
-    if (cursor != null) {
-      final offset = position + cursor;
-      return CameraTransform(
-        offset - (offset - position) * (size / this.size),
-        size,
-      );
-    } else {
-      // Return new CameraTransform
-      return CameraTransform(position, size);
-    }
+    // Set size and focus on cursor if provided
+    final newSize = size;
+    final newPosition = cursor != null
+        ? position.translate(
+            (cursor.dx - position.dx) * (this.size - size),
+            (cursor.dy - position.dy) * (this.size - size),
+          )
+        : position;
+    return CameraTransform(newPosition, newSize);
   }
 
   Offset localToGlobal(Offset local) => local / size - position;
