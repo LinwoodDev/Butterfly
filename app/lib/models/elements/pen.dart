@@ -17,6 +17,7 @@ class PenElement extends PathElement {
 
   @override
   Map<String, dynamic> toJson() => super.toJson()..addAll({'type': 'paint'});
+
   @override
   Paint buildPaint([bool preview = false]) => Paint()
     ..color = property.color

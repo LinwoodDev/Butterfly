@@ -320,7 +320,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                       tooltip:
                                           AppLocalizations.of(context)!.zoomOut,
                                       onPressed: () {
-                                        context.read<TransformCubit>().scale(
+                                        context.read<TransformCubit>().zoom(
                                             -0.1,
                                             Offset(
                                                 MediaQuery.of(context)
@@ -340,7 +340,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                       onPressed: () {
                                         var cubit =
                                             context.read<TransformCubit>();
-                                        cubit.scale(
+                                        cubit.zoom(
                                             1 - cubit.state.size,
                                             Offset(
                                                 MediaQuery.of(context)
@@ -358,7 +358,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                       tooltip:
                                           AppLocalizations.of(context)!.zoomIn,
                                       onPressed: () {
-                                        context.read<TransformCubit>().scale(
+                                        context.read<TransformCubit>().zoom(
                                             0.1,
                                             Offset(
                                                 MediaQuery.of(context)
@@ -382,7 +382,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                         scale /= 100;
                                         var cubit =
                                             context.read<TransformCubit>();
-                                        cubit.scale(
+                                        cubit.zoom(
                                             scale - cubit.state.size,
                                             Offset(
                                                 MediaQuery.of(context)

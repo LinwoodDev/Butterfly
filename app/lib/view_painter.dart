@@ -37,9 +37,11 @@ void paintElement(Canvas canvas, ElementLayer element,
     [Map<ElementLayer, ui.Image> images = const {},
     Offset offset = Offset.zero,
     bool preview = false]) {
-  if (element is ImageElement && images.containsKey(element)) {
-    canvas.drawImage(images[element]!, element.position + offset,
-        Paint()..strokeWidth = .05);
+  if (element is ImageElement) {
+    if (images.containsKey(element)) {
+      canvas.drawImage(images[element]!, element.position + offset,
+          Paint()..strokeWidth = .05);
+    }
   } else {
     element.paint(canvas, offset, preview);
   }

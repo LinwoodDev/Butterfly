@@ -153,7 +153,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       if (openView) openView = details.scale == 1;
                       var current = size + details.scale - 1;
                       var cubit = context.read<TransformCubit>();
-                      cubit.scale(
+                      cubit.zoom(
                           current - cubit.state.size, details.focalPoint);
                     },
                     onScaleStart: (details) {
@@ -164,9 +164,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           if (pointerSignal is PointerScrollEvent) {
                             var scale = pointerSignal.scrollDelta.dx +
                                 pointerSignal.scrollDelta.dy;
-                            scale /= -300;
+                            scale /= -500;
                             var cubit = context.read<TransformCubit>();
-                            cubit.scale(
+                            scale *= cubit.state.size;
+                            cubit.zoom(
                                 scale,
                                 cubit.state
                                     .localToGlobal(pointerSignal.position));

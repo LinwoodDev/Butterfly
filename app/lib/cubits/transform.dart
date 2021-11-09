@@ -13,12 +13,18 @@ class CameraTransform extends Equatable {
   CameraTransform withPosition(Offset position) =>
       CameraTransform(position, size);
 
-  CameraTransform withScale(double scale, [Offset? cursor]) => CameraTransform(
-      position - ((cursor ?? position) - position) * scale / size / size,
-      (size + scale).clamp(0.1, 10));
-
-  CameraTransform withSize(double size) =>
-      CameraTransform(position, size.clamp(0.1, 10));
+  CameraTransform withSize(double size, [Offset? cursor]) {
+    if (cursor != null) {
+      final offset = position + cursor;
+      return CameraTransform(
+        offset - (offset - position) * (size / this.size),
+        size,
+      );
+    } else {
+      // Return new CameraTransform
+      return CameraTransform(position, size);
+    }
+  }
 
   Offset localToGlobal(Offset local) => local / size - position;
 
@@ -31,10 +37,15 @@ class TransformCubit extends Cubit<CameraTransform> {
 
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
 
-  void scale(double scale, [Offset? cursor]) =>
-      emit(state.withScale(scale, cursor));
+  void zoom(double delta, [Offset? cursor]) =>
+      emit(state.withSize(state.size + delta, cursor));
+
+  void focus(Offset cursor) => emit(state.withSize(state.size, cursor));
+
+  void reset() => emit(const CameraTransform());
 
   void size(double size) => emit(state.withSize(size));
+
   void moveToWaypoint(Waypoint waypoint) => emit(state
       .withPosition(waypoint.position)
       .withSize(waypoint.scale ?? state.size));

@@ -64,9 +64,10 @@ abstract class PathElement extends ElementLayer {
       var dy = y - offset.dy;
       double dist = sqrt(dx * dx + dy * dy);
       var hit = dist <
-          (property.strokeWidth +
-                  property.strokeMultiplier * element.pressure) *
-              2;
+              (property.strokeWidth +
+                      property.strokeMultiplier * element.pressure) *
+                  2 ||
+          current.distanceTo(Vector2(offset.dx, offset.dy)) < 2;
       last = current;
       return hit;
     });
