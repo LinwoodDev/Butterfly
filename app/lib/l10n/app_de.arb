@@ -115,5 +115,7 @@
     "origin": "Ursprung",
     "import": "Importieren",
     "newContent": "Neu",
-    "selectLayer": "Ebene auswählen"
+    "selectLayer": "Ebene auswählen",
+    "ctrlKey": "Ctrl",
+    "shiftKey": "Shift"
 }
