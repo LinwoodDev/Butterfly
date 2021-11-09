@@ -1,7 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class PadSettingsDialog extends StatefulWidget {
   final DocumentBloc? bloc;
@@ -45,7 +45,7 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Column(children: [
+                          child: ListView(children: [
                             TextFormField(
                                 validator: (value) {
                                   if (value?.isEmpty ?? true) {
