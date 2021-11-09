@@ -115,5 +115,7 @@
     "origin": "Origine",
     "import": "Importation",
     "newContent": "Nouveau",
-    "selectLayer": "Sélectionner la couche"
+    "selectLayer": "Sélectionner la couche",
+    "ctrlKey": "Ctrl",
+    "shiftKey": "Shift"
 }
