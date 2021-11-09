@@ -117,5 +117,6 @@
   "newContent": "New",
   "selectLayer": "Select layer",
   "ctrlKey": "Ctrl",
-  "shiftKey": "Shift"
+  "shiftKey": "Shift",
+  "altKey": "Alt"
 }

@@ -4,7 +4,6 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/file_system.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

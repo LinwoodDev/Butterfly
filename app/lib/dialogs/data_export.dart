@@ -8,9 +8,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
-class SaveDialog extends StatelessWidget {
+class ExportDialog extends StatelessWidget {
   final String data;
-  const SaveDialog({Key? key, required this.data}) : super(key: key);
+
+  const ExportDialog({Key? key, required this.data}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);

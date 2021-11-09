@@ -16,7 +16,6 @@ class NewAction extends Action<NewIntent> {
 
   @override
   void invoke(NewIntent intent) {
-    print("New action");
     bloc.clearHistory();
     bloc.emit(DocumentLoadSuccess(AppDocument(
         name: '',

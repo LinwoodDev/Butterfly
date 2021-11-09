@@ -13,16 +13,16 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../view_painter.dart';
 
-class ExportDialog extends StatefulWidget {
+class ImageExportDialog extends StatefulWidget {
   final DocumentBloc bloc;
 
-  const ExportDialog({Key? key, required this.bloc}) : super(key: key);
+  const ImageExportDialog({Key? key, required this.bloc}) : super(key: key);
 
   @override
-  State<ExportDialog> createState() => _ExportDialogState();
+  State<ImageExportDialog> createState() => _ImageExportDialogState();
 }
 
-class _ExportDialogState extends State<ExportDialog> {
+class _ImageExportDialogState extends State<ImageExportDialog> {
   final TextEditingController _xController = TextEditingController(text: '0');
 
   final TextEditingController _yController = TextEditingController(text: '0');

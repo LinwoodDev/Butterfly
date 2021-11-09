@@ -1,13 +1,13 @@
 import 'dart:convert';
 
+import 'package:butterfly/actions/export.dart';
+import 'package:butterfly/actions/image_export.dart';
 import 'package:butterfly/actions/import.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/dialogs/data_export.dart';
-import 'package:butterfly/dialogs/image_export.dart';
 import 'package:butterfly/dialogs/settings.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
@@ -72,11 +72,20 @@ class _ProjectPageState extends State<ProjectPage> {
                 NewIntent(context),
             LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
                 OpenIntent(context),
+            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
+                ImportIntent(context),
+            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
+                ExportIntent(context),
+            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.shift,
+                LogicalKeyboardKey.keyE): ImageExportIntent(context),
           },
           child: Actions(
               actions: <Type, Action<Intent>>{
                 NewIntent: NewAction(_bloc!),
                 OpenIntent: OpenAction(_bloc!),
+                ImportIntent: ImportAction(_bloc!),
+                ImageExportIntent: ImageExportAction(_bloc!),
+                ExportIntent: ExportAction(_bloc!)
               },
               child: Focus(
                   autofocus: true,
@@ -158,17 +167,17 @@ class _ProjectPageState extends State<ProjectPage> {
                                       subtitle: Text(
                                           AppLocalizations.of(context)!
                                                   .ctrlKey +
-                                              '+ I'),
+                                              ' + I'),
                                       onTap: () {
                                         Navigator.of(context).pop();
-                                        Actions.handler<ImportIntent>(
+                                        Actions.invoke<ImportIntent>(
                                             context, ImportIntent(context));
                                       },
                                     )),
                                 PopupMenuItem(
                                     padding: EdgeInsets.zero,
                                     child: PopupMenuButton(
-                                        itemBuilder: (context) => [
+                                        itemBuilder: (popupContext) => [
                                               PopupMenuItem(
                                                   padding: EdgeInsets.zero,
                                                   child: ListTile(
@@ -179,22 +188,21 @@ class _ProjectPageState extends State<ProjectPage> {
                                                           AppLocalizations.of(
                                                                   context)!
                                                               .data),
+                                                      subtitle: Text(
+                                                          AppLocalizations.of(
+                                                                      context)!
+                                                                  .ctrlKey +
+                                                              ' + E'),
                                                       onTap: () async {
                                                         Navigator.of(context)
                                                             .pop();
                                                         Navigator.of(context)
                                                             .pop();
-                                                        var data = json.encode(
-                                                            (_bloc?.state
-                                                                    as DocumentLoadSuccess)
-                                                                .document
-                                                                .toJson());
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) =>
-                                                                SaveDialog(
-                                                                    data:
-                                                                        data));
+                                                        Actions.invoke<
+                                                                ExportIntent>(
+                                                            context,
+                                                            ExportIntent(
+                                                                context));
                                                       })),
                                               PopupMenuItem(
                                                   padding: EdgeInsets.zero,
@@ -206,17 +214,25 @@ class _ProjectPageState extends State<ProjectPage> {
                                                           AppLocalizations.of(
                                                                   context)!
                                                               .image),
+                                                      subtitle: Text(
+                                                          AppLocalizations.of(
+                                                                      context)!
+                                                                  .ctrlKey +
+                                                              ' + ' +
+                                                              AppLocalizations.of(
+                                                                      context)!
+                                                                  .shiftKey +
+                                                              ' + E'),
                                                       onTap: () {
                                                         Navigator.of(context)
                                                             .pop();
                                                         Navigator.of(context)
                                                             .pop();
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) =>
-                                                                ExportDialog(
-                                                                    bloc:
-                                                                        _bloc!));
+                                                        Actions.invoke<
+                                                                ImageExportIntent>(
+                                                            context,
+                                                            ImageExportIntent(
+                                                                context));
                                                       })),
                                             ],
                                         tooltip: '',

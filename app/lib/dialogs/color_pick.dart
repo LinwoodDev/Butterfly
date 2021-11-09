@@ -405,7 +405,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                   showDialog(
                                                       context: context,
                                                       builder: (context) =>
-                                                          SaveDialog(
+                                                          ExportDialog(
                                                               data: data));
                                                 }),
                                             IconButton(
