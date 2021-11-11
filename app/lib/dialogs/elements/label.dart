@@ -1,6 +1,6 @@
+import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/models/elements/label.dart';
-import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -61,6 +61,8 @@ class LabelElementDialog extends StatelessWidget {
                                       content: TextField(
                                         controller: _textController,
                                         autofocus: true,
+                                        minLines: 1,
+                                        maxLines: 5,
                                         onSubmitted: (text) => submit(),
                                       ),
                                       actions: [

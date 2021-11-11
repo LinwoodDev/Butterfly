@@ -30,7 +30,7 @@ class OpenAction extends Action<OpenIntent> {
               bloc.emit(DocumentLoadSuccess(
                   documents.length <= value
                       ? AppDocument(
-                          name: '',
+                          name: DateTime.now().toIso8601String(),
                           palettes:
                               ColorPalette.getMaterialPalette(intent.context),
                           createdAt: DateTime.now())

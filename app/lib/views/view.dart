@@ -105,6 +105,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   content: TextField(
                                     controller: _textController,
                                     autofocus: true,
+                                    minLines: 1,
+                                    maxLines: 5,
                                     onSubmitted: (text) => submit(),
                                   ),
                                   actions: [

@@ -49,7 +49,7 @@ class _ProjectPageState extends State<ProjectPage> {
       var documents = value.getStringList('documents') ?? [];
       if (widget.id == null) {
         document = AppDocument(
-            name: '',
+            name: DateTime.now().toIso8601String(),
             createdAt: DateTime.now(),
             palettes: ColorPalette.getMaterialPalette(context));
       } else {

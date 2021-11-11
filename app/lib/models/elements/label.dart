@@ -76,6 +76,7 @@ class LabelElement extends ElementLayer {
   @override
   Rect get rect {
     var tp = _createPainter();
+    tp.layout();
     return Rect.fromLTWH(position.dx, position.dy, tp.width, tp.height);
   }
 }

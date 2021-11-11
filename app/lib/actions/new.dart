@@ -18,7 +18,7 @@ class NewAction extends Action<NewIntent> {
   void invoke(NewIntent intent) {
     bloc.clearHistory();
     bloc.emit(DocumentLoadSuccess(AppDocument(
-        name: '',
+        name: DateTime.now().toIso8601String(),
         createdAt: DateTime.now(),
         palettes: ColorPalette.getMaterialPalette(intent.context))));
   }
