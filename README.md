@@ -18,7 +18,7 @@
 
 ![Main view](./docs/docs/main.png)
 
-Butterfly is a note app where your ideas comes first. You can paint, add texts and export them easily on every device.
+Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device.
 This app works on android, windows, linux and in the web.
 
 ### Simple and intuitive

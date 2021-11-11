@@ -4,9 +4,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class PadSettingsDialog extends StatefulWidget {
-  final DocumentBloc? bloc;
+  final DocumentBloc bloc;
 
-  const PadSettingsDialog({Key? key, this.bloc}) : super(key: key);
+  const PadSettingsDialog({Key? key, required this.bloc}) : super(key: key);
   @override
   _PadSettingsDialogState createState() => _PadSettingsDialogState();
 }
@@ -19,9 +19,9 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
   @override
   void initState() {
     _nameController.text =
-        (widget.bloc!.state as DocumentLoadSuccess).document.name;
+        (widget.bloc.state as DocumentLoadSuccess).document.name;
     _descriptionController.text =
-        (widget.bloc!.state as DocumentLoadSuccess).document.description;
+        (widget.bloc.state as DocumentLoadSuccess).document.description;
     super.initState();
   }
 
@@ -83,7 +83,7 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                                   false)) {
                                 return;
                               }
-                              widget.bloc!.add(DocumentDescriptorChanged(
+                              widget.bloc.add(DocumentDescriptorChanged(
                                   name: _nameController.text,
                                   description: _descriptionController.text));
                               Navigator.of(context).pop();

@@ -1,17 +1,18 @@
 import 'dart:convert';
 
+import 'package:butterfly/actions/edit_mode.dart';
 import 'package:butterfly/actions/export.dart';
 import 'package:butterfly/actions/image_export.dart';
 import 'package:butterfly/actions/import.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/open.dart';
+import 'package:butterfly/actions/project.dart';
+import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/dialogs/settings.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
-import 'package:butterfly/settings/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,6 +79,14 @@ class _ProjectPageState extends State<ProjectPage> {
                 ExportIntent(context),
             LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.shift,
                 LogicalKeyboardKey.keyE): ImageExportIntent(context),
+            LogicalKeySet(LogicalKeyboardKey.tab): const EditModeIntent(),
+            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
+                LogicalKeyboardKey.keyS): SettingsIntent(context),
+            LogicalKeySet(
+                LogicalKeyboardKey.control,
+                LogicalKeyboardKey.alt,
+                LogicalKeyboardKey.shift,
+                LogicalKeyboardKey.keyS): ProjectIntent(context),
           },
           child: Actions(
               actions: <Type, Action<Intent>>{
@@ -85,7 +94,10 @@ class _ProjectPageState extends State<ProjectPage> {
                 OpenIntent: OpenAction(_bloc!),
                 ImportIntent: ImportAction(_bloc!),
                 ImageExportIntent: ImageExportAction(_bloc!),
-                ExportIntent: ExportAction(_bloc!)
+                ExportIntent: ExportAction(_bloc!),
+                EditModeIntent: EditModeAction(_bloc!),
+                SettingsIntent: SettingsAction(_bloc!),
+                ProjectIntent: ProjectAction(_bloc!)
               },
               child: Focus(
                   autofocus: true,
@@ -248,12 +260,19 @@ class _ProjectPageState extends State<ProjectPage> {
                                     child: ListTile(
                                         onTap: () {
                                           Navigator.of(context).pop();
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  PadSettingsDialog(
-                                                      bloc: _bloc));
+                                          Actions.invoke<ProjectIntent>(
+                                              context, ProjectIntent(context));
                                         },
+                                        subtitle: Text(
+                                            AppLocalizations.of(context)!
+                                                    .ctrlKey +
+                                                ' + ' +
+                                                AppLocalizations.of(context)!
+                                                    .altKey +
+                                                ' + ' +
+                                                AppLocalizations.of(context)!
+                                                    .shiftKey +
+                                                ' + S'),
                                         leading: const Icon(
                                             PhosphorIcons.wrenchLight),
                                         title: Text(
@@ -268,18 +287,17 @@ class _ProjectPageState extends State<ProjectPage> {
                                         title: Text(
                                             AppLocalizations.of(context)!
                                                 .settings),
+                                        subtitle: Text(
+                                            AppLocalizations.of(context)!
+                                                    .ctrlKey +
+                                                ' + ' +
+                                                AppLocalizations.of(context)!
+                                                    .altKey +
+                                                ' + S'),
                                         onTap: () {
                                           Navigator.of(context).pop();
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) => Dialog(
-                                                  child: ConstrainedBox(
-                                                      constraints:
-                                                          const BoxConstraints(
-                                                              maxHeight: 400,
-                                                              maxWidth: 600),
-                                                      child: const SettingsPage(
-                                                          isDialog: true))));
+                                          Actions.invoke<SettingsIntent>(
+                                              context, SettingsIntent(context));
                                         }))
                               ],
                             ),
