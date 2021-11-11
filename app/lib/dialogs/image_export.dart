@@ -26,6 +26,8 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   final TextEditingController _xController = TextEditingController(text: '0');
 
   final TextEditingController _yController = TextEditingController(text: '0');
+  final TextEditingController _sizeController =
+      TextEditingController(text: '100');
 
   final TextEditingController _widthController =
       TextEditingController(text: '1000');
@@ -35,8 +37,10 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
 
   bool _renderBackground = true;
   int x = 0, y = 0, width = 1000, height = 1000;
+  double size = 1;
 
   ByteData? _previewImage;
+  Future? _regeneratingFuture;
 
   @override
   void initState() {
@@ -44,8 +48,11 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
     super.initState();
   }
 
-  void _regeneratePreviewImage() async {
-    var image = await generateImage();
+  Future<void> _regeneratePreviewImage() async {
+    var imageFuture = generateImage();
+    _regeneratingFuture =
+        _regeneratingFuture?.then((value) => imageFuture) ?? imageFuture;
+    var image = await _regeneratingFuture;
     if (mounted) setState(() => _previewImage = image);
   }
 
@@ -58,7 +65,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
         (widget.bloc.state as DocumentLoadSuccess).document,
         renderBackground: _renderBackground,
         images: images,
-        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble())));
+        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), size));
     painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
     var picture = recorder.endRecording();
     var image = await picture.toImage(width, height);
@@ -67,6 +74,9 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
 
   @override
   Widget build(BuildContext context) {
+    if (size.toStringAsFixed(2) != _sizeController.text) {
+      _sizeController.text = (size * 100).toStringAsFixed(2);
+    }
     return BlocProvider.value(
       value: widget.bloc,
       child: Builder(builder: (context) {
@@ -141,6 +151,34 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                                         height = int.tryParse(value) ?? height,
                                     onSubmitted: (value) =>
                                         _regeneratePreviewImage()),
+                                Row(children: [
+                                  ConstrainedBox(
+                                    constraints:
+                                        const BoxConstraints(maxWidth: 100),
+                                    child: TextField(
+                                        decoration: InputDecoration(
+                                            labelText:
+                                                AppLocalizations.of(context)!
+                                                    .size),
+                                        controller: _sizeController,
+                                        onSubmitted: (value) =>
+                                            _regeneratePreviewImage(),
+                                        onChanged: (value) => setState(() =>
+                                            size = (double.tryParse(value) ??
+                                                    (size * 100)) /
+                                                100)),
+                                  ),
+                                  Expanded(
+                                    child: Slider(
+                                        value: size.clamp(0.1, 10),
+                                        min: 0.1,
+                                        max: 10,
+                                        onChanged: (value) {
+                                          setState(() => size = value);
+                                          _regeneratePreviewImage();
+                                        }),
+                                  )
+                                ]),
                                 CheckboxListTile(
                                     value: _renderBackground,
                                     title: Text(AppLocalizations.of(context)!
