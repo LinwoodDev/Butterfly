@@ -15,11 +15,15 @@ class CameraTransform extends Equatable {
 
   CameraTransform withSize(double size, [Offset? cursor]) {
     // Set size and focus on cursor if provided
-    final newSize = size;
+    final double newSize = size.clamp(0.1, 10);
     final newPosition = cursor != null
         ? position.translate(
-            (cursor.dx - position.dx) * (this.size - size),
-            (cursor.dy - position.dy) * (this.size - size),
+            (cursor.dx - position.dx) *
+                (this.size - newSize) /
+                (newSize * newSize),
+            (cursor.dy - position.dy) *
+                (this.size - newSize) /
+                (newSize * newSize),
           )
         : position;
     return CameraTransform(newPosition, newSize);

@@ -151,10 +151,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     onScaleUpdate: (details) {
                       if (state.editMode) return;
                       if (openView) openView = details.scale == 1;
-                      var current = size + details.scale - 1;
                       var cubit = context.read<TransformCubit>();
                       var lastSize = cubit.state.size;
-                      cubit.zoom(current - lastSize, details.focalPoint);
+                      var current = size + (details.scale - 1) * lastSize;
+                      var viewportSize = MediaQuery.of(context).size;
+                      cubit.zoom(
+                          current - lastSize,
+                          Offset(
+                              viewportSize.width / 2, viewportSize.height / 2));
                     },
                     onScaleStart: (details) {
                       size = context.read<TransformCubit>().state.size;
@@ -170,7 +174,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             cubit.zoom(
                                 scale,
                                 cubit.state
-                                    .localToGlobal(pointerSignal.position));
+                                    .localToGlobal(pointerSignal.position * 2));
                           }
                         },
                         onPointerDown: (PointerDownEvent event) {
