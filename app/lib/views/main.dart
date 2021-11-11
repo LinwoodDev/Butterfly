@@ -7,7 +7,9 @@ import 'package:butterfly/actions/import.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/open.dart';
 import 'package:butterfly/actions/project.dart';
+import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/settings.dart';
+import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -69,6 +71,10 @@ class _ProjectPageState extends State<ProjectPage> {
         ],
         child: Shortcuts(
           shortcuts: {
+            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
+                const UndoIntent(),
+            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
+                const RedoIntent(),
             LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
                 NewIntent(context),
             LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
@@ -90,6 +96,8 @@ class _ProjectPageState extends State<ProjectPage> {
           },
           child: Actions(
               actions: <Type, Action<Intent>>{
+                UndoIntent: UndoAction(_bloc!),
+                RedoIntent: RedoAction(_bloc!),
                 NewIntent: NewAction(_bloc!),
                 OpenIntent: OpenAction(_bloc!),
                 ImportIntent: ImportAction(_bloc!),
@@ -119,9 +127,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                   PhosphorIcons.arrowCounterClockwiseLight),
                               tooltip: AppLocalizations.of(context)!.undo,
                               onPressed: () {
-                                _bloc?.undo();
-                                var state = _bloc?.state;
-                                if (state is DocumentLoadSuccess) state.save();
+                                Actions.invoke<UndoIntent>(
+                                    context, const UndoIntent());
                               },
                             ),
                             IconButton(
@@ -129,9 +136,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                   const Icon(PhosphorIcons.arrowClockwiseLight),
                               tooltip: AppLocalizations.of(context)!.redo,
                               onPressed: () {
-                                _bloc?.redo();
-                                var state = _bloc?.state;
-                                if (state is DocumentLoadSuccess) state.save();
+                                Actions.invoke<RedoIntent>(
+                                    context, const RedoIntent());
                               },
                             ),
                             PopupMenuButton(
