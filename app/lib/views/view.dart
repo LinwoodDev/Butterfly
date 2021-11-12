@@ -133,11 +133,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     var cubit = context.read<TransformCubit>();
                     var lastSize = cubit.state.size;
                     var current = size + (details.scale - 1) * lastSize;
-                    var viewportSize = MediaQuery.of(context).size;
-                    cubit.zoom(
-                        current - lastSize,
-                        Offset(
-                            viewportSize.width / 2, viewportSize.height / 2));
+                    cubit.zoom(current - lastSize,
+                        cubit.state.localToGlobal(details.focalPoint));
                   },
                   onScaleStart: (details) {
                     size = context.read<TransformCubit>().state.size;
@@ -153,7 +150,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           cubit.zoom(
                               scale,
                               cubit.state
-                                  .localToGlobal(pointerSignal.position * 2));
+                                  .localToGlobal(pointerSignal.position));
                         }
                       },
                       onPointerDown: (PointerDownEvent event) {
