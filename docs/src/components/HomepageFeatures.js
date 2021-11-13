@@ -3,33 +3,46 @@ import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
 
 const FeatureList = [
+    {
+        title: 'Cross platform',
+        Svg: require('../../static/img/undraw_progressive_app_m-9-ms.svg').default,
+        description: (
+            <>
+                You can use the app on your phone, tablet, laptop, or desktop.
+                The app is available on Linux, Android, and Windows.
+                You can also use the app on the web.
+            </>
+        ),
+    },
+    {
+        title: 'Simple and intuitive',
+        Svg: require('../../static/img/undraw_innovative_b409.svg').default,
+        description: (
+            <>
+                Every tool is on the right place.
+                Open the app and start drawing.
+                Change your tools by clicking on it.
+            </>
+        ),
+    },
   {
-    title: 'Easy to Use',
-    Svg: require('../../static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Customizable',
+    Svg: require('../../static/img/undraw_options_re_9vxh.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+          Change everything to your needs.
+          Choose your custom color, create a palette and add your pages to the paper.
+          The paper has an infinite size, perfect for your ideas and notes.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('../../static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Your data will be saved locally',
+    Svg: require('../../static/img/undraw_sweet_home_dkhr.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
-    ),
-  },
-  {
-    title: 'Powered by React',
-    Svg: require('../../static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+          Everything will be saved local on your computer.
+          Export the notes as image or as json files which can be opened on a different device.
       </>
     ),
   },
@@ -37,7 +50,7 @@ const FeatureList = [
 
 function Feature({Svg, title, description}) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx('col col--3')}>
       <div className="text--center">
         <Svg className={styles.featureSvg} alt={title} />
       </div>

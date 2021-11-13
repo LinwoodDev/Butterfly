@@ -17,7 +17,7 @@ critical bug.
 
 ## Branches
 
-| Name | Support | Description | | :------ | :-----: |
------------------------------------------------------------------------------------------: | ------- | | main | ✅ | This
-branch is production ready. It will be updated when a new stable version is released! | Stable | | develop | ⚠️ | This
-branch is only for testing and developing. Pull request should only be added here! | Nightly |
+| Name | Support | Description | Tag |
+| :------ | :-----: | -----------------------------------------------------------------------------------------: | ------- | 
+| main | ✅ | This branch is production ready. It will be updated when a new stable version is released! | Stable | 
+| develop | ⚠️ | This branch is only for testing and developing. Pull request should only be added here! | Nightly |

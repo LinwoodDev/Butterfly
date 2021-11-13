@@ -4,12 +4,15 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
+import HomepageFeatures from "../components/HomepageFeatures";
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
+  const Svg = require('../../static/img/logo.svg').default;
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={clsx('hero shadow--lw', styles.heroBanner)}>
       <div className="container">
+        <Svg height="15em" width="15em" alt="Logo" />
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.indexCtas}>
@@ -36,6 +39,13 @@ export default function Home() {
       title={`Hello from ${siteConfig.title}`}
       description="Change the world">
       <HomepageHeader />
+      <main><img
+          src={require('../../static/img/main.png').default}
+          className={styles.screenshot}
+          alt="Example banner"
+      />
+        <HomepageFeatures />
+      </main>
     </Layout>
   );
 }
