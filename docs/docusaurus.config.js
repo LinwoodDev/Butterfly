@@ -1,6 +1,6 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: 'Linwood Butterfly Docs',
+  title: 'Linwood Butterfly',
   tagline: 'Next future, advanced, serverless, free note app',
   url: 'https://docs.butterfly.linwood.dev',
   baseUrl: '/',
