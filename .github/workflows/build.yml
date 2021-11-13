@@ -56,7 +56,7 @@ jobs:
         shell: powershell
         run: |
           cd app
-          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=${version}_${buildnumber} ButterflySetup.iss
+          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=${version} ButterflySetup.iss
         # flutter pub run msix:create
       - name: Archive
         uses: actions/upload-artifact@v2
