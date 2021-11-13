@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Butterfly"
-#ifndef ApplicationVersion
+#ifndef MyAppVersion
 #define MyAppVersion "1.0"
 #endif
 #define MyAppPublisher "LinwoodCloud"
