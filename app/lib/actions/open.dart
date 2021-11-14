@@ -22,7 +22,7 @@ class OpenAction extends Action<OpenIntent> {
   OpenAction(this.bloc);
 
   @override
-  Object? invoke(OpenIntent intent) {
+  void invoke(OpenIntent intent) {
     showDialog(
             context: intent.context,
             builder: (context) => FileSystemDialog(bloc: bloc))
