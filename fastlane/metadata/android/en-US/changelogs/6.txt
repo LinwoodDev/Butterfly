@@ -1,0 +1,5 @@
+* Add shortcuts
+* Add default name for documents
+* Reimplement fill feature
+* Fixing zooming
+* Fixing version on windows installer
