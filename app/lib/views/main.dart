@@ -10,7 +10,9 @@ import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/undo.dart';
+import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/language.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
@@ -43,13 +45,14 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void initState() {
     super.initState();
-    SharedPreferences.getInstance().then((value) {
+    SharedPreferences.getInstance().then((value) async {
       int? index;
       AppDocument document;
       var documents = value.getStringList('documents') ?? [];
       if (widget.id == null) {
         document = AppDocument(
-            name: DateTime.now().toIso8601String(),
+            name: await formatCurrentDateTime(
+                context.read<LanguageCubit>().state),
             createdAt: DateTime.now(),
             palettes: ColorPalette.getMaterialPalette(context));
       } else {
