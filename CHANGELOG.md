@@ -3,6 +3,7 @@
 ## 1.0.0-rc.3 (November 14th, 2021)
 
 * Add shortcuts
+* Reimplement fill feature
 * Fixing zooming
 * Fixing version on windows installer
 

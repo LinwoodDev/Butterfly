@@ -25,6 +25,21 @@ class PenElement extends PathElement {
     ..strokeCap = StrokeCap.round;
 
   @override
+  void paint(Canvas canvas,
+      [Offset offset = Offset.zero, bool preview = false]) {
+    if (!property.fill) {
+      super.paint(canvas, offset, preview);
+    } else if (points.isNotEmpty) {
+      var path = Path();
+      path.moveTo(points.first.x + offset.dx, points.first.y + offset.dy);
+      for (var element in points.sublist(1)) {
+        path.lineTo(offset.dx + element.x, offset.dy + element.y);
+      }
+      canvas.drawPath(path, buildPaint(preview));
+    }
+  }
+
+  @override
   PenElement copyWith({List<PathPoint>? points, PenProperty? property}) =>
       PenElement(
           points: points ?? this.points, property: property ?? this.property);
