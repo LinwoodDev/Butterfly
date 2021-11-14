@@ -15,13 +15,6 @@ For performance reasons, prefer using the native version instead of the web vers
 
 :::
 
-:::info
-
-This application is in alpha version. There are some missing features and is not ready for production.
-Currently the app store versions of this app are not ready.
-
-:::
-
 <div className="row margin-bottom--lg padding--sm">
 <div className="dropdown dropdown--hoverable margin--sm">
   <button className="button button--outline button--primary">Web</button>
