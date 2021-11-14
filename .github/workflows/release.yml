@@ -1,0 +1,18 @@
+name: Release
+
+on: [ workflow_dispatch ]
+
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          git --version
+          git config --global user.email "actions@github.com"
+          git config --global user.name "Actions"
+          git pull --tags
+          git checkout main
+          git pull
+          git rebase develop
+          git push
