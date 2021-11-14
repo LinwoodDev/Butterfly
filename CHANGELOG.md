@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.0-rc.3 (November 14th, 2021)
+
+* Add shortcuts
+* Fixing zooming
+* Fixing version on windows installer
+
 ## 1.0.0-rc.2 (November 7th, 2021)
 
 * Change home page to drawing page ([#17](https://github.com/LinwoodCloud/butterfly/issues/17))
