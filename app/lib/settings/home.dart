@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatelessWidget {
   final bool isDialog;
+
   const SettingsPage({Key? key, this.isDialog = false}) : super(key: key);
 
   @override
@@ -71,9 +73,12 @@ class SettingsPage extends StatelessWidget {
           ListTile(
               leading: const Icon(PhosphorIcons.infoLight),
               title: Text(AppLocalizations.of(context)!.information),
-              onTap: () => showAboutDialog(
-                  context: context,
-                  applicationIcon: Image.asset('images/logo.png', height: 50))),
+              onTap: () => PackageInfo.fromPlatform().then((info) =>
+                  showAboutDialog(
+                      context: context,
+                      applicationVersion: info.version,
+                      applicationIcon:
+                          Image.asset('images/logo.png', height: 50)))),
         ]))));
   }
 }
