@@ -118,5 +118,6 @@
   "selectLayer": "Select layer",
   "ctrlKey": "Ctrl",
   "shiftKey": "Shift",
-  "altKey": "Alt"
+  "altKey": "Alt",
+  "copyVersion":"Copy version"
 }

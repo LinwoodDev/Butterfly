@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -76,6 +77,14 @@ class SettingsPage extends StatelessWidget {
               onTap: () => PackageInfo.fromPlatform().then((info) =>
                   showAboutDialog(
                       context: context,
+                      children: [
+                        ElevatedButton(
+                            child: Text(AppLocalizations.of(context)!
+                                .copyVersion
+                                .toUpperCase()),
+                            onPressed: () => Clipboard.setData(
+                                ClipboardData(text: info.version))),
+                      ],
                       applicationVersion: info.version,
                       applicationIcon:
                           Image.asset('images/logo.png', height: 50)))),
