@@ -118,5 +118,6 @@
     "selectLayer": "Ebene auswählen",
     "ctrlKey": "Strg",
     "shiftKey": "Umschalt",
-    "altKey": "Alt"
+    "altKey": "Alt",
+    "copyVersion": "Copy version"
 }
