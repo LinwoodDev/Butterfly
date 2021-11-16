@@ -79,9 +79,8 @@ class SettingsPage extends StatelessWidget {
                       context: context,
                       children: [
                         ElevatedButton(
-                            child: Text(AppLocalizations.of(context)!
-                                .copyVersion
-                                .toUpperCase()),
+                            child:
+                                Text(AppLocalizations.of(context)!.copyVersion),
                             onPressed: () => Clipboard.setData(
                                 ClipboardData(text: info.version))),
                       ],

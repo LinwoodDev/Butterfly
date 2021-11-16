@@ -30,7 +30,7 @@ dependencies:
   flutter_modular: ^4.2.0
   path_provider: ^2.0.6
   shared_preferences: ^2.0.8
-  url_launcher: ^6.0.12
+  url_launcher: ^6.0.13
   file_picker: ^4.2.3
   phosphor_flutter: ^1.3.1
   replay_bloc: ^0.1.0
