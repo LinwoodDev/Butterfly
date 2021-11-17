@@ -39,6 +39,7 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
+  final GlobalKey _viewportKey = GlobalKey();
   final TextEditingController _scaleController =
       TextEditingController(text: '100');
 
@@ -448,19 +449,25 @@ class _ProjectPageState extends State<ProjectPage> {
                                                                 context)!
                                                             .zoomIn,
                                                     onPressed: () {
-                                                      context.read<TransformCubit>().zoom(
-                                                          0.1,
-                                                          Offset(
+                                                      var viewportSize =
+                                                          _viewportKey
+                                                                  .currentContext
+                                                                  ?.size ??
                                                               MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width /
-                                                                  2,
-                                                              MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height /
-                                                                  2));
+                                                                      context)
+                                                                  .size;
+                                                      context
+                                                          .read<
+                                                              TransformCubit>()
+                                                          .zoom(
+                                                              0.1,
+                                                              Offset(
+                                                                  viewportSize
+                                                                          .width /
+                                                                      2,
+                                                                  viewportSize
+                                                                          .height /
+                                                                      2));
                                                     }),
                                                 const SizedBox(width: 20),
                                                 ConstrainedBox(
@@ -471,6 +478,12 @@ class _ProjectPageState extends State<ProjectPage> {
                                                     controller:
                                                         _scaleController,
                                                     onSubmitted: (value) {
+                                                      print(_viewportKey
+                                                          .currentContext
+                                                          ?.size);
+                                                      var viewportSize =
+                                                          MediaQuery.of(context)
+                                                              .size;
                                                       var scale =
                                                           double.tryParse(
                                                                   value) ??
@@ -482,14 +495,10 @@ class _ProjectPageState extends State<ProjectPage> {
                                                           scale -
                                                               cubit.state.size,
                                                           Offset(
-                                                              MediaQuery.of(
-                                                                          context)
-                                                                      .size
+                                                              viewportSize
                                                                       .width /
                                                                   2,
-                                                              MediaQuery.of(
-                                                                          context)
-                                                                      .size
+                                                              viewportSize
                                                                       .height /
                                                                   2));
                                                     },
@@ -520,6 +529,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                     child: toolsSelection,
                                   ),
                                   Expanded(
+                                      key: _viewportKey,
                                       child: MainViewViewport(bloc: _bloc!)),
                                   if (isMobile)
                                     Align(

@@ -34,6 +34,7 @@ class MainViewViewport extends StatefulWidget {
   final DocumentBloc bloc;
 
   const MainViewViewport({Key? key, required this.bloc}) : super(key: key);
+
   @override
   _MainViewViewportState createState() => _MainViewViewportState();
 }
@@ -133,8 +134,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     var cubit = context.read<TransformCubit>();
                     var lastSize = cubit.state.size;
                     var current = size + (details.scale - 1) * lastSize;
-                    cubit.zoom(current - lastSize,
-                        cubit.state.localToGlobal(details.focalPoint));
+                    cubit.zoom(current - lastSize, details.focalPoint);
                   },
                   onScaleStart: (details) {
                     size = context.read<TransformCubit>().state.size;
@@ -147,10 +147,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           scale /= -500;
                           var cubit = context.read<TransformCubit>();
                           scale *= cubit.state.size;
-                          cubit.zoom(
-                              scale,
-                              cubit.state
-                                  .localToGlobal(pointerSignal.position));
+                          cubit.zoom(scale, pointerSignal.position);
                         }
                       },
                       onPointerDown: (PointerDownEvent event) {

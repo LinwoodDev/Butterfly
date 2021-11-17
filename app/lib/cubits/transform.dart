@@ -13,19 +13,13 @@ class CameraTransform extends Equatable {
   CameraTransform withPosition(Offset position) =>
       CameraTransform(position, size);
 
-  CameraTransform withSize(double size, [Offset? cursor]) {
+  CameraTransform withSize(double size, [Offset cursor = Offset.zero]) {
     // Set size and focus on cursor if provided
     final double newSize = size.clamp(0.1, 10);
-    final newPosition = cursor != null
-        ? position.translate(
-            (cursor.dx - position.dx) *
-                (this.size - newSize) /
-                (newSize * newSize),
-            (cursor.dy - position.dy) *
-                (this.size - newSize) /
-                (newSize * newSize),
-          )
-        : position;
+    final oldCursor = cursor / this.size;
+    final newCursor = cursor / newSize;
+    final newPosition = Offset(position.dx + (newCursor.dx - oldCursor.dx),
+        position.dy + (newCursor.dy - oldCursor.dy));
     return CameraTransform(newPosition, newSize);
   }
 
@@ -40,7 +34,7 @@ class TransformCubit extends Cubit<CameraTransform> {
 
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
 
-  void zoom(double delta, [Offset? cursor]) =>
+  void zoom(double delta, [Offset cursor = Offset.zero]) =>
       emit(state.withSize(state.size + delta, cursor));
 
   void focus(Offset cursor) => emit(state.withSize(state.size, cursor));
