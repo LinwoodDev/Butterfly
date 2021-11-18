@@ -119,5 +119,11 @@
     "ctrlKey": "Strg",
     "shiftKey": "Umschalt",
     "altKey": "Alt",
-    "copyVersion": "Copy version"
+    "copyVersion": "Copy version",
+    "input": "Input",
+    "multiDraw": "Draw with multiple inputs",
+    "moveFirst": "Move with the first input",
+    "moveLast": "Move with the last inputs",
+    "onlyStylus": "Restrict input to stylus",
+    "behaviors": "Behaviors"
 }
