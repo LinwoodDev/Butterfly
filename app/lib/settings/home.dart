@@ -28,6 +28,11 @@ class SettingsPage extends StatelessWidget {
             child: SingleChildScrollView(
                 child: Column(children: [
           ListTile(
+            title: Text(AppLocalizations.of(context)!.behaviors),
+            leading: const Icon(PhosphorIcons.fadersLight),
+            onTap: () => Modular.to.pushNamed('/settings/behaviors'),
+          ),
+          ListTile(
               leading: const Icon(PhosphorIcons.monitorLight),
               title: Text(AppLocalizations.of(context)!.personalization),
               onTap: () {
