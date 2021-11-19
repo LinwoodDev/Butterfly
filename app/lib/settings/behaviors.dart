@@ -42,7 +42,6 @@ class _BehaviorsSettingsPageState extends State<BehaviorsSettingsPage> {
   }
 
   void _showInput() {
-    print(_prefs?.getInt('input'));
     var currentInput = InputType.values[_prefs?.getInt('input') ?? 0];
     showModalBottomSheet(
         context: context,

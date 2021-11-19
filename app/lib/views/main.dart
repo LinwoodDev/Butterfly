@@ -478,9 +478,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                                     controller:
                                                         _scaleController,
                                                     onSubmitted: (value) {
-                                                      print(_viewportKey
-                                                          .currentContext
-                                                          ?.size);
                                                       var viewportSize =
                                                           MediaQuery.of(context)
                                                               .size;
