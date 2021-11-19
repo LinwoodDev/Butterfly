@@ -245,7 +245,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         if ((event.kind == PointerDeviceKind.stylus ||
                             state.editMode)) {
                           if (currentLayer == null &&
-                              state.currentPainter is! LabelPainter) {
+                              state.currentPainter is! BuildedPainter) {
                             createLayer(event.localPosition, event.pressure);
                           }
                           if (state.currentPainter is PathEraserPainter) {
