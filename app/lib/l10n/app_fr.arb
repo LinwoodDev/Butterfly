@@ -119,11 +119,11 @@
     "ctrlKey": "Ctrl",
     "shiftKey": "Shift",
     "altKey": "Alt",
-    "copyVersion": "Copy version",
+    "copyVersion": "Copier la version",
     "input": "Input",
-    "multiDraw": "Draw with multiple inputs",
-    "moveFirst": "Move with the first input",
-    "moveLast": "Move with the last inputs",
-    "onlyStylus": "Restrict input to stylus",
-    "behaviors": "Behaviors"
+    "multiDraw": "Dessiner avec plusieurs entrées",
+    "moveFirst": "Déplacer avec la première entrée",
+    "moveLast": "Déplacer avec les dernières entrées",
+    "onlyStylus": "Restreindre l'entrée au stylet",
+    "behaviors": "Comportements"
 }
