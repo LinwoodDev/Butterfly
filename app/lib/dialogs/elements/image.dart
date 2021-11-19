@@ -1,19 +1,24 @@
-import 'package:butterfly/models/elements/image.dart';
+import 'package:butterfly/api/open_image.dart'
+    if (dart.library.io) 'package:butterfly/api/open_image_io.dart'
+    if (dart.library.js) 'package:butterfly/api/open_image_html.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/selection.dart';
+import 'package:butterfly/models/elements/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import 'package:butterfly/api/open_image.dart'
-    if (dart.library.io) 'package:butterfly/api/open_image_io.dart'
-    if (dart.library.js) 'package:butterfly/api/open_image_html.dart';
-
 class ImageElementDialog extends StatefulWidget {
   final int index;
   final DocumentBloc bloc;
+  final SelectionCubit selectionCubit;
 
-  const ImageElementDialog({Key? key, required this.index, required this.bloc})
+  const ImageElementDialog(
+      {Key? key,
+      required this.index,
+      required this.bloc,
+      required this.selectionCubit})
       : super(key: key);
 
   @override
@@ -24,8 +29,11 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
   final TextEditingController _scaleController = TextEditingController();
   ImageElement? element;
 
-  void _changeElement() =>
-      widget.bloc.add(LayerChanged(widget.index, element!));
+  void _changeElement() {
+    widget.bloc.add(LayerChanged(widget.index, element!));
+    widget.selectionCubit.change(element!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(

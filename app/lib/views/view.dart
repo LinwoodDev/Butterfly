@@ -176,8 +176,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               transform.localToGlobal(event.localPosition));
                           if (hits.isNotEmpty) {
                             void showSelection() {
-                              var selection =
-                                  context.read<SelectionCubit>().state;
+                              var selectionCubit =
+                                  context.read<SelectionCubit>();
+                              var selection = selectionCubit.state;
                               if (selection == null) return;
                               var index =
                                   state.document.content.indexOf(selection);
@@ -194,11 +195,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         }
                                         if (selection is LabelElement) {
                                           return LabelElementDialog(
-                                              index: index, bloc: widget.bloc);
+                                              selectionCubit: selectionCubit,
+                                              index: index,
+                                              bloc: widget.bloc);
                                         }
                                         if (selection is ImageElement) {
                                           return ImageElementDialog(
-                                              index: index, bloc: widget.bloc);
+                                              selectionCubit: selectionCubit,
+                                              index: index,
+                                              bloc: widget.bloc);
                                         }
                                         return Container();
                                       })
