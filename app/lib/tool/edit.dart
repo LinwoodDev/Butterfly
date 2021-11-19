@@ -138,27 +138,32 @@ class _EditToolbarState extends State<EditToolbar> {
               itemBuilder: (context) => [
                     ...['pen', 'eraser', 'path-eraser', 'label', 'image']
                         .map((e) {
-                      Painter painter;
+                      final Painter painter;
                       String name;
                       switch (e) {
                         case 'eraser':
-                          painter = const EraserPainter();
+                          // ignore: prefer_const_constructors
+                          painter = EraserPainter();
                           name = AppLocalizations.of(context)!.eraser;
                           break;
                         case 'path-eraser':
-                          painter = const PathEraserPainter();
+                          // ignore: prefer_const_constructors
+                          painter = PathEraserPainter();
                           name = AppLocalizations.of(context)!.pathEraser;
                           break;
                         case 'label':
-                          painter = const LabelPainter();
+                          // ignore: prefer_const_constructors
+                          painter = LabelPainter();
                           name = AppLocalizations.of(context)!.label;
                           break;
                         case 'image':
-                          painter = const ImagePainter();
+                          // ignore: prefer_const_constructors
+                          painter = ImagePainter();
                           name = AppLocalizations.of(context)!.image;
                           break;
                         default:
-                          painter = const PenPainter();
+                          // ignore: prefer_const_constructors
+                          painter = PenPainter();
                           name = AppLocalizations.of(context)!.pen;
                       }
                       return PopupMenuItem<Painter>(
