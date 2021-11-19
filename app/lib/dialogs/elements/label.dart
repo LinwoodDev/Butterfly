@@ -61,7 +61,8 @@ class LabelElementDialog extends StatelessWidget {
                                       content: TextField(
                                         controller: _textController,
                                         autofocus: true,
-                                        minLines: 1,
+                                        keyboardType: TextInputType.multiline,
+                                        minLines: 3,
                                         maxLines: 5,
                                         onSubmitted: (text) => submit(),
                                       ),

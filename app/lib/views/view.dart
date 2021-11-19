@@ -86,8 +86,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               content: TextField(
                                 controller: _textController,
                                 autofocus: true,
-                                minLines: 1,
+                                minLines: 3,
                                 maxLines: 5,
+                                keyboardType: TextInputType.multiline,
                                 onSubmitted: (text) => submit(),
                               ),
                               actions: [

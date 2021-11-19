@@ -57,6 +57,7 @@ class LabelElement extends ElementLayer {
       text: TextSpan(
           style: TextStyle(
               fontSize: property.size,
+              fontStyle: property.italic ? FontStyle.italic : FontStyle.normal,
               color: property.color,
               fontWeight: property.fontWeight,
               letterSpacing: property.letterSpacing,
