@@ -1,5 +1,6 @@
-import 'dart:convert';
+import 'dart:io';
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:butterfly/actions/edit_mode.dart';
 import 'package:butterfly/actions/export.dart';
 import 'package:butterfly/actions/image_export.dart';
@@ -10,6 +11,7 @@ import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/undo.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/language.dart';
@@ -17,6 +19,7 @@ import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +51,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   void initState() {
-    super.initState();;
+    super.initState();
     var fileSystem = DocumentFileSystem.fromPlatform();
     SharedPreferences.getInstance().then((value) async {
       AppDocument? document;
@@ -59,7 +62,7 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       document ??= AppDocument(
           name:
-          await formatCurrentDateTime(context.read<LanguageCubit>().state),
+              await formatCurrentDateTime(context.read<LanguageCubit>().state),
           createdAt: DateTime.now(),
           palettes: ColorPalette.getMaterialPalette(context));
       setState(() => _bloc = DocumentBloc(document!, widget.path));
@@ -174,8 +177,8 @@ class _ProjectPageState extends State<ProjectPage> {
           },
         ),
         _buildPopupMenu(),
-        if (isWindow()) WindowButtons()
-        /*const IconButton(
+        if (isWindow()) const WindowButtons()
+            /*const IconButton(
                                     icon: Icon(PhosphorIcons.linkLight),
                                     tooltip: "Share (not implemented)",
                                     onPressed: null)*/
@@ -268,7 +271,6 @@ class _ProjectPageState extends State<ProjectPage> {
                               child: TextField(
                                 controller: _scaleController,
                                 onSubmitted: (value) {
-                                  print(_viewportKey.currentContext?.size);
                                   var viewportSize = MediaQuery.of(context).size;
                                   var scale = double.tryParse(value) ?? 100;
                                   scale /= 100;
@@ -406,6 +408,8 @@ class _ProjectPageState extends State<ProjectPage> {
 }
 
 class WindowButtons extends StatelessWidget {
+  const WindowButtons({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     if (isWindow()) {
@@ -430,4 +434,5 @@ class WindowButtons extends StatelessWidget {
       );
     }
     return Container();
+  }
 }

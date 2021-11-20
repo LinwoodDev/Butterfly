@@ -82,6 +82,9 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (prefs.containsKey('document_path')) {
       path = prefs.getString('document_path');
     }
+    if (path == '') {
+      path = null;
+    }
     path ??= (await getApplicationDocumentsDirectory()).path +
         '/Butterfly-Documents';
     var directory = Directory(path);
