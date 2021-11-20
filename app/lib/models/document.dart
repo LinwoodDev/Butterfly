@@ -17,6 +17,21 @@ import 'elements/pen.dart';
 import 'waypoint.dart';
 
 @immutable
+class AppDocumentFile {
+  final String path;
+
+  final Map<String, dynamic> json;
+
+  const AppDocumentFile(this.path, this.json);
+
+  int get fileVersion => json['fileVersion'];
+
+  String get name => json['name'];
+
+  String get description => json['description'];
+}
+
+@immutable
 class AppDocument {
   final String name, description;
 
