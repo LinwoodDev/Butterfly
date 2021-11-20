@@ -22,9 +22,9 @@ class SettingsPage extends StatelessWidget {
           title: Text(AppLocalizations.of(context)!.settings),
           leading: isDialog
               ? IconButton(
-            icon: const Icon(PhosphorIcons.xLight),
-            onPressed: () => Navigator.of(context).pop(),
-          )
+                  icon: const Icon(PhosphorIcons.xLight),
+                  onPressed: () => Navigator.of(context).pop(),
+                )
               : null,
         ),
         body: Scrollbar(
@@ -47,60 +47,60 @@ class SettingsPage extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pop();
                 Modular.to.pushNamed('/settings/personalization');
-                      }),
-                  const Divider(),
-                  ListTile(
-                      leading: const Icon(PhosphorIcons.stackLight),
-                      title: Text(AppLocalizations.of(context)!.license),
-                      onTap: () => launch(
-                          'https://github.com/LinwoodCloud/butterfly/blob/main/LICENSE')),
-                  ListTile(
-                      leading: const Icon(PhosphorIcons.codeLight),
-                      title: Text(AppLocalizations.of(context)!.source),
-                      onTap: () =>
-                          launch('https://github.com/LinwoodCloud/dev_doctor')),
-                  ListTile(
-                      leading: const Icon(PhosphorIcons.usersLight),
-                      title: const Text('Discord'),
-                      onTap: () => launch('https://discord.linwood.dev')),
-                  ListTile(
-                      leading: const Icon(PhosphorIcons.translateLight),
-                      title: const Text('Crowdin'),
-                      onTap: () => launch('https://linwood.crowdin.com')),
-                  ListTile(
-                      leading: const Icon(PhosphorIcons.articleLight),
-                      title: Text(AppLocalizations.of(context)!.documentation),
-                      onTap: () => launch('https://docs.butterfly.linwood.dev')),
-                  ListTile(
-                      leading: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
-                      title: Text(AppLocalizations.of(context)!.changelog),
-                      onTap: () =>
-                          launch('https://docs.butterfly.linwood.dev/changelog')),
-                  ListTile(
-                      leading: const Icon(PhosphorIcons.identificationCardLight),
-                      title: Text(AppLocalizations.of(context)!.imprint),
-                      onTap: () => launch('https://codedoctor.tk/impress')),
-                  ListTile(
-                      leading: const Icon(PhosphorIcons.shieldLight),
-                      title: Text(AppLocalizations.of(context)!.privacypolicy),
-                      onTap: () => launch(
-                          'https://docs.butterfly.linwood.dev/docs/privacypolicy')),
-                  ListTile(
-                      leading: const Icon(PhosphorIcons.infoLight),
-                      title: Text(AppLocalizations.of(context)!.information),
-                      onTap: () => PackageInfo.fromPlatform().then((info) =>
-                          showAboutDialog(
-                              context: context,
-                              children: [
-                                ElevatedButton(
-                                    child:
-                                    Text(AppLocalizations.of(context)!.copyVersion),
-                                    onPressed: () => Clipboard.setData(
-                                        ClipboardData(text: info.version))),
-                              ],
-                              applicationVersion: info.version,
-                              applicationIcon:
-                              Image.asset('images/logo.png', height: 50)))),
-                ]))));
+              }),
+          const Divider(),
+          ListTile(
+              leading: const Icon(PhosphorIcons.stackLight),
+              title: Text(AppLocalizations.of(context)!.license),
+              onTap: () => launch(
+                  'https://github.com/LinwoodCloud/butterfly/blob/main/LICENSE')),
+          ListTile(
+              leading: const Icon(PhosphorIcons.codeLight),
+              title: Text(AppLocalizations.of(context)!.source),
+              onTap: () =>
+                  launch('https://github.com/LinwoodCloud/dev_doctor')),
+          ListTile(
+              leading: const Icon(PhosphorIcons.usersLight),
+              title: const Text('Discord'),
+              onTap: () => launch('https://discord.linwood.dev')),
+          ListTile(
+              leading: const Icon(PhosphorIcons.translateLight),
+              title: const Text('Crowdin'),
+              onTap: () => launch('https://linwood.crowdin.com')),
+          ListTile(
+              leading: const Icon(PhosphorIcons.articleLight),
+              title: Text(AppLocalizations.of(context)!.documentation),
+              onTap: () => launch('https://docs.butterfly.linwood.dev')),
+          ListTile(
+              leading: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
+              title: Text(AppLocalizations.of(context)!.changelog),
+              onTap: () =>
+                  launch('https://docs.butterfly.linwood.dev/changelog')),
+          ListTile(
+              leading: const Icon(PhosphorIcons.identificationCardLight),
+              title: Text(AppLocalizations.of(context)!.imprint),
+              onTap: () => launch('https://codedoctor.tk/impress')),
+          ListTile(
+              leading: const Icon(PhosphorIcons.shieldLight),
+              title: Text(AppLocalizations.of(context)!.privacypolicy),
+              onTap: () => launch(
+                  'https://docs.butterfly.linwood.dev/docs/privacypolicy')),
+          ListTile(
+              leading: const Icon(PhosphorIcons.infoLight),
+              title: Text(AppLocalizations.of(context)!.information),
+              onTap: () => PackageInfo.fromPlatform().then((info) =>
+                  showAboutDialog(
+                      context: context,
+                      children: [
+                        ElevatedButton(
+                            child:
+                                Text(AppLocalizations.of(context)!.copyVersion),
+                            onPressed: () => Clipboard.setData(
+                                ClipboardData(text: info.version))),
+                      ],
+                      applicationVersion: info.version,
+                      applicationIcon:
+                          Image.asset('images/logo.png', height: 50)))),
+        ]))));
   }
 }

@@ -58,6 +58,45 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                       )
                     : null,
               ),
+            ListTile(
+              title: Text(AppLocalizations.of(context)!.dateFormat),
+              leading: const Icon(PhosphorIcons.calendarLight),
+              subtitle: Text(_prefs?.getString('date_format') ?? ''),
+              onTap: () async {
+                // Show input dialog
+                final TextEditingController controller = TextEditingController(
+                    text: _prefs?.getString('date_format') ?? '');
+                final String? newFormat = await showDialog<String>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text(AppLocalizations.of(context)!.dateFormat),
+                    content: TextField(
+                      controller: controller,
+                      decoration: InputDecoration(
+                        hintText: 'yyyy-MM-dd',
+                        labelText: AppLocalizations.of(context)!.dateFormat,
+                      ),
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.cancel),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.ok),
+                        onPressed: () {
+                          Navigator.of(context).pop(controller.text);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+                if (newFormat != null) {
+                  _prefs!.setString('date_format', newFormat);
+                  setState(() {});
+                }
+              },
+            ),
           ],
         ));
   }

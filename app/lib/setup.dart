@@ -8,6 +8,9 @@ import 'models/document.dart';
 Future<void> setup() async {
   // Convert old file system to new file system
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  if (!prefs.containsKey('date_format')) {
+    prefs.setString('date_format', 'dd/MM/yyyy HH:mm');
+  }
   if (prefs.containsKey('documents')) {
     var documents = prefs.getStringList('documents')!;
     prefs.remove('documents');

@@ -127,5 +127,6 @@
   "onlyStylus": "Restrict input to stylus",
   "behaviors": "Behaviors",
   "documentDirectory": "Document directory",
-  "defaultPath": "Default path"
+  "defaultPath": "Default path",
+  "dateFormat": "Date format"
 }
