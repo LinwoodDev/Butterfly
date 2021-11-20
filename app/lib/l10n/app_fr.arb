@@ -125,5 +125,8 @@
     "moveFirst": "Déplacer avec la première entrée",
     "moveLast": "Déplacer avec les dernières entrées",
     "onlyStylus": "Restreindre l'entrée au stylet",
-    "behaviors": "Comportements"
+    "behaviors": "Comportements",
+    "documentDirectory": "Document directory",
+    "defaultPath": "Default path",
+    "dateFormat": "Date format"
 }
