@@ -69,7 +69,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
       String path, AppDocument document) async {
     var file = File(path);
     if (!(await file.exists())) {
-      file.create();
+      file.create(recursive: true);
     }
     await file.writeAsString(jsonEncode(document.toJson()));
 

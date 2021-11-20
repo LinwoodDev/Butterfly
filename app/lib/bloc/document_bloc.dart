@@ -147,6 +147,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   }
 
   Future<void> _saveDocument(DocumentLoadSuccess current) async {
-    emit(await current.save().then((value) => current.copyWith(path: value)));
+    emit(current);
+    current.save().then((value) {
+      if (current.path == null) {
+        emit((state as DocumentLoadSuccess).copyWith(path: value));
+      }
+    });
   }
 }
