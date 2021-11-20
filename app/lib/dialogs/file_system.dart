@@ -92,10 +92,10 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                               TextButton(
                                 child:
                                     Text(AppLocalizations.of(context)!.create),
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_createFormKey.currentState?.validate() ??
                                       false) {
-                                    _fileSystem.createDocument(
+                                    await _fileSystem.createDocument(
                                         _nameController.text,
                                         palettes:
                                             ColorPalette.getMaterialPalette(
