@@ -6,14 +6,14 @@ import 'package:butterfly/dialogs/painters/path_eraser.dart';
 import 'package:butterfly/dialogs/painters/pen.dart';
 import 'package:butterfly/models/painters/eraser.dart';
 import 'package:butterfly/models/painters/image.dart';
+import 'package:butterfly/models/painters/label.dart';
 import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/painters/path_eraser.dart';
 import 'package:butterfly/models/painters/pen.dart';
-import 'package:butterfly/models/painters/label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class EditToolbar extends StatefulWidget {
   final DocumentBloc bloc;
@@ -126,7 +126,7 @@ class _EditToolbarState extends State<EditToolbar> {
                   toolWidget = Tooltip(message: tooltip, child: toolWidget);
                 }
                 return ReorderableDragStartListener(
-                    index: i, key: ObjectKey(e), child: toolWidget);
+                    key: ObjectKey(e), index: i, child: toolWidget);
               },
               onReorder: (oldIndex, newIndex) =>
                   widget.bloc.add(PainterReordered(oldIndex, newIndex))),
@@ -138,27 +138,32 @@ class _EditToolbarState extends State<EditToolbar> {
               itemBuilder: (context) => [
                     ...['pen', 'eraser', 'path-eraser', 'label', 'image']
                         .map((e) {
-                      Painter painter;
+                      final Painter painter;
                       String name;
                       switch (e) {
                         case 'eraser':
-                          painter = const EraserPainter();
+                          // ignore: prefer_const_constructors
+                          painter = EraserPainter();
                           name = AppLocalizations.of(context)!.eraser;
                           break;
                         case 'path-eraser':
-                          painter = const PathEraserPainter();
+                          // ignore: prefer_const_constructors
+                          painter = PathEraserPainter();
                           name = AppLocalizations.of(context)!.pathEraser;
                           break;
                         case 'label':
-                          painter = const LabelPainter();
+                          // ignore: prefer_const_constructors
+                          painter = LabelPainter();
                           name = AppLocalizations.of(context)!.label;
                           break;
                         case 'image':
-                          painter = const ImagePainter();
+                          // ignore: prefer_const_constructors
+                          painter = ImagePainter();
                           name = AppLocalizations.of(context)!.image;
                           break;
                         default:
-                          painter = const PenPainter();
+                          // ignore: prefer_const_constructors
+                          painter = PenPainter();
                           name = AppLocalizations.of(context)!.pen;
                       }
                       return PopupMenuItem<Painter>(

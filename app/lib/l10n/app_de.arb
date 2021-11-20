@@ -118,5 +118,15 @@
     "selectLayer": "Ebene auswählen",
     "ctrlKey": "Strg",
     "shiftKey": "Umschalt",
-    "altKey": "Alt"
+    "altKey": "Alt",
+    "copyVersion": "Version kopieren",
+    "input": "Input",
+    "multiDraw": "Mit mehreren Eingaben zeichnen",
+    "moveFirst": "Mit der ersten Eingabe verschieben",
+    "moveLast": "Mit den letzten Eingaben verschieben",
+    "onlyStylus": "Eingaben auf Stift beschränken",
+    "behaviors": "Verhalten",
+    "documentDirectory": "Dokumentenverzeichnis",
+    "defaultPath": "Standardpfad",
+    "dateFormat": "Datumsformat"
 }

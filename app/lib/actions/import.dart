@@ -1,10 +1,8 @@
-import 'dart:convert';
-
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ImportIntent extends Intent {
   final BuildContext context;
@@ -23,14 +21,12 @@ class ImportAction extends Action<ImportIntent> {
             builder: (context) => const ImportDialog(), context: intent.context)
         .then((content) {
       if (content == null) return;
-      SharedPreferences.getInstance().then((prefs) {
-        var documents =
-            List<String>.from(prefs.getStringList('documents') ?? []);
-        documents.add(jsonEncode(content));
-        prefs.setStringList('documents', documents);
-        bloc.clearHistory();
+      var document = AppDocument.fromJson(content);
+      DocumentFileSystem.fromPlatform()
+          .importDocument(document)
+          .then((document) {
         bloc.emit(DocumentLoadSuccess(AppDocument.fromJson(content),
-            documentIndex: documents.length - 1));
+            path: document.path));
       });
     });
   }

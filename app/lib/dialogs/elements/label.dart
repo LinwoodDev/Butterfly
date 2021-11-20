@@ -1,4 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/models/elements/label.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,13 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class LabelElementDialog extends StatelessWidget {
   final int index;
   final DocumentBloc bloc;
-  const LabelElementDialog({Key? key, required this.index, required this.bloc})
+  final SelectionCubit selectionCubit;
+
+  const LabelElementDialog(
+      {Key? key,
+      required this.index,
+      required this.bloc,
+      required this.selectionCubit})
       : super(key: key);
 
   @override
@@ -49,8 +56,10 @@ class LabelElementDialog extends StatelessWidget {
                               TextEditingController(text: element.text);
                           void submit() {
                             Navigator.of(context).pop();
-                            bloc.add(LayerChanged(index,
-                                element.copyWith(text: _textController.text)));
+                            var layer =
+                                element.copyWith(text: _textController.text);
+                            bloc.add(LayerChanged(index, layer));
+                            selectionCubit.change(layer);
                           }
 
                           showDialog(
@@ -61,7 +70,8 @@ class LabelElementDialog extends StatelessWidget {
                                       content: TextField(
                                         controller: _textController,
                                         autofocus: true,
-                                        minLines: 1,
+                                        keyboardType: TextInputType.multiline,
+                                        minLines: 3,
                                         maxLines: 5,
                                         onSubmitted: (text) => submit(),
                                       ),

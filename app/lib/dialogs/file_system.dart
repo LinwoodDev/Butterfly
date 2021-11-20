@@ -1,16 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
 
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/dialogs/data_export.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class FileSystemDialog extends StatefulWidget {
   final DocumentBloc bloc;
@@ -22,57 +19,21 @@ class FileSystemDialog extends StatefulWidget {
 }
 
 class _FileSystemDialogState extends State<FileSystemDialog> {
-  List<AppDocument> _documents = [];
+  List<AppDocumentFile> _documents = [];
   bool gridView = true;
+  late DocumentFileSystem _fileSystem;
   final GlobalKey<FormState> _createFormKey = GlobalKey();
 
   @override
   void initState() {
+    _fileSystem = DocumentFileSystem.fromPlatform();
     loadDocuments();
     super.initState();
   }
 
-  Future<void> loadDocuments() {
-    return SharedPreferences.getInstance().then<void>((prefs) async {
-      var loaded = await Future.wait(
-          List<String>.from(prefs.getStringList('documents') ?? [])
-              .map<Future<AppDocument>>((e) async {
-        var data = jsonDecode(e);
-        var fileVersion = data['fileVersion'] is int?
-            ? data['fileVersion']
-            : int.tryParse(data['fileVersion']) ?? -1;
-        if (fileVersion > GetIt.I.get<int>(instanceName: 'fileVersion')) {
-          await showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.whatToDo),
-                      content: Text(AppLocalizations.of(context)!
-                          .createdInNewerVersion(
-                              data['name'], data['fileVersion'])),
-                      actions: [
-                        TextButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: Text(AppLocalizations.of(context)!.ignore)),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => ExportDialog(data: e));
-                            },
-                            child: Text(AppLocalizations.of(context)!.backup)),
-                      ]));
-        }
-        return AppDocument.fromJson(data);
-      }).toList());
-      saveDocuments();
-      setState(() => _documents = loaded);
-    });
-  }
-
-  Future<void> saveDocuments() {
-    return SharedPreferences.getInstance().then((prefs) => prefs.setStringList(
-        'documents', _documents.map((e) => jsonEncode(e.toJson())).toList()));
+  Future<void> loadDocuments() async {
+    var documents = await _fileSystem.getDocuments();
+    setState(() => _documents = documents);
   }
 
   @override
@@ -131,16 +92,15 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                               TextButton(
                                 child:
                                     Text(AppLocalizations.of(context)!.create),
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_createFormKey.currentState?.validate() ??
                                       false) {
-                                    setState(() => _documents.add(AppDocument(
-                                        createdAt: DateTime.now(),
-                                        name: _nameController.text,
+                                    await _fileSystem.createDocument(
+                                        _nameController.text,
                                         palettes:
                                             ColorPalette.getMaterialPalette(
-                                                context))));
-                                    saveDocuments();
+                                                context));
+                                    loadDocuments();
                                     Navigator.of(context).pop();
                                   }
                                 },
@@ -163,17 +123,17 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
           return ListTile(
               title: Text(document.name),
               subtitle: Text(document.description),
-              onTap: () => _openDocument(index),
+              onTap: () => _openDocument(document.path),
               trailing: IconButton(
                 icon: const Icon(PhosphorIcons.trashLight),
-                onPressed: () => _deleteDialog(index),
+                onPressed: () => _deleteDialog(document.path),
               ));
         },
       );
 
-  void _openDocument(int index) => Navigator.of(context).pop(index);
+  void _openDocument(String path) => Navigator.of(context).pop(path);
 
-  void _deleteDialog(int index) => showDialog(
+  void _deleteDialog(String path) => showDialog(
       context: context,
       builder: (context) => AlertDialog(
             title: Text(AppLocalizations.of(context)!.areYouSure),
@@ -186,8 +146,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
               TextButton(
                 child: Text(AppLocalizations.of(context)!.yes),
                 onPressed: () {
-                  setState(() => _documents.removeAt(index));
-                  saveDocuments();
+                  _fileSystem.deleteDocument(path);
+                  loadDocuments();
                   Navigator.of(context).pop();
                 },
               )
@@ -212,7 +172,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                           InkWell(
                               borderRadius: const BorderRadius.vertical(
                                   top: Radius.circular(12)),
-                              onTap: () => _openDocument(index),
+                              onTap: () => _openDocument(document.path),
                               child: Container(
                                   width: 300,
                                   decoration: const BoxDecoration(
@@ -233,7 +193,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                   ]))),
                           IconButton(
                               icon: const Icon(PhosphorIcons.trashLight),
-                              onPressed: () => _deleteDialog(index))
+                              onPressed: () => _deleteDialog(document.path))
                         ],
                       ),
                     );

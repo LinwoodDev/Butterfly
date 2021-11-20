@@ -86,8 +86,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               content: TextField(
                                 controller: _textController,
                                 autofocus: true,
-                                minLines: 1,
+                                minLines: 3,
                                 maxLines: 5,
+                                keyboardType: TextInputType.multiline,
                                 onSubmitted: (text) => submit(),
                               ),
                               actions: [
@@ -175,8 +176,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               transform.localToGlobal(event.localPosition));
                           if (hits.isNotEmpty) {
                             void showSelection() {
-                              var selection =
-                                  context.read<SelectionCubit>().state;
+                              var selectionCubit =
+                                  context.read<SelectionCubit>();
+                              var selection = selectionCubit.state;
                               if (selection == null) return;
                               var index =
                                   state.document.content.indexOf(selection);
@@ -193,11 +195,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         }
                                         if (selection is LabelElement) {
                                           return LabelElementDialog(
-                                              index: index, bloc: widget.bloc);
+                                              selectionCubit: selectionCubit,
+                                              index: index,
+                                              bloc: widget.bloc);
                                         }
                                         if (selection is ImageElement) {
                                           return ImageElementDialog(
-                                              index: index, bloc: widget.bloc);
+                                              selectionCubit: selectionCubit,
+                                              index: index,
+                                              bloc: widget.bloc);
                                         }
                                         return Container();
                                       })
@@ -243,7 +249,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         }
                         if ((event.kind == PointerDeviceKind.stylus ||
                             state.editMode)) {
-                          if (currentLayer == null) {
+                          if (currentLayer == null &&
+                              state.currentPainter is! BuildedPainter) {
                             createLayer(event.localPosition, event.pressure);
                           }
                           if (state.currentPainter is PathEraserPainter) {

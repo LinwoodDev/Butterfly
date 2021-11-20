@@ -17,6 +17,23 @@ import 'elements/pen.dart';
 import 'waypoint.dart';
 
 @immutable
+class AppDocumentFile {
+  final String path;
+
+  final Map<String, dynamic> json;
+
+  const AppDocumentFile(this.path, this.json);
+
+  int get fileVersion => json['fileVersion'];
+
+  String get name => json['name'];
+
+  String get description => json['description'];
+
+  AppDocument load() => AppDocument.fromJson(Map<String, dynamic>.from(json));
+}
+
+@immutable
 class AppDocument {
   final String name, description;
 
@@ -63,17 +80,19 @@ class AppDocument {
     }
     var name = json['name'];
     var description = json['description'];
-    var palettes = (List<Map<String, dynamic>>.from(json['palettes'] ?? []))
+    var palettes = (List<dynamic>.from(json['palettes'] ?? []))
         .map<ColorPalette>(
             (e) => ColorPalette.fromJson(Map<String, dynamic>.from(e)))
         .toList();
     var background = json['background'] == null
         ? null
         : BoxBackground.fromJson(json['background'], version);
-    var waypoints = List<Map<String, dynamic>>.from(json['waypoints'] ?? [])
+    var waypoints = List<dynamic>.from(json['waypoints'] ?? [])
+        .map((e) => Map<String, dynamic>.from(e))
         .map((e) => Waypoint.fromJson(e))
         .toList();
-    var painters = List<Map<String, dynamic>>.from(json['painters'] ?? [])
+    var painters = List<dynamic>.from(json['painters'] ?? [])
+        .map((e) => Map<String, dynamic>.from(e))
         .map<Painter>((e) {
       switch (e['type']) {
         case 'eraser':
@@ -88,8 +107,9 @@ class AppDocument {
           return PenPainter.fromJson(e, version);
       }
     }).toList();
-    var content =
-        List<Map<String, dynamic>>.from(json['content']).map<ElementLayer>((e) {
+    var content = List<dynamic>.from(json['content'])
+        .map((e) => Map<String, dynamic>.from(e))
+        .map<ElementLayer>((e) {
       switch (e['type']) {
         case 'label':
           return LabelElement.fromJson(e, version);

@@ -16,9 +16,8 @@ const fileVersion = 4;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  setup();
-
   GetIt.I.registerSingleton<int>(fileVersion, instanceName: 'fileVersion');
+  await setup();
   var prefs = await SharedPreferences.getInstance();
 
   runApp(ModularApp(

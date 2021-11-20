@@ -1,8 +1,6 @@
 import 'dart:ui' as ui;
 
-import 'package:butterfly/api/open_image.dart'
-    if (dart.library.io) 'package:butterfly/api/open_image_io.dart'
-    if (dart.library.js) 'package:butterfly/api/open_image_html.dart';
+import 'package:butterfly/api/open_image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:flutter/material.dart';

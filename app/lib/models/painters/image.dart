@@ -6,7 +6,7 @@ class ImagePainter extends Painter {
       : super.fromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => super.toJson()..addAll({'type': 'simage'});
+  Map<String, dynamic> toJson() => super.toJson()..addAll({'type': 'image'});
 
   ImagePainter copyWith({String? name}) =>
       ImagePainter(name: name ?? this.name);
