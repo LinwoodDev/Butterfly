@@ -107,8 +107,7 @@ class AppDocument {
           return PenPainter.fromJson(e, version);
       }
     }).toList();
-    var content =
-    List<dynamic>.from(json['content'])
+    var content = List<dynamic>.from(json['content'])
         .map((e) => Map<String, dynamic>.from(e))
         .map<ElementLayer>((e) {
       switch (e['type']) {

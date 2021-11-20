@@ -1,4 +1,3 @@
-
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/image_export.dart';
 import 'package:flutter/material.dart';
