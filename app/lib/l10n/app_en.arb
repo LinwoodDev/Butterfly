@@ -125,5 +125,7 @@
   "moveFirst": "Move with the first input",
   "moveLast": "Move with the last inputs",
   "onlyStylus": "Restrict input to stylus",
-  "behaviors": "Behaviors"
+  "behaviors": "Behaviors",
+  "documentDirectory": "Document directory",
+  "defaultPath": "Default path"
 }
