@@ -29,4 +29,8 @@ abstract class DocumentFileSystem {
       return IODocumentFileSystem();
     }
   }
+
+  String encodeFileName(String name) {
+    return name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
+  }
 }

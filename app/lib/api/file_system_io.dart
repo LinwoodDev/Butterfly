@@ -9,15 +9,15 @@ import 'file_system.dart';
 class IODocumentFileSystem extends DocumentFileSystem {
   @override
   Future<AppDocumentFile> importDocument(AppDocument document) async {
-    var dir = await getApplicationDocumentsDirectory();
-    var name = document.name;
+    var dir = await getDirectory();
+    var name = encodeFileName(document.name);
     var counter = 1;
     while (await hasDocument(name)) {
       name = '${document.name}_${++counter}';
     }
     var file = File('${dir.path}/$name.json');
     file = await file.create();
-
+    await file.writeAsString(json.encode(document.toJson()));
     return AppDocumentFile(file.path, document.toJson());
   }
 
@@ -37,31 +37,51 @@ class IODocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<List<AppDocumentFile>> getDocuments() async {
-    var dir = await getApplicationDocumentsDirectory();
+    var dir = await getDirectory();
     var files = await dir
         .list()
         .where((event) => event is File)
         .where((event) => event.path.endsWith('.json'))
         .map((event) {
-      var json = jsonDecode((event as File).readAsStringSync());
-      return AppDocumentFile(event.path, AppDocument.fromJson(json).toJson());
-    }).toList();
+          // Ignore FormatException on decode
+          try {
+            var json = jsonDecode((event as File).readAsStringSync());
+            return AppDocumentFile(event.path, json);
+          } catch (e) {
+            return null;
+          }
+        })
+        .where((event) => event != null)
+        .map((event) => event!)
+        .toList();
 
     return files;
   }
 
   @override
   Future<bool> hasDocument(String name) async {
-    return File('${(await getApplicationDocumentsDirectory()).path}/$name.json')
-        .exists();
+    return File('${(await getDirectory()).path}/$name.json').exists();
   }
 
   @override
   Future<AppDocumentFile> updateDocument(
       String path, AppDocument document) async {
     var file = File(path);
+    if (!(await file.exists())) {
+      file.create();
+    }
     await file.writeAsString(jsonEncode(document.toJson()));
 
     return AppDocumentFile(path, document.toJson());
+  }
+
+  Future<Directory> getDirectory() async {
+    var path = (await getApplicationDocumentsDirectory()).path +
+        '/Butterfly-Documents';
+    var directory = Directory(path);
+    if (!await directory.exists()) {
+      await directory.create();
+    }
+    return directory;
   }
 }

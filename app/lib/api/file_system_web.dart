@@ -17,7 +17,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<AppDocumentFile> importDocument(AppDocument document) async {
-    var path = document.name;
+    var path = encodeFileName(document.name);
     var counter = 1;
     while (await hasDocument(path)) {
       path = '${document.name}_${++counter}';
