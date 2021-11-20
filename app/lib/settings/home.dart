@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,12 +28,11 @@ class SettingsPage extends StatelessWidget {
         body: Scrollbar(
             child: SingleChildScrollView(
                 child: Column(children: [
-          if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
-            ListTile(
-              title: Text(AppLocalizations.of(context)!.data),
-              leading: const Icon(PhosphorIcons.databaseLight),
-              onTap: () => Navigator.of(context).pushNamed('/settings/data'),
-            ),
+          ListTile(
+            title: Text(AppLocalizations.of(context)!.data),
+            leading: const Icon(PhosphorIcons.databaseLight),
+            onTap: () => Navigator.of(context).pushNamed('/settings/data'),
+          ),
           ListTile(
             title: Text(AppLocalizations.of(context)!.behaviors),
             leading: const Icon(PhosphorIcons.fadersLight),
