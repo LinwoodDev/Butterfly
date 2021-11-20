@@ -2,23 +2,23 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/palette.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'file_system.dart';
 
 class IODocumentFileSystem extends DocumentFileSystem {
   @override
-  Future<AppDocumentFile> createDocument(String name,
-      {List<ColorPalette> palettes = const []}) async {
+  Future<AppDocumentFile> importDocument(AppDocument document) async {
     var dir = await getApplicationDocumentsDirectory();
+    var name = document.name;
+    var counter = 1;
+    while (await hasDocument(name)) {
+      name = '${document.name}_${++counter}';
+    }
     var file = File('${dir.path}/$name.json');
     file = await file.create();
 
-    return AppDocumentFile(
-        file.path,
-        AppDocument(name: name, createdAt: DateTime.now(), palettes: palettes)
-            .toJson());
+    return AppDocumentFile(file.path, document.toJson());
   }
 
   @override

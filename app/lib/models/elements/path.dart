@@ -34,7 +34,8 @@ abstract class PathElement extends ElementLayer {
   const PathElement({this.points = const []});
 
   PathElement.fromJson(Map<String, dynamic> json)
-      : points = List<Map<String, dynamic>>.from(json['points'] ?? [])
+      : points = List<dynamic>.from(json['points'] ?? [])
+            .map((e) => Map<String, dynamic>.from(e))
             .map((e) => PathPoint.fromJson(e))
             .toList();
 

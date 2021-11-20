@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:butterfly/actions/edit_mode.dart';
 import 'package:butterfly/actions/export.dart';
@@ -10,6 +9,7 @@ import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/undo.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/language.dart';
@@ -28,9 +28,9 @@ import 'toolbar.dart';
 import 'view.dart';
 
 class ProjectPage extends StatefulWidget {
-  final String? id;
+  final String? path;
 
-  const ProjectPage({Key? key, this.id}) : super(key: key);
+  const ProjectPage({Key? key, this.path}) : super(key: key);
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
@@ -46,21 +46,20 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void initState() {
     super.initState();
+    var fileSystem = DocumentFileSystem.fromPlatform();
     SharedPreferences.getInstance().then((value) async {
-      int? index;
-      AppDocument document;
-      var documents = value.getStringList('documents') ?? [];
-      if (widget.id == null) {
-        document = AppDocument(
-            name: await formatCurrentDateTime(
-                context.read<LanguageCubit>().state),
-            createdAt: DateTime.now(),
-            palettes: ColorPalette.getMaterialPalette(context));
-      } else {
-        index = int.tryParse(widget.id ?? '') ?? 0;
-        document = AppDocument.fromJson(jsonDecode(documents[index]));
+      AppDocument? document;
+      if (widget.path != null) {
+        await fileSystem
+            .getDocument(widget.path!)
+            .then((value) => value?.load());
       }
-      setState(() => _bloc = DocumentBloc(document, index));
+      document ??= AppDocument(
+          name:
+              await formatCurrentDateTime(context.read<LanguageCubit>().state),
+          createdAt: DateTime.now(),
+          palettes: ColorPalette.getMaterialPalette(context));
+      setState(() => _bloc = DocumentBloc(document!, widget.path));
     });
   }
 

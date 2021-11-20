@@ -10,13 +10,17 @@ abstract class DocumentFileSystem {
   Future<AppDocumentFile?> getDocument(String path);
 
   Future<AppDocumentFile> createDocument(String name,
-      {List<ColorPalette> palettes = const []});
+          {List<ColorPalette> palettes = const []}) =>
+      importDocument(AppDocument(
+          name: name, palettes: palettes, createdAt: DateTime.now()));
 
   Future<bool> hasDocument(String name);
 
   Future<AppDocumentFile> updateDocument(String path, AppDocument document);
 
   Future<void> deleteDocument(String path);
+
+  Future<AppDocumentFile> importDocument(AppDocument document);
 
   static DocumentFileSystem fromPlatform() {
     if (kIsWeb) {
