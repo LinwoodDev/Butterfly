@@ -125,5 +125,8 @@
     "moveFirst": "Mit der ersten Eingabe verschieben",
     "moveLast": "Mit den letzten Eingaben verschieben",
     "onlyStylus": "Eingaben auf Stift beschränken",
-    "behaviors": "Verhalten"
+    "behaviors": "Verhalten",
+    "documentDirectory": "Document directory",
+    "defaultPath": "Default path",
+    "dateFormat": "Date format"
 }
