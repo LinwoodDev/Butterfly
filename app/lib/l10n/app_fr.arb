@@ -118,5 +118,12 @@
     "selectLayer": "Sélectionner la couche",
     "ctrlKey": "Ctrl",
     "shiftKey": "Shift",
-    "altKey": "Alt"
+    "altKey": "Alt",
+    "copyVersion": "Copier la version",
+    "input": "Input",
+    "multiDraw": "Dessiner avec plusieurs entrées",
+    "moveFirst": "Déplacer avec la première entrée",
+    "moveLast": "Déplacer avec les dernières entrées",
+    "onlyStylus": "Restreindre l'entrée au stylet",
+    "behaviors": "Comportements"
 }
