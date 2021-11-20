@@ -126,7 +126,7 @@
     "moveLast": "Déplacer avec les dernières entrées",
     "onlyStylus": "Restreindre l'entrée au stylet",
     "behaviors": "Comportements",
-    "documentDirectory": "Document directory",
-    "defaultPath": "Default path",
-    "dateFormat": "Date format"
+    "documentDirectory": "Répertoire des documents",
+    "defaultPath": "Chemin par défaut",
+    "dateFormat": "Format de la date"
 }
