@@ -1,3 +1,4 @@
+import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/home.dart';
 import 'package:butterfly/settings/personalization.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -11,5 +12,6 @@ class SettingsModule extends Module {
     ChildRoute('/personalization',
         child: (_, args) => const PersonalizationSettingsPage()),
     ChildRoute('/behaviors', child: (_, args) => const BehaviorsSettingsPage()),
+    ChildRoute('/data', child: (_, args) => const DataSettingsPage())
   ];
 }

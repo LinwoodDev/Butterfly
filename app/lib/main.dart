@@ -2,10 +2,10 @@ import 'package:butterfly/module.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cubits/language.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
@@ -15,9 +15,8 @@ const fileVersion = 4;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  setup();
-
   GetIt.I.registerSingleton<int>(fileVersion, instanceName: 'fileVersion');
+  await setup();
   var prefs = await SharedPreferences.getInstance();
 
   runApp(ModularApp(

@@ -11,16 +11,15 @@ class DocumentLoadInProgress extends DocumentState {}
 
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
-  final int? documentIndex;
+  final String? path;
   final bool editMode;
   final int currentPainterIndex;
 
   const DocumentLoadSuccess(this.document,
-      {this.editMode = true, this.documentIndex, this.currentPainterIndex = 0});
+      {this.editMode = true, this.path, this.currentPainterIndex = 0});
 
   @override
-  List<Object?> get props =>
-      [document, editMode, currentPainterIndex, documentIndex];
+  List<Object?> get props => [document, editMode, currentPainterIndex, path];
 
   Painter? get currentPainter {
     if (document.painters.isEmpty) {
@@ -34,27 +33,22 @@ class DocumentLoadSuccess extends DocumentState {
       {AppDocument? document,
       bool? editMode,
       int? currentPainterIndex,
-      int? documentIndex}) {
+      String? path}) {
     return DocumentLoadSuccess(document ?? this.document,
         editMode: editMode ?? this.editMode,
-        documentIndex: documentIndex ?? this.documentIndex,
+        path: path ?? this.path,
         currentPainterIndex: currentPainterIndex ?? this.currentPainterIndex);
   }
 
-  Future<int> save() {
-    return SharedPreferences.getInstance().then((prefs) {
-      var documents = List<String>.from(prefs.getStringList('documents') ?? []);
-      var content = jsonEncode(document.toJson());
-      var index = documentIndex;
-      if (documentIndex == null || documents.length <= documentIndex!) {
-        index = documents.length;
-        documents.add(content);
-      } else {
-        documents[documentIndex!] = content;
-      }
-      prefs.setStringList('documents', documents);
-      return index!;
-    });
+  Future<String> save() {
+    if (path == null) {
+      return DocumentFileSystem.fromPlatform()
+          .importDocument(document)
+          .then((value) => value.path);
+    }
+    return DocumentFileSystem.fromPlatform()
+        .updateDocument(path!, document)
+        .then((value) => value.path);
   }
 }
 
