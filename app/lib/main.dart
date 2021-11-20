@@ -1,11 +1,12 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:butterfly/module.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cubits/language.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
@@ -24,6 +25,15 @@ void main() async {
       module: AppModule(),
       child:
           ButterflyApp(prefs: prefs, themeController: ThemeController(prefs))));
+  if (isWindow()) {
+    doWhenWindowReady(() {
+      appWindow.minSize = const Size(400, 300);
+      appWindow.size = const Size(400, 600);
+      appWindow.alignment = Alignment.center;
+      appWindow.title = 'Butterfly';
+      appWindow.show();
+    });
+  }
 }
 
 class ButterflyApp extends StatelessWidget {
@@ -57,24 +67,24 @@ class ButterflyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         dialogTheme: DialogTheme(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         // Modern appbar
@@ -99,31 +109,31 @@ class ButterflyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12))),
         colorScheme:
-            ColorScheme.light(primary: primaryColor, secondary: accentColor));
+        ColorScheme.light(primary: primaryColor, secondary: accentColor));
     buildDarkThemeData(context) => ThemeData(
         fontFamily: 'Roboto',
         visualDensity: VisualDensity.adaptivePlatformDensity,
         brightness: Brightness.dark,
         dialogTheme: DialogTheme(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         // Modern appbar
@@ -152,7 +162,7 @@ class ButterflyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12))),
         colorScheme:
-            ColorScheme.dark(primary: primaryColor, secondary: accentColor));
+        ColorScheme.dark(primary: primaryColor, secondary: accentColor));
     return BlocProvider(
         create: (context) =>
             LanguageCubit.fromLanguageCode(prefs?.getString('language')),
