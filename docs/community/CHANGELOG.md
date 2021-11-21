@@ -4,7 +4,7 @@ slug: /changelog
 
 # Changelog
 
-<!-- ENTER CHANGEOG HERE --> 
+<!--ENTER CHANGELOG HERE-->
 
 ## 1.0.0-rc.3 (2021-11-14)
 

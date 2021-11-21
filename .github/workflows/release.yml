@@ -26,5 +26,5 @@ jobs:
           [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
           BUTTERFLY_VERSION=${BASH_REMATCH[1]}
           BUTTERFLY_RELEASE_DATE=$(date +%Y-%m-%d)
-          INPUT_CHANGELOG="<!-- ENTER CHANGEOG HERE -->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${ github.event.inputs.changelog }"
-          sed -i "s/<\!-- ENTER CHANGELOG HERE -->/${INPUT_CHANGELOG}/g" docs/community/CHANGELOG.md
+          INPUT_CHANGELOG="<!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${ github.event.inputs.changelog }"
+          sed -i "s/<\!--ENTER CHANGELOG HERE-->/${INPUT_CHANGELOG}/g" docs/community/CHANGELOG.md
