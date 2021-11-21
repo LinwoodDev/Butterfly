@@ -17,7 +17,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
       name = '${document.name}_${++counter}';
     }
     var file = File('${dir.path}/$name.json');
-    file = await file.create();
+    file = await file.create(recursive: true);
     await file.writeAsString(json.encode(document.toJson()));
     return AppDocumentFile(file.path, document.toJson());
   }

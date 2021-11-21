@@ -177,7 +177,7 @@ class _ProjectPageState extends State<ProjectPage> {
               },
             ),
             _buildPopupMenu(),
-            if (isWindow()) const WindowButtons()
+            if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
             /*const IconButton(
                                     icon: Icon(PhosphorIcons.linkLight),
                                     tooltip: "Share (not implemented)",

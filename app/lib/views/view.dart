@@ -249,10 +249,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         }
                         if ((event.kind == PointerDeviceKind.stylus ||
                             state.editMode)) {
-                          if (currentLayer == null &&
-                              state.currentPainter is! BuildedPainter) {
-                            createLayer(event.localPosition, event.pressure);
-                          }
                           if (state.currentPainter is PathEraserPainter) {
                             widget.bloc.add(LayersRemoved(rayCast(transform
                                     .localToGlobal(event.localPosition))
