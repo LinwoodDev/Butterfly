@@ -1,3 +1,4 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:butterfly/module.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,15 @@ void main() async {
       module: AppModule(),
       child:
           ButterflyApp(prefs: prefs, themeController: ThemeController(prefs))));
+  if (isWindow()) {
+    doWhenWindowReady(() {
+      appWindow.minSize = const Size(400, 300);
+      appWindow.size = const Size(400, 600);
+      appWindow.alignment = Alignment.center;
+      appWindow.title = 'Butterfly';
+      appWindow.show();
+    });
+  }
 }
 
 class ButterflyApp extends StatelessWidget {
@@ -56,24 +66,24 @@ class ButterflyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         dialogTheme: DialogTheme(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         // Modern appbar
@@ -98,31 +108,31 @@ class ButterflyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12))),
         colorScheme:
-            ColorScheme.light(primary: primaryColor, secondary: accentColor));
+        ColorScheme.light(primary: primaryColor, secondary: accentColor));
     buildDarkThemeData(context) => ThemeData(
         fontFamily: 'Roboto',
         visualDensity: VisualDensity.adaptivePlatformDensity,
         brightness: Brightness.dark,
         dialogTheme: DialogTheme(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         // Modern appbar
@@ -151,7 +161,7 @@ class ButterflyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12))),
         colorScheme:
-            ColorScheme.dark(primary: primaryColor, secondary: accentColor));
+        ColorScheme.dark(primary: primaryColor, secondary: accentColor));
     return BlocProvider(
         create: (context) =>
             LanguageCubit.fromLanguageCode(prefs?.getString('language')),

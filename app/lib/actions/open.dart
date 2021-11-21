@@ -2,6 +2,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/file_system.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class OpenIntent extends Intent {
   final BuildContext context;
@@ -24,7 +25,9 @@ class OpenAction extends Action<OpenIntent> {
             .getDocument(value)
             .then((document) async {
           if (document == null) return;
-          bloc.emit(DocumentLoadSuccess(document.load(), path: document.path));
+          Modular.to.navigate(
+              Uri(path: '/', queryParameters: {'path': document.path})
+                  .toString());
         });
       }
     });

@@ -69,7 +69,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
       String path, AppDocument document) async {
     var file = File(path);
     if (!(await file.exists())) {
-      file.create();
+      file.create(recursive: true);
     }
     await file.writeAsString(jsonEncode(document.toJson()));
 
@@ -81,6 +81,9 @@ class IODocumentFileSystem extends DocumentFileSystem {
     String? path;
     if (prefs.containsKey('document_path')) {
       path = prefs.getString('document_path');
+    }
+    if (path == '') {
+      path = null;
     }
     path ??= (await getApplicationDocumentsDirectory()).path +
         '/Butterfly-Documents';

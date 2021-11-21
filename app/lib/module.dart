@@ -7,8 +7,8 @@ class AppModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute(Modular.initialRoute, child: (_, __) => const ProjectPage()),
-    ChildRoute('/:path',
-        child: (_, args) => ProjectPage(path: args.params['path'])),
+    ChildRoute('/',
+        child: (_, args) => ProjectPage(path: args.queryParams['path'])),
     ModuleRoute('/settings', module: SettingsModule()),
   ];
 }
