@@ -48,6 +48,9 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var store = txn.objectStore('documents');
     var doc = await store.getObject(path);
     await txn.completed;
+    if (doc == null) {
+      return null;
+    }
     var map = Map<String, dynamic>.from(doc as Map<dynamic, dynamic>);
     return AppDocumentFile(path, map);
   }
@@ -57,14 +60,15 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readonly');
     var store = txn.objectStore('documents');
-    var docs = await store.getAll();
-    await txn.completed;
-    return docs.map((doc) {
-      // Convert doc to Map
-      var map = Map<String, dynamic>.from(doc as Map<dynamic, dynamic>);
+    var keys = await store.getAllKeys();
+    var docs = Future.wait(keys.map((key) async {
+      var map = Map<String, dynamic>.from(
+          await store.getObject(key) as Map<dynamic, dynamic>);
 
-      return AppDocumentFile(map['name'] as String, map);
-    }).toList();
+      return AppDocumentFile(key as String, map);
+    }).toList());
+    await txn.completed;
+    return docs;
   }
 
   @override

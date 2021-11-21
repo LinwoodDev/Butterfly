@@ -58,7 +58,7 @@ class _ProjectPageState extends State<ProjectPage> {
       if (widget.path != null) {
         await fileSystem
             .getDocument(widget.path!)
-            .then((value) => value?.load());
+            .then((value) => document = value?.load());
       }
       document ??= AppDocument(
           name:
