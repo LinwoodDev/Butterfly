@@ -18,9 +18,12 @@ class CameraTransform extends Equatable {
     final double newSize = size.clamp(0.1, 10);
     final oldCursor = cursor / this.size;
     final newCursor = cursor / newSize;
-    final newPosition = Offset(position.dx + (newCursor.dx - oldCursor.dx),
-        position.dy + (newCursor.dy - oldCursor.dy));
-    return CameraTransform(newPosition, newSize);
+    // Zoom in to the new cursor
+    final focus = (newCursor - oldCursor);
+    return CameraTransform(
+      position + focus,
+      newSize,
+    );
   }
 
   Offset localToGlobal(Offset local) => local / size - position;
