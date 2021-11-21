@@ -47,7 +47,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
           // Ignore FormatException on decode
           try {
             var json = jsonDecode((event as File).readAsStringSync());
-            return AppDocumentFile(event.path, json);
+            return AppDocumentFile(
+                event.path.substring(0, event.path.length - 5), json);
           } catch (e) {
             return null;
           }
