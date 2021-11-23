@@ -34,7 +34,6 @@ void paintElement(Canvas canvas, ElementLayer element,
       var width = image.width * scale;
       var height = image.height * scale;
       var paint = Paint()
-        ..filterQuality = FilterQuality.high
         ..isAntiAlias = true;
       canvas.drawImageRect(
         image,
@@ -65,7 +64,6 @@ class ForegroundPainter extends CustomPainter {
     }
     if (selection != null) {
       var rect = selection!.rect;
-      rect = rect.translate(transform.position.dx, transform.position.dy);
       canvas.drawRRect(
           RRect.fromRectAndRadius(rect.inflate(5), const Radius.circular(5)),
           Paint()
@@ -157,7 +155,7 @@ class ViewPainter extends CustomPainter {
         }
       }
     }
-    canvas.saveLayer(Offset.zero & size, Paint());
+    canvas.save();
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     document.content
