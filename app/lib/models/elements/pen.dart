@@ -25,15 +25,14 @@ class PenElement extends PathElement {
     ..strokeCap = StrokeCap.round;
 
   @override
-  void paint(Canvas canvas,
-      [Offset offset = Offset.zero, bool preview = false]) {
+  void paint(Canvas canvas, [bool preview = false]) {
     if (!property.fill) {
-      super.paint(canvas, offset, preview);
+      super.paint(canvas, preview);
     } else if (points.isNotEmpty) {
       var path = Path();
-      path.moveTo(points.first.x + offset.dx, points.first.y + offset.dy);
+      path.moveTo(points.first.x, points.first.y);
       for (var element in points.sublist(1)) {
-        path.lineTo(offset.dx + element.x, offset.dy + element.y);
+        path.lineTo(element.x, element.y);
       }
       canvas.drawPath(path, buildPaint(preview));
     }

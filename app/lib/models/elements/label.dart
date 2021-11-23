@@ -44,12 +44,10 @@ class LabelElement extends ElementLayer {
           position: position ?? this.position);
 
   @override
-  void paint(Canvas canvas,
-      [Offset offset = Offset.zero, bool preview = false]) {
+  void paint(Canvas canvas, [bool preview = false]) {
     var tp = _createPainter();
     tp.layout();
     var current = position;
-    current += offset;
     tp.paint(canvas, current);
   }
 

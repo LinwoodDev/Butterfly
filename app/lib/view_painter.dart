@@ -1,5 +1,4 @@
 import 'dart:isolate';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/models/backgrounds/box.dart';
@@ -8,7 +7,6 @@ import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image/image.dart' as image;
 
 import 'cubits/transform.dart';
 
@@ -19,20 +17,12 @@ class DecodeParam {
   DecodeParam(this.element, this.sendPort);
 }
 
-image.Image loadImage(ImageElement layer) {
-  image.Image baseSizeImage =
-      image.decodeImage(layer.pixels) ?? image.Image(0, 0);
-  return baseSizeImage;
-}
-
-void decodeIsolate(DecodeParam param) {
-  var resizeImage = loadImage(param.element);
-  param.sendPort.send(resizeImage);
+Future<ui.Image> loadImage(ImageElement layer) {
+  return decodeImageFromList(layer.pixels);
 }
 
 void paintElement(Canvas canvas, ElementLayer element,
     [Map<ElementLayer, ui.Image> images = const {},
-    Offset offset = Offset.zero,
     bool preview = false]) {
   if (element is ImageElement) {
     if (images.containsKey(element)) {
@@ -49,13 +39,12 @@ void paintElement(Canvas canvas, ElementLayer element,
       canvas.drawImageRect(
         image,
         Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-        Rect.fromLTWH(offset.dx + element.position.dx,
-            offset.dy + element.position.dy, width, height),
+        Rect.fromLTWH(element.position.dx, element.position.dy, width, height),
         paint,
       );
     }
   } else {
-    element.paint(canvas, offset, preview);
+    element.paint(canvas, preview);
   }
 }
 
@@ -70,8 +59,9 @@ class ForegroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.scale(transform.size);
+    canvas.translate(transform.position.dx, transform.position.dy);
     if (editingLayer != null) {
-      paintElement(canvas, editingLayer!, {}, transform.position, true);
+      paintElement(canvas, editingLayer!, {}, true);
     }
     if (selection != null) {
       var rect = selection!.rect;
@@ -104,24 +94,7 @@ Future<Map<ElementLayer, ui.Image>> loadImages(AppDocument document,
   }
   for (var layer in document.content) {
     if (layer is ImageElement && !images.containsKey(layer)) {
-      image.Image loadedImage;
-
-      if (kIsWeb) {
-        loadedImage =
-            await compute<ImageElement, image.Image>(loadImage, layer);
-      } else {
-        var receivePort = ReceivePort();
-        await Isolate.spawn(
-            decodeIsolate, DecodeParam(layer, receivePort.sendPort));
-        loadedImage = await receivePort.first as image.Image;
-      }
-
-      // Get the processed image from the isolate.
-
-      ui.Codec codec = await ui.instantiateImageCodec(
-          Uint8List.fromList(image.encodePng(loadedImage)));
-      ui.FrameInfo frameInfo = await codec.getNextFrame();
-      images[layer] = frameInfo.image;
+      images[layer] = await loadImage(layer);
     }
   }
   images.removeWhere((key, value) => !document.content.contains(key));
@@ -186,8 +159,10 @@ class ViewPainter extends CustomPainter {
     }
     canvas.saveLayer(Offset.zero & size, Paint());
     canvas.scale(transform.size, transform.size);
-    document.content.asMap().forEach((index, element) =>
-        paintElement(canvas, element, images, transform.position));
+    canvas.translate(transform.position.dx, transform.position.dy);
+    document.content
+        .asMap()
+        .forEach((index, element) => paintElement(canvas, element, images));
     canvas.restore();
   }
 

@@ -9,8 +9,7 @@ abstract class ElementLayer {
 
   Map<String, dynamic> toJson();
 
-  void paint(Canvas canvas,
-      [Offset offset = Offset.zero, bool preview = false]);
+  void paint(Canvas canvas, [bool preview = false]);
 
   bool hit(Offset offset);
 

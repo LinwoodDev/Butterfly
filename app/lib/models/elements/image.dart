@@ -68,8 +68,7 @@ class ImageElement extends ElementLayer {
   }
 
   @override
-  void paint(Canvas canvas,
-          [Offset offset = Offset.zero, bool preview = false]) =>
+  void paint(Canvas canvas, [bool preview = false]) =>
       throw UnimplementedError();
 
   @override
