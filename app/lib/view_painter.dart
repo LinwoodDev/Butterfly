@@ -22,10 +22,7 @@ class DecodeParam {
 image.Image loadImage(ImageElement layer) {
   image.Image baseSizeImage =
       image.decodeImage(layer.pixels) ?? image.Image(0, 0);
-  image.Image resizeImage = image.copyResize(baseSizeImage,
-      height: (layer.height * layer.scale).round(),
-      width: (layer.width * layer.scale).round());
-  return resizeImage;
+  return baseSizeImage;
 }
 
 void decodeIsolate(DecodeParam param) {
@@ -39,8 +36,23 @@ void paintElement(Canvas canvas, ElementLayer element,
     bool preview = false]) {
   if (element is ImageElement) {
     if (images.containsKey(element)) {
-      canvas.drawImage(images[element]!, element.position + offset,
-          Paint()..strokeWidth = .05);
+      // Resize image to scale of the element
+      // Get image from element pixels
+      var image = images[element];
+      if (image == null) return;
+      var scale = element.scale;
+      var width = image.width * scale;
+      var height = image.height * scale;
+      var paint = Paint()
+        ..filterQuality = FilterQuality.high
+        ..isAntiAlias = true;
+      canvas.drawImageRect(
+        image,
+        Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
+        Rect.fromLTWH(offset.dx + element.position.dx,
+            offset.dy + element.position.dy, width, height),
+        paint,
+      );
     }
   } else {
     element.paint(canvas, offset, preview);
