@@ -22,8 +22,7 @@ Future<ui.Image> loadImage(ImageElement layer) {
 }
 
 void paintElement(Canvas canvas, ElementLayer element,
-    [Map<ElementLayer, ui.Image> images = const {},
-    bool preview = false]) {
+    [Map<ElementLayer, ui.Image> images = const {}, bool preview = false]) {
   if (element is ImageElement) {
     if (images.containsKey(element)) {
       // Resize image to scale of the element
@@ -33,8 +32,7 @@ void paintElement(Canvas canvas, ElementLayer element,
       var scale = element.scale;
       var width = image.width * scale;
       var height = image.height * scale;
-      var paint = Paint()
-        ..isAntiAlias = true;
+      var paint = Paint()..isAntiAlias = true;
       canvas.drawImageRect(
         image,
         Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
