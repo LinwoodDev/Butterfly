@@ -13,7 +13,7 @@ class EditModeAction extends Action<EditModeIntent> {
   @override
   void invoke(EditModeIntent intent) {
     if (bloc.state is DocumentLoadSuccess) {
-      bloc.add(ToolChanged(!(bloc.state as DocumentLoadSuccess).editMode));
+      bloc.add(const CurrentPainterChanged(null));
     }
   }
 }

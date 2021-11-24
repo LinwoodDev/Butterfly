@@ -49,17 +49,8 @@ class DocumentPaletteChanged extends DocumentEvent {
   List<Object?> get props => [palette];
 }
 
-class ToolChanged extends DocumentEvent {
-  final bool? editMode;
-
-  const ToolChanged(this.editMode);
-
-  @override
-  List<Object?> get props => [editMode];
-}
-
 class CurrentPainterChanged extends DocumentEvent {
-  final int painter;
+  final int? painter;
 
   const CurrentPainterChanged(this.painter);
 

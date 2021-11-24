@@ -19,6 +19,8 @@ import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/tool/edit.dart';
+import 'package:butterfly/tool/view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,7 +29,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'toolbar.dart';
 import 'view.dart';
 
 bool isWindow() =>
@@ -185,13 +186,9 @@ class _ProjectPageState extends State<ProjectPage> {
           ]);
 
   Widget _buildToolbar() => SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          MainViewToolbar(bloc: _bloc!),
-        ],
-      ));
+        scrollDirection: Axis.horizontal,
+        child: SizedBox(height: 50, child: EditToolbar(bloc: _bloc!)),
+      );
 
   Widget _buildToolSelection(bool isMobile) {
     var _toolScrollController = ScrollController();
@@ -206,21 +203,7 @@ class _ProjectPageState extends State<ProjectPage> {
               BlocBuilder<DocumentBloc, DocumentState>(
                   builder: (context, state) {
                 if (_bloc!.state is DocumentLoadSuccess) {
-                  var current = _bloc!.state as DocumentLoadSuccess;
-                  return Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        IconButton(
-                            icon: Icon(current.editMode
-                                ? PhosphorIcons.penLight
-                                : PhosphorIcons.handLight),
-                            tooltip: current.editMode
-                                ? AppLocalizations.of(context)!.edit
-                                : AppLocalizations.of(context)!.view,
-                            onPressed: () {
-                              _bloc!.add(ToolChanged(!current.editMode));
-                            })
-                      ]);
+                  return ViewToolbar(bloc: _bloc!);
                 }
                 return Container();
               }),

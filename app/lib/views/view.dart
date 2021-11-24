@@ -130,7 +130,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
 
               return GestureDetector(
                   onScaleUpdate: (details) {
-                    if (state.editMode) return;
+                    if (state.currentPainter != null) return;
                     if (openView) openView = details.scale == 1;
                     var cubit = context.read<TransformCubit>();
                     var lastSize = cubit.state.size;
@@ -153,22 +153,20 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       },
                       onPointerDown: (PointerDownEvent event) {
                         openView = true;
-                        if (event.kind == PointerDeviceKind.stylus ||
-                            state.editMode &&
-                                event.buttons != kMiddleMouseButton) {
+                        if (state.currentPainter != null &&
+                            event.buttons != kMiddleMouseButton) {
                           createLayer(event.localPosition, event.pressure);
                         }
                       },
                       onPointerUp: (PointerUpEvent event) {
                         var currentLayer = context.read<EditingCubit>().state;
                         var transform = context.read<TransformCubit>().state;
-                        if ((event.kind == PointerDeviceKind.stylus ||
-                                state.editMode) &&
+                        if (state.currentPainter != null &&
                             currentLayer != null) {
                           widget.bloc.add(LayerCreated(currentLayer));
                           context.read<EditingCubit>().reset();
                         } else if (event.kind != ui.PointerDeviceKind.stylus &&
-                            !state.editMode) {
+                            state.currentPainter == null) {
                           if (!openView) {
                             return;
                           }
@@ -235,7 +233,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       onPointerMove: (PointerMoveEvent event) {
                         var currentLayer = context.read<EditingCubit>().state;
                         var transform = context.read<TransformCubit>().state;
-                        if (!state.editMode &&
+                        if (state.currentPainter == null &&
                                 event.kind != ui.PointerDeviceKind.stylus ||
                             event.buttons == kMiddleMouseButton) {
                           if (openView) {
@@ -248,7 +246,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           return;
                         }
                         if ((event.kind == PointerDeviceKind.stylus ||
-                            state.editMode)) {
+                            state.currentPainter != null)) {
                           if (state.currentPainter is PathEraserPainter) {
                             widget.bloc.add(LayersRemoved(rayCast(transform
                                     .localToGlobal(event.localPosition))

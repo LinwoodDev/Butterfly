@@ -46,7 +46,10 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
           child: Scaffold(
             appBar: AppBar(
                 title: Text(AppLocalizations.of(context)!.open),
-                leading: const Icon(PhosphorIcons.folderLight),
+                leading: IconButton(
+                  icon: const Icon(PhosphorIcons.xLight),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
                 actions: [
                   IconButton(
                       icon: Icon(gridView

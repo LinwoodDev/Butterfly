@@ -12,32 +12,33 @@ class DocumentLoadInProgress extends DocumentState {}
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final String? path;
-  final bool editMode;
-  final int currentPainterIndex;
+  final int? currentPainterIndex;
 
   const DocumentLoadSuccess(this.document,
-      {this.editMode = true, this.path, this.currentPainterIndex = 0});
+      {this.path, this.currentPainterIndex});
 
   @override
-  List<Object?> get props => [document, editMode, currentPainterIndex, path];
+  List<Object?> get props => [document, currentPainterIndex, path];
 
   Painter? get currentPainter {
-    if (document.painters.isEmpty) {
+    if (document.painters.isEmpty || currentPainterIndex == null) {
       return null;
     }
     return document
-        .painters[currentPainterIndex.clamp(0, document.painters.length - 1)];
+        .painters[currentPainterIndex!.clamp(0, document.painters.length - 1)];
   }
 
   DocumentLoadSuccess copyWith(
       {AppDocument? document,
       bool? editMode,
       int? currentPainterIndex,
-      String? path}) {
+      String? path,
+      bool removeCurrentPainterIndex = false}) {
     return DocumentLoadSuccess(document ?? this.document,
-        editMode: editMode ?? this.editMode,
         path: path ?? this.path,
-        currentPainterIndex: currentPainterIndex ?? this.currentPainterIndex);
+        currentPainterIndex: removeCurrentPainterIndex
+            ? null
+            : currentPainterIndex ?? this.currentPainterIndex);
   }
 
   Future<String> save() {

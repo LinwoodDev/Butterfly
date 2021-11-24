@@ -61,7 +61,15 @@ class _EditToolbarState extends State<EditToolbar> {
         if (state is! DocumentLoadSuccess) return Container();
         var painters = state.document.painters;
 
-        return Row(children: [
+        return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          IconButton(
+              color: state.currentPainter == null
+                  ? Theme.of(context).colorScheme.primary
+                  : null,
+              onPressed: () =>
+                  widget.bloc.add(const CurrentPainterChanged(null)),
+              icon: const Icon(PhosphorIcons.handLight, size: 32)),
+          const VerticalDivider(),
           ReorderableListView.builder(
               shrinkWrap: true,
               buildDefaultDragHandles: false,
@@ -73,7 +81,7 @@ class _EditToolbarState extends State<EditToolbar> {
                 var type = e.toJson()['type'];
                 var selected = i ==
                     state.currentPainterIndex
-                        .clamp(0, state.document.painters.length - 1);
+                        ?.clamp(0, state.document.painters.length - 1);
                 String? tooltip = e.name.trim();
                 if (tooltip == '') tooltip = null;
                 Widget toolWidget = Padding(
