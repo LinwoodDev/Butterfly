@@ -134,7 +134,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     if (openView) openView = details.scale == 1;
                     var cubit = context.read<TransformCubit>();
                     var lastSize = cubit.state.size;
-                    var current = size + (details.scale - 1) * lastSize;
+                    var current = size + (details.scale - 1) * (lastSize);
                     cubit.zoom(current - lastSize, details.focalPoint);
                   },
                   onScaleStart: (details) {

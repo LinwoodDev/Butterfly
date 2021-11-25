@@ -62,13 +62,17 @@ class _EditToolbarState extends State<EditToolbar> {
         var painters = state.document.painters;
 
         return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          IconButton(
-              color: state.currentPainter == null
-                  ? Theme.of(context).colorScheme.primary
-                  : null,
-              onPressed: () =>
-                  widget.bloc.add(const CurrentPainterChanged(null)),
-              icon: const Icon(PhosphorIcons.handLight, size: 32)),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: InkWell(
+                borderRadius: const BorderRadius.all(Radius.circular(32)),
+                child: Icon(PhosphorIcons.handLight,
+                    size: 32,
+                    color: state.currentPainter == null
+                        ? Theme.of(context).colorScheme.primary
+                        : null),
+                onTap: () => widget.bloc.add(const CurrentPainterChanged(null)),
+              )),
           const VerticalDivider(),
           ReorderableListView.builder(
               shrinkWrap: true,
