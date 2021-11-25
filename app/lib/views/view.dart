@@ -167,7 +167,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         }
                       },
                       onPointerDown: (PointerDownEvent event) {
-                        openView = true;
                         var cubit = context.read<EditingCubit>();
                         var input =
                             InputType.values[_prefs?.getInt('input') ?? 0];
@@ -177,6 +176,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 event.pointer, cubit.first(), event.kind)) {
                           createLayer(event.pointer, event.localPosition,
                               event.pressure);
+                        } else {
+                          openView = true;
                         }
                       },
                       onPointerUp: (PointerUpEvent event) {
