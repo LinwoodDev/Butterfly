@@ -109,9 +109,20 @@ class _EditToolbarState extends State<EditToolbar> {
                           if (!selected) {
                             widget.bloc.add(CurrentPainterChanged(i));
                           } else {
-                            showDialog(
+                            showGeneralDialog(
                                 context: context,
-                                builder: (context) {
+                                transitionBuilder: (context, a1, a2, widget) {
+                                  // Slide transition
+                                  return SlideTransition(
+                                    position: Tween<Offset>(
+                                            begin: const Offset(0, -1),
+                                            end: Offset.zero)
+                                        .animate(a1),
+                                    child: widget,
+                                  );
+                                },
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) {
                                   switch (type) {
                                     case 'pen':
                                       return PenPainterDialog(
