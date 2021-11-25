@@ -18,9 +18,9 @@ extension InputTypeExtension on InputType {
     }
   }
 
-  bool canCreate(int pointer, PointerDeviceKind kind) =>
+  bool canCreate(int pointer, int? first, PointerDeviceKind kind) =>
       this == InputType.onlyStylus && kind == PointerDeviceKind.stylus ||
-      this == InputType.moveFirst && pointer != 0 ||
-      this == InputType.moveLast && pointer == 0 ||
+      this == InputType.moveFirst && (pointer != first || first != null) ||
+      this == InputType.moveLast && (pointer == first || first == null) ||
       this == InputType.multiDraw;
 }

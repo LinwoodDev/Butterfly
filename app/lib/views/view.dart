@@ -167,24 +167,26 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       },
                       onPointerDown: (PointerDownEvent event) {
                         openView = true;
+                        var cubit = context.read<EditingCubit>();
                         var input =
                             InputType.values[_prefs?.getInt('input') ?? 0];
                         if (state.currentPainter != null &&
                             event.buttons != kMiddleMouseButton &&
-                            input.canCreate(event.pointer, event.kind)) {
+                            input.canCreate(
+                                event.pointer, cubit.first(), event.kind)) {
                           createLayer(event.pointer, event.localPosition,
                               event.pressure);
                         }
                       },
                       onPointerUp: (PointerUpEvent event) {
-                        var currentLayer = context
-                            .read<EditingCubit>()
-                            .getAndReset(event.pointer);
+                        var cubit = context.read<EditingCubit>();
+                        var currentLayer = cubit.getAndReset(event.pointer);
                         var transform = context.read<TransformCubit>().state;
                         var input =
                             InputType.values[_prefs?.getInt('input') ?? 0];
 
-                        if (input.canCreate(event.pointer, event.kind) &&
+                        if (input.canCreate(
+                                event.pointer, cubit.first(), event.kind) &&
                             currentLayer != null) {
                           widget.bloc.add(LayerCreated(currentLayer));
                         } else {
@@ -252,12 +254,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       },
                       behavior: HitTestBehavior.translucent,
                       onPointerMove: (PointerMoveEvent event) {
-                        var currentLayer =
-                            context.read<EditingCubit>().get(event.pointer);
+                        var cubit = context.read<EditingCubit>();
+                        var currentLayer = cubit.get(event.pointer);
                         var transform = context.read<TransformCubit>().state;
                         var input =
                             InputType.values[_prefs?.getInt('input') ?? 0];
-                        if (!input.canCreate(event.pointer, event.kind) ||
+                        if (!input.canCreate(
+                                event.pointer, cubit.first(), event.kind) ||
                             event.buttons == kMiddleMouseButton ||
                             state.currentPainter == null) {
                           if (openView) {

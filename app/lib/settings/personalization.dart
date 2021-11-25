@@ -4,6 +4,7 @@ import 'package:butterfly/views/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class PersonalizationSettingsPage extends StatefulWidget {
   const PersonalizationSettingsPage({Key? key}) : super(key: key);
@@ -53,12 +54,14 @@ class _PersonalizationSettingsPageState
         body: Builder(
           builder: (context) => ListView(children: [
             ListTile(
+                leading: const Icon(PhosphorIcons.eyeLight),
                 title: Text(AppLocalizations.of(context)!.theme),
                 subtitle: Text(getThemeName(
                     ThemeController.of(context)?.currentTheme ??
                         ThemeMode.system)),
                 onTap: () => _openThemeModal()),
             ListTile(
+                leading: const Icon(PhosphorIcons.translateLight),
                 title: Text(AppLocalizations.of(context)!.locale),
                 subtitle: Text(getLocaleName(
                     context.read<LanguageCubit>().state?.languageCode)),

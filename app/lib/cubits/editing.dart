@@ -11,6 +11,8 @@ class EditingCubit extends Cubit<Map<int, ElementLayer>> {
     }
   }
 
+  int? first() => state.entries.isEmpty ? null : state.entries.first.key;
+
   bool has(int pointer) => state.containsKey(pointer);
 
   ElementLayer? getAndReset(int pointer) {
