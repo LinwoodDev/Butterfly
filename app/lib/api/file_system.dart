@@ -14,7 +14,7 @@ abstract class DocumentFileSystem {
       importDocument(AppDocument(
           name: name, palettes: palettes, createdAt: DateTime.now()));
 
-  Future<bool> hasDocument(String name);
+  Future<bool> hasDocument(String path);
 
   Future<AppDocumentFile> updateDocument(String path, AppDocument document);
 

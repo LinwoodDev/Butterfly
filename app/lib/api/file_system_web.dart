@@ -72,11 +72,11 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<bool> hasDocument(String name) async {
+  Future<bool> hasDocument(String path) async {
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readonly');
     var store = txn.objectStore('documents');
-    var doc = await store.getObject(name);
+    var doc = await store.getObject(path);
     await txn.completed;
     return doc != null;
   }

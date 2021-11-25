@@ -10,26 +10,29 @@ import 'file_system.dart';
 class IODocumentFileSystem extends DocumentFileSystem {
   @override
   Future<AppDocumentFile> importDocument(AppDocument document) async {
-    var dir = await getDirectory();
-    var name = encodeFileName(document.name);
+    var encodedName = encodeFileName(document.name);
+    var name = encodedName;
     var counter = 1;
     while (await hasDocument(name)) {
-      name = '${document.name}_${++counter}';
+      name = '${encodedName}_${++counter}';
     }
-    var file = File('${dir.path}/$name.json');
+    var file = File('${(await getDirectory()).path}/$name.json');
     file = await file.create(recursive: true);
     await file.writeAsString(json.encode(document.toJson()));
     return AppDocumentFile(file.path, document.toJson());
   }
 
   @override
-  Future<void> deleteDocument(String path) {
-    return File(path).delete();
+  Future<void> deleteDocument(String path) async {
+    var name = encodeFileName(path);
+    var file = File('${(await getDirectory()).path}/$name.json');
+    await file.delete();
   }
 
   @override
   Future<AppDocumentFile?> getDocument(String path) async {
-    var file = File('$path.json');
+    var name = encodeFileName(path);
+    var file = File('${(await getDirectory()).path}/$name.json');
     if (!await file.exists()) return null;
 
     var json = jsonDecode(await file.readAsString());
@@ -48,7 +51,9 @@ class IODocumentFileSystem extends DocumentFileSystem {
           try {
             var json = jsonDecode((event as File).readAsStringSync());
             return AppDocumentFile(
-                event.path.substring(0, event.path.length - 5), json);
+                event.path
+                    .substring(dir.path.length + 1, event.path.length - 5),
+                json);
           } catch (e) {
             return null;
           }
@@ -61,14 +66,16 @@ class IODocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<bool> hasDocument(String name) async {
+  Future<bool> hasDocument(String path) async {
+    var name = encodeFileName(path);
     return File('${(await getDirectory()).path}/$name.json').exists();
   }
 
   @override
   Future<AppDocumentFile> updateDocument(
       String path, AppDocument document) async {
-    var file = File(path);
+    var name = encodeFileName(document.name);
+    var file = File('${(await getDirectory()).path}/$name.json');
     if (!(await file.exists())) {
       file.create(recursive: true);
     }

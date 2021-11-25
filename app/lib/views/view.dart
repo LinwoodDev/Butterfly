@@ -59,8 +59,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
     return BlocBuilder<DocumentBloc, DocumentState>(
         bloc: widget.bloc,
         builder: (context, state) {
-          if (state is! DocumentLoadSuccess || _prefs == null)
+          if (state is! DocumentLoadSuccess || _prefs == null) {
             return const Center(child: CircularProgressIndicator());
+          }
           return BlocProvider(
             create: (context) => EditingCubit(),
             child: SizedBox.expand(child:
