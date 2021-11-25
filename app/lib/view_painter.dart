@@ -46,7 +46,7 @@ void paintElement(Canvas canvas, ElementLayer element,
 }
 
 class ForegroundPainter extends CustomPainter {
-  final ElementLayer? editingLayer;
+  final Map<int, ElementLayer> editingLayer;
   final CameraTransform transform;
   final ElementLayer? selection;
 
@@ -57,8 +57,8 @@ class ForegroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     canvas.scale(transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
-    if (editingLayer != null) {
-      paintElement(canvas, editingLayer!, {}, true);
+    for (var element in editingLayer.entries) {
+      paintElement(canvas, element.value, {}, true);
     }
     if (selection != null) {
       var rect = selection!.rect;

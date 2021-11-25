@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:butterfly/views/main.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,12 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(AppLocalizations.of(context)!.data)),
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context)!.data),
+          actions: [
+            if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
+          ],
+        ),
         body: ListView(
           children: [
             if (!kIsWeb && (Platform.isWindows || Platform.isLinux))

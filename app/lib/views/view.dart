@@ -17,6 +17,7 @@ import 'package:butterfly/models/elements/image.dart';
 import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/elements/path.dart';
 import 'package:butterfly/models/elements/pen.dart';
+import 'package:butterfly/models/input_type.dart';
 import 'package:butterfly/models/painters/image.dart';
 import 'package:butterfly/models/painters/label.dart';
 import 'package:butterfly/models/painters/painter.dart';
@@ -27,6 +28,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../view_painter.dart';
 
@@ -43,13 +45,22 @@ class _MainViewViewportState extends State<MainViewViewport> {
   Map<ElementLayer, ui.Image> images = {};
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
+  SharedPreferences? _prefs;
+
+  @override
+  void initState() {
+    SharedPreferences.getInstance()
+        .then((value) => setState(() => _prefs = value));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(
         bloc: widget.bloc,
         builder: (context, state) {
-          if (state is! DocumentLoadSuccess) return Container();
+          if (state is! DocumentLoadSuccess || _prefs == null)
+            return const Center(child: CircularProgressIndicator());
           return BlocProvider(
             create: (context) => EditingCubit(),
             child: SizedBox.expand(child:
@@ -60,12 +71,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     .toList();
               }
 
-              void createLayer(Offset localPosition, double pressure) {
+              void createLayer(
+                  int pointer, Offset localPosition, double pressure) {
                 var transform = context.read<TransformCubit>().state;
                 if (state.currentPainter is BuildedPainter) {
                   var painter = state.currentPainter as BuildedPainter;
-                  context.read<EditingCubit>().change(painter.buildLayer(
-                      transform.localToGlobal(localPosition), pressure));
+                  context.read<EditingCubit>().put(
+                      pointer,
+                      painter.buildLayer(
+                          transform.localToGlobal(localPosition), pressure));
                 }
                 if (state.currentPainter is LabelPainter) {
                   var painter = state.currentPainter as LabelPainter;
@@ -153,20 +167,27 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       },
                       onPointerDown: (PointerDownEvent event) {
                         openView = true;
+                        var input =
+                            InputType.values[_prefs?.getInt('input') ?? 0];
                         if (state.currentPainter != null &&
-                            event.buttons != kMiddleMouseButton) {
-                          createLayer(event.localPosition, event.pressure);
+                            event.buttons != kMiddleMouseButton &&
+                            input.canCreate(event.pointer, event.kind)) {
+                          createLayer(event.pointer, event.localPosition,
+                              event.pressure);
                         }
                       },
                       onPointerUp: (PointerUpEvent event) {
-                        var currentLayer = context.read<EditingCubit>().state;
+                        var currentLayer = context
+                            .read<EditingCubit>()
+                            .getAndReset(event.pointer);
                         var transform = context.read<TransformCubit>().state;
-                        if (state.currentPainter != null &&
+                        var input =
+                            InputType.values[_prefs?.getInt('input') ?? 0];
+
+                        if (input.canCreate(event.pointer, event.kind) &&
                             currentLayer != null) {
                           widget.bloc.add(LayerCreated(currentLayer));
-                          context.read<EditingCubit>().reset();
-                        } else if (event.kind != ui.PointerDeviceKind.stylus &&
-                            state.currentPainter == null) {
+                        } else {
                           if (!openView) {
                             return;
                           }
@@ -231,11 +252,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       },
                       behavior: HitTestBehavior.translucent,
                       onPointerMove: (PointerMoveEvent event) {
-                        var currentLayer = context.read<EditingCubit>().state;
+                        var currentLayer =
+                            context.read<EditingCubit>().get(event.pointer);
                         var transform = context.read<TransformCubit>().state;
-                        if (state.currentPainter == null &&
-                                event.kind != ui.PointerDeviceKind.stylus ||
-                            event.buttons == kMiddleMouseButton) {
+                        var input =
+                            InputType.values[_prefs?.getInt('input') ?? 0];
+                        if (!input.canCreate(event.pointer, event.kind) ||
+                            event.buttons == kMiddleMouseButton ||
+                            state.currentPainter == null) {
                           if (openView) {
                             openView =
                                 (event.delta / transform.size) == Offset.zero;
@@ -259,6 +283,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               currentLayer is PathElement) {
                             // Add point to custom paint
                             context.read<EditingCubit>().change(
+                                event.pointer,
                                 currentLayer.copyWith(
                                     points: List.from(currentLayer.points)
                                       ..add(PathPoint.fromOffset(
@@ -297,7 +322,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               builder: (context, transform) {
                                 return Stack(children: [
                                   Container(color: Colors.white),
-                                  BlocBuilder<EditingCubit, ElementLayer?>(
+                                  BlocBuilder<EditingCubit,
+                                      Map<int, ElementLayer>>(
                                     builder: (context, editing) => BlocBuilder<
                                             SelectionCubit, ElementLayer?>(
                                         builder: (context, selection) {
