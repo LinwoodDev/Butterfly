@@ -30,6 +30,12 @@ class AppDocumentFile {
 
   String get description => json['description'];
 
+  DateTime? get updatedAt =>
+      json['updatedAt'] == null ? null : DateTime.tryParse(json['updatedAt']);
+
+  DateTime? get createdAt =>
+      json['createdAt'] == null ? null : DateTime.tryParse(json['createdAt']);
+
   AppDocument load() => AppDocument.fromJson(Map<String, dynamic>.from(json));
 }
 

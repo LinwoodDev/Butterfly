@@ -128,5 +128,23 @@
   "behaviors": "Behaviors",
   "documentDirectory": "Document directory",
   "defaultPath": "Default path",
-  "dateFormat": "Date format"
+  "dateFormat": "Date format",
+  "updatedAt": "Updated at: {dateTime}",
+  "@updatedAt": {
+    "placeholders": {
+      "dateTime": {
+        "type": "String",
+        "example": "2021-01-01 12:00"
+      }
+    }
+  },
+  "createdAt": "Created at: {dateTime}",
+  "@createdAt": {
+    "placeholders": {
+      "dateTime": {
+        "type": "String",
+        "example": "2021-01-01 12:00"
+      }
+    }
+  }
 }

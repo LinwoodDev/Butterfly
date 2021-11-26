@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/language.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +126,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
           var document = _documents[index];
           return ListTile(
               title: Text(document.name),
-              subtitle: Text(document.description),
+              subtitle: _buildRichText(document),
               onTap: () => _openDocument(document.path),
               trailing: IconButton(
                 icon: const Icon(PhosphorIcons.trashLight),
@@ -189,10 +190,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline6),
-                                    Text(document.description,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .overline)
+                                    _buildRichText(document)
                                   ]))),
                           IconButton(
                               icon: const Icon(PhosphorIcons.trashLight),
@@ -201,4 +199,37 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       ),
                     );
                   })))));
+
+  RichText _buildRichText(AppDocumentFile document) => RichText(
+        text: TextSpan(
+            text: document.description,
+            style: Theme.of(context).textTheme.caption,
+            children: [
+              const TextSpan(
+                text: '\n',
+              ),
+              TextSpan(
+                text: document.path,
+              ),
+              const TextSpan(
+                text: '\n',
+              ),
+              if (document.updatedAt != null)
+                TextSpan(
+                  text: AppLocalizations.of(context)!.updatedAt(context
+                      .read<LanguageCubit>()
+                      .formatDateTime(context, document.updatedAt!)),
+                ),
+              if (document.createdAt != null) ...[
+                const TextSpan(
+                  text: '\n',
+                ),
+                TextSpan(
+                  text: AppLocalizations.of(context)!.createdAt(context
+                      .read<LanguageCubit>()
+                      .formatDateTime(context, document.createdAt!)),
+                ),
+              ]
+            ]),
+      );
 }

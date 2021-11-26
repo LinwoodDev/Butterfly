@@ -16,7 +16,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     while (await hasDocument(name)) {
       name = '${encodedName}_${++counter}';
     }
-    var file = File('${(await getDirectory()).path}/$name.json');
+    var file = File('${(await getDirectory()).path}/$name.bfly');
     file = await file.create(recursive: true);
     await file.writeAsString(json.encode(document.toJson()));
     return AppDocumentFile(file.path, document.toJson());
@@ -25,14 +25,14 @@ class IODocumentFileSystem extends DocumentFileSystem {
   @override
   Future<void> deleteDocument(String path) async {
     var name = encodeFileName(path);
-    var file = File('${(await getDirectory()).path}/$name.json');
+    var file = File('${(await getDirectory()).path}/$name.bfly');
     await file.delete();
   }
 
   @override
   Future<AppDocumentFile?> getDocument(String path) async {
     var name = encodeFileName(path);
-    var file = File('${(await getDirectory()).path}/$name.json');
+    var file = File('${(await getDirectory()).path}/$name.bfly');
     if (!await file.exists()) return null;
 
     var json = jsonDecode(await file.readAsString());
@@ -45,7 +45,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     var files = await dir
         .list()
         .where((event) => event is File)
-        .where((event) => event.path.endsWith('.json'))
+        .where((event) => event.path.endsWith('.bfly'))
         .map((event) {
           // Ignore FormatException on decode
           try {
@@ -68,14 +68,14 @@ class IODocumentFileSystem extends DocumentFileSystem {
   @override
   Future<bool> hasDocument(String path) async {
     var name = encodeFileName(path);
-    return File('${(await getDirectory()).path}/$name.json').exists();
+    return File('${(await getDirectory()).path}/$name.bfly').exists();
   }
 
   @override
   Future<AppDocumentFile> updateDocument(
       String path, AppDocument document) async {
     var name = encodeFileName(document.name);
-    var file = File('${(await getDirectory()).path}/$name.json');
+    var file = File('${(await getDirectory()).path}/$name.bfly');
     if (!(await file.exists())) {
       file.create(recursive: true);
     }

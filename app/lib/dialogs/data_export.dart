@@ -42,14 +42,15 @@ class ExportDialog extends StatelessWidget {
             ListTile(
                 onTap: () {
                   FilePicker.platform.saveFile(
-                      fileName: 'butterfly.json',
+                      fileName: 'butterfly.bfly',
                       type: FileType.custom,
-                      allowedExtensions: ['json']).then((value) {
+                      allowedExtensions: ['json', 'bfly']).then((value) {
                     if (value == null) {
                       return;
                     }
                     var fileName = value;
-                    if (!fileName.endsWith('.json')) fileName += '.json';
+                    if (!fileName.endsWith('.bfly') &&
+                        !fileName.endsWith('.json')) fileName += '.bfly';
                     var file = File(fileName);
                     void write() {
                       file.writeAsStringSync(data);
