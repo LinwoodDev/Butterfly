@@ -46,7 +46,7 @@
     "space": "Espace libre",
     "background": "Arrière-plan",
     "box": "Boîte",
-    "locale": "Locale",
+    "locale": "Langue",
     "english": "Anglais",
     "french": "Français",
     "german": "Allemand",
@@ -128,5 +128,23 @@
     "behaviors": "Comportements",
     "documentDirectory": "Répertoire des documents",
     "defaultPath": "Chemin par défaut",
-    "dateFormat": "Format de la date"
+    "dateFormat": "Format de la date",
+    "updatedAt": "Mis à jour le : {dateTime}",
+    "@updatedAt": {
+        "placeholders": {
+            "dateTime": {
+                "type": "String",
+                "example": "2021-01-01 12:00"
+            }
+        }
+    },
+    "createdAt": "Créé le : {dateTime}",
+    "@createdAt": {
+        "placeholders": {
+            "dateTime": {
+                "type": "String",
+                "example": "2021-01-01 12:00"
+            }
+        }
+    }
 }

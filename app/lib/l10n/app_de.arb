@@ -46,11 +46,11 @@
     "space": "Raum",
     "background": "Hintergrund",
     "box": "Box",
-    "locale": "Lokal",
+    "locale": "Sprache",
     "english": "Englisch",
     "french": "Französisch",
     "german": "Deutsch",
-    "defaultLocale": "Standard-Gebietsschema",
+    "defaultLocale": "Standardsprache",
     "information": "Informationen",
     "license": "Lizenz",
     "imprint": "Impressum",
@@ -128,5 +128,23 @@
     "behaviors": "Verhalten",
     "documentDirectory": "Dokumentenverzeichnis",
     "defaultPath": "Standardpfad",
-    "dateFormat": "Datumsformat"
+    "dateFormat": "Datumsformat",
+    "updatedAt": "Aktualisiert am: {dateTime}",
+    "@updatedAt": {
+        "placeholders": {
+            "dateTime": {
+                "type": "String",
+                "example": "2021-01-01 12:00"
+            }
+        }
+    },
+    "createdAt": "Erstellt am: {dateTime}",
+    "@createdAt": {
+        "placeholders": {
+            "dateTime": {
+                "type": "String",
+                "example": "2021-01-01 12:00"
+            }
+        }
+    }
 }
