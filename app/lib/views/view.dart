@@ -67,7 +67,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
             child: SizedBox.expand(child:
                 ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
               List<ElementLayer> rayCast(Offset offset) {
-                return state.document.content
+                return state.document.content.reversed
                     .where((element) => element.hit(offset))
                     .toList();
               }
