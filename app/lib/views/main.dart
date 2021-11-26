@@ -401,15 +401,22 @@ class WindowButtons extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              icon: const Icon(PhosphorIcons.minusLight, size: 16),
+              icon: const Icon(PhosphorIcons.minusLight),
+              iconSize: 16,
+              splashRadius: 20,
               onPressed: () => appWindow.minimize(),
             ),
             IconButton(
-              icon: const Icon(PhosphorIcons.squareLight, size: 16),
+              icon: const Icon(PhosphorIcons.squareLight),
+              iconSize: 16,
+              splashRadius: 20,
               onPressed: () => appWindow.maximizeOrRestore(),
             ),
             IconButton(
-              icon: const Icon(PhosphorIcons.xLight, size: 16),
+              icon: const Icon(PhosphorIcons.xLight),
+              hoverColor: Colors.red,
+              iconSize: 16,
+              splashRadius: 20,
               onPressed: () => appWindow.close(),
             )
           ],
