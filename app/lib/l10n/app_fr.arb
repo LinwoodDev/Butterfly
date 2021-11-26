@@ -46,7 +46,7 @@
     "space": "Espace libre",
     "background": "Arrière-plan",
     "box": "Boîte",
-    "locale": "Locale",
+    "locale": "Langue",
     "english": "Anglais",
     "french": "Français",
     "german": "Allemand",
@@ -129,7 +129,7 @@
     "documentDirectory": "Répertoire des documents",
     "defaultPath": "Chemin par défaut",
     "dateFormat": "Format de la date",
-    "updatedAt": "Updated at: {dateTime}",
+    "updatedAt": "Mis à jour le : {dateTime}",
     "@updatedAt": {
         "placeholders": {
             "dateTime": {
@@ -138,7 +138,7 @@
             }
         }
     },
-    "createdAt": "Created at: {dateTime}",
+    "createdAt": "Créé le : {dateTime}",
     "@createdAt": {
         "placeholders": {
             "dateTime": {
