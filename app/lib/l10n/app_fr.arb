@@ -146,5 +146,7 @@
                 "example": "2021-01-01 12:00"
             }
         }
-    }
+    },
+    "rename": "Rename",
+    "duplicate": "Duplicate"
 }
