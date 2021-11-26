@@ -74,10 +74,10 @@ class IODocumentFileSystem extends DocumentFileSystem {
   @override
   Future<AppDocumentFile> updateDocument(
       String path, AppDocument document) async {
-    var name = encodeFileName(document.name);
+    var name = encodeFileName(path);
     var file = File('${(await getDirectory()).path}/$name.bfly');
     if (!(await file.exists())) {
-      file.create(recursive: true);
+      await file.create(recursive: true);
     }
     await file.writeAsString(jsonEncode(document.toJson()));
 

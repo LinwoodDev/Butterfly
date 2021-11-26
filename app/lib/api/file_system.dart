@@ -22,6 +22,13 @@ abstract class DocumentFileSystem {
 
   Future<AppDocumentFile> importDocument(AppDocument document);
 
+  Future<AppDocumentFile?> renameDocument(String path, String newName) async {
+    var document = await getDocument(path).then((value) => value?.load());
+    if (document == null || await hasDocument(newName)) return null;
+    await deleteDocument(path);
+    return updateDocument(newName, document);
+  }
+
   static DocumentFileSystem fromPlatform() {
     if (kIsWeb) {
       return WebDocumentFileSystem();

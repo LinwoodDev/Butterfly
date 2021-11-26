@@ -125,17 +125,59 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
         itemBuilder: (context, index) {
           var document = _documents[index];
           return ListTile(
-              title: Text(document.name),
-              subtitle: _buildRichText(document),
-              onTap: () => _openDocument(document.path),
-              trailing: IconButton(
-                icon: const Icon(PhosphorIcons.trashLight),
-                onPressed: () => _deleteDialog(document.path),
-              ));
+            title: Text(document.name),
+            subtitle: _buildRichText(document),
+            onTap: () => _openDocument(document.path),
+            trailing: _buildPopupMenu(document),
+          );
         },
       );
 
   void _openDocument(String path) => Navigator.of(context).pop(path);
+
+  void _renameDialog(String path) {
+    var _nameController = TextEditingController(text: path);
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(AppLocalizations.of(context)!.rename),
+              content: TextFormField(
+                decoration: InputDecoration(
+                    filled: true,
+                    labelText: AppLocalizations.of(context)!.name),
+                validator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return AppLocalizations.of(context)!.shouldNotEmpty;
+                  }
+                  return null;
+                },
+                controller: _nameController,
+                autofocus: true,
+              ),
+              actions: [
+                TextButton(
+                  child: Text(AppLocalizations.of(context)!.cancel),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                TextButton(
+                  child: Text(AppLocalizations.of(context)!.rename),
+                  onPressed: () async {
+                    if (_nameController.text != path) {
+                      var document = await _fileSystem.renameDocument(
+                          path, _nameController.text);
+                      var state = widget.bloc.state as DocumentLoadSuccess;
+                      if (document != null && state.path == path) {
+                        widget.bloc.clearHistory();
+                        widget.bloc.emit(state.copyWith(path: document.path));
+                      }
+                      loadDocuments();
+                    }
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ));
+  }
 
   void _deleteDialog(String path) => showDialog(
       context: context,
@@ -168,66 +210,120 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   children: List.generate(_documents.length, (index) {
                     var document = _documents[index];
                     return Card(
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12))),
-                      margin: const EdgeInsets.all(5),
-                      child: Column(
-                        children: [
-                          InkWell(
-                              borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(12)),
-                              onTap: () => _openDocument(document.path),
-                              child: Container(
-                                  width: 300,
-                                  decoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(32)),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(12))),
+                        margin: const EdgeInsets.all(5),
+                        child: InkWell(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                            onTap: () => _openDocument(document.path),
+                            child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Container(
+                                          width: 300,
+                                          decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(32)),
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 10),
+                                          child: Column(children: [
+                                            Text(document.name,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6),
+                                          ])),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: _buildRichText(document),
+                                      ),
+                                    ],
                                   ),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  child: Column(children: [
-                                    Text(document.name,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6),
-                                    _buildRichText(document)
-                                  ]))),
-                          IconButton(
-                              icon: const Icon(PhosphorIcons.trashLight),
-                              onPressed: () => _deleteDialog(document.path))
-                        ],
-                      ),
-                    );
+                                  _buildPopupMenu(document)
+                                ])));
                   })))));
 
-  RichText _buildRichText(AppDocumentFile document) => RichText(
+  Widget _buildPopupMenu(AppDocumentFile file) => PopupMenuButton(
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            child: ListTile(
+              leading: const Icon(PhosphorIcons.folderOpenLight),
+              title: Text(AppLocalizations.of(context)!.open),
+              onTap: () {
+                Navigator.of(context).pop();
+                _openDocument(file.path);
+              },
+            ),
+            padding: EdgeInsets.zero,
+          ),
+          PopupMenuItem(
+            child: ListTile(
+                leading: const Icon(PhosphorIcons.copyLight),
+                title: Text(AppLocalizations.of(context)!.duplicate),
+                onTap: () async {
+                  Navigator.of(context).pop();
+                  await _fileSystem.importDocument(file.load());
+                  loadDocuments();
+                }),
+            padding: EdgeInsets.zero,
+          ),
+          PopupMenuItem(
+            child: ListTile(
+                leading: const Icon(PhosphorIcons.textTLight),
+                title: Text(AppLocalizations.of(context)!.rename),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _renameDialog(file.path);
+                }),
+            padding: EdgeInsets.zero,
+          ),
+          PopupMenuItem(
+            child: ListTile(
+              leading: const Icon(PhosphorIcons.trashLight),
+              title: Text(AppLocalizations.of(context)!.delete),
+              onTap: () {
+                Navigator.of(context).pop();
+                _deleteDialog(file.path);
+              },
+            ),
+            padding: EdgeInsets.zero,
+          ),
+        ],
+      );
+
+  RichText _buildRichText(AppDocumentFile file) => RichText(
         text: TextSpan(
-            text: document.description,
+            text: file.description,
             style: Theme.of(context).textTheme.caption,
             children: [
               const TextSpan(
                 text: '\n',
               ),
               TextSpan(
-                text: document.path,
+                text: file.path,
               ),
               const TextSpan(
                 text: '\n',
               ),
-              if (document.updatedAt != null)
+              if (file.updatedAt != null)
                 TextSpan(
                   text: AppLocalizations.of(context)!.updatedAt(context
                       .read<LanguageCubit>()
-                      .formatDateTime(context, document.updatedAt!)),
+                      .formatDateTime(context, file.updatedAt!)),
                 ),
-              if (document.createdAt != null) ...[
+              if (file.createdAt != null) ...[
                 const TextSpan(
                   text: '\n',
                 ),
                 TextSpan(
                   text: AppLocalizations.of(context)!.createdAt(context
                       .read<LanguageCubit>()
-                      .formatDateTime(context, document.createdAt!)),
+                      .formatDateTime(context, file.createdAt!)),
                 ),
               ]
             ]),
