@@ -14,7 +14,6 @@ jobs:
           ref: develop
       - name: Setup git
         run: |
-          // Get current date time formatted in yyy-mm-dd
           BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
           [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
           BUTTERFLY_VERSION=${BASH_REMATCH[1]}
