@@ -57,7 +57,7 @@
     "privacypolicy": "Datenschutzerklärung",
     "source": "Quelle",
     "documentation": "Dokumentation",
-    "changelog": "Changelog",
+    "changelog": "Änderungsverlauf",
     "existOverride": "Dieses Element existiert bereits. Überschreiben?",
     "color": "Farbe",
     "description": "Beschreibung",
@@ -147,6 +147,6 @@
             }
         }
     },
-    "rename": "Rename",
+    "rename": "Umbenennen",
     "duplicate": "Duplicate"
 }
