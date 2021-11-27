@@ -66,6 +66,13 @@ module.exports = {
               label: 'Contribution guide',
               href: 'https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md',
             },
+            {
+              html: `
+                <a href="https://vercel.com?utm_source=Linwood&utm_campaign=oss" target="_blank" rel="noreferrer noopener" aria-label="Deploys by Netlify">
+                  <img src="/img/powered-by-vercel.svg" alt="Deploys by Netlify" />
+                </a>
+              `,
+            },
           ],
         },
         {
@@ -95,6 +102,12 @@ module.exports = {
           ],
         }
       ],
+      logo: {
+        alt: 'Linwood Logo',
+        src: 'https://raw.githubusercontent.com/LinwoodCloud/website/main/public/Linwood.png',
+        width: 100,
+        href: 'https://linwood.dev',
+      },
       copyright: `Copyright © ${new Date().getFullYear()} LinwoodCloud.`,
     },
   },
