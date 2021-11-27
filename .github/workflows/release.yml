@@ -20,6 +20,8 @@ jobs:
           BUTTERFLY_BUILD_NUMBER=${BASH_REMATCH[2]}
           BUTTERFLY_RELEASE_DATE=$(date +%Y-%m-%d)
           CURRENT_CHANGELOG=$(cat fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt)
+          git config --global user.email "actions@github.com"
+          git config --global user.name "Actions"
       - name: Update changelog
         run: |
           INPUT_CHANGELOG="<\!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${CURRENT_CHANGELOG}"
