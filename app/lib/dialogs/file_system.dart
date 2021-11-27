@@ -43,7 +43,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
       value: widget.bloc,
       child: Dialog(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+          constraints: const BoxConstraints(maxWidth: 1000, maxHeight: 800),
           child: Scaffold(
             appBar: AppBar(
                 title: Text(AppLocalizations.of(context)!.open),
@@ -203,13 +203,14 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
   Widget _buildGridView() => SingleChildScrollView(
       child: Align(
           alignment: Alignment.topCenter,
-          child: ConstrainedBox(
-              constraints: const BoxConstraints(minWidth: 100, maxWidth: 1000),
-              child: Wrap(
-                  alignment: WrapAlignment.center,
-                  children: List.generate(_documents.length, (index) {
-                    var document = _documents[index];
-                    return Card(
+          child: Wrap(
+              alignment: WrapAlignment.center,
+              children: List.generate(_documents.length, (index) {
+                var document = _documents[index];
+                return ConstrainedBox(
+                    constraints:
+                        const BoxConstraints(minWidth: 300, maxWidth: 300),
+                    child: Card(
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(12))),
@@ -222,31 +223,33 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    children: [
-                                      Container(
-                                          width: 300,
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(32)),
-                                          ),
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 10),
-                                          child: Column(children: [
-                                            Text(document.name,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline6),
-                                          ])),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: _buildRichText(document),
-                                      ),
-                                    ],
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            width: 300,
+                                            decoration: const BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(32)),
+                                            ),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 10),
+                                            child: Column(children: [
+                                              Text(document.name,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline6),
+                                            ])),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: _buildRichText(document),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   _buildPopupMenu(document)
-                                ])));
-                  })))));
+                                ]))));
+              }))));
 
   Widget _buildPopupMenu(AppDocumentFile file) => PopupMenuButton(
         itemBuilder: (context) => [
