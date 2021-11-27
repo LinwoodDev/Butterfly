@@ -4,11 +4,6 @@ on:
   workflow_dispatch:
     branches:
       - develop
-    inputs:
-      changelog:
-        type: string
-        description: Changelog for the release
-        required: true
 jobs:
   rebase:
     runs-on: ubuntu-latest
@@ -25,13 +20,12 @@ jobs:
           BUTTERFLY_VERSION=${BASH_REMATCH[1]}
           BUTTERFLY_BUILD_NUMBER=${BASH_REMATCH[2]}
           BUTTERFLY_RELEASE_DATE=$(date +%Y-%m-%d)
+          CURRENT_CHANGELOG=$(cat fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt)
       - name: Update changelog
         run: |
-          INPUT_CHANGELOG="<!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${ github.event.inputs.changelog }"
+          INPUT_CHANGELOG="<!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${ CURRENT_CHANGELOG }"
           sed -i "s/<\!--ENTER CHANGELOG HERE-->/${INPUT_CHANGELOG}/g" docs/community/CHANGELOG.md
-          echo "${INPUT_CHANGELOG}" > fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt
           git add docs/community/CHANGELOG.md
-          git add fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt
           git commit -m "Update CHANGELOG.md for ${BUTTERFLY_VERSION}"
           git push origin develop
       - name: Merge develop into main
@@ -48,7 +42,7 @@ jobs:
         with:
           tag_name: v${BUTTERFLY_VERSION}
           name: v${BUTTERFLY_VERSION}
-          body: ${github.event.inputs.changelog}
+          body: ${CURRENT_CHANGELOG}
 
 
 
