@@ -22,7 +22,7 @@ jobs:
           CURRENT_CHANGELOG=$(cat fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt)
       - name: Update changelog
         run: |
-          INPUT_CHANGELOG="<!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${ CURRENT_CHANGELOG }"
+          INPUT_CHANGELOG="<\!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${CURRENT_CHANGELOG}"
           sed -i "s/<\!--ENTER CHANGELOG HERE-->/${INPUT_CHANGELOG}/g" docs/community/CHANGELOG.md
           git add docs/community/CHANGELOG.md
           git commit -m "Update CHANGELOG.md for ${BUTTERFLY_VERSION}"
