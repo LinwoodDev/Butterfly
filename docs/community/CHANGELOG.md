@@ -6,9 +6,15 @@ slug: /changelog
 
 <!--ENTER CHANGELOG HERE-->
 
-##  ()
+## 1.0.0-rc.4 (2021-11-27)
 
-
+* Add file system with files and folders native and indexeddb in web ([#53](https://github.com/LinwoodCloud/butterfly/pull/53))
+  * Custom save location
+  * Added file names
+* Add behavior options for multi gestures ([#45](https://github.com/LinwoodCloud/butterfly/issues/45))
+* Add version to information dialog ([#50](https://github.com/LinwoodCloud/butterfly/issues/50))
+* Fixing dialogs will opened multiple times ([#47](https://github.com/LinwoodCloud/butterfly/issues/47))
+* Improve performance for images ([#35](https://github.com/LinwoodCloud/butterfly/issues/35))
 
 ## 1.0.0-rc.3 (2021-11-14)
 
