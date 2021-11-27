@@ -57,7 +57,7 @@
     "privacypolicy": "Datenschutzerklärung",
     "source": "Quelle",
     "documentation": "Dokumentation",
-    "changelog": "Changelog",
+    "changelog": "Änderungsverlauf",
     "existOverride": "Dieses Element existiert bereits. Überschreiben?",
     "color": "Farbe",
     "description": "Beschreibung",
@@ -146,5 +146,7 @@
                 "example": "2021-01-01 12:00"
             }
         }
-    }
+    },
+    "rename": "Umbenennen",
+    "duplicate": "Duplizieren"
 }
