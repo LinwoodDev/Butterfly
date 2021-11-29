@@ -13,21 +13,22 @@ jobs:
           fetch-depth: 0
           ref: develop
       - name: Setup git
+        id: setup
         run: |
-          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
+          echo "BUTTERFLY_VERSION_REGEX=\"version:\s(.+)\+(.+)\"" >> $GITHUB_ENV
           [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
-          BUTTERFLY_VERSION=${BASH_REMATCH[1]}
-          BUTTERFLY_BUILD_NUMBER=${BASH_REMATCH[2]}
-          BUTTERFLY_RELEASE_DATE=$(date +%Y-%m-%d)
-          CURRENT_CHANGELOG=$(cat fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt)
+          echo "BUTTERFLY_VERSION=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+          echo "BUTTERFLY_BUILD_NUMBER=${BASH_REMATCH[2]}" >> $GITHUB_ENV
+          echo "BUTTERFLY_RELEASE_DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
+          echo "CURRENT_CHANGELOG=$(cat fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt)" >> $GITHUB_ENV
           git config --global user.email "actions@github.com"
           git config --global user.name "Actions"
       - name: Update changelog
         run: |
-          INPUT_CHANGELOG="<\!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${CURRENT_CHANGELOG}"
+          INPUT_CHANGELOG="<\!--ENTER CHANGELOG HERE-->\n\n## ${env.BUTTERFLY_VERSION} (${env.BUTTERFLY_RELEASE_DATE})\n\n${env.CURRENT_CHANGELOG}"
           sed -i "s/<\!--ENTER CHANGELOG HERE-->/${INPUT_CHANGELOG}/g" docs/community/CHANGELOG.md
           git add docs/community/CHANGELOG.md
-          git commit -m "Update CHANGELOG.md for ${BUTTERFLY_VERSION}"
+          git commit -m "Update CHANGELOG.md for ${env.BUTTERFLY_VERSION}"
           git push origin develop
       - name: Merge develop into main
         run: |
@@ -36,14 +37,14 @@ jobs:
           git push origin main
       - name: Create tag
         run: |
-          git tag -a v${BUTTERFLY_VERSION} -m "Release ${BUTTERFLY_VERSION}"
-          git push origin v${BUTTERFLY_VERSION}
+          git tag -a v${env.BUTTERFLY_VERSION} -m "Release ${env.BUTTERFLY_VERSION}"
+          git push origin v${env.BUTTERFLY_VERSION}
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${BUTTERFLY_VERSION}
-          name: v${BUTTERFLY_VERSION}
-          body: ${CURRENT_CHANGELOG}
+          tag_name: v${{ env.BUTTERFLY_VERSION }}
+          name: v${{ env.BUTTERFLY_VERSION }}
+          body: ${{ env.CURRENT_CHANGELOG }}
 
 
 
