@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -10,72 +11,57 @@ import 'file_system.dart';
 class IODocumentFileSystem extends DocumentFileSystem {
   @override
   Future<AppDocumentFile> importDocument(AppDocument document) async {
-    var encodedName = encodeFileName(document.name);
+    var encodedName = convertNameToFile(document.name);
     var name = encodedName;
     var counter = 1;
-    while (await hasDocument(name)) {
+    while (await hasAsset(name)) {
       name = '${encodedName}_${++counter}';
     }
-    var file = File('${(await getDirectory()).path}/$name.bfly');
+    var file = File('${(await getDirectory())}/$name');
     file = await file.create(recursive: true);
     await file.writeAsString(json.encode(document.toJson()));
     return AppDocumentFile(file.path, document.toJson());
   }
 
   @override
-  Future<void> deleteDocument(String path) async {
-    var name = encodeFileName(path);
-    var file = File('${(await getDirectory()).path}/$name.bfly');
+  Future<void> deleteAsset(String path) async {
+    var absolutePath = await getAbsolutePath(path);
+    var file = File(absolutePath);
     await file.delete();
   }
 
   @override
-  Future<AppDocumentFile?> getDocument(String path) async {
-    var name = encodeFileName(path);
-    var file = File('${(await getDirectory()).path}/$name.bfly');
-    if (!await file.exists()) return null;
-
-    var json = jsonDecode(await file.readAsString());
-    return AppDocumentFile(path, AppDocument.fromJson(json).toJson());
+  Future<AppDocumentAsset?> getAsset(String path) async {
+    var absolutePath = await getAbsolutePath(path);
+    // Test if path is a file
+    var file = File(absolutePath);
+    // Test if path is a directory
+    var directory = Directory(absolutePath);
+    if (await file.exists()) {
+      var json = await file.readAsString();
+      return AppDocumentFile(path, jsonDecode(json));
+    } else if (await directory.exists()) {
+      var files = await directory.list().toList();
+      var assets = <AppDocumentAsset>[];
+      for (var file in files) {
+        var asset = await getAsset(path + '/' + file.path.split('/').last);
+        if (asset != null) {
+          assets.add(asset);
+        }
+      }
+      return AppDocumentDirectory(path, assets);
+    }
   }
 
   @override
-  Future<List<AppDocumentFile>> getDocuments() async {
-    var dir = await getDirectory();
-    var files = await dir
-        .list()
-        .where((event) => event is File)
-        .where((event) => event.path.endsWith('.bfly'))
-        .map((event) {
-          // Ignore FormatException on decode
-          try {
-            var json = jsonDecode((event as File).readAsStringSync());
-            return AppDocumentFile(
-                event.path
-                    .substring(dir.path.length + 1, event.path.length - 5),
-                json);
-          } catch (e) {
-            return null;
-          }
-        })
-        .where((event) => event != null)
-        .map((event) => event!)
-        .toList();
-
-    return files;
+  Future<bool> hasAsset(String path) async {
+    return File(await getAbsolutePath(path)).exists();
   }
 
   @override
-  Future<bool> hasDocument(String path) async {
-    var name = encodeFileName(path);
-    return File('${(await getDirectory()).path}/$name.bfly').exists();
-  }
-
-  @override
-  Future<AppDocumentFile> updateDocument(
-      String path, AppDocument document) async {
-    var name = encodeFileName(path);
-    var file = File('${(await getDirectory()).path}/$name.bfly');
+  Future<AppDocumentFile> updateDocument(String path,
+      AppDocument document) async {
+    var file = File(await getAbsolutePath(path));
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
@@ -84,7 +70,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
     return AppDocumentFile(path, document.toJson());
   }
 
-  Future<Directory> getDirectory() async {
+  @override
+  FutureOr<String> getDirectory() async {
     var prefs = await SharedPreferences.getInstance();
     String? path;
     if (prefs.containsKey('document_path')) {
@@ -99,6 +86,25 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (!await directory.exists()) {
       await directory.create();
     }
-    return directory;
+    return directory.path;
+  }
+
+  @override
+  Future<AppDocumentDirectory> createDirectory(String name) async {
+    var dir = Directory(await getAbsolutePath(name));
+    if (!(await dir.exists())) {
+      await dir.create(recursive: true);
+    }
+    var assets = <AppDocumentAsset>[];
+    var files = await dir.list().toList();
+    for (var file in files) {
+      var asset = await getAsset(name + '/' + file.path
+          .split('/')
+          .last);
+      if (asset != null) {
+        assets.add(asset);
+      }
+    }
+    return AppDocumentDirectory(name, assets);
   }
 }

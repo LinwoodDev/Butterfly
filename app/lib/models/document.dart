@@ -17,12 +17,17 @@ import 'elements/pen.dart';
 import 'waypoint.dart';
 
 @immutable
-class AppDocumentFile {
+abstract class AppDocumentAsset {
   final String path;
 
+  const AppDocumentAsset(this.path);
+}
+
+@immutable
+class AppDocumentFile extends AppDocumentAsset {
   final Map<String, dynamic> json;
 
-  const AppDocumentFile(this.path, this.json);
+  const AppDocumentFile(String path, this.json) : super(path);
 
   int get fileVersion => json['fileVersion'];
 
@@ -37,6 +42,13 @@ class AppDocumentFile {
       json['createdAt'] == null ? null : DateTime.tryParse(json['createdAt']);
 
   AppDocument load() => AppDocument.fromJson(Map<String, dynamic>.from(json));
+}
+
+@immutable
+class AppDocumentDirectory extends AppDocumentAsset {
+  final List<AppDocumentAsset> assets;
+
+  const AppDocumentDirectory(String path, this.assets) : super(path);
 }
 
 @immutable

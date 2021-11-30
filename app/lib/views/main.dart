@@ -57,9 +57,8 @@ class _ProjectPageState extends State<ProjectPage> {
     SharedPreferences.getInstance().then((value) async {
       AppDocument? document;
       if (widget.path != null) {
-        await fileSystem
-            .getDocument(widget.path!)
-            .then((value) => document = value?.load());
+        await fileSystem.getAsset(widget.path!).then((value) =>
+            document = value is AppDocumentFile ? value.load() : null);
       }
       document ??= AppDocument(
           name:

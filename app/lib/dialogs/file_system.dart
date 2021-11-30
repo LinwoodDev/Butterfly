@@ -20,7 +20,7 @@ class FileSystemDialog extends StatefulWidget {
 }
 
 class _FileSystemDialogState extends State<FileSystemDialog> {
-  List<AppDocumentFile> _documents = [];
+  List<AppDocumentAsset> _documents = [];
   bool gridView = true;
   late DocumentFileSystem _fileSystem;
   final GlobalKey<FormState> _createFormKey = GlobalKey();
@@ -33,7 +33,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
   }
 
   Future<void> loadDocuments() async {
-    var documents = await _fileSystem.getDocuments();
+    var documents =
+        await _fileSystem.getRootDirectory().then((value) => value.assets);
     setState(() => _documents = documents);
   }
 
@@ -124,12 +125,16 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
         itemCount: _documents.length,
         itemBuilder: (context, index) {
           var document = _documents[index];
-          return ListTile(
-            title: Text(document.name),
-            subtitle: _buildRichText(document),
-            onTap: () => _openDocument(document.path),
-            trailing: _buildPopupMenu(document),
-          );
+          if (document is AppDocumentFile) {
+            return ListTile(
+              title: Text(document.name),
+              subtitle: _buildRichText(document),
+              onTap: () => _openDocument(document.path),
+              trailing: _buildPopupMenu(document),
+            );
+          } else {
+            return Container();
+          }
         },
       );
 
@@ -163,7 +168,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   child: Text(AppLocalizations.of(context)!.rename),
                   onPressed: () async {
                     if (_nameController.text != path) {
-                      var document = await _fileSystem.renameDocument(
+                      var document = await _fileSystem.renameAsset(
                           path, _nameController.text);
                       var state = widget.bloc.state as DocumentLoadSuccess;
                       if (document != null && state.path == path) {
@@ -192,7 +197,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
               TextButton(
                 child: Text(AppLocalizations.of(context)!.yes),
                 onPressed: () {
-                  _fileSystem.deleteDocument(path);
+                  _fileSystem.deleteAsset(path);
                   loadDocuments();
                   Navigator.of(context).pop();
                 },
@@ -207,6 +212,9 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
               alignment: WrapAlignment.center,
               children: List.generate(_documents.length, (index) {
                 var document = _documents[index];
+                if (document is! AppDocumentFile) {
+                  return Container();
+                }
                 return ConstrainedBox(
                     constraints:
                         const BoxConstraints(minWidth: 300, maxWidth: 300),
