@@ -153,7 +153,7 @@ class ViewPainter extends CustomPainter {
         }
       }
     }
-    canvas.save();
+    canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     document.content

@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:butterfly/api/open_image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/models/elements/element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,7 @@ class ImageExportDialog extends StatefulWidget {
 }
 
 class _ImageExportDialogState extends State<ImageExportDialog> {
+  Map<ElementLayer, ui.Image>? images;
   final TextEditingController _xController = TextEditingController(text: '0');
 
   final TextEditingController _yController = TextEditingController(text: '0');
@@ -47,10 +49,12 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   }
 
   Future<void> _regeneratePreviewImage() async {
+    if (_regeneratingFuture != null) return;
     var imageFuture = generateImage();
     _regeneratingFuture =
         _regeneratingFuture?.then((value) => imageFuture) ?? imageFuture;
     var image = await _regeneratingFuture;
+    _regeneratingFuture = null;
     if (mounted) setState(() => _previewImage = image);
   }
 
@@ -58,11 +62,11 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
     var recorder = ui.PictureRecorder();
     var canvas = Canvas(recorder);
     var document = (widget.bloc.state as DocumentLoadSuccess).document;
-    var images = await loadImages(document);
+    images ??= await loadImages(document);
     var painter = ViewPainter(
         (widget.bloc.state as DocumentLoadSuccess).document,
         renderBackground: _renderBackground,
-        images: images,
+        images: images!,
         transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), size));
     painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
     var picture = recorder.endRecording();
