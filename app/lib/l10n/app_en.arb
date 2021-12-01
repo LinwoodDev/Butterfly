@@ -20,7 +20,7 @@
   "resetZoom": "Reset zoom",
   "name": "Name",
   "strokeWidth": "Stroke width",
-  "canDeleteEraser": "Can delete eraser?",
+  "includeEraser": "Include eraser?",
   "strokeMultiplier": "Stroke multiplier",
   "pen": "Pen",
   "eraser": "Eraser",
@@ -148,5 +148,6 @@
     }
   },
   "rename": "Rename",
-  "duplicate": "Duplicate"
+  "duplicate": "Duplicate",
+  "hand": "Hand"
 }

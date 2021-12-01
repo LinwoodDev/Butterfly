@@ -3,6 +3,7 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/models/properties/hand.dart';
 import 'package:butterfly/models/waypoint.dart';
 import 'package:equatable/equatable.dart';
 import 'package:replay_bloc/replay_bloc.dart';
@@ -134,6 +135,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             document: current.document.copyWith(
                 waypoints: List<Waypoint>.from(current.document.waypoints)
                   ..removeAt(event.index))));
+      }
+    });
+    on<HandPropertyChanged>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        _saveDocument(current.copyWith(
+            document: current.document.copyWith(handProperty: event.property)));
       }
     });
   }

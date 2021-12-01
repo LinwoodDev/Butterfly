@@ -7,6 +7,7 @@ import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/painters/path_eraser.dart';
 import 'package:butterfly/models/painters/pen.dart';
 import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/models/properties/hand.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -51,6 +52,7 @@ class AppDocument {
   final List<Waypoint> waypoints;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final HandProperty handProperty;
 
   const AppDocument(
       {required this.name,
@@ -60,6 +62,7 @@ class AppDocument {
       this.palettes = const [],
       this.waypoints = const [],
       required this.createdAt,
+      this.handProperty = const HandProperty(),
       DateTime? updatedAt,
       this.painters = const [
         PenPainter(),
@@ -97,6 +100,7 @@ class AppDocument {
         .map((e) => Map<String, dynamic>.from(e))
         .map((e) => Waypoint.fromJson(e))
         .toList();
+    var handProperty = HandProperty.fromJson(json['handProperty'] ?? {});
     var painters = List<dynamic>.from(json['painters'] ?? [])
         .map((e) => Map<String, dynamic>.from(e))
         .map<Painter>((e) {
@@ -139,7 +143,8 @@ class AppDocument {
         description: description,
         painters: painters,
         palettes: palettes,
-        waypoints: waypoints);
+        waypoints: waypoints,
+        handProperty: handProperty);
   }
 
   Map<String, dynamic> toJson() => {
@@ -154,7 +159,8 @@ class AppDocument {
         'background': background?.toJson(),
         'fileVersion': GetIt.I.get<int>(instanceName: 'fileVersion'),
         'createdAt': createdAt.toIso8601String(),
-        'updatedAt': updatedAt.toIso8601String()
+        'updatedAt': updatedAt.toIso8601String(),
+        'handProperty': handProperty
       };
 
   AppDocument copyWith(
@@ -167,7 +173,8 @@ class AppDocument {
       List<Waypoint>? waypoints,
       bool removeBackground = false,
       DateTime? createdAt,
-      DateTime? updatedAt}) {
+      DateTime? updatedAt,
+      HandProperty? handProperty}) {
     return AppDocument(
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
@@ -177,6 +184,7 @@ class AppDocument {
         painters: painters ?? this.painters,
         palettes: palettes ?? this.palettes,
         waypoints: waypoints ?? this.waypoints,
-        background: removeBackground ? null : (background ?? this.background));
+        background: removeBackground ? null : (background ?? this.background),
+        handProperty: handProperty ?? this.handProperty);
   }
 }

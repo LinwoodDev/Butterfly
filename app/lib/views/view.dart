@@ -69,6 +69,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
               List<ElementLayer> rayCast(Offset offset) {
                 return state.document.content.reversed
                     .where((element) => element.hit(offset))
+                    .where((element) =>
+                        !state.document.handProperty.includeEraser
+                            ? element is! EraserElement
+                            : true)
                     .toList();
               }
 
@@ -282,7 +286,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 .where((element) =>
                                     element is! EraserElement ||
                                     (state.currentPainter as PathEraserPainter)
-                                        .canDeleteEraser)
+                                        .includeEraser)
                                 .toList()));
                           } else if (currentLayer != null &&
                               currentLayer is PathElement) {
