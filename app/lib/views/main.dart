@@ -167,14 +167,14 @@ class _ProjectPageState extends State<ProjectPage> {
               icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               tooltip: AppLocalizations.of(context)!.undo,
               onPressed: () {
-                Actions.invoke<UndoIntent>(context, const UndoIntent());
+                Actions.maybeInvoke<UndoIntent>(context, const UndoIntent());
               },
             ),
             IconButton(
               icon: const Icon(PhosphorIcons.arrowClockwiseLight),
               tooltip: AppLocalizations.of(context)!.redo,
               onPressed: () {
-                Actions.invoke<RedoIntent>(context, const RedoIntent());
+                Actions.maybeInvoke<RedoIntent>(context, const RedoIntent());
               },
             ),
             _buildPopupMenu(),
@@ -288,7 +288,7 @@ class _ProjectPageState extends State<ProjectPage> {
                 subtitle: Text(AppLocalizations.of(context)!.ctrlKey + ' + N'),
                 onTap: () {
                   Navigator.of(context).pop();
-                  Actions.invoke<NewIntent>(context, NewIntent(context));
+                  Actions.maybeInvoke<NewIntent>(context, NewIntent(context));
                 },
               )),
           PopupMenuItem(
@@ -300,7 +300,8 @@ class _ProjectPageState extends State<ProjectPage> {
                       Text(AppLocalizations.of(context)!.ctrlKey + ' + O'),
                   onTap: () {
                     Navigator.of(context).pop();
-                    Actions.invoke<OpenIntent>(context, OpenIntent(context));
+                    Actions.maybeInvoke<OpenIntent>(
+                        context, OpenIntent(context));
                   })),
           PopupMenuItem(
               padding: EdgeInsets.zero,
@@ -310,7 +311,8 @@ class _ProjectPageState extends State<ProjectPage> {
                 subtitle: Text(AppLocalizations.of(context)!.ctrlKey + ' + I'),
                 onTap: () {
                   Navigator.of(context).pop();
-                  Actions.invoke<ImportIntent>(context, ImportIntent(context));
+                  Actions.maybeInvoke<ImportIntent>(
+                      context, ImportIntent(context));
                 },
               )),
           PopupMenuItem(
@@ -329,7 +331,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                 onTap: () async {
                                   Navigator.of(context).pop();
                                   Navigator.of(context).pop();
-                                  Actions.invoke<ExportIntent>(
+                                  Actions.maybeInvoke<ExportIntent>(
                                       context, ExportIntent(context));
                                 })),
                         PopupMenuItem(
@@ -346,7 +348,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                 onTap: () {
                                   Navigator.of(context).pop();
                                   Navigator.of(context).pop();
-                                  Actions.invoke<ImageExportIntent>(
+                                  Actions.maybeInvoke<ImageExportIntent>(
                                       context, ImageExportIntent(context));
                                 })),
                       ],
@@ -360,7 +362,7 @@ class _ProjectPageState extends State<ProjectPage> {
               child: ListTile(
                   onTap: () {
                     Navigator.of(context).pop();
-                    Actions.invoke<ProjectIntent>(
+                    Actions.maybeInvoke<ProjectIntent>(
                         context, ProjectIntent(context));
                   },
                   subtitle: Text(AppLocalizations.of(context)!.ctrlKey +
@@ -383,7 +385,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       ' + S'),
                   onTap: () {
                     Navigator.of(context).pop();
-                    Actions.invoke<SettingsIntent>(
+                    Actions.maybeInvoke<SettingsIntent>(
                         context, SettingsIntent(context));
                   }))
         ],
