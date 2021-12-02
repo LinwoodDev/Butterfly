@@ -20,7 +20,7 @@
     "resetZoom": "Réinitialiser le zoom",
     "name": "Nom",
     "strokeWidth": "Largeur du trait",
-    "canDeleteEraser": "La suppression peut être effectuée ?",
+    "includeEraser": "Include eraser?",
     "strokeMultiplier": "Multiplicateur de traits",
     "pen": "Stylo",
     "eraser": "Eraser",
@@ -148,5 +148,6 @@
         }
     },
     "rename": "Renommer",
-    "duplicate": "Dupliquer"
+    "duplicate": "Dupliquer",
+    "hand": "Hand"
 }
