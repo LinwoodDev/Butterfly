@@ -9,7 +9,7 @@ import 'package:path/path.dart' as path;
 
 abstract class DocumentFileSystem {
   Future<AppDocumentDirectory> getRootDirectory() {
-    return getAsset('') as Future<AppDocumentDirectory>;
+    return getAsset('').then((value) => value as AppDocumentDirectory);
   }
 
   Future<AppDocumentAsset?> getAsset(String path);
@@ -53,15 +53,16 @@ abstract class DocumentFileSystem {
   }
 
   FutureOr<String> getAbsolutePath(String relativePath) async {
-    var current =
-        relativePath.startsWith('/') ? relativePath : '/$relativePath';
-    var dir = await getDirectory();
-    String filePath = path.absolute(current, dir);
-    // Test if file path is in dir
-    if (!filePath.startsWith(dir)) {
-      throw Exception('File path is not in directory');
+    // Remove leading slash
+    if (relativePath.startsWith('/')) {
+      relativePath = relativePath.substring(1);
     }
-    return filePath;
+    final root = await getDirectory();
+    var absolutePath = path.join(root, relativePath);
+    if (!absolutePath.startsWith(root)) {
+      throw Exception('Path is not in root directory');
+    }
+    return absolutePath;
   }
 
   FutureOr<String> getDirectory() {

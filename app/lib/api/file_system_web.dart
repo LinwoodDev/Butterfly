@@ -92,7 +92,6 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     }
   }
 
-
   @override
   Future<bool> hasAsset(String path) async {
     var db = await _getDatabase();
@@ -104,8 +103,8 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentFile> updateDocument(String path,
-      AppDocument document) async {
+  Future<AppDocumentFile> updateDocument(
+      String path, AppDocument document) async {
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');

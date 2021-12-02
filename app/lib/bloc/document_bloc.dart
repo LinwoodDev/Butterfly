@@ -57,14 +57,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             document: current.document.copyWith(palettes: event.palette)));
       }
     });
-
-    on<ToolChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        var current = state as DocumentLoadSuccess;
-        _saveDocument(
-            current.copyWith(editMode: event.editMode ?? !current.editMode));
-      }
-    });
     on<CurrentPainterChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         _saveDocument((state as DocumentLoadSuccess)

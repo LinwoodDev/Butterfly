@@ -15,7 +15,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     var name = encodedName;
     var counter = 1;
     while (await hasAsset(name)) {
-      name = '${encodedName}_${++counter}';
+      name = convertNameToFile('${document.name}_${++counter}');
     }
     var file = File('${(await getDirectory())}/$name');
     file = await file.create(recursive: true);
@@ -59,8 +59,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentFile> updateDocument(String path,
-      AppDocument document) async {
+  Future<AppDocumentFile> updateDocument(
+      String path, AppDocument document) async {
     var file = File(await getAbsolutePath(path));
     if (!(await file.exists())) {
       await file.create(recursive: true);
@@ -98,9 +98,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     var assets = <AppDocumentAsset>[];
     var files = await dir.list().toList();
     for (var file in files) {
-      var asset = await getAsset(name + '/' + file.path
-          .split('/')
-          .last);
+      var asset = await getAsset(name + '/' + file.path.split('/').last);
       if (asset != null) {
         assets.add(asset);
       }

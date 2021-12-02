@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/language.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:flutter/material.dart';
@@ -131,6 +130,10 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
               subtitle: _buildRichText(document),
               onTap: () => _openDocument(document.path),
               trailing: _buildPopupMenu(document),
+            );
+          } else if (document is AppDocumentDirectory) {
+            return ListTile(
+              title: Text(document.path.split('/').last),
             );
           } else {
             return Container();
@@ -323,18 +326,16 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
               ),
               if (file.updatedAt != null)
                 TextSpan(
-                  text: AppLocalizations.of(context)!.updatedAt(context
-                      .read<LanguageCubit>()
-                      .formatDateTime(context, file.updatedAt!)),
+                  text:
+                      AppLocalizations.of(context)!.updatedAt(file.updatedAt!),
                 ),
               if (file.createdAt != null) ...[
                 const TextSpan(
                   text: '\n',
                 ),
                 TextSpan(
-                  text: AppLocalizations.of(context)!.createdAt(context
-                      .read<LanguageCubit>()
-                      .formatDateTime(context, file.createdAt!)),
+                  text:
+                      AppLocalizations.of(context)!.createdAt(file.createdAt!),
                 ),
               ]
             ]),
