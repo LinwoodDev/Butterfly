@@ -32,6 +32,11 @@ class IODocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<AppDocumentAsset?> getAsset(String path) async {
+    // Remove the leading slash on path
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
+
     var absolutePath = await getAbsolutePath(path);
     // Test if path is a file
     var file = File(absolutePath);
@@ -49,6 +54,12 @@ class IODocumentFileSystem extends DocumentFileSystem {
           assets.add(asset);
         }
       }
+      // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
+      assets.sort((a, b) => a is AppDocumentDirectory
+          ? -1
+          : (a as AppDocumentFile).name.compareTo(
+              b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
+
       return AppDocumentDirectory(path, assets);
     }
   }

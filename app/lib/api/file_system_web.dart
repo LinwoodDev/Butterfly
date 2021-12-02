@@ -86,6 +86,11 @@ class WebDocumentFileSystem extends DocumentFileSystem {
           }
         }
       }
+      // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
+      assets.sort((a, b) => a is AppDocumentDirectory
+          ? -1
+          : (a as AppDocumentFile).name.compareTo(
+              b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
       return AppDocumentDirectory(path, assets);
     } else if (map['type'] == 'file') {
       return AppDocumentFile(path, map);
