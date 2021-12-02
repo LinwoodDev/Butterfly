@@ -1,4 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/dialogs/hand.dart';
 import 'package:butterfly/dialogs/painters/eraser.dart';
 import 'package:butterfly/dialogs/painters/image.dart';
 import 'package:butterfly/dialogs/painters/label.dart';
@@ -62,17 +63,48 @@ class _EditToolbarState extends State<EditToolbar> {
         var painters = state.document.painters;
 
         return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: InkWell(
-                borderRadius: const BorderRadius.all(Radius.circular(32)),
-                child: Icon(PhosphorIcons.handLight,
-                    size: 32,
-                    color: state.currentPainter == null
-                        ? Theme.of(context).colorScheme.primary
-                        : null),
-                onTap: () => widget.bloc.add(const CurrentPainterChanged(null)),
-              )),
+          Tooltip(
+            message: AppLocalizations.of(context)!.hand,
+            child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: InkWell(
+                  borderRadius: const BorderRadius.all(Radius.circular(32)),
+                  child: Column(
+                    children: [
+                      Icon(PhosphorIcons.handLight,
+                          size: 32,
+                          color: state.currentPainter == null
+                              ? Theme.of(context).colorScheme.primary
+                              : null),
+                      if (state.currentPainter == null)
+                        const Icon(PhosphorIcons.caretDownLight, size: 12)
+                    ],
+                  ),
+                  onTap: () {
+                    if (state.currentPainter == null) {
+                      showGeneralDialog(
+                          context: context,
+                          transitionBuilder: (context, a1, a2, widget) {
+                            // Slide transition
+                            return SlideTransition(
+                              position: Tween<Offset>(
+                                      begin: const Offset(0, -1),
+                                      end: Offset.zero)
+                                  .animate(a1),
+                              child: widget,
+                            );
+                          },
+                          barrierDismissible: true,
+                          barrierLabel: AppLocalizations.of(context)!.close,
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  HandDialog(bloc: widget.bloc));
+                    } else {
+                      widget.bloc.add(const CurrentPainterChanged(null));
+                    }
+                  },
+                )),
+          ),
           const VerticalDivider(),
           ReorderableListView.builder(
               shrinkWrap: true,
@@ -121,6 +153,9 @@ class _EditToolbarState extends State<EditToolbar> {
                                     child: widget,
                                   );
                                 },
+                                barrierDismissible: true,
+                                barrierLabel:
+                                    AppLocalizations.of(context)!.close,
                                 pageBuilder:
                                     (context, animation, secondaryAnimation) {
                                   switch (type) {

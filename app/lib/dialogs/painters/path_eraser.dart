@@ -2,8 +2,8 @@ import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/models/painters/path_eraser.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class PathEraserPainterDialog extends StatefulWidget {
@@ -127,11 +127,11 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                               )
                             ]),
                             CheckboxListTile(
-                                value: painter.canDeleteEraser,
+                                value: painter.includeEraser,
                                 title: Text(AppLocalizations.of(context)!
-                                    .canDeleteEraser),
+                                    .includeEraser),
                                 onChanged: (value) => setState(() => painter =
-                                    painter.copyWith(canDeleteEraser: value))),
+                                    painter.copyWith(includeEraser: value))),
                           ]),
                         ),
                         const Divider(),

@@ -1,6 +1,6 @@
-import 'package:butterfly/models/waypoint.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/models/waypoint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -128,5 +128,52 @@ class _WaypointsDialogState extends State<WaypointsDialog> {
                 ],
               );
             }));
+  }
+}
+
+class WaypointSearch extends SearchDelegate {
+  final DocumentBloc bloc;
+  WaypointSearch(this.bloc);
+
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(icon: const Icon(PhosphorIcons.xLight), onPressed: () {})
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return const Icon(PhosphorIcons.magnifyingGlassLight);
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
+    throw UnimplementedError();
+  }
+
+  List<Waypoint> get waypoints {
+    var state = bloc.state;
+    if (state is! DocumentLoadSuccess) return const [];
+    return state.document.waypoints;
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    var suggestedWords =
+        waypoints.where((element) => element.name.startsWith(query)).map((e) {
+      var word = e.name;
+      var nextWord = word.substring(query.length);
+      var spaceIndex = nextWord.indexOf(' ');
+      if (spaceIndex < 0) {
+        spaceIndex = nextWord.length;
+      }
+      return word.substring(0, query.length) + nextWord;
+    }).toList();
+    return ListView.builder(
+        itemCount: suggestedWords.length,
+        itemBuilder: (context, index) =>
+            ListTile(title: Text(suggestedWords[index])));
   }
 }

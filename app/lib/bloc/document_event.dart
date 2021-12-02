@@ -121,3 +121,12 @@ class WaypointRemoved extends DocumentEvent {
   @override
   List<Object?> get props => [index];
 }
+
+class HandPropertyChanged extends DocumentEvent {
+  final HandProperty property;
+
+  const HandPropertyChanged(this.property);
+
+  @override
+  List<Object?> get props => [property];
+}
