@@ -11,17 +11,22 @@ import 'file_system.dart';
 
 class IODocumentFileSystem extends DocumentFileSystem {
   @override
-  Future<AppDocumentFile> importDocument(AppDocument document) async {
+  Future<AppDocumentFile> importDocument(AppDocument document,
+      {String path = '/'}) async {
+    // Remove leading slash
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
     var encodedName = convertNameToFile(document.name);
     var name = encodedName;
     var counter = 1;
     while (await hasAsset(name)) {
       name = convertNameToFile('${document.name}_${++counter}');
     }
-    var file = File('${(await getDirectory())}/$name');
+    var file = File('${await getDirectory()}/$path/$name');
     file = await file.create(recursive: true);
     await file.writeAsString(json.encode(document.toJson()));
-    return AppDocumentFile(file.path, document.toJson());
+    return AppDocumentFile('$path/$name', document.toJson());
   }
 
   @override

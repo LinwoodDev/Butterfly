@@ -59,8 +59,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     });
     on<CurrentPainterChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
-        _saveDocument((state as DocumentLoadSuccess)
-            .copyWith(currentPainterIndex: event.painter));
+        _saveDocument((state as DocumentLoadSuccess).copyWith(
+            currentPainterIndex: event.painter,
+            removeCurrentPainterIndex: event.painter == null));
       }
     });
     on<PainterCreated>((event, emit) async {

@@ -45,10 +45,16 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
     // Filter by _searchController.text
     if (_searchController.text.isNotEmpty) {
       documents = documents
-          .where((element) => element.path
-              .substring(element.path.lastIndexOf('/') + 1)
-              .toLowerCase()
-              .contains(_searchController.text.toLowerCase()))
+          .where((element) =>
+              element.path
+                  .substring(element.path.lastIndexOf('/') + 1)
+                  .toLowerCase()
+                  .contains(_searchController.text.toLowerCase()) ||
+              (element is AppDocumentFile
+                  ? element.name
+                      .toLowerCase()
+                      .contains(_searchController.text.toLowerCase())
+                  : false))
           .toList();
     }
     setState(() => _documents = documents);
@@ -162,56 +168,102 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
             floatingActionButton: FloatingActionButton.extended(
               label: Text(AppLocalizations.of(context)!.create),
               icon: const Icon(PhosphorIcons.plusLight),
-              onPressed: () {
-                var _nameController = TextEditingController();
-                showDialog(
+              onPressed: () async {
+                await showModalBottomSheet<ThemeMode>(
                     context: context,
-                    builder: (context) => Form(
-                          key: _createFormKey,
-                          child: AlertDialog(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12)),
-                            title: Text(AppLocalizations.of(context)!.create),
-                            content: TextFormField(
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  labelText:
-                                      AppLocalizations.of(context)!.name),
-                              validator: (value) {
-                                if (value?.isEmpty ?? true) {
-                                  return AppLocalizations.of(context)!
-                                      .shouldNotEmpty;
-                                }
-                                return null;
-                              },
-                              controller: _nameController,
-                              autofocus: true,
+                    builder: (context) {
+                      return Container(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          child: ListView(shrinkWrap: true, children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 20),
+                              child: Text(
+                                AppLocalizations.of(context)!.create,
+                                style: Theme.of(context).textTheme.headline5,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                            actions: [
-                              TextButton(
-                                child:
-                                    Text(AppLocalizations.of(context)!.cancel),
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                              TextButton(
-                                child:
-                                    Text(AppLocalizations.of(context)!.create),
-                                onPressed: () async {
-                                  if (_createFormKey.currentState?.validate() ??
-                                      false) {
-                                    await _fileSystem.createDocument(
-                                        _nameController.text,
-                                        palettes:
-                                            ColorPalette.getMaterialPalette(
-                                                context));
-                                    loadDocuments();
-                                    Navigator.of(context).pop();
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                        ));
+                            ListTile(
+                                title: Text(AppLocalizations.of(context)!.file),
+                                leading: const Icon(PhosphorIcons.fileLight),
+                                onTap: () {
+                                  var _nameController = TextEditingController();
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => Form(
+                                            key: _createFormKey,
+                                            child: AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          12)),
+                                              title: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .create),
+                                              content: TextFormField(
+                                                decoration: InputDecoration(
+                                                    filled: true,
+                                                    labelText:
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .name),
+                                                validator: (value) {
+                                                  if (value?.isEmpty ?? true) {
+                                                    return AppLocalizations.of(
+                                                            context)!
+                                                        .shouldNotEmpty;
+                                                  }
+                                                  return null;
+                                                },
+                                                controller: _nameController,
+                                                autofocus: true,
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  child: Text(
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .cancel),
+                                                  onPressed: () =>
+                                                      Navigator.of(context)
+                                                          .pop(),
+                                                ),
+                                                TextButton(
+                                                  child: Text(
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .create),
+                                                  onPressed: () async {
+                                                    if (_createFormKey
+                                                            .currentState
+                                                            ?.validate() ??
+                                                        false) {
+                                                      await _fileSystem.createDocument(
+                                                          _nameController.text,
+                                                          path: _pathController
+                                                              .text,
+                                                          palettes: ColorPalette
+                                                              .getMaterialPalette(
+                                                                  context));
+                                                      loadDocuments();
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    }
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ));
+                                }),
+                            ListTile(
+                                title:
+                                    Text(AppLocalizations.of(context)!.folder),
+                                leading: const Icon(PhosphorIcons.folderLight),
+                                onTap: () {}),
+                            const SizedBox(height: 32),
+                          ]));
+                    });
               },
             ),
           ),
@@ -237,8 +289,9 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
             return ListTile(
               selected: document.path == selectedPath,
               leading: const Icon(PhosphorIcons.folderLight),
-              title: Text(_pathController.text.split('/').last),
+              title: Text(document.path.split('/').last),
               onTap: () => _openAsset(document),
+              trailing: _buildPopupMenu(document),
             );
           } else {
             return Container();

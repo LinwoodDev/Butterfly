@@ -17,9 +17,11 @@ abstract class DocumentFileSystem {
   Future<AppDocumentDirectory> createDirectory(String name);
 
   Future<AppDocumentFile> createDocument(String name,
-          {List<ColorPalette> palettes = const []}) =>
-      importDocument(AppDocument(
-          name: name, palettes: palettes, createdAt: DateTime.now()));
+          {String path = '/', List<ColorPalette> palettes = const []}) =>
+      importDocument(
+          AppDocument(
+              name: name, palettes: palettes, createdAt: DateTime.now()),
+          path: path);
 
   Future<bool> hasAsset(String path);
 
@@ -27,7 +29,8 @@ abstract class DocumentFileSystem {
 
   Future<void> deleteAsset(String path);
 
-  Future<AppDocumentFile> importDocument(AppDocument document);
+  Future<AppDocumentFile> importDocument(AppDocument document,
+      {String path = '/'});
 
   Future<AppDocumentAsset?> renameAsset(String path, String newName) async {
     // Remove leading slash

@@ -28,20 +28,25 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentFile> importDocument(AppDocument document) async {
-    var path = convertNameToFile(document.name);
+  Future<AppDocumentFile> importDocument(AppDocument document,
+      {String path = '/'}) async {
+    // Remove leading slash
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
+    var filePath = '$path/${convertNameToFile(document.name)}';
     var counter = 1;
-    while (await hasAsset(path)) {
-      path = '${document.name}_${++counter}';
+    while (await hasAsset(filePath)) {
+      filePath = '${document.name}_${++counter}';
     }
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var doc = document.toJson();
     doc['type'] = 'file';
     var store = txn.objectStore('documents');
-    await store.add(doc, path);
+    await store.add(doc, filePath);
     await txn.completed;
-    return AppDocumentFile(path, doc);
+    return AppDocumentFile(filePath, doc);
   }
 
   @override

@@ -97,17 +97,17 @@ class _PersonalizationSettingsPageState
                 ListTile(
                     title: Text(AppLocalizations.of(context)!.systemTheme),
                     selected: currentTheme == ThemeMode.system,
-                    leading: const Icon(Icons.settings_outlined),
+                    leading: const Icon(PhosphorIcons.powerLight),
                     onTap: () => changeTheme(ThemeMode.system)),
                 ListTile(
                     title: Text(AppLocalizations.of(context)!.lightTheme),
                     selected: currentTheme == ThemeMode.light,
-                    leading: const Icon(Icons.wb_sunny_outlined),
+                    leading: const Icon(PhosphorIcons.sunLight),
                     onTap: () => changeTheme(ThemeMode.light)),
                 ListTile(
                     title: Text(AppLocalizations.of(context)!.darkTheme),
                     selected: currentTheme == ThemeMode.dark,
-                    leading: const Icon(Icons.nightlight_round),
+                    leading: const Icon(PhosphorIcons.moonLight),
                     onTap: () => changeTheme(ThemeMode.dark)),
                 const SizedBox(height: 32),
               ]));
