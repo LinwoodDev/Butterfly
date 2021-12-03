@@ -25,6 +25,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
   final TextEditingController _pathController =
       TextEditingController(text: '/');
   final GlobalKey<FormState> _createFormKey = GlobalKey();
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -36,11 +37,20 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
   Future<void> loadDocuments() async {
     var documents = await _fileSystem
         .getAsset(_pathController.text)
-        .then<List<AppDocumentAsset>>((value) => value is AppDocumentDirectory
+        .then<List<AppDocumentAsset>>((value) => (value is AppDocumentDirectory
             ? value.assets
             : value is AppDocumentFile
                 ? [value]
-                : []);
+                : []));
+    // Filter by _searchController.text
+    if (_searchController.text.isNotEmpty) {
+      documents = documents
+          .where((element) => element.path
+              .substring(element.path.lastIndexOf('/') + 1)
+              .toLowerCase()
+              .contains(_searchController.text.toLowerCase()))
+          .toList();
+    }
     setState(() => _documents = documents);
   }
 
@@ -67,47 +77,86 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                 ]),
             body: Column(
               children: [
-                Material(
-                  elevation: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(children: [
-                      IconButton(
-                          icon: const Icon(PhosphorIcons.houseLight),
-                          onPressed: () {
-                            _pathController.text = '/';
-                            loadDocuments();
-                          }),
-                      IconButton(
-                        icon: const Icon(PhosphorIcons.arrowUpLight),
-                        onPressed: () {
-                          var path = _pathController.text;
-                          if (path.isNotEmpty && path != '/') {
-                            var index = path.lastIndexOf('/');
-                            if (index != -1) {
-                              _pathController.text = path.substring(0, index);
-                              if (_pathController.text.isEmpty)
-                                _pathController.text = '/';
+                Builder(builder: (context) {
+                  return Material(
+                    elevation: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(children: [
+                        IconButton(
+                            icon: const Icon(PhosphorIcons.houseLight),
+                            onPressed: () {
+                              _pathController.text = '/';
                               loadDocuments();
+                            }),
+                        IconButton(
+                          icon: const Icon(PhosphorIcons.arrowUpLight),
+                          onPressed: () {
+                            var path = _pathController.text;
+                            if (path.isNotEmpty && path != '/') {
+                              var index = path.lastIndexOf('/');
+                              if (index != -1) {
+                                _pathController.text = path.substring(0, index);
+                                if (_pathController.text.isEmpty) {
+                                  _pathController.text = '/';
+                                }
+                                loadDocuments();
+                              }
                             }
-                          }
-                        },
-                      ),
-                      Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: TextField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
+                          },
+                        ),
+                        IconButton(
+                          onPressed: () => loadDocuments(),
+                          icon: const Icon(PhosphorIcons.arrowClockwiseLight),
+                        ),
+                        Flexible(
+                          flex: 5,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: TextField(
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              controller: _pathController,
                             ),
-                            controller: _pathController,
                           ),
                         ),
-                      ),
-                    ]),
-                  ),
-                ),
-                Flexible(child: gridView ? _buildGridView() : _buildListView()),
+                        const SizedBox(height: 10),
+                        Flexible(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: TextField(
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                prefixIcon:
+                                    Icon(PhosphorIcons.magnifyingGlassLight),
+                              ),
+                              onChanged: (value) {
+                                loadDocuments();
+                              },
+                              controller: _searchController,
+                            ),
+                          ),
+                        ),
+                      ]),
+                    ),
+                  );
+                }),
+                Flexible(
+                    child: BlocBuilder<DocumentBloc, DocumentState>(
+                        bloc: widget.bloc,
+                        builder: (context, state) {
+                          var selectedPath = '';
+                          if (state is DocumentLoadSuccess) {
+                            selectedPath = state.path ?? '';
+                          }
+                          return gridView
+                              ? _buildGridView(selectedPath)
+                              : _buildListView(selectedPath);
+                        })),
               ],
             ),
             floatingActionButton: FloatingActionButton.extended(
@@ -171,7 +220,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
     );
   }
 
-  Widget _buildListView() => ListView.builder(
+  Widget _buildListView(String selectedPath) => ListView.builder(
         itemCount: _documents.length,
         itemBuilder: (context, index) {
           var document = _documents[index];
@@ -179,12 +228,14 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
             return ListTile(
               leading: const Icon(PhosphorIcons.fileLight),
               title: Text(document.name),
+              selected: document.path == selectedPath,
               subtitle: _buildRichText(document),
               onTap: () => _openAsset(document),
               trailing: _buildPopupMenu(document),
             );
           } else if (document is AppDocumentDirectory) {
             return ListTile(
+              selected: document.path == selectedPath,
               leading: const Icon(PhosphorIcons.folderLight),
               title: Text(_pathController.text.split('/').last),
               onTap: () => _openAsset(document),
@@ -269,7 +320,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
             ],
           ));
 
-  Widget _buildGridView() => SingleChildScrollView(
+  Widget _buildGridView(String selectedPath) => SingleChildScrollView(
           child: Scrollbar(
         child: Align(
             alignment: Alignment.topCenter,
@@ -314,18 +365,28 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                               horizontal: 20, vertical: 10),
                           child: Row(
                             children: [
-                              const Padding(
-                                padding: EdgeInsets.only(right: 8.0),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
                                 child: Icon(
                                   PhosphorIcons.fileLight,
                                   size: 32,
+                                  color: document.path == selectedPath
+                                      ? Theme.of(context).colorScheme.primary
+                                      : null,
                                 ),
                               ),
                               Flexible(
                                 child: Text(document.name,
                                     overflow: TextOverflow.ellipsis,
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6
+                                        ?.copyWith(
+                                            color: selectedPath == document.path
+                                                ? Theme.of(context)
+                                                    .colorScheme
+                                                    .primary
+                                                : null)),
                               ),
                             ],
                           ),
@@ -358,53 +419,56 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                 }))),
       ));
 
-  Widget _buildPopupMenu(AppDocumentAsset asset) => PopupMenuButton(
-        itemBuilder: (context) => [
-          PopupMenuItem(
-            child: ListTile(
-              leading: const Icon(PhosphorIcons.folderOpenLight),
-              title: Text(AppLocalizations.of(context)!.open),
-              onTap: () {
-                Navigator.of(context).pop();
-                _openAsset(asset);
-              },
-            ),
-            padding: EdgeInsets.zero,
-          ),
-          if (asset is AppDocumentFile)
+  Widget _buildPopupMenu(AppDocumentAsset asset) => IconTheme.merge(
+        data: Theme.of(context).iconTheme,
+        child: PopupMenuButton(
+          itemBuilder: (context) => [
             PopupMenuItem(
               child: ListTile(
-                  leading: const Icon(PhosphorIcons.copyLight),
-                  title: Text(AppLocalizations.of(context)!.duplicate),
-                  onTap: () async {
+                leading: const Icon(PhosphorIcons.folderOpenLight),
+                title: Text(AppLocalizations.of(context)!.open),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _openAsset(asset);
+                },
+              ),
+              padding: EdgeInsets.zero,
+            ),
+            if (asset is AppDocumentFile)
+              PopupMenuItem(
+                child: ListTile(
+                    leading: const Icon(PhosphorIcons.copyLight),
+                    title: Text(AppLocalizations.of(context)!.duplicate),
+                    onTap: () async {
+                      Navigator.of(context).pop();
+                      await _fileSystem.importDocument(asset.load());
+                      loadDocuments();
+                    }),
+                padding: EdgeInsets.zero,
+              ),
+            PopupMenuItem(
+              child: ListTile(
+                  leading: const Icon(PhosphorIcons.textTLight),
+                  title: Text(AppLocalizations.of(context)!.rename),
+                  onTap: () {
                     Navigator.of(context).pop();
-                    await _fileSystem.importDocument(asset.load());
-                    loadDocuments();
+                    _renameDialog(asset.path);
                   }),
               padding: EdgeInsets.zero,
             ),
-          PopupMenuItem(
-            child: ListTile(
-                leading: const Icon(PhosphorIcons.textTLight),
-                title: Text(AppLocalizations.of(context)!.rename),
+            PopupMenuItem(
+              child: ListTile(
+                leading: const Icon(PhosphorIcons.trashLight),
+                title: Text(AppLocalizations.of(context)!.delete),
                 onTap: () {
                   Navigator.of(context).pop();
-                  _renameDialog(asset.path);
-                }),
-            padding: EdgeInsets.zero,
-          ),
-          PopupMenuItem(
-            child: ListTile(
-              leading: const Icon(PhosphorIcons.trashLight),
-              title: Text(AppLocalizations.of(context)!.delete),
-              onTap: () {
-                Navigator.of(context).pop();
-                _deleteDialog(asset.path);
-              },
+                  _deleteDialog(asset.path);
+                },
+              ),
+              padding: EdgeInsets.zero,
             ),
-            padding: EdgeInsets.zero,
-          ),
-        ],
+          ],
+        ),
       );
 
   RichText _buildRichText(AppDocumentFile file) => RichText(
