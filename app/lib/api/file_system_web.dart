@@ -99,7 +99,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       assets.sort((a, b) => a is AppDocumentDirectory
           ? -1
           : (a as AppDocumentFile).name.compareTo(
-          b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
+              b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
       return AppDocumentDirectory(path, assets);
     } else if (map['type'] == 'file') {
       return AppDocumentFile(path, map);
