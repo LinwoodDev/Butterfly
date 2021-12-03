@@ -172,7 +172,7 @@ class AppDocument {
         'fileVersion': GetIt.I.get<int>(instanceName: 'fileVersion'),
         'createdAt': createdAt.toIso8601String(),
         'updatedAt': updatedAt.toIso8601String(),
-        'handProperty': handProperty
+        'handProperty': handProperty.toJson()
       };
 
   AppDocument copyWith(

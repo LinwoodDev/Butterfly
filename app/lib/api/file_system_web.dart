@@ -17,12 +17,12 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         var txn = db.transaction('documents', 'readwrite');
         var store = txn.objectStore('documents');
         var cursor = store.openCursor();
-        await cursor.forEach((cursor) {
+        await Future.wait(await cursor.map<Future<dynamic>>((cursor) async {
           // Add type to each document
           var doc = cursor.value as Map<dynamic, dynamic>;
           doc['type'] = 'document';
-          store.put(doc);
-        });
+          await store.put(doc);
+        }).toList());
       }
     });
   }
@@ -70,6 +70,10 @@ class WebDocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<AppDocumentAsset?> getAsset(String path) async {
+    // Remove leading slash
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readonly');
     var store = txn.objectStore('documents');
@@ -95,7 +99,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       assets.sort((a, b) => a is AppDocumentDirectory
           ? -1
           : (a as AppDocumentFile).name.compareTo(
-              b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
+          b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
       return AppDocumentDirectory(path, assets);
     } else if (map['type'] == 'file') {
       return AppDocumentFile(path, map);
