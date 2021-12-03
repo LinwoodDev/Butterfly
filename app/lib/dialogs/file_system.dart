@@ -86,6 +86,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             var index = path.lastIndexOf('/');
                             if (index != -1) {
                               _pathController.text = path.substring(0, index);
+                              if (_pathController.text.isEmpty)
+                                _pathController.text = '/';
                               loadDocuments();
                             }
                           }
@@ -231,10 +233,9 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   onPressed: () async {
                     if (_nameController.text != _pathController.text) {
                       var document = await _fileSystem.renameAsset(
-                          _pathController.text, _nameController.text);
+                          path, _nameController.text);
                       var state = widget.bloc.state as DocumentLoadSuccess;
-                      if (document != null &&
-                          state.path == _pathController.text) {
+                      if (document != null && state.path == path) {
                         widget.bloc.clearHistory();
                         widget.bloc.emit(state.copyWith(path: path));
                       }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:butterfly/models/document.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -54,9 +55,15 @@ class IODocumentFileSystem extends DocumentFileSystem {
       var files = await directory.list().toList();
       var assets = <AppDocumentAsset>[];
       for (var file in files) {
-        var asset = await getAsset(path + '/' + file.path.split('/').last);
-        if (asset != null) {
-          assets.add(asset);
+        try {
+          var asset = await getAsset(path + '/' + file.path.split('/').last);
+          if (asset != null) {
+            assets.add(asset);
+          }
+        } catch (e) {
+          if (kDebugMode) {
+            print(e);
+          }
         }
       }
       // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name

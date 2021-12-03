@@ -30,17 +30,23 @@ abstract class DocumentFileSystem {
   Future<AppDocumentFile> importDocument(AppDocument document);
 
   Future<AppDocumentAsset?> renameAsset(String path, String newName) async {
+    // Remove leading slash
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
     final asset = await getAsset(path);
     if (asset == null) return null;
     AppDocumentAsset? newAsset;
     if (asset is AppDocumentFile) {
-      newAsset = await importDocument(asset.load());
+      newAsset = await updateDocument(newName, asset.load());
     } else {
       newAsset = await createDirectory(newName);
       var assets = (asset as AppDocumentDirectory).assets;
       for (var current in assets) {
-        final newPath = newName + current.path.substring(path.length);
-        await renameAsset(current.path, newPath);
+        var currentPath = current.path;
+        if (currentPath.startsWith('/')) currentPath = currentPath.substring(1);
+        final newPath = newName + currentPath.substring(path.length);
+        await renameAsset(currentPath, newPath);
       }
     }
     await deleteAsset(path);
