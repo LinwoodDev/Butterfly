@@ -67,38 +67,44 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                 ]),
             body: Column(
               children: [
-                Row(children: [
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.houseLight),
-                      onPressed: () {
-                        _pathController.text = '/';
-                        loadDocuments();
-                      }),
-                  IconButton(
-                    icon: const Icon(PhosphorIcons.arrowUpLight),
-                    onPressed: () {
-                      var path = _pathController.text;
-                      if (path.isNotEmpty && path != '/') {
-                        var index = path.lastIndexOf('/');
-                        if (index != -1) {
-                          _pathController.text = path.substring(0, index);
-                          loadDocuments();
-                        }
-                      }
-                    },
-                  ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: TextField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                        ),
-                        controller: _pathController,
+                Material(
+                  elevation: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Row(children: [
+                      IconButton(
+                          icon: const Icon(PhosphorIcons.houseLight),
+                          onPressed: () {
+                            _pathController.text = '/';
+                            loadDocuments();
+                          }),
+                      IconButton(
+                        icon: const Icon(PhosphorIcons.arrowUpLight),
+                        onPressed: () {
+                          var path = _pathController.text;
+                          if (path.isNotEmpty && path != '/') {
+                            var index = path.lastIndexOf('/');
+                            if (index != -1) {
+                              _pathController.text = path.substring(0, index);
+                              loadDocuments();
+                            }
+                          }
+                        },
                       ),
-                    ),
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: TextField(
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                            controller: _pathController,
+                          ),
+                        ),
+                      ),
+                    ]),
                   ),
-                ]),
+                ),
                 Flexible(child: gridView ? _buildGridView() : _buildListView()),
               ],
             ),
@@ -197,7 +203,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
   }
 
   void _renameDialog(String path) {
-    var _nameController = TextEditingController(text: _pathController.text);
+    var _nameController = TextEditingController(text: path);
     showDialog(
         context: context,
         builder: (context) => AlertDialog(

@@ -27,7 +27,12 @@ class IODocumentFileSystem extends DocumentFileSystem {
   Future<void> deleteAsset(String path) async {
     var absolutePath = await getAbsolutePath(path);
     var file = File(absolutePath);
-    await file.delete();
+    var dir = Directory(absolutePath);
+    if (await file.exists()) {
+      await file.delete();
+    } else if (await dir.exists()) {
+      await dir.delete(recursive: true);
+    }
   }
 
   @override

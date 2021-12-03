@@ -32,12 +32,19 @@ abstract class DocumentFileSystem {
   Future<AppDocumentAsset?> renameAsset(String path, String newName) async {
     final asset = await getAsset(path);
     if (asset == null) return null;
-    await deleteAsset(path);
+    AppDocumentAsset? newAsset;
     if (asset is AppDocumentFile) {
-      return importDocument(asset.load());
+      newAsset = await importDocument(asset.load());
     } else {
-      return createDirectory(newName);
+      newAsset = await createDirectory(newName);
+      var assets = (asset as AppDocumentDirectory).assets;
+      for (var current in assets) {
+        final newPath = newName + current.path.substring(path.length);
+        await renameAsset(current.path, newPath);
+      }
     }
+    await deleteAsset(path);
+    return newAsset;
   }
 
   static DocumentFileSystem fromPlatform() {
