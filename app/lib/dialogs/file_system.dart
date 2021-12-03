@@ -187,80 +187,12 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             ListTile(
                                 title: Text(AppLocalizations.of(context)!.file),
                                 leading: const Icon(PhosphorIcons.fileLight),
-                                onTap: () {
-                                  var _nameController = TextEditingController();
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => Form(
-                                            key: _createFormKey,
-                                            child: AlertDialog(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12)),
-                                              title: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .create),
-                                              content: TextFormField(
-                                                decoration: InputDecoration(
-                                                    filled: true,
-                                                    labelText:
-                                                        AppLocalizations.of(
-                                                                context)!
-                                                            .name),
-                                                validator: (value) {
-                                                  if (value?.isEmpty ?? true) {
-                                                    return AppLocalizations.of(
-                                                            context)!
-                                                        .shouldNotEmpty;
-                                                  }
-                                                  return null;
-                                                },
-                                                controller: _nameController,
-                                                autofocus: true,
-                                              ),
-                                              actions: [
-                                                TextButton(
-                                                  child: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .cancel),
-                                                  onPressed: () =>
-                                                      Navigator.of(context)
-                                                          .pop(),
-                                                ),
-                                                TextButton(
-                                                  child: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .create),
-                                                  onPressed: () async {
-                                                    if (_createFormKey
-                                                            .currentState
-                                                            ?.validate() ??
-                                                        false) {
-                                                      await _fileSystem.createDocument(
-                                                          _nameController.text,
-                                                          path: _pathController
-                                                              .text,
-                                                          palettes: ColorPalette
-                                                              .getMaterialPalette(
-                                                                  context));
-                                                      loadDocuments();
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    }
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ));
-                                }),
+                                onTap: () => _createAsset()),
                             ListTile(
                                 title:
                                     Text(AppLocalizations.of(context)!.folder),
                                 leading: const Icon(PhosphorIcons.folderLight),
-                                onTap: () {}),
+                                onTap: () => _createAsset(isFolder: true)),
                             const SizedBox(height: 32),
                           ]));
                     });
@@ -270,6 +202,59 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
         ),
       ),
     );
+  }
+
+  void _createAsset({bool isFolder = false}) {
+    var _nameController = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (context) => Form(
+              key: _createFormKey,
+              child: AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                title: Text(AppLocalizations.of(context)!.create),
+                content: TextFormField(
+                  decoration: InputDecoration(
+                      filled: true,
+                      labelText: AppLocalizations.of(context)!.name),
+                  validator: (value) {
+                    if (value?.isEmpty ?? true) {
+                      return AppLocalizations.of(context)!.shouldNotEmpty;
+                    }
+                    return null;
+                  },
+                  controller: _nameController,
+                  autofocus: true,
+                ),
+                actions: [
+                  TextButton(
+                    child: Text(AppLocalizations.of(context)!.cancel),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  TextButton(
+                    child: Text(AppLocalizations.of(context)!.create),
+                    onPressed: () async {
+                      if (_createFormKey.currentState?.validate() ?? false) {
+                        if (!isFolder) {
+                          await _fileSystem.createDocument(_nameController.text,
+                              path: _pathController.text,
+                              palettes:
+                                  ColorPalette.getMaterialPalette(context));
+                        } else {
+                          await _fileSystem.createDirectory(
+                              _pathController.text +
+                                  '/' +
+                                  _nameController.text);
+                        }
+                        loadDocuments();
+                        Navigator.of(context).pop();
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ));
   }
 
   Widget _buildListView(String selectedPath) => ListView.builder(
