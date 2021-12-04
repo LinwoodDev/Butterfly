@@ -156,7 +156,12 @@ class _ProjectPageState extends State<ProjectPage> {
               builder: (context, state) {
             if (_bloc!.state is DocumentLoadSuccess) {
               var current = _bloc!.state as DocumentLoadSuccess;
-              return Text(current.document.name);
+              return Column(children: [
+                Text(current.document.name),
+                if (current.path != null)
+                  Text(current.path!,
+                      style: Theme.of(context).textTheme.caption),
+              ]);
             } else {
               return Text(AppLocalizations.of(context)!.loading);
             }

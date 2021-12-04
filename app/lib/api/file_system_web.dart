@@ -23,6 +23,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
           doc['type'] = 'document';
           await store.put(doc);
         }).toList());
+        await txn.completed;
       }
     });
   }
@@ -77,32 +78,47 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readonly');
     var store = txn.objectStore('documents');
-    var data = await store.getObject(path);
-    await txn.completed;
+    var data = await store.getObject('/' + path);
+    if (path == '') {
+      data = {'type': 'directory'};
+    }
     if (data == null) {
+      await txn.completed;
       return null;
     }
-    var map = Map<String, dynamic>.from(data as Map<dynamic, dynamic>);
-    if (map['type'] == 'directory') {
-      var assets = <AppDocumentAsset>[];
-      // Test if keys starts with path
-      var keys = await store.getAllKeys();
-      for (var key in keys) {
-        if (key.toString().startsWith(path)) {
-          var asset = await getAsset(key.toString());
-          if (asset != null) {
-            assets.add(asset);
-          }
+    var map = data as Map<dynamic, dynamic>;
+    if (map['type'] == 'file') {
+      await txn.completed;
+      return AppDocumentFile(path, Map<String, dynamic>.from(map));
+    } else if (map['type'] == 'directory') {
+      var cursor = store.openCursor(autoAdvance: true);
+      var assets = await Future.wait(
+          await cursor.map<Future<AppDocumentAsset?>>((cursor) async {
+        // Check if key starts with path and is not the in sub directory and is not the path itself
+        // Remove leading slash
+        var key = cursor.key.toString();
+        if (key.startsWith('/')) {
+          key = key.substring(1);
         }
-      }
+        if (key.startsWith(path) && !key.startsWith('$path/')) {
+          var data = cursor.value as Map<dynamic, dynamic>;
+          if (data['type'] == 'file') {
+            return AppDocumentFile(
+                cursor.key.toString(), Map<String, dynamic>.from(data));
+          } else if (data['type'] == 'directory') {
+            return AppDocumentDirectory(cursor.key.toString(), const []);
+          }
+          return null;
+        }
+      }).toList());
       // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
       assets.sort((a, b) => a is AppDocumentDirectory
           ? -1
           : (a as AppDocumentFile).name.compareTo(
               b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
-      return AppDocumentDirectory(path, assets);
-    } else if (map['type'] == 'file') {
-      return AppDocumentFile(path, map);
+      await txn.completed;
+      return AppDocumentDirectory(
+          path, assets.whereType<AppDocumentAsset>().toList());
     }
   }
 
@@ -131,6 +147,10 @@ class WebDocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<AppDocumentDirectory> createDirectory(String name) async {
+    // Remove leading slash
+    if (name.startsWith('/')) {
+      name = name.substring(1);
+    }
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');

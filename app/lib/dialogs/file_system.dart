@@ -380,7 +380,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             const Padding(
                               padding: EdgeInsets.only(right: 8.0),
                               child: Icon(
-                                PhosphorIcons.fileLight,
+                                PhosphorIcons.folderLight,
                                 size: 32,
                               ),
                             ),
