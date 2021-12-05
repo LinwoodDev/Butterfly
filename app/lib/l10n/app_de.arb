@@ -20,7 +20,7 @@
     "resetZoom": "Vergrößerung zurücksetzen",
     "name": "Name",
     "strokeWidth": "Strichbreite",
-    "includeEraser": "Include eraser?",
+    "includeEraser": "Löschvorrichtung einbeziehen?",
     "strokeMultiplier": "Strichmultiplikator",
     "pen": "Stift",
     "eraser": "Eraser",
@@ -152,5 +152,5 @@
     "rename": "Umbenennen",
     "duplicate": "Duplizieren",
     "hand": "Hand",
-    "folder": "Folder"
+    "folder": "Ordner"
 }
