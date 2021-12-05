@@ -112,7 +112,8 @@ class AppDocument {
         .map((e) => Map<String, dynamic>.from(e))
         .map((e) => Waypoint.fromJson(e))
         .toList();
-    var handProperty = HandProperty.fromJson(json['handProperty'] ?? {});
+    var handProperty = HandProperty.fromJson(
+        Map<String, dynamic>.from(json['handProperty'] ?? {}));
     var painters = List<dynamic>.from(json['painters'] ?? [])
         .map((e) => Map<String, dynamic>.from(e))
         .map<Painter>((e) {

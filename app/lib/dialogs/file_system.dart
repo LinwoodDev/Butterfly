@@ -124,6 +124,10 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                               ),
+                              onSubmitted: (value) async {
+                                _openAsset(await _fileSystem.getAsset(value) ??
+                                    await _fileSystem.getRootDirectory());
+                              },
                               controller: _pathController,
                             ),
                           ),
@@ -187,12 +191,18 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             ListTile(
                                 title: Text(AppLocalizations.of(context)!.file),
                                 leading: const Icon(PhosphorIcons.fileLight),
-                                onTap: () => _createAsset()),
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  _createAsset();
+                                }),
                             ListTile(
                                 title:
                                     Text(AppLocalizations.of(context)!.folder),
                                 leading: const Icon(PhosphorIcons.folderLight),
-                                onTap: () => _createAsset(isFolder: true)),
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  _createAsset(isFolder: true);
+                                }),
                             const SizedBox(height: 32),
                           ]));
                     });
@@ -242,10 +252,12 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                               palettes:
                                   ColorPalette.getMaterialPalette(context));
                         } else {
+                          var path = _pathController.text;
+                          if (path == '/') {
+                            path = '';
+                          }
                           await _fileSystem.createDirectory(
-                              _pathController.text +
-                                  '/' +
-                                  _nameController.text);
+                              path + '/' + _nameController.text);
                         }
                         loadDocuments();
                         Navigator.of(context).pop();
@@ -288,7 +300,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
     if (asset is AppDocumentFile) {
       Navigator.of(context).pop(asset.path);
     } else {
-      _pathController.text = '/' + asset.path;
+      _pathController.text = asset.path;
       loadDocuments();
     }
   }

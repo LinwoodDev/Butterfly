@@ -14,7 +14,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         db.createObjectStore('documents');
       }
       if (event.oldVersion < 2) {
-        var txn = db.transaction('documents', 'readwrite');
+        var txn = event.transaction;
         var store = txn.objectStore('documents');
         var cursor = store.openCursor();
         await Future.wait(await cursor.map<Future<dynamic>>((cursor) async {
@@ -23,7 +23,6 @@ class WebDocumentFileSystem extends DocumentFileSystem {
           doc['type'] = 'document';
           await store.put(doc);
         }).toList());
-        await txn.completed;
       }
     });
   }
@@ -31,9 +30,9 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   @override
   Future<AppDocumentFile> importDocument(AppDocument document,
       {String path = '/'}) async {
-    // Remove leading slash
-    if (path.startsWith('/')) {
-      path = path.substring(1);
+    // Add leading slash
+    if (!path.startsWith('/')) {
+      path = '/$path';
     }
     var filePath = '$path/${convertNameToFile(document.name)}';
     var counter = 1;
@@ -71,54 +70,55 @@ class WebDocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<AppDocumentAsset?> getAsset(String path) async {
-    // Remove leading slash
-    if (path.startsWith('/')) {
-      path = path.substring(1);
+    // Add leading slash
+    if (!path.startsWith('/')) {
+      path = '/$path';
     }
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readonly');
     var store = txn.objectStore('documents');
-    var data = await store.getObject('/' + path);
-    if (path == '') {
+    var data = await store.getObject(path);
+    if (path == '/') {
       data = {'type': 'directory'};
     }
     if (data == null) {
       await txn.completed;
       return null;
     }
-    var map = data as Map<dynamic, dynamic>;
+    var map = data as Map;
     if (map['type'] == 'file') {
       await txn.completed;
       return AppDocumentFile(path, Map<String, dynamic>.from(map));
     } else if (map['type'] == 'directory') {
       var cursor = store.openCursor(autoAdvance: true);
       var assets = await Future.wait(
-          await cursor.map<Future<AppDocumentAsset?>>((cursor) async {
-        // Check if key starts with path and is not the in sub directory and is not the path itself
-        // Remove leading slash
+              await cursor.map<Future<AppDocumentAsset?>>((cursor) async {
+        // Add leading slash
         var key = cursor.key.toString();
-        if (key.startsWith('/')) {
-          key = key.substring(1);
+        if (!key.startsWith('/')) {
+          key = '/$key';
         }
-        if (key.startsWith(path) && !key.startsWith('$path/')) {
+        // Is in current directory
+        if (key.startsWith(path) &&
+            key != path &&
+            !key.substring(path.length + 1).contains('/')) {
           var data = cursor.value as Map<dynamic, dynamic>;
           if (data['type'] == 'file') {
-            return AppDocumentFile(
-                cursor.key.toString(), Map<String, dynamic>.from(data));
+            return AppDocumentFile(key, Map<String, dynamic>.from(data));
           } else if (data['type'] == 'directory') {
-            return AppDocumentDirectory(cursor.key.toString(), const []);
+            return AppDocumentDirectory(key, const []);
           }
           return null;
         }
-      }).toList());
+      }).toList())
+          .then((value) => value.whereType<AppDocumentAsset>().toList());
       // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
       assets.sort((a, b) => a is AppDocumentDirectory
           ? -1
           : (a as AppDocumentFile).name.compareTo(
               b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
       await txn.completed;
-      return AppDocumentDirectory(
-          path, assets.whereType<AppDocumentAsset>().toList());
+      return AppDocumentDirectory(path, assets.toList());
     }
   }
 
@@ -148,8 +148,11 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   @override
   Future<AppDocumentDirectory> createDirectory(String name) async {
     // Remove leading slash
-    if (name.startsWith('/')) {
-      name = name.substring(1);
+    if (!name.startsWith('/')) {
+      name = '/$name';
+    }
+    if (name.endsWith('/')) {
+      name = name.substring(0, name.length - 1);
     }
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
