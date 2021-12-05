@@ -20,7 +20,7 @@
     "resetZoom": "Réinitialiser le zoom",
     "name": "Nom",
     "strokeWidth": "Largeur du trait",
-    "includeEraser": "Include eraser?",
+    "includeEraser": "Inclure la gomme ?",
     "strokeMultiplier": "Multiplicateur de traits",
     "pen": "Stylo",
     "eraser": "Eraser",
@@ -151,6 +151,6 @@
     },
     "rename": "Renommer",
     "duplicate": "Dupliquer",
-    "hand": "Hand",
-    "folder": "Folder"
+    "hand": "Main",
+    "folder": "Répertoire"
 }
