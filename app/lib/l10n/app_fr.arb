@@ -133,8 +133,9 @@
     "@updatedAt": {
         "placeholders": {
             "dateTime": {
-                "type": "String",
-                "example": "2021-01-01 12:00"
+                "type": "DateTime",
+                "isCustomDateFormat": "true",
+                "format": "yy-MM-dd H:mm"
             }
         }
     },
@@ -142,12 +143,14 @@
     "@createdAt": {
         "placeholders": {
             "dateTime": {
-                "type": "String",
-                "example": "2021-01-01 12:00"
+                "type": "DateTime",
+                "isCustomDateFormat": "true",
+                "format": "yy-MM-dd H:mm"
             }
         }
     },
     "rename": "Renommer",
     "duplicate": "Dupliquer",
-    "hand": "Hand"
+    "hand": "Hand",
+    "folder": "Folder"
 }
