@@ -32,21 +32,11 @@ width="50%"
 align="right"
 />
 
-## Introduction
-
 Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device. This app works on android, windows, linux and in the web.
 
-### Simple and intuitive
-
-Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.
-
-### Customizable
-
-Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
-
-### Your data will be saved locally
-
-Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.
+* **⚡ Simple and intuitive** Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.
+* **🎨 Customizable** Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
+* **💻 Your data will be saved locally**. Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.
 
 ## Comparison
 
