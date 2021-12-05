@@ -1,1 +1,1 @@
-Change the world.
+Notes app that change the world
