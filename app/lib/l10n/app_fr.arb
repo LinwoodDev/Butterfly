@@ -20,7 +20,7 @@
     "resetZoom": "Réinitialiser le zoom",
     "name": "Nom",
     "strokeWidth": "Largeur du trait",
-    "canDeleteEraser": "La suppression peut être effectuée ?",
+    "includeEraser": "Inclure la gomme ?",
     "strokeMultiplier": "Multiplicateur de traits",
     "pen": "Stylo",
     "eraser": "Eraser",
@@ -133,8 +133,9 @@
     "@updatedAt": {
         "placeholders": {
             "dateTime": {
-                "type": "String",
-                "example": "2021-01-01 12:00"
+                "type": "DateTime",
+                "isCustomDateFormat": "true",
+                "format": "yy-MM-dd H:mm"
             }
         }
     },
@@ -142,11 +143,14 @@
     "@createdAt": {
         "placeholders": {
             "dateTime": {
-                "type": "String",
-                "example": "2021-01-01 12:00"
+                "type": "DateTime",
+                "isCustomDateFormat": "true",
+                "format": "yy-MM-dd H:mm"
             }
         }
     },
     "rename": "Renommer",
-    "duplicate": "Dupliquer"
+    "duplicate": "Dupliquer",
+    "hand": "Main",
+    "folder": "Répertoire"
 }
