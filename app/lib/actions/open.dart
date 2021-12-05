@@ -1,6 +1,7 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/file_system.dart';
+import 'package:butterfly/models/document.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -22,9 +23,9 @@ class OpenAction extends Action<OpenIntent> {
         builder: (context) => FileSystemDialog(bloc: bloc)).then((value) {
       if (value != null) {
         return DocumentFileSystem.fromPlatform()
-            .getDocument(value)
+            .getAsset(value)
             .then((document) async {
-          if (document == null) return;
+          if (document is! AppDocumentFile) return;
           Modular.to.navigate(
               Uri(path: '/', queryParameters: {'path': document.path})
                   .toString());

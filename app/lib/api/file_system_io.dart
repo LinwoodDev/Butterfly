@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:butterfly/models/document.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,73 +11,85 @@ import 'file_system.dart';
 
 class IODocumentFileSystem extends DocumentFileSystem {
   @override
-  Future<AppDocumentFile> importDocument(AppDocument document) async {
-    var encodedName = encodeFileName(document.name);
+  Future<AppDocumentFile> importDocument(AppDocument document,
+      {String path = '/'}) async {
+    // Remove leading slash
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
+    var encodedName = convertNameToFile(document.name);
     var name = encodedName;
     var counter = 1;
-    while (await hasDocument(name)) {
-      name = '${encodedName}_${++counter}';
+    while (await hasAsset(name)) {
+      name = convertNameToFile('${document.name}_${++counter}');
     }
-    var file = File('${(await getDirectory()).path}/$name.bfly');
+    var file = File('${await getDirectory()}/$path/$name');
     file = await file.create(recursive: true);
     await file.writeAsString(json.encode(document.toJson()));
-    return AppDocumentFile(file.path, document.toJson());
+    return AppDocumentFile('$path/$name', document.toJson());
   }
 
   @override
-  Future<void> deleteDocument(String path) async {
-    var name = encodeFileName(path);
-    var file = File('${(await getDirectory()).path}/$name.bfly');
-    await file.delete();
+  Future<void> deleteAsset(String path) async {
+    var absolutePath = await getAbsolutePath(path);
+    var file = File(absolutePath);
+    var dir = Directory(absolutePath);
+    if (await file.exists()) {
+      await file.delete();
+    } else if (await dir.exists()) {
+      await dir.delete(recursive: true);
+    }
   }
 
   @override
-  Future<AppDocumentFile?> getDocument(String path) async {
-    var name = encodeFileName(path);
-    var file = File('${(await getDirectory()).path}/$name.bfly');
-    if (!await file.exists()) return null;
+  Future<AppDocumentAsset?> getAsset(String path) async {
+    // Remove the leading slash on path
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
 
-    var json = jsonDecode(await file.readAsString());
-    return AppDocumentFile(path, AppDocument.fromJson(json).toJson());
-  }
-
-  @override
-  Future<List<AppDocumentFile>> getDocuments() async {
-    var dir = await getDirectory();
-    var files = await dir
-        .list()
-        .where((event) => event is File)
-        .where((event) => event.path.endsWith('.bfly'))
-        .map((event) {
-          // Ignore FormatException on decode
-          try {
-            var json = jsonDecode((event as File).readAsStringSync());
-            return AppDocumentFile(
-                event.path
-                    .substring(dir.path.length + 1, event.path.length - 5),
-                json);
-          } catch (e) {
-            return null;
+    var absolutePath = await getAbsolutePath(path);
+    // Test if path is a file
+    var file = File(absolutePath);
+    // Test if path is a directory
+    var directory = Directory(absolutePath);
+    if (await file.exists()) {
+      var json = await file.readAsString();
+      return AppDocumentFile(path, jsonDecode(json));
+    } else if (await directory.exists()) {
+      var files = await directory.list().toList();
+      var assets = <AppDocumentAsset>[];
+      for (var file in files) {
+        try {
+          var asset = await getAsset(path + '/' + file.path.split('/').last);
+          if (asset != null) {
+            assets.add(asset);
           }
-        })
-        .where((event) => event != null)
-        .map((event) => event!)
-        .toList();
+        } catch (e) {
+          if (kDebugMode) {
+            print(e);
+          }
+        }
+      }
+      // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
+      assets.sort((a, b) => a is AppDocumentDirectory
+          ? -1
+          : (a as AppDocumentFile).name.compareTo(
+              b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
 
-    return files;
+      return AppDocumentDirectory(path, assets);
+    }
   }
 
   @override
-  Future<bool> hasDocument(String path) async {
-    var name = encodeFileName(path);
-    return File('${(await getDirectory()).path}/$name.bfly').exists();
+  Future<bool> hasAsset(String path) async {
+    return File(await getAbsolutePath(path)).exists();
   }
 
   @override
   Future<AppDocumentFile> updateDocument(
       String path, AppDocument document) async {
-    var name = encodeFileName(path);
-    var file = File('${(await getDirectory()).path}/$name.bfly');
+    var file = File(await getAbsolutePath(path));
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
@@ -84,7 +98,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
     return AppDocumentFile(path, document.toJson());
   }
 
-  Future<Directory> getDirectory() async {
+  @override
+  FutureOr<String> getDirectory() async {
     var prefs = await SharedPreferences.getInstance();
     String? path;
     if (prefs.containsKey('document_path')) {
@@ -99,6 +114,23 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (!await directory.exists()) {
       await directory.create();
     }
-    return directory;
+    return directory.path;
+  }
+
+  @override
+  Future<AppDocumentDirectory> createDirectory(String name) async {
+    var dir = Directory(await getAbsolutePath(name));
+    if (!(await dir.exists())) {
+      await dir.create(recursive: true);
+    }
+    var assets = <AppDocumentAsset>[];
+    var files = await dir.list().toList();
+    for (var file in files) {
+      var asset = await getAsset(name + '/' + file.path.split('/').last);
+      if (asset != null) {
+        assets.add(asset);
+      }
+    }
+    return AppDocumentDirectory(name, assets);
   }
 }

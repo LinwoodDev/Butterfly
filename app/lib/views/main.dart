@@ -57,9 +57,8 @@ class _ProjectPageState extends State<ProjectPage> {
     SharedPreferences.getInstance().then((value) async {
       AppDocument? document;
       if (widget.path != null) {
-        await fileSystem
-            .getDocument(widget.path!)
-            .then((value) => document = value?.load());
+        await fileSystem.getAsset(widget.path!).then((value) =>
+            document = value is AppDocumentFile ? value.load() : null);
       }
       document ??= AppDocument(
           name:
@@ -157,7 +156,18 @@ class _ProjectPageState extends State<ProjectPage> {
               builder: (context, state) {
             if (_bloc!.state is DocumentLoadSuccess) {
               var current = _bloc!.state as DocumentLoadSuccess;
-              return Text(current.document.name);
+              return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      current.document.name,
+                      textAlign: TextAlign.center,
+                    ),
+                    if (current.path != null)
+                      Text(current.path!,
+                          style: Theme.of(context).textTheme.caption,
+                          textAlign: TextAlign.center),
+                  ]);
             } else {
               return Text(AppLocalizations.of(context)!.loading);
             }

@@ -18,12 +18,17 @@ import 'elements/pen.dart';
 import 'waypoint.dart';
 
 @immutable
-class AppDocumentFile {
+abstract class AppDocumentAsset {
   final String path;
 
+  const AppDocumentAsset(this.path);
+}
+
+@immutable
+class AppDocumentFile extends AppDocumentAsset {
   final Map<String, dynamic> json;
 
-  const AppDocumentFile(this.path, this.json);
+  const AppDocumentFile(String path, this.json) : super(path);
 
   int get fileVersion => json['fileVersion'];
 
@@ -38,6 +43,13 @@ class AppDocumentFile {
       json['createdAt'] == null ? null : DateTime.tryParse(json['createdAt']);
 
   AppDocument load() => AppDocument.fromJson(Map<String, dynamic>.from(json));
+}
+
+@immutable
+class AppDocumentDirectory extends AppDocumentAsset {
+  final List<AppDocumentAsset> assets;
+
+  const AppDocumentDirectory(String path, this.assets) : super(path);
 }
 
 @immutable
@@ -100,7 +112,8 @@ class AppDocument {
         .map((e) => Map<String, dynamic>.from(e))
         .map((e) => Waypoint.fromJson(e))
         .toList();
-    var handProperty = HandProperty.fromJson(json['handProperty'] ?? {});
+    var handProperty = HandProperty.fromJson(
+        Map<String, dynamic>.from(json['handProperty'] ?? {}));
     var painters = List<dynamic>.from(json['painters'] ?? [])
         .map((e) => Map<String, dynamic>.from(e))
         .map<Painter>((e) {
@@ -160,7 +173,7 @@ class AppDocument {
         'fileVersion': GetIt.I.get<int>(instanceName: 'fileVersion'),
         'createdAt': createdAt.toIso8601String(),
         'updatedAt': updatedAt.toIso8601String(),
-        'handProperty': handProperty
+        'handProperty': handProperty.toJson()
       };
 
   AppDocument copyWith(

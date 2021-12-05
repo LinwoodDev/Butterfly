@@ -21,18 +21,18 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_svg: ^0.23.0+1
+  flutter_svg: ^1.0.0
   equatable: ^2.0.3
   flutter_bloc: ^8.0.0
   get_it: ^7.2.0
-  image: ^3.0.8
+  image: ^3.1.0
   #package_info_plus: ^1.3.0
   intl: ^0.17.0
   flutter_modular: ^4.2.0
   path_provider: ^2.0.6
   shared_preferences: ^2.0.9
-  url_launcher: ^6.0.16
-  file_picker: ^4.2.5
+  url_launcher: ^6.0.17
+  file_picker: ^4.2.7
   phosphor_flutter: ^1.3.1
   replay_bloc: ^0.2.1
   share_plus: ^3.0.4
