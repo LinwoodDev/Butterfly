@@ -15,9 +15,15 @@
 
 ---
 
-## Introduction
 
-![Main view](./docs/docs/main.png)
+<img
+  src="./docs/docs/main.png"
+  alt="Starship with iTerm2 and the Snazzy theme"
+  width="50%"
+  align="right"
+/>
+
+## Introduction
 
 Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device.
 This app works on android, windows, linux and in the web.
