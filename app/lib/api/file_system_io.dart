@@ -13,9 +13,9 @@ class IODocumentFileSystem extends DocumentFileSystem {
   @override
   Future<AppDocumentFile> importDocument(AppDocument document,
       {String path = '/'}) async {
-    // Remove leading slash
-    if (path.startsWith('/')) {
-      path = path.substring(1);
+    // Add leading slash
+    if (!path.startsWith('/')) {
+      path = '/$path';
     }
     var encodedName = convertNameToFile(document.name);
     var name = encodedName;
@@ -23,7 +23,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     while (await hasAsset(name)) {
       name = convertNameToFile('${document.name}_${++counter}');
     }
-    var file = File('${await getDirectory()}/$path/$name');
+    var file = File('${await getDirectory()}$path/$name');
     file = await file.create(recursive: true);
     await file.writeAsString(json.encode(document.toJson()));
     return AppDocumentFile('$path/$name', document.toJson());
@@ -43,11 +43,10 @@ class IODocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<AppDocumentAsset?> getAsset(String path) async {
-    // Remove the leading slash on path
-    if (path.startsWith('/')) {
-      path = path.substring(1);
+    // Add leading slash
+    if (!path.startsWith('/')) {
+      path = '/$path';
     }
-
     var absolutePath = await getAbsolutePath(path);
     // Test if path is a file
     var file = File(absolutePath);
@@ -61,7 +60,11 @@ class IODocumentFileSystem extends DocumentFileSystem {
       var assets = <AppDocumentAsset>[];
       for (var file in files) {
         try {
-          var asset = await getAsset(path + '/' + file.path.split('/').last);
+          var currentPath = path + '/' + file.path.split('/').last;
+          if (currentPath.startsWith('//')) {
+            currentPath = currentPath.substring(1);
+          }
+          var asset = await getAsset(currentPath);
           if (asset != null) {
             assets.add(asset);
           }
