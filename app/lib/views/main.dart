@@ -11,6 +11,7 @@ import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/undo.dart';
+import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -78,77 +79,91 @@ class _ProjectPageState extends State<ProjectPage> {
           BlocProvider(create: (_) => TransformCubit()),
           BlocProvider(create: (_) => SelectionCubit())
         ],
-        child: Shortcuts(
-          shortcuts: {
-            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
-                const UndoIntent(),
-            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
-                const RedoIntent(),
-            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
-                NewIntent(context),
-            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
-                OpenIntent(context),
-            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
-                ImportIntent(context),
-            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
-                ExportIntent(context),
-            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.shift,
-                LogicalKeyboardKey.keyE): ImageExportIntent(context),
-            LogicalKeySet(LogicalKeyboardKey.tab): const EditModeIntent(),
-            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
-                LogicalKeyboardKey.keyS): SettingsIntent(context),
-            LogicalKeySet(
-                LogicalKeyboardKey.control,
-                LogicalKeyboardKey.alt,
-                LogicalKeyboardKey.shift,
-                LogicalKeyboardKey.keyS): ProjectIntent(context),
-          },
-          child: Actions(
-              actions: <Type, Action<Intent>>{
-                UndoIntent: UndoAction(_bloc!),
-                RedoIntent: RedoAction(_bloc!),
-                NewIntent: NewAction(_bloc!),
-                OpenIntent: OpenAction(_bloc!),
-                ImportIntent: ImportAction(_bloc!),
-                ImageExportIntent: ImageExportAction(_bloc!),
-                ExportIntent: ExportAction(_bloc!),
-                EditModeIntent: EditModeAction(_bloc!),
-                SettingsIntent: SettingsAction(_bloc!),
-                ProjectIntent: ProjectAction(_bloc!)
-              },
-              child: Builder(builder: (context) {
-                PreferredSizeWidget appBar = _buildAppBar();
-                if (isWindow()) {
-                  appBar = PreferredSize(
-                      preferredSize: const Size.fromHeight(60),
-                      child: MoveWindow(child: appBar));
-                }
-                return Focus(
-                    autofocus: true,
-                    child: Scaffold(
-                        appBar: appBar,
-                        body: LayoutBuilder(builder: (context, constraints) {
-                          var isMobile = constraints.maxWidth < 600;
-                          return Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Container(
-                                  height: 75,
-                                  color: Theme.of(context).canvasColor,
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: _buildToolSelection(isMobile),
-                                ),
-                                Expanded(
-                                    key: _viewportKey,
-                                    child: MainViewViewport(bloc: _bloc!)),
-                                if (isMobile)
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child: _buildToolbar())
-                              ]);
-                        })));
-              })),
-        ));
+        child: Builder(builder: (context) {
+          return Shortcuts(
+            shortcuts: {
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
+                  const UndoIntent(),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
+                  const RedoIntent(),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
+                  NewIntent(context),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
+                  OpenIntent(context),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
+                  ImportIntent(context),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
+                  ExportIntent(context),
+              LogicalKeySet(
+                  LogicalKeyboardKey.control,
+                  LogicalKeyboardKey.shift,
+                  LogicalKeyboardKey.keyE): ImageExportIntent(context),
+              LogicalKeySet(LogicalKeyboardKey.tab): const EditModeIntent(),
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
+                  LogicalKeyboardKey.keyS): SettingsIntent(context),
+              LogicalKeySet(
+                  LogicalKeyboardKey.control,
+                  LogicalKeyboardKey.alt,
+                  LogicalKeyboardKey.shift,
+                  LogicalKeyboardKey.keyS): ProjectIntent(context),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyW):
+                  WaypointsIntent(context)
+            },
+            child: Actions(
+                actions: <Type, Action<Intent>>{
+                  UndoIntent: UndoAction(_bloc!),
+                  RedoIntent: RedoAction(_bloc!),
+                  NewIntent: NewAction(_bloc!),
+                  OpenIntent: OpenAction(_bloc!),
+                  ImportIntent: ImportAction(_bloc!),
+                  ImageExportIntent: ImageExportAction(_bloc!),
+                  ExportIntent: ExportAction(_bloc!),
+                  EditModeIntent: EditModeAction(_bloc!),
+                  SettingsIntent: SettingsAction(_bloc!),
+                  ProjectIntent: ProjectAction(_bloc!),
+                  WaypointsIntent: WaypointsAction(_bloc!)
+                },
+                child: Builder(builder: (context) {
+                  PreferredSizeWidget appBar = _buildAppBar();
+                  if (isWindow()) {
+                    appBar = PreferredSize(
+                        preferredSize: const Size.fromHeight(60),
+                        child: MoveWindow(child: appBar));
+                  }
+                  return Focus(
+                      autofocus: true,
+                      child: Scaffold(
+                          appBar: appBar,
+                          body: LayoutBuilder(builder: (context, constraints) {
+                            var isMobile = constraints.maxWidth < 600;
+                            return Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Container(
+                                    height: 75,
+                                    color: Theme.of(context).canvasColor,
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: _buildToolSelection(isMobile),
+                                  ),
+                                  Expanded(
+                                      key: _viewportKey,
+                                      child: MainViewViewport(bloc: _bloc!)),
+                                  if (isMobile)
+                                    Align(
+                                        alignment: Alignment.center,
+                                        child: _buildToolbar())
+                                ]);
+                          })));
+                })),
+          );
+        }));
   }
 
   AppBar _buildAppBar() => AppBar(

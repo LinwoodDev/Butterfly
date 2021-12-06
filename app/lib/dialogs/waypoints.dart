@@ -54,6 +54,7 @@ class _WaypointsDialogState extends State<WaypointsDialog> {
                                       Icon(PhosphorIcons.magnifyingGlassLight),
                                 ),
                                 controller: _searchController,
+                                autofocus: true,
                               ),
                             )),
                         Expanded(
