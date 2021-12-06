@@ -69,6 +69,8 @@ abstract class DocumentFileSystem {
   }
 
   FutureOr<String> getAbsolutePath(String relativePath) async {
+    // Convert \ to /
+    relativePath = relativePath.replaceAll('\\', '/');
     // Remove leading slash
     if (relativePath.startsWith('/')) {
       relativePath = relativePath.substring(1);

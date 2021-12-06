@@ -34,8 +34,12 @@ class _WaypointsDialogState extends State<WaypointsDialog> {
                     const BoxConstraints(maxWidth: 600, maxHeight: 800),
                 child: Scaffold(
                     appBar: AppBar(
-                        title: Text(AppLocalizations.of(context)!.waypoints),
-                        leading: const Icon(PhosphorIcons.mapPinLight)),
+                      title: Text(AppLocalizations.of(context)!.waypoints),
+                      leading: IconButton(
+                        icon: const Icon(PhosphorIcons.xLight),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                    ),
                     floatingActionButton: FloatingActionButton.extended(
                       onPressed: _showCreateDialog,
                       label: Text(AppLocalizations.of(context)!.create),
@@ -53,6 +57,7 @@ class _WaypointsDialogState extends State<WaypointsDialog> {
                                   prefixIcon:
                                       Icon(PhosphorIcons.magnifyingGlassLight),
                                 ),
+                                textAlignVertical: TextAlignVertical.center,
                                 controller: _searchController,
                                 autofocus: true,
                               ),

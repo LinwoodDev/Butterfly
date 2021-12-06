@@ -61,7 +61,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
       var assets = <AppDocumentAsset>[];
       for (var file in files) {
         try {
-          var currentPath = path + '/' + file.path.split('\\').last;
+          var currentPath =
+              path + '/' + file.path.replaceAll('\\', '/').split('/').last;
           if (currentPath.startsWith('//')) {
             currentPath = currentPath.substring(1);
           }
@@ -114,6 +115,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
     }
     path ??= (await getApplicationDocumentsDirectory()).path +
         '/Butterfly-Documents';
+    // Convert \ to /
+    path = path.replaceAll('\\', '/');
     var directory = Directory(path);
     if (!await directory.exists()) {
       await directory.create();
