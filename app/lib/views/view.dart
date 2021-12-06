@@ -186,6 +186,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       },
                       onPointerUp: (PointerUpEvent event) {
                         var cubit = context.read<EditingCubit>();
+                        if (cubit.isMoving) return;
                         var currentLayer = cubit.getAndReset(event.pointer);
                         var transform = context.read<TransformCubit>().state;
                         var input =
@@ -205,6 +206,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             void showSelection() {
                               var selectionCubit =
                                   context.read<SelectionCubit>();
+                              var editingCubit = context.read<EditingCubit>();
                               var selection = selectionCubit.state;
                               if (selection == null) return;
                               var index =
@@ -222,9 +224,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         }
                                         if (selection is LabelElement) {
                                           return LabelElementDialog(
-                                              selectionCubit: selectionCubit,
-                                              index: index,
-                                              bloc: widget.bloc);
+                                            selectionCubit: selectionCubit,
+                                            index: index,
+                                            bloc: widget.bloc,
+                                            editingCubit: editingCubit,
+                                          );
                                         }
                                         if (selection is ImageElement) {
                                           return ImageElementDialog(
@@ -259,12 +263,22 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         }
                       },
                       behavior: HitTestBehavior.translucent,
+                      onPointerHover: (event) {
+                        var editingCubit = context.read<EditingCubit>();
+                        var transform = context.read<TransformCubit>().state;
+                        if (editingCubit.isMoving) {
+                          var position = event.localPosition;
+                          editingCubit
+                              .moveTo(transform.localToGlobal(position));
+                        }
+                      },
                       onPointerMove: (PointerMoveEvent event) {
                         var cubit = context.read<EditingCubit>();
                         var currentLayer = cubit.get(event.pointer);
                         var transform = context.read<TransformCubit>().state;
                         var input =
                             InputType.values[_prefs?.getInt('input') ?? 0];
+                        if (cubit.isMoving) return;
                         if (!input.canCreate(
                                 event.pointer, cubit.first(), event.kind) ||
                             event.buttons == kMiddleMouseButton ||

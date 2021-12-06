@@ -1,5 +1,5 @@
-import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/models/elements/eraser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -32,6 +32,10 @@ class EraserElementDialog extends StatelessWidget {
                 const Divider(thickness: 1),
                 Expanded(
                     child: ListView(children: [
+                  ListTile(
+                    title: Text(AppLocalizations.of(context)!.move),
+                    leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
+                  ),
                   ListTile(
                       onTap: () {
                         showDialog(

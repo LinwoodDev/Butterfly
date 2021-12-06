@@ -11,6 +11,8 @@ abstract class ElementLayer {
 
   void paint(Canvas canvas, [bool preview = false]);
 
+  ElementLayer moveBy(Offset offset);
+
   bool hit(Offset offset);
 
   Rect get rect;

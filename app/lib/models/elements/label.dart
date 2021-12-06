@@ -78,4 +78,9 @@ class LabelElement extends ElementLayer {
     tp.layout();
     return Rect.fromLTWH(position.dx, position.dy, tp.width, tp.height);
   }
+
+  @override
+  LabelElement moveBy(Offset offset) {
+    return copyWith(position: position + offset);
+  }
 }

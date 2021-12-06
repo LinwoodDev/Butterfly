@@ -1,6 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/cubits/selection.dart';
-import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/models/elements/label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,12 +11,14 @@ class LabelElementDialog extends StatelessWidget {
   final int index;
   final DocumentBloc bloc;
   final SelectionCubit selectionCubit;
+  final EditingCubit editingCubit;
 
   const LabelElementDialog(
       {Key? key,
       required this.index,
       required this.bloc,
-      required this.selectionCubit})
+      required this.selectionCubit,
+      required this.editingCubit})
       : super(key: key);
 
   @override
@@ -26,70 +28,70 @@ class LabelElementDialog extends StatelessWidget {
       child: BlocBuilder<DocumentBloc, DocumentState>(
         builder: (context, state) {
           if (state is! DocumentLoadSuccess) return Container();
-          IconData icon;
           if (state.document.content.length <= index) return Container();
-          var element = state.document.content[index];
-          if (element is LabelElement) {
-            icon = PhosphorIcons.textTLight;
-          } else if (element is EraserElement) {
-            icon = PhosphorIcons.eraserLight;
-          } else {
-            icon = PhosphorIcons.penLight;
-          }
+          var element = state.document.content[index] as LabelElement;
           return SizedBox(
             height: 300,
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 70,
-                  child: Center(child: Icon(icon, size: 36)),
+                  child:
+                      Center(child: Icon(PhosphorIcons.textTLight, size: 36)),
                 ),
                 const Divider(thickness: 1),
                 Expanded(
                     child: ListView(children: [
-                  if (element is LabelElement)
-                    ListTile(
-                        title: Text(AppLocalizations.of(context)!.edit),
-                        leading: const Icon(PhosphorIcons.textTLight),
-                        onTap: () {
-                          var _textController =
-                              TextEditingController(text: element.text);
-                          void submit() {
-                            Navigator.of(context).pop();
-                            var layer =
-                                element.copyWith(text: _textController.text);
-                            bloc.add(LayerChanged(index, layer));
-                            selectionCubit.change(layer);
-                          }
+                  ListTile(
+                    title: Text(AppLocalizations.of(context)!.move),
+                    leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
+                    onTap: () {
+                      // Get current mouse position
+                      editingCubit.move(element);
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  ListTile(
+                      title: Text(AppLocalizations.of(context)!.edit),
+                      leading: const Icon(PhosphorIcons.textTLight),
+                      onTap: () {
+                        var _textController =
+                            TextEditingController(text: element.text);
+                        void submit() {
+                          Navigator.of(context).pop();
+                          var layer =
+                              element.copyWith(text: _textController.text);
+                          bloc.add(LayerChanged(index, layer));
+                          selectionCubit.change(layer);
+                        }
 
-                          showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                      title: Text(AppLocalizations.of(context)!
-                                          .enterText),
-                                      content: TextField(
-                                        controller: _textController,
-                                        autofocus: true,
-                                        keyboardType: TextInputType.multiline,
-                                        minLines: 3,
-                                        maxLines: 5,
-                                        onSubmitted: (text) => submit(),
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                    title: Text(AppLocalizations.of(context)!
+                                        .enterText),
+                                    content: TextField(
+                                      controller: _textController,
+                                      autofocus: true,
+                                      keyboardType: TextInputType.multiline,
+                                      minLines: 3,
+                                      maxLines: 5,
+                                      onSubmitted: (text) => submit(),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                .cancel),
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
                                       ),
-                                      actions: [
-                                        TextButton(
+                                      TextButton(
                                           child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .cancel),
-                                          onPressed: () =>
-                                              Navigator.of(context).pop(),
-                                        ),
-                                        TextButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .ok),
-                                            onPressed: submit)
-                                      ]));
-                        }),
+                                              AppLocalizations.of(context)!.ok),
+                                          onPressed: submit)
+                                    ]));
+                      }),
                   ListTile(
                       onTap: () {
                         showDialog(

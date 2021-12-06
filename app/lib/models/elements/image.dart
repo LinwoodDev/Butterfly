@@ -74,4 +74,7 @@ class ImageElement extends ElementLayer {
   @override
   ui.Rect get rect =>
       Rect.fromLTWH(position.dx, position.dy, width * scale, height * scale);
+
+  @override
+  ImageElement moveBy(Offset offset) => copyWith(position: position + offset);
 }

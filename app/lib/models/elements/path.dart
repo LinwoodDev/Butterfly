@@ -107,5 +107,11 @@ abstract class PathElement extends ElementLayer {
         bottomRightCorner.dx, bottomRightCorner.dy);
   }
 
+  @override
+  PathElement moveBy(Offset offset) => copyWith(
+      points: points
+          .map((e) => PathPoint.fromOffset(e.toOffset() + offset, e.pressure))
+          .toList());
+
   PathElement copyWith({List<PathPoint>? points});
 }

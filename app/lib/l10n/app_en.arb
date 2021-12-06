@@ -152,5 +152,6 @@
   "rename": "Rename",
   "duplicate": "Duplicate",
   "hand": "Hand",
-  "folder": "Folder"
+  "folder": "Folder",
+  "move": "Move"
 }
