@@ -26,7 +26,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
     var file = File('${await getDirectory()}$path/$name');
     file = await file.create(recursive: true);
     await file.writeAsString(json.encode(document.toJson()));
-    return AppDocumentFile('$path/$name', document.toJson());
+    return AppDocumentFile(
+        path == '/' ? '/$name' : '$path/$name', document.toJson());
   }
 
   @override
@@ -60,7 +61,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
       var assets = <AppDocumentAsset>[];
       for (var file in files) {
         try {
-          var currentPath = path + '/' + file.path.split('/').last;
+          var currentPath = path + '/' + file.path.split('\\').last;
           if (currentPath.startsWith('//')) {
             currentPath = currentPath.substring(1);
           }

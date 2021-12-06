@@ -189,10 +189,6 @@ class _ProjectPageState extends State<ProjectPage> {
             ),
             _buildPopupMenu(),
             if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
-            /*const IconButton(
-                                    icon: Icon(PhosphorIcons.linkLight),
-                                    tooltip: "Share (not implemented)",
-                                    onPressed: null)*/
           ]);
 
   Widget _buildToolbar() => SingleChildScrollView(

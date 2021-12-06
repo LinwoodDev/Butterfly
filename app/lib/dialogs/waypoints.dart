@@ -19,6 +19,8 @@ class WaypointsDialog extends StatefulWidget {
 }
 
 class _WaypointsDialogState extends State<WaypointsDialog> {
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -31,7 +33,6 @@ class _WaypointsDialogState extends State<WaypointsDialog> {
                 constraints:
                     const BoxConstraints(maxWidth: 600, maxHeight: 800),
                 child: Scaffold(
-                    backgroundColor: Colors.transparent,
                     appBar: AppBar(
                         title: Text(AppLocalizations.of(context)!.waypoints),
                         leading: const Icon(PhosphorIcons.mapPinLight)),
@@ -40,54 +41,81 @@ class _WaypointsDialogState extends State<WaypointsDialog> {
                       label: Text(AppLocalizations.of(context)!.create),
                       icon: const Icon(PhosphorIcons.plusLight),
                     ),
-                    body: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
-                        child: BlocBuilder<DocumentBloc, DocumentState>(
-                            buildWhen: (previous, current) =>
-                                (previous as DocumentLoadSuccess)
-                                    .document
-                                    .waypoints !=
-                                (current as DocumentLoadSuccess)
-                                    .document
-                                    .waypoints,
-                            builder: (context, state) {
-                              if (state is! DocumentLoadSuccess) {
-                                return Container();
-                              }
-                              var waypoints = state.document.waypoints;
-                              return Column(children: [
-                                ListTile(
-                                    onTap: () {
-                                      widget.cameraCubit
-                                          .moveToWaypoint(Waypoint.origin);
-                                      Navigator.of(context).pop();
-                                    },
-                                    title: Text(
-                                        AppLocalizations.of(context)!.origin)),
-                                const Divider(),
-                                ...List.generate(
-                                    waypoints.length,
-                                    (index) => Dismissible(
-                                          key: ObjectKey(waypoints[index]),
-                                          background:
-                                              Container(color: Colors.red),
-                                          onDismissed: (direction) {
-                                            widget.bloc
-                                                .add(WaypointRemoved(index));
-                                          },
-                                          child: ListTile(
-                                              onTap: () {
-                                                widget.cameraCubit
-                                                    .moveToWaypoint(
-                                                        waypoints[index]);
-                                                Navigator.of(context).pop();
+                    body: Column(
+                      children: [
+                        Material(
+                            elevation: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                  filled: true,
+                                  prefixIcon:
+                                      Icon(PhosphorIcons.magnifyingGlassLight),
+                                ),
+                                controller: _searchController,
+                              ),
+                            )),
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 15),
+                          child: ValueListenableBuilder(
+                            valueListenable: _searchController,
+                            builder: (context, value, child) => BlocBuilder<
+                                    DocumentBloc, DocumentState>(
+                                buildWhen: (previous, current) =>
+                                    (previous as DocumentLoadSuccess)
+                                        .document
+                                        .waypoints !=
+                                    (current as DocumentLoadSuccess)
+                                        .document
+                                        .waypoints,
+                                builder: (context, state) {
+                                  if (state is! DocumentLoadSuccess) {
+                                    return Container();
+                                  }
+                                  var waypoints = state.document.waypoints
+                                      .where((element) => element.name
+                                          .contains(_searchController.text))
+                                      .toList();
+                                  return ListView(children: [
+                                    ListTile(
+                                        onTap: () {
+                                          widget.cameraCubit
+                                              .moveToWaypoint(Waypoint.origin);
+                                          Navigator.of(context).pop();
+                                        },
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .origin)),
+                                    const Divider(),
+                                    ...List.generate(
+                                        waypoints.length,
+                                        (index) => Dismissible(
+                                              key: ObjectKey(waypoints[index]),
+                                              background:
+                                                  Container(color: Colors.red),
+                                              onDismissed: (direction) {
+                                                widget.bloc.add(
+                                                    WaypointRemoved(index));
                                               },
-                                              title:
-                                                  Text(waypoints[index].name)),
-                                        ))
-                              ]);
-                            }))))));
+                                              child: ListTile(
+                                                  onTap: () {
+                                                    widget.cameraCubit
+                                                        .moveToWaypoint(
+                                                            waypoints[index]);
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  title: Text(
+                                                      waypoints[index].name)),
+                                            ))
+                                  ]);
+                                }),
+                          ),
+                        )),
+                      ],
+                    )))));
   }
 
   void _showCreateDialog() {
@@ -115,7 +143,7 @@ class _WaypointsDialogState extends State<WaypointsDialog> {
                 actions: [
                   TextButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: Text(AppLocalizations.of(context)!.no)),
+                      child: Text(AppLocalizations.of(context)!.cancel)),
                   TextButton(
                       onPressed: () {
                         widget.bloc.add(WaypointCreated(Waypoint(
@@ -124,56 +152,9 @@ class _WaypointsDialogState extends State<WaypointsDialog> {
                             saveScale ? widget.cameraCubit.state.size : null)));
                         Navigator.of(context).pop();
                       },
-                      child: Text(AppLocalizations.of(context)!.yes)),
+                      child: Text(AppLocalizations.of(context)!.create)),
                 ],
               );
             }));
-  }
-}
-
-class WaypointSearch extends SearchDelegate {
-  final DocumentBloc bloc;
-  WaypointSearch(this.bloc);
-
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    return [
-      IconButton(icon: const Icon(PhosphorIcons.xLight), onPressed: () {})
-    ];
-  }
-
-  @override
-  Widget? buildLeading(BuildContext context) {
-    return const Icon(PhosphorIcons.magnifyingGlassLight);
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw UnimplementedError();
-  }
-
-  List<Waypoint> get waypoints {
-    var state = bloc.state;
-    if (state is! DocumentLoadSuccess) return const [];
-    return state.document.waypoints;
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    var suggestedWords =
-        waypoints.where((element) => element.name.startsWith(query)).map((e) {
-      var word = e.name;
-      var nextWord = word.substring(query.length);
-      var spaceIndex = nextWord.indexOf(' ');
-      if (spaceIndex < 0) {
-        spaceIndex = nextWord.length;
-      }
-      return word.substring(0, query.length) + nextWord;
-    }).toList();
-    return ListView.builder(
-        itemCount: suggestedWords.length,
-        itemBuilder: (context, index) =>
-            ListTile(title: Text(suggestedWords[index])));
   }
 }
