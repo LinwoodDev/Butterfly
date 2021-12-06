@@ -152,5 +152,6 @@
     "rename": "Umbenennen",
     "duplicate": "Duplizieren",
     "hand": "Hand",
-    "folder": "Ordner"
+    "folder": "Ordner",
+    "move": "Move"
 }
