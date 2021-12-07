@@ -4,7 +4,6 @@ import 'package:butterfly/models/elements/element.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditingCubit extends Cubit<Map<int, ElementLayer>> {
-
   EditingCubit([ElementLayer? selected])
       : super(selected == null ? {} : {0: selected});
 

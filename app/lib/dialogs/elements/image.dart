@@ -36,7 +36,7 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
     element = (widget.bloc.state as DocumentLoadSuccess)
         .document
         .content[widget.index] as ImageElement;
-    _scaleController.text = element.scale.toString();
+    _scaleController.text = (element.scale * 100).toStringAsFixed(2);
   }
 
   void _changeElement() {
@@ -63,27 +63,29 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
                   controller: _scaleController,
                   onEditingComplete: () => _changeElement(),
                   onChanged: (value) => setState(() => element =
-                                element.copyWith(scale: double.tryParse(value)))),
-                      ),
-                      Expanded(
-                          child: Slider(
-                            value: element.scale.clamp(0.1, 5),
+                      element.copyWith(scale: double.tryParse(value)))),
+            ),
+            Expanded(
+                child: Slider(
+              value: element.scale.clamp(0.1, 5),
               min: 0.1,
               max: 5,
               onChangeEnd: (value) => _changeElement(),
-              onChanged: (value) =>
-                  setState(() => element = element.copyWith(scale: value)),
+              onChanged: (value) {
+                _scaleController.text = (value * 100).toStringAsFixed(2);
+                setState(() => element = element.copyWith(scale: value));
+              },
             ))
-                    ]),
-                  ),
-                  ListTile(
-                    title: Text(AppLocalizations.of(context)!.export),
-                    leading: const Icon(PhosphorIcons.exportLight),
-                    onTap: () {
-                      openImage(element.pixels);
+          ]),
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.export),
+          leading: const Icon(PhosphorIcons.exportLight),
+          onTap: () {
+            openImage(element.pixels);
           },
-                  ),
-              ],
-          );
+        ),
+      ],
+    );
   }
 }
