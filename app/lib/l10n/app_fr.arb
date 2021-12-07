@@ -152,5 +152,6 @@
     "rename": "Renommer",
     "duplicate": "Dupliquer",
     "hand": "Main",
-    "folder": "Répertoire"
+    "folder": "Répertoire",
+    "move": "Déplacer"
 }
