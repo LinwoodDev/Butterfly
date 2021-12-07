@@ -113,5 +113,8 @@ abstract class PathElement extends ElementLayer {
           .map((e) => PathPoint.fromOffset(e.toOffset() + offset, e.pressure))
           .toList());
 
+  @override
+  Offset get position => points.first.toOffset();
+
   PathElement copyWith({List<PathPoint>? points});
 }

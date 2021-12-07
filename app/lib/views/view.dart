@@ -6,17 +6,15 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/dialogs/elements/eraser.dart';
+import 'package:butterfly/dialogs/elements/general.dart';
 import 'package:butterfly/dialogs/elements/image.dart';
 import 'package:butterfly/dialogs/elements/label.dart';
-import 'package:butterfly/dialogs/elements/paint.dart';
 import 'package:butterfly/dialogs/select.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/models/elements/image.dart';
 import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/elements/path.dart';
-import 'package:butterfly/models/elements/pen.dart';
 import 'package:butterfly/models/input_type.dart';
 import 'package:butterfly/models/painters/image.dart';
 import 'package:butterfly/models/painters/label.dart';
@@ -186,7 +184,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       },
                       onPointerUp: (PointerUpEvent event) {
                         var cubit = context.read<EditingCubit>();
-                        if (cubit.isMoving) return;
+                        if (cubit.isMoving) {
+                          var movingLayer = cubit.getAndResetMove();
+                          if (movingLayer != null) {
+                            widget.bloc.add(LayerCreated(movingLayer));
+                          }
+                        }
                         var currentLayer = cubit.getAndReset(event.pointer);
                         var transform = context.read<TransformCubit>().state;
                         var input =
@@ -208,20 +211,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   context.read<SelectionCubit>();
                               var editingCubit = context.read<EditingCubit>();
                               var selection = selectionCubit.state;
+                              var bloc = widget.bloc;
                               if (selection == null) return;
                               var index =
                                   state.document.content.indexOf(selection);
                               showModalBottomSheet(
                                       context: context,
                                       builder: (context) {
-                                        if (selection is PenElement) {
-                                          return PaintElementDialog(
-                                              index: index, bloc: widget.bloc);
-                                        }
-                                        if (selection is EraserElement) {
-                                          return EraserElementDialog(
-                                              index: index, bloc: widget.bloc);
-                                        }
                                         if (selection is LabelElement) {
                                           return LabelElementDialog(
                                             selectionCubit: selectionCubit,
@@ -232,11 +228,16 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         }
                                         if (selection is ImageElement) {
                                           return ImageElementDialog(
+                                              editingCubit: editingCubit,
                                               selectionCubit: selectionCubit,
                                               index: index,
                                               bloc: widget.bloc);
                                         }
-                                        return Container();
+                                        return GeneralElementDialog(
+                                            index: index,
+                                            bloc: bloc,
+                                            selectionCubit: selectionCubit,
+                                            editingCubit: editingCubit);
                                       })
                                   .then((value) =>
                                       context.read<SelectionCubit>().reset());

@@ -153,5 +153,6 @@
   "duplicate": "Duplicate",
   "hand": "Hand",
   "folder": "Folder",
-  "move": "Move"
+  "move": "Move",
+  "copy": "Copy"
 }

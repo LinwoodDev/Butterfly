@@ -13,6 +13,12 @@ abstract class ElementLayer {
 
   ElementLayer moveBy(Offset offset);
 
+  Offset get position;
+
+  ElementLayer moveTo(Offset value) {
+    return moveBy(value - position);
+  }
+
   bool hit(Offset offset);
 
   Rect get rect;

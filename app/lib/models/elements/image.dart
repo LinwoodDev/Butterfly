@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 
 class ImageElement extends ElementLayer {
   final Uint8List pixels;
+  @override
   final Offset position;
   final int width, height;
   final double scale;

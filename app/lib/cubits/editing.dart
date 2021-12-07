@@ -4,7 +4,6 @@ import 'package:butterfly/models/elements/element.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditingCubit extends Cubit<Map<int, ElementLayer>> {
-  Offset startOffset = Offset.zero;
 
   EditingCubit([ElementLayer? selected])
       : super(selected == null ? {} : {0: selected});
@@ -18,15 +17,12 @@ class EditingCubit extends Cubit<Map<int, ElementLayer>> {
   }
 
   void move(ElementLayer layer) {
-    if (!has(-1)) {
-      startOffset = Offset.zero;
-    }
     put(-1, layer);
   }
 
   void resetMove() => reset(-1);
 
-  void getAndResetMove() => getAndReset(-1);
+  ElementLayer? getAndResetMove() => getAndReset(-1);
 
   bool get isMoving => has(-1);
 
@@ -55,9 +51,7 @@ class EditingCubit extends Cubit<Map<int, ElementLayer>> {
 
   void moveTo(Offset offset) {
     if (isMoving) {
-      var deltaOffset = offset - startOffset;
-      change(-1, currentMove!.moveBy(deltaOffset));
-      startOffset = offset;
+      change(-1, currentMove!.moveTo(offset));
     }
   }
 }
