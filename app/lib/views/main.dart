@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:butterfly/actions/background.dart';
+import 'package:butterfly/actions/color_palette.dart';
 import 'package:butterfly/actions/edit_mode.dart';
 import 'package:butterfly/actions/export.dart';
 import 'package:butterfly/actions/image_export.dart';
@@ -15,6 +17,7 @@ import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/cubits/language.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -77,7 +80,8 @@ class _ProjectPageState extends State<ProjectPage> {
         providers: [
           BlocProvider(create: (_) => _bloc!),
           BlocProvider(create: (_) => TransformCubit()),
-          BlocProvider(create: (_) => SelectionCubit())
+          BlocProvider(create: (_) => SelectionCubit()),
+          BlocProvider(create: (_) => EditingCubit()),
         ],
         child: Builder(builder: (context) {
           return Shortcuts(
@@ -114,13 +118,23 @@ class _ProjectPageState extends State<ProjectPage> {
                   LogicalKeyboardKey.keyS): ProjectIntent(context),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyW):
-                  WaypointsIntent(context)
+                  WaypointsIntent(context),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
+                  ColorPaletteIntent(context),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyB):
+                  BackgroundIntent(context),
             },
             child: Actions(
                 actions: <Type, Action<Intent>>{
                   UndoIntent: UndoAction(_bloc!),
                   RedoIntent: RedoAction(_bloc!),
-                  NewIntent: NewAction(_bloc!),
+                  NewIntent: NewAction(
+                      _bloc!,
+                      context.read<SelectionCubit>(),
+                      context.read<EditingCubit>(),
+                      context.read<TransformCubit>()),
                   OpenIntent: OpenAction(_bloc!),
                   ImportIntent: ImportAction(_bloc!),
                   ImageExportIntent: ImageExportAction(_bloc!),
@@ -128,7 +142,9 @@ class _ProjectPageState extends State<ProjectPage> {
                   EditModeIntent: EditModeAction(_bloc!),
                   SettingsIntent: SettingsAction(_bloc!),
                   ProjectIntent: ProjectAction(_bloc!),
-                  WaypointsIntent: WaypointsAction(_bloc!)
+                  WaypointsIntent: WaypointsAction(_bloc!),
+                  ColorPaletteIntent: ColorPaletteAction(_bloc!),
+                  BackgroundIntent: BackgroundAction(_bloc!),
                 },
                 child: Builder(builder: (context) {
                   PreferredSizeWidget appBar = _buildAppBar();
