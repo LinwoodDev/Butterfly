@@ -1,6 +1,5 @@
 ---
 sidebar_label: Hand
-sidebar_position: 0
 ---
 
 # Hand

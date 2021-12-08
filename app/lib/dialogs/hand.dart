@@ -7,6 +7,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class HandDialog extends StatefulWidget {
   final DocumentBloc bloc;
+
   const HandDialog({Key? key, required this.bloc}) : super(key: key);
 
   @override
@@ -36,7 +37,7 @@ class _HandDialogState extends State<HandDialog> {
                           tooltip: AppLocalizations.of(context)!.help,
                           icon:
                               const Icon(PhosphorIcons.circleWavyQuestionLight),
-                          onPressed: () => openHelp(['hand'])),
+                          onPressed: () => openHelp(['tools', 'hand'])),
                     ],
                   ),
                   body: Padding(
