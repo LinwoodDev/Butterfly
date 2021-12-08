@@ -16,6 +16,7 @@ module.exports = {
         'branding',
         'CHANGELOG',
         'versions',
+        'privacypolicy',
         {
             type: 'link',
             href: 'https://discord.linwood.dev',
