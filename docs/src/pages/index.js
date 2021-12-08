@@ -17,15 +17,15 @@ function HomepageHeader() {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.indexCtas}>
           <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Getting started
+              className="button button--secondary button--lg"
+              to="/docs/1.0.0-rc.4/intro">
+              Getting started
           </Link>
-          <Link
-            className="button button--success button--lg"
-            to="/downloads">
-            Downloads
-          </Link>
+            <Link
+                className="button button--success button--lg"
+                to="/downloads">
+                Downloads
+            </Link>
         </div>
       </div>
     </header>
@@ -42,7 +42,7 @@ export default function Home() {
       <main><img
           src={require('../../static/img/main.png').default}
           className={styles.screenshot}
-          alt="Example banner"
+          alt="Screenshot"
       />
         <HomepageFeatures />
       </main>

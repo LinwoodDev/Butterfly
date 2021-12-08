@@ -1,0 +1,32 @@
+{
+  "theme_color": "#f2b138",
+  "background_color": "#18191a",
+  "display": "minimal-ui",
+  "scope": "/?scope=pwa/",
+  "start_url": "/",
+  "name": "Linwood Butterfly Documentation",
+  "short_name": "Butterfly Docs",
+  "description": "Next future, advanced, serverless, free note app",
+  "icons": [
+    {
+      "src": "img/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
