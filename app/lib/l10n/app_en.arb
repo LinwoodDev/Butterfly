@@ -154,5 +154,6 @@
   "hand": "Hand",
   "folder": "Folder",
   "move": "Move",
-  "copy": "Copy"
+  "copy": "Copy",
+  "back": "Back"
 }

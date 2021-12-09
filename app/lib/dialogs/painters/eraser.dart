@@ -70,6 +70,7 @@ class _EraserPainterDialogState extends State<EraserPainterDialog> {
                           child: ListView(children: [
                             TextField(
                                 decoration: InputDecoration(
+                                    filled: true,
                                     labelText:
                                         AppLocalizations.of(context)!.name),
                                 controller: _nameController,

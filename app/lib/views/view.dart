@@ -180,14 +180,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     },
                     onPointerUp: (PointerUpEvent event) {
                       var cubit = context.read<EditingCubit>();
+                      var transform = context.read<TransformCubit>().state;
                       if (cubit.isMoving) {
+                        cubit.moveTo(
+                            transform.localToGlobal(event.localPosition));
                         var movingLayer = cubit.getAndResetMove();
                         if (movingLayer != null) {
                           widget.bloc.add(LayerCreated(movingLayer));
+                          return;
                         }
                       }
                       var currentLayer = cubit.getAndReset(event.pointer);
-                      var transform = context.read<TransformCubit>().state;
                       var input =
                           InputType.values[_prefs?.getInt('input') ?? 0];
 
@@ -272,7 +275,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       var transform = context.read<TransformCubit>().state;
                       var input =
                           InputType.values[_prefs?.getInt('input') ?? 0];
-                      if (cubit.isMoving) return;
+                      if (cubit.isMoving) {
+                        var position = event.localPosition;
+                        cubit.moveTo(transform.localToGlobal(position));
+                        return;
+                      }
                       if (!input.canCreate(
                               event.pointer, cubit.first(), event.kind) ||
                           event.buttons == kMiddleMouseButton ||

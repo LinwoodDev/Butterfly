@@ -2,14 +2,15 @@ import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/color_pick.dart';
 import 'package:butterfly/models/painters/pen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class PenPainterDialog extends StatefulWidget {
   final DocumentBloc bloc;
   final int painterIndex;
+
   const PenPainterDialog(
       {Key? key, required this.bloc, required this.painterIndex})
       : super(key: key);
@@ -23,6 +24,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
   final TextEditingController _strokeWidthController = TextEditingController();
   final TextEditingController _strokeMultiplierController =
       TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -71,6 +73,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                           child: ListView(children: [
                             TextField(
                                 decoration: InputDecoration(
+                                    filled: true,
                                     labelText:
                                         AppLocalizations.of(context)!.name),
                                 controller: _nameController,

@@ -76,6 +76,7 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                           child: ListView(children: [
                             TextField(
                                 decoration: InputDecoration(
+                                    filled: true,
                                     labelText:
                                         AppLocalizations.of(context)!.name),
                                 controller: _nameController,

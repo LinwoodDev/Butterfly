@@ -355,7 +355,17 @@ class _ProjectPageState extends State<ProjectPage> {
           PopupMenuItem(
               padding: EdgeInsets.zero,
               child: PopupMenuButton(
-                  itemBuilder: (popupContext) => [
+                  itemBuilder: (popupContext) => <PopupMenuEntry>[
+                        PopupMenuItem(
+                            padding: EdgeInsets.zero,
+                            child: ListTile(
+                                leading:
+                                    const Icon(PhosphorIcons.caretLeftLight),
+                                title: Text(AppLocalizations.of(context)!.back),
+                                onTap: () async {
+                                  Navigator.of(context).pop();
+                                })),
+                        const PopupMenuDivider(),
                         PopupMenuItem(
                             padding: EdgeInsets.zero,
                             child: ListTile(
@@ -393,6 +403,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   child: ListTile(
                       mouseCursor: MouseCursor.defer,
                       leading: const Icon(PhosphorIcons.exportLight),
+                      trailing: const Icon(PhosphorIcons.caretRightLight),
                       title: Text(AppLocalizations.of(context)!.export)))),
           const PopupMenuDivider(),
           PopupMenuItem(

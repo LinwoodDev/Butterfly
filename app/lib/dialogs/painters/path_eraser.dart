@@ -72,6 +72,7 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                           child: ListView(children: [
                             TextField(
                                 decoration: InputDecoration(
+                                    filled: true,
                                     labelText:
                                         AppLocalizations.of(context)!.name),
                                 controller: _nameController,
