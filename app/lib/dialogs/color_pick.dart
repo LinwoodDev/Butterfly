@@ -157,7 +157,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     runAlignment: WrapAlignment.end,
                                     alignment: WrapAlignment.spaceAround,
                                     crossAxisAlignment:
-                                        WrapCrossAlignment.start,
+                                        WrapCrossAlignment.center,
                                     children: [
                                       DropdownButton<int>(
                                         alignment: Alignment.center,

@@ -50,7 +50,11 @@ class EditingCubit extends Cubit<Map<int, ElementLayer>> {
 
   void moveTo(Offset offset) {
     if (isMoving) {
-      change(-1, currentMove!.moveTo(offset));
+      var rect = currentMove!.rect;
+      change(
+          -1,
+          currentMove!
+              .moveTo(offset - Offset(rect.width / 2, rect.height / 2)));
     }
   }
 }

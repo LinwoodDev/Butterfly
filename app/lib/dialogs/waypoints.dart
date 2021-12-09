@@ -45,23 +45,23 @@ class _WaypointsDialogState extends State<WaypointsDialog> {
                       label: Text(AppLocalizations.of(context)!.create),
                       icon: const Icon(PhosphorIcons.plusLight),
                     ),
+                    backgroundColor: Colors.transparent,
                     body: Column(
                       children: [
-                        Material(
-                            elevation: 2,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                  filled: true,
-                                  prefixIcon:
-                                      Icon(PhosphorIcons.magnifyingGlassLight),
-                                ),
-                                textAlignVertical: TextAlignVertical.center,
-                                controller: _searchController,
-                                autofocus: true,
-                              ),
-                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            decoration: const InputDecoration(
+                              filled: true,
+                              prefixIcon:
+                                  Icon(PhosphorIcons.magnifyingGlassLight),
+                            ),
+                            textAlignVertical: TextAlignVertical.center,
+                            controller: _searchController,
+                            autofocus: true,
+                          ),
+                        ),
+                        const Divider(),
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.symmetric(

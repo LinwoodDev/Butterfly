@@ -127,6 +127,7 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                                             strokeMultiplier: value))),
                               )
                             ]),
+                            const SizedBox(height: 10),
                             CheckboxListTile(
                                 value: painter.includeEraser,
                                 title: Text(AppLocalizations.of(context)!
