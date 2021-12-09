@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -27,13 +28,15 @@
   <link rel="apple-touch-icon" href="android/android-launchericon-192-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="chrome/chrome-favicon-16-16.png"/>
+  <link rel="icon" type="image/png" href="chrome/chrome-favicon-16-16.png" />
 
   <title>Linwood Butterfly</title>
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" type="text/css" href="splash/style.css">
 </head>
-<body style="position: fixed; inset: 0px; overflow: hidden; padding: 0px; margin: 0px; user-select: none; touch-action: none; font: 14px sans-serif; color: red;">
+
+<body
+  style="position: fixed; inset: 0px; overflow: hidden; padding: 0px; margin: 0px; user-select: none; touch-action: none; font: 14px sans-serif; color: red;">
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -101,10 +104,49 @@
       loadMainDartJs();
     }
   </script>
+  <script>
+    // Prevent default browser behaviors
+
+    document.addEventListener("wheel", (e) => (e.ctrlKey)
+      && e.preventDefault(), { passive: false });
+    window.addEventListener("keydown", function (event) {
+      if (event.metaKey || event.ctrlKey) {
+        // When ctrl or meta is pressed we want to suppress some default bound
+        // browser actions (like CMD+Plus/Minus to zoom).
+        switch (event.keyCode) {
+          case 68: // 'd' for duplication
+          case 71: // 'g' for grouping
+          case 187: // '=' for zoom in
+          case 189: // '-' for zoom out
+          case 90: // 'z' for preventing opening a previous tab in Safari
+          case 221: // ']' for changing draw order
+          case 219: // '[' for changing draw order
+          case 37: // left arrow for moving keys: #1786
+          case 39: // right arrow for moving keys: #1786
+          case 188: // , #1835
+            // Needs to be removed as it kills text copy
+            // case 67:  // 'c' for preventing negative beep on Safari
+            event.preventDefault();
+            break;
+          // default:
+          //   console.log('Keycode pressed: ' + event.keyCode);
+        }
+      }
+      // Suppress backspace triggering a navigate back action.
+      if (event.keyCode == 8 && event.target == document.body) {
+        event.preventDefault();
+      }
+    });
+  </script>
   <picture id="splash">
-    <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
-    <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
+    <source
+      srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x"
+      media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
+    <source
+      srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x"
+      media="(prefers-color-scheme: dark)">
     <img aria-hidden="true" class="center" src="splash/img/light-1x.png" />
   </picture>
 </body>
+
 </html>
