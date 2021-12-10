@@ -1,0 +1,13 @@
+* Add eraser exclude property for the hand
+* Add folder creation feature to the file system
+* Add move feature to the file system
+* Add search to waypoints dialog
+* Add path and search widget to open dialog
+* Add hand properties
+* Add nightly icon
+* Add pwa documentation
+* Implement move/duplicate for elements
+* Prevent browser behaviors on the web version
+* Fixing file system on native platforms
+* Fix splash screen on screen readers
+* Fix some dialog themes to have rounded corners
