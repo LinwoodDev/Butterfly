@@ -20,7 +20,10 @@ jobs:
           echo "BUTTERFLY_VERSION=${BASH_REMATCH[1]}" >> $GITHUB_ENV
           echo "BUTTERFLY_BUILD_NUMBER=${BASH_REMATCH[2]}" >> $GITHUB_ENV
           echo "BUTTERFLY_RELEASE_DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
-          echo "CURRENT_CHANGELOG=$(cat fastlane/metadata/android/en-US/changelogs/${env.BUTTERFLY_BUILD_NUMBER}.txt)" >> $GITHUB_ENV
+          BUTTEFLY_VERSION=${{ env.BUTTERFLY_VERSION }}
+          BUTTERFLY_RELEASE_DATE=${{ env.BUTTERFLY_RELEASE_DATE }}
+          echo "CURRENT_CHANGELOG=$(cat fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt)" >> $GITHUB_ENV
+          CURRENT_CHANGELOG=${{ env.CURRENT_CHANGELOG }}
           echo "INPUT_CHANGELOG=\"<\!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${CURRENT_CHANGELOG}\"" >> $GITHUB_ENV
           git config --global user.email "actions@github.com"
           git config --global user.name "Actions"
