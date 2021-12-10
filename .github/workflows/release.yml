@@ -15,8 +15,8 @@ jobs:
       - name: Setup git
         id: setup
         run: |
-          echo "BUTTERFLY_VERSION_REGEX=\"version:\s(.+)\+(.+)\"" >> $GITHUB_ENV
-          [[ $(grep -E "${env.BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${env.BUTTERFLY_VERSION_REGEX} ]]
+          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
           echo "BUTTERFLY_VERSION=${BASH_REMATCH[1]}" >> $GITHUB_ENV
           echo "BUTTERFLY_BUILD_NUMBER=${BASH_REMATCH[2]}" >> $GITHUB_ENV
           echo "BUTTERFLY_RELEASE_DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
