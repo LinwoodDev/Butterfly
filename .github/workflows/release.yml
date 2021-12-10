@@ -17,14 +17,15 @@ jobs:
         run: |
           BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
           [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
-          echo "BUTTERFLY_VERSION=${BASH_REMATCH[1]}" >> $GITHUB_ENV
-          echo "BUTTERFLY_BUILD_NUMBER=${BASH_REMATCH[2]}" >> $GITHUB_ENV
-          echo "BUTTERFLY_RELEASE_DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
-          BUTTEFLY_VERSION=${{ env.BUTTERFLY_VERSION }}
-          BUTTERFLY_RELEASE_DATE=${{ env.BUTTERFLY_RELEASE_DATE }}
-          echo "CURRENT_CHANGELOG=$(cat fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt)" >> $GITHUB_ENV
-          CURRENT_CHANGELOG=${{ env.CURRENT_CHANGELOG }}
-          echo "INPUT_CHANGELOG=\"<\!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${CURRENT_CHANGELOG}\"" >> $GITHUB_ENV
+          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
+          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
+          BUTTERFLY_RELEASE_DATE=$(date +%Y-%m-%d)
+          echo "BUTTERFLY_RELEASE_DATE=${BUTTERFLY_RELEASE_DATE}" >> $GITHUB_ENV
+          CURRENT_CHANGELOG=$(cat fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt)
+          echo "CURRENT_CHANGELOG=${CURRENT_CHANGELOG}" >> $GITHUB_ENV
+          printf "INPUT_CHANGELOG=\"<\!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${CURRENT_CHANGELOG}\"" >> $GITHUB_ENV
           git config --global user.email "actions@github.com"
           git config --global user.name "Actions"
       - name: Update changelog
@@ -44,7 +45,7 @@ jobs:
         run: |
           BUTTERFLY_VERSION="${{ env.BUTTERFLY_VERSION }}"
           git tag -a v${BUTTERFLY_VERSION} -m "Release ${BUTTERFLY_VERSION}"
-          git push origin v${env.BUTTERFLY_VERSION}
+          git push origin v${BUTTERFLY_VERSION}
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
