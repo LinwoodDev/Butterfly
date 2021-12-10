@@ -8,6 +8,12 @@ title: Branding
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
+## Nightly Logo
+
+![Logo](/img/nightly.svg)
+
+[SVG](/img/nightly.svg) [PNG](/img/nightly.png)
+
 ## Banner
 
 ![Banner](/img/banner.svg)

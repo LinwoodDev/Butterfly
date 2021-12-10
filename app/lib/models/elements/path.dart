@@ -114,7 +114,10 @@ abstract class PathElement extends ElementLayer {
           .toList());
 
   @override
-  Offset get position => points.first.toOffset();
+  Offset get position {
+    var currentRect = rect;
+    return Offset(currentRect.left, currentRect.top);
+  }
 
   PathElement copyWith({List<PathPoint>? points});
 }

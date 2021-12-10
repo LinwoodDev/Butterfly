@@ -108,12 +108,31 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                                           builder: (context, state) {
                                     if (state is! DocumentLoadSuccess ||
                                         _previewImage == null) {
-                                      return Container();
+                                      return const Center(
+                                          child: CircularProgressIndicator());
                                     }
-                                    return InteractiveViewer(
-                                        child: Image.memory(_previewImage!
-                                            .buffer
-                                            .asUint8List()));
+                                    return Image(
+                                      image: MemoryImage(
+                                          _previewImage!.buffer.asUint8List()),
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        }
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
+                                    );
                                   }),
                                 ),
                               ),
