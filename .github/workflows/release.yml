@@ -26,10 +26,11 @@ jobs:
           git config --global user.name "Actions"
       - name: Update changelog
         run: |
-          INPUT_CHANGELOG="${env.INPUT_CHANGELOG}"
+          INPUT_CHANGELOG="${{ env.INPUT_CHANGELOG }}"
+          BUTTERFLY_VERSION="${{ env.BUTTERFLY_VERSION }}"
           sed -i "s/<\!--ENTER CHANGELOG HERE-->/${INPUT_CHANGELOG}/g" docs/community/CHANGELOG.md
           git add docs/community/CHANGELOG.md
-          git commit -m "Update CHANGELOG.md for ${env.BUTTERFLY_VERSION}"
+          git commit -m "Update CHANGELOG.md for ${BUTTERFLY_VERSION}"
           git push origin develop
       - name: Merge develop into main
         run: |
@@ -38,7 +39,8 @@ jobs:
           git push origin main
       - name: Create tag
         run: |
-          git tag -a v${env.BUTTERFLY_VERSION} -m "Release ${env.BUTTERFLY_VERSION}"
+          BUTTERFLY_VERSION="${{ env.BUTTERFLY_VERSION }}"
+          git tag -a v${BUTTERFLY_VERSION} -m "Release ${BUTTERFLY_VERSION}"
           git push origin v${env.BUTTERFLY_VERSION}
       - name: Create release
         uses: softprops/action-gh-release@v1
