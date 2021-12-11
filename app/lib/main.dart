@@ -1,8 +1,13 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/home.dart';
 import 'package:butterfly/views/main.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -11,6 +16,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cubits/language.dart';
+import 'models/document.dart';
 import 'settings/personalization.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme.dart';
@@ -21,18 +27,27 @@ Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   GetIt.I.registerSingleton<int>(fileVersion, instanceName: 'fileVersion');
+  GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   await setup();
   var prefs = await SharedPreferences.getInstance();
   var initialLocation = '/';
-  if (args.isNotEmpty) {
-    initialLocation =
-        Uri(path: '/', queryParameters: {'path': args[0]}).toString();
+  if (args.isNotEmpty && !kIsWeb) {
+    var path = args[0];
+    var file = File(path);
+    if (await file.exists()) {
+      var data = await file.readAsString();
+      var json = jsonDecode(data);
+      var document = AppDocument.fromJson(json);
+      var newFile =
+          await DocumentFileSystem.fromPlatform().importDocument(document);
+      initialLocation = newFile.path;
+    }
   }
 
   runApp(ButterflyApp(
       prefs: prefs,
-      themeController: ThemeController(prefs),
-      initialLocation: initialLocation));
+      initialLocation: initialLocation,
+      themeController: ThemeController(prefs)));
   if (isWindow()) {
     doWhenWindowReady(() {
       appWindow.minSize = const Size(400, 300);
@@ -192,8 +207,7 @@ class ButterflyApp extends StatelessWidget {
   }
 
   get router => GoRouter(
-    urlPathStrategy: UrlPathStrategy.path,
-        initialLocation: initialLocation,
+    initialLocation: initialLocation,
         routes: [
           GoRoute(
               path: '/',
@@ -204,26 +218,26 @@ class ButterflyApp extends StatelessWidget {
               routes: [
                 GoRoute(
                   path: 'settings',
-              builder: (context, state) => const SettingsPage(),
-              routes: [
-                GoRoute(
-                  path: 'behaviors',
-                  builder: (context, state) =>
-                  const BehaviorsSettingsPage(),
+                  builder: (context, state) => const SettingsPage(),
+                  routes: [
+                    GoRoute(
+                      path: 'behaviors',
+                      builder: (context, state) =>
+                          const BehaviorsSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'personalization',
+                      builder: (context, state) =>
+                          const PersonalizationSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'data',
+                      builder: (context, state) => const DataSettingsPage(),
+                    ),
+                  ],
                 ),
-                GoRoute(
-                  path: 'personalization',
-                  builder: (context, state) =>
-                  const PersonalizationSettingsPage(),
-                ),
-                GoRoute(
-                  path: 'data',
-                  builder: (context, state) => const DataSettingsPage(),
-                ),
-              ],
-            ),
-          ]),
-    ],
+              ]),
+        ],
       );
 
   MaterialColor createMaterialColor(Color color) {

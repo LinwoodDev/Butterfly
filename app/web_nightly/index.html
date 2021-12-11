@@ -36,7 +36,7 @@
 </head>
 
 <body
-        style="position: fixed; inset: 0px; overflow: hidden; padding: 0px; margin: 0px; user-select: none; touch-action: none; font: 14px sans-serif; color: red;">
+        style="position: fixed; inset: 0; overflow: hidden; padding: 0; margin: 0; user-select: none; touch-action: none; font: 14px sans-serif; color: red;">
 <!-- This script installs service_worker.js to provide PWA functionality to
      application. For more information, see:
      https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -66,7 +66,7 @@
                 .then((reg) => {
                     function waitForActivation(serviceWorker) {
                         serviceWorker.addEventListener('statechange', () => {
-                            if (serviceWorker.state == 'activated') {
+                            if (serviceWorker.state === 'activated') {
                                 console.log('Installed new service worker.');
                                 loadMainDartJs();
                             }
@@ -134,8 +134,8 @@
                 //   console.log('Keycode pressed: ' + event.keyCode);
             }
         }
-        // Suppress backspace triggering a navigate back action.
-        if (event.keyCode == 8 && event.target == document.body) {
+        // Suppress backspace triggering a navigated back action.
+        if (event.keyCode === 8 && event.target === document.body) {
             event.preventDefault();
         }
     });
@@ -147,7 +147,7 @@
     <source
             media="(prefers-color-scheme: dark)"
             srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x">
-    <img aria-hidden="true" class="center" src="splash/img/light-1x.png"/>
+    <img alt="Logo" aria-hidden="true" class="center" src="splash/img/light-1x.png"/>
 </picture>
 </body>
 

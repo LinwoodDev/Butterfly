@@ -31,8 +31,11 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   Future<AppDocumentFile> importDocument(AppDocument document,
       {String path = '/'}) async {
     // Add leading slash
-    if (!path.startsWith('/') && path.isNotEmpty) {
+    if (!path.startsWith('/')) {
       path = '/$path';
+    }
+    if (path == '/' || path == '//') {
+      path = '';
     }
     var filePath = '$path/${convertNameToFile(document.name)}';
     var counter = 1;
@@ -73,6 +76,9 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
+    }
+    if (path == '//') {
+      path = '/';
     }
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readonly');

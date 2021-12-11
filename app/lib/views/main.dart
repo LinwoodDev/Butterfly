@@ -57,8 +57,22 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void initState() {
     super.initState();
+    load();
+  }
+
+  @override
+  void didUpdateWidget(ProjectPage oldWidget) {
+    if (oldWidget.path != widget.path) {
+      _bloc?.close();
+      _bloc = null;
+      load();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  Future<void> load() async {
     var fileSystem = DocumentFileSystem.fromPlatform();
-    SharedPreferences.getInstance().then((value) async {
+    await SharedPreferences.getInstance().then((value) async {
       AppDocument? document;
       if (widget.path != null) {
         await fileSystem.getAsset(widget.path!).then((value) =>
