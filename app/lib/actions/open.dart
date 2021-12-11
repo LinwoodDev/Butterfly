@@ -3,7 +3,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/file_system.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:go_router/go_router.dart';
 
 class OpenIntent extends Intent {
   final BuildContext context;
@@ -26,7 +26,7 @@ class OpenAction extends Action<OpenIntent> {
             .getAsset(value)
             .then((document) async {
           if (document is! AppDocumentFile) return;
-          Modular.to.navigate(
+          GoRouter.of(intent.context).go(
               Uri(path: '/', queryParameters: {'path': document.path})
                   .toString());
         });

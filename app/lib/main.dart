@@ -1,29 +1,38 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:butterfly/module.dart';
+import 'package:butterfly/settings/behaviors.dart';
+import 'package:butterfly/settings/data.dart';
+import 'package:butterfly/settings/home.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cubits/language.dart';
+import 'settings/personalization.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme.dart';
 
 const fileVersion = 4;
-void main() async {
+
+void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   GetIt.I.registerSingleton<int>(fileVersion, instanceName: 'fileVersion');
   await setup();
   var prefs = await SharedPreferences.getInstance();
+  var initialLocation = '/';
+  if (args.isNotEmpty) {
+    initialLocation =
+        Uri(path: '/', queryParameters: {'path': args[0]}).toString();
+  }
 
-  runApp(ModularApp(
-      module: AppModule(),
-      child:
-          ButterflyApp(prefs: prefs, themeController: ThemeController(prefs))));
+  runApp(ButterflyApp(
+      prefs: prefs,
+      themeController: ThemeController(prefs),
+      initialLocation: initialLocation));
   if (isWindow()) {
     doWhenWindowReady(() {
       appWindow.minSize = const Size(400, 300);
@@ -37,9 +46,11 @@ void main() async {
 
 class ButterflyApp extends StatelessWidget {
   final ThemeController? themeController;
+  final String initialLocation;
   final SharedPreferences? prefs;
 
-  const ButterflyApp({Key? key, this.themeController, this.prefs})
+  const ButterflyApp(
+      {Key? key, this.themeController, this.prefs, this.initialLocation = '/'})
       : super(key: key);
 
   // This widget is the root of your application.
@@ -166,20 +177,50 @@ class ButterflyApp extends StatelessWidget {
         create: (context) =>
             LanguageCubit.fromLanguageCode(prefs?.getString('language')),
         child: BlocBuilder<LanguageCubit, Locale?>(builder: (context, lang) {
-          return MaterialApp(
+          return MaterialApp.router(
             locale: lang,
             title: 'Butterfly',
-            // set your initial route
-            initialRoute: '/',
+            routeInformationParser: router.routeInformationParser,
+            routerDelegate: router.routerDelegate,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             theme: buildThemeData(context),
             themeMode: themeController?.currentTheme,
             darkTheme: buildDarkThemeData(context),
-            home: const ProjectPage(),
-          ).modular();
+          );
         }));
   }
+
+  get router => GoRouter(
+        initialLocation: initialLocation,
+        routes: [
+          GoRoute(
+              path: '/',
+              builder: (context, state) => const ProjectPage(),
+              routes: [
+                GoRoute(
+                  path: 'settings',
+                  builder: (context, state) => const SettingsPage(),
+                  routes: [
+                    GoRoute(
+                      path: 'behaviors',
+                      builder: (context, state) =>
+                          const BehaviorsSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'personalization',
+                      builder: (context, state) =>
+                          const PersonalizationSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'data',
+                      builder: (context, state) => const DataSettingsPage(),
+                    ),
+                  ],
+                ),
+              ]),
+        ],
+      );
 
   MaterialColor createMaterialColor(Color color) {
     List strengths = <double>[.05];

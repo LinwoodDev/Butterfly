@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,19 +32,19 @@ class SettingsPage extends StatelessWidget {
           ListTile(
             title: Text(AppLocalizations.of(context)!.data),
             leading: const Icon(PhosphorIcons.databaseLight),
-            onTap: () => Navigator.of(context).pushNamed('/settings/data'),
+            onTap: () => GoRouter.of(context).push('/settings/data'),
           ),
           ListTile(
             title: Text(AppLocalizations.of(context)!.behaviors),
             leading: const Icon(PhosphorIcons.fadersLight),
-            onTap: () => Modular.to.pushNamed('/settings/behaviors'),
+            onTap: () => GoRouter.of(context).push('/settings/behaviors'),
           ),
           ListTile(
               leading: const Icon(PhosphorIcons.monitorLight),
               title: Text(AppLocalizations.of(context)!.personalization),
               onTap: () {
                 Navigator.of(context).pop();
-                Modular.to.pushNamed('/settings/personalization');
+                GoRouter.of(context).push('/settings/personalization');
               }),
           const Divider(),
           ListTile(

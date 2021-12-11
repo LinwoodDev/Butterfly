@@ -36,7 +36,8 @@ SetupIconFile={#RunnerSourceDir}\resources\app_icon.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-Uninstallable=not WizardIsTaskSelected('portablemode')
+Uninstallable=yes
+ChangesAssociations=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -44,8 +45,9 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 
 [Tasks]     
-Name: "desktopicon"; Description: "Create a Desktop shortcut"; Components: full
-Name: "startmenu"; Description: "Create a Start Menu entry"; Components: full
+Name: "desktopicon"; Description: "Create a Desktop shortcut"
+Name: "startmenu"; Description: "Create a Start Menu entry"         
+Name: "bfly"; Description: "Add Butterfly file association"
 
 
 [Files]
@@ -53,15 +55,16 @@ Source: "{#BaseDirRelease}\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignorevers
 Source: "{#BaseDirRelease}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
-[Types]
-Name: "full"; Description: "Full installation"
-Name: "portable"; Description: "Portable mode"
 
-[Components]
-Name: "full"; Description: "full"; Types: full
+
+[Registry]
+Root: HKCR; Subkey: ".bfly"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-File"; Tasks: bfly; Flags: uninsdeletevalue
+Root: HKCR; Subkey: "{#MyAppName}-File"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-File"; Tasks: bfly; Flags: uninsdeletekey
+Root: HKCR; Subkey: "{#MyAppName}-File\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"
+Root: HKCR; Subkey: "{#MyAppName}-File\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
+
 
 [Icons]
-
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 
 Name: "{group}\Visit Website"; Filename: "http://www.linwood.dev/"
