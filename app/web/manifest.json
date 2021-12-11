@@ -1,10 +1,11 @@
 {
   "name": "Linwood Butterfly",
+  "description":"🎨 Notes app that change the world 🎨",
   "short_name": "Butterfly",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#0175C2",
-  "theme_color": "Change the world.",
+  "theme_color": "#0175C2",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "icons": [
