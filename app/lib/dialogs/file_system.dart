@@ -488,18 +488,33 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
               ),
               padding: EdgeInsets.zero,
             ),
-            if (asset is AppDocumentFile)
-              PopupMenuItem(
-                child: ListTile(
-                    leading: const Icon(PhosphorIcons.copyLight),
-                    title: Text(AppLocalizations.of(context)!.duplicate),
-                    onTap: () async {
-                      Navigator.of(context).pop();
-                      await _fileSystem.importDocument(asset.load());
-                      loadDocuments();
-                    }),
-                padding: EdgeInsets.zero,
-              ),
+            PopupMenuItem(
+              child: ListTile(
+                  leading: const Icon(PhosphorIcons.copyLight),
+                  title: Text(AppLocalizations.of(context)!.duplicate),
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    var directory = await _fileSystem
+                        .getAsset(_pathController.text) as AppDocumentDirectory;
+                    showDialog(
+                        context: context,
+                        builder: (context) =>
+                            Dialog(child: _buildFolderTreeView(directory)));
+                    loadDocuments();
+                  }),
+              padding: EdgeInsets.zero,
+            ),
+            PopupMenuItem(
+              child: ListTile(
+                  leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
+                  title: Text(AppLocalizations.of(context)!.move),
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    await _fileSystem.moveAsset(asset.path, asset.path);
+                    loadDocuments();
+                  }),
+              padding: EdgeInsets.zero,
+            ),
             PopupMenuItem(
               child: ListTile(
                   leading: const Icon(PhosphorIcons.textTLight),
@@ -524,6 +539,39 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
           ],
         ),
       );
+
+  Widget _buildFolderTreeView(AppDocumentDirectory directory) {
+    return FutureBuilder<List<AppDocumentDirectory>>(
+        future: _fileSystem.getAsset(directory.path).then((value) =>
+            (value as AppDocumentDirectory)
+                .assets
+                .whereType<AppDocumentDirectory>()
+                .toList()),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Column(
+                children: List.generate(snapshot.data!.length, (index) {
+              var visible = true;
+              return StatefulBuilder(
+                builder: (context, setState) => Column(
+                  children: [
+                    ListTile(
+                      title: Text(snapshot.data![index].path.split('/').last),
+                      onTap: () => setState(() => visible = !visible),
+                    ),
+                    if (visible)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5.0),
+                        child: _buildFolderTreeView(snapshot.data![index]),
+                      ),
+                  ],
+                ),
+              );
+            }));
+          }
+          return Container();
+        });
+  }
 
   RichText _buildRichText(AppDocumentFile file) => RichText(
         text: TextSpan(

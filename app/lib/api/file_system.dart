@@ -86,4 +86,29 @@ abstract class DocumentFileSystem {
   FutureOr<String> getDirectory() {
     return '/';
   }
+
+  Future<AppDocumentAsset?> duplicateAsset(String path, String newPath) async {
+    var asset = await getAsset(path);
+    if (asset == null) return null;
+    if (asset is AppDocumentFile) {
+      return updateDocument(newPath, asset.load());
+    } else {
+      var newDirectory = await createDirectory(newPath);
+      var assets = (asset as AppDocumentDirectory).assets;
+      for (var current in assets) {
+        var currentPath = current.path;
+        if (currentPath.startsWith('/')) currentPath = currentPath.substring(1);
+        final currentNewPath = newPath + currentPath.substring(path.length);
+        await duplicateAsset(currentPath, currentNewPath);
+      }
+      return newDirectory;
+    }
+  }
+
+  Future<AppDocumentAsset?> moveAsset(String path, String newPath) async {
+    var asset = await duplicateAsset(path, newPath);
+    if (asset == null) return null;
+    if (path != newPath) await deleteAsset(path);
+    return asset;
+  }
 }

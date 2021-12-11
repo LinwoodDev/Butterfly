@@ -207,7 +207,7 @@ class ButterflyApp extends StatelessWidget {
   }
 
   get router => GoRouter(
-    initialLocation: initialLocation,
+        initialLocation: initialLocation,
         routes: [
           GoRoute(
               path: '/',
