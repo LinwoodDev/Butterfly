@@ -247,18 +247,21 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                     child: Text(AppLocalizations.of(context)!.create),
                     onPressed: () async {
                       if (_createFormKey.currentState?.validate() ?? false) {
-                        if (!isFolder) {
-                          await _fileSystem.createDocument(_nameController.text,
-                              path: _pathController.text,
-                              palettes:
-                                  ColorPalette.getMaterialPalette(context));
-                        } else {
+                        {
                           var path = _pathController.text;
                           if (path == '/') {
                             path = '';
                           }
-                          await _fileSystem.createDirectory(
-                              path + '/' + _nameController.text);
+                          if (!isFolder) {
+                            await _fileSystem.createDocument(
+                                _nameController.text,
+                                path: path,
+                                palettes:
+                                    ColorPalette.getMaterialPalette(context));
+                          } else {
+                            await _fileSystem.createDirectory(
+                                path + '/' + _nameController.text);
+                          }
                         }
                         loadDocuments();
                         Navigator.of(context).pop();
