@@ -196,7 +196,10 @@ class ButterflyApp extends StatelessWidget {
         routes: [
           GoRoute(
               path: '/',
-              builder: (context, state) => const ProjectPage(),
+              builder: (context, state) {
+                final path = state.queryParams['path']; // may be null
+                return ProjectPage(path: path);
+              },
               routes: [
                 GoRoute(
                   path: 'settings',
