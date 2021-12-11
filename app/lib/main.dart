@@ -17,7 +17,7 @@ import 'theme.dart';
 
 const fileVersion = 4;
 
-void main(List<String> args) async {
+Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   GetIt.I.registerSingleton<int>(fileVersion, instanceName: 'fileVersion');
@@ -192,6 +192,7 @@ class ButterflyApp extends StatelessWidget {
   }
 
   get router => GoRouter(
+    urlPathStrategy: UrlPathStrategy.path,
         initialLocation: initialLocation,
         routes: [
           GoRoute(
@@ -203,26 +204,26 @@ class ButterflyApp extends StatelessWidget {
               routes: [
                 GoRoute(
                   path: 'settings',
-                  builder: (context, state) => const SettingsPage(),
-                  routes: [
-                    GoRoute(
-                      path: 'behaviors',
-                      builder: (context, state) =>
-                          const BehaviorsSettingsPage(),
-                    ),
-                    GoRoute(
-                      path: 'personalization',
-                      builder: (context, state) =>
-                          const PersonalizationSettingsPage(),
-                    ),
-                    GoRoute(
-                      path: 'data',
-                      builder: (context, state) => const DataSettingsPage(),
-                    ),
-                  ],
+              builder: (context, state) => const SettingsPage(),
+              routes: [
+                GoRoute(
+                  path: 'behaviors',
+                  builder: (context, state) =>
+                  const BehaviorsSettingsPage(),
                 ),
-              ]),
-        ],
+                GoRoute(
+                  path: 'personalization',
+                  builder: (context, state) =>
+                  const PersonalizationSettingsPage(),
+                ),
+                GoRoute(
+                  path: 'data',
+                  builder: (context, state) => const DataSettingsPage(),
+                ),
+              ],
+            ),
+          ]),
+    ],
       );
 
   MaterialColor createMaterialColor(Color color) {
