@@ -234,7 +234,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                             bloc: widget.bloc,
                                             onClose: onClose);
                                       }
-                                  return GeneralElementDialog(
+                                      return GeneralElementDialog(
                                           index: index,
                                           bloc: bloc,
                                           selectionCubit: selectionCubit,
