@@ -290,7 +290,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
             return ListTile(
               selected: document.path == selectedPath,
               leading: const Icon(PhosphorIcons.folderLight),
-              title: Text(document.path.split('/').last),
+              title: Text(document.fileName),
               onTap: () => _openAsset(document),
               trailing: _buildPopupMenu(document),
             );
@@ -401,7 +401,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                               ),
                             ),
                             Flexible(
-                              child: Text(document.path.split('/').last,
+                              child: Text(document.fileName,
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context).textTheme.headline6),
                             ),
@@ -447,7 +447,15 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: _buildRichText(document),
+                          child: DefaultTextStyle(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .listTileTheme
+                                          .textColor),
+                              child: _buildRichText(document)),
                         ),
                       ],
                     );
@@ -494,13 +502,46 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   title: Text(AppLocalizations.of(context)!.duplicate),
                   onTap: () async {
                     Navigator.of(context).pop();
-                    var directory = await _fileSystem
-                        .getAsset(_pathController.text) as AppDocumentDirectory;
+                    var directory = await _fileSystem.getRootDirectory();
                     showDialog(
                         context: context,
-                        builder: (context) =>
-                            Dialog(child: _buildFolderTreeView(directory)));
-                    loadDocuments();
+                        builder: (context) {
+                          var selectedPath = '/';
+                          return AlertDialog(
+                              actions: [
+                                TextButton(
+                                  child: Text(
+                                      AppLocalizations.of(context)!.cancel),
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ),
+                                TextButton(
+                                  child: Text(AppLocalizations.of(context)!.ok),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    var newPath = selectedPath;
+                                    if (selectedPath != '/') {
+                                      newPath += '/';
+                                    }
+                                    newPath += asset.fileName;
+                                    _fileSystem.duplicateAsset(
+                                        asset.path, newPath);
+                                  },
+                                ),
+                              ],
+                              title:
+                                  Text(AppLocalizations.of(context)!.duplicate),
+                              content: ConstrainedBox(
+                                  constraints: const BoxConstraints(
+                                      maxWidth: 500, maxHeight: 200),
+                                  child: StatefulBuilder(
+                                      builder: (context, setState) =>
+                                          SingleChildScrollView(
+                                              child: _buildFolderTreeView(
+                                                  directory,
+                                                  selectedPath,
+                                                  (path) => setState(() =>
+                                                      selectedPath = path))))));
+                        });
                   }),
               padding: EdgeInsets.zero,
             ),
@@ -510,8 +551,44 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   title: Text(AppLocalizations.of(context)!.move),
                   onTap: () async {
                     Navigator.of(context).pop();
-                    await _fileSystem.moveAsset(asset.path, asset.path);
-                    loadDocuments();
+                    var directory = await _fileSystem.getRootDirectory();
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          var selectedPath = '/';
+                          return AlertDialog(
+                              actions: [
+                                TextButton(
+                                  child: Text(
+                                      AppLocalizations.of(context)!.cancel),
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ),
+                                TextButton(
+                                  child: Text(AppLocalizations.of(context)!.ok),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    var newPath = selectedPath;
+                                    if (selectedPath != '/') {
+                                      newPath += '/';
+                                    }
+                                    newPath += asset.fileName;
+                                    _fileSystem.moveAsset(asset.path, newPath);
+                                  },
+                                ),
+                              ],
+                              title: Text(AppLocalizations.of(context)!.move),
+                              content: ConstrainedBox(
+                                  constraints: const BoxConstraints(
+                                      maxWidth: 500, maxHeight: 200),
+                                  child: StatefulBuilder(
+                                      builder: (context, setState) =>
+                                          SingleChildScrollView(
+                                              child: _buildFolderTreeView(
+                                                  directory,
+                                                  selectedPath,
+                                                  (path) => setState(() =>
+                                                      selectedPath = path))))));
+                        });
                   }),
               padding: EdgeInsets.zero,
             ),
@@ -540,7 +617,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
         ),
       );
 
-  Widget _buildFolderTreeView(AppDocumentDirectory directory) {
+  Widget _buildFolderTreeView(AppDocumentDirectory directory,
+      String selectedPath, PathSelectedCallback onPathSelected) {
     return FutureBuilder<List<AppDocumentDirectory>>(
         future: _fileSystem.getAsset(directory.path).then((value) =>
             (value as AppDocumentDirectory)
@@ -552,17 +630,27 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
             return Column(
                 children: List.generate(snapshot.data!.length, (index) {
               var visible = true;
+              var selected = selectedPath == snapshot.data![index].path;
               return StatefulBuilder(
                 builder: (context, setState) => Column(
                   children: [
                     ListTile(
-                      title: Text(snapshot.data![index].path.split('/').last),
-                      onTap: () => setState(() => visible = !visible),
+                      leading: const Icon(PhosphorIcons.folderLight),
+                      title: Text(snapshot.data![index].fileName),
+                      onTap: () {
+                        if (!selected) {
+                          onPathSelected(snapshot.data![index].path);
+                        } else {
+                          setState(() => visible = !visible);
+                        }
+                      },
+                      selected: selected,
                     ),
                     if (visible)
                       Padding(
                         padding: const EdgeInsets.only(left: 5.0),
-                        child: _buildFolderTreeView(snapshot.data![index]),
+                        child: _buildFolderTreeView(snapshot.data![index],
+                            selectedPath, onPathSelected),
                       ),
                   ],
                 ),
@@ -573,34 +661,18 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
         });
   }
 
-  RichText _buildRichText(AppDocumentFile file) => RichText(
-        text: TextSpan(
-            text: file.description,
-            style: Theme.of(context).textTheme.caption,
-            children: [
-              const TextSpan(
-                text: '\n',
-              ),
-              TextSpan(
-                text: file.path,
-              ),
-              const TextSpan(
-                text: '\n',
-              ),
-              if (file.updatedAt != null)
-                TextSpan(
-                  text:
-                      AppLocalizations.of(context)!.updatedAt(file.updatedAt!),
-                ),
-              if (file.createdAt != null) ...[
-                const TextSpan(
-                  text: '\n',
-                ),
-                TextSpan(
-                  text:
-                      AppLocalizations.of(context)!.createdAt(file.createdAt!),
-                ),
-              ]
-            ]),
-      );
+  Widget _buildRichText(AppDocumentFile file) {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(file.path),
+          if (file.createdAt != null)
+            Text(AppLocalizations.of(context)!.createdAt(file.createdAt!)),
+          if (file.updatedAt != null)
+            Text(AppLocalizations.of(context)!.updatedAt(file.updatedAt!)),
+        ]);
+  }
 }
+
+typedef PathSelectedCallback = void Function(String path);

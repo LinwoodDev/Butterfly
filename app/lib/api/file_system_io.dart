@@ -133,7 +133,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
     var assets = <AppDocumentAsset>[];
     var files = await dir.list().toList();
     for (var file in files) {
-      var asset = await getAsset(name + '/' + file.path.split('/').last);
+      var asset = await getAsset(
+          name + '/' + file.path.replaceAll('\\', '/').split('/').last);
       if (asset != null) {
         assets.add(asset);
       }
