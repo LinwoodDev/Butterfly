@@ -22,6 +22,7 @@ abstract class AppDocumentAsset {
   final String path;
 
   const AppDocumentAsset(this.path);
+  String get fileName => path.split('/').last;
 }
 
 @immutable
