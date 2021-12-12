@@ -542,7 +542,6 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                                   (path) => setState(() =>
                                                       selectedPath = path))))));
                         });
-                    loadDocuments();
                   }),
               padding: EdgeInsets.zero,
             ),
@@ -552,8 +551,44 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   title: Text(AppLocalizations.of(context)!.move),
                   onTap: () async {
                     Navigator.of(context).pop();
-                    await _fileSystem.moveAsset(asset.path, asset.path);
-                    loadDocuments();
+                    var directory = await _fileSystem.getRootDirectory();
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          var selectedPath = '/';
+                          return AlertDialog(
+                              actions: [
+                                TextButton(
+                                  child: Text(
+                                      AppLocalizations.of(context)!.cancel),
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ),
+                                TextButton(
+                                  child: Text(AppLocalizations.of(context)!.ok),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    var newPath = selectedPath;
+                                    if (selectedPath != '/') {
+                                      newPath += '/';
+                                    }
+                                    newPath += asset.fileName;
+                                    _fileSystem.moveAsset(asset.path, newPath);
+                                  },
+                                ),
+                              ],
+                              title: Text(AppLocalizations.of(context)!.move),
+                              content: ConstrainedBox(
+                                  constraints: const BoxConstraints(
+                                      maxWidth: 500, maxHeight: 200),
+                                  child: StatefulBuilder(
+                                      builder: (context, setState) =>
+                                          SingleChildScrollView(
+                                              child: _buildFolderTreeView(
+                                                  directory,
+                                                  selectedPath,
+                                                  (path) => setState(() =>
+                                                      selectedPath = path))))));
+                        });
                   }),
               padding: EdgeInsets.zero,
             ),
@@ -640,4 +675,4 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
   }
 }
 
-typedef void PathSelectedCallback(String path);
+typedef PathSelectedCallback = void Function(String path);
