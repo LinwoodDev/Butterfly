@@ -216,27 +216,30 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 state.document.content.indexOf(selection);
                             showContextMenu(
                                     context: context,
-                                    builder: (context) {
+                                    position: event.localPosition,
+                                    builder: (context, onClose) {
                                       if (selection is LabelElement) {
                                         return LabelElementDialog(
-                                          selectionCubit: selectionCubit,
-                                          index: index,
-                                          bloc: widget.bloc,
-                                          editingCubit: editingCubit,
-                                        );
+                                            selectionCubit: selectionCubit,
+                                            index: index,
+                                            bloc: widget.bloc,
+                                            editingCubit: editingCubit,
+                                            onClose: onClose);
                                       }
                                       if (selection is ImageElement) {
                                         return ImageElementDialog(
                                             editingCubit: editingCubit,
                                             selectionCubit: selectionCubit,
                                             index: index,
-                                            bloc: widget.bloc);
+                                            bloc: widget.bloc,
+                                            onClose: onClose);
                                       }
-                                      return GeneralElementDialog(
+                                  return GeneralElementDialog(
                                           index: index,
                                           bloc: bloc,
                                           selectionCubit: selectionCubit,
-                                          editingCubit: editingCubit);
+                                          editingCubit: editingCubit,
+                                          onClose: onClose);
                                     })
                                 .then((value) =>
                                     context.read<SelectionCubit>().reset());
