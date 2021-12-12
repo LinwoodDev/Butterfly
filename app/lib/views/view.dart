@@ -20,6 +20,7 @@ import 'package:butterfly/models/painters/image.dart';
 import 'package:butterfly/models/painters/label.dart';
 import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/painters/path_eraser.dart';
+import 'package:butterfly/widgets/context_menu.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -213,7 +214,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             if (selection == null) return;
                             var index =
                                 state.document.content.indexOf(selection);
-                            showModalBottomSheet(
+                            showContextMenu(
                                     context: context,
                                     builder: (context) {
                                       if (selection is LabelElement) {

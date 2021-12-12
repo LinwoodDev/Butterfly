@@ -24,7 +24,7 @@ class GeneralElementDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var element = (bloc.state as DocumentLoadSuccess).document.content[index];
-    var content = Column(mainAxisSize: MainAxisSize.min, children: [
+    return Column(mainAxisSize: MainAxisSize.min, children: [
       generateHeader(),
       const Divider(),
       Flexible(
@@ -83,7 +83,6 @@ class GeneralElementDialog extends StatelessWidget {
         ],
       ))
     ]);
-    return content;
   }
 
   Widget generateHeader() {
