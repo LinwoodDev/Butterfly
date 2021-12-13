@@ -55,6 +55,7 @@ class GeneralElementDialog extends StatelessWidget {
           ),
           ListTile(
               onTap: () {
+                onClose();
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
@@ -67,13 +68,11 @@ class GeneralElementDialog extends StatelessWidget {
                                 child: Text(AppLocalizations.of(context)!.no),
                                 onPressed: () {
                                   Navigator.pop(context);
-                                  Navigator.pop(context);
                                 },
                               ),
                               TextButton(
                                 child: Text(AppLocalizations.of(context)!.yes),
                                 onPressed: () {
-                                  Navigator.pop(context);
                                   Navigator.pop(context);
                                   bloc.add(LayersRemoved([element]));
                                 },

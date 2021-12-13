@@ -94,10 +94,10 @@ class _ContextMenuState extends State<ContextMenu>
                 child: Stack(
                   children: [
                     Align(
-                      alignment: Alignment.center,
+                      alignment: Alignment.topCenter,
                       child: SlideTransition(
                         position: Tween<Offset>(
-                          begin: const Offset(0, 1),
+                          begin: const Offset(0, -1),
                           end: Offset.zero,
                         ).animate(_animation),
                         transformHitTests: false,

@@ -216,7 +216,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 state.document.content.indexOf(selection);
                             showContextMenu(
                                     context: context,
-                                    position: event.localPosition,
+                                    position: event.position,
                                     builder: (context, onClose) {
                                       if (selection is LabelElement) {
                                         return LabelElementDialog(
