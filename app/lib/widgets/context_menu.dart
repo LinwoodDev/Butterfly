@@ -33,7 +33,7 @@ class _ContextMenuState extends State<ContextMenu>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 200),
       vsync: this,
     );
     _animation = CurvedAnimation(
@@ -97,7 +97,7 @@ class _ContextMenuState extends State<ContextMenu>
                       alignment: Alignment.topCenter,
                       child: SlideTransition(
                         position: Tween<Offset>(
-                          begin: const Offset(0, -1),
+                          begin: const Offset(0, -.5),
                           end: Offset.zero,
                         ).animate(_animation),
                         transformHitTests: false,
