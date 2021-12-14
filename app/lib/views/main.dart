@@ -18,8 +18,8 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editing.dart';
-import 'package:butterfly/cubits/language.dart';
 import 'package:butterfly/cubits/selection.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
@@ -79,8 +79,8 @@ class _ProjectPageState extends State<ProjectPage> {
             document = value is AppDocumentFile ? value.load() : null);
       }
       document ??= AppDocument(
-          name:
-              await formatCurrentDateTime(context.read<LanguageCubit>().state),
+          name: await formatCurrentDateTime(
+              context.read<SettingsCubit>().state.locale),
           createdAt: DateTime.now(),
           palettes: ColorPalette.getMaterialPalette(context));
       setState(() => _bloc = DocumentBloc(document!, widget.path));
@@ -184,7 +184,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                   ),
                                   Expanded(
                                       key: _viewportKey,
-                                      child: MainViewViewport(bloc: _bloc!)),
+                                      child: const MainViewViewport()),
                                   if (isMobile)
                                     Align(
                                         alignment: Alignment.center,

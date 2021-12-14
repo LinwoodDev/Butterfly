@@ -1,4 +1,4 @@
-import 'package:butterfly/models/input_type.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

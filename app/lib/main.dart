@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/home.dart';
@@ -15,11 +16,9 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'cubits/language.dart';
 import 'models/document.dart';
 import 'settings/personalization.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
-import 'theme.dart';
 
 const fileVersion = 4;
 
@@ -44,10 +43,7 @@ Future<void> main([List<String> args = const []]) async {
     }
   }
 
-  runApp(ButterflyApp(
-      prefs: prefs,
-      initialLocation: initialLocation,
-      themeController: ThemeController(prefs)));
+  runApp(ButterflyApp(prefs: prefs, initialLocation: initialLocation));
   if (isWindow()) {
     doWhenWindowReady(() {
       appWindow.minSize = const Size(400, 300);
@@ -60,27 +56,18 @@ Future<void> main([List<String> args = const []]) async {
 }
 
 class ButterflyApp extends StatelessWidget {
-  final ThemeController? themeController;
   final String initialLocation;
-  final SharedPreferences? prefs;
+  final SharedPreferences prefs;
 
   const ButterflyApp(
-      {Key? key, this.themeController, this.prefs, this.initialLocation = '/'})
+      {Key? key, required this.prefs, this.initialLocation = '/'})
       : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    if (themeController != null) {
-      return AnimatedBuilder(
-          animation: themeController!,
-          builder: (context, _) {
-            // wrap app in inherited widget to provide the ThemeController to all pages
-            return ThemeControllerProvider(
-                controller: themeController!, child: _buildApp());
-          });
-    }
-    return _buildApp();
+    return BlocProvider(
+        create: (_) => SettingsCubit.fromPrefs(prefs), child: _buildApp());
   }
 
   Widget _buildApp() {
@@ -188,22 +175,23 @@ class ButterflyApp extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12))),
         colorScheme:
             ColorScheme.dark(primary: primaryColor, secondary: accentColor));
-    return BlocProvider(
-        create: (context) =>
-            LanguageCubit.fromLanguageCode(prefs?.getString('language')),
-        child: BlocBuilder<LanguageCubit, Locale?>(builder: (context, lang) {
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.theme != current.theme ||
+            previous.localeTag != current.localeTag,
+        builder: (context, state) {
           return MaterialApp.router(
-            locale: lang,
+            locale: state.locale,
             title: 'Butterfly',
             routeInformationParser: router.routeInformationParser,
             routerDelegate: router.routerDelegate,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             theme: buildThemeData(context),
-            themeMode: themeController?.currentTheme,
+            themeMode: state.theme,
             darkTheme: buildDarkThemeData(context),
           );
-        }));
+        });
   }
 
   get router => GoRouter(
