@@ -1,6 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/background.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BackgroundIntent extends Intent {
   final BuildContext context;
@@ -9,15 +10,14 @@ class BackgroundIntent extends Intent {
 }
 
 class BackgroundAction extends Action<BackgroundIntent> {
-  final DocumentBloc bloc;
-
-  BackgroundAction(this.bloc);
+  BackgroundAction();
 
   @override
   Object? invoke(BackgroundIntent intent) {
     showDialog(
       context: intent.context,
-      builder: (context) => BackgroundDialog(bloc: bloc),
+      builder: (context) => BlocProvider.value(
+          value: context.read<DocumentBloc>(), child: const BackgroundDialog()),
     );
   }
 }

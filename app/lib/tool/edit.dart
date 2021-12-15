@@ -16,15 +16,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class EditToolbar extends StatefulWidget {
-  final DocumentBloc bloc;
-  const EditToolbar({Key? key, required this.bloc}) : super(key: key);
+class EditToolbar extends StatelessWidget {
+  const EditToolbar({Key? key}) : super(key: key);
 
-  @override
-  _EditToolbarState createState() => _EditToolbarState();
-}
-
-class _EditToolbarState extends State<EditToolbar> {
   IconData getPainterIcon(String type) {
     switch (type) {
       case 'eraser':
@@ -81,6 +75,7 @@ class _EditToolbarState extends State<EditToolbar> {
                     ],
                   ),
                   onTap: () {
+                    var bloc = context.read<DocumentBloc>();
                     if (state.currentPainter == null) {
                       showGeneralDialog(
                           context: context,
@@ -98,9 +93,9 @@ class _EditToolbarState extends State<EditToolbar> {
                           barrierLabel: AppLocalizations.of(context)!.close,
                           pageBuilder:
                               (context, animation, secondaryAnimation) =>
-                                  HandDialog(bloc: widget.bloc));
+                                  HandDialog(bloc: bloc));
                     } else {
-                      widget.bloc.add(const CurrentPainterChanged(null));
+                      bloc.add(const CurrentPainterChanged(null));
                     }
                   },
                 )),
@@ -138,8 +133,9 @@ class _EditToolbarState extends State<EditToolbar> {
                             const Icon(PhosphorIcons.caretDownLight, size: 12)
                         ]),
                         onTap: () {
+                          var bloc = context.read<DocumentBloc>();
                           if (!selected) {
-                            widget.bloc.add(CurrentPainterChanged(i));
+                            bloc.add(CurrentPainterChanged(i));
                           } else {
                             showGeneralDialog(
                                 context: context,
@@ -161,19 +157,19 @@ class _EditToolbarState extends State<EditToolbar> {
                                   switch (type) {
                                     case 'pen':
                                       return PenPainterDialog(
-                                          bloc: widget.bloc, painterIndex: i);
+                                          bloc: bloc, painterIndex: i);
                                     case 'eraser':
                                       return EraserPainterDialog(
-                                          bloc: widget.bloc, painterIndex: i);
+                                          bloc: bloc, painterIndex: i);
                                     case 'path-eraser':
                                       return PathEraserPainterDialog(
-                                          bloc: widget.bloc, painterIndex: i);
+                                          bloc: bloc, painterIndex: i);
                                     case 'label':
                                       return LabelPainterDialog(
-                                          bloc: widget.bloc, painterIndex: i);
+                                          bloc: bloc, painterIndex: i);
                                     case 'image':
                                       return ImagePainterDialog(
-                                          bloc: widget.bloc, painterIndex: i);
+                                          bloc: bloc, painterIndex: i);
                                     default:
                                       return Container();
                                   }
@@ -186,12 +182,14 @@ class _EditToolbarState extends State<EditToolbar> {
                 return ReorderableDragStartListener(
                     key: ObjectKey(e), index: i, child: toolWidget);
               },
-              onReorder: (oldIndex, newIndex) =>
-                  widget.bloc.add(PainterReordered(oldIndex, newIndex))),
+              onReorder: (oldIndex, newIndex) => context
+                  .read<DocumentBloc>()
+                  .add(PainterReordered(oldIndex, newIndex))),
           const VerticalDivider(),
           PopupMenuButton<Painter>(
               tooltip: AppLocalizations.of(context)!.create,
-              onSelected: (value) => widget.bloc.add(PainterCreated(value)),
+              onSelected: (value) =>
+                  context.read<DocumentBloc>().add(PainterCreated(value)),
               icon: const Icon(PhosphorIcons.plusLight),
               itemBuilder: (context) => [
                     ...['pen', 'eraser', 'path-eraser', 'label', 'image']
