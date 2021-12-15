@@ -65,9 +65,9 @@ class PersonalizationSettingsPage extends StatelessWidget {
 
     await showModalBottomSheet<ThemeMode>(
         context: context,
-        builder: (context) {
+        builder: (ctx) {
           void changeTheme(ThemeMode themeMode) {
-            Navigator.of(context).pop();
+            Navigator.of(ctx).pop();
             cubit.changeTheme(themeMode);
           }
 

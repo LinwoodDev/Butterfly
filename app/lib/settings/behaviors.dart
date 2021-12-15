@@ -1,29 +1,12 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class BehaviorsSettingsPage extends StatefulWidget {
+class BehaviorsSettingsPage extends StatelessWidget {
   const BehaviorsSettingsPage({Key? key}) : super(key: key);
-
-  @override
-  _BehaviorsSettingsPageState createState() => _BehaviorsSettingsPageState();
-}
-
-class _BehaviorsSettingsPageState extends State<BehaviorsSettingsPage> {
-  SharedPreferences? _prefs;
-
-  @override
-  void initState() {
-    SharedPreferences.getInstance().then((value) {
-      setState(() {
-        _prefs = value;
-      });
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,28 +17,30 @@ class _BehaviorsSettingsPageState extends State<BehaviorsSettingsPage> {
             if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
           ],
         ),
-        body: ListView(
-          children: [
-            ListTile(
-              title: Text(AppLocalizations.of(context)!.input),
-              leading: const Icon(PhosphorIcons.mouseLight),
-              subtitle: Text(InputType.values[_prefs?.getInt('input') ?? 0]
-                  .toLocalizedString(context)),
-              onTap: _showInput,
-            ),
-          ],
-        ));
+        body: BlocBuilder<SettingsCubit, ButterflySettings>(
+            builder: (context, state) {
+          return ListView(
+            children: [
+              ListTile(
+                title: Text(AppLocalizations.of(context)!.input),
+                leading: const Icon(PhosphorIcons.mouseLight),
+                subtitle: Text(state.inputType.toLocalizedString(context)),
+                onTap: () => _showInput(context),
+              ),
+            ],
+          );
+        }));
   }
 
-  void _showInput() {
-    var currentInput = InputType.values[_prefs?.getInt('input') ?? 0];
+  void _showInput(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentInput = context.read<SettingsCubit>().state.inputType;
     showModalBottomSheet(
         context: context,
-        builder: (context) {
+        builder: (ctx) {
           Future<void> changeInput(InputType inputType) async {
-            await _prefs?.setInt('input', inputType.index);
-            Navigator.of(context).pop();
-            setState(() {});
+            Navigator.of(ctx).pop();
+            cubit.changeInput(inputType);
           }
 
           return Container(

@@ -27,7 +27,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../view_painter.dart';
 
@@ -42,19 +41,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
   Map<ElementLayer, ui.Image> images = {};
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
-  SharedPreferences? _prefs;
-
-  @override
-  void initState() {
-    SharedPreferences.getInstance()
-        .then((value) => setState(() => _prefs = value));
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-      if (state is! DocumentLoadSuccess || _prefs == null) {
+      if (state is! DocumentLoadSuccess) {
         return const Center(child: CircularProgressIndicator());
       }
       return SizedBox.expand(child:
@@ -158,7 +149,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                 },
                 onPointerDown: (PointerDownEvent event) {
                   var cubit = context.read<EditingCubit>();
-                  var input = InputType.values[_prefs?.getInt('input') ?? 0];
+                  var input = context.read<SettingsCubit>().state.inputType;
                   if (state.currentPainter != null &&
                       event.buttons != kMiddleMouseButton &&
                       input.canCreate(
@@ -183,7 +174,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     }
                   }
                   var currentLayer = cubit.getAndReset(event.pointer);
-                  var input = InputType.values[_prefs?.getInt('input') ?? 0];
+                  var input = context.read<SettingsCubit>().state.inputType;
 
                   if (input.canCreate(
                           event.pointer, cubit.first(), event.kind) &&
@@ -268,7 +259,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   var cubit = context.read<EditingCubit>();
                   var currentLayer = cubit.get(event.pointer);
                   var transform = context.read<TransformCubit>().state;
-                  var input = InputType.values[_prefs?.getInt('input') ?? 0];
+                  var input = context.read<SettingsCubit>().state.inputType;
                   if (cubit.isMoving) {
                     var position = event.localPosition;
                     cubit.moveTo(transform.localToGlobal(position));
