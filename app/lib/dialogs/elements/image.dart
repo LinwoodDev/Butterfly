@@ -10,6 +10,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ImageElementDialog extends StatefulWidget {
   final int index;
+  final VoidCallback onClose;
   final DocumentBloc bloc;
   final SelectionCubit selectionCubit;
   final EditingCubit editingCubit;
@@ -17,6 +18,7 @@ class ImageElementDialog extends StatefulWidget {
   const ImageElementDialog(
       {Key? key,
       required this.index,
+      required this.onClose,
       required this.bloc,
       required this.editingCubit,
       required this.selectionCubit})
@@ -48,6 +50,7 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
   Widget build(BuildContext context) {
     return GeneralElementDialog(
       bloc: widget.bloc,
+      onClose: widget.onClose,
       selectionCubit: widget.selectionCubit,
       editingCubit: widget.editingCubit,
       index: widget.index,

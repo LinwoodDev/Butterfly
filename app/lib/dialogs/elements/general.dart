@@ -10,6 +10,7 @@ class GeneralElementDialog extends StatelessWidget {
   final DocumentBloc bloc;
   final SelectionCubit selectionCubit;
   final EditingCubit editingCubit;
+  final VoidCallback onClose;
   final List<Widget> children;
 
   const GeneralElementDialog(
@@ -18,13 +19,14 @@ class GeneralElementDialog extends StatelessWidget {
       required this.index,
       required this.bloc,
       required this.selectionCubit,
-      required this.editingCubit})
+      required this.editingCubit,
+      required this.onClose})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var element = (bloc.state as DocumentLoadSuccess).document.content[index];
-    var content = Column(mainAxisSize: MainAxisSize.min, children: [
+    return Column(mainAxisSize: MainAxisSize.min, children: [
       generateHeader(),
       const Divider(),
       Flexible(
@@ -40,7 +42,7 @@ class GeneralElementDialog extends StatelessWidget {
               // Remove the element from the document
               bloc.add(LayersRemoved([element]));
               editingCubit.move(element);
-              Navigator.of(context).pop();
+              onClose();
             },
           ),
           ListTile(
@@ -48,11 +50,12 @@ class GeneralElementDialog extends StatelessWidget {
             leading: const Icon(PhosphorIcons.copyLight),
             onTap: () {
               editingCubit.move(element);
-              Navigator.of(context).pop();
+              onClose();
             },
           ),
           ListTile(
               onTap: () {
+                onClose();
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
@@ -65,13 +68,11 @@ class GeneralElementDialog extends StatelessWidget {
                                 child: Text(AppLocalizations.of(context)!.no),
                                 onPressed: () {
                                   Navigator.pop(context);
-                                  Navigator.pop(context);
                                 },
                               ),
                               TextButton(
                                 child: Text(AppLocalizations.of(context)!.yes),
                                 onPressed: () {
-                                  Navigator.pop(context);
                                   Navigator.pop(context);
                                   bloc.add(LayersRemoved([element]));
                                 },
@@ -83,7 +84,6 @@ class GeneralElementDialog extends StatelessWidget {
         ],
       ))
     ]);
-    return content;
   }
 
   Widget generateHeader() {

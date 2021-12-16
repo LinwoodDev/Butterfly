@@ -10,6 +10,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class LabelElementDialog extends StatelessWidget {
   final int index;
   final DocumentBloc bloc;
+  final VoidCallback onClose;
   final SelectionCubit selectionCubit;
   final EditingCubit editingCubit;
 
@@ -17,6 +18,7 @@ class LabelElementDialog extends StatelessWidget {
       {Key? key,
       required this.index,
       required this.bloc,
+      required this.onClose,
       required this.selectionCubit,
       required this.editingCubit})
       : super(key: key);
@@ -27,6 +29,7 @@ class LabelElementDialog extends StatelessWidget {
         as LabelElement;
     return GeneralElementDialog(
       index: index,
+      onClose: onClose,
       selectionCubit: selectionCubit,
       editingCubit: editingCubit,
       bloc: bloc,
@@ -37,7 +40,7 @@ class LabelElementDialog extends StatelessWidget {
             onTap: () {
               var _textController = TextEditingController(text: element.text);
               void submit() {
-                Navigator.of(context).pop();
+                onClose();
                 var layer = element.copyWith(text: _textController.text);
                 bloc.add(LayerChanged(index, layer));
                 selectionCubit.change(layer);
@@ -58,7 +61,7 @@ class LabelElementDialog extends StatelessWidget {
                           actions: [
                             TextButton(
                               child: Text(AppLocalizations.of(context)!.cancel),
-                              onPressed: () => Navigator.of(context).pop(),
+                              onPressed: () => onClose(),
                             ),
                             TextButton(
                                 child: Text(AppLocalizations.of(context)!.ok),

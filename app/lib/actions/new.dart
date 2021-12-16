@@ -1,8 +1,8 @@
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editing.dart';
-import 'package:butterfly/cubits/language.dart';
 import 'package:butterfly/cubits/selection.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
@@ -32,7 +32,7 @@ class NewAction extends Action<NewIntent> {
     transformCubit.reset();
     bloc.emit(DocumentLoadSuccess(AppDocument(
         name: await formatCurrentDateTime(
-            intent.context.read<LanguageCubit>().state),
+            intent.context.read<SettingsCubit>().state.locale),
         createdAt: DateTime.now(),
         palettes: ColorPalette.getMaterialPalette(intent.context))));
   }

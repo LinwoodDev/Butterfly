@@ -7,16 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class ViewToolbar extends StatefulWidget {
-  final DocumentBloc bloc;
+class ViewToolbar extends StatelessWidget {
+  const ViewToolbar({Key? key}) : super(key: key);
 
-  const ViewToolbar({Key? key, required this.bloc}) : super(key: key);
-
-  @override
-  _ViewToolbarState createState() => _ViewToolbarState();
-}
-
-class _ViewToolbarState extends State<ViewToolbar> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {

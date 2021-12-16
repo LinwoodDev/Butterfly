@@ -18,8 +18,8 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editing.dart';
-import 'package:butterfly/cubits/language.dart';
 import 'package:butterfly/cubits/selection.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
@@ -31,7 +31,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'view.dart';
 
@@ -72,19 +71,17 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Future<void> load() async {
     var fileSystem = DocumentFileSystem.fromPlatform();
-    await SharedPreferences.getInstance().then((value) async {
-      AppDocument? document;
-      if (widget.path != null) {
-        await fileSystem.getAsset(widget.path!).then((value) =>
-            document = value is AppDocumentFile ? value.load() : null);
-      }
-      document ??= AppDocument(
-          name:
-              await formatCurrentDateTime(context.read<LanguageCubit>().state),
-          createdAt: DateTime.now(),
-          palettes: ColorPalette.getMaterialPalette(context));
-      setState(() => _bloc = DocumentBloc(document!, widget.path));
-    });
+    AppDocument? document;
+    if (widget.path != null) {
+      await fileSystem.getAsset(widget.path!).then(
+          (value) => document = value is AppDocumentFile ? value.load() : null);
+    }
+    document ??= AppDocument(
+        name: await formatCurrentDateTime(
+            context.read<SettingsCubit>().state.locale),
+        createdAt: DateTime.now(),
+        palettes: ColorPalette.getMaterialPalette(context));
+    setState(() => _bloc = DocumentBloc(document!, widget.path));
   }
 
   @override
@@ -158,7 +155,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   ProjectIntent: ProjectAction(_bloc!),
                   WaypointsIntent: WaypointsAction(_bloc!),
                   ColorPaletteIntent: ColorPaletteAction(_bloc!),
-                  BackgroundIntent: BackgroundAction(_bloc!),
+                  BackgroundIntent: BackgroundAction(),
                 },
                 child: Builder(builder: (context) {
                   PreferredSizeWidget appBar = _buildAppBar();
@@ -184,7 +181,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                   ),
                                   Expanded(
                                       key: _viewportKey,
-                                      child: MainViewViewport(bloc: _bloc!)),
+                                      child: const MainViewViewport()),
                                   if (isMobile)
                                     Align(
                                         alignment: Alignment.center,
@@ -238,9 +235,9 @@ class _ProjectPageState extends State<ProjectPage> {
             if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
           ]);
 
-  Widget _buildToolbar() => SingleChildScrollView(
+  Widget _buildToolbar() => const SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: SizedBox(height: 50, child: EditToolbar(bloc: _bloc!)),
+        child: SizedBox(height: 50, child: EditToolbar()),
       );
 
   Widget _buildToolSelection(bool isMobile) {
@@ -251,7 +248,7 @@ class _ProjectPageState extends State<ProjectPage> {
           Row(children: [
             BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
               if (_bloc!.state is DocumentLoadSuccess) {
-                return ViewToolbar(bloc: _bloc!);
+                return const ViewToolbar();
               }
               return Container();
             }),

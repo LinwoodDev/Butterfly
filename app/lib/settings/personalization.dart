@@ -1,22 +1,14 @@
-import 'package:butterfly/cubits/language.dart';
-import 'package:butterfly/theme.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class PersonalizationSettingsPage extends StatefulWidget {
+class PersonalizationSettingsPage extends StatelessWidget {
   const PersonalizationSettingsPage({Key? key}) : super(key: key);
 
-  @override
-  _PersonalizationSettingsPageState createState() =>
-      _PersonalizationSettingsPageState();
-}
-
-class _PersonalizationSettingsPageState
-    extends State<PersonalizationSettingsPage> {
-  String getThemeName(ThemeMode mode) {
+  String _getThemeName(BuildContext context, ThemeMode mode) {
     switch (mode) {
       case ThemeMode.system:
         return AppLocalizations.of(context)!.systemTheme;
@@ -29,7 +21,7 @@ class _PersonalizationSettingsPageState
     }
   }
 
-  String getLocaleName(String? locale) {
+  String _getLocaleName(BuildContext context, String? locale) {
     switch (locale) {
       case 'fr':
         return AppLocalizations.of(context)!.french;
@@ -51,35 +43,32 @@ class _PersonalizationSettingsPageState
             if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
           ],
         ),
-        body: Builder(
-          builder: (context) => ListView(children: [
+        body: BlocBuilder<SettingsCubit, ButterflySettings>(
+          builder: (context, state) => ListView(children: [
             ListTile(
                 leading: const Icon(PhosphorIcons.eyeLight),
                 title: Text(AppLocalizations.of(context)!.theme),
-                subtitle: Text(getThemeName(
-                    ThemeController.of(context)?.currentTheme ??
-                        ThemeMode.system)),
-                onTap: () => _openThemeModal()),
+                subtitle: Text(_getThemeName(context, state.theme)),
+                onTap: () => _openThemeModal(context)),
             ListTile(
                 leading: const Icon(PhosphorIcons.translateLight),
                 title: Text(AppLocalizations.of(context)!.locale),
-                subtitle: Text(getLocaleName(
-                    context.read<LanguageCubit>().state?.languageCode)),
-                onTap: () => _openLocaleModal())
+                subtitle: Text(_getLocaleName(context, state.localeTag)),
+                onTap: () => _openLocaleModal(context))
           ]),
         ));
   }
 
-  void _openThemeModal() async {
-    var currentTheme = ThemeController.of(context)?.currentTheme;
+  void _openThemeModal(BuildContext context) async {
+    final cubit = context.read<SettingsCubit>();
+    final currentTheme = cubit.state.theme;
 
     await showModalBottomSheet<ThemeMode>(
         context: context,
-        builder: (context) {
+        builder: (ctx) {
           void changeTheme(ThemeMode themeMode) {
-            Navigator.of(context).pop();
-            setState(
-                () => ThemeController.of(context)?.currentTheme = themeMode);
+            Navigator.of(ctx).pop();
+            cubit.changeTheme(themeMode);
           }
 
           return Container(
@@ -114,18 +103,16 @@ class _PersonalizationSettingsPageState
         });
   }
 
-  void _openLocaleModal() {
-    var cubit = context.read<LanguageCubit>();
-    var currentLocale = cubit.state;
+  void _openLocaleModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentLocale = cubit.state.localeTag;
     var locales = AppLocalizations.supportedLocales;
     showModalBottomSheet<String>(
         context: context,
         builder: (context) {
           void changeLocale(Locale? locale) {
-            cubit.change(locale?.languageCode);
-            cubit.save();
+            cubit.changeLocale(locale);
             Navigator.of(context).pop();
-            setState(() {});
           }
 
           return Container(
@@ -142,12 +129,12 @@ class _PersonalizationSettingsPageState
                 ),
                 ListTile(
                     title: Text(AppLocalizations.of(context)!.defaultLocale),
-                    selected: currentLocale == null,
+                    selected: currentLocale.isEmpty,
                     onTap: () => changeLocale(null)),
                 ...locales
                     .map((e) => ListTile(
-                        title: Text(getLocaleName(e.languageCode)),
-                        selected: currentLocale?.languageCode == e.languageCode,
+                        title: Text(_getLocaleName(context, e.languageCode)),
+                        selected: currentLocale == e.languageCode,
                         onTap: () => changeLocale(e)))
                     .toList(),
                 const SizedBox(height: 32),
