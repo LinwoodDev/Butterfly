@@ -280,8 +280,7 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                                     ColorPickerDialog(
                                                         defaultColor: painter
                                                             .property
-                                                            .decorationColor,
-                                                        bloc: widget.bloc));
+                                                            .decorationColor));
                                             if (value != null) {
                                               setState(() => painter =
                                                   painter.copyWith(
@@ -360,7 +359,6 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                           context: context,
                                           builder: (context) =>
                                               ColorPickerDialog(
-                                                  bloc: widget.bloc,
                                                   defaultColor:
                                                       painter.property.color));
                                       if (color != null) {

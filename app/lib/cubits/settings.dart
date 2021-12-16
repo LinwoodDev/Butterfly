@@ -80,9 +80,8 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   SettingsCubit.fromPrefs(SharedPreferences prefs)
       : super(ButterflySettings.fromPrefs(prefs));
 
-  Future<void> changeTheme(ThemeMode theme) {
+  Future<void> changeTheme(ThemeMode theme) async {
     emit(state.copyWith(theme: theme));
-    return save();
   }
 
   Future<void> changeLocale(Locale? locale) {

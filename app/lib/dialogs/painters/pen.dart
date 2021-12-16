@@ -145,7 +145,6 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                           context: context,
                                           builder: (context) =>
                                               ColorPickerDialog(
-                                                  bloc: widget.bloc,
                                                   defaultColor:
                                                       painter.property.color));
                                       if (color != null) {

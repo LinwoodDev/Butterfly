@@ -58,9 +58,9 @@ Future<void> main([List<String> args = const []]) async {
 class ButterflyApp extends StatelessWidget {
   final String initialLocation;
   final SharedPreferences prefs;
+  final GlobalKey _appKey = GlobalKey();
 
-  const ButterflyApp(
-      {Key? key, required this.prefs, this.initialLocation = '/'})
+  ButterflyApp({Key? key, required this.prefs, this.initialLocation = '/'})
       : super(key: key);
 
   // This widget is the root of your application.
@@ -181,6 +181,7 @@ class ButterflyApp extends StatelessWidget {
             previous.localeTag != current.localeTag,
         builder: (context, state) {
           return MaterialApp.router(
+            key: _appKey,
             locale: state.locale,
             title: 'Butterfly',
             routeInformationParser: router.routeInformationParser,

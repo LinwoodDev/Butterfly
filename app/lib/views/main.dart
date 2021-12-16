@@ -154,7 +154,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   SettingsIntent: SettingsAction(_bloc!),
                   ProjectIntent: ProjectAction(_bloc!),
                   WaypointsIntent: WaypointsAction(_bloc!),
-                  ColorPaletteIntent: ColorPaletteAction(_bloc!),
+                  ColorPaletteIntent: ColorPaletteAction(),
                   BackgroundIntent: BackgroundAction(),
                 },
                 child: Builder(builder: (context) {

@@ -97,120 +97,24 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                   child: Column(
                     children: [
                       Expanded(
-                        child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child:
-                                      BlocBuilder<DocumentBloc, DocumentState>(
-                                          builder: (context, state) {
-                                    if (state is! DocumentLoadSuccess ||
-                                        _previewImage == null) {
-                                      return const Center(
-                                          child: CircularProgressIndicator());
-                                    }
-                                    return Image(
-                                      image: MemoryImage(
-                                          _previewImage!.buffer.asUint8List()),
-                                      loadingBuilder:
-                                          (context, child, loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        }
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  }),
+                        child: LayoutBuilder(builder: (context, constraints) {
+                          var isMobile = constraints.maxWidth < 600;
+                          if (isMobile) {
+                            return Column(
+                              children: [_buildPreview(), _buildProperties()],
+                            );
+                          }
+                          return Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(
+                                  child: _buildPreview(),
                                 ),
-                              ),
-                              Expanded(
-                                  child: ListView(children: [
-                                TextField(
-                                    controller: _xController,
-                                    decoration:
-                                        const InputDecoration(labelText: 'X'),
-                                    onChanged: (value) =>
-                                        x = int.tryParse(value) ?? x,
-                                    onSubmitted: (value) =>
-                                        _regeneratePreviewImage()),
-                                TextField(
-                                    controller: _yController,
-                                    decoration:
-                                        const InputDecoration(labelText: 'Y'),
-                                    onChanged: (value) =>
-                                        y = int.tryParse(value) ?? y,
-                                    onSubmitted: (value) =>
-                                        _regeneratePreviewImage()),
-                                TextField(
-                                    controller: _widthController,
-                                    decoration: InputDecoration(
-                                        labelText: AppLocalizations.of(context)!
-                                            .width),
-                                    onChanged: (value) =>
-                                        width = int.tryParse(value) ?? width,
-                                    onSubmitted: (value) =>
-                                        _regeneratePreviewImage()),
-                                TextField(
-                                    controller: _heightController,
-                                    decoration: InputDecoration(
-                                        labelText: AppLocalizations.of(context)!
-                                            .height),
-                                    onChanged: (value) =>
-                                        height = int.tryParse(value) ?? height,
-                                    onSubmitted: (value) =>
-                                        _regeneratePreviewImage()),
-                                Row(children: [
-                                  ConstrainedBox(
-                                    constraints:
-                                        const BoxConstraints(maxWidth: 100),
-                                    child: TextField(
-                                        decoration: InputDecoration(
-                                            labelText:
-                                                AppLocalizations.of(context)!
-                                                    .size),
-                                        controller: _sizeController,
-                                        onSubmitted: (value) =>
-                                            _regeneratePreviewImage(),
-                                        onChanged: (value) => setState(() =>
-                                            size = (double.tryParse(value) ??
-                                                    (size * 100)) /
-                                                100)),
-                                  ),
-                                  Expanded(
-                                    child: Slider(
-                                        value: size.clamp(0.1, 10),
-                                        min: 0.1,
-                                        max: 10,
-                                        onChanged: (value) {
-                                          setState(() => size = value);
-                                          _regeneratePreviewImage();
-                                        }),
-                                  )
-                                ]),
-                                CheckboxListTile(
-                                    value: _renderBackground,
-                                    title: Text(AppLocalizations.of(context)!
-                                        .background),
-                                    onChanged: (value) {
-                                      setState(() => _renderBackground =
-                                          value ?? _renderBackground);
-                                      _regeneratePreviewImage();
-                                    })
-                              ]))
-                            ]),
+                                Expanded(
+                                    child: SingleChildScrollView(
+                                        child: _buildProperties()))
+                              ]);
+                        }),
                       ),
                       const Divider(),
                       Row(
@@ -241,4 +145,84 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
       }),
     );
   }
+
+  Widget _buildPreview() => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child:
+            BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+          if (state is! DocumentLoadSuccess || _previewImage == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return Image(
+            image: MemoryImage(_previewImage!.buffer.asUint8List()),
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) {
+                return child;
+              }
+              return Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                      : null,
+                ),
+              );
+            },
+          );
+        }),
+      );
+
+  Widget _buildProperties() => Column(children: [
+        TextField(
+            controller: _xController,
+            decoration: const InputDecoration(labelText: 'X'),
+            onChanged: (value) => x = int.tryParse(value) ?? x,
+            onSubmitted: (value) => _regeneratePreviewImage()),
+        TextField(
+            controller: _yController,
+            decoration: const InputDecoration(labelText: 'Y'),
+            onChanged: (value) => y = int.tryParse(value) ?? y,
+            onSubmitted: (value) => _regeneratePreviewImage()),
+        TextField(
+            controller: _widthController,
+            decoration:
+                InputDecoration(labelText: AppLocalizations.of(context)!.width),
+            onChanged: (value) => width = int.tryParse(value) ?? width,
+            onSubmitted: (value) => _regeneratePreviewImage()),
+        TextField(
+            controller: _heightController,
+            decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.height),
+            onChanged: (value) => height = int.tryParse(value) ?? height,
+            onSubmitted: (value) => _regeneratePreviewImage()),
+        Row(children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 100),
+            child: TextField(
+                decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.size),
+                controller: _sizeController,
+                onSubmitted: (value) => _regeneratePreviewImage(),
+                onChanged: (value) => setState(() =>
+                    size = (double.tryParse(value) ?? (size * 100)) / 100)),
+          ),
+          Expanded(
+            child: Slider(
+                value: size.clamp(0.1, 10),
+                min: 0.1,
+                max: 10,
+                onChanged: (value) {
+                  setState(() => size = value);
+                  _regeneratePreviewImage();
+                }),
+          )
+        ]),
+        CheckboxListTile(
+            value: _renderBackground,
+            title: Text(AppLocalizations.of(context)!.background),
+            onChanged: (value) {
+              setState(() => _renderBackground = value ?? _renderBackground);
+              _regeneratePreviewImage();
+            })
+      ]);
 }

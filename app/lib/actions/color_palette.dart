@@ -1,6 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/color_pick.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ColorPaletteIntent extends Intent {
   final BuildContext context;
@@ -9,18 +10,15 @@ class ColorPaletteIntent extends Intent {
 }
 
 class ColorPaletteAction extends Action<ColorPaletteIntent> {
-  final DocumentBloc bloc;
-
-  ColorPaletteAction(this.bloc);
+  ColorPaletteAction();
 
   @override
   Object? invoke(ColorPaletteIntent intent) {
     showDialog(
       context: intent.context,
-      builder: (context) => ColorPickerDialog(
-        bloc: bloc,
-        viewMode: true,
-      ),
+      builder: (ctx) => BlocProvider.value(
+          value: intent.context.read<DocumentBloc>(),
+          child: const ColorPickerDialog(viewMode: true)),
     );
   }
 }
