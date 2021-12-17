@@ -99,10 +99,10 @@ class _ProjectPageState extends State<ProjectPage> {
             shortcuts: {
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
-                  const UndoIntent(),
+                  UndoIntent(context),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
-                  const RedoIntent(),
+                  RedoIntent(context),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
                   NewIntent(context),
@@ -119,7 +119,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   LogicalKeyboardKey.control,
                   LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyE): ImageExportIntent(context),
-              LogicalKeySet(LogicalKeyboardKey.tab): const EditModeIntent(),
+              LogicalKeySet(LogicalKeyboardKey.tab): EditModeIntent(context),
               LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
                   LogicalKeyboardKey.keyS): SettingsIntent(context),
               LogicalKeySet(
@@ -139,21 +139,17 @@ class _ProjectPageState extends State<ProjectPage> {
             },
             child: Actions(
                 actions: <Type, Action<Intent>>{
-                  UndoIntent: UndoAction(_bloc!),
-                  RedoIntent: RedoAction(_bloc!),
-                  NewIntent: NewAction(
-                      _bloc!,
-                      context.read<SelectionCubit>(),
-                      context.read<EditingCubit>(),
-                      context.read<TransformCubit>()),
-                  OpenIntent: OpenAction(_bloc!),
-                  ImportIntent: ImportAction(_bloc!),
-                  ImageExportIntent: ImageExportAction(_bloc!),
-                  ExportIntent: ExportAction(_bloc!),
-                  EditModeIntent: EditModeAction(_bloc!),
-                  SettingsIntent: SettingsAction(_bloc!),
-                  ProjectIntent: ProjectAction(_bloc!),
-                  WaypointsIntent: WaypointsAction(_bloc!),
+                  UndoIntent: UndoAction(),
+                  RedoIntent: RedoAction(),
+                  NewIntent: NewAction(),
+                  OpenIntent: OpenAction(),
+                  ImportIntent: ImportAction(),
+                  ImageExportIntent: ImageExportAction(),
+                  ExportIntent: ExportAction(),
+                  EditModeIntent: EditModeAction(),
+                  SettingsIntent: SettingsAction(),
+                  ProjectIntent: ProjectAction(),
+                  WaypointsIntent: WaypointsAction(),
                   ColorPaletteIntent: ColorPaletteAction(),
                   BackgroundIntent: BackgroundAction(),
                 },
@@ -221,14 +217,14 @@ class _ProjectPageState extends State<ProjectPage> {
               icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               tooltip: AppLocalizations.of(context)!.undo,
               onPressed: () {
-                Actions.maybeInvoke<UndoIntent>(context, const UndoIntent());
+                Actions.maybeInvoke<UndoIntent>(context, UndoIntent(context));
               },
             ),
             IconButton(
               icon: const Icon(PhosphorIcons.arrowClockwiseLight),
               tooltip: AppLocalizations.of(context)!.redo,
               onPressed: () {
-                Actions.maybeInvoke<RedoIntent>(context, const RedoIntent());
+                Actions.maybeInvoke<RedoIntent>(context, RedoIntent(context));
               },
             ),
             _buildPopupMenu(),

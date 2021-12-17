@@ -8,14 +8,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'color_pick.dart';
 
-class BackgroundDialog extends StatefulWidget {
-  const BackgroundDialog({Key? key}) : super(key: key);
-
-  @override
-  _BackgroundDialogState createState() => _BackgroundDialogState();
-}
-
-class _BackgroundDialogState extends State<BackgroundDialog> {
+class BackgroundDialog extends StatelessWidget {
   final _boxWidthController = TextEditingController();
   final _boxHeightController = TextEditingController();
   final _boxXCountController = TextEditingController();
@@ -25,9 +18,11 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
   final _boxXStrokeController = TextEditingController();
   final _boxYStrokeController = TextEditingController();
 
-  int? currentExpansionOpened = 0;
+  BackgroundDialog({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    int? currentExpansionOpened = 0;
     return Dialog(
         child: ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),

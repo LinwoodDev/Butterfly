@@ -1,6 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProjectIntent extends Intent {
   final BuildContext context;
@@ -9,14 +10,14 @@ class ProjectIntent extends Intent {
 }
 
 class ProjectAction extends Action<ProjectIntent> {
-  final DocumentBloc bloc;
-
-  ProjectAction(this.bloc);
+  ProjectAction();
 
   @override
   Object? invoke(ProjectIntent intent) {
     showDialog(
         context: intent.context,
-        builder: (context) => PadSettingsDialog(bloc: bloc));
+        builder: (context) => BlocProvider.value(
+            value: intent.context.read<DocumentBloc>(),
+            child: PadSettingsDialog()));
   }
 }

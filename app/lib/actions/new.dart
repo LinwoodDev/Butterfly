@@ -16,20 +16,16 @@ class NewIntent extends Intent {
 }
 
 class NewAction extends Action<NewIntent> {
-  final DocumentBloc bloc;
-  final SelectionCubit selectionCubit;
-  final EditingCubit editingCubit;
-  final TransformCubit transformCubit;
-
-  NewAction(
-      this.bloc, this.selectionCubit, this.editingCubit, this.transformCubit);
+  NewAction();
 
   @override
   Future<void> invoke(NewIntent intent) async {
+    var bloc = intent.context.read<DocumentBloc>();
+
     bloc.clearHistory();
-    selectionCubit.reset();
-    editingCubit.resetAll();
-    transformCubit.reset();
+    intent.context.read<SelectionCubit>().reset();
+    intent.context.read<EditingCubit>().resetAll();
+    intent.context.read<TransformCubit>().reset();
     bloc.emit(DocumentLoadSuccess(AppDocument(
         name: await formatCurrentDateTime(
             intent.context.read<SettingsCubit>().state.locale),

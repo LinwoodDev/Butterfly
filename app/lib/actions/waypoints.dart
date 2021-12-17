@@ -2,7 +2,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/waypoints.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WaypointsIntent extends Intent {
   final BuildContext context;
@@ -11,19 +11,18 @@ class WaypointsIntent extends Intent {
 }
 
 class WaypointsAction extends Action<WaypointsIntent> {
-  final DocumentBloc bloc;
-
-  WaypointsAction(this.bloc);
+  WaypointsAction();
 
   @override
   Object? invoke(WaypointsIntent intent) {
+    var bloc = intent.context.read<DocumentBloc>();
     var transformCubit = intent.context.read<TransformCubit>();
     showDialog(
       context: intent.context,
-      builder: (context) => WaypointsDialog(
-        bloc: bloc,
-        cameraCubit: transformCubit,
-      ),
+      builder: (context) => MultiBlocProvider(providers: [
+        BlocProvider.value(value: transformCubit),
+        BlocProvider.value(value: bloc),
+      ], child: WaypointsDialog()),
     );
   }
 }

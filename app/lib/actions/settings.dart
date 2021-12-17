@@ -1,4 +1,3 @@
-import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/settings/home.dart';
 import 'package:flutter/material.dart';
 
@@ -9,9 +8,7 @@ class SettingsIntent extends Intent {
 }
 
 class SettingsAction extends Action<SettingsIntent> {
-  final DocumentBloc bloc;
-
-  SettingsAction(this.bloc);
+  SettingsAction();
 
   @override
   Object? invoke(SettingsIntent intent) {

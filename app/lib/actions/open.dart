@@ -4,6 +4,7 @@ import 'package:butterfly/dialogs/file_system.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OpenIntent extends Intent {
   final BuildContext context;
@@ -12,15 +13,15 @@ class OpenIntent extends Intent {
 }
 
 class OpenAction extends Action<OpenIntent> {
-  final DocumentBloc bloc;
-
-  OpenAction(this.bloc);
+  OpenAction();
 
   @override
   void invoke(OpenIntent intent) {
     showDialog(
-        context: intent.context,
-        builder: (context) => FileSystemDialog(bloc: bloc)).then((value) {
+            context: intent.context,
+            builder: (context) =>
+                FileSystemDialog(bloc: intent.context.read<DocumentBloc>()))
+        .then((value) {
       if (value != null) {
         return DocumentFileSystem.fromPlatform()
             .getAsset(value)

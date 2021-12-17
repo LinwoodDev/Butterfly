@@ -2,31 +2,20 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PadSettingsDialog extends StatefulWidget {
-  final DocumentBloc bloc;
-
-  const PadSettingsDialog({Key? key, required this.bloc}) : super(key: key);
-  @override
-  _PadSettingsDialogState createState() => _PadSettingsDialogState();
-}
-
-class _PadSettingsDialogState extends State<PadSettingsDialog> {
+class PadSettingsDialog extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  @override
-  void initState() {
-    _nameController.text =
-        (widget.bloc.state as DocumentLoadSuccess).document.name;
-    _descriptionController.text =
-        (widget.bloc.state as DocumentLoadSuccess).document.description;
-    super.initState();
-  }
+  PadSettingsDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
+    _nameController.text = state.document.name;
+    _descriptionController.text = state.document.description;
     return Form(
       key: _formKey,
       child: Dialog(
@@ -83,9 +72,11 @@ class _PadSettingsDialogState extends State<PadSettingsDialog> {
                                   false)) {
                                 return;
                               }
-                              widget.bloc.add(DocumentDescriptorChanged(
-                                  name: _nameController.text,
-                                  description: _descriptionController.text));
+                              context.read<DocumentBloc>().add(
+                                  DocumentDescriptorChanged(
+                                      name: _nameController.text,
+                                      description:
+                                          _descriptionController.text));
                               Navigator.of(context).pop();
                             },
                             child: Text(AppLocalizations.of(context)!.ok))

@@ -1,17 +1,18 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RedoIntent extends Intent {
-  const RedoIntent();
+  final BuildContext context;
+
+  const RedoIntent(this.context);
 }
 
 class RedoAction extends Action<RedoIntent> {
-  final DocumentBloc bloc;
-
-  RedoAction(this.bloc);
+  RedoAction();
 
   @override
   void invoke(RedoIntent intent) {
-    bloc.redo();
+    intent.context.read<DocumentBloc>().redo();
   }
 }

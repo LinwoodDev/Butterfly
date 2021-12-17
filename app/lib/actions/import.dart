@@ -5,6 +5,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ImportIntent extends Intent {
   final BuildContext context;
@@ -13,12 +14,11 @@ class ImportIntent extends Intent {
 }
 
 class ImportAction extends Action<ImportIntent> {
-  final DocumentBloc bloc;
-
-  ImportAction(this.bloc);
+  ImportAction();
 
   @override
   Future<void> invoke(ImportIntent intent) async {
+    var bloc = intent.context.read<DocumentBloc>();
     showDialog(
             builder: (context) => const ImportDialog(), context: intent.context)
         .then((content) {
