@@ -200,57 +200,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                       .remove,
                                               icon: const Icon(
                                                   PhosphorIcons.minusLight),
-                                              onPressed: () {
-                                                if (selected >=
-                                                    state.document.palettes
-                                                        .length) {
-                                                  return;
-                                                }
-                                                showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (context) =>
-                                                            AlertDialog(
-                                                              title: Text(
-                                                                  AppLocalizations.of(
-                                                                          context)!
-                                                                      .areYouSure),
-                                                              content: Text(
-                                                                  AppLocalizations.of(
-                                                                          context)!
-                                                                      .reallyDelete),
-                                                              actions: [
-                                                                TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.of(context)
-                                                                            .pop(),
-                                                                    child: Text(
-                                                                        AppLocalizations.of(context)!
-                                                                            .no)),
-                                                                TextButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      Navigator.of(
-                                                                              context)
-                                                                          .pop();
-                                                                      var newPalettes = List<ColorPalette>.from(state
-                                                                          .document
-                                                                          .palettes);
-                                                                      newPalettes
-                                                                          .removeAt(
-                                                                              selected);
-                                                                      context
-                                                                          .read<
-                                                                              DocumentBloc>()
-                                                                          .add(DocumentPaletteChanged(
-                                                                              newPalettes));
-                                                                    },
-                                                                    child: Text(
-                                                                        AppLocalizations.of(context)!
-                                                                            .yes)),
-                                                              ],
-                                                            ));
-                                              }),
+                                              onPressed: _deletePalette),
                                           const VerticalDivider(),
                                           IconButton(
                                               tooltip:
@@ -320,49 +270,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                       .resetPalette,
                                               icon: const Icon(PhosphorIcons
                                                   .clockClockwiseLight),
-                                              onPressed: () {
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        AlertDialog(
-                                                            title: Text(
-                                                                AppLocalizations.of(
-                                                                        context)!
-                                                                    .areYouSure),
-                                                            content: Text(
-                                                                AppLocalizations.of(
-                                                                        context)!
-                                                                    .reallyReset),
-                                                            actions: [
-                                                              TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.of(
-                                                                              context)
-                                                                          .pop(),
-                                                                  child: Text(
-                                                                      AppLocalizations.of(
-                                                                              context)!
-                                                                          .no)),
-                                                              TextButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    selected =
-                                                                        0;
-                                                                    context
-                                                                        .read<
-                                                                            DocumentBloc>()
-                                                                        .add(DocumentPaletteChanged(
-                                                                            ColorPalette.getMaterialPalette(context)));
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
-                                                                  },
-                                                                  child: Text(
-                                                                      AppLocalizations.of(
-                                                                              context)!
-                                                                          .yes))
-                                                            ]));
-                                              }),
+                                              onPressed: _resetPalette),
                                           const VerticalDivider(),
                                           IconButton(
                                               tooltip:
@@ -531,6 +439,56 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 content:
                     TextField(autofocus: true, controller: _nameController)));
   }
+
+  void _deletePalette() {
+    var state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
+    if (selected >= state.document.palettes.length) {
+      return;
+    }
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(AppLocalizations.of(context)!.areYouSure),
+              content: Text(AppLocalizations.of(context)!.reallyDelete),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(AppLocalizations.of(context)!.no)),
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      var newPalettes =
+                          List<ColorPalette>.from(state.document.palettes);
+                      newPalettes.removeAt(selected);
+                      context
+                          .read<DocumentBloc>()
+                          .add(DocumentPaletteChanged(newPalettes));
+                    },
+                    child: Text(AppLocalizations.of(context)!.yes)),
+              ],
+            ));
+  }
+
+  void _resetPalette() {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+                title: Text(AppLocalizations.of(context)!.areYouSure),
+                content: Text(AppLocalizations.of(context)!.reallyReset),
+                actions: [
+                  TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text(AppLocalizations.of(context)!.no)),
+                  TextButton(
+                      onPressed: () {
+                        selected = 0;
+                        context.read<DocumentBloc>().add(DocumentPaletteChanged(
+                            ColorPalette.getMaterialPalette(context)));
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(AppLocalizations.of(context)!.yes))
+                ]));
+  }
 }
 
 class CustomColorPicker extends StatefulWidget {
@@ -563,6 +521,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
             green ?? color.green, blue ?? color.blue);
         _updateController();
       });
+
   void _updateController() {
     _redController.text = color.red.toString();
     _greenController.text = color.green.toString();
@@ -583,119 +542,124 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: Column(
-              children: [
-                Expanded(
-                  child: Row(children: [
-                    Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(color: color),
-                        )),
-                    Expanded(
-                        flex: 3,
-                        child: ListView(children: [
-                          Row(children: [
-                            ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 100),
-                              child: TextField(
-                                  decoration:
-                                      const InputDecoration(labelText: 'R'),
-                                  controller: _redController,
-                                  onChanged: (value) =>
-                                      _changeColor(red: int.tryParse(value))),
-                            ),
-                            Expanded(
-                                child: Slider(
-                              activeColor: Colors.red,
-                              value: color.red.toDouble(),
-                              min: 0,
-                              max: 255,
-                              divisions: 255,
-                              onChanged: (value) =>
-                                  _changeColor(red: value.toInt()),
-                            ))
-                          ]),
-                          Row(children: [
-                            ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 100),
-                              child: TextField(
-                                  decoration:
-                                      const InputDecoration(labelText: 'G'),
-                                  controller: _greenController,
-                                  onChanged: (value) =>
-                                      _changeColor(green: int.tryParse(value))),
-                            ),
-                            Expanded(
-                                child: Slider(
-                              activeColor: Colors.green,
-                              value: color.green.toDouble(),
-                              min: 0,
-                              max: 255,
-                              divisions: 255,
-                              onChanged: (value) =>
-                                  _changeColor(green: value.toInt()),
-                            ))
-                          ]),
-                          Row(children: [
-                            ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 100),
-                              child: TextField(
-                                  decoration:
-                                      const InputDecoration(labelText: 'B'),
-                                  controller: _blueController,
-                                  onChanged: (value) =>
-                                      _changeColor(blue: int.tryParse(value))),
-                            ),
-                            Expanded(
-                                child: Slider(
-                              activeColor: Colors.blue,
-                              value: color.blue.toDouble(),
-                              min: 0,
-                              max: 255,
-                              divisions: 255,
-                              onChanged: (value) =>
-                                  _changeColor(blue: value.toInt()),
-                            ))
-                          ]),
-                          Row(children: [
-                            ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 100),
-                              child: TextField(
-                                  decoration:
-                                      const InputDecoration(labelText: 'A'),
-                                  controller: _alphaController,
-                                  onChanged: (value) =>
-                                      _changeColor(alpha: int.tryParse(value))),
-                            ),
-                            Expanded(
-                                child: Slider(
-                              value: color.alpha.toDouble(),
-                              min: 0,
-                              max: 255,
-                              divisions: 255,
-                              onChanged: (value) =>
-                                  _changeColor(alpha: value.toInt()),
-                            ))
-                          ])
-                        ]))
-                  ]),
-                ),
-                const Divider(),
-                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  TextButton(
-                      child: Text(AppLocalizations.of(context)!.cancel),
-                      onPressed: () => Navigator.of(context).pop()),
-                  ElevatedButton(
-                      child: Text(AppLocalizations.of(context)!.ok),
-                      onPressed: () => Navigator.of(context).pop(color)),
-                ])
-              ],
-            ),
+            child: LayoutBuilder(builder: (context, constraints) {
+              var isMobile = constraints.maxWidth < 600;
+              return Column(
+                children: [
+                  Expanded(
+                      child: isMobile
+                          ? SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  _buildPreview(),
+                                  _buildProperties(),
+                                ],
+                              ),
+                            )
+                          : Row(children: [
+                              Expanded(flex: 2, child: _buildPreview()),
+                              Expanded(
+                                  flex: 3,
+                                  child: SingleChildScrollView(
+                                      child: _buildProperties()))
+                            ])),
+                  const Divider(),
+                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    TextButton(
+                        child: Text(AppLocalizations.of(context)!.cancel),
+                        onPressed: () => Navigator.of(context).pop()),
+                    ElevatedButton(
+                        child: Text(AppLocalizations.of(context)!.ok),
+                        onPressed: () => Navigator.of(context).pop(color)),
+                  ])
+                ],
+              );
+            }),
           ),
         ),
       ),
     );
   }
+
+  Widget _buildPreview() => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+            constraints: const BoxConstraints(maxHeight: 200, maxWidth: 200),
+            color: color),
+      );
+
+  Widget _buildProperties() => Column(children: [
+        Row(children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 100),
+            child: TextField(
+                decoration: const InputDecoration(labelText: 'R'),
+                controller: _redController,
+                onChanged: (value) => _changeColor(red: int.tryParse(value))),
+          ),
+          Expanded(
+              child: Slider(
+            activeColor: Colors.red,
+            value: color.red.toDouble(),
+            min: 0,
+            max: 255,
+            divisions: 255,
+            onChanged: (value) => _changeColor(red: value.toInt()),
+          ))
+        ]),
+        Row(children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 100),
+            child: TextField(
+                decoration: const InputDecoration(labelText: 'G'),
+                controller: _greenController,
+                onChanged: (value) => _changeColor(green: int.tryParse(value))),
+          ),
+          Expanded(
+              child: Slider(
+            activeColor: Colors.green,
+            value: color.green.toDouble(),
+            min: 0,
+            max: 255,
+            divisions: 255,
+            onChanged: (value) => _changeColor(green: value.toInt()),
+          ))
+        ]),
+        Row(children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 100),
+            child: TextField(
+                decoration: const InputDecoration(labelText: 'B'),
+                controller: _blueController,
+                onChanged: (value) => _changeColor(blue: int.tryParse(value))),
+          ),
+          Expanded(
+              child: Slider(
+            activeColor: Colors.blue,
+            value: color.blue.toDouble(),
+            min: 0,
+            max: 255,
+            divisions: 255,
+            onChanged: (value) => _changeColor(blue: value.toInt()),
+          ))
+        ]),
+        Row(children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 100),
+            child: TextField(
+                decoration: const InputDecoration(labelText: 'A'),
+                controller: _alphaController,
+                onChanged: (value) => _changeColor(alpha: int.tryParse(value))),
+          ),
+          Expanded(
+              child: Slider(
+            value: color.alpha.toDouble(),
+            min: 0,
+            max: 255,
+            divisions: 255,
+            onChanged: (value) => _changeColor(alpha: value.toInt()),
+          ))
+        ])
+      ]);
 }

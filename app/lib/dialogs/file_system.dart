@@ -85,74 +85,91 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Builder(builder: (context) {
+                LayoutBuilder(builder: (context, constraints) {
+                  var isMobile = constraints.maxWidth < 600;
+                  var actions = Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            icon: const Icon(PhosphorIcons.houseLight),
+                            onPressed: () {
+                              _pathController.text = '/';
+                              loadDocuments();
+                            }),
+                        IconButton(
+                          icon: const Icon(PhosphorIcons.arrowUpLight),
+                          onPressed: () {
+                            var path = _pathController.text;
+                            if (path.isNotEmpty && path != '/') {
+                              var index = path.lastIndexOf('/');
+                              if (index != -1) {
+                                _pathController.text = path.substring(0, index);
+                                if (_pathController.text.isEmpty) {
+                                  _pathController.text = '/';
+                                }
+                                loadDocuments();
+                              }
+                            }
+                          },
+                        ),
+                        IconButton(
+                          onPressed: () => loadDocuments(),
+                          icon: const Icon(PhosphorIcons.arrowClockwiseLight),
+                        ),
+                      ]);
+                  var pathInput = Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      child: TextField(
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
+                        onSubmitted: (value) async {
+                          _openAsset(await _fileSystem.getAsset(value) ??
+                              await _fileSystem.getRootDirectory());
+                        },
+                        controller: _pathController,
+                      ));
+                  var searchInput = Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    child: TextField(
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: const InputDecoration(
+                        filled: true,
+                        prefixIcon: Icon(PhosphorIcons.magnifyingGlassLight),
+                      ),
+                      onChanged: (value) {
+                        loadDocuments();
+                      },
+                      autofocus: true,
+                      controller: _searchController,
+                    ),
+                  );
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Row(children: [
-                      IconButton(
-                          icon: const Icon(PhosphorIcons.houseLight),
-                          onPressed: () {
-                            _pathController.text = '/';
-                            loadDocuments();
-                          }),
-                      IconButton(
-                        icon: const Icon(PhosphorIcons.arrowUpLight),
-                        onPressed: () {
-                          var path = _pathController.text;
-                          if (path.isNotEmpty && path != '/') {
-                            var index = path.lastIndexOf('/');
-                            if (index != -1) {
-                              _pathController.text = path.substring(0, index);
-                              if (_pathController.text.isEmpty) {
-                                _pathController.text = '/';
-                              }
-                              loadDocuments();
-                            }
-                          }
-                        },
-                      ),
-                      IconButton(
-                        onPressed: () => loadDocuments(),
-                        icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                      ),
-                      Flexible(
-                        flex: 5,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: TextField(
-                            textAlignVertical: TextAlignVertical.center,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
+                    child: isMobile
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              actions,
+                              pathInput,
+                              searchInput,
+                            ],
+                          )
+                        : Row(children: [
+                            actions,
+                            Flexible(
+                              flex: 5,
+                              child: pathInput,
                             ),
-                            onSubmitted: (value) async {
-                              _openAsset(await _fileSystem.getAsset(value) ??
-                                  await _fileSystem.getRootDirectory());
-                            },
-                            controller: _pathController,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Flexible(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: TextField(
-                            textAlignVertical: TextAlignVertical.center,
-                            decoration: const InputDecoration(
-                              filled: true,
-                              prefixIcon:
-                                  Icon(PhosphorIcons.magnifyingGlassLight),
+                            const SizedBox(height: 10),
+                            Flexible(
+                              flex: 2,
+                              child: searchInput,
                             ),
-                            onChanged: (value) {
-                              loadDocuments();
-                            },
-                            autofocus: true,
-                            controller: _searchController,
-                          ),
-                        ),
-                      ),
-                    ]),
+                          ]),
                   );
                 }),
                 const Divider(),

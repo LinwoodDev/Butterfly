@@ -10,7 +10,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class LabelElementDialog extends StatelessWidget {
   final int index;
   final DocumentBloc bloc;
-  final VoidCallback onClose;
+  final VoidCallback close;
   final SelectionCubit selectionCubit;
   final EditingCubit editingCubit;
 
@@ -18,7 +18,7 @@ class LabelElementDialog extends StatelessWidget {
       {Key? key,
       required this.index,
       required this.bloc,
-      required this.onClose,
+      required this.close,
       required this.selectionCubit,
       required this.editingCubit})
       : super(key: key);
@@ -29,7 +29,7 @@ class LabelElementDialog extends StatelessWidget {
         as LabelElement;
     return GeneralElementDialog(
       index: index,
-      onClose: onClose,
+      close: close,
       selectionCubit: selectionCubit,
       editingCubit: editingCubit,
       bloc: bloc,
@@ -38,9 +38,10 @@ class LabelElementDialog extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.edit),
             leading: const Icon(PhosphorIcons.textTLight),
             onTap: () {
+              close();
               var _textController = TextEditingController(text: element.text);
               void submit() {
-                onClose();
+                Navigator.of(context).pop();
                 var layer = element.copyWith(text: _textController.text);
                 bloc.add(LayerChanged(index, layer));
                 selectionCubit.change(layer);
@@ -49,24 +50,24 @@ class LabelElementDialog extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                          title: Text(AppLocalizations.of(context)!.enterText),
-                          content: TextField(
-                            controller: _textController,
-                            autofocus: true,
-                            keyboardType: TextInputType.multiline,
-                            minLines: 3,
-                            maxLines: 5,
-                            onSubmitted: (text) => submit(),
-                          ),
-                          actions: [
-                            TextButton(
-                              child: Text(AppLocalizations.of(context)!.cancel),
-                              onPressed: () => onClose(),
+                      title: Text(AppLocalizations.of(context)!.enterText),
+                      content: TextField(
+                        controller: _textController,
+                        autofocus: true,
+                        keyboardType: TextInputType.multiline,
+                        minLines: 3,
+                        maxLines: 5,
+                        onSubmitted: (text) => submit(),
+                      ),
+                      actions: [
+                        TextButton(
+                          child: Text(AppLocalizations.of(context)!.cancel),
+                              onPressed: () => Navigator.of(context).pop(),
                             ),
-                            TextButton(
-                                child: Text(AppLocalizations.of(context)!.ok),
-                                onPressed: submit)
-                          ]));
+                        TextButton(
+                            child: Text(AppLocalizations.of(context)!.ok),
+                            onPressed: submit)
+                      ]));
             }),
       ],
     );

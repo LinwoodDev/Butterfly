@@ -4,18 +4,18 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 typedef ContextMenuBuilder = Widget Function(
-    BuildContext context, VoidCallback onClose);
+    BuildContext context, VoidCallback close);
 
 class ContextMenu extends StatefulWidget {
   final Offset position;
   final ContextMenuBuilder builder;
-  final VoidCallback onClose;
+  final VoidCallback close;
   final double maxWidth, maxHeight;
 
   const ContextMenu(
       {Key? key,
       this.position = Offset.zero,
-      required this.onClose,
+      required this.close,
       required this.builder,
       this.maxHeight = 500,
       this.maxWidth = 300})
@@ -55,7 +55,7 @@ class _ContextMenuState extends State<ContextMenu>
     if (!mounted) return;
     _controller.reverse().then<void>((_) {
       if (!mounted) return;
-      widget.onClose();
+      widget.close();
     });
   }
 
@@ -131,7 +131,7 @@ Future<void> showContextMenu(
   overlayEntry = OverlayEntry(
       builder: (context) => ContextMenu(
           position: position,
-          onClose: () {
+          close: () {
             overlayEntry.remove();
             completer.complete();
           },

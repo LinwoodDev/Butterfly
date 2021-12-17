@@ -10,7 +10,7 @@ class GeneralElementDialog extends StatelessWidget {
   final DocumentBloc bloc;
   final SelectionCubit selectionCubit;
   final EditingCubit editingCubit;
-  final VoidCallback onClose;
+  final VoidCallback close;
   final List<Widget> children;
 
   const GeneralElementDialog(
@@ -20,7 +20,7 @@ class GeneralElementDialog extends StatelessWidget {
       required this.bloc,
       required this.selectionCubit,
       required this.editingCubit,
-      required this.onClose})
+      required this.close})
       : super(key: key);
 
   @override
@@ -42,7 +42,7 @@ class GeneralElementDialog extends StatelessWidget {
               // Remove the element from the document
               bloc.add(LayersRemoved([element]));
               editingCubit.move(element);
-              onClose();
+              close();
             },
           ),
           ListTile(
@@ -50,12 +50,12 @@ class GeneralElementDialog extends StatelessWidget {
             leading: const Icon(PhosphorIcons.copyLight),
             onTap: () {
               editingCubit.move(element);
-              onClose();
+              close();
             },
           ),
           ListTile(
               onTap: () {
-                onClose();
+                close();
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(

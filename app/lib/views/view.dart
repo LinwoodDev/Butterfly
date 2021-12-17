@@ -199,14 +199,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         showContextMenu(
                                 context: context,
                                 position: event.position,
-                                builder: (context, onClose) {
+                                builder: (context, close) {
                                   if (selection is LabelElement) {
                                     return LabelElementDialog(
                                         selectionCubit: selectionCubit,
                                         index: index,
                                         bloc: bloc,
                                         editingCubit: editingCubit,
-                                        onClose: onClose);
+                                        close: close);
                                   }
                                   if (selection is ImageElement) {
                                     return ImageElementDialog(
@@ -214,14 +214,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         selectionCubit: selectionCubit,
                                         index: index,
                                         bloc: bloc,
-                                        onClose: onClose);
+                                        close: close);
                                   }
                                   return GeneralElementDialog(
                                       index: index,
                                       bloc: bloc,
                                       selectionCubit: selectionCubit,
                                       editingCubit: editingCubit,
-                                      onClose: onClose);
+                                      close: close);
                                 })
                             .then((value) =>
                                 context.read<SelectionCubit>().reset());

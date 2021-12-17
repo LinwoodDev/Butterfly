@@ -100,7 +100,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                         child: LayoutBuilder(builder: (context, constraints) {
                           var isMobile = constraints.maxWidth < 600;
                           if (isMobile) {
-                            return Column(
+                            return ListView(
                               children: [_buildPreview(), _buildProperties()],
                             );
                           }
@@ -111,8 +111,10 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                                   child: _buildPreview(),
                                 ),
                                 Expanded(
-                                    child: SingleChildScrollView(
-                                        child: _buildProperties()))
+                                  child: SingleChildScrollView(
+                                    child: _buildProperties(),
+                                  ),
+                                )
                               ]);
                         }),
                       ),

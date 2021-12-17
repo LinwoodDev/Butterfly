@@ -276,11 +276,15 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                           onTap: () async {
                                             var value = await showDialog(
                                                 context: context,
-                                                builder: (context) =>
-                                                    ColorPickerDialog(
-                                                        defaultColor: painter
-                                                            .property
-                                                            .decorationColor));
+                                                builder: (ctx) =>
+                                                    BlocProvider.value(
+                                                      value: context
+                                                          .read<DocumentBloc>(),
+                                                      child: ColorPickerDialog(
+                                                          defaultColor: painter
+                                                              .property
+                                                              .decorationColor),
+                                                    ));
                                             if (value != null) {
                                               setState(() => painter =
                                                   painter.copyWith(
@@ -357,10 +361,13 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                     onTap: () async {
                                       var color = await showDialog(
                                           context: context,
-                                          builder: (context) =>
-                                              ColorPickerDialog(
-                                                  defaultColor:
-                                                      painter.property.color));
+                                          builder: (ctx) => BlocProvider.value(
+                                                value: context
+                                                    .read<DocumentBloc>(),
+                                                child: ColorPickerDialog(
+                                                    defaultColor:
+                                                        painter.property.color),
+                                              ));
                                       if (color != null) {
                                         setState(() => painter =
                                             painter.copyWith(
