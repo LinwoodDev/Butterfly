@@ -50,24 +50,24 @@ class LabelElementDialog extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.enterText),
-                      content: TextField(
-                        controller: _textController,
-                        autofocus: true,
-                        keyboardType: TextInputType.multiline,
-                        minLines: 3,
-                        maxLines: 5,
-                        onSubmitted: (text) => submit(),
-                      ),
-                      actions: [
-                        TextButton(
-                          child: Text(AppLocalizations.of(context)!.cancel),
+                          title: Text(AppLocalizations.of(context)!.enterText),
+                          content: TextField(
+                            controller: _textController,
+                            autofocus: true,
+                            keyboardType: TextInputType.multiline,
+                            minLines: 3,
+                            maxLines: 5,
+                            onSubmitted: (text) => submit(),
+                          ),
+                          actions: [
+                            TextButton(
+                              child: Text(AppLocalizations.of(context)!.cancel),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
-                        TextButton(
-                            child: Text(AppLocalizations.of(context)!.ok),
-                            onPressed: submit)
-                      ]));
+                            TextButton(
+                                child: Text(AppLocalizations.of(context)!.ok),
+                                onPressed: submit)
+                          ]));
             }),
       ],
     );
