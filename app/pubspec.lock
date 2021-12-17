@@ -223,7 +223,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.3"
+    version: "2.5.5"
   http:
     dependency: transitive
     description:
@@ -273,6 +273,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   matcher:
     dependency: transitive
     description:

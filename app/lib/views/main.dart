@@ -173,7 +173,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                     height: 75,
                                     color: Theme.of(context).canvasColor,
                                     padding: const EdgeInsets.all(12.0),
-                                    child: _buildToolSelection(isMobile),
+                                    child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: _buildToolSelection(isMobile)),
                                   ),
                                   Expanded(
                                       key: _viewportKey,
@@ -232,9 +234,8 @@ class _ProjectPageState extends State<ProjectPage> {
           ]);
 
   Widget _buildToolbar() => const SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: SizedBox(height: 50, child: EditToolbar()),
-      );
+      scrollDirection: Axis.horizontal,
+      child: SizedBox(height: 50, child: EditToolbar()));
 
   Widget _buildToolSelection(bool isMobile) {
     return Row(
