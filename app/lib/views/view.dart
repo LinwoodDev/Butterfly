@@ -66,8 +66,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
           if (state.currentPainter is BuildedPainter) {
             var painter = state.currentPainter as BuildedPainter;
             double zoom = 1;
-            if (painter is PenPainter)
+            if (painter is PenPainter) {
               zoom = painter.zoomDependent ? transform.size : 1;
+            }
             context.read<EditingCubit>().put(
                 pointer,
                 painter.buildLayer(
