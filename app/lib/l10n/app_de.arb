@@ -155,5 +155,6 @@
     "folder": "Ordner",
     "move": "Bewegen",
     "copy": "Kopieren",
-    "back": "Zurück"
+    "back": "Zurück",
+    "zoomDependent": "Zoomabhängig"
 }

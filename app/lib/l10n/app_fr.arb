@@ -155,5 +155,6 @@
     "folder": "Répertoire",
     "move": "Déplacer",
     "copy": "Copie",
-    "back": "Précédent"
+    "back": "Précédent",
+    "zoomDependent": "Dépendant du zoom"
 }
