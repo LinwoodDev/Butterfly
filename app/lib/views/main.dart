@@ -152,40 +152,45 @@ class _ProjectPageState extends State<ProjectPage> {
                   ColorPaletteIntent: ColorPaletteAction(),
                   BackgroundIntent: BackgroundAction(),
                 },
-                child: Builder(builder: (context) {
-                  PreferredSizeWidget appBar = _buildAppBar();
-                  if (isWindow()) {
-                    appBar = PreferredSize(
-                        preferredSize: const Size.fromHeight(60),
-                        child: MoveWindow(child: appBar));
-                  }
-                  return Focus(
-                      autofocus: true,
-                      child: Scaffold(
-                          appBar: appBar,
-                          body: LayoutBuilder(builder: (context, constraints) {
-                            var isMobile = constraints.maxWidth < 600;
-                            return Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Container(
-                                    height: 75,
-                                    color: Theme.of(context).canvasColor,
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: _buildToolSelection(isMobile),
-                                  ),
-                                  Expanded(
-                                      key: _viewportKey,
-                                      child: const MainViewViewport()),
-                                  if (isMobile)
-                                    Align(
-                                        alignment: Alignment.center,
-                                        child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: _buildToolbar()))
-                                ]);
-                          })));
-                })),
+                child: ClipRect(
+                  child: Builder(builder: (context) {
+                    PreferredSizeWidget appBar = _buildAppBar();
+                    if (isWindow()) {
+                      appBar = PreferredSize(
+                          preferredSize: const Size.fromHeight(60),
+                          child: MoveWindow(child: appBar));
+                    }
+                    return Focus(
+                        autofocus: true,
+                        child: Scaffold(
+                            appBar: appBar,
+                            body:
+                                LayoutBuilder(builder: (context, constraints) {
+                              var isMobile = constraints.maxWidth < 600;
+                              return Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Container(
+                                      height: 75,
+                                      color: Theme.of(context).canvasColor,
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: _buildToolSelection(isMobile),
+                                    ),
+                                    Expanded(
+                                        key: _viewportKey,
+                                        child: const MainViewViewport()),
+                                    if (isMobile)
+                                      Align(
+                                          alignment: Alignment.center,
+                                          child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: _buildToolbar()))
+                                  ]);
+                            })));
+                  }),
+                )),
           );
         }));
   }
@@ -420,8 +425,11 @@ class _ProjectPageState extends State<ProjectPage> {
                   title: Text(AppLocalizations.of(context)!.color),
                   subtitle:
                       Text(AppLocalizations.of(context)!.ctrlKey + ' + P'),
-                  onTap: () => Actions.maybeInvoke<ColorPaletteIntent>(
-                      context, ColorPaletteIntent(context)))),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Actions.maybeInvoke<ColorPaletteIntent>(
+                        context, ColorPaletteIntent(context));
+                  })),
           PopupMenuItem(
               child: ListTile(
                   onTap: () {

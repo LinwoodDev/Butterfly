@@ -47,8 +47,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       SizedBox(
                         height: 125,
                         child: Center(
-                            child: Container(
-                                color: color, height: 100, width: 100)),
+                            child:
+                                Container(color: color, height: 75, width: 75)),
                       ),
                       const Divider(thickness: 1),
                       Expanded(
@@ -153,33 +153,32 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   alignment: WrapAlignment.spaceAround,
                                   crossAxisAlignment: WrapCrossAlignment.center,
                                   children: [
-                                    DropdownButton<int>(
-                                      alignment: Alignment.center,
-                                      value: selected,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selected = value ?? selected;
-                                        });
-                                      },
-                                      items: state.document.palettes
-                                          .asMap()
-                                          .map((index, palette) {
-                                            return MapEntry(
-                                                index,
-                                                DropdownMenuItem<int>(
-                                                  value: index,
-                                                  child: Text(palette.name),
-                                                ));
-                                          })
-                                          .values
-                                          .toList(),
-                                    ),
                                     SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
                                         children: [
+                                          DropdownButton<int>(
+                                            alignment: Alignment.center,
+                                            value: selected,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                selected = value ?? selected;
+                                              });
+                                            },
+                                            items: state.document.palettes
+                                                .asMap()
+                                                .map((index, palette) {
+                                                  return MapEntry(
+                                                      index,
+                                                      DropdownMenuItem<int>(
+                                                        value: index,
+                                                        child:
+                                                            Text(palette.name),
+                                                      ));
+                                                })
+                                                .values
+                                                .toList(),
+                                          ),
                                           IconButton(
                                               tooltip:
                                                   AppLocalizations.of(context)!
@@ -201,6 +200,15 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                               icon: const Icon(
                                                   PhosphorIcons.minusLight),
                                               onPressed: _deletePalette),
+                                        ],
+                                      ),
+                                    ),
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
                                           const VerticalDivider(),
                                           IconButton(
                                               tooltip:
@@ -305,8 +313,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     onTap: () => Navigator.of(context)
                                         .pop(palette[index]),
                                     child: Container(
-                                      width: 100,
-                                      height: 100,
+                                      width: 75,
+                                      height: 75,
                                       margin: const EdgeInsets.all(5),
                                       decoration: BoxDecoration(
                                           color: palette[index],
@@ -330,8 +338,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(1322))),
-                                    width: 100,
-                                    height: 100,
+                                    width: 75,
+                                    height: 75,
                                     child: const Center(
                                         child: Icon(PhosphorIcons.plusLight,
                                             size: 42)),
