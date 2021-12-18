@@ -15,6 +15,15 @@ slug: /changelog
 * Fix internal router, use / instead of hash
 * Fix responsive issues on color picker, file system and image export
 
+## 1.0.0-rc.6 (2021-12-18)
+
+* Add context menu
+* Add zoom-dependent stroke width ([#31](https://github.com/LinwoodCloud/Butterfly/issues/31))
+* Move background and waypoints to background context menu
+* Move color palette to three points menu
+* Fix internal router, use / instead of hash
+* Fix responsive issues on color picker, file system and image export
+
 ## 1.0.0-rc.5 (2021-12-10)
 
 * Add eraser exclude property for the hand
