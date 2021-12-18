@@ -58,6 +58,11 @@ jobs:
           tag_name: v${{ env.BUTTERFLY_VERSION }}
           name: v${{ env.BUTTERFLY_VERSION }}
           body: ${{ env.CURRENT_CHANGELOG }}
+      - name: Rebase develop
+        run: |
+          git checkout develop
+          git rebase main
+          git push origin develop
 
 
 
