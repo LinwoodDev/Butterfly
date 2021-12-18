@@ -2,5 +2,5 @@
 * Add zoom-dependent stroke width ([#31](https://github.com/LinwoodCloud/Butterfly/issues/31))
 * Move background and waypoints to background context menu
 * Move color palette to three points menu
-* Fix internal router, use / instead of hash 
+* Fix internal router, use / instead of hash
 * Fix responsive issues on color picker, file system and image export
