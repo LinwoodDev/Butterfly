@@ -124,12 +124,12 @@ module.exports = {
                         'https://github.com/LinwoodCloud/butterfly/edit/develop/docs/',
                     versions: {
                         "current": {
-                            label: "1.0.0-rc.5",
-                            path: "1.0.0-rc.5",
+                            label: "1.0.0-rc.6",
+                            path: "1.0.0-rc.6",
                         },
-                        "1.0.0-rc.4": {
-                            label: "1.0.0-rc.4",
-                            path: "1.0.0-rc.4"
+                        "1.0.0-rc.5": {
+                            label: "1.0.0-rc.5",
+                            path: "1.0.0-rc.5"
                         }
                     }
                 },

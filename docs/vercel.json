@@ -1,6 +1,14 @@
 {
   "redirects": [
     {
+      "source": "/docs/1.0.0-rc.3/:path*",
+      "destination": "https://butterfly-docs-d8mhmjjeo-linwood.vercel.app/docs/1.0.0-rc.3/:path*"
+    },
+    {
+      "source": "/docs/1.0.0-rc.2/:path*",
+      "destination": "https://butterfly-docs-d8mhmjjeo-linwood.vercel.app/docs/1.0.0-rc.2/:path*"
+    },
+    {
       "source": "/docs/1.0.0-rc.1/:path*",
       "destination": "https://butterfly-docs-d8mhmjjeo-linwood.vercel.app/docs/1.0.0-rc.1/:path*"
     },

@@ -1,6 +1,5 @@
 ---
-sidebar_label: "Image"
-sidebar_position: 3
+sidebar_label: Image sidebar_position: 3
 ---
 
 # Image painter

@@ -1,6 +1,5 @@
 ---
-sidebar_label: "Label"
-sidebar_position: 5
+sidebar_label: Label sidebar_position: 5
 ---
 
 # Label painter
