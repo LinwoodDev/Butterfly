@@ -31,9 +31,9 @@ jobs:
           git config --global user.name "Actions"
       - name: Update changelog
         run: |
-          BUTTERFLY_VERSION=${{ env.BUTTERFLY_VERSION }}
-          BUTTERFLY_RELEASE_DATE=${{ env.BUTTERFLY_RELEASE_DATE }}
-          CURRENT_CHANGELOG=${{ env.CURRENT_CHANGELOG }}
+          BUTTERFLY_VERSION="${{ env.BUTTERFLY_VERSION }}"
+          BUTTERFLY_RELEASE_DATE="${{ env.BUTTERFLY_RELEASE_DATE }}"
+          CURRENT_CHANGELOG="${{ env.CURRENT_CHANGELOG }}"
           INPUT_CHANGELOG=$"<\!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${CURRENT_CHANGELOG}"
           
           # Replace <!--ENTER CHANGELOG HERE--> with multiline INPUT_CHANGELOG in docs/community/CHANGELOG.md. MUlTILINE!
