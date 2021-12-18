@@ -5,8 +5,7 @@ import 'package:flutter/cupertino.dart';
 abstract class Painter {
   final String name;
   const Painter({this.name = ''});
-  Painter.fromJson(Map<String, dynamic> json, [int? fileVersion])
-      : name = json['name'] ?? '';
+  Painter.fromJson(Map<String, dynamic> json, [int? fileVersion]) : name = json['name'] ?? '';
   Map<String, dynamic> toJson() => {'name': name};
 }
 
@@ -15,5 +14,5 @@ abstract class BuildedPainter extends Painter {
   BuildedPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : super.fromJson(json, fileVersion);
 
-  ElementLayer buildLayer(Offset position, [double pressure = 0]);
+  ElementLayer buildLayer(Offset position, [double pressure = 0, double zoom = 1]);
 }

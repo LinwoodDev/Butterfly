@@ -33,8 +33,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'view.dart';
 
-bool isWindow() =>
-    !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
+bool isWindow() => !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
 
 class ProjectPage extends StatefulWidget {
   final String? path;
@@ -49,8 +48,7 @@ class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
   final GlobalKey _viewportKey = GlobalKey();
-  final TextEditingController _scaleController =
-      TextEditingController(text: '100');
+  final TextEditingController _scaleController = TextEditingController(text: '100');
 
   @override
   void initState() {
@@ -72,12 +70,12 @@ class _ProjectPageState extends State<ProjectPage> {
     var fileSystem = DocumentFileSystem.fromPlatform();
     AppDocument? document;
     if (widget.path != null) {
-      await fileSystem.getAsset(widget.path!).then(
-          (value) => document = value is AppDocumentFile ? value.load() : null);
+      await fileSystem
+          .getAsset(widget.path!)
+          .then((value) => document = value is AppDocumentFile ? value.load() : null);
     }
     document ??= AppDocument(
-        name: await formatCurrentDateTime(
-            context.read<SettingsCubit>().state.locale),
+        name: await formatCurrentDateTime(context.read<SettingsCubit>().state.locale),
         createdAt: DateTime.now(),
         palettes: ColorPalette.getMaterialPalette(context));
     setState(() => _bloc = DocumentBloc(document!, widget.path));
@@ -96,44 +94,31 @@ class _ProjectPageState extends State<ProjectPage> {
         child: Builder(builder: (context) {
           return Shortcuts(
             shortcuts: {
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
                   UndoIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
                   RedoIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
                   NewIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
                   OpenIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
                   ImportIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
                   ExportIntent(context),
-              LogicalKeySet(
-                  LogicalKeyboardKey.control,
-                  LogicalKeyboardKey.shift,
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyE): ImageExportIntent(context),
               LogicalKeySet(LogicalKeyboardKey.tab): EditModeIntent(context),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.alt, LogicalKeyboardKey.keyS):
+                  SettingsIntent(context),
               LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
-                  LogicalKeyboardKey.keyS): SettingsIntent(context),
-              LogicalKeySet(
-                  LogicalKeyboardKey.control,
-                  LogicalKeyboardKey.alt,
-                  LogicalKeyboardKey.shift,
-                  LogicalKeyboardKey.keyS): ProjectIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyW):
+                  LogicalKeyboardKey.shift, LogicalKeyboardKey.keyS): ProjectIntent(context),
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyW):
                   WaypointsIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
                   ColorPaletteIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyB):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyB):
                   BackgroundIntent(context),
             },
             child: Actions(
@@ -164,12 +149,10 @@ class _ProjectPageState extends State<ProjectPage> {
                         autofocus: true,
                         child: Scaffold(
                             appBar: appBar,
-                            body:
-                                LayoutBuilder(builder: (context, constraints) {
+                            body: LayoutBuilder(builder: (context, constraints) {
                               var isMobile = constraints.maxWidth < 600;
                               return Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
                                     Container(
                                       height: 75,
@@ -177,15 +160,12 @@ class _ProjectPageState extends State<ProjectPage> {
                                       padding: const EdgeInsets.all(12.0),
                                       child: _buildToolSelection(isMobile),
                                     ),
-                                    Expanded(
-                                        key: _viewportKey,
-                                        child: const MainViewViewport()),
+                                    Expanded(key: _viewportKey, child: const MainViewViewport()),
                                     if (isMobile)
                                       Align(
                                           alignment: Alignment.center,
                                           child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
+                                              padding: const EdgeInsets.all(8.0),
                                               child: _buildToolbar()))
                                   ]);
                             })));
@@ -196,22 +176,18 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   AppBar _buildAppBar() => AppBar(
-          title: BlocBuilder<DocumentBloc, DocumentState>(
-              builder: (context, state) {
+          title: BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
             if (_bloc!.state is DocumentLoadSuccess) {
               var current = _bloc!.state as DocumentLoadSuccess;
-              return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      current.document.name,
-                      textAlign: TextAlign.center,
-                    ),
-                    if (current.path != null)
-                      Text(current.path!,
-                          style: Theme.of(context).textTheme.caption,
-                          textAlign: TextAlign.center),
-                  ]);
+              return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                Text(
+                  current.document.name,
+                  textAlign: TextAlign.center,
+                ),
+                if (current.path != null)
+                  Text(current.path!,
+                      style: Theme.of(context).textTheme.caption, textAlign: TextAlign.center),
+              ]);
             } else {
               return Text(AppLocalizations.of(context)!.loading);
             }
@@ -236,81 +212,77 @@ class _ProjectPageState extends State<ProjectPage> {
           ]);
 
   Widget _buildToolbar() => const SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: SizedBox(height: 50, child: EditToolbar()));
+      scrollDirection: Axis.horizontal, child: SizedBox(height: 50, child: EditToolbar()));
 
   Widget _buildToolSelection(bool isMobile) {
-    return Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(children: [
-            BlocBuilder<TransformCubit, CameraTransform>(
-                builder: (context, transform) {
-              _scaleController.text = (transform.size * 100).toStringAsFixed(2);
+    return ClipRect(
+      child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(children: [
+              BlocBuilder<TransformCubit, CameraTransform>(builder: (context, transform) {
+                _scaleController.text = (transform.size * 100).toStringAsFixed(2);
 
-              return Row(
-                children: [
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
-                      tooltip: AppLocalizations.of(context)!.zoomOut,
-                      onPressed: () {
-                        context.read<TransformCubit>().zoom(
-                            -0.1,
-                            Offset(MediaQuery.of(context).size.width / 2,
-                                MediaQuery.of(context).size.height / 2));
-                      }),
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.magnifyingGlassLight),
-                      tooltip: AppLocalizations.of(context)!.resetZoom,
-                      onPressed: () {
-                        var cubit = context.read<TransformCubit>();
-                        cubit.zoom(
-                            1 - cubit.state.size,
-                            Offset(MediaQuery.of(context).size.width / 2,
-                                MediaQuery.of(context).size.height / 2));
-                      }),
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
-                      tooltip: AppLocalizations.of(context)!.zoomIn,
-                      onPressed: () {
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        context.read<TransformCubit>().zoom(
-                            0.1,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      }),
-                  const SizedBox(width: 20),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 100),
-                    child: TextField(
-                      controller: _scaleController,
-                      onSubmitted: (value) {
-                        var viewportSize = MediaQuery.of(context).size;
-                        var scale = double.tryParse(value) ?? 100;
-                        scale /= 100;
-                        var cubit = context.read<TransformCubit>();
-                        cubit.zoom(
-                            scale - cubit.state.size,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      },
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.zoom),
+                return Row(
+                  children: [
+                    IconButton(
+                        icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
+                        tooltip: AppLocalizations.of(context)!.zoomOut,
+                        onPressed: () {
+                          context.read<TransformCubit>().zoom(
+                              -0.1,
+                              Offset(MediaQuery.of(context).size.width / 2,
+                                  MediaQuery.of(context).size.height / 2));
+                        }),
+                    IconButton(
+                        icon: const Icon(PhosphorIcons.magnifyingGlassLight),
+                        tooltip: AppLocalizations.of(context)!.resetZoom,
+                        onPressed: () {
+                          var cubit = context.read<TransformCubit>();
+                          cubit.zoom(
+                              1 - cubit.state.size,
+                              Offset(MediaQuery.of(context).size.width / 2,
+                                  MediaQuery.of(context).size.height / 2));
+                        }),
+                    IconButton(
+                        icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
+                        tooltip: AppLocalizations.of(context)!.zoomIn,
+                        onPressed: () {
+                          var viewportSize =
+                              _viewportKey.currentContext?.size ?? MediaQuery.of(context).size;
+                          context
+                              .read<TransformCubit>()
+                              .zoom(0.1, Offset(viewportSize.width / 2, viewportSize.height / 2));
+                        }),
+                    const SizedBox(width: 10),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 100),
+                      child: TextField(
+                        controller: _scaleController,
+                        onSubmitted: (value) {
+                          var viewportSize = MediaQuery.of(context).size;
+                          var scale = double.tryParse(value) ?? 100;
+                          scale /= 100;
+                          var cubit = context.read<TransformCubit>();
+                          cubit.zoom(scale - cubit.state.size,
+                              Offset(viewportSize.width / 2, viewportSize.height / 2));
+                        },
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(labelText: AppLocalizations.of(context)!.zoom),
+                      ),
                     ),
-                  ),
-                  if (!isMobile) const VerticalDivider()
-                ],
-              );
-            }),
+                    if (!isMobile) const VerticalDivider()
+                  ],
+                );
+              }),
+            ]),
+            if (!isMobile)
+              Flexible(
+                child: _buildToolbar(),
+              )
           ]),
-          if (!isMobile)
-            Flexible(
-              child: _buildToolbar(),
-            )
-        ]);
+    );
   }
 
   Widget _buildPopupMenu() => PopupMenuButton(
@@ -331,12 +303,10 @@ class _ProjectPageState extends State<ProjectPage> {
               child: ListTile(
                   leading: const Icon(PhosphorIcons.folderOpenLight),
                   title: Text(AppLocalizations.of(context)!.open),
-                  subtitle:
-                      Text(AppLocalizations.of(context)!.ctrlKey + ' + O'),
+                  subtitle: Text(AppLocalizations.of(context)!.ctrlKey + ' + O'),
                   onTap: () {
                     Navigator.of(context).pop();
-                    Actions.maybeInvoke<OpenIntent>(
-                        context, OpenIntent(context));
+                    Actions.maybeInvoke<OpenIntent>(context, OpenIntent(context));
                   })),
           PopupMenuItem(
               padding: EdgeInsets.zero,
@@ -346,8 +316,7 @@ class _ProjectPageState extends State<ProjectPage> {
                 subtitle: Text(AppLocalizations.of(context)!.ctrlKey + ' + I'),
                 onTap: () {
                   Navigator.of(context).pop();
-                  Actions.maybeInvoke<ImportIntent>(
-                      context, ImportIntent(context));
+                  Actions.maybeInvoke<ImportIntent>(context, ImportIntent(context));
                 },
               )),
           PopupMenuItem(
@@ -357,8 +326,7 @@ class _ProjectPageState extends State<ProjectPage> {
                         PopupMenuItem(
                             padding: EdgeInsets.zero,
                             child: ListTile(
-                                leading:
-                                    const Icon(PhosphorIcons.caretLeftLight),
+                                leading: const Icon(PhosphorIcons.caretLeftLight),
                                 title: Text(AppLocalizations.of(context)!.back),
                                 onTap: () async {
                                   Navigator.of(context).pop();
@@ -367,29 +335,23 @@ class _ProjectPageState extends State<ProjectPage> {
                         PopupMenuItem(
                             padding: EdgeInsets.zero,
                             child: ListTile(
-                                leading:
-                                    const Icon(PhosphorIcons.databaseLight),
+                                leading: const Icon(PhosphorIcons.databaseLight),
                                 title: Text(AppLocalizations.of(context)!.data),
-                                subtitle: Text(
-                                    AppLocalizations.of(context)!.ctrlKey +
-                                        ' + E'),
+                                subtitle: Text(AppLocalizations.of(context)!.ctrlKey + ' + E'),
                                 onTap: () async {
                                   Navigator.of(context).pop();
                                   Navigator.of(context).pop();
-                                  Actions.maybeInvoke<ExportIntent>(
-                                      context, ExportIntent(context));
+                                  Actions.maybeInvoke<ExportIntent>(context, ExportIntent(context));
                                 })),
                         PopupMenuItem(
                             padding: EdgeInsets.zero,
                             child: ListTile(
                                 leading: const Icon(PhosphorIcons.imageLight),
-                                title:
-                                    Text(AppLocalizations.of(context)!.image),
-                                subtitle: Text(
-                                    AppLocalizations.of(context)!.ctrlKey +
-                                        ' + ' +
-                                        AppLocalizations.of(context)!.shiftKey +
-                                        ' + E'),
+                                title: Text(AppLocalizations.of(context)!.image),
+                                subtitle: Text(AppLocalizations.of(context)!.ctrlKey +
+                                    ' + ' +
+                                    AppLocalizations.of(context)!.shiftKey +
+                                    ' + E'),
                                 onTap: () {
                                   Navigator.of(context).pop();
                                   Navigator.of(context).pop();
@@ -414,8 +376,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       ' + S'),
                   onTap: () {
                     Navigator.of(context).pop();
-                    Actions.maybeInvoke<SettingsIntent>(
-                        context, SettingsIntent(context));
+                    Actions.maybeInvoke<SettingsIntent>(context, SettingsIntent(context));
                   })),
           const PopupMenuDivider(),
           PopupMenuItem(
@@ -423,19 +384,16 @@ class _ProjectPageState extends State<ProjectPage> {
               child: ListTile(
                   leading: const Icon(PhosphorIcons.paletteLight),
                   title: Text(AppLocalizations.of(context)!.color),
-                  subtitle:
-                      Text(AppLocalizations.of(context)!.ctrlKey + ' + P'),
+                  subtitle: Text(AppLocalizations.of(context)!.ctrlKey + ' + P'),
                   onTap: () {
                     Navigator.of(context).pop();
-                    Actions.maybeInvoke<ColorPaletteIntent>(
-                        context, ColorPaletteIntent(context));
+                    Actions.maybeInvoke<ColorPaletteIntent>(context, ColorPaletteIntent(context));
                   })),
           PopupMenuItem(
               child: ListTile(
                   onTap: () {
                     Navigator.of(context).pop();
-                    Actions.maybeInvoke<ProjectIntent>(
-                        context, ProjectIntent(context));
+                    Actions.maybeInvoke<ProjectIntent>(context, ProjectIntent(context));
                   },
                   subtitle: Text(AppLocalizations.of(context)!.ctrlKey +
                       ' + ' +

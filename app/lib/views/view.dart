@@ -21,6 +21,7 @@ import 'package:butterfly/models/painters/image.dart';
 import 'package:butterfly/models/painters/label.dart';
 import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/painters/path_eraser.dart';
+import 'package:butterfly/models/painters/pen.dart';
 import 'package:butterfly/widgets/context_menu.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -49,14 +50,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
       if (state is! DocumentLoadSuccess) {
         return const Center(child: CircularProgressIndicator());
       }
-      return SizedBox.expand(child:
-          ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
+      return SizedBox.expand(child: ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
         List<ElementLayer> rayCast(Offset offset) {
           return state.document.content.reversed
               .where((element) => element.hit(offset))
-              .where((element) => !state.document.handProperty.includeEraser
-                  ? element is! EraserElement
-                  : true)
+              .where((element) =>
+                  !state.document.handProperty.includeEraser ? element is! EraserElement : true)
               .toList();
         }
 
@@ -64,10 +63,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
           var transform = context.read<TransformCubit>().state;
           if (state.currentPainter is BuildedPainter) {
             var painter = state.currentPainter as BuildedPainter;
-            context.read<EditingCubit>().put(
-                pointer,
-                painter.buildLayer(
-                    transform.localToGlobal(localPosition), pressure));
+            double zoom = 1;
+            if (painter is PenPainter) zoom = painter.zoomDependent ? transform.size : 1;
+            context.read<EditingCubit>().put(pointer,
+                painter.buildLayer(transform.localToGlobal(localPosition), pressure, zoom));
           }
           if (state.currentPainter is LabelPainter) {
             var painter = state.currentPainter as LabelPainter;
@@ -98,8 +97,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                           TextButton(
-                              child: Text(AppLocalizations.of(context)!.ok),
-                              onPressed: submit)
+                              child: Text(AppLocalizations.of(context)!.ok), onPressed: submit)
                         ]));
           }
           if (state.currentPainter is ImagePainter) {
@@ -111,8 +109,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                 content = File(e.path ?? '').readAsBytesSync();
               }
               ui.decodeImageFromList(content, (image) async {
-                var bytes =
-                    await image.toByteData(format: ui.ImageByteFormat.png);
+                var bytes = await image.toByteData(format: ui.ImageByteFormat.png);
                 context.read<DocumentBloc>().add(LayerCreated(ImageElement(
                     height: image.height,
                     width: image.width,
@@ -140,8 +137,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
             child: Listener(
                 onPointerSignal: (pointerSignal) {
                   if (pointerSignal is PointerScrollEvent) {
-                    var scale = pointerSignal.scrollDelta.dx +
-                        pointerSignal.scrollDelta.dy;
+                    var scale = pointerSignal.scrollDelta.dx + pointerSignal.scrollDelta.dy;
                     scale /= -500;
                     var cubit = context.read<TransformCubit>();
                     scale *= cubit.state.size;
@@ -153,10 +149,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   var input = context.read<SettingsCubit>().state.inputType;
                   if (state.currentPainter != null &&
                       event.buttons != kMiddleMouseButton &&
-                      input.canCreate(
-                          event.pointer, cubit.first(), event.kind)) {
-                    createLayer(
-                        event.pointer, event.localPosition, event.pressure);
+                      input.canCreate(event.pointer, cubit.first(), event.kind)) {
+                    createLayer(event.pointer, event.localPosition, event.pressure);
                   } else {
                     openView = true;
                   }
@@ -168,27 +162,21 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     cubit.moveTo(transform.localToGlobal(event.localPosition));
                     var movingLayer = cubit.getAndResetMove();
                     if (movingLayer != null) {
-                      context
-                          .read<DocumentBloc>()
-                          .add(LayerCreated(movingLayer));
+                      context.read<DocumentBloc>().add(LayerCreated(movingLayer));
                       return;
                     }
                   }
                   var currentLayer = cubit.getAndReset(event.pointer);
                   var input = context.read<SettingsCubit>().state.inputType;
 
-                  if (input.canCreate(
-                          event.pointer, cubit.first(), event.kind) &&
+                  if (input.canCreate(event.pointer, cubit.first(), event.kind) &&
                       currentLayer != null) {
-                    context
-                        .read<DocumentBloc>()
-                        .add(LayerCreated(currentLayer));
+                    context.read<DocumentBloc>().add(LayerCreated(currentLayer));
                   } else {
                     if (!openView) {
                       return;
                     }
-                    var hits =
-                        rayCast(transform.localToGlobal(event.localPosition));
+                    var hits = rayCast(transform.localToGlobal(event.localPosition));
                     if (hits.isNotEmpty) {
                       void showSelection() {
                         var selectionCubit = context.read<SelectionCubit>();
@@ -198,34 +186,32 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         if (selection == null) return;
                         var index = state.document.content.indexOf(selection);
                         showContextMenu(
-                                context: context,
-                                position: event.position,
-                                builder: (context, close) {
-                                  if (selection is LabelElement) {
-                                    return LabelElementDialog(
-                                        selectionCubit: selectionCubit,
-                                        index: index,
-                                        bloc: bloc,
-                                        editingCubit: editingCubit,
-                                        close: close);
-                                  }
-                                  if (selection is ImageElement) {
-                                    return ImageElementDialog(
-                                        editingCubit: editingCubit,
-                                        selectionCubit: selectionCubit,
-                                        index: index,
-                                        bloc: bloc,
-                                        close: close);
-                                  }
-                                  return GeneralElementDialog(
-                                      index: index,
-                                      bloc: bloc,
-                                      selectionCubit: selectionCubit,
-                                      editingCubit: editingCubit,
-                                      close: close);
-                                })
-                            .then((value) =>
-                                context.read<SelectionCubit>().reset());
+                            context: context,
+                            position: event.position,
+                            builder: (context, close) {
+                              if (selection is LabelElement) {
+                                return LabelElementDialog(
+                                    selectionCubit: selectionCubit,
+                                    index: index,
+                                    bloc: bloc,
+                                    editingCubit: editingCubit,
+                                    close: close);
+                              }
+                              if (selection is ImageElement) {
+                                return ImageElementDialog(
+                                    editingCubit: editingCubit,
+                                    selectionCubit: selectionCubit,
+                                    index: index,
+                                    bloc: bloc,
+                                    close: close);
+                              }
+                              return GeneralElementDialog(
+                                  index: index,
+                                  bloc: bloc,
+                                  selectionCubit: selectionCubit,
+                                  editingCubit: editingCubit,
+                                  close: close);
+                            }).then((value) => context.read<SelectionCubit>().reset());
                       }
 
                       context.read<SelectionCubit>().change(hits.first);
@@ -251,17 +237,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           position: event.position,
                           builder: (ctx, close) => MultiBlocProvider(
                                 providers: [
-                                  BlocProvider.value(
-                                      value: context.read<DocumentBloc>()),
-                                  BlocProvider.value(
-                                      value: context.read<TransformCubit>()),
+                                  BlocProvider.value(value: context.read<DocumentBloc>()),
+                                  BlocProvider.value(value: context.read<TransformCubit>()),
                                 ],
                                 child: Actions(
-                                    actions: context
-                                            .findAncestorWidgetOfExactType<
-                                                Actions>()
-                                            ?.actions ??
-                                        {},
+                                    actions:
+                                        context.findAncestorWidgetOfExactType<Actions>()?.actions ??
+                                            {},
                                     child: BackgroundContextMenu(close: close)),
                               ));
                     }
@@ -286,38 +268,31 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     cubit.moveTo(transform.localToGlobal(position));
                     return;
                   }
-                  if (!input.canCreate(
-                          event.pointer, cubit.first(), event.kind) ||
+                  if (!input.canCreate(event.pointer, cubit.first(), event.kind) ||
                       event.buttons == kMiddleMouseButton ||
                       state.currentPainter == null) {
                     if (openView) {
                       openView = (event.delta / transform.size) == Offset.zero;
                     }
-                    context
-                        .read<TransformCubit>()
-                        .move(event.delta / transform.size);
+                    context.read<TransformCubit>().move(event.delta / transform.size);
                     return;
                   }
-                  if ((event.kind == PointerDeviceKind.stylus ||
-                      state.currentPainter != null)) {
+                  if ((event.kind == PointerDeviceKind.stylus || state.currentPainter != null)) {
                     if (state.currentPainter is PathEraserPainter) {
                       context.read<DocumentBloc>().add(LayersRemoved(
                           rayCast(transform.localToGlobal(event.localPosition))
                               .where((element) =>
                                   element is! EraserElement ||
-                                  (state.currentPainter as PathEraserPainter)
-                                      .includeEraser)
+                                  (state.currentPainter as PathEraserPainter).includeEraser)
                               .toList()));
-                    } else if (currentLayer != null &&
-                        currentLayer is PathElement) {
+                    } else if (currentLayer != null && currentLayer is PathElement) {
                       // Add point to custom paint
                       context.read<EditingCubit>().change(
                           event.pointer,
                           currentLayer.copyWith(
                               points: List.from(currentLayer.points)
                                 ..add(PathPoint.fromOffset(
-                                    transform
-                                        .localToGlobal(event.localPosition),
+                                    transform.localToGlobal(event.localPosition),
                                     event.pressure))));
                     }
                   }
@@ -355,8 +330,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                       builder: (context, selection) {
                                 return CustomPaint(
                                   size: Size.infinite,
-                                  foregroundPainter: ForegroundPainter(
-                                      editing, transform, selection),
+                                  foregroundPainter:
+                                      ForegroundPainter(editing, transform, selection),
                                   painter: ViewPainter(state.document,
                                       transform: transform, images: images),
                                   isComplex: true,
@@ -364,8 +339,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 );
                               }),
                             ),
-                            if (snapshot.connectionState ==
-                                    ConnectionState.waiting &&
+                            if (snapshot.connectionState == ConnectionState.waiting &&
                                 images.isEmpty &&
                                 !kIsWeb)
                               Align(

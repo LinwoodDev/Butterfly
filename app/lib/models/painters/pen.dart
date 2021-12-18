@@ -7,22 +7,26 @@ import 'package:flutter/material.dart';
 
 class PenPainter extends BuildedPainter {
   final PenProperty property;
+  final bool zoomDependent;
 
-  const PenPainter({this.property = const PenProperty(), String name = ''})
+  const PenPainter(
+      {this.property = const PenProperty(), String name = '', this.zoomDependent = false})
       : super(name: name);
   PenPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : property = PenProperty.fromJson(json),
+        zoomDependent = json['zoomDependent'] ?? false,
         super.fromJson(json);
-  PenPainter copyWith({String? name, PenProperty? property}) =>
-      PenPainter(name: name ?? this.name, property: property ?? this.property);
+  PenPainter copyWith({String? name, bool? zoomDependent, PenProperty? property}) => PenPainter(
+      name: name ?? this.name,
+      property: property ?? this.property,
+      zoomDependent: zoomDependent ?? this.zoomDependent);
   @override
   Map<String, dynamic> toJson() => super.toJson()
-    ..addAll({
-      'type': 'pen',
-    })
+    ..addAll({'type': 'pen', 'zoomDependent': zoomDependent})
     ..addAll(property.toJson());
 
   @override
-  PenElement buildLayer(Offset position, [double pressure = 0]) => PenElement(
-      property: property, points: [PathPoint.fromOffset(position, pressure)]);
+  PenElement buildLayer(Offset position, [double pressure = 0, double zoom = 1.0]) => PenElement(
+      points: [PathPoint.fromOffset(position, pressure)],
+      property: property.copyWith(strokeWidth: property.strokeWidth / zoom));
 }

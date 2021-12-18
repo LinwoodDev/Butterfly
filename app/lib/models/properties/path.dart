@@ -10,8 +10,7 @@ class PathProperty {
   Map<String, dynamic> toJson() =>
       {'strokeWidth': strokeWidth, 'strokeMultiplier': strokeMultiplier};
 
-  PathProperty copyWith({double? strokeWidth, double? strokeMultiplier}) =>
-      PathProperty(
-          strokeMultiplier: strokeMultiplier ?? this.strokeMultiplier,
-          strokeWidth: strokeWidth ?? this.strokeWidth);
+  PathProperty copyWith({double? strokeWidth, double? strokeMultiplier}) => PathProperty(
+      strokeMultiplier: strokeMultiplier ?? this.strokeMultiplier,
+      strokeWidth: strokeWidth ?? this.strokeWidth);
 }
