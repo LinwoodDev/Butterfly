@@ -30,13 +30,15 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "Actions"
       - name: Update changelog
+        shell: bash
         env:
           BUTTERFLY_VERSION: ${{ env.BUTTERFLY_VERSION }}
           CURRENT_CHANGELOG: ${{ env.CURRENT_CHANGELOG }}
           BUTTERFLY_RELEASE_DATE: ${{ env.BUTTERFLY_RELEASE_DATE }}
         run: |
           INPUT_CHANGELOG=$"<\!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${CURRENT_CHANGELOG}"
-          
+          # Escape slash in INPUT_CHANGELOG
+          INPUT_CHANGELOG=$(echo "${INPUT_CHANGELOG}" | sed -e ':a' -e 'N' -e '$!ba' -e 's/\//\\\//g')
           # Replace <!--ENTER CHANGELOG HERE--> with multiline INPUT_CHANGELOG in docs/community/CHANGELOG.md. MUlTILINE!
           sed -i -e "s/<\!--ENTER CHANGELOG HERE-->/${INPUT_CHANGELOG}/g" docs/community/CHANGELOG.md
           
