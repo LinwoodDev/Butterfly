@@ -17,7 +17,7 @@ class ContextMenu extends StatefulWidget {
       this.position = Offset.zero,
       required this.close,
       required this.builder,
-      this.maxHeight = 200,
+      this.maxHeight = 300,
       this.maxWidth = 300})
       : super(key: key);
 

@@ -40,34 +40,36 @@ class LabelElementDialog extends StatelessWidget {
             onTap: () {
               close();
               var _textController = TextEditingController(text: element.text);
-              void submit() {
-                Navigator.of(context).pop();
-                var layer = element.copyWith(text: _textController.text);
-                bloc.add(LayerChanged(index, layer));
-                selectionCubit.change(layer);
-              }
 
               showDialog(
                   context: context,
-                  builder: (context) => AlertDialog(
-                          title: Text(AppLocalizations.of(context)!.enterText),
-                          content: TextField(
-                            controller: _textController,
-                            autofocus: true,
-                            keyboardType: TextInputType.multiline,
-                            minLines: 3,
-                            maxLines: 5,
-                            onSubmitted: (text) => submit(),
+                  builder: (context) {
+                    void submit() {
+                      Navigator.of(context).pop();
+                      var layer = element.copyWith(text: _textController.text);
+                      bloc.add(LayerChanged(index, layer));
+                    }
+
+                    return AlertDialog(
+                        title: Text(AppLocalizations.of(context)!.enterText),
+                        content: TextField(
+                          controller: _textController,
+                          autofocus: true,
+                          keyboardType: TextInputType.multiline,
+                          minLines: 3,
+                          maxLines: 5,
+                          onSubmitted: (text) => submit(),
+                        ),
+                        actions: [
+                          TextButton(
+                            child: Text(AppLocalizations.of(context)!.cancel),
+                            onPressed: () => Navigator.of(context).pop(),
                           ),
-                          actions: [
-                            TextButton(
-                              child: Text(AppLocalizations.of(context)!.cancel),
-                              onPressed: () => Navigator.of(context).pop(),
-                            ),
-                            TextButton(
-                                child: Text(AppLocalizations.of(context)!.ok),
-                                onPressed: submit)
-                          ]));
+                          TextButton(
+                              child: Text(AppLocalizations.of(context)!.ok),
+                              onPressed: submit)
+                        ]);
+                  });
             }),
       ],
     );
