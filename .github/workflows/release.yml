@@ -12,6 +12,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: develop
+          token: ${{ secrets.GH_PAGES_DEPLOY }}
       - name: Setup git
         id: setup
         run: |
@@ -27,8 +28,8 @@ jobs:
           # Escape line breaks to \\n
           CURRENT_CHANGELOG=$(echo "${CURRENT_CHANGELOG}" | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/\\n/g')
           echo "CURRENT_CHANGELOG=${CURRENT_CHANGELOG}" >> $GITHUB_ENV
-          git config --global user.email "actions@github.com"
-          git config --global user.name "Actions"
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
       - name: Update changelog
         shell: bash
         env:
