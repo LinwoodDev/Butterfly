@@ -13,10 +13,6 @@
       "destination": "https://butterfly-docs-d8mhmjjeo-linwood.vercel.app/docs/1.0.0-rc.1/:path*"
     },
     {
-      "source": "/docs/1.0.0-rc.0/:path*",
-      "destination": "https://butterfly-docs-d8mhmjjeo-linwood.vercel.app/docs/1.0.0-rc.0/:path*"
-    },
-    {
       "source": "/docs/1.0.0-beta.0/:path*",
       "destination": "https://butterfly-docs-d8mhmjjeo-linwood.vercel.app/docs/1.0.0-beta.0/:path*"
     },
