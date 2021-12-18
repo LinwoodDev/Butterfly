@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import 'color_pick.dart';
+import '../color_pick.dart';
 
 class BackgroundDialog extends StatelessWidget {
   final _boxWidthController = TextEditingController();

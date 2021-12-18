@@ -7,6 +7,7 @@ import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/dialogs/background/context.dart';
 import 'package:butterfly/dialogs/elements/general.dart';
 import 'package:butterfly/dialogs/elements/image.dart';
 import 'package:butterfly/dialogs/elements/label.dart';
@@ -243,6 +244,26 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           }
                         });
                       }
+                    } else {
+                      context.read<SelectionCubit>().reset();
+                      showContextMenu(
+                          context: context,
+                          position: event.position,
+                          builder: (ctx, close) => MultiBlocProvider(
+                                providers: [
+                                  BlocProvider.value(
+                                      value: context.read<DocumentBloc>()),
+                                  BlocProvider.value(
+                                      value: context.read<TransformCubit>()),
+                                ],
+                                child: Actions(
+                                    actions: context
+                                            .findAncestorWidgetOfExactType<
+                                                Actions>()
+                                            ?.actions ??
+                                        {},
+                                    child: BackgroundContextMenu(close: close)),
+                              ));
                     }
                   }
                 },

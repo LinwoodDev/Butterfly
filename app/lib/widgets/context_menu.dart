@@ -17,7 +17,7 @@ class ContextMenu extends StatefulWidget {
       this.position = Offset.zero,
       required this.close,
       required this.builder,
-      this.maxHeight = 500,
+      this.maxHeight = 200,
       this.maxWidth = 300})
       : super(key: key);
 
@@ -123,7 +123,7 @@ Future<void> showContextMenu(
     {required BuildContext context,
     Offset position = Offset.zero,
     required ContextMenuBuilder builder,
-    double maxHeight = 500,
+    double maxHeight = 200,
     double maxWidth = 300}) async {
   var completer = Completer<void>();
   final overlayState = Overlay.of(context);

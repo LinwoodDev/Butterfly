@@ -1,5 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/dialogs/background.dart';
+import 'package:butterfly/dialogs/background/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

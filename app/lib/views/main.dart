@@ -24,7 +24,6 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/tool/edit.dart';
-import 'package:butterfly/tool/view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -173,9 +172,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                     height: 75,
                                     color: Theme.of(context).canvasColor,
                                     padding: const EdgeInsets.all(12.0),
-                                    child: SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: _buildToolSelection(isMobile)),
+                                    child: _buildToolSelection(isMobile),
                                   ),
                                   Expanded(
                                       key: _viewportKey,
@@ -243,13 +240,6 @@ class _ProjectPageState extends State<ProjectPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(children: [
-            BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-              if (_bloc!.state is DocumentLoadSuccess) {
-                return const ViewToolbar();
-              }
-              return Container();
-            }),
-            const VerticalDivider(),
             BlocBuilder<TransformCubit, CameraTransform>(
                 builder: (context, transform) {
               _scaleController.text = (transform.size * 100).toStringAsFixed(2);
@@ -408,7 +398,30 @@ class _ProjectPageState extends State<ProjectPage> {
                       leading: const Icon(PhosphorIcons.exportLight),
                       trailing: const Icon(PhosphorIcons.caretRightLight),
                       title: Text(AppLocalizations.of(context)!.export)))),
+          PopupMenuItem(
+              padding: EdgeInsets.zero,
+              child: ListTile(
+                  leading: const Icon(PhosphorIcons.gearLight),
+                  title: Text(AppLocalizations.of(context)!.settings),
+                  subtitle: Text(AppLocalizations.of(context)!.ctrlKey +
+                      ' + ' +
+                      AppLocalizations.of(context)!.altKey +
+                      ' + S'),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Actions.maybeInvoke<SettingsIntent>(
+                        context, SettingsIntent(context));
+                  })),
           const PopupMenuDivider(),
+          PopupMenuItem(
+              padding: EdgeInsets.zero,
+              child: ListTile(
+                  leading: const Icon(PhosphorIcons.paletteLight),
+                  title: Text(AppLocalizations.of(context)!.color),
+                  subtitle:
+                      Text(AppLocalizations.of(context)!.ctrlKey + ' + P'),
+                  onTap: () => Actions.maybeInvoke<ColorPaletteIntent>(
+                      context, ColorPaletteIntent(context)))),
           PopupMenuItem(
               child: ListTile(
                   onTap: () {
@@ -425,20 +438,6 @@ class _ProjectPageState extends State<ProjectPage> {
                   leading: const Icon(PhosphorIcons.wrenchLight),
                   title: Text(AppLocalizations.of(context)!.projectSettings)),
               padding: EdgeInsets.zero),
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                  leading: const Icon(PhosphorIcons.gearLight),
-                  title: Text(AppLocalizations.of(context)!.settings),
-                  subtitle: Text(AppLocalizations.of(context)!.ctrlKey +
-                      ' + ' +
-                      AppLocalizations.of(context)!.altKey +
-                      ' + S'),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Actions.maybeInvoke<SettingsIntent>(
-                        context, SettingsIntent(context));
-                  }))
         ],
       );
 }
