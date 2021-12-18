@@ -75,7 +75,7 @@ jobs:
             Version ${{ env.BUTTERFLY_VERSION }} released!
             Download it here: https://docs.butterfly.linwood.dev/downloads
             
-            https://github.com/LinwoodCloud/butterfly/releases/tag/v${BUTTERFLY_VERSION}
+            https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
 
 
 
