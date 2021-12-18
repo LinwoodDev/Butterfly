@@ -5,7 +5,7 @@ on:
     branches:
       - develop
 jobs:
-  rebase:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -60,12 +60,22 @@ jobs:
         with:
           tag_name: v${{ env.BUTTERFLY_VERSION }}
           name: v${{ env.BUTTERFLY_VERSION }}
-          body: ${{ env.CURRENT_CHANGELOG }}
+          body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
       - name: Rebase develop
         run: |
           git checkout develop
           git rebase main
           git push origin develop
+      - name: Discord Webhook Action
+        uses: tsickert/discord-webhook@v4.0.0
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          content: |
+            Version ${{ env.BUTTERFLY_VERSION }} released!
+            Download it here: https://docs.butterfly.linwood.dev/downloads
+            
+            https://github.com/LinwoodCloud/butterfly/releases/tag/v${BUTTERFLY_VERSION}
+
 
 
 
