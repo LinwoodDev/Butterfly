@@ -1,8 +1,8 @@
 ---
-id: community
-slug: /community
-title: Community
-sidebar_label: Home
+id: "community"
+slug: "/community"
+title: "Community"
+sidebar_label: "Home"
 sidebar_position: 0
 ---
 

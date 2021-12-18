@@ -1,5 +1,5 @@
 ---
-sidebar_label: Pen
+sidebar_label: "Pen"
 sidebar_position: 2
 ---
 

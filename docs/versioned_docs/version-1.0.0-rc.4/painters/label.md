@@ -1,5 +1,5 @@
 ---
-sidebar_label: Label
+sidebar_label: "Label"
 sidebar_position: 5
 ---
 

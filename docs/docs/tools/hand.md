@@ -1,5 +1,5 @@
 ---
-sidebar_label: Hand
+sidebar_label: "Hand"
 ---
 
 # Hand

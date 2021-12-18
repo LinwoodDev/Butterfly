@@ -1,5 +1,5 @@
 ---
-sidebar_label: Eraser
+sidebar_label: "Eraser"
 sidebar_position: 3
 ---
 

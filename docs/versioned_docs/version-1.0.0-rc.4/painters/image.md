@@ -1,5 +1,5 @@
 ---
-sidebar_label: Image
+sidebar_label: "Image"
 sidebar_position: 3
 ---
 

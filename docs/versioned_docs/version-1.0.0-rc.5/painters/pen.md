@@ -1,5 +1,6 @@
 ---
-sidebar_label: Pen sidebar_position: 2
+sidebar_label: "Pen"
+sidebar_position: 2
 ---
 
 # Pen painter

@@ -1,5 +1,5 @@
 ---
-sidebar_label: Path eraser
+sidebar_label: "Path eraser"
 sidebar_position: 4
 ---
 
