@@ -1,5 +1,5 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/docs/1.0.0-rc.1/:path*",
       "destination": "https://butterfly-docs-d8mhmjjeo-linwood.vercel.app/docs/1.0.0-rc.1/:path*"
