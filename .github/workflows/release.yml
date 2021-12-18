@@ -12,7 +12,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: develop
-          token: ${{ secrets.GH_PAGES_DEPLOY }}
+          token: ${{ secrets.CI_PAT }}
       - name: Setup git
         id: setup
         run: |
