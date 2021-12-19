@@ -103,6 +103,7 @@ jobs:
           cp linux/*.deb linwood-butterfly-linux-x86_64.deb
       - name: Build .rpm executable
         run: |
+          cd app
           alien -r linwood-butterfly-linux-x86_64.deb
           mv linwood-butterfly*.rpm linwood-butterfly-linux-x86_64.rpm
       - name: Archive
@@ -111,6 +112,18 @@ jobs:
           name: linux-build
           path: |
             app/build/linux/x64/release/bundle/**
+      - name: Archive .deb
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-deb
+          path: |
+            app/linwood-butterfly-linux-x86_64.deb
+      - name: Archive .rpm
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-rpm
+          path: |
+            app/linwood-butterfly-linux-x86_64.rpm
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
@@ -157,6 +170,12 @@ jobs:
           path: linux-build/
       - uses: actions/download-artifact@v2
         with:
+          name: linux-deb
+      - uses: actions/download-artifact@v2
+        with:
+          name: linux-rpm
+      - uses: actions/download-artifact@v2
+        with:
           name: windows-setup
       - name: 📦 Zip artifacts
         run: |
@@ -190,6 +209,8 @@ jobs:
             app-release.apk
             windows.zip
             linux.zip
+            linwood-butterfly-linux-x86_64.rpm
+            linwood-butterfly-linux-x86_64.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
@@ -203,6 +224,8 @@ jobs:
             app-release.apk
             windows.zip
             linux.zip
+            linwood-butterfly-linux-x86_64.rpm
+            linwood-butterfly-linux-x86_64.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
@@ -215,5 +238,7 @@ jobs:
             app-release.apk
             windows.zip
             linux.zip
+            linwood-butterfly-linux-x86_64.rpm
+            linwood-butterfly-linux-x86_64.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
