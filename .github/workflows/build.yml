@@ -106,16 +106,16 @@ jobs:
           cd app
           alien -r linwood-butterfly-linux-x86_64.deb
           mv linwood-butterfly*.rpm linwood-butterfly-linux-x86_64.rpm
-      - name: Build .AppImage executable
+      - name: Build AppImage using appimage-builder
+        uses: docker://appimagecrafters/appimage-builder:0.9.1
+        working-directory: app
+        with:
+          entrypoint: appimage-builder
+          args: --recipe ./AppImageBuilder.yml --skip-test
+      - name: Rename AppImage
         run: |
           cd app
-          cp -r build/linux/x64/release/bundle $PWD/AppDir
-          mkdir -p $PWD/AppDir/usr/bin
-          mkdir -p $PWD/AppDir/usr/share/icons
-          cp -r linux/debian/usr/share/icons/hicolor $PWD/AppDir/usr/share/icons/hicolor
-          sudo pip3 install appimage-builder
-          appimage-builder --recipe AppImageBuilder.yml --skip-test
-          mv AppImage Linwood-Butterfly-linux-x86_64.AppImage
+          mv ./*.AppImage* Linwood-Butterfly-linux-x86_64.AppImage
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
