@@ -23,7 +23,7 @@
 	</description>
 	<screenshots>
 		<screenshot>
-			<image type="source">https://github.com/LinwoodCloud/butterfly/blob/develop/docs/static/img/main.png?raw=true</image>
+			<image type="source">https://raw.githubusercontent.com/LinwoodCloud/butterfly/develop/docs/static/img/main.png</image>
 		</screenshot>
 	</screenshots>
 	<launchable type="desktop-id">linwood-butterfly.desktop</launchable>
