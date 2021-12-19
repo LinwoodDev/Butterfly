@@ -79,7 +79,7 @@ jobs:
       - name: Get dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev liblzma-dev clang dpkg-dev alien
+          sudo apt-get install -y libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev liblzma-dev clang dpkg-dev patchelf
       - uses: subosito/flutter-action@v1
         with:
           channel: "beta" # or: 'stable' or 'dev'
@@ -106,6 +106,16 @@ jobs:
           cd app
           alien -r linwood-butterfly-linux-x86_64.deb
           mv linwood-butterfly*.rpm linwood-butterfly-linux-x86_64.rpm
+      - name: Build .AppImage executable
+        run: |
+          cd app
+          cp -r build/linux/x64/release/bundle $PWD/AppDir
+          mkdir -p $PWD/AppDir/usr/bin
+          mkdir -p $PWD/AppDir/usr/share/icons
+          cp -r linux/debian/usr/share/icons/hicolor $PWD/AppDir/usr/share/icons/hicolor
+          sudo pip3 install appimage-builder
+          appimage-builder --recipe ./AppImageBuilder.yml
+          mv AppImage Linwood-Butterfly-linux-x86_64.AppImage
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
@@ -124,6 +134,12 @@ jobs:
           name: linux-rpm
           path: |
             app/linwood-butterfly-linux-x86_64.rpm
+      - name: Archive .AppImage
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-appimage
+          path: |
+            app/Linwood-Butterfly-linux-x86_64.AppImage
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
@@ -176,6 +192,9 @@ jobs:
           name: linux-rpm
       - uses: actions/download-artifact@v2
         with:
+          name: linux-appimage
+      - uses: actions/download-artifact@v2
+        with:
           name: windows-setup
       - name: 📦 Zip artifacts
         run: |
@@ -211,6 +230,7 @@ jobs:
             linux.zip
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.deb
+            Linwood-Butterfly-linux-x86_64.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
@@ -226,6 +246,7 @@ jobs:
             linux.zip
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.deb
+            Linwood-Butterfly-linux-x86_64.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release

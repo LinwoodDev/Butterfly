@@ -1,0 +1,65 @@
+# appimage-builder recipe see https://appimage-builder.readthedocs.io for details
+version: 1
+script:
+ - rm -rf AppDir || true
+ - cp -r build/linux/x64/release/bundle AppDir
+ - mkdir -p AppDir/usr/share/icons/hicolor/64x64/apps/
+ - cp linux/debian/usr/share/icons/hicolor AppDir/usr/share/icons/hicolor -r
+AppDir:
+  path: ./AppDir
+  app_info:
+    id: dev.linwood.butterfly
+    name: Linwood Butterfly
+    icon: linwood-butterfly
+    version: 1.0.0-rc.7
+    exec: butterfly
+    exec_args: $@
+  apt:
+    arch: amd64
+    allow_unauthenticated: true
+    sources:
+    - sourceline: deb http://archive.ubuntu.com/ubuntu/ focal main restricted
+    - sourceline: deb http://archive.ubuntu.com/ubuntu/ focal-updates main restricted
+    - sourceline: deb http://archive.ubuntu.com/ubuntu/ focal universe
+    - sourceline: deb http://archive.ubuntu.com/ubuntu/ focal-updates universe
+    - sourceline: deb http://archive.ubuntu.com/ubuntu/ focal multiverse
+    - sourceline: deb http://archive.ubuntu.com/ubuntu/ focal-updates multiverse
+    - sourceline: deb http://archive.ubuntu.com/ubuntu/ focal-backports main restricted
+        universe multiverse
+    - sourceline: deb http://security.ubuntu.com/ubuntu/ focal-security main restricted
+    - sourceline: deb http://security.ubuntu.com/ubuntu/ focal-security universe
+    - sourceline: deb http://security.ubuntu.com/ubuntu/ focal-security multiverse
+    include:
+    - libgtk-3-0
+  files:
+    include: []
+    exclude:
+    - usr/share/man
+    - usr/share/doc/*/README.*
+    - usr/share/doc/*/changelog.*
+    - usr/share/doc/*/NEWS.*
+    - usr/share/doc/*/TODO.*
+  test:
+    fedora-30:
+      image: appimagecrafters/tests-env:fedora-30
+      command: ./AppRun
+      use_host_x: true
+    debian-stable:
+      image: appimagecrafters/tests-env:debian-stable
+      command: ./AppRun
+      use_host_x: true
+    archlinux-latest:
+      image: appimagecrafters/tests-env:archlinux-latest
+      command: ./AppRun
+      use_host_x: true
+    centos-7:
+      image: appimagecrafters/tests-env:centos-7
+      command: ./AppRun
+      use_host_x: true
+    ubuntu-xenial:
+      image: appimagecrafters/tests-env:ubuntu-xenial
+      command: ./AppRun
+      use_host_x: true
+AppImage:
+  arch: x86_64
+  update-information: guess
