@@ -106,12 +106,13 @@ jobs:
           cd app
           alien -r linwood-butterfly-linux-x86_64.deb
           mv linwood-butterfly*.rpm linwood-butterfly-linux-x86_64.rpm
-      - name: Build AppImage using appimage-builder
-        uses: docker://appimagecrafters/appimage-builder:0.9.1
-        working-directory: app
-        with:
-          entrypoint: appimage-builder
-          args: --recipe ./AppImageBuilder.yml --skip-test
+      - name: Build .AppImage executable
+        run: |
+          cd app
+          sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /usr/local/bin/appimagetool
+          sudo chmod +x /usr/local/bin/appimagetool
+          sudo pip3 install appimage-builder
+          appimage-builder --recipe AppImageBuilder.yml
       - name: Rename AppImage
         run: |
           cd app
