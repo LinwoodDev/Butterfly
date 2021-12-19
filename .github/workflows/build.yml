@@ -112,7 +112,7 @@ jobs:
           sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /usr/local/bin/appimagetool
           sudo chmod +x /usr/local/bin/appimagetool
           sudo pip3 install appimage-builder
-          appimage-builder --recipe AppImageBuilder.yml
+          appimage-builder --recipe AppImageBuilder.yml --skip-test
       - name: Rename AppImage
         run: |
           cd app
