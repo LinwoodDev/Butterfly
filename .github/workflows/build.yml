@@ -114,7 +114,7 @@ jobs:
           mkdir -p $PWD/AppDir/usr/share/icons
           cp -r linux/debian/usr/share/icons/hicolor $PWD/AppDir/usr/share/icons/hicolor
           sudo pip3 install appimage-builder
-          appimage-builder --recipe ./AppImageBuilder.yml
+          appimage-builder --recipe AppImageBuilder.yml --skip-test
           mv AppImage Linwood-Butterfly-linux-x86_64.AppImage
       - name: Archive
         uses: actions/upload-artifact@v2
