@@ -15,10 +15,42 @@ Do not use the nightly version of Butterfly for production.
 ## Binaries
 
 <div className="row margin-bottom--lg padding--sm">
-<a class="button button--outline button--info button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linux.zip">
-  Stable
-</a>
-<a class="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linux.zip">
-  Nightly
-</a>
+<div className="dropdown dropdown--hoverable margin--sm">
+  <button className="button button--outline button--info button--lg">Stable</button>
+  <ul className="dropdown__menu">
+    <li>
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linux.zip">
+        Portable
+      </a>
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux-x86_64.deb">
+        DEB
+      </a>
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux-x86_64.rpm">
+        RPM
+      </a>
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/Linwood-Butterfly-linux-x86_64.AppImage">
+        AppImage
+      </a>
+    </li>
+  </ul>
+</div>
+<div className="dropdown dropdown--hoverable margin--sm">
+  <button className="button button--outline button--info button--lg">Nightly</button>
+  <ul className="dropdown__menu">
+    <li>
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linux.zip">
+        Portable
+      </a>
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-linux-x86_64.deb">
+        DEB
+      </a>
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-linux-x86_64.rpm">
+        RPM
+      </a>
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/Linwood-Butterfly-linux-x86_64.AppImage">
+        AppImage
+      </a>
+    </li>
+  </ul>
+</div>
 </div>
