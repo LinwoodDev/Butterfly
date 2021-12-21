@@ -1,0 +1,9 @@
+Package: linwood-butterfly
+Version: 1.0.0-rc.7
+Section: base
+Priority: optional
+Homepage: https://github.com/LinwoodCloud/butterfly
+Architecture: amd64
+Maintainer: LinwoodCloud <contact@linwood.dev>
+Description: Linwood Butterfly
+  Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device. This app works on android, windows, linux and in the web.

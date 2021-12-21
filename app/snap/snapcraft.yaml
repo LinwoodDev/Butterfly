@@ -1,14 +1,7 @@
 name: butterfly
 version: 1.0.0-rc.1
 summary: Change the world.
-description: |
-  **Your data will be saved locally**
-
-  Everything will be saved local on your computer. The data is saved in json files.
-
-  **Customizable**
-
-  Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
+description: Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device. This app works on android, windows, linux and in the web.
 
 confinement: strict
 base: core18

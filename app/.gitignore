@@ -44,3 +44,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Linux related
+AppDir
+appimage-builder-cache
+*.AppImage

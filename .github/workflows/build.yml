@@ -79,7 +79,7 @@ jobs:
       - name: Get dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev liblzma-dev
+          sudo apt-get install -y python3-pip python3-setuptools desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev liblzma-dev clang dpkg-dev patchelf alien
       - uses: subosito/flutter-action@v1
         with:
           channel: "beta" # or: 'stable' or 'dev'
@@ -95,12 +95,52 @@ jobs:
           flutter clean
           flutter doctor -v
           flutter build linux -v --release
+      - name: Build .deb executable
+        run: |
+          cd app
+          cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
+          dpkg-deb --build --root-owner-group linux/debian
+          cp linux/*.deb linwood-butterfly-linux-x86_64.deb
+      #- name: Build .rpm executable
+      #  run: |
+      #    cd app
+      #    alien -r linwood-butterfly-linux-x86_64.deb
+      #    mv linwood-butterfly*.rpm linwood-butterfly-linux-x86_64.rpm
+      - name: Build .AppImage executable
+        run: |
+          cd app
+          sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /usr/local/bin/appimagetool
+          sudo chmod +x /usr/local/bin/appimagetool
+          sudo pip3 install appimage-builder
+          appimage-builder --recipe AppImageBuilder.yml --skip-test
+      - name: Rename AppImage
+        run: |
+          cd app
+          mv ./*.AppImage* Linwood-Butterfly-linux-x86_64.AppImage
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
           name: linux-build
           path: |
             app/build/linux/x64/release/bundle/**
+      - name: Archive .deb
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-deb
+          path: |
+            app/linwood-butterfly-linux-x86_64.deb
+      #- name: Archive .rpm
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: linux-rpm
+      #    path: |
+      #      app/linwood-butterfly-linux-x86_64.rpm
+      - name: Archive .AppImage
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-appimage
+          path: |
+            app/Linwood-Butterfly-linux-x86_64.AppImage
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
@@ -147,6 +187,15 @@ jobs:
           path: linux-build/
       - uses: actions/download-artifact@v2
         with:
+          name: linux-deb
+      #- uses: actions/download-artifact@v2
+      #  with:
+      #    name: linux-rpm
+      - uses: actions/download-artifact@v2
+        with:
+          name: linux-appimage
+      - uses: actions/download-artifact@v2
+        with:
           name: windows-setup
       - name: 📦 Zip artifacts
         run: |
@@ -180,6 +229,9 @@ jobs:
             app-release.apk
             windows.zip
             linux.zip
+            #  linwood-butterfly-linux-x86_64.rpm
+            linwood-butterfly-linux-x86_64.deb
+            Linwood-Butterfly-linux-x86_64.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
@@ -193,6 +245,9 @@ jobs:
             app-release.apk
             windows.zip
             linux.zip
+            #  linwood-butterfly-linux-x86_64.rpm
+            linwood-butterfly-linux-x86_64.deb
+            Linwood-Butterfly-linux-x86_64.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
@@ -205,5 +260,7 @@ jobs:
             app-release.apk
             windows.zip
             linux.zip
+            #  linwood-butterfly-linux-x86_64.rpm
+            linwood-butterfly-linux-x86_64.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
