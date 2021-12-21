@@ -25,9 +25,6 @@ Do not use the nightly version of Butterfly for production.
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux-x86_64.deb">
         DEB
       </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux-x86_64.rpm">
-        RPM
-      </a>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/Linwood-Butterfly-linux-x86_64.AppImage">
         AppImage
       </a>
@@ -43,9 +40,6 @@ Do not use the nightly version of Butterfly for production.
       </a>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-linux-x86_64.deb">
         DEB
-      </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-linux-x86_64.rpm">
-        RPM
       </a>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/Linwood-Butterfly-linux-x86_64.AppImage">
         AppImage

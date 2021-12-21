@@ -101,11 +101,11 @@ jobs:
           cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
           dpkg-deb --build --root-owner-group linux/debian
           cp linux/*.deb linwood-butterfly-linux-x86_64.deb
-      - name: Build .rpm executable
-        run: |
-          cd app
-          alien -r linwood-butterfly-linux-x86_64.deb
-          mv linwood-butterfly*.rpm linwood-butterfly-linux-x86_64.rpm
+      #- name: Build .rpm executable
+      #  run: |
+      #    cd app
+      #    alien -r linwood-butterfly-linux-x86_64.deb
+      #    mv linwood-butterfly*.rpm linwood-butterfly-linux-x86_64.rpm
       - name: Build .AppImage executable
         run: |
           cd app
@@ -129,12 +129,12 @@ jobs:
           name: linux-deb
           path: |
             app/linwood-butterfly-linux-x86_64.deb
-      - name: Archive .rpm
-        uses: actions/upload-artifact@v2
-        with:
-          name: linux-rpm
-          path: |
-            app/linwood-butterfly-linux-x86_64.rpm
+      #- name: Archive .rpm
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: linux-rpm
+      #    path: |
+      #      app/linwood-butterfly-linux-x86_64.rpm
       - name: Archive .AppImage
         uses: actions/upload-artifact@v2
         with:
@@ -188,9 +188,9 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: linux-deb
-      - uses: actions/download-artifact@v2
-        with:
-          name: linux-rpm
+      #- uses: actions/download-artifact@v2
+      #  with:
+      #    name: linux-rpm
       - uses: actions/download-artifact@v2
         with:
           name: linux-appimage
@@ -229,7 +229,7 @@ jobs:
             app-release.apk
             windows.zip
             linux.zip
-            linwood-butterfly-linux-x86_64.rpm
+            #  linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.deb
             Linwood-Butterfly-linux-x86_64.AppImage
         env:
@@ -245,7 +245,7 @@ jobs:
             app-release.apk
             windows.zip
             linux.zip
-            linwood-butterfly-linux-x86_64.rpm
+            #  linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.deb
             Linwood-Butterfly-linux-x86_64.AppImage
         env:
@@ -260,7 +260,7 @@ jobs:
             app-release.apk
             windows.zip
             linux.zip
-            linwood-butterfly-linux-x86_64.rpm
+            #  linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
