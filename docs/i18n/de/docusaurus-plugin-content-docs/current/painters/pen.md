@@ -1,16 +1,16 @@
 ---
-sidebar_label: "Pen"
+sidebar_label: "Stift"
 sidebar_position: 2
 ---
 
-# Pen painter
+# Stift Maler
 
-With this painter you can draw on this paper.
+Mit diesem Maler können Sie dieses Papier zeichnen.
 
-## Configuration
+## Konfiguration
 
-|          Property | Default | Description                                                                      |
-| -----------------:|:-------:|:-------------------------------------------------------------------------------- |
-|             Color |  Black  | The color that will be drawn                                                     |
-|      Stroke width |    5    | The width of the stroke                                                          |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
+|              Objekt | Standard | Beschreibung                                                                          |
+| -------------------:|:--------:|:------------------------------------------------------------------------------------- |
+|               Farbe | Schwarz  | Die Farbe, die gezeichnet wird                                                        |
+|        Strichbreite |    5     | Die Breite des Strichs                                                                |
+| Strichmultiplikator |    1     | Wenn Sie einen Stil haben, ist dies der Multiplikator, der dem Druck hinzugefügt wird |
