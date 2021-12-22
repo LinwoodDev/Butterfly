@@ -1,9 +1,9 @@
 ---
-id: "community"
-slug: "/community"
+id: "gemeinde"
+slug: "/Gemeinschaft"
 title: "Community"
-sidebar_label: "Home"
+sidebar_label: "Zuhause"
 sidebar_position: 0
 ---
 
-Welcome to the community section. Use the sidebar to navigate.
+Willkommen im Community-Abschnitt. Benutzen Sie die Sidebar um zu navigieren.
