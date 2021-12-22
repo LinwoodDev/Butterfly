@@ -1,14 +1,14 @@
 ---
-sidebar_label: "Introduction"
+sidebar_label: "Einführung"
 sidebar_position: 1
 ---
 
-# Painters
+# Maler
 
-Painters can edit the paper.
+Maler können das Papier bearbeiten.
 
-Use the sidebar to learn more about the painters.
+Mit der Sidebar erfahren Sie mehr über die Maler.
 
-Create a new painter by clicking on the plus icon. Change the painter order by dragging and change the painter by clicking. If you click on a selected painter you can configure it.
+Erstellen Sie einen neuen Maler, indem Sie auf das Plus-Symbol klicken. Ändern Sie die Reihenfolge des Malers durch Ziehen und Ändern des Malers durch Anklicken. Wenn Sie auf einen ausgewählten Maler klicken, können Sie ihn konfigurieren.
 
-The name of the painter will be displayed as tooltip on hover on the painter.
+Der Name des Malers wird als Tooltipp beim Schweben auf dem Maler angezeigt.
