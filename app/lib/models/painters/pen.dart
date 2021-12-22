@@ -1,8 +1,7 @@
 import 'package:butterfly/models/elements/path.dart';
 import 'package:butterfly/models/elements/pen.dart';
-import 'package:butterfly/models/properties/pen.dart';
 import 'package:butterfly/models/painters/painter.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:butterfly/models/properties/pen.dart';
 import 'package:flutter/material.dart';
 
 class PenPainter extends BuildedPainter {
