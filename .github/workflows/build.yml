@@ -11,7 +11,7 @@ jobs:
       - name: 🔧 Setup java
         uses: actions/setup-java@v2
         with:
-          java-version: "8.x"
+          java-version: "11"
           distribution: "adopt"
       - uses: subosito/flutter-action@v1
         with:
