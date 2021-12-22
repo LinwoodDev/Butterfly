@@ -1,16 +1,16 @@
 ---
-sidebar_label: "Path eraser"
+sidebar_label: "Pfadlöscher"
 sidebar_position: 4
 ---
 
-# Path eraser painter
+# Pfadlöschermaler
 
-With this painter you can delete the whole path on the paper.
+Mit diesem Maler können Sie den gesamten Pfad auf dem Papier löschen.
 
-## Configuration
+## Konfiguration
 
-|          Property | Default | Description                                                                                                     |
-| -----------------:|:-------:|:--------------------------------------------------------------------------------------------------------------- |
-|      Stroke width |    5    | The width of the stroke                                                                                         |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure                                |
-|    Include eraser |  false  | This setting controls if you can remove the path of the eraser. The path under the removed eraser will be shown |
+|              Objekt | Standard | Beschreibung                                                                                                                      |
+| -------------------:|:--------:|:--------------------------------------------------------------------------------------------------------------------------------- |
+|        Strichbreite |    5     | Die Breite des Strichs                                                                                                            |
+| Strichmultiplikator |    1     | Wenn Sie einen Stil haben, ist dies der Multiplikator, der dem Druck hinzugefügt wird                                             |
+|   Raser einbeziehen |  falsch  | Diese Einstellung bestimmt, ob Sie den Pfad des Radierers entfernen können. Der Pfad unter dem entfernten Radiator wird angezeigt |
