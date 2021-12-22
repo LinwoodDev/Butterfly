@@ -1,12 +1,12 @@
-# Ruled paper
+# Gelenktes Papier
 
-| Property | Value |
-| --------:|:----- |
-|    Width | 0     |
-|   Height | 25    |
-|  Count X | 0     |
-|  Count Y | 1     |
-|  Space X | 0     |
-|  Space Y | 0     |
+|   Objekt | Wert |
+| --------:|:---- |
+|    Width | 0    |
+|     Höhe | 25   |
+| Zähler X | 0    |
+| Anzahl Y | 1    |
+|   Raum X | 0    |
+|   Raum Y | 0    |
 
-See [the introduction](intro) for more information.
+Siehe [die Einführung](intro) für weitere Informationen.
