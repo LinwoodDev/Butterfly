@@ -1,14 +1,14 @@
 ---
-sidebar_label: "Label"
+sidebar_label: "Étiquette"
 sidebar_position: 5
 ---
 
-# Label painter
+# Peintre d'étiquette
 
-With this painter you can add text to the paper.
+Avec ce peintre vous pouvez ajouter du texte au papier.
 
 ## Configuration
 
-| Property | Default | Description          |
-| --------:|:-------:|:-------------------- |
-|     Size |   12    | The size of the text |
+| Propriété | Par défaut | Libellé            |
+| ---------:|:----------:|:------------------ |
+|    Taille |     12     | La taille du texte |
