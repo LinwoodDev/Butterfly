@@ -11,6 +11,10 @@ module.exports = {
     favicon: 'img/favicon.ico',
     organizationName: 'LinwoodCloud', // Usually your GitHub org/user name.
     projectName: 'butterfly', // Usually your repo name.
+    i18n: {
+      defaultLocale: 'en',
+      locales: ['en', 'de', 'fr'],
+    },
     themeConfig: {
         navbar: {
             title: 'Linwood Butterfly',
