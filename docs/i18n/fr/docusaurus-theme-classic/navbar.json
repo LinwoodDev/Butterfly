@@ -1,0 +1,26 @@
+{
+  "title": {
+    "message": "Papillon de bois de lin",
+    "description": "The title in the navbar"
+  },
+  "item.label.Tutorial": {
+    "message": "Tutoriel",
+    "description": "Navbar item with label Tutorial"
+  },
+  "item.label.Downloads": {
+    "message": "Téléchargements",
+    "description": "Navbar item with label Downloads"
+  },
+  "item.label.Community": {
+    "message": "Communauté",
+    "description": "Navbar item with label Community"
+  },
+  "item.label.Blog": {
+    "message": "Blogue",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}
