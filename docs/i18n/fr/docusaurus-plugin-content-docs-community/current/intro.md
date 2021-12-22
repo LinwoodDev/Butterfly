@@ -1,5 +1,5 @@
 ---
-id: "communauté"
+id: "community"
 slug: "/fr/community"
 title: "Communauté"
 sidebar_label: "Domicile"
