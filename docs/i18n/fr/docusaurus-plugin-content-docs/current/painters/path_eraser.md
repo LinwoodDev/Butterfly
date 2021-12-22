@@ -1,16 +1,16 @@
 ---
-sidebar_label: "Path eraser"
+sidebar_label: "Effacer le chemin d'accès"
 sidebar_position: 4
 ---
 
-# Path eraser painter
+# Peintre gomme de chemin
 
-With this painter you can delete the whole path on the paper.
+Avec ce peintre vous pouvez supprimer tout le chemin sur le papier.
 
 ## Configuration
 
-|          Property | Default | Description                                                                                                     |
-| -----------------:|:-------:|:--------------------------------------------------------------------------------------------------------------- |
-|      Stroke width |    5    | The width of the stroke                                                                                         |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure                                |
-|    Include eraser |  false  | This setting controls if you can remove the path of the eraser. The path under the removed eraser will be shown |
+|                Propriété | Par défaut | Libellé                                                                                                            |
+| ------------------------:|:----------:|:------------------------------------------------------------------------------------------------------------------ |
+|         Largeur du trait |     5      | La largeur du trait                                                                                                |
+| Multiplicateur de traits |     1      | Si vous avez un stylet, c'est le multiplicateur qui sera ajouté à la pression                                      |
+|         Inclure la gomme |    Faux    | Ce paramètre contrôle si vous pouvez supprimer le chemin de la gomme. Le chemin sous la gomme retirée sera affiché |
