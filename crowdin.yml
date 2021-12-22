@@ -6,4 +6,6 @@ files:
   - source: /docs/docs/**/*
     translation: /docs/i18n/%two_letters_code%/docusaurus-plugin-content-docs/current/**/%original_file_name%
   - source: /docs/community/**/*
+    ignore:
+      - CHANGELOG.md
     translation: /docs/i18n/%two_letters_code%/docusaurus-plugin-content-docs-community/current/**/%original_file_name%
