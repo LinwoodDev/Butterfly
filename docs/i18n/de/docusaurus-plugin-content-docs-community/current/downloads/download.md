@@ -1,18 +1,18 @@
 ---
 title: "Download"
-slug: "/downloads"
+slug: "/Downloads"
 sidebar_position: 0
 ---
 
 # Download
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fmain%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fdevelop%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stable Release-Version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fmain%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nachts Release Version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fdevelop%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-## Choose your platform
+## Wähle deine Plattform
 
 :::note
 
-For performance reasons, prefer using the native version instead of the web version.
+Aus Performancegründen sollten Sie lieber die native Version anstelle der Webversion verwenden.
 
 :::
 
@@ -31,11 +31,11 @@ For performance reasons, prefer using the native version instead of the web vers
 </a>
 </div>
 
-Or you want to [build your own](/build-your-own)
+Oder du möchtest [deine eigene](/build-your-own) bauen
 
-## Useful links
+## Nützliche Links
 
 - [Änderungsverlauf](changelog)
-- [Older releases](https://github.com/LinwoodCloud/butterfly/releases)
-- [Latest release](https://github.com/LinwoodCloud/butterfly/releases/latest)
-- [Support](https://discord.linwood.dev)
+- [Ältere Versionen](https://github.com/LinwoodCloud/butterfly/releases)
+- [Neueste Version](https://github.com/LinwoodCloud/butterfly/releases/latest)
+- [Unterstützung](https://discord.linwood.dev)
