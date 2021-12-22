@@ -1,6 +1,6 @@
 ---
 id: "community"
-slug: "/de/community"
+slug: "/community"
 title: "Community"
 sidebar_label: "Zuhause"
 sidebar_position: 0
