@@ -44,6 +44,10 @@ module.exports = {
                     dropdownActiveClassDisabled: true
                 },
                 {
+                  type: 'localeDropdown',
+                  position: 'right',
+                },
+                {
                     href: 'https://github.com/LinwoodCloud/Butterfly',
                     label: 'GitHub',
                     position: 'right',

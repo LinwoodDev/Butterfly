@@ -1,0 +1,26 @@
+{
+  "title": {
+    "message": "Linwood Butterfly",
+    "description": "The title in the navbar"
+  },
+  "item.label.Tutorial": {
+    "message": "Tutorial",
+    "description": "Navbar item with label Tutorial"
+  },
+  "item.label.Downloads": {
+    "message": "Downloads",
+    "description": "Navbar item with label Downloads"
+  },
+  "item.label.Community": {
+    "message": "Community",
+    "description": "Navbar item with label Community"
+  },
+  "item.label.Blog": {
+    "message": "Blog",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}
