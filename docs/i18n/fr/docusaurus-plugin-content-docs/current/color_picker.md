@@ -1,13 +1,13 @@
 ---
-title: Color picker
+title: Sélecteur de couleurs
 ---
 
-![Color picker](color_picker.png)
+![Sélecteur de couleurs](color_picker.png)
 
-* Open, save the dialog to access it in other documents
-* Reset the palette for the default material palette
-* Add, remove and edit the name of the palette
-* Add new colors by clicking on the plus button in the bottom
-* Edit the colors by long clicking on the color
+* Ouvrir, enregistrer la boîte de dialogue pour y accéder dans d'autres documents
+* Réinitialiser la palette pour la palette de matériaux par défaut
+* Ajouter, supprimer et modifier le nom de la palette
+* Ajouter de nouvelles couleurs en cliquant sur le bouton plus en bas
+* Modifier les couleurs en faisant un clic long sur la couleur
 
-You can access the color picker on the view tool by clicking on the color button.
+Vous pouvez accéder au sélecteur de couleurs de l'outil de visualisation en cliquant sur le bouton de couleur.
