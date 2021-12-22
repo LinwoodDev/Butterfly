@@ -1,12 +1,12 @@
-# Ruled paper
+# Papier rond
 
-| Property | Value |
-| --------:|:----- |
-|    Width | 0     |
-|   Height | 25    |
-|  Count X | 0     |
-|  Count Y | 1     |
-|  Space X | 0     |
-|  Space Y | 0     |
+|   Propriété | Valeur |
+| -----------:|:------ |
+|       Width | 0      |
+|     Hauteur | 25     |
+| Nombre de X | 0      |
+|    Nombre Y | 1      |
+|    Espace X | 0      |
+|    Espace Y | 0      |
 
-See [the introduction](intro) for more information.
+Voir [l’introduction](intro) pour plus d’informations.
