@@ -1,16 +1,16 @@
 ---
-sidebar_label: "Pen"
+sidebar_label: "Stylo"
 sidebar_position: 2
 ---
 
-# Pen painter
+# Peintre stylo
 
-With this painter you can draw on this paper.
+Avec ce peintre vous pouvez dessiner sur ce papier.
 
 ## Configuration
 
-|          Property | Default | Description                                                                      |
-| -----------------:|:-------:|:-------------------------------------------------------------------------------- |
-|             Color |  Black  | The color that will be drawn                                                     |
-|      Stroke width |    5    | The width of the stroke                                                          |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
+|                Propriété | Par défaut | Libellé                                                                       |
+| ------------------------:|:----------:|:----------------------------------------------------------------------------- |
+|                  Couleur |    Noir    | La couleur qui sera dessinée                                                  |
+|         Largeur du trait |     5      | La largeur du trait                                                           |
+| Multiplicateur de traits |     1      | Si vous avez un stylet, c'est le multiplicateur qui sera ajouté à la pression |
