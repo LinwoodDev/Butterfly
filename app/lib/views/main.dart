@@ -240,83 +240,77 @@ class _ProjectPageState extends State<ProjectPage> {
       child: SizedBox(height: 50, child: EditToolbar()));
 
   Widget _buildToolSelection(bool isMobile) {
-    return ClipRect(
-      child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(children: [
-              BlocBuilder<TransformCubit, CameraTransform>(
-                  builder: (context, transform) {
-                _scaleController.text =
-                    (transform.size * 100).toStringAsFixed(2);
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            BlocBuilder<TransformCubit, CameraTransform>(
+                builder: (context, transform) {
+              _scaleController.text = (transform.size * 100).toStringAsFixed(2);
 
-                return Row(
-                  children: [
-                    IconButton(
-                        icon:
-                            const Icon(PhosphorIcons.magnifyingGlassMinusLight),
-                        tooltip: AppLocalizations.of(context)!.zoomOut,
-                        onPressed: () {
-                          context.read<TransformCubit>().zoom(
-                              -0.1,
-                              Offset(MediaQuery.of(context).size.width / 2,
-                                  MediaQuery.of(context).size.height / 2));
-                        }),
-                    IconButton(
-                        icon: const Icon(PhosphorIcons.magnifyingGlassLight),
-                        tooltip: AppLocalizations.of(context)!.resetZoom,
-                        onPressed: () {
-                          var cubit = context.read<TransformCubit>();
-                          cubit.zoom(
-                              1 - cubit.state.size,
-                              Offset(MediaQuery.of(context).size.width / 2,
-                                  MediaQuery.of(context).size.height / 2));
-                        }),
-                    IconButton(
-                        icon:
-                            const Icon(PhosphorIcons.magnifyingGlassPlusLight),
-                        tooltip: AppLocalizations.of(context)!.zoomIn,
-                        onPressed: () {
-                          var viewportSize =
-                              _viewportKey.currentContext?.size ??
-                                  MediaQuery.of(context).size;
-                          context.read<TransformCubit>().zoom(
-                              0.1,
-                              Offset(viewportSize.width / 2,
-                                  viewportSize.height / 2));
-                        }),
-                    const SizedBox(width: 10),
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 100),
-                      child: TextField(
-                        controller: _scaleController,
-                        onSubmitted: (value) {
-                          var viewportSize = MediaQuery.of(context).size;
-                          var scale = double.tryParse(value) ?? 100;
-                          scale /= 100;
-                          var cubit = context.read<TransformCubit>();
-                          cubit.zoom(
-                              scale - cubit.state.size,
-                              Offset(viewportSize.width / 2,
-                                  viewportSize.height / 2));
-                        },
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.zoom),
-                      ),
+              return Row(
+                children: [
+                  IconButton(
+                      icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
+                      tooltip: AppLocalizations.of(context)!.zoomOut,
+                      onPressed: () {
+                        context.read<TransformCubit>().zoom(
+                            -0.1,
+                            Offset(MediaQuery.of(context).size.width / 2,
+                                MediaQuery.of(context).size.height / 2));
+                      }),
+                  IconButton(
+                      icon: const Icon(PhosphorIcons.magnifyingGlassLight),
+                      tooltip: AppLocalizations.of(context)!.resetZoom,
+                      onPressed: () {
+                        var cubit = context.read<TransformCubit>();
+                        cubit.zoom(
+                            1 - cubit.state.size,
+                            Offset(MediaQuery.of(context).size.width / 2,
+                                MediaQuery.of(context).size.height / 2));
+                      }),
+                  IconButton(
+                      icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
+                      tooltip: AppLocalizations.of(context)!.zoomIn,
+                      onPressed: () {
+                        var viewportSize = _viewportKey.currentContext?.size ??
+                            MediaQuery.of(context).size;
+                        context.read<TransformCubit>().zoom(
+                            0.1,
+                            Offset(viewportSize.width / 2,
+                                viewportSize.height / 2));
+                      }),
+                  const SizedBox(width: 10),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 100),
+                    child: TextField(
+                      controller: _scaleController,
+                      onSubmitted: (value) {
+                        var viewportSize = MediaQuery.of(context).size;
+                        var scale = double.tryParse(value) ?? 100;
+                        scale /= 100;
+                        var cubit = context.read<TransformCubit>();
+                        cubit.zoom(
+                            scale - cubit.state.size,
+                            Offset(viewportSize.width / 2,
+                                viewportSize.height / 2));
+                      },
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.zoom),
                     ),
-                    if (!isMobile) const VerticalDivider()
-                  ],
-                );
-              }),
-            ]),
-            if (!isMobile)
-              Flexible(
-                child: _buildToolbar(),
-              )
+                  ),
+                  if (!isMobile) const VerticalDivider()
+                ],
+              );
+            }),
           ]),
-    );
+          if (!isMobile)
+            Flexible(
+              child: _buildToolbar(),
+            )
+        ]);
   }
 
   Widget _buildPopupMenu() => PopupMenuButton(
