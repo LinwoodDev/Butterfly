@@ -1,13 +1,13 @@
 ---
-sidebar_label: "Hand"
+sidebar_label: "Main"
 ---
 
-# Hand
+# Main
 
-This is a special tool to move the camera.
+C'est un outil spécial pour déplacer la caméra.
 
 ## Configuration
 
-|       Property | Default | Description                                                             |
-| --------------:|:-------:|:----------------------------------------------------------------------- |
-| Include eraser |  false  | This setting controls if you can click on the eraser layer and edit it. |
+|        Propriété | Par défaut | Libellé                                                                       |
+| ----------------:|:----------:|:----------------------------------------------------------------------------- |
+| Inclure la gomme |    Faux    | Ce paramètre contrôle si vous pouvez cliquer sur le calque gomme et l'éditer. |
