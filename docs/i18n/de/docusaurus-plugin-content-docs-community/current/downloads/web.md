@@ -3,17 +3,17 @@ title: "Web"
 sidebar_position: 5
 ---
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fmain%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fdevelop%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stable Release-Version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fmain%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nachts Release Version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fdevelop%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-:::warning
+:::Warnung
 
-Do not use the nightly version of Butterfly for production.
+Verwenden Sie nicht die nächtliche Version von Butterfly für die Produktion.
 
 :::
 
 :::note
 
-For performance reasons, prefer using the native version instead of the web version.
+Aus Performancegründen sollten Sie lieber die native Version anstelle der Webversion verwenden.
 
 :::
 
@@ -21,9 +21,9 @@ For performance reasons, prefer using the native version instead of the web vers
 
 <div className="row margin-bottom--lg padding--sm">
 <a class="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
-  Stable
+  Stabil
 </a>
 <a class="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
-  Nightly
+  Nachts
 </a>
 </div>
