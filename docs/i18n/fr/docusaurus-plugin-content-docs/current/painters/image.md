@@ -3,10 +3,10 @@ sidebar_label: "Image"
 sidebar_position: 3
 ---
 
-# Image painter
+# Peintre d'images
 
-With this painter you can add image to your paper. Click on a position and select an image.
+Avec ce peintre vous pouvez ajouter une image à votre papier. Cliquez sur une position et sélectionnez une image.
 
 ## Configuration
 
-Currently nothing to configure
+Actuellement rien à configurer
