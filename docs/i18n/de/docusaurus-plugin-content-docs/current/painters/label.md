@@ -3,12 +3,12 @@ sidebar_label: "Label"
 sidebar_position: 5
 ---
 
-# Label painter
+# Label-Maler
 
-With this painter you can add text to the paper.
+Mit diesem Maler können Sie dem Papier Text hinzufügen.
 
-## Configuration
+## Konfiguration
 
-| Property | Default | Description          |
-| --------:|:-------:|:-------------------- |
-|     Size |   12    | The size of the text |
+| Objekt | Standard | Beschreibung         |
+| ------:|:--------:|:-------------------- |
+|  Größe |    12    | Die Größe des Textes |
