@@ -3,10 +3,10 @@ sidebar_label: "Introduction"
 sidebar_position: 0
 ---
 
-# Tools
+# Outils
 
-Tools can change the camera or select objects.
+Les outils peuvent changer la caméra ou sélectionner des objets.
 
-Use the sidebar to learn more about the tools.
+Utilisez la barre latérale pour en savoir plus sur les outils.
 
-If you click on a selected tool you can configure it.
+Si vous cliquez sur un outil sélectionné, vous pouvez le configurer.
