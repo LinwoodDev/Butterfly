@@ -1,60 +1,60 @@
 ---
-title: "Privacy Policy"
+title: "Datenschutzerklärung"
 slug: /privacypolicy
 ---
 
 
-CodeDoctor built the Butterfly app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
+CodeDoctor hat die Butterfly-App als Open Source App entwickelt. Dieser SERVICE wird von CodeDoctor kostenlos zur Verfügung gestellt und ist so konzipiert, wie er ist.
 
-This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
+Diese Seite wird verwendet, um Besucher über meine Richtlinien mit der Sammlung zu informieren, Nutzung und Weitergabe persönlicher Informationen, wenn jemand sich für die Nutzung meines Dienstes entschieden hat.
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+Wenn Sie sich für die Nutzung meines Dienstes entscheiden, stimmen Sie der Erhebung und Nutzung von Informationen in Bezug auf diese Richtlinie zu. Die persönlichen Daten, die ich erfasse, werden für die Bereitstellung und Verbesserung des Dienstes verwendet. Ich werde Ihre Informationen nicht verwenden oder an Dritte weitergeben, außer wie in dieser Datenschutzerklärung beschrieben.
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Butterfly unless otherwise defined in this Privacy Policy.
+Die in dieser Datenschutzerklärung verwendeten Begriffe haben die gleiche Bedeutung wie in unseren Nutzungsbedingungen, , die bei Butterfly zugänglich ist, sofern in dieser Datenschutzrichtlinie nicht anders definiert ist.
 
-**Information Collection and Use**
+**Informationssammlung und -nutzung**
 
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
+Für eine bessere Erfahrung bei der Nutzung unseres Services kann ich von Ihnen verlangen, dass Sie uns bestimmte personenbezogene Daten zur Verfügung stellen. Die von mir angeforderten Informationen werden auf Ihrem Gerät gespeichert und wird von mir in keiner Weise gesammelt.
 
-The app does use third party services that may collect information used to identify you.
+Die App nutzt Dienste von Dritten, die möglicherweise Informationen sammeln, um Sie zu identifizieren.
 
-Link to privacy policy of third party service providers used by the app
+Link zur Datenschutzrichtlinie von Drittanbietern, die von der App verwendet werden
 
-* [Google Play Services](https://www.google.com/policies/privacy/)
+* [Google Play-Dienste](https://www.google.com/policies/privacy/)
 
-**Cookies**
+**Kekse**
 
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
+Cookies sind Dateien mit einer geringen Datenmenge, die häufig als anonyme eindeutige Identifikatoren verwendet werden. Diese werden von den Webseiten, die Sie besuchen und auf dem internen Speicher Ihres Geräts gespeichert werden, an Ihren Browser gesendet.
 
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+Dieser Service verwendet diese „Cookies“ nicht explizit. Die App kann jedoch den Code und die Bibliotheken von Drittanbietern verwenden, die „Cookies“ verwenden, um Informationen zu sammeln und ihre Dienste zu verbessern. Sie haben die Option , diese Cookies zu akzeptieren oder abzulehnen und zu wissen, wann ein Cookie an Ihr Gerät gesendet wird. Wenn Sie sich entscheiden, unsere Cookies abzulehnen, können Sie einige Bereiche dieses Services nicht nutzen.
 
-**Service Providers**
+**Diensteanbieter**
 
-I may employ third-party companies and individuals due to the following reasons:
+Ich kann aus folgenden Gründen Drittunternehmen und Einzelpersonen beschäftigen:
 
-* To facilitate our Service;
-* To provide the Service on our behalf;
-* To perform Service-related services; or
-* To assist us in analyzing how our Service is used.
+* Um unseren Service zu erleichtern;
+* Den Service in unserem Namen erbringen;
+* Dienstebezogene Dienste durchführen; oder
+* Um uns bei der Analyse der Nutzung unseres Services zu unterstützen.
 
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
+Ich möchte die Nutzer dieses Dienstes darüber informieren, dass diese Dritten Zugriff auf Ihre persönlichen Daten haben. Der Grund dafür ist, die ihnen zugewiesenen Aufgaben in unserem Namen auszuführen. Sie sind jedoch verpflichtet, die Informationen nicht für andere Zwecke offen zu legen oder zu verwenden.
 
-**Security**
+**Sicherheit**
 
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+Ich schätze Ihr Vertrauen, uns Ihre persönlichen Daten zur Verfügung zu stellen, daher bemühen wir uns, kommerziell akzeptable Schutzmittel einzusetzen. Aber denken Sie daran, dass keine Übertragungsmethode über das Internet oder Methode der elektronischen Speicherung ist 100% sicher und zuverlässig, und ich kann seine absolute Sicherheit nicht garantieren.
 
-**Links to Other Sites**
+**Links zu anderen Seiten**
 
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+Dieser Service kann Links zu anderen Websites enthalten. Wenn Sie auf einen Link von Drittanbietern klicken, werden Sie zu dieser Seite weitergeleitet. Beachten Sie, dass diese externen Seiten nicht von mir betrieben werden. Daher empfehle ich Ihnen, die Datenschutzerklärung dieser Websites zu lesen. Ich habe keine Kontrolle über den Inhalt, die Datenschutzrichtlinien oder die Praktiken von Websites oder Diensten von Drittanbietern.
 
-**Changes to This Privacy Policy**
+**Änderungen an dieser Datenschutzerklärung**
 
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
+Ich kann unsere Datenschutzerklärung von Zeit zu Zeit aktualisieren. Daher wird empfohlen, diese Seite regelmäßig auf alle Änderungen zu überprüfen. Ich werde Sie über alle Änderungen informieren, indem ich die neue Datenschutzerklärung auf dieser -Seite veröffentliche.
 
-This policy is effective as of 2021-02-07
+Diese Richtlinie gilt ab 2021-02-07
 
-**Contact Us**
+**Kontaktiere uns**
 
-If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at contact@linwood.dev.
+Wenn Sie Fragen oder Anregungen zu meiner Datenschutzrichtlinie haben, zögern Sie nicht, mich unter contact@linwood.dev zu kontaktieren.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+Diese Datenschutz-Seite wurde unter [privacypolicytemplate.net](https://privacypolicytemplate.net) erstellt und von [App-Datenschutz-Generator](https://app-privacy-policy-generator.nisrulz.com/) geändert / generiert
