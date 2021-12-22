@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "1.0.0-rc.4",
+    "description": "The label for version 1.0.0-rc.4"
+  },
+  "sidebar.sidebar.category.Background": {
+    "message": "Arrière-plan",
+    "description": "The label for category Background in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.Painters": {
+    "message": "Peintres",
+    "description": "The label for category Painters in sidebar sidebar"
+  }
+}
