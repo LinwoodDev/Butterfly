@@ -1,12 +1,12 @@
-# Quad paper
+# Papier quadri
 
-| Property | Value |
-| --------:|:----- |
-|    Width | 15    |
-|   Height | 15    |
-|  Count X | 1     |
-|  Count Y | 1     |
-|  Space X | 0     |
-|  Space Y | 0     |
+|   Propriété | Valeur |
+| -----------:|:------ |
+|       Width | 15     |
+|     Hauteur | 15     |
+| Nombre de X | 1      |
+|    Nombre Y | 1      |
+|    Espace X | 0      |
+|    Espace Y | 0      |
 
-See [the introduction](intro) for more information.
+Voir [l’introduction](intro) pour plus d’informations.
