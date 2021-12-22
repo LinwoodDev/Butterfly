@@ -3,19 +3,19 @@ title: "Linux"
 sidebar_position: 3
 ---
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fmain%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fdevelop%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Version de la version stable](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fmain%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Version de la sortie nocturne](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fdevelop%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-:::warning
+:::avertissement
 
-Do not use the nightly version of Butterfly for production.
+Ne pas utiliser la version nocturne de Butterfly pour la production.
 
 :::
 
-## Binaries
+## Binaires
 
 <div className="row margin-bottom--lg padding--sm">
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--info button--lg">Stable</button>
+  <button className="button button--outline button--info button--lg">Écurie</button>
   <ul className="dropdown__menu">
     <li>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linux.zip">
@@ -31,7 +31,7 @@ Do not use the nightly version of Butterfly for production.
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--info button--lg">Nightly</button>
+  <button className="button button--outline button--info button--lg">Nuit</button>
   <ul className="dropdown__menu">
     <li>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linux.zip">
