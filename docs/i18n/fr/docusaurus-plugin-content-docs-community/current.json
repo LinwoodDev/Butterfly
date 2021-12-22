@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Suivant",
+    "description": "The label for version current"
+  },
+  "sidebar.sidebar.link.Discord": {
+    "message": "Discord.",
+    "description": "The label for link Discord in sidebar sidebar, linking to https://discord.linwood.dev"
+  },
+  "sidebar.sidebar.link.Contribution guide": {
+    "message": "Guide de contribution",
+    "description": "The label for link Contribution guide in sidebar sidebar, linking to https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md"
+  }
+}
