@@ -2,12 +2,12 @@
 sidebar_label: "Introduction"
 ---
 
-# Background
+# Arrière-plan
 
-You can customize the background of the paper. Click on the background icon in the view tool to add it.
+Vous pouvez personnaliser l'arrière-plan du papier. Cliquez sur l’icône de fond dans l’outil de vue pour l’ajouter.
 
 ## Configuration
 
-Width and height are the general settings of the box. Space and count are important if you want to add a complex structure. See [the music paper](./music) for more. Set this to 1 on x or/and y to let the lines rendered.
+Largeur et hauteur sont les paramètres généraux de la boîte. L'espace et le nombre sont importants si vous voulez ajouter une structure complexe. Voir [le papier de musique](./music) pour plus d'informations. Réglez ceci à 1 sur x ou/y pour laisser les lignes affichées.
 
-Additionally you can customize the color of the background.
+De plus, vous pouvez personnaliser la couleur de l'arrière-plan.
