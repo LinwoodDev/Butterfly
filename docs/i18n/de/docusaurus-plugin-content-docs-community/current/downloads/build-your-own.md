@@ -1,16 +1,16 @@
 ---
-title: "Build your own"
+title: "Baue dein eigenes"
 slug: "/build-your-own"
 sidebar_position: 1
 ---
 
-1. Install git and flutter (beta)
-2. Clone the repository
-3. Navigate to the app directory
-4. Use the flutter tool to compile the application
+1. Installiere Git und Flutter (Beta)
+2. Repository klonen
+3. Navigiere zum App-Verzeichnis
+4. Benutze das Flutter-Werkzeug, um die Anwendung zu kompilieren
    * flutter build apk
-   * flutter build appbundle
-   * flutter build web
-   * flutter build linux
-   * flutter build windows
-5. The compiled files are in the build directory
+   * flutter Apfel bauen
+   * flutter Build-Web
+   * flutter build Linux
+   * flutter Build-Fenster
+5. Die kompilierten Dateien befinden sich im Build-Verzeichnis
