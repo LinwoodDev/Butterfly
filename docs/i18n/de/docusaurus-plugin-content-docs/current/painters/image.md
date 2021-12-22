@@ -1,12 +1,12 @@
 ---
-sidebar_label: "Image"
+sidebar_label: "Bild"
 sidebar_position: 3
 ---
 
-# Image painter
+# Bild-Maler
 
-With this painter you can add image to your paper. Click on a position and select an image.
+Mit diesem Maler können Sie Ihrem Papier ein Bild hinzufügen. Klicken Sie auf eine Position und wählen Sie ein Bild.
 
-## Configuration
+## Konfiguration
 
-Currently nothing to configure
+Momentan nichts zu konfigurieren
