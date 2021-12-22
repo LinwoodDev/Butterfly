@@ -1,0 +1,46 @@
+{
+  "link.title.Community": {
+    "message": "Community",
+    "description": "The title of the footer links column with title=Community in the footer"
+  },
+  "link.title.Source code": {
+    "message": "Quellcode",
+    "description": "The title of the footer links column with title=Source code in the footer"
+  },
+  "link.title.Legal": {
+    "message": "Rechtlich",
+    "description": "The title of the footer links column with title=Legal in the footer"
+  },
+  "link.item.label.Discord": {
+    "message": "Discord",
+    "description": "The label of footer link with label=Discord linking to https://discord.linwood.dev"
+  },
+  "link.item.label.Twitter": {
+    "message": "Twitter",
+    "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodCloud"
+  },
+  "link.item.label.Contribution guide": {
+    "message": "Beitragsanleitung",
+    "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md"
+  },
+  "link.item.label.App": {
+    "message": "App",
+    "description": "The label of footer link with label=App linking to https://github.com/LinwoodCloud/butterfly/tree/develop/app"
+  },
+  "link.item.label.Docs": {
+    "message": "Texte",
+    "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodCloud/butterfly/tree/develop/docs"
+  },
+  "link.item.label.Imprint": {
+    "message": "Impressum",
+    "description": "The label of footer link with label=Imprint linking to https://codedoctor.tk/impress"
+  },
+  "link.item.label.Privacy Policy": {
+    "message": "Datenschutzerklärung",
+    "description": "The label of footer link with label=Privacy Policy linking to /privacypolicy"
+  },
+  "copyright": {
+    "message": "Copyright © 2021 LinwoodCloud.",
+    "description": "The footer copyright"
+  }
+}
