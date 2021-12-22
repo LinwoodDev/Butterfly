@@ -1,13 +1,13 @@
 ---
-sidebar_label: "Introduction"
+sidebar_label: "Einführung"
 ---
 
-# Background
+# Hintergrund
 
-You can customize the background of the paper. Click on the background icon in the view tool to add it.
+Sie können den Hintergrund des Papiers anpassen. Klicken Sie auf das Hintergrundsymbol im Ansichtswerkzeug, um es hinzuzufügen.
 
-## Configuration
+## Konfiguration
 
-Width and height are the general settings of the box. Space and count are important if you want to add a complex structure. See [the music paper](./music) for more. Set this to 1 on x or/and y to let the lines rendered.
+Breite und Höhe sind die allgemeinen Einstellungen der Box. Raum und Zählung sind wichtig, wenn Sie eine komplexe Struktur hinzufügen möchten. Siehe [das Musikpapier](./music) für mehr. Setzen Sie diese Einstellung auf 1 auf x und/oder y um die gerenderten Linien zu lassen.
 
-Additionally you can customize the color of the background.
+Zusätzlich können Sie die Hintergrundfarbe anpassen.
