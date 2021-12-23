@@ -15,10 +15,10 @@ function HomepageHeader() {
       <div className="container">
         <Svg height="15em" width="15em" alt="Logo" />
         <h1 className="hero__title">
-          <Translate description="The homepage main heading">{siteConfig.title}</Translate>
+          {siteConfig.title}
         </h1>
         <p className="hero__subtitle">
-          <Translate description="The homepage main subtitle">{siteConfig.tagline}</Translate>
+          {siteConfig.tagline}
         </p>
         <div className={styles.indexCtas}>
           <Link
