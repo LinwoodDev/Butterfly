@@ -7,8 +7,8 @@ Currently there is no production ready version.
 | Version              | Supported          |                                                                     |
 | -------------------- | ------------------ | ------------------------------------------------------------------- |
 | 1.0.0-rc.7 (Nightly) | :warning:          | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.7/intro)    |
-| 1.0.0-rc.6 (Nightly) | :white_check_mark:          | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.6/intro)    |
-| 1.0.0-rc.5           | :x: | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.5/intro)    |
+| 1.0.0-rc.6           | :white_check_mark: | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.6/intro)    |
+| 1.0.0-rc.5           | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.5/intro)    |
 | 1.0.0-rc.4           | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.4/intro)    |
 | 1.0.0-rc.3           | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.3/intro)    |
 | 1.0.0-rc.2           | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.2/intro)    |
