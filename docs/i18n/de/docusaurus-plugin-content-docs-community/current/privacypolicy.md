@@ -1,6 +1,6 @@
 ---
 title: "Datenschutzerklärung"
-slug: /de/privacypolicy
+slug: /privacypolicy
 ---
 
 
