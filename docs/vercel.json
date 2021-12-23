@@ -19,6 +19,10 @@
     {
       "source": "/docs/1.0.0-alpha.0/:path*",
       "destination": "https://butterfly-docs-d8mhmjjeo-linwood.vercel.app/docs/1.0.0-alpha.0/:path*"
+    },
+    {
+      "source":"/docs/privacypolicy",
+      "destination": "/privacypolicy"
     }
   ]
 }
