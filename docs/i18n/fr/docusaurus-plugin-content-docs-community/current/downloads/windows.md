@@ -1,5 +1,5 @@
 ---
-title: "Fenêtres"
+title: "Windows"
 sidebar_position: 2
 ---
 
@@ -15,7 +15,7 @@ Ne pas utiliser la version nocturne de Butterfly pour la production.
 
 <div className="row margin-bottom--lg padding--sm">
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--info button--lg">Écurie</button>
+  <button className="button button--outline button--info button--lg">Stable</button>
   <ul className="dropdown__menu">
     <li>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/Butterfly-Setup.exe">
@@ -45,5 +45,5 @@ Ne pas utiliser la version nocturne de Butterfly pour la production.
 ## Installer à l'aide de winget
 
 ```powershell
-winget installez LinwoodCloud.Butterfly
+winget install LinwoodCloud.Butterfly
 ```
