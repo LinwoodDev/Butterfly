@@ -206,5 +206,45 @@
   "theme.tags.tagsPageTitle": {
     "message": "Tags",
     "description": "The title of the tag list page"
+  },
+  "Cross platform": {
+    "message": "Plateforme croisée",
+    "description": "Features cross-platform title"
+  },
+  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
+    "message": "Vous pouvez utiliser l'application sur votre téléphone, tablette, ordinateur portable ou bureau. L'application est disponible sous Linux, Android et Windows. Vous pouvez également utiliser l'application sur le Web.",
+    "description": "Features cross-platform description"
+  },
+  "Simple and intuitive": {
+    "message": "Simple et intuitif",
+    "description": "Features simple title"
+  },
+  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
+    "message": "Chaque outil est au bon endroit. Ouvrez l'application et commencez à dessiner. Modifiez vos outils en cliquant dessus.",
+    "description": "Features simple description"
+  },
+  "Customizable": {
+    "message": "Personnalisable",
+    "description": "Features customizable title"
+  },
+  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
+    "message": "Changez tout selon vos besoins. Choisissez votre couleur personnalisée, créez une palette et ajoutez vos pages au papier. Le papier a une taille infinie, parfaite pour vos idées et vos notes.",
+    "description": "Features customizable description"
+  },
+  "Your data will be saved locally": {
+    "message": "Vos données seront enregistrées localement",
+    "description": "Features local title"
+  },
+  "Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.": {
+    "message": "Tout sera sauvegardé localement sur votre ordinateur. Exporter les notes sous forme d'image ou sous forme de fichiers json qui peuvent être ouverts sur un autre appareil.",
+    "description": "Features local description"
+  },
+  "Getting started": {
+    "message": "Commencer",
+    "description": "homepage getting started button"
+  },
+  "Downloads": {
+    "message": "Téléchargements",
+    "description": "homepage downloads button"
   }
 }
