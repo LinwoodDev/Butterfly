@@ -206,5 +206,45 @@
   "theme.tags.tagsPageTitle": {
     "message": "Tags",
     "description": "The title of the tag list page"
+  },
+  "Cross platform": {
+    "message": "Cross platform",
+    "description": "Features cross-platform title"
+  },
+  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
+    "message": "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.",
+    "description": "Features cross-platform description"
+  },
+  "Simple and intuitive": {
+    "message": "Simple and intuitive",
+    "description": "Features simple title"
+  },
+  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
+    "message": "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.",
+    "description": "Features simple description"
+  },
+  "Customizable": {
+    "message": "Customizable",
+    "description": "Features customizable title"
+  },
+  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
+    "message": "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.",
+    "description": "Features customizable description"
+  },
+  "Your data will be saved locally": {
+    "message": "Your data will be saved locally",
+    "description": "Features local title"
+  },
+  "Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.": {
+    "message": "Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.",
+    "description": "Features local description"
+  },
+  "Getting started": {
+    "message": "Getting started",
+    "description": "homepage getting started button"
+  },
+  "Downloads": {
+    "message": "Downloads",
+    "description": "homepage downloads button"
   }
 }
