@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
+import Translate from '@docusaurus/Translate';
 
 const FeatureList = [
     {
@@ -55,8 +56,8 @@ function Feature({Svg, title, description}) {
         <Svg className={styles.featureSvg} alt={title} />
       </div>
       <div className="text--center padding-horiz--md">
-        <h3>{title}</h3>
-        <p>{description}</p>
+        <h3><Translate description={`Features ${title} title`}>{title}</Translate></h3>
+        <p><Translate description={`Features ${title} description`}>{description}</Translate></p>
       </div>
     </div>
   );

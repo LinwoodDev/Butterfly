@@ -5,6 +5,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import HomepageFeatures from "../components/HomepageFeatures";
+import Translate from '@docusaurus/Translate';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -13,18 +14,26 @@ function HomepageHeader() {
     <header className={clsx('hero shadow--lw', styles.heroBanner)}>
       <div className="container">
         <Svg height="15em" width="15em" alt="Logo" />
-        <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <h1 className="hero__title">
+          <Translate description="The homepage main heading">{siteConfig.title}</Translate>
+        </h1>
+        <p className="hero__subtitle">
+          <Translate description="The homepage main subtitle">{siteConfig.tagline}</Translate>
+        </p>
         <div className={styles.indexCtas}>
           <Link
               className="button button--secondary button--lg"
               to="/docs/1.0.0-rc.4/intro">
-              Getting started
+              <Translate description="homepage getting started button">
+                Getting started
+              </Translate>
           </Link>
             <Link
                 className="button button--success button--lg"
                 to="/downloads">
-                Downloads
+                <Translate description="homepage downloads button">
+                  Downloads
+                </Translate>
             </Link>
         </div>
       </div>
