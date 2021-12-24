@@ -223,7 +223,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.5"
+    version: "2.5.7"
   http:
     dependency: transitive
     description:
@@ -391,7 +391,7 @@ packages:
       name: path_provider_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.9"
+    version: "2.0.11"
   path_provider_ios:
     dependency: transitive
     description:
@@ -447,7 +447,7 @@ packages:
       name: phosphor_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.1"
+    version: "1.4.0"
   platform:
     dependency: transitive
     description:
@@ -725,7 +725,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.3"
   xdg_directories:
     dependency: transitive
     description:
