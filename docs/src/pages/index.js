@@ -23,16 +23,16 @@ function HomepageHeader() {
         <div className={styles.indexCtas}>
           <Link
               className="button button--secondary button--lg"
-              to="/docs/1.0.0-rc.4/intro">
+              to="/docs/1.0/intro">
               <Translate description="homepage getting started button">
-                Getting started
+                  Getting started
               </Translate>
           </Link>
             <Link
                 className="button button--success button--lg"
                 to="/downloads">
                 <Translate description="homepage downloads button">
-                  Downloads
+                    Downloads
                 </Translate>
             </Link>
         </div>

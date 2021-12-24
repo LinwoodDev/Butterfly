@@ -132,8 +132,8 @@ module.exports = {
                         'https://github.com/LinwoodCloud/butterfly/edit/develop/docs/',
                     versions: {
                         "current": {
-                            label: "1.0.0-rc.7",
-                            path: "1.0.0-rc.7",
+                            label: "1.1.0",
+                            path: "1.1",
                         },
                         "1.0": {
                             label: "1.0.0",
