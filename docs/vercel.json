@@ -1,6 +1,22 @@
 {
   "redirects": [
     {
+      "source": "/docs/1.0.0/:path*",
+      "destination": "https://butterfly-docs-6a70yx26s-linwood.vercel.app/docs/1.0/:path*"
+    },
+    {
+      "source": "/docs/1.0.0-rc.6/:path*",
+      "destination": "https://butterfly-docs-6a70yx26s-linwood.vercel.app/docs/1.0.0-rc.6/:path*"
+    },
+    {
+      "source": "/docs/1.0.0-r.5/:path*",
+      "destination": "https://butterfly-docs-6a70yx26s-linwood.vercel.app/docs/1.0.0-rc.5/:path*"
+    },
+    {
+      "source": "/docs/1.0.0-rc.4/:path*",
+      "destination": "https://butterfly-docs-6a70yx26s-linwood.vercel.app/docs/1.0.0-rc.4/:path*"
+    },
+    {
       "source": "/docs/1.0.0-rc.3/:path*",
       "destination": "https://butterfly-docs-7b3l3v73s-linwood.vercel.app/docs/1.0.0-rc.3/:path*"
     },

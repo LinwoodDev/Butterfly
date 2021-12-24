@@ -1,0 +1,46 @@
+{
+  "sidebar": [
+    "intro",
+    "color_picker",
+    "migrating",
+    {
+      "type": "category",
+      "label": "Backgrounds",
+      "link": {
+        "type": "doc",
+        "id": "background/intro"
+      },
+      "items": [
+        "background/quad",
+        "background/ruled",
+        "background/music"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Painters",
+      "link": {
+        "type": "doc",
+        "id": "painters/intro"
+      },
+      "items": [
+        "painters/pen",
+        "painters/eraser",
+        "painters/path_eraser",
+        "painters/label",
+        "painters/image"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Tools",
+      "link": {
+        "type": "doc",
+        "id": "tools/intro"
+      },
+      "items": [
+        "tools/hand"
+      ]
+    }
+  ]
+}
