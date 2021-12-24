@@ -1,0 +1,2 @@
+* Adding deb and AppImage export type for linux
+* Improve responsive file system dialog
