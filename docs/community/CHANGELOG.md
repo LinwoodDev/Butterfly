@@ -6,6 +6,11 @@ slug: /changelog
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.0.0 (2021-12-24)
+
+* Adding deb and AppImage export type for linux
+* Improve responsive file system dialog
+
 ## 1.0.0-rc.6 (2021-12-18)
 
 * Add context menu
