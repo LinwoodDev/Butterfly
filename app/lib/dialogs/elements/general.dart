@@ -1,7 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/cubits/selection.dart';
-import 'package:butterfly/models/elements/element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -27,7 +26,7 @@ class GeneralElementDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var doc = (bloc.state as DocumentLoadSuccess).document;
-    PadElement element = doc.content[index];
+    var element = doc.content[index];
     return Column(mainAxisSize: MainAxisSize.min, children: [
       generateHeader(),
       const Divider(),
@@ -37,11 +36,6 @@ class GeneralElementDialog extends StatelessWidget {
         children: [
           ...children,
           if (children.isNotEmpty) const Divider(),
-          ListTile(
-            title: Text(AppLocalizations.of(context)!.layer),
-            leading: const Icon(PhosphorIcons.squaresFourLight),
-            subtitle: Text(AppLocalizations.of(context)!.notSet),
-          ),
           ListTile(
             title: Text(AppLocalizations.of(context)!.move),
             leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
