@@ -4,7 +4,7 @@ import 'package:flutter/painting.dart';
 
 import 'element.dart';
 
-class LabelElement extends ElementLayer {
+class LabelElement extends PadElement {
   @override
   final Offset position;
   final String text;

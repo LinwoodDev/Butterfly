@@ -8,7 +8,7 @@ abstract class DocumentEvent extends ReplayEvent with EquatableMixin {
 }
 
 class LayerCreated extends DocumentEvent {
-  final ElementLayer layer;
+  final PadElement layer;
 
   const LayerCreated(this.layer);
 
@@ -17,7 +17,7 @@ class LayerCreated extends DocumentEvent {
 }
 
 class LayerChanged extends DocumentEvent {
-  final ElementLayer layer;
+  final PadElement layer;
   final int index;
   const LayerChanged(this.index, this.layer);
 
@@ -26,7 +26,7 @@ class LayerChanged extends DocumentEvent {
 }
 
 class LayersRemoved extends DocumentEvent {
-  final List<ElementLayer> layers;
+  final List<PadElement> layers;
 
   const LayersRemoved(this.layers);
   @override

@@ -40,7 +40,7 @@ class MainViewViewport extends StatefulWidget {
 }
 
 class _MainViewViewportState extends State<MainViewViewport> {
-  Map<ElementLayer, ui.Image> images = {};
+  Map<PadElement, ui.Image> images = {};
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
 
@@ -52,7 +52,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
       }
       return SizedBox.expand(child:
           ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
-        List<ElementLayer> rayCast(Offset offset) {
+        List<PadElement> rayCast(Offset offset) {
           return state.document.content.reversed
               .where((element) => element.hit(offset))
               .where((element) => !state.document.handProperty.includeEraser
@@ -328,7 +328,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   }
                 },
                 child: Builder(builder: (context) {
-                  return FutureBuilder<Map<ElementLayer, ui.Image>>(
+                  return FutureBuilder<Map<PadElement, ui.Image>>(
                     future: loadImages(state.document, images),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -354,9 +354,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         builder: (context, transform) {
                           return Stack(children: [
                             Container(color: Colors.white),
-                            BlocBuilder<EditingCubit, Map<int, ElementLayer>>(
+                            BlocBuilder<EditingCubit, Map<int, PadElement>>(
                               builder: (context, editing) =>
-                                  BlocBuilder<SelectionCubit, ElementLayer?>(
+                                  BlocBuilder<SelectionCubit, PadElement?>(
                                       builder: (context, selection) {
                                 return CustomPaint(
                                   size: Size.infinite,

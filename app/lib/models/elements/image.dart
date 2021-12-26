@@ -5,7 +5,7 @@ import 'dart:ui' as ui;
 import 'package:butterfly/models/elements/element.dart';
 import 'package:flutter/material.dart';
 
-class ImageElement extends ElementLayer {
+class ImageElement extends PadElement {
   final Uint8List pixels;
   @override
   final Offset position;

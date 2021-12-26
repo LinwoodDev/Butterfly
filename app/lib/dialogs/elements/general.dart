@@ -36,6 +36,11 @@ class GeneralElementDialog extends StatelessWidget {
           ...children,
           if (children.isNotEmpty) const Divider(),
           ListTile(
+            title: Text(AppLocalizations.of(context)!.layer),
+            leading: const Icon(PhosphorIcons.squaresFourLight),
+            subtitle: Text(AppLocalizations.of(context).notSet),
+          ),
+          ListTile(
             title: Text(AppLocalizations.of(context)!.move),
             leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
             onTap: () {

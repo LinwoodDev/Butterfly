@@ -26,7 +26,7 @@ class PathPoint {
   Offset toOffset() => Offset(x, y);
 }
 
-abstract class PathElement extends ElementLayer {
+abstract class PathElement extends PadElement {
   final List<PathPoint> points;
 
   PathProperty get property;

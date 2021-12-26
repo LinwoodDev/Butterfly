@@ -22,7 +22,7 @@ class ImageExportDialog extends StatefulWidget {
 }
 
 class _ImageExportDialogState extends State<ImageExportDialog> {
-  Map<ElementLayer, ui.Image>? images;
+  Map<PadElement, ui.Image>? images;
   final TextEditingController _xController = TextEditingController(text: '0');
 
   final TextEditingController _yController = TextEditingController(text: '0');

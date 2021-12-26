@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SelectLayerDialog extends StatelessWidget {
-  final List<ElementLayer> layers;
+  final List<PadElement> layers;
   final SelectionCubit cubit;
 
   const SelectLayerDialog(
@@ -18,7 +18,7 @@ class SelectLayerDialog extends StatelessWidget {
     return BlocProvider.value(
       value: cubit,
       child: AlertDialog(
-        title: Text(AppLocalizations.of(context)!.selectLayer),
+        title: Text(AppLocalizations.of(context)!.selectElement),
         actions: [
           TextButton(
             child: Text(AppLocalizations.of(context)!.cancel),
@@ -34,7 +34,7 @@ class SelectLayerDialog extends StatelessWidget {
         ],
         content: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 100),
-          child: BlocBuilder<SelectionCubit, ElementLayer?>(
+          child: BlocBuilder<SelectionCubit, PadElement?>(
               builder: (context, state) {
             return SizedBox(
                 width: double.maxFinite,

@@ -58,7 +58,7 @@ class AppDocument {
   final String name, description;
 
   //final List<PackCollection> packs;
-  final List<ElementLayer> content;
+  final List<PadElement> content;
   final List<Painter> painters;
   final BoxBackground? background;
   final List<ColorPalette> palettes;
@@ -133,7 +133,7 @@ class AppDocument {
     }).toList();
     var content = List<dynamic>.from(json['content'])
         .map((e) => Map<String, dynamic>.from(e))
-        .map<ElementLayer>((e) {
+        .map<PadElement>((e) {
       switch (e['type']) {
         case 'label':
           return LabelElement.fromJson(e, version);
@@ -180,7 +180,7 @@ class AppDocument {
   AppDocument copyWith(
       {String? name,
       String? description,
-      List<ElementLayer>? content,
+      List<PadElement>? content,
       List<Painter>? painters,
       BoxBackground? background,
       List<ColorPalette>? palettes,

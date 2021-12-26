@@ -2,20 +2,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
 @immutable
-abstract class ElementLayer {
-  const ElementLayer();
+abstract class PadElement {
+  final String group;
+  const PadElement({this.group = ''});
 
-  const ElementLayer.fromJson(Map<String, dynamic> json);
+  PadElement.fromJson(Map<String, dynamic> json) : group = json['group'] ?? '';
 
   Map<String, dynamic> toJson();
 
   void paint(Canvas canvas, [bool preview = false]);
 
-  ElementLayer moveBy(Offset offset);
+  PadElement moveBy(Offset offset);
 
   Offset get position;
 
-  ElementLayer moveTo(Offset value) {
+  PadElement moveTo(Offset value) {
     return moveBy(value - position);
   }
 

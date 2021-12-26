@@ -115,7 +115,7 @@
   "origin": "Origin",
   "import": "Import",
   "newContent": "New",
-  "selectLayer": "Select layer",
+  "selectElement": "Select element",
   "ctrlKey": "Ctrl",
   "shiftKey": "Shift",
   "altKey": "Alt",
@@ -156,5 +156,7 @@
   "move": "Move",
   "copy": "Copy",
   "back": "Back",
-  "zoomDependent": "Zoom dependent"
+  "zoomDependent": "Zoom dependent",
+  "layer":"Layer",
+  "notSet": "Not set"
 }
