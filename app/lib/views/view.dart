@@ -206,28 +206,22 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 context: context,
                                 position: event.position,
                                 builder: (context, close) {
+                                  Widget? menu;
                                   if (selection is LabelElement) {
-                                    return LabelElementDialog(
-                                        selectionCubit: selectionCubit,
-                                        index: index,
-                                        bloc: bloc,
-                                        editingCubit: editingCubit,
-                                        close: close);
+                                    menu = LabelElementDialog(
+                                        index: index, close: close);
                                   }
                                   if (selection is ImageElement) {
-                                    return ImageElementDialog(
-                                        editingCubit: editingCubit,
-                                        selectionCubit: selectionCubit,
-                                        index: index,
-                                        bloc: bloc,
-                                        close: close);
+                                    menu = ImageElementDialog(
+                                        index: index, close: close);
                                   }
-                                  return GeneralElementDialog(
-                                      index: index,
-                                      bloc: bloc,
-                                      selectionCubit: selectionCubit,
-                                      editingCubit: editingCubit,
-                                      close: close);
+                                  menu ??= GeneralElementDialog(
+                                      index: index, close: close);
+                                  return MultiBlocProvider(providers: [
+                                    BlocProvider.value(value: bloc),
+                                    BlocProvider.value(value: selectionCubit),
+                                    BlocProvider.value(value: editingCubit),
+                                  ], child: menu);
                                 })
                             .then((value) =>
                                 context.read<SelectionCubit>().reset());

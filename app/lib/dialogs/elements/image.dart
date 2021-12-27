@@ -1,27 +1,18 @@
 import 'package:butterfly/api/open_image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/dialogs/elements/general.dart';
 import 'package:butterfly/models/elements/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ImageElementDialog extends StatefulWidget {
   final int index;
   final VoidCallback close;
-  final DocumentBloc bloc;
-  final SelectionCubit selectionCubit;
-  final EditingCubit editingCubit;
 
-  const ImageElementDialog(
-      {Key? key,
-      required this.index,
-      required this.close,
-      required this.bloc,
-      required this.editingCubit,
-      required this.selectionCubit})
+  const ImageElementDialog({Key? key, required this.index, required this.close})
       : super(key: key);
 
   @override
@@ -35,24 +26,21 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
   @override
   void initState() {
     super.initState();
-    element = (widget.bloc.state as DocumentLoadSuccess)
-        .document
-        .content[widget.index] as ImageElement;
+    var bloc = context.read<DocumentBloc>();
+    element = (bloc.state as DocumentLoadSuccess).document.content[widget.index]
+        as ImageElement;
     _scaleController.text = (element.scale * 100).toStringAsFixed(2);
   }
 
   void _changeElement() {
-    widget.bloc.add(LayerChanged(widget.index, element));
-    widget.selectionCubit.change(element);
+    context.read<DocumentBloc>().add(LayerChanged(widget.index, element));
+    context.read<SelectionCubit>().change(element);
   }
 
   @override
   Widget build(BuildContext context) {
     return GeneralElementDialog(
-      bloc: widget.bloc,
       close: widget.close,
-      selectionCubit: widget.selectionCubit,
-      editingCubit: widget.editingCubit,
       index: widget.index,
       children: [
         Padding(

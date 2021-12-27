@@ -45,9 +45,12 @@ class ImageElement extends PadElement {
         'type': 'image',
         'scale': scale,
         'position': {'x': position.dx, 'y': position.dy}
-      };
+      }..addAll(super.toJson());
+
+  @override
   ImageElement copyWith(
-      {Uint8List? pixels,
+      {String? layer,
+      Uint8List? pixels,
       int? width,
       int? height,
       Offset? position,

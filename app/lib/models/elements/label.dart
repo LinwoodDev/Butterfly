@@ -11,9 +11,11 @@ class LabelElement extends PadElement {
   final LabelProperty property;
 
   const LabelElement(
-      {this.text = '',
+      {String layer = '',
+      this.text = '',
       this.position = const Offset(0, 0),
-      this.property = const LabelProperty()});
+      this.property = const LabelProperty()})
+      : super(layer: layer);
 
   LabelElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : text = json['text'] ?? '',
@@ -28,7 +30,9 @@ class LabelElement extends PadElement {
         'type': 'label',
         'text': text,
         'position': {'x': position.dx, 'y': position.dy},
-      }..addAll(property.toJson());
+      }
+        ..addAll(property.toJson())
+        ..addAll(super.toJson());
 
   @override
   bool hit(Offset offset) {
@@ -38,9 +42,14 @@ class LabelElement extends PadElement {
         (offset.dy - position.dy).abs() < tp.height;
   }
 
+  @override
   LabelElement copyWith(
-          {String? text, LabelProperty? property, Offset? position}) =>
+          {String? layer,
+          String? text,
+          LabelProperty? property,
+          Offset? position}) =>
       LabelElement(
+          layer: layer ?? this.layer,
           text: text ?? this.text,
           property: property ?? this.property,
           position: position ?? this.position);

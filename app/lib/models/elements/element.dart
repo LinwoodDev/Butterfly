@@ -3,12 +3,17 @@ import 'package:flutter/painting.dart';
 
 @immutable
 abstract class PadElement {
-  final String group;
-  const PadElement({this.group = ''});
+  final String layer;
 
-  PadElement.fromJson(Map<String, dynamic> json) : group = json['group'] ?? '';
+  const PadElement({this.layer = ''});
 
-  Map<String, dynamic> toJson();
+  @mustCallSuper
+  PadElement.fromJson(Map<String, dynamic> json) : layer = json['layer'] ?? '';
+
+  @mustCallSuper
+  Map<String, dynamic> toJson() => {
+        'layer': layer,
+      };
 
   void paint(Canvas canvas, [bool preview = false]);
 
@@ -23,4 +28,6 @@ abstract class PadElement {
   bool hit(Offset offset);
 
   Rect get rect;
+
+  PadElement copyWith({String? layer});
 }

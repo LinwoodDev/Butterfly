@@ -93,7 +93,8 @@ class EditToolbar extends StatelessWidget {
                           barrierLabel: AppLocalizations.of(context)!.close,
                           pageBuilder:
                               (context, animation, secondaryAnimation) =>
-                                  HandDialog(bloc: bloc));
+                                  BlocProvider.value(
+                                      value: bloc, child: const HandDialog()));
                     } else {
                       bloc.add(const CurrentPainterChanged(null));
                     }

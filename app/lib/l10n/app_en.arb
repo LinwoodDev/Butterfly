@@ -158,5 +158,7 @@
   "back": "Back",
   "zoomDependent": "Zoom dependent",
   "layer":"Layer",
-  "notSet": "Not set"
+  "notSet": "Not set",
+  "enterLayer":"Enter the layer name",
+  "selectElements":"Select elements"
 }

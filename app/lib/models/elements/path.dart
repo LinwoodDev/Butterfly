@@ -31,7 +31,8 @@ abstract class PathElement extends PadElement {
 
   PathProperty get property;
 
-  const PathElement({this.points = const []});
+  const PathElement({String layer = '', this.points = const []})
+      : super(layer: layer);
 
   PathElement.fromJson(Map<String, dynamic> json)
       : points = List<dynamic>.from(json['points'] ?? [])
@@ -42,7 +43,9 @@ abstract class PathElement extends PadElement {
   @override
   Map<String, dynamic> toJson() => {
         'points': points.map((e) => e.toJson()).toList(),
-      }..addAll(property.toJson());
+      }
+        ..addAll(property.toJson())
+        ..addAll(super.toJson());
 
   @override
   bool hit(Offset offset) {
@@ -119,5 +122,6 @@ abstract class PathElement extends PadElement {
     return Offset(currentRect.left, currentRect.top);
   }
 
-  PathElement copyWith({List<PathPoint>? points});
+  @override
+  PathElement copyWith({List<PathPoint>? points, String? layer});
 }
