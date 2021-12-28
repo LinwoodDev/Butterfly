@@ -14,31 +14,32 @@ part 'document_state.dart';
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(AppDocument document, String? path)
       : super(DocumentLoadSuccess(document, path: path)) {
-    on<LayerCreated>((event, emit) async {
+    on<ElementCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 content: (List.from(current.document.content)
-                  ..add(event.layer)))));
+                  ..add(event.element)))));
       }
     });
-    on<LayerChanged>((event, emit) async {
+    on<ElementChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 content: (List.from(current.document.content)
-                  ..[event.index] = event.layer))));
+                  ..[event.index] = event.element))));
       }
     });
-    on<LayersRemoved>((event, emit) async {
+    on<ElementsRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 content: List.from(current.document.content)
-                  ..removeWhere((element) => event.layers.contains(element)))));
+                  ..removeWhere(
+                      (element) => event.elements.contains(element)))));
       }
     });
     on<DocumentDescriptorChanged>((event, emit) async {

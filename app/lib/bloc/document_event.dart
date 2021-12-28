@@ -7,30 +7,30 @@ abstract class DocumentEvent extends ReplayEvent with EquatableMixin {
   List<Object?> get props => [];
 }
 
-class LayerCreated extends DocumentEvent {
-  final PadElement layer;
+class ElementCreated extends DocumentEvent {
+  final PadElement element;
 
-  const LayerCreated(this.layer);
+  const ElementCreated(this.element);
 
   @override
-  List<Object?> get props => [layer];
+  List<Object?> get props => [element];
 }
 
-class LayerChanged extends DocumentEvent {
-  final PadElement layer;
+class ElementChanged extends DocumentEvent {
+  final PadElement element;
   final int index;
-  const LayerChanged(this.index, this.layer);
+  const ElementChanged(this.index, this.element);
 
   @override
-  List<Object?> get props => [layer, index];
+  List<Object?> get props => [element, index];
 }
 
-class LayersRemoved extends DocumentEvent {
-  final List<PadElement> layers;
+class ElementsRemoved extends DocumentEvent {
+  final List<PadElement> elements;
 
-  const LayersRemoved(this.layers);
+  const ElementsRemoved(this.elements);
   @override
-  List<Object?> get props => [layers];
+  List<Object?> get props => [elements];
 }
 
 class DocumentDescriptorChanged extends DocumentEvent {

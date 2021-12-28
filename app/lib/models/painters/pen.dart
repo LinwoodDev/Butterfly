@@ -29,7 +29,7 @@ class PenPainter extends BuildedPainter {
     ..addAll(property.toJson());
 
   @override
-  PenElement buildLayer(Offset position,
+  PenElement buildElement(Offset position,
           [double pressure = 0, double zoom = 1.0]) =>
       PenElement(points: [
         PathPoint.fromOffset(position, pressure)

@@ -34,8 +34,8 @@ class LabelElementDialog extends StatelessWidget {
                   builder: (context) {
                     void submit() {
                       Navigator.of(context).pop();
-                      var layer = element.copyWith(text: _textController.text);
-                      bloc.add(LayerChanged(index, layer));
+                      bloc.add(ElementChanged(
+                          index, element.copyWith(text: _textController.text)));
                     }
 
                     return AlertDialog(

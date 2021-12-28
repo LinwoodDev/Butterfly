@@ -24,7 +24,7 @@ class EraserPainter extends BuildedPainter {
           name: name ?? this.name, property: property ?? this.property);
 
   @override
-  PadElement buildLayer(Offset position,
+  PadElement buildElement(Offset position,
           [double pressure = 0, double zoom = 1.0]) =>
       EraserElement(points: [
         PathPoint.fromOffset(position, pressure)

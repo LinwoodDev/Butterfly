@@ -67,7 +67,7 @@ class GeneralElementDialog extends StatelessWidget {
                                     child:
                                         Text(AppLocalizations.of(context)!.ok),
                                     onPressed: () {
-                                      bloc.add(LayerChanged(
+                                      bloc.add(ElementChanged(
                                           index,
                                           element.copyWith(
                                               layer: _nameController.text)));
@@ -83,7 +83,7 @@ class GeneralElementDialog extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(PhosphorIcons.trashLight),
                       onPressed: () => bloc.add(
-                          LayerChanged(index, element.copyWith(layer: ''))),
+                          ElementChanged(index, element.copyWith(layer: ''))),
                     ),
                     onTap: () {
                       close();
@@ -97,7 +97,7 @@ class GeneralElementDialog extends StatelessWidget {
               leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
               onTap: () {
                 // Remove the element from the document
-                bloc.add(LayersRemoved([element]));
+                bloc.add(ElementsRemoved([element]));
                 editingCubit.move(element);
                 close();
               },
@@ -132,7 +132,7 @@ class GeneralElementDialog extends StatelessWidget {
                                       Text(AppLocalizations.of(context)!.yes),
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    bloc.add(LayersRemoved([element]));
+                                    bloc.add(ElementsRemoved([element]));
                                   },
                                 ),
                               ]));

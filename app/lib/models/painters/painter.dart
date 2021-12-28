@@ -15,6 +15,6 @@ abstract class BuildedPainter extends Painter {
   BuildedPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : super.fromJson(json, fileVersion);
 
-  PadElement buildLayer(Offset position,
+  PadElement buildElement(Offset position,
       [double pressure = 0, double zoom = 1]);
 }

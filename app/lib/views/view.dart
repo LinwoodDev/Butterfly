@@ -61,7 +61,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
               .toList();
         }
 
-        void createLayer(int pointer, Offset localPosition, double pressure) {
+        void createElement(int pointer, Offset localPosition, double pressure) {
           var transform = context.read<TransformCubit>().state;
           if (state.currentPainter is BuildedPainter) {
             var painter = state.currentPainter as BuildedPainter;
@@ -71,7 +71,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
             }
             context.read<EditingCubit>().put(
                 pointer,
-                painter.buildLayer(
+                painter.buildElement(
                     transform.localToGlobal(localPosition), pressure, zoom));
           }
           if (state.currentPainter is LabelPainter) {
@@ -79,7 +79,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
             var _textController = TextEditingController();
             void submit() {
               Navigator.of(context).pop();
-              context.read<DocumentBloc>().add(LayerCreated(LabelElement(
+              context.read<DocumentBloc>().add(ElementCreated(LabelElement(
                   property: painter.property,
                   text: _textController.text,
                   position: transform.localToGlobal(localPosition))));
@@ -118,7 +118,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
               ui.decodeImageFromList(content, (image) async {
                 var bytes =
                     await image.toByteData(format: ui.ImageByteFormat.png);
-                context.read<DocumentBloc>().add(LayerCreated(ImageElement(
+                context.read<DocumentBloc>().add(ElementCreated(ImageElement(
                     height: image.height,
                     width: image.width,
                     pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
@@ -160,7 +160,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       event.buttons != kMiddleMouseButton &&
                       input.canCreate(
                           event.pointer, cubit.first(), event.kind)) {
-                    createLayer(
+                    createElement(
                         event.pointer, event.localPosition, event.pressure);
                   } else {
                     openView = true;
@@ -171,23 +171,23 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   var transform = context.read<TransformCubit>().state;
                   if (cubit.isMoving) {
                     cubit.moveTo(transform.localToGlobal(event.localPosition));
-                    var movingLayer = cubit.getAndResetMove();
-                    if (movingLayer != null) {
+                    var movingElement = cubit.getAndResetMove();
+                    if (movingElement != null) {
                       context
                           .read<DocumentBloc>()
-                          .add(LayerCreated(movingLayer));
+                          .add(ElementCreated(movingElement));
                       return;
                     }
                   }
-                  var currentLayer = cubit.getAndReset(event.pointer);
+                  var currentElement = cubit.getAndReset(event.pointer);
                   var input = context.read<SettingsCubit>().state.inputType;
 
                   if (input.canCreate(
                           event.pointer, cubit.first(), event.kind) &&
-                      currentLayer != null) {
+                      currentElement != null) {
                     context
                         .read<DocumentBloc>()
-                        .add(LayerCreated(currentLayer));
+                        .add(ElementCreated(currentElement));
                   } else {
                     if (!openView) {
                       return;
@@ -233,9 +233,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       } else {
                         showDialog(
                             context: context,
-                            builder: (context) => SelectLayerDialog(
+                            builder: (context) => SelectElementDialog(
                                 cubit: this.context.read<SelectionCubit>(),
-                                layers: hits)).then((value) {
+                                elements: hits)).then((value) {
                           if (value != true) {
                             this.context.read<SelectionCubit>().reset();
                           } else {
@@ -277,7 +277,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                 },
                 onPointerMove: (PointerMoveEvent event) {
                   var cubit = context.read<EditingCubit>();
-                  var currentLayer = cubit.get(event.pointer);
+                  var currentElement = cubit.get(event.pointer);
                   var transform = context.read<TransformCubit>().state;
                   var input = context.read<SettingsCubit>().state.inputType;
                   if (cubit.isMoving) {
@@ -300,20 +300,20 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   if ((event.kind == PointerDeviceKind.stylus ||
                       state.currentPainter != null)) {
                     if (state.currentPainter is PathEraserPainter) {
-                      context.read<DocumentBloc>().add(LayersRemoved(
+                      context.read<DocumentBloc>().add(ElementsRemoved(
                           rayCast(transform.localToGlobal(event.localPosition))
                               .where((element) =>
                                   element is! EraserElement ||
                                   (state.currentPainter as PathEraserPainter)
                                       .includeEraser)
                               .toList()));
-                    } else if (currentLayer != null &&
-                        currentLayer is PathElement) {
+                    } else if (currentElement != null &&
+                        currentElement is PathElement) {
                       // Add point to custom paint
                       context.read<EditingCubit>().change(
                           event.pointer,
-                          currentLayer.copyWith(
-                              points: List.from(currentLayer.points)
+                          currentElement.copyWith(
+                              points: List.from(currentElement.points)
                                 ..add(PathPoint.fromOffset(
                                     transform
                                         .localToGlobal(event.localPosition),
