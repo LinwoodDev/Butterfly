@@ -148,7 +148,6 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       onChanged: (value) {
                         loadDocuments();
                       },
-                      autofocus: true,
                       controller: _searchController,
                     ),
                   );

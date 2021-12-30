@@ -7,8 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LayerDialog extends StatelessWidget {
   final String layer;
   final bool popupMenu;
-  const LayerDialog(
-      {Key? key, required this.layer, this.popupMenu = false})
+  const LayerDialog({Key? key, required this.layer, this.popupMenu = false})
       : super(key: key);
 
   @override

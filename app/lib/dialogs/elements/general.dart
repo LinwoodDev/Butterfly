@@ -56,6 +56,7 @@ class GeneralElementDialog extends StatelessWidget {
                                     AppLocalizations.of(context)!.enterLayer),
                                 content: TextField(
                                   controller: _nameController,
+                                  autofocus: true,
                                   decoration: InputDecoration(
                                       filled: true,
                                       hintText:
