@@ -100,11 +100,13 @@ Future<Map<PadElement, ui.Image>> loadImages(AppDocument document,
 class ViewPainter extends CustomPainter {
   final AppDocument document;
   final bool renderBackground;
+  final List<String> invisibleLayers;
   final Map<PadElement, ui.Image> images;
   final CameraTransform transform;
 
   ViewPainter(this.document,
       {this.renderBackground = true,
+      this.invisibleLayers = const [],
       this.transform = const CameraTransform(),
       Map<PadElement, ui.Image>? images})
       : images = images ?? <PadElement, ui.Image>{};
@@ -157,6 +159,8 @@ class ViewPainter extends CustomPainter {
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     document.content
+        .where((element) => !invisibleLayers.contains(element.layer))
+        .toList()
         .asMap()
         .forEach((index, element) => paintElement(canvas, element, images));
     canvas.restore();
@@ -167,5 +171,6 @@ class ViewPainter extends CustomPainter {
       document != oldDelegate.document ||
       renderBackground != oldDelegate.renderBackground ||
       transform != oldDelegate.transform ||
-      images != oldDelegate.images;
+      images != oldDelegate.images ||
+      invisibleLayers != oldDelegate.invisibleLayers;
 }

@@ -6,10 +6,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LayerDialog extends StatelessWidget {
   final String layer;
-  const LayerDialog({Key? key, required this.layer}) : super(key: key);
+  final bool popupMenu;
+  const LayerDialog(
+      {Key? key, required this.layer, this.popupMenu = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (popupMenu) {
+      return PopupMenuButton(
+          itemBuilder: (context) => _buildListTiles(context)
+              .map((e) => PopupMenuItem(child: e, padding: EdgeInsets.zero))
+              .toList());
+    }
     return AlertDialog(
       title: Row(
         children: [
@@ -20,7 +29,17 @@ class LayerDialog extends StatelessWidget {
           Text(AppLocalizations.of(context)!.layer),
         ],
       ),
-      content: Column(mainAxisSize: MainAxisSize.min, children: [
+      content: Column(
+          mainAxisSize: MainAxisSize.min, children: _buildListTiles(context)),
+      actions: [
+        TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(AppLocalizations.of(context)!.cancel)),
+      ],
+    );
+  }
+
+  List<Widget> _buildListTiles(BuildContext context) => [
         ListTile(
           title: Text(AppLocalizations.of(context)!.rename),
           leading: const Icon(PhosphorIcons.textTLight),
@@ -111,12 +130,5 @@ class LayerDialog extends StatelessWidget {
                     ));
           },
         ),
-      ]),
-      actions: [
-        TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel)),
-      ],
-    );
-  }
+      ];
 }

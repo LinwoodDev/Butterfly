@@ -357,7 +357,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   foregroundPainter: ForegroundPainter(
                                       editing, transform, selection),
                                   painter: ViewPainter(state.document,
-                                      transform: transform, images: images),
+                                      invisibleLayers: state.invisbleLayers,
+                                      transform: transform,
+                                      images: images),
                                   isComplex: true,
                                   willChange: true,
                                 );

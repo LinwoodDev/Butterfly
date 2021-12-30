@@ -99,21 +99,9 @@ class LayersDialog extends StatelessWidget {
                                                   .isLayerVisible(layers[index])
                                               ? PhosphorIcons.eyeLight
                                               : PhosphorIcons.eyeSlashLight),
-                                          trailing: IconButton(
-                                            icon: const Icon(
-                                                PhosphorIcons.dotsThreeLight),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (ctx) =>
-                                                      BlocProvider.value(
-                                                          value: context.read<
-                                                              DocumentBloc>(),
-                                                          child: LayerDialog(
-                                                              layer: layers[
-                                                                  index])));
-                                            },
+                                          trailing: LayerDialog(
+                                            popupMenu: true,
+                                            layer: layers[index],
                                           ),
                                           title: Text(layers[index])),
                                     ))
