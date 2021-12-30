@@ -72,7 +72,8 @@ class EditToolbar extends StatelessWidget {
                       transitionBuilder: (context, a1, a2, widget) {
                         // Slide transition
                         return SlideTransition(
-                          position: Tween<Offset>(begin: const Offset(0, -1), end: Offset.zero)
+                          position: Tween<Offset>(
+                                  begin: const Offset(0, -1), end: Offset.zero)
                               .animate(a1),
                           child: widget,
                         );
@@ -80,7 +81,8 @@ class EditToolbar extends StatelessWidget {
                       barrierDismissible: true,
                       barrierLabel: AppLocalizations.of(context)!.close,
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          BlocProvider.value(value: bloc, child: const HandDialog()));
+                          BlocProvider.value(
+                              value: bloc, child: const HandDialog()));
                 } else {
                   bloc.add(const CurrentPainterChanged(null));
                 }
@@ -96,8 +98,9 @@ class EditToolbar extends StatelessWidget {
                 itemBuilder: (context, i) {
                   var e = painters[i];
                   var type = e.toJson()['type'];
-                  var selected =
-                      i == state.currentPainterIndex?.clamp(0, state.document.painters.length - 1);
+                  var selected = i ==
+                      state.currentPainterIndex
+                          ?.clamp(0, state.document.painters.length - 1);
                   String tooltip = e.name.trim();
                   Widget toolWidget = Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -117,25 +120,33 @@ class EditToolbar extends StatelessWidget {
                                     // Slide transition
                                     return SlideTransition(
                                       position: Tween<Offset>(
-                                              begin: const Offset(0, -1), end: Offset.zero)
+                                              begin: const Offset(0, -1),
+                                              end: Offset.zero)
                                           .animate(a1),
                                       child: widget,
                                     );
                                   },
                                   barrierDismissible: true,
-                                  barrierLabel: AppLocalizations.of(context)!.close,
-                                  pageBuilder: (context, animation, secondaryAnimation) {
+                                  barrierLabel:
+                                      AppLocalizations.of(context)!.close,
+                                  pageBuilder:
+                                      (context, animation, secondaryAnimation) {
                                     switch (type) {
                                       case 'pen':
-                                        return PenPainterDialog(bloc: bloc, painterIndex: i);
+                                        return PenPainterDialog(
+                                            bloc: bloc, painterIndex: i);
                                       case 'eraser':
-                                        return EraserPainterDialog(bloc: bloc, painterIndex: i);
+                                        return EraserPainterDialog(
+                                            bloc: bloc, painterIndex: i);
                                       case 'path-eraser':
-                                        return PathEraserPainterDialog(bloc: bloc, painterIndex: i);
+                                        return PathEraserPainterDialog(
+                                            bloc: bloc, painterIndex: i);
                                       case 'label':
-                                        return LabelPainterDialog(bloc: bloc, painterIndex: i);
+                                        return LabelPainterDialog(
+                                            bloc: bloc, painterIndex: i);
                                       case 'image':
-                                        return ImagePainterDialog(bloc: bloc, painterIndex: i);
+                                        return ImagePainterDialog(
+                                            bloc: bloc, painterIndex: i);
                                       default:
                                         return Container();
                                     }
@@ -145,15 +156,18 @@ class EditToolbar extends StatelessWidget {
                   return ReorderableDragStartListener(
                       key: ObjectKey(e), index: i, child: toolWidget);
                 },
-                onReorder: (oldIndex, newIndex) =>
-                    context.read<DocumentBloc>().add(PainterReordered(oldIndex, newIndex))),
+                onReorder: (oldIndex, newIndex) => context
+                    .read<DocumentBloc>()
+                    .add(PainterReordered(oldIndex, newIndex))),
             const VerticalDivider(),
             PopupMenuButton<Painter>(
                 tooltip: AppLocalizations.of(context)!.create,
-                onSelected: (value) => context.read<DocumentBloc>().add(PainterCreated(value)),
+                onSelected: (value) =>
+                    context.read<DocumentBloc>().add(PainterCreated(value)),
                 icon: const Icon(PhosphorIcons.plusLight),
                 itemBuilder: (context) => [
-                      ...['pen', 'eraser', 'path-eraser', 'label', 'image'].map((e) {
+                      ...['pen', 'eraser', 'path-eraser', 'label', 'image']
+                          .map((e) {
                         final Painter painter;
                         String name;
                         switch (e) {

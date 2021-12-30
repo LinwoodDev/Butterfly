@@ -17,7 +17,9 @@ class ImageElement extends PadElement {
       required this.width,
       required this.height,
       required this.position,
-      this.scale = 1});
+      String layer = '',
+      this.scale = 1})
+      : super(layer: layer);
   static Future<ImageElement> fromImage(ui.Image image, Offset position,
           [double scale = 1]) =>
       image.toByteData(format: ui.ImageByteFormat.rawRgba).then((value) =>
@@ -56,6 +58,7 @@ class ImageElement extends PadElement {
       Offset? position,
       double? scale}) {
     return ImageElement(
+        layer: layer ?? this.layer,
         pixels: pixels ?? this.pixels,
         width: width ?? this.width,
         height: height ?? this.height,

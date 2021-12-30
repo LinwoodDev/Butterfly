@@ -17,11 +17,10 @@ class OpenAction extends Action<OpenIntent> {
 
   @override
   void invoke(OpenIntent intent) {
+    var bloc = intent.context.read<DocumentBloc>();
     showDialog(
-            context: intent.context,
-            builder: (context) =>
-                FileSystemDialog(bloc: intent.context.read<DocumentBloc>()))
-        .then((value) {
+        context: intent.context,
+        builder: (context) => FileSystemDialog(bloc: bloc)).then((value) {
       if (value != null) {
         return DocumentFileSystem.fromPlatform()
             .getAsset(value)

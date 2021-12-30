@@ -1,0 +1,127 @@
+import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import 'layer.dart';
+
+class LayersDialog extends StatelessWidget {
+  final TextEditingController _searchController = TextEditingController();
+
+  LayersDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+        child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+            child: Scaffold(
+                appBar: AppBar(
+                  title: Text(AppLocalizations.of(context)!.layers),
+                  leading: IconButton(
+                    icon: const Icon(PhosphorIcons.xLight),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ),
+                backgroundColor: Colors.transparent,
+                body: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        decoration: const InputDecoration(
+                          filled: true,
+                          prefixIcon: Icon(PhosphorIcons.magnifyingGlassLight),
+                        ),
+                        textAlignVertical: TextAlignVertical.center,
+                        controller: _searchController,
+                        autofocus: true,
+                      ),
+                    ),
+                    const Divider(),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 15),
+                      child: ValueListenableBuilder(
+                        valueListenable: _searchController,
+                        builder: (context, value, child) =>
+                            BlocBuilder<DocumentBloc, DocumentState>(
+                                buildWhen: (previous, current) {
+                          var prev = previous as DocumentLoadSuccess;
+                          var curr = current as DocumentLoadSuccess;
+                          return curr.document.content !=
+                                  curr.document.content ||
+                              curr.invisbleLayers.length !=
+                                  prev.invisbleLayers.length;
+                        }, builder: (context, state) {
+                          if (state is! DocumentLoadSuccess) {
+                            return Container();
+                          }
+                          var layers = state.document.content
+                              .map((e) => e.layer)
+                              .where((element) =>
+                                  element.contains(_searchController.text))
+                              .toSet()
+                              .toList();
+                          layers.remove('');
+                          return ListView(children: [
+                            ListTile(
+                                onTap: () {
+                                  context
+                                      .read<DocumentBloc>()
+                                      .add(const LayerVisiblityChanged(''));
+                                },
+                                leading: Icon(state.isLayerVisible('')
+                                    ? PhosphorIcons.eyeLight
+                                    : PhosphorIcons.eyeSlashLight),
+                                title: Text(AppLocalizations.of(context)!
+                                    .defaultLayer)),
+                            const Divider(),
+                            ...List.generate(
+                                layers.length,
+                                (index) => Dismissible(
+                                      key: ObjectKey(layers[index]),
+                                      background: Container(color: Colors.red),
+                                      onDismissed: (direction) {
+                                        context
+                                            .read<DocumentBloc>()
+                                            .add(LayerRemoved(layers[index]));
+                                      },
+                                      child: ListTile(
+                                          onTap: () {
+                                            context.read<DocumentBloc>().add(
+                                                LayerVisiblityChanged(
+                                                    layers[index]));
+                                          },
+                                          leading: Icon(state
+                                                  .isLayerVisible(layers[index])
+                                              ? PhosphorIcons.eyeLight
+                                              : PhosphorIcons.eyeSlashLight),
+                                          trailing: IconButton(
+                                            icon: const Icon(
+                                                PhosphorIcons.dotsThreeLight),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (ctx) =>
+                                                      BlocProvider.value(
+                                                          value: context.read<
+                                                              DocumentBloc>(),
+                                                          child: LayerDialog(
+                                                              layer: layers[
+                                                                  index])));
+                                            },
+                                          ),
+                                          title: Text(layers[index])),
+                                    ))
+                          ]);
+                        }),
+                      ),
+                    )),
+                  ],
+                ))));
+  }
+}

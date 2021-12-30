@@ -5,8 +5,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LayerDialog extends StatelessWidget {
-  final String groupId;
-  const LayerDialog({Key? key, required this.groupId}) : super(key: key);
+  final String layer;
+  const LayerDialog({Key? key, required this.layer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class LayerDialog extends StatelessWidget {
           title: Text(AppLocalizations.of(context)!.rename),
           leading: const Icon(PhosphorIcons.textTLight),
           onTap: () {
-            var _nameController = TextEditingController(text: groupId);
+            var _nameController = TextEditingController(text: layer);
             showDialog(
                 context: context,
                 builder: (ctx) => AlertDialog(
@@ -43,9 +43,9 @@ class LayerDialog extends StatelessWidget {
                           child: Text(AppLocalizations.of(ctx)!.ok),
                           onPressed: () {
                             Navigator.pop(ctx);
-                            if (_nameController.text != groupId) {
+                            if (_nameController.text != layer) {
                               context.read<DocumentBloc>().add(
-                                  LayerRenamed(groupId, _nameController.text));
+                                  LayerRenamed(layer, _nameController.text));
                               Navigator.pop(ctx);
                             }
                           },
@@ -75,7 +75,7 @@ class LayerDialog extends StatelessWidget {
                             Navigator.pop(ctx);
                             context
                                 .read<DocumentBloc>()
-                                .add(LayerElementsDeleted(groupId));
+                                .add(LayerElementsDeleted(layer));
                             Navigator.pop(ctx);
                           },
                         ),
@@ -103,7 +103,7 @@ class LayerDialog extends StatelessWidget {
                             Navigator.pop(ctx);
                             context
                                 .read<DocumentBloc>()
-                                .add(LayerRemoved(groupId));
+                                .add(LayerRemoved(layer));
                             Navigator.pop(ctx);
                           },
                         ),

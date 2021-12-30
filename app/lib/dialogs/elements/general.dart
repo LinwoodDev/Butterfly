@@ -96,7 +96,7 @@ class GeneralElementDialog extends StatelessWidget {
                           context: context,
                           builder: (context) => BlocProvider.value(
                               value: bloc,
-                              child: LayerDialog(groupId: element.layer)));
+                              child: LayerDialog(layer: element.layer)));
                     }),
             ListTile(
               title: Text(AppLocalizations.of(context)!.move),

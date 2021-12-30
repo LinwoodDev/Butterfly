@@ -181,6 +181,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                     .toList())));
       }
     });
+
+    on<LayerVisiblityChanged>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        var invisibleLayers = List<String>.from(current.invisbleLayers);
+        if (current.isLayerVisible(event.name)) {
+          invisibleLayers.add(event.name);
+        } else {
+          invisibleLayers.remove(event.name);
+        }
+        return _saveDocument(current.copyWith(invisbleLayers: invisibleLayers));
+      }
+    });
   }
 
   Future<void> _saveDocument(DocumentLoadSuccess current) async {

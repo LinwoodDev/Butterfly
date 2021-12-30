@@ -157,3 +157,12 @@ class LayerElementsDeleted extends DocumentEvent {
   @override
   List<Object?> get props => [name];
 }
+
+class LayerVisiblityChanged extends DocumentEvent {
+  final String name;
+
+  const LayerVisiblityChanged(this.name);
+
+  @override
+  List<Object?> get props => [name];
+}

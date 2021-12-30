@@ -57,7 +57,9 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   : false))
           .toList();
     }
-    setState(() => _documents = documents);
+    if (mounted) {
+      setState(() => _documents = documents);
+    }
   }
 
   @override
@@ -160,18 +162,21 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                               searchInput,
                             ],
                           )
-                        : Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                                Flexible(
-                                  flex: 5,
-                                  child: pathInput,
-                                ),
-                                Flexible(
-                                  flex: 2,
-                                  child: searchInput,
-                                ),
-                              ]),
+                        : SizedBox(
+                            height: 50,
+                            child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Flexible(
+                                    flex: 5,
+                                    child: pathInput,
+                                  ),
+                                  Flexible(
+                                    flex: 2,
+                                    child: searchInput,
+                                  ),
+                                ]),
+                          ),
                   );
                 }),
                 const Divider(),
