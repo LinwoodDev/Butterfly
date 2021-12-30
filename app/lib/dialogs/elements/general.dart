@@ -1,6 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editing.dart';
-import 'package:butterfly/dialogs/group.dart';
+import 'package:butterfly/dialogs/layer.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +13,10 @@ class GeneralElementDialog extends StatelessWidget {
   final List<Widget> children;
 
   const GeneralElementDialog(
-      {Key? key, this.children = const [], required this.index, required this.close})
+      {Key? key,
+      this.children = const [],
+      required this.index,
+      required this.close})
       : super(key: key);
 
   @override
@@ -21,7 +24,9 @@ class GeneralElementDialog extends StatelessWidget {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       var bloc = context.read<DocumentBloc>();
       var editingCubit = context.read<EditingCubit>();
-      if (state is! DocumentLoadSuccess || index < 0 || index >= state.document.content.length) {
+      if (state is! DocumentLoadSuccess ||
+          index < 0 ||
+          index >= state.document.content.length) {
         return Container();
       }
       var element = state.document.content[index];
@@ -41,27 +46,36 @@ class GeneralElementDialog extends StatelessWidget {
                     subtitle: Text(AppLocalizations.of(context)!.notSet),
                     onTap: () {
                       close();
-                      var _nameController = TextEditingController(text: element.layer);
+                      var _nameController =
+                          TextEditingController(text: element.layer);
                       showDialog(
                           context: context,
                           useRootNavigator: true,
                           builder: (context) => AlertDialog(
-                                title: Text(AppLocalizations.of(context)!.enterLayer),
+                                title: Text(
+                                    AppLocalizations.of(context)!.enterLayer),
                                 content: TextField(
                                   controller: _nameController,
                                   decoration: InputDecoration(
-                                      filled: true, hintText: AppLocalizations.of(context)!.layer),
+                                      filled: true,
+                                      hintText:
+                                          AppLocalizations.of(context)!.layer),
                                 ),
                                 actions: [
                                   TextButton(
-                                    child: Text(AppLocalizations.of(context)!.cancel),
-                                    onPressed: () => Navigator.of(context).pop(),
+                                    child: Text(
+                                        AppLocalizations.of(context)!.cancel),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
                                   ),
                                   TextButton(
-                                    child: Text(AppLocalizations.of(context)!.ok),
+                                    child:
+                                        Text(AppLocalizations.of(context)!.ok),
                                     onPressed: () {
                                       bloc.add(ElementChanged(
-                                          index, element.copyWith(layer: _nameController.text)));
+                                          index,
+                                          element.copyWith(
+                                              layer: _nameController.text)));
                                       Navigator.of(context).pop();
                                     },
                                   ),
@@ -73,13 +87,16 @@ class GeneralElementDialog extends StatelessWidget {
                     title: Text(element.layer),
                     trailing: IconButton(
                       icon: const Icon(PhosphorIcons.trashLight),
-                      onPressed: () => bloc.add(ElementChanged(index, element.copyWith(layer: ''))),
+                      onPressed: () => bloc.add(
+                          ElementChanged(index, element.copyWith(layer: ''))),
                     ),
                     onTap: () {
                       close();
                       showDialog(
                           context: context,
-                          builder: (context) => GroupDialog(groupId: element.layer));
+                          builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: LayerDialog(groupId: element.layer)));
                     }),
             ListTile(
               title: Text(AppLocalizations.of(context)!.move),
@@ -105,8 +122,10 @@ class GeneralElementDialog extends StatelessWidget {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                              title: Text(AppLocalizations.of(context)!.areYouSure),
-                              content: Text(AppLocalizations.of(context)!.reallyDelete),
+                              title: Text(
+                                  AppLocalizations.of(context)!.areYouSure),
+                              content: Text(
+                                  AppLocalizations.of(context)!.reallyDelete),
                               actions: [
                                 TextButton(
                                   child: Text(AppLocalizations.of(context)!.no),
@@ -115,7 +134,8 @@ class GeneralElementDialog extends StatelessWidget {
                                   },
                                 ),
                                 TextButton(
-                                  child: Text(AppLocalizations.of(context)!.yes),
+                                  child:
+                                      Text(AppLocalizations.of(context)!.yes),
                                   onPressed: () {
                                     Navigator.pop(context);
                                     bloc.add(ElementsRemoved([element]));

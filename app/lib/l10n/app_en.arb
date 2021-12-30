@@ -66,6 +66,7 @@
   "highlighter": "Highlighter",
   "add": "Add",
   "remove": "Remove",
+  "removeConfirm": "Do you really want to remove this?",
   "resetPalette": "Reset palette",
   "close": "Close",
   "custom": "Custom",
@@ -160,5 +161,7 @@
   "layer":"Layer",
   "notSet": "Not set",
   "enterLayer":"Enter the layer name",
-  "selectElements":"Select elements"
+  "selectElements":"Select elements",
+  "deleteElements":"Delete elements",
+  "deleteElementsConfirm":"Do you really want to delete the selected elements?"
 }

@@ -130,3 +130,30 @@ class HandPropertyChanged extends DocumentEvent {
   @override
   List<Object?> get props => [property];
 }
+
+class LayerRenamed extends DocumentEvent {
+  final String oldName, newName;
+
+  const LayerRenamed(this.oldName, this.newName);
+
+  @override
+  List<Object?> get props => [oldName, newName];
+}
+
+class LayerRemoved extends DocumentEvent {
+  final String name;
+
+  const LayerRemoved(this.name);
+
+  @override
+  List<Object?> get props => [name];
+}
+
+class LayerElementsDeleted extends DocumentEvent {
+  final String name;
+
+  const LayerElementsDeleted(this.name);
+
+  @override
+  List<Object?> get props => [name];
+}
