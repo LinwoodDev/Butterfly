@@ -2,24 +2,32 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
 @immutable
-abstract class ElementLayer {
-  const ElementLayer();
+abstract class PadElement {
+  final String layer;
 
-  const ElementLayer.fromJson(Map<String, dynamic> json);
+  const PadElement({this.layer = ''});
 
-  Map<String, dynamic> toJson();
+  @mustCallSuper
+  PadElement.fromJson(Map<String, dynamic> json) : layer = json['layer'] ?? '';
+
+  @mustCallSuper
+  Map<String, dynamic> toJson() => {
+        'layer': layer,
+      };
 
   void paint(Canvas canvas, [bool preview = false]);
 
-  ElementLayer moveBy(Offset offset);
+  PadElement moveBy(Offset offset);
 
   Offset get position;
 
-  ElementLayer moveTo(Offset value) {
+  PadElement moveTo(Offset value) {
     return moveBy(value - position);
   }
 
   bool hit(Offset offset);
 
   Rect get rect;
+
+  PadElement copyWith({String? layer});
 }

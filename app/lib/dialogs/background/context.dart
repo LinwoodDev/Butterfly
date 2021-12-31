@@ -1,4 +1,5 @@
 import 'package:butterfly/actions/background.dart';
+import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -15,8 +16,17 @@ class BackgroundContextMenu extends StatelessWidget {
       shrinkWrap: true,
       children: [
         ListTile(
+            leading: const Icon(PhosphorIcons.squaresFourLight),
+            title: Text(AppLocalizations.of(context)!.layers),
+            subtitle: Text(AppLocalizations.of(context)!.ctrlKey + ' + L'),
+            onTap: () {
+              close();
+              Actions.maybeInvoke<LayersIntent>(context, LayersIntent(context));
+            }),
+        ListTile(
             leading: const Icon(PhosphorIcons.imageLight),
             title: Text(AppLocalizations.of(context)!.background),
+            subtitle: Text(AppLocalizations.of(context)!.ctrlKey + ' + B'),
             onTap: () {
               close();
               Actions.maybeInvoke<BackgroundIntent>(
@@ -25,6 +35,7 @@ class BackgroundContextMenu extends StatelessWidget {
         ListTile(
             leading: const Icon(PhosphorIcons.mapPinLight),
             title: Text(AppLocalizations.of(context)!.waypoints),
+            subtitle: Text(AppLocalizations.of(context)!.ctrlKey + ' + W'),
             onTap: () {
               close();
               Actions.maybeInvoke<WaypointsIntent>(

@@ -7,30 +7,30 @@ abstract class DocumentEvent extends ReplayEvent with EquatableMixin {
   List<Object?> get props => [];
 }
 
-class LayerCreated extends DocumentEvent {
-  final ElementLayer layer;
+class ElementCreated extends DocumentEvent {
+  final PadElement element;
 
-  const LayerCreated(this.layer);
+  const ElementCreated(this.element);
 
   @override
-  List<Object?> get props => [layer];
+  List<Object?> get props => [element];
 }
 
-class LayerChanged extends DocumentEvent {
-  final ElementLayer layer;
+class ElementChanged extends DocumentEvent {
+  final PadElement element;
   final int index;
-  const LayerChanged(this.index, this.layer);
+  const ElementChanged(this.index, this.element);
 
   @override
-  List<Object?> get props => [layer, index];
+  List<Object?> get props => [element, index];
 }
 
-class LayersRemoved extends DocumentEvent {
-  final List<ElementLayer> layers;
+class ElementsRemoved extends DocumentEvent {
+  final List<PadElement> elements;
 
-  const LayersRemoved(this.layers);
+  const ElementsRemoved(this.elements);
   @override
-  List<Object?> get props => [layers];
+  List<Object?> get props => [elements];
 }
 
 class DocumentDescriptorChanged extends DocumentEvent {
@@ -129,4 +129,59 @@ class HandPropertyChanged extends DocumentEvent {
 
   @override
   List<Object?> get props => [property];
+}
+
+class LayerRenamed extends DocumentEvent {
+  final String oldName, newName;
+
+  const LayerRenamed(this.oldName, this.newName);
+
+  @override
+  List<Object?> get props => [oldName, newName];
+}
+
+class LayerRemoved extends DocumentEvent {
+  final String name;
+
+  const LayerRemoved(this.name);
+
+  @override
+  List<Object?> get props => [name];
+}
+
+class LayerElementsDeleted extends DocumentEvent {
+  final String name;
+
+  const LayerElementsDeleted(this.name);
+
+  @override
+  List<Object?> get props => [name];
+}
+
+class LayerVisibilityChanged extends DocumentEvent {
+  final String name;
+
+  const LayerVisibilityChanged(this.name);
+
+  @override
+  List<Object?> get props => [name];
+}
+
+class CurrentLayerChanged extends DocumentEvent {
+  final String? name;
+
+  const CurrentLayerChanged(this.name);
+
+  @override
+  List<Object?> get props => [name];
+}
+
+class ElementsLayerChanged extends DocumentEvent {
+  final String layer;
+  final List<PadElement> elements;
+
+  const ElementsLayerChanged(this.layer, this.elements);
+
+  @override
+  List<Object?> get props => [layer, elements];
 }

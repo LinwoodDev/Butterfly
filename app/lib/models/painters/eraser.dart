@@ -24,9 +24,11 @@ class EraserPainter extends BuildedPainter {
           name: name ?? this.name, property: property ?? this.property);
 
   @override
-  ElementLayer buildLayer(Offset position,
-          [double pressure = 0, double zoom = 1.0]) =>
-      EraserElement(points: [
-        PathPoint.fromOffset(position, pressure)
-      ], property: property.copyWith(strokeWidth: property.strokeWidth / zoom));
+  PadElement buildElement(Offset position,
+          [double pressure = 0, double zoom = 1.0, String layer = '']) =>
+      EraserElement(
+          layer: layer,
+          points: [PathPoint.fromOffset(position, pressure)],
+          property:
+              property.copyWith(strokeWidth: property.strokeWidth / zoom));
 }

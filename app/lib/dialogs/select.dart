@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class SelectLayerDialog extends StatelessWidget {
-  final List<ElementLayer> layers;
+class SelectElementDialog extends StatelessWidget {
+  final List<PadElement> elements;
   final SelectionCubit cubit;
 
-  const SelectLayerDialog(
-      {Key? key, this.layers = const [], required this.cubit})
+  const SelectElementDialog(
+      {Key? key, this.elements = const [], required this.cubit})
       : super(key: key);
 
   @override
@@ -18,7 +18,7 @@ class SelectLayerDialog extends StatelessWidget {
     return BlocProvider.value(
       value: cubit,
       child: AlertDialog(
-        title: Text(AppLocalizations.of(context)!.selectLayer),
+        title: Text(AppLocalizations.of(context)!.selectElement),
         actions: [
           TextButton(
             child: Text(AppLocalizations.of(context)!.cancel),
@@ -34,18 +34,18 @@ class SelectLayerDialog extends StatelessWidget {
         ],
         content: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 100),
-          child: BlocBuilder<SelectionCubit, ElementLayer?>(
+          child: BlocBuilder<SelectionCubit, PadElement?>(
               builder: (context, state) {
             return SizedBox(
                 width: double.maxFinite,
                 child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: layers.length,
+                  itemCount: elements.length,
                   itemBuilder: (context, index) {
-                    final layer = layers[index];
-                    final layerType = layer.toJson()['type'];
+                    final element = elements[index];
+                    final elementType = element.toJson()['type'];
                     IconData icon;
-                    switch (layerType) {
+                    switch (elementType) {
                       case 'image':
                         icon = PhosphorIcons.imageLight;
                         break;
@@ -61,11 +61,11 @@ class SelectLayerDialog extends StatelessWidget {
                     }
                     return IconButton(
                       icon: Icon(icon),
-                      color: state == layer
+                      color: state == element
                           ? Theme.of(context).colorScheme.primary
                           : null,
                       onPressed: () {
-                        cubit.change(layer);
+                        cubit.change(element);
                       },
                     );
                   },

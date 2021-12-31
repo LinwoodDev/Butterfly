@@ -8,7 +8,7 @@ class PackCollection {
   final String? website;
 
   final List<BackgroundPack> backgrounds = [];
-  final List<ElementLayer> layers = [];
+  final List<PadElement> layers = [];
 
   PackCollection(
       {required this.name,

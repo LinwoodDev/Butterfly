@@ -1,20 +1,21 @@
-import 'package:butterfly/models/backgrounds/box.dart';
-import 'package:butterfly/models/elements/eraser.dart';
-import 'package:butterfly/models/painters/eraser.dart';
-import 'package:butterfly/models/painters/image.dart';
-import 'package:butterfly/models/painters/label.dart';
-import 'package:butterfly/models/painters/painter.dart';
-import 'package:butterfly/models/painters/path_eraser.dart';
-import 'package:butterfly/models/painters/pen.dart';
-import 'package:butterfly/models/palette.dart';
-import 'package:butterfly/models/properties/hand.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+import 'backgrounds/box.dart';
 import 'elements/element.dart';
+import 'elements/eraser.dart';
 import 'elements/image.dart';
 import 'elements/label.dart';
 import 'elements/pen.dart';
+import 'painters/eraser.dart';
+import 'painters/image.dart';
+import 'painters/label.dart';
+import 'painters/layer.dart';
+import 'painters/painter.dart';
+import 'painters/path_eraser.dart';
+import 'painters/pen.dart';
+import 'palette.dart';
+import 'properties/hand.dart';
 import 'waypoint.dart';
 
 @immutable
@@ -22,6 +23,7 @@ abstract class AppDocumentAsset {
   final String path;
 
   const AppDocumentAsset(this.path);
+
   String get fileName => path.split('/').last;
 }
 
@@ -58,7 +60,7 @@ class AppDocument {
   final String name, description;
 
   //final List<PackCollection> packs;
-  final List<ElementLayer> content;
+  final List<PadElement> content;
   final List<Painter> painters;
   final BoxBackground? background;
   final List<ColorPalette> palettes;
@@ -127,13 +129,15 @@ class AppDocument {
           return LabelPainter.fromJson(e, version);
         case 'image':
           return ImagePainter.fromJson(e, version);
+        case 'layer':
+          return LayerPainter.fromJson(e, version);
         default:
           return PenPainter.fromJson(e, version);
       }
     }).toList();
     var content = List<dynamic>.from(json['content'])
         .map((e) => Map<String, dynamic>.from(e))
-        .map<ElementLayer>((e) {
+        .map<PadElement>((e) {
       switch (e['type']) {
         case 'label':
           return LabelElement.fromJson(e, version);
@@ -180,7 +184,7 @@ class AppDocument {
   AppDocument copyWith(
       {String? name,
       String? description,
-      List<ElementLayer>? content,
+      List<PadElement>? content,
       List<Painter>? painters,
       BoxBackground? background,
       List<ColorPalette>? palettes,

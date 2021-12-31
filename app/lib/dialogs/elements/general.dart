@@ -1,15 +1,14 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editing.dart';
-import 'package:butterfly/cubits/selection.dart';
+import 'package:butterfly/dialogs/layer.dart';
+import 'package:butterfly/models/elements/element.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class GeneralElementDialog extends StatelessWidget {
   final int index;
-  final DocumentBloc bloc;
-  final SelectionCubit selectionCubit;
-  final EditingCubit editingCubit;
   final VoidCallback close;
   final List<Widget> children;
 
@@ -17,78 +16,141 @@ class GeneralElementDialog extends StatelessWidget {
       {Key? key,
       this.children = const [],
       required this.index,
-      required this.bloc,
-      required this.selectionCubit,
-      required this.editingCubit,
       required this.close})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var doc = (bloc.state as DocumentLoadSuccess).document;
-    var element = doc.content[index];
-    return Column(mainAxisSize: MainAxisSize.min, children: [
-      generateHeader(),
-      const Divider(),
-      Flexible(
-          child: ListView(
-        shrinkWrap: true,
-        children: [
-          ...children,
-          if (children.isNotEmpty) const Divider(),
-          ListTile(
-            title: Text(AppLocalizations.of(context)!.move),
-            leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
-            onTap: () {
-              // Remove the element from the document
-              bloc.add(LayersRemoved([element]));
-              editingCubit.move(element);
-              close();
-            },
-          ),
-          ListTile(
-            title: Text(AppLocalizations.of(context)!.duplicate),
-            leading: const Icon(PhosphorIcons.copyLight),
-            onTap: () {
-              editingCubit.move(element);
-              close();
-            },
-          ),
-          ListTile(
+    return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+      var bloc = context.read<DocumentBloc>();
+      var editingCubit = context.read<EditingCubit>();
+      if (state is! DocumentLoadSuccess ||
+          index < 0 ||
+          index >= state.document.content.length) {
+        return Container();
+      }
+      var element = state.document.content[index];
+      return Column(mainAxisSize: MainAxisSize.min, children: [
+        generateHeader(element),
+        const Divider(),
+        Flexible(
+            child: ListView(
+          shrinkWrap: true,
+          children: [
+            ...children,
+            if (children.isNotEmpty) const Divider(),
+            element.layer.isEmpty
+                ? ListTile(
+                    title: Text(AppLocalizations.of(context)!.layer),
+                    leading: const Icon(PhosphorIcons.squaresFourLight),
+                    subtitle: Text(AppLocalizations.of(context)!.notSet),
+                    onTap: () {
+                      close();
+                      var _nameController =
+                          TextEditingController(text: element.layer);
+                      showDialog(
+                          context: context,
+                          useRootNavigator: true,
+                          builder: (context) => AlertDialog(
+                                title: Text(
+                                    AppLocalizations.of(context)!.enterLayer),
+                                content: TextField(
+                                    controller: _nameController,
+                                    autofocus: true,
+                                    decoration: const InputDecoration(
+                                      filled: true,
+                                    )),
+                                actions: [
+                                  TextButton(
+                                    child: Text(
+                                        AppLocalizations.of(context)!.cancel),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ),
+                                  TextButton(
+                                    child:
+                                        Text(AppLocalizations.of(context)!.ok),
+                                    onPressed: () {
+                                      bloc.add(ElementChanged(
+                                          index,
+                                          element.copyWith(
+                                              layer: _nameController.text)));
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              ));
+                    })
+                : ListTile(
+                    leading: const Icon(PhosphorIcons.squaresFourLight),
+                    title: Text(element.layer),
+                    trailing: IconButton(
+                      icon: const Icon(PhosphorIcons.trashLight),
+                      onPressed: () => bloc.add(
+                          ElementChanged(index, element.copyWith(layer: ''))),
+                    ),
+                    onTap: () {
+                      close();
+                      showDialog(
+                          context: context,
+                          builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: LayerDialog(layer: element.layer)));
+                    }),
+            ListTile(
+              title: Text(AppLocalizations.of(context)!.move),
+              leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
               onTap: () {
+                // Remove the element from the document
+                bloc.add(ElementsRemoved([element]));
+                editingCubit.move(element);
                 close();
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                            title:
-                                Text(AppLocalizations.of(context)!.areYouSure),
-                            content: Text(
-                                AppLocalizations.of(context)!.reallyDelete),
-                            actions: [
-                              TextButton(
-                                child: Text(AppLocalizations.of(context)!.no),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              TextButton(
-                                child: Text(AppLocalizations.of(context)!.yes),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  bloc.add(LayersRemoved([element]));
-                                },
-                              ),
-                            ]));
               },
-              title: Text(AppLocalizations.of(context)!.delete),
-              leading: const Icon(PhosphorIcons.trashLight))
-        ],
-      ))
-    ]);
+            ),
+            ListTile(
+              title: Text(AppLocalizations.of(context)!.duplicate),
+              leading: const Icon(PhosphorIcons.copyLight),
+              onTap: () {
+                editingCubit.move(element);
+                close();
+              },
+            ),
+            ListTile(
+                onTap: () {
+                  close();
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                              title: Text(
+                                  AppLocalizations.of(context)!.areYouSure),
+                              content: Text(
+                                  AppLocalizations.of(context)!.reallyDelete),
+                              actions: [
+                                TextButton(
+                                  child: Text(AppLocalizations.of(context)!.no),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                TextButton(
+                                  child:
+                                      Text(AppLocalizations.of(context)!.yes),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    bloc.add(ElementsRemoved([element]));
+                                  },
+                                ),
+                              ]));
+                },
+                title: Text(AppLocalizations.of(context)!.delete),
+                leading: const Icon(PhosphorIcons.trashLight))
+          ],
+        ))
+      ]);
+    });
   }
 
-  Widget generateHeader() {
-    var element = (bloc.state as DocumentLoadSuccess).document.content[index];
+  Widget generateHeader(PadElement element) {
     IconData icon;
     switch (element.toJson()['type']) {
       case 'label':

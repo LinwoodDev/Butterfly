@@ -8,8 +8,10 @@ class PenElement extends PathElement {
   final PenProperty property;
 
   const PenElement(
-      {List<PathPoint> points = const [], this.property = const PenProperty()})
-      : super(points: points);
+      {String layer = '',
+      List<PathPoint> points = const [],
+      this.property = const PenProperty()})
+      : super(layer: layer, points: points);
 
   PenElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : property = PenProperty.fromJson(json),
@@ -39,7 +41,10 @@ class PenElement extends PathElement {
   }
 
   @override
-  PenElement copyWith({List<PathPoint>? points, PenProperty? property}) =>
+  PenElement copyWith(
+          {String? layer, List<PathPoint>? points, PenProperty? property}) =>
       PenElement(
-          points: points ?? this.points, property: property ?? this.property);
+          layer: layer ?? this.layer,
+          points: points ?? this.points,
+          property: property ?? this.property);
 }

@@ -29,9 +29,11 @@ class PenPainter extends BuildedPainter {
     ..addAll(property.toJson());
 
   @override
-  PenElement buildLayer(Offset position,
-          [double pressure = 0, double zoom = 1.0]) =>
-      PenElement(points: [
-        PathPoint.fromOffset(position, pressure)
-      ], property: property.copyWith(strokeWidth: property.strokeWidth / zoom));
+  PenElement buildElement(Offset position,
+          [double pressure = 0, double zoom = 1.0, String layer = '']) =>
+      PenElement(
+          layer: layer,
+          points: [PathPoint.fromOffset(position, pressure)],
+          property:
+              property.copyWith(strokeWidth: property.strokeWidth / zoom));
 }

@@ -63,8 +63,10 @@ class DataSettingsPage extends StatelessWidget {
                       title: Text(AppLocalizations.of(context)!.dateFormat),
                       content: TextField(
                         controller: controller,
+                        autofocus: true,
                         decoration: InputDecoration(
                           hintText: 'yyyy-MM-dd',
+                          filled: true,
                           labelText: AppLocalizations.of(context)!.dateFormat,
                         ),
                       ),

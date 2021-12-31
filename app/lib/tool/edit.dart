@@ -3,11 +3,13 @@ import 'package:butterfly/dialogs/hand.dart';
 import 'package:butterfly/dialogs/painters/eraser.dart';
 import 'package:butterfly/dialogs/painters/image.dart';
 import 'package:butterfly/dialogs/painters/label.dart';
+import 'package:butterfly/dialogs/painters/layer.dart';
 import 'package:butterfly/dialogs/painters/path_eraser.dart';
 import 'package:butterfly/dialogs/painters/pen.dart';
 import 'package:butterfly/models/painters/eraser.dart';
 import 'package:butterfly/models/painters/image.dart';
 import 'package:butterfly/models/painters/label.dart';
+import 'package:butterfly/models/painters/layer.dart';
 import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/painters/path_eraser.dart';
 import 'package:butterfly/models/painters/pen.dart';
@@ -30,6 +32,8 @@ class EditToolbar extends StatelessWidget {
         return PhosphorIcons.textTLight;
       case 'image':
         return PhosphorIcons.imageLight;
+      case 'layer':
+        return PhosphorIcons.squaresFourLight;
       default:
         return PhosphorIcons.penLight;
     }
@@ -45,6 +49,8 @@ class EditToolbar extends StatelessWidget {
         return PhosphorIcons.textTFill;
       case 'image':
         return PhosphorIcons.imageFill;
+      case 'layer':
+        return PhosphorIcons.squaresFourFill;
       default:
         return PhosphorIcons.penFill;
     }
@@ -81,7 +87,8 @@ class EditToolbar extends StatelessWidget {
                       barrierDismissible: true,
                       barrierLabel: AppLocalizations.of(context)!.close,
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          HandDialog(bloc: bloc));
+                          BlocProvider.value(
+                              value: bloc, child: const HandDialog()));
                 } else {
                   bloc.add(const CurrentPainterChanged(null));
                 }
@@ -146,6 +153,9 @@ class EditToolbar extends StatelessWidget {
                                       case 'image':
                                         return ImagePainterDialog(
                                             bloc: bloc, painterIndex: i);
+                                      case 'layer':
+                                        return LayerPainterDialog(
+                                            bloc: bloc, painterIndex: i);
                                       default:
                                         return Container();
                                     }
@@ -165,8 +175,14 @@ class EditToolbar extends StatelessWidget {
                     context.read<DocumentBloc>().add(PainterCreated(value)),
                 icon: const Icon(PhosphorIcons.plusLight),
                 itemBuilder: (context) => [
-                      ...['pen', 'eraser', 'path-eraser', 'label', 'image']
-                          .map((e) {
+                      ...[
+                        'pen',
+                        'eraser',
+                        'path-eraser',
+                        'label',
+                        'layer',
+                        'image'
+                      ].map((e) {
                         final Painter painter;
                         String name;
                         switch (e) {
@@ -189,6 +205,11 @@ class EditToolbar extends StatelessWidget {
                             // ignore: prefer_const_constructors
                             painter = ImagePainter();
                             name = AppLocalizations.of(context)!.image;
+                            break;
+                          case 'layer':
+                            // ignore: prefer_const_constructors
+                            painter = LayerPainter();
+                            name = AppLocalizations.of(context)!.layer;
                             break;
                           default:
                             // ignore: prefer_const_constructors

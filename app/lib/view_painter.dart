@@ -1,4 +1,3 @@
-import 'dart:isolate';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/models/backgrounds/box.dart';
@@ -10,19 +9,12 @@ import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
 
-class DecodeParam {
-  final ImageElement element;
-  final SendPort sendPort;
-
-  DecodeParam(this.element, this.sendPort);
-}
-
 Future<ui.Image> loadImage(ImageElement layer) {
   return decodeImageFromList(layer.pixels);
 }
 
-void paintElement(Canvas canvas, ElementLayer element,
-    [Map<ElementLayer, ui.Image> images = const {}, bool preview = false]) {
+void paintElement(Canvas canvas, PadElement element,
+    [Map<PadElement, ui.Image> images = const {}, bool preview = false]) {
   if (element is ImageElement) {
     if (images.containsKey(element)) {
       // Resize image to scale of the element
@@ -46,9 +38,9 @@ void paintElement(Canvas canvas, ElementLayer element,
 }
 
 class ForegroundPainter extends CustomPainter {
-  final Map<int, ElementLayer> editingLayer;
+  final Map<int, PadElement> editingLayer;
   final CameraTransform transform;
-  final ElementLayer? selection;
+  final PadElement? selection;
 
   ForegroundPainter(this.editingLayer,
       [this.transform = const CameraTransform(), this.selection]);
@@ -82,9 +74,9 @@ class ForegroundPainter extends CustomPainter {
       oldDelegate.selection != selection;
 }
 
-Future<Map<ElementLayer, ui.Image>> loadImages(AppDocument document,
-    [Map<ElementLayer, ui.Image> loadedImages = const {}]) async {
-  var images = Map<ElementLayer, ui.Image>.from(loadedImages);
+Future<Map<PadElement, ui.Image>> loadImages(AppDocument document,
+    [Map<PadElement, ui.Image> loadedImages = const {}]) async {
+  var images = Map<PadElement, ui.Image>.from(loadedImages);
   if (kIsWeb && document.content.any((element) => element is ImageElement)) {
     await Future.delayed(const Duration(seconds: 1));
   }
@@ -100,14 +92,16 @@ Future<Map<ElementLayer, ui.Image>> loadImages(AppDocument document,
 class ViewPainter extends CustomPainter {
   final AppDocument document;
   final bool renderBackground;
-  final Map<ElementLayer, ui.Image> images;
+  final List<String> invisibleLayers;
+  final Map<PadElement, ui.Image> images;
   final CameraTransform transform;
 
   ViewPainter(this.document,
       {this.renderBackground = true,
+      this.invisibleLayers = const [],
       this.transform = const CameraTransform(),
-      Map<ElementLayer, ui.Image>? images})
-      : images = images ?? <ElementLayer, ui.Image>{};
+      Map<PadElement, ui.Image>? images})
+      : images = images ?? <PadElement, ui.Image>{};
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -157,6 +151,8 @@ class ViewPainter extends CustomPainter {
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     document.content
+        .where((element) => !invisibleLayers.contains(element.layer))
+        .toList()
         .asMap()
         .forEach((index, element) => paintElement(canvas, element, images));
     canvas.restore();
@@ -167,5 +163,6 @@ class ViewPainter extends CustomPainter {
       document != oldDelegate.document ||
       renderBackground != oldDelegate.renderBackground ||
       transform != oldDelegate.transform ||
-      images != oldDelegate.images;
+      images != oldDelegate.images ||
+      invisibleLayers != oldDelegate.invisibleLayers;
 }

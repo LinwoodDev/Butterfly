@@ -5,7 +5,7 @@ import 'dart:ui' as ui;
 import 'package:butterfly/models/elements/element.dart';
 import 'package:flutter/material.dart';
 
-class ImageElement extends ElementLayer {
+class ImageElement extends PadElement {
   final Uint8List pixels;
   @override
   final Offset position;
@@ -17,7 +17,9 @@ class ImageElement extends ElementLayer {
       required this.width,
       required this.height,
       required this.position,
-      this.scale = 1});
+      String layer = '',
+      this.scale = 1})
+      : super(layer: layer);
   static Future<ImageElement> fromImage(ui.Image image, Offset position,
           [double scale = 1]) =>
       image.toByteData(format: ui.ImageByteFormat.rawRgba).then((value) =>
@@ -45,14 +47,18 @@ class ImageElement extends ElementLayer {
         'type': 'image',
         'scale': scale,
         'position': {'x': position.dx, 'y': position.dy}
-      };
+      }..addAll(super.toJson());
+
+  @override
   ImageElement copyWith(
-      {Uint8List? pixels,
+      {String? layer,
+      Uint8List? pixels,
       int? width,
       int? height,
       Offset? position,
       double? scale}) {
     return ImageElement(
+        layer: layer ?? this.layer,
         pixels: pixels ?? this.pixels,
         width: width ?? this.width,
         height: height ?? this.height,

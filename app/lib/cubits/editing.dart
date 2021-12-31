@@ -3,25 +3,25 @@ import 'dart:ui';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class EditingCubit extends Cubit<Map<int, ElementLayer>> {
-  EditingCubit([ElementLayer? selected])
+class EditingCubit extends Cubit<Map<int, PadElement>> {
+  EditingCubit([PadElement? selected])
       : super(selected == null ? {} : {0: selected});
 
-  ElementLayer? get currentMove => get(-1);
+  PadElement? get currentMove => get(-1);
 
-  void put(int pointer, ElementLayer layer) {
+  void put(int pointer, PadElement layer) {
     if (!has(pointer)) {
-      emit(Map<int, ElementLayer>.from(state)..[pointer] = layer);
+      emit(Map<int, PadElement>.from(state)..[pointer] = layer);
     }
   }
 
-  void move(ElementLayer layer) {
+  void move(PadElement layer) {
     put(-1, layer);
   }
 
   void resetMove() => reset(-1);
 
-  ElementLayer? getAndResetMove() => getAndReset(-1);
+  PadElement? getAndResetMove() => getAndReset(-1);
 
   bool get isMoving => has(-1);
 
@@ -29,22 +29,22 @@ class EditingCubit extends Cubit<Map<int, ElementLayer>> {
 
   bool has(int pointer) => state.containsKey(pointer);
 
-  ElementLayer? getAndReset(int pointer) {
+  PadElement? getAndReset(int pointer) {
     var value = get(pointer);
     reset(pointer);
     return value;
   }
 
-  ElementLayer? get(int pointer) => state[pointer];
+  PadElement? get(int pointer) => state[pointer];
 
   void reset(int pointer) =>
-      emit(Map<int, ElementLayer>.from(state)..remove(pointer));
+      emit(Map<int, PadElement>.from(state)..remove(pointer));
 
   void resetAll() => emit({});
 
-  void change(int pointer, ElementLayer layer) {
+  void change(int pointer, PadElement layer) {
     if (has(pointer)) {
-      emit(Map<int, ElementLayer>.from(state)..[pointer] = layer);
+      emit(Map<int, PadElement>.from(state)..[pointer] = layer);
     }
   }
 

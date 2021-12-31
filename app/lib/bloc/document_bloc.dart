@@ -14,37 +14,38 @@ part 'document_state.dart';
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(AppDocument document, String? path)
       : super(DocumentLoadSuccess(document, path: path)) {
-    on<LayerCreated>((event, emit) async {
+    on<ElementCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 content: (List.from(current.document.content)
-                  ..add(event.layer)))));
+                  ..add(event.element)))));
       }
     });
-    on<LayerChanged>((event, emit) async {
+    on<ElementChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 content: (List.from(current.document.content)
-                  ..[event.index] = event.layer))));
+                  ..[event.index] = event.element))));
       }
     });
-    on<LayersRemoved>((event, emit) async {
+    on<ElementsRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 content: List.from(current.document.content)
-                  ..removeWhere((element) => event.layers.contains(element)))));
+                  ..removeWhere(
+                      (element) => event.elements.contains(element)))));
       }
     });
     on<DocumentDescriptorChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document
                 .copyWith(name: event.name, description: event.description)));
       }
@@ -53,13 +54,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentPaletteChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document.copyWith(palettes: event.palette)));
       }
     });
     on<CurrentPainterChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
-        _saveDocument((state as DocumentLoadSuccess).copyWith(
+        return _saveDocument((state as DocumentLoadSuccess).copyWith(
             currentPainterIndex: event.painter,
             removeCurrentPainterIndex: event.painter == null));
       }
@@ -67,7 +68,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PainterCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 painters: List.from(current.document.painters)
                   ..add(event.painter))));
@@ -76,7 +77,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PainterChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 painters: List.from(current.document.painters)
                   ..[event.index] = event.painter)));
@@ -85,7 +86,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PainterRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 painters: List.from(current.document.painters)
                   ..removeAt(event.index))));
@@ -102,7 +103,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         final item = painters.removeAt(oldIndex);
         painters.insert(newIndex, item);
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document.copyWith(painters: painters),
             currentPainterIndex: oldIndex == current.currentPainterIndex
                 ? newIndex
@@ -114,7 +115,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentBackgroundChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 background: event.background,
                 removeBackground: event.background == null)));
@@ -123,7 +124,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<WaypointCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 waypoints: List<Waypoint>.from(current.document.waypoints)
                   ..add(event.waypoint))));
@@ -132,7 +133,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<WaypointRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 waypoints: List<Waypoint>.from(current.document.waypoints)
                   ..removeAt(event.index))));
@@ -141,8 +142,83 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<HandPropertyChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        _saveDocument(current.copyWith(
+        return _saveDocument(current.copyWith(
             document: current.document.copyWith(handProperty: event.property)));
+      }
+    });
+
+    on<LayerRenamed>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        return _saveDocument(current.copyWith(
+            document: current.document.copyWith(
+                content: List<PadElement>.from(current.document.content)
+                    .where((e) => e.layer == event.oldName)
+                    .map((e) => e.copyWith(layer: event.newName))
+                    .toList())));
+      }
+    });
+
+    on<LayerRemoved>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        return _saveDocument(current.copyWith(
+            document: current.document.copyWith(
+                content: List<PadElement>.from(current.document.content)
+                    .where((e) => e.layer == event.name)
+                    .map((e) => e.copyWith(layer: ''))
+                    .toList())));
+      }
+    });
+
+    on<LayerElementsDeleted>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        return _saveDocument(current.copyWith(
+            document: current.document.copyWith(
+                content: List<PadElement>.from(current.document.content)
+                    .where((e) => e.layer != event.name)
+                    .toList())));
+      }
+    });
+
+    on<LayerVisibilityChanged>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        var invisibleLayers = List<String>.from(current.invisibleLayers);
+        if (current.isLayerVisible(event.name)) {
+          invisibleLayers.add(event.name);
+        } else {
+          invisibleLayers.remove(event.name);
+        }
+        return _saveDocument(
+            current.copyWith(invisibleLayers: invisibleLayers));
+      }
+    });
+
+    on<CurrentLayerChanged>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        return _saveDocument(current.copyWith(
+          currentLayer: event.name,
+        ));
+      }
+    });
+
+    on<ElementsLayerChanged>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        var content = List<PadElement>.from(document.content);
+        for (var e in event.elements) {
+          var index = document.content.indexOf(e);
+          if (index != -1) {
+            content[index] = e.copyWith(layer: event.layer);
+          }
+        }
+        return _saveDocument(current.copyWith(
+            document: current.document.copyWith(
+          content: content,
+        )));
       }
     });
   }
