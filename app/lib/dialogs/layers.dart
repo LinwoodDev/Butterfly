@@ -89,8 +89,8 @@ class LayersDialog extends StatelessWidget {
                           var curr = current as DocumentLoadSuccess;
                           return curr.document.content !=
                                   curr.document.content ||
-                              curr.invisbleLayers.length !=
-                                  prev.invisbleLayers.length ||
+                              curr.invisibleLayers.length !=
+                                  prev.invisibleLayers.length ||
                               curr.currentLayer != prev.currentLayer;
                         }, builder: (context, state) {
                           if (state is! DocumentLoadSuccess) {
@@ -118,7 +118,7 @@ class LayersDialog extends StatelessWidget {
                                   onPressed: () {
                                     context
                                         .read<DocumentBloc>()
-                                        .add(const LayerVisiblityChanged(''));
+                                        .add(const LayerVisibilityChanged(''));
                                   },
                                 ),
                                 title: Text(AppLocalizations.of(context)!
@@ -149,7 +149,7 @@ class LayersDialog extends StatelessWidget {
                                                 : PhosphorIcons.eyeSlashLight),
                                             onPressed: () {
                                               context.read<DocumentBloc>().add(
-                                                  LayerVisiblityChanged(
+                                                  LayerVisibilityChanged(
                                                       layers[index]));
                                             },
                                           ),

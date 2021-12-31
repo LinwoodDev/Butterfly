@@ -182,16 +182,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
     });
 
-    on<LayerVisiblityChanged>((event, emit) async {
+    on<LayerVisibilityChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        var invisibleLayers = List<String>.from(current.invisbleLayers);
+        var invisibleLayers = List<String>.from(current.invisibleLayers);
         if (current.isLayerVisible(event.name)) {
           invisibleLayers.add(event.name);
         } else {
           invisibleLayers.remove(event.name);
         }
-        return _saveDocument(current.copyWith(invisbleLayers: invisibleLayers));
+        return _saveDocument(
+            current.copyWith(invisibleLayers: invisibleLayers));
       }
     });
 
@@ -201,6 +202,23 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         return _saveDocument(current.copyWith(
           currentLayer: event.name,
         ));
+      }
+    });
+
+    on<ElementsLayerChanged>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        var content = List<PadElement>.from(document.content);
+        for (var e in event.elements) {
+          var index = document.content.indexOf(e);
+          if (index != -1) {
+            content[index] = e.copyWith(layer: event.layer);
+          }
+        }
+        return _saveDocument(current.copyWith(
+            document: current.document.copyWith(
+          content: content,
+        )));
       }
     });
   }

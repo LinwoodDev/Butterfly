@@ -158,10 +158,10 @@ class LayerElementsDeleted extends DocumentEvent {
   List<Object?> get props => [name];
 }
 
-class LayerVisiblityChanged extends DocumentEvent {
+class LayerVisibilityChanged extends DocumentEvent {
   final String name;
 
-  const LayerVisiblityChanged(this.name);
+  const LayerVisibilityChanged(this.name);
 
   @override
   List<Object?> get props => [name];
@@ -174,4 +174,14 @@ class CurrentLayerChanged extends DocumentEvent {
 
   @override
   List<Object?> get props => [name];
+}
+
+class ElementsLayerChanged extends DocumentEvent {
+  final String layer;
+  final List<PadElement> elements;
+
+  const ElementsLayerChanged(this.layer, this.elements);
+
+  @override
+  List<Object?> get props => [layer, elements];
 }

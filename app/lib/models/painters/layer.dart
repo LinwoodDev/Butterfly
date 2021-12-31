@@ -13,11 +13,7 @@ class LayerPainter extends Painter {
         super.fromJson(json);
   @override
   Map<String, dynamic> toJson() => super.toJson()
-    ..addAll({
-      'type': 'path-eraser',
-      'layer': layer,
-      'includeEraser': includeEraser
-    });
+    ..addAll({'type': 'layer', 'layer': layer, 'includeEraser': includeEraser});
 
   LayerPainter copyWith({String? name, String? layer, bool? includeEraser}) =>
       LayerPainter(

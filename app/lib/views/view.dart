@@ -19,6 +19,7 @@ import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/elements/path.dart';
 import 'package:butterfly/models/painters/image.dart';
 import 'package:butterfly/models/painters/label.dart';
+import 'package:butterfly/models/painters/layer.dart';
 import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/painters/path_eraser.dart';
 import 'package:butterfly/models/painters/pen.dart';
@@ -39,6 +40,30 @@ class MainViewViewport extends StatefulWidget {
   _MainViewViewportState createState() => _MainViewViewportState();
 }
 
+class _RayCastParams {
+  final Offset position;
+  final bool includeEraser;
+  final List<PadElement> elements;
+  final List<String> invisibleLayers;
+
+  _RayCastParams(
+      this.position, this.elements, this.invisibleLayers, this.includeEraser);
+}
+
+List<int> _executeRayCast(_RayCastParams params) {
+  var result = <int>[];
+  params.elements
+      .asMap()
+      .entries
+      .where((element) =>
+          !params.invisibleLayers.contains(element.value.layer) &&
+          element.value.hit(params.position) &&
+          (element.value is! EraserElement || params.includeEraser))
+      .forEach((element) => result.add(element.key));
+  print('END!');
+  return result;
+}
+
 class _MainViewViewportState extends State<MainViewViewport> {
   Map<PadElement, ui.Image> images = {};
   double size = 1.0;
@@ -52,14 +77,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
       }
       return SizedBox.expand(child:
           ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
-        List<PadElement> rayCast(Offset offset) {
-          return state.document.content.reversed
-              .where((element) => !state.invisbleLayers.contains(element.layer))
-              .where((element) => element.hit(offset))
-              .where((element) => !state.document.handProperty.includeEraser
-                  ? element is! EraserElement
-                  : true)
-              .toList();
+        Future<List<PadElement>> rayCast(Offset offset, bool includeEraser) {
+          var content = state.document.content;
+          print('RAYCAST: $offset');
+          return compute(
+                  _executeRayCast,
+                  _RayCastParams(offset, content.toList(),
+                      state.invisibleLayers.toList(), includeEraser))
+              .then<List<PadElement>>((value) {
+            print('FINISHED');
+            return value.map((e) => content[e]).toList();
+          });
         }
 
         void createElement(int pointer, Offset localPosition, double pressure) {
@@ -171,7 +199,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     openView = true;
                   }
                 },
-                onPointerUp: (PointerUpEvent event) {
+                onPointerUp: (PointerUpEvent event) async {
                   var cubit = context.read<EditingCubit>();
                   var transform = context.read<TransformCubit>().state;
                   if (cubit.isMoving) {
@@ -197,8 +225,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     if (!openView) {
                       return;
                     }
-                    var hits =
-                        rayCast(transform.localToGlobal(event.localPosition));
+                    var hits = await rayCast(
+                        transform.localToGlobal(event.localPosition),
+                        state.document.handProperty.includeEraser);
                     if (hits.isNotEmpty) {
                       void showSelection() {
                         var selectionCubit = context.read<SelectionCubit>();
@@ -280,7 +309,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     editingCubit.moveTo(transform.localToGlobal(position));
                   }
                 },
-                onPointerMove: (PointerMoveEvent event) {
+                onPointerMove: (PointerMoveEvent event) async {
                   var cubit = context.read<EditingCubit>();
                   var currentElement = cubit.get(event.pointer);
                   var transform = context.read<TransformCubit>().state;
@@ -304,14 +333,18 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   }
                   if ((event.kind == PointerDeviceKind.stylus ||
                       state.currentPainter != null)) {
-                    if (state.currentPainter is PathEraserPainter) {
+                    var painter = state.currentPainter;
+                    if (painter is PathEraserPainter) {
                       context.read<DocumentBloc>().add(ElementsRemoved(
-                          rayCast(transform.localToGlobal(event.localPosition))
-                              .where((element) =>
-                                  element is! EraserElement ||
-                                  (state.currentPainter as PathEraserPainter)
-                                      .includeEraser)
-                              .toList()));
+                          await rayCast(
+                              transform.localToGlobal(event.localPosition),
+                              painter.includeEraser)));
+                    } else if (painter is LayerPainter) {
+                      rayCast(transform.localToGlobal(event.localPosition),
+                              painter.includeEraser)
+                          .then((value) => context
+                              .read<DocumentBloc>()
+                              .add(ElementsLayerChanged(painter.layer, value)));
                     } else if (currentElement != null &&
                         currentElement is PathElement) {
                       // Add point to custom paint
@@ -362,7 +395,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   foregroundPainter: ForegroundPainter(
                                       editing, transform, selection),
                                   painter: ViewPainter(state.document,
-                                      invisibleLayers: state.invisbleLayers,
+                                      invisibleLayers: state.invisibleLayers,
                                       transform: transform,
                                       images: images),
                                   isComplex: true,

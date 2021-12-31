@@ -3,6 +3,7 @@ import 'package:butterfly/dialogs/hand.dart';
 import 'package:butterfly/dialogs/painters/eraser.dart';
 import 'package:butterfly/dialogs/painters/image.dart';
 import 'package:butterfly/dialogs/painters/label.dart';
+import 'package:butterfly/dialogs/painters/layer.dart';
 import 'package:butterfly/dialogs/painters/path_eraser.dart';
 import 'package:butterfly/dialogs/painters/pen.dart';
 import 'package:butterfly/models/painters/eraser.dart';
@@ -31,6 +32,8 @@ class EditToolbar extends StatelessWidget {
         return PhosphorIcons.textTLight;
       case 'image':
         return PhosphorIcons.imageLight;
+      case 'layer':
+        return PhosphorIcons.squaresFourLight;
       default:
         return PhosphorIcons.penLight;
     }
@@ -46,6 +49,8 @@ class EditToolbar extends StatelessWidget {
         return PhosphorIcons.textTFill;
       case 'image':
         return PhosphorIcons.imageFill;
+      case 'layer':
+        return PhosphorIcons.squaresFourFill;
       default:
         return PhosphorIcons.penFill;
     }
@@ -147,6 +152,9 @@ class EditToolbar extends StatelessWidget {
                                             bloc: bloc, painterIndex: i);
                                       case 'image':
                                         return ImagePainterDialog(
+                                            bloc: bloc, painterIndex: i);
+                                      case 'layer':
+                                        return LayerPainterDialog(
                                             bloc: bloc, painterIndex: i);
                                       default:
                                         return Container();

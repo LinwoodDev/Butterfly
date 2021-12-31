@@ -13,18 +13,18 @@ class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final String? path;
   final String currentLayer;
-  final List<String> invisbleLayers;
+  final List<String> invisibleLayers;
   final int? currentPainterIndex;
 
   const DocumentLoadSuccess(this.document,
       {this.path,
       this.currentPainterIndex,
       this.currentLayer = '',
-      this.invisbleLayers = const []});
+      this.invisibleLayers = const []});
 
   @override
   List<Object?> get props =>
-      [document, currentPainterIndex, path, invisbleLayers];
+      [document, currentPainterIndex, path, invisibleLayers];
 
   Painter? get currentPainter {
     if (document.painters.isEmpty || currentPainterIndex == null) {
@@ -41,17 +41,17 @@ class DocumentLoadSuccess extends DocumentState {
       String? path,
       String? currentLayer,
       bool removeCurrentPainterIndex = false,
-      List<String>? invisbleLayers}) {
+      List<String>? invisibleLayers}) {
     return DocumentLoadSuccess(document ?? this.document,
         path: path ?? this.path,
-        invisbleLayers: invisbleLayers ?? this.invisbleLayers,
+        invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
         currentPainterIndex: removeCurrentPainterIndex
             ? null
             : currentPainterIndex ?? this.currentPainterIndex);
   }
 
-  bool isLayerVisible(String layer) => !invisbleLayers.contains(layer);
+  bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 
   Future<String> save() {
     if (path == null) {

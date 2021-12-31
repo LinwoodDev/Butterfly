@@ -1,4 +1,3 @@
-import 'dart:isolate';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/models/backgrounds/box.dart';
@@ -9,13 +8,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
-
-class DecodeParam {
-  final ImageElement element;
-  final SendPort sendPort;
-
-  DecodeParam(this.element, this.sendPort);
-}
 
 Future<ui.Image> loadImage(ImageElement layer) {
   return decodeImageFromList(layer.pixels);
