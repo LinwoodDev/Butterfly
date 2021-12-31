@@ -159,11 +159,12 @@
   "back": "Back",
   "zoomDependent": "Zoom dependent",
   "defaultLayer": "Default layer",
-  "layer":"Layer",
-  "layers":"Layers",
+  "layer": "Layer",
+  "layers": "Layers",
   "notSet": "Not set",
-  "enterLayer":"Enter the layer name",
-  "selectElements":"Select elements",
-  "deleteElements":"Delete elements",
-  "deleteElementsConfirm":"Do you really want to delete the selected elements?"
+  "enterLayer": "Enter the layer name",
+  "selectElements": "Select elements",
+  "deleteElements": "Delete elements",
+  "deleteElementsConfirm": "Do you really want to delete the selected elements?",
+  "selectCustomLayer": "Select a custom layer"
 }

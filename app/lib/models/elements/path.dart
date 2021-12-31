@@ -38,7 +38,8 @@ abstract class PathElement extends PadElement {
       : points = List<dynamic>.from(json['points'] ?? [])
             .map((e) => Map<String, dynamic>.from(e))
             .map((e) => PathPoint.fromJson(e))
-            .toList();
+            .toList(),
+        super.fromJson(json);
 
   @override
   Map<String, dynamic> toJson() => {

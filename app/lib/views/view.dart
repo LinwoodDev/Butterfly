@@ -54,6 +54,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
           ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
         List<PadElement> rayCast(Offset offset) {
           return state.document.content.reversed
+              .where((element) => !state.invisbleLayers.contains(element.layer))
               .where((element) => element.hit(offset))
               .where((element) => !state.document.handProperty.includeEraser
                   ? element is! EraserElement
@@ -95,6 +96,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           autofocus: true,
                           minLines: 3,
                           maxLines: 5,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder()),
                           keyboardType: TextInputType.multiline,
                           onSubmitted: (text) => submit(),
                         ),

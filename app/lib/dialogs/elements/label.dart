@@ -2,9 +2,9 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/elements/general.dart';
 import 'package:butterfly/models/elements/label.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LabelElementDialog extends StatelessWidget {
   final int index;
@@ -46,6 +46,7 @@ class LabelElementDialog extends StatelessWidget {
                           keyboardType: TextInputType.multiline,
                           minLines: 3,
                           maxLines: 5,
+                          decoration: const InputDecoration(filled: true),
                           onSubmitted: (text) => submit(),
                         ),
                         actions: [

@@ -66,6 +66,7 @@ class DataSettingsPage extends StatelessWidget {
                         autofocus: true,
                         decoration: InputDecoration(
                           hintText: 'yyyy-MM-dd',
+                          filled: true,
                           labelText: AppLocalizations.of(context)!.dateFormat,
                         ),
                       ),

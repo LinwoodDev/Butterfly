@@ -25,6 +25,42 @@ class LayersDialog extends StatelessWidget {
                   ),
                 ),
                 backgroundColor: Colors.transparent,
+                floatingActionButton: FloatingActionButton.extended(
+                    icon: const Icon(PhosphorIcons.selectionLight),
+                    label:
+                        Text(AppLocalizations.of(context)!.selectCustomLayer),
+                    onPressed: () {
+                      var _nameController = TextEditingController(
+                          text: (context.read<DocumentBloc>().state
+                                  as DocumentLoadSuccess)
+                              .currentLayer);
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title:
+                              Text(AppLocalizations.of(ctx)!.selectCustomLayer),
+                          content: TextField(
+                            controller: _nameController,
+                            autofocus: true,
+                            decoration: const InputDecoration(filled: true),
+                          ),
+                          actions: [
+                            TextButton(
+                              child: Text(AppLocalizations.of(ctx)!.cancel),
+                              onPressed: () => Navigator.of(ctx).pop(),
+                            ),
+                            TextButton(
+                              child: Text(AppLocalizations.of(ctx)!.ok),
+                              onPressed: () {
+                                Navigator.of(ctx).pop();
+                                BlocProvider.of<DocumentBloc>(context).add(
+                                    CurrentLayerChanged(_nameController.text));
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
                 body: Column(
                   children: [
                     Padding(

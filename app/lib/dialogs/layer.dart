@@ -1,8 +1,8 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LayerDialog extends StatelessWidget {
   final String layer;
@@ -25,7 +25,7 @@ class LayerDialog extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Icon(PhosphorIcons.squaresFourLight),
           ),
-          Text(AppLocalizations.of(context)!.layer),
+          Text(layer),
         ],
       ),
       content: Column(
@@ -51,6 +51,7 @@ class LayerDialog extends StatelessWidget {
                       content: TextField(
                         controller: _nameController,
                         autofocus: true,
+                        decoration: const InputDecoration(filled: true),
                       ),
                       actions: [
                         TextButton(
