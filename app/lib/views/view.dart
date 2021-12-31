@@ -60,7 +60,6 @@ List<int> _executeRayCast(_RayCastParams params) {
           element.value.hit(params.position) &&
           (element.value is! EraserElement || params.includeEraser))
       .forEach((element) => result.add(element.key));
-  print('END!');
   return result;
 }
 
@@ -77,17 +76,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
       }
       return SizedBox.expand(child:
           ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
-        Future<List<PadElement>> rayCast(Offset offset, bool includeEraser) {
+        List<PadElement> rayCast(Offset offset, bool includeEraser) {
           var content = state.document.content;
-          print('RAYCAST: $offset');
-          return compute(
-                  _executeRayCast,
-                  _RayCastParams(offset, content.toList(),
-                      state.invisibleLayers.toList(), includeEraser))
-              .then<List<PadElement>>((value) {
-            print('FINISHED');
-            return value.map((e) => content[e]).toList();
-          });
+          return _executeRayCast(_RayCastParams(offset, content.toList(),
+                  state.invisibleLayers.toList(), includeEraser))
+              .map((e) => content[e])
+              .toList();
         }
 
         void createElement(int pointer, Offset localPosition, double pressure) {
@@ -225,7 +219,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     if (!openView) {
                       return;
                     }
-                    var hits = await rayCast(
+                    var hits = rayCast(
                         transform.localToGlobal(event.localPosition),
                         state.document.handProperty.includeEraser);
                     if (hits.isNotEmpty) {
@@ -335,16 +329,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       state.currentPainter != null)) {
                     var painter = state.currentPainter;
                     if (painter is PathEraserPainter) {
-                      context.read<DocumentBloc>().add(ElementsRemoved(
-                          await rayCast(
-                              transform.localToGlobal(event.localPosition),
-                              painter.includeEraser)));
+                      context.read<DocumentBloc>().add(ElementsRemoved(rayCast(
+                          transform.localToGlobal(event.localPosition),
+                          painter.includeEraser)));
                     } else if (painter is LayerPainter) {
-                      rayCast(transform.localToGlobal(event.localPosition),
-                              painter.includeEraser)
-                          .then((value) => context
-                              .read<DocumentBloc>()
-                              .add(ElementsLayerChanged(painter.layer, value)));
+                      context.read<DocumentBloc>().add(ElementsLayerChanged(
+                          painter.layer,
+                          rayCast(transform.localToGlobal(event.localPosition),
+                              painter.includeEraser)));
                     } else if (currentElement != null &&
                         currentElement is PathElement) {
                       // Add point to custom paint
