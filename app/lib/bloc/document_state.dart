@@ -12,11 +12,15 @@ class DocumentLoadInProgress extends DocumentState {}
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final String? path;
+  final String currentLayer;
   final List<String> invisbleLayers;
   final int? currentPainterIndex;
 
   const DocumentLoadSuccess(this.document,
-      {this.path, this.currentPainterIndex, this.invisbleLayers = const []});
+      {this.path,
+      this.currentPainterIndex,
+      this.currentLayer = '',
+      this.invisbleLayers = const []});
 
   @override
   List<Object?> get props =>
@@ -35,11 +39,13 @@ class DocumentLoadSuccess extends DocumentState {
       bool? editMode,
       int? currentPainterIndex,
       String? path,
+      String? currentLayer,
       bool removeCurrentPainterIndex = false,
       List<String>? invisbleLayers}) {
     return DocumentLoadSuccess(document ?? this.document,
         path: path ?? this.path,
         invisbleLayers: invisbleLayers ?? this.invisbleLayers,
+        currentLayer: currentLayer ?? this.currentLayer,
         currentPainterIndex: removeCurrentPainterIndex
             ? null
             : currentPainterIndex ?? this.currentPainterIndex);

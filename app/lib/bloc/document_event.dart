@@ -166,3 +166,12 @@ class LayerVisiblityChanged extends DocumentEvent {
   @override
   List<Object?> get props => [name];
 }
+
+class CurrentLayerChanged extends DocumentEvent {
+  final String? name;
+
+  const CurrentLayerChanged(this.name);
+
+  @override
+  List<Object?> get props => [name];
+}

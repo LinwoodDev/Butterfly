@@ -71,8 +71,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
             }
             context.read<EditingCubit>().put(
                 pointer,
-                painter.buildElement(
-                    transform.localToGlobal(localPosition), pressure, zoom));
+                painter.buildElement(transform.localToGlobal(localPosition),
+                    pressure, zoom, state.currentLayer));
           }
           if (state.currentPainter is LabelPainter) {
             var painter = state.currentPainter as LabelPainter;
@@ -82,6 +82,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
               context.read<DocumentBloc>().add(ElementCreated(LabelElement(
                   property: painter.property,
                   text: _textController.text,
+                  layer: state.currentLayer,
                   position: transform.localToGlobal(localPosition))));
             }
 
@@ -121,6 +122,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                 context.read<DocumentBloc>().add(ElementCreated(ImageElement(
                     height: image.height,
                     width: image.width,
+                    layer: state.currentLayer,
                     pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
                     position: transform.localToGlobal(localPosition))));
               });

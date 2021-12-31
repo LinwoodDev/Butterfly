@@ -194,6 +194,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         return _saveDocument(current.copyWith(invisbleLayers: invisibleLayers));
       }
     });
+
+    on<CurrentLayerChanged>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        return _saveDocument(current.copyWith(
+          currentLayer: event.name,
+        ));
+      }
+    });
   }
 
   Future<void> _saveDocument(DocumentLoadSuccess current) async {

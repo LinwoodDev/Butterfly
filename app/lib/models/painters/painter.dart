@@ -16,5 +16,5 @@ abstract class BuildedPainter extends Painter {
       : super.fromJson(json, fileVersion);
 
   PadElement buildElement(Offset position,
-      [double pressure = 0, double zoom = 1]);
+      [double pressure = 0, double zoom = 1, String layer = '']);
 }

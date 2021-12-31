@@ -54,7 +54,8 @@ class LayersDialog extends StatelessWidget {
                           return curr.document.content !=
                                   curr.document.content ||
                               curr.invisbleLayers.length !=
-                                  prev.invisbleLayers.length;
+                                  prev.invisbleLayers.length ||
+                              curr.currentLayer != prev.currentLayer;
                         }, builder: (context, state) {
                           if (state is! DocumentLoadSuccess) {
                             return Container();
@@ -71,11 +72,19 @@ class LayersDialog extends StatelessWidget {
                                 onTap: () {
                                   context
                                       .read<DocumentBloc>()
-                                      .add(const LayerVisiblityChanged(''));
+                                      .add(const CurrentLayerChanged(''));
                                 },
-                                leading: Icon(state.isLayerVisible('')
-                                    ? PhosphorIcons.eyeLight
-                                    : PhosphorIcons.eyeSlashLight),
+                                selected: state.currentLayer.isEmpty,
+                                leading: IconButton(
+                                  icon: Icon(state.isLayerVisible('')
+                                      ? PhosphorIcons.eyeLight
+                                      : PhosphorIcons.eyeSlashLight),
+                                  onPressed: () {
+                                    context
+                                        .read<DocumentBloc>()
+                                        .add(const LayerVisiblityChanged(''));
+                                  },
+                                ),
                                 title: Text(AppLocalizations.of(context)!
                                     .defaultLayer)),
                             const Divider(),
@@ -92,13 +101,22 @@ class LayersDialog extends StatelessWidget {
                                       child: ListTile(
                                           onTap: () {
                                             context.read<DocumentBloc>().add(
-                                                LayerVisiblityChanged(
+                                                CurrentLayerChanged(
                                                     layers[index]));
                                           },
-                                          leading: Icon(state
-                                                  .isLayerVisible(layers[index])
-                                              ? PhosphorIcons.eyeLight
-                                              : PhosphorIcons.eyeSlashLight),
+                                          selected: layers[index] ==
+                                              state.currentLayer,
+                                          leading: IconButton(
+                                            icon: Icon(state.isLayerVisible(
+                                                    layers[index])
+                                                ? PhosphorIcons.eyeLight
+                                                : PhosphorIcons.eyeSlashLight),
+                                            onPressed: () {
+                                              context.read<DocumentBloc>().add(
+                                                  LayerVisiblityChanged(
+                                                      layers[index]));
+                                            },
+                                          ),
                                           trailing: LayerDialog(
                                             popupMenu: true,
                                             layer: layers[index],
