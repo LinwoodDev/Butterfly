@@ -66,6 +66,7 @@
     "highlighter": "Hervorhebung",
     "add": "Neu",
     "remove": "Entfernen",
+    "removeConfirm": "Do you really want to remove this?",
     "resetPalette": "Reset palette",
     "close": "Schließen",
     "custom": "Eigene",
@@ -115,7 +116,7 @@
     "origin": "Ursprung",
     "import": "Importieren",
     "newContent": "Neu",
-    "selectLayer": "Ebene auswählen",
+    "selectElement": "Select element",
     "ctrlKey": "Strg",
     "shiftKey": "Umschalt",
     "altKey": "Alt",
@@ -156,5 +157,14 @@
     "move": "Bewegen",
     "copy": "Kopieren",
     "back": "Zurück",
-    "zoomDependent": "Zoomabhängig"
+    "zoomDependent": "Zoomabhängig",
+    "defaultLayer": "Default layer",
+    "layer": "Layer",
+    "layers": "Layers",
+    "notSet": "Not set",
+    "enterLayer": "Enter the layer name",
+    "selectElements": "Select elements",
+    "deleteElements": "Delete elements",
+    "deleteElementsConfirm": "Do you really want to delete the selected elements?",
+    "selectCustomLayer": "Select a custom layer"
 }
