@@ -66,6 +66,7 @@
     "highlighter": "Hervorhebung",
     "add": "Neu",
     "remove": "Entfernen",
+    "removeConfirm": "Wollen Sie das wirklich entfernen?",
     "resetPalette": "Reset palette",
     "close": "Schließen",
     "custom": "Eigene",
@@ -115,7 +116,7 @@
     "origin": "Ursprung",
     "import": "Importieren",
     "newContent": "Neu",
-    "selectLayer": "Ebene auswählen",
+    "selectElement": "Element auswählen",
     "ctrlKey": "Strg",
     "shiftKey": "Umschalt",
     "altKey": "Alt",
@@ -156,5 +157,14 @@
     "move": "Bewegen",
     "copy": "Kopieren",
     "back": "Zurück",
-    "zoomDependent": "Zoomabhängig"
+    "zoomDependent": "Zoomabhängig",
+    "defaultLayer": "Standard Ebene",
+    "layer": "Ebene",
+    "layers": "Ebenen",
+    "notSet": "Nicht gesetzt",
+    "enterLayer": "Ebenenname eingeben",
+    "selectElements": "Elemente auswählen",
+    "deleteElements": "Elemente löschen",
+    "deleteElementsConfirm": "Möchten Sie die ausgewählten Elemente wirklich löschen?",
+    "selectCustomLayer": "Eigene Ebene auswählen"
 }

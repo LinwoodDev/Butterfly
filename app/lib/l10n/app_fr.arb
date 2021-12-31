@@ -66,6 +66,7 @@
     "highlighter": "Surligneur",
     "add": "Ajouter",
     "remove": "Retirer",
+    "removeConfirm": "Voulez-vous vraiment supprimer cela ?",
     "resetPalette": "Reset palette",
     "close": "Fermer",
     "custom": "Personnalisé",
@@ -115,7 +116,7 @@
     "origin": "Origine",
     "import": "Importation",
     "newContent": "Nouveau",
-    "selectLayer": "Sélectionner la couche",
+    "selectElement": "Sélectionner un élément",
     "ctrlKey": "Ctrl",
     "shiftKey": "Shift",
     "altKey": "Alt",
@@ -156,5 +157,14 @@
     "move": "Déplacer",
     "copy": "Copie",
     "back": "Précédent",
-    "zoomDependent": "Dépendant du zoom"
+    "zoomDependent": "Dépendant du zoom",
+    "defaultLayer": "Couche par défaut",
+    "layer": "Couche",
+    "layers": "Couches",
+    "notSet": "Non défini",
+    "enterLayer": "Entrez le nom de la couche",
+    "selectElements": "Sélectionner les éléments",
+    "deleteElements": "Supprimer les éléments",
+    "deleteElementsConfirm": "Voulez-vous vraiment supprimer les éléments sélectionnés ?",
+    "selectCustomLayer": "Sélectionnez une couche personnalisée"
 }
