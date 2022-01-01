@@ -17,6 +17,7 @@ import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
+import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/cubits/selection.dart';
@@ -236,7 +237,7 @@ class _ProjectPageState extends State<ProjectPage> {
                 Actions.maybeInvoke<RedoIntent>(context, RedoIntent(context));
               },
             ),
-            _buildPopupMenu(),
+            const _MainPopupMenu(),
             if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
           ]);
 
@@ -317,142 +318,6 @@ class _ProjectPageState extends State<ProjectPage> {
             )
         ]);
   }
-
-  Widget _buildPopupMenu() => PopupMenuButton(
-        itemBuilder: (context) => <PopupMenuEntry>[
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                leading: const Icon(PhosphorIcons.filePlusLight),
-                title: Text(AppLocalizations.of(context)!.newContent),
-                subtitle: Text(AppLocalizations.of(context)!.ctrlKey + ' + N'),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Actions.maybeInvoke<NewIntent>(context, NewIntent(context));
-                },
-              )),
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                  leading: const Icon(PhosphorIcons.folderOpenLight),
-                  title: Text(AppLocalizations.of(context)!.open),
-                  subtitle:
-                      Text(AppLocalizations.of(context)!.ctrlKey + ' + O'),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Actions.maybeInvoke<OpenIntent>(
-                        context, OpenIntent(context));
-                  })),
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                leading: const Icon(PhosphorIcons.arrowSquareInLight),
-                title: Text(AppLocalizations.of(context)!.import),
-                subtitle: Text(AppLocalizations.of(context)!.ctrlKey + ' + I'),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Actions.maybeInvoke<ImportIntent>(
-                      context, ImportIntent(context));
-                },
-              )),
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: PopupMenuButton(
-                  itemBuilder: (popupContext) => <PopupMenuEntry>[
-                        PopupMenuItem(
-                            padding: EdgeInsets.zero,
-                            child: ListTile(
-                                leading:
-                                    const Icon(PhosphorIcons.caretLeftLight),
-                                title: Text(AppLocalizations.of(context)!.back),
-                                onTap: () async {
-                                  Navigator.of(context).pop();
-                                })),
-                        const PopupMenuDivider(),
-                        PopupMenuItem(
-                            padding: EdgeInsets.zero,
-                            child: ListTile(
-                                leading:
-                                    const Icon(PhosphorIcons.databaseLight),
-                                title: Text(AppLocalizations.of(context)!.data),
-                                subtitle: Text(
-                                    AppLocalizations.of(context)!.ctrlKey +
-                                        ' + E'),
-                                onTap: () async {
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).pop();
-                                  Actions.maybeInvoke<ExportIntent>(
-                                      context, ExportIntent(context));
-                                })),
-                        PopupMenuItem(
-                            padding: EdgeInsets.zero,
-                            child: ListTile(
-                                leading: const Icon(PhosphorIcons.imageLight),
-                                title:
-                                    Text(AppLocalizations.of(context)!.image),
-                                subtitle: Text(
-                                    AppLocalizations.of(context)!.ctrlKey +
-                                        ' + ' +
-                                        AppLocalizations.of(context)!.shiftKey +
-                                        ' + E'),
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).pop();
-                                  Actions.maybeInvoke<ImageExportIntent>(
-                                      context, ImageExportIntent(context));
-                                })),
-                      ],
-                  tooltip: '',
-                  child: ListTile(
-                      mouseCursor: MouseCursor.defer,
-                      leading: const Icon(PhosphorIcons.exportLight),
-                      trailing: const Icon(PhosphorIcons.caretRightLight),
-                      title: Text(AppLocalizations.of(context)!.export)))),
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                  leading: const Icon(PhosphorIcons.gearLight),
-                  title: Text(AppLocalizations.of(context)!.settings),
-                  subtitle: Text(AppLocalizations.of(context)!.ctrlKey +
-                      ' + ' +
-                      AppLocalizations.of(context)!.altKey +
-                      ' + S'),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Actions.maybeInvoke<SettingsIntent>(
-                        context, SettingsIntent(context));
-                  })),
-          const PopupMenuDivider(),
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                  leading: const Icon(PhosphorIcons.paletteLight),
-                  title: Text(AppLocalizations.of(context)!.color),
-                  subtitle:
-                      Text(AppLocalizations.of(context)!.ctrlKey + ' + P'),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Actions.maybeInvoke<ColorPaletteIntent>(
-                        context, ColorPaletteIntent(context));
-                  })),
-          PopupMenuItem(
-              child: ListTile(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Actions.maybeInvoke<ProjectIntent>(
-                        context, ProjectIntent(context));
-                  },
-                  subtitle: Text(AppLocalizations.of(context)!.ctrlKey +
-                      ' + ' +
-                      AppLocalizations.of(context)!.altKey +
-                      ' + ' +
-                      AppLocalizations.of(context)!.shiftKey +
-                      ' + S'),
-                  leading: const Icon(PhosphorIcons.wrenchLight),
-                  title: Text(AppLocalizations.of(context)!.projectSettings)),
-              padding: EdgeInsets.zero),
-        ],
-      );
 }
 
 class WindowButtons extends StatelessWidget {
@@ -489,5 +354,130 @@ class WindowButtons extends StatelessWidget {
       );
     }
     return Container();
+  }
+}
+
+class _MainPopupMenu extends StatelessWidget {
+  const _MainPopupMenu({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      itemBuilder: (context) => <PopupMenuEntry>[
+        PopupMenuItem(
+            padding: EdgeInsets.zero,
+            child: ListTile(
+              leading: const Icon(PhosphorIcons.filePlusLight),
+              title: Text(AppLocalizations.of(context)!.newContent),
+              subtitle: Text(context.getShortcut('N')),
+              onTap: () {
+                Navigator.of(context).pop();
+                Actions.maybeInvoke<NewIntent>(context, NewIntent(context));
+              },
+            )),
+        PopupMenuItem(
+            padding: EdgeInsets.zero,
+            child: ListTile(
+                leading: const Icon(PhosphorIcons.folderOpenLight),
+                title: Text(AppLocalizations.of(context)!.open),
+                subtitle: Text(context.getShortcut('O')),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Actions.maybeInvoke<OpenIntent>(context, OpenIntent(context));
+                })),
+        PopupMenuItem(
+            padding: EdgeInsets.zero,
+            child: ListTile(
+              leading: const Icon(PhosphorIcons.arrowSquareInLight),
+              title: Text(AppLocalizations.of(context)!.import),
+              subtitle: Text(context.getShortcut('I')),
+              onTap: () {
+                Navigator.of(context).pop();
+                Actions.maybeInvoke<ImportIntent>(
+                    context, ImportIntent(context));
+              },
+            )),
+        PopupMenuItem(
+            padding: EdgeInsets.zero,
+            child: PopupMenuButton(
+                itemBuilder: (popupContext) => <PopupMenuEntry>[
+                      PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          child: ListTile(
+                              leading: const Icon(PhosphorIcons.caretLeftLight),
+                              title: Text(AppLocalizations.of(context)!.back),
+                              onTap: () async {
+                                Navigator.of(context).pop();
+                              })),
+                      const PopupMenuDivider(),
+                      PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          child: ListTile(
+                              leading: const Icon(PhosphorIcons.databaseLight),
+                              title: Text(AppLocalizations.of(context)!.data),
+                              subtitle: Text(context.getShortcut('E')),
+                              onTap: () async {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Actions.maybeInvoke<ExportIntent>(
+                                    context, ExportIntent(context));
+                              })),
+                      PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          child: ListTile(
+                              leading: const Icon(PhosphorIcons.imageLight),
+                              title: Text(AppLocalizations.of(context)!.image),
+                              subtitle: Text(
+                                  context.getShortcut('E', shiftKey: true)),
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Actions.maybeInvoke<ImageExportIntent>(
+                                    context, ImageExportIntent(context));
+                              })),
+                    ],
+                tooltip: '',
+                child: ListTile(
+                    mouseCursor: MouseCursor.defer,
+                    leading: const Icon(PhosphorIcons.exportLight),
+                    trailing: const Icon(PhosphorIcons.caretRightLight),
+                    title: Text(AppLocalizations.of(context)!.export)))),
+        PopupMenuItem(
+            padding: EdgeInsets.zero,
+            child: ListTile(
+                leading: const Icon(PhosphorIcons.gearLight),
+                title: Text(AppLocalizations.of(context)!.settings),
+                subtitle: Text(context.getShortcut('S', altKey: true)),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Actions.maybeInvoke<SettingsIntent>(
+                      context, SettingsIntent(context));
+                })),
+        const PopupMenuDivider(),
+        PopupMenuItem(
+            padding: EdgeInsets.zero,
+            child: ListTile(
+                leading: const Icon(PhosphorIcons.paletteLight),
+                title: Text(AppLocalizations.of(context)!.color),
+                subtitle: Text(context.getShortcut('P')),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Actions.maybeInvoke<ColorPaletteIntent>(
+                      context, ColorPaletteIntent(context));
+                })),
+        PopupMenuItem(
+            child: ListTile(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Actions.maybeInvoke<ProjectIntent>(
+                      context, ProjectIntent(context));
+                },
+                subtitle: Text(
+                    context.getShortcut('S', shiftKey: true, altKey: true)),
+                leading: const Icon(PhosphorIcons.wrenchLight),
+                title: Text(AppLocalizations.of(context)!.projectSettings)),
+            padding: EdgeInsets.zero),
+      ],
+    );
   }
 }

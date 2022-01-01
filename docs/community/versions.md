@@ -5,10 +5,10 @@
 Currently there is no production ready version.
 
 | Version       | Supported          |                                                                     |
-|---------------| ------------------ |---------------------------------------------------------------------|
+|---------------|--------------------|---------------------------------------------------------------------|
 | 1.1           | :warning:          | [Docs](https://docs.butterfly.linwood.dev/docs/1.1/intro)           |
-| 1.0         | :white_check_mark:          | [Docs](https://docs.butterfly.linwood.dev/docs/1.0/intro)           |
-| 1.0.0-rc.6    | :x: | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.6/intro)    |
+| 1.0           | :white_check_mark: | [Docs](https://docs.butterfly.linwood.dev/docs/1.0/intro)           |
+| 1.0.0-rc.6    | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.6/intro)    |
 | 1.0.0-rc.5    | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.5/intro)    |
 | 1.0.0-rc.4    | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.4/intro)    |
 | 1.0.0-rc.3    | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.3/intro)    |
@@ -24,6 +24,6 @@ Please use [the bug tracker](https://github.com/LinwoodCloud/butterfly/issues) o
 ## Branches
 
 | Name    | Support |                                                                                Description | Tag     |
-| :------ | :-----: | -----------------------------------------------------------------------------------------: | ------- |
+|:--------|:-------:|-------------------------------------------------------------------------------------------:|---------|
 | main    |    ✅    | This branch is production ready. It will be updated when a new stable version is released! | Stable  |
-| develop |    ⚠️    |    This branch is only for testing and developing. Pull request should only be added here! | Nightly |
+| develop |   ⚠️    |    This branch is only for testing and developing. Pull request should only be added here! | Nightly |
