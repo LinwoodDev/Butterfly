@@ -24,7 +24,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
-import 'package:butterfly/tool/edit.dart';
+import 'package:butterfly/views/edit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
