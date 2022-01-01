@@ -153,8 +153,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 content: List<PadElement>.from(current.document.content)
-                    .where((e) => e.layer == event.oldName)
-                    .map((e) => e.copyWith(layer: event.newName))
+                    .map((e) => e.layer == event.oldName
+                        ? e.copyWith(layer: event.newName)
+                        : e)
                     .toList())));
       }
     });

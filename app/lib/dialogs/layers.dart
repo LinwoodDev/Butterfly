@@ -153,10 +153,12 @@ class LayersDialog extends StatelessWidget {
                                                       layers[index]));
                                             },
                                           ),
-                                          trailing: LayerDialog(
-                                            popupMenu: true,
-                                            layer: layers[index],
-                                          ),
+                                          trailing: IconTheme.merge(
+                                              data: Theme.of(context).iconTheme,
+                                              child: LayerDialog(
+                                                popupMenu: true,
+                                                layer: layers[index],
+                                              )),
                                           title: Text(layers[index])),
                                     ))
                           ]);
