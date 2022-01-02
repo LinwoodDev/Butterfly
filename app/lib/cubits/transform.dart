@@ -15,7 +15,7 @@ class CameraTransform extends Equatable {
 
   CameraTransform withSize(double size, [Offset cursor = Offset.zero]) {
     // Set size and focus on cursor if provided
-    final double newSize = size.clamp(0.1, 10);
+    final double newSize = size.clamp(0.1, 1000);
     var mx = localToGlobal(cursor);
     mx = (mx + position) * newSize;
 

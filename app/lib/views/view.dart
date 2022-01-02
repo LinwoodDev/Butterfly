@@ -84,7 +84,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
               .toList();
         }
 
-        void createElement(int pointer, Offset localPosition, double pressure) {
+        Future<void> createElement(
+            int pointer, Offset localPosition, double pressure) async {
           var transform = context.read<TransformCubit>().state;
           if (state.currentPainter is BuildedPainter) {
             var painter = state.currentPainter as BuildedPainter;
@@ -99,39 +100,21 @@ class _MainViewViewportState extends State<MainViewViewport> {
           }
           if (state.currentPainter is LabelPainter) {
             var painter = state.currentPainter as LabelPainter;
-            var _textController = TextEditingController();
-            void submit() {
-              Navigator.of(context).pop();
-              context.read<DocumentBloc>().add(ElementCreated(LabelElement(
-                  property: painter.property,
-                  text: _textController.text,
-                  layer: state.currentLayer,
-                  position: transform.localToGlobal(localPosition))));
-            }
+            var bloc = context.read<DocumentBloc>();
 
-            showDialog(
+            var newElement = await showDialog(
                 context: context,
-                builder: (context) => AlertDialog(
-                        title: Text(AppLocalizations.of(context)!.enterText),
-                        content: TextField(
-                          controller: _textController,
-                          autofocus: true,
-                          minLines: 3,
-                          maxLines: 5,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder()),
-                          keyboardType: TextInputType.multiline,
-                          onSubmitted: (text) => submit(),
-                        ),
-                        actions: [
-                          TextButton(
-                            child: Text(AppLocalizations.of(context)!.cancel),
-                            onPressed: () => Navigator.of(context).pop(),
-                          ),
-                          TextButton(
-                              child: Text(AppLocalizations.of(context)!.ok),
-                              onPressed: submit)
-                        ]));
+                builder: (_) => BlocProvider.value(
+                    value: bloc,
+                    child: EditLabelElementDialog(
+                      element: LabelElement(
+                        property: painter.property,
+                        position: transform.localToGlobal(localPosition),
+                      ),
+                    )));
+            if (newElement != null) {
+              bloc.add(ElementCreated(newElement));
+            }
           }
           if (state.currentPainter is ImagePainter) {
             FilePicker.platform.pickFiles(type: FileType.image).then((files) {

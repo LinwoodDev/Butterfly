@@ -210,7 +210,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
           ),
           Expanded(
             child: Slider(
-                value: size.clamp(0.1, 10),
+                value: size.clamp(0.1, 1000),
                 min: 0.1,
                 max: 10,
                 onChanged: (value) {

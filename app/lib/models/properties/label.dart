@@ -51,7 +51,9 @@ class LabelProperty {
         'decorationColor': decorationColor.value,
         'decorationStyle': decorationStyle.index,
         'decorationThickness': decorationThickness,
-        'letterSpacing': letterSpacing
+        'letterSpacing': letterSpacing,
+        'size': size,
+        'color': color.value
       };
 
   LabelProperty copyWith(
