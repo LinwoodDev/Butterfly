@@ -159,15 +159,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
 
         return GestureDetector(
             onScaleUpdate: (details) {
-              if (state.currentPainter != null) return;
+              if (state.currentPainter != null || details.scale == 1) return;
               if (openView) openView = details.scale == 1;
               var cubit = context.read<TransformCubit>();
-              var lastSize = cubit.state.size;
-              var current = size + (details.scale - 1) * (lastSize);
-              cubit.zoom(current - lastSize, details.localFocalPoint);
+              var current = details.scale;
+              current = current - size;
+              current += 1;
+              cubit.zoom(current, details.localFocalPoint);
+              size = details.scale;
             },
             onScaleStart: (details) {
-              size = context.read<TransformCubit>().state.size;
+              size = 1;
             },
             child: Listener(
                 onPointerSignal: (pointerSignal) {
@@ -175,8 +177,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     var scale = pointerSignal.scrollDelta.dx +
                         pointerSignal.scrollDelta.dy;
                     scale /= -250;
+                    scale += 1;
                     var cubit = context.read<TransformCubit>();
-                    scale *= cubit.state.size;
                     cubit.zoom(scale, pointerSignal.localPosition);
                   }
                 },

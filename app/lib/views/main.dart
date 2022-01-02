@@ -254,6 +254,7 @@ class _ProjectPageState extends State<ProjectPage> {
             BlocBuilder<TransformCubit, CameraTransform>(
                 builder: (context, transform) {
               _scaleController.text = (transform.size * 100).toStringAsFixed(2);
+              const zoomConstant = 1 + 0.1;
 
               return Row(
                 children: [
@@ -264,7 +265,7 @@ class _ProjectPageState extends State<ProjectPage> {
                         var viewportSize = _viewportKey.currentContext?.size ??
                             MediaQuery.of(context).size;
                         context.read<TransformCubit>().zoom(
-                            -0.2,
+                            1 / zoomConstant,
                             Offset(viewportSize.width / 2,
                                 viewportSize.height / 2));
                       }),
@@ -275,8 +276,8 @@ class _ProjectPageState extends State<ProjectPage> {
                         var cubit = context.read<TransformCubit>();
                         var viewportSize = _viewportKey.currentContext?.size ??
                             MediaQuery.of(context).size;
-                        cubit.zoom(
-                            1 - cubit.state.size,
+                        cubit.size(
+                            1,
                             Offset(viewportSize.width / 2,
                                 viewportSize.height / 2));
                       }),
@@ -287,7 +288,7 @@ class _ProjectPageState extends State<ProjectPage> {
                         var viewportSize = _viewportKey.currentContext?.size ??
                             MediaQuery.of(context).size;
                         context.read<TransformCubit>().zoom(
-                            0.2,
+                            1,
                             Offset(viewportSize.width / 2,
                                 viewportSize.height / 2));
                       }),
@@ -297,12 +298,13 @@ class _ProjectPageState extends State<ProjectPage> {
                     child: TextField(
                       controller: _scaleController,
                       onSubmitted: (value) {
-                        var viewportSize = MediaQuery.of(context).size;
+                        var viewportSize = _viewportKey.currentContext?.size ??
+                            MediaQuery.of(context).size;
+                        var cubit = context.read<TransformCubit>();
                         var scale = double.tryParse(value) ?? 100;
                         scale /= 100;
-                        var cubit = context.read<TransformCubit>();
-                        cubit.zoom(
-                            scale - cubit.state.size,
+                        cubit.size(
+                            scale,
                             Offset(viewportSize.width / 2,
                                 viewportSize.height / 2));
                       },

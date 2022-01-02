@@ -38,13 +38,14 @@ class TransformCubit extends Cubit<CameraTransform> {
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
 
   void zoom(double delta, [Offset cursor = Offset.zero]) =>
-      emit(state.withSize(state.size + delta, cursor));
+      emit(state.withSize(state.size * delta, cursor));
 
   void focus(Offset cursor) => emit(state.withSize(state.size, cursor));
 
   void reset() => emit(const CameraTransform());
 
-  void size(double size) => emit(state.withSize(size));
+  void size(double size, [Offset cursor = Offset.zero]) =>
+      emit(state.withSize(size, cursor));
 
   void moveToWaypoint(Waypoint waypoint) => emit(state
       .withPosition(waypoint.position)
