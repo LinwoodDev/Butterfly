@@ -16,17 +16,17 @@ class CameraTransform extends Equatable {
   CameraTransform withSize(double size, [Offset cursor = Offset.zero]) {
     // Set size and focus on cursor if provided
     final double newSize = size.clamp(0.1, 10);
-    final oldCursor = cursor / this.size;
-    final newCursor = cursor / newSize;
-    // Zoom in to the new cursor
-    final focus = (newCursor - oldCursor);
+    var mx = localToGlobal(cursor);
+    mx = (mx + position) * newSize;
+
     return CameraTransform(
-      position + focus,
+      position + (cursor - mx) / newSize,
       newSize,
     );
   }
 
   Offset localToGlobal(Offset local) => local / size - position;
+  Offset globalToLocal(Offset global) => (global + position) * size;
 
   @override
   List<Object?> get props => [position, size];

@@ -164,7 +164,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
               var cubit = context.read<TransformCubit>();
               var lastSize = cubit.state.size;
               var current = size + (details.scale - 1) * (lastSize);
-              cubit.zoom(current - lastSize, details.focalPoint);
+              cubit.zoom(current - lastSize, details.localFocalPoint);
             },
             onScaleStart: (details) {
               size = context.read<TransformCubit>().state.size;
@@ -174,10 +174,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   if (pointerSignal is PointerScrollEvent) {
                     var scale = pointerSignal.scrollDelta.dx +
                         pointerSignal.scrollDelta.dy;
-                    scale /= -500;
+                    scale /= -250;
                     var cubit = context.read<TransformCubit>();
                     scale *= cubit.state.size;
-                    cubit.zoom(scale, pointerSignal.position);
+                    cubit.zoom(scale, pointerSignal.localPosition);
                   }
                 },
                 onPointerDown: (PointerDownEvent event) {
