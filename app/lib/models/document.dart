@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:xml/xml.dart';
 
 import 'backgrounds/box.dart';
 import 'elements/element.dart';
@@ -86,6 +87,19 @@ class AppDocument {
         ImagePainter()
       ]})
       : updatedAt = updatedAt ?? createdAt;
+
+  factory AppDocument.fromSvg(String name, XmlElement svg) {
+    var content = svg.childElements
+        .map<PadElement?>((e) {
+          switch (e.name.qualified.toLowerCase()) {
+            case 'path':
+              return PenElement.fromSvg(e);
+          }
+        })
+        .whereType<PadElement>()
+        .toList();
+    return AppDocument(name: name, createdAt: DateTime.now(), content: content);
+  }
 
   factory AppDocument.fromJson(Map<String, dynamic> json) {
     var version = json['fileVersion'] is int

@@ -13,6 +13,8 @@ import 'package:butterfly/actions/open.dart';
 import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/settings.dart';
+import 'package:butterfly/actions/svg_export.dart';
+import 'package:butterfly/actions/svg_import.dart';
 import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -114,12 +116,18 @@ class _ProjectPageState extends State<ProjectPage> {
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
                   ImportIntent(context),
               LogicalKeySet(
+                  LogicalKeyboardKey.control,
+                  LogicalKeyboardKey.shift,
+                  LogicalKeyboardKey.keyI): SvgImportIntent(context),
+              LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
                   ExportIntent(context),
               LogicalKeySet(
                   LogicalKeyboardKey.control,
                   LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyE): ImageExportIntent(context),
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
+                  LogicalKeyboardKey.keyE): SvgExportIntent(context),
               LogicalKeySet(LogicalKeyboardKey.tab): EditModeIntent(context),
               LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
                   LogicalKeyboardKey.keyS): SettingsIntent(context),
@@ -148,6 +156,8 @@ class _ProjectPageState extends State<ProjectPage> {
                   NewIntent: NewAction(),
                   OpenIntent: OpenAction(),
                   ImportIntent: ImportAction(),
+                  SvgImportIntent: SvgImportAction(),
+                  SvgExportIntent: SvgExportAction(),
                   ImageExportIntent: ImageExportAction(),
                   ExportIntent: ExportAction(),
                   EditModeIntent: EditModeAction(),
@@ -253,7 +263,7 @@ class _ProjectPageState extends State<ProjectPage> {
           Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             BlocBuilder<TransformCubit, CameraTransform>(
                 builder: (context, transform) {
-              _scaleController.text = (transform.size * 100).toStringAsFixed(2);
+              _scaleController.text = (transform.size * 100).round().toString();
               const zoomConstant = 1 + 0.1;
 
               return Row(
@@ -393,16 +403,50 @@ class _MainPopupMenu extends StatelessWidget {
                 })),
         PopupMenuItem(
             padding: EdgeInsets.zero,
-            child: ListTile(
-              leading: const Icon(PhosphorIcons.arrowSquareInLight),
-              title: Text(AppLocalizations.of(context)!.import),
-              subtitle: Text(context.getShortcut('I')),
-              onTap: () {
-                Navigator.of(context).pop();
-                Actions.maybeInvoke<ImportIntent>(
-                    context, ImportIntent(context));
-              },
-            )),
+            child: PopupMenuButton(
+                itemBuilder: (popupContext) => <PopupMenuEntry>[
+                      PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          child: ListTile(
+                              leading: const Icon(PhosphorIcons.caretLeftLight),
+                              title: Text(AppLocalizations.of(context)!.back),
+                              onTap: () async {
+                                Navigator.of(context).pop();
+                              })),
+                      const PopupMenuDivider(),
+                      PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          child: ListTile(
+                              leading: const Icon(PhosphorIcons.databaseLight),
+                              title: Text(AppLocalizations.of(context)!.data),
+                              subtitle: Text(context.getShortcut('I')),
+                              onTap: () async {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Actions.maybeInvoke<ImportIntent>(
+                                    context, ImportIntent(context));
+                              })),
+                      PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          child: ListTile(
+                              leading: const Icon(PhosphorIcons.sunLight),
+                              title: Text(AppLocalizations.of(context)!.svg),
+                              subtitle: Text(
+                                  context.getShortcut('I', shiftKey: true)),
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Actions.maybeInvoke<SvgImportIntent>(
+                                    context, SvgImportIntent(context));
+                              })),
+                    ],
+                tooltip: '',
+                child: ListTile(
+                  mouseCursor: MouseCursor.defer,
+                  leading: const Icon(PhosphorIcons.arrowSquareInLight),
+                  title: Text(AppLocalizations.of(context)!.import),
+                  trailing: const Icon(PhosphorIcons.caretRightLight),
+                ))),
         PopupMenuItem(
             padding: EdgeInsets.zero,
             child: PopupMenuButton(

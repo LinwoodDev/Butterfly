@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
+import 'package:xml/xml.dart';
 
 @immutable
 abstract class PadElement {
@@ -9,6 +10,9 @@ abstract class PadElement {
 
   @mustCallSuper
   PadElement.fromJson(Map<String, dynamic> json) : layer = json['layer'] ?? '';
+
+  @mustCallSuper
+  const PadElement.fromSvg(XmlElement e) : layer = '';
 
   @mustCallSuper
   Map<String, dynamic> toJson() => {

@@ -29,19 +29,13 @@ class PathPoint {
 }
 
 abstract class PathElement extends PadElement {
-  final List<PathPoint> points;
+  List<PathPoint> get points;
 
   PathProperty get property;
 
-  const PathElement({String layer = '', this.points = const []})
-      : super(layer: layer);
+  const PathElement({String layer = ''}) : super(layer: layer);
 
-  PathElement.fromJson(Map<String, dynamic> json)
-      : points = List<dynamic>.from(json['points'] ?? [])
-            .map((e) => Map<String, dynamic>.from(e))
-            .map((e) => PathPoint.fromJson(e))
-            .toList(),
-        super.fromJson(json);
+  PathElement.fromJson(Map<String, dynamic> json) : super.fromJson(json);
 
   @override
   Map<String, dynamic> toJson() => {
@@ -83,12 +77,12 @@ abstract class PathElement extends PadElement {
       var first = points.first;
       var previous = first;
       for (var element in points) {
-        canvas.drawLine(
-            previous.toOffset(),
-            element.toOffset(),
-            buildPaint(preview)
-              ..strokeWidth = property.strokeWidth +
-                  element.pressure * property.strokeMultiplier);
+        var strokeWidth =
+            property.strokeWidth + element.pressure * property.strokeMultiplier;
+        if (strokeWidth != 0) {
+          canvas.drawLine(previous.toOffset(), element.toOffset(),
+              buildPaint(preview)..strokeWidth = strokeWidth);
+        }
         previous = element;
       }
     }
@@ -107,12 +101,6 @@ abstract class PathElement extends PadElement {
     return Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
         bottomRightCorner.dx, bottomRightCorner.dy);
   }
-
-  @override
-  PathElement moveBy(Offset offset) => copyWith(
-      points: points
-          .map((e) => PathPoint.fromOffset(e.toOffset() + offset, e.pressure))
-          .toList());
 
   @override
   Offset get position {

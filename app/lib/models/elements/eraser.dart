@@ -4,16 +4,28 @@ import 'package:flutter/material.dart';
 
 class EraserElement extends PathElement {
   @override
+  final List<PathPoint> points;
+  @override
   final PathProperty property;
 
   const EraserElement(
       {String layer = '',
-      List<PathPoint> points = const [],
+      this.points = const [],
       this.property = const PathProperty()})
-      : super(points: points, layer: layer);
+      : super(layer: layer);
   EraserElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : property = PathProperty.fromJson(json),
+        points = List<dynamic>.from(json['points'] ?? [])
+            .map((e) => Map<String, dynamic>.from(e))
+            .map((e) => PathPoint.fromJson(e))
+            .toList(),
         super.fromJson(json);
+
+  @override
+  PathElement moveBy(Offset offset) => copyWith(
+      points: points
+          .map((e) => PathPoint.fromOffset(e.toOffset() + offset, e.pressure))
+          .toList());
 
   @override
   Paint buildPaint([bool preview = false]) => Paint()

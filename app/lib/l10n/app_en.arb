@@ -166,5 +166,6 @@
   "selectElements": "Select elements",
   "deleteElements": "Delete elements",
   "deleteElementsConfirm": "Do you really want to delete the selected elements?",
-  "selectCustomLayer": "Select a custom layer"
+  "selectCustomLayer": "Select a custom layer",
+  "svg": "SVG"
 }

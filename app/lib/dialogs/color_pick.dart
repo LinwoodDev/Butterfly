@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import 'data_export.dart';
+import 'export.dart';
 
 class ColorPickerDialog extends StatefulWidget {
   final bool viewMode;
