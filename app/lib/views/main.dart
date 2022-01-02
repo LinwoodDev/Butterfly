@@ -261,20 +261,24 @@ class _ProjectPageState extends State<ProjectPage> {
                       icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
                       tooltip: AppLocalizations.of(context)!.zoomOut,
                       onPressed: () {
+                        var viewportSize = _viewportKey.currentContext?.size ??
+                            MediaQuery.of(context).size;
                         context.read<TransformCubit>().zoom(
-                            -0.1,
-                            Offset(MediaQuery.of(context).size.width / 2,
-                                MediaQuery.of(context).size.height / 2));
+                            -0.2,
+                            Offset(viewportSize.width / 2,
+                                viewportSize.height / 2));
                       }),
                   IconButton(
                       icon: const Icon(PhosphorIcons.magnifyingGlassLight),
                       tooltip: AppLocalizations.of(context)!.resetZoom,
                       onPressed: () {
                         var cubit = context.read<TransformCubit>();
+                        var viewportSize = _viewportKey.currentContext?.size ??
+                            MediaQuery.of(context).size;
                         cubit.zoom(
                             1 - cubit.state.size,
-                            Offset(MediaQuery.of(context).size.width / 2,
-                                MediaQuery.of(context).size.height / 2));
+                            Offset(viewportSize.width / 2,
+                                viewportSize.height / 2));
                       }),
                   IconButton(
                       icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
@@ -283,7 +287,7 @@ class _ProjectPageState extends State<ProjectPage> {
                         var viewportSize = _viewportKey.currentContext?.size ??
                             MediaQuery.of(context).size;
                         context.read<TransformCubit>().zoom(
-                            0.1,
+                            0.2,
                             Offset(viewportSize.width / 2,
                                 viewportSize.height / 2));
                       }),
