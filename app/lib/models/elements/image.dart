@@ -67,11 +67,9 @@ class ImageElement extends PadElement {
   }
 
   @override
-  bool hit(Offset offset) {
-    return offset.dx >= position.dx &&
-        offset.dy >= position.dy &&
-        offset.dx <= position.dx + width * scale &&
-        offset.dy <= position.dy + height * scale;
+  bool hit(Offset offset, [double radius = 1]) {
+    return (offset.dx - position.dx).abs() <= width / 2 * scale &&
+        (offset.dy - position.dy).abs() <= height / 2 * scale;
   }
 
   @override

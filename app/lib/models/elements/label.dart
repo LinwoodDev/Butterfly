@@ -35,11 +35,12 @@ class LabelElement extends PadElement {
         ..addAll(super.toJson());
 
   @override
-  bool hit(Offset offset) {
+  bool hit(Offset offset, [double radius = 1]) {
     var tp = _createPainter();
     tp.layout();
-    return (offset.dx - position.dx).abs() < tp.width &&
-        (offset.dy - position.dy).abs() < tp.height;
+    var rect = Rect.fromLTWH(position.dx - radius, position.dy - radius,
+        tp.width + radius * 2, tp.height + radius * 2);
+    return rect.contains(offset);
   }
 
   @override

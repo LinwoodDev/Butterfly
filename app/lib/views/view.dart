@@ -42,12 +42,13 @@ class MainViewViewport extends StatefulWidget {
 
 class _RayCastParams {
   final Offset position;
+  final double radius;
   final bool includeEraser;
   final List<PadElement> elements;
   final List<String> invisibleLayers;
 
-  _RayCastParams(
-      this.position, this.elements, this.invisibleLayers, this.includeEraser);
+  _RayCastParams(this.position, this.elements, this.invisibleLayers,
+      this.includeEraser, this.radius);
 }
 
 List<int> _executeRayCast(_RayCastParams params) {
@@ -56,8 +57,8 @@ List<int> _executeRayCast(_RayCastParams params) {
       .asMap()
       .entries
       .where((element) =>
-          !params.invisibleLayers.contains(element.value.layer) &&
-          element.value.hit(params.position) &&
+  !params.invisibleLayers.contains(element.value.layer) &&
+          element.value.hit(params.position, params.radius) &&
           (element.value is! EraserElement || params.includeEraser))
       .forEach((element) => result.add(element.key));
   return result;
@@ -78,8 +79,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
           ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
         List<PadElement> rayCast(Offset offset, bool includeEraser) {
           var content = state.document.content;
+          var zoom = context.read<TransformCubit>().state.size;
           return _executeRayCast(_RayCastParams(offset, content.toList(),
-                  state.invisibleLayers.toList(), includeEraser))
+                  state.invisibleLayers.toList(), includeEraser, 5 / zoom))
               .map((e) => content[e])
               .toList()
               .reversed

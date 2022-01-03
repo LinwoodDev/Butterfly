@@ -25,7 +25,7 @@ abstract class PadElement {
     return moveBy(value - position);
   }
 
-  bool hit(Offset offset);
+  bool hit(Offset offset, [double radius = 1.0]);
 
   Rect get rect;
 

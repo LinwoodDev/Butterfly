@@ -24,6 +24,8 @@ class PathPoint {
   Map<String, dynamic> toJson() => {'x': x, 'y': y, 'pressure': pressure};
 
   Offset toOffset() => Offset(x, y);
+
+  Vector2 toVector2() => Vector2(x, y);
 }
 
 abstract class PathElement extends PadElement {
@@ -49,32 +51,39 @@ abstract class PathElement extends PadElement {
         ..addAll(super.toJson());
 
   @override
-  bool hit(Offset offset) {
-    var last = Vector2(points.first.x, points.first.y);
+  bool hit(Offset offset, [double radius = 1]) {
+    var last = points.first.toVector2();
+    var vector = Vector2(offset.dx, offset.dy);
     return points.any((element) {
-      var current = Vector2(element.x, element.y);
-      var px = current.x - last.x;
-      var py = current.y - last.y;
-      var temp = (px * px) + (py * py);
-      var u = ((offset.dx - last.x) * px + (offset.dy - last.y) * py) / (temp);
-      if (u > 1) {
-        u = 1;
-      } else if (u < 0) {
-        u = 0;
+      double distance;
+      var current = element.toVector2();
+      var lineWidth = pow(
+          property.strokeWidth + property.strokeMultiplier * element.pressure,
+          2);
+      // float minimum_distance(vec2 v, vec2 w, vec2 p) {
+      //   // Return minimum distance between line segment vw and point p
+      //   const float l2 = length_squared(v, w);  // i.e. |w-v|^2 -  avoid a sqrt
+      //   if (l2 == 0.0) return distance(p, v);   // v == w case
+      //   // Consider the line extending the segment, parameterized as v + t (w - v).
+      //   // We find projection of point p onto the line.
+      //   // It falls where t = [(p-v) . (w-v)] / |w-v|^2
+      //   // We clamp t from [0,1] to handle points outside the segment vw.
+      //   const float t = max(0, min(1, dot(p - v, w - v) / l2));
+      //   const vec2 projection = v + t * (w - v);  // Projection falls on the segment
+      //   return distance(p, projection);
+      // }
+      var l2 = current.length2 + last.length2;
+      if (l2 == 0) {
+        distance = vector.distanceTo(last);
+      } else {
+        double t = max(0, min(1, (vector - last).dot(current - last) / l2));
+        var projection = current + (last - current) * t;
+        distance = vector.distanceTo(projection);
       }
-      var x = last.x + u * px;
-      var y = last.y + u * py;
 
-      var dx = x - offset.dx;
-      var dy = y - offset.dy;
-      double dist = sqrt(dx * dx + dy * dy);
-      var hit = dist <
-              (property.strokeWidth +
-                      property.strokeMultiplier * element.pressure) *
-                  2 ||
-          current.distanceToSquared(Vector2(offset.dx, offset.dy)) < 2;
       last = current;
-      return hit;
+      // If distance is less than line width, then it is a hit.
+      return distance <= lineWidth / 2;
     });
   }
 
