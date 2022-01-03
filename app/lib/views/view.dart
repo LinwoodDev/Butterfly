@@ -81,6 +81,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
           return _executeRayCast(_RayCastParams(offset, content.toList(),
                   state.invisibleLayers.toList(), includeEraser))
               .map((e) => content[e])
+              .toList()
+              .reversed
               .toList();
         }
 
