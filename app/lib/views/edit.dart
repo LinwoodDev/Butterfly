@@ -62,6 +62,24 @@ class EditToolbar extends StatelessWidget {
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return Container();
         var painters = state.document.painters;
+        void openHandDialog() {
+          var bloc = context.read<DocumentBloc>();
+          showGeneralDialog(
+              context: context,
+              transitionBuilder: (context, a1, a2, widget) {
+                // Slide transition
+                return SlideTransition(
+                  position: Tween<Offset>(
+                          begin: const Offset(0, -1), end: Offset.zero)
+                      .animate(a1),
+                  child: widget,
+                );
+              },
+              barrierDismissible: true,
+              barrierLabel: AppLocalizations.of(context)!.close,
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  BlocProvider.value(value: bloc, child: const HandDialog()));
+        }
 
         return Material(
           child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -70,25 +88,11 @@ class EditToolbar extends StatelessWidget {
               isSelected: state.currentPainter == null,
               icon: const Icon(PhosphorIcons.handLight),
               selectedIcon: const Icon(PhosphorIcons.handFill),
+              onLongPressed: openHandDialog,
               onPressed: () {
                 var bloc = context.read<DocumentBloc>();
                 if (state.currentPainter == null) {
-                  showGeneralDialog(
-                      context: context,
-                      transitionBuilder: (context, a1, a2, widget) {
-                        // Slide transition
-                        return SlideTransition(
-                          position: Tween<Offset>(
-                                  begin: const Offset(0, -1), end: Offset.zero)
-                              .animate(a1),
-                          child: widget,
-                        );
-                      },
-                      barrierDismissible: true,
-                      barrierLabel: AppLocalizations.of(context)!.close,
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          BlocProvider.value(
-                              value: bloc, child: const HandDialog()));
+                  openHandDialog();
                 } else {
                   bloc.add(const CurrentPainterChanged(null));
                 }
@@ -108,10 +112,53 @@ class EditToolbar extends StatelessWidget {
                       state.currentPainterIndex
                           ?.clamp(0, state.document.painters.length - 1);
                   String tooltip = e.name.trim();
+                  void openDialog() {
+                    var bloc = context.read<DocumentBloc>();
+                    showGeneralDialog(
+                        context: context,
+                        transitionBuilder: (context, a1, a2, widget) {
+                          // Slide transition
+                          return SlideTransition(
+                            position: Tween<Offset>(
+                                    begin: const Offset(0, -1),
+                                    end: Offset.zero)
+                                .animate(a1),
+                            child: widget,
+                          );
+                        },
+                        barrierDismissible: true,
+                        barrierLabel: AppLocalizations.of(context)!.close,
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          switch (type) {
+                            case 'pen':
+                              return PenPainterDialog(
+                                  bloc: bloc, painterIndex: i);
+                            case 'eraser':
+                              return EraserPainterDialog(
+                                  bloc: bloc, painterIndex: i);
+                            case 'path-eraser':
+                              return PathEraserPainterDialog(
+                                  bloc: bloc, painterIndex: i);
+                            case 'label':
+                              return LabelPainterDialog(
+                                  bloc: bloc, painterIndex: i);
+                            case 'image':
+                              return ImagePainterDialog(
+                                  bloc: bloc, painterIndex: i);
+                            case 'layer':
+                              return LayerPainterDialog(
+                                  bloc: bloc, painterIndex: i);
+                            default:
+                              return Container();
+                          }
+                        });
+                  }
+
                   Widget toolWidget = Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: OptionButton(
                           tooltip: tooltip,
+                          onLongPressed: openDialog,
                           isSelected: selected,
                           selectedIcon: Icon(getPainterActiveIcon(type)),
                           icon: Icon(getPainterIcon(type)),
@@ -120,46 +167,7 @@ class EditToolbar extends StatelessWidget {
                             if (!selected) {
                               bloc.add(CurrentPainterChanged(i));
                             } else {
-                              showGeneralDialog(
-                                  context: context,
-                                  transitionBuilder: (context, a1, a2, widget) {
-                                    // Slide transition
-                                    return SlideTransition(
-                                      position: Tween<Offset>(
-                                              begin: const Offset(0, -1),
-                                              end: Offset.zero)
-                                          .animate(a1),
-                                      child: widget,
-                                    );
-                                  },
-                                  barrierDismissible: true,
-                                  barrierLabel:
-                                      AppLocalizations.of(context)!.close,
-                                  pageBuilder:
-                                      (context, animation, secondaryAnimation) {
-                                    switch (type) {
-                                      case 'pen':
-                                        return PenPainterDialog(
-                                            bloc: bloc, painterIndex: i);
-                                      case 'eraser':
-                                        return EraserPainterDialog(
-                                            bloc: bloc, painterIndex: i);
-                                      case 'path-eraser':
-                                        return PathEraserPainterDialog(
-                                            bloc: bloc, painterIndex: i);
-                                      case 'label':
-                                        return LabelPainterDialog(
-                                            bloc: bloc, painterIndex: i);
-                                      case 'image':
-                                        return ImagePainterDialog(
-                                            bloc: bloc, painterIndex: i);
-                                      case 'layer':
-                                        return LayerPainterDialog(
-                                            bloc: bloc, painterIndex: i);
-                                      default:
-                                        return Container();
-                                    }
-                                  });
+                              openDialog();
                             }
                           }));
                   return ReorderableDragStartListener(

@@ -288,7 +288,7 @@ class _ProjectPageState extends State<ProjectPage> {
                         var viewportSize = _viewportKey.currentContext?.size ??
                             MediaQuery.of(context).size;
                         context.read<TransformCubit>().zoom(
-                            1,
+                            zoomConstant,
                             Offset(viewportSize.width / 2,
                                 viewportSize.height / 2));
                       }),
