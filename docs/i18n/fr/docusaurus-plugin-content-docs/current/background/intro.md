@@ -8,6 +8,6 @@ Vous pouvez personnaliser l'arrière-plan du papier. Cliquez sur l’icône de f
 
 ## Configuration
 
-Width and height are the general settings of the box.
+Largeur et hauteur sont les paramètres généraux de la boîte.
 
-Additionally, you can customize the color of the background.
+De plus, vous pouvez personnaliser la couleur de l'arrière-plan.
