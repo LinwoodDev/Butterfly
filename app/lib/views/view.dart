@@ -57,7 +57,7 @@ List<int> _executeRayCast(_RayCastParams params) {
       .asMap()
       .entries
       .where((element) =>
-  !params.invisibleLayers.contains(element.value.layer) &&
+          !params.invisibleLayers.contains(element.value.layer) &&
           element.value.hit(params.position, params.radius) &&
           (element.value is! EraserElement || params.includeEraser))
       .forEach((element) => result.add(element.key));
@@ -340,70 +340,68 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     }
                   }
                 },
-                child: Builder(builder: (context) {
-                  return FutureBuilder<Map<PadElement, ui.Image>>(
-                    future: loadImages(state.document, images),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        images = snapshot.data!;
-                      } else if (kIsWeb) {
-                        return Align(
-                            alignment: Alignment.center,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: CircularProgressIndicator(),
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.loading,
-                                  style: Theme.of(context).textTheme.subtitle1,
-                                )
-                              ]),
-                            ));
-                      }
-                      return BlocBuilder<TransformCubit, CameraTransform>(
-                        builder: (context, transform) {
-                          return Stack(children: [
-                            Container(color: Colors.white),
-                            BlocBuilder<EditingCubit, Map<int, PadElement>>(
-                              builder: (context, editing) =>
-                                  BlocBuilder<SelectionCubit, PadElement?>(
-                                      builder: (context, selection) {
-                                return CustomPaint(
-                                  size: Size.infinite,
-                                  foregroundPainter: ForegroundPainter(
-                                      editing, transform, selection),
-                                  painter: ViewPainter(state.document,
-                                      invisibleLayers: state.invisibleLayers,
-                                      transform: transform,
-                                      images: images),
-                                  isComplex: true,
-                                  willChange: true,
-                                );
-                              }),
-                            ),
-                            if (snapshot.connectionState ==
-                                    ConnectionState.waiting &&
-                                images.isEmpty &&
-                                !kIsWeb)
-                              Align(
-                                  alignment: Alignment.bottomLeft,
-                                  child: Container(
-                                    margin: const EdgeInsets.all(8),
-                                    child: const CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                    ),
-                                    height: 20.0,
-                                    width: 20.0,
-                                  )),
-                          ]);
-                        },
-                      );
-                    },
-                  );
-                })));
+                child: FutureBuilder<Map<PadElement, ui.Image>>(
+                  future: loadImages(state.document, images),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      images = snapshot.data!;
+                    } else if (kIsWeb) {
+                      return Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(children: [
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: CircularProgressIndicator(),
+                              ),
+                              Text(
+                                AppLocalizations.of(context)!.loading,
+                                style: Theme.of(context).textTheme.subtitle1,
+                              )
+                            ]),
+                          ));
+                    }
+                    return BlocBuilder<TransformCubit, CameraTransform>(
+                      builder: (context, transform) {
+                        return Stack(children: [
+                          Container(color: Colors.white),
+                          BlocBuilder<EditingCubit, Map<int, PadElement>>(
+                            builder: (context, editing) =>
+                                BlocBuilder<SelectionCubit, PadElement?>(
+                                    builder: (context, selection) {
+                              return CustomPaint(
+                                size: Size.infinite,
+                                foregroundPainter: ForegroundPainter(
+                                    editing, transform, selection),
+                                painter: ViewPainter(state.document,
+                                    invisibleLayers: state.invisibleLayers,
+                                    transform: transform,
+                                    images: images),
+                                isComplex: true,
+                                willChange: true,
+                              );
+                            }),
+                          ),
+                          if (snapshot.connectionState ==
+                                  ConnectionState.waiting &&
+                              images.isEmpty &&
+                              !kIsWeb)
+                            Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Container(
+                                  margin: const EdgeInsets.all(8),
+                                  child: const CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                  height: 20.0,
+                                  width: 20.0,
+                                )),
+                        ]);
+                      },
+                    );
+                  },
+                )));
       })));
     });
   }
