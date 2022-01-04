@@ -1,16 +1,18 @@
 ---
-sidebar_label: "Pen"
-sidebar_position: 2
+sidebar_label: "Eraser"
+sidebar_position: 3
 ---
 
-# Pen painter
+# Eraser painter
 
-With this painter you can draw on this paper.
+:::warning It is not recommended to use the eraser. Please use the [path eraser](path_eraser) if it is possible.
+:::
+
+With this painter you can erase the elements on the paper.
 
 ## Configuration
 
 |          Property | Default | Description                                                                      |
 |------------------:|:-------:|:---------------------------------------------------------------------------------|
-|             Color |  Black  | The color that will be drawn                                                     |
 |      Stroke width |    5    | The width of the stroke                                                          |
 | Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |

@@ -23,7 +23,7 @@ function HomepageHeader() {
         <div className={styles.indexCtas}>
           <Link
               className="button button--secondary button--lg"
-              to="/docs/1.0/intro">
+              to="/docs/1.1/intro">
               <Translate description="homepage getting started button">
                   Getting started
               </Translate>

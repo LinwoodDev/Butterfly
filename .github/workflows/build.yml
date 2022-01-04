@@ -229,7 +229,6 @@ jobs:
             app-release.apk
             windows.zip
             linux.zip
-            #  linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.deb
             Linwood-Butterfly-linux-x86_64.AppImage
         env:
@@ -245,7 +244,6 @@ jobs:
             app-release.apk
             windows.zip
             linux.zip
-            #  linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.deb
             Linwood-Butterfly-linux-x86_64.AppImage
         env:
@@ -260,7 +258,7 @@ jobs:
             app-release.apk
             windows.zip
             linux.zip
-            #  linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.deb
+            Linwood-Butterfly-linux-x86_64.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
