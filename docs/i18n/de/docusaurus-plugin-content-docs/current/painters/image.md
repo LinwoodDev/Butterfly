@@ -9,4 +9,4 @@ Mit diesem Maler können Sie Ihrem Papier ein Bild hinzufügen. Klicken Sie auf 
 
 ## Konfiguration
 
-Momentan nichts zu konfigurieren
+Currently, nothing to configure
