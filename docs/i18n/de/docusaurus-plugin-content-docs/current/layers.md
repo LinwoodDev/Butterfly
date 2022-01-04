@@ -1,7 +1,7 @@
 ---
-title: "Layers"
+title: "Ebenen"
 ---
 
-Layers are an option to group elements together. Click on the element to see and change the layer. Use the [layer painter](painters/layers.md) to change the layers of multiple elements.
+Ebenen sind eine Option, um Elemente zu gruppieren. Klicken Sie auf das Element, um die Ebene zu sehen und zu ändern. Verwenden Sie den [Layer-Maler](painters/layers.md) um die Ebenen von mehreren Elementen zu ändern.
 
-If you click on the background, you can control which layers are visible.
+Wenn Sie auf den Hintergrund klicken, können Sie festlegen, welche Ebenen sichtbar sind.
