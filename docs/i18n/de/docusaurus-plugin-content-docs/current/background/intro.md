@@ -8,6 +8,6 @@ Sie können den Hintergrund des Papiers anpassen. Klicken Sie auf das Hintergrun
 
 ## Konfiguration
 
-Breite und Höhe sind die allgemeinen Einstellungen der Box. Raum und Zählung sind wichtig, wenn Sie eine komplexe Struktur hinzufügen möchten. Siehe [das Musikpapier](./music) für mehr. Setzen Sie diese Einstellung auf 1 auf x und/oder y um die gerenderten Linien zu lassen.
+Breite und Höhe sind die allgemeinen Einstellungen der Box.
 
 Zusätzlich können Sie die Hintergrundfarbe anpassen.

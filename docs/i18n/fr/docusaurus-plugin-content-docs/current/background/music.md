@@ -1,7 +1,7 @@
 # Papier musical
 
 |   Propriété | Valeur |
-| -----------:|:------ |
+|------------:|:-------|
 |       Width | 200    |
 |     Hauteur | 5      |
 | Nombre de X | 1      |

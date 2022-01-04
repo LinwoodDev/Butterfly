@@ -1,0 +1,5 @@
+* Add layers to group elements
+* Add layer painter to change the layer of the elements
+* Add natural zoom
+* Add ink well and rounding borders to painter buttons
+* Fix open dialog crash when the dialog is closed by the user.

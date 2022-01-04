@@ -25,7 +25,6 @@ module.exports = {
         items: [
           'background/quad',
           'background/ruled',
-          'background/music',
         ]
       },
       {
