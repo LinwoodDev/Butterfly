@@ -9,4 +9,4 @@ Avec ce peintre vous pouvez ajouter une image à votre papier. Cliquez sur une p
 
 ## Configuration
 
-Currently, nothing to configure
+Actuellement, rien à configurer
