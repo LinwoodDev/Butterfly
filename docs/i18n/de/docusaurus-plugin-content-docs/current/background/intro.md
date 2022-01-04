@@ -8,6 +8,6 @@ Sie können den Hintergrund des Papiers anpassen. Klicken Sie auf das Hintergrun
 
 ## Konfiguration
 
-Breite und Höhe sind die allgemeinen Einstellungen der Box.
+Width and height are the general settings of the box.
 
-Zusätzlich können Sie die Hintergrundfarbe anpassen.
+Additionally, you can customize the color of the background.
