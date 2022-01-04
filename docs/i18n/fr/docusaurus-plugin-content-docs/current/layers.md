@@ -1,7 +1,7 @@
 ---
-title: "Layers"
+title: "Couches"
 ---
 
-Layers are an option to group elements together. Click on the element to see and change the layer. Use the [layer painter](painters/layers.md) to change the layers of multiple elements.
+Les calques sont une option pour regrouper les éléments ensemble. Cliquez sur l'élément pour voir et changer le calque. Utilisez le [calque peintre](painters/layers.md) pour changer les calques de plusieurs éléments.
 
-If you click on the background, you can control which layers are visible.
+Si vous cliquez sur l'arrière-plan, vous pouvez contrôler quels calques sont visibles.
