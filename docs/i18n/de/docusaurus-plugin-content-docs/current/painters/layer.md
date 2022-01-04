@@ -1,12 +1,12 @@
 ---
-title: Layer
+title: Ebene
 ---
 
-With this tool you can change the layer of multiple objects. Read more about layers [here](../layers.md).
+Mit diesem Tool können Sie die Ebene von mehreren Objekten ändern. Lesen Sie mehr über die Ebenen [hier](../layers.md).
 
-# Configuration
+# Konfiguration
 
-|       Property | Default | Description                                                             |
-| --------------:|:-------:|:----------------------------------------------------------------------- |
-|          Layer |         | Elements will change to this layer if clicking on them                  |
-| Include eraser |  false  | This setting controls if you can click on the eraser layer and edit it. |
+|            Objekt | Standard | Beschreibung                                                                                      |
+| -----------------:|:--------:|:------------------------------------------------------------------------------------------------- |
+|             Ebene |          | Elemente werden zu dieser Ebene geändert, wenn sie angeklickt werden                              |
+| Raser einbeziehen |  falsch  | Diese Einstellung legt fest, ob Sie auf die Ebene des Löschers klicken und sie bearbeiten können. |
