@@ -6,6 +6,14 @@ slug: /changelog
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.1.0 (2022-01-05)
+
+* Add layers to group elements
+* Add layer painter to change the layer of the elements
+* Add natural zoom
+* Add ink well and rounding borders to painter buttons
+* Fix open dialog crash when the dialog is closed by the user.
+
 ## 1.0.0 (2021-12-24)
 
 * Adding deb and AppImage export type for linux
