@@ -40,7 +40,7 @@
     "description": "The label of footer link with label=Privacy Policy linking to /privacypolicy"
   },
   "copyright": {
-    "message": "Copyright © 2021 LinwoodCloud.",
+    "message": "Copyright © 2022 LinwoodCloud.",
     "description": "The footer copyright"
   }
 }
