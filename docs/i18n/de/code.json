@@ -1,4 +1,44 @@
 {
+  "Cross platform": {
+    "message": "Plattformübergreifend",
+    "description": "Features cross-platform title"
+  },
+  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
+    "message": "Sie können die App auf Ihrem Smartphone, Tablet, Laptop oder Desktop verwenden. Die App ist unter Linux, Android und Windows verfügbar. Sie können die App auch im Web verwenden.",
+    "description": "Features cross-platform description"
+  },
+  "Simple and intuitive": {
+    "message": "Einfach und intuitiv",
+    "description": "Features simple title"
+  },
+  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
+    "message": "Jedes Werkzeug ist an der richtigen Stelle. Öffnen Sie die App und beginnen Sie mit der Zeichnung. Ändern Sie Ihre Werkzeuge, indem Sie darauf klicken.",
+    "description": "Features simple description"
+  },
+  "Customizable": {
+    "message": "Anpassbar",
+    "description": "Features customizable title"
+  },
+  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
+    "message": "Wählen Sie Ihre individuelle Farbe, erstellen Sie eine Palette und fügen Sie Ihre Seiten dem Papier hinzu. Das Papier hat eine unendliche Größe, perfekt für Ihre Ideen und Noten.",
+    "description": "Features customizable description"
+  },
+  "Your data will be saved locally": {
+    "message": "Ihre Daten werden lokal gespeichert",
+    "description": "Features local title"
+  },
+  "Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.": {
+    "message": "Alles wird lokal auf Ihrem Computer gespeichert. Exportieren Sie die Notizen als Bild oder als json-Dateien, die auf einem anderen Gerät geöffnet werden können.",
+    "description": "Features local description"
+  },
+  "Getting started": {
+    "message": "Erste Schritte",
+    "description": "homepage getting started button"
+  },
+  "Downloads": {
+    "message": "Downloads",
+    "description": "homepage downloads button"
+  },
   "theme.ErrorPageContent.title": {
     "message": "Diese Seite ist abgestürzt.",
     "description": "The title of the fallback page when the page crashed"
@@ -71,18 +111,6 @@
     "message": "Aktuelle Blog-Beitragsnavigation",
     "description": "The ARIA label for recent posts in the blog sidebar"
   },
-  "theme.CodeBlock.copyButtonAriaLabel": {
-    "message": "Code in Zwischenablage kopieren",
-    "description": "The ARIA label for copy code blocks button"
-  },
-  "theme.CodeBlock.copied": {
-    "message": "Kopiert",
-    "description": "The copied button label on code blocks"
-  },
-  "theme.CodeBlock.copy": {
-    "message": "Kopieren",
-    "description": "The copy button label on code blocks"
-  },
   "theme.blog.post.plurals": {
     "message": "Ein Beitrag|{count} Beiträge",
     "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
@@ -94,6 +122,18 @@
   "theme.tags.tagsPageLink": {
     "message": "Alle Tags anzeigen",
     "description": "The label of the link targeting the tag list page"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "Code in Zwischenablage kopieren",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "Kopiert",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "Kopieren",
+    "description": "The copy button label on code blocks"
   },
   "theme.docs.sidebar.expandButtonTitle": {
     "message": "Expand sidebar",
@@ -206,45 +246,5 @@
   "theme.tags.tagsPageTitle": {
     "message": "Tags",
     "description": "The title of the tag list page"
-  },
-  "Cross platform": {
-    "message": "Plattformübergreifend",
-    "description": "Features cross-platform title"
-  },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "Sie können die App auf Ihrem Smartphone, Tablet, Laptop oder Desktop verwenden. Die App ist unter Linux, Android und Windows verfügbar. Sie können die App auch im Web verwenden.",
-    "description": "Features cross-platform description"
-  },
-  "Simple and intuitive": {
-    "message": "Einfach und intuitiv",
-    "description": "Features simple title"
-  },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "Jedes Werkzeug ist an der richtigen Stelle. Öffnen Sie die App und beginnen Sie mit der Zeichnung. Ändern Sie Ihre Werkzeuge, indem Sie darauf klicken.",
-    "description": "Features simple description"
-  },
-  "Customizable": {
-    "message": "Anpassbar",
-    "description": "Features customizable title"
-  },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "Wählen Sie Ihre individuelle Farbe, erstellen Sie eine Palette und fügen Sie Ihre Seiten dem Papier hinzu. Das Papier hat eine unendliche Größe, perfekt für Ihre Ideen und Noten.",
-    "description": "Features customizable description"
-  },
-  "Your data will be saved locally": {
-    "message": "Ihre Daten werden lokal gespeichert",
-    "description": "Features local title"
-  },
-  "Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.": {
-    "message": "Alles wird lokal auf Ihrem Computer gespeichert. Exportieren Sie die Notizen als Bild oder als json-Dateien, die auf einem anderen Gerät geöffnet werden können.",
-    "description": "Features local description"
-  },
-  "Getting started": {
-    "message": "Erste Schritte",
-    "description": "homepage getting started button"
-  },
-  "Downloads": {
-    "message": "Downloads",
-    "description": "homepage downloads button"
   }
 }
