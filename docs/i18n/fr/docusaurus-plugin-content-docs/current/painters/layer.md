@@ -1,12 +1,12 @@
 ---
-title: Layer
+title: Couche
 ---
 
-With this tool you can change the layer of multiple objects. Read more about layers [here](../layers.md).
+Avec cet outil vous pouvez changer le calque de plusieurs objets. En savoir plus sur les couches [ici](../layers.md).
 
 # Configuration
 
-|       Property | Default | Description                                                             |
-| --------------:|:-------:|:----------------------------------------------------------------------- |
-|          Layer |         | Elements will change to this layer if clicking on them                  |
-| Include eraser |  false  | This setting controls if you can click on the eraser layer and edit it. |
+|        Propriété | Par défaut | Libellé                                                                       |
+| ----------------:|:----------:|:----------------------------------------------------------------------------- |
+|           Couche |            | Les éléments changeront pour ce calque si vous cliquez dessus                 |
+| Inclure la gomme |    Faux    | Ce paramètre contrôle si vous pouvez cliquer sur le calque gomme et l'éditer. |
