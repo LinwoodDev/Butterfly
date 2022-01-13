@@ -14,10 +14,10 @@ class WaypointsAction extends Action<WaypointsIntent> {
   WaypointsAction();
 
   @override
-  Object? invoke(WaypointsIntent intent) {
+  Future<dynamic> invoke(WaypointsIntent intent) {
     var bloc = intent.context.read<DocumentBloc>();
     var transformCubit = intent.context.read<TransformCubit>();
-    showDialog(
+    return showDialog(
       context: intent.context,
       builder: (context) => MultiBlocProvider(providers: [
         BlocProvider.value(value: transformCubit),

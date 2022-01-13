@@ -121,23 +121,29 @@ class _MainViewViewportState extends State<MainViewViewport> {
             }
           }
           if (state.currentPainter is ImagePainter) {
-            FilePicker.platform.pickFiles(type: FileType.image).then((files) {
+            await FilePicker.platform
+                .pickFiles(
+                    type: FileType.image, allowMultiple: false, withData: true)
+                .then((files) async {
               if (files?.files.isEmpty ?? true) return;
               var e = files!.files.first;
               var content = e.bytes ?? Uint8List(0);
               if (!kIsWeb) {
                 content = File(e.path ?? '').readAsBytesSync();
               }
-              ui.decodeImageFromList(content, (image) async {
-                var bytes =
-                    await image.toByteData(format: ui.ImageByteFormat.png);
-                context.read<DocumentBloc>().add(ElementCreated(ImageElement(
-                    height: image.height,
-                    width: image.width,
-                    layer: state.currentLayer,
-                    pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
-                    position: transform.localToGlobal(localPosition))));
-              });
+              var codec =
+                  await ui.instantiateImageCodec(content, targetWidth: 500);
+              var frame = await codec.getNextFrame();
+              var image = frame.image.clone();
+
+              var bytes =
+                  await image.toByteData(format: ui.ImageByteFormat.png);
+              context.read<DocumentBloc>().add(ElementCreated(ImageElement(
+                  height: image.height,
+                  width: image.width,
+                  layer: state.currentLayer,
+                  pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
+                  position: transform.localToGlobal(localPosition))));
             });
           }
         }

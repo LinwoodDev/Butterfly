@@ -116,6 +116,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
           }
           return null;
         }
+        return null;
       }).toList())
           .then((value) => value.whereType<AppDocumentAsset>().toList());
       // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
@@ -126,6 +127,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       await txn.completed;
       return AppDocumentDirectory(path, assets.toList());
     }
+    return null;
   }
 
   @override

@@ -84,6 +84,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
 
       return AppDocumentDirectory(path, assets);
     }
+    return null;
   }
 
   @override

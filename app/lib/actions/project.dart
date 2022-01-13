@@ -13,8 +13,8 @@ class ProjectAction extends Action<ProjectIntent> {
   ProjectAction();
 
   @override
-  Object? invoke(ProjectIntent intent) {
-    showDialog(
+  Future<dynamic> invoke(ProjectIntent intent) {
+    return showDialog(
         context: intent.context,
         builder: (context) => BlocProvider.value(
             value: intent.context.read<DocumentBloc>(),
