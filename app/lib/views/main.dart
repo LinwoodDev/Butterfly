@@ -310,6 +310,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       },
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
+                          filled: true,
                           labelText: AppLocalizations.of(context)!.zoom),
                     ),
                   ),
