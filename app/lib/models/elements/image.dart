@@ -20,13 +20,15 @@ class ImageElement extends PadElement {
       String layer = '',
       this.scale = 1})
       : super(layer: layer);
-  static Future<ImageElement> fromImage(ui.Image image, Offset position, [double scale = 1]) =>
-      image.toByteData(format: ui.ImageByteFormat.rawRgba).then((value) => ImageElement(
-          pixels: value?.buffer.asUint8List() ?? Uint8List(0),
-          width: image.width,
-          height: image.height,
-          position: position,
-          scale: scale));
+  static Future<ImageElement> fromImage(ui.Image image, Offset position,
+          [double scale = 1]) =>
+      image.toByteData(format: ui.ImageByteFormat.rawRgba).then((value) =>
+          ImageElement(
+              pixels: value?.buffer.asUint8List() ?? Uint8List(0),
+              width: image.width,
+              height: image.height,
+              position: position,
+              scale: scale));
 
   ImageElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : pixels = Uint8List.fromList(base64.decode(json['pixels'])),
@@ -73,10 +75,12 @@ class ImageElement extends PadElement {
   }
 
   @override
-  void paint(Canvas canvas, [bool preview = false]) => throw UnimplementedError();
+  void paint(Canvas canvas, [bool preview = false]) =>
+      throw UnimplementedError();
 
   @override
-  ui.Rect get rect => Rect.fromLTWH(position.dx, position.dy, width * scale, height * scale);
+  ui.Rect get rect =>
+      Rect.fromLTWH(position.dx, position.dy, width * scale, height * scale);
 
   @override
   ImageElement moveBy(Offset offset) => copyWith(position: position + offset);

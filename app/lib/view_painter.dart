@@ -42,8 +42,7 @@ class ForegroundPainter extends CustomPainter {
   final CameraTransform transform;
   final PadElement? selection;
 
-  ForegroundPainter(this.editingLayer,
-      [this.transform = const CameraTransform(), this.selection]);
+  ForegroundPainter(this.editingLayer, [this.transform = const CameraTransform(), this.selection]);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -109,14 +108,13 @@ class ViewPainter extends CustomPainter {
     if (background is BoxBackground && renderBackground) {
       canvas.drawColor(background.boxColor, BlendMode.srcOver);
       if (background.boxWidth > 0 && background.boxXCount > 0) {
+        var relativeWidth = background.boxWidth * transform.size;
+        var relativeSpace = background.boxXSpace * transform.size;
         int xCount = (transform.position.dx /
-                    (background.boxWidth * background.boxXCount +
-                        background.boxXSpace))
+                    (background.boxWidth * background.boxXCount + background.boxXSpace))
                 .floor() +
             1;
-        double x = -xCount *
-                (background.boxWidth * background.boxXCount +
-                    background.boxXSpace) +
+        double x = -xCount * (background.boxWidth * background.boxXCount + background.boxXSpace) +
             transform.position.dx;
         x *= transform.size;
 
@@ -131,21 +129,21 @@ class ViewPainter extends CustomPainter {
           count++;
           if (count >= background.boxXCount) {
             count = 0;
-            x += background.boxXSpace;
+            x += relativeSpace;
           }
-          x += background.boxWidth * transform.size;
+          x += relativeWidth;
         }
       }
       if (background.boxHeight > 0 && background.boxYCount > 0) {
         var relativeHeight = background.boxHeight * transform.size;
-        var relativeSpace = background.boxYSpace;
+        var relativeSpace = background.boxYSpace * transform.size;
         int yCount = (transform.position.dy /
-                    ((relativeHeight * background.boxYCount + relativeSpace)))
+                    (background.boxHeight * background.boxYCount + background.boxYSpace))
                 .floor() +
             1;
-        double y =
-            -yCount * (relativeHeight * background.boxYCount + relativeSpace) +
-                transform.position.dy;
+        double y = -yCount * (background.boxHeight * background.boxYCount + background.boxYSpace) +
+            transform.position.dy;
+        y *= transform.size;
 
         int count = 0;
         while (y < size.height) {
@@ -158,9 +156,9 @@ class ViewPainter extends CustomPainter {
           count++;
           if (count >= background.boxYCount) {
             count = 0;
-            y += background.boxYSpace * transform.size;
+            y += relativeSpace;
           }
-          y += background.boxHeight * transform.size;
+          y += relativeHeight;
         }
       }
     }
