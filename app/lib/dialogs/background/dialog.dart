@@ -461,90 +461,85 @@ class BackgroundDialog extends StatelessWidget {
                                         ]),
                                       ]),
                                     )),
-                                /*ExpansionPanel(
-                                isExpanded: currentExpansionOpened == 4,
-                                headerBuilder: (context, isExpanded) =>
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                            AppLocalizations.of(context)!
-                                                .space,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle1),
-                                      ],
-                                    ),
-                                body: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(children: [
-                                    Row(children: [
-                                      ConstrainedBox(
-                                          constraints:
-                                              const BoxConstraints(
+                                ExpansionPanel(
+                                    isExpanded: currentExpansionOpened == 4,
+                                    headerBuilder: (context, isExpanded) => Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                                AppLocalizations.of(context)!
+                                                    .space,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1),
+                                          ],
+                                        ),
+                                    body: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(children: [
+                                        Row(children: [
+                                          ConstrainedBox(
+                                              constraints: const BoxConstraints(
                                                   maxWidth: 100),
-                                          child: TextField(
-                                            decoration:
-                                                const InputDecoration(
-                                                    labelText: 'X'),
-                                            controller:
-                                                _boxXSpaceController,
-                                            onChanged: (value) => setState(
-                                                () => background =
-                                                    background!.copyWith(
-                                                        boxXSpace: double
-                                                            .tryParse(
-                                                                value))),
-                                          )),
-                                      Expanded(
-                                        child: Slider(
-                                            value: background!.boxXSpace
-                                                .clamp(0, 100),
-                                            min: 0,
-                                            max: 100,
-                                            onChanged: (value) => setState(
-                                                () => background =
-                                                    background!.copyWith(
-                                                        boxXSpace:
-                                                            value))),
-                                      )
-                                    ]),
-                                    Row(children: [
-                                      ConstrainedBox(
-                                          constraints:
-                                              const BoxConstraints(
+                                              child: TextField(
+                                                decoration:
+                                                    const InputDecoration(
+                                                        labelText: 'X'),
+                                                controller:
+                                                    _boxXSpaceController,
+                                                onChanged: (value) => setState(
+                                                    () => background =
+                                                        background!.copyWith(
+                                                            boxXSpace:
+                                                                double.tryParse(
+                                                                    value))),
+                                              )),
+                                          Expanded(
+                                            child: Slider(
+                                                value: background!.boxXSpace
+                                                    .clamp(0, 100),
+                                                min: 0,
+                                                max: 100,
+                                                onChanged: (value) => setState(
+                                                    () => background =
+                                                        background!.copyWith(
+                                                            boxXSpace: value))),
+                                          )
+                                        ]),
+                                        Row(children: [
+                                          ConstrainedBox(
+                                              constraints: const BoxConstraints(
                                                   maxWidth: 100),
-                                          child: TextField(
-                                            decoration:
-                                                const InputDecoration(
-                                                    labelText: 'Y'),
-                                            controller:
-                                                _boxYSpaceController,
-                                            onChanged: (value) => setState(
-                                                () => background =
-                                                    background!.copyWith(
-                                                        boxYSpace: double
-                                                            .tryParse(
-                                                                value))),
-                                          )),
-                                      Expanded(
-                                        child: Slider(
-                                            value: background!.boxYSpace
-                                                .clamp(0, 100),
-                                            min: 0,
-                                            max: 100,
-                                            onChanged: (value) => setState(
-                                                () => background =
-                                                    background!.copyWith(
-                                                        boxYSpace:
-                                                            value))),
-                                      )
-                                    ])
-                                  ]),
-                                ))*/
+                                              child: TextField(
+                                                decoration:
+                                                    const InputDecoration(
+                                                        labelText: 'Y'),
+                                                controller:
+                                                    _boxYSpaceController,
+                                                onChanged: (value) => setState(
+                                                    () => background =
+                                                        background!.copyWith(
+                                                            boxYSpace:
+                                                                double.tryParse(
+                                                                    value))),
+                                              )),
+                                          Expanded(
+                                            child: Slider(
+                                                value: background!.boxYSpace
+                                                    .clamp(0, 100),
+                                                min: 0,
+                                                max: 100,
+                                                onChanged: (value) => setState(
+                                                    () => background =
+                                                        background!.copyWith(
+                                                            boxYSpace: value))),
+                                          )
+                                        ])
+                                      ]),
+                                    ))
                               ]),
                         ],
                       ]);
