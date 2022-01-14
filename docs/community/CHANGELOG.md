@@ -6,6 +6,14 @@ slug: /changelog
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.1.1 (2022-01-14)
+
+* Fix image loading ([#83](https://github.com/LinwoodCloud/Butterfly/issues/83))
+* Fix image hit box
+* Reimplement spaces in box background
+* Fix box background
+* Fix text editing dialog
+
 ## 1.1.0 (2022-01-05)
 
 * Add layers to group elements
