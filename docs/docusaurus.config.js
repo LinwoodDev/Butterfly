@@ -136,7 +136,7 @@ module.exports = {
                             path: "1.2",
                         },
                         "1.1": {
-                            label: "1.1.1",
+                            label: "1.1.2",
                             path: "1.1",
                         },
                         "1.0": {

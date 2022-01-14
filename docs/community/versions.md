@@ -6,7 +6,8 @@
 | Version       | Supported          |                                                                     |
 |---------------|--------------------|---------------------------------------------------------------------|
 | 1.2-dev       | :warning:          | [Docs](https://docs.butterfly.linwood.dev/docs/1.2/intro)           |
-| 1.1.1         | :white_check_mark: | [Docs](https://docs.butterfly.linwood.dev/docs/1.1/intro)           |
+| 1.1.2         | :white_check_mark: | [Docs](https://docs.butterfly.linwood.dev/docs/1.1/intro)           |
+| 1.1.1         | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.1/intro)           |
 | 1.1.0         | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.1/intro)           |
 | 1.0.0         | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.0/intro)           |
 | 1.0.0-rc.6    | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.6/intro)    |
