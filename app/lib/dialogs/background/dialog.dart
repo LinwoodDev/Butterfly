@@ -1,6 +1,6 @@
 import 'package:butterfly/api/open_help.dart';
-import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -134,11 +134,16 @@ class BackgroundDialog extends StatelessWidget {
                                             onTap: () async {
                                               var value = await showDialog(
                                                   context: context,
-                                                  builder: (context) =>
-                                                      ColorPickerDialog(
-                                                          defaultColor:
-                                                              background!
-                                                                  .boxColor));
+                                                  builder: (_) =>
+                                                      BlocProvider.value(
+                                                        value: BlocProvider.of<
+                                                                DocumentBloc>(
+                                                            context),
+                                                        child: ColorPickerDialog(
+                                                            defaultColor:
+                                                                background!
+                                                                    .boxColor),
+                                                      ));
                                               if (value != null) {
                                                 setState(() => background =
                                                     background!.copyWith(
@@ -171,11 +176,16 @@ class BackgroundDialog extends StatelessWidget {
                                             onTap: () async {
                                               var value = await showDialog(
                                                   context: context,
-                                                  builder: (context) =>
-                                                      ColorPickerDialog(
-                                                          defaultColor:
-                                                              background!
-                                                                  .boxXColor));
+                                                  builder: (ctx) =>
+                                                      BlocProvider.value(
+                                                        value: BlocProvider.of<
+                                                                DocumentBloc>(
+                                                            context),
+                                                        child: ColorPickerDialog(
+                                                            defaultColor:
+                                                                background!
+                                                                    .boxXColor),
+                                                      ));
                                               if (value != null) {
                                                 setState(() => background =
                                                     background!.copyWith(
@@ -198,11 +208,16 @@ class BackgroundDialog extends StatelessWidget {
                                             onTap: () async {
                                               var value = await showDialog(
                                                   context: context,
-                                                  builder: (context) =>
-                                                      ColorPickerDialog(
-                                                          defaultColor:
-                                                              background!
-                                                                  .boxYColor));
+                                                  builder: (ctx) =>
+                                                      BlocProvider.value(
+                                                        value: BlocProvider.of<
+                                                                DocumentBloc>(
+                                                            context),
+                                                        child: ColorPickerDialog(
+                                                            defaultColor:
+                                                                background!
+                                                                    .boxYColor),
+                                                      ));
                                               if (value != null) {
                                                 setState(() => background =
                                                     background!.copyWith(

@@ -76,7 +76,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           onTap: () {
                             showDialog(
                                 context: context,
-                                builder: (context) => AlertDialog(
+                                builder: (ctx) => AlertDialog(
                                       title: Text(AppLocalizations.of(context)!
                                           .areYouSure),
                                       content: Text(
@@ -88,14 +88,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                 AppLocalizations.of(context)!
                                                     .no),
                                             onPressed: () =>
-                                                Navigator.of(context).pop()),
+                                                Navigator.of(ctx).pop()),
                                         TextButton(
                                             child: Text(
                                                 AppLocalizations.of(context)!
                                                     .yes),
                                             onPressed: () {
-                                              Navigator.of(context).pop();
-                                              Navigator.of(context).pop();
+                                              Navigator.of(ctx).pop();
+                                              Navigator.of(ctx).pop();
                                               newPalette.removeAt(index);
                                               newPalettes[selected] = palette
                                                   .copyWith(colors: newPalette);
@@ -480,19 +480,19 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   void _resetPalette() {
     showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-                title: Text(AppLocalizations.of(context)!.areYouSure),
-                content: Text(AppLocalizations.of(context)!.reallyReset),
+        builder: (ctx) => AlertDialog(
+                title: Text(AppLocalizations.of(ctx)!.areYouSure),
+                content: Text(AppLocalizations.of(ctx)!.reallyReset),
                 actions: [
                   TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text(AppLocalizations.of(context)!.no)),
+                      onPressed: () => Navigator.of(ctx).pop(),
+                      child: Text(AppLocalizations.of(ctx)!.no)),
                   TextButton(
                       onPressed: () {
                         selected = 0;
                         context.read<DocumentBloc>().add(DocumentPaletteChanged(
                             ColorPalette.getMaterialPalette(context)));
-                        Navigator.of(context).pop();
+                        Navigator.of(ctx).pop();
                       },
                       child: Text(AppLocalizations.of(context)!.yes))
                 ]));

@@ -162,10 +162,10 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
   @override
   void initState() {
     super.initState();
-    change(widget.initialValue);
+    change(widget.initialValue, false);
   }
 
-  void change(LabelProperty newValue) {
+  void change(LabelProperty newValue, [bool notify = true]) {
     setState(() {
       _value = newValue;
     });
@@ -179,7 +179,9 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
         _value.decorationThickness) {
       _thicknessController.text = _value.decorationThickness.toStringAsFixed(2);
     }
-    widget.onChanged(newValue);
+    if (notify) {
+      widget.onChanged(newValue);
+    }
   }
 
   @override
