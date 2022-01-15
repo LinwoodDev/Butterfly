@@ -129,9 +129,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                   if (state is! DocumentLoadSuccess) {
                     return Container();
                   }
-                  var palette = state.document.palettes.isEmpty
-                      ? []
-                      : state.document.palettes[selected].colors;
+                  var empty = state.document.palettes.isEmpty;
+                  selected = empty
+                      ? 0
+                      : selected.clamp(0, state.document.palettes.length - 1);
+                  var palette =
+                      empty ? [] : state.document.palettes[selected].colors;
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -159,7 +162,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                         children: [
                                           DropdownButton<int>(
                                             alignment: Alignment.center,
-                                            value: selected,
+                                            value:
+                                                state.document.palettes.isEmpty
+                                                    ? null
+                                                    : selected,
                                             onChanged: (value) {
                                               setState(() {
                                                 selected = value ?? selected;
@@ -192,14 +198,17 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                       .edit,
                                               icon: const Icon(
                                                   PhosphorIcons.penLight),
-                                              onPressed: _editPalette),
+                                              onPressed:
+                                                  empty ? null : _editPalette),
                                           IconButton(
                                               tooltip:
                                                   AppLocalizations.of(context)!
                                                       .remove,
                                               icon: const Icon(
                                                   PhosphorIcons.minusLight),
-                                              onPressed: _deletePalette),
+                                              onPressed: empty
+                                                  ? null
+                                                  : _deletePalette),
                                         ],
                                       ),
                                     ),
@@ -418,9 +427,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   void _editPalette() {
     var state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
-    if (selected >= state.document.palettes.length) {
-      return;
-    }
+    if (selected >= state.document.palettes.length || selected < 0) return;
     final _nameController =
         TextEditingController(text: state.document.palettes[selected].name);
     showDialog(
@@ -450,27 +457,28 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   void _deletePalette() {
     var state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
-    if (selected >= state.document.palettes.length) {
-      return;
-    }
+    if (selected >= state.document.palettes.length || selected < 0) return;
     showDialog(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (ctx) => AlertDialog(
               title: Text(AppLocalizations.of(context)!.areYouSure),
               content: Text(AppLocalizations.of(context)!.reallyDelete),
               actions: [
                 TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => Navigator.of(ctx).pop(),
                     child: Text(AppLocalizations.of(context)!.no)),
                 TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(ctx).pop();
                       var newPalettes =
                           List<ColorPalette>.from(state.document.palettes);
                       newPalettes.removeAt(selected);
                       context
                           .read<DocumentBloc>()
                           .add(DocumentPaletteChanged(newPalettes));
+                      if (selected >= newPalettes.length && selected <= 0) {
+                        selected = newPalettes.length - 1;
+                      }
                     },
                     child: Text(AppLocalizations.of(context)!.yes)),
               ],
