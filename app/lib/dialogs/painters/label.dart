@@ -11,6 +11,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class LabelPainterDialog extends StatefulWidget {
   final DocumentBloc bloc;
   final int painterIndex;
+
   const LabelPainterDialog(
       {Key? key, required this.bloc, required this.painterIndex})
       : super(key: key);
@@ -67,6 +68,7 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                 onChanged: (value) => setState(() =>
                                     painter = painter.copyWith(name: value))),
                             LabelPropertyView(
+                                initialValue: painter.property,
                                 onChanged: (property) => setState(() =>
                                     painter =
                                         painter.copyWith(property: property))),
