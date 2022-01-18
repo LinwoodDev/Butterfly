@@ -462,17 +462,6 @@ class _MainPopupMenu extends StatelessWidget {
                 })),
         const PopupMenuDivider(),
         PopupMenuItem(
-            padding: EdgeInsets.zero,
-            child: ListTile(
-                leading: const Icon(PhosphorIcons.paletteLight),
-                title: Text(AppLocalizations.of(context)!.color),
-                subtitle: Text(context.getShortcut('P')),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Actions.maybeInvoke<ColorPaletteIntent>(
-                      context, ColorPaletteIntent(context));
-                })),
-        PopupMenuItem(
             child: ListTile(
                 onTap: () {
                   Navigator.of(context).pop();

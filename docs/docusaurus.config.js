@@ -52,6 +52,11 @@ module.exports = {
                   position: 'right',
                 },
                 {
+                    href: 'https://discord.linwood.dev',
+                    label: 'Discord',
+                    position: 'right',
+                },
+                {
                     href: 'https://github.com/LinwoodCloud/Butterfly',
                     label: 'GitHub',
                     position: 'right',

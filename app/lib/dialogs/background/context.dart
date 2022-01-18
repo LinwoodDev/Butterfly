@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../actions/color_palette.dart';
+
 class BackgroundContextMenu extends StatelessWidget {
   final VoidCallback close;
   const BackgroundContextMenu({Key? key, required this.close})
@@ -41,6 +43,15 @@ class BackgroundContextMenu extends StatelessWidget {
               close();
               Actions.maybeInvoke<WaypointsIntent>(
                   context, WaypointsIntent(context));
+            }),
+        ListTile(
+            leading: const Icon(PhosphorIcons.paletteLight),
+            title: Text(AppLocalizations.of(context)!.color),
+            subtitle: Text(context.getShortcut('P')),
+            onTap: () {
+              close();
+              Actions.maybeInvoke<ColorPaletteIntent>(
+                  context, ColorPaletteIntent(context));
             }),
       ],
     );

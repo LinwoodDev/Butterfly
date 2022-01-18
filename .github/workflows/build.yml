@@ -46,7 +46,7 @@ jobs:
           cd app
           flutter pub get
       - name: 🏭 Build
-        shell: powershell
+        shell: pwsh
         run: |
           cd app
           flutter clean
