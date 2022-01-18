@@ -1,4 +1,5 @@
 * Move color picker in background context menu
+* Set the export properties automatically to the current view
 * Fix color picker
 * Fix label property in painter dialog
 * Fix move/duplicate dialog in file system dialog
