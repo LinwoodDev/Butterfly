@@ -92,13 +92,15 @@ Future<Map<PadElement, ui.Image>> loadImages(AppDocument document,
 class ViewPainter extends CustomPainter {
   final AppDocument document;
   final bool renderBackground;
-  final List<String> invisibleLayers;
+  final List<PadElement> elements;
+  final ui.Image? image;
   final Map<PadElement, ui.Image> images;
   final CameraTransform transform;
 
   ViewPainter(this.document,
       {this.renderBackground = true,
-      this.invisibleLayers = const [],
+      this.elements = const [],
+      this.image,
       this.transform = const CameraTransform(),
       Map<PadElement, ui.Image>? images})
       : images = images ?? <PadElement, ui.Image>{};
@@ -152,6 +154,16 @@ class ViewPainter extends CustomPainter {
             transform.position.dy;
         y *= transform.size;
 
+        if (image != null) {
+          // Draw our baked image, scaling it down with drawImageRect.
+          canvas.drawImageRect(
+            image!,
+            Offset.zero & Size(image!.width.toDouble(), image!.height.toDouble()),
+            Offset.zero & size,
+            Paint(),
+          );
+        }
+
         int count = 0;
         while (y < size.height) {
           canvas.drawLine(
@@ -172,11 +184,9 @@ class ViewPainter extends CustomPainter {
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
-    document.content
-        .where((element) => !invisibleLayers.contains(element.layer))
-        .toList()
-        .asMap()
-        .forEach((index, element) => paintElement(canvas, element, images));
+    for (var element in elements) {
+      paintElement(canvas, element, images);
+    }
     canvas.restore();
   }
 
@@ -186,5 +196,5 @@ class ViewPainter extends CustomPainter {
       renderBackground != oldDelegate.renderBackground ||
       transform != oldDelegate.transform ||
       images != oldDelegate.images ||
-      invisibleLayers != oldDelegate.invisibleLayers;
+      elements != oldDelegate.elements;
 }

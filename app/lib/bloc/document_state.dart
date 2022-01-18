@@ -13,11 +13,19 @@ class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final String? path;
   final String currentLayer;
+  final ui.Image? image;
+  final List<PadElement> bakedElements;
   final List<String> invisibleLayers;
   final int? currentPainterIndex;
 
+  List<PadElement> get elements => List<PadElement>.of(document.content)
+      .where((element) => !invisibleLayers.contains(element.layer))
+      .where((element) => !bakedElements.contains(element)).toList();
+
   const DocumentLoadSuccess(this.document,
       {this.path,
+        this.image,
+        this.bakedElements = const [],
       this.currentPainterIndex,
       this.currentLayer = '',
       this.invisibleLayers = const []});
@@ -39,6 +47,8 @@ class DocumentLoadSuccess extends DocumentState {
       bool? editMode,
       int? currentPainterIndex,
       String? path,
+        ui.Image? image,
+        List<PadElement>? bakedElements,
       String? currentLayer,
       bool removeCurrentPainterIndex = false,
       List<String>? invisibleLayers}) {
@@ -46,6 +56,8 @@ class DocumentLoadSuccess extends DocumentState {
         path: path ?? this.path,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
+        image: image ?? this.image,
+        bakedElements: bakedElements ?? this.bakedElements,
         currentPainterIndex: removeCurrentPainterIndex
             ? null
             : currentPainterIndex ?? this.currentPainterIndex);

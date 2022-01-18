@@ -117,7 +117,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       ),
                     )));
             if (newElement != null) {
-              bloc.add(ElementCreated(newElement));
+              bloc
+                ..add(ElementCreated(newElement))
+                ..add(ImageBaked(constraints.biggest,
+                    MediaQuery.of(context).devicePixelRatio, transform));
             }
           }
           if (state.currentPainter is ImagePainter) {
@@ -138,12 +141,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
 
               var bytes =
                   await image.toByteData(format: ui.ImageByteFormat.png);
-              context.read<DocumentBloc>().add(ElementCreated(ImageElement(
-                  height: image.height,
-                  width: image.width,
-                  layer: state.currentLayer,
-                  pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
-                  position: transform.localToGlobal(localPosition))));
+              context.read<DocumentBloc>()
+                ..add(ElementCreated(ImageElement(
+                    height: image.height,
+                    width: image.width,
+                    layer: state.currentLayer,
+                    pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
+                    position: transform.localToGlobal(localPosition))))
+                ..add(ImageBaked(constraints.biggest,
+                    MediaQuery.of(context).devicePixelRatio, transform));
             });
           }
         }
@@ -195,9 +201,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     cubit.moveTo(transform.localToGlobal(event.localPosition));
                     var movingElement = cubit.getAndResetMove();
                     if (movingElement != null) {
-                      context
-                          .read<DocumentBloc>()
-                          .add(ElementCreated(movingElement));
+                      context.read<DocumentBloc>()
+                        ..add(ElementCreated(movingElement))
+                        ..add(ImageBaked(
+                            constraints.biggest,
+                            MediaQuery.of(context).devicePixelRatio,
+                            transform));
                       return;
                     }
                   }
@@ -207,9 +216,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   if (input.canCreate(
                           event.pointer, cubit.first(), event.kind) &&
                       currentElement != null) {
-                    context
-                        .read<DocumentBloc>()
-                        .add(ElementCreated(currentElement));
+                    context.read<DocumentBloc>()
+                      ..add(ElementCreated(currentElement))
+                      ..add(ImageBaked(constraints.biggest,
+                          MediaQuery.of(context).devicePixelRatio, transform));
                   } else {
                     if (!openView) {
                       return;
@@ -324,9 +334,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       state.currentPainter != null)) {
                     var painter = state.currentPainter;
                     if (painter is PathEraserPainter) {
-                      context.read<DocumentBloc>().add(ElementsRemoved(rayCast(
+                      context.read<DocumentBloc>()..add(ElementsRemoved(rayCast(
                           transform.localToGlobal(event.localPosition),
-                          painter.includeEraser)));
+                          painter.includeEraser)))
+                        ..add(ImageBaked(constraints.biggest, MediaQuery.of(context).devicePixelRatio, transform));
                     } else if (painter is LayerPainter) {
                       context.read<DocumentBloc>().add(ElementsLayerChanged(
                           painter.layer,
@@ -381,7 +392,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 foregroundPainter: ForegroundPainter(
                                     editing, transform, selection),
                                 painter: ViewPainter(state.document,
-                                    invisibleLayers: state.invisibleLayers,
+                                    elements: state.elements,
+                                    image: state.image,
                                     transform: transform,
                                     images: images),
                                 isComplex: true,

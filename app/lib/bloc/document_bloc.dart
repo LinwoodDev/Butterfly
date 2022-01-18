@@ -1,14 +1,18 @@
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/properties/hand.dart';
 import 'package:butterfly/models/waypoint.dart';
+import 'package:butterfly/view_painter.dart';
 import 'package:equatable/equatable.dart';
+import 'dart:ui' as ui;
 import 'package:replay_bloc/replay_bloc.dart';
 
 part 'document_event.dart';
+
 part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
@@ -220,6 +224,34 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             document: current.document.copyWith(
           content: content,
         )));
+      }
+    });
+    on<ImageBaked>((event, emit) async {
+      var current = state;
+      if (current is! DocumentLoadSuccess) return;
+      var elements = current.elements;
+      var elementsNum = elements.length;
+      if (elementsNum > 5) {
+        var recorder = ui.PictureRecorder();
+        var size = event.viewportSize;
+        var canvas = ui.Canvas(recorder);
+        canvas.scale(event.scale);
+
+        ViewPainter(document,
+                elements: elements,
+                transform: event.cameraTransform,
+                image: current.image,
+                renderBackground: false)
+            .paint(canvas, event.viewportSize);
+
+        var picture = recorder.endRecording();
+        var newImage = await picture.toImage((size.width * event.scale).ceil(),
+            (size.height * event.scale).ceil());
+        current = state as DocumentLoadSuccess;
+        if (elements != current.elements) return;
+        current.image?.dispose();
+
+        emit(current.copyWith(image: newImage, bakedElements: List<PadElement>.from(current.elements)..addAll(elements)));
       }
     });
   }
