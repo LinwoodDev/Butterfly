@@ -29,8 +29,8 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: widget.bloc,
-      child: Dialog(child:
-          BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+      child: Dialog(child: Builder(builder: (context) {
+        var state = widget.bloc.state;
         if (state is! DocumentLoadSuccess) return Container();
         var painter =
             state.document.painters[widget.painterIndex] as PenPainter;

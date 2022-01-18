@@ -2,3 +2,4 @@
 * Fix color picker
 * Fix label property in painter dialog
 * Fix move/duplicate dialog in file system dialog
+* Fix color not updating when changing the palette
