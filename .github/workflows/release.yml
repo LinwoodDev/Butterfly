@@ -16,35 +16,20 @@ jobs:
       - name: Setup git
         id: setup
         run: |
-          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
-          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
-          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
-          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
-          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
-          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
-          BUTTERFLY_RELEASE_DATE=$(date +%Y-%m-%d)
-          echo "BUTTERFLY_RELEASE_DATE=${BUTTERFLY_RELEASE_DATE}" >> $GITHUB_ENV
-          CURRENT_CHANGELOG=$(cat fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt)
-          # Escape line breaks to \\n
-          CURRENT_CHANGELOG=$(echo "${CURRENT_CHANGELOG}" | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/\\n/g')
-          echo "CURRENT_CHANGELOG=${CURRENT_CHANGELOG}" >> $GITHUB_ENV
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
-      - name: Update changelog
+      - name: Update version
         shell: bash
         env:
           BUTTERFLY_VERSION: ${{ env.BUTTERFLY_VERSION }}
           CURRENT_CHANGELOG: ${{ env.CURRENT_CHANGELOG }}
           BUTTERFLY_RELEASE_DATE: ${{ env.BUTTERFLY_RELEASE_DATE }}
         run: |
-          INPUT_CHANGELOG=$"<\!--ENTER CHANGELOG HERE-->\n\n## ${BUTTERFLY_VERSION} (${BUTTERFLY_RELEASE_DATE})\n\n${CURRENT_CHANGELOG}"
-          # Escape slash
-          INPUT_CHANGELOG=$(echo "${INPUT_CHANGELOG}" | sed -e 's/\//\\\//g')
-          # Replace <!--ENTER CHANGELOG HERE--> with multiline INPUT_CHANGELOG in docs/community/CHANGELOG.md. MUlTILINE!
-          sed -i -e "s/<\!--ENTER CHANGELOG HERE-->/${INPUT_CHANGELOG}/g" docs/community/CHANGELOG.md
+          dart pub get -C tools
+          dart run tools/set_version.dart 
           
-          git add docs/community/CHANGELOG.md
-          git commit -m "Update CHANGELOG.md for ${BUTTERFLY_VERSION}"
+          git add .
+          git commit -m "Update Version to ${BUTTERFLY_VERSION}"
           git push origin develop
       - name: Merge develop into main
         run: |
