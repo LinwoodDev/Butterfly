@@ -1,12 +1,28 @@
 import 'dart:io';
 
+import 'package:args/args.dart';
+
 Future<void> main(List<String> args) async {
+  var parser = ArgParser();
+
+  parser.addOption("build-number",
+      abbr: "b", valueHelp: "Number or 'increment'", defaultsTo: "increment");
+
+  var results = parser.parse(args);
+
   // Get the version from args
-  if (args.length != 1) {
+  if (results.rest.length != 1) {
     print("Please provide the version number as the first argument");
     exit(1);
   }
-  var version = args[0];
+
+  String buildNumber = results['build-number'].toString().toLowerCase();
+  if (buildNumber != 'increment' && int.tryParse(buildNumber) == null) {
+    print(
+        "Please provide a valid build number or 'increment' as the build-number argument");
+    return;
+  }
+  var version = results.rest[0];
   // Update the version in the pubspec.yaml
   File pubspec = new File('app/pubspec.yaml');
   String content = await pubspec.readAsString();
@@ -18,10 +34,10 @@ Future<void> main(List<String> args) async {
     exit(1);
   }
   var lastVersion = matches.first.group(0) ?? '';
-  print(lastVersion);
   // Get build number from lastVersion
   var lastBuildNumber = lastVersion.split('+')[1];
-  var newBuildNumber = (int.parse(lastBuildNumber) + 1).toString();
+  String newBuildNumber = (int.parse(lastBuildNumber) + 1).toString();
+  if (buildNumber != 'increment') newBuildNumber = buildNumber;
 
   var newVersion = '$version+$newBuildNumber';
   // Update the version in the pubspec.yaml
@@ -30,4 +46,56 @@ Future<void> main(List<String> args) async {
   await pubspec.writeAsString(content);
   print(
       "Updating the version in the pubspec.yaml from $lastVersion to $newVersion");
+
+  var changelogFile =
+      File("fastlane/metadata/android/en-US/changelogs/$newBuildNumber.txt");
+  var changelog = await changelogFile.readAsString();
+
+  await updateAppImageVersion(version);
+  await updateDebianVersion(version);
+  await updateWindowsVersion(version);
+  await updateChangelog(version, changelog);
+
+  print("Successfully updated!");
+}
+
+Future<void> updateAppImageVersion(String version) async {
+  var file = File("app/AppImageBuilder.yml");
+  var lines = await file.readAsLines();
+  lines[13] = "    version: ${version}";
+  lines.add('');
+  await file.writeAsString(lines.join("\r\n"));
+  print("Successfully updated app image version to ${version}");
+}
+
+Future<void> updateDebianVersion(String version) async {
+  var file = File("app/linux/debian/DEBIAN/control");
+  var lines = await file.readAsLines();
+  lines[1] = "Version: ${version}";
+  lines.add('');
+  await file.writeAsString(lines.join("\r\n"));
+  print("Successfully updated debian version to ${version}");
+}
+
+Future<void> updateWindowsVersion(String version) async {
+  var file = File("app/windows/runner/Runner.rc");
+  var lines = await file.readAsLines();
+  lines[71] = "#define VERSION_AS_STRING \"${version}\"";
+  lines.add('');
+  await file.writeAsString(lines.join("\r\n"));
+  print("Successfully updated windows version to ${version}");
+}
+
+Future<void> updateChangelog(String version, String changelog) async {
+  var currentDate = DateTime.now();
+  final changelogRegex = RegExp(r"<!--ENTER CHANGELOG HERE-->");
+  var dateString =
+      "${currentDate.year}-${currentDate.month}-${currentDate.day}";
+  var file = File("docs/community/CHANGELOG.md");
+  var content = await file.readAsString();
+  print(content);
+  content.replaceAll(changelogRegex,
+      "<!--ENTER CHANGELOG HERE-->\r\n## ${version} (${dateString})\r\n\r\n${changelog}");
+  await file.writeAsString(content);
+  print("Successfully updated docs for version ${version}");
 }
