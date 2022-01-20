@@ -26,15 +26,19 @@ jobs:
       - name: Setup git
         id: setup
         run: |
+          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
+          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Update version
         run: |
           dart pub get -C tools
-          dart run tools/set_version.dart ${{ inputs.release_version }}
+          dart run tools/set_version.dart ${{ github.event.inputs.release_version }} --build-number keep
           
           git add .
-          git commit -m "Update Version to ${BUTTERFLY_VERSION}"
+          git commit -m "Update version to ${{ github.event.inputs.release_version }}"
           git push origin develop
       - name: Merge develop into main
         run: |

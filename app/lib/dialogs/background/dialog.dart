@@ -112,6 +112,7 @@ class BackgroundDialog extends StatelessWidget {
                               },
                               children: [
                                 ExpansionPanel(
+                                    canTapOnHeader: true,
                                     isExpanded: currentExpansionOpened == 0,
                                     headerBuilder: (context, isExpanded) => Row(
                                           mainAxisAlignment:
@@ -229,6 +230,7 @@ class BackgroundDialog extends StatelessWidget {
                                       ]),
                                     )),
                                 ExpansionPanel(
+                                    canTapOnHeader: true,
                                     isExpanded: currentExpansionOpened == 1,
                                     headerBuilder: (context, isExpanded) => Row(
                                           mainAxisAlignment:
@@ -310,6 +312,7 @@ class BackgroundDialog extends StatelessWidget {
                                       ]),
                                     )),
                                 ExpansionPanel(
+                                    canTapOnHeader: true,
                                     isExpanded: currentExpansionOpened == 2,
                                     headerBuilder: (context, isExpanded) => Row(
                                           mainAxisAlignment:
@@ -392,6 +395,7 @@ class BackgroundDialog extends StatelessWidget {
                                       ]),
                                     )),
                                 ExpansionPanel(
+                                    canTapOnHeader: true,
                                     isExpanded: currentExpansionOpened == 3,
                                     headerBuilder: (context, isExpanded) => Row(
                                           mainAxisAlignment:
@@ -477,6 +481,7 @@ class BackgroundDialog extends StatelessWidget {
                                       ]),
                                     )),
                                 ExpansionPanel(
+                                    canTapOnHeader: true,
                                     isExpanded: currentExpansionOpened == 4,
                                     headerBuilder: (context, isExpanded) => Row(
                                           mainAxisAlignment:
