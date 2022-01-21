@@ -38,7 +38,7 @@ class BackgroundContextMenu extends StatelessWidget {
         ListTile(
             leading: const Icon(PhosphorIcons.mapPinLight),
             title: Text(AppLocalizations.of(context)!.waypoints),
-            subtitle: Text(context.getShortcut('W')),
+            subtitle: Text(context.getShortcut('P', shiftKey: true)),
             onTap: () {
               close();
               Actions.maybeInvoke<WaypointsIntent>(

@@ -129,7 +129,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyS): ProjectIntent(context),
               LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyW):
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.shift, LogicalKeyboardKey.keyP):
                   WaypointsIntent(context),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):

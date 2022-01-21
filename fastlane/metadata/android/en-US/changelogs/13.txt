@@ -2,6 +2,7 @@
 * Set the export properties automatically to the current view
 * Enable tapping on the expansion panel header to collapse/expand in the background dialog
 * Change move window button on desktop to exclude buttons
+* Change waypoints shortcut to Ctrl + Shift + P (was Ctrl + W) to avoid conflicts with web browsers
 * Fix color picker
 * Fix label property in painter dialog
 * Fix move/duplicate dialog in file system dialog
