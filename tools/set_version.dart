@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:intl/intl.dart';
 
 Future<void> main(List<String> args) async {
   var parser = ArgParser();
@@ -109,13 +110,11 @@ Future<void> updateSnapcraftVersion(String version) async {
 Future<void> updateChangelog(String version, String changelog) async {
   var currentDate = DateTime.now();
   final changelogRegex = RegExp(r'<!--ENTER CHANGELOG HERE-->');
-  var dateString =
-      '${currentDate.year}-${currentDate.month}-${currentDate.day}';
+  var dateString = DateFormat('yyyy-MM-dd').format(currentDate);
   var file = File('docs/community/CHANGELOG.md');
   var content = await file.readAsString();
-  print(content);
-  content.replaceAll(changelogRegex,
-      '<!--ENTER CHANGELOG HERE-->\r\n## $version ($dateString)\r\n\r\n$changelog');
+  content = content.replaceAll(changelogRegex,
+      '<!--ENTER CHANGELOG HERE-->\r\n\r\n## $version ($dateString)\r\n\r\n$changelog');
   await file.writeAsString(content);
   print('Successfully updated docs for version $version');
 }
