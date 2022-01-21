@@ -320,8 +320,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         .move(event.delta / transform.size);
                     return;
                   }
-                  if ((event.kind == PointerDeviceKind.stylus ||
-                      state.currentPainter != null)) {
+                  if (event.kind == PointerDeviceKind.stylus ||
+                      state.currentPainter != null) {
                     var painter = state.currentPainter;
                     if (painter is PathEraserPainter) {
                       context.read<DocumentBloc>().add(ElementsRemoved(rayCast(

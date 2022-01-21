@@ -6,6 +6,7 @@
 * Change background stroke width relative to the zoom level
 * Change initial tool to first tool in the list
 * Change alpha to 0.25 for the highlight color
+* Fix bug where content gets reset when using the layer tool
 * Fix color picker
 * Fix label property in painter dialog
 * Fix move/duplicate dialog in file system dialog

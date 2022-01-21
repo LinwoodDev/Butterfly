@@ -209,12 +209,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ElementsLayerChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        var content = List<PadElement>.from(document.content);
-        for (var e in event.elements) {
-          var index = document.content.indexOf(e);
-          if (index != -1) {
-            content[index] = e.copyWith(layer: event.layer);
-          }
+        var content = List<PadElement>.from(current.document.content);
+        for (int i = 0; i < content.length; i++) {
+          var e = content[i];
+          content[i] = e.copyWith(layer: event.layer);
         }
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(
@@ -227,11 +225,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   Future<void> _saveDocument(DocumentLoadSuccess current) async {
     current = current.copyWith(
         document: current.document.copyWith(updatedAt: DateTime.now()));
-    emit(current);
-    current.save().then((value) {
-      if (current.path == null) {
-        emit((state as DocumentLoadSuccess).copyWith(path: value));
-      }
-    });
+    if (current.path != null) {
+      emit(current);
+    }
+    var path = await current.save();
+    if (current.path == null) {
+      emit(current.copyWith(path: path));
+    }
   }
 }
