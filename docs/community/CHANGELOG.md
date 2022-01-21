@@ -6,6 +6,24 @@ slug: /changelog
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.1.2 (2022-01-21)
+
+* Move color picker in background context menu
+* Set the export properties automatically to the current view
+* Enable tapping on the expansion panel header to collapse/expand in the background dialog
+* Change move window button on desktop to exclude buttons
+* Change waypoints shortcut to Ctrl + Shift + P (was Ctrl + W) to avoid conflicts with web browsers
+* Change background stroke width relative to the zoom level
+* Change initial tool to first tool in the list
+* Change alpha to 0.25 for the highlight color
+* Fix bug where content gets reset when using the layer tool
+* Fix color picker
+* Fix label property in painter dialog
+* Fix move/duplicate dialog in file system dialog
+* Fix color not updating when changing the palette
+* Fix waypoint create context
+* Fix redo/undo context
+
 ## 1.1.1 (2022-01-14)
 
 * Fix image loading ([#83](https://github.com/LinwoodCloud/Butterfly/issues/83))
