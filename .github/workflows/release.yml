@@ -29,6 +29,12 @@ jobs:
       - name: Setup git
         id: setup
         run: |
+          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
+          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
+          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Update version
@@ -54,7 +60,7 @@ jobs:
         with:
           tag_name: v${{ github.event.inputs.release_version }}
           name: v${{ github.event.inputs.release_version }}
-          body_path: fastlane/metadata/android/en-US/changelogs/${{ github.event.inputs.release_version }}.txt
+          body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
       - name: Rebase develop
         run: |
           git checkout develop
