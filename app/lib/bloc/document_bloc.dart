@@ -12,8 +12,8 @@ part 'document_event.dart';
 part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
-  DocumentBloc(AppDocument document, String? path)
-      : super(DocumentLoadSuccess(document, path: path)) {
+  DocumentBloc(AppDocument initial, String? path)
+      : super(DocumentLoadSuccess(initial, path: path)) {
     on<ElementCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;

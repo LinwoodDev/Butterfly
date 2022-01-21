@@ -13,7 +13,7 @@ on:
         default: '0.0.0'
         description: 'The next version to be released'
         required: true
-    
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -23,13 +23,12 @@ jobs:
           fetch-depth: 0
           ref: develop
           token: ${{ secrets.CI_PAT }}
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'beta' # or: 'stable' or 'dev'
       - name: Setup git
         id: setup
         run: |
-          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
-          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
-          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
-          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Update version
@@ -47,15 +46,15 @@ jobs:
           git push origin main
       - name: Create tag
         run: |
-          BUTTERFLY_VERSION="${{ env.BUTTERFLY_VERSION }}"
-          git tag -a v${BUTTERFLY_VERSION} -m "Release ${BUTTERFLY_VERSION}"
+          BUTTERFLY_VERSION="${{ github.event.inputs.release_version }}"
+          git tag -a v${{ github.event.inputs.release_version }} -m "Release ${BUTTERFLY_VERSION}"
           git push origin v${BUTTERFLY_VERSION}
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${{ env.BUTTERFLY_VERSION }}
-          name: v${{ env.BUTTERFLY_VERSION }}
-          body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
+          tag_name: v${{ github.event.inputs.release_version }}
+          name: v${{ github.event.inputs.release_version }}
+          body_path: fastlane/metadata/android/en-US/changelogs/${{ github.event.inputs.release_version }}.txt
       - name: Rebase develop
         run: |
           git checkout develop
@@ -73,10 +72,10 @@ jobs:
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           content: |
-            Version ${{ env.BUTTERFLY_VERSION }} released!
+            Version ${{ github.event.inputs.release_version }} released!
             Download it here: https://docs.butterfly.linwood.dev/downloads
             
-            https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
+            https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ github.event.inputs.release_version }}
 
 
 
