@@ -114,13 +114,14 @@ class WaypointsDialog extends StatelessWidget {
     var nameController = TextEditingController();
     showDialog(
         context: context,
-        builder: (context) => StatefulBuilder(builder: (context, setState) {
+        builder: (ctx) => StatefulBuilder(builder: (ctx, setState) {
               return AlertDialog(
                 title: Text(AppLocalizations.of(context)!.create),
                 content: Column(mainAxisSize: MainAxisSize.min, children: [
                   TextField(
                     controller: nameController,
                     decoration: InputDecoration(
+                        filled: true,
                         labelText: AppLocalizations.of(context)!.name),
                   ),
                   const SizedBox(height: 10),
@@ -133,7 +134,7 @@ class WaypointsDialog extends StatelessWidget {
                 ]),
                 actions: [
                   TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
+                      onPressed: () => Navigator.of(ctx).pop(),
                       child: Text(AppLocalizations.of(context)!.cancel)),
                   TextButton(
                       onPressed: () {
@@ -144,7 +145,7 @@ class WaypointsDialog extends StatelessWidget {
                                 saveScale
                                     ? context.read<TransformCubit>().state.size
                                     : null)));
-                        Navigator.of(context).pop();
+                        Navigator.of(ctx).pop();
                       },
                       child: Text(AppLocalizations.of(context)!.create)),
                 ],

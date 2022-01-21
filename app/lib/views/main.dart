@@ -160,12 +160,7 @@ class _ProjectPageState extends State<ProjectPage> {
                 },
                 child: ClipRect(
                   child: Builder(builder: (context) {
-                    PreferredSizeWidget appBar = _buildAppBar();
-                    if (isWindow()) {
-                      appBar = PreferredSize(
-                          preferredSize: const Size.fromHeight(60),
-                          child: MoveWindow(child: appBar));
-                    }
+                    PreferredSizeWidget appBar = _buildAppBar(context);
                     return Focus(
                         autofocus: true,
                         child: Scaffold(
@@ -201,12 +196,14 @@ class _ProjectPageState extends State<ProjectPage> {
         }));
   }
 
-  AppBar _buildAppBar() => AppBar(
-          title: BlocBuilder<DocumentBloc, DocumentState>(
-              builder: (context, state) {
+  AppBar _buildAppBar(BuildContext context) => AppBar(
+          title:
+              BlocBuilder<DocumentBloc, DocumentState>(builder: (ctx, state) {
+            Widget title;
             if (_bloc!.state is DocumentLoadSuccess) {
               var current = _bloc!.state as DocumentLoadSuccess;
-              return Column(
+              title = Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
@@ -215,12 +212,16 @@ class _ProjectPageState extends State<ProjectPage> {
                     ),
                     if (current.path != null)
                       Text(current.path!,
-                          style: Theme.of(context).textTheme.caption,
+                          style: Theme.of(ctx).textTheme.caption,
                           textAlign: TextAlign.center),
                   ]);
             } else {
-              return Text(AppLocalizations.of(context)!.loading);
+              title = Text(AppLocalizations.of(ctx)!.loading);
             }
+            if (isWindow()) {
+              title = SizedBox(height: 60, child: MoveWindow(child: title));
+            }
+            return title;
           }),
           actions: [
             IconButton(
