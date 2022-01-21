@@ -18,7 +18,7 @@ class DocumentLoadSuccess extends DocumentState {
 
   const DocumentLoadSuccess(this.document,
       {this.path,
-      this.currentPainterIndex,
+      this.currentPainterIndex = 0,
       this.currentLayer = '',
       this.invisibleLayers = const []});
 

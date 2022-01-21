@@ -128,7 +128,7 @@ class ViewPainter extends CustomPainter {
               Offset(x, 0),
               Offset(x, size.height),
               Paint()
-                ..strokeWidth = background.boxXStroke
+                ..strokeWidth = background.boxXStroke * transform.size
                 ..color = background.boxXColor);
           count++;
           if (count >= background.boxXCount) {
@@ -158,7 +158,7 @@ class ViewPainter extends CustomPainter {
               Offset(0, y),
               Offset(size.width, y),
               Paint()
-                ..strokeWidth = background.boxYStroke
+                ..strokeWidth = background.boxYStroke * transform.size
                 ..color = background.boxYColor);
           count++;
           if (count >= background.boxYCount) {

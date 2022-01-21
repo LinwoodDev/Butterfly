@@ -73,7 +73,7 @@ class AppDocument {
       {required this.name,
       this.description = '',
       this.content = const [],
-      this.background,
+      this.background = const BoxBackground(),
       this.palettes = const [],
       this.waypoints = const [],
       required this.createdAt,
