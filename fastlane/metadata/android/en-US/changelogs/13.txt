@@ -5,6 +5,7 @@
 * Change waypoints shortcut to Ctrl + Shift + P (was Ctrl + W) to avoid conflicts with web browsers
 * Change background stroke width relative to the zoom level
 * Change initial tool to first tool in the list
+* Change alpha to 0.25 for the highlight color
 * Fix color picker
 * Fix label property in painter dialog
 * Fix move/duplicate dialog in file system dialog

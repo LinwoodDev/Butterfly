@@ -1,5 +1,5 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @immutable
 class ColorPalette {
@@ -32,7 +32,7 @@ class ColorPalette {
             colors: materialColors),
         ColorPalette(
             name: AppLocalizations.of(context)!.highlighter,
-            colors: materialColors.map((e) => e.withOpacity(0.5)).toList())
+            colors: materialColors.map((e) => e.withOpacity(0.25)).toList())
       ];
 
   const ColorPalette({this.name = '', this.colors = const []});
