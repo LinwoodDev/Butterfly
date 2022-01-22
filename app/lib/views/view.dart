@@ -77,6 +77,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
       }
       return SizedBox.expand(child:
           ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
+        void _bake() => context.read<DocumentBloc>().add(ImageBaked(
+            constraints.biggest,
+            MediaQuery.of(context).devicePixelRatio,
+            context.read<TransformCubit>().state));
+        _bake();
         List<PadElement> rayCast(Offset offset, bool includeEraser) {
           var content = state.document.content;
           var zoom = context.read<TransformCubit>().state.size;
@@ -165,6 +170,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
               current = current - size;
               current += 1;
               cubit.zoom(current, details.localFocalPoint);
+              _bake();
               size = details.scale;
             },
             onScaleStart: (details) {
@@ -328,6 +334,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     context
                         .read<TransformCubit>()
                         .move(event.delta / transform.size);
+                    _bake();
                     return;
                   }
                   if (event.kind == PointerDeviceKind.stylus ||

@@ -25,10 +25,12 @@ class DocumentLoadSuccess extends DocumentState {
       this.invisibleLayers = const []});
 
   @override
-  List<Object?> get props => [document, currentPainterIndex, path, invisibleLayers];
+  List<Object?> get props =>
+      [document, currentPainterIndex, path, invisibleLayers];
 
   List<PadElement> get elements => document.content
-      .where((element) => !(bakedViewport?.bakedElements.contains(element) ?? false))
+      .where((element) =>
+          !(bakedViewport?.bakedElements.contains(element) ?? false))
       .where((element) => !invisibleLayers.contains(element.layer))
       .toList();
 
@@ -36,7 +38,8 @@ class DocumentLoadSuccess extends DocumentState {
     if (document.painters.isEmpty || currentPainterIndex == null) {
       return null;
     }
-    return document.painters[currentPainterIndex!.clamp(0, document.painters.length - 1)];
+    return document
+        .painters[currentPainterIndex!.clamp(0, document.painters.length - 1)];
   }
 
   DocumentLoadSuccess copyWith(
@@ -53,16 +56,20 @@ class DocumentLoadSuccess extends DocumentState {
         path: path ?? this.path,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
-        bakedViewport: removeBakedViewport ? null : bakedViewport ?? this.bakedViewport,
-        currentPainterIndex:
-            removeCurrentPainterIndex ? null : currentPainterIndex ?? this.currentPainterIndex);
+        bakedViewport:
+            removeBakedViewport ? null : bakedViewport ?? this.bakedViewport,
+        currentPainterIndex: removeCurrentPainterIndex
+            ? null
+            : currentPainterIndex ?? this.currentPainterIndex);
   }
 
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 
   Future<String> save() {
     if (path == null) {
-      return DocumentFileSystem.fromPlatform().importDocument(document).then((value) => value.path);
+      return DocumentFileSystem.fromPlatform()
+          .importDocument(document)
+          .then((value) => value.path);
     }
     return DocumentFileSystem.fromPlatform()
         .updateDocument(path!, document)
