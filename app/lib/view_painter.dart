@@ -43,8 +43,7 @@ class ForegroundPainter extends CustomPainter {
   final CameraTransform transform;
   final PadElement? selection;
 
-  ForegroundPainter(this.editingLayer,
-      [this.transform = const CameraTransform(), this.selection]);
+  ForegroundPainter(this.editingLayer, [this.transform = const CameraTransform(), this.selection]);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -115,13 +114,10 @@ class ViewPainter extends CustomPainter {
         var relativeWidth = background.boxWidth * transform.size;
         var relativeSpace = background.boxXSpace * transform.size;
         int xCount = (transform.position.dx /
-                    (background.boxWidth * background.boxXCount +
-                        background.boxXSpace))
+                    (background.boxWidth * background.boxXCount + background.boxXSpace))
                 .floor() +
             1;
-        double x = -xCount *
-                (background.boxWidth * background.boxXCount +
-                    background.boxXSpace) +
+        double x = -xCount * (background.boxWidth * background.boxXCount + background.boxXSpace) +
             transform.position.dx;
         x *= transform.size;
 
@@ -145,26 +141,12 @@ class ViewPainter extends CustomPainter {
         var relativeHeight = background.boxHeight * transform.size;
         var relativeSpace = background.boxYSpace * transform.size;
         int yCount = (transform.position.dy /
-                    (background.boxHeight * background.boxYCount +
-                        background.boxYSpace))
+                    (background.boxHeight * background.boxYCount + background.boxYSpace))
                 .floor() +
             1;
-        double y = -yCount *
-                (background.boxHeight * background.boxYCount +
-                    background.boxYSpace) +
+        double y = -yCount * (background.boxHeight * background.boxYCount + background.boxYSpace) +
             transform.position.dy;
         y *= transform.size;
-
-        if (bakedViewport != null) {
-          var image = bakedViewport!.image;
-          // Draw our baked image, scaling it down with drawImageRect.
-          canvas.drawImageRect(
-            image,
-            Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
-            Offset.zero & size,
-            Paint(),
-          );
-        }
 
         int count = 0;
         while (y < size.height) {
@@ -183,6 +165,16 @@ class ViewPainter extends CustomPainter {
         }
       }
     }
+    if (bakedViewport != null) {
+      var image = bakedViewport!.image;
+      // Draw our baked image, scaling it down with drawImageRect.
+      canvas.drawImageRect(
+        image,
+        Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
+        transform.globalToLocal(-bakedViewport!.toOffset()) & size * transform.size,
+        Paint(),
+      );
+    }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
@@ -198,5 +190,6 @@ class ViewPainter extends CustomPainter {
       renderBackground != oldDelegate.renderBackground ||
       transform != oldDelegate.transform ||
       images != oldDelegate.images ||
+      bakedViewport != oldDelegate.bakedViewport ||
       elements != oldDelegate.elements;
 }

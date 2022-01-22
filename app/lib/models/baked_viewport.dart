@@ -19,4 +19,6 @@ class BakedViewport {
       this.y = 0});
 
   void dispose() => image.dispose();
+
+  ui.Offset toOffset() => ui.Offset(x, y);
 }
