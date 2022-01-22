@@ -185,3 +185,14 @@ class ElementsLayerChanged extends DocumentEvent {
   @override
   List<Object?> get props => [layer, elements];
 }
+
+class ImageBaked extends DocumentEvent {
+  final ui.Size viewportSize;
+  final double scale;
+  final CameraTransform cameraTransform;
+
+  const ImageBaked(this.viewportSize, this.scale, this.cameraTransform);
+
+  @override
+  List<Object?> get props => [viewportSize, scale];
+}
