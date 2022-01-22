@@ -171,7 +171,8 @@ class ViewPainter extends CustomPainter {
       canvas.drawImageRect(
         image,
         Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
-        transform.globalToLocal(-bakedViewport!.toOffset()) & size * transform.size,
+        transform.globalToLocal(-bakedViewport!.toOffset()) &
+            Size(image.width * transform.size, image.height * transform.size),
         Paint(),
       );
     }
