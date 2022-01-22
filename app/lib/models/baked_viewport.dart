@@ -21,4 +21,6 @@ class BakedViewport {
   void dispose() => image.dispose();
 
   ui.Offset toOffset() => ui.Offset(x, y);
+
+  ui.Size toSize() => ui.Size(width.toDouble(), height.toDouble());
 }

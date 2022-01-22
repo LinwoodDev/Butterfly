@@ -81,7 +81,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
             constraints.biggest,
             MediaQuery.of(context).devicePixelRatio,
             context.read<TransformCubit>().state));
-        _bake();
+        if (state.bakedViewport?.toSize() != constraints.biggest) {
+          _bake();
+        }
         List<PadElement> rayCast(Offset offset, bool includeEraser) {
           var content = state.document.content;
           var zoom = context.read<TransformCubit>().state.size;
