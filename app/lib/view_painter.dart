@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:butterfly/models/backgrounds/box.dart';
+import 'package:butterfly/models/baked_viewport.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/image.dart';
@@ -93,14 +94,14 @@ class ViewPainter extends CustomPainter {
   final AppDocument document;
   final bool renderBackground;
   final List<PadElement> elements;
-  final ui.Image? image;
+  final BakedViewport? bakedViewport;
   final Map<PadElement, ui.Image> images;
   final CameraTransform transform;
 
   ViewPainter(this.document,
       {this.renderBackground = true,
       this.elements = const [],
-      this.image,
+      this.bakedViewport,
       this.transform = const CameraTransform(),
       Map<PadElement, ui.Image>? images})
       : images = images ?? <PadElement, ui.Image>{};
@@ -154,11 +155,12 @@ class ViewPainter extends CustomPainter {
             transform.position.dy;
         y *= transform.size;
 
-        if (image != null) {
+        if (bakedViewport != null) {
+          var image = bakedViewport!.image;
           // Draw our baked image, scaling it down with drawImageRect.
           canvas.drawImageRect(
-            image!,
-            Offset.zero & Size(image!.width.toDouble(), image!.height.toDouble()),
+            image,
+            Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
             Offset.zero & size,
             Paint(),
           );

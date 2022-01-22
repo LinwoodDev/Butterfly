@@ -1,5 +1,8 @@
+import 'dart:ui' as ui;
+
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/models/baked_viewport.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/painters/painter.dart';
@@ -7,12 +10,11 @@ import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/properties/hand.dart';
 import 'package:butterfly/models/waypoint.dart';
 import 'package:butterfly/view_painter.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
-import 'dart:ui' as ui;
 import 'package:replay_bloc/replay_bloc.dart';
 
 part 'document_event.dart';
-
 part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
@@ -43,7 +45,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             document: current.document.copyWith(
                 content: List.from(current.document.content)
                   ..removeWhere(
-                      (element) => event.elements.contains(element)))));
+                          (element) => event.elements.contains(element)))));
       }
     });
     on<DocumentDescriptorChanged>((event, emit) async {
@@ -112,8 +114,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             currentPainterIndex: oldIndex == current.currentPainterIndex
                 ? newIndex
                 : newIndex == current.currentPainterIndex
-                    ? oldIndex
-                    : current.currentPainterIndex));
+                ? oldIndex
+                : current.currentPainterIndex));
       }
     });
     on<DocumentBackgroundChanged>((event, emit) async {
@@ -158,8 +160,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             document: current.document.copyWith(
                 content: List<PadElement>.from(current.document.content)
                     .map((e) => e.layer == event.oldName
-                        ? e.copyWith(layer: event.newName)
-                        : e)
+                    ? e.copyWith(layer: event.newName)
+                    : e)
                     .toList())));
       }
     });
@@ -220,37 +222,46 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(
-          content: content,
-        )));
+              content: content,
+            )));
       }
     });
     on<ImageBaked>((event, emit) async {
       var current = state;
       if (current is! DocumentLoadSuccess) return;
+      Function eq = const ListEquality().equals;
+
       var elements = current.elements;
-      var elementsNum = elements.length;
-      if (elementsNum > 5) {
-        var recorder = ui.PictureRecorder();
-        var size = event.viewportSize;
-        var canvas = ui.Canvas(recorder);
-        canvas.scale(event.scale);
+      var recorder = ui.PictureRecorder();
+      var size = event.viewportSize;
+      var canvas = ui.Canvas(recorder);
+      canvas.scale(event.scale);
 
-        ViewPainter(document,
-                elements: elements,
-                transform: event.cameraTransform,
-                image: current.image,
-                renderBackground: false)
-            .paint(canvas, event.viewportSize);
+      ViewPainter(current.document,
+              elements: elements,
+              transform: event.cameraTransform,
+              bakedViewport: current.bakedViewport,
+              renderBackground: false)
+          .paint(canvas, event.viewportSize);
 
-        var picture = recorder.endRecording();
-        var newImage = await picture.toImage((size.width * event.scale).ceil(),
-            (size.height * event.scale).ceil());
-        current = state as DocumentLoadSuccess;
-        if (elements != current.elements) return;
-        current.image?.dispose();
+      var picture = recorder.endRecording();
+      var newImage = await picture.toImage((size.width * event.scale).ceil(),
+          (size.height * event.scale).ceil());
+      current = state as DocumentLoadSuccess;
+      if (!eq(elements, current.elements)) return;
+      current.bakedViewport?.dispose();
 
-        emit(current.copyWith(image: newImage, bakedElements: List<PadElement>.from(current.elements)..addAll(elements)));
-      }
+      emit(current.copyWith(
+          bakedViewport: BakedViewport(
+              height: size.height.round(),
+              width: size.width.round(),
+              scale: event.cameraTransform.size,
+              x: event.cameraTransform.position.dx,
+              y: event.cameraTransform.position.dy,
+              image: newImage,
+              bakedElements: List<PadElement>.from(
+                  current.bakedViewport?.bakedElements ?? [])
+                ..addAll(elements))));
     });
   }
 

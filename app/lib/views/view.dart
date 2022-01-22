@@ -334,10 +334,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       state.currentPainter != null) {
                     var painter = state.currentPainter;
                     if (painter is PathEraserPainter) {
-                      context.read<DocumentBloc>()..add(ElementsRemoved(rayCast(
-                          transform.localToGlobal(event.localPosition),
-                          painter.includeEraser)))
-                        ..add(ImageBaked(constraints.biggest, MediaQuery.of(context).devicePixelRatio, transform));
+                      context.read<DocumentBloc>()
+                        ..add(ElementsRemoved(rayCast(
+                            transform.localToGlobal(event.localPosition),
+                            painter.includeEraser)))
+                        ..add(ImageBaked(
+                            constraints.biggest,
+                            MediaQuery.of(context).devicePixelRatio,
+                            transform));
                     } else if (painter is LayerPainter) {
                       context.read<DocumentBloc>().add(ElementsLayerChanged(
                           painter.layer,
@@ -393,7 +397,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     editing, transform, selection),
                                 painter: ViewPainter(state.document,
                                     elements: state.elements,
-                                    image: state.image,
+                                    bakedViewport: state.bakedViewport,
                                     transform: transform,
                                     images: images),
                                 isComplex: true,
