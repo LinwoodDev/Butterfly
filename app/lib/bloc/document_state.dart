@@ -26,7 +26,7 @@ class DocumentLoadSuccess extends DocumentState {
 
   @override
   List<Object?> get props =>
-      [document, currentPainterIndex, path, invisibleLayers];
+      [document, currentPainterIndex, path, invisibleLayers, bakedViewport];
 
   List<PadElement> get elements {
     return document.content

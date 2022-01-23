@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/baked_viewport.dart';
@@ -229,7 +230,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ImageBaked>((event, emit) async {
       var current = state;
       if (current is! DocumentLoadSuccess) return;
-      Function eq = const ListEquality().equals;
+      final eq = const ListEquality().equals;
 
       var elements = current.elements;
       var recorder = ui.PictureRecorder();
@@ -242,16 +243,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           last.height != size.height ||
           last.x != event.cameraTransform.position.dx ||
           last.y != event.cameraTransform.position.dy;
+      if (elements.isEmpty && !reset) return;
+      if (reset) {
+        elements = current.document.content
+            .where((element) => !invisibleLayers.contains(element.layer))
+            .toList();
+      }
 
       ViewPainter(current.document,
-              elements: reset
-                  ? current.document.content
-                      .where(
-                          (element) => !invisibleLayers.contains(element.layer))
-                      .toList()
-                  : elements,
+              elements: elements,
               transform: event.cameraTransform,
-              bakedViewport: current.bakedViewport,
+              bakedViewport: last,
               renderBackground: false)
           .paint(canvas, event.viewportSize);
 
@@ -259,10 +261,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var newImage = await picture.toImage((size.width * event.scale).ceil(),
           (size.height * event.scale).ceil());
       current = state as DocumentLoadSuccess;
-      if (!eq(elements, current.elements)) return;
-      current.bakedViewport?.dispose();
+      var currentElements = current.elements;
+      if (reset) {
+        currentElements = current.document.content
+            .where((element) => !invisibleLayers.contains(element.layer))
+            .toList();
+      }
+      if (!eq(elements, currentElements)) return;
+      if (last != current.bakedViewport) return;
 
-      return _saveDocument(current.copyWith(
+      emit(current.copyWith(
           bakedViewport: BakedViewport(
               height: size.height.round(),
               width: size.width.round(),
@@ -273,7 +281,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               bakedElements: List<PadElement>.from(
                   current.bakedViewport?.bakedElements ?? [])
                 ..addAll(elements))));
-    });
+    }, transformer: restartable());
+  }
+
+  @override
+  void onChange(Change<DocumentState> change) {
+    // Always call super.onChange with the current change
+    super.onChange(change);
+
+    // Custom onChange logic goes here
+
+    var last = change.currentState;
+    var current = change.nextState;
+    if (last is! DocumentLoadSuccess || current is! DocumentLoadSuccess) return;
+    if (last.bakedViewport != current.bakedViewport) {
+      last.bakedViewport?.dispose();
+    }
   }
 
   Future<void> _saveDocument(DocumentLoadSuccess current) async {
