@@ -29,11 +29,7 @@ class DocumentLoadSuccess extends DocumentState {
       [document, currentPainterIndex, path, invisibleLayers, bakedViewport];
 
   List<PadElement> get elements {
-    return document.content
-        .where((element) =>
-            !(bakedViewport?.bakedElements.contains(element) ?? false))
-        .where((element) => !invisibleLayers.contains(element.layer))
-        .toList();
+    return bakedViewport?.unbakedElements ?? document.content;
   }
 
   Painter? get currentPainter {

@@ -4,7 +4,7 @@ import 'package:butterfly/models/elements/element.dart';
 
 class BakedViewport {
   final ui.Image image;
-  final List<PadElement> bakedElements;
+  final List<PadElement> unbakedElements;
   final int width, height;
   final double scale;
   final double x, y;
@@ -14,7 +14,7 @@ class BakedViewport {
       {required this.image,
       required this.width,
       required this.height,
-      this.bakedElements = const [],
+      this.unbakedElements = const [],
       this.scale = 1,
       this.x = 0,
       this.y = 0});
@@ -38,4 +38,13 @@ class BakedViewport {
         other.x == x &&
         other.y == y;
   }
+
+  withUnbaked(List<PadElement> unbakedElements) => BakedViewport(
+      image: image,
+      width: width,
+      height: height,
+      scale: scale,
+      unbakedElements: unbakedElements,
+      x: x,
+      y: y);
 }
