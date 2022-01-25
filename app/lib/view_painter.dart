@@ -180,7 +180,7 @@ class ViewPainter extends CustomPainter {
         Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
         transform.globalToLocal(-bakedViewport!.toOffset()) &
             Size(image.width * transform.size, image.height * transform.size),
-        Paint(),
+        Paint()..isAntiAlias = true,
       );
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
