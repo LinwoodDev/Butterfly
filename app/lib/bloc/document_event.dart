@@ -186,6 +186,13 @@ class ElementsLayerChanged extends DocumentEvent {
   List<Object?> get props => [layer, elements];
 }
 
+class ImageUnbaked extends DocumentEvent {
+  const ImageUnbaked();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class ImageBaked extends DocumentEvent {
   final ui.Size viewportSize;
   final double scale;

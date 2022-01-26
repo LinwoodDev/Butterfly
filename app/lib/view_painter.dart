@@ -172,6 +172,7 @@ class ViewPainter extends CustomPainter {
         }
       }
     }
+    print("Painting ${elements.length} elements");
     if (!(bakedViewport?.wasDisposed ?? true)) {
       var image = bakedViewport!.image;
       // Draw our baked image, scaling it down with drawImageRect.

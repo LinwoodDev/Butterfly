@@ -294,6 +294,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               image: newImage,
               unbakedElements: [])));
     }, transformer: restartable());
+    on<ImageUnbaked>((event, emit) {
+      var current = state;
+      if (current is DocumentLoadSuccess) {
+        emit(current.copyWith(removeBakedViewport: true));
+      }
+    });
   }
 
   @override
