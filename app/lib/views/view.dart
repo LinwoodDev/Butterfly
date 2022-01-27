@@ -86,7 +86,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               MediaQuery.of(context).devicePixelRatio,
                               context.read<TransformCubit>().state));
                       if (state.bakedViewport?.toSize() !=
-                          constraints.biggest) {
+                          Size(constraints.biggest.width.roundToDouble(),
+                              constraints.biggest.height.roundToDouble())) {
                         _bake();
                       }
                       List<PadElement> rayCast(
