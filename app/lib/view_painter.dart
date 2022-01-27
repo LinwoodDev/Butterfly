@@ -172,7 +172,6 @@ class ViewPainter extends CustomPainter {
         }
       }
     }
-    print("Painting ${elements.length} elements");
     if (!(bakedViewport?.wasDisposed ?? true)) {
       var image = bakedViewport!.image;
       var bakedSizeDiff = (transform.size - bakedViewport!.scale);

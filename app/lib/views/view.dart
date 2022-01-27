@@ -81,7 +81,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         return const Center(child: CircularProgressIndicator());
                       }
                       void _bake() {
-                        print("Bake triggered");
                         context.read<DocumentBloc>().add(ImageBaked(
                             constraints.biggest,
                             MediaQuery.of(context).devicePixelRatio,
