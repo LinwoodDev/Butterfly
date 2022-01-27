@@ -212,6 +212,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   var cubit = context.read<TransformCubit>();
                                   cubit.zoom(
                                       scale, pointerSignal.localPosition);
+                                  _bake();
                                 }
                               },
                               onPointerDown: (PointerDownEvent event) {

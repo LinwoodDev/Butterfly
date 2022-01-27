@@ -256,7 +256,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           last.width != size.width ||
           last.height != size.height ||
           last.x != event.cameraTransform.position.dx ||
-          last.y != event.cameraTransform.position.dy;
+          last.y != event.cameraTransform.position.dy ||
+          last.scale != event.cameraTransform.size;
       if (elements.isEmpty && !reset) return;
       if (reset) {
         elements = current.document.content
@@ -267,13 +268,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       ViewPainter(current.document,
               elements: elements,
               transform: event.cameraTransform,
-              bakedViewport: last,
+              bakedViewport: reset ? null : last,
               renderBackground: false)
           .paint(canvas, event.viewportSize);
 
       var picture = recorder.endRecording();
-      var newImage = await picture.toImage((size.width * event.scale).ceil(),
-          (size.height * event.scale).ceil());
+      var newImage =
+          await picture.toImage((size.width).ceil(), (size.height).ceil());
       current = state as DocumentLoadSuccess;
       var currentElements = current.elements;
       if (reset) {
