@@ -80,11 +80,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       if (state is! DocumentLoadSuccess) {
                         return const Center(child: CircularProgressIndicator());
                       }
-                      void _bake() =>
-                          context.read<DocumentBloc>().add(ImageBaked(
-                              constraints.biggest,
-                              MediaQuery.of(context).devicePixelRatio,
-                              context.read<TransformCubit>().state));
+                      void _bake() {
+                        print("Bake triggered");
+                        context.read<DocumentBloc>().add(ImageBaked(
+                            constraints.biggest,
+                            MediaQuery.of(context).devicePixelRatio,
+                            context.read<TransformCubit>().state));
+                      }
+
                       if (state.bakedViewport?.toSize() !=
                           Size(constraints.biggest.width.roundToDouble(),
                               constraints.biggest.height.roundToDouble())) {

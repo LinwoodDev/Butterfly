@@ -172,6 +172,7 @@ class ViewPainter extends CustomPainter {
         }
       }
     }
+    print("Painting ${elements.length} elements");
     if (!(bakedViewport?.wasDisposed ?? true)) {
       var image = bakedViewport!.image;
       var bakedSizeDiff = (transform.size - bakedViewport!.scale);
@@ -182,7 +183,7 @@ class ViewPainter extends CustomPainter {
         bakedViewport!.toOffset() &
             Size(image.width * (1 + bakedSizeDiff),
                 image.height * (1 + bakedSizeDiff)),
-        Paint(),
+        Paint()..isAntiAlias = true,
       );
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());

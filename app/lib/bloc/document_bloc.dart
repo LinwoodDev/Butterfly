@@ -295,6 +295,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               image: newImage,
               unbakedElements: [])));
     }, transformer: restartable());
+    on<ImageUnbaked>((event, emit) {
+      var current = state;
+      if (current is DocumentLoadSuccess) {
+        emit(current.copyWith(removeBakedViewport: true));
+      }
+    });
   }
 
   @override
@@ -307,19 +313,23 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     var last = change.currentState;
     var current = change.nextState;
     if (last is! DocumentLoadSuccess || current is! DocumentLoadSuccess) return;
-    if (last.bakedViewport != current.bakedViewport &&
-        last.bakedViewport?.image != current.bakedViewport?.image) {
+    if (last.bakedViewport?.image != current.bakedViewport?.image) {
       last.bakedViewport?.dispose();
     }
   }
 
   Future<void> _saveDocument(DocumentLoadSuccess current,
-      [List<PadElement>? unbakedElements]) async {
+      [List<PadElement>? unbakedElements = const []]) async {
+    var elements = current.elements;
+    if (current.bakedViewport != null && unbakedElements != null) {
+      elements = List<PadElement>.from(elements)..addAll(unbakedElements);
+    }
     current = current.copyWith(
         document: current.document.copyWith(updatedAt: DateTime.now()),
+        removeBakedViewport: unbakedElements == null,
         bakedViewport: unbakedElements == null
             ? current.bakedViewport
-            : current.bakedViewport?.withUnbaked(unbakedElements));
+            : current.bakedViewport?.withUnbaked(elements));
     if (current.path != null) {
       emit(current);
     }
