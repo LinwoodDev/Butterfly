@@ -174,12 +174,16 @@ class ViewPainter extends CustomPainter {
     }
     if (!(bakedViewport?.wasDisposed ?? true)) {
       var image = bakedViewport!.image;
-      var bakedSizeDiff = (transform.size - bakedViewport!.scale);
+      var bakedSizeDiff = (transform.size - bakedViewport!.scale) / 2;
+      var pos = transform.globalToLocal(-bakedViewport!.toOffset()) *
+          bakedViewport!.scale /
+          3;
+
       // Draw our baked image, scaling it down with drawImageRect.
       canvas.drawImageRect(
         image,
         Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
-        transform.position - bakedViewport!.toOffset() &
+        pos &
             Size(image.width * (1 + bakedSizeDiff),
                 image.height * (1 + bakedSizeDiff)),
         Paint()..isAntiAlias = true,

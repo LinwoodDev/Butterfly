@@ -80,11 +80,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       if (state is! DocumentLoadSuccess) {
                         return const Center(child: CircularProgressIndicator());
                       }
-                      void _bake() {
+                      void _bake([CameraTransform? transform]) {
                         context.read<DocumentBloc>().add(ImageBaked(
                             constraints.biggest,
                             MediaQuery.of(context).devicePixelRatio,
-                            context.read<TransformCubit>().state));
+                            transform ?? context.read<TransformCubit>().state));
                       }
 
                       if (state.bakedViewport?.toSize() !=
@@ -198,7 +198,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             current = current - size;
                             current += 1;
                             cubit.zoom(current, details.localFocalPoint);
-                            _bake();
+                            _bake(cubit.state);
                             size = details.scale;
                           },
                           onScaleStart: (details) {
@@ -214,7 +214,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   var cubit = context.read<TransformCubit>();
                                   cubit.zoom(
                                       scale, pointerSignal.localPosition);
-                                  _bake();
+                                  _bake(cubit.state);
                                 }
                               },
                               onPointerDown: (PointerDownEvent event) {
