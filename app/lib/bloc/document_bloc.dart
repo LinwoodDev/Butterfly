@@ -288,6 +288,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
       await Future.delayed(const Duration(seconds: 1));
 
+      await Future.delayed(const Duration(seconds: 1));
+
       emit(current.copyWith(
           bakedViewport: BakedViewport(
               height: size.height.round(),
