@@ -284,6 +284,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
       if (!eq(elements, currentElements)) return;
       if (last != current.bakedViewport) return;
+      await Future.delayed(Duration(seconds: 1));
 
       emit(current.copyWith(
           bakedViewport: BakedViewport(
