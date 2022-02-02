@@ -26,6 +26,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/views/edit.dart';
+import 'package:butterfly/views/tool.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,8 +36,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'view.dart';
 
-bool isWindow() =>
-    !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
+bool isWindow() => !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
 
 class ProjectPage extends StatefulWidget {
   final String? path;
@@ -51,8 +51,6 @@ class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
   final GlobalKey _viewportKey = GlobalKey();
-  final TextEditingController _scaleController =
-      TextEditingController(text: '100');
 
   @override
   void initState() {
@@ -74,12 +72,12 @@ class _ProjectPageState extends State<ProjectPage> {
     var fileSystem = DocumentFileSystem.fromPlatform();
     AppDocument? document;
     if (widget.path != null) {
-      await fileSystem.getAsset(widget.path!).then(
-          (value) => document = value is AppDocumentFile ? value.load() : null);
+      await fileSystem
+          .getAsset(widget.path!)
+          .then((value) => document = value is AppDocumentFile ? value.load() : null);
     }
     document ??= AppDocument(
-        name: await formatCurrentDateTime(
-            context.read<SettingsCubit>().state.locale),
+        name: await formatCurrentDateTime(context.read<SettingsCubit>().state.locale),
         createdAt: DateTime.now(),
         palettes: ColorPalette.getMaterialPalette(context));
     setState(() => _bloc = DocumentBloc(document!, widget.path));
@@ -98,48 +96,33 @@ class _ProjectPageState extends State<ProjectPage> {
         child: Builder(builder: (context) {
           return Shortcuts(
             shortcuts: {
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
                   UndoIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
                   RedoIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
                   NewIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
                   OpenIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
                   ImportIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
                   ExportIntent(context),
-              LogicalKeySet(
-                  LogicalKeyboardKey.control,
-                  LogicalKeyboardKey.shift,
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyE): ImageExportIntent(context),
               LogicalKeySet(LogicalKeyboardKey.tab): EditModeIntent(context),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.alt, LogicalKeyboardKey.keyS):
+                  SettingsIntent(context),
               LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
-                  LogicalKeyboardKey.keyS): SettingsIntent(context),
-              LogicalKeySet(
-                  LogicalKeyboardKey.control,
-                  LogicalKeyboardKey.alt,
-                  LogicalKeyboardKey.shift,
-                  LogicalKeyboardKey.keyS): ProjectIntent(context),
-              LogicalKeySet(
-                  LogicalKeyboardKey.control,
-                  LogicalKeyboardKey.shift,
+                  LogicalKeyboardKey.shift, LogicalKeyboardKey.keyS): ProjectIntent(context),
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyP): WaypointsIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
                   ColorPaletteIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyB):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyB):
                   BackgroundIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
                   LayersIntent(context),
             },
             child: Actions(
@@ -166,29 +149,24 @@ class _ProjectPageState extends State<ProjectPage> {
                         autofocus: true,
                         child: Scaffold(
                             appBar: appBar,
-                            body:
-                                LayoutBuilder(builder: (context, constraints) {
+                            body: LayoutBuilder(builder: (context, constraints) {
                               var isMobile = constraints.maxWidth < 600;
                               return Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
                                     Container(
                                       height: 75,
                                       color: Theme.of(context).canvasColor,
                                       padding: const EdgeInsets.all(12.0),
-                                      child: _buildToolSelection(isMobile),
+                                      child: ToolSelection(
+                                          isMobile: isMobile, viewportKey: _viewportKey),
                                     ),
-                                    Expanded(
-                                        key: _viewportKey,
-                                        child: const MainViewViewport()),
+                                    Expanded(key: _viewportKey, child: const MainViewViewport()),
                                     if (isMobile)
-                                      Align(
+                                      const Align(
                                           alignment: Alignment.center,
                                           child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: _buildToolbar()))
+                                              padding: EdgeInsets.all(8.0), child: EditToolbar()))
                                   ]);
                             })));
                   }),
@@ -198,8 +176,7 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   AppBar _buildAppBar(BuildContext context) => AppBar(
-          title:
-              BlocBuilder<DocumentBloc, DocumentState>(builder: (ctx, state) {
+          title: BlocBuilder<DocumentBloc, DocumentState>(builder: (ctx, state) {
             Widget title;
             if (_bloc!.state is DocumentLoadSuccess) {
               var current = _bloc!.state as DocumentLoadSuccess;
@@ -213,8 +190,7 @@ class _ProjectPageState extends State<ProjectPage> {
                     ),
                     if (current.path != null)
                       Text(current.path!,
-                          style: Theme.of(ctx).textTheme.caption,
-                          textAlign: TextAlign.center),
+                          style: Theme.of(ctx).textTheme.caption, textAlign: TextAlign.center),
                   ]);
             } else {
               title = Text(AppLocalizations.of(ctx)!.loading);
@@ -242,91 +218,6 @@ class _ProjectPageState extends State<ProjectPage> {
             const _MainPopupMenu(),
             if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
           ]);
-
-  Widget _buildToolbar() => const SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: SizedBox(height: 50, child: EditToolbar()));
-
-  Widget _buildToolSelection(bool isMobile) {
-    return Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            BlocBuilder<TransformCubit, CameraTransform>(
-                builder: (context, transform) {
-              _scaleController.text = (transform.size * 100).toStringAsFixed(2);
-              const zoomConstant = 1 + 0.1;
-
-              return Row(
-                children: [
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
-                      tooltip: AppLocalizations.of(context)!.zoomOut,
-                      onPressed: () {
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        context.read<TransformCubit>().zoom(
-                            1 / zoomConstant,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      }),
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.magnifyingGlassLight),
-                      tooltip: AppLocalizations.of(context)!.resetZoom,
-                      onPressed: () {
-                        var cubit = context.read<TransformCubit>();
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        cubit.size(
-                            1,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      }),
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
-                      tooltip: AppLocalizations.of(context)!.zoomIn,
-                      onPressed: () {
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        context.read<TransformCubit>().zoom(
-                            zoomConstant,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      }),
-                  const SizedBox(width: 10),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 100),
-                    child: TextField(
-                      controller: _scaleController,
-                      onSubmitted: (value) {
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        var cubit = context.read<TransformCubit>();
-                        var scale = double.tryParse(value) ?? 100;
-                        scale /= 100;
-                        cubit.size(
-                            scale,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      },
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                          filled: true,
-                          labelText: AppLocalizations.of(context)!.zoom),
-                    ),
-                  ),
-                  if (!isMobile) const VerticalDivider()
-                ],
-              );
-            }),
-          ]),
-          if (!isMobile)
-            Flexible(
-              child: _buildToolbar(),
-            )
-        ]);
-  }
 }
 
 class WindowButtons extends StatelessWidget {
@@ -402,8 +293,7 @@ class _MainPopupMenu extends StatelessWidget {
               subtitle: Text(context.getShortcut('I')),
               onTap: () {
                 Navigator.of(context).pop();
-                Actions.maybeInvoke<ImportIntent>(
-                    context, ImportIntent(context));
+                Actions.maybeInvoke<ImportIntent>(context, ImportIntent(context));
               },
             )),
         PopupMenuItem(
@@ -428,16 +318,14 @@ class _MainPopupMenu extends StatelessWidget {
                               onTap: () async {
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
-                                Actions.maybeInvoke<ExportIntent>(
-                                    context, ExportIntent(context));
+                                Actions.maybeInvoke<ExportIntent>(context, ExportIntent(context));
                               })),
                       PopupMenuItem(
                           padding: EdgeInsets.zero,
                           child: ListTile(
                               leading: const Icon(PhosphorIcons.imageLight),
                               title: Text(AppLocalizations.of(context)!.image),
-                              subtitle: Text(
-                                  context.getShortcut('E', shiftKey: true)),
+                              subtitle: Text(context.getShortcut('E', shiftKey: true)),
                               onTap: () {
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
@@ -459,19 +347,16 @@ class _MainPopupMenu extends StatelessWidget {
                 subtitle: Text(context.getShortcut('S', altKey: true)),
                 onTap: () {
                   Navigator.of(context).pop();
-                  Actions.maybeInvoke<SettingsIntent>(
-                      context, SettingsIntent(context));
+                  Actions.maybeInvoke<SettingsIntent>(context, SettingsIntent(context));
                 })),
         const PopupMenuDivider(),
         PopupMenuItem(
             child: ListTile(
                 onTap: () {
                   Navigator.of(context).pop();
-                  Actions.maybeInvoke<ProjectIntent>(
-                      context, ProjectIntent(context));
+                  Actions.maybeInvoke<ProjectIntent>(context, ProjectIntent(context));
                 },
-                subtitle: Text(
-                    context.getShortcut('S', shiftKey: true, altKey: true)),
+                subtitle: Text(context.getShortcut('S', shiftKey: true, altKey: true)),
                 leading: const Icon(PhosphorIcons.wrenchLight),
                 title: Text(AppLocalizations.of(context)!.projectSettings)),
             padding: EdgeInsets.zero),

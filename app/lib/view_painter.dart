@@ -43,8 +43,7 @@ class ForegroundPainter extends CustomPainter {
   final CameraTransform transform;
   final PadElement? selection;
 
-  ForegroundPainter(this.editingLayer,
-      [this.transform = const CameraTransform(), this.selection]);
+  ForegroundPainter(this.editingLayer, [this.transform = const CameraTransform(), this.selection]);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -78,9 +77,7 @@ class ForegroundPainter extends CustomPainter {
 Future<Map<PadElement, ui.Image>> loadImages(AppDocument document,
     [Map<PadElement, ui.Image> loadedImages = const {}]) async {
   var images = Map<PadElement, ui.Image>.from(loadedImages);
-  if (kIsWeb && document.content.any((element) => element is ImageElement)) {
-    await Future.delayed(const Duration(seconds: 1));
-  }
+  if (kIsWeb && document.content.any((element) => element is ImageElement)) {}
   for (var layer in document.content) {
     if (layer is ImageElement && !images.containsKey(layer)) {
       images[layer] = await loadImage(layer);
@@ -115,13 +112,10 @@ class ViewPainter extends CustomPainter {
         var relativeWidth = background.boxWidth * transform.size;
         var relativeSpace = background.boxXSpace * transform.size;
         int xCount = (transform.position.dx /
-                    (background.boxWidth * background.boxXCount +
-                        background.boxXSpace))
+                    (background.boxWidth * background.boxXCount + background.boxXSpace))
                 .floor() +
             1;
-        double x = -xCount *
-                (background.boxWidth * background.boxXCount +
-                    background.boxXSpace) +
+        double x = -xCount * (background.boxWidth * background.boxXCount + background.boxXSpace) +
             transform.position.dx;
         x *= transform.size;
 
@@ -145,13 +139,10 @@ class ViewPainter extends CustomPainter {
         var relativeHeight = background.boxHeight * transform.size;
         var relativeSpace = background.boxYSpace * transform.size;
         int yCount = (transform.position.dy /
-                    (background.boxHeight * background.boxYCount +
-                        background.boxYSpace))
+                    (background.boxHeight * background.boxYCount + background.boxYSpace))
                 .floor() +
             1;
-        double y = -yCount *
-                (background.boxHeight * background.boxYCount +
-                    background.boxYSpace) +
+        double y = -yCount * (background.boxHeight * background.boxYCount + background.boxYSpace) +
             transform.position.dy;
         y *= transform.size;
 
@@ -174,18 +165,14 @@ class ViewPainter extends CustomPainter {
     }
     if (!(bakedViewport?.wasDisposed ?? true)) {
       var image = bakedViewport!.image;
-      var bakedSizeDiff = (transform.size - bakedViewport!.scale) / 2;
-      var pos = transform.globalToLocal(-bakedViewport!.toOffset()) *
-          bakedViewport!.scale /
-          3;
+      var bakedSizeDiff = (transform.size - bakedViewport!.scale) / bakedViewport!.scale;
+      var pos = transform.globalToLocal(-bakedViewport!.toOffset());
 
       // Draw our baked image, scaling it down with drawImageRect.
       canvas.drawImageRect(
         image,
         Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
-        pos &
-            Size(image.width * (1 + bakedSizeDiff),
-                image.height * (1 + bakedSizeDiff)),
+        pos & Size(image.width * (1 + bakedSizeDiff), image.height * (1 + bakedSizeDiff)),
         Paint()..isAntiAlias = true,
       );
     }
