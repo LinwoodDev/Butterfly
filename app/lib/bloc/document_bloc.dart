@@ -35,22 +35,25 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ElementChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        return _saveDocument(current.copyWith(
-            document: current.document.copyWith(
-                content: (List.from(current.document.content)
-                  ..[event.index] = event.element)),
-            removeBakedViewport: true));
+        return _saveDocument(
+            current.copyWith(
+              document: current.document.copyWith(
+                  content: (List.from(current.document.content)
+                    ..[event.index] = event.element)),
+            ),
+            null);
       }
     });
     on<ElementsRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        return _saveDocument(current.copyWith(
-            removeBakedViewport: true,
-            document: current.document.copyWith(
-                content: List.from(current.document.content)
-                  ..removeWhere(
-                      (element) => event.elements.contains(element)))));
+        return _saveDocument(
+            current.copyWith(
+                document: current.document.copyWith(
+                    content: List.from(current.document.content)
+                      ..removeWhere(
+                          (element) => event.elements.contains(element)))),
+            null);
       }
     });
     on<DocumentDescriptorChanged>((event, emit) async {
@@ -174,25 +177,27 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<LayerRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        return _saveDocument(current.copyWith(
-            removeBakedViewport: true,
-            document: current.document.copyWith(
-                content: List<PadElement>.from(current.document.content)
-                    .where((e) => e.layer == event.name)
-                    .map((e) => e.copyWith(layer: ''))
-                    .toList())));
+        return _saveDocument(
+            current.copyWith(
+                document: current.document.copyWith(
+                    content: List<PadElement>.from(current.document.content)
+                        .where((e) => e.layer == event.name)
+                        .map((e) => e.copyWith(layer: ''))
+                        .toList())),
+            null);
       }
     });
 
     on<LayerElementsDeleted>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        return _saveDocument(current.copyWith(
-            removeBakedViewport: true,
-            document: current.document.copyWith(
-                content: List<PadElement>.from(current.document.content)
-                    .where((e) => e.layer != event.name)
-                    .toList())));
+        return _saveDocument(
+            current.copyWith(
+                document: current.document.copyWith(
+                    content: List<PadElement>.from(current.document.content)
+                        .where((e) => e.layer != event.name)
+                        .toList())),
+            null);
       }
     });
 
@@ -326,7 +331,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   Future<void> _saveDocument(DocumentLoadSuccess current,
       [List<PadElement>? unbakedElements = const []]) async {
     var elements = current.elements;
-    if (current.bakedViewport != null && unbakedElements != null) {
+    if (current.bakedViewport != null &&
+        unbakedElements != null &&
+        current.bakedViewport != null) {
       elements = List<PadElement>.from(elements)..addAll(unbakedElements);
     }
     current = current.copyWith(
