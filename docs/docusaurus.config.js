@@ -12,10 +12,21 @@ module.exports = {
     organizationName: 'LinwoodCloud', // Usually your GitHub org/user name.
     projectName: 'butterfly', // Usually your repo name.
     i18n: {
-      defaultLocale: 'en',
-      locales: ['en', 'de', 'fr'],
+        defaultLocale: 'en',
+        locales: ['en', 'de', 'fr'],
     },
     themeConfig: {
+        algolia: {
+            // The application ID provided by Algolia
+            appId: 'PQN0C3O7D3',
+
+            // Public API key: it is safe to commit it
+            apiKey: '219c0a938f5cec6e889c1e5edaef7035',
+
+            indexName: 'docs-butterfly-linwood',
+
+            //... other Algolia params
+        },
         navbar: {
             title: 'Linwood Butterfly',
             logo: {
@@ -39,17 +50,17 @@ module.exports = {
                     position: 'left',
                     label: 'Community',
                 },
-                {href: 'https://linwood.dev/blog', label: 'Blog', position: 'left'},
+                { href: 'https://linwood.dev/blog', label: 'Blog', position: 'left' },
                 {
                     type: 'docsVersionDropdown',
                     position: 'right',
                     dropdownItemsBefore: [],
-                    dropdownItemsAfter: [{to: '/versions', label: 'All versions'}],
+                    dropdownItemsAfter: [{ to: '/versions', label: 'All versions' }],
                     dropdownActiveClassDisabled: true
                 },
                 {
-                  type: 'localeDropdown',
-                  position: 'right',
+                    type: 'localeDropdown',
+                    position: 'right',
                 },
                 {
                     href: 'https://discord.linwood.dev',
