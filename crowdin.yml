@@ -1,3 +1,5 @@
+commit_message: "Translation: %language% language updated."
+append_commit_message: false
 files:
   - source: /app/lib/l10n/app_en.arb
     translation: /app/lib/l10n/app_%two_letters_code%.arb
