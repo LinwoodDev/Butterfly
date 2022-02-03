@@ -170,8 +170,6 @@ class ViewPainter extends CustomPainter {
         }
       }
     }
-    print(
-        'Painting ${elements.length} elements with $renderBackground background');
     if (!(bakedViewport?.wasDisposed ?? true)) {
       var image = bakedViewport!.image;
       var bakedSizeDiff =
@@ -188,7 +186,6 @@ class ViewPainter extends CustomPainter {
         Paint(),
       );
     }
-    print('Completed painting baked image');
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);

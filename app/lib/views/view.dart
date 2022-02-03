@@ -198,9 +198,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             current = current - size;
                             current += 1;
                             cubit.zoom(current, details.localFocalPoint);
-                            _bake(cubit.state);
                             size = details.scale;
                           },
+                          onScaleEnd: (details) => _bake(),
                           onScaleStart: (details) {
                             size = 1;
                           },
@@ -237,6 +237,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 var cubit = context.read<EditingCubit>();
                                 var transform =
                                     context.read<TransformCubit>().state;
+                                _bake();
                                 if (cubit.isMoving) {
                                   cubit.moveTo(transform
                                       .localToGlobal(event.localPosition));
@@ -411,7 +412,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   context
                                       .read<TransformCubit>()
                                       .move(event.delta / transform.size);
-                                  _bake();
                                   return;
                                 }
                                 if (event.kind == PointerDeviceKind.stylus ||
