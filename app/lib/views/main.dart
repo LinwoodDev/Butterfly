@@ -26,6 +26,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/views/edit.dart';
+import 'package:butterfly/views/tool.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -51,8 +52,6 @@ class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
   final GlobalKey _viewportKey = GlobalKey();
-  final TextEditingController _scaleController =
-      TextEditingController(text: '100');
 
   @override
   void initState() {
@@ -177,18 +176,19 @@ class _ProjectPageState extends State<ProjectPage> {
                                       height: 75,
                                       color: Theme.of(context).canvasColor,
                                       padding: const EdgeInsets.all(12.0),
-                                      child: _buildToolSelection(isMobile),
+                                      child: ToolSelection(
+                                          isMobile: isMobile,
+                                          viewportKey: _viewportKey),
                                     ),
                                     Expanded(
                                         key: _viewportKey,
                                         child: const MainViewViewport()),
                                     if (isMobile)
-                                      Align(
+                                      const Align(
                                           alignment: Alignment.center,
                                           child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: _buildToolbar()))
+                                              padding: EdgeInsets.all(8.0),
+                                              child: EditToolbar()))
                                   ]);
                             })));
                   }),
@@ -242,91 +242,6 @@ class _ProjectPageState extends State<ProjectPage> {
             const _MainPopupMenu(),
             if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
           ]);
-
-  Widget _buildToolbar() => const SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: SizedBox(height: 50, child: EditToolbar()));
-
-  Widget _buildToolSelection(bool isMobile) {
-    return Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            BlocBuilder<TransformCubit, CameraTransform>(
-                builder: (context, transform) {
-              _scaleController.text = (transform.size * 100).toStringAsFixed(2);
-              const zoomConstant = 1 + 0.1;
-
-              return Row(
-                children: [
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
-                      tooltip: AppLocalizations.of(context)!.zoomOut,
-                      onPressed: () {
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        context.read<TransformCubit>().zoom(
-                            1 / zoomConstant,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      }),
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.magnifyingGlassLight),
-                      tooltip: AppLocalizations.of(context)!.resetZoom,
-                      onPressed: () {
-                        var cubit = context.read<TransformCubit>();
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        cubit.size(
-                            1,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      }),
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
-                      tooltip: AppLocalizations.of(context)!.zoomIn,
-                      onPressed: () {
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        context.read<TransformCubit>().zoom(
-                            zoomConstant,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      }),
-                  const SizedBox(width: 10),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 100),
-                    child: TextField(
-                      controller: _scaleController,
-                      onSubmitted: (value) {
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        var cubit = context.read<TransformCubit>();
-                        var scale = double.tryParse(value) ?? 100;
-                        scale /= 100;
-                        cubit.size(
-                            scale,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      },
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                          filled: true,
-                          labelText: AppLocalizations.of(context)!.zoom),
-                    ),
-                  ),
-                  if (!isMobile) const VerticalDivider()
-                ],
-              );
-            }),
-          ]),
-          if (!isMobile)
-            Flexible(
-              child: _buildToolbar(),
-            )
-        ]);
-  }
 }
 
 class WindowButtons extends StatelessWidget {

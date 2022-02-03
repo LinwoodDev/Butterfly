@@ -14,17 +14,23 @@ class DocumentLoadSuccess extends DocumentState {
   final String? path;
   final String currentLayer;
   final List<String> invisibleLayers;
+  final BakedViewport? bakedViewport;
   final int? currentPainterIndex;
 
   const DocumentLoadSuccess(this.document,
       {this.path,
+      this.bakedViewport,
       this.currentPainterIndex = 0,
       this.currentLayer = '',
       this.invisibleLayers = const []});
 
   @override
   List<Object?> get props =>
-      [document, currentPainterIndex, path, invisibleLayers];
+      [document, currentPainterIndex, path, invisibleLayers, bakedViewport];
+
+  List<PadElement> get elements {
+    return bakedViewport?.unbakedElements ?? document.content;
+  }
 
   Painter? get currentPainter {
     if (document.painters.isEmpty || currentPainterIndex == null) {
@@ -41,11 +47,15 @@ class DocumentLoadSuccess extends DocumentState {
       String? path,
       String? currentLayer,
       bool removeCurrentPainterIndex = false,
-      List<String>? invisibleLayers}) {
+      List<String>? invisibleLayers,
+      BakedViewport? bakedViewport,
+      bool removeBakedViewport = false}) {
     return DocumentLoadSuccess(document ?? this.document,
         path: path ?? this.path,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
+        bakedViewport:
+            removeBakedViewport ? null : bakedViewport ?? this.bakedViewport,
         currentPainterIndex: removeCurrentPainterIndex
             ? null
             : currentPainterIndex ?? this.currentPainterIndex);

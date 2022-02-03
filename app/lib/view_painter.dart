@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:butterfly/models/backgrounds/box.dart';
+import 'package:butterfly/models/baked_viewport.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/image.dart';
@@ -77,9 +78,7 @@ class ForegroundPainter extends CustomPainter {
 Future<Map<PadElement, ui.Image>> loadImages(AppDocument document,
     [Map<PadElement, ui.Image> loadedImages = const {}]) async {
   var images = Map<PadElement, ui.Image>.from(loadedImages);
-  if (kIsWeb && document.content.any((element) => element is ImageElement)) {
-    await Future.delayed(const Duration(seconds: 1));
-  }
+  if (kIsWeb && document.content.any((element) => element is ImageElement)) {}
   for (var layer in document.content) {
     if (layer is ImageElement && !images.containsKey(layer)) {
       images[layer] = await loadImage(layer);
@@ -92,13 +91,15 @@ Future<Map<PadElement, ui.Image>> loadImages(AppDocument document,
 class ViewPainter extends CustomPainter {
   final AppDocument document;
   final bool renderBackground;
-  final List<String> invisibleLayers;
+  final List<PadElement> elements;
+  final BakedViewport? bakedViewport;
   final Map<PadElement, ui.Image> images;
   final CameraTransform transform;
 
   ViewPainter(this.document,
       {this.renderBackground = true,
-      this.invisibleLayers = const [],
+      this.elements = const [],
+      this.bakedViewport,
       this.transform = const CameraTransform(),
       Map<PadElement, ui.Image>? images})
       : images = images ?? <PadElement, ui.Image>{};
@@ -169,14 +170,28 @@ class ViewPainter extends CustomPainter {
         }
       }
     }
+    if (!(bakedViewport?.wasDisposed ?? true)) {
+      var image = bakedViewport!.image;
+      var bakedSizeDiff =
+          (transform.size - bakedViewport!.scale) / bakedViewport!.scale;
+      var pos = transform.globalToLocal(-bakedViewport!.toOffset());
+
+      // Draw our baked image, scaling it down with drawImageRect.
+      canvas.drawImageRect(
+        image,
+        Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
+        pos &
+            Size(image.width * (1 + bakedSizeDiff),
+                image.height * (1 + bakedSizeDiff)),
+        Paint(),
+      );
+    }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
-    document.content
-        .where((element) => !invisibleLayers.contains(element.layer))
-        .toList()
-        .asMap()
-        .forEach((index, element) => paintElement(canvas, element, images));
+    for (var element in elements) {
+      paintElement(canvas, element, images);
+    }
     canvas.restore();
   }
 
@@ -186,5 +201,6 @@ class ViewPainter extends CustomPainter {
       renderBackground != oldDelegate.renderBackground ||
       transform != oldDelegate.transform ||
       images != oldDelegate.images ||
-      invisibleLayers != oldDelegate.invisibleLayers;
+      bakedViewport != oldDelegate.bakedViewport ||
+      elements != oldDelegate.elements;
 }
