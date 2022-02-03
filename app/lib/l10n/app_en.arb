@@ -122,6 +122,7 @@
   "altKey": "Alt",
   "copyVersion": "Copy version",
   "input": "Input",
+  "multiInput": "Multi input",
   "multiDraw": "Draw with multiple inputs",
   "moveFirst": "Move with the first input",
   "moveLast": "Move with the last inputs",
@@ -166,5 +167,10 @@
   "selectElements": "Select elements",
   "deleteElements": "Delete elements",
   "deleteElementsConfirm": "Do you really want to delete the selected elements?",
-  "selectCustomLayer": "Select a custom layer"
+  "selectCustomLayer": "Select a custom layer",
+  "sensitivity": "Sensitivity",
+  "sensitivityHint": "The higher the value, the more sensitive the input",
+  "touchSensitivity": "Touch sensitivity",
+  "mouseSensitivity": "Mouse sensitivity",
+  "penSensitivity": "Pen sensitivity"
 }

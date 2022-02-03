@@ -1,5 +1,6 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
+import 'package:butterfly/widgets/exact_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,12 +22,52 @@ class BehaviorsSettingsPage extends StatelessWidget {
             builder: (context, state) {
           return ListView(
             children: [
-              ListTile(
-                title: Text(AppLocalizations.of(context)!.input),
-                leading: const Icon(PhosphorIcons.mouseLight),
-                subtitle: Text(state.inputType.toLocalizedString(context)),
-                onTap: () => _showInput(context),
-              ),
+              Card(
+                  margin: const EdgeInsets.all(16),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(AppLocalizations.of(context)!.input,
+                              style: Theme.of(context).textTheme.headline5),
+                          const SizedBox(height: 16),
+                          ListTile(
+                            title:
+                                Text(AppLocalizations.of(context)!.multiInput),
+                            leading: const Icon(PhosphorIcons.mouseLight),
+                            subtitle: Text(
+                                state.inputType.toLocalizedString(context)),
+                            onTap: () => _showInput(context),
+                          ),
+                        ]),
+                  )),
+              Card(
+                  margin: const EdgeInsets.all(16),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(AppLocalizations.of(context)!.sensitivity,
+                              style: Theme.of(context).textTheme.headline5),
+                          Text(AppLocalizations.of(context)!.sensitivityHint,
+                              style: Theme.of(context).textTheme.subtitle2),
+                          const SizedBox(height: 16),
+                          ExactSlider(
+                              label: AppLocalizations.of(context)!
+                                  .touchSensitivity,
+                              onChanged: (value) {}),
+                          ExactSlider(
+                              label: AppLocalizations.of(context)!
+                                  .mouseSensitivity,
+                              onChanged: (value) {}),
+                          ExactSlider(
+                              label:
+                                  AppLocalizations.of(context)!.penSensitivity,
+                              onChanged: (value) {}),
+                        ]),
+                  )),
             ],
           );
         }));
