@@ -1,12 +1,12 @@
-# Music paper
+# Musikpapier
 
-| Property | Value |
-| --------:|:----- |
-|    Width | 200   |
-|   Height | 5     |
-|  Count X | 1     |
-|  Count Y | 5     |
-|  Space X | 10    |
-|  Space Y | 60    |
+|   Objekt | Wert |
+| --------:|:---- |
+|    Width | 200  |
+|     Höhe | 5    |
+| Zähler X | 1    |
+| Anzahl Y | 5    |
+|   Raum X | 10   |
+|   Raum Y | 60   |
 
-See [the introduction](intro) for more information.
+Siehe [die Einführung](intro) für weitere Informationen.
