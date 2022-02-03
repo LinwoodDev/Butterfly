@@ -8,6 +8,6 @@ Sie können den Hintergrund des Papiers anpassen. Klicken Sie auf das Hintergrun
 
 ## Konfiguration
 
-Breite und Höhe sind die allgemeinen Einstellungen der Box. Space and count are important if you want to add a complex structure.
+Breite und Höhe sind die allgemeinen Einstellungen der Box. Raum und Zählung sind wichtig, wenn Sie eine komplexe Struktur hinzufügen möchten.
 
-Additionally you can customize the color of the background.
+Zusätzlich können Sie die Hintergrundfarbe anpassen.
