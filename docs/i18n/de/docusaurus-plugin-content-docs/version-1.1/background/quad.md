@@ -1,12 +1,12 @@
-# Musikpapier
+# Quad Papier
 
 |   Objekt | Wert |
 | --------:|:---- |
-|    Width | 200  |
-|     Höhe | 5    |
+|    Width | 15   |
+|     Höhe | 15   |
 | Zähler X | 1    |
-| Anzahl Y | 5    |
-|   Raum X | 10   |
-|   Raum Y | 60   |
+| Anzahl Y | 1    |
+|   Raum X | 0    |
+|   Raum Y | 0    |
 
 Siehe [die Einführung](intro) für weitere Informationen.
