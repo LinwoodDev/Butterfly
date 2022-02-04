@@ -249,6 +249,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ImageBaked>((event, emit) async {
       var current = state;
       if (current is! DocumentLoadSuccess) return;
+      if (event.viewportSize.height <= 0 || event.viewportSize.width <= 0) {
+        return;
+      }
       final eq = const ListEquality().equals;
 
       var elements = current.elements;
