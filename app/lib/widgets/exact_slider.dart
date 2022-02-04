@@ -80,7 +80,7 @@ class _ExactSliderState extends State<ExactSlider> {
                   IconButton(
                       onPressed: () => _changeValue(widget.defaultValue),
                       icon:
-                          const Icon(PhosphorIcons.arrowCounterClockwiseLight)),
+                          const Icon(PhosphorIcons.clockCounterClockwiseLight)),
                 ]),
               ],
             )));

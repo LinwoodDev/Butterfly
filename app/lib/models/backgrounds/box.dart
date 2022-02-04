@@ -1,4 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+enum BackgroundTemplate { plain, ruled, quad, music }
+
+extension BackgroundTemplateExtension on BackgroundTemplate {
+  String get asset => 'templates/$name.png';
+  BoxBackground create() {
+    switch (this) {
+      case BackgroundTemplate.plain:
+        return const BoxBackground();
+      case BackgroundTemplate.ruled:
+        return const BoxBackground(
+          boxHeight: 20,
+        );
+      case BackgroundTemplate.quad:
+        return const BoxBackground(
+          boxHeight: 20,
+          boxWidth: 20,
+        );
+      case BackgroundTemplate.music:
+        return const BoxBackground(
+            boxHeight: 20,
+            boxYColor: Colors.black,
+            boxYSpace: 30,
+            boxYCount: 5);
+    }
+  }
+
+  String getLocalizedName(BuildContext context) {
+    switch (this) {
+      case BackgroundTemplate.plain:
+        return AppLocalizations.of(context)!.plainTemplate;
+      case BackgroundTemplate.ruled:
+        return AppLocalizations.of(context)!.ruledTemplate;
+      case BackgroundTemplate.quad:
+        return AppLocalizations.of(context)!.quadTemplate;
+      case BackgroundTemplate.music:
+        return AppLocalizations.of(context)!.musicTemplate;
+    }
+  }
+}
 
 @immutable
 class BoxBackground {

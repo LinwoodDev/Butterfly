@@ -174,5 +174,9 @@
   "mouseSensitivity": "Mouse sensitivity",
   "penSensitivity": "Pen sensitivity",
   "horizontal": "Horizontal",
-  "vertical": "Vertical"
+  "vertical": "Vertical",
+  "plainTemplate": "Plain template",
+  "ruledTemplate": "Ruled template",
+  "quadTemplate": "Quad template",
+  "musicTemplate": "Music template"
 }

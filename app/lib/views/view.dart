@@ -228,6 +228,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               },
                               onPointerDown: (PointerDownEvent event) {
                                 var cubit = context.read<EditingCubit>();
+                                var sensitivity = context
+                                    .read<SettingsCubit>()
+                                    .state
+                                    .penSensitivity;
                                 var input = context
                                     .read<SettingsCubit>()
                                     .state
@@ -236,8 +240,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     event.buttons != kMiddleMouseButton &&
                                     input.canCreate(event.pointer,
                                         cubit.first(), event.kind)) {
-                                  createElement(event.pointer,
-                                      event.localPosition, event.pressure);
+                                  createElement(
+                                      event.pointer,
+                                      event.localPosition,
+                                      event.pressure * sensitivity);
                                 } else {
                                   openView = true;
                                 }
@@ -398,6 +404,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               onPointerMove: (PointerMoveEvent event) async {
                                 var cubit = context.read<EditingCubit>();
                                 var currentElement = cubit.get(event.pointer);
+                                var sensitivity = context
+                                    .read<SettingsCubit>()
+                                    .state
+                                    .penSensitivity;
                                 var transform =
                                     context.read<TransformCubit>().state;
                                 var input = context
@@ -456,7 +466,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                                   ..add(PathPoint.fromOffset(
                                                       transform.localToGlobal(
                                                           event.localPosition),
-                                                      event.pressure))));
+                                                      event.pressure *
+                                                          sensitivity))));
                                   }
                                 }
                               },
