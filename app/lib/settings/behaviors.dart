@@ -23,9 +23,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
           return ListView(
             children: [
               Card(
-                  margin: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.all(8),
                   child: Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(32),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -43,9 +43,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         ]),
                   )),
               Card(
-                  margin: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.all(8),
                   child: Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(24),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -54,18 +54,57 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           Text(AppLocalizations.of(context)!.sensitivityHint,
                               style: Theme.of(context).textTheme.subtitle2),
                           const SizedBox(height: 16),
-                          ExactSlider(
-                              label: AppLocalizations.of(context)!
-                                  .touchSensitivity,
-                              onChanged: (value) {}),
-                          ExactSlider(
-                              label: AppLocalizations.of(context)!
-                                  .mouseSensitivity,
-                              onChanged: (value) {}),
-                          ExactSlider(
-                              label:
-                                  AppLocalizations.of(context)!.penSensitivity,
-                              onChanged: (value) {}),
+                          Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Column(children: [
+                                ExactSlider(
+                                    min: 0,
+                                    max: 100,
+                                    value: state.touchSensitivity,
+                                    header: Row(children: [
+                                      const Icon(PhosphorIcons.handLight),
+                                      const SizedBox(width: 8),
+                                      Text(AppLocalizations.of(context)!
+                                          .touchSensitivity),
+                                    ]),
+                                    onChanged: (value) {
+                                      final cubit =
+                                          context.read<SettingsCubit>();
+                                      cubit.changeTouchSensitivity(value);
+                                    }),
+                                const SizedBox(height: 16),
+                                ExactSlider(
+                                    min: 0,
+                                    max: 100,
+                                    value: state.mouseSensitivity,
+                                    header: Row(children: [
+                                      const Icon(PhosphorIcons.mouseLight),
+                                      const SizedBox(width: 8),
+                                      Text(AppLocalizations.of(context)!
+                                          .mouseSensitivity),
+                                    ]),
+                                    onChanged: (value) {
+                                      final cubit =
+                                          context.read<SettingsCubit>();
+                                      cubit.changeMouseSensitivity(value);
+                                    }),
+                                const SizedBox(height: 16),
+                                ExactSlider(
+                                    min: 0,
+                                    max: 100,
+                                    value: state.penSensitivity,
+                                    header: Row(children: [
+                                      const Icon(PhosphorIcons.penLight),
+                                      const SizedBox(width: 8),
+                                      Text(AppLocalizations.of(context)!
+                                          .penSensitivity),
+                                    ]),
+                                    onChanged: (value) {
+                                      final cubit =
+                                          context.read<SettingsCubit>();
+                                      cubit.changePenSensitivity(value);
+                                    }),
+                              ])),
                         ]),
                   )),
             ],

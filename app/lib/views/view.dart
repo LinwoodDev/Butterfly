@@ -197,7 +197,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             var current = details.scale;
                             current = current - size;
                             current += 1;
-                            cubit.zoom(current, details.localFocalPoint);
+                            var sensitivity = context
+                                .read<SettingsCubit>()
+                                .state
+                                .touchSensitivity;
+                            cubit.zoom(
+                                current / sensitivity, details.localFocalPoint);
                             size = details.scale;
                           },
                           onScaleEnd: (details) => _bake(),
@@ -209,7 +214,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 if (pointerSignal is PointerScrollEvent) {
                                   var scale = pointerSignal.scrollDelta.dx +
                                       pointerSignal.scrollDelta.dy;
-                                  scale /= -250;
+                                  var sensitivity = context
+                                      .read<SettingsCubit>()
+                                      .state
+                                      .mouseSensitivity;
+                                  scale /= -sensitivity * 100;
                                   scale += 1;
                                   var cubit = context.read<TransformCubit>();
                                   cubit.zoom(

@@ -11,20 +11,31 @@ class ButterflySettings {
   final String documentPath;
   final String dateFormat;
   final InputType inputType;
+  final double touchSensitivity, mouseSensitivity, penSensitivity;
 
   const ButterflySettings(
       {this.theme = ThemeMode.system,
       this.localeTag = '',
       this.documentPath = '',
       this.dateFormat = '',
+      this.touchSensitivity = 1,
+      this.mouseSensitivity = 1,
+      this.penSensitivity = 1,
       this.inputType = InputType.multiDraw});
 
   ButterflySettings.fromPrefs(SharedPreferences prefs)
       : localeTag = prefs.getString('locale') ?? '',
-        inputType = InputType.values[prefs.getInt('input') ?? 0],
+        inputType = prefs.containsKey('input_type')
+            ? InputType.values.byName(prefs.getString('input_type')!)
+            : InputType.multiDraw,
         documentPath = prefs.getString('document_path') ?? '',
-        theme = ThemeMode.values[prefs.getInt('theme') ?? 0],
-        dateFormat = prefs.getString('date_format') ?? '';
+        theme = prefs.containsKey('theme_mode')
+            ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
+            : ThemeMode.system,
+        dateFormat = prefs.getString('date_format') ?? '',
+        touchSensitivity = prefs.getDouble('touch_sensitivity') ?? 1,
+        mouseSensitivity = prefs.getDouble('mouse_sensitivity') ?? 1,
+        penSensitivity = prefs.getDouble('pen_sensitivity') ?? 1;
 
   Locale? get locale => localeTag.isEmpty ? null : Locale(localeTag);
 
@@ -33,21 +44,30 @@ class ButterflySettings {
           String? localeTag,
           String? documentPath,
           String? dateFormat,
-          InputType? inputType}) =>
+          InputType? inputType,
+          double? touchSensitivity,
+          double? mouseSensitivity,
+          double? penSensitivity}) =>
       ButterflySettings(
           theme: theme ?? this.theme,
           documentPath: documentPath ?? this.documentPath,
           dateFormat: dateFormat ?? this.dateFormat,
           inputType: inputType ?? this.inputType,
-          localeTag: localeTag ?? this.localeTag);
+          localeTag: localeTag ?? this.localeTag,
+          touchSensitivity: touchSensitivity ?? this.touchSensitivity,
+          mouseSensitivity: mouseSensitivity ?? this.mouseSensitivity,
+          penSensitivity: penSensitivity ?? this.penSensitivity);
 
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('theme', theme.index);
+    await prefs.setString('theme_mode', theme.name);
     await prefs.setString('locale', localeTag);
-    await prefs.setInt('input', inputType.index);
+    await prefs.setString('input_type', inputType.name);
     await prefs.setString('date_format', dateFormat);
     await prefs.setString('document_path', documentPath);
+    await prefs.setDouble('touch_sensitivity', touchSensitivity);
+    await prefs.setDouble('mouse_sensitivity', mouseSensitivity);
+    await prefs.setDouble('pen_sensitivity', penSensitivity);
   }
 }
 
@@ -121,6 +141,36 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> resetInput() {
     emit(state.copyWith(inputType: InputType.multiDraw));
+    return save();
+  }
+
+  Future<void> changeTouchSensitivity(double sensitivity) {
+    emit(state.copyWith(touchSensitivity: sensitivity));
+    return save();
+  }
+
+  Future<void> resetTouchSensitivity() {
+    emit(state.copyWith(touchSensitivity: 1));
+    return save();
+  }
+
+  Future<void> changeMouseSensitivity(double sensitivity) {
+    emit(state.copyWith(mouseSensitivity: sensitivity));
+    return save();
+  }
+
+  Future<void> resetMouseSensitivity() {
+    emit(state.copyWith(mouseSensitivity: 1));
+    return save();
+  }
+
+  Future<void> changePenSensitivity(double sensitivity) {
+    emit(state.copyWith(penSensitivity: sensitivity));
+    return save();
+  }
+
+  Future<void> resetPenSensitivity() {
+    emit(state.copyWith(penSensitivity: 1));
     return save();
   }
 

@@ -54,7 +54,17 @@ class ForegroundPainter extends CustomPainter {
       paintElement(canvas, element.value, {}, true);
     }
     if (selection != null) {
+      final minX =
+          -transform.position.dx + 20 / ((transform.size - 1) / 1.5 + 1);
+      final maxX = minX + size.width / transform.size - 40 / transform.size;
+      final minY = -transform.position.dy + 20;
+      final maxY = minY + size.height / transform.size - 40 / transform.size;
       var rect = selection!.rect;
+      rect = Rect.fromLTRB(
+          rect.left.clamp(minX, maxX),
+          rect.top.clamp(minY, maxY),
+          rect.right.clamp(minX, maxX),
+          rect.bottom.clamp(minY, maxY));
       canvas.drawRRect(
           RRect.fromRectAndRadius(rect.inflate(5), const Radius.circular(5)),
           Paint()
@@ -64,7 +74,7 @@ class ForegroundPainter extends CustomPainter {
               rect.bottomRight,
               [Colors.red, Colors.yellow],
             )
-            ..strokeWidth = 5);
+            ..strokeWidth = 10 / transform.size);
     }
   }
 
