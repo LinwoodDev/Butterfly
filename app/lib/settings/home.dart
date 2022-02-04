@@ -32,12 +32,18 @@ class SettingsPage extends StatelessWidget {
           ListTile(
             title: Text(AppLocalizations.of(context)!.data),
             leading: const Icon(PhosphorIcons.databaseLight),
-            onTap: () => GoRouter.of(context).push('/settings/data'),
+            onTap: () {
+              Navigator.of(context).pop();
+              GoRouter.of(context).push('/settings/data');
+            },
           ),
           ListTile(
             title: Text(AppLocalizations.of(context)!.behaviors),
             leading: const Icon(PhosphorIcons.fadersLight),
-            onTap: () => GoRouter.of(context).push('/settings/behaviors'),
+            onTap: () {
+              Navigator.of(context).pop();
+              GoRouter.of(context).push('/settings/behaviors');
+            },
           ),
           ListTile(
               leading: const Icon(PhosphorIcons.monitorLight),
