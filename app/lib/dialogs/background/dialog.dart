@@ -1,6 +1,7 @@
 import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/models/backgrounds/box.dart';
+import 'package:butterfly/widgets/exact_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,20 +10,11 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../color_pick.dart';
 
 class BackgroundDialog extends StatelessWidget {
-  final _boxWidthController = TextEditingController();
-  final _boxHeightController = TextEditingController();
-  final _boxXCountController = TextEditingController();
-  final _boxYCountController = TextEditingController();
-  final _boxXSpaceController = TextEditingController();
-  final _boxYSpaceController = TextEditingController();
-  final _boxXStrokeController = TextEditingController();
-  final _boxYStrokeController = TextEditingController();
-
-  BackgroundDialog({Key? key}) : super(key: key);
+  const BackgroundDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int? currentExpansionOpened = 0;
+    int? currentExpansionOpened;
     return Dialog(
         child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
@@ -48,54 +40,42 @@ class BackgroundDialog extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 15),
                     child: StatefulBuilder(builder: (context, setState) {
-                      if (background is BoxBackground) {
-                        if (double.tryParse(_boxWidthController.text) !=
-                            background!.boxWidth) {
-                          _boxWidthController.text =
-                              background!.boxWidth.toStringAsFixed(2);
-                        }
-                        if (double.tryParse(_boxHeightController.text) !=
-                            background!.boxHeight) {
-                          _boxHeightController.text =
-                              background!.boxHeight.toStringAsFixed(2);
-                        }
-                        if (int.tryParse(_boxXCountController.text) !=
-                            background!.boxXCount) {
-                          _boxXCountController.text =
-                              background!.boxXCount.toString();
-                        }
-                        if (int.tryParse(_boxYCountController.text) !=
-                            background!.boxYCount) {
-                          _boxYCountController.text =
-                              background!.boxYCount.toString();
-                        }
-                        if (double.tryParse(_boxXSpaceController.text) !=
-                            background!.boxXSpace) {
-                          _boxXSpaceController.text =
-                              background!.boxXSpace.toStringAsFixed(2);
-                        }
-                        if (double.tryParse(_boxYSpaceController.text) !=
-                            background!.boxYSpace) {
-                          _boxYSpaceController.text =
-                              background!.boxYSpace.toStringAsFixed(2);
-                        }
-                        if (double.tryParse(_boxXStrokeController.text) !=
-                            background!.boxXStroke) {
-                          _boxXStrokeController.text =
-                              background!.boxXStroke.toStringAsFixed(2);
-                        }
-                        if (double.tryParse(_boxYStrokeController.text) !=
-                            background!.boxYStroke) {
-                          _boxYStrokeController.text =
-                              background!.boxYStroke.toStringAsFixed(2);
-                        }
-                      }
-
                       return Column(
                         children: [
                           Wrap(
-                              children:
-                                  BackgroundTemplate.values.map((template) {
+                              children: BackgroundTemplate.values
+                                  .where((element) => !element.dark)
+                                  .map((template) {
+                            var created = template.create();
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() => background = created);
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 5,
+                                          color: created == background
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                              : Colors.transparent),
+                                      borderRadius: BorderRadius.circular(12),
+                                      image: DecorationImage(
+                                          image: AssetImage(template.asset),
+                                          fit: BoxFit.cover)),
+                                ),
+                              ),
+                            );
+                          }).toList()),
+                          Wrap(
+                              children: BackgroundTemplate.values
+                                  .where((element) => element.dark)
+                                  .map((template) {
                             var created = template.create();
                             return Padding(
                               padding: const EdgeInsets.only(right: 10),
@@ -124,18 +104,36 @@ class BackgroundDialog extends StatelessWidget {
                           }).toList()),
                           Expanded(
                               child: ListView(children: [
-                            CheckboxListTile(
-                              value: background != null,
-                              title: Text(
-                                  AppLocalizations.of(context)!.background),
-                              onChanged: (value) {
-                                setState(() => background = value ?? true
-                                    ? const BoxBackground()
-                                    : null);
-                              },
-                            ),
                             const Divider(),
                             if (background is BoxBackground) ...[
+                              ListTile(
+                                  onTap: () async {
+                                    var value = await showDialog(
+                                        context: context,
+                                        builder: (_) => BlocProvider.value(
+                                              value:
+                                                  BlocProvider.of<DocumentBloc>(
+                                                      context),
+                                              child: ColorPickerDialog(
+                                                  defaultColor:
+                                                      background!.boxColor),
+                                            ));
+                                    if (value != null) {
+                                      setState(() => background = background!
+                                          .copyWith(boxColor: value as Color));
+                                    }
+                                  },
+                                  leading: Container(
+                                    width: 30,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                        color: background!.boxColor,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(32))),
+                                  ),
+                                  title: Text(
+                                      AppLocalizations.of(context)!.color)),
+                              const SizedBox(height: 16),
                               ExpansionPanelList(
                                   expansionCallback: (int item, bool status) {
                                     setState(() {
@@ -157,51 +155,15 @@ class BackgroundDialog extends StatelessWidget {
                                                 Text(
                                                     AppLocalizations.of(
                                                             context)!
-                                                        .color,
+                                                        .horizontal,
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .subtitle1),
+                                                        .headline6),
                                               ],
                                             ),
                                         body: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(children: [
-                                            ListTile(
-                                                onTap: () async {
-                                                  var value = await showDialog(
-                                                      context: context,
-                                                      builder: (_) =>
-                                                          BlocProvider.value(
-                                                            value: BlocProvider
-                                                                .of<DocumentBloc>(
-                                                                    context),
-                                                            child: ColorPickerDialog(
-                                                                defaultColor:
-                                                                    background!
-                                                                        .boxColor),
-                                                          ));
-                                                  if (value != null) {
-                                                    setState(() => background =
-                                                        background!.copyWith(
-                                                            boxColor: value
-                                                                as Color));
-                                                  }
-                                                },
-                                                leading: Container(
-                                                  width: 30,
-                                                  height: 30,
-                                                  decoration: BoxDecoration(
-                                                      color:
-                                                          background!.boxColor,
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius.circular(
-                                                                  32))),
-                                                ),
-                                                title: Text(AppLocalizations.of(
-                                                        context)!
-                                                    .background)),
                                             ListTile(
                                                 leading: Container(
                                                   width: 30,
@@ -235,19 +197,98 @@ class BackgroundDialog extends StatelessWidget {
                                                                 as Color));
                                                   }
                                                 },
-                                                title: const Text('X')),
+                                                title: Text(AppLocalizations.of(
+                                                        context)!
+                                                    .color)),
+                                            const SizedBox(height: 16),
+                                            ExactSlider(
+                                                onChanged: (value) {
+                                                  background =
+                                                      background?.copyWith(
+                                                          boxWidth: value);
+                                                },
+                                                header: Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .width,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleLarge),
+                                                value: background!.boxWidth,
+                                                min: 0,
+                                                max: 100),
+                                            const SizedBox(height: 16),
+                                            ExactSlider(
+                                                onChanged: (value) =>
+                                                    background =
+                                                        background?.copyWith(
+                                                            boxXCount:
+                                                                value.round()),
+                                                header: Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .count,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleLarge),
+                                                value: background!.boxXCount
+                                                    .toDouble(),
+                                                fractionDigits: 0,
+                                                min: 0,
+                                                max: 100),
+                                            const SizedBox(height: 16),
+                                            ExactSlider(
+                                                onChanged: (value) =>
+                                                    background =
+                                                        background?.copyWith(
+                                                            boxXSpace: value),
+                                                header: Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .space,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleLarge),
+                                                value: background!.boxXSpace,
+                                                min: 0,
+                                                max: 100),
+                                          ]),
+                                        )),
+                                    ExpansionPanel(
+                                        canTapOnHeader: true,
+                                        isExpanded: currentExpansionOpened == 1,
+                                        headerBuilder: (context, isExpanded) =>
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .vertical,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline6),
+                                              ],
+                                            ),
+                                        body: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(children: [
                                             ListTile(
                                                 leading: Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    decoration: BoxDecoration(
-                                                        color: background!
-                                                            .boxYColor,
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .all(
-                                                                Radius.circular(
-                                                                    32)))),
+                                                  width: 30,
+                                                  height: 30,
+                                                  decoration: BoxDecoration(
+                                                      color:
+                                                          background!.boxYColor,
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                                  .all(
+                                                              Radius.circular(
+                                                                  32))),
+                                                ),
                                                 onTap: () async {
                                                   var value = await showDialog(
                                                       context: context,
@@ -268,363 +309,63 @@ class BackgroundDialog extends StatelessWidget {
                                                                 as Color));
                                                   }
                                                 },
-                                                title: const Text('Y')),
-                                          ]),
-                                        )),
-                                    ExpansionPanel(
-                                        canTapOnHeader: true,
-                                        isExpanded: currentExpansionOpened == 1,
-                                        headerBuilder: (context, isExpanded) =>
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Text(
+                                                title: Text(AppLocalizations.of(
+                                                        context)!
+                                                    .color)),
+                                            const SizedBox(height: 16),
+                                            ExactSlider(
+                                                onChanged: (value) {
+                                                  background =
+                                                      background?.copyWith(
+                                                          boxHeight: value);
+                                                },
+                                                header: Text(
                                                     AppLocalizations.of(
                                                             context)!
-                                                        .strokeWidth,
+                                                        .width,
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .subtitle1),
-                                              ],
-                                            ),
-                                        body: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(children: [
-                                            Row(children: [
-                                              ConstrainedBox(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                          maxWidth: 100),
-                                                  child: TextField(
-                                                    decoration:
-                                                        const InputDecoration(
-                                                            labelText: 'X'),
-                                                    controller:
-                                                        _boxXStrokeController,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxXStroke: double
-                                                                    .tryParse(
-                                                                        value))),
-                                                  )),
-                                              Expanded(
-                                                child: Slider(
-                                                    value: background!
-                                                        .boxXStroke
-                                                        .clamp(0, 10),
-                                                    min: 0,
-                                                    max: 10,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxXStroke:
-                                                                    value))),
-                                              )
-                                            ]),
-                                            Row(children: [
-                                              ConstrainedBox(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                          maxWidth: 100),
-                                                  child: TextField(
-                                                    decoration:
-                                                        const InputDecoration(
-                                                            labelText: 'Y'),
-                                                    controller:
-                                                        _boxYStrokeController,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxYStroke: double
-                                                                    .tryParse(
-                                                                        value))),
-                                                  )),
-                                              Expanded(
-                                                child: Slider(
-                                                    value: background!
-                                                        .boxYStroke
-                                                        .clamp(0, 10),
-                                                    min: 0,
-                                                    max: 10,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxYStroke:
-                                                                    value))),
-                                              )
-                                            ])
-                                          ]),
-                                        )),
-                                    ExpansionPanel(
-                                        canTapOnHeader: true,
-                                        isExpanded: currentExpansionOpened == 2,
-                                        headerBuilder: (context, isExpanded) =>
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .box,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .subtitle1),
-                                              ],
-                                            ),
-                                        body: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(children: [
-                                            Row(children: [
-                                              ConstrainedBox(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                          maxWidth: 100),
-                                                  child: TextField(
-                                                    decoration: InputDecoration(
-                                                        labelText:
-                                                            AppLocalizations.of(
-                                                                    context)!
-                                                                .width),
-                                                    controller:
-                                                        _boxWidthController,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxWidth: double
-                                                                    .tryParse(
-                                                                        value))),
-                                                  )),
-                                              Expanded(
-                                                child: Slider(
-                                                    value: background!.boxWidth
-                                                        .clamp(0, 200),
-                                                    min: 0,
-                                                    max: 200,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxWidth:
-                                                                    value))),
-                                              )
-                                            ]),
-                                            Row(children: [
-                                              ConstrainedBox(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                          maxWidth: 100),
-                                                  child: TextField(
-                                                    decoration: InputDecoration(
-                                                        labelText:
-                                                            AppLocalizations.of(
-                                                                    context)!
-                                                                .height),
-                                                    controller:
-                                                        _boxHeightController,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxHeight: double
-                                                                    .tryParse(
-                                                                        value))),
-                                                  )),
-                                              Expanded(
-                                                child: Slider(
-                                                    value: background!.boxHeight
-                                                        .clamp(0, 200),
-                                                    min: 0,
-                                                    max: 200,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxHeight:
-                                                                    value))),
-                                              )
-                                            ])
-                                          ]),
-                                        )),
-                                    ExpansionPanel(
-                                        canTapOnHeader: true,
-                                        isExpanded: currentExpansionOpened == 3,
-                                        headerBuilder: (context, isExpanded) =>
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Text(
+                                                        .titleLarge),
+                                                value: background!.boxHeight,
+                                                min: 0,
+                                                max: 100),
+                                            const SizedBox(height: 16),
+                                            ExactSlider(
+                                                onChanged: (value) =>
+                                                    background =
+                                                        background?.copyWith(
+                                                            boxYCount:
+                                                                value.round()),
+                                                header: Text(
                                                     AppLocalizations.of(
                                                             context)!
                                                         .count,
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .subtitle1),
-                                              ],
-                                            ),
-                                        body: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(children: [
-                                            Row(children: [
-                                              ConstrainedBox(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                          maxWidth: 100),
-                                                  child: TextField(
-                                                    decoration:
-                                                        const InputDecoration(
-                                                            labelText: 'X'),
-                                                    controller:
-                                                        _boxXCountController,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxXCount: int
-                                                                    .tryParse(
-                                                                        value))),
-                                                  )),
-                                              Expanded(
-                                                child: Slider(
-                                                    value: background!.boxXCount
-                                                        .clamp(0, 20)
-                                                        .toDouble(),
-                                                    min: 0,
-                                                    max: 20,
-                                                    divisions: 20,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxXCount: value
-                                                                    .toInt()))),
-                                              )
-                                            ]),
-                                            Row(children: [
-                                              ConstrainedBox(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                          maxWidth: 100),
-                                                  child: TextField(
-                                                    decoration:
-                                                        const InputDecoration(
-                                                            labelText: 'Y'),
-                                                    controller:
-                                                        _boxYCountController,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxYCount: int
-                                                                    .tryParse(
-                                                                        value))),
-                                                  )),
-                                              Expanded(
-                                                child: Slider(
-                                                    value: background!.boxYCount
-                                                        .clamp(0, 20)
-                                                        .toDouble(),
-                                                    min: 0,
-                                                    max: 20,
-                                                    divisions: 20,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxYCount: value
-                                                                    .toInt()))),
-                                              )
-                                            ]),
-                                          ]),
-                                        )),
-                                    ExpansionPanel(
-                                        canTapOnHeader: true,
-                                        isExpanded: currentExpansionOpened == 4,
-                                        headerBuilder: (context, isExpanded) =>
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Text(
+                                                        .titleLarge),
+                                                value: background!.boxYCount
+                                                    .toDouble(),
+                                                fractionDigits: 0,
+                                                min: 0,
+                                                max: 100),
+                                            const SizedBox(height: 16),
+                                            ExactSlider(
+                                                onChanged: (value) =>
+                                                    background =
+                                                        background?.copyWith(
+                                                            boxYSpace: value),
+                                                header: Text(
                                                     AppLocalizations.of(
                                                             context)!
                                                         .space,
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .subtitle1),
-                                              ],
-                                            ),
-                                        body: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(children: [
-                                            Row(children: [
-                                              ConstrainedBox(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                          maxWidth: 100),
-                                                  child: TextField(
-                                                    decoration:
-                                                        const InputDecoration(
-                                                            labelText: 'X'),
-                                                    controller:
-                                                        _boxXSpaceController,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxXSpace: double
-                                                                    .tryParse(
-                                                                        value))),
-                                                  )),
-                                              Expanded(
-                                                child: Slider(
-                                                    value: background!.boxXSpace
-                                                        .clamp(0, 100),
-                                                    min: 0,
-                                                    max: 100,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxXSpace:
-                                                                    value))),
-                                              )
-                                            ]),
-                                            Row(children: [
-                                              ConstrainedBox(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                          maxWidth: 100),
-                                                  child: TextField(
-                                                    decoration:
-                                                        const InputDecoration(
-                                                            labelText: 'Y'),
-                                                    controller:
-                                                        _boxYSpaceController,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxYSpace: double
-                                                                    .tryParse(
-                                                                        value))),
-                                                  )),
-                                              Expanded(
-                                                child: Slider(
-                                                    value: background!.boxYSpace
-                                                        .clamp(0, 100),
-                                                    min: 0,
-                                                    max: 100,
-                                                    onChanged: (value) => setState(
-                                                        () => background =
-                                                            background!.copyWith(
-                                                                boxYSpace:
-                                                                    value))),
-                                              )
-                                            ])
+                                                        .titleLarge),
+                                                value: background!.boxYSpace,
+                                                min: 0,
+                                                max: 100),
                                           ]),
-                                        ))
+                                        )),
                                   ]),
                             ],
                           ])),

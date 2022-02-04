@@ -46,6 +46,18 @@ class _ExactSliderState extends State<ExactSlider> {
   }
 
   @override
+  @override
+  void didUpdateWidget(covariant ExactSlider oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.value != widget.value) {
+      setState(() {
+        _value = widget.value ?? widget.defaultValue;
+        _controller.text = _value.toStringAsFixed(widget.fractionDigits);
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Align(
         alignment: Alignment.topCenter,

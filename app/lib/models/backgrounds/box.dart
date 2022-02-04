@@ -1,10 +1,33 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-enum BackgroundTemplate { plain, ruled, quad, music }
+enum BackgroundTemplate {
+  plain,
+  ruled,
+  quad,
+  music,
+  plainDark,
+  ruledDark,
+  quadDark,
+  musicDark
+}
 
 extension BackgroundTemplateExtension on BackgroundTemplate {
-  String get asset => 'templates/$name.png';
+  // camelCase to snake_case
+  String get asset =>
+      'templates/' +
+      name.replaceAllMapped(
+          RegExp(r'([A-Z])'), (match) => '_${match.group(1)?.toLowerCase()}') +
+      '.png';
+
+  bool get dark => [
+        BackgroundTemplate.plainDark,
+        BackgroundTemplate.ruledDark,
+        BackgroundTemplate.quadDark,
+        BackgroundTemplate.musicDark
+      ].contains(this);
+
   BoxBackground create() {
     switch (this) {
       case BackgroundTemplate.plain:
@@ -24,6 +47,25 @@ extension BackgroundTemplateExtension on BackgroundTemplate {
             boxYColor: Colors.black,
             boxYSpace: 30,
             boxYCount: 5);
+      case BackgroundTemplate.plainDark:
+        return const BoxBackground(
+          boxColor: Colors.black,
+        );
+      case BackgroundTemplate.ruledDark:
+        return const BoxBackground(boxColor: Colors.black, boxHeight: 20);
+      case BackgroundTemplate.quadDark:
+        return const BoxBackground(
+          boxColor: Colors.black,
+          boxWidth: 20,
+          boxHeight: 20,
+        );
+      case BackgroundTemplate.musicDark:
+        return const BoxBackground(
+            boxColor: Colors.black,
+            boxYColor: Colors.white,
+            boxHeight: 20,
+            boxYSpace: 30,
+            boxYCount: 5);
     }
   }
 
@@ -37,12 +79,20 @@ extension BackgroundTemplateExtension on BackgroundTemplate {
         return AppLocalizations.of(context)!.quadTemplate;
       case BackgroundTemplate.music:
         return AppLocalizations.of(context)!.musicTemplate;
+      case BackgroundTemplate.plainDark:
+        return AppLocalizations.of(context)!.plainDarkTemplate;
+      case BackgroundTemplate.ruledDark:
+        return AppLocalizations.of(context)!.ruledDarkTemplate;
+      case BackgroundTemplate.quadDark:
+        return AppLocalizations.of(context)!.quadDarkTemplate;
+      case BackgroundTemplate.musicDark:
+        return AppLocalizations.of(context)!.musicDarkTemplate;
     }
   }
 }
 
 @immutable
-class BoxBackground {
+class BoxBackground extends Equatable {
   final double boxWidth,
       boxHeight,
       boxXSpace,
@@ -116,4 +166,18 @@ class BoxBackground {
         boxXStroke: boxXStroke ?? this.boxXStroke,
         boxYStroke: boxYStroke ?? this.boxYStroke,
       );
+  @override
+  List<Object> get props => [
+        boxWidth,
+        boxHeight,
+        boxXCount,
+        boxYCount,
+        boxXSpace,
+        boxYSpace,
+        boxXColor,
+        boxYColor,
+        boxColor,
+        boxXStroke,
+        boxYStroke,
+      ];
 }

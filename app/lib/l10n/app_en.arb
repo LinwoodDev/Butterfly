@@ -178,5 +178,9 @@
   "plainTemplate": "Plain template",
   "ruledTemplate": "Ruled template",
   "quadTemplate": "Quad template",
-  "musicTemplate": "Music template"
+  "musicTemplate": "Music template",
+  "plainDarkTemplate": "Plain dark template",
+  "ruledDarkTemplate": "Ruled dark template",
+  "quadDarkTemplate": "Quad dark template",
+  "musicDarkTemplate": "Music dark template"
 }
