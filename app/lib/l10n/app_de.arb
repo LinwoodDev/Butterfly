@@ -172,5 +172,7 @@
     "sensitivityHint": "The higher the value, the more sensitive the input",
     "touchSensitivity": "Touch sensitivity",
     "mouseSensitivity": "Mouse sensitivity",
-    "penSensitivity": "Pen sensitivity"
+    "penSensitivity": "Pen sensitivity",
+    "horizontal": "Horizontal",
+    "vertical": "Vertical"
 }
