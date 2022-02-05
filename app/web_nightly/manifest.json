@@ -3,7 +3,7 @@
   "short_name": "Butterfly Nightly",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0175C2",
+  "background_color": "#18191a",
   "theme_color": "#0175C2",
   "description":"🎨 Notes app that changes the world 🎨",
   "orientation": "portrait-primary",

@@ -4,8 +4,8 @@
   "short_name": "Butterfly",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0175C2",
-  "theme_color": "#0175C2",
+  "background_color": "#18191a",
+  "theme_color": "#F2B138",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "icons": [
