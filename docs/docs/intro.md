@@ -25,6 +25,6 @@ With the top left button you can go back to the document list. The document name
 Below it, you can find the toolbar. Left, you can switch between view and edit mode. Right to it, there you find the zoom options. In the top right corner there are the tool options.
 
 - The view toolbar options are background, export and save.
-- The edit toolbar options are the painters. You can find [here](background/intro) more.
+- The edit toolbar options are the painters. You can find [here](background) more.
 
 
