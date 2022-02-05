@@ -49,30 +49,33 @@ class BackgroundDialog extends StatelessWidget {
                                     .where((element) => !element.dark)
                                     .map((template) {
                               var created = template.create();
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Ink.image(
-                                  width: 100,
-                                  height: 100,
-                                  image: AssetImage(template.asset),
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() => background = created);
-                                    },
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 5,
-                                              color: created == background
-                                                  ? Theme.of(context)
-                                                      .colorScheme
-                                                      .primary
-                                                  : Colors.transparent),
-                                          borderRadius:
-                                              BorderRadius.circular(12)),
+                              return Tooltip(
+                                message: template.getLocalizedName(context),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: Ink.image(
+                                    width: 100,
+                                    height: 100,
+                                    image: AssetImage(template.asset),
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() => background = created);
+                                      },
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 5,
+                                                color: created == background
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .primary
+                                                    : Colors.transparent),
+                                            borderRadius:
+                                                BorderRadius.circular(12)),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -84,30 +87,33 @@ class BackgroundDialog extends StatelessWidget {
                                     .where((element) => element.dark)
                                     .map((template) {
                               var created = template.create();
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Ink.image(
-                                  width: 100,
-                                  height: 100,
-                                  image: AssetImage(template.asset),
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(12),
-                                    onTap: () {
-                                      setState(() => background = created);
-                                    },
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 5,
-                                              color: created == background
-                                                  ? Theme.of(context)
-                                                      .colorScheme
-                                                      .primary
-                                                  : Colors.transparent),
-                                          borderRadius:
-                                              BorderRadius.circular(12)),
+                              return Tooltip(
+                                message: template.getLocalizedName(context),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: Ink.image(
+                                    width: 100,
+                                    height: 100,
+                                    image: AssetImage(template.asset),
+                                    child: InkWell(
+                                      borderRadius: BorderRadius.circular(12),
+                                      onTap: () {
+                                        setState(() => background = created);
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 5,
+                                                color: created == background
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .primary
+                                                    : Colors.transparent),
+                                            borderRadius:
+                                                BorderRadius.circular(12)),
+                                      ),
                                     ),
                                   ),
                                 ),

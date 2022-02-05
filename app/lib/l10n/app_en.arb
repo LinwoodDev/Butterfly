@@ -175,12 +175,12 @@
   "penSensitivity": "Pen sensitivity",
   "horizontal": "Horizontal",
   "vertical": "Vertical",
-  "plainTemplate": "Plain template",
-  "ruledTemplate": "Ruled template",
-  "quadTemplate": "Quad template",
-  "musicTemplate": "Music template",
-  "plainDarkTemplate": "Plain dark template",
-  "ruledDarkTemplate": "Ruled dark template",
-  "quadDarkTemplate": "Quad dark template",
-  "musicDarkTemplate": "Music dark template"
+  "plain": "Plain",
+  "ruled": "Ruled",
+  "quad": "Quad",
+  "music": "Music",
+  "plainDark": "Plain dark",
+  "ruledDark": "Ruled dark",
+  "quadDark": "Quad dark",
+  "musicDark": "Music dark"
 }

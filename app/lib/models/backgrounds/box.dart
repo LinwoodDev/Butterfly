@@ -72,21 +72,21 @@ extension BackgroundTemplateExtension on BackgroundTemplate {
   String getLocalizedName(BuildContext context) {
     switch (this) {
       case BackgroundTemplate.plain:
-        return AppLocalizations.of(context)!.plainTemplate;
+        return AppLocalizations.of(context)!.plain;
       case BackgroundTemplate.ruled:
-        return AppLocalizations.of(context)!.ruledTemplate;
+        return AppLocalizations.of(context)!.ruled;
       case BackgroundTemplate.quad:
-        return AppLocalizations.of(context)!.quadTemplate;
+        return AppLocalizations.of(context)!.quad;
       case BackgroundTemplate.music:
-        return AppLocalizations.of(context)!.musicTemplate;
+        return AppLocalizations.of(context)!.music;
       case BackgroundTemplate.plainDark:
-        return AppLocalizations.of(context)!.plainDarkTemplate;
+        return AppLocalizations.of(context)!.plainDark;
       case BackgroundTemplate.ruledDark:
-        return AppLocalizations.of(context)!.ruledDarkTemplate;
+        return AppLocalizations.of(context)!.ruledDark;
       case BackgroundTemplate.quadDark:
-        return AppLocalizations.of(context)!.quadDarkTemplate;
+        return AppLocalizations.of(context)!.quadDark;
       case BackgroundTemplate.musicDark:
-        return AppLocalizations.of(context)!.musicDarkTemplate;
+        return AppLocalizations.of(context)!.musicDark;
     }
   }
 }

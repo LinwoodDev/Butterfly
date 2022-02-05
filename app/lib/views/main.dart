@@ -203,19 +203,26 @@ class _ProjectPageState extends State<ProjectPage> {
             Widget title;
             if (_bloc!.state is DocumentLoadSuccess) {
               var current = _bloc!.state as DocumentLoadSuccess;
-              title = Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      current.document.name,
-                      textAlign: TextAlign.center,
-                    ),
-                    if (current.path != null)
-                      Text(current.path!,
+              title = GestureDetector(
+                onTap: () =>
+                    Actions.maybeInvoke(context, ProjectIntent(context)),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        current.document.name,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      if (current.path != null)
+                        Text(
+                          current.path!,
                           style: Theme.of(ctx).textTheme.caption,
-                          textAlign: TextAlign.center),
-                  ]);
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                    ]),
+              );
             } else {
               title = Text(AppLocalizations.of(ctx)!.loading);
             }
