@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/template.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -114,13 +116,14 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (path == '') {
       path = null;
     }
-    path ??= (await getApplicationDocumentsDirectory()).path +
-        '/Butterfly-Documents';
+    path ??=
+        (await getApplicationDocumentsDirectory()).path + '/Linwood/Butterfly';
     // Convert \ to /
     path = path.replaceAll('\\', '/');
+    path += '/Documents';
     var directory = Directory(path);
     if (!await directory.exists()) {
-      await directory.create();
+      await directory.create(recursive: true);
     }
     return directory.path;
   }
@@ -141,5 +144,85 @@ class IODocumentFileSystem extends DocumentFileSystem {
       }
     }
     return AppDocumentDirectory(name, assets);
+  }
+}
+
+class IOTemplateFileSystem extends TemplateFileSystem {
+  final BuildContext context;
+  IOTemplateFileSystem(this.context);
+
+  @override
+  FutureOr<bool> createDefault({bool force = false}) async {
+    var defaults = await DocumentTemplate.getDefaults(context);
+    var directory = await getDirectory();
+    if (await Directory(directory).exists()) return false;
+    await Future.wait(defaults.map((e) => updateTemplate(e)));
+    return true;
+  }
+
+  @override
+  Future<void> deleteTemplate(String name) async {
+    await File(await getAbsolutePath('${escapeName(name)}.bfly')).delete();
+  }
+
+  @override
+  Future<DocumentTemplate?> getTemplate(String name) async {
+    var file = File(await getAbsolutePath('${escapeName(name)}.bfly'));
+    if (await file.exists()) {
+      var json = await file.readAsString();
+      return DocumentTemplate.fromJson(jsonDecode(json));
+    }
+    return null;
+  }
+
+  @override
+  Future<void> updateTemplate(DocumentTemplate template) async {
+    var file = File(await getAbsolutePath('${escapeName(template.name)}.bfly'));
+    if (!(await file.exists())) {
+      await file.create(recursive: true);
+    }
+    await file.writeAsString(jsonEncode(template.toJson()));
+  }
+
+  @override
+  FutureOr<String> getDirectory() async {
+    var prefs = await SharedPreferences.getInstance();
+    String? path;
+    if (prefs.containsKey('document_path')) {
+      path = prefs.getString('document_path');
+    }
+    if (path == '') {
+      path = null;
+    }
+    path ??=
+        (await getApplicationDocumentsDirectory()).path + '/Linwood/Butterfly';
+    // Convert \ to /
+    path = path.replaceAll('\\', '/');
+    path += '/Templates';
+    return path;
+  }
+
+  @override
+  Future<bool> hasTemplate(String name) async {
+    return File(await getAbsolutePath('${escapeName(name)}.bfly')).exists();
+  }
+
+  String escapeName(String name) {
+    // Escape all non-alphanumeric characters
+    return name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
+  }
+
+  @override
+  Future<List<DocumentTemplate>> getTemplates() async {
+    var directory = Directory(await getDirectory());
+    if (!(await directory.exists())) return const [];
+    var files = await directory.list().toList();
+    var templates = <DocumentTemplate>[];
+    for (var file in files) {
+      if (file is! File) continue;
+      var json = await file.readAsString();
+      templates.add(DocumentTemplate.fromJson(jsonDecode(json)));
+    }
+    return templates;
   }
 }

@@ -1,32 +1,40 @@
+import 'dart:async';
+
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/template.dart';
+import 'package:flutter/widgets.dart';
 import 'package:idb_shim/idb.dart';
 import 'package:idb_shim/idb_browser.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'file_system.dart';
 
-class WebDocumentFileSystem extends DocumentFileSystem {
-  Future<Database> _getDatabase() async {
-    var idbFactory = getIdbFactory()!;
-    return await idbFactory.open('butterfly.db', version: 2,
-        onUpgradeNeeded: (VersionChangeEvent event) async {
-      Database db = event.database;
-      if (event.oldVersion < 1) {
-        db.createObjectStore('documents');
-      }
-      if (event.oldVersion < 2) {
-        var txn = event.transaction;
-        var store = txn.objectStore('documents');
-        var cursor = store.openCursor();
-        await Future.wait(await cursor.map<Future<dynamic>>((cursor) async {
-          // Add type to each document
-          var doc = cursor.value as Map<dynamic, dynamic>;
-          doc['type'] = 'document';
-          await store.put(doc);
-        }).toList());
-      }
-    });
-  }
+Future<Database> _getDatabase() async {
+  var idbFactory = getIdbFactory()!;
+  return await idbFactory.open('butterfly.db', version: 3,
+      onUpgradeNeeded: (VersionChangeEvent event) async {
+    Database db = event.database;
+    if (event.oldVersion < 1) {
+      db.createObjectStore('documents');
+    }
+    if (event.oldVersion < 2) {
+      var txn = event.transaction;
+      var store = txn.objectStore('documents');
+      var cursor = store.openCursor();
+      await Future.wait(await cursor.map<Future<dynamic>>((cursor) async {
+        // Add type to each document
+        var doc = cursor.value as Map<dynamic, dynamic>;
+        doc['type'] = 'document';
+        await store.put(doc);
+      }).toList());
+    }
+    if (event.oldVersion < 3) {
+      db.createObjectStore('templates');
+    }
+  });
+}
 
+class WebDocumentFileSystem extends DocumentFileSystem {
   @override
   Future<AppDocumentFile> importDocument(AppDocument document,
       {String path = '/'}) async {
@@ -172,5 +180,81 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     store.add({'type': 'directory'}, name);
     await txn.completed;
     return AppDocumentDirectory(name, const []);
+  }
+}
+
+class WebTemplateFileSystem extends TemplateFileSystem {
+  final BuildContext context;
+  WebTemplateFileSystem(this.context);
+  @override
+  Future<void> deleteTemplate(String name) async {
+    var db = await _getDatabase();
+    var txn = db.transaction('templates', 'readwrite');
+    var store = txn.objectStore('templates');
+    await store.delete(name);
+    await txn.completed;
+  }
+
+  @override
+  Future<DocumentTemplate?> getTemplate(String name) async {
+    var db = await _getDatabase();
+    var txn = db.transaction('templates', 'readonly');
+    var store = txn.objectStore('templates');
+    var data = await store.getObject(name);
+    if (data == null) {
+      await txn.completed;
+      return null;
+    }
+    var map = Map<String, dynamic>.from(data as Map);
+    await txn.completed;
+    return DocumentTemplate.fromJson(map);
+  }
+
+  @override
+  Future<void> updateTemplate(DocumentTemplate template) async {
+    var db = await _getDatabase();
+    var txn = db.transaction('templates', 'readwrite');
+    var store = txn.objectStore('templates');
+    var doc = template.toJson();
+    await store.put(doc, template.name);
+  }
+
+  @override
+  Future<bool> hasTemplate(String name) async {
+    var db = await _getDatabase();
+    var txn = db.transaction('templates', 'readonly');
+    var store = txn.objectStore('templates');
+    var doc = await store.getObject(name);
+    await txn.completed;
+    return doc != null;
+  }
+
+  @override
+  FutureOr<bool> createDefault({bool force = false}) async {
+    var shouldCreate = force;
+    var prefs = await SharedPreferences.getInstance();
+    if (!shouldCreate) {
+      shouldCreate = !prefs.containsKey('defaultTemplate');
+    }
+    if (!shouldCreate) return false;
+    var defaults = await DocumentTemplate.getDefaults(context);
+    await Future.wait(defaults.map((e) => updateTemplate(e)));
+    prefs.setBool('defaultTemplate', true);
+    return true;
+  }
+
+  @override
+  Future<List<DocumentTemplate>> getTemplates() async {
+    var db = await _getDatabase();
+    var txn = db.transaction('templates', 'readonly');
+    var store = txn.objectStore('templates');
+    var cursor = store.openCursor(autoAdvance: true);
+    var templates = <DocumentTemplate>[];
+    await cursor.forEach((cursor) {
+      var map = cursor.value as Map;
+      templates.add(DocumentTemplate.fromJson(Map<String, dynamic>.from(map)));
+    });
+    await txn.completed;
+    return templates;
   }
 }

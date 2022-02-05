@@ -105,7 +105,10 @@ class _ProjectPageState extends State<ProjectPage> {
                   RedoIntent(context),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
-                  NewIntent(context),
+                  NewIntent(context, fromTemplate: false),
+              LogicalKeySet(LogicalKeyboardKey.control,
+                      LogicalKeyboardKey.shift, LogicalKeyboardKey.keyN):
+                  NewIntent(context, fromTemplate: true),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
                   OpenIntent(context),
@@ -304,6 +307,18 @@ class _MainPopupMenu extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pop();
                 Actions.maybeInvoke<NewIntent>(context, NewIntent(context));
+              },
+            )),
+        PopupMenuItem(
+            padding: EdgeInsets.zero,
+            child: ListTile(
+              leading: const Icon(PhosphorIcons.fileLight),
+              title: Text(AppLocalizations.of(context)!.templates),
+              subtitle: Text(context.getShortcut('N', shiftKey: true)),
+              onTap: () {
+                Navigator.of(context).pop();
+                Actions.maybeInvoke<NewIntent>(
+                    context, NewIntent(context, fromTemplate: true));
               },
             )),
         PopupMenuItem(
