@@ -175,12 +175,12 @@
     "penSensitivity": "Sensibilité du stylet",
     "horizontal": "Horizontal",
     "vertical": "Vertical",
-    "plainTemplate": "Modèle simple",
-    "ruledTemplate": "Modèle en ruine",
-    "quadTemplate": "Modèle de quadruple",
-    "musicTemplate": "Modèle de musique",
-    "plainDarkTemplate": "Modèle clair et sombre",
-    "ruledDarkTemplate": "Modèle sombre en ruine",
-    "quadDarkTemplate": "Modèle quadruple sombre",
-    "musicDarkTemplate": "Modèle de musique sombre"
+    "plain": "Plain",
+    "ruled": "Ruled",
+    "quad": "Quad",
+    "music": "Music",
+    "plainDark": "Plain dark",
+    "ruledDark": "Ruled dark",
+    "quadDark": "Quad dark",
+    "musicDark": "Music dark"
 }
