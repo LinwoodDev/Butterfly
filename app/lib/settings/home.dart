@@ -111,14 +111,17 @@ class SettingsPage extends StatelessWidget {
                 child: InkWell(
                     onTap: () => launch(
                         'https://vercel.com?utm_source=Linwood&utm_campaign=oss'),
-                    child: SizedBox(
-                        height: 50,
-                        child: SvgPicture.asset('images/powered-by-vercel.svg',
-                            placeholderBuilder: (BuildContext context) =>
-                                Container(
-                                    padding: const EdgeInsets.all(30.0),
-                                    child: const CircularProgressIndicator()),
-                            semanticsLabel: 'Powered by Vercel'))))
+                    child: Material(
+                      child: SizedBox(
+                          height: 50,
+                          child: SvgPicture.asset(
+                              'images/powered-by-vercel.svg',
+                              placeholderBuilder: (BuildContext context) =>
+                                  Container(
+                                      padding: const EdgeInsets.all(30.0),
+                                      child: const CircularProgressIndicator()),
+                              semanticsLabel: 'Powered by Vercel')),
+                    )))
         ]))));
   }
 }

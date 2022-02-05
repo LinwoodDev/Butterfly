@@ -42,68 +42,78 @@ class BackgroundDialog extends StatelessWidget {
                     child: StatefulBuilder(builder: (context, setState) {
                       return Column(
                         children: [
-                          Wrap(
-                              children: BackgroundTemplate.values
-                                  .where((element) => !element.dark)
-                                  .map((template) {
-                            var created = template.create();
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() => background = created);
-                                },
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 5,
-                                          color: created == background
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .primary
-                                              : Colors.transparent),
-                                      borderRadius: BorderRadius.circular(12),
-                                      image: DecorationImage(
-                                          image: AssetImage(template.asset),
-                                          fit: BoxFit.cover)),
-                                ),
-                              ),
-                            );
-                          }).toList()),
-                          Wrap(
-                              children: BackgroundTemplate.values
-                                  .where((element) => element.dark)
-                                  .map((template) {
-                            var created = template.create();
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() => background = created);
-                                },
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 5,
-                                          color: created == background
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .primary
-                                              : Colors.transparent),
-                                      borderRadius: BorderRadius.circular(12),
-                                      image: DecorationImage(
-                                          image: AssetImage(template.asset),
-                                          fit: BoxFit.cover)),
-                                ),
-                              ),
-                            );
-                          }).toList()),
                           Expanded(
                               child: ListView(children: [
+                            Wrap(
+                                children: BackgroundTemplate.values
+                                    .where((element) => !element.dark)
+                                    .map((template) {
+                              var created = template.create();
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Ink.image(
+                                  width: 100,
+                                  height: 100,
+                                  image: AssetImage(template.asset),
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() => background = created);
+                                    },
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 5,
+                                              color: created == background
+                                                  ? Theme.of(context)
+                                                      .colorScheme
+                                                      .primary
+                                                  : Colors.transparent),
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList()),
+                            const SizedBox(height: 8),
+                            Wrap(
+                                children: BackgroundTemplate.values
+                                    .where((element) => element.dark)
+                                    .map((template) {
+                              var created = template.create();
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Ink.image(
+                                  width: 100,
+                                  height: 100,
+                                  image: AssetImage(template.asset),
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(12),
+                                    onTap: () {
+                                      setState(() => background = created);
+                                    },
+                                    child: Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 5,
+                                              color: created == background
+                                                  ? Theme.of(context)
+                                                      .colorScheme
+                                                      .primary
+                                                  : Colors.transparent),
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList()),
+                            const SizedBox(height: 8),
                             const Divider(),
                             if (background is BoxBackground) ...[
                               ListTile(
