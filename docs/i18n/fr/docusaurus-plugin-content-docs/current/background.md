@@ -4,7 +4,7 @@ sidebar_label: "Arrière-plan"
 
 # Arrière-plan
 
-Vous pouvez personnaliser l'arrière-plan du papier. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+Vous pouvez personnaliser l'arrière-plan du papier. Cliquez sur l'icône d'arrière-plan dans la fenêtre d'affichage pour l'ajouter. Il y a 8 modèles d'arrière-plan différents.
 
 ## Configuration
 
