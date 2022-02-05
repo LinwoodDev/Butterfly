@@ -175,12 +175,12 @@
     "penSensitivity": "Stift Empfindlichkeit",
     "horizontal": "Horizontal",
     "vertical": "Vertikal",
-    "plainTemplate": "Einfache Vorlage",
-    "ruledTemplate": "Rulierte Vorlage",
-    "quadTemplate": "Quad Vorlage",
-    "musicTemplate": "Musikvorlage",
-    "plainDarkTemplate": "Einfache dunkle Vorlage",
-    "ruledDarkTemplate": "Gelenkte dunkle Vorlage",
-    "quadDarkTemplate": "Quad dunkle Vorlage",
-    "musicDarkTemplate": "Musik dunkle Vorlage"
+    "plain": "Plain",
+    "ruled": "Ruled",
+    "quad": "Quad",
+    "music": "Music",
+    "plainDark": "Plain dark",
+    "ruledDark": "Ruled dark",
+    "quadDark": "Quad dark",
+    "musicDark": "Music dark"
 }
