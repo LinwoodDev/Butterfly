@@ -15,19 +15,7 @@ module.exports = {
         'intro',
         'color_picker',
         'migrating',
-        {
-            type: 'category',
-            label: 'Backgrounds',
-            link: {
-                type: 'doc',
-                id: 'background/intro'
-            },
-            items: [
-                'background/quad',
-                'background/ruled',
-                'background/music'
-            ]
-        },
+        'background',
         {
             type: 'category',
             label: 'Painters',
