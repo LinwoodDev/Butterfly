@@ -4,7 +4,7 @@ sidebar_label: "Hintergrund"
 
 # Hintergrund
 
-Sie können den Hintergrund des Papiers anpassen. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+Sie können den Hintergrund des Papiers anpassen. Klicken Sie auf das Hintergrundsymbol im Ansichtsdialog um es hinzuzufügen. Es stehen 8 verschiedene Hintergrundvorlagen zur Verfügung.
 
 ## Konfiguration
 
