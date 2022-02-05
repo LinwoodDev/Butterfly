@@ -24,7 +24,7 @@
     "description": "Navbar item with label GitHub"
   },
   "item.label.Discord": {
-    "message": "Discord.",
+    "message": "Discord",
     "description": "Navbar item with label Discord"
   }
 }
