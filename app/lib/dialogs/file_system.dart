@@ -184,7 +184,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                         bloc: widget.bloc,
                         builder: (context, state) {
                           var selectedPath = '';
-                          if (state is DocumentLoadSuccess) {
+                          if (state is AppDocumentLoadSuccess) {
                             selectedPath = state.path ?? '';
                           }
                           return gridView
@@ -363,7 +363,9 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       var document = await _fileSystem.renameAsset(
                           path, _nameController.text);
                       var state = widget.bloc.state as DocumentLoadSuccess;
-                      if (document != null && state.path == path) {
+                      if (document != null &&
+                          state is AppDocumentLoadSuccess &&
+                          state.path == path) {
                         widget.bloc.clearHistory();
                         widget.bloc.emit(state.copyWith(path: path));
                       }

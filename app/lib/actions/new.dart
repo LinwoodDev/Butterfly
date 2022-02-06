@@ -42,6 +42,6 @@ class NewAction extends Action<NewIntent> {
     intent.context.read<SelectionCubit>().reset();
     intent.context.read<EditingCubit>().resetAll();
     intent.context.read<TransformCubit>().reset();
-    bloc.emit(DocumentLoadSuccess(document));
+    bloc.emit(AppDocumentLoadSuccess(document));
   }
 }

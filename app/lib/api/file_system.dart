@@ -118,7 +118,7 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
 }
 
 abstract class TemplateFileSystem extends GeneralFileSystem {
-  FutureOr<bool> createDefault({bool force = false});
+  FutureOr<bool> createDefault(BuildContext context, {bool force = false});
 
   Future<DocumentTemplate?> getTemplate(String name);
   Future<DocumentTemplate> createTemplate(AppDocument document, String name,
@@ -134,11 +134,24 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
   Future<void> deleteTemplate(String name);
   Future<List<DocumentTemplate>> getTemplates();
 
-  static TemplateFileSystem fromPlatform(BuildContext context) {
+  Future<DocumentTemplate?> renameTemplate(String path, String newName) async {
+    // Remove leading slash
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
+    final template = await getTemplate(path);
+    if (template == null) return null;
+    DocumentTemplate? newTemplate =
+        await createTemplate(template.document, newName, template.description);
+    await deleteTemplate(path);
+    return newTemplate;
+  }
+
+  static TemplateFileSystem fromPlatform() {
     if (kIsWeb) {
-      return WebTemplateFileSystem(context);
+      return WebTemplateFileSystem();
     } else {
-      return IOTemplateFileSystem(context);
+      return IOTemplateFileSystem();
     }
   }
 }

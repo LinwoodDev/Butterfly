@@ -184,8 +184,6 @@ class WebDocumentFileSystem extends DocumentFileSystem {
 }
 
 class WebTemplateFileSystem extends TemplateFileSystem {
-  final BuildContext context;
-  WebTemplateFileSystem(this.context);
   @override
   Future<void> deleteTemplate(String name) async {
     var db = await _getDatabase();
@@ -230,7 +228,8 @@ class WebTemplateFileSystem extends TemplateFileSystem {
   }
 
   @override
-  FutureOr<bool> createDefault({bool force = false}) async {
+  FutureOr<bool> createDefault(BuildContext context,
+      {bool force = false}) async {
     var shouldCreate = force;
     var prefs = await SharedPreferences.getInstance();
     if (!shouldCreate) {

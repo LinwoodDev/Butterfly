@@ -20,13 +20,17 @@ class _TemplateDialogState extends State<TemplateDialog> {
   @override
   void initState() {
     super.initState();
-    _fileSystem = TemplateFileSystem.fromPlatform(context);
+    _fileSystem = TemplateFileSystem.fromPlatform();
     _templatesFuture = load();
   }
 
   Future<List<DocumentTemplate>> load() async {
-    await _fileSystem.createDefault();
-    return _fileSystem.getTemplates();
+    await _fileSystem.createDefault(context);
+    var templates = await _fileSystem.getTemplates();
+    templates = templates
+        .where((element) => element.name.contains(_searchController.text))
+        .toList();
+    return templates;
   }
 
   @override
@@ -62,37 +66,83 @@ class _TemplateDialogState extends State<TemplateDialog> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
-                            decoration: const InputDecoration(
-                              filled: true,
-                              prefixIcon:
-                                  Icon(PhosphorIcons.magnifyingGlassLight),
-                            ),
-                            textAlignVertical: TextAlignVertical.center,
-                            controller: _searchController,
-                            autofocus: true,
-                          ),
+                              decoration: const InputDecoration(
+                                filled: true,
+                                prefixIcon:
+                                    Icon(PhosphorIcons.magnifyingGlassLight),
+                              ),
+                              textAlignVertical: TextAlignVertical.center,
+                              controller: _searchController,
+                              autofocus: true,
+                              onChanged: (value) {
+                                _templatesFuture = load();
+                                setState(() {});
+                              }),
                         ),
                         const Divider(),
                         Expanded(
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 15),
-                                child: ValueListenableBuilder(
-                                    valueListenable: _searchController,
-                                    builder: (context, value, child) =>
-                                        ListView.builder(
-                                            itemCount: templates.length,
-                                            itemBuilder: (context, index) {
-                                              var template = templates[index];
-                                              return ListTile(
-                                                title: Text(template.name),
-                                                subtitle:
-                                                    Text(template.description),
-                                                onTap: () =>
-                                                    Navigator.of(context)
-                                                        .pop(template),
-                                              );
-                                            }))))
+                                child: ListView.builder(
+                                    itemCount: templates.length,
+                                    itemBuilder: (context, index) {
+                                      var template = templates[index];
+                                      return ListTile(
+                                        title: Text(template.name),
+                                        subtitle: Text(template.description),
+                                        trailing: PopupMenuButton(
+                                          itemBuilder: (context) => [
+                                            PopupMenuItem(
+                                                padding: EdgeInsets.zero,
+                                                child: ListTile(
+                                                    leading: const Icon(
+                                                        PhosphorIcons
+                                                            .textTLight),
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .rename),
+                                                    onTap: () async {})),
+                                            PopupMenuItem(
+                                                padding: EdgeInsets.zero,
+                                                child: ListTile(
+                                                    leading: const Icon(
+                                                        PhosphorIcons
+                                                            .folderLight),
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .folder),
+                                                    onTap: () async {})),
+                                            PopupMenuItem(
+                                                padding: EdgeInsets.zero,
+                                                child: ListTile(
+                                                    leading: const Icon(
+                                                        PhosphorIcons
+                                                            .copyLight),
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .duplicate),
+                                                    onTap: () async {})),
+                                            PopupMenuItem(
+                                                padding: EdgeInsets.zero,
+                                                child: ListTile(
+                                                    leading: const Icon(
+                                                        PhosphorIcons
+                                                            .trashLight),
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .delete),
+                                                    onTap: () async {}))
+                                          ],
+                                        ),
+                                        onTap: () =>
+                                            Navigator.of(context).pop(template),
+                                      );
+                                    })))
                       ]);
                     }))));
   }

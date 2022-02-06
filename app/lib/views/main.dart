@@ -217,7 +217,8 @@ class _ProjectPageState extends State<ProjectPage> {
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      if (current.path != null)
+                      if (current is AppDocumentLoadSuccess &&
+                          current.path != null)
                         Text(
                           current.path!,
                           style: Theme.of(ctx).textTheme.caption,

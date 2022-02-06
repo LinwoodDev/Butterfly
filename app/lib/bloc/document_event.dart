@@ -203,3 +203,21 @@ class ImageBaked extends DocumentEvent {
   @override
   List<Object?> get props => [viewportSize, scale];
 }
+
+class TemplateCreated extends DocumentEvent {
+  final String name, description;
+
+  const TemplateCreated(this.name, [this.description = '']);
+
+  @override
+  List<Object?> get props => [name, description];
+}
+
+class TemplatePropertyChanged extends DocumentEvent {
+  final String? name, description;
+
+  const TemplatePropertyChanged({this.name, this.description});
+
+  @override
+  List<Object?> get props => [name, description];
+}

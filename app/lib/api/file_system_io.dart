@@ -148,11 +148,9 @@ class IODocumentFileSystem extends DocumentFileSystem {
 }
 
 class IOTemplateFileSystem extends TemplateFileSystem {
-  final BuildContext context;
-  IOTemplateFileSystem(this.context);
-
   @override
-  FutureOr<bool> createDefault({bool force = false}) async {
+  FutureOr<bool> createDefault(BuildContext context,
+      {bool force = false}) async {
     var defaults = await DocumentTemplate.getDefaults(context);
     var directory = await getDirectory();
     if (await Directory(directory).exists()) return false;
