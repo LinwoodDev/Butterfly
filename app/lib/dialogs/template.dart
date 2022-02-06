@@ -14,27 +14,28 @@ class TemplateDialog extends StatefulWidget {
 
 class _TemplateDialogState extends State<TemplateDialog> {
   late TemplateFileSystem _fileSystem;
-  late Future<List<DocumentTemplate>> _templatesFuture;
+  late Future<List<DocumentTemplate>>? _templatesFuture;
   final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _fileSystem = TemplateFileSystem.fromPlatform();
-    _templatesFuture = load();
   }
 
-  Future<List<DocumentTemplate>> load() async {
-    await _fileSystem.createDefault(context);
-    var templates = await _fileSystem.getTemplates();
-    templates = templates
-        .where((element) => element.name.contains(_searchController.text))
-        .toList();
-    return templates;
+  void load() {
+    _templatesFuture = _fileSystem.createDefault(context).then((value) async {
+      var templates = await _fileSystem.getTemplates();
+      templates = templates
+          .where((element) => element.name.contains(_searchController.text))
+          .toList();
+      return templates;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    load();
     return Dialog(
         child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
@@ -74,8 +75,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                               textAlignVertical: TextAlignVertical.center,
                               controller: _searchController,
                               autofocus: true,
-                              onChanged: (value) {
-                                _templatesFuture = load();
+                              onChanged: (value) async {
+                                load();
                                 setState(() {});
                               }),
                         ),

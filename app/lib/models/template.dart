@@ -2,59 +2,41 @@ import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../api/format_date_time.dart';
-import '../cubits/settings.dart';
 
 class DocumentTemplate {
   final AppDocument document;
-  final String name;
-  final String description;
+  final String folder;
+  String get name => document.name;
+  String get description => document.description;
 
-  DocumentTemplate(
-      {required this.document, required this.name, this.description = ''});
+  DocumentTemplate({required this.document, this.folder = '/'});
 
-  static Future<List<DocumentTemplate>> getDefaults(
-      BuildContext context) async {
-    final name =
-        await formatCurrentDateTime(context.read<SettingsCubit>().state.locale);
-    return [
-      DocumentTemplate(
-          name: AppLocalizations.of(context)!.plain,
-          document: AppDocument(
-              name: name,
-              createdAt: DateTime.now(),
-              background: BackgroundTemplate.plain.create())),
-      DocumentTemplate(
-          name: AppLocalizations.of(context)!.plainDark,
-          document: AppDocument(
-              name: name,
-              createdAt: DateTime.now(),
-              background: BackgroundTemplate.plainDark.create()))
-    ];
-  }
+  static List<DocumentTemplate> getDefaults(BuildContext context) => [
+        DocumentTemplate(
+            document: AppDocument(
+                name: AppLocalizations.of(context)!.plain,
+                createdAt: DateTime.now(),
+                background: BackgroundTemplate.plain.create())),
+        DocumentTemplate(
+            document: AppDocument(
+                name: AppLocalizations.of(context)!.plainDark,
+                createdAt: DateTime.now(),
+                background: BackgroundTemplate.plainDark.create()))
+      ];
 
   DocumentTemplate.fromJson(Map<String, dynamic> json)
       : document = AppDocument.fromJson(json['document']),
-        name = json['name'],
-        description = json['description'];
+        folder = json['folder'] ?? '/';
 
   Map<String, dynamic> toJson() => {
         'document': document.toJson(),
-        'name': name,
-        'description': description,
+        'folder': folder,
       };
 
-  DocumentTemplate copyWith({
-    AppDocument? document,
-    String? name,
-    String? description,
-  }) {
+  DocumentTemplate copyWith({AppDocument? document, String? folder}) {
     return DocumentTemplate(
       document: document ?? this.document,
-      name: name ?? this.name,
-      description: description ?? this.description,
+      folder: folder ?? this.folder,
     );
   }
 }

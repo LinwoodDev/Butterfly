@@ -205,19 +205,14 @@ class ImageBaked extends DocumentEvent {
 }
 
 class TemplateCreated extends DocumentEvent {
-  final String name, description;
-
-  const TemplateCreated(this.name, [this.description = '']);
-
-  @override
-  List<Object?> get props => [name, description];
+  const TemplateCreated();
 }
 
 class TemplatePropertyChanged extends DocumentEvent {
-  final String? name, description;
+  final String? folder;
 
-  const TemplatePropertyChanged({this.name, this.description});
+  const TemplatePropertyChanged({this.folder});
 
   @override
-  List<Object?> get props => [name, description];
+  List<Object?> get props => [folder];
 }

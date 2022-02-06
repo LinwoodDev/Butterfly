@@ -323,16 +323,25 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var current = state;
       if (current is! AppDocumentLoadSuccess) return;
 
-      var template = DocumentTemplate(
-          document: current.document,
-          name: event.name,
-          description: event.description);
+      var template = DocumentTemplate(document: current.document);
       emit(TemplateLoadSuccess(
         template,
         bakedViewport: current.bakedViewport,
         currentPainterIndex: current.currentPainterIndex,
         invisibleLayers: current.invisibleLayers,
         currentLayer: current.currentLayer,
+      ));
+    });
+    on<TemplatePropertyChanged>((event, emit) {
+      var current = state;
+      if (current is! TemplateLoadSuccess) return;
+
+      var template = current.template.copyWith(
+        folder: event.folder,
+      );
+
+      emit(current.copyWith(
+        template: template,
       ));
     });
   }

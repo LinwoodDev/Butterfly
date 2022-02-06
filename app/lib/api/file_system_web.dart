@@ -228,15 +228,14 @@ class WebTemplateFileSystem extends TemplateFileSystem {
   }
 
   @override
-  FutureOr<bool> createDefault(BuildContext context,
-      {bool force = false}) async {
+  Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     var shouldCreate = force;
     var prefs = await SharedPreferences.getInstance();
     if (!shouldCreate) {
       shouldCreate = !prefs.containsKey('defaultTemplate');
     }
     if (!shouldCreate) return false;
-    var defaults = await DocumentTemplate.getDefaults(context);
+    var defaults = DocumentTemplate.getDefaults(context);
     await Future.wait(defaults.map((e) => updateTemplate(e)));
     prefs.setBool('defaultTemplate', true);
     return true;
