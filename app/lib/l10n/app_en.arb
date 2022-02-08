@@ -184,5 +184,7 @@
   "quadDark": "Quad dark",
   "musicDark": "Music dark",
   "templates": "Templates",
-  "untitled": "Untitled"
+  "untitled": "Untitled",
+  "createTemplate":"Create template",
+  "createTemplateContent":"Do you really want to create a template from the selected elements? The original file will get deleted."
 }

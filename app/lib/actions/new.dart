@@ -8,7 +8,7 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../dialogs/template.dart';
 
@@ -29,14 +29,29 @@ class NewAction extends Action<NewIntent> {
             intent.context.read<SettingsCubit>().state.locale),
         createdAt: DateTime.now(),
         palettes: ColorPalette.getMaterialPalette(intent.context));
+    var bloc = intent.context.read<DocumentBloc>();
     if (intent.fromTemplate) {
+      var state = bloc.state;
+      if (state is DocumentLoadSuccess) document = state.document;
       var template = await showDialog(
           context: intent.context,
-          builder: (context) => const TemplateDialog()) as DocumentTemplate?;
+          builder: (context) => MultiBlocProvider(
+                providers: [
+                  BlocProvider.value(value: bloc),
+                  BlocProvider.value(
+                      value: intent.context.read<SelectionCubit>()),
+                  BlocProvider.value(
+                      value: intent.context.read<EditingCubit>()),
+                  BlocProvider.value(
+                      value: intent.context.read<TransformCubit>()),
+                ],
+                child: TemplateDialog(
+                  currentDocument: document,
+                ),
+              )) as DocumentTemplate?;
       if (template == null) return;
       document = template.document.copyWith();
     }
-    var bloc = intent.context.read<DocumentBloc>();
 
     bloc.clearHistory();
     intent.context.read<SelectionCubit>().reset();

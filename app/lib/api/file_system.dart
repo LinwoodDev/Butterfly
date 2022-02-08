@@ -129,6 +129,8 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
       name = document.name + ' ($attemps)';
       attemps++;
     }
+    template =
+        template.copyWith(document: template.document.copyWith(name: name));
     updateTemplate(template);
     return template;
   }

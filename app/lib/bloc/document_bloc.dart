@@ -316,9 +316,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<TemplateCreated>((event, emit) {
       var current = state;
       if (current is! DocumentLoadSuccess) return;
+      TemplateFileSystem.fromPlatform().createTemplate(current.document);
 
       if (event.deleteDocument) {
-        TemplateFileSystem.fromPlatform().createTemplate(current.document);
         emit(current.copyWith(removePath: true));
       }
     });

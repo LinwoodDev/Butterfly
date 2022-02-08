@@ -1,12 +1,17 @@
+import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/file_system.dart';
+import '../bloc/document_bloc.dart';
 
 class TemplateDialog extends StatefulWidget {
-  const TemplateDialog({Key? key}) : super(key: key);
+  final AppDocument? currentDocument;
+  const TemplateDialog({Key? key, required this.currentDocument})
+      : super(key: key);
 
   @override
   State<TemplateDialog> createState() => _TemplateDialogState();
@@ -47,11 +52,14 @@ class _TemplateDialogState extends State<TemplateDialog> {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
-                floatingActionButton: FloatingActionButton.extended(
-                  onPressed: () => _showCreateDialog(),
-                  label: Text(AppLocalizations.of(context)!.create),
-                  icon: const Icon(PhosphorIcons.plusLight),
-                ),
+                floatingActionButton: widget.currentDocument == null
+                    ? null
+                    : FloatingActionButton.extended(
+                        onPressed: () =>
+                            _showCreateDialog(widget.currentDocument!),
+                        label: Text(AppLocalizations.of(context)!.create),
+                        icon: const Icon(PhosphorIcons.plusLight),
+                      ),
                 backgroundColor: Colors.transparent,
                 body: FutureBuilder<List<DocumentTemplate>>(
                     future: _templatesFuture,
@@ -148,5 +156,32 @@ class _TemplateDialogState extends State<TemplateDialog> {
                     }))));
   }
 
-  void _showCreateDialog() {}
+  void _showCreateDialog(AppDocument document) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(AppLocalizations.of(context)!.createTemplate),
+            content: Text(AppLocalizations.of(context)!.createTemplateContent),
+            actions: <Widget>[
+              TextButton(
+                child: Text(AppLocalizations.of(context)!.cancel),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              TextButton(
+                child: Text(AppLocalizations.of(context)!.create),
+                onPressed: () async {
+                  this
+                      .context
+                      .read<DocumentBloc>()
+                      .add(const TemplateCreated());
+                  Navigator.of(context).pop();
+                  load();
+                  setState(() {});
+                },
+              ),
+            ],
+          );
+        });
+  }
 }
