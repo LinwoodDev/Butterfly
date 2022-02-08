@@ -54,7 +54,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                   ),
                 ),
               ),
-              if (current is AppDocumentLoadSuccess && current.path != null)
+              if (current.path != null)
                 Text(
                   current.path!,
                   style: Theme.of(ctx).textTheme.caption,

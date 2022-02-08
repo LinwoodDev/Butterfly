@@ -205,14 +205,10 @@ class ImageBaked extends DocumentEvent {
 }
 
 class TemplateCreated extends DocumentEvent {
-  const TemplateCreated();
-}
+  final bool deleteDocument;
 
-class TemplatePropertyChanged extends DocumentEvent {
-  final String? folder;
-
-  const TemplatePropertyChanged({this.folder});
+  const TemplateCreated({this.deleteDocument = true});
 
   @override
-  List<Object?> get props => [folder];
+  List<Object?> get props => [deleteDocument];
 }

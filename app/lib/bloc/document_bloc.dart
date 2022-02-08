@@ -9,7 +9,6 @@ import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/properties/hand.dart';
-import 'package:butterfly/models/template.dart';
 import 'package:butterfly/models/waypoint.dart';
 import 'package:butterfly/view_painter.dart';
 import 'package:collection/collection.dart';
@@ -21,12 +20,7 @@ part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(AppDocument initial, String? path)
-      : super(AppDocumentLoadSuccess(initial, path: path)) {
-    _init();
-  }
-
-  DocumentBloc.withTemplate(DocumentTemplate template)
-      : super(TemplateLoadSuccess(template)) {
+      : super(DocumentLoadSuccess(initial, path: path)) {
     _init();
   }
 
@@ -321,28 +315,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     });
     on<TemplateCreated>((event, emit) {
       var current = state;
-      if (current is! AppDocumentLoadSuccess) return;
+      if (current is! DocumentLoadSuccess) return;
 
-      var template = DocumentTemplate(document: current.document);
-      emit(TemplateLoadSuccess(
-        template,
-        bakedViewport: current.bakedViewport,
-        currentPainterIndex: current.currentPainterIndex,
-        invisibleLayers: current.invisibleLayers,
-        currentLayer: current.currentLayer,
-      ));
-    });
-    on<TemplatePropertyChanged>((event, emit) {
-      var current = state;
-      if (current is! TemplateLoadSuccess) return;
-
-      var template = current.template.copyWith(
-        folder: event.folder,
-      );
-
-      emit(current.copyWith(
-        template: template,
-      ));
+      if (event.deleteDocument) {
+        TemplateFileSystem.fromPlatform().createTemplate(current.document);
+        emit(current.copyWith(removePath: true));
+      }
     });
   }
 
@@ -375,11 +353,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         bakedViewport: unbakedElements == null
             ? current.bakedViewport
             : current.bakedViewport?.withUnbaked(elements));
-    if (current is AppDocumentLoadSuccess && current.path != null) {
+    if (current.path != null) {
       emit(current);
     }
     var path = await current.save();
-    if (current is AppDocumentLoadSuccess && current.path == null) {
+    if (current.path == null) {
       emit(current.copyWith(path: path));
     }
   }

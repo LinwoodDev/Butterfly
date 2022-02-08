@@ -25,7 +25,7 @@ class ImportAction extends Action<ImportIntent> {
       if (content == null) return;
       var document = AppDocument.fromJson(jsonDecode(content));
       DocumentFileSystem.fromPlatform().importDocument(document).then((file) {
-        bloc.emit(AppDocumentLoadSuccess(document, path: file.path));
+        bloc.emit(DocumentLoadSuccess(document, path: file.path));
       });
     });
   }
