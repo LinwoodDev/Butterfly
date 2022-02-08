@@ -45,7 +45,7 @@ dependencies:
   bloc_concurrency: ^0.2.0
 
 dev_dependencies:
-  flutter_native_splash: ^2.0.1+1
+  flutter_native_splash: ^2.0.2
   flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
