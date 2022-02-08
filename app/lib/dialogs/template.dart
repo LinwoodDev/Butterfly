@@ -97,59 +97,13 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                     itemCount: templates.length,
                                     itemBuilder: (context, index) {
                                       var template = templates[index];
-                                      return ListTile(
-                                        title: Text(template.name),
-                                        subtitle: Text(template.description),
-                                        trailing: PopupMenuButton(
-                                          itemBuilder: (context) => [
-                                            PopupMenuItem(
-                                                padding: EdgeInsets.zero,
-                                                child: ListTile(
-                                                    leading: const Icon(
-                                                        PhosphorIcons
-                                                            .textTLight),
-                                                    title: Text(
-                                                        AppLocalizations.of(
-                                                                context)!
-                                                            .rename),
-                                                    onTap: () async {})),
-                                            PopupMenuItem(
-                                                padding: EdgeInsets.zero,
-                                                child: ListTile(
-                                                    leading: const Icon(
-                                                        PhosphorIcons
-                                                            .folderLight),
-                                                    title: Text(
-                                                        AppLocalizations.of(
-                                                                context)!
-                                                            .folder),
-                                                    onTap: () async {})),
-                                            PopupMenuItem(
-                                                padding: EdgeInsets.zero,
-                                                child: ListTile(
-                                                    leading: const Icon(
-                                                        PhosphorIcons
-                                                            .copyLight),
-                                                    title: Text(
-                                                        AppLocalizations.of(
-                                                                context)!
-                                                            .duplicate),
-                                                    onTap: () async {})),
-                                            PopupMenuItem(
-                                                padding: EdgeInsets.zero,
-                                                child: ListTile(
-                                                    leading: const Icon(
-                                                        PhosphorIcons
-                                                            .trashLight),
-                                                    title: Text(
-                                                        AppLocalizations.of(
-                                                                context)!
-                                                            .delete),
-                                                    onTap: () async {}))
-                                          ],
-                                        ),
-                                        onTap: () =>
-                                            Navigator.of(context).pop(template),
+                                      return _TemplateItem(
+                                        template: template,
+                                        document: widget.currentDocument,
+                                        onChanged: () {
+                                          load();
+                                          setState(() {});
+                                        },
                                       );
                                     })))
                       ]);
@@ -183,5 +137,107 @@ class _TemplateDialogState extends State<TemplateDialog> {
             ],
           );
         });
+  }
+}
+
+class _TemplateItem extends StatelessWidget {
+  final AppDocument? document;
+  final DocumentTemplate template;
+  final VoidCallback onChanged;
+  const _TemplateItem(
+      {Key? key,
+      required this.template,
+      required this.onChanged,
+      required this.document})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(template.name),
+      subtitle: Text(template.description),
+      trailing: PopupMenuButton(
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            padding: EdgeInsets.zero,
+            child: ListTile(
+                leading: const Icon(PhosphorIcons.textTLight),
+                title: Text(AppLocalizations.of(context)!.rename),
+                onTap: () async {
+                  final TextEditingController _nameController =
+                      TextEditingController(text: template.document.name);
+                  await showDialog<String>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: Text(AppLocalizations.of(context)!.rename),
+                            content: TextField(controller: _nameController),
+                            actions: [
+                              TextButton(
+                                  child: Text(
+                                      AppLocalizations.of(context)!.cancel),
+                                  onPressed: () => Navigator.of(context).pop()),
+                              TextButton(
+                                  child: Text(AppLocalizations.of(context)!.ok),
+                                  onPressed: () async {
+                                    await TemplateFileSystem.fromPlatform()
+                                        .renameTemplate(template.document.name,
+                                            _nameController.text);
+                                    Navigator.of(context).pop();
+                                    onChanged();
+                                  })
+                            ],
+                          ));
+                }),
+          ),
+          PopupMenuItem(
+              padding: EdgeInsets.zero,
+              child: ListTile(
+                  leading: const Icon(PhosphorIcons.clipboardLight),
+                  title: Text(AppLocalizations.of(context)!.replace),
+                  onTap: () async {
+                    if (document == null) return;
+                    Navigator.of(context).pop();
+                    await TemplateFileSystem.fromPlatform()
+                        .updateTemplate(template.copyWith(document: document));
+                    onChanged();
+                  })),
+          PopupMenuItem(
+              padding: EdgeInsets.zero,
+              child: ListTile(
+                  leading: const Icon(PhosphorIcons.trashLight),
+                  title: Text(AppLocalizations.of(context)!.delete),
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(AppLocalizations.of(context)!.delete),
+                            content: Text(
+                                AppLocalizations.of(context)!.reallyDelete),
+                            actions: <Widget>[
+                              TextButton(
+                                child:
+                                    Text(AppLocalizations.of(context)!.cancel),
+                                onPressed: () => Navigator.of(context).pop(),
+                              ),
+                              TextButton(
+                                child:
+                                    Text(AppLocalizations.of(context)!.delete),
+                                onPressed: () async {
+                                  await TemplateFileSystem.fromPlatform()
+                                      .deleteTemplate(template.document.name);
+                                  Navigator.of(context).pop();
+                                  onChanged();
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                  }))
+        ],
+      ),
+      onTap: () => Navigator.of(context).pop(template),
+    );
   }
 }

@@ -185,6 +185,7 @@
   "musicDark": "Music dark",
   "templates": "Templates",
   "untitled": "Untitled",
-  "createTemplate":"Create template",
-  "createTemplateContent":"Do you really want to create a template from the selected elements? The original file will get deleted."
+  "createTemplate": "Create template",
+  "createTemplateContent": "Do you really want to create a template from the selected elements? The original file will get deleted.",
+  "replace": "Replace"
 }
