@@ -38,10 +38,12 @@ class _ExactSliderState extends State<ExactSlider> {
   }
 
   void _changeValue(double value) {
-    setState(() {
-      _value = value;
-      _controller.text = _value.toStringAsFixed(widget.fractionDigits);
-    });
+    _controller.text = _value.toStringAsFixed(widget.fractionDigits);
+    if (_value != value) {
+      setState(() {
+        _value = value;
+      });
+    }
     widget.onChanged(value);
   }
 
@@ -87,7 +89,10 @@ class _ExactSliderState extends State<ExactSlider> {
                     value: _value.clamp(widget.min, widget.max),
                     min: widget.min,
                     max: widget.max,
-                    onChanged: (value) => _changeValue(value),
+                    onChanged: (value) {
+                      _value = value;
+                      _changeValue(value);
+                    },
                   )),
                   IconButton(
                       onPressed: () => _changeValue(widget.defaultValue),

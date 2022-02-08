@@ -19,109 +19,112 @@ class BehaviorsSettingsPage extends StatelessWidget {
           ],
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(
+            buildWhen: (previous, current) =>
+                previous.inputType == current.inputType,
             builder: (context, state) {
-          return ListView(
-            children: [
-              Card(
-                  margin: const EdgeInsets.all(8),
-                  child: Padding(
-                    padding: const EdgeInsets.all(32),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(AppLocalizations.of(context)!.input,
-                              style: Theme.of(context).textTheme.headline5),
-                          const SizedBox(height: 16),
-                          ListTile(
-                            title:
-                                Text(AppLocalizations.of(context)!.multiInput),
-                            leading: const Icon(PhosphorIcons.mouseLight),
-                            subtitle: Text(
-                                state.inputType.toLocalizedString(context)),
-                            onTap: () => _showInput(context),
-                          ),
-                        ]),
-                  )),
-              Card(
-                  margin: const EdgeInsets.all(8),
-                  child: Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(AppLocalizations.of(context)!.sensitivity,
-                              style: Theme.of(context).textTheme.headline5),
-                          Text(AppLocalizations.of(context)!.sensitivityHint,
-                              style: Theme.of(context).textTheme.subtitle2),
-                          const SizedBox(height: 16),
-                          Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Column(children: [
-                                ExactSlider(
-                                    min: 0,
-                                    max: 100,
-                                    value: state.touchSensitivity,
-                                    header: Row(children: [
-                                      const Icon(PhosphorIcons.handLight),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                          AppLocalizations.of(context)!
-                                              .touchSensitivity,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge),
-                                    ]),
-                                    onChanged: (value) {
-                                      final cubit =
-                                          context.read<SettingsCubit>();
-                                      cubit.changeTouchSensitivity(value);
-                                    }),
-                                const SizedBox(height: 16),
-                                ExactSlider(
-                                    min: 0,
-                                    max: 100,
-                                    value: state.mouseSensitivity,
-                                    header: Row(children: [
-                                      const Icon(PhosphorIcons.mouseLight),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                          AppLocalizations.of(context)!
-                                              .mouseSensitivity,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge),
-                                    ]),
-                                    onChanged: (value) {
-                                      final cubit =
-                                          context.read<SettingsCubit>();
-                                      cubit.changeMouseSensitivity(value);
-                                    }),
-                                const SizedBox(height: 16),
-                                ExactSlider(
-                                    min: 0,
-                                    max: 100,
-                                    value: state.penSensitivity,
-                                    header: Row(children: [
-                                      const Icon(PhosphorIcons.penLight),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                          AppLocalizations.of(context)!
-                                              .penSensitivity,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge),
-                                    ]),
-                                    onChanged: (value) {
-                                      final cubit =
-                                          context.read<SettingsCubit>();
-                                      cubit.changePenSensitivity(value);
-                                    }),
-                              ])),
-                        ]),
-                  )),
-            ],
-          );
-        }));
+              return ListView(
+                children: [
+                  Card(
+                      margin: const EdgeInsets.all(8),
+                      child: Padding(
+                        padding: const EdgeInsets.all(32),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(AppLocalizations.of(context)!.input,
+                                  style: Theme.of(context).textTheme.headline5),
+                              const SizedBox(height: 16),
+                              ListTile(
+                                title: Text(
+                                    AppLocalizations.of(context)!.multiInput),
+                                leading: const Icon(PhosphorIcons.mouseLight),
+                                subtitle: Text(
+                                    state.inputType.toLocalizedString(context)),
+                                onTap: () => _showInput(context),
+                              ),
+                            ]),
+                      )),
+                  Card(
+                      margin: const EdgeInsets.all(8),
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(AppLocalizations.of(context)!.sensitivity,
+                                  style: Theme.of(context).textTheme.headline5),
+                              Text(
+                                  AppLocalizations.of(context)!.sensitivityHint,
+                                  style: Theme.of(context).textTheme.subtitle2),
+                              const SizedBox(height: 16),
+                              Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(children: [
+                                    ExactSlider(
+                                        min: 0,
+                                        max: 100,
+                                        value: state.touchSensitivity,
+                                        header: Row(children: [
+                                          const Icon(PhosphorIcons.handLight),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                              AppLocalizations.of(context)!
+                                                  .touchSensitivity,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge),
+                                        ]),
+                                        onChanged: (value) {
+                                          final cubit =
+                                              context.read<SettingsCubit>();
+                                          cubit.changeTouchSensitivity(value);
+                                        }),
+                                    const SizedBox(height: 16),
+                                    ExactSlider(
+                                        min: 0,
+                                        max: 100,
+                                        value: state.mouseSensitivity,
+                                        header: Row(children: [
+                                          const Icon(PhosphorIcons.mouseLight),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                              AppLocalizations.of(context)!
+                                                  .mouseSensitivity,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge),
+                                        ]),
+                                        onChanged: (value) {
+                                          final cubit =
+                                              context.read<SettingsCubit>();
+                                          cubit.changeMouseSensitivity(value);
+                                        }),
+                                    const SizedBox(height: 16),
+                                    ExactSlider(
+                                        min: 0,
+                                        max: 100,
+                                        value: state.penSensitivity,
+                                        header: Row(children: [
+                                          const Icon(PhosphorIcons.penLight),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                              AppLocalizations.of(context)!
+                                                  .penSensitivity,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge),
+                                        ]),
+                                        onChanged: (value) {
+                                          final cubit =
+                                              context.read<SettingsCubit>();
+                                          cubit.changePenSensitivity(value);
+                                        }),
+                                  ])),
+                            ]),
+                      )),
+                ],
+              );
+            }));
   }
 
   void _showInput(BuildContext context) {

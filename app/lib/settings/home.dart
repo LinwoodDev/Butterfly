@@ -54,15 +54,9 @@ class SettingsPage extends StatelessWidget {
               }),
           const Divider(),
           ListTile(
-              leading: const Icon(PhosphorIcons.stackLight),
-              title: Text(AppLocalizations.of(context)!.license),
-              onTap: () => launch(
-                  'https://github.com/LinwoodCloud/butterfly/blob/main/LICENSE')),
-          ListTile(
-              leading: const Icon(PhosphorIcons.codeLight),
-              title: Text(AppLocalizations.of(context)!.source),
-              onTap: () =>
-                  launch('https://github.com/LinwoodCloud/dev_doctor')),
+              leading: const Icon(PhosphorIcons.articleLight),
+              title: Text(AppLocalizations.of(context)!.documentation),
+              onTap: () => launch('https://docs.butterfly.linwood.dev')),
           ListTile(
               leading: const Icon(PhosphorIcons.usersLight),
               title: const Text('Discord'),
@@ -72,14 +66,21 @@ class SettingsPage extends StatelessWidget {
               title: const Text('Crowdin'),
               onTap: () => launch('https://linwood.crowdin.com')),
           ListTile(
-              leading: const Icon(PhosphorIcons.articleLight),
-              title: Text(AppLocalizations.of(context)!.documentation),
-              onTap: () => launch('https://docs.butterfly.linwood.dev')),
+              leading: const Icon(PhosphorIcons.codeLight),
+              title: Text(AppLocalizations.of(context)!.source),
+              onTap: () =>
+                  launch('https://github.com/LinwoodCloud/dev_doctor')),
           ListTile(
               leading: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               title: Text(AppLocalizations.of(context)!.changelog),
               onTap: () =>
                   launch('https://docs.butterfly.linwood.dev/changelog')),
+          const Divider(),
+          ListTile(
+              leading: const Icon(PhosphorIcons.stackLight),
+              title: Text(AppLocalizations.of(context)!.license),
+              onTap: () => launch(
+                  'https://github.com/LinwoodCloud/butterfly/blob/main/LICENSE')),
           ListTile(
               leading: const Icon(PhosphorIcons.identificationCardLight),
               title: Text(AppLocalizations.of(context)!.imprint),
