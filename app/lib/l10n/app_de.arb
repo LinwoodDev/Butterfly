@@ -185,6 +185,7 @@
     "musicDark": "Musik dunkel",
     "templates": "Vorlagen",
     "untitled": "Ohne Titel",
-    "createTemplate": "Create template",
-    "createTemplateContent": "Do you really want to create a template from the selected elements? The original file will get deleted."
+    "createTemplate": "Vorlage erstellen",
+    "createTemplateContent": "Möchten Sie wirklich eine Vorlage aus den ausgewählten Elementen erstellen? Die ursprüngliche Datei wird gelöscht.",
+    "replace": "Replace"
 }
