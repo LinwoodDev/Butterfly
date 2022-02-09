@@ -201,8 +201,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 .read<SettingsCubit>()
                                 .state
                                 .touchSensitivity;
-                            cubit.zoom(
-                                current / sensitivity, details.localFocalPoint);
+                            cubit.zoom((1 - current) / -sensitivity + 1,
+                                details.localFocalPoint);
                             size = details.scale;
                           },
                           onScaleEnd: (details) => _bake(),

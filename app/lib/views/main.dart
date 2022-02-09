@@ -32,6 +32,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'view.dart';
 
@@ -70,6 +71,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Future<void> load() async {
     var fileSystem = DocumentFileSystem.fromPlatform();
+    var prefs = await SharedPreferences.getInstance();
     AppDocument? document;
     if (widget.path != null) {
       await fileSystem.getAsset(widget.path!).then(
@@ -80,6 +82,17 @@ class _ProjectPageState extends State<ProjectPage> {
             context.read<SettingsCubit>().state.locale),
         createdAt: DateTime.now(),
         palettes: ColorPalette.getMaterialPalette(context));
+    if (prefs.containsKey('default_template')) {
+      var template = await TemplateFileSystem.fromPlatform()
+          .getTemplate(prefs.getString('default_template')!);
+      if (template != null) {
+        document = template.document.copyWith(
+          name: await formatCurrentDateTime(
+              context.read<SettingsCubit>().state.locale),
+          createdAt: DateTime.now(),
+        );
+      }
+    }
     setState(() => _bloc = DocumentBloc(document!, widget.path));
   }
 
