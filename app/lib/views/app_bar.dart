@@ -30,43 +30,53 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
         toolbarHeight: _height,
         title: BlocBuilder<DocumentBloc, DocumentState>(
             buildWhen: (previous, current) {
-          if (current is! DocumentLoadSuccess) return true;
-          return _nameController.text != current.document.name;
+          if (current is! DocumentLoadSuccess ||
+              previous is! DocumentLoadSuccess) return true;
+          return _nameController.text != current.document.name ||
+              previous.path != current.path;
         }, builder: (ctx, state) {
           Widget title;
           if (bloc.state is DocumentLoadSuccess) {
             var current = bloc.state as DocumentLoadSuccess;
             _nameController.text = current.document.name;
-            title =
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 500),
-                child: TextField(
-                  controller: _nameController,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline6,
-                  onChanged: (value) =>
-                      bloc.add(DocumentDescriptorChanged(name: value)),
-                  decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.untitled,
-                    hintStyle: Theme.of(context).textTheme.headline6,
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              if (current.path != null)
-                Text(
-                  current.path!,
-                  style: Theme.of(ctx).textTheme.caption,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                ),
-            ]);
+            title = Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 500),
+                      child: TextField(
+                        controller: _nameController,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline6,
+                        onChanged: (value) =>
+                            bloc.add(DocumentDescriptorChanged(name: value)),
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.untitled,
+                          hintStyle: Theme.of(context).textTheme.headline6,
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    if (current.path != null)
+                      Text(
+                        current.path!,
+                        style: Theme.of(ctx).textTheme.caption,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                  ]),
+            );
           } else {
             title = Text(AppLocalizations.of(ctx)!.loading);
           }
           if (isWindow()) {
-            title = SizedBox(height: _height, child: MoveWindow(child: title));
+            title = SizedBox(
+                height: _height,
+                child: MoveWindow(
+                  child: title,
+                ));
           }
           return title;
         }),
