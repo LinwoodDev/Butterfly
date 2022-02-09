@@ -187,5 +187,7 @@
     "untitled": "Sans titre",
     "createTemplate": "Créer un modèle",
     "createTemplateContent": "Voulez-vous vraiment créer un modèle à partir des éléments sélectionnés ? Le fichier original sera supprimé.",
-    "replace": "Replace"
+    "replace": "Replace",
+    "reallyReplace": "Do you really want to replace the template? This operation can be not undone!",
+    "defaultTemplate": "Default template"
 }
