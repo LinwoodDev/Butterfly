@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/file_system.dart';
 import '../bloc/document_bloc.dart';
@@ -21,11 +22,13 @@ class _TemplateDialogState extends State<TemplateDialog> {
   late TemplateFileSystem _fileSystem;
   late Future<List<DocumentTemplate>>? _templatesFuture;
   final TextEditingController _searchController = TextEditingController();
+  SharedPreferences? _prefs;
 
   @override
   void initState() {
     super.initState();
     _fileSystem = TemplateFileSystem.fromPlatform();
+    SharedPreferences.getInstance().then((value) => _prefs = value);
   }
 
   void load() {
@@ -67,7 +70,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                       if (snapshot.hasError) {
                         return Text(snapshot.error.toString());
                       }
-                      if (!snapshot.hasData) {
+                      if (!snapshot.hasData || _prefs == null) {
                         return const Center(child: CircularProgressIndicator());
                       }
                       var templates = snapshot.data!;
@@ -98,6 +101,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                     itemBuilder: (context, index) {
                                       var template = templates[index];
                                       return _TemplateItem(
+                                        prefs: _prefs!,
                                         template: template,
                                         document: widget.currentDocument,
                                         onChanged: () {
@@ -144,20 +148,39 @@ class _TemplateItem extends StatelessWidget {
   final AppDocument? document;
   final DocumentTemplate template;
   final VoidCallback onChanged;
+  final SharedPreferences prefs;
   const _TemplateItem(
       {Key? key,
       required this.template,
       required this.onChanged,
-      required this.document})
+      required this.document,
+      required this.prefs})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final isDefault = prefs.getString('default_template') == template.name;
     return ListTile(
       title: Text(template.name),
       subtitle: Text(template.description),
       trailing: PopupMenuButton(
         itemBuilder: (context) => [
+          PopupMenuItem(
+            padding: EdgeInsets.zero,
+            child: CheckboxListTile(
+                value: isDefault,
+                controlAffinity: ListTileControlAffinity.leading,
+                title: Text(AppLocalizations.of(context)!.defaultTemplate),
+                onChanged: (value) async {
+                  if (value ?? true) {
+                    prefs.setString('default_template', template.name);
+                  } else {
+                    prefs.remove('default_template');
+                  }
+                  Navigator.of(context).pop();
+                  onChanged();
+                }),
+          ),
           PopupMenuItem(
             padding: EdgeInsets.zero,
             child: ListTile(
@@ -195,11 +218,32 @@ class _TemplateItem extends StatelessWidget {
                   leading: const Icon(PhosphorIcons.clipboardLight),
                   title: Text(AppLocalizations.of(context)!.replace),
                   onTap: () async {
-                    if (document == null) return;
                     Navigator.of(context).pop();
-                    await TemplateFileSystem.fromPlatform()
-                        .updateTemplate(template.copyWith(document: document));
-                    onChanged();
+                    if (document == null) return;
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text(AppLocalizations.of(context)!.replace),
+                        content:
+                            Text(AppLocalizations.of(context)!.reallyReplace),
+                        actions: [
+                          TextButton(
+                              child: Text(AppLocalizations.of(context)!.no),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              }),
+                          TextButton(
+                              child: Text(AppLocalizations.of(context)!.yes),
+                              onPressed: () async {
+                                await TemplateFileSystem.fromPlatform()
+                                    .updateTemplate(
+                                        template.copyWith(document: document));
+                                Navigator.of(context).pop();
+                                onChanged();
+                              })
+                        ],
+                      ),
+                    );
                   })),
           PopupMenuItem(
               padding: EdgeInsets.zero,

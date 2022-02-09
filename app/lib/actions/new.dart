@@ -1,3 +1,4 @@
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editing.dart';
@@ -9,6 +10,7 @@ import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../dialogs/template.dart';
 
@@ -30,6 +32,7 @@ class NewAction extends Action<NewIntent> {
         createdAt: DateTime.now(),
         palettes: ColorPalette.getMaterialPalette(intent.context));
     var bloc = intent.context.read<DocumentBloc>();
+    var prefs = await SharedPreferences.getInstance();
     if (intent.fromTemplate) {
       var state = bloc.state;
       if (state is DocumentLoadSuccess) document = state.document;
@@ -50,7 +53,21 @@ class NewAction extends Action<NewIntent> {
                 ),
               )) as DocumentTemplate?;
       if (template == null) return;
-      document = template.document.copyWith();
+      document = template.document.copyWith(
+        name: await formatCurrentDateTime(
+            intent.context.read<SettingsCubit>().state.locale),
+        createdAt: DateTime.now(),
+      );
+    } else if (prefs.containsKey('default_template')) {
+      var template = await TemplateFileSystem.fromPlatform()
+          .getTemplate(prefs.getString('default_template')!);
+      if (template != null) {
+        document = template.document.copyWith(
+          name: await formatCurrentDateTime(
+              intent.context.read<SettingsCubit>().state.locale),
+          createdAt: DateTime.now(),
+        );
+      }
     }
 
     bloc.clearHistory();
