@@ -28,7 +28,6 @@ module.exports = {
                 'painters/eraser',
                 'painters/path_eraser',
                 'painters/label',
-                'painters/image',
                 'painters/layer'
             ]
         },
