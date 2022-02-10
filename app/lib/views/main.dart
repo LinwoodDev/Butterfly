@@ -7,6 +7,7 @@ import 'package:butterfly/actions/edit_mode.dart';
 import 'package:butterfly/actions/export.dart';
 import 'package:butterfly/actions/image_export.dart';
 import 'package:butterfly/actions/import.dart';
+import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/open.dart';
@@ -155,6 +156,9 @@ class _ProjectPageState extends State<ProjectPage> {
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
                   LayersIntent(context),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
+                  InsertIntent(context)
             },
             child: Actions(
                 actions: <Type, Action<Intent>>{
@@ -172,6 +176,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   ColorPaletteIntent: ColorPaletteAction(),
                   BackgroundIntent: BackgroundAction(),
                   LayersIntent: LayersAction(),
+                  InsertIntent: InsertAction()
                 },
                 child: ClipRect(
                   child: Builder(builder: (context) {

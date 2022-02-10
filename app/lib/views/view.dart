@@ -250,8 +250,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               },
                               onPointerUp: (PointerUpEvent event) async {
                                 var cubit = context.read<EditingCubit>();
-                                var transform =
-                                    context.read<TransformCubit>().state;
+                                var transformCubit =
+                                    context.read<TransformCubit>();
+                                var transform = transformCubit.state;
                                 _bake();
                                 if (cubit.isMoving) {
                                   cubit.moveTo(transform
@@ -311,16 +312,20 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                                 Widget? menu;
                                                 if (selection is LabelElement) {
                                                   menu = LabelElementDialog(
+                                                      position: event.position,
                                                       index: index,
                                                       close: close);
                                                 }
                                                 if (selection is ImageElement) {
                                                   menu = ImageElementDialog(
+                                                      position: event.position,
                                                       index: index,
                                                       close: close);
                                                 }
                                                 menu ??= GeneralElementDialog(
-                                                    index: index, close: close);
+                                                    position: event.position,
+                                                    index: index,
+                                                    close: close);
                                                 return MultiBlocProvider(
                                                     providers: [
                                                       BlocProvider.value(
@@ -330,6 +335,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                                               selectionCubit),
                                                       BlocProvider.value(
                                                           value: editingCubit),
+                                                      BlocProvider.value(
+                                                          value: transformCubit)
                                                     ],
                                                     child: menu);
                                               })

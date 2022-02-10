@@ -1,4 +1,5 @@
 import 'package:butterfly/actions/background.dart';
+import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
@@ -18,6 +19,15 @@ class BackgroundContextMenu extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
+        ListTile(
+          leading: const Icon(PhosphorIcons.plusLight),
+          title: Text(AppLocalizations.of(context)!.insert),
+          subtitle: Text(context.getShortcut('E')),
+          onTap: () {
+            close();
+            Actions.maybeInvoke<InsertIntent>(context, InsertIntent(context));
+          },
+        ),
         ListTile(
             leading: const Icon(PhosphorIcons.squaresFourLight),
             title: Text(AppLocalizations.of(context)!.layers),

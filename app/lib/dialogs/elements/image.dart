@@ -11,8 +11,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ImageElementDialog extends StatefulWidget {
   final int index;
   final VoidCallback close;
+  final Offset position;
 
-  const ImageElementDialog({Key? key, required this.index, required this.close})
+  const ImageElementDialog(
+      {Key? key,
+      required this.index,
+      required this.close,
+      required this.position})
       : super(key: key);
 
   @override
@@ -42,6 +47,7 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
     return GeneralElementDialog(
       close: widget.close,
       index: widget.index,
+      position: widget.position,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),

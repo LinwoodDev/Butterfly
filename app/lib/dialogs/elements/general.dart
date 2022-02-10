@@ -7,14 +7,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../cubits/transform.dart';
+import '../../widgets/context_menu.dart';
+import '../background/context.dart';
+
 class GeneralElementDialog extends StatelessWidget {
   final int index;
   final VoidCallback close;
+  final Offset position;
   final List<Widget> children;
 
   const GeneralElementDialog(
       {Key? key,
       this.children = const [],
+      required this.position,
       required this.index,
       required this.close})
       : super(key: key);
@@ -143,7 +149,30 @@ class GeneralElementDialog extends StatelessWidget {
                               ]));
                 },
                 title: Text(AppLocalizations.of(context)!.delete),
-                leading: const Icon(PhosphorIcons.trashLight))
+                leading: const Icon(PhosphorIcons.trashLight)),
+            const Divider(),
+            ListTile(
+              title: Text(AppLocalizations.of(context)!.document),
+              leading: const Icon(PhosphorIcons.fileLight),
+              onTap: () async {
+                var bloc = context.read<DocumentBloc>();
+                var transformCubit = context.read<TransformCubit>();
+                var actor = context.findAncestorWidgetOfExactType<Actions>();
+                showContextMenu(
+                    context: context,
+                    position: position,
+                    builder: (ctx, close) => MultiBlocProvider(
+                          providers: [
+                            BlocProvider.value(value: bloc),
+                            BlocProvider.value(value: transformCubit),
+                          ],
+                          child: Actions(
+                              actions: actor?.actions ?? {},
+                              child: BackgroundContextMenu(close: close)),
+                        ));
+                close();
+              },
+            ),
           ],
         ))
       ]);

@@ -11,8 +11,13 @@ import '../painters/label.dart';
 class LabelElementDialog extends StatelessWidget {
   final int index;
   final VoidCallback close;
+  final Offset position;
 
-  const LabelElementDialog({Key? key, required this.index, required this.close})
+  const LabelElementDialog(
+      {Key? key,
+      required this.index,
+      required this.close,
+      required this.position})
       : super(key: key);
 
   @override
@@ -23,6 +28,7 @@ class LabelElementDialog extends StatelessWidget {
     return GeneralElementDialog(
       index: index,
       close: close,
+      position: position,
       children: [
         ListTile(
             title: Text(AppLocalizations.of(context)!.edit),

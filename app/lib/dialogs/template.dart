@@ -187,6 +187,7 @@ class _TemplateItem extends StatelessWidget {
                 leading: const Icon(PhosphorIcons.textTLight),
                 title: Text(AppLocalizations.of(context)!.rename),
                 onTap: () async {
+                  Navigator.of(context).pop();
                   final TextEditingController _nameController =
                       TextEditingController(text: template.document.name);
                   await showDialog<String>(

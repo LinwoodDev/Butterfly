@@ -13,7 +13,6 @@
 [![Download](https://img.shields.io/github/downloads/LinwoodCloud/butterfly/total?color=EBB733&style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjZWJiNzMzIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHJlY3Qgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiIGZpbGw9Im5vbmUiPjwvcmVjdD48cG9seWxpbmUgcG9pbnRzPSI4NiAxMTAuMDExIDEyOCAxNTIgMTcwIDExMC4wMTEiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ViYjczMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjE2Ij48L3BvbHlsaW5lPjxsaW5lIHgxPSIxMjgiIHkxPSI0MCIgeDI9IjEyOCIgeTI9IjE1MS45NzA1NyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZWJiNzMzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMTYiPjwvbGluZT48cGF0aCBkPSJNMjE2LDE1MnY1NmE4LDgsMCwwLDEtOCw4SDQ4YTgsOCwwLDAsMS04LThWMTUyIiBmaWxsPSJub25lIiBzdHJva2U9IiNlYmI3MzMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxNiI+PC9wYXRoPjwvc3ZnPg==)](https://docs.butterfly.linwood.dev/downloads)
 </div>
 
-
 <p align="center">
     <a href="http://docs.butterfly.linwood.dev"><b>Website</b></a> •
     <a href="http://docs.butterfly.linwood.dev/downloads"><b>Download</b></a> •
@@ -22,14 +21,12 @@
     <a href="CONTRIBUTING.md"><b>Contribute</b></a>
 </p>  
 
-
 ---
 
 Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device. This app works on android, windows, linux and in the web.
-    
+
 ## Features
 
-   
 * **⚡ Simple and intuitive** Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.
 * **🎨 Customizable** Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
 * **💻 Your data will be saved locally**. Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.
@@ -38,19 +35,17 @@ Butterfly is a note app where your ideas come first. You can paint, add texts an
     <img src="./docs/docs/main.png" width="50%" />
 </p>
 
-----
+---
 
 ## Comparison
 
-| Name                             | ⚡ Butterfly ⚡ | OneNote                                             |
-|----------------------------------|---------------|-----------------------------------------------------|
-| Add text, draw, erase            | ✅             | ✅                                                   |
-| Organizing your ideas in folders | ✅             | ✅                                                   |
-| Web version                      | ✅             | ✅                                                   |
+| Name                             | ⚡ Butterfly ⚡ | OneNote                                            |
+| -------------------------------- | ------------- | -------------------------------------------------- |
+| Add text, draw, erase            | ✅             | ✅                                                  |
+| Organizing your ideas in folders | ✅             | ✅                                                  |
+| Web version                      | ✅             | ✅                                                  |
 | Free                             | ✅             | ⚠️ (Basic version is free)                          |
 | Offline support                  | ✅             | ⚠️ (Only supports offline mode in the windows app)  |
 | Image export                     | ✅             | ⚠️ (Only supports printing)                         |
 | Infinite drawing board           | ✅             | ⚠️ (Only supports moving in the positive direction) |
-| Cross platform                   | ✅             | ❌                                                   |
-
-
+| Cross platform                   | ✅             | ❌                                                  |
