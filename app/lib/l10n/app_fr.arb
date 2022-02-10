@@ -189,5 +189,7 @@
     "createTemplateContent": "Voulez-vous vraiment créer un modèle à partir des éléments sélectionnés ? Le fichier original sera supprimé.",
     "replace": "Replace",
     "reallyReplace": "Do you really want to replace the template? This operation can be not undone!",
-    "defaultTemplate": "Default template"
+    "defaultTemplate": "Default template",
+    "insert": "Insert",
+    "document": "Document"
 }
