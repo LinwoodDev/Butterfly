@@ -158,7 +158,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   LayersIntent(context),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
-                  InsertIntent(context)
+                  InsertIntent(context, Offset.zero)
             },
             child: Actions(
                 actions: <Type, Action<Intent>>{

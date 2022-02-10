@@ -15,6 +15,8 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
+import '../models/elements/image.dart';
+
 part 'document_event.dart';
 part 'document_state.dart';
 
@@ -277,12 +279,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             .toList();
       }
 
-      ViewPainter(current.document,
-              elements: elements,
-              transform: event.cameraTransform,
-              bakedViewport: reset ? null : last,
-              renderBackground: false)
-          .paint(canvas, event.viewportSize);
+      var images = Map<ImageElement, ui.Image>.from(last?.images ?? {});
+      // Bake images if not baked yet
+      for (var element in elements) {
+        if (element is ImageElement && !images.containsKey(element)) {
+          images[element] = await loadImage(element);
+        }
+      }
+
+      ViewPainter(
+        current.document,
+        elements: elements,
+        transform: event.cameraTransform,
+        bakedViewport: reset ? null : last,
+        renderBackground: false,
+        images: images,
+      ).paint(canvas, event.viewportSize);
 
       var picture = recorder.endRecording();
       var newImage =

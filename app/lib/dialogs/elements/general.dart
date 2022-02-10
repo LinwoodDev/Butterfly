@@ -168,7 +168,10 @@ class GeneralElementDialog extends StatelessWidget {
                           ],
                           child: Actions(
                               actions: actor?.actions ?? {},
-                              child: BackgroundContextMenu(close: close)),
+                              child: BackgroundContextMenu(
+                                close: close,
+                                position: position,
+                              )),
                         ));
                 close();
               },

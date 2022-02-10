@@ -4,14 +4,18 @@ import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../actions/color_palette.dart';
+import '../../cubits/transform.dart';
 
 class BackgroundContextMenu extends StatelessWidget {
   final VoidCallback close;
-  const BackgroundContextMenu({Key? key, required this.close})
+  final Offset position;
+  const BackgroundContextMenu(
+      {Key? key, required this.close, required this.position})
       : super(key: key);
 
   @override
@@ -24,8 +28,12 @@ class BackgroundContextMenu extends StatelessWidget {
           title: Text(AppLocalizations.of(context)!.insert),
           subtitle: Text(context.getShortcut('E')),
           onTap: () {
+            var transformCubit = context.read<TransformCubit>();
             close();
-            Actions.maybeInvoke<InsertIntent>(context, InsertIntent(context));
+            Actions.maybeInvoke<InsertIntent>(
+                context,
+                InsertIntent(
+                    context, transformCubit.state.localToGlobal(position)));
           },
         ),
         ListTile(

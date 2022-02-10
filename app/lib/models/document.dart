@@ -8,7 +8,6 @@ import 'elements/image.dart';
 import 'elements/label.dart';
 import 'elements/pen.dart';
 import 'painters/eraser.dart';
-import 'painters/image.dart';
 import 'painters/label.dart';
 import 'painters/layer.dart';
 import 'painters/painter.dart';
@@ -83,7 +82,6 @@ class AppDocument {
         PenPainter(),
         EraserPainter(),
         LabelPainter(),
-        ImagePainter()
       ]})
       : updatedAt = updatedAt ?? createdAt;
 
@@ -119,36 +117,40 @@ class AppDocument {
         Map<String, dynamic>.from(json['handProperty'] ?? {}));
     var painters = List<dynamic>.from(json['painters'] ?? [])
         .map((e) => Map<String, dynamic>.from(e))
-        .map<Painter>((e) {
-      switch (e['type']) {
-        case 'eraser':
-          return EraserPainter.fromJson(e, version);
-        case 'path-eraser':
-          return PathEraserPainter.fromJson(e, version);
-        case 'label':
-          return LabelPainter.fromJson(e, version);
-        case 'image':
-          return ImagePainter.fromJson(e, version);
-        case 'layer':
-          return LayerPainter.fromJson(e, version);
-        default:
-          return PenPainter.fromJson(e, version);
-      }
-    }).toList();
+        .map<Painter?>((e) {
+          switch (e['type']) {
+            case 'eraser':
+              return EraserPainter.fromJson(e, version);
+            case 'path-eraser':
+              return PathEraserPainter.fromJson(e, version);
+            case 'label':
+              return LabelPainter.fromJson(e, version);
+            case 'layer':
+              return LayerPainter.fromJson(e, version);
+            case 'pen':
+              return PenPainter.fromJson(e, version);
+          }
+          return null;
+        })
+        .whereType<Painter>()
+        .toList();
     var content = List<dynamic>.from(json['content'])
         .map((e) => Map<String, dynamic>.from(e))
-        .map<PadElement>((e) {
-      switch (e['type']) {
-        case 'label':
-          return LabelElement.fromJson(e, version);
-        case 'eraser':
-          return EraserElement.fromJson(e, version);
-        case 'image':
-          return ImageElement.fromJson(e, version);
-        default:
-          return PenElement.fromJson(e, version);
-      }
-    }).toList();
+        .map<PadElement?>((e) {
+          switch (e['type']) {
+            case 'label':
+              return LabelElement.fromJson(e, version);
+            case 'eraser':
+              return EraserElement.fromJson(e, version);
+            case 'image':
+              return ImageElement.fromJson(e, version);
+            case 'paint':
+              return PenElement.fromJson(e, version);
+          }
+          return null;
+        })
+        .whereType<PadElement>()
+        .toList();
     var createdAt =
         DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now();
     var updatedAt = DateTime.tryParse(json['updatedAt'] ?? '') ?? createdAt;

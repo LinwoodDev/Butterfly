@@ -54,17 +54,15 @@ class ForegroundPainter extends CustomPainter {
       paintElement(canvas, element.value, {}, true);
     }
     if (selection != null) {
+      /*
       final minX =
           -transform.position.dx + 20 / ((transform.size - 1) / 1.5 + 1);
       final maxX = minX + size.width / transform.size - 40 / transform.size;
       final minY = -transform.position.dy + 20;
       final maxY = minY + size.height / transform.size - 40 / transform.size;
+      */
       var rect = selection!.rect;
-      rect = Rect.fromLTRB(
-          rect.left.clamp(minX, maxX),
-          rect.top.clamp(minY, maxY),
-          rect.right.clamp(minX, maxX),
-          rect.bottom.clamp(minY, maxY));
+      rect = Rect.fromLTRB(rect.left, rect.top, rect.right, rect.bottom);
       canvas.drawRRect(
           RRect.fromRectAndRadius(rect.inflate(5), const Radius.circular(5)),
           Paint()
@@ -111,8 +109,7 @@ class ViewPainter extends CustomPainter {
       this.elements = const [],
       this.bakedViewport,
       this.transform = const CameraTransform(),
-      Map<PadElement, ui.Image>? images})
-      : images = images ?? <PadElement, ui.Image>{};
+      this.images = const {}});
 
   @override
   void paint(Canvas canvas, Size size) {

@@ -1,7 +1,3 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/cubits/selection.dart';
@@ -17,19 +13,15 @@ import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/models/elements/image.dart';
 import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/elements/path.dart';
-import 'package:butterfly/models/painters/image.dart';
 import 'package:butterfly/models/painters/label.dart';
 import 'package:butterfly/models/painters/layer.dart';
 import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/painters/path_eraser.dart';
 import 'package:butterfly/models/painters/pen.dart';
 import 'package:butterfly/widgets/context_menu.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../view_painter.dart';
 
@@ -65,7 +57,6 @@ List<int> _executeRayCast(_RayCastParams params) {
 }
 
 class _MainViewViewportState extends State<MainViewViewport> {
-  Map<PadElement, ui.Image> images = {};
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
 
@@ -148,41 +139,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   MediaQuery.of(context).devicePixelRatio,
                                   transform));
                           }
-                        }
-                        if (state.currentPainter is ImagePainter) {
-                          await FilePicker.platform
-                              .pickFiles(
-                                  type: FileType.image,
-                                  allowMultiple: false,
-                                  withData: true)
-                              .then((files) async {
-                            if (files?.files.isEmpty ?? true) return;
-                            var e = files!.files.first;
-                            var content = e.bytes ?? Uint8List(0);
-                            if (!kIsWeb) {
-                              content = File(e.path ?? '').readAsBytesSync();
-                            }
-                            var codec = await ui.instantiateImageCodec(content,
-                                targetWidth: 500);
-                            var frame = await codec.getNextFrame();
-                            var image = frame.image.clone();
-
-                            var bytes = await image.toByteData(
-                                format: ui.ImageByteFormat.png);
-                            context.read<DocumentBloc>()
-                              ..add(ElementCreated(ImageElement(
-                                  height: image.height,
-                                  width: image.width,
-                                  layer: state.currentLayer,
-                                  pixels: bytes?.buffer.asUint8List() ??
-                                      Uint8List(0),
-                                  position:
-                                      transform.localToGlobal(localPosition))))
-                              ..add(ImageBaked(
-                                  constraints.biggest,
-                                  MediaQuery.of(context).devicePixelRatio,
-                                  transform));
-                          });
                         }
                       }
 
@@ -305,6 +261,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                       if (selection == null) return;
                                       var index = state.document.content
                                           .indexOf(selection);
+                                      var actor =
+                                          context.findAncestorWidgetOfExactType<
+                                              Actions>();
                                       showContextMenu(
                                               context: context,
                                               position: event.position,
@@ -338,7 +297,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                                       BlocProvider.value(
                                                           value: transformCubit)
                                                     ],
-                                                    child: menu);
+                                                    child: Actions(
+                                                        actions:
+                                                            actor?.actions ??
+                                                                {},
+                                                        child: menu));
                                               })
                                           .then((value) => context
                                               .read<SelectionCubit>()
@@ -392,6 +355,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                                           ?.actions ??
                                                       {},
                                                   child: BackgroundContextMenu(
+                                                      position: event.position,
                                                       close: close)),
                                             ));
                                   }
@@ -478,79 +442,33 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   }
                                 }
                               },
-                              child: FutureBuilder<Map<PadElement, ui.Image>>(
-                                future: loadImages(state.document, images),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    images = snapshot.data!;
-                                  } else if (kIsWeb) {
-                                    return Align(
-                                        alignment: Alignment.center,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Column(children: [
-                                            const Padding(
-                                              padding: EdgeInsets.all(8.0),
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            ),
-                                            Text(
-                                              AppLocalizations.of(context)!
-                                                  .loading,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .subtitle1,
-                                            )
-                                          ]),
-                                        ));
-                                  }
-                                  return BlocBuilder<TransformCubit,
-                                      CameraTransform>(
-                                    builder: (context, transform) {
-                                      return Stack(children: [
-                                        Container(color: Colors.white),
-                                        BlocBuilder<EditingCubit,
-                                            Map<int, PadElement>>(
-                                          builder: (context, editing) =>
-                                              BlocBuilder<SelectionCubit,
-                                                      PadElement?>(
-                                                  builder:
-                                                      (context, selection) {
-                                            return CustomPaint(
-                                              size: Size.infinite,
-                                              foregroundPainter:
-                                                  ForegroundPainter(editing,
-                                                      transform, selection),
-                                              painter: ViewPainter(
-                                                  state.document,
-                                                  elements: state.elements,
-                                                  bakedViewport:
-                                                      state.bakedViewport,
-                                                  transform: transform,
-                                                  images: images),
-                                              isComplex: true,
-                                              willChange: true,
-                                            );
-                                          }),
-                                        ),
-                                        if (snapshot.connectionState ==
-                                                ConnectionState.waiting &&
-                                            images.isEmpty &&
-                                            !kIsWeb)
-                                          Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Container(
-                                                margin: const EdgeInsets.all(8),
-                                                child:
-                                                    const CircularProgressIndicator(
-                                                  strokeWidth: 2,
-                                                ),
-                                                height: 20.0,
-                                                width: 20.0,
-                                              )),
-                                      ]);
-                                    },
-                                  );
+                              child:
+                                  BlocBuilder<TransformCubit, CameraTransform>(
+                                builder: (context, transform) {
+                                  return Stack(children: [
+                                    Container(color: Colors.white),
+                                    BlocBuilder<EditingCubit,
+                                        Map<int, PadElement>>(
+                                      builder: (context, editing) =>
+                                          BlocBuilder<SelectionCubit,
+                                                  PadElement?>(
+                                              builder: (context, selection) {
+                                        return CustomPaint(
+                                          size: Size.infinite,
+                                          foregroundPainter: ForegroundPainter(
+                                              editing, transform, selection),
+                                          painter: ViewPainter(
+                                            state.document,
+                                            elements: state.elements,
+                                            bakedViewport: state.bakedViewport,
+                                            transform: transform,
+                                          ),
+                                          isComplex: true,
+                                          willChange: true,
+                                        );
+                                      }),
+                                    ),
+                                  ]);
                                 },
                               )));
                     }))));

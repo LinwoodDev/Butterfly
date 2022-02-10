@@ -1,9 +1,11 @@
 import 'dart:ui' as ui;
 
 import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/elements/image.dart';
 
 class BakedViewport {
   final ui.Image image;
+  final Map<ImageElement, ui.Image> images;
   final List<PadElement> unbakedElements;
   final int width, height;
   final double scale;
@@ -14,6 +16,7 @@ class BakedViewport {
       {required this.image,
       required this.width,
       required this.height,
+      this.images = const {},
       this.unbakedElements = const [],
       this.scale = 1,
       this.x = 0,

@@ -1,13 +1,11 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/hand.dart';
 import 'package:butterfly/dialogs/painters/eraser.dart';
-import 'package:butterfly/dialogs/painters/image.dart';
 import 'package:butterfly/dialogs/painters/label.dart';
 import 'package:butterfly/dialogs/painters/layer.dart';
 import 'package:butterfly/dialogs/painters/path_eraser.dart';
 import 'package:butterfly/dialogs/painters/pen.dart';
 import 'package:butterfly/models/painters/eraser.dart';
-import 'package:butterfly/models/painters/image.dart';
 import 'package:butterfly/models/painters/label.dart';
 import 'package:butterfly/models/painters/layer.dart';
 import 'package:butterfly/models/painters/painter.dart';
@@ -152,9 +150,6 @@ class EditToolbar extends StatelessWidget {
                                         case 'label':
                                           return LabelPainterDialog(
                                               bloc: bloc, painterIndex: i);
-                                        case 'image':
-                                          return ImagePainterDialog(
-                                              bloc: bloc, painterIndex: i);
                                         case 'layer':
                                           return LayerPainterDialog(
                                               bloc: bloc, painterIndex: i);
@@ -203,8 +198,7 @@ class EditToolbar extends StatelessWidget {
                                     'eraser',
                                     'path-eraser',
                                     'label',
-                                    'layer',
-                                    'image'
+                                    'layer'
                                   ].map((e) {
                                     final Painter painter;
                                     String name;
@@ -226,12 +220,6 @@ class EditToolbar extends StatelessWidget {
                                         painter = LabelPainter();
                                         name =
                                             AppLocalizations.of(context)!.label;
-                                        break;
-                                      case 'image':
-                                        // ignore: prefer_const_constructors
-                                        painter = ImagePainter();
-                                        name =
-                                            AppLocalizations.of(context)!.image;
                                         break;
                                       case 'layer':
                                         // ignore: prefer_const_constructors
