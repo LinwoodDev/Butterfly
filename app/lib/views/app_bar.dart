@@ -28,58 +28,79 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
     var bloc = context.read<DocumentBloc>();
     return AppBar(
         toolbarHeight: _height,
-        title: BlocBuilder<DocumentBloc, DocumentState>(
-            buildWhen: (previous, current) {
-          if (current is! DocumentLoadSuccess ||
-              previous is! DocumentLoadSuccess) return true;
-          return _nameController.text != current.document.name ||
-              previous.path != current.path;
-        }, builder: (ctx, state) {
-          Widget title;
-          if (bloc.state is DocumentLoadSuccess) {
-            var current = bloc.state as DocumentLoadSuccess;
-            _nameController.text = current.document.name;
-            title = Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 500),
-                      child: TextField(
-                        controller: _nameController,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline6,
-                        onChanged: (value) =>
-                            bloc.add(DocumentDescriptorChanged(name: value)),
-                        decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context)!.untitled,
-                          hintStyle: Theme.of(context).textTheme.headline6,
-                          border: InputBorder.none,
+        title: SizedBox(
+          height: _height,
+          child: BlocBuilder<DocumentBloc, DocumentState>(
+              buildWhen: (previous, current) {
+            if (current is! DocumentLoadSuccess ||
+                previous is! DocumentLoadSuccess) return true;
+            return _nameController.text != current.document.name ||
+                previous.path != current.path;
+          }, builder: (ctx, state) {
+            Widget title;
+            if (bloc.state is DocumentLoadSuccess) {
+              var current = bloc.state as DocumentLoadSuccess;
+              _nameController.text = current.document.name;
+              var titleEdit = false;
+              var titleFocus = FocusNode();
+              title = StatefulBuilder(
+                builder: (context, setState) => Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          setState(() => titleEdit = true);
+
+                          FocusScope.of(context).requestFocus(titleFocus);
+                        },
+                        child: Focus(
+                          onFocusChange: (value) {
+                            if (!value) setState(() => titleEdit = false);
+                          },
+                          autofocus: titleEdit,
+                          child: IgnorePointer(
+                            ignoring: !titleEdit,
+                            child: TextField(
+                              controller: _nameController,
+                              textAlign: TextAlign.center,
+                              focusNode: titleFocus,
+                              style: Theme.of(context).textTheme.headline6,
+                              onChanged: (value) => bloc
+                                  .add(DocumentDescriptorChanged(name: value)),
+                              decoration: InputDecoration(
+                                hintText:
+                                    AppLocalizations.of(context)!.untitled,
+                                hintStyle:
+                                    Theme.of(context).textTheme.headline6,
+                                border: InputBorder.none,
+                                constraints:
+                                    const BoxConstraints(maxWidth: 500),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                    if (current.path != null)
-                      Text(
-                        current.path!,
-                        style: Theme.of(ctx).textTheme.caption,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                  ]),
-            );
-          } else {
-            title = Text(AppLocalizations.of(ctx)!.loading);
-          }
-          if (isWindow()) {
-            title = SizedBox(
-                height: _height,
-                child: MoveWindow(
-                  child: title,
-                ));
-          }
-          return title;
-        }),
+                      if (current.path != null)
+                        Text(
+                          current.path!,
+                          style: Theme.of(ctx).textTheme.caption,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                    ]),
+              );
+            } else {
+              title = Text(AppLocalizations.of(ctx)!.loading);
+            }
+            if (isWindow()) {
+              title = MoveWindow(
+                child: title,
+              );
+            }
+            return title;
+          }),
+        ),
         actions: [
           IconButton(
             icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),

@@ -1,9 +1,12 @@
+import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/api/open_image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/elements/element.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,12 +87,13 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   Future<ByteData?> generateImage() async {
     var recorder = ui.PictureRecorder();
     var canvas = Canvas(recorder);
-    var document = (widget.bloc.state as DocumentLoadSuccess).document;
+    var current = widget.bloc.state as DocumentLoadSuccess;
+    var document = current.document;
     images ??= await loadImages(document);
-    var painter = ViewPainter(
-        (widget.bloc.state as DocumentLoadSuccess).document,
+    var painter = ViewPainter(current.document,
         renderBackground: _renderBackground,
         images: images!,
+        elements: current.document.content,
         transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), scale));
     painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
     var picture = recorder.endRecording();
@@ -156,7 +160,27 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                               if (data == null) {
                                 return;
                               }
-                              openImage(data.buffer.asUint8List());
+
+                              if (!kIsWeb &&
+                                  (Platform.isWindows ||
+                                      Platform.isLinux ||
+                                      Platform.isMacOS)) {
+                                var path = await FilePicker.platform.saveFile(
+                                  type: FileType.image,
+                                  dialogTitle:
+                                      AppLocalizations.of(context)!.export,
+                                );
+                                if (path != null) {
+                                  var file = File(path);
+                                  if (!(await file.exists())) {
+                                    file.create(recursive: true);
+                                  }
+                                  await file
+                                      .writeAsBytes(data.buffer.asUint8List());
+                                }
+                              } else {
+                                openImage(data.buffer.asUint8List());
+                              }
                               Navigator.of(context).pop();
                             },
                           ),
