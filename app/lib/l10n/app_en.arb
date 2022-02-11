@@ -191,5 +191,7 @@
   "reallyReplace": "Do you really want to replace the template? This operation can be not undone!",
   "defaultTemplate": "Default template",
   "insert": "Insert",
-  "document": "Document"
+  "document": "Document",
+  "camera": "Camera",
+  "printout": "Printout"
 }

@@ -79,6 +79,18 @@ class _InsertDialogState extends State<InsertDialog> {
                 position: widget.position));
           },
         ),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.camera),
+          leading: const Icon(PhosphorIcons.cameraLight),
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.printout),
+          leading: const Icon(PhosphorIcons.fileLight),
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.document),
+          leading: const Icon(PhosphorIcons.arrowSquareInLight),
+        ),
       ]),
       actions: [
         TextButton(
