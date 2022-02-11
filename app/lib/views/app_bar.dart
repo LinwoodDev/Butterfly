@@ -38,9 +38,8 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                 previous.path != current.path;
           }, builder: (ctx, state) {
             Widget title;
-            if (bloc.state is DocumentLoadSuccess) {
-              var current = bloc.state as DocumentLoadSuccess;
-              _nameController.text = current.document.name;
+            if (state is DocumentLoadSuccess) {
+              _nameController.text = state.document.name;
               var titleEdit = false;
               var titleFocus = FocusNode();
               title = StatefulBuilder(
@@ -53,6 +52,9 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                           setState(() => titleEdit = true);
 
                           FocusScope.of(context).requestFocus(titleFocus);
+                          _nameController.selection =
+                              TextSelection.fromPosition(TextPosition(
+                                  offset: _nameController.text.length));
                         },
                         child: Focus(
                           onFocusChange: (value) {
@@ -66,8 +68,10 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                               textAlign: TextAlign.center,
                               focusNode: titleFocus,
                               style: Theme.of(context).textTheme.headline6,
-                              onChanged: (value) => bloc
-                                  .add(DocumentDescriptorChanged(name: value)),
+                              onChanged: (value) {
+                                bloc.add(
+                                    DocumentDescriptorChanged(name: value));
+                              },
                               decoration: InputDecoration(
                                 hintText:
                                     AppLocalizations.of(context)!.untitled,
@@ -81,9 +85,9 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                           ),
                         ),
                       ),
-                      if (current.path != null)
+                      if (state.path != null)
                         Text(
-                          current.path!,
+                          state.path!,
                           style: Theme.of(ctx).textTheme.caption,
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,

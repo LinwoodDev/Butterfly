@@ -78,12 +78,7 @@ class _ProjectPageState extends State<ProjectPage> {
       await fileSystem.getAsset(widget.path!).then(
           (value) => document = value is AppDocumentFile ? value.load() : null);
     }
-    document ??= AppDocument(
-        name: await formatCurrentDateTime(
-            context.read<SettingsCubit>().state.locale),
-        createdAt: DateTime.now(),
-        palettes: ColorPalette.getMaterialPalette(context));
-    if (prefs.containsKey('default_template')) {
+    if (document == null && prefs.containsKey('default_template')) {
       var template = await TemplateFileSystem.fromPlatform()
           .getTemplate(prefs.getString('default_template')!);
       if (template != null) {
@@ -94,6 +89,12 @@ class _ProjectPageState extends State<ProjectPage> {
         );
       }
     }
+    document ??= AppDocument(
+        name: await formatCurrentDateTime(
+            context.read<SettingsCubit>().state.locale),
+        createdAt: DateTime.now(),
+        palettes: ColorPalette.getMaterialPalette(context));
+
     setState(() => _bloc = DocumentBloc(document!, widget.path));
   }
 
