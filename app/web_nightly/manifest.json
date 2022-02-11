@@ -5,7 +5,7 @@
   "display": "standalone",
   "background_color": "#18191a",
   "theme_color": "#0175C2",
-  "description":"🎨 Notes app that changes the world 🎨",
+  "description":"🎨 Notes that change the world 🎨",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "icons": [
