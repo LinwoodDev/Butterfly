@@ -28,6 +28,26 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
     var bloc = context.read<DocumentBloc>();
     return AppBar(
         toolbarHeight: _height,
+        leadingWidth: 90,
+        leading: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+              icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
+              tooltip: AppLocalizations.of(context)!.undo,
+              onPressed: () {
+                Actions.maybeInvoke<UndoIntent>(context, UndoIntent(context));
+              },
+            ),
+            IconButton(
+              icon: const Icon(PhosphorIcons.arrowClockwiseLight),
+              tooltip: AppLocalizations.of(context)!.redo,
+              onPressed: () {
+                Actions.maybeInvoke<RedoIntent>(context, RedoIntent(context));
+              },
+            ),
+          ],
+        ),
         title: SizedBox(
           height: _height,
           child: BlocBuilder<DocumentBloc, DocumentState>(
@@ -106,20 +126,6 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
           }),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
-            tooltip: AppLocalizations.of(context)!.undo,
-            onPressed: () {
-              Actions.maybeInvoke<UndoIntent>(context, UndoIntent(context));
-            },
-          ),
-          IconButton(
-            icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-            tooltip: AppLocalizations.of(context)!.redo,
-            onPressed: () {
-              Actions.maybeInvoke<RedoIntent>(context, RedoIntent(context));
-            },
-          ),
           const _MainPopupMenu(),
           if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
         ]);
