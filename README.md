@@ -22,6 +22,7 @@
 </p>  
 
 ---
+❗ **Important note: In the next version of Butterfly (1.2) the app will need an android version higher than 5.0 (Lollipop). Please keep this in mind if you want to use the app in the future!** ❗
 
 Butterfly is a note app where your ideas come first. You can paint, add texts, and export them easily on every device. This app works on android, windows, linux, and in the web.
 

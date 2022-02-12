@@ -1,0 +1,10 @@
+* Add baking of the viewport ([#89](https://github.com/LinwoodCloud/Butterfly/issues/89))
+* Add templates dialogs and presets
+* Add insert dialog to add simplification of the user interface
+  * Add image insert
+  * Add camera insert
+* Add sensitive settings
+* Add background presets
+* Add document name editing in the appbar
+* Remove image painter in favor of the insert dialog
+* Use minSdkVersion 21 instead of 16 (The minimum version of android is 5.0 (Lollipop))

@@ -13,13 +13,61 @@ class CameraDialog extends StatefulWidget {
   _CameraDialogState createState() => _CameraDialogState();
 }
 
-class _CameraDialogState extends State<CameraDialog> {
+class _CameraDialogState extends State<CameraDialog>
+    with WidgetsBindingObserver {
   CameraController? _controller;
 
   @override
   void dispose() {
     _controller?.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // App state changed before we got the chance to initialize.
+    if (!(_controller?.value.isInitialized ?? false)) {
+      return;
+    }
+    if (state == AppLifecycleState.inactive) {
+      _controller?.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      if (_controller != null) {
+        onNewCameraSelected(_controller!.description);
+      }
+    }
+  }
+
+  void onNewCameraSelected(CameraDescription description) {
+    _controller?.dispose();
+    _controller = CameraController(
+      description,
+      ResolutionPreset.high,
+    );
+
+    // If the controller is updated then update the UI.
+    _controller!.addListener(() {
+      if (mounted) {
+        setState(() {});
+      }
+      if (_controller!.value.hasError) {
+        if (kDebugMode) {
+          print('Camera error ${_controller!.value.errorDescription}');
+        }
+      }
+    });
+
+    try {
+      _controller!.initialize().then((_) {
+        if (mounted) {
+          setState(() {});
+        }
+      });
+    } on CameraException catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
   }
 
   Widget _buildCameraToggles(List<CameraDescription> cameras) =>
@@ -49,7 +97,7 @@ class _CameraDialogState extends State<CameraDialog> {
           _controller?.dispose();
           _controller = CameraController(camera, ResolutionPreset.high);
           await _controller!.initialize();
-          if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
+          if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
             await _controller!.startImageStream((image) {
               setState(() {});
             });
@@ -61,7 +109,7 @@ class _CameraDialogState extends State<CameraDialog> {
   Widget _buildCameraPreview() => _controller != null
       ? Builder(builder: (context) {
           return Container(
-              child: (kIsWeb || Platform.isAndroid || Platform.isIOS)
+              child: (!kIsWeb && (Platform.isAndroid || Platform.isIOS))
                   ? AspectRatio(
                       aspectRatio: _controller!.value.aspectRatio,
                       child: CameraPreview(_controller!),
