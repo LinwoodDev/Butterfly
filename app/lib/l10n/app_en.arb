@@ -193,5 +193,6 @@
   "insert": "Insert",
   "document": "Document",
   "camera": "Camera",
-  "printout": "Printout"
+  "printout": "Printout",
+  "selectCamera": "Select a camera"
 }

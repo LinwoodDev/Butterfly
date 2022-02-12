@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/dialogs/camera.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -79,18 +80,35 @@ class _InsertDialogState extends State<InsertDialog> {
                 position: widget.position));
           },
         ),
-        ListTile(
-          title: Text(AppLocalizations.of(context)!.camera),
-          leading: const Icon(PhosphorIcons.cameraLight),
-        ),
-        ListTile(
-          title: Text(AppLocalizations.of(context)!.printout),
-          leading: const Icon(PhosphorIcons.fileLight),
-        ),
-        ListTile(
-          title: Text(AppLocalizations.of(context)!.document),
-          leading: const Icon(PhosphorIcons.arrowSquareInLight),
-        ),
+        if (kIsWeb ||
+            Platform.isWindows ||
+            Platform.isAndroid ||
+            Platform.isIOS)
+          ListTile(
+              title: Text(AppLocalizations.of(context)!.camera),
+              leading: const Icon(PhosphorIcons.cameraLight),
+              onTap: () async {
+                var content = await Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const CameraDialog()),
+                ) as Uint8List?;
+                if (content == null) return;
+                var codec =
+                    await ui.instantiateImageCodec(content, targetWidth: 500);
+                var frame = await codec.getNextFrame();
+                var image = frame.image.clone();
+
+                var bytes =
+                    await image.toByteData(format: ui.ImageByteFormat.png);
+                var bloc = context.read<DocumentBloc>();
+                var state = bloc.state;
+                if (state is! DocumentLoadSuccess) return;
+                _submit(ImageElement(
+                    height: image.height,
+                    width: image.width,
+                    layer: state.currentLayer,
+                    pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
+                    position: widget.position));
+              }),
       ]),
       actions: [
         TextButton(

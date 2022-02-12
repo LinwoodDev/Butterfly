@@ -43,6 +43,8 @@ dependencies:
   animations: ^2.0.2
   collection: ^1.15.0
   bloc_concurrency: ^0.2.0
+  camera: ^0.9.4+11
+  camera_windows: ^0.1.0
 
 dev_dependencies:
   flutter_native_splash: ^2.0.2

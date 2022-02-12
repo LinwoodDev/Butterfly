@@ -81,7 +81,7 @@ class _ProjectPageState extends State<ProjectPage> {
     if (document == null && prefs.containsKey('default_template')) {
       var template = await TemplateFileSystem.fromPlatform()
           .getTemplate(prefs.getString('default_template')!);
-      if (template != null) {
+      if (template != null && mounted) {
         document = template.document.copyWith(
           name: await formatCurrentDateTime(
               context.read<SettingsCubit>().state.locale),
@@ -89,13 +89,16 @@ class _ProjectPageState extends State<ProjectPage> {
         );
       }
     }
-    document ??= AppDocument(
-        name: await formatCurrentDateTime(
-            context.read<SettingsCubit>().state.locale),
-        createdAt: DateTime.now(),
-        palettes: ColorPalette.getMaterialPalette(context));
-
-    setState(() => _bloc = DocumentBloc(document!, widget.path));
+    if (mounted) {
+      document ??= AppDocument(
+          name: await formatCurrentDateTime(
+              context.read<SettingsCubit>().state.locale),
+          createdAt: DateTime.now(),
+          palettes: ColorPalette.getMaterialPalette(context));
+    }
+    if (document != null) {
+      setState(() => _bloc = DocumentBloc(document!, widget.path));
+    }
   }
 
   @override

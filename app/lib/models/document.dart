@@ -1,3 +1,5 @@
+import 'package:butterfly/models/properties/label.dart';
+import 'package:butterfly/models/properties/pen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -80,8 +82,24 @@ class AppDocument {
       DateTime? updatedAt,
       this.painters = const [
         PenPainter(),
-        EraserPainter(),
+        PathEraserPainter(),
         LabelPainter(),
+      ]})
+      : updatedAt = updatedAt ?? createdAt;
+  const AppDocument.dark(
+      {required this.name,
+      this.description = '',
+      this.content = const [],
+      this.background = const BoxBackground(),
+      this.palettes = const [],
+      this.waypoints = const [],
+      required this.createdAt,
+      this.handProperty = const HandProperty(),
+      DateTime? updatedAt,
+      this.painters = const [
+        PenPainter(property: PenProperty(color: Colors.white)),
+        PathEraserPainter(),
+        LabelPainter(property: LabelProperty(color: Colors.white)),
       ]})
       : updatedAt = updatedAt ?? createdAt;
 

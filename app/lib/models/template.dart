@@ -18,7 +18,7 @@ class DocumentTemplate {
                 createdAt: DateTime.now(),
                 background: BackgroundTemplate.plain.create())),
         DocumentTemplate(
-            document: AppDocument(
+            document: AppDocument.dark(
                 name: AppLocalizations.of(context)!.plainDark,
                 createdAt: DateTime.now(),
                 background: BackgroundTemplate.plainDark.create()))
