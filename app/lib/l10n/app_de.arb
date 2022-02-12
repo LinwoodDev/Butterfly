@@ -187,12 +187,12 @@
     "untitled": "Ohne Titel",
     "createTemplate": "Vorlage erstellen",
     "createTemplateContent": "Möchten Sie wirklich eine Vorlage aus den ausgewählten Elementen erstellen? Die ursprüngliche Datei wird gelöscht.",
-    "replace": "Replace",
-    "reallyReplace": "Do you really want to replace the template? This operation can be not undone!",
-    "defaultTemplate": "Default template",
+    "replace": "Ersetzen",
+    "reallyReplace": "Wollen Sie wirklich die Vorlage ersetzen? Dieser Vorgang kann nicht rückgängig gemacht werden!",
+    "defaultTemplate": "Standardvorlage",
     "insert": "Insert",
-    "document": "Document",
-    "camera": "Camera",
-    "printout": "Printout",
-    "selectCamera": "Select a camera"
+    "document": "Dokument",
+    "camera": "Kamera",
+    "printout": "Drucken",
+    "selectCamera": "Kamera auswählen"
 }
