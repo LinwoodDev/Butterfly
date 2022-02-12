@@ -187,12 +187,12 @@
     "untitled": "Sans titre",
     "createTemplate": "Créer un modèle",
     "createTemplateContent": "Voulez-vous vraiment créer un modèle à partir des éléments sélectionnés ? Le fichier original sera supprimé.",
-    "replace": "Replace",
-    "reallyReplace": "Do you really want to replace the template? This operation can be not undone!",
-    "defaultTemplate": "Default template",
+    "replace": "Remplacer",
+    "reallyReplace": "Voulez-vous vraiment remplacer le modèle ? Cette opération ne peut pas être annulée !",
+    "defaultTemplate": "Modèle par défaut",
     "insert": "Insert",
     "document": "Document",
-    "camera": "Camera",
-    "printout": "Printout",
-    "selectCamera": "Select a camera"
+    "camera": "Appareil photo",
+    "printout": "Impression",
+    "selectCamera": "Sélectionnez une caméra"
 }
