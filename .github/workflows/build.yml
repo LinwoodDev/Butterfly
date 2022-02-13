@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build-apk:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v2
@@ -13,7 +13,7 @@ jobs:
         with:
           java-version: "11"
           distribution: "adopt"
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
           channel: "beta" # or: 'stable' or 'dev'
       - name: 📦 Get dependencies
@@ -32,11 +32,11 @@ jobs:
           name: apk-build
           path: app/build/app/outputs/flutter-apk/app-release.apk
   build-windows:
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
           channel: "beta" # or: 'stable' or 'dev'
       - name: ✅ Enable platforms
@@ -72,7 +72,7 @@ jobs:
           path: |
             app/build/windows/Butterfly-Setup.exe
   build-linux:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v2
@@ -80,7 +80,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip python3-setuptools desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev liblzma-dev clang dpkg-dev patchelf alien
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
           channel: "beta" # or: 'stable' or 'dev'
       - name: ✅ Enable platforms
@@ -146,7 +146,7 @@ jobs:
   #  steps:
   #    - name: ⬆️ Checkout
   #      uses: actions/checkout@v2
-  #    - uses: subosito/flutter-action@v1
+  #    - uses: subosito/flutter-action@v2
   #      with:
   #        channel: "dev" # or: 'stable' or 'dev'
   #    - name: ✅ Enable platforms
@@ -166,7 +166,7 @@ jobs:
   #        path: |
   #          build/windows/runner/Release/**
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     needs:
       - build-apk
       - build-windows
