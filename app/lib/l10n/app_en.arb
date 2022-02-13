@@ -194,5 +194,6 @@
   "document": "Document",
   "camera": "Camera",
   "printout": "Printout",
-  "selectCamera": "Select a camera"
+  "selectCamera": "Select a camera",
+  "changeDocumentPath": "Change document path"
 }

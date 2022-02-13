@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/dialogs/file_system/create.dart';
+import 'package:butterfly/dialogs/file_system/grid.dart';
+import 'package:butterfly/dialogs/file_system/list.dart';
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,7 +26,6 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
   late DocumentFileSystem _fileSystem;
   final TextEditingController _pathController =
       TextEditingController(text: '/');
-  final GlobalKey<FormState> _createFormKey = GlobalKey();
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -188,8 +189,18 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             selectedPath = state.path ?? '';
                           }
                           return gridView
-                              ? _buildGridView(selectedPath)
-                              : _buildListView(selectedPath);
+                              ? FileSystemGridView(
+                                  selectedPath: selectedPath,
+                                  assets: _documents,
+                                  onOpened: _openAsset,
+                                  onRefreshed: loadDocuments,
+                                )
+                              : FileSystemListView(
+                                  selectedPath: selectedPath,
+                                  assets: _documents,
+                                  onOpened: _openAsset,
+                                  onRefreshed: loadDocuments,
+                                );
                         })),
               ],
             ),
@@ -239,89 +250,19 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
   }
 
   void _createAsset({bool isFolder = false}) {
-    var _nameController = TextEditingController();
-    showDialog(
-        context: context,
-        builder: (context) => Form(
-              key: _createFormKey,
-              child: AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
-                title: Text(AppLocalizations.of(context)!.create),
-                content: TextFormField(
-                  decoration: InputDecoration(
-                      filled: true,
-                      labelText: AppLocalizations.of(context)!.name),
-                  validator: (value) {
-                    if (value?.isEmpty ?? true) {
-                      return AppLocalizations.of(context)!.shouldNotEmpty;
-                    }
-                    return null;
-                  },
-                  controller: _nameController,
-                  autofocus: true,
-                ),
-                actions: [
-                  TextButton(
-                    child: Text(AppLocalizations.of(context)!.cancel),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                  TextButton(
-                    child: Text(AppLocalizations.of(context)!.create),
-                    onPressed: () async {
-                      if (_createFormKey.currentState?.validate() ?? false) {
-                        {
-                          var path = _pathController.text;
-                          if (path == '/') {
-                            path = '';
-                          }
-                          if (!isFolder) {
-                            await _fileSystem.createDocument(
-                                _nameController.text,
-                                path: path,
-                                palettes:
-                                    ColorPalette.getMaterialPalette(context));
-                          } else {
-                            await _fileSystem.createDirectory(
-                                path + '/' + _nameController.text);
-                          }
-                        }
-                        loadDocuments();
-                        Navigator.of(context).pop();
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ));
+    var path = _pathController.text;
+    if (path == '/') {
+      path = '';
+    }
+    var success = showDialog(
+            context: context,
+            builder: (context) =>
+                FileSystemAssetCreateDialog(isFolder: isFolder, path: path))
+        as bool?;
+    if (success ?? false) {
+      loadDocuments();
+    }
   }
-
-  Widget _buildListView(String selectedPath) => ListView.builder(
-        itemCount: _documents.length,
-        itemBuilder: (context, index) {
-          var document = _documents[index];
-          if (document is AppDocumentFile) {
-            return ListTile(
-              leading: const Icon(PhosphorIcons.fileLight),
-              title: Text(document.name),
-              selected: document.path == selectedPath,
-              subtitle: _buildRichText(document),
-              onTap: () => _openAsset(document),
-              trailing: _buildPopupMenu(document),
-            );
-          } else if (document is AppDocumentDirectory) {
-            return ListTile(
-              selected: document.path == selectedPath,
-              leading: const Icon(PhosphorIcons.folderLight),
-              title: Text(document.fileName),
-              onTap: () => _openAsset(document),
-              trailing: _buildPopupMenu(document),
-            );
-          } else {
-            return Container();
-          }
-        },
-      );
 
   void _openAsset(AppDocumentAsset asset) {
     if (asset is AppDocumentFile) {
@@ -330,438 +271,5 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
       _pathController.text = asset.path;
       loadDocuments();
     }
-  }
-
-  void _renameDialog(String path) {
-    var _nameController = TextEditingController(text: path);
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text(AppLocalizations.of(context)!.rename),
-              content: TextFormField(
-                decoration: InputDecoration(
-                    filled: true,
-                    labelText: AppLocalizations.of(context)!.name),
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return AppLocalizations.of(context)!.shouldNotEmpty;
-                  }
-                  return null;
-                },
-                controller: _nameController,
-                autofocus: true,
-              ),
-              actions: [
-                TextButton(
-                  child: Text(AppLocalizations.of(context)!.cancel),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                TextButton(
-                  child: Text(AppLocalizations.of(context)!.rename),
-                  onPressed: () async {
-                    if (_nameController.text != _pathController.text) {
-                      var document = await _fileSystem.renameAsset(
-                          path, _nameController.text);
-                      var state = widget.bloc.state as DocumentLoadSuccess;
-                      if (document != null && state.path == path) {
-                        widget.bloc.clearHistory();
-                        widget.bloc.emit(state.copyWith(path: path));
-                      }
-                      loadDocuments();
-                    }
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            ));
-  }
-
-  void _deleteDialog(String path) => showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-            title: Text(AppLocalizations.of(context)!.areYouSure),
-            content: Text(AppLocalizations.of(context)!.reallyDelete),
-            actions: [
-              TextButton(
-                child: Text(AppLocalizations.of(context)!.no),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              TextButton(
-                child: Text(AppLocalizations.of(context)!.yes),
-                onPressed: () {
-                  _fileSystem.deleteAsset(path);
-                  loadDocuments();
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          ));
-
-  Widget _buildGridView(String selectedPath) => SingleChildScrollView(
-          child: Scrollbar(
-        child: Align(
-            alignment: Alignment.topCenter,
-            child: Wrap(
-                spacing: 8.0,
-                runSpacing: 8.0,
-                children: List.generate(_documents.length, (index) {
-                  var document = _documents[index];
-                  Widget child;
-                  if (document is! AppDocumentFile) {
-                    child = Column(mainAxisSize: MainAxisSize.min, children: [
-                      Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(32)),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: Row(children: [
-                            const Padding(
-                              padding: EdgeInsets.only(right: 8.0),
-                              child: Icon(
-                                PhosphorIcons.folderLight,
-                                size: 32,
-                              ),
-                            ),
-                            Flexible(
-                              child: Text(document.fileName,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.headline6),
-                            ),
-                          ])),
-                    ]);
-                  } else {
-                    child = Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(32)),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: Icon(
-                                  PhosphorIcons.fileLight,
-                                  size: 32,
-                                  color: document.path == selectedPath
-                                      ? Theme.of(context).colorScheme.primary
-                                      : null,
-                                ),
-                              ),
-                              Flexible(
-                                child: Text(document.name,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline6
-                                        ?.copyWith(
-                                            color: selectedPath == document.path
-                                                ? Theme.of(context)
-                                                    .colorScheme
-                                                    .primary
-                                                : null)),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: DefaultTextStyle(
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .caption!
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .listTileTheme
-                                          .textColor),
-                              child: _buildRichText(document)),
-                        ),
-                      ],
-                    );
-                  }
-                  return ConstrainedBox(
-                      constraints:
-                          const BoxConstraints(minWidth: 300, maxWidth: 300),
-                      child: Card(
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12))),
-                          margin: const EdgeInsets.all(5),
-                          child: InkWell(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(12)),
-                              onTap: () => _openAsset(document),
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Flexible(child: child),
-                                    _buildPopupMenu(document)
-                                  ]))));
-                }))),
-      ));
-
-  Widget _buildPopupMenu(AppDocumentAsset asset) => IconTheme.merge(
-        data: Theme.of(context).iconTheme,
-        child: PopupMenuButton(
-          itemBuilder: (context) => [
-            PopupMenuItem(
-              child: ListTile(
-                leading: const Icon(PhosphorIcons.folderOpenLight),
-                title: Text(AppLocalizations.of(context)!.open),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  _openAsset(asset);
-                },
-              ),
-              padding: EdgeInsets.zero,
-            ),
-            PopupMenuItem(
-              child: ListTile(
-                  leading: const Icon(PhosphorIcons.copyLight),
-                  title: Text(AppLocalizations.of(context)!.duplicate),
-                  onTap: () async {
-                    Navigator.of(context).pop();
-                    await showDialog(
-                        context: context,
-                        builder: (context) {
-                          var selectedPath = '/';
-                          return AlertDialog(
-                              actions: [
-                                TextButton(
-                                  child: Text(
-                                      AppLocalizations.of(context)!.cancel),
-                                  onPressed: () => Navigator.of(context).pop(),
-                                ),
-                                TextButton(
-                                  child: Text(AppLocalizations.of(context)!.ok),
-                                  onPressed: () async {
-                                    var newPath = selectedPath;
-                                    if (selectedPath != '/') {
-                                      newPath += '/';
-                                    }
-                                    newPath += asset.fileName;
-                                    await _fileSystem.duplicateAsset(
-                                        asset.path, newPath);
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                              title:
-                                  Text(AppLocalizations.of(context)!.duplicate),
-                              content: ConstrainedBox(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: 500, maxHeight: 400),
-                                  child: SingleChildScrollView(
-                                      child: _FolderTreeView(
-                                          path: '/',
-                                          onPathSelected: (path) =>
-                                              selectedPath = path,
-                                          initialExpanded: true))));
-                        });
-                    loadDocuments();
-                  }),
-              padding: EdgeInsets.zero,
-            ),
-            PopupMenuItem(
-              child: ListTile(
-                  leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
-                  title: Text(AppLocalizations.of(context)!.move),
-                  onTap: () async {
-                    Navigator.of(context).pop();
-                    await showDialog(
-                        context: context,
-                        builder: (context) {
-                          var selectedPath = '/';
-                          return AlertDialog(
-                              actions: [
-                                TextButton(
-                                  child: Text(
-                                      AppLocalizations.of(context)!.cancel),
-                                  onPressed: () => Navigator.of(context).pop(),
-                                ),
-                                TextButton(
-                                  child: Text(AppLocalizations.of(context)!.ok),
-                                  onPressed: () async {
-                                    var newPath = selectedPath;
-                                    if (selectedPath != '/') {
-                                      newPath += '/';
-                                    }
-                                    newPath += asset.fileName;
-                                    await _fileSystem.moveAsset(
-                                        asset.path, newPath);
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                              title: Text(AppLocalizations.of(context)!.move),
-                              content: ConstrainedBox(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: 500, maxHeight: 400),
-                                  child: SingleChildScrollView(
-                                      child: _FolderTreeView(
-                                          path: '/',
-                                          onPathSelected: (path) =>
-                                              selectedPath = path,
-                                          initialExpanded: true))));
-                        });
-                    loadDocuments();
-                  }),
-              padding: EdgeInsets.zero,
-            ),
-            PopupMenuItem(
-              child: ListTile(
-                  leading: const Icon(PhosphorIcons.textTLight),
-                  title: Text(AppLocalizations.of(context)!.rename),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    _renameDialog(asset.path);
-                  }),
-              padding: EdgeInsets.zero,
-            ),
-            PopupMenuItem(
-              child: ListTile(
-                leading: const Icon(PhosphorIcons.trashLight),
-                title: Text(AppLocalizations.of(context)!.delete),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  _deleteDialog(asset.path);
-                },
-              ),
-              padding: EdgeInsets.zero,
-            ),
-          ],
-        ),
-      );
-
-  Widget _buildRichText(AppDocumentFile file) {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(file.path),
-          if (file.createdAt != null)
-            Text(AppLocalizations.of(context)!.createdAt(file.createdAt!)),
-          if (file.updatedAt != null)
-            Text(AppLocalizations.of(context)!.updatedAt(file.updatedAt!)),
-        ]);
-  }
-}
-
-typedef PathSelectedCallback = void Function(String path);
-
-class _FolderTreeView extends StatefulWidget {
-  final String path, selectedPath;
-  final PathSelectedCallback onPathSelected;
-  final bool initialExpanded;
-
-  const _FolderTreeView(
-      {Key? key,
-      required this.path,
-      required this.onPathSelected,
-      this.initialExpanded = false,
-      this.selectedPath = '/'})
-      : super(key: key);
-
-  @override
-  _FolderTreeViewState createState() => _FolderTreeViewState();
-}
-
-class _FolderTreeViewState extends State<_FolderTreeView> {
-  late DocumentFileSystem _fileSystem;
-  bool _expanded = false;
-  late Future<AppDocumentDirectory> _directoryFuture;
-  String _selected = '/';
-
-  @override
-  void initState() {
-    super.initState();
-    _fileSystem = DocumentFileSystem.fromPlatform();
-    _expanded = widget.initialExpanded;
-    _selected = widget.selectedPath;
-    _directoryFuture = load();
-  }
-
-  Future<AppDocumentDirectory> load() {
-    return _fileSystem
-        .getAsset(widget.path)
-        .then((value) => value as AppDocumentDirectory);
-  }
-
-  @override
-  void didUpdateWidget(covariant _FolderTreeView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.path != widget.path) {
-      setState(() => _directoryFuture = load());
-    }
-    if (oldWidget.selectedPath != widget.selectedPath) {
-      setState(() => _selected = widget.selectedPath);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<AppDocumentDirectory>(
-        future: _directoryFuture,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            var directory = snapshot.data!;
-            var children = directory.assets.whereType<AppDocumentDirectory>();
-            var name = directory.path.split('/').last;
-            if (name.isEmpty) {
-              name = '/';
-            }
-            return Column(children: [
-              ListTile(
-                leading: _expanded
-                    ? const Icon(PhosphorIcons.folderOpenLight)
-                    : const Icon(PhosphorIcons.folderLight),
-                title: Text(name),
-                trailing: _selected == widget.path
-                    ? const Icon(PhosphorIcons.check)
-                    : null,
-                onTap: () {
-                  if (_selected == widget.path) {
-                    setState(() {
-                      _expanded = !_expanded;
-                    });
-                  } else {
-                    setState(() {
-                      _expanded = true;
-                      _selected = widget.path;
-                    });
-                    widget.onPathSelected(directory.path);
-                  }
-                },
-                selected: _selected == widget.path,
-              ),
-              if (_expanded)
-                Padding(
-                    padding: const EdgeInsets.only(left: 5.0),
-                    child: Column(
-                      children: List.generate(
-                        children.length,
-                        (index) {
-                          var current = children.elementAt(index);
-                          return _FolderTreeView(
-                              path: current.path,
-                              selectedPath: _selected,
-                              onPathSelected: (value) {
-                                setState(() {
-                                  _selected = value;
-                                  _expanded = true;
-                                });
-                                widget.onPathSelected(value);
-                              });
-                        },
-                      ),
-                    ))
-            ]);
-          }
-          return Container();
-        });
   }
 }
