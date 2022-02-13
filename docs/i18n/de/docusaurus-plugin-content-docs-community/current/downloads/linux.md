@@ -31,7 +31,7 @@ Verwenden Sie nicht die nächtliche Version von Butterfly für die Produktion.
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--info button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Nightly</button>
   <ul className="dropdown__menu">
     <li>
       <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linux.zip">
