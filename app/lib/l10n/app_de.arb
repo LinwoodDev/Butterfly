@@ -194,5 +194,6 @@
     "document": "Dokument",
     "camera": "Kamera",
     "printout": "Drucken",
-    "selectCamera": "Kamera auswählen"
+    "selectCamera": "Kamera auswählen",
+    "changeDocumentPath": "Change document path"
 }
