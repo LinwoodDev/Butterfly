@@ -249,12 +249,12 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
     );
   }
 
-  void _createAsset({bool isFolder = false}) {
+  Future<void> _createAsset({bool isFolder = false}) async {
     var path = _pathController.text;
     if (path == '/') {
       path = '';
     }
-    var success = showDialog(
+    var success = await showDialog(
             context: context,
             builder: (context) =>
                 FileSystemAssetCreateDialog(isFolder: isFolder, path: path))

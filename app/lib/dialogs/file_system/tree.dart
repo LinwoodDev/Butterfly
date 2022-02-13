@@ -69,7 +69,7 @@ class FileSystemDirectoryTreeViewState
             if (name.isEmpty) {
               name = '/';
             }
-            return Column(children: [
+            return Column(mainAxisSize: MainAxisSize.min, children: [
               ListTile(
                 leading: _expanded
                     ? const Icon(PhosphorIcons.folderOpenLight)

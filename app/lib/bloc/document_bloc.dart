@@ -334,6 +334,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         emit(current.copyWith(removePath: true));
       }
     });
+    on<DocumentPathChanged>((event, emit) {
+      var current = state;
+      if (current is! DocumentLoadSuccess) return;
+      emit(current.copyWith(path: event.path));
+    });
   }
 
   @override

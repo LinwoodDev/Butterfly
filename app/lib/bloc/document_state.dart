@@ -25,8 +25,14 @@ class DocumentLoadSuccess extends DocumentState {
       this.invisibleLayers = const []});
 
   @override
-  List<Object?> get props =>
-      [currentPainterIndex, invisibleLayers, bakedViewport];
+  List<Object?> get props => [
+        currentPainterIndex,
+        invisibleLayers,
+        bakedViewport,
+        document,
+        path,
+        currentLayer
+      ];
 
   List<PadElement> get elements {
     return bakedViewport?.unbakedElements ?? document.content;

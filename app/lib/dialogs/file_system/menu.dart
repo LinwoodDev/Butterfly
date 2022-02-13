@@ -1,5 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/dialogs/file_system/delete.dart';
+import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../bloc/document_bloc.dart';
 import 'dialog.dart';
-import 'tree.dart';
 
 class FileSystemAssetMenu extends StatelessWidget {
   final AssetOpenedCallback onOpened;
@@ -73,7 +73,6 @@ class FileSystemAssetMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var fileSystem = DocumentFileSystem.fromPlatform();
     return IconTheme.merge(
       data: Theme.of(context).iconTheme,
       child: PopupMenuButton(
@@ -95,44 +94,12 @@ class FileSystemAssetMenu extends StatelessWidget {
                 title: Text(AppLocalizations.of(context)!.duplicate),
                 onTap: () async {
                   Navigator.of(context).pop();
-                  await showDialog(
-                      context: context,
-                      builder: (context) {
-                        var selectedPath = '/';
-                        return AlertDialog(
-                            actions: [
-                              TextButton(
-                                child:
-                                    Text(AppLocalizations.of(context)!.cancel),
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                              TextButton(
-                                child: Text(AppLocalizations.of(context)!.ok),
-                                onPressed: () async {
-                                  var newPath = selectedPath;
-                                  if (selectedPath != '/') {
-                                    newPath += '/';
-                                  }
-                                  newPath += asset.fileName;
-                                  await fileSystem.duplicateAsset(
-                                      asset.path, newPath);
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                            title:
-                                Text(AppLocalizations.of(context)!.duplicate),
-                            content: ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                    maxWidth: 500, maxHeight: 400),
-                                child: SingleChildScrollView(
-                                    child: FileSystemDirectoryTreeView(
-                                        path: '/',
-                                        onPathSelected: (path) =>
-                                            selectedPath = path,
-                                        initialExpanded: true))));
-                      });
-                  onRefreshed();
+                  var newPath = await showDialog(
+                    context: context,
+                    builder: (context) => FileSystemAssetMoveDialog(
+                        asset: asset, duplicate: true),
+                  );
+                  if (newPath != null) onRefreshed();
                 }),
             padding: EdgeInsets.zero,
           ),
@@ -142,43 +109,12 @@ class FileSystemAssetMenu extends StatelessWidget {
                 title: Text(AppLocalizations.of(context)!.move),
                 onTap: () async {
                   Navigator.of(context).pop();
-                  await showDialog(
-                      context: context,
-                      builder: (context) {
-                        var selectedPath = '/';
-                        return AlertDialog(
-                            actions: [
-                              TextButton(
-                                child:
-                                    Text(AppLocalizations.of(context)!.cancel),
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                              TextButton(
-                                child: Text(AppLocalizations.of(context)!.ok),
-                                onPressed: () async {
-                                  var newPath = selectedPath;
-                                  if (selectedPath != '/') {
-                                    newPath += '/';
-                                  }
-                                  newPath += asset.fileName;
-                                  await fileSystem.moveAsset(
-                                      asset.path, newPath);
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                            title: Text(AppLocalizations.of(context)!.move),
-                            content: ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                    maxWidth: 500, maxHeight: 400),
-                                child: SingleChildScrollView(
-                                    child: FileSystemDirectoryTreeView(
-                                        path: '/',
-                                        onPathSelected: (path) =>
-                                            selectedPath = path,
-                                        initialExpanded: true))));
-                      });
-                  onRefreshed();
+                  var success = await showDialog(
+                    context: context,
+                    builder: (context) =>
+                        FileSystemAssetMoveDialog(asset: asset),
+                  );
+                  if (success ?? false) onRefreshed();
                 }),
             padding: EdgeInsets.zero,
           ),

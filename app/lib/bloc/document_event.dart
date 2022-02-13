@@ -41,6 +41,14 @@ class DocumentDescriptorChanged extends DocumentEvent {
   List<Object?> get props => [name, description];
 }
 
+class DocumentPathChanged extends DocumentEvent {
+  final String? path;
+
+  const DocumentPathChanged(this.path);
+  @override
+  List<Object?> get props => [path];
+}
+
 class DocumentPaletteChanged extends DocumentEvent {
   final List<ColorPalette> palette;
 

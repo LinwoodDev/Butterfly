@@ -5,18 +5,19 @@ import '../../api/file_system.dart';
 import '../../models/document.dart';
 import 'tree.dart';
 
-class FileSystemMoveDialog extends StatefulWidget {
+class FileSystemAssetMoveDialog extends StatefulWidget {
   final bool duplicate;
   final AppDocumentAsset asset;
-  const FileSystemMoveDialog(
+  const FileSystemAssetMoveDialog(
       {Key? key, this.duplicate = false, required this.asset})
       : super(key: key);
 
   @override
-  State<FileSystemMoveDialog> createState() => _FileSystemMoveDialogState();
+  State<FileSystemAssetMoveDialog> createState() =>
+      _FileSystemAssetMoveDialogState();
 }
 
-class _FileSystemMoveDialogState extends State<FileSystemMoveDialog> {
+class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
   final TextEditingController _nameController = TextEditingController();
   late String selectedPath;
   final _fileSystem = DocumentFileSystem.fromPlatform();
@@ -43,29 +44,30 @@ class _FileSystemMoveDialogState extends State<FileSystemMoveDialog> {
               if (selectedPath != '/') {
                 newPath += '/';
               }
-              newPath += widget.asset.fileName;
+              newPath += _nameController.text;
               if (widget.duplicate) {
                 await _fileSystem.duplicateAsset(widget.asset.path, newPath);
               } else {
                 await _fileSystem.moveAsset(widget.asset.path, newPath);
               }
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(newPath);
             },
           ),
         ],
-        title: Text(AppLocalizations.of(context)!.move),
+        title: Text(widget.duplicate
+            ? AppLocalizations.of(context)!.duplicate
+            : AppLocalizations.of(context)!.move),
         content: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Expanded(
-              child: ConstrainedBox(
-                  constraints:
-                      const BoxConstraints(maxWidth: 500, maxHeight: 400),
-                  child: SingleChildScrollView(
-                      child: FileSystemDirectoryTreeView(
-                          path: '/',
-                          onPathSelected: (path) => selectedPath = path,
-                          initialExpanded: true))),
-            ),
+            ConstrainedBox(
+                constraints:
+                    const BoxConstraints(maxWidth: 500, maxHeight: 400),
+                child: SingleChildScrollView(
+                    child: FileSystemDirectoryTreeView(
+                        path: '/',
+                        onPathSelected: (path) => selectedPath = path,
+                        initialExpanded: true))),
             TextField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context)!.name,

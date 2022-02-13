@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:butterfly/actions/background.dart';
+import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/color_palette.dart';
 import 'package:butterfly/actions/edit_mode.dart';
 import 'package:butterfly/actions/export.dart';
@@ -162,7 +163,10 @@ class _ProjectPageState extends State<ProjectPage> {
                   LayersIntent(context),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
-                  InsertIntent(context, Offset.zero)
+                  InsertIntent(context, Offset.zero),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
+                  ChangePathIntent(context),
             },
             child: Actions(
                 actions: <Type, Action<Intent>>{
@@ -180,7 +184,8 @@ class _ProjectPageState extends State<ProjectPage> {
                   ColorPaletteIntent: ColorPaletteAction(),
                   BackgroundIntent: BackgroundAction(),
                   LayersIntent: LayersAction(),
-                  InsertIntent: InsertAction()
+                  InsertIntent: InsertAction(),
+                  ChangePathIntent: ChangePathAction(),
                 },
                 child: ClipRect(
                   child: Builder(builder: (context) {
