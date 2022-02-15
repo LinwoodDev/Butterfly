@@ -8,9 +8,10 @@ the [Code of Conduct](CODE_OF_CONDUCT.md) first!
 If you find bugs or have feature request, you can create an issue by
 clicking [here](https://github.com/LinwoodCloud/butterfly/issues/new/choose).
 
-## Pull request
+## Code
 
 If you want to help me to code, you can open a pull request. Fork this project and make a pull request. I only accept pull requests for the *develop* branch.
+This project uses Flutter for the app written in Dart and Docusaurus in the documentation. Please use the beta channel of flutter to have desktop support.
 
 ## Translation
 
