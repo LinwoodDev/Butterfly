@@ -1,3 +1,3 @@
-# Security
+# Changelog
 
-[Go here](https://docs.butterfly.linwood.dev/changelog) for more information.
+[Click here](https://docs.butterfly.linwood.dev/changelog) for more information.
