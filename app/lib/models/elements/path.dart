@@ -52,6 +52,7 @@ abstract class PathElement extends PadElement {
 
   @override
   bool hit(Offset offset, [double radius = 1]) {
+    if (points.isEmpty) return false;
     var last = points.first.toVector2();
     var vector = Vector2(offset.dx, offset.dy);
     return points.any((element) {
@@ -106,6 +107,31 @@ abstract class PathElement extends PadElement {
     }
     return Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
         bottomRightCorner.dx, bottomRightCorner.dy);
+  }
+
+  List<PathElement> split(Offset position, double radius) {
+    // Split the path at the given position with the given radius.
+    var index = points.indexWhere((element) {
+      return element.x >= position.dx - radius &&
+          element.x <= position.dx + radius &&
+          element.y >= position.dy - radius &&
+          element.y <= position.dy + radius;
+    });
+    if (index == -1) {
+      return [this];
+    }
+    var first = points.sublist(0, index);
+    var second = points.sublist(index);
+    var firstPath = copyWith(points: first);
+    var secondPath = copyWith(points: second);
+    var result = <PathElement>[];
+    if (first.isNotEmpty) {
+      result.add(firstPath);
+    }
+    if (second.isNotEmpty) {
+      result.add(secondPath);
+    }
+    return result;
   }
 
   @override

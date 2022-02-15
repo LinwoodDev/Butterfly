@@ -7,13 +7,22 @@ abstract class DocumentEvent extends ReplayEvent with EquatableMixin {
   List<Object?> get props => [];
 }
 
-class ElementCreated extends DocumentEvent {
-  final PadElement element;
+class ElementsCreated extends DocumentEvent {
+  final List<PadElement> elements;
 
-  const ElementCreated(this.element);
+  const ElementsCreated(this.elements);
 
   @override
-  List<Object?> get props => [element];
+  List<Object?> get props => [elements];
+}
+
+class ElementsReplaced extends DocumentEvent {
+  final Map<int?, List<PadElement>> replacedElements;
+
+  const ElementsReplaced(this.replacedElements);
+
+  @override
+  List<Object?> get props => [replacedElements];
 }
 
 class ElementChanged extends DocumentEvent {

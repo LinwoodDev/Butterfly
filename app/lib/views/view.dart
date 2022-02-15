@@ -19,6 +19,7 @@ import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/painters/path_eraser.dart';
 import 'package:butterfly/models/painters/pen.dart';
 import 'package:butterfly/widgets/context_menu.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,20 +84,20 @@ class _MainViewViewportState extends State<MainViewViewport> {
                               constraints.biggest.height.roundToDouble())) {
                         _bake();
                       }
-                      List<PadElement> rayCast(
-                          Offset offset, bool includeEraser) {
+                      Future<Map<int, PadElement>> rayCast(
+                          Offset offset, bool includeEraser,
+                          [double radius = 5]) async {
                         var content = state.document.content;
                         var zoom = context.read<TransformCubit>().state.size;
-                        return _executeRayCast(_RayCastParams(
+                        var result = await compute(
+                            _executeRayCast,
+                            _RayCastParams(
                                 offset,
                                 content.toList(),
                                 state.invisibleLayers.toList(),
                                 includeEraser,
-                                5 / zoom))
-                            .map((e) => content[e])
-                            .toList()
-                            .reversed
-                            .toList();
+                                radius / zoom));
+                        return result.map((e) => content[e]).toList().asMap();
                       }
 
                       Future<void> createElement(int pointer,
@@ -133,7 +134,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   )));
                           if (newElement != null) {
                             bloc
-                              ..add(ElementCreated(newElement))
+                              ..add(ElementsCreated(newElement))
                               ..add(ImageBaked(
                                   constraints.biggest,
                                   MediaQuery.of(context).devicePixelRatio,
@@ -216,7 +217,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   var movingElement = cubit.getAndResetMove();
                                   if (movingElement != null) {
                                     context.read<DocumentBloc>()
-                                      ..add(ElementCreated(movingElement))
+                                      ..add(ElementsCreated([movingElement]))
                                       ..add(ImageBaked(
                                           constraints.biggest,
                                           MediaQuery.of(context)
@@ -236,7 +237,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         cubit.first(), event.kind) &&
                                     currentElement != null) {
                                   context.read<DocumentBloc>()
-                                    ..add(ElementCreated(currentElement))
+                                    ..add(ElementsCreated([currentElement]))
                                     ..add(ImageBaked(
                                         constraints.biggest,
                                         MediaQuery.of(context).devicePixelRatio,
@@ -245,11 +246,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   if (!openView) {
                                     return;
                                   }
-                                  var hits = rayCast(
+                                  var hits = await rayCast(
                                       transform
                                           .localToGlobal(event.localPosition),
                                       state
                                           .document.handProperty.includeEraser);
+
                                   if (hits.isNotEmpty) {
                                     void showSelection() {
                                       var selectionCubit =
@@ -310,7 +312,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
 
                                     context
                                         .read<SelectionCubit>()
-                                        .change(hits.first);
+                                        .change(hits.values.last);
                                     if (hits.length == 1) {
                                       showSelection();
                                     } else {
@@ -318,11 +320,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                           context: context,
                                           builder: (context) =>
                                               SelectElementDialog(
-                                                  cubit: this
-                                                      .context
-                                                      .read<SelectionCubit>(),
-                                                  elements: hits)).then(
-                                          (value) {
+                                                  cubit:
+                                                      this.context.read<
+                                                          SelectionCubit>(),
+                                                  elements: hits.values
+                                                      .toList())).then((value) {
                                         if (value != true) {
                                           this
                                               .context
@@ -408,11 +410,27 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     state.currentPainter != null) {
                                   var painter = state.currentPainter;
                                   if (painter is PathEraserPainter) {
+                                    var globalPos = transform
+                                        .localToGlobal(event.localPosition);
+                                    var elements = await rayCast(
+                                        globalPos,
+                                        painter.includeEraser,
+                                        painter.strokeWidth);
+                                    var replacedElements =
+                                        <int?, List<PadElement>>{
+                                      null: elements.values
+                                          .where((element) =>
+                                              element is! PathElement)
+                                          .toList()
+                                    };
+                                    elements.forEach((key, element) {
+                                      if (element is PathElement) {
+                                        replacedElements[key] = element.split(
+                                            globalPos, painter.strokeWidth);
+                                      }
+                                    });
                                     context.read<DocumentBloc>()
-                                      ..add(ElementsRemoved(rayCast(
-                                          transform.localToGlobal(
-                                              event.localPosition),
-                                          painter.includeEraser)))
+                                      ..add(ElementsReplaced(replacedElements))
                                       ..add(ImageBaked(
                                           constraints.biggest,
                                           MediaQuery.of(context)
@@ -422,10 +440,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     context.read<DocumentBloc>().add(
                                         ElementsLayerChanged(
                                             painter.layer,
-                                            rayCast(
-                                                transform.localToGlobal(
-                                                    event.localPosition),
-                                                painter.includeEraser)));
+                                            await rayCast(
+                                                    transform.localToGlobal(
+                                                        event.localPosition),
+                                                    painter.includeEraser)
+                                                .then((value) => value.values
+                                                    .toList()
+                                                    .reversed
+                                                    .toList())));
                                   } else if (currentElement != null &&
                                       currentElement is PathElement) {
                                     // Add point to custom paint

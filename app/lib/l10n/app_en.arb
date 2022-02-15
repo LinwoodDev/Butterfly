@@ -195,5 +195,6 @@
   "camera": "Camera",
   "printout": "Printout",
   "selectCamera": "Select a camera",
-  "changeDocumentPath": "Change document path"
+  "changeDocumentPath": "Change document path",
+  "deleteWholeStroke": "Delete whole stroke"
 }

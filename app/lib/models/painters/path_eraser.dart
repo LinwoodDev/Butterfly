@@ -1,38 +1,38 @@
 import 'painter.dart';
 
 class PathEraserPainter extends Painter {
-  final double strokeWidth, strokeMultiplier;
-  final bool includeEraser;
+  final double strokeWidth;
+  final bool includeEraser, deleteWholeStroke;
 
   const PathEraserPainter(
       {this.strokeWidth = 5,
-      this.strokeMultiplier = 10,
       String name = '',
-      this.includeEraser = false})
+      this.includeEraser = false,
+      this.deleteWholeStroke = false})
       : super(name: name);
   PathEraserPainter.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : strokeWidth = json['strokeWidth'] ?? 5,
-        strokeMultiplier = json['strokeMultiplier'] ?? 1,
         includeEraser = json['includeEraser'] ?? false,
+        deleteWholeStroke = json['deleteWholeStroke'] ?? false,
         super.fromJson(json);
   @override
   Map<String, dynamic> toJson() => super.toJson()
     ..addAll({
       'type': 'path-eraser',
       'strokeWidth': strokeWidth,
-      'strokeMultiplier': strokeMultiplier,
-      'includeEraser': includeEraser
+      'includeEraser': includeEraser,
+      'deleteWholeStroke': deleteWholeStroke,
     });
 
   PathEraserPainter copyWith(
           {String? name,
           double? strokeWidth,
-          double? strokeMultiplier,
-          bool? includeEraser}) =>
+          bool? includeEraser,
+          bool? deleteWholeStroke}) =>
       PathEraserPainter(
         name: name ?? this.name,
         strokeWidth: strokeWidth ?? this.strokeWidth,
-        strokeMultiplier: strokeMultiplier ?? this.strokeMultiplier,
         includeEraser: includeEraser ?? this.includeEraser,
+        deleteWholeStroke: deleteWholeStroke ?? this.deleteWholeStroke,
       );
 }

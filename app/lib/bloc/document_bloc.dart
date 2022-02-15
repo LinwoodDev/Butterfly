@@ -27,15 +27,33 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   }
 
   void _init() {
-    on<ElementCreated>((event, emit) async {
+    on<ElementsCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         return _saveDocument(
             current.copyWith(
                 document: current.document.copyWith(
                     content: (List.from(current.document.content)
-                      ..add(event.element)))),
-            List<PadElement>.from(current.elements)..add(event.element));
+                      ..addAll(event.elements)))),
+            List<PadElement>.from(current.elements)..addAll(event.elements));
+      }
+    });
+    on<ElementsReplaced>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        var elements = List<PadElement>.from(current.elements);
+        event.replacedElements.forEach((index, element) {
+          if (index == null) {
+            elements.addAll(element);
+          } else {
+            elements.removeAt(index);
+            elements.insertAll(index, element);
+          }
+        });
+        return _saveDocument(
+            current.copyWith(
+                document: current.document.copyWith(content: elements)),
+            null);
       }
     });
     on<ElementChanged>((event, emit) async {

@@ -21,8 +21,6 @@ class PathEraserPainterDialog extends StatefulWidget {
 class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _strokeWidthController = TextEditingController();
-  final TextEditingController _strokeMultiplierController =
-      TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -43,17 +41,12 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                 _strokeWidthController.text =
                     painter.strokeWidth.toStringAsFixed(2);
               }
-              if (double.tryParse(_strokeMultiplierController.text) !=
-                  painter.strokeMultiplier) {
-                _strokeMultiplierController.text =
-                    painter.strokeMultiplier.toStringAsFixed(2);
-              }
               return Scaffold(
                   backgroundColor: Colors.transparent,
                   appBar: AppBar(
                     backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.pathEraser),
-                    leading: const Icon(PhosphorIcons.penLight),
+                    leading: const Icon(PhosphorIcons.pathLight),
                     actions: [
                       IconButton(
                           tooltip: AppLocalizations.of(context)!.help,
@@ -102,31 +95,6 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                                             strokeWidth: value))),
                               )
                             ]),
-                            Row(children: [
-                              ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 100),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        labelText: AppLocalizations.of(context)!
-                                            .strokeMultiplier),
-                                    controller: _strokeMultiplierController,
-                                    onChanged: (value) => setState(() =>
-                                        painter = painter.copyWith(
-                                            strokeMultiplier:
-                                                double.tryParse(value))),
-                                  )),
-                              Expanded(
-                                child: Slider(
-                                    value:
-                                        painter.strokeMultiplier.clamp(0, 100),
-                                    min: 0,
-                                    max: 100,
-                                    onChanged: (value) => setState(() =>
-                                        painter = painter.copyWith(
-                                            strokeMultiplier: value))),
-                              )
-                            ]),
                             const SizedBox(height: 10),
                             CheckboxListTile(
                                 value: painter.includeEraser,
@@ -134,6 +102,13 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                                     .includeEraser),
                                 onChanged: (value) => setState(() => painter =
                                     painter.copyWith(includeEraser: value))),
+                            CheckboxListTile(
+                                value: painter.deleteWholeStroke,
+                                title: Text(AppLocalizations.of(context)!
+                                    .deleteWholeStroke),
+                                onChanged: (value) => setState(() => painter =
+                                    painter.copyWith(
+                                        deleteWholeStroke: value))),
                           ]),
                         ),
                         const Divider(),
