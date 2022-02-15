@@ -195,5 +195,6 @@
     "camera": "Kamera",
     "printout": "Drucken",
     "selectCamera": "Kamera auswählen",
-    "changeDocumentPath": "Dokumentpfad ändern"
+    "changeDocumentPath": "Dokumentpfad ändern",
+    "deleteWholeStroke": "Delete whole stroke"
 }
