@@ -122,13 +122,13 @@ abstract class PathElement extends PadElement {
     }
     var first = points.sublist(0, index);
     var second = points.sublist(index);
-    var firstPath = copyWith(points: first);
-    var secondPath = copyWith(points: second);
     var result = <PathElement>[];
     if (first.isNotEmpty) {
+      var firstPath = copyWith(points: first);
       result.add(firstPath);
     }
     if (second.isNotEmpty) {
+      var secondPath = copyWith(points: second);
       result.add(secondPath);
     }
     return result;
