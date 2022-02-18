@@ -25,7 +25,7 @@ dependencies:
   equatable: ^2.0.3
   flutter_bloc: ^8.0.1
   get_it: ^7.2.0
-  image: ^3.1.1
+  image: ^3.1.3
   #package_info_plus: ^1.3.0
   intl: ^0.17.0
   path_provider: ^2.0.9
@@ -43,9 +43,22 @@ dependencies:
   animations: ^2.0.2
   collection: ^1.15.0
   bloc_concurrency: ^0.2.0
-  camera: ^0.9.4+12
+  camera: ^0.9.4+14
   camera_windows: ^0.1.0
 
+dependency_overrides: 
+  bitsdojo_window_platform_interface:
+    git:
+      url: https://github.com/leech001/bitsdojo_window.git
+      path: bitsdojo_window_platform_interface
+  bitsdojo_window_windows:
+    git:
+      url: https://github.com/leech001/bitsdojo_window.git
+      path: bitsdojo_window_windows
+  bitsdojo_window_linux:
+    git:
+      url: https://github.com/leech001/bitsdojo_window.git
+      path: bitsdojo_window_linux
 dev_dependencies:
   flutter_native_splash: ^2.0.4
   flutter_lints: ^1.0.4
