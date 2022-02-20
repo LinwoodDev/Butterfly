@@ -102,13 +102,13 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                                     .includeEraser),
                                 onChanged: (value) => setState(() => painter =
                                     painter.copyWith(includeEraser: value))),
-                            CheckboxListTile(
+                            /*CheckboxListTile(
                                 value: painter.deleteWholeStroke,
                                 title: Text(AppLocalizations.of(context)!
                                     .deleteWholeStroke),
                                 onChanged: (value) => setState(() => painter =
                                     painter.copyWith(
-                                        deleteWholeStroke: value))),
+                                        deleteWholeStroke: value))),*/
                           ]),
                         ),
                         const Divider(),

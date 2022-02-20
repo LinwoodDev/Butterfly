@@ -46,19 +46,6 @@ dependencies:
   camera: ^0.9.4+14
   camera_windows: ^0.1.0
 
-dependency_overrides: 
-  bitsdojo_window_platform_interface:
-    git:
-      url: https://github.com/leech001/bitsdojo_window.git
-      path: bitsdojo_window_platform_interface
-  bitsdojo_window_windows:
-    git:
-      url: https://github.com/leech001/bitsdojo_window.git
-      path: bitsdojo_window_windows
-  bitsdojo_window_linux:
-    git:
-      url: https://github.com/leech001/bitsdojo_window.git
-      path: bitsdojo_window_linux
 dev_dependencies:
   flutter_native_splash: ^2.0.4
   flutter_lints: ^1.0.4

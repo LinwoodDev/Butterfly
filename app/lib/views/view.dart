@@ -416,21 +416,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         globalPos,
                                         painter.includeEraser,
                                         painter.strokeWidth);
-                                    var replacedElements =
-                                        <int?, List<PadElement>>{
-                                      null: elements.values
-                                          .where((element) =>
-                                              element is! PathElement)
-                                          .toList()
-                                    };
-                                    elements.forEach((key, element) {
-                                      if (element is PathElement) {
-                                        replacedElements[key] = element.split(
-                                            globalPos, painter.strokeWidth);
-                                      }
-                                    });
                                     context.read<DocumentBloc>()
-                                      ..add(ElementsReplaced(replacedElements))
+                                      ..add(ElementsRemoved(
+                                          elements.values.toList()))
                                       ..add(ImageBaked(
                                           constraints.biggest,
                                           MediaQuery.of(context)

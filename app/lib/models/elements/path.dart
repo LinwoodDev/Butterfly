@@ -109,31 +109,6 @@ abstract class PathElement extends PadElement {
         bottomRightCorner.dx, bottomRightCorner.dy);
   }
 
-  List<PathElement> split(Offset position, double radius) {
-    // Split the path at the given position with the given radius.
-    var index = points.indexWhere((element) {
-      return element.x >= position.dx - radius &&
-          element.x <= position.dx + radius &&
-          element.y >= position.dy - radius &&
-          element.y <= position.dy + radius;
-    });
-    if (index == -1) {
-      return [this];
-    }
-    var first = points.sublist(0, index);
-    var second = points.sublist(index);
-    var result = <PathElement>[];
-    if (first.isNotEmpty) {
-      var firstPath = copyWith(points: first);
-      result.add(firstPath);
-    }
-    if (second.isNotEmpty) {
-      var secondPath = copyWith(points: second);
-      result.add(secondPath);
-    }
-    return result;
-  }
-
   @override
   PathElement moveBy(Offset offset) => copyWith(
       points: points

@@ -37,13 +37,11 @@ packages:
     source: hosted
     version: "0.1.1+1"
   bitsdojo_window_linux:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
-      path: bitsdojo_window_linux
-      ref: HEAD
-      resolved-ref: ff86bdfe2c778579caf756cfd7d71ae8717ad560
-      url: "https://github.com/leech001/bitsdojo_window.git"
-    source: git
+      name: bitsdojo_window_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.1.1"
   bitsdojo_window_macos:
     dependency: transitive
@@ -53,22 +51,18 @@ packages:
     source: hosted
     version: "0.1.0"
   bitsdojo_window_platform_interface:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
-      path: bitsdojo_window_platform_interface
-      ref: HEAD
-      resolved-ref: ff86bdfe2c778579caf756cfd7d71ae8717ad560
-      url: "https://github.com/leech001/bitsdojo_window.git"
-    source: git
+      name: bitsdojo_window_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.1.0"
   bitsdojo_window_windows:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
-      path: bitsdojo_window_windows
-      ref: HEAD
-      resolved-ref: ff86bdfe2c778579caf756cfd7d71ae8717ad560
-      url: "https://github.com/leech001/bitsdojo_window.git"
-    source: git
+      name: bitsdojo_window_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.1.0"
   bloc:
     dependency: transitive

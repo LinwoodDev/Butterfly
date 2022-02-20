@@ -32,7 +32,7 @@ jobs:
           name: apk-build
           path: app/build/app/outputs/flutter-apk/app-release.apk
   build-windows:
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v2
