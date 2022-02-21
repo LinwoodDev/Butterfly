@@ -129,7 +129,8 @@ class AppDocument {
         .toList();
     var background = json['background'] == null
         ? null
-        : BoxBackground.fromJson(json['background'], version);
+        : BoxBackground.fromJson(
+            Map<String, dynamic>.from(json['background']), version);
     var waypoints = List<dynamic>.from(json['waypoints'] ?? [])
         .map((e) => Map<String, dynamic>.from(e))
         .map((e) => Waypoint.fromJson(e))

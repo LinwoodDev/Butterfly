@@ -167,7 +167,8 @@ class IOTemplateFileSystem extends TemplateFileSystem {
     var file = File(await getAbsolutePath('${escapeName(name)}.bfly'));
     if (await file.exists()) {
       var json = await file.readAsString();
-      return DocumentTemplate.fromJson(jsonDecode(json));
+      return DocumentTemplate.fromJson(
+          Map<String, dynamic>.from(jsonDecode(json)));
     }
     return null;
   }

@@ -25,7 +25,8 @@ class DocumentTemplate {
       ];
 
   DocumentTemplate.fromJson(Map<String, dynamic> json)
-      : document = AppDocument.fromJson(json['document']),
+      : document =
+            AppDocument.fromJson(Map<String, dynamic>.from(json['document'])),
         folder = json['folder'] ?? '/';
 
   Map<String, dynamic> toJson() => {

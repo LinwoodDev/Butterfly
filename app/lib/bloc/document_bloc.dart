@@ -369,7 +369,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     var last = change.currentState;
     var current = change.nextState;
     if (last is! DocumentLoadSuccess || current is! DocumentLoadSuccess) return;
-    if (last.bakedViewport?.image != current.bakedViewport?.image) {
+    if (last.path != null &&
+        last.bakedViewport?.image != current.bakedViewport?.image) {
       last.bakedViewport?.dispose();
     }
   }
