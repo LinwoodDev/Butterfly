@@ -25,6 +25,7 @@ jobs:
           token: ${{ secrets.CI_PAT }}
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: 2.10.0-0.3.pre
           channel: 'beta' # or: 'stable' or 'dev'
       - name: Setup git
         id: setup
