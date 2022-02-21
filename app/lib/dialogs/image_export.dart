@@ -14,6 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../view_painter.dart';
+import '../widgets/exact_slider.dart';
 
 class ImageExportDialog extends StatefulWidget {
   final DocumentBloc bloc;
@@ -244,28 +245,16 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                 labelText: AppLocalizations.of(context)!.height),
             onChanged: (value) => height = int.tryParse(value) ?? height,
             onSubmitted: (value) => _regeneratePreviewImage()),
-        Row(children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: TextField(
-                decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.size),
-                controller: _scaleController,
-                onSubmitted: (value) => _regeneratePreviewImage(),
-                onChanged: (value) => setState(() =>
-                    scale = (double.tryParse(value) ?? (scale * 100)) / 100)),
-          ),
-          Expanded(
-            child: Slider(
-                value: scale.clamp(0.1, 1000),
-                min: 0.1,
-                max: 10,
-                onChanged: (value) {
-                  setState(() => scale = value);
-                  _regeneratePreviewImage();
-                }),
-          )
-        ]),
+        ExactSlider(
+            header: Text(AppLocalizations.of(context)!.scale),
+            min: 0.1,
+            max: 10,
+            value: scale,
+            defaultValue: 1,
+            onChanged: (value) {
+              scale = value;
+              _regeneratePreviewImage();
+            }),
         CheckboxListTile(
             value: _renderBackground,
             title: Text(AppLocalizations.of(context)!.background),

@@ -196,5 +196,9 @@
   "printout": "Printout",
   "selectCamera": "Select a camera",
   "changeDocumentPath": "Change document path",
-  "deleteWholeStroke": "Delete whole stroke"
+  "deleteWholeStroke": "Delete whole stroke",
+  "red": "Red",
+  "green": "Green",
+  "blue": "Blue",
+  "alpha": "Alpha"
 }

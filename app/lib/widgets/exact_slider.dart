@@ -10,6 +10,9 @@ class ExactSlider extends StatefulWidget {
   final double defaultValue, min, max;
   final double? value;
   final OnValueChanged onChanged;
+  final OnValueChanged? onChangeEnd;
+  final Color? color;
+
   const ExactSlider(
       {Key? key,
       this.label,
@@ -17,8 +20,10 @@ class ExactSlider extends StatefulWidget {
       this.defaultValue = 1,
       this.min = 0,
       this.max = 100,
+      this.color,
       this.value,
       this.header,
+      this.onChangeEnd,
       required this.onChanged})
       : super(key: key);
 
@@ -81,6 +86,8 @@ class _ExactSliderState extends State<ExactSlider> {
                                 FloatingLabelAlignment.center),
                         textAlign: TextAlign.center,
                         controller: _controller,
+                        onEditingComplete: () =>
+                            widget.onChangeEnd?.call(_value),
                         onChanged: (value) =>
                             _changeValue(double.tryParse(value) ?? _value)),
                   ),
@@ -89,6 +96,8 @@ class _ExactSliderState extends State<ExactSlider> {
                     value: _value.clamp(widget.min, widget.max),
                     min: widget.min,
                     max: widget.max,
+                    activeColor: widget.color,
+                    onChangeEnd: widget.onChangeEnd,
                     onChanged: (value) {
                       _value = value;
                       _changeValue(value);

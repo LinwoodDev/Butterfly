@@ -10,6 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../widgets/exact_slider.dart';
 import 'data_export.dart';
 
 class ColorPickerDialog extends StatefulWidget {
@@ -606,76 +607,44 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
       );
 
   Widget _buildProperties() => Column(children: [
-        Row(children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: TextField(
-                decoration: const InputDecoration(labelText: 'R'),
-                controller: _redController,
-                onChanged: (value) => _changeColor(red: int.tryParse(value))),
-          ),
-          Expanded(
-              child: Slider(
-            activeColor: Colors.red,
-            value: color.red.toDouble(),
-            min: 0,
-            max: 255,
-            divisions: 255,
-            onChanged: (value) => _changeColor(red: value.toInt()),
-          ))
-        ]),
-        Row(children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: TextField(
-                decoration: const InputDecoration(labelText: 'G'),
-                controller: _greenController,
-                onChanged: (value) => _changeColor(green: int.tryParse(value))),
-          ),
-          Expanded(
-              child: Slider(
-            activeColor: Colors.green,
-            value: color.green.toDouble(),
-            min: 0,
-            max: 255,
-            divisions: 255,
-            onChanged: (value) => _changeColor(green: value.toInt()),
-          ))
-        ]),
-        Row(children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: TextField(
-                decoration: const InputDecoration(labelText: 'B'),
-                controller: _blueController,
-                onChanged: (value) => _changeColor(blue: int.tryParse(value))),
-          ),
-          Expanded(
-              child: Slider(
-            activeColor: Colors.blue,
-            value: color.blue.toDouble(),
-            min: 0,
-            max: 255,
-            divisions: 255,
-            onChanged: (value) => _changeColor(blue: value.toInt()),
-          ))
-        ]),
-        Row(children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: TextField(
-                decoration: const InputDecoration(labelText: 'A'),
-                controller: _alphaController,
-                onChanged: (value) => _changeColor(alpha: int.tryParse(value))),
-          ),
-          Expanded(
-              child: Slider(
-            value: color.alpha.toDouble(),
-            min: 0,
-            max: 255,
-            divisions: 255,
-            onChanged: (value) => _changeColor(alpha: value.toInt()),
-          ))
-        ])
+        ExactSlider(
+          header: Text(AppLocalizations.of(context)!.red),
+          fractionDigits: 0,
+          defaultValue: 255,
+          min: 0,
+          max: 255,
+          value: color.red.toDouble(),
+          color: Colors.red,
+          onChanged: (value) => _changeColor(red: value.toInt()),
+        ),
+        ExactSlider(
+          header: Text(AppLocalizations.of(context)!.green),
+          fractionDigits: 0,
+          defaultValue: 255,
+          min: 0,
+          max: 255,
+          value: color.green.toDouble(),
+          color: Colors.green,
+          onChanged: (value) => _changeColor(green: value.toInt()),
+        ),
+        ExactSlider(
+          header: Text(AppLocalizations.of(context)!.blue),
+          fractionDigits: 0,
+          defaultValue: 255,
+          min: 0,
+          max: 255,
+          color: Colors.blue,
+          value: color.blue.toDouble(),
+          onChanged: (value) => _changeColor(blue: value.toInt()),
+        ),
+        ExactSlider(
+          header: Text(AppLocalizations.of(context)!.alpha),
+          fractionDigits: 0,
+          defaultValue: 255,
+          min: 0,
+          max: 255,
+          value: color.alpha.toDouble(),
+          onChanged: (value) => _changeColor(alpha: value.toInt()),
+        ),
       ]);
 }
