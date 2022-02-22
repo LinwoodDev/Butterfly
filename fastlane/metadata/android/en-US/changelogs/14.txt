@@ -1,10 +1,10 @@
 * Add baking of the viewport ([#89](https://github.com/LinwoodCloud/Butterfly/issues/89))
 * Add templates dialogs and presets
-* Add change document path option
+* Add change document path option ([#96](https://github.com/LinwoodCloud/Butterfly/issues/96))
 * Add insert dialog to add simplification of the user interface
   * Add image insert
   * Add camera insert
-* Add sensitive settings
+* Add sensitive settings ([#91](https://github.com/LinwoodCloud/Butterfly/issues/91))
 * Add background presets
 * Add document name editing in the appbar
 * Remove image painter in favor of the insert dialog
