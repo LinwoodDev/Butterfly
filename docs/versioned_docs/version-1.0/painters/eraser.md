@@ -4,8 +4,10 @@ sidebar_position: 3
 ---
 # Eraser painter
 
-:::warning
-It is not recommended to use the eraser. Please use the [path eraser](path_eraser) if it is possible.
+:::warning It is not recommended to use the eraser.
+
+Please use the [path eraser](path_eraser) if it is possible.
+
 :::
 
 With this painter you can erase the elements on the paper.
