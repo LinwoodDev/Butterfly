@@ -6,6 +6,21 @@ slug: /changelog
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.2.0 (2022-02-22)
+
+* Add baking of the viewport ([#89](https://github.com/LinwoodCloud/Butterfly/issues/89))
+* Add templates dialogs and presets
+* Add change document path option ([#96](https://github.com/LinwoodCloud/Butterfly/issues/96))
+* Add insert dialog to add simplification of the user interface
+  * Add image insert
+  * Add camera insert
+* Add sensitive settings ([#91](https://github.com/LinwoodCloud/Butterfly/issues/91))
+* Add background presets
+* Add document name editing in the appbar
+* Remove image painter in favor of the insert dialog
+* Use minSdkVersion 21 instead of 16 (The minimum version of android is 5.0 (Lollipop))
+* Move undo/redo button to the left of the appbar
+
 ## 1.1.2 (2022-01-21)
 
 * Move color picker in background context menu
