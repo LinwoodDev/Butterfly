@@ -520,15 +520,10 @@ class CustomColorPicker extends StatefulWidget {
 
 class _CustomColorPickerState extends State<CustomColorPicker> {
   late Color color;
-  final TextEditingController _redController = TextEditingController();
-  final TextEditingController _greenController = TextEditingController();
-  final TextEditingController _blueController = TextEditingController();
-  final TextEditingController _alphaController = TextEditingController();
 
   @override
   void initState() {
     color = widget.defaultColor;
-    _updateController();
     super.initState();
   }
 
@@ -536,15 +531,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
       setState(() {
         color = Color.fromARGB(alpha ?? color.alpha, red ?? color.red,
             green ?? color.green, blue ?? color.blue);
-        _updateController();
       });
-
-  void _updateController() {
-    _redController.text = color.red.toString();
-    _greenController.text = color.green.toString();
-    _blueController.text = color.blue.toString();
-    _alphaController.text = color.alpha.toString();
-  }
 
   @override
   Widget build(BuildContext context) {

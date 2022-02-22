@@ -8,6 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../widgets/exact_slider.dart';
+
 class LabelPainterDialog extends StatefulWidget {
   final DocumentBloc bloc;
   final int painterIndex;
@@ -156,9 +158,6 @@ class LabelPropertyView extends StatefulWidget {
 
 class _LabelPropertyViewState extends State<LabelPropertyView> {
   late LabelProperty _value;
-  final TextEditingController _sizeController = TextEditingController();
-  final TextEditingController _thicknessController = TextEditingController();
-  final TextEditingController _spacingController = TextEditingController();
   bool _decorationExpanded = false;
 
   @override
@@ -171,16 +170,6 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
     setState(() {
       _value = newValue;
     });
-    if (double.tryParse(_sizeController.text) != _value.size) {
-      _sizeController.text = _value.size.toStringAsFixed(2);
-    }
-    if (double.tryParse(_spacingController.text) != _value.letterSpacing) {
-      _spacingController.text = _value.letterSpacing.toStringAsFixed(2);
-    }
-    if (double.tryParse(_thicknessController.text) !=
-        _value.decorationThickness) {
-      _thicknessController.text = _value.decorationThickness.toStringAsFixed(2);
-    }
     if (notify) {
       widget.onChanged(newValue);
     }
@@ -189,41 +178,22 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Row(children: [
-        ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: TextField(
-              decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.size),
-              controller: _sizeController,
-              onChanged: (value) =>
-                  change(_value.copyWith(size: double.tryParse(value))),
-            )),
-        Expanded(
-            child: Slider(
-                value: _value.size.clamp(6, 512),
-                min: 6,
-                max: 512,
-                onChanged: (value) => change(_value.copyWith(size: value)))),
-      ]),
-      Row(children: [
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 100),
-          child: TextField(
-              decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.spacing),
-              controller: _spacingController,
-              onChanged: (value) => change(
-                  _value.copyWith(letterSpacing: double.tryParse(value)))),
-        ),
-        Expanded(
-            child: Slider(
-                value: _value.letterSpacing.clamp(0, 20),
-                min: 0,
-                max: 20,
-                onChanged: (value) =>
-                    change(_value.copyWith(letterSpacing: value)))),
-      ]),
+      ExactSlider(
+          label: AppLocalizations.of(context)!.size,
+          value: _value.size,
+          defaultValue: 12,
+          min: 6,
+          max: 512,
+          onChanged: (value) =>
+              change(_value.copyWith(size: value), value != _value.size)),
+      ExactSlider(
+          label: AppLocalizations.of(context)!.spacing,
+          value: _value.letterSpacing,
+          defaultValue: 0,
+          min: 0,
+          max: 20,
+          onChanged: (value) => change(_value.copyWith(letterSpacing: value),
+              value != _value.letterSpacing)),
       ListTile(
           title: Text(AppLocalizations.of(context)!.fontWeight),
           trailing: DropdownButton<FontWeight>(
@@ -328,26 +298,14 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                     title: Text(AppLocalizations.of(context)!.color)),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Row(children: [
-                    ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 100),
-                        child: TextField(
-                          decoration: InputDecoration(
-                              labelText:
-                                  AppLocalizations.of(context)!.thickness),
-                          controller: _thicknessController,
-                          onChanged: (value) => change(_value.copyWith(
-                              decorationThickness: double.tryParse(value))),
-                        )),
-                    Expanded(
-                      child: Slider(
-                          value: _value.decorationThickness.clamp(0.1, 4),
-                          min: 0.1,
-                          max: 4,
-                          onChanged: (value) => change(
-                              _value.copyWith(decorationThickness: value))),
-                    )
-                  ]),
+                  child: ExactSlider(
+                      header: Text(AppLocalizations.of(context)!.thickness),
+                      defaultValue: 1,
+                      value: _value.decorationThickness.clamp(0.1, 4),
+                      min: 0.1,
+                      max: 4,
+                      onChanged: (value) =>
+                          change(_value.copyWith(decorationThickness: value))),
                 ),
               ]))
         ],

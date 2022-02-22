@@ -23,9 +23,6 @@ class PenPainterDialog extends StatefulWidget {
 
 class _PenPainterDialogState extends State<PenPainterDialog> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _strokeWidthController = TextEditingController();
-  final TextEditingController _strokeMultiplierController =
-      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,16 +38,6 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
             child: StatefulBuilder(builder: (context, setState) {
               if (_nameController.text != painter.name) {
                 _nameController.text = painter.name;
-              }
-              if (double.tryParse(_strokeWidthController.text) !=
-                  painter.property.strokeWidth) {
-                _strokeWidthController.text =
-                    painter.property.strokeWidth.toStringAsFixed(2);
-              }
-              if (double.tryParse(_strokeMultiplierController.text) !=
-                  painter.property.strokeMultiplier) {
-                _strokeMultiplierController.text =
-                    painter.property.strokeMultiplier.toStringAsFixed(2);
               }
               return Scaffold(
                   backgroundColor: Colors.transparent,

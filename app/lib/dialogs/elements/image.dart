@@ -27,7 +27,6 @@ class ImageElementDialog extends StatefulWidget {
 }
 
 class _ImageElementDialogState extends State<ImageElementDialog> {
-  final TextEditingController _scaleController = TextEditingController();
   late ImageElement element;
 
   @override
@@ -36,7 +35,6 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
     var bloc = context.read<DocumentBloc>();
     element = (bloc.state as DocumentLoadSuccess).document.content[widget.index]
         as ImageElement;
-    _scaleController.text = (element.scale * 100).toStringAsFixed(2);
   }
 
   void _changeElement() {
@@ -58,7 +56,6 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
           max: 5,
           defaultValue: 1,
           onChanged: (value) {
-            _scaleController.text = (value * 100).toStringAsFixed(2);
             setState(() => element = element.copyWith(scale: value));
           },
           onChangeEnd: (value) => _changeElement(),

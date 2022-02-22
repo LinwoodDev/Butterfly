@@ -22,7 +22,6 @@ class PathEraserPainterDialog extends StatefulWidget {
 
 class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _strokeWidthController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -37,11 +36,6 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
             child: StatefulBuilder(builder: (context, setState) {
               if (_nameController.text != painter.name) {
                 _nameController.text = painter.name;
-              }
-              if (double.tryParse(_strokeWidthController.text) !=
-                  painter.strokeWidth) {
-                _strokeWidthController.text =
-                    painter.strokeWidth.toStringAsFixed(2);
               }
               return Scaffold(
                   backgroundColor: Colors.transparent,

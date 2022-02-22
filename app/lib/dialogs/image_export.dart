@@ -41,8 +41,6 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   final TextEditingController _xController = TextEditingController(text: '0');
 
   final TextEditingController _yController = TextEditingController(text: '0');
-  final TextEditingController _scaleController =
-      TextEditingController(text: '100');
 
   final TextEditingController _widthController =
       TextEditingController(text: '1000');
@@ -70,7 +68,6 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
     _yController.text = y.toString();
     _widthController.text = width.toString();
     _heightController.text = height.toString();
-    _scaleController.text = scale.toStringAsFixed(2);
 
     super.initState();
   }
@@ -104,9 +101,6 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
 
   @override
   Widget build(BuildContext context) {
-    if (scale.toStringAsFixed(2) != _scaleController.text) {
-      _scaleController.text = (scale * 100).toStringAsFixed(2);
-    }
     return BlocProvider.value(
       value: widget.bloc,
       child: Builder(builder: (context) {
