@@ -67,12 +67,8 @@ class BehaviorsSettingsPage extends StatelessWidget {
                                         header: Row(children: [
                                           const Icon(PhosphorIcons.handLight),
                                           const SizedBox(width: 8),
-                                          Text(
-                                              AppLocalizations.of(context)!
-                                                  .touchSensitivity,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge),
+                                          Text(AppLocalizations.of(context)!
+                                              .touchSensitivity),
                                         ]),
                                         onChanged: (value) {
                                           final cubit =
@@ -87,12 +83,8 @@ class BehaviorsSettingsPage extends StatelessWidget {
                                         header: Row(children: [
                                           const Icon(PhosphorIcons.mouseLight),
                                           const SizedBox(width: 8),
-                                          Text(
-                                              AppLocalizations.of(context)!
-                                                  .mouseSensitivity,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge),
+                                          Text(AppLocalizations.of(context)!
+                                              .mouseSensitivity),
                                         ]),
                                         onChanged: (value) {
                                           final cubit =
@@ -107,12 +99,8 @@ class BehaviorsSettingsPage extends StatelessWidget {
                                         header: Row(children: [
                                           const Icon(PhosphorIcons.penLight),
                                           const SizedBox(width: 8),
-                                          Text(
-                                              AppLocalizations.of(context)!
-                                                  .penSensitivity,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge),
+                                          Text(AppLocalizations.of(context)!
+                                              .penSensitivity),
                                         ]),
                                         onChanged: (value) {
                                           final cubit =

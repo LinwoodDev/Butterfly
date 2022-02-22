@@ -69,6 +69,7 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                 controller: _nameController,
                                 onChanged: (value) => setState(() =>
                                     painter = painter.copyWith(name: value))),
+                            const SizedBox(height: 10),
                             LabelPropertyView(
                                 initialValue: painter.property,
                                 onChanged: (property) => setState(() =>
@@ -179,7 +180,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
   Widget build(BuildContext context) {
     return Column(children: [
       ExactSlider(
-          label: AppLocalizations.of(context)!.size,
+          header: Text(AppLocalizations.of(context)!.size),
           value: _value.size,
           defaultValue: 12,
           min: 6,
@@ -187,7 +188,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
           onChanged: (value) =>
               change(_value.copyWith(size: value), value != _value.size)),
       ExactSlider(
-          label: AppLocalizations.of(context)!.spacing,
+          header: Text(AppLocalizations.of(context)!.spacing),
           value: _value.letterSpacing,
           defaultValue: 0,
           min: 0,
@@ -219,6 +220,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
             setState(() => _decorationExpanded = !_decorationExpanded),
         children: [
           ExpansionPanel(
+              canTapOnHeader: true,
               isExpanded: _decorationExpanded,
               headerBuilder: (context, isExpanded) => Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -74,7 +74,10 @@ class _ExactSliderState extends State<ExactSlider> {
               children: [
                 if (widget.header != null)
                   Padding(
-                      padding: const EdgeInsets.all(8), child: widget.header!),
+                      padding: const EdgeInsets.all(8),
+                      child: DefaultTextStyle(
+                          style: Theme.of(context).textTheme.titleMedium!,
+                          child: widget.header!)),
                 Row(children: [
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 125),
