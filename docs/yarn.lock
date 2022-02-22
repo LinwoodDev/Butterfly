@@ -2799,7 +2799,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/plugin-content-docs@npm:2.0.0-beta.15":
+"@docusaurus/plugin-content-docs@npm:2.0.0-beta.15, @docusaurus/plugin-content-docs@npm:^2.0.0-beta.15":
   version: 2.0.0-beta.15
   resolution: "@docusaurus/plugin-content-docs@npm:2.0.0-beta.15"
   dependencies:
@@ -4726,6 +4726,7 @@ __metadata:
   dependencies:
     "@docusaurus/core": 2.0.0-beta.15
     "@docusaurus/plugin-client-redirects": 2.0.0-beta.15
+    "@docusaurus/plugin-content-docs": ^2.0.0-beta.15
     "@docusaurus/plugin-pwa": 2.0.0-beta.15
     "@docusaurus/preset-classic": 2.0.0-beta.15
     "@mdx-js/react": ^1
