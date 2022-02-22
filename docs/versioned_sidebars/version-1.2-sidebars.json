@@ -1,0 +1,34 @@
+{
+  "sidebar": [
+    "intro",
+    "color_picker",
+    "migrating",
+    "background",
+    {
+      "type": "category",
+      "label": "Painters",
+      "link": {
+        "type": "doc",
+        "id": "painters/intro"
+      },
+      "items": [
+        "painters/pen",
+        "painters/eraser",
+        "painters/path_eraser",
+        "painters/label",
+        "painters/layer"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Tools",
+      "link": {
+        "type": "doc",
+        "id": "tools/intro"
+      },
+      "items": [
+        "tools/hand"
+      ]
+    }
+  ]
+}
