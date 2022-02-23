@@ -32,3 +32,7 @@ Verwenden Sie nicht die nächtliche Version von Butterfly für die Produktion.
   F-Droid
 </a>
 </div>
+
+## The beta program on play store
+
+Here you can get the [nightly](/nightly) version of the app. Click on [this link](https://play.google.com/apps/testing/dev.linwood.butterfly) to register for it. Please note that this version can have bugs.
