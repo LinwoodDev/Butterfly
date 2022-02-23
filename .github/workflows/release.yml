@@ -3,16 +3,22 @@ name: Release
 on:
   workflow_dispatch:
     branches:
+      - main
       - develop
     inputs:
       release_version:
-        default: '0.0.0'
-        description: 'The version to release'
         required: true
+        default: "0.0.0"
+        description: "The version to release"
       next_version:
-        default: '0.0.0'
-        description: 'The next version to be released'
+        default: "0.0.0"
+        description: "The next version to be released"
         required: true
+      stable:
+        default: "false"
+        description: "Is this version stable?"
+        type: boolean
+        required: false
 
 jobs:
   release:
@@ -26,7 +32,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: 2.10.0-0.3.pre
-          channel: 'beta' # or: 'stable' or 'dev'
+          channel: "beta" # or: 'stable' or 'dev'
       - name: Setup git
         id: setup
         run: |
@@ -42,7 +48,7 @@ jobs:
         run: |
           dart pub get -C tools
           dart run tools/set_version.dart ${{ github.event.inputs.release_version }} --build-number keep
-          
+
           git add .
           git commit -m "Update version to ${{ github.event.inputs.release_version }}"
           git push origin develop
@@ -81,9 +87,19 @@ jobs:
           content: |
             Version ${{ github.event.inputs.release_version }} released!
             Download it here: https://docs.butterfly.linwood.dev/downloads
-            
+
             https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ github.event.inputs.release_version }}
-
-
-
-
+  publish-to-play-store:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish beta
+        run: fastlane beta
+        if: ${{ github.event.inputs.stable }} == "false"
+        env:
+          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
+      - name: Publish stable
+        run: fastlane deploy
+        if: ${{ github.event.inputs.stable }} == "true"
+        env:
+          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
