@@ -8,10 +8,24 @@ the [Code of Conduct](CODE_OF_CONDUCT.md) first!
 If you find bugs or have feature request, you can create an issue by
 clicking [here](https://github.com/LinwoodCloud/butterfly/issues/new/choose).
 
+## Nightly Builds
+
+Read more about them [here](https://docs.butterfly.linwood.dev/nightly).
+
 ## Code
 
-If you want to help me to code, you can open a pull request. Fork this project and make a pull request. I only accept pull requests for the *develop* branch.
-This project uses Flutter for the app written in Dart and Docusaurus in the documentation. Please use the beta channel of flutter to have desktop support.
+This app is built wíth Flutter and is develop in the programming language Dart.
+The current version is in the main branch. This branch is feature freezed and only
+accept bug fixing pull requests. The develop branch is the next version of the app.
+All nightly versions gets released from here. Please create feature requests and bug
+fixing pull requests here.
+
+## Documentation
+
+The documentation uses docusaurus as generator and markdown for the pages.
+The development version of the documentation can be found in docs/docs and
+the versioned docs in docs/versioned_docs. Fork this project and create a pull request
+on the develop branch to help me improving the documentation.
 
 ## Translation
 
@@ -19,7 +33,8 @@ Help me to translate the app on [crowdin](https://linwood.crowdin.com/butterfly)
 
 ## Community Server
 
-A project without a community isn't a good project. You can [join the discord](https://discord.linwood.dev)!
+A project without a community isn't a good project. You can [join the discord](https://discord.linwood.dev)
+to talk with others or get the latest news!
 
 ## Security/Branches
 
