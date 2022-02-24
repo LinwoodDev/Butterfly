@@ -35,4 +35,4 @@ Ne pas utiliser la version nocturne de Butterfly pour la production.
 
 ## The beta program on play store
 
-Here you can get the [nightly](/nightly) version of the app. Click on [this link](https://play.google.com/apps/testing/dev.linwood.butterfly) to register for it. Please note that this version can have bugs.
+Click on [this link](https://play.google.com/apps/testing/dev.linwood.butterfly) to register for the [nightly](/nightly) version of the app. Please note that this version can have bugs. The play store version will automatically be updated when a new nightly version is released.
