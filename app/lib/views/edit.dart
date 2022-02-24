@@ -17,6 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../models/painters/area.dart';
+
 class EditToolbar extends StatelessWidget {
   const EditToolbar({Key? key}) : super(key: key);
 
@@ -32,6 +34,8 @@ class EditToolbar extends StatelessWidget {
         return PhosphorIcons.imageLight;
       case 'layer':
         return PhosphorIcons.squaresFourLight;
+      case 'area':
+        return PhosphorIcons.squareLight;
       default:
         return PhosphorIcons.penLight;
     }
@@ -49,6 +53,8 @@ class EditToolbar extends StatelessWidget {
         return PhosphorIcons.imageFill;
       case 'layer':
         return PhosphorIcons.squaresFourFill;
+      case 'area':
+        return PhosphorIcons.squareFill;
       default:
         return PhosphorIcons.penFill;
     }
@@ -198,7 +204,8 @@ class EditToolbar extends StatelessWidget {
                                     'eraser',
                                     'path-eraser',
                                     'label',
-                                    'layer'
+                                    'layer',
+                                    'area'
                                   ].map((e) {
                                     final Painter painter;
                                     String name;
@@ -226,6 +233,12 @@ class EditToolbar extends StatelessWidget {
                                         painter = LayerPainter();
                                         name =
                                             AppLocalizations.of(context)!.layer;
+                                        break;
+                                      case 'area':
+                                        // ignore: prefer_const_constructors
+                                        painter = AreaPainter();
+                                        name =
+                                            AppLocalizations.of(context)!.area;
                                         break;
                                       default:
                                         // ignore: prefer_const_constructors
