@@ -5,7 +5,7 @@ sidebar_position: 3
 
 # Radierzeichner
 
-:::warning Es wird nicht empfohlen den Radier zu verwenden.
+:::warning Es wird nicht empfohlen, den Radier zu verwenden.
 
 Bitte verwenden Sie den [Pfadlöscher](path_eraser) wenn dies möglich ist.
 
