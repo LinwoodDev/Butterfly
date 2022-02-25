@@ -7,13 +7,13 @@ on:
       - develop
     inputs:
       release_version:
-        required: true
+        required: false
         default: "0.0.0"
         description: "The version to release"
       next_version:
         default: "0.0.0"
         description: "The next version to be released"
-        required: true
+        required: false
       stable:
         default: "false"
         description: "Is this version stable?"
@@ -65,6 +65,7 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
+          prerelease: ${{ github.event.inputs.stable == "false" }}
           tag_name: v${{ github.event.inputs.release_version }}
           name: v${{ github.event.inputs.release_version }}
           body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
@@ -89,6 +90,38 @@ jobs:
             Download it here: https://docs.butterfly.linwood.dev/downloads
 
             https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ github.event.inputs.release_version }}
+  update-build-number:
+    if: ${{ github.ref }} == "main"
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: develop
+          token: ${{ secrets.CI_PAT }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 2.10.0-0.3.pre
+          channel: "beta" # or: 'stable' or 'dev'
+      - name: Setup git
+        id: setup
+        run: |
+          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
+          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
+          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - name: Update build number
+        run: |
+          dart pub get -C tools
+          dart run tools/set_version.dart --build-number increment --no-changelog
+
+          git add .
+          git commit -m "Increment build number"
+          git push origin develop
   publish-to-play-store:
     runs-on: ubuntu-20.04
     steps:
