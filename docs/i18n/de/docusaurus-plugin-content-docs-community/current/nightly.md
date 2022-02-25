@@ -1,6 +1,8 @@
 ---
-slug: "/nightly"
+slug: "/nachts"
 ---
+
+# Nachts Builds
 
 :::warning
 
@@ -8,10 +10,9 @@ Verwenden Sie nicht die nächtliche Version von Butterfly für die Produktion.
 
 :::
 
-# Nightly Builds
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+Die nächtlichen Builds sind so konzipiert, dass sie dir die Möglichkeit geben, die neueste Version zu testen und die neuesten Funktionen zu erhalten und Feedback zu geben.
 
-## Get the builds
+## Erhalte die Builds
 
-Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
+Gehen Sie zu den Download-Seiten Ihrer Plattform. Alle Nightly Builds werden auch als Pre-Release auf github veröffentlicht.
