@@ -1,5 +1,5 @@
 ---
-slug: "/nachts"
+slug: "/nightly"
 ---
 
 # Nachts Builds

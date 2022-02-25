@@ -308,5 +308,9 @@
   },
   "theme.SearchBar.seeAll": {
     "message": "Voir tous les {count} résultats"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "Voir tous les tags",
+    "description": "The label of the link targeting the tag list page"
   }
 }
