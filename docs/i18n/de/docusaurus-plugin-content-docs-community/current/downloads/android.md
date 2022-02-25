@@ -33,6 +33,6 @@ Verwenden Sie nicht die nächtliche Version von Butterfly für die Produktion.
 </a>
 </div>
 
-## The beta program on play store
+## Das Beta-Programm im Play Store
 
-Click on [this link](https://play.google.com/apps/testing/dev.linwood.butterfly) to register for the [nightly](/nightly) version of the app. Please note that this version can have bugs. The play store version will automatically be updated when a new nightly version is released.
+Klicken Sie auf [diesen Link](https://play.google.com/apps/testing/dev.linwood.butterfly) um sich für die [nächtlich](/nightly) Version der App zu registrieren. Bitte beachten Sie, dass diese Version Bugs haben kann. Die Play Store-Version wird automatisch aktualisiert, wenn eine neue nächtliche Version veröffentlicht wird.
