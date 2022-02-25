@@ -1,13 +1,13 @@
 ---
 id: "community"
 slug: "/community"
-sidebar_label: "Home"
+sidebar_label: "Zuhause"
 sidebar_position: 0
 ---
 
 # Community
 
-Welcome to the community section.
+Willkommen im Community-Abschnitt.
 
 ## Nützliche Links
 
