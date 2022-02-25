@@ -119,10 +119,6 @@
     "message": "{nPosts} tagged with \"{tagName}\"",
     "description": "The title of the page for a blog tag"
   },
-  "theme.tags.tagsPageLink": {
-    "message": "View All Tags",
-    "description": "The label of the link targeting the tag list page"
-  },
   "theme.CodeBlock.copyButtonAriaLabel": {
     "message": "Copy code to clipboard",
     "description": "The ARIA label for copy code blocks button"
@@ -312,5 +308,9 @@
   },
   "theme.SearchBar.seeAll": {
     "message": "See all {count} results"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "View All Tags",
+    "description": "The label of the link targeting the tag list page"
   }
 }
