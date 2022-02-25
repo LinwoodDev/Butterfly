@@ -11,7 +11,9 @@ import 'aos/dist/aos.css';
 
 
 function HomepageHeader() {
-  AOS.init();
+  React.useEffect(() => {
+    AOS.init();
+  }, []);
   const {siteConfig} = useDocusaurusContext();
   const Svg = require('../../static/img/logo.svg').default;
   return (
