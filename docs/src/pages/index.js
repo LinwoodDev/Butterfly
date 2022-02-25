@@ -8,10 +8,10 @@ import HomepageFeatures from "../components/HomepageFeatures";
 import Translate from '@docusaurus/Translate';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-AOS.init();
 
 
 function HomepageHeader() {
+  AOS.init();
   const {siteConfig} = useDocusaurusContext();
   const Svg = require('../../static/img/logo.svg').default;
   return (

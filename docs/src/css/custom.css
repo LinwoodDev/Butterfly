@@ -23,7 +23,7 @@
   --ifm-code-font-size: 95%;
   --ifm-font-family-base: 'Raleway', sans-serif;
   --ifm-menu-color-background-active: var(--ifm-color-primary-darkest);
-  --ifm-menu-link-padding-vertical: 0.5rem;
+  --ifm-menu-link-padding-vertical: 0.75rem;
   --ifm-menu-color-active: var(--ifm-color-gray-100);
   --custom-border-radius: 8px;
   --custom-border-radius-md: 12px;
@@ -40,7 +40,7 @@ img {
   border-radius: var(--custom-border-radius-md) !important;
 }
 .menu__list-item-collapsible {
-  --ifm-menu-color-active: var(--ifm-color-gray-900);
+  --ifm-menu-color-active: var(--ifm-color-emphasis-900);
 }
 .footer {
   --ifm-footer-background-color:var(--ifm-color-emphasis-900);
