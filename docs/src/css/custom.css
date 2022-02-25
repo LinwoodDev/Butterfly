@@ -29,6 +29,11 @@
   --custom-border-radius-md: 12px;
   --ifm-code-border-radius: var(--custom-border-radius);
   --ifm-button-border-radius: var(--custom-border-radius);
+  scroll-behavior: smooth;
+}
+
+img {
+  border-radius: 12px;
 }
 
 .DocSearch-Button {
