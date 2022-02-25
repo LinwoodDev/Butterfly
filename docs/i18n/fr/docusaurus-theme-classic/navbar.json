@@ -1,6 +1,6 @@
 {
   "title": {
-    "message": "Linwood Butterfly",
+    "message": "Papillon",
     "description": "The title in the navbar"
   },
   "item.label.Tutorial": {
@@ -18,13 +18,5 @@
   "item.label.Blog": {
     "message": "Blogue",
     "description": "Navbar item with label Blog"
-  },
-  "item.label.GitHub": {
-    "message": "GitHub",
-    "description": "Navbar item with label GitHub"
-  },
-  "item.label.Discord": {
-    "message": "Discord",
-    "description": "Navbar item with label Discord"
   }
 }
