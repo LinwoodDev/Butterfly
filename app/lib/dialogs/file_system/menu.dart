@@ -98,8 +98,9 @@ class FileSystemAssetMenu extends StatelessWidget {
                     context: context,
                     builder: (context) => FileSystemAssetMoveDialog(
                         asset: asset, duplicate: true),
-                  );
-                  if (newPath != null) onRefreshed();
+                  ) as String?;
+                  if (newPath == null) return;
+                  onRefreshed();
                 }),
             padding: EdgeInsets.zero,
           ),
@@ -109,12 +110,21 @@ class FileSystemAssetMenu extends StatelessWidget {
                 title: Text(AppLocalizations.of(context)!.move),
                 onTap: () async {
                   Navigator.of(context).pop();
-                  var success = await showDialog(
+                  var newPath = await showDialog(
                     context: context,
                     builder: (context) =>
                         FileSystemAssetMoveDialog(asset: asset),
-                  );
-                  if (success ?? false) onRefreshed();
+                  ) as String?;
+                  if (newPath == null) return;
+                  onRefreshed();
+                  // Change path if current document is moved
+                  var bloc = context.read<DocumentBloc>();
+                  var state = bloc.state;
+                  if (state is! DocumentLoadSuccess) return;
+                  if (state.path == asset.path) {
+                    bloc.clearHistory();
+                    bloc.emit(state.copyWith(path: newPath));
+                  }
                 }),
             padding: EdgeInsets.zero,
           ),

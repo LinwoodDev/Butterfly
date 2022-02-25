@@ -23,3 +23,5 @@ Please use [the bug tracker](https://github.com/LinwoodCloud/butterfly/issues) o
 | :------ | :-----: | -----------------------------------------------------------------------------------------: | ------- |
 | main    |    ✅    | This branch is production ready. It will be updated when a new stable version is released! | Stable  |
 | develop |    ⚠️    |    This branch is only for testing and developing. Pull request should only be added here! | Nightly |
+
+Read more about nightly [here](/nightly).

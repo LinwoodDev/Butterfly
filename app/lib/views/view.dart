@@ -134,7 +134,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   )));
                           if (newElement != null) {
                             bloc
-                              ..add(ElementsCreated(newElement))
+                              ..add(ElementsCreated([newElement]))
                               ..add(ImageBaked(
                                   constraints.biggest,
                                   MediaQuery.of(context).devicePixelRatio,
