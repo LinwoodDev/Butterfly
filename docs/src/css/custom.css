@@ -5,6 +5,12 @@
  * work well for content-centric websites.
  */
 
+/* Import Montserrat font from file */
+@font-face {
+  font-family: 'Raleway';
+  src: url('/Raleway.ttf') format('truetype');
+}
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #f2b138;
@@ -15,8 +21,46 @@
   --ifm-color-primary-lighter: #f5c162;
   --ifm-color-primary-lightest: #f7d28c;
   --ifm-code-font-size: 95%;
+  --ifm-font-family-base: 'Raleway', sans-serif;
+  --ifm-menu-color-background-active: var(--ifm-color-primary-darkest);
+  --ifm-menu-link-padding-vertical: 0.5rem;
+  --ifm-menu-color-active: var(--ifm-color-gray-100);
+  --custom-border-radius: 8px;
+  --custom-border-radius-md: 12px;
+  --ifm-code-border-radius: var(--custom-border-radius);
+  --ifm-button-border-radius: var(--custom-border-radius);
 }
 
+.DocSearch-Button {
+  border-radius: var(--custom-border-radius-md) !important;
+}
+.menu__list-item-collapsible {
+  --ifm-menu-color-active: var(--ifm-color-gray-900);
+}
+.footer {
+  --ifm-footer-background-color:var(--ifm-color-emphasis-900);
+  --ifm-footer-link-color: var(--ifm-color-emphasis-700);
+}
+.footer--dark {
+  --ifm-footer-title-color: var(--ifm-color-primary-darkest);
+  --ifm-footer-background-color:var(--ifm-color-emphasis-100);
+  --ifm-footer-color: inherit;
+}
+.navbar__link--active {
+  font-weight: bold;
+}
+.navbar__link--active::after {
+  background: var(--ifm-color-primary);
+  content: "";
+  display: flex;
+  height: 4px;
+  margin-left: -5px;
+  margin-right: -5px;
+  margin-top: -4px;
+  position: relative;
+  top: 18px;
+  width: calc(100% + 10px);
+}
 .docusaurus-highlight-code-line {
   background-color: rgb(72, 77, 91);
   display: block;
@@ -62,4 +106,8 @@ html[data-theme='dark'] .DocSearch {
     var(--ifm-color-emphasis-200) 0%,
     var(--ifm-color-emphasis-100) 100%
   );
+}
+
+.DocSearch-Button {
+  border-radius: 10px;
 }

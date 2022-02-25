@@ -28,9 +28,9 @@ module.exports = {
             //... other Algolia params
         },
         navbar: {
-            title: 'Linwood Butterfly',
+            title: 'Butterfly',
             logo: {
-                alt: 'Linwood Butterfly Logo',
+                alt: 'Butterfly Logo',
                 src: 'img/logo.svg',
             },
             items: [
@@ -60,16 +60,6 @@ module.exports = {
                 },
                 {
                     type: 'localeDropdown',
-                    position: 'right',
-                },
-                {
-                    href: 'https://discord.linwood.dev',
-                    label: 'Discord',
-                    position: 'right',
-                },
-                {
-                    href: 'https://github.com/LinwoodCloud/Butterfly',
-                    label: 'GitHub',
                     position: 'right',
                 }
             ],
