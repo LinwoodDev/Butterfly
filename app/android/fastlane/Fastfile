@@ -23,13 +23,13 @@ platform :android do
 
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
-    upload_to_play_store(track: 'beta', aab: '../build/app/outputs/bundle/release/app-release.aab', json_key_data: ENV['PLAY_STORE_UPLOAD_KEY'])
+    upload_to_play_store(track: 'beta', aab: '../build/app/outputs/bundle/release/app-release.aab', json_key_data: ENV['PLAY_STORE_UPLOAD_KEY'], metadata_path: '../../fastlane/metadata')
     
   end
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
     gradle(task: "clean assembleRelease")
-    upload_to_play_store(aab: '../build/app/outputs/bundle/release/app-release.aab', json_key_data: ENV['PLAY_STORE_UPLOAD_KEY']))
+    upload_to_play_store(aab: '../build/app/outputs/bundle/release/app-release.aab', json_key_data: ENV['PLAY_STORE_UPLOAD_KEY']), metadata_path: '../../fastlane/metadata')
   end
 end
