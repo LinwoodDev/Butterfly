@@ -1,3 +1,4 @@
+import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/properties/label.dart';
 import 'package:butterfly/models/properties/pen.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +71,7 @@ class AppDocument {
   final BoxBackground? background;
   final List<ColorPalette> palettes;
   final List<Waypoint> waypoints;
+  final List<Area> areas;
   final DateTime createdAt;
   final DateTime updatedAt;
   final HandProperty handProperty;
@@ -81,6 +83,7 @@ class AppDocument {
       this.background = const BoxBackground(),
       this.palettes = const [],
       this.waypoints = const [],
+      this.areas = const [],
       required this.createdAt,
       this.handProperty = const HandProperty(),
       DateTime? updatedAt,
@@ -97,6 +100,7 @@ class AppDocument {
       this.background = const BoxBackground(),
       this.palettes = const [],
       this.waypoints = const [],
+      this.areas = const [],
       required this.createdAt,
       this.handProperty = const HandProperty(),
       DateTime? updatedAt,
@@ -176,6 +180,9 @@ class AppDocument {
         })
         .whereType<PadElement>()
         .toList();
+    var areas = List<dynamic>.from(json['areas'] ?? [])
+        .map((e) => Area.fromJson(Map<String, dynamic>.from(e), version))
+        .toList();
     var createdAt =
         DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now();
     var updatedAt = DateTime.tryParse(json['updatedAt'] ?? '') ?? createdAt;
@@ -189,7 +196,8 @@ class AppDocument {
         painters: painters,
         palettes: palettes,
         waypoints: waypoints,
-        handProperty: handProperty);
+        handProperty: handProperty,
+        areas: areas);
   }
 
   Map<String, dynamic> toJson() => {
@@ -201,6 +209,7 @@ class AppDocument {
         'content':
             content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         'waypoints': waypoints.map((e) => e.toJson()).toList(),
+        'areas': areas.map((e) => e.toJson()).toList(),
         'background': background?.toJson(),
         'fileVersion': GetIt.I.get<int>(instanceName: 'fileVersion'),
         'createdAt': createdAt.toIso8601String(),
@@ -216,6 +225,7 @@ class AppDocument {
       BoxBackground? background,
       List<ColorPalette>? palettes,
       List<Waypoint>? waypoints,
+      List<Area>? areas,
       bool removeBackground = false,
       DateTime? createdAt,
       DateTime? updatedAt,
@@ -229,6 +239,7 @@ class AppDocument {
         painters: painters ?? this.painters,
         palettes: palettes ?? this.palettes,
         waypoints: waypoints ?? this.waypoints,
+        areas: areas ?? this.areas,
         background: removeBackground ? null : (background ?? this.background),
         handProperty: handProperty ?? this.handProperty);
   }

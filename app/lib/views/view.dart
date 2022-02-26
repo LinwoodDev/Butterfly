@@ -26,6 +26,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../models/area.dart';
 import '../view_painter.dart';
 
 class MainViewViewport extends StatefulWidget {
@@ -62,6 +63,7 @@ List<int> _executeRayCast(_RayCastParams params) {
 class _MainViewViewportState extends State<MainViewViewport> {
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
+  Offset? firstPosition;
 
   @override
   Widget build(BuildContext context) {
@@ -236,6 +238,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 } else {
                                   openView = true;
                                 }
+                                firstPosition = context
+                                    .read<TransformCubit>()
+                                    .state
+                                    .localToGlobal(event.localPosition);
                               },
                               onPointerUp: (PointerUpEvent event) async {
                                 var cubit = context.read<EditingCubit>();
@@ -246,6 +252,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 var state = bloc.state;
                                 if (state is! DocumentLoadSuccess) return;
                                 _bake();
+                                if (state.currentPainter is AreaPainter &&
+                                    firstPosition != null) {
+                                  bloc.add(AreaCreated(Area.fromPoints(
+                                      firstPosition!,
+                                      transform.localToGlobal(
+                                          event.localPosition))));
+                                  return;
+                                }
                                 if (cubit.isMoving) {
                                   cubit.moveTo(transform
                                       .localToGlobal(event.localPosition));
@@ -502,7 +516,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         return CustomPaint(
                                           size: Size.infinite,
                                           foregroundPainter: ForegroundPainter(
-                                              editing, transform, selection),
+                                            editing,
+                                            transform,
+                                            selection,
+                                            state.currentPainter is AreaPainter
+                                                ? state.document.areas
+                                                : [],
+                                          ),
                                           painter: ViewPainter(
                                             state.document,
                                             elements: state.elements,

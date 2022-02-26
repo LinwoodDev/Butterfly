@@ -1,51 +1,49 @@
 import 'dart:ui' as ui;
 
-import 'package:butterfly/models/elements/element.dart';
 import 'package:flutter/material.dart';
 
-class AreaElement extends PadElement {
-  @override
+class Area {
   final Offset position;
   final double width, height;
 
-  const AreaElement({
+  const Area({
     required this.width,
     required this.height,
     required this.position,
-    String layer = '',
-  }) : super(layer: layer);
+  });
 
-  AreaElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
+  Area.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : height = json['height'],
         width = json['width'],
         position = json['position'] != null
             ? Offset(json['position']['x'], json['position']['y'])
             : Offset.zero;
+  Area.fromPoints(Offset first, Offset second)
+      : position = Offset(first.dx < second.dx ? first.dx : second.dx,
+            first.dy < second.dy ? first.dy : second.dy),
+        width = (second.dx - first.dx).abs(),
+        height = (second.dy - first.dy).abs();
 
-  @override
   Map<String, dynamic> toJson() => {
         'height': height,
         'width': width,
-        'type': 'area',
         'position': {'x': position.dx, 'y': position.dy}
-      }..addAll(super.toJson());
+      };
 
-  @override
-  AreaElement copyWith({
-    String? layer,
+  Offset get second => Offset(position.dx + width, position.dy + height);
+
+  Area copyWith({
     double? width,
     double? height,
     Offset? position,
   }) {
-    return AreaElement(
-      layer: layer ?? this.layer,
+    return Area(
       width: width ?? this.width,
       height: height ?? this.height,
       position: position ?? this.position,
     );
   }
 
-  @override
   bool hit(Offset offset, [double radius = 1]) {
     return offset.dx >= position.dx &&
         offset.dy >= position.dy &&
@@ -53,13 +51,7 @@ class AreaElement extends PadElement {
         offset.dy <= position.dy + height;
   }
 
-  @override
-  void paint(Canvas canvas, [bool preview = false]) =>
-      throw UnimplementedError();
-
-  @override
   ui.Rect get rect => Rect.fromLTWH(position.dx, position.dy, width, height);
 
-  @override
-  AreaElement moveBy(Offset offset) => copyWith(position: position + offset);
+  Area moveBy(Offset offset) => copyWith(position: position + offset);
 }

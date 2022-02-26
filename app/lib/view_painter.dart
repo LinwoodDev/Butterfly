@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
+import 'models/area.dart';
 
 Future<ui.Image> loadImage(ImageElement layer) {
   return decodeImageFromList(layer.pixels);
@@ -42,9 +43,12 @@ class ForegroundPainter extends CustomPainter {
   final Map<int, PadElement> editingLayer;
   final CameraTransform transform;
   final PadElement? selection;
+  final List<Area> areas;
 
   ForegroundPainter(this.editingLayer,
-      [this.transform = const CameraTransform(), this.selection]);
+      [this.transform = const CameraTransform(),
+      this.selection,
+      this.areas = const []]);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -73,6 +77,17 @@ class ForegroundPainter extends CustomPainter {
               [Colors.red, Colors.yellow],
             )
             ..strokeWidth = 10 / transform.size);
+    }
+    if (areas.isNotEmpty) {
+      var paint = Paint()
+        ..style = PaintingStyle.stroke
+        ..colorFilter = const ColorFilter.mode(Colors.red, BlendMode.srcATop)
+        ..strokeWidth = 2 / transform.size
+        ..blendMode = BlendMode.srcATop;
+      for (var element in areas) {
+        canvas.drawRect(
+            Rect.fromPoints(element.position, element.second), paint);
+      }
     }
   }
 
@@ -104,12 +119,14 @@ class ViewPainter extends CustomPainter {
   final Map<PadElement, ui.Image> images;
   final CameraTransform transform;
 
-  ViewPainter(this.document,
-      {this.renderBackground = true,
-      this.elements = const [],
-      this.bakedViewport,
-      this.transform = const CameraTransform(),
-      this.images = const {}});
+  ViewPainter(
+    this.document, {
+    this.renderBackground = true,
+    this.elements = const [],
+    this.bakedViewport,
+    this.transform = const CameraTransform(),
+    this.images = const {},
+  });
 
   @override
   void paint(Canvas canvas, Size size) {

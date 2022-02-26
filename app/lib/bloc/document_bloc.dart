@@ -15,6 +15,7 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
+import '../models/area.dart';
 import '../models/elements/image.dart';
 
 part 'document_event.dart';
@@ -356,6 +357,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var current = state;
       if (current is! DocumentLoadSuccess) return;
       emit(current.copyWith(path: event.path));
+    });
+    on<AreaCreated>((event, emit) {
+      var current = state;
+      if (current is! DocumentLoadSuccess) return;
+      emit(current.copyWith(
+          document: current.document.copyWith(
+              areas: List<Area>.from(current.document.areas)
+                ..add(event.area))));
     });
   }
 
