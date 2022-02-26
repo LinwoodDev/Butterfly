@@ -79,14 +79,20 @@ class ForegroundPainter extends CustomPainter {
             ..strokeWidth = 10 / transform.size);
     }
     if (areas.isNotEmpty) {
+      // With background and border
       var paint = Paint()
         ..style = PaintingStyle.stroke
-        ..colorFilter = const ColorFilter.mode(Colors.red, BlendMode.srcATop)
-        ..strokeWidth = 2 / transform.size
-        ..blendMode = BlendMode.srcATop;
-      for (var element in areas) {
-        canvas.drawRect(
-            Rect.fromPoints(element.position, element.second), paint);
+        ..strokeWidth = 10 / transform.size;
+      var backgroundPaint = Paint()
+        ..style = PaintingStyle.fill
+        ..color = Colors.blue.withOpacity(0.5);
+      for (var area in areas) {
+        canvas.drawRRect(
+            RRect.fromRectAndRadius(area.rect, const Radius.circular(5)),
+            paint);
+        canvas.drawRRect(
+            RRect.fromRectAndRadius(area.rect, const Radius.circular(5)),
+            backgroundPaint);
       }
     }
   }

@@ -1,5 +1,6 @@
 import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
+import 'package:butterfly/models/area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,7 +11,13 @@ import '../../cubits/transform.dart';
 class AreaContextMenu extends StatelessWidget {
   final VoidCallback close;
   final Offset position;
-  const AreaContextMenu({Key? key, required this.close, required this.position})
+  final Area area;
+
+  const AreaContextMenu(
+      {Key? key,
+      required this.close,
+      required this.position,
+      required this.area})
       : super(key: key);
 
   @override

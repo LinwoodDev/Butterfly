@@ -25,6 +25,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../models/area.dart';
 import '../view_painter.dart';
@@ -147,9 +149,74 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         }
                       }
 
+                      Future<dynamic> showAreaContextMenu(
+                          Offset position) async {
+                        Future<dynamic> _showExactAreaContextMenu(Area area) =>
+                            showContextMenu(
+                                context: context,
+                                position: position,
+                                builder: (ctx, close) => MultiBlocProvider(
+                                      providers: [
+                                        BlocProvider.value(
+                                            value:
+                                                context.read<DocumentBloc>()),
+                                        BlocProvider.value(
+                                            value:
+                                                context.read<TransformCubit>()),
+                                      ],
+                                      child: Actions(
+                                          actions: context
+                                                  .findAncestorWidgetOfExactType<
+                                                      Actions>()
+                                                  ?.actions ??
+                                              {},
+                                          child: AreaContextMenu(
+                                              position: position,
+                                              area: area,
+                                              close: close)),
+                                    ));
+                        var areas = state.document.areas
+                            .where((area) => area.hit(position, 5 / size))
+                            .toList();
+                        if (areas.length == 1) {
+                          return _showExactAreaContextMenu(areas.first);
+                        } else if (areas.length > 1) {
+                          var selected = await showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              scrollable: true,
+                              title: Text(
+                                  AppLocalizations.of(context)!.selectArea),
+                              content: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: List.generate(
+                                    areas.length,
+                                    (index) => IconButton(
+                                        icon: const Icon(
+                                            PhosphorIcons.squareLight),
+                                        onPressed: () {
+                                          Navigator.pop(context, areas[index]);
+                                        }),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                          if (selected != null) {
+                            return _showExactAreaContextMenu(selected);
+                          }
+                        }
+                      }
+
                       var openView = false;
 
                       return GestureDetector(
+                          onSecondaryTapUp: (details) {
+                            showAreaContextMenu(details.globalPosition);
+                          },
                           onScaleUpdate: (details) {
                             if (state.currentPainter is! AreaPainter &&
                                 (state.currentPainter != null ||
@@ -173,28 +240,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           },
                           onLongPressEnd: (details) {
                             if (state.currentPainter is! AreaPainter) return;
-                            showContextMenu(
-                                context: context,
-                                position: details.globalPosition,
-                                builder: (ctx, close) => MultiBlocProvider(
-                                      providers: [
-                                        BlocProvider.value(
-                                            value:
-                                                context.read<DocumentBloc>()),
-                                        BlocProvider.value(
-                                            value:
-                                                context.read<TransformCubit>()),
-                                      ],
-                                      child: Actions(
-                                          actions: context
-                                                  .findAncestorWidgetOfExactType<
-                                                      Actions>()
-                                                  ?.actions ??
-                                              {},
-                                          child: AreaContextMenu(
-                                              position: details.globalPosition,
-                                              close: close)),
-                                    ));
+                            showAreaContextMenu(details.globalPosition);
                           },
                           onScaleEnd: (details) => _bake(),
                           onScaleStart: (details) {
@@ -238,26 +284,31 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 } else {
                                   openView = true;
                                 }
-                                firstPosition = context
-                                    .read<TransformCubit>()
-                                    .state
-                                    .localToGlobal(event.localPosition);
+                                firstPosition = event.localPosition;
                               },
                               onPointerUp: (PointerUpEvent event) async {
                                 var cubit = context.read<EditingCubit>();
                                 var transformCubit =
-                                    context.read<TransformCubit>();
+                                context.read<TransformCubit>();
                                 var transform = transformCubit.state;
                                 var bloc = context.read<DocumentBloc>();
                                 var state = bloc.state;
                                 if (state is! DocumentLoadSuccess) return;
+                                if (state.currentPainter is AreaPainter &&
+                                    firstPosition != null &&
+                                    (event.localPosition - firstPosition!)
+                                            .distanceSquared >
+                                        transform.size) {
+                                  context.read<DocumentBloc>().add(AreaCreated(
+                                      Area.fromPoints(
+                                          firstPosition!,
+                                          transform.localToGlobal(
+                                              event.localPosition))));
+                                  return;
+                                }
                                 _bake();
                                 if (state.currentPainter is AreaPainter &&
                                     firstPosition != null) {
-                                  bloc.add(AreaCreated(Area.fromPoints(
-                                      firstPosition!,
-                                      transform.localToGlobal(
-                                          event.localPosition))));
                                   return;
                                 }
                                 if (cubit.isMoving) {
@@ -270,27 +321,26 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                       ..add(ImageBaked(
                                           constraints.biggest,
                                           MediaQuery.of(context)
-                                              .devicePixelRatio,
-                                          transform));
+                                                .devicePixelRatio,
+                                            transform));
                                     return;
                                   }
                                 }
                                 var currentElement =
-                                    cubit.getAndReset(event.pointer);
+                                cubit.getAndReset(event.pointer);
                                 var input = context
                                     .read<SettingsCubit>()
                                     .state
                                     .inputType;
 
                                 if (input.canCreate(event.pointer,
-                                        cubit.first(), event.kind) &&
+                                    cubit.first(), event.kind) &&
                                     currentElement != null) {
                                   context.read<DocumentBloc>()
-                                    ..add(ElementsCreated([currentElement]))
-                                    ..add(ImageBaked(
-                                        constraints.biggest,
-                                        MediaQuery.of(context).devicePixelRatio,
-                                        transform));
+                                    ..add(ElementsCreated([currentElement]))..add(ImageBaked(
+                                      constraints.biggest,
+                                      MediaQuery.of(context).devicePixelRatio,
+                                      transform));
                                 } else {
                                   if (!openView ||
                                       state.currentPainter != null) {
@@ -305,59 +355,59 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   if (hits.isNotEmpty) {
                                     void showSelection() {
                                       var selectionCubit =
-                                          context.read<SelectionCubit>();
+                                      context.read<SelectionCubit>();
                                       var editingCubit =
-                                          context.read<EditingCubit>();
+                                      context.read<EditingCubit>();
                                       var selection = selectionCubit.state;
                                       var bloc = context.read<DocumentBloc>();
                                       if (selection == null) return;
                                       var index = state.document.content
                                           .indexOf(selection);
                                       var actor =
-                                          context.findAncestorWidgetOfExactType<
-                                              Actions>();
+                                      context.findAncestorWidgetOfExactType<
+                                          Actions>();
                                       showContextMenu(
-                                              context: context,
-                                              position: event.position,
-                                              builder: (context, close) {
-                                                Widget? menu;
-                                                if (selection is LabelElement) {
-                                                  menu = LabelElementDialog(
-                                                      position: event.position,
-                                                      index: index,
-                                                      close: close);
-                                                }
-                                                if (selection is ImageElement) {
-                                                  menu = ImageElementDialog(
-                                                      position: event.position,
-                                                      index: index,
-                                                      close: close);
-                                                }
-                                                menu ??= GeneralElementDialog(
-                                                    position: event.position,
-                                                    index: index,
-                                                    close: close);
-                                                return MultiBlocProvider(
-                                                    providers: [
-                                                      BlocProvider.value(
-                                                          value: bloc),
-                                                      BlocProvider.value(
-                                                          value:
-                                                              selectionCubit),
-                                                      BlocProvider.value(
-                                                          value: editingCubit),
-                                                      BlocProvider.value(
-                                                          value: transformCubit)
-                                                    ],
-                                                    child: Actions(
-                                                        actions:
-                                                            actor?.actions ??
-                                                                {},
-                                                        child: menu));
-                                              })
+                                          context: context,
+                                          position: event.position,
+                                          builder: (context, close) {
+                                            Widget? menu;
+                                            if (selection is LabelElement) {
+                                              menu = LabelElementDialog(
+                                                  position: event.position,
+                                                  index: index,
+                                                  close: close);
+                                            }
+                                            if (selection is ImageElement) {
+                                              menu = ImageElementDialog(
+                                                  position: event.position,
+                                                  index: index,
+                                                  close: close);
+                                            }
+                                            menu ??= GeneralElementDialog(
+                                                position: event.position,
+                                                index: index,
+                                                close: close);
+                                            return MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider.value(
+                                                      value: bloc),
+                                                  BlocProvider.value(
+                                                      value:
+                                                      selectionCubit),
+                                                  BlocProvider.value(
+                                                      value: editingCubit),
+                                                  BlocProvider.value(
+                                                      value: transformCubit)
+                                                ],
+                                                child: Actions(
+                                                    actions:
+                                                    actor?.actions ??
+                                                        {},
+                                                    child: menu));
+                                          })
                                           .then((value) => context
-                                              .read<SelectionCubit>()
-                                              .reset());
+                                          .read<SelectionCubit>()
+                                          .reset());
                                     }
 
                                     context
@@ -371,8 +421,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                           builder: (context) =>
                                               SelectElementDialog(
                                                   cubit:
-                                                      this.context.read<
-                                                          SelectionCubit>(),
+                                                  this.context.read<
+                                                      SelectionCubit>(),
                                                   elements: hits.values
                                                       .toList())).then((value) {
                                         if (value != true) {
@@ -402,9 +452,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                               ],
                                               child: Actions(
                                                   actions: context
-                                                          .findAncestorWidgetOfExactType<
-                                                              Actions>()
-                                                          ?.actions ??
+                                                      .findAncestorWidgetOfExactType<
+                                                      Actions>()
+                                                      ?.actions ??
                                                       {},
                                                   child: BackgroundContextMenu(
                                                       position: event.position,
@@ -444,7 +494,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   return;
                                 }
                                 if (!input.canCreate(event.pointer,
-                                        cubit.first(), event.kind) ||
+                                    cubit.first(), event.kind) ||
                                     event.buttons == kMiddleMouseButton ||
                                     state.currentPainter == null) {
                                   if (openView) {
@@ -468,24 +518,23 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         painter.strokeWidth);
                                     context.read<DocumentBloc>()
                                       ..add(ElementsRemoved(
-                                          elements.values.toList()))
-                                      ..add(ImageBaked(
-                                          constraints.biggest,
-                                          MediaQuery.of(context)
-                                              .devicePixelRatio,
-                                          transform));
+                                          elements.values.toList()))..add(ImageBaked(
+                                        constraints.biggest,
+                                        MediaQuery.of(context)
+                                            .devicePixelRatio,
+                                        transform));
                                   } else if (painter is LayerPainter) {
                                     context.read<DocumentBloc>().add(
                                         ElementsLayerChanged(
                                             painter.layer,
                                             await rayCast(
-                                                    transform.localToGlobal(
-                                                        event.localPosition),
-                                                    painter.includeEraser)
+                                                transform.localToGlobal(
+                                                    event.localPosition),
+                                                painter.includeEraser)
                                                 .then((value) => value.values
-                                                    .toList()
-                                                    .reversed
-                                                    .toList())));
+                                                .toList()
+                                                .reversed
+                                                .toList())));
                                   } else if (currentElement != null &&
                                       currentElement is PathElement) {
                                     // Add point to custom paint
@@ -493,17 +542,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         event.pointer,
                                         currentElement.copyWith(
                                             points:
-                                                List.from(currentElement.points)
-                                                  ..add(PathPoint.fromOffset(
-                                                      transform.localToGlobal(
-                                                          event.localPosition),
-                                                      event.pressure *
-                                                          sensitivity))));
+                                            List.from(currentElement.points)
+                                              ..add(PathPoint.fromOffset(
+                                                  transform.localToGlobal(
+                                                      event.localPosition),
+                                                  event.pressure *
+                                                      sensitivity))));
                                   }
                                 }
                               },
                               child:
-                                  BlocBuilder<TransformCubit, CameraTransform>(
+                              BlocBuilder<TransformCubit, CameraTransform>(
                                 builder: (context, transform) {
                                   return Stack(children: [
                                     Container(color: Colors.white),
@@ -511,28 +560,28 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         Map<int, PadElement>>(
                                       builder: (context, editing) =>
                                           BlocBuilder<SelectionCubit,
-                                                  PadElement?>(
+                                              PadElement?>(
                                               builder: (context, selection) {
-                                        return CustomPaint(
-                                          size: Size.infinite,
-                                          foregroundPainter: ForegroundPainter(
-                                            editing,
-                                            transform,
-                                            selection,
-                                            state.currentPainter is AreaPainter
-                                                ? state.document.areas
-                                                : [],
-                                          ),
-                                          painter: ViewPainter(
-                                            state.document,
-                                            elements: state.elements,
-                                            bakedViewport: state.bakedViewport,
-                                            transform: transform,
-                                          ),
-                                          isComplex: true,
-                                          willChange: true,
-                                        );
-                                      }),
+                                                return CustomPaint(
+                                                  size: Size.infinite,
+                                                  foregroundPainter: ForegroundPainter(
+                                                    editing,
+                                                    transform,
+                                                    selection,
+                                                    state.currentPainter is AreaPainter
+                                                        ? state.document.areas
+                                                        : [],
+                                                  ),
+                                                  painter: ViewPainter(
+                                                    state.document,
+                                                    elements: state.elements,
+                                                    bakedViewport: state.bakedViewport,
+                                                    transform: transform,
+                                                  ),
+                                                  isComplex: true,
+                                                  willChange: true,
+                                                );
+                                              }),
                                     ),
                                   ]);
                                 },

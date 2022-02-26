@@ -201,5 +201,6 @@
   "green": "Green",
   "blue": "Blue",
   "alpha": "Alpha",
-  "area": "Area"
+  "area": "Area",
+  "selectArea": "Select an area"
 }
