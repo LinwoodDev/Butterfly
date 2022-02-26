@@ -9,6 +9,7 @@ import 'elements/eraser.dart';
 import 'elements/image.dart';
 import 'elements/label.dart';
 import 'elements/pen.dart';
+import 'painters/area.dart';
 import 'painters/eraser.dart';
 import 'painters/label.dart';
 import 'painters/layer.dart';
@@ -151,6 +152,8 @@ class AppDocument {
               return LayerPainter.fromJson(e, version);
             case 'pen':
               return PenPainter.fromJson(e, version);
+            case 'area':
+              return AreaPainter.fromJson(e, version);
           }
           return null;
         })

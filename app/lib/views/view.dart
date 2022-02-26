@@ -3,6 +3,7 @@ import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/dialogs/area.dart';
 import 'package:butterfly/dialogs/background/context.dart';
 import 'package:butterfly/dialogs/elements/general.dart';
 import 'package:butterfly/dialogs/elements/image.dart';
@@ -13,6 +14,7 @@ import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/models/elements/image.dart';
 import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/elements/path.dart';
+import 'package:butterfly/models/painters/area.dart';
 import 'package:butterfly/models/painters/label.dart';
 import 'package:butterfly/models/painters/layer.dart';
 import 'package:butterfly/models/painters/painter.dart';
@@ -147,8 +149,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
 
                       return GestureDetector(
                           onScaleUpdate: (details) {
-                            if (state.currentPainter != null ||
-                                details.scale == 1) return;
+                            if (state.currentPainter is! AreaPainter &&
+                                (state.currentPainter != null ||
+                                    details.scale == 1)) return;
                             if (openView) openView = details.scale == 1;
                             var cubit = context.read<TransformCubit>();
                             var current = details.scale;
@@ -160,7 +163,36 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 .touchSensitivity;
                             cubit.zoom((1 - current) / -sensitivity + 1,
                                 details.localFocalPoint);
+                            if (state.currentPainter != null &&
+                                details.pointerCount == 2) {
+                              cubit.move(details.focalPointDelta);
+                            }
                             size = details.scale;
+                          },
+                          onLongPressEnd: (details) {
+                            if (state.currentPainter is! AreaPainter) return;
+                            showContextMenu(
+                                context: context,
+                                position: details.globalPosition,
+                                builder: (ctx, close) => MultiBlocProvider(
+                                      providers: [
+                                        BlocProvider.value(
+                                            value:
+                                                context.read<DocumentBloc>()),
+                                        BlocProvider.value(
+                                            value:
+                                                context.read<TransformCubit>()),
+                                      ],
+                                      child: Actions(
+                                          actions: context
+                                                  .findAncestorWidgetOfExactType<
+                                                      Actions>()
+                                                  ?.actions ??
+                                              {},
+                                          child: AreaContextMenu(
+                                              position: details.globalPosition,
+                                              close: close)),
+                                    ));
                           },
                           onScaleEnd: (details) => _bake(),
                           onScaleStart: (details) {
@@ -210,13 +242,16 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 var transformCubit =
                                     context.read<TransformCubit>();
                                 var transform = transformCubit.state;
+                                var bloc = context.read<DocumentBloc>();
+                                var state = bloc.state;
+                                if (state is! DocumentLoadSuccess) return;
                                 _bake();
                                 if (cubit.isMoving) {
                                   cubit.moveTo(transform
                                       .localToGlobal(event.localPosition));
                                   var movingElement = cubit.getAndResetMove();
                                   if (movingElement != null) {
-                                    context.read<DocumentBloc>()
+                                    bloc
                                       ..add(ElementsCreated([movingElement]))
                                       ..add(ImageBaked(
                                           constraints.biggest,
@@ -243,7 +278,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         MediaQuery.of(context).devicePixelRatio,
                                         transform));
                                 } else {
-                                  if (!openView) {
+                                  if (!openView ||
+                                      state.currentPainter != null) {
                                     return;
                                   }
                                   var hits = await rayCast(
