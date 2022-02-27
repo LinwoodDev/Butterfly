@@ -3,7 +3,7 @@ import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/dialogs/area.dart';
+import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/background/context.dart';
 import 'package:butterfly/dialogs/elements/general.dart';
 import 'package:butterfly/dialogs/elements/image.dart';
@@ -297,12 +297,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                       .read<TransformCubit>()
                                       .state
                                       .localToGlobal(event.localPosition);
-                                  selectionCubit.change(Area.fromPoints(
-                                      pos, pos,
+                                  var area = Area.fromPoints(pos, pos,
                                       height: painter.constrainedHeight,
                                       width: painter.constrainedWidth,
                                       aspectRatio:
-                                          painter.constrainedAspectRatio));
+                                          painter.constrainedAspectRatio);
+                                  if (state.document.getAreaByRect(area.rect) ==
+                                      null) {
+                                    selectionCubit.change(area);
+                                  }
                                 }
                               },
                               onPointerUp: (PointerUpEvent event) async {
@@ -322,16 +325,21 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     (event.localPosition - selection.position)
                                             .distanceSquared >
                                         transform.size) {
-                                  context.read<DocumentBloc>().add(AreaCreated(
-                                      Area.fromPoints(
-                                          selection.position,
-                                          transform.localToGlobal(
-                                              event.localPosition),
-                                          height: painter.constrainedHeight,
-                                          width: painter.constrainedWidth,
-                                          aspectRatio:
-                                              painter.constrainedAspectRatio)));
-                                  selectionCubit.reset();
+                                  var pos = transform
+                                      .localToGlobal(event.localPosition);
+                                  var area = Area.fromPoints(
+                                      selection.position, pos,
+                                      height: painter.constrainedHeight,
+                                      width: painter.constrainedWidth,
+                                      aspectRatio:
+                                          painter.constrainedAspectRatio);
+                                  if (state.document.getAreaByRect(area.rect) ==
+                                      null) {
+                                    context
+                                        .read<DocumentBloc>()
+                                        .add(AreaCreated(area));
+                                    selectionCubit.reset();
+                                  }
                                   return;
                                 }
                                 _bake();
@@ -522,14 +530,19 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 var painter = state.currentPainter;
                                 if (selection is Area &&
                                     painter is AreaPainter) {
-                                  selectionCubit.change(Area.fromPoints(
-                                      selection.position,
-                                      transform
-                                          .localToGlobal(event.localPosition),
+                                  var pos = transform
+                                      .localToGlobal(event.localPosition);
+                                  var area = Area.fromPoints(
+                                      selection.position, pos,
                                       height: painter.constrainedHeight,
                                       width: painter.constrainedWidth,
                                       aspectRatio:
-                                          painter.constrainedAspectRatio));
+                                          painter.constrainedAspectRatio);
+
+                                  if (state.document.getAreaByRect(area.rect) ==
+                                      null) {
+                                    selectionCubit.change(area);
+                                  }
                                 }
                                 if (cubit.isMoving) {
                                   var position = event.localPosition;

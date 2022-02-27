@@ -1,6 +1,7 @@
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/properties/label.dart';
 import 'package:butterfly/models/properties/pen.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -242,5 +243,13 @@ class AppDocument {
         areas: areas ?? this.areas,
         background: removeBackground ? null : (background ?? this.background),
         handProperty: handProperty ?? this.handProperty);
+  }
+
+  Area? getArea(Offset offset) {
+    return areas.firstWhereOrNull((e) => e.hit(offset));
+  }
+
+  Area? getAreaByRect(Rect rect) {
+    return areas.firstWhereOrNull((e) => rect.overlaps(e.rect));
   }
 }

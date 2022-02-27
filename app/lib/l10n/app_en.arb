@@ -207,5 +207,6 @@
   "presets":"Presets",
   "pagePortrait": "Page portrait",
   "pageLandscape": "Page landscape",
-  "square":"Square"
+  "square":"Square",
+  "areas": "Areas"
 }
