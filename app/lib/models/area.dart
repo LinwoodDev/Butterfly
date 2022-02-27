@@ -45,10 +45,10 @@ class Area {
   }
 
   bool hit(Offset offset, [double radius = 1]) {
-    return offset.dx >= position.dx &&
-        offset.dy >= position.dy &&
-        offset.dx <= position.dx + width &&
-        offset.dy <= position.dy + height;
+    return offset.dx >= position.dx - radius &&
+        offset.dx <= position.dx + width + radius &&
+        offset.dy >= position.dy - radius &&
+        offset.dy <= position.dy + height + radius;
   }
 
   ui.Rect get rect => Rect.fromLTWH(position.dx, position.dy, width, height);

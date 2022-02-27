@@ -101,7 +101,8 @@ class ForegroundPainter extends CustomPainter {
   bool shouldRepaint(ForegroundPainter oldDelegate) =>
       oldDelegate.editingLayer != editingLayer ||
       oldDelegate.transform != transform ||
-      oldDelegate.selection != selection;
+      oldDelegate.selection != selection ||
+      oldDelegate.areas != areas;
 }
 
 Future<Map<PadElement, ui.Image>> loadImages(AppDocument document,

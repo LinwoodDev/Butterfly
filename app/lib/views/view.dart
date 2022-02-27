@@ -174,8 +174,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                               area: area,
                                               close: close)),
                                     ));
+                        var transform = context.read<TransformCubit>().state;
                         var areas = state.document.areas
-                            .where((area) => area.hit(position, 5 / size))
+                            .where((area) => area.hit(
+                                transform.localToGlobal(position), 5 / size))
                             .toList();
                         if (areas.length == 1) {
                           return _showExactAreaContextMenu(areas.first);
@@ -214,7 +216,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
 
                       return GestureDetector(
                           onSecondaryTapUp: (details) {
-                            showAreaContextMenu(details.globalPosition);
+                            showAreaContextMenu(details.localPosition);
                           },
                           onScaleUpdate: (details) {
                             if (state.currentPainter is! AreaPainter &&
@@ -285,10 +287,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 } else {
                                   openView = true;
                                 }
-                                if (state.currentPainter is AreaPainter) {
-                                  selectionCubit.change(Area.fromPoints(
-                                      event.localPosition,
-                                      event.localPosition));
+                                if (state.currentPainter is AreaPainter &&
+                                    event.buttons != kMiddleMouseButton &&
+                                    event.buttons != kSecondaryMouseButton) {
+                                  var pos = context
+                                      .read<TransformCubit>()
+                                      .state
+                                      .localToGlobal(event.localPosition);
+                                  selectionCubit
+                                      .change(Area.fromPoints(pos, pos));
                                 }
                               },
                               onPointerUp: (PointerUpEvent event) async {
