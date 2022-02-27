@@ -29,6 +29,47 @@ class AreaContextMenu extends StatelessWidget {
           child: Center(child: Icon(PhosphorIcons.squareLight, size: 36)),
         ),
         ListTile(
+          leading: const Icon(PhosphorIcons.textTLight),
+          title: Text(AppLocalizations.of(context)!.name),
+          subtitle: Text(area.name),
+          onTap: () {
+            var _nameController = TextEditingController(text: area.name);
+            var bloc = context.read<DocumentBloc>();
+            var state = bloc.state;
+            if (state is! DocumentLoadSuccess) return;
+            var index = state.document.areas.indexOf(area);
+            close();
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(AppLocalizations.of(context)!.enterName),
+                content: TextField(
+                  controller: _nameController,
+                  autofocus: true,
+                ),
+                actions: [
+                  TextButton(
+                    child: Text(AppLocalizations.of(context)!.cancel),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  TextButton(
+                    child: Text(AppLocalizations.of(context)!.ok),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      bloc.add(
+                        AreaChanged(
+                          index,
+                          area.copyWith(name: _nameController.text),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+        ListTile(
           leading: const Icon(PhosphorIcons.exportLight),
           title: Text(AppLocalizations.of(context)!.export),
           onTap: () {

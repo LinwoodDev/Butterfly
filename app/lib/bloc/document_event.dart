@@ -247,3 +247,12 @@ class AreaRemoved extends DocumentEvent {
   @override
   List<Object?> get props => [index];
 }
+
+class AreaChanged extends DocumentEvent {
+  final Area area;
+  final int index;
+  const AreaChanged(this.index, this.area);
+
+  @override
+  List<Object?> get props => [area, index];
+}

@@ -3,24 +3,30 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 class Area {
+  final String name;
   final Offset position;
   final double width, height;
 
   const Area({
+    this.name = '',
     required this.width,
     required this.height,
     required this.position,
   });
 
   Area.fromJson(Map<String, dynamic> json, [int? fileVersion])
-      : height = json['height'],
+      : name = json['name'] ?? '',
+        height = json['height'],
         width = json['width'],
         position = json['position'] != null
             ? Offset(json['position']['x'], json['position']['y'])
             : Offset.zero;
   // Aspect ratio is the ratio between width and height.
   factory Area.fromPoints(Offset first, Offset second,
-      {double width = 0, double height = 0, double aspectRatio = 0}) {
+      {double width = 0,
+      double height = 0,
+      double aspectRatio = 0,
+      String name = ''}) {
     double realWidth = width;
     double realHeight = height;
     if (realWidth == 0) {
@@ -40,16 +46,14 @@ class Area {
       first.dy > second.dy ? second.dy : first.dy,
     );
     return Area(
-      width: realWidth,
-      height: realHeight,
-      position: position,
-    );
+        width: realWidth, height: realHeight, position: position, name: name);
   }
 
   Map<String, dynamic> toJson() => {
         'height': height,
         'width': width,
-        'position': {'x': position.dx, 'y': position.dy}
+        'position': {'x': position.dx, 'y': position.dy},
+        'name': name,
       };
 
   Offset get second => Offset(position.dx + width, position.dy + height);
@@ -58,11 +62,13 @@ class Area {
     double? width,
     double? height,
     Offset? position,
+    String? name,
   }) {
     return Area(
       width: width ?? this.width,
       height: height ?? this.height,
       position: position ?? this.position,
+      name: name ?? this.name,
     );
   }
 
