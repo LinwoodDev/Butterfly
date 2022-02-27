@@ -16,6 +16,7 @@ module.exports = {
         'branding',
         'CHANGELOG',
         'versions',
+        'nightly',
         'privacypolicy',
         {
             type: 'link',

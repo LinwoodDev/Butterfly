@@ -4,22 +4,15 @@ import 'package:args/args.dart';
 import 'package:intl/intl.dart';
 
 Future<void> main(List<String> args) async {
-  var parser = ArgParser();
-
-  parser.addOption('build-number',
-      abbr: 'b',
-      valueHelp: "Number, 'keep' or 'increment'",
-      defaultsTo: 'keep');
-  parser.addFlag('changelog',
-      abbr: 'c', defaultsTo: true, help: 'Generate changelog');
+  var parser = ArgParser()
+    ..addOption('build-number',
+        abbr: 'b',
+        valueHelp: "Number, 'keep' or 'increment'",
+        defaultsTo: 'keep')
+    ..addFlag('changelog',
+        abbr: 'c', defaultsTo: true, help: 'Generate changelog');
 
   var results = parser.parse(args);
-
-  // Get the version from args
-  if (results.rest.length != 1) {
-    print('Please provide the version number as the first argument');
-    exit(1);
-  }
 
   String buildNumber = results['build-number'].toString().toLowerCase();
   if (buildNumber != 'increment' &&
@@ -29,7 +22,7 @@ Future<void> main(List<String> args) async {
         "Please provide a valid build number or 'increment' as the build-number argument");
     return;
   }
-  var version = results.rest[0];
+  var version = results.rest.isEmpty ? null : results.rest[0];
   // Update the version in the pubspec.yaml
   File pubspec = File('app/pubspec.yaml');
   String content = await pubspec.readAsString();
@@ -41,6 +34,7 @@ Future<void> main(List<String> args) async {
     exit(1);
   }
   var lastVersion = matches.first.group(0) ?? '';
+  version ??= lastVersion.split('+')[0];
   // Get build number from lastVersion
   var lastBuildNumber = lastVersion.split('+')[1];
   String newBuildNumber = buildNumber;

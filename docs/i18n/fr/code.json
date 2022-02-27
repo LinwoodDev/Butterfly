@@ -119,10 +119,6 @@
     "message": "{nPosts} taggé avec \"{tagName}\"",
     "description": "The title of the page for a blog tag"
   },
-  "theme.tags.tagsPageLink": {
-    "message": "Voir tous les tags",
-    "description": "The label of the link targeting the tag list page"
-  },
   "theme.CodeBlock.copyButtonAriaLabel": {
     "message": "Copier le code dans le presse-papiers",
     "description": "The ARIA label for copy code blocks button"
@@ -282,5 +278,39 @@
   "theme.SearchPage.fetchingNewResults": {
     "message": "Récupération des nouveaux résultats...",
     "description": "The paragraph for fetching new search results"
+  },
+  "theme.blog.post.readMoreLabel": {
+    "message": "En savoir plus sur {title}",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
+  },
+  "theme.docs.DocCard.categoryDescription": {
+    "message": "{count} éléments",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
+  },
+  "theme.colorToggle.ariaLabel": {
+    "message": "Basculer entre le mode sombre et le mode clair (actuellement {mode})",
+    "description": "The ARIA label for the navbar color mode toggle"
+  },
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "mode sombre",
+    "description": "The name for the dark color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "mode lumière",
+    "description": "The name for the light color mode"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "Version : {versionLabel}"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "Langues",
+    "description": "The label for the mobile language switcher dropdown"
+  },
+  "theme.SearchBar.seeAll": {
+    "message": "Voir tous les {count} résultats"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "Voir tous les tags",
+    "description": "The label of the link targeting the tag list page"
   }
 }

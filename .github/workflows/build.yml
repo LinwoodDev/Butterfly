@@ -222,7 +222,7 @@ jobs:
           git tag -fa nightly -m "Find all nightly releases here"
           git push origin nightly -f
       - name: 🚀 Deploy stable
-        if: github.ref == 'refs/heads/main'
+        if: startsWith(github.ref, 'refs/tags/v') && github.event.release.prerelease
         uses: softprops/action-gh-release@v1
         continue-on-error: true
         with:
@@ -237,7 +237,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
-        if: github.ref == 'refs/heads/develop'
+        if: startsWith(github.ref, 'refs/tags/v') && !github.event.release.prerelease
         uses: softprops/action-gh-release@v1
         continue-on-error: true
         with:

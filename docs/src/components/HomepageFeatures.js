@@ -65,7 +65,7 @@ function Feature({Svg, title, description}) {
 
 export default function HomepageFeatures() {
   return (
-    <section className={styles.features}>
+    <section data-aos="fade-up" className={styles.features}>
       <div className="container">
         <div className="row">
           {FeatureList.map((props, idx) => (

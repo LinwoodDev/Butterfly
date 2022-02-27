@@ -1,10 +1,15 @@
 ---
 id: "community"
 slug: "/community"
-title: "Community"
 sidebar_label: "Home"
 sidebar_position: 0
 ---
 
+# Community
+
 Welcome to the community section.
-Use the sidebar to navigate.
+
+## Useful links
+
+* [GitHub](https://github.com/LinwoodCloud/Butterfly)
+* [Discord](https://go.linwood.dev/discord)
