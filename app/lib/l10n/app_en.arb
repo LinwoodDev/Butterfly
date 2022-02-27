@@ -202,5 +202,6 @@
   "blue": "Blue",
   "alpha": "Alpha",
   "area": "Area",
-  "selectArea": "Select an area"
+  "selectArea": "Select an area",
+  "aspectRatio": "Aspect ratio"
 }

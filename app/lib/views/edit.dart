@@ -17,6 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../dialogs/painters/area.dart';
 import '../models/painters/area.dart';
 
 class EditToolbar extends StatelessWidget {
@@ -158,6 +159,9 @@ class EditToolbar extends StatelessWidget {
                                               bloc: bloc, painterIndex: i);
                                         case 'layer':
                                           return LayerPainterDialog(
+                                              bloc: bloc, painterIndex: i);
+                                        case 'area':
+                                          return AreaPainterDialog(
                                               bloc: bloc, painterIndex: i);
                                         default:
                                           return Container();

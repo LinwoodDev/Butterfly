@@ -18,11 +18,33 @@ class Area {
         position = json['position'] != null
             ? Offset(json['position']['x'], json['position']['y'])
             : Offset.zero;
-  Area.fromPoints(Offset first, Offset second)
-      : position = Offset(first.dx < second.dx ? first.dx : second.dx,
-            first.dy < second.dy ? first.dy : second.dy),
-        width = (second.dx - first.dx).abs(),
-        height = (second.dy - first.dy).abs();
+  // Aspect ratio is the ratio between width and height.
+  factory Area.fromPoints(Offset first, Offset second,
+      {double width = 0, double height = 0, double aspectRatio = 0}) {
+    double realWidth = width;
+    double realHeight = height;
+    if (realWidth == 0) {
+      realWidth = (second.dx - first.dx).abs();
+    }
+    if (realHeight == 0) {
+      realHeight = (second.dy - first.dy).abs();
+    }
+    if (aspectRatio != 0 && height == 0) {
+      realHeight = realWidth / aspectRatio;
+    }
+    if (aspectRatio != 0 && width == 0) {
+      realWidth = realHeight * aspectRatio;
+    }
+    Offset position = Offset(
+      first.dx > second.dx ? second.dx : first.dx,
+      first.dy > second.dy ? second.dy : first.dy,
+    );
+    return Area(
+      width: realWidth,
+      height: realHeight,
+      position: position,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'height': height,

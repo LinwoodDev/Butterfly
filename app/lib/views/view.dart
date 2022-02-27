@@ -287,15 +287,20 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 } else {
                                   openView = true;
                                 }
-                                if (state.currentPainter is AreaPainter &&
+                                var painter = state.currentPainter;
+                                if (painter is AreaPainter &&
                                     event.buttons != kMiddleMouseButton &&
                                     event.buttons != kSecondaryMouseButton) {
                                   var pos = context
                                       .read<TransformCubit>()
                                       .state
                                       .localToGlobal(event.localPosition);
-                                  selectionCubit
-                                      .change(Area.fromPoints(pos, pos));
+                                  selectionCubit.change(Area.fromPoints(
+                                      pos, pos,
+                                      height: painter.constrainedHeight,
+                                      width: painter.constrainedWidth,
+                                      aspectRatio:
+                                          painter.constrainedAspectRatio));
                                 }
                               },
                               onPointerUp: (PointerUpEvent event) async {
@@ -309,7 +314,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 var bloc = context.read<DocumentBloc>();
                                 var state = bloc.state;
                                 if (state is! DocumentLoadSuccess) return;
-                                if (state.currentPainter is AreaPainter &&
+                                var painter = state.currentPainter;
+                                if (painter is AreaPainter &&
                                     selection is Area &&
                                     (event.localPosition - selection.position)
                                             .distanceSquared >
@@ -318,7 +324,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                       Area.fromPoints(
                                           selection.position,
                                           transform.localToGlobal(
-                                              event.localPosition))));
+                                              event.localPosition),
+                                          height: painter.constrainedHeight,
+                                          width: painter.constrainedWidth,
+                                          aspectRatio:
+                                              painter.constrainedAspectRatio)));
                                   selectionCubit.reset();
                                   return;
                                 }
@@ -507,12 +517,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 var selectionCubit =
                                     context.read<SelectionCubit>();
                                 var selection = selectionCubit.state;
+                                var painter = state.currentPainter;
                                 if (selection is Area &&
-                                    state.currentPainter is AreaPainter) {
+                                    painter is AreaPainter) {
                                   selectionCubit.change(Area.fromPoints(
                                       selection.position,
                                       transform
-                                          .localToGlobal(event.localPosition)));
+                                          .localToGlobal(event.localPosition),
+                                      height: painter.constrainedHeight,
+                                      width: painter.constrainedWidth,
+                                      aspectRatio:
+                                          painter.constrainedAspectRatio));
                                 }
                                 if (cubit.isMoving) {
                                   var position = event.localPosition;

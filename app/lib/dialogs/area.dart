@@ -1,5 +1,3 @@
-import 'package:butterfly/actions/insert.dart';
-import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/models/area.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../cubits/transform.dart';
 import 'image_export.dart';
 
 class AreaContextMenu extends StatelessWidget {
