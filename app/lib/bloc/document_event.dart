@@ -256,3 +256,12 @@ class AreaChanged extends DocumentEvent {
   @override
   List<Object?> get props => [area, index];
 }
+
+class CurrentAreaChanged extends DocumentEvent {
+  final int area;
+
+  const CurrentAreaChanged(this.area);
+
+  @override
+  List<Object?> get props => [area];
+}

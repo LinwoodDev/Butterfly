@@ -13,6 +13,7 @@ class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final String? path;
   final String currentLayer;
+  final int currentAreaIndex;
   final List<String> invisibleLayers;
   final BakedViewport? bakedViewport;
   final int? currentPainterIndex;
@@ -20,6 +21,7 @@ class DocumentLoadSuccess extends DocumentState {
   const DocumentLoadSuccess(this.document,
       {this.path,
       this.bakedViewport,
+      this.currentAreaIndex = -1,
       this.currentPainterIndex = 0,
       this.currentLayer = '',
       this.invisibleLayers = const []});
@@ -31,7 +33,8 @@ class DocumentLoadSuccess extends DocumentState {
         bakedViewport,
         document,
         path,
-        currentLayer
+        currentLayer,
+        currentAreaIndex
       ];
 
   List<PadElement> get elements {
@@ -46,12 +49,20 @@ class DocumentLoadSuccess extends DocumentState {
         .painters[currentPainterIndex!.clamp(0, document.painters.length - 1)];
   }
 
+  Area? get currentArea {
+    if (currentAreaIndex < 0 || currentAreaIndex >= document.areas.length) {
+      return null;
+    }
+    return document.areas[currentAreaIndex];
+  }
+
   DocumentLoadSuccess copyWith(
           {AppDocument? document,
           bool? editMode,
           int? currentPainterIndex,
           String? path,
           String? currentLayer,
+          int? currentAreaIndex,
           bool removeCurrentPainterIndex = false,
           bool removePath = false,
           List<String>? invisibleLayers,
@@ -61,6 +72,7 @@ class DocumentLoadSuccess extends DocumentState {
           path: removePath ? null : path ?? this.path,
           invisibleLayers: invisibleLayers ?? this.invisibleLayers,
           currentLayer: currentLayer ?? this.currentLayer,
+          currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
           bakedViewport:
               removeBakedViewport ? null : bakedViewport ?? this.bakedViewport,
           currentPainterIndex: removeCurrentPainterIndex

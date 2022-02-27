@@ -382,6 +382,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               areas: List<Area>.from(current.document.areas)
                 ..[event.index] = event.area)));
     });
+    on<CurrentAreaChanged>((event, emit) {
+      var current = state;
+      if (current is! DocumentLoadSuccess) return;
+      emit(current.copyWith(currentAreaIndex: event.area));
+    });
   }
 
   @override

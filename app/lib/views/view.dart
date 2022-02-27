@@ -335,10 +335,50 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                           painter.constrainedAspectRatio);
                                   if (state.document.getAreaByRect(area.rect) ==
                                       null) {
-                                    context
-                                        .read<DocumentBloc>()
-                                        .add(AreaCreated(area));
-                                    selectionCubit.reset();
+                                    final TextEditingController
+                                        _nameController =
+                                        TextEditingController();
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              title: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .enterName),
+                                              content: TextField(
+                                                decoration:
+                                                    const InputDecoration(
+                                                        filled: true),
+                                                autofocus: true,
+                                                controller: _nameController,
+                                              ),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: Text(
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .cancel),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    selectionCubit.reset();
+                                                  },
+                                                ),
+                                                TextButton(
+                                                  child: Text(
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .ok),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    selectionCubit.reset();
+                                                    bloc.add(AreaCreated(
+                                                        area.copyWith(
+                                                            name:
+                                                                _nameController
+                                                                    .text)));
+                                                  },
+                                                )
+                                              ],
+                                            ));
                                   }
                                   return;
                                 }
