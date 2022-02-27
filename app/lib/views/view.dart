@@ -178,6 +178,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         var areas = state.document.areas
                             .where((area) => area.hit(
                                 transform.localToGlobal(position), 5 / size))
+                            .toList()
+                            .reversed
                             .toList();
                         if (areas.length == 1) {
                           return _showExactAreaContextMenu(areas.first);

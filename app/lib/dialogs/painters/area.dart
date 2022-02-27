@@ -85,8 +85,33 @@ class _AreaPainterDialogState extends State<AreaPainterDialog> {
                                     painter.copyWith(
                                         constrainedHeight: value))),
                             ExactSlider(
-                                header: Text(
-                                    AppLocalizations.of(context)!.aspectRatio),
+                                header: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        AppLocalizations.of(context)!
+                                            .aspectRatio,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    PopupMenuButton<AreaRatioPreset>(
+                                      itemBuilder: (context) => AreaRatioPreset
+                                          .values
+                                          .map((e) => PopupMenuItem(
+                                                value: e,
+                                                child: Text(
+                                                    e.getLocalized(context)),
+                                              ))
+                                          .toList(),
+                                      onSelected: (preset) => setState(() =>
+                                          painter = painter.copyWith(
+                                              constrainedAspectRatio:
+                                                  preset.ratio)),
+                                      tooltip:
+                                          AppLocalizations.of(context)!.presets,
+                                    )
+                                  ],
+                                ),
                                 value: painter.constrainedAspectRatio,
                                 min: 0,
                                 max: 10,

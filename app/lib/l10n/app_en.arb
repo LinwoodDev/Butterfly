@@ -203,5 +203,9 @@
   "alpha": "Alpha",
   "area": "Area",
   "selectArea": "Select an area",
-  "aspectRatio": "Aspect ratio"
+  "aspectRatio": "Aspect ratio",
+  "presets":"Presets",
+  "pagePortrait": "Page portrait",
+  "pageLandscape": "Page landscape",
+  "square":"Square"
 }

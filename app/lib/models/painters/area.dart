@@ -1,4 +1,41 @@
+import 'dart:math';
+
 import 'package:butterfly/models/painters/painter.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+const double _kSquareRatio = 1.0;
+const double _kAPortraitRatio = sqrt2;
+const double _kLandscapeRatio = 1 / sqrt2;
+enum AreaRatioPreset {
+  square,
+  portrait,
+  landscape,
+}
+
+extension AreaRatioPresetExtension on AreaRatioPreset {
+  double get ratio {
+    switch (this) {
+      case AreaRatioPreset.square:
+        return _kSquareRatio;
+      case AreaRatioPreset.portrait:
+        return _kAPortraitRatio;
+      case AreaRatioPreset.landscape:
+        return _kLandscapeRatio;
+    }
+  }
+
+  String getLocalized(BuildContext context) {
+    switch (this) {
+      case AreaRatioPreset.square:
+        return AppLocalizations.of(context)!.square;
+      case AreaRatioPreset.portrait:
+        return AppLocalizations.of(context)!.pagePortrait;
+      case AreaRatioPreset.landscape:
+        return AppLocalizations.of(context)!.pageLandscape;
+    }
+  }
+}
 
 class AreaPainter extends Painter {
   final double constrainedWidth, constrainedHeight, constrainedAspectRatio;
