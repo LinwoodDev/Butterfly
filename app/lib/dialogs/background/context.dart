@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../actions/areas.dart';
 import '../../actions/color_palette.dart';
 import '../../cubits/transform.dart';
 
@@ -44,6 +45,15 @@ class BackgroundContextMenu extends StatelessWidget {
               close();
               Actions.maybeInvoke<LayersIntent>(context, LayersIntent(context));
             }),
+        ListTile(
+          leading: const Icon(PhosphorIcons.squareLight),
+          title: Text(AppLocalizations.of(context)!.areas),
+          subtitle: Text(context.getShortcut('A', shiftKey: true)),
+          onTap: () {
+            close();
+            Actions.maybeInvoke<AreasIntent>(context, AreasIntent(context));
+          },
+        ),
         ListTile(
             leading: const Icon(PhosphorIcons.imageLight),
             title: Text(AppLocalizations.of(context)!.background),

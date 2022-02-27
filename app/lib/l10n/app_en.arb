@@ -208,5 +208,7 @@
   "pagePortrait": "Page portrait",
   "pageLandscape": "Page landscape",
   "square":"Square",
-  "areas": "Areas"
+  "areas": "Areas",
+  "enterArea": "Enter the area",
+  "exitArea": "Exit the area"
 }

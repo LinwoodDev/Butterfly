@@ -1,6 +1,4 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/waypoint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,11 +22,6 @@ class AreasDialog extends StatelessWidget {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
-                floatingActionButton: FloatingActionButton.extended(
-                  onPressed: () => _showCreateDialog(context),
-                  label: Text(AppLocalizations.of(context)!.create),
-                  icon: const Icon(PhosphorIcons.plusLight),
-                ),
                 backgroundColor: Colors.transparent,
                 body: Column(
                   children: [
@@ -51,98 +44,103 @@ class AreasDialog extends StatelessWidget {
                           horizontal: 20, vertical: 15),
                       child: ValueListenableBuilder(
                         valueListenable: _searchController,
-                        builder: (context, value, child) => BlocBuilder<
-                                DocumentBloc, DocumentState>(
-                            buildWhen: (previous, current) =>
-                                (previous as DocumentLoadSuccess)
-                                    .document
-                                    .areas !=
-                                (current as DocumentLoadSuccess).document.areas,
-                            builder: (context, state) {
-                              if (state is! DocumentLoadSuccess) {
-                                return Container();
-                              }
-                              var areas = state.document.areas
-                                  .where((element) => element.name
-                                      .contains(_searchController.text))
-                                  .toList();
-                              return ListView(children: [
-                                ListTile(
-                                    onTap: () {
-                                      context
-                                          .read<TransformCubit>()
-                                          .moveToWaypoint(Waypoint.origin);
-                                      Navigator.of(context).pop();
-                                    },
-                                    title: Text(
-                                        AppLocalizations.of(context)!.origin)),
-                                const Divider(),
-                                ...List.generate(
-                                    areas.length,
-                                    (index) => Dismissible(
-                                          key: ObjectKey(areas[index]),
-                                          background:
-                                              Container(color: Colors.red),
-                                          onDismissed: (direction) {
-                                            context
-                                                .read<DocumentBloc>()
-                                                .add(WaypointRemoved(index));
-                                          },
-                                          child: ListTile(
-                                              onTap: () {
-                                                Navigator.of(context).pop();
+                        builder: (context, value, child) =>
+                            BlocBuilder<DocumentBloc, DocumentState>(
+                                buildWhen: (previous, current) =>
+                                    (previous as DocumentLoadSuccess)
+                                        .document
+                                        .areas !=
+                                    (current as DocumentLoadSuccess)
+                                        .document
+                                        .areas,
+                                builder: (context, state) {
+                                  if (state is! DocumentLoadSuccess) {
+                                    return Container();
+                                  }
+                                  var areas = state.document.areas
+                                      .where((element) => element.name
+                                          .contains(_searchController.text))
+                                      .toList();
+                                  return ListView(children: [
+                                    ListTile(
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .exitArea)),
+                                    const Divider(),
+                                    ...List.generate(
+                                        areas.length,
+                                        (index) => Dismissible(
+                                              key: ObjectKey(areas[index]),
+                                              background:
+                                                  Container(color: Colors.red),
+                                              onDismissed: (direction) {
+                                                context
+                                                    .read<DocumentBloc>()
+                                                    .add(AreaRemoved(index));
                                               },
-                                              title: Text(areas[index].name)),
-                                        ))
-                              ]);
-                            }),
+                                              child: ListTile(
+                                                  onTap: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  trailing: PopupMenuButton(
+                                                    itemBuilder: (context) => [
+                                                      PopupMenuItem(
+                                                          value: 0,
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                          child: ListTile(
+                                                              leading: const Icon(
+                                                                  PhosphorIcons
+                                                                      .textTLight),
+                                                              title: Text(
+                                                                  AppLocalizations.of(
+                                                                          context)!
+                                                                      .rename),
+                                                              onTap: () {
+                                                                final TextEditingController
+                                                                    _nameController =
+                                                                    TextEditingController(
+                                                                        text: areas[index]
+                                                                            .name);
+                                                                showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (context) =>
+                                                                            AlertDialog(
+                                                                              title: Text(AppLocalizations.of(context)!.rename),
+                                                                              content: TextField(
+                                                                                controller: _nameController,
+                                                                                autofocus: true,
+                                                                              ),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                  child: Text(AppLocalizations.of(context)!.cancel),
+                                                                                  onPressed: () => Navigator.of(context).pop(),
+                                                                                ),
+                                                                                TextButton(
+                                                                                  child: Text(AppLocalizations.of(context)!.ok),
+                                                                                  onPressed: () {
+                                                                                    Navigator.of(context).pop();
+                                                                                    context.read<DocumentBloc>().add(AreaChanged(index, areas[index].copyWith(name: _nameController.text)));
+                                                                                  },
+                                                                                ),
+                                                                              ],
+                                                                            ));
+                                                              })),
+                                                    ],
+                                                  ),
+                                                  title:
+                                                      Text(areas[index].name)),
+                                            ))
+                                  ]);
+                                }),
                       ),
                     )),
                   ],
                 ))));
-  }
-
-  void _showCreateDialog(BuildContext context) {
-    var saveScale = true;
-    var nameController = TextEditingController();
-    showDialog(
-        context: context,
-        builder: (ctx) => StatefulBuilder(builder: (ctx, setState) {
-              return AlertDialog(
-                title: Text(AppLocalizations.of(context)!.create),
-                content: Column(mainAxisSize: MainAxisSize.min, children: [
-                  TextField(
-                    controller: nameController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        labelText: AppLocalizations.of(context)!.name),
-                  ),
-                  const SizedBox(height: 10),
-                  CheckboxListTile(
-                      title: Text(AppLocalizations.of(context)!.scale),
-                      value: saveScale,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      onChanged: (value) =>
-                          setState(() => saveScale = value ?? saveScale))
-                ]),
-                actions: [
-                  TextButton(
-                      onPressed: () => Navigator.of(ctx).pop(),
-                      child: Text(AppLocalizations.of(context)!.cancel)),
-                  TextButton(
-                      onPressed: () {
-                        context.read<DocumentBloc>().add(WaypointCreated(
-                            Waypoint(
-                                nameController.text,
-                                context.read<TransformCubit>().state.position,
-                                saveScale
-                                    ? context.read<TransformCubit>().state.size
-                                    : null)));
-                        Navigator.of(ctx).pop();
-                      },
-                      child: Text(AppLocalizations.of(context)!.create)),
-                ],
-              );
-            }));
   }
 }
