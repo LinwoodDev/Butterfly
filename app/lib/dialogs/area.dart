@@ -1,5 +1,6 @@
 import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
+import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/models/area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../cubits/transform.dart';
+import 'image_export.dart';
 
 class AreaContextMenu extends StatelessWidget {
   final VoidCallback close;
@@ -30,18 +32,34 @@ class AreaContextMenu extends StatelessWidget {
           child: Center(child: Icon(PhosphorIcons.squareLight, size: 36)),
         ),
         ListTile(
-          leading: const Icon(PhosphorIcons.plusLight),
-          title: Text(AppLocalizations.of(context)!.insert),
-          subtitle: Text(context.getShortcut('E')),
+          leading: const Icon(PhosphorIcons.exportLight),
+          title: Text(AppLocalizations.of(context)!.export),
           onTap: () {
-            var transformCubit = context.read<TransformCubit>();
             close();
-            Actions.maybeInvoke<InsertIntent>(
-                context,
-                InsertIntent(
-                    context, transformCubit.state.localToGlobal(position)));
+            var bloc = context.read<DocumentBloc>();
+            showDialog(
+                builder: (context) => ImageExportDialog(
+                      bloc: bloc,
+                      width: area.width.round(),
+                      height: area.height.round(),
+                      x: area.position.dx,
+                      y: area.position.dy,
+                      scale: 1,
+                    ),
+                context: context);
           },
         ),
+        ListTile(
+          leading: const Icon(PhosphorIcons.trashLight),
+          title: Text(AppLocalizations.of(context)!.delete),
+          onTap: () {
+            close();
+            var bloc = context.read<DocumentBloc>();
+            var state = bloc.state;
+            if (state is! DocumentLoadSuccess) return;
+            bloc.add(AreaRemoved(state.document.areas.indexOf(area)));
+          },
+        )
       ],
     );
   }

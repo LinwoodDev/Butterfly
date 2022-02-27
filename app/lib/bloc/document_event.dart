@@ -238,3 +238,12 @@ class AreaCreated extends DocumentEvent {
   @override
   List<Object?> get props => [area];
 }
+
+class AreaRemoved extends DocumentEvent {
+  final int index;
+
+  const AreaRemoved(this.index);
+
+  @override
+  List<Object?> get props => [index];
+}

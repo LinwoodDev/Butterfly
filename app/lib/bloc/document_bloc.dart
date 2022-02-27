@@ -366,6 +366,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               areas: List<Area>.from(current.document.areas)
                 ..add(event.area))));
     });
+    on<AreaRemoved>((event, emit) {
+      var current = state;
+      if (current is! DocumentLoadSuccess) return;
+      emit(current.copyWith(
+          document: current.document.copyWith(
+              areas: List<Area>.from(current.document.areas)
+                ..removeAt(event.index))));
+    });
   }
 
   @override
