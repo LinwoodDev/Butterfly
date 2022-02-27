@@ -51,7 +51,7 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
       children: [
         ExactSlider(
           header: Text(AppLocalizations.of(context)!.scale),
-          value: element.scale.clamp(0.1, 5),
+          value: element.scale,
           min: 0.1,
           max: 5,
           defaultValue: 1,

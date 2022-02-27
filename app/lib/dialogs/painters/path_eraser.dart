@@ -70,7 +70,7 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                             ExactSlider(
                                 header: Text(
                                     AppLocalizations.of(context)!.strokeWidth),
-                                value: painter.strokeWidth.clamp(0, 70),
+                                value: painter.strokeWidth,
                                 min: 0,
                                 max: 70,
                                 defaultValue: 5,

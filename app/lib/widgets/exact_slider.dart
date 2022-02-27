@@ -80,7 +80,7 @@ class _ExactSliderState extends State<ExactSlider> {
                           child: widget.header!)),
                 Row(children: [
                   ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 125),
+                    constraints: const BoxConstraints(maxWidth: 75),
                     child: TextField(
                         decoration: InputDecoration(
                             filled: true,

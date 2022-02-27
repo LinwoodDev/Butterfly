@@ -71,8 +71,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                             ExactSlider(
                                 header: Text(
                                     AppLocalizations.of(context)!.strokeWidth),
-                                value:
-                                    painter.property.strokeWidth.clamp(0, 70),
+                                value: painter.property.strokeWidth,
                                 min: 0,
                                 max: 70,
                                 defaultValue: 5,
@@ -83,8 +82,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                             ExactSlider(
                                 header: Text(AppLocalizations.of(context)!
                                     .strokeMultiplier),
-                                value: painter.property.strokeMultiplier
-                                    .clamp(0, 70),
+                                value: painter.property.strokeMultiplier,
                                 min: 0,
                                 max: 70,
                                 defaultValue: 5,

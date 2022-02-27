@@ -303,7 +303,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                   child: ExactSlider(
                       header: Text(AppLocalizations.of(context)!.thickness),
                       defaultValue: 1,
-                      value: _value.decorationThickness.clamp(0.1, 4),
+                      value: _value.decorationThickness,
                       min: 0.1,
                       max: 4,
                       onChanged: (value) =>
