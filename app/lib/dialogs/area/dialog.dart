@@ -44,121 +44,135 @@ class AreasDialog extends StatelessWidget {
                           horizontal: 20, vertical: 15),
                       child: ValueListenableBuilder(
                         valueListenable: _searchController,
-                        builder: (context, value, child) =>
-                            BlocBuilder<DocumentBloc, DocumentState>(
-                                buildWhen: (previous, current) =>
-                                    (previous as DocumentLoadSuccess)
-                                        .document
-                                        .areas !=
-                                    (current as DocumentLoadSuccess)
-                                        .document
-                                        .areas,
-                                builder: (context, state) {
-                                  if (state is! DocumentLoadSuccess) {
-                                    return Container();
-                                  }
-                                  var areas = state.document.areas
-                                      .where((element) => element.name
-                                          .contains(_searchController.text))
-                                      .toList();
-                                  return ListView(children: [
-                                    if (state.currentArea != null) ...[
-                                      ListTile(
-                                          onTap: () {
-                                            context.read<DocumentBloc>().add(
-                                                const CurrentAreaChanged(-1));
-                                            Navigator.of(context).pop();
+                        builder: (context, value, child) => BlocBuilder<
+                                DocumentBloc, DocumentState>(
+                            buildWhen: (previous, current) =>
+                                (previous as DocumentLoadSuccess)
+                                    .document
+                                    .areas !=
+                                (current as DocumentLoadSuccess).document.areas,
+                            builder: (context, state) {
+                              if (state is! DocumentLoadSuccess) {
+                                return Container();
+                              }
+                              var areas = state.document.areas
+                                  .where((element) => element.name
+                                      .contains(_searchController.text))
+                                  .toList();
+                              return ListView(children: [
+                                if (state.currentArea != null) ...[
+                                  ListTile(
+                                      onTap: () {
+                                        context.read<DocumentBloc>().add(
+                                            const CurrentAreaChanged.exit());
+                                        Navigator.of(context).pop();
+                                      },
+                                      title: Text(AppLocalizations.of(context)!
+                                          .exitArea)),
+                                  const Divider(),
+                                ],
+                                ...List.generate(
+                                    areas.length,
+                                    (index) => Dismissible(
+                                          key: ObjectKey(areas[index]),
+                                          background:
+                                              Container(color: Colors.red),
+                                          onDismissed: (direction) {
+                                            context
+                                                .read<DocumentBloc>()
+                                                .add(AreaRemoved(index));
                                           },
-                                          title: Text(
-                                              AppLocalizations.of(context)!
-                                                  .exitArea)),
-                                      const Divider(),
-                                    ],
-                                    ...List.generate(
-                                        areas.length,
-                                        (index) => Dismissible(
-                                              key: ObjectKey(areas[index]),
-                                              background:
-                                                  Container(color: Colors.red),
-                                              onDismissed: (direction) {
+                                          child: ListTile(
+                                              onTap: () {
                                                 context
                                                     .read<DocumentBloc>()
-                                                    .add(AreaRemoved(index));
+                                                    .add(CurrentAreaChanged(
+                                                        index));
+                                                Navigator.of(context).pop();
                                               },
-                                              child: ListTile(
-                                                  onTap: () {
-                                                    context
-                                                        .read<DocumentBloc>()
-                                                        .add(CurrentAreaChanged(
-                                                            index));
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  selected: index ==
-                                                      state.currentAreaIndex,
-                                                  trailing: IconTheme(
-                                                    data: Theme.of(context)
-                                                        .iconTheme,
-                                                    child: PopupMenuButton(
-                                                      itemBuilder: (context) =>
-                                                          [
-                                                        PopupMenuItem(
-                                                            value: 0,
-                                                            padding:
-                                                                EdgeInsets.zero,
-                                                            child: ListTile(
-                                                                leading: const Icon(
-                                                                    PhosphorIcons
-                                                                        .textTLight),
-                                                                title: Text(
-                                                                    AppLocalizations.of(
-                                                                            context)!
-                                                                        .rename),
-                                                                onTap: () {
-                                                                  final TextEditingController
-                                                                      _nameController =
-                                                                      TextEditingController(
-                                                                          text:
-                                                                              areas[index].name);
-                                                                  var bloc =
-                                                                      context.read<
-                                                                          DocumentBloc>();
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                  showDialog(
-                                                                      context:
-                                                                          context,
-                                                                      builder:
-                                                                          (context) =>
-                                                                              AlertDialog(
-                                                                                title: Text(AppLocalizations.of(context)!.rename),
-                                                                                content: TextField(
-                                                                                  controller: _nameController,
-                                                                                  autofocus: true,
+                                              selected: index ==
+                                                  state.currentAreaIndex,
+                                              trailing: IconTheme(
+                                                data:
+                                                    Theme.of(context).iconTheme,
+                                                child: PopupMenuButton(
+                                                  itemBuilder: (context) => [
+                                                    PopupMenuItem(
+                                                        value: 0,
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        child: ListTile(
+                                                            leading: const Icon(
+                                                                PhosphorIcons
+                                                                    .textTLight),
+                                                            title: Text(
+                                                                AppLocalizations.of(
+                                                                        context)!
+                                                                    .rename),
+                                                            onTap: () {
+                                                              final TextEditingController
+                                                                  _nameController =
+                                                                  TextEditingController(
+                                                                      text: areas[
+                                                                              index]
+                                                                          .name);
+                                                              var bloc =
+                                                                  context.read<
+                                                                      DocumentBloc>();
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                              var formKey =
+                                                                  GlobalKey<
+                                                                      FormState>();
+                                                              showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) =>
+                                                                          Form(
+                                                                            key:
+                                                                                formKey,
+                                                                            child:
+                                                                                AlertDialog(
+                                                                              title: Text(AppLocalizations.of(context)!.rename),
+                                                                              content: TextFormField(
+                                                                                validator: (value) {
+                                                                                  if (value?.isEmpty ?? true) {
+                                                                                    return AppLocalizations.of(context)!.shouldNotEmpty;
+                                                                                  }
+                                                                                  if (state.document.getAreaByName(value!) != null) {
+                                                                                    return AppLocalizations.of(context)!.alreadyExists;
+                                                                                  }
+                                                                                  return null;
+                                                                                },
+                                                                                controller: _nameController,
+                                                                                autofocus: true,
+                                                                              ),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                  child: Text(AppLocalizations.of(context)!.cancel),
+                                                                                  onPressed: () => Navigator.of(context).pop(),
                                                                                 ),
-                                                                                actions: [
-                                                                                  TextButton(
-                                                                                    child: Text(AppLocalizations.of(context)!.cancel),
-                                                                                    onPressed: () => Navigator.of(context).pop(),
-                                                                                  ),
-                                                                                  TextButton(
-                                                                                    child: Text(AppLocalizations.of(context)!.ok),
-                                                                                    onPressed: () {
-                                                                                      Navigator.of(context).pop();
-                                                                                      bloc.add(AreaChanged(index, areas[index].copyWith(name: _nameController.text)));
-                                                                                    },
-                                                                                  ),
-                                                                                ],
-                                                                              ));
-                                                                })),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  title:
-                                                      Text(areas[index].name)),
-                                            ))
-                                  ]);
-                                }),
+                                                                                TextButton(
+                                                                                  child: Text(AppLocalizations.of(context)!.ok),
+                                                                                  onPressed: () {
+                                                                                    if (!(formKey.currentState?.validate() ?? false)) return;
+                                                                                    Navigator.of(context).pop();
+                                                                                    bloc.add(AreaChanged(index, areas[index].copyWith(name: _nameController.text)));
+                                                                                  },
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ));
+                                                            })),
+                                                  ],
+                                                ),
+                                              ),
+                                              title: Text(areas[index].name)),
+                                        ))
+                              ]);
+                            }),
                       ),
                     )),
                   ],

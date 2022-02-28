@@ -218,6 +218,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
 
                       return GestureDetector(
                           onSecondaryTapUp: (details) {
+                            if (state.currentPainter is! AreaPainter) return;
                             showAreaContextMenu(details.localPosition);
                           },
                           onScaleUpdate: (details) {

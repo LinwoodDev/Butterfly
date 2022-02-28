@@ -261,6 +261,7 @@ class CurrentAreaChanged extends DocumentEvent {
   final int area;
 
   const CurrentAreaChanged(this.area);
+  const CurrentAreaChanged.exit() : area = -1;
 
   @override
   List<Object?> get props => [area];
