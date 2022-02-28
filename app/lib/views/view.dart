@@ -709,12 +709,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                                       : []))
                                                 : [],
                                           ),
-                                          painter: ViewPainter(
-                                            state.document,
-                                            elements: state.elements,
-                                            bakedViewport: state.bakedViewport,
-                                            transform: transform,
-                                          ),
+                                          painter: ViewPainter(state.document,
+                                              elements: state.elements,
+                                              bakedViewport:
+                                                  state.bakedViewport,
+                                              transform: transform,
+                                              currentArea: state.currentArea),
                                           isComplex: true,
                                           willChange: true,
                                         );

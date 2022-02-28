@@ -120,6 +120,7 @@ Future<Map<PadElement, ui.Image>> loadImages(AppDocument document,
 
 class ViewPainter extends CustomPainter {
   final AppDocument document;
+  final Area? currentArea;
   final bool renderBackground;
   final List<PadElement> elements;
   final BakedViewport? bakedViewport;
@@ -128,6 +129,7 @@ class ViewPainter extends CustomPainter {
 
   ViewPainter(
     this.document, {
+    this.currentArea,
     this.renderBackground = true,
     this.elements = const [],
     this.bakedViewport,
@@ -138,6 +140,22 @@ class ViewPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var background = document.background;
+    var areaRect = currentArea?.rect;
+    if (areaRect != null) {
+      areaRect = Rect.fromPoints(transform.globalToLocal(areaRect.topLeft),
+          transform.globalToLocal(areaRect.bottomRight));
+    }
+    if (areaRect != null) {
+      canvas.drawColor(background?.boxColor ?? Colors.blue, BlendMode.srcOver);
+      canvas.drawRRect(
+          RRect.fromRectAndRadius(
+              areaRect.inflate(5), const Radius.circular(5)),
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..color = Colors.black
+            ..strokeWidth = 10 / transform.size);
+      canvas.clipRect(areaRect);
+    }
     if (background is BoxBackground && renderBackground) {
       canvas.drawColor(background.boxColor, BlendMode.srcOver);
       if (background.boxWidth > 0 && background.boxXCount > 0) {

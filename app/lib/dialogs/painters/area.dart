@@ -47,7 +47,7 @@ class _AreaPainterDialogState extends State<AreaPainterDialog> {
                           tooltip: AppLocalizations.of(context)!.help,
                           icon:
                               const Icon(PhosphorIcons.circleWavyQuestionLight),
-                          onPressed: () => openHelp(['painters', 'eraser'])),
+                          onPressed: () => openHelp(['painters', 'area'])),
                     ],
                   ),
                   body: Padding(
