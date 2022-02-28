@@ -2,7 +2,7 @@
 
 |   Propriété | Valeur |
 | -----------:|:------ |
-|       Width | 0      |
+|     Largeur | 0      |
 |     Hauteur | 25     |
 | Nombre de X | 0      |
 |    Nombre Y | 1      |
