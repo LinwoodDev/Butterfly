@@ -210,5 +210,6 @@
   "square":"Square",
   "areas": "Areas",
   "enterArea": "Enter the area",
-  "exitArea": "Exit the area"
+  "exitArea": "Exit the area",
+  "alreadyExists": "This value already exists"
 }

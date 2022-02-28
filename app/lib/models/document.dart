@@ -252,4 +252,8 @@ class AppDocument {
   Area? getAreaByRect(Rect rect) {
     return areas.firstWhereOrNull((e) => rect.overlaps(e.rect));
   }
+
+  Area? getAreaByName(String value) {
+    return areas.firstWhereOrNull((e) => e.name == value);
+  }
 }

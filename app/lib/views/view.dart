@@ -338,46 +338,71 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     final TextEditingController
                                         _nameController =
                                         TextEditingController();
+                                    final GlobalKey<FormState> formKey =
+                                        GlobalKey<FormState>();
                                     showDialog(
                                         context: context,
-                                        builder: (context) => AlertDialog(
-                                              title: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .enterName),
-                                              content: TextField(
-                                                decoration:
-                                                    const InputDecoration(
-                                                        filled: true),
-                                                autofocus: true,
-                                                controller: _nameController,
-                                              ),
-                                              actions: <Widget>[
-                                                TextButton(
-                                                  child: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .cancel),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                    selectionCubit.reset();
+                                        builder: (context) => Form(
+                                              key: formKey,
+                                              child: AlertDialog(
+                                                title: Text(AppLocalizations.of(
+                                                        context)!
+                                                    .enterName),
+                                                content: TextFormField(
+                                                  validator: (value) {
+                                                    if (value?.isEmpty ??
+                                                        true) {
+                                                      return AppLocalizations
+                                                              .of(context)!
+                                                          .shouldNotEmpty;
+                                                    }
+                                                    if (state.document
+                                                            .getAreaByName(
+                                                                value!) !=
+                                                        null) {
+                                                      return AppLocalizations
+                                                              .of(context)!
+                                                          .alreadyExists;
+                                                    }
+                                                    return null;
                                                   },
+                                                  decoration:
+                                                      const InputDecoration(
+                                                          filled: true),
+                                                  autofocus: true,
+                                                  controller: _nameController,
                                                 ),
-                                                TextButton(
-                                                  child: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .ok),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                    selectionCubit.reset();
-                                                    bloc.add(AreaCreated(
-                                                        area.copyWith(
-                                                            name:
-                                                                _nameController
-                                                                    .text)));
-                                                  },
-                                                )
-                                              ],
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    child: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .cancel),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      selectionCubit.reset();
+                                                    },
+                                                  ),
+                                                  TextButton(
+                                                    child: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .ok),
+                                                    onPressed: () {
+                                                      if (!(formKey.currentState
+                                                              ?.validate() ??
+                                                          false)) return;
+                                                      Navigator.pop(context);
+                                                      selectionCubit.reset();
+                                                      bloc.add(AreaCreated(
+                                                          area.copyWith(
+                                                              name:
+                                                                  _nameController
+                                                                      .text)));
+                                                    },
+                                                  )
+                                                ],
+                                              ),
                                             ));
                                   }
                                   return;
