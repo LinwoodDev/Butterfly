@@ -146,6 +146,7 @@ class AreasDialog extends StatelessWidget {
                                                                                   }
                                                                                   return null;
                                                                                 },
+                                                                                decoration: const InputDecoration(filled: true),
                                                                                 controller: _nameController,
                                                                                 autofocus: true,
                                                                               ),

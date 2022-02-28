@@ -334,6 +334,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                       width: painter.constrainedWidth,
                                       aspectRatio:
                                           painter.constrainedAspectRatio);
+                                  if (state.document.getAreaByRect(area.rect) !=
+                                      null) {
+                                    area = Area.fromPoints(
+                                        selection.position, selection.second,
+                                        height: painter.constrainedHeight,
+                                        width: painter.constrainedWidth,
+                                        aspectRatio:
+                                            painter.constrainedAspectRatio);
+                                  }
                                   if (state.document.getAreaByRect(area.rect) ==
                                       null) {
                                     final TextEditingController
@@ -341,7 +350,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         TextEditingController();
                                     final GlobalKey<FormState> formKey =
                                         GlobalKey<FormState>();
-                                    showDialog(
+                                    await showDialog(
                                         context: context,
                                         builder: (context) => Form(
                                               key: formKey,
@@ -381,7 +390,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                                             .cancel),
                                                     onPressed: () {
                                                       Navigator.pop(context);
-                                                      selectionCubit.reset();
                                                     },
                                                   ),
                                                   TextButton(
@@ -394,7 +402,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                                               ?.validate() ??
                                                           false)) return;
                                                       Navigator.pop(context);
-                                                      selectionCubit.reset();
                                                       bloc.add(AreaCreated(
                                                           area.copyWith(
                                                               name:
@@ -405,6 +412,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                                 ],
                                               ),
                                             ));
+                                    selectionCubit.reset();
                                   }
                                   return;
                                 }
