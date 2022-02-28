@@ -15,7 +15,7 @@ on:
         description: "The next version to be released"
         required: false
       stable:
-        default: "false"
+        default: false
         description: "Is this version stable?"
         type: boolean
         required: false
@@ -90,6 +90,43 @@ jobs:
             Download it here: https://docs.butterfly.linwood.dev/downloads
 
             https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ github.event.inputs.release_version }}
+  update-production-build-number:
+    if: ${{ github.ref }} == "develop"
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: main
+          token: ${{ secrets.CI_PAT }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 2.10.0-0.3.pre
+          channel: "beta" # or: 'stable' or 'dev'
+      - name: Setup git
+        id: setup
+        run: |
+          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
+          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
+          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
+          git config --global user.email "
+      - name: Update version number
+        run: |
+          dart pub get -C tools
+          dart run tools/set_version.dart --build-number increment --no-changelog
+
+          git add .
+          git commit -m "Update version to ${{ github.event.inputs.next_version }}"
+          git push origin main
+      - name: Rebase develop
+        run: |
+          git checkout develop
+          git pull
+          git rebase main --strategy-option theirs
+          git push origin develop
   update-build-number:
     if: ${{ github.ref }} == "main"
     runs-on: ubuntu-20.04

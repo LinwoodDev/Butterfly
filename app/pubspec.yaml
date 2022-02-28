@@ -30,7 +30,7 @@ dependencies:
   path_provider: ^2.0.9
   shared_preferences: ^2.0.13
   url_launcher: ^6.0.20
-  file_picker: ^4.4.0
+  file_picker: ^4.5.0
   phosphor_flutter: ^1.4.0
   replay_bloc: ^0.2.1
   share_plus: ^3.1.0

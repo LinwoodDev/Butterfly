@@ -23,13 +23,30 @@ platform :android do
 
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
-    upload_to_play_store(track: 'beta', aab: '../build/app/outputs/bundle/release/app-release.aab', json_key_data: ENV['PLAY_STORE_UPLOAD_KEY'], metadata_path: '../../fastlane/metadata')
+    # Get version from ENV
+    version = ENV['VERSION']
+    changelog = "Read more at https://github.com/LinwoodCloud/Butterfly/releases"
+    if !version.nil? && !version.empty?
+      changelog = "Read more at https://github.com/LinwoodCloud/Butterfly/release/tag/#{version}"
+    end
+    upload_to_play_store(track: 'beta', 
+      aab: '../build/app/outputs/bundle/release/app-release.aab', 
+      json_key_data: ENV['PLAY_STORE_UPLOAD_KEY'], 
+      metadata_path: '../../fastlane/metadata', changelog: changelog)
     
   end
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
+    # Get version from ENV
+    version = ENV['VERSION']
+    changelog = "Read more at https://github.com/LinwoodCloud/Butterfly/releases"
+    if !version.nil? && !version.empty?
+      changelog = "Read more at https://github.com/LinwoodCloud/Butterfly/release/tag/#{version}"
+    end
     gradle(task: "clean assembleRelease")
-    upload_to_play_store(aab: '../build/app/outputs/bundle/release/app-release.aab', json_key_data: ENV['PLAY_STORE_UPLOAD_KEY']), metadata_path: '../../fastlane/metadata')
+    upload_to_play_store(aab: '../build/app/outputs/bundle/release/app-release.aab', 
+      json_key_data: ENV['PLAY_STORE_UPLOAD_KEY'], 
+      metadata_path: '../../fastlane/metadata', changelog: changelog)
   end
 end
