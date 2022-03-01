@@ -98,7 +98,7 @@ class WaypointsDialog extends StatelessWidget {
                                       onTap: () {
                                         context
                                             .read<TransformCubit>()
-                                            .setPosition(currentArea.position);
+                                            .setPosition(-currentArea.position);
                                         bake();
                                         Navigator.of(context).pop(true);
                                       },
