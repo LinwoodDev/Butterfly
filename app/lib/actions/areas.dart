@@ -1,28 +1,29 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/dialogs/waypoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class WaypointsIntent extends Intent {
+import '../dialogs/area/dialog.dart';
+
+class AreasIntent extends Intent {
   final BuildContext context;
 
-  const WaypointsIntent(this.context);
+  const AreasIntent(this.context);
 }
 
-class WaypointsAction extends Action<WaypointsIntent> {
-  WaypointsAction();
+class AreasAction extends Action<AreasIntent> {
+  AreasAction();
 
   @override
-  Future<dynamic> invoke(WaypointsIntent intent) async {
+  Future<dynamic> invoke(AreasIntent intent) {
     var bloc = intent.context.read<DocumentBloc>();
     var transformCubit = intent.context.read<TransformCubit>();
-    return await showDialog(
+    return showDialog(
       context: intent.context,
       builder: (context) => MultiBlocProvider(providers: [
         BlocProvider.value(value: transformCubit),
         BlocProvider.value(value: bloc),
-      ], child: WaypointsDialog()),
-    ) as bool?;
+      ], child: AreasDialog()),
+    );
   }
 }

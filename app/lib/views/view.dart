@@ -3,6 +3,7 @@ import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/background/context.dart';
 import 'package:butterfly/dialogs/elements/general.dart';
 import 'package:butterfly/dialogs/elements/image.dart';
@@ -13,6 +14,7 @@ import 'package:butterfly/models/elements/eraser.dart';
 import 'package:butterfly/models/elements/image.dart';
 import 'package:butterfly/models/elements/label.dart';
 import 'package:butterfly/models/elements/path.dart';
+import 'package:butterfly/models/painters/area.dart';
 import 'package:butterfly/models/painters/label.dart';
 import 'package:butterfly/models/painters/layer.dart';
 import 'package:butterfly/models/painters/painter.dart';
@@ -23,7 +25,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../models/area.dart';
 import '../view_painter.dart';
 
 class MainViewViewport extends StatefulWidget {
@@ -143,12 +148,96 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         }
                       }
 
+                      Future<dynamic> showAreaContextMenu(
+                          Offset position) async {
+                        Future<dynamic> _showExactAreaContextMenu(Area area) =>
+                            showContextMenu(
+                                context: context,
+                                position: position,
+                                builder: (ctx, close) => MultiBlocProvider(
+                                      providers: [
+                                        BlocProvider.value(
+                                            value:
+                                                context.read<DocumentBloc>()),
+                                        BlocProvider.value(
+                                            value:
+                                                context.read<TransformCubit>()),
+                                      ],
+                                      child: Actions(
+                                          actions: context
+                                                  .findAncestorWidgetOfExactType<
+                                                      Actions>()
+                                                  ?.actions ??
+                                              {},
+                                          child: AreaContextMenu(
+                                              position: position,
+                                              area: area,
+                                              close: close)),
+                                    ));
+                        var transform = context.read<TransformCubit>().state;
+                        var areas = state.document.areas
+                            .where((area) => area.hit(
+                                transform.localToGlobal(position), 5 / size))
+                            .toList()
+                            .reversed
+                            .toList();
+                        if (areas.length == 1) {
+                          return _showExactAreaContextMenu(areas.first);
+                        } else if (areas.length > 1) {
+                          var selected = await showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              scrollable: true,
+                              title: Text(
+                                  AppLocalizations.of(context)!.selectArea),
+                              content: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: List.generate(
+                                    areas.length,
+                                    (index) => IconButton(
+                                        icon: const Icon(
+                                            PhosphorIcons.squareLight),
+                                        onPressed: () {
+                                          Navigator.pop(context, areas[index]);
+                                        }),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                          if (selected != null) {
+                            return _showExactAreaContextMenu(selected);
+                          }
+                        }
+                      }
+
+                      final currentArea = state.currentArea;
+
+                      bool inBounds(Offset localOffset) =>
+                          currentArea == null ||
+                          currentArea.hit(
+                              context
+                                  .read<TransformCubit>()
+                                  .state
+                                  .localToGlobal(localOffset),
+                              5 / size);
+
                       var openView = false;
 
                       return GestureDetector(
+                          onSecondaryTapUp: (details) {
+                            if (state.currentPainter is! AreaPainter) return;
+                            if (inBounds(details.localPosition)) {
+                              showAreaContextMenu(details.localPosition);
+                            }
+                          },
                           onScaleUpdate: (details) {
-                            if (state.currentPainter != null ||
-                                details.scale == 1) return;
+                            if (state.currentPainter is! AreaPainter &&
+                                (state.currentPainter != null ||
+                                    details.scale == 1)) return;
                             if (openView) openView = details.scale == 1;
                             var cubit = context.read<TransformCubit>();
                             var current = details.scale;
@@ -160,7 +249,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 .touchSensitivity;
                             cubit.zoom((1 - current) / -sensitivity + 1,
                                 details.localFocalPoint);
+                            if (state.currentPainter != null &&
+                                details.pointerCount == 2) {
+                              cubit.move(details.focalPointDelta);
+                            }
                             size = details.scale;
+                          },
+                          onLongPressEnd: (details) {
+                            if (state.currentPainter is! AreaPainter) return;
+                            if (inBounds(details.localPosition)) {
+                              showAreaContextMenu(details.globalPosition);
+                            }
                           },
                           onScaleEnd: (details) => _bake(),
                           onScaleStart: (details) {
@@ -193,10 +292,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     .read<SettingsCubit>()
                                     .state
                                     .inputType;
+                                var selectionCubit =
+                                    context.read<SelectionCubit>();
                                 if (state.currentPainter != null &&
                                     event.buttons != kMiddleMouseButton &&
                                     input.canCreate(event.pointer,
-                                        cubit.first(), event.kind)) {
+                                        cubit.first(), event.kind) &&
+                                    inBounds(event.localPosition)) {
                                   createElement(
                                       event.pointer,
                                       event.localPosition,
@@ -204,19 +306,145 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 } else {
                                   openView = true;
                                 }
+                                var painter = state.currentPainter;
+                                if (painter is AreaPainter &&
+                                    event.buttons != kMiddleMouseButton &&
+                                    event.buttons != kSecondaryMouseButton &&
+                                    currentArea == null) {
+                                  var pos = context
+                                      .read<TransformCubit>()
+                                      .state
+                                      .localToGlobal(event.localPosition);
+                                  var area = Area.fromPoints(pos, pos,
+                                      height: painter.constrainedHeight,
+                                      width: painter.constrainedWidth,
+                                      aspectRatio:
+                                          painter.constrainedAspectRatio);
+                                  if (state.document.getAreaByRect(area.rect) ==
+                                      null) {
+                                    selectionCubit.change(area);
+                                  }
+                                }
                               },
                               onPointerUp: (PointerUpEvent event) async {
                                 var cubit = context.read<EditingCubit>();
                                 var transformCubit =
                                     context.read<TransformCubit>();
+                                var selectionCubit =
+                                    context.read<SelectionCubit>();
+                                var selection = selectionCubit.state;
                                 var transform = transformCubit.state;
+                                var bloc = context.read<DocumentBloc>();
+                                var state = bloc.state;
+                                if (state is! DocumentLoadSuccess) return;
+                                var painter = state.currentPainter;
+                                if (painter is AreaPainter &&
+                                    selection is Area &&
+                                    (event.localPosition - selection.position)
+                                            .distanceSquared >
+                                        transform.size &&
+                                    currentArea == null) {
+                                  var pos = transform
+                                      .localToGlobal(event.localPosition);
+                                  var area = Area.fromPoints(
+                                      selection.position, pos,
+                                      height: painter.constrainedHeight,
+                                      width: painter.constrainedWidth,
+                                      aspectRatio:
+                                          painter.constrainedAspectRatio);
+                                  if (state.document.getAreaByRect(area.rect) !=
+                                      null) {
+                                    area = Area.fromPoints(
+                                        selection.position, selection.second,
+                                        height: painter.constrainedHeight,
+                                        width: painter.constrainedWidth,
+                                        aspectRatio:
+                                            painter.constrainedAspectRatio);
+                                  }
+                                  if (state.document.getAreaByRect(area.rect) ==
+                                      null) {
+                                    final TextEditingController
+                                        _nameController =
+                                        TextEditingController();
+                                    final GlobalKey<FormState> formKey =
+                                        GlobalKey<FormState>();
+                                    await showDialog(
+                                        context: context,
+                                        builder: (context) => Form(
+                                              key: formKey,
+                                              child: AlertDialog(
+                                                title: Text(AppLocalizations.of(
+                                                        context)!
+                                                    .enterName),
+                                                content: TextFormField(
+                                                  validator: (value) {
+                                                    if (value?.isEmpty ??
+                                                        true) {
+                                                      return AppLocalizations
+                                                              .of(context)!
+                                                          .shouldNotEmpty;
+                                                    }
+                                                    if (state.document
+                                                            .getAreaByName(
+                                                                value!) !=
+                                                        null) {
+                                                      return AppLocalizations
+                                                              .of(context)!
+                                                          .alreadyExists;
+                                                    }
+                                                    return null;
+                                                  },
+                                                  decoration:
+                                                      const InputDecoration(
+                                                          filled: true),
+                                                  autofocus: true,
+                                                  controller: _nameController,
+                                                ),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    child: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .cancel),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                  TextButton(
+                                                    child: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .ok),
+                                                    onPressed: () {
+                                                      if (!(formKey.currentState
+                                                              ?.validate() ??
+                                                          false)) return;
+                                                      Navigator.pop(context);
+                                                      bloc.add(AreaCreated(
+                                                          area.copyWith(
+                                                              name:
+                                                                  _nameController
+                                                                      .text)));
+                                                    },
+                                                  )
+                                                ],
+                                              ),
+                                            ));
+                                    selectionCubit.reset();
+                                  }
+                                  return;
+                                }
                                 _bake();
+                                if (state.currentPainter is AreaPainter &&
+                                    selection is Area) {
+                                  return;
+                                }
                                 if (cubit.isMoving) {
                                   cubit.moveTo(transform
                                       .localToGlobal(event.localPosition));
                                   var movingElement = cubit.getAndResetMove();
                                   if (movingElement != null) {
-                                    context.read<DocumentBloc>()
+                                    bloc
                                       ..add(ElementsCreated([movingElement]))
                                       ..add(ImageBaked(
                                           constraints.biggest,
@@ -232,7 +460,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     .read<SettingsCubit>()
                                     .state
                                     .inputType;
-
                                 if (input.canCreate(event.pointer,
                                         cubit.first(), event.kind) &&
                                     currentElement != null) {
@@ -243,7 +470,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         MediaQuery.of(context).devicePixelRatio,
                                         transform));
                                 } else {
-                                  if (!openView) {
+                                  if (!openView ||
+                                      state.currentPainter != null) {
                                     return;
                                   }
                                   var hits = await rayCast(
@@ -387,6 +615,26 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     .read<SettingsCubit>()
                                     .state
                                     .inputType;
+                                var selectionCubit =
+                                    context.read<SelectionCubit>();
+                                var selection = selectionCubit.state;
+                                var painter = state.currentPainter;
+                                if (selection is Area &&
+                                    painter is AreaPainter) {
+                                  var pos = transform
+                                      .localToGlobal(event.localPosition);
+                                  var area = Area.fromPoints(
+                                      selection.position, pos,
+                                      height: painter.constrainedHeight,
+                                      width: painter.constrainedWidth,
+                                      aspectRatio:
+                                          painter.constrainedAspectRatio);
+
+                                  if (state.document.getAreaByRect(area.rect) ==
+                                      null) {
+                                    selectionCubit.change(area);
+                                  }
+                                }
                                 if (cubit.isMoving) {
                                   var position = event.localPosition;
                                   cubit.moveTo(
@@ -406,6 +654,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                       .move(event.delta / transform.size);
                                   return;
                                 }
+                                if (!inBounds(event.localPosition)) return;
                                 if (event.kind == PointerDeviceKind.stylus ||
                                     state.currentPainter != null) {
                                   var painter = state.currentPainter;
@@ -460,19 +709,30 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     BlocBuilder<EditingCubit,
                                         Map<int, PadElement>>(
                                       builder: (context, editing) =>
-                                          BlocBuilder<SelectionCubit,
-                                                  PadElement?>(
+                                          BlocBuilder<SelectionCubit, dynamic>(
                                               builder: (context, selection) {
                                         return CustomPaint(
                                           size: Size.infinite,
                                           foregroundPainter: ForegroundPainter(
-                                              editing, transform, selection),
-                                          painter: ViewPainter(
-                                            state.document,
-                                            elements: state.elements,
-                                            bakedViewport: state.bakedViewport,
-                                            transform: transform,
+                                            editing,
+                                            transform,
+                                            selection is PadElement
+                                                ? selection
+                                                : null,
+                                            state.currentPainter is AreaPainter
+                                                ? (List<Area>.from(
+                                                    state.document.areas)
+                                                  ..addAll(selection is Area
+                                                      ? [selection]
+                                                      : []))
+                                                : [],
                                           ),
+                                          painter: ViewPainter(state.document,
+                                              elements: state.elements,
+                                              bakedViewport:
+                                                  state.bakedViewport,
+                                              transform: transform,
+                                              currentArea: state.currentArea),
                                           isComplex: true,
                                           willChange: true,
                                         );

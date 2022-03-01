@@ -229,3 +229,40 @@ class TemplateCreated extends DocumentEvent {
   @override
   List<Object?> get props => [deleteDocument];
 }
+
+class AreaCreated extends DocumentEvent {
+  final Area area;
+
+  const AreaCreated(this.area);
+
+  @override
+  List<Object?> get props => [area];
+}
+
+class AreaRemoved extends DocumentEvent {
+  final int index;
+
+  const AreaRemoved(this.index);
+
+  @override
+  List<Object?> get props => [index];
+}
+
+class AreaChanged extends DocumentEvent {
+  final Area area;
+  final int index;
+  const AreaChanged(this.index, this.area);
+
+  @override
+  List<Object?> get props => [area, index];
+}
+
+class CurrentAreaChanged extends DocumentEvent {
+  final int area;
+
+  const CurrentAreaChanged(this.area);
+  const CurrentAreaChanged.exit() : area = -1;
+
+  @override
+  List<Object?> get props => [area];
+}

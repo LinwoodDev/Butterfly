@@ -34,8 +34,8 @@ class SelectElementDialog extends StatelessWidget {
         ],
         content: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 100),
-          child: BlocBuilder<SelectionCubit, PadElement?>(
-              builder: (context, state) {
+          child:
+              BlocBuilder<SelectionCubit, dynamic>(builder: (context, state) {
             return SizedBox(
                 width: double.maxFinite,
                 child: ListView.builder(

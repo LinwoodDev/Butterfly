@@ -28,7 +28,7 @@
   <link rel="apple-touch-icon" href="android/android-launchericon-192-192.png">
 
   <!-- Favicon -->
-  <link href="windows11/Square44x44Logo.targetsize-16.png" rel="icon" type="image/png"/>
+  <link href="windows11/Square44x44Logo.targetsize-16.png" rel="icon" type="image/png" />
 
   <title>Linwood Butterfly</title>
   <link rel="manifest" href="manifest.json">
@@ -36,18 +36,18 @@
 </head>
 
 <body
-        style="position: fixed; inset: 0; overflow: hidden; padding: 0; margin: 0; user-select: none; touch-action: none; font: 14px sans-serif; color: red;">
-<!-- This script installs service_worker.js to provide PWA functionality to
+  style="position: fixed; inset: 0; overflow: hidden; padding: 0; margin: 0; user-select: none; touch-action: none; font: 14px sans-serif; color: red;">
+  <!-- This script installs service_worker.js to provide PWA functionality to
      application. For more information, see:
      https://developers.google.com/web/fundamentals/primers/service-workers -->
-<script>
-  var serviceWorkerVersion = null;
-  var scriptLoaded = false;
+  <script>
+    var serviceWorkerVersion = null;
+    var scriptLoaded = false;
 
-  function loadMainDartJs() {
-    if (scriptLoaded) {
-      return;
-    }
+    function loadMainDartJs() {
+      if (scriptLoaded) {
+        return;
+      }
       scriptLoaded = true;
       var scriptTag = document.createElement('script');
       scriptTag.src = 'main.dart.js';
@@ -125,12 +125,13 @@
           case 37: // left arrow for moving keys: #1786
           case 39: // right arrow for moving keys: #1786
           case 188: // , #1835
+          case 65:
             // Needs to be removed as it kills text copy
             // case 67:  // 'c' for preventing negative beep on Safari
             event.preventDefault();
             break;
-                // default:
-                //   console.log('Keycode pressed: ' + event.keyCode);
+          // default:
+          //   console.log('Keycode pressed: ' + event.keyCode);
         }
       }
       // Suppress backspace triggering a navigated back action.
@@ -141,9 +142,10 @@
   </script>
   <picture id="splash">
     <source media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)"
-            srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x">
-    <source media="(prefers-color-scheme: dark)" srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x">
-    <img alt="Logo" aria-hidden="true" class="center" src="splash/img/light-1x.png"/>
+      srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x">
+    <source media="(prefers-color-scheme: dark)"
+      srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x">
+    <img alt="Logo" aria-hidden="true" class="center" src="splash/img/light-1x.png" />
   </picture>
 </body>
 

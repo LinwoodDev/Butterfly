@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
+import 'models/area.dart';
 
 Future<ui.Image> loadImage(ImageElement layer) {
   return decodeImageFromList(layer.pixels);
@@ -42,9 +43,12 @@ class ForegroundPainter extends CustomPainter {
   final Map<int, PadElement> editingLayer;
   final CameraTransform transform;
   final PadElement? selection;
+  final List<Area> areas;
 
   ForegroundPainter(this.editingLayer,
-      [this.transform = const CameraTransform(), this.selection]);
+      [this.transform = const CameraTransform(),
+      this.selection,
+      this.areas = const []]);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -74,13 +78,31 @@ class ForegroundPainter extends CustomPainter {
             )
             ..strokeWidth = 10 / transform.size);
     }
+    if (areas.isNotEmpty) {
+      // With background and border
+      var paint = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 10 / transform.size;
+      var backgroundPaint = Paint()
+        ..style = PaintingStyle.fill
+        ..color = Colors.blue.withOpacity(0.5);
+      for (var area in areas) {
+        canvas.drawRRect(
+            RRect.fromRectAndRadius(area.rect, const Radius.circular(5)),
+            paint);
+        canvas.drawRRect(
+            RRect.fromRectAndRadius(area.rect, const Radius.circular(5)),
+            backgroundPaint);
+      }
+    }
   }
 
   @override
   bool shouldRepaint(ForegroundPainter oldDelegate) =>
       oldDelegate.editingLayer != editingLayer ||
       oldDelegate.transform != transform ||
-      oldDelegate.selection != selection;
+      oldDelegate.selection != selection ||
+      oldDelegate.areas != areas;
 }
 
 Future<Map<PadElement, ui.Image>> loadImages(AppDocument document,
@@ -98,22 +120,42 @@ Future<Map<PadElement, ui.Image>> loadImages(AppDocument document,
 
 class ViewPainter extends CustomPainter {
   final AppDocument document;
+  final Area? currentArea;
   final bool renderBackground;
   final List<PadElement> elements;
   final BakedViewport? bakedViewport;
   final Map<PadElement, ui.Image> images;
   final CameraTransform transform;
 
-  ViewPainter(this.document,
-      {this.renderBackground = true,
-      this.elements = const [],
-      this.bakedViewport,
-      this.transform = const CameraTransform(),
-      this.images = const {}});
+  ViewPainter(
+    this.document, {
+    this.currentArea,
+    this.renderBackground = true,
+    this.elements = const [],
+    this.bakedViewport,
+    this.transform = const CameraTransform(),
+    this.images = const {},
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
     var background = document.background;
+    var areaRect = currentArea?.rect;
+    if (areaRect != null) {
+      areaRect = Rect.fromPoints(transform.globalToLocal(areaRect.topLeft),
+          transform.globalToLocal(areaRect.bottomRight));
+    }
+    if (areaRect != null) {
+      canvas.drawColor(background?.boxColor ?? Colors.blue, BlendMode.color);
+      canvas.drawRRect(
+          RRect.fromRectAndRadius(
+              areaRect.inflate(5), const Radius.circular(5)),
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..color = Colors.black
+            ..strokeWidth = 5 * transform.size);
+      canvas.clipRect(areaRect);
+    }
     if (background is BoxBackground && renderBackground) {
       canvas.drawColor(background.boxColor, BlendMode.srcOver);
       if (background.boxWidth > 0 && background.boxXCount > 0) {

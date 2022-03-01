@@ -15,6 +15,7 @@ module.exports = {
         'intro',
         'color_picker',
         'migrating',
+        'area',
         'background',
         {
             type: 'category',
@@ -28,7 +29,8 @@ module.exports = {
                 'painters/eraser',
                 'painters/path_eraser',
                 'painters/label',
-                'painters/layer'
+                'painters/layer',
+                'painters/area'
             ]
         },
         {

@@ -1,5 +1,7 @@
+import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/properties/label.dart';
 import 'package:butterfly/models/properties/pen.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -9,6 +11,7 @@ import 'elements/eraser.dart';
 import 'elements/image.dart';
 import 'elements/label.dart';
 import 'elements/pen.dart';
+import 'painters/area.dart';
 import 'painters/eraser.dart';
 import 'painters/label.dart';
 import 'painters/layer.dart';
@@ -69,6 +72,7 @@ class AppDocument {
   final BoxBackground? background;
   final List<ColorPalette> palettes;
   final List<Waypoint> waypoints;
+  final List<Area> areas;
   final DateTime createdAt;
   final DateTime updatedAt;
   final HandProperty handProperty;
@@ -80,6 +84,7 @@ class AppDocument {
       this.background = const BoxBackground(),
       this.palettes = const [],
       this.waypoints = const [],
+      this.areas = const [],
       required this.createdAt,
       this.handProperty = const HandProperty(),
       DateTime? updatedAt,
@@ -96,6 +101,7 @@ class AppDocument {
       this.background = const BoxBackground(),
       this.palettes = const [],
       this.waypoints = const [],
+      this.areas = const [],
       required this.createdAt,
       this.handProperty = const HandProperty(),
       DateTime? updatedAt,
@@ -151,6 +157,8 @@ class AppDocument {
               return LayerPainter.fromJson(e, version);
             case 'pen':
               return PenPainter.fromJson(e, version);
+            case 'area':
+              return AreaPainter.fromJson(e, version);
           }
           return null;
         })
@@ -173,6 +181,9 @@ class AppDocument {
         })
         .whereType<PadElement>()
         .toList();
+    var areas = List<dynamic>.from(json['areas'] ?? [])
+        .map((e) => Area.fromJson(Map<String, dynamic>.from(e), version))
+        .toList();
     var createdAt =
         DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now();
     var updatedAt = DateTime.tryParse(json['updatedAt'] ?? '') ?? createdAt;
@@ -186,7 +197,8 @@ class AppDocument {
         painters: painters,
         palettes: palettes,
         waypoints: waypoints,
-        handProperty: handProperty);
+        handProperty: handProperty,
+        areas: areas);
   }
 
   Map<String, dynamic> toJson() => {
@@ -198,6 +210,7 @@ class AppDocument {
         'content':
             content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
         'waypoints': waypoints.map((e) => e.toJson()).toList(),
+        'areas': areas.map((e) => e.toJson()).toList(),
         'background': background?.toJson(),
         'fileVersion': GetIt.I.get<int>(instanceName: 'fileVersion'),
         'createdAt': createdAt.toIso8601String(),
@@ -213,6 +226,7 @@ class AppDocument {
       BoxBackground? background,
       List<ColorPalette>? palettes,
       List<Waypoint>? waypoints,
+      List<Area>? areas,
       bool removeBackground = false,
       DateTime? createdAt,
       DateTime? updatedAt,
@@ -226,7 +240,20 @@ class AppDocument {
         painters: painters ?? this.painters,
         palettes: palettes ?? this.palettes,
         waypoints: waypoints ?? this.waypoints,
+        areas: areas ?? this.areas,
         background: removeBackground ? null : (background ?? this.background),
         handProperty: handProperty ?? this.handProperty);
+  }
+
+  Area? getArea(Offset offset) {
+    return areas.firstWhereOrNull((e) => e.hit(offset));
+  }
+
+  Area? getAreaByRect(Rect rect) {
+    return areas.firstWhereOrNull((e) => rect.overlaps(e.rect));
+  }
+
+  Area? getAreaByName(String value) {
+    return areas.firstWhereOrNull((e) => e.name == value);
   }
 }

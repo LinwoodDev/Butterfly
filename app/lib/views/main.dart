@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:butterfly/actions/areas.dart';
 import 'package:butterfly/actions/background.dart';
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/color_palette.dart';
@@ -159,6 +160,10 @@ class _ProjectPageState extends State<ProjectPage> {
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyB):
                   BackgroundIntent(context),
               LogicalKeySet(
+                  LogicalKeyboardKey.control,
+                  LogicalKeyboardKey.shift,
+                  LogicalKeyboardKey.keyA): AreasIntent(context),
+              LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
                   LayersIntent(context),
               LogicalKeySet(
@@ -181,6 +186,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   SettingsIntent: SettingsAction(),
                   ProjectIntent: ProjectAction(),
                   WaypointsIntent: WaypointsAction(),
+                  AreasIntent: AreasAction(),
                   ColorPaletteIntent: ColorPaletteAction(),
                   BackgroundIntent: BackgroundAction(),
                   LayersIntent: LayersAction(),

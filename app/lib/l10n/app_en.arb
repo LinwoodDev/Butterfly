@@ -200,5 +200,17 @@
   "red": "Red",
   "green": "Green",
   "blue": "Blue",
-  "alpha": "Alpha"
+  "alpha": "Alpha",
+  "area": "Area",
+  "selectArea": "Select an area",
+  "aspectRatio": "Aspect ratio",
+  "presets":"Presets",
+  "pagePortrait": "Page portrait",
+  "pageLandscape": "Page landscape",
+  "square":"Square",
+  "areas": "Areas",
+  "enterArea": "Enter the area",
+  "exitArea": "Exit the area",
+  "alreadyExists": "This value already exists",
+  "currentArea": "Current area"
 }
