@@ -214,12 +214,25 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         }
                       }
 
+                      final currentArea = state.currentArea;
+
+                      bool inBounds(Offset localOffset) =>
+                          currentArea == null ||
+                          currentArea.hit(
+                              context
+                                  .read<TransformCubit>()
+                                  .state
+                                  .localToGlobal(localOffset),
+                              5 / size);
+
                       var openView = false;
 
                       return GestureDetector(
                           onSecondaryTapUp: (details) {
                             if (state.currentPainter is! AreaPainter) return;
-                            showAreaContextMenu(details.localPosition);
+                            if (inBounds(details.localPosition)) {
+                              showAreaContextMenu(details.localPosition);
+                            }
                           },
                           onScaleUpdate: (details) {
                             if (state.currentPainter is! AreaPainter &&
@@ -244,7 +257,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           },
                           onLongPressEnd: (details) {
                             if (state.currentPainter is! AreaPainter) return;
-                            showAreaContextMenu(details.globalPosition);
+                            if (inBounds(details.localPosition)) {
+                              showAreaContextMenu(details.globalPosition);
+                            }
                           },
                           onScaleEnd: (details) => _bake(),
                           onScaleStart: (details) {
@@ -282,7 +297,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 if (state.currentPainter != null &&
                                     event.buttons != kMiddleMouseButton &&
                                     input.canCreate(event.pointer,
-                                        cubit.first(), event.kind)) {
+                                        cubit.first(), event.kind) &&
+                                    inBounds(event.localPosition)) {
                                   createElement(
                                       event.pointer,
                                       event.localPosition,
@@ -293,7 +309,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 var painter = state.currentPainter;
                                 if (painter is AreaPainter &&
                                     event.buttons != kMiddleMouseButton &&
-                                    event.buttons != kSecondaryMouseButton) {
+                                    event.buttons != kSecondaryMouseButton &&
+                                    currentArea != null) {
                                   var pos = context
                                       .read<TransformCubit>()
                                       .state
@@ -325,7 +342,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     selection is Area &&
                                     (event.localPosition - selection.position)
                                             .distanceSquared >
-                                        transform.size) {
+                                        transform.size &&
+                                    currentArea == null) {
                                   var pos = transform
                                       .localToGlobal(event.localPosition);
                                   var area = Area.fromPoints(
@@ -442,7 +460,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     .read<SettingsCubit>()
                                     .state
                                     .inputType;
-
                                 if (input.canCreate(event.pointer,
                                         cubit.first(), event.kind) &&
                                     currentElement != null) {
@@ -637,6 +654,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                       .move(event.delta / transform.size);
                                   return;
                                 }
+                                if (!inBounds(event.localPosition)) return;
                                 if (event.kind == PointerDeviceKind.stylus ||
                                     state.currentPainter != null) {
                                   var painter = state.currentPainter;

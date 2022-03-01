@@ -146,14 +146,14 @@ class ViewPainter extends CustomPainter {
           transform.globalToLocal(areaRect.bottomRight));
     }
     if (areaRect != null) {
-      canvas.drawColor(background?.boxColor ?? Colors.blue, BlendMode.srcOver);
+      canvas.drawColor(background?.boxColor ?? Colors.blue, BlendMode.color);
       canvas.drawRRect(
           RRect.fromRectAndRadius(
               areaRect.inflate(5), const Radius.circular(5)),
           Paint()
             ..style = PaintingStyle.stroke
             ..color = Colors.black
-            ..strokeWidth = 10 / transform.size);
+            ..strokeWidth = 5 * transform.size);
       canvas.clipRect(areaRect);
     }
     if (background is BoxBackground && renderBackground) {
