@@ -37,6 +37,8 @@ class TransformCubit extends Cubit<CameraTransform> {
 
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
 
+  void setPosition(Offset position) => emit(state.withPosition(position));
+
   void zoom(double delta, [Offset cursor = Offset.zero]) =>
       emit(state.withSize(state.size * delta, cursor));
 

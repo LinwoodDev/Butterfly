@@ -310,7 +310,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 if (painter is AreaPainter &&
                                     event.buttons != kMiddleMouseButton &&
                                     event.buttons != kSecondaryMouseButton &&
-                                    currentArea != null) {
+                                    currentArea == null) {
                                   var pos = context
                                       .read<TransformCubit>()
                                       .state

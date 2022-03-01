@@ -211,5 +211,6 @@
   "areas": "Areas",
   "enterArea": "Enter the area",
   "exitArea": "Exit the area",
-  "alreadyExists": "This value already exists"
+  "alreadyExists": "This value already exists",
+  "currentArea": "Current area"
 }
