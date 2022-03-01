@@ -1,9 +1,9 @@
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../actions/export.dart';
 import '../actions/image_export.dart';
@@ -131,7 +131,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
             title = Text(AppLocalizations.of(ctx)!.loading);
           }
           if (isWindow()) {
-            title = MoveWindow(
+            title = DragToMoveArea(
               child: title,
             );
           }
