@@ -1,29 +1,29 @@
 ---
-sidebar_label: "Area"
+sidebar_label: "Fläche"
 ---
 
-# Area painter
+# Flächenmaler
 
-The area painter allows you to create, edit and remove areas.
+Der Flächenmaler ermöglicht das Erstellen, Bearbeiten und Entfernen von Bereichen.
 
-## Actions
+## Aktionen
 
-|        Mouse        |    Touch     |      Action       |
-|:-------------------:|:------------:|:-----------------:|
-| Left click and drag | Tap and drag | Create a new area |
-|    Middle click     | Two fingers  |    Move canvas    |
-|     Right click     |   Long tap   |     Edit area     |
+|         Maus          |     Berühren      |            Aktion             |
+|:---------------------:|:-----------------:|:-----------------------------:|
+| Linksklick und ziehen | Tippen und ziehen | Einen neuen Bereich erstellen |
+|    Mittlerer Klick    |    Zwei Finger    |     Leinwand verschieben      |
+|      Rechtsklick      |   Lange Tippen    |      Bereich bearbeiten       |
 
 ## Konfiguration
 
-|       Objekt | Standard | Beschreibung                                                                                                                                     |
-| ------------:|:--------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
-|       Breite |    0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
-|         Höhe |    0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
-| Aspect ratio |    0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|           Objekt | Standard | Beschreibung                                                                                                                                                         |
+| ----------------:|:--------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|           Breite |    0     | Die feste Breite des Bereichs. Wenn auf 0 gesetzt, wird die Breite automatisch berechnet.                                                                            |
+|             Höhe |    0     | Die feste Höhe der Fläche. Wenn auf 0 gesetzt, wird die Höhe automatisch berechnet.                                                                                  |
+| Seitenverhältnis |    0     | Das fixe Seitenverhältnis des Bereichs. Wenn 0 gesetzt wird, wird das Seitenverhältnis automatisch berechnet. Ein Seitenverhältnis wird als Breite / Höhe definiert. |
 
-There are three aspect ratio presets:
+Es gibt drei Aspekte Verhältnis Voreinstellungen:
 
-* Square (1:1)
-* Page portrait (sqrt(2)) - This is the default aspect ratio of an A4 page in portrait mode.
-* Page landscape (1/sqrt(2)) - This is the default aspect ratio of an A4 page in landscape mode.
+* Quadrat (1:1)
+* Seitenportrait (sqrt(2)) - Dies ist das Standard-Seitenverhältnis einer A4-Seite im Hochformat.
+* Seitenlandschaft (1/sqrt(2)) - Dies ist das Standard-Seitenverhältnis einer A4-Seite im Querformat.
