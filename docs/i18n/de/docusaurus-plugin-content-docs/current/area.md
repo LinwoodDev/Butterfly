@@ -1,7 +1,7 @@
-# Area
+# Fläche
 
 ## Einführung
 
-Areas are a way to restrict the size of the canvas. You can create areas by using the [area painter](painters/area.md). If you click on the background you can open the area list dialog using the context menu.
+Flächen sind eine Möglichkeit, die Größe der Leinwand zu beschränken. Sie können Flächen mit dem [-Flächenmaler](painters/area.md) erstellen. Wenn Sie auf den Hintergrund klicken, können Sie den Bereichslisten-Dialog über das Kontextmenü öffnen.
 
-TODO: Add more information about areas.
+TODO: Fügen Sie weitere Informationen zu Bereichen hinzu.
