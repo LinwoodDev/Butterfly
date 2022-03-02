@@ -258,16 +258,6 @@ class WindowButtons extends StatelessWidget {
                     ? windowManager.unmaximize()
                     : windowManager.maximize(),
               ),
-              if (MediaQuery.of(context).size.width > 600)
-                IconButton(
-                  icon: const Icon(PhosphorIcons.frameCornersLight),
-                  iconSize: 16,
-                  splashRadius: 20,
-                  onPressed: () async {
-                    var current = await windowManager.isFullScreen();
-                    await windowManager.setFullScreen(!current);
-                  },
-                ),
               IconButton(
                 icon: const Icon(PhosphorIcons.xLight),
                 hoverColor: Colors.red,

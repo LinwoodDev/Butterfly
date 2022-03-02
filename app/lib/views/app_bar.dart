@@ -17,6 +17,9 @@ import '../actions/undo.dart';
 import '../bloc/document_bloc.dart';
 import 'main.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/api/full_screen_stub.dart'
+    if (dart.library.io) 'package:butterfly/api/full_screen_io.dart'
+    if (dart.library.js) 'package:butterfly/api/full_screen_html.dart';
 
 class PadAppBar extends StatelessWidget with PreferredSizeWidget {
   static const double _height = 65;
@@ -267,18 +270,6 @@ class _MainPopupMenu extends StatelessWidget {
                       trailing: const Icon(PhosphorIcons.caretRightLight),
                       title: Text(AppLocalizations.of(context)!.export)))),
           PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                  leading: const Icon(PhosphorIcons.gearLight),
-                  title: Text(AppLocalizations.of(context)!.settings),
-                  subtitle: Text(context.getShortcut('S', altKey: true)),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Actions.maybeInvoke<SettingsIntent>(
-                        context, SettingsIntent(context));
-                  })),
-          const PopupMenuDivider(),
-          PopupMenuItem(
               child: ListTile(
                   onTap: () {
                     Navigator.of(context).pop();
@@ -290,6 +281,28 @@ class _MainPopupMenu extends StatelessWidget {
                   leading: const Icon(PhosphorIcons.wrenchLight),
                   title: Text(AppLocalizations.of(context)!.projectSettings)),
               padding: EdgeInsets.zero),
+          const PopupMenuDivider(),
+          PopupMenuItem(
+              padding: EdgeInsets.zero,
+              child: ListTile(
+                  leading: const Icon(PhosphorIcons.arrowsOutLight),
+                  title: Text(AppLocalizations.of(context)!.fullscreen),
+                  subtitle: Text(context.getShortcut('F11', ctrlKey: false)),
+                  onTap: () async {
+                    setFullScreen(!(await isFullScreen()));
+                    Navigator.of(context).pop();
+                  })),
+          PopupMenuItem(
+              padding: EdgeInsets.zero,
+              child: ListTile(
+                  leading: const Icon(PhosphorIcons.gearLight),
+                  title: Text(AppLocalizations.of(context)!.settings),
+                  subtitle: Text(context.getShortcut('S', altKey: true)),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Actions.maybeInvoke<SettingsIntent>(
+                        context, SettingsIntent(context));
+                  })),
         ],
       );
     });
