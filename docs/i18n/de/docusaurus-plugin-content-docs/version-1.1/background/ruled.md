@@ -2,7 +2,7 @@
 
 |   Objekt | Wert |
 | --------:|:---- |
-|    Width | 0    |
+|   Breite | 0    |
 |     Höhe | 25   |
 | Zähler X | 0    |
 | Anzahl Y | 1    |

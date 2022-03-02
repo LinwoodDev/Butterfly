@@ -40,7 +40,7 @@
     "loading": "Chargement en cours...",
     "enterText": "Entrez le texte",
     "size": "Taille",
-    "width": "Width",
+    "width": "Largeur",
     "height": "Hauteur",
     "count": "Compter",
     "space": "Espace libre",
@@ -200,5 +200,17 @@
     "red": "Rouge",
     "green": "Vert",
     "blue": "Bleu",
-    "alpha": "Alphabétisation"
+    "alpha": "Alphabétisation",
+    "area": "Zone de stockage",
+    "selectArea": "Sélectionnez une zone",
+    "aspectRatio": "Ratio d'aspect",
+    "presets": "Préréglages",
+    "pagePortrait": "Portrait de la page",
+    "pageLandscape": "Paysage des pages",
+    "square": "Carré",
+    "areas": "Zones",
+    "enterArea": "Entrez la zone",
+    "exitArea": "Quitter la zone",
+    "alreadyExists": "Cette valeur existe déjà",
+    "currentArea": "Zone actuelle"
 }

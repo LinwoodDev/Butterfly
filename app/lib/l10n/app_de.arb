@@ -40,7 +40,7 @@
     "loading": "Wird geladen...",
     "enterText": "Text eingeben",
     "size": "Größe",
-    "width": "Width",
+    "width": "Breite",
     "height": "Höhe",
     "count": "Anzahl",
     "space": "Raum",
@@ -200,5 +200,17 @@
     "red": "Rot",
     "green": "Grün",
     "blue": "Blau",
-    "alpha": "Alpha"
+    "alpha": "Alpha",
+    "area": "Fläche",
+    "selectArea": "Wählen Sie einen Bereich",
+    "aspectRatio": "Seitenverhältnis",
+    "presets": "Vorlagen",
+    "pagePortrait": "Seitenportrait",
+    "pageLandscape": "Seitenlandschaft",
+    "square": "Quadrat",
+    "areas": "Gebiete",
+    "enterArea": "Geben Sie den Bereich ein",
+    "exitArea": "Beende das Gebiet",
+    "alreadyExists": "Dieser Wert existiert bereits",
+    "currentArea": "Aktueller Bereich"
 }
