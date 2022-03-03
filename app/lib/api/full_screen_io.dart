@@ -22,13 +22,19 @@ void setup() {
 Future<void> setFullScreen(bool fullScreen) async {
   if (Platform.isAndroid || Platform.isIOS) {
     if (fullScreen) {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+      await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+          overlays: []);
       isFullscreen = true;
     } else {
-      SystemChrome.restoreSystemUIOverlays();
+      await SystemChrome.restoreSystemUIOverlays();
       isFullscreen = false;
     }
   } else {
-    windowManager.setFullScreen(fullScreen);
+    if (fullScreen) {
+      await windowManager.setTitleBarStyle('default');
+    } else {
+      await windowManager.setTitleBarStyle('hidden');
+    }
+    await windowManager.setFullScreen(fullScreen);
   }
 }
