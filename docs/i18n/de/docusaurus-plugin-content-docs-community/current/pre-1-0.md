@@ -2,7 +2,6 @@
 
 Diese Versionen werden nicht mehr unterstützt. Neue Versionen sind unter [Versionen](versions.md) verfügbar.
 
-
 | Version       | Unterstützt |                                                                                                                                                      |
 | ------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1.0.0-rc.6    | :x:         | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.6/intro) [Release](https://github.com/LinwoodCloud/Butterfly/releases/tag/v1.0.0-rc.6)       |

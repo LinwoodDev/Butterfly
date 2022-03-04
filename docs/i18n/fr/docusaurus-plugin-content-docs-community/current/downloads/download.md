@@ -1,5 +1,4 @@
 ---
-title: "Télécharger"
 slug: "/downloads"
 sidebar_position: 0
 ---

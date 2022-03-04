@@ -20,10 +20,6 @@ module.exports = {
         {
             type: 'category',
             label: 'Painters',
-            link: {
-                type: 'doc',
-                id: 'painters/intro'
-            },
             items: [
                 'painters/pen',
                 'painters/eraser',
@@ -36,10 +32,6 @@ module.exports = {
         {
             type: 'category',
             label: 'Tools',
-            link: {
-                type: 'doc',
-                id: 'tools/intro',
-            },
             items: [
                 'tools/hand',
             ]

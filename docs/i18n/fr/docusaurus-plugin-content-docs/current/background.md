@@ -11,4 +11,3 @@ Vous pouvez personnaliser l'arrière-plan du papier. Cliquez sur l'icône d'arri
 Largeur et hauteur sont les paramètres généraux de la boîte.
 
 De plus, vous pouvez personnaliser la couleur de l'arrière-plan.
-

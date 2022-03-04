@@ -1,4 +1,5 @@
 ---
+slug: /
 sidebar_label: "Introduction"
 sidebar_position: 1
 ---
@@ -13,3 +14,12 @@ Create a new painter by clicking on the plus icon. Change the painter order by d
 If you click on a selected painter you can configure it.
 
 The name of the painter will be displayed as tooltip on hover on the painter.
+
+## Available painters
+
+```mdx-code-block
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+
+<DocCardList items={useCurrentSidebarCategory().items}/>
+```

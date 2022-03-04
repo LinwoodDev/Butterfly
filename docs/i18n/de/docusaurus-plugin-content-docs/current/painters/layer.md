@@ -4,7 +4,7 @@ title: Ebene
 
 Mit diesem Tool können Sie die Ebene von mehreren Objekten ändern. Lesen Sie mehr über die Ebenen [hier](../layers.md).
 
-# Konfiguration
+## Konfiguration
 
 |            Objekt | Standard | Beschreibung                                                                                      |
 | -----------------:|:--------:|:------------------------------------------------------------------------------------------------- |

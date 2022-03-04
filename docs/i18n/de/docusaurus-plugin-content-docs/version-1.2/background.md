@@ -11,4 +11,3 @@ Sie können den Hintergrund des Papiers anpassen. Klicken Sie auf das Hintergrun
 Breite und Höhe sind die allgemeinen Einstellungen der Box.
 
 Zusätzlich können Sie die Farbe des Hintergrunds anpassen.
-

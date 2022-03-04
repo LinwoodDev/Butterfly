@@ -13,4 +13,3 @@ There are 8 different background templates available.
 Width and height are the general settings of the box.
 
 Additionally, you can customize the color of the background.
-

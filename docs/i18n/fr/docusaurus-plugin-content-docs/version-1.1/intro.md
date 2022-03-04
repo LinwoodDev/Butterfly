@@ -24,5 +24,3 @@ En dessous, vous pouvez trouver la barre d'outils. À gauche, vous pouvez bascul
 
 - Les options de la barre d'outils de vue sont en arrière-plan, export et enregistrement.
 - Les options de la barre d'outils d'édition sont les peintres. Vous pouvez trouver [ici](background/intro) de plus.
-
-

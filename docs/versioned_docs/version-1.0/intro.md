@@ -26,5 +26,3 @@ Below it, you can find the toolbar. Left, you can switch between view and edit m
 
 - The view toolbar options are background, export and save.
 - The edit toolbar options are the painters. You can find [here](background/intro) more.
-
-

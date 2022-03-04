@@ -24,5 +24,3 @@ Darunter finden Sie die Symbolleiste. Links können Sie zwischen Ansichts- und B
 
 - Die Optionen in der Werkzeugleiste sind Hintergrund, Export und Speicher.
 - Die Optionen der Bearbeitungsleiste sind die Maler. Du findest [hier](background/intro) mehr.
-
-

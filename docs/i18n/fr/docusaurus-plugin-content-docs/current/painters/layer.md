@@ -4,7 +4,7 @@ title: Couche
 
 Avec cet outil vous pouvez changer le calque de plusieurs objets. En savoir plus sur les couches [ici](../layers.md).
 
-# Configuration
+## Configuration
 
 |        Propriété | Par défaut | Libellé                                                                       |
 | ----------------:|:----------:|:----------------------------------------------------------------------------- |
