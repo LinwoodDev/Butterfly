@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/settings/behaviors.dart';
@@ -18,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/document.dart';
 import 'settings/personalization.dart';
+import 'package:window_manager/window_manager.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 
 const fileVersion = 4;
@@ -43,16 +43,22 @@ Future<void> main([List<String> args = const []]) async {
     }
   }
 
-  runApp(ButterflyApp(prefs: prefs, initialLocation: initialLocation));
   if (isWindow()) {
-    doWhenWindowReady(() {
-      appWindow.minSize = const Size(400, 300);
-      appWindow.size = const Size(400, 600);
-      appWindow.alignment = Alignment.center;
-      appWindow.title = 'Butterfly';
-      appWindow.show();
+    await windowManager.ensureInitialized();
+
+    // Use it only after calling `hiddenWindowAtLaunch`
+    windowManager.waitUntilReadyToShow().then((_) async {
+      await windowManager.setMinimumSize(const Size(400, 300));
+      await windowManager.setSize(const Size(400, 600));
+      await windowManager.setTitle('Butterfly');
+      await windowManager.setTitleBarStyle('hidden');
+      await windowManager.setResizable(true);
+      await windowManager.center();
+      await windowManager.show();
+      await windowManager.focus();
     });
   }
+  runApp(ButterflyApp(prefs: prefs, initialLocation: initialLocation));
 }
 
 class ButterflyApp extends StatelessWidget {

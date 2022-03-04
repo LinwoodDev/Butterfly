@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:butterfly/actions/areas.dart';
 import 'package:butterfly/actions/background.dart';
 import 'package:butterfly/actions/change_path.dart';
@@ -36,6 +35,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'view.dart';
 
@@ -239,30 +239,34 @@ class WindowButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isWindow()) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            IconButton(
-              icon: const Icon(PhosphorIcons.minusLight),
-              iconSize: 16,
-              splashRadius: 20,
-              onPressed: () => appWindow.minimize(),
-            ),
-            IconButton(
-              icon: const Icon(PhosphorIcons.squareLight),
-              iconSize: 16,
-              splashRadius: 20,
-              onPressed: () => appWindow.maximizeOrRestore(),
-            ),
-            IconButton(
-              icon: const Icon(PhosphorIcons.xLight),
-              hoverColor: Colors.red,
-              iconSize: 16,
-              splashRadius: 20,
-              onPressed: () => appWindow.close(),
-            )
-          ],
+      return LayoutBuilder(
+        builder: (context, constraints) => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              IconButton(
+                icon: const Icon(PhosphorIcons.minusLight),
+                iconSize: 16,
+                splashRadius: 20,
+                onPressed: () => windowManager.minimize(),
+              ),
+              IconButton(
+                icon: const Icon(PhosphorIcons.squareLight),
+                iconSize: 16,
+                splashRadius: 20,
+                onPressed: () async => await windowManager.isMaximized()
+                    ? windowManager.unmaximize()
+                    : windowManager.maximize(),
+              ),
+              IconButton(
+                icon: const Icon(PhosphorIcons.xLight),
+                hoverColor: Colors.red,
+                iconSize: 16,
+                splashRadius: 20,
+                onPressed: () => windowManager.close(),
+              )
+            ],
+          ),
         ),
       );
     }
