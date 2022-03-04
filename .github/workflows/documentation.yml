@@ -15,8 +15,14 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '16.x'
+      - name: Install dependencies
+        run: |
+          yarn install --frozen-lockfile
+      - name: Check lint
+        run: |
+          cd docs
+          yarn lint
       - name: Test Build
         run: |
           cd docs
-          yarn install --frozen-lockfile
           yarn build
