@@ -59,6 +59,8 @@ jobs:
           body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
   update-version:
     runs-on: ubuntu-20.04
+    needs:
+      - release
     steps:
       - uses: actions/checkout@v2
         with:
@@ -78,6 +80,9 @@ jobs:
   update-main:
     if: ${{ github.ref == 'refs/heads/develop' }}
     runs-on: ubuntu-20.04
+    needs:
+      - release
+      - update-version
     steps:
       - uses: actions/checkout@v2
         with:
@@ -124,6 +129,9 @@ jobs:
   update-develop:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-20.04
+    needs:
+      - release
+      - update-version
     steps:
       - uses: actions/checkout@v2
         with:
@@ -162,6 +170,9 @@ jobs:
   notify:
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.CI_PAT }}
       - name: Get information
         run: |
           BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
