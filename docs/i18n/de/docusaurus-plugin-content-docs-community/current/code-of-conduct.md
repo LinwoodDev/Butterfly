@@ -1,7 +1,7 @@
 ---
-title: Code of conduct
+title: Verhaltenskodex
 hide_title: true
-sidebar_label: Code of conduct
+sidebar_label: Verhaltenskodex
 ---
 
 ```mdx-code-block
