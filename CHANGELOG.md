@@ -2,14 +2,6 @@
 
 <!--ENTER CHANGELOG HERE-->
 
-## 1.3.0-alpha.0 (2022-03-05)
-
-* Add areas
-    * Export areas
-* Add area painter to declare areas
-* Add full screen
-* Update flutter version
-
 ## 1.2.1 (2022-03-05)
 
 * Fix label creation

@@ -82,6 +82,8 @@ jobs:
           git config --global user.name "Linwood CI"
       - name: Set next version
         run: |
+          git fetch
+          git pull origin
           dart pub get -C tools
           dart run tools/set_version.dart --build-number increment ${{ github.event.inputs.next_version }} --no-changelog
           git add .
@@ -126,12 +128,16 @@ jobs:
       - name: Merge develop
         if: ${{ github.event.inputs.stable }}
         run: |
+          git fetch
+          git pull
           git checkout main
           git pull
           git merge develop --strategy-option ours
           git push origin main
       - name: Merge main
         run: |
+          git fetch
+          git pull
           git checkout develop
           git pull
           git merge main --strategy-option ours
@@ -165,12 +171,16 @@ jobs:
           git config --global user.name "Linwood CI"
       - name: Merge main
         run: |
+          git fetch
+          git pull
           git checkout develop
           git pull
           git merge main --strategy-option ours
           git push origin develop
       - name: Update version number
         run: |
+          git fetch
+          git pull
           dart pub get -C tools
           dart run tools/set_version.dart --build-number increment --no-changelog
 
