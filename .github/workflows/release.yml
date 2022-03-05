@@ -76,7 +76,7 @@ jobs:
           git commit -m "Update Version to ${{ github.event.inputs.next_version }}"
           git push origin develop
   update-main:
-    if: ${{ github.ref == "refs/heads/develop" }}
+    if: ${{ github.ref == 'refs/heads/develop' }}
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -122,7 +122,7 @@ jobs:
           git merge main --strategy-option ours
           git push origin develop
   update-develop:
-    if: ${{ github.ref == "refs/heads/main" }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -172,7 +172,7 @@ jobs:
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v4.0.0
-        if: ${{ github.ref == "refs/heads/main" || github.event.inputs.stable }}
+        if: ${{ github.ref == 'refs/heads/main' || github.event.inputs.stable }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           content: |
@@ -182,7 +182,7 @@ jobs:
             https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v4.0.0
-        if: ${{ github.ref == "refs/heads/develop" && !github.event.inputs.stable }}
+        if: ${{ github.ref == 'refs/heads/develop' && !github.event.inputs.stable }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           content: |
