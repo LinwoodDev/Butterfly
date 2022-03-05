@@ -27,16 +27,16 @@ Future<void> main(List<String> args) async {
   File pubspec = File('app/pubspec.yaml');
   String content = await pubspec.readAsString();
   // Get last version from pubspec.yaml
-  RegExp exp = RegExp(r'^version:\s(.+)\+(.+)', multiLine: true);
-  Iterable<Match> matches = exp.allMatches(content);
-  if (matches.length != 1) {
+  RegExp exp = RegExp(r"version:\s(?<version>.+)\+(?<build>.+)");
+  var match = exp.firstMatch(content);
+  if (match == null) {
     print('Could not find the version in the pubspec.yaml');
     exit(1);
   }
-  var lastVersion = matches.first.group(0) ?? '';
-  version ??= lastVersion.split('+')[0];
+  var lastVersion = match.namedGroup('version') ?? '';
+  version ??= lastVersion;
   // Get build number from lastVersion
-  var lastBuildNumber = lastVersion.split('+')[1];
+  var lastBuildNumber = match.namedGroup('build') ?? '0';
   String newBuildNumber = buildNumber;
   if (buildNumber == 'increment') {
     newBuildNumber = (int.parse(lastBuildNumber) + 1).toString();
@@ -45,7 +45,7 @@ Future<void> main(List<String> args) async {
 
   var newVersion = '$version+$newBuildNumber';
   // Update the version in the pubspec.yaml
-  content = content.replaceAll(lastVersion, 'version: $newVersion');
+  content = content.replaceAll(exp, 'version: $newVersion');
 
   await pubspec.writeAsString(content);
   print(

@@ -7,13 +7,13 @@ on:
       - develop
     inputs:
       release_version:
-        required: false
+        required: true
         default: "0.0.0"
         description: "The version to release"
       next_version:
         default: "0.0.0"
         description: "The next version to be released"
-        required: false
+        required: true
       stable:
         default: false
         description: "Is this version stable?"
@@ -26,8 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
-          ref: develop
           token: ${{ secrets.CI_PAT }}
       - uses: subosito/flutter-action@v2
         with:
@@ -51,8 +49,9 @@ jobs:
 
           git add .
           git commit -m "Update version to ${{ github.event.inputs.release_version }}"
-          git push origin develop
+          git push origin ${{ github.ref }}
       - name: Merge develop into main
+        if: ${{ github.ref }} == "refs/heads/develop"
         run: |
           git checkout main
           git merge develop
@@ -70,6 +69,7 @@ jobs:
           name: v${{ github.event.inputs.release_version }}
           body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
       - name: Rebase develop
+        if: ${{ github.ref }} == "refs/heads/develop"
         run: |
           git checkout develop
           git rebase main
@@ -83,6 +83,7 @@ jobs:
           git push origin develop
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v4.0.0
+        if: ${{ github.ref }} == "refs/heads/main" || ${{ github.event.inputs.stable }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           content: |
@@ -90,8 +91,19 @@ jobs:
             Download it here: https://docs.butterfly.linwood.dev/downloads
 
             https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ github.event.inputs.release_version }}
+      - name: Discord Webhook Action
+        uses: tsickert/discord-webhook@v4.0.0
+        if: ${{ github.ref }} == "refs/heads/develop" && ${{ !github.event.inputs.stable }}
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          content: |
+            Pre-release version ${{ github.event.inputs.release_version }} released!
+            Download it here: https://docs.butterfly.linwood.dev/downloads
+
+            Please note that this is a pre-release version and is not intended for production use.
+            Read more about here: https://docs.butterfly.linwood.dev/nightly
   update-production-build-number:
-    if: ${{ github.ref }} == "develop"
+    if: ${{ github.ref }} == "refs/heads/develop"
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -127,8 +139,8 @@ jobs:
           git pull
           git rebase main --strategy-option theirs
           git push origin develop
-  update-build-number:
-    if: ${{ github.ref }} == "main"
+  update-develop:
+    if: ${{ github.ref }} == "refs/heads/main"
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -151,6 +163,12 @@ jobs:
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
+      - name: Rebase develop
+        run: |
+          git checkout develop
+          git pull
+          git rebase main --strategy-option ours
+          git push origin develop
       - name: Update build number
         run: |
           dart pub get -C tools
@@ -159,17 +177,17 @@ jobs:
           git add .
           git commit -m "Increment build number"
           git push origin develop
-  publish-to-play-store:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - name: Publish beta
-        run: fastlane beta
-        if: ${{ !github.event.inputs.stable }}
-        env:
-          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
-      - name: Publish stable
-        run: fastlane deploy
-        if: ${{ github.event.inputs.stable }}
-        env:
-          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
+  #publish-to-play-store:
+  #  runs-on: ubuntu-20.04
+  #  steps:
+  #    - uses: actions/checkout@v2
+  #    - name: Publish beta
+  #      run: fastlane beta
+  #      if: ${{ !github.event.inputs.stable }}
+  #      env:
+  #        PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
+  #    - name: Publish stable
+  #      run: fastlane deploy
+  #      if: ${{ github.event.inputs.stable }}
+  #      env:
+  #        PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
