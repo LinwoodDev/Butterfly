@@ -5,9 +5,9 @@ sidebar_label: Mitwirken
 ---
 
 ```mdx-code-block
-importiere Mitwirkung, {toc as ContributingTOC} von "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-Export const toc = Mitwirkendes TOC;
+export const toc = ContributingTOC;
 ```
