@@ -1,5 +1,5 @@
 ---
-slug: /
+slug: /painters
 sidebar_label: "Introduction"
 sidebar_position: 1
 ---
@@ -14,11 +14,11 @@ Créez un nouveau peintre en cliquant sur l'icône +. Modifiez l'ordre du peintr
 
 Le nom du peintre sera affiché comme infobulle au survol du peintre.
 
-## Available painters
+## Peintres disponibles
 
 ```mdx-code-block
-import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+importer DocCardList depuis '@theme/DocCardList';
+importer {useCurrentSidebarCategory} depuis '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
