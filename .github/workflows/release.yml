@@ -6,22 +6,123 @@ on:
       - main
       - develop
     inputs:
-      release_version:
-        required: true
-        default: "0.0.0"
-        description: "The version to release"
       next_version:
         default: "0.0.0"
         description: "The next version to be released"
-        required: true
+        required: false
       stable:
-        default: "false"
+        default: false
         description: "Is this version stable?"
         type: boolean
         required: false
 
 jobs:
   release:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.CI_PAT }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 2.10.0-0.3.pre
+          channel: "beta" # or: 'stable' or 'dev'
+      - name: Setup git
+        id: setup
+        run: |
+          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
+          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
+          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - name: Create changelog
+        run: |
+          dart pub get -C tools
+          dart run tools/set_version.dart --build-number keep --changelog
+          git add .
+          git commit -m "Create changelog for ${{ github.event.inputs.next_version }}"
+          git push origin
+      - name: Create tag
+        run: |
+          BUTTERFLY_VERSION="${{ env.BUTTERFLY_VERSION }}"
+          git tag -a v${{ env.BUTTERFLY_VERSION }} -m "Release ${BUTTERFLY_VERSION}"
+          git push origin v${BUTTERFLY_VERSION}
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: ${{ !github.event.inputs.stable }}
+          tag_name: v${{ env.BUTTERFLY_VERSION }}
+          name: v${{ env.BUTTERFLY_VERSION }}
+          body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
+  update-version:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CI_PAT }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 2.10.0-0.3.pre
+          channel: "beta" # or: 'stable' or 'dev'
+      - name: Set next version
+        run: |
+          dart pub get -C tools
+          dart run tools/set_version.dart --build-number increment ${{ github.event.inputs.next_version }} --no-changelog
+          git add .
+          git commit -m "Update Version to ${{ github.event.inputs.next_version }}"
+          git push origin develop
+  update-main:
+    if: ${{ github.ref == "refs/heads/develop" }}
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: main
+          token: ${{ secrets.CI_PAT }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 2.10.0-0.3.pre
+          channel: "beta" # or: 'stable' or 'dev'
+      - name: Setup git
+        id: setup
+        run: |
+          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
+          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
+          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - name: Update version number
+        if: ${{ !github.event.inputs.stable }}
+        run: |
+          dart pub get -C tools
+          dart run tools/set_version.dart --build-number increment --no-changelog
+
+          git add .
+          git commit -m "Update version to ${{ github.event.inputs.next_version }}"
+          git push origin main
+      - name: Merge develop
+        if: ${{ github.event.inputs.stable }}
+        run: |
+          git checkout main
+          git pull
+          git merge develop --strategy-option ours
+          git push origin main
+      - name: Merge main
+        run: |
+          git checkout develop
+          git pull
+          git merge main --strategy-option ours
+          git push origin develop
+  update-develop:
+    if: ${{ github.ref == "refs/heads/main" }}
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -44,62 +145,64 @@ jobs:
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
-      - name: Update version
-        run: |
-          dart pub get -C tools
-          dart run tools/set_version.dart ${{ github.event.inputs.release_version }} --build-number keep
-
-          git add .
-          git commit -m "Update version to ${{ github.event.inputs.release_version }}"
-          git push origin develop
-      - name: Merge develop into main
-        run: |
-          git checkout main
-          git merge develop
-          git push origin main
-      - name: Create tag
-        run: |
-          BUTTERFLY_VERSION="${{ github.event.inputs.release_version }}"
-          git tag -a v${{ github.event.inputs.release_version }} -m "Release ${BUTTERFLY_VERSION}"
-          git push origin v${BUTTERFLY_VERSION}
-      - name: Create release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v${{ github.event.inputs.release_version }}
-          name: v${{ github.event.inputs.release_version }}
-          body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
-      - name: Rebase develop
+      - name: Merge main
         run: |
           git checkout develop
-          git rebase main
+          git pull
+          git merge main --strategy-option ours
           git push origin develop
-      - name: Set next version
+      - name: Update version number
         run: |
           dart pub get -C tools
-          dart run tools/set_version.dart --build-number increment ${{ github.event.inputs.next_version }} --no-changelog
+          dart run tools/set_version.dart --build-number increment --no-changelog
+
           git add .
-          git commit -m "Update Version to ${{ github.event.inputs.next_version }}"
+          git commit -m "Update version to ${{ github.event.inputs.next_version }}"
           git push origin develop
+  notify:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Get information
+        run: |
+          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
+          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
+          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v4.0.0
+        if: ${{ github.ref == "refs/heads/main" || github.event.inputs.stable }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           content: |
-            Version ${{ github.event.inputs.release_version }} released!
+            Version ${{ env.BUTTERFLY_VERSION }} released!
             Download it here: https://docs.butterfly.linwood.dev/downloads
 
-            https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ github.event.inputs.release_version }}
-  publish-to-play-store:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - name: Publish beta
-        run: fastlane beta
-        if: ${{ github.event.inputs.stable }} == "false"
-        env:
-          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
-      - name: Publish stable
-        run: fastlane deploy
-        if: ${{ github.event.inputs.stable }} == "true"
-        env:
-          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
+            https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
+      - name: Discord Webhook Action
+        uses: tsickert/discord-webhook@v4.0.0
+        if: ${{ github.ref == "refs/heads/develop" && !github.event.inputs.stable }}
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          content: |
+            Pre-release version ${{ env.BUTTERFLY_VERSION }} released!
+            Download it here: https://docs.butterfly.linwood.dev/downloads
+
+            Please note that this is a pre-release version and is not intended for production use.
+            Read more about here: https://docs.butterfly.linwood.dev/nightly
+
+  #publish-to-play-store:
+  #  runs-on: ubuntu-20.04
+  #  steps:
+  #    - uses: actions/checkout@v2
+  #    - name: Publish beta
+  #      run: fastlane beta
+  #      if: ${{ !github.event.inputs.stable }}
+  #      env:
+  #        PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
+  #    - name: Publish stable
+  #      run: fastlane deploy
+  #      if: ${{ github.event.inputs.stable }}
+  #      env:
+  #        PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
