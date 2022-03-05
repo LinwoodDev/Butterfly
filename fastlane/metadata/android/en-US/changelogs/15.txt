@@ -1,0 +1,3 @@
+* Fix label creation
+* Fix help links
+* Fix move and duplicate in file system dialog
