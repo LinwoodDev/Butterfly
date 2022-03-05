@@ -1,5 +1,5 @@
 ---
-slug: /painters
+slug: /peintres
 sidebar_label: "Introduction"
 sidebar_position: 1
 ---
@@ -17,8 +17,8 @@ Le nom du peintre sera affiché comme infobulle au survol du peintre.
 ## Peintres disponibles
 
 ```mdx-code-block
-importer DocCardList depuis '@theme/DocCardList';
-importer {useCurrentSidebarCategory} depuis '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
