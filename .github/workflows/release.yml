@@ -64,7 +64,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
           token: ${{ secrets.CI_PAT }}
       - uses: subosito/flutter-action@v2
         with:
@@ -87,7 +86,7 @@ jobs:
           dart run tools/set_version.dart --build-number increment ${{ github.event.inputs.next_version }} --no-changelog
           git add .
           git commit -m "Update Version to ${{ github.event.inputs.next_version }}"
-          git push origin develop
+          git push origin
   update-main:
     if: ${{ github.ref == 'refs/heads/develop' }}
     runs-on: ubuntu-20.04
