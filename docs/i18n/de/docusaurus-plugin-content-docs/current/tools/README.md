@@ -1,5 +1,5 @@
 ---
-slug: /
+slug: /tools
 sidebar_label: "Einführung"
 sidebar_position: 0
 ---
@@ -12,11 +12,11 @@ Werkzeuge können die Kamera ändern oder Objekte auswählen.
 
 Wenn Sie auf ein ausgewähltes Werkzeug klicken, können Sie es konfigurieren.
 
-## Available tools
+## Verfügbare Werkzeuge
 
 ```mdx-code-block
-import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+importiere DocCardList von '@theme/DocCardList';
+importiere {useCurrentSidebarCategory} von '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
