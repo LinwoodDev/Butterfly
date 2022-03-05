@@ -1,5 +1,5 @@
 ---
-slug: /
+slug: /tools
 sidebar_label: "Introduction"
 sidebar_position: 0
 ---
@@ -12,11 +12,11 @@ Utilisez la barre latérale pour en savoir plus sur les outils.
 
 Si vous cliquez sur un outil sélectionné, vous pouvez le configurer.
 
-## Available tools
+## Outils disponibles
 
 ```mdx-code-block
-import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+importer DocCardList depuis '@theme/DocCardList';
+importer {useCurrentSidebarCategory} depuis '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
