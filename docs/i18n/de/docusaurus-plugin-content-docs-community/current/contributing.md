@@ -1,13 +1,13 @@
 ---
-title: Contributing
+title: Mitwirken
 hide_title: true
-sidebar_label: Contributing
+sidebar_label: Mitwirken
 ---
 
 ```mdx-code-block
-import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
+importiere Mitwirkung, {toc as ContributingTOC} von "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-export const toc = ContributingTOC;
+Export const toc = Mitwirkendes TOC;
 ```
