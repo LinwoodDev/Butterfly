@@ -1,0 +1,5 @@
+* Add areas
+    * Export areas
+* Add area painter to declare areas
+* Add full screen
+* Update flutter version
