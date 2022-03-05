@@ -1,5 +1,5 @@
 ---
-id: introduction
+id: intro
 slug: /intro
 sidebar_position: 1
 ---
