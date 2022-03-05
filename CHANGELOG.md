@@ -8,18 +8,6 @@
 * Fix help links
 * Fix move and duplicate in file system dialog
 
-## 1.2.1 (2022-03-05)
-
-* Fix label creation
-* Fix help links
-* Fix move and duplicate in file system dialog
-
-## 1.2.1 (2022-03-05)
-
-* Fix label creation
-* Fix help links
-* Fix move and duplicate in file system dialog
-
 ## 1.2.0 (2022-02-22)
 
 * Add baking of the viewport ([#89](https://github.com/LinwoodCloud/Butterfly/issues/89))
