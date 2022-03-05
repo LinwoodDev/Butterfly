@@ -4,22 +4,15 @@ import 'package:args/args.dart';
 import 'package:intl/intl.dart';
 
 Future<void> main(List<String> args) async {
-  var parser = ArgParser();
-
-  parser.addOption('build-number',
-      abbr: 'b',
-      valueHelp: "Number, 'keep' or 'increment'",
-      defaultsTo: 'keep');
-  parser.addFlag('changelog',
-      abbr: 'c', defaultsTo: true, help: 'Generate changelog');
+  var parser = ArgParser()
+    ..addOption('build-number',
+        abbr: 'b',
+        valueHelp: "Number, 'keep' or 'increment'",
+        defaultsTo: 'keep')
+    ..addFlag('changelog',
+        abbr: 'c', defaultsTo: true, help: 'Generate changelog');
 
   var results = parser.parse(args);
-
-  // Get the version from args
-  if (results.rest.length != 1) {
-    print('Please provide the version number as the first argument');
-    exit(1);
-  }
 
   String buildNumber = results['build-number'].toString().toLowerCase();
   if (buildNumber != 'increment' &&
@@ -29,20 +22,21 @@ Future<void> main(List<String> args) async {
         "Please provide a valid build number or 'increment' as the build-number argument");
     return;
   }
-  var version = results.rest[0];
+  var version = results.rest.isEmpty ? null : results.rest[0];
   // Update the version in the pubspec.yaml
   File pubspec = File('app/pubspec.yaml');
   String content = await pubspec.readAsString();
   // Get last version from pubspec.yaml
-  RegExp exp = RegExp(r'^version:\s(.+)\+(.+)', multiLine: true);
-  Iterable<Match> matches = exp.allMatches(content);
-  if (matches.length != 1) {
+  RegExp exp = RegExp(r"version:\s(?<version>.+)\+(?<build>.+)");
+  var match = exp.firstMatch(content);
+  if (match == null) {
     print('Could not find the version in the pubspec.yaml');
     exit(1);
   }
-  var lastVersion = matches.first.group(0) ?? '';
+  var lastVersion = match.namedGroup('version') ?? '';
+  version ??= lastVersion;
   // Get build number from lastVersion
-  var lastBuildNumber = lastVersion.split('+')[1];
+  var lastBuildNumber = match.namedGroup('build') ?? '0';
   String newBuildNumber = buildNumber;
   if (buildNumber == 'increment') {
     newBuildNumber = (int.parse(lastBuildNumber) + 1).toString();
@@ -51,7 +45,7 @@ Future<void> main(List<String> args) async {
 
   var newVersion = '$version+$newBuildNumber';
   // Update the version in the pubspec.yaml
-  content = content.replaceAll(lastVersion, 'version: $newVersion');
+  content = content.replaceAll(exp, 'version: $newVersion');
 
   await pubspec.writeAsString(content);
   print(
@@ -63,7 +57,7 @@ Future<void> main(List<String> args) async {
   await updateSnapcraftVersion(version);
   if (results['changelog']) {
     var changelogFile =
-        File('fastlane/metadata/android/en-US/changelogs/$newBuildNumber.txt');
+    File('fastlane/metadata/android/en-US/changelogs/$newBuildNumber.txt');
     var changelog = await changelogFile.readAsString();
     await updateChangelog(version, changelog);
   }
@@ -111,7 +105,7 @@ Future<void> updateChangelog(String version, String changelog) async {
   var currentDate = DateTime.now();
   final changelogRegex = RegExp(r'<!--ENTER CHANGELOG HERE-->');
   var dateString = DateFormat('yyyy-MM-dd').format(currentDate);
-  var file = File('docs/community/CHANGELOG.md');
+  var file = File('CHANGELOG.md');
   var content = await file.readAsString();
   content = content.replaceAll(changelogRegex,
       '<!--ENTER CHANGELOG HERE-->\r\n\r\n## $version ($dateString)\r\n\r\n$changelog');
