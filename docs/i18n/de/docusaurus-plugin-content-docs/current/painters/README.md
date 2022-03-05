@@ -1,5 +1,5 @@
 ---
-slug: /
+slug: /painters
 sidebar_label: "Einführung"
 sidebar_position: 1
 ---

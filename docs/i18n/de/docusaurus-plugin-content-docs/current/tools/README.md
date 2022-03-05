@@ -1,5 +1,5 @@
 ---
-slug: /
+slug: /tools
 sidebar_label: "Einführung"
 sidebar_position: 0
 ---

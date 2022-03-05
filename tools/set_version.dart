@@ -105,7 +105,7 @@ Future<void> updateChangelog(String version, String changelog) async {
   var currentDate = DateTime.now();
   final changelogRegex = RegExp(r'<!--ENTER CHANGELOG HERE-->');
   var dateString = DateFormat('yyyy-MM-dd').format(currentDate);
-  var file = File('docs/community/CHANGELOG.md');
+  var file = File('CHANGELOG.md');
   var content = await file.readAsString();
   content = content.replaceAll(changelogRegex,
       '<!--ENTER CHANGELOG HERE-->\r\n\r\n## $version ($dateString)\r\n\r\n$changelog');
