@@ -12,7 +12,7 @@ Utilisez la barre latérale pour en savoir plus sur les outils.
 
 Si vous cliquez sur un outil sélectionné, vous pouvez le configurer.
 
-## Available tools
+## Outils disponibles
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

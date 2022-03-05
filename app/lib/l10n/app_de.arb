@@ -212,5 +212,6 @@
     "enterArea": "Geben Sie den Bereich ein",
     "exitArea": "Beende das Gebiet",
     "alreadyExists": "Dieser Wert existiert bereits",
-    "currentArea": "Aktueller Bereich"
+    "currentArea": "Aktueller Bereich",
+    "fullscreen": "Vollbild"
 }

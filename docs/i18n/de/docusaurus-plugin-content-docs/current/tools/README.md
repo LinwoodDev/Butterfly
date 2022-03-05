@@ -12,7 +12,7 @@ Werkzeuge können die Kamera ändern oder Objekte auswählen.
 
 Wenn Sie auf ein ausgewähltes Werkzeug klicken, können Sie es konfigurieren.
 
-## Available tools
+## Verfügbare Werkzeuge
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

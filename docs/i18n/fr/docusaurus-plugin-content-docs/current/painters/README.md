@@ -14,7 +14,7 @@ Créez un nouveau peintre en cliquant sur l'icône +. Modifiez l'ordre du peintr
 
 Le nom du peintre sera affiché comme infobulle au survol du peintre.
 
-## Available painters
+## Peintres disponibles
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';
