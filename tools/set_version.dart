@@ -57,7 +57,7 @@ Future<void> main(List<String> args) async {
   await updateSnapcraftVersion(version);
   if (results['changelog']) {
     var changelogFile =
-        File('fastlane/metadata/android/en-US/changelogs/$newBuildNumber.txt');
+    File('fastlane/metadata/android/en-US/changelogs/$newBuildNumber.txt');
     var changelog = await changelogFile.readAsString();
     await updateChangelog(version, changelog);
   }
