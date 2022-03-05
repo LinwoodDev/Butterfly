@@ -177,6 +177,12 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.CI_PAT }}
+      - name: Setup git
+        run: |
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
       - uses: actions/download-artifact@v2
         with:
           name: apk-build
