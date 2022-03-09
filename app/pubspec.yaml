@@ -44,6 +44,7 @@ dependencies:
   camera: ^0.9.4+14
   camera_windows: ^0.1.0
   window_manager: ^0.1.8
+  flex_color_scheme: ^4.2.0
 
 dev_dependencies:
   flutter_native_splash: ^2.1.0
