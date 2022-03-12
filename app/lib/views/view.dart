@@ -268,8 +268,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           child: Listener(
                               onPointerSignal: (pointerSignal) {
                                 if (pointerSignal is PointerScrollEvent) {
-                                  var scale = pointerSignal.scrollDelta.dx +
-                                      pointerSignal.scrollDelta.dy;
+                                  // dx and dy are the delta between the last scroll event
+                                  var dx = pointerSignal.scrollDelta.dx;
+                                  var dy = pointerSignal.scrollDelta.dy;
+                                  // Get zoom by dx and dy
+                                  var scale = pointerSignal.size;
                                   var sensitivity = context
                                       .read<SettingsCubit>()
                                       .state
@@ -277,8 +280,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   scale /= -sensitivity * 100;
                                   scale += 1;
                                   var cubit = context.read<TransformCubit>();
-                                  cubit.zoom(
-                                      scale, pointerSignal.localPosition);
+                                  cubit
+                                    ..move(Offset(-dx, -dy))
+                                    ..zoom(scale, pointerSignal.localPosition);
                                   _bake(cubit.state);
                                 }
                               },
