@@ -82,16 +82,17 @@ class ForegroundPainter extends CustomPainter {
       // With background and border
       var paint = Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 10 / transform.size;
+        ..strokeWidth = 5 / transform.size
+        ..color = Colors.lightBlue;
       var backgroundPaint = Paint()
         ..style = PaintingStyle.fill
         ..color = Colors.blue.withOpacity(0.5);
       for (var area in areas) {
         canvas.drawRRect(
-            RRect.fromRectAndRadius(area.rect, const Radius.circular(5)),
+            RRect.fromRectAndRadius(area.rect.inflate(5), const Radius.circular(5)),
             paint);
         canvas.drawRRect(
-            RRect.fromRectAndRadius(area.rect, const Radius.circular(5)),
+            RRect.fromRectAndRadius(area.rect.inflate(5), const Radius.circular(5)),
             backgroundPaint);
       }
     }
@@ -146,15 +147,17 @@ class ViewPainter extends CustomPainter {
           transform.globalToLocal(areaRect.bottomRight));
     }
     if (areaRect != null) {
-      canvas.drawColor(background?.boxColor ?? Colors.blue, BlendMode.color);
+      canvas.drawColor(
+          background?.boxColor ?? Colors.lightBlue, BlendMode.srcOver);
       canvas.drawRRect(
           RRect.fromRectAndRadius(
               areaRect.inflate(5), const Radius.circular(5)),
           Paint()
             ..style = PaintingStyle.stroke
-            ..color = Colors.black
-            ..strokeWidth = 5 * transform.size);
-      canvas.clipRect(areaRect);
+            ..color = Colors.blue
+            ..strokeWidth = 1 * transform.size
+            ..blendMode = BlendMode.srcOver);
+      canvas.clipRect(areaRect.inflate(5));
     }
     if (background is BoxBackground && renderBackground) {
       canvas.drawColor(background.boxColor, BlendMode.srcOver);
