@@ -22,7 +22,6 @@ class PadSettingsDialog extends StatelessWidget {
           child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 600, maxHeight: 500),
               child: Scaffold(
-                  backgroundColor: Colors.transparent,
                   appBar: AppBar(
                       title:
                           Text(AppLocalizations.of(context)!.projectSettings),

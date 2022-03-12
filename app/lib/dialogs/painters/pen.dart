@@ -40,9 +40,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                 _nameController.text = painter.name;
               }
               return Scaffold(
-                  backgroundColor: Colors.transparent,
                   appBar: AppBar(
-                    backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.pen),
                     leading: const Icon(PhosphorIcons.penLight),
                     actions: [

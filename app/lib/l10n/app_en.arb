@@ -213,5 +213,6 @@
   "exitArea": "Exit the area",
   "alreadyExists": "This value already exists",
   "currentArea": "Current area",
-  "fullscreen": "Fullscreen"
+  "fullscreen": "Fullscreen",
+  "design": "Design"
 }

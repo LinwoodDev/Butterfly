@@ -38,9 +38,7 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                 _nameController.text = painter.name;
               }
               return Scaffold(
-                  backgroundColor: Colors.transparent,
                   appBar: AppBar(
-                    backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.pathEraser),
                     leading: const Icon(PhosphorIcons.pathLight),
                     actions: [

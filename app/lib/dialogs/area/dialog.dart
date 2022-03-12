@@ -22,7 +22,6 @@ class AreasDialog extends StatelessWidget {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
-                backgroundColor: Colors.transparent,
                 body: Column(
                   children: [
                     Padding(

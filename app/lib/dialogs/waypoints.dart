@@ -29,7 +29,6 @@ class WaypointsDialog extends StatelessWidget {
                   label: Text(AppLocalizations.of(context)!.create),
                   icon: const Icon(PhosphorIcons.plusLight),
                 ),
-                backgroundColor: Colors.transparent,
                 body: Column(
                   children: [
                     Padding(

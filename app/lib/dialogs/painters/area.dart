@@ -37,9 +37,7 @@ class _AreaPainterDialogState extends State<AreaPainterDialog> {
                 _nameController.text = painter.name;
               }
               return Scaffold(
-                  backgroundColor: Colors.transparent,
                   appBar: AppBar(
-                    backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.eraser),
                     leading: const Icon(PhosphorIcons.eraserLight),
                     actions: [

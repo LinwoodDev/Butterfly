@@ -27,7 +27,7 @@ Future<void> main(List<String> args) async {
   File pubspec = File('app/pubspec.yaml');
   String content = await pubspec.readAsString();
   // Get last version from pubspec.yaml
-  RegExp exp = RegExp(r"version:\s(?<version>.+)\+(?<build>.+)");
+  RegExp exp = RegExp(r'version:\s(?<version>.+)\+(?<build>.+)');
   var match = exp.firstMatch(content);
   if (match == null) {
     print('Could not find the version in the pubspec.yaml');

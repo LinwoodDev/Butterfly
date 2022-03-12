@@ -71,7 +71,6 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1000, maxHeight: 800),
           child: Scaffold(
-            backgroundColor: Colors.transparent,
             appBar: AppBar(
                 title: Text(AppLocalizations.of(context)!.open),
                 leading: IconButton(

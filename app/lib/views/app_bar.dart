@@ -71,6 +71,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
             title = StatefulBuilder(
               builder: (context, setState) => Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
@@ -115,6 +116,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                   ? Theme.of(context).textTheme.headline6
                                   : Theme.of(context).textTheme.headline4,
                               border: InputBorder.none,
+                              fillColor: Colors.transparent,
                               constraints: const BoxConstraints(maxWidth: 500),
                             ),
                           ),

@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 @immutable
 class ButterflySettings {
   final ThemeMode theme;
+  final String design;
   final String localeTag;
   final String documentPath;
   final String dateFormat;
@@ -17,6 +18,7 @@ class ButterflySettings {
       {this.theme = ThemeMode.system,
       this.localeTag = '',
       this.documentPath = '',
+      this.design = '',
       this.dateFormat = '',
       this.touchSensitivity = 1,
       this.mouseSensitivity = 1,
@@ -35,12 +37,14 @@ class ButterflySettings {
         dateFormat = prefs.getString('date_format') ?? '',
         touchSensitivity = prefs.getDouble('touch_sensitivity') ?? 1,
         mouseSensitivity = prefs.getDouble('mouse_sensitivity') ?? 1,
-        penSensitivity = prefs.getDouble('pen_sensitivity') ?? 1;
+        penSensitivity = prefs.getDouble('pen_sensitivity') ?? 1,
+        design = prefs.getString('design') ?? '';
 
   Locale? get locale => localeTag.isEmpty ? null : Locale(localeTag);
 
   ButterflySettings copyWith(
           {ThemeMode? theme,
+          String? design,
           String? localeTag,
           String? documentPath,
           String? dateFormat,
@@ -50,6 +54,7 @@ class ButterflySettings {
           double? penSensitivity}) =>
       ButterflySettings(
           theme: theme ?? this.theme,
+          design: design ?? this.design,
           documentPath: documentPath ?? this.documentPath,
           dateFormat: dateFormat ?? this.dateFormat,
           inputType: inputType ?? this.inputType,
@@ -68,6 +73,7 @@ class ButterflySettings {
     await prefs.setDouble('touch_sensitivity', touchSensitivity);
     await prefs.setDouble('mouse_sensitivity', mouseSensitivity);
     await prefs.setDouble('pen_sensitivity', penSensitivity);
+    await prefs.setString('design', design);
   }
 }
 
@@ -102,6 +108,10 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> changeTheme(ThemeMode theme) async {
     emit(state.copyWith(theme: theme));
+  }
+
+  Future<void> changeDesign(String design) async {
+    emit(state.copyWith(design: design));
   }
 
   Future<void> changeLocale(Locale? locale) {

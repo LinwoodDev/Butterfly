@@ -23,9 +23,7 @@ class _HandDialogState extends State<HandDialog> {
           constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
           child: StatefulBuilder(builder: (context, setState) {
             return Scaffold(
-                backgroundColor: Colors.transparent,
                 appBar: AppBar(
-                  backgroundColor: Colors.transparent,
                   title: Text(AppLocalizations.of(context)!.hand),
                   leading: const Icon(PhosphorIcons.handLight),
                   actions: [

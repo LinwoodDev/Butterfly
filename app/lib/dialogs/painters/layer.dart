@@ -42,9 +42,7 @@ class _LayerPainterDialogState extends State<LayerPainterDialog> {
                 _layerController.text = painter.layer;
               }
               return Scaffold(
-                  backgroundColor: Colors.transparent,
                   appBar: AppBar(
-                    backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.layer),
                     leading: const Icon(PhosphorIcons.squaresFourLight),
                     actions: [

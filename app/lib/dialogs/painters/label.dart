@@ -41,9 +41,7 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                 _nameController.text = painter.name;
               }
               return Scaffold(
-                  backgroundColor: Colors.transparent,
                   appBar: AppBar(
-                    backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.label),
                     leading: const Icon(PhosphorIcons.textTLight),
                     actions: [

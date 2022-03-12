@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../theme/manager.dart';
+
 class PersonalizationSettingsPage extends StatelessWidget {
   const PersonalizationSettingsPage({Key? key}) : super(key: key);
 
@@ -51,6 +53,12 @@ class PersonalizationSettingsPage extends StatelessWidget {
                 subtitle: Text(_getThemeName(context, state.theme)),
                 onTap: () => _openThemeModal(context)),
             ListTile(
+              leading: const Icon(PhosphorIcons.paletteLight),
+              title: Text(AppLocalizations.of(context)!.design),
+              subtitle: Text(state.design),
+              onTap: () => _openDesignModal(context),
+            ),
+            ListTile(
                 leading: const Icon(PhosphorIcons.translateLight),
                 title: Text(AppLocalizations.of(context)!.locale),
                 subtitle: Text(_getLocaleName(context, state.localeTag)),
@@ -59,11 +67,43 @@ class PersonalizationSettingsPage extends StatelessWidget {
         ));
   }
 
+  void _openDesignModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    final currentDesign = cubit.state.design;
+
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          void changeDesign(String design) {
+            cubit.changeDesign(design);
+          }
+
+          return Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              child: ListView(shrinkWrap: true, children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  child: Text(
+                    AppLocalizations.of(context)!.theme,
+                    style: Theme.of(context).textTheme.headline5,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                ...ThemeManager.getThemes().map((e) => ListTile(
+                      title: Text(e),
+                      selected: e == currentDesign,
+                      onTap: () => changeDesign(e),
+                    ))
+              ]));
+        });
+  }
+
   void _openThemeModal(BuildContext context) {
     final cubit = context.read<SettingsCubit>();
     final currentTheme = cubit.state.theme;
 
-    showModalBottomSheet<ThemeMode>(
+    showModalBottomSheet(
         context: context,
         builder: (ctx) {
           void changeTheme(ThemeMode themeMode) {

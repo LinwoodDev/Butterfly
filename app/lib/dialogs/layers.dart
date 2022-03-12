@@ -24,7 +24,6 @@ class LayersDialog extends StatelessWidget {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
-                backgroundColor: Colors.transparent,
                 floatingActionButton: FloatingActionButton.extended(
                     icon: const Icon(PhosphorIcons.selectionLight),
                     label:

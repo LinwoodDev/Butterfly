@@ -16,7 +16,6 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: isDialog ? Colors.transparent : null,
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.settings),
           leading: isDialog

@@ -30,11 +30,6 @@ Future<void> setFullScreen(bool fullScreen) async {
       isFullscreen = false;
     }
   } else {
-    if (fullScreen) {
-      await windowManager.setTitleBarStyle('default');
-    } else {
-      await windowManager.setTitleBarStyle('hidden');
-    }
     await windowManager.setFullScreen(fullScreen);
   }
 }
