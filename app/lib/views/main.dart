@@ -28,7 +28,6 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/edit.dart';
-import 'package:butterfly/views/tool.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -195,7 +194,9 @@ class _ProjectPageState extends State<ProjectPage> {
                 },
                 child: ClipRect(
                   child: Builder(builder: (context) {
-                    PreferredSizeWidget appBar = PadAppBar();
+                    PreferredSizeWidget appBar = PadAppBar(
+                      viewportKey: _viewportKey,
+                    );
                     return Focus(
                         autofocus: true,
                         child: Scaffold(
@@ -207,14 +208,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                   crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
                                   children: [
-                                    Container(
-                                      height: 75,
-                                      color: Theme.of(context).canvasColor,
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: ToolSelection(
-                                          isMobile: isMobile,
-                                          viewportKey: _viewportKey),
-                                    ),
                                     Expanded(
                                         key: _viewportKey,
                                         child: const MainViewViewport()),

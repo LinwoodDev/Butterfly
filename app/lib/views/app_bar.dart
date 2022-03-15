@@ -1,5 +1,6 @@
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
+import 'package:butterfly/views/edit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -15,6 +16,7 @@ import '../actions/redo.dart';
 import '../actions/settings.dart';
 import '../actions/undo.dart';
 import '../bloc/document_bloc.dart';
+import '../cubits/transform.dart';
 import 'main.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:butterfly/api/full_screen_stub.dart'
@@ -22,11 +24,12 @@ import 'package:butterfly/api/full_screen_stub.dart'
     if (dart.library.js) 'package:butterfly/api/full_screen_html.dart';
 
 class PadAppBar extends StatelessWidget with PreferredSizeWidget {
-  static const double _height = 65;
+  static const double _height = 70;
+  final GlobalKey viewportKey;
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _areaController = TextEditingController();
 
-  PadAppBar({Key? key}) : super(key: key);
+  PadAppBar({Key? key, required this.viewportKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -133,6 +136,13 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
           } else {
             title = Text(AppLocalizations.of(ctx)!.loading);
           }
+          title = Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const EditToolbar(),
+              Expanded(child: title),
+            ],
+          );
           if (isWindow()) {
             title = DragToMoveArea(
               child: title,
@@ -141,7 +151,9 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
           return SizedBox(height: _height, child: title);
         }),
         actions: [
-          const _MainPopupMenu(),
+          _MainPopupMenu(
+            viewportKey: viewportKey,
+          ),
           if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
         ]);
   }
@@ -151,14 +163,115 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
 }
 
 class _MainPopupMenu extends StatelessWidget {
-  const _MainPopupMenu({Key? key}) : super(key: key);
+  final TextEditingController _scaleController =
+      TextEditingController(text: '100');
+  final GlobalKey viewportKey;
+
+  _MainPopupMenu({Key? key, required this.viewportKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       if (state is! DocumentLoadSuccess) return const SizedBox();
+      final bloc = context.read<DocumentBloc>();
+      final transformCubit = context.read<TransformCubit>();
+
       return PopupMenuButton(
         itemBuilder: (context) => <PopupMenuEntry>[
+          PopupMenuItem(
+              enabled: false,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: IconTheme(
+                data: Theme.of(context).iconTheme,
+                child: BlocBuilder<TransformCubit, CameraTransform>(
+                    bloc: transformCubit,
+                    builder: (context, transform) {
+                      _scaleController.text =
+                          (transform.size * 100).toStringAsFixed(2);
+                      const zoomConstant = 1 + 0.1;
+                      void bake() {
+                        var size = viewportKey.currentContext?.size;
+                        if (size != null) {
+                          bloc.add(ImageBaked(
+                              size,
+                              MediaQuery.of(context).devicePixelRatio,
+                              transform));
+                        }
+                      }
+
+                      return Row(
+                        children: [
+                          IconButton(
+                              icon: const Icon(
+                                  PhosphorIcons.magnifyingGlassMinusLight),
+                              tooltip: AppLocalizations.of(context)!.zoomOut,
+                              onPressed: () {
+                                var viewportSize =
+                                    viewportKey.currentContext?.size ??
+                                        MediaQuery.of(context).size;
+                                transformCubit.zoom(
+                                    1 / zoomConstant,
+                                    Offset(viewportSize.width / 2,
+                                        viewportSize.height / 2));
+                                bake();
+                              }),
+                          IconButton(
+                              icon: const Icon(
+                                  PhosphorIcons.magnifyingGlassLight),
+                              tooltip: AppLocalizations.of(context)!.resetZoom,
+                              onPressed: () {
+                                var viewportSize =
+                                    viewportKey.currentContext?.size ??
+                                        MediaQuery.of(context).size;
+                                transformCubit.size(
+                                    1,
+                                    Offset(viewportSize.width / 2,
+                                        viewportSize.height / 2));
+                                bake();
+                              }),
+                          IconButton(
+                              icon: const Icon(
+                                  PhosphorIcons.magnifyingGlassPlusLight),
+                              tooltip: AppLocalizations.of(context)!.zoomIn,
+                              onPressed: () {
+                                var viewportSize =
+                                    viewportKey.currentContext?.size ??
+                                        MediaQuery.of(context).size;
+                                transformCubit.zoom(
+                                    zoomConstant,
+                                    Offset(viewportSize.width / 2,
+                                        viewportSize.height / 2));
+                                bake();
+                              }),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(maxWidth: 200),
+                              child: TextField(
+                                controller: _scaleController,
+                                onSubmitted: (value) {
+                                  var viewportSize =
+                                      viewportKey.currentContext?.size ??
+                                          MediaQuery.of(context).size;
+                                  var scale = double.tryParse(value) ?? 100;
+                                  scale /= 100;
+                                  transformCubit.size(
+                                      scale,
+                                      Offset(viewportSize.width / 2,
+                                          viewportSize.height / 2));
+                                },
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    labelText:
+                                        AppLocalizations.of(context)!.zoom),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
+              )),
           if (state.path != null) ...[
             PopupMenuItem(
               padding: EdgeInsets.zero,

@@ -25,24 +25,27 @@ class OptionButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         onTap: onPressed,
         onLongPress: onLongPressed,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
-          child: IconTheme(
-              data: Theme.of(context).iconTheme.copyWith(
-                  size: 32,
-                  color: isSelected
-                      ? Theme.of(context).colorScheme.primary
-                      : null),
-              child: Column(
-                children: [
-                  isSelected ? selectedIcon : icon,
-                  if (isSelected)
-                    const Icon(
-                      PhosphorIcons.caretDown,
-                      size: 12,
-                    )
-                ],
-              )),
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+            child: IconTheme(
+                data: Theme.of(context).iconTheme.copyWith(
+                    size: 28,
+                    color: isSelected
+                        ? Theme.of(context).colorScheme.primary
+                        : null),
+                child: Column(
+                  children: [
+                    isSelected ? selectedIcon : icon,
+                    if (isSelected)
+                      const Icon(
+                        PhosphorIcons.caretDown,
+                        size: 12,
+                      )
+                  ],
+                )),
+          ),
         ),
       ),
     );
