@@ -203,7 +203,7 @@ class _ProjectPageState extends State<ProjectPage> {
                             appBar: appBar,
                             body:
                                 LayoutBuilder(builder: (context, constraints) {
-                              var isMobile = constraints.maxWidth < 600;
+                                  final isMobile = MediaQuery.of(context).size.width < 800;
                               return Column(
                                   crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
@@ -212,10 +212,10 @@ class _ProjectPageState extends State<ProjectPage> {
                                         key: _viewportKey,
                                         child: const MainViewViewport()),
                                     if (isMobile)
-                                      const Align(
+                                      Align(
                                           alignment: Alignment.center,
                                           child: Padding(
-                                              padding: EdgeInsets.all(8.0),
+                                              padding: const EdgeInsets.all(8.0),
                                               child: EditToolbar()))
                                   ]);
                             })));

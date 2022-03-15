@@ -2,12 +2,14 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/dialogs/layer.dart';
 import 'package:butterfly/models/elements/element.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../cubits/transform.dart';
+import '../../models/document.dart';
 import '../../widgets/context_menu.dart';
 import '../background/context.dart';
 
@@ -37,7 +39,7 @@ class GeneralElementDialog extends StatelessWidget {
       }
       var element = state.document.content[index];
       return Column(mainAxisSize: MainAxisSize.min, children: [
-        generateHeader(element),
+        generateHeader(state.document, element),
         const Divider(),
         Flexible(
             child: ListView(
@@ -182,7 +184,7 @@ class GeneralElementDialog extends StatelessWidget {
     });
   }
 
-  Widget generateHeader(PadElement element) {
+  Widget generateHeader(AppDocument document, PadElement element) {
     IconData icon;
     switch (element.toJson()['type']) {
       case 'label':
@@ -198,10 +200,20 @@ class GeneralElementDialog extends StatelessWidget {
         icon = PhosphorIcons.penLight;
         break;
     }
+    var area = document.areas.firstWhereOrNull((area) => element.inArea(area));
 
     return SizedBox(
       height: 50,
-      child: Center(child: Icon(icon, size: 36)),
+      child: Center(
+        child: Row(children: [
+          Icon(icon, size: 36),
+          if (area != null)
+            Tooltip(
+              message: area.name,
+              child: const Icon(PhosphorIcons.squareLight, size: 36),
+            )
+        ]),
+      ),
     );
   }
 }

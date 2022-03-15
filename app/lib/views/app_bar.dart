@@ -1,8 +1,12 @@
 import 'package:butterfly/actions/change_path.dart';
+import 'package:butterfly/api/full_screen_stub.dart'
+    if (dart.library.io) 'package:butterfly/api/full_screen_io.dart'
+    if (dart.library.js) 'package:butterfly/api/full_screen_html.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -18,10 +22,6 @@ import '../actions/undo.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/transform.dart';
 import 'main.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:butterfly/api/full_screen_stub.dart'
-    if (dart.library.io) 'package:butterfly/api/full_screen_io.dart'
-    if (dart.library.js) 'package:butterfly/api/full_screen_html.dart';
 
 class PadAppBar extends StatelessWidget with PreferredSizeWidget {
   static const double _height = 70;
@@ -56,100 +56,107 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
             ),
           ],
         ),
-        title: BlocBuilder<DocumentBloc, DocumentState>(
-            buildWhen: (previous, current) {
-          if (current is! DocumentLoadSuccess ||
-              previous is! DocumentLoadSuccess) return true;
-          return _nameController.text != current.document.name ||
-              previous.path != current.path ||
-              _areaController.text != current.currentArea?.name;
-        }, builder: (ctx, state) {
-          Widget title;
-          if (state is DocumentLoadSuccess) {
-            _nameController.text = state.document.name;
-            var titleEdit = false;
-            var titleFocus = FocusNode();
-            var area = state.currentArea;
-            _areaController.text = area?.name ?? '';
-            title = StatefulBuilder(
-              builder: (context, setState) => Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        setState(() => titleEdit = true);
+        title: LayoutBuilder(
+          builder: (context, constraints) =>
+              BlocBuilder<DocumentBloc, DocumentState>(
+                  buildWhen: (previous, current) {
+            if (current is! DocumentLoadSuccess ||
+                previous is! DocumentLoadSuccess) return true;
+            return _nameController.text != current.document.name ||
+                previous.path != current.path ||
+                _areaController.text != current.currentArea?.name;
+          }, builder: (ctx, state) {
+            Widget title;
+            final isMobile = MediaQuery.of(context).size.width < 800;
+            if (state is DocumentLoadSuccess) {
+              _nameController.text = state.document.name;
+              var titleEdit = false;
+              var titleFocus = FocusNode();
+              var area = state.currentArea;
+              _areaController.text = area?.name ?? '';
+              title = StatefulBuilder(
+                builder: (context, setState) => Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          setState(() => titleEdit = true);
 
-                        FocusScope.of(context).requestFocus(titleFocus);
-                        _nameController.selection = TextSelection.fromPosition(
-                            TextPosition(offset: _nameController.text.length));
-                      },
-                      child: Focus(
-                        onFocusChange: (value) {
-                          if (!value) setState(() => titleEdit = false);
+                          FocusScope.of(context).requestFocus(titleFocus);
+                          _nameController.selection =
+                              TextSelection.fromPosition(TextPosition(
+                                  offset: _nameController.text.length));
                         },
-                        autofocus: titleEdit,
-                        child: IgnorePointer(
-                          ignoring: !titleEdit,
-                          child: TextField(
-                            controller: area == null
-                                ? _nameController
-                                : _areaController,
-                            textAlign: TextAlign.center,
-                            focusNode: titleFocus,
-                            style: area == null
-                                ? Theme.of(context).textTheme.headline6
-                                : Theme.of(context).textTheme.headline4,
-                            onChanged: (value) {
-                              if (area == null) {
-                                bloc.add(
-                                    DocumentDescriptorChanged(name: value));
-                              } else {
-                                bloc.add(AreaChanged(
-                                  state.currentAreaIndex,
-                                  area.copyWith(name: value),
-                                ));
-                              }
-                            },
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.zero,
-                              hintText: AppLocalizations.of(context)!.untitled,
-                              hintStyle: area == null
+                        child: Focus(
+                          onFocusChange: (value) {
+                            if (!value) setState(() => titleEdit = false);
+                          },
+                          autofocus: titleEdit,
+                          child: IgnorePointer(
+                            ignoring: !titleEdit,
+                            child: TextField(
+                              controller: area == null
+                                  ? _nameController
+                                  : _areaController,
+                              textAlign: TextAlign.center,
+                              focusNode: titleFocus,
+                              style: area == null
                                   ? Theme.of(context).textTheme.headline6
                                   : Theme.of(context).textTheme.headline4,
-                              border: InputBorder.none,
-                              constraints: const BoxConstraints(maxWidth: 500),
+                              onChanged: (value) {
+                                if (area == null) {
+                                  bloc.add(
+                                      DocumentDescriptorChanged(name: value));
+                                } else {
+                                  bloc.add(AreaChanged(
+                                    state.currentAreaIndex,
+                                    area.copyWith(name: value),
+                                  ));
+                                }
+                              },
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.zero,
+                                hintText:
+                                    AppLocalizations.of(context)!.untitled,
+                                hintStyle: area == null
+                                    ? Theme.of(context).textTheme.headline6
+                                    : Theme.of(context).textTheme.headline4,
+                                border: InputBorder.none,
+                                constraints:
+                                    const BoxConstraints(maxWidth: 500),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    if (state.path != null && area == null)
-                      Text(
-                        state.path!,
-                        style: Theme.of(ctx).textTheme.caption,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                  ]),
+                      if (state.path != null && area == null)
+                        Text(
+                          state.path!,
+                          style: Theme.of(ctx).textTheme.caption,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                    ]),
+              );
+            } else {
+              title = Text(AppLocalizations.of(ctx)!.loading);
+            }
+            title = Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (!isMobile) Flexible(child: EditToolbar()),
+                Expanded(child: title),
+              ],
             );
-          } else {
-            title = Text(AppLocalizations.of(ctx)!.loading);
-          }
-          title = Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const EditToolbar(),
-              Expanded(child: title),
-            ],
-          );
-          if (isWindow()) {
-            title = DragToMoveArea(
-              child: title,
-            );
-          }
-          return SizedBox(height: _height, child: title);
-        }),
+            if (isWindow()) {
+              title = DragToMoveArea(
+                child: title,
+              );
+            }
+            return SizedBox(height: _height, child: title);
+          }),
+        ),
         actions: [
           _MainPopupMenu(
             viewportKey: viewportKey,

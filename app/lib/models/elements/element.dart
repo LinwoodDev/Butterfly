@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
+import '../area.dart';
+
 @immutable
 abstract class PadElement {
   final String layer;
@@ -28,6 +30,8 @@ abstract class PadElement {
   bool hit(Offset offset, [double radius = 1.0]);
 
   Rect get rect;
+
+  bool inArea(Area area) => area.rect.overlaps(rect);
 
   PadElement copyWith({String? layer});
 }
