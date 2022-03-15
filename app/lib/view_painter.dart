@@ -89,10 +89,12 @@ class ForegroundPainter extends CustomPainter {
         ..color = Colors.blue.withOpacity(0.5);
       for (var area in areas) {
         canvas.drawRRect(
-            RRect.fromRectAndRadius(area.rect.inflate(5), const Radius.circular(5)),
+            RRect.fromRectAndRadius(
+                area.rect.inflate(5), const Radius.circular(5)),
             paint);
         canvas.drawRRect(
-            RRect.fromRectAndRadius(area.rect.inflate(5), const Radius.circular(5)),
+            RRect.fromRectAndRadius(
+                area.rect.inflate(5), const Radius.circular(5)),
             backgroundPaint);
       }
     }

@@ -33,7 +33,7 @@ dependencies:
   file_picker: ^4.5.1
   phosphor_flutter: ^1.4.0
   replay_bloc: ^0.2.1
-  share_plus: ^3.1.0
+  share_plus: ^4.0.0
   package_info_plus: ^1.4.0
   idb_shim: ^2.0.1
   flutter_launcher_icons: ^0.9.2
@@ -47,7 +47,7 @@ dependencies:
   flex_color_scheme: ^4.2.0
 
 dev_dependencies:
-  flutter_native_splash: ^2.1.0
+  flutter_native_splash: ^2.1.1
   flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter

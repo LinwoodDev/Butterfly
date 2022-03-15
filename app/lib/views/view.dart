@@ -24,6 +24,7 @@ import 'package:butterfly/widgets/context_menu.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -65,6 +66,24 @@ List<int> _executeRayCast(_RayCastParams params) {
 class _MainViewViewportState extends State<MainViewViewport> {
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
+  bool shift = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    RawKeyboard.instance.addListener(_handleKey);
+  }
+
+  @override
+  void dispose() {
+    RawKeyboard.instance.removeListener(_handleKey);
+    super.dispose();
+  }
+
+  void _handleKey(RawKeyEvent event) {
+    shift = event.data.isShiftPressed;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -281,7 +300,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   scale += 1;
                                   var cubit = context.read<TransformCubit>();
                                   cubit
-                                    ..move(Offset(-dx, -dy))
+                                    ..move(shift
+                                        ? Offset(-dy, -dx)
+                                        : Offset(-dx, -dy))
                                     ..zoom(scale, pointerSignal.localPosition);
                                   _bake(cubit.state);
                                 }
