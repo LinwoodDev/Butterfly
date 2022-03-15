@@ -32,6 +32,11 @@ Butterfly is a note app where your ideas come first. You can paint, add texts, a
 * **🎨 Customizable** Change everything to your needs. Choose your custom color, create a palette, and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
 * **💻 Your data will be saved locally**. Everything will be saved locally on your computer. Export the notes as images or as json files which can be opened on a different device.
 
+## I need your help
+
+You can help me to make this app better. You can report issues, request features or develop. Click [here](https://docs.butterfly.linwood.dev/contributing) for more information.
+If you need help, don't hesitate to ask questions. You can reach me on discord or at <contact@linwood.dev>.
+
 <p align="center">
     <img src="./docs/docs/main.png" width="50%" />
 </p>
