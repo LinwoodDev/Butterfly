@@ -36,10 +36,13 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
     var bloc = context.read<DocumentBloc>();
     return AppBar(
         toolbarHeight: _height,
-        leadingWidth: 90,
+        leadingWidth: 132,
         leading: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            _MainPopupMenu(
+              viewportKey: viewportKey,
+            ),
             IconButton(
               icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               tooltip: AppLocalizations.of(context)!.undo,
@@ -145,8 +148,8 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
             title = Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (!isMobile) Flexible(child: EditToolbar()),
                 Expanded(child: title),
+                if (!isMobile) Flexible(child: EditToolbar()),
               ],
             );
             if (isWindow()) {
@@ -158,9 +161,6 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
           }),
         ),
         actions: [
-          _MainPopupMenu(
-            viewportKey: viewportKey,
-          ),
           if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
         ]);
   }
@@ -184,6 +184,10 @@ class _MainPopupMenu extends StatelessWidget {
       final transformCubit = context.read<TransformCubit>();
 
       return PopupMenuButton(
+        icon: Image.asset(
+          'images/logo.png',
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         itemBuilder: (context) => <PopupMenuEntry>[
           PopupMenuItem(
               enabled: false,
