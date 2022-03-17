@@ -187,6 +187,7 @@ class _MainPopupMenu extends StatelessWidget {
         icon: Image.asset(
           'images/logo.png',
         ),
+        iconSize: 36,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         itemBuilder: (context) => <PopupMenuEntry>[
           PopupMenuItem(
