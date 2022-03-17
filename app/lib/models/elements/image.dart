@@ -3,12 +3,11 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/elements/positioned.dart';
 import 'package:flutter/material.dart';
 
-class ImageElement extends PadElement {
+class ImageElement extends PositionedElement {
   final Uint8List pixels;
-  @override
-  final Offset position;
   final int width, height;
   final double scale;
 
@@ -16,12 +15,12 @@ class ImageElement extends PadElement {
       {required this.pixels,
       required this.width,
       required this.height,
-      required this.position,
+      Offset position = Offset.zero,
       String layer = '',
       this.scale = 1})
-      : super(layer: layer);
-  static Future<ImageElement> fromImage(ui.Image image, Offset position,
-          [double scale = 1]) =>
+      : super(layer: layer, position: position);
+  static Future<ImageElement> fromImage(ui.Image image,
+          [Offset position = Offset.zero, double scale = 1]) =>
       image.toByteData(format: ui.ImageByteFormat.rawRgba).then((value) =>
           ImageElement(
               pixels: value?.buffer.asUint8List() ?? Uint8List(0),
@@ -35,18 +34,14 @@ class ImageElement extends PadElement {
         height = json['height'],
         width = json['width'],
         scale = json['scale'] ?? 1,
-        position = json['position'] != null
-            ? Offset(json['position']['x'], json['position']['y'])
-            : Offset.zero;
+        super.fromJson(json);
 
   @override
   Map<String, dynamic> toJson() => {
         'pixels': base64.encode(pixels.toList()),
         'height': height,
         'width': width,
-        'type': 'image',
         'scale': scale,
-        'position': {'x': position.dx, 'y': position.dy}
       }..addAll(super.toJson());
 
   @override
@@ -84,4 +79,7 @@ class ImageElement extends PadElement {
 
   @override
   ImageElement moveBy(Offset offset) => copyWith(position: position + offset);
+
+  @override
+  ElementType get type => ElementType.image;
 }

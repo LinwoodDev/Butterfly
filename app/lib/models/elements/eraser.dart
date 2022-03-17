@@ -1,3 +1,4 @@
+import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/elements/path.dart';
 import 'package:butterfly/models/properties/path.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +24,6 @@ class EraserElement extends PathElement {
     ..blendMode = preview ? BlendMode.srcOver : BlendMode.clear;
 
   @override
-  Map<String, dynamic> toJson() => super.toJson()..addAll({'type': 'eraser'});
-
-  @override
   EraserElement copyWith(
           {String? layer, List<PathPoint>? points, PathProperty? property}) =>
       EraserElement(
@@ -33,4 +31,7 @@ class EraserElement extends PathElement {
         points: points ?? this.points,
         property: property ?? this.property,
       );
+
+  @override
+  ElementType get type => ElementType.eraser;
 }

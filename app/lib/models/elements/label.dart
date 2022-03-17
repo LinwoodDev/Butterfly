@@ -1,35 +1,29 @@
+import 'package:butterfly/models/elements/positioned.dart';
 import 'package:butterfly/models/properties/label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 import 'element.dart';
 
-class LabelElement extends PadElement {
-  @override
-  final Offset position;
+class LabelElement extends PositionedElement {
   final String text;
   final LabelProperty property;
 
   const LabelElement(
       {String layer = '',
       this.text = '',
-      this.position = const Offset(0, 0),
+      Offset position = Offset.zero,
       this.property = const LabelProperty()})
-      : super(layer: layer);
+      : super(layer: layer, position: position);
 
   LabelElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : text = json['text'] ?? '',
         property = LabelProperty.fromJson(json),
-        position = json['position'] != null
-            ? Offset(json['position']['x'], json['position']['y'])
-            : const Offset(0, 0),
         super.fromJson(json);
 
   @override
   Map<String, dynamic> toJson() => {
-        'type': 'label',
         'text': text,
-        'position': {'x': position.dx, 'y': position.dy},
       }
         ..addAll(property.toJson())
         ..addAll(super.toJson());
@@ -95,4 +89,7 @@ class LabelElement extends PadElement {
   LabelElement moveBy(Offset offset) {
     return copyWith(position: position + offset);
   }
+
+  @override
+  ElementType get type => ElementType.label;
 }

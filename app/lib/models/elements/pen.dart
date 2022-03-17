@@ -3,6 +3,8 @@ import 'package:butterfly/models/properties/pen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
+import 'element.dart';
+
 class PenElement extends PathElement {
   @override
   final PenProperty property;
@@ -16,9 +18,6 @@ class PenElement extends PathElement {
   PenElement.fromJson(Map<String, dynamic> json, [int? fileVersion])
       : property = PenProperty.fromJson(json),
         super.fromJson(json);
-
-  @override
-  Map<String, dynamic> toJson() => super.toJson()..addAll({'type': 'paint'});
 
   @override
   Paint buildPaint([bool preview = false]) => Paint()
@@ -47,4 +46,7 @@ class PenElement extends PathElement {
           layer: layer ?? this.layer,
           points: points ?? this.points,
           property: property ?? this.property);
+
+  @override
+  ElementType get type => ElementType.pen;
 }
