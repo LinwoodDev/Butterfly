@@ -1,5 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editing.dart';
+import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/layer.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:collection/collection.dart';
@@ -39,7 +40,11 @@ class GeneralElementDialog extends StatelessWidget {
       }
       var element = state.document.content[index];
       return Column(mainAxisSize: MainAxisSize.min, children: [
-        generateHeader(state.document, element),
+        _GeneralElementDialogHeader(
+            close: close,
+            document: state.document,
+            element: element,
+            position: position),
         const Divider(),
         Flexible(
             child: ListView(
@@ -183,8 +188,23 @@ class GeneralElementDialog extends StatelessWidget {
       ]);
     });
   }
+}
 
-  Widget generateHeader(AppDocument document, PadElement element) {
+class _GeneralElementDialogHeader extends StatelessWidget {
+  final AppDocument document;
+  final PadElement element;
+  final Offset position;
+  final VoidCallback close;
+  const _GeneralElementDialogHeader(
+      {Key? key,
+      required this.document,
+      required this.element,
+      this.position = Offset.zero,
+      required this.close})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     IconData icon;
     switch (element.toJson()['type']) {
       case 'label':
@@ -202,15 +222,39 @@ class GeneralElementDialog extends StatelessWidget {
     }
     var area = document.areas.firstWhereOrNull((area) => element.inArea(area));
 
+    var bloc = context.read<DocumentBloc>();
+    var transformCubit = context.read<TransformCubit>();
     return SizedBox(
       height: 50,
       child: Center(
-        child: Row(children: [
-          Icon(icon, size: 36),
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              icon,
+              size: 36,
+            ),
+          ),
           if (area != null)
-            Tooltip(
-              message: area.name,
-              child: const Icon(PhosphorIcons.squareLight, size: 36),
+            IconButton(
+              tooltip: area.name,
+              onPressed: () {
+                showContextMenu(
+                    context: context,
+                    position: position,
+                    builder: (context, close) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider.value(value: bloc),
+                              BlocProvider.value(value: transformCubit),
+                            ],
+                            child: AreaContextMenu(
+                              area: area,
+                              close: close,
+                              position: position,
+                            )));
+                close();
+              },
+              icon: const Icon(PhosphorIcons.squareLight, size: 36),
             )
         ]),
       ),
