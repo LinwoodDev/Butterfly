@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: 🔧 Setup java
         uses: actions/setup-java@v2
         with:
@@ -15,7 +15,7 @@ jobs:
           distribution: "adopt"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.11.0-0.1.pre
+          flutter-version: 2.12.0-4.1.pre
           channel: "beta" # or: 'stable' or 'dev'
       - name: 📦 Get dependencies
         run: |
@@ -28,7 +28,7 @@ jobs:
           flutter doctor -v
           flutter build apk -v --release
       - name: Archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: apk-build
           path: app/build/app/outputs/flutter-apk/app-release.apk
@@ -36,10 +36,10 @@ jobs:
     runs-on: windows-2022
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.11.0-0.1.pre
+          flutter-version: 2.12.0-4.1.pre
           channel: "beta" # or: 'stable' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
@@ -62,13 +62,13 @@ jobs:
           & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION ButterflySetup.iss
         # flutter pub run msix:create
       - name: Archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: windows-build
           path: |
             app/build/windows/runner/Release/**
       - name: Archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: windows-setup
           path: |
@@ -77,14 +77,14 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Get dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip python3-setuptools desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev liblzma-dev clang dpkg-dev patchelf alien
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.11.0-0.1.pre
+          flutter-version: 2.12.0-4.1.pre
           channel: "beta" # or: 'stable' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
@@ -121,25 +121,25 @@ jobs:
           cd app
           mv ./*.AppImage* Linwood-Butterfly-linux-x86_64.AppImage
       - name: Archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: linux-build
           path: |
             app/build/linux/x64/release/bundle/**
       - name: Archive .deb
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: linux-deb
           path: |
             app/linwood-butterfly-linux-x86_64.deb
       #- name: Archive .rpm
-      #  uses: actions/upload-artifact@v2
+      #  uses: actions/upload-artifact@v3
       #  with:
       #    name: linux-rpm
       #    path: |
       #      app/linwood-butterfly-linux-x86_64.rpm
       - name: Archive .AppImage
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: linux-appimage
           path: |
@@ -148,7 +148,7 @@ jobs:
   #  runs-on: macos-latest
   #  steps:
   #    - name: ⬆️ Checkout
-  #      uses: actions/checkout@v2
+  #      uses: actions/checkout@v3
   #    - uses: subosito/flutter-action@v2
   #      with:
   #        channel: "dev" # or: 'stable' or 'dev'
@@ -163,7 +163,7 @@ jobs:
   #        flutter doctor -v
   #        flutter build macos -v
   #    - name: Archive
-  #      uses: actions/upload-artifact@v2
+  #      uses: actions/upload-artifact@v3
   #      with:
   #        name: macos-build
   #        path: |
@@ -176,34 +176,34 @@ jobs:
       - build-linux
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.CI_PAT }}
       - name: Setup git
         run: |
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: apk-build
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: windows-build
           path: windows-build/
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: linux-build
           path: linux-build/
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: linux-deb
-      #- uses: actions/download-artifact@v2
+      #- uses: actions/download-artifact@v3
       #  with:
       #    name: linux-rpm
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: linux-appimage
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: windows-setup
       - name: 📦 Zip artifacts

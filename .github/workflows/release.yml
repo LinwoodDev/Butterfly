@@ -20,12 +20,12 @@ jobs:
   release:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           token: ${{ secrets.CI_PAT }}
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.11.0-0.1.pre
+          flutter-version: 2.12.0-4.1.pre
           channel: "beta" # or: 'stable' or 'dev'
       - name: Setup git
         id: setup
@@ -62,12 +62,12 @@ jobs:
     needs:
       - release
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           token: ${{ secrets.CI_PAT }}
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.11.0-0.1.pre
+          flutter-version: 2.12.0-4.1.pre
           channel: "beta" # or: 'stable' or 'dev'
       - name: Setup git
         id: setup
@@ -96,14 +96,14 @@ jobs:
       - release
       - update-version
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: main
           token: ${{ secrets.CI_PAT }}
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.11.0-0.1.pre
+          flutter-version: 2.12.0-4.1.pre
           channel: "beta" # or: 'stable' or 'dev'
       - name: Setup git
         id: setup
@@ -149,14 +149,14 @@ jobs:
       - release
       - update-version
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: develop
           token: ${{ secrets.CI_PAT }}
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.11.0-0.1.pre
+          flutter-version: 2.12.0-4.1.pre
           channel: "beta" # or: 'stable' or 'dev'
       - name: Setup git
         id: setup
@@ -190,7 +190,7 @@ jobs:
   notify:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           token: ${{ secrets.CI_PAT }}
       - name: Get information
@@ -226,7 +226,7 @@ jobs:
   #publish-to-play-store:
   #  runs-on: ubuntu-20.04
   #  steps:
-  #    - uses: actions/checkout@v2
+  #    - uses: actions/checkout@v3
   #    - name: Publish beta
   #      run: fastlane beta
   #      if: ${{ !github.event.inputs.stable }}
