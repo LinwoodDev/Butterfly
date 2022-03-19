@@ -1,11 +1,11 @@
 import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/models/painters/eraser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../models/painters/painter.dart';
 import '../../widgets/exact_slider.dart';
 
 class EraserPainterDialog extends StatefulWidget {

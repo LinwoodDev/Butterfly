@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'property.dart';
 
 class LabelProperty {
   final Color color;

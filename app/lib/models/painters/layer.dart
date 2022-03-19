@@ -1,4 +1,4 @@
-import 'painter.dart';
+part of 'painter.dart';
 
 class LayerPainter extends Painter {
   final String layer;

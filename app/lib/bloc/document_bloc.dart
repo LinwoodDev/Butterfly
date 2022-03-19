@@ -8,7 +8,6 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/painters/painter.dart';
 import 'package:butterfly/models/palette.dart';
-import 'package:butterfly/models/properties/hand.dart';
 import 'package:butterfly/models/waypoint.dart';
 import 'package:butterfly/view_painter.dart';
 import 'package:collection/collection.dart';
@@ -16,7 +15,7 @@ import 'package:equatable/equatable.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
 import '../models/area.dart';
-import '../models/elements/image.dart';
+import '../models/properties/property.dart';
 
 part 'document_event.dart';
 part 'document_state.dart';

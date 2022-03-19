@@ -1,6 +1,4 @@
-import 'dart:ui';
-
-import 'package:butterfly/models/elements/element.dart';
+part of 'element.dart';
 
 abstract class PositionedElement extends PadElement {
   @override

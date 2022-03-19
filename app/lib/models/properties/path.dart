@@ -1,3 +1,5 @@
+part of 'property.dart';
+
 class PathProperty {
   final double strokeWidth;
   final double strokeMultiplier;

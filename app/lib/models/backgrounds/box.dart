@@ -120,10 +120,9 @@ class BoxBackground extends Equatable {
         boxYCount = json['yCount'] ?? 1,
         boxXSpace = json['xSpace'] ?? 0,
         boxYSpace = json['ySpace'] ?? 0,
-        boxXColor =
-            json['xColor'] != null ? Color(json['xColor']) : Colors.blue,
-        boxYColor = json['yColor'] != null ? Color(json['yColor']) : Colors.red,
-        boxColor = json['color'] != null ? Color(json['color']) : Colors.white,
+        boxXColor = json['xColor'] ?? Colors.blue,
+        boxYColor = json['yColor'] ?? Colors.red,
+        boxColor = json['color'] ?? Colors.white,
         boxXStroke = json['xStroke'] ?? .5,
         boxYStroke = json['yStroke'] ?? .5;
 
@@ -134,9 +133,9 @@ class BoxBackground extends Equatable {
         'yCount': boxYCount,
         'xSpace': boxXSpace,
         'ySpace': boxYSpace,
-        'xColor': boxXColor.value,
-        'yColor': boxYColor.value,
-        'color': boxColor.value,
+        'xColor': boxXColor,
+        'yColor': boxYColor,
+        'color': boxColor,
         'xStroke': boxXStroke,
         'yStroke': boxYStroke,
       };

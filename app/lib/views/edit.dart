@@ -5,12 +5,7 @@ import 'package:butterfly/dialogs/painters/label.dart';
 import 'package:butterfly/dialogs/painters/layer.dart';
 import 'package:butterfly/dialogs/painters/path_eraser.dart';
 import 'package:butterfly/dialogs/painters/pen.dart';
-import 'package:butterfly/models/painters/eraser.dart';
-import 'package:butterfly/models/painters/label.dart';
-import 'package:butterfly/models/painters/layer.dart';
 import 'package:butterfly/models/painters/painter.dart';
-import 'package:butterfly/models/painters/path_eraser.dart';
-import 'package:butterfly/models/painters/pen.dart';
 import 'package:butterfly/widgets/option_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +13,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../dialogs/painters/area.dart';
-import '../models/painters/area.dart';
 
 class EditToolbar extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();

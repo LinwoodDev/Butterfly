@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../models/painters/layer.dart';
+import '../../models/painters/painter.dart';
 
 class LayerPainterDialog extends StatefulWidget {
   final DocumentBloc bloc;

@@ -1,3 +1,5 @@
+part of 'property.dart';
+
 class HandProperty {
   final bool includeEraser;
   const HandProperty({this.includeEraser = false});

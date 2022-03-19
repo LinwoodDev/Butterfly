@@ -1,4 +1,4 @@
-import 'painter.dart';
+part of 'painter.dart';
 
 class PathEraserPainter extends Painter {
   final double strokeWidth;

@@ -2,12 +2,12 @@ import 'package:butterfly/api/open_image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/dialogs/elements/general.dart';
-import 'package:butterfly/models/elements/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/elements/element.dart';
 import '../../widgets/exact_slider.dart';
 
 class ImageElementDialog extends StatefulWidget {

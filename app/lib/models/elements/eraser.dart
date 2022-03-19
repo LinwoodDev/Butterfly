@@ -1,7 +1,4 @@
-import 'package:butterfly/models/elements/element.dart';
-import 'package:butterfly/models/elements/path.dart';
-import 'package:butterfly/models/properties/path.dart';
-import 'package:flutter/material.dart';
+part of 'element.dart';
 
 class EraserElement extends PathElement {
   @override

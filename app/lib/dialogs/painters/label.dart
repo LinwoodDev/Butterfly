@@ -1,13 +1,13 @@
 import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/color_pick.dart';
-import 'package:butterfly/models/painters/label.dart';
-import 'package:butterfly/models/properties/label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../models/painters/painter.dart';
+import '../../models/properties/property.dart';
 import '../../widgets/exact_slider.dart';
 
 class LabelPainterDialog extends StatefulWidget {

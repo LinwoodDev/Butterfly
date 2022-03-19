@@ -1,11 +1,4 @@
-import 'package:butterfly/models/elements/element.dart';
-import 'package:butterfly/models/elements/eraser.dart';
-import 'package:butterfly/models/elements/path.dart';
-import 'package:butterfly/models/properties/path.dart';
-
-import 'dart:ui';
-
-import 'painter.dart';
+part of 'painter.dart';
 
 class EraserPainter extends BuildedPainter {
   final PathProperty property;

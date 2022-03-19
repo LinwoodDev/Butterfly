@@ -1,9 +1,4 @@
-import 'package:butterfly/models/elements/path.dart';
-import 'package:butterfly/models/properties/pen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-
-import 'element.dart';
+part of 'element.dart';
 
 class PenElement extends PathElement {
   @override

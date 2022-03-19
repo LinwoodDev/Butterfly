@@ -1,10 +1,4 @@
-import 'dart:math';
-
-import 'package:butterfly/models/elements/element.dart';
-import 'package:butterfly/models/properties/path.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:vector_math/vector_math.dart';
+part of 'element.dart';
 
 class PathPoint {
   final double x, y;

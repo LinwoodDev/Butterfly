@@ -1,7 +1,6 @@
 import 'dart:ui' as ui;
 
 import 'package:butterfly/models/elements/element.dart';
-import 'package:butterfly/models/elements/image.dart';
 
 class BakedViewport {
   final ui.Image image;

@@ -1,6 +1,4 @@
-import 'package:butterfly/models/properties/label.dart';
-
-import 'painter.dart';
+part of 'painter.dart';
 
 class LabelPainter extends Painter {
   final LabelProperty property;

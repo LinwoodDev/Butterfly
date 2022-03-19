@@ -1,13 +1,20 @@
+import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
-import 'package:butterfly/models/elements/eraser.dart';
-import 'package:butterfly/models/elements/image.dart';
-import 'package:butterfly/models/elements/label.dart';
-import 'package:butterfly/models/elements/pen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:vector_math/vector_math.dart' show Vector2;
 
 import '../area.dart';
+import '../properties/property.dart';
+
+part 'path.dart';
+part 'eraser.dart';
+part 'image.dart';
+part 'label.dart';
+part 'pen.dart';
+part 'positioned.dart';
 
 @immutable
 abstract class PadElement {
@@ -21,8 +28,6 @@ abstract class PadElement {
   @mustCallSuper
   Map<String, dynamic> toJson() => {'layer': layer, 'type': type.name};
 
-  void paint(Canvas canvas, [bool preview = false]);
-
   PadElement moveBy(Offset offset);
 
   Offset get position;
@@ -33,31 +38,20 @@ abstract class PadElement {
 
   bool hit(Offset offset, [double radius = 1.0]);
 
-  Rect get rect;
+  ui.Rect get rect;
 
   ElementType get type;
 
   bool inArea(Area area) => area.rect.overlaps(rect);
 
   PadElement copyWith({String? layer});
+
+  void paint(ui.Canvas canvas, bool preview) {}
 }
 
 enum ElementType { pen, eraser, image, label }
 
 extension ElementTypeExtension on ElementType {
-  String getLocalizedName(BuildContext context) {
-    switch (this) {
-      case ElementType.pen:
-        return AppLocalizations.of(context)!.pen;
-      case ElementType.eraser:
-        return AppLocalizations.of(context)!.eraser;
-      case ElementType.image:
-        return AppLocalizations.of(context)!.image;
-      case ElementType.label:
-        return AppLocalizations.of(context)!.label;
-    }
-  }
-
   PadElement create({String layer = '', Offset position = Offset.zero}) {
     switch (this) {
       case ElementType.pen:

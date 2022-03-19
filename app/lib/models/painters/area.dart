@@ -1,12 +1,9 @@
-import 'dart:math';
-
-import 'package:butterfly/models/painters/painter.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+part of 'painter.dart';
 
 const double _kSquareRatio = 1.0;
 const double _kAPortraitRatio = sqrt2;
 const double _kLandscapeRatio = 1 / sqrt2;
+
 enum AreaRatioPreset {
   square,
   portrait,

@@ -1,25 +1,13 @@
 import 'package:butterfly/models/area.dart';
-import 'package:butterfly/models/properties/label.dart';
-import 'package:butterfly/models/properties/pen.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import 'backgrounds/box.dart';
 import 'elements/element.dart';
-import 'elements/eraser.dart';
-import 'elements/image.dart';
-import 'elements/label.dart';
-import 'elements/pen.dart';
-import 'painters/area.dart';
-import 'painters/eraser.dart';
-import 'painters/label.dart';
-import 'painters/layer.dart';
 import 'painters/painter.dart';
-import 'painters/path_eraser.dart';
-import 'painters/pen.dart';
 import 'palette.dart';
-import 'properties/hand.dart';
+import 'properties/property.dart';
 import 'waypoint.dart';
 
 @immutable

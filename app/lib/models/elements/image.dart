@@ -1,10 +1,4 @@
-import 'dart:convert';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-
-import 'package:butterfly/models/elements/element.dart';
-import 'package:butterfly/models/elements/positioned.dart';
-import 'package:flutter/material.dart';
+part of 'element.dart';
 
 class ImageElement extends PositionedElement {
   final Uint8List pixels;

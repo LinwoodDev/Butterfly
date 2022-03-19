@@ -1,9 +1,4 @@
-import 'package:butterfly/models/elements/positioned.dart';
-import 'package:butterfly/models/properties/label.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-
-import 'element.dart';
+part of 'element.dart';
 
 class LabelElement extends PositionedElement {
   final String text;
