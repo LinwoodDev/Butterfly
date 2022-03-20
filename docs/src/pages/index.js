@@ -7,11 +7,22 @@ import styles from './index.module.css';
 import HomepageFeatures from "../components/HomepageFeatures";
 import Translate from '@docusaurus/Translate';
 import AOS from 'aos';
+import UAParser from 'ua-parser-js';
 import 'aos/dist/aos.css';
 
 
 function HomepageHeader() {
+  const [platform, setPlatform] = React.useState('');
+  const parser = new UAParser();
   React.useEffect(() => {
+    const uaPlatform = parser.getOS().name;
+    // Test if it is a linux distro
+    if (['Raspbian', 'Debian', 'Ubuntu', 'Linux Mint', 'Fedora', 'Arch', 'CentOS', 'Red Hat', 'Manjaro'].includes(uaPlatform)) {
+      setPlatform('Linux');
+    } else {
+      setPlatform(uaPlatform);
+    }
+
     AOS.init();
   }, []);
   const {siteConfig} = useDocusaurusContext();
@@ -34,8 +45,43 @@ function HomepageHeader() {
                   Getting started
               </Translate>
           </Link>
+            {platform === 'Windows' &&
+              <Link data-aos="fade-left"
+                  className="button button--success button--lg"
+                  to="/downloads/windows">
+                  <Translate description="homepage windows button">
+                      Download for Windows
+                  </Translate>
+              </Link>
+            }
+            {platform === 'Linux' &&
+              <Link data-aos="fade-left"
+                  className="button button--success button--lg"
+                  to="/downloads/linux">
+                  <Translate description="homepage linux button">
+                      Download for Linux
+                  </Translate>
+              </Link>
+            }
+            {platform === 'Android' &&
+              <Link data-aos="fade-left"
+                  className="button button--success button--lg"
+                  to="/downloads/android">
+                  <Translate description="homepage android button">
+                      Download for Android
+                  </Translate>
+              </Link>
+            }
             <Link data-aos="fade-left"
-                className="button button--success button--lg"
+                className="button button--warning button--lg"
+                to="https://butterfly.linwood.dev">
+                  <Translate description="homepage web button">
+                      Open the web app
+                  </Translate>
+                </Link>
+
+            <Link data-aos="fade-left"
+                className="button button--info button--lg"
                 to="/downloads">
                 <Translate description="homepage downloads button">
                     Downloads
