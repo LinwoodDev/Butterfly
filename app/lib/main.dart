@@ -34,12 +34,23 @@ Future<void> main([List<String> args = const []]) async {
     var path = args[0];
     var file = File(path);
     if (await file.exists()) {
-      var data = await file.readAsString();
-      var json = jsonDecode(data);
-      var document = AppDocument.fromJson(json);
-      var newFile =
-          await DocumentFileSystem.fromPlatform().importDocument(document);
-      initialLocation = newFile.path;
+      var directory =
+          Directory(await DocumentFileSystem.fromPlatform().getDirectory());
+      // Test if the file is in the root directory
+      if (path.startsWith(directory.path)) {
+        // Relative path with the root directory
+        initialLocation = Uri(path: '/', queryParameters: {
+          'path': path.substring(directory.path.length),
+        }).toString();
+      } else {
+        var data = await file.readAsString();
+        var json = jsonDecode(data);
+        var document = AppDocument.fromJson(json);
+        var newFile =
+            await DocumentFileSystem.fromPlatform().importDocument(document);
+        initialLocation =
+            Uri(path: '/', queryParameters: {'path': newFile.path}).toString();
+      }
     }
   }
 
