@@ -15,9 +15,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../dialogs/painters/area.dart';
 
 class EditToolbar extends StatelessWidget {
+  final bool isMobile;
   final ScrollController _scrollController = ScrollController();
 
-  EditToolbar({Key? key}) : super(key: key);
+  EditToolbar({Key? key, required this.isMobile}) : super(key: key);
 
   IconData getPainterIcon(String type) {
     switch (type) {
@@ -89,7 +90,8 @@ class EditToolbar extends StatelessWidget {
 
               return Material(
                 child: Align(
-                  alignment: Alignment.centerRight,
+                  alignment:
+                      isMobile ? Alignment.center : Alignment.centerRight,
                   child: ListView(
                       controller: _scrollController,
                       scrollDirection: Axis.horizontal,
@@ -202,6 +204,8 @@ class EditToolbar extends StatelessWidget {
                                 .read<DocumentBloc>()
                                 .add(PainterCreated(value)),
                             icon: const Icon(PhosphorIcons.plusLight),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16)),
                             itemBuilder: (context) => [
                                   ...[
                                     'pen',

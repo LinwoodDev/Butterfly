@@ -199,28 +199,31 @@ class _ProjectPageState extends State<ProjectPage> {
                     );
                     return Focus(
                         autofocus: true,
-                        child: Scaffold(
-                            appBar: appBar,
-                            body:
-                                LayoutBuilder(builder: (context, constraints) {
-                              final isMobile =
-                                  MediaQuery.of(context).size.width < 800;
-                              return Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Expanded(
-                                        key: _viewportKey,
-                                        child: const MainViewViewport()),
-                                    if (isMobile)
-                                      Align(
-                                          alignment: Alignment.center,
-                                          child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: EditToolbar()))
-                                  ]);
-                            })));
+                        child: FocusScope(
+                          child: Scaffold(
+                              appBar: appBar,
+                              body: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                final isMobile =
+                                    MediaQuery.of(context).size.width < 800;
+                                return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      Expanded(
+                                          key: _viewportKey,
+                                          child: const MainViewViewport()),
+                                      if (isMobile)
+                                        Align(
+                                            alignment: Alignment.center,
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: EditToolbar(
+                                                    isMobile: isMobile)))
+                                    ]);
+                              })),
+                        ));
                   }),
                 )),
           );

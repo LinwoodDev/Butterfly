@@ -149,7 +149,11 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(child: title),
-                if (!isMobile) Flexible(child: EditToolbar()),
+                if (!isMobile)
+                  Flexible(
+                      child: EditToolbar(
+                    isMobile: false,
+                  )),
               ],
             );
             if (isWindow()) {

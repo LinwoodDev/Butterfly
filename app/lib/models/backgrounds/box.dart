@@ -129,8 +129,7 @@ class BoxBackground extends Equatable {
         boxXStroke = json['xStroke'] ?? .5,
         boxYStroke = json['yStroke'] ?? .5;
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         'width': boxWidth,
         'height': boxHeight,
         'xCount': boxXCount,
