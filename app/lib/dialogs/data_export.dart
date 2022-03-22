@@ -86,13 +86,12 @@ class ExportDialog extends StatelessWidget {
                   });
                 },
                 title: Text(AppLocalizations.of(context)!.file)),
-          if (!kIsWeb && isMobile)
-            ListTile(
-                onTap: () {
-                  Share.share(data);
-                  Navigator.of(context).pop();
-                },
-                title: Text(AppLocalizations.of(context)!.share)),
+          ListTile(
+              onTap: () {
+                Share.share(data);
+                Navigator.of(context).pop();
+              },
+              title: Text(AppLocalizations.of(context)!.share)),
         ]));
   }
 }
