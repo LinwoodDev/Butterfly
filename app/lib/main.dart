@@ -31,16 +31,16 @@ Future<void> main([List<String> args = const []]) async {
   var prefs = await SharedPreferences.getInstance();
   var initialLocation = '/';
   if (args.isNotEmpty && !kIsWeb) {
-    var path = args[0];
+    var path = args[0].replaceAll('\\', '/');
     var file = File(path);
     if (await file.exists()) {
       var directory =
           Directory(await DocumentFileSystem.fromPlatform().getDirectory());
-      // Test if the file is in the root directory
-      if (path.startsWith(directory.path)) {
-        // Relative path with the root directory
+      // Test if file is in directory
+      if (file.path.startsWith(directory.path)) {
+        // Relative path
         initialLocation = Uri(path: '/', queryParameters: {
-          'path': path.substring(directory.path.length),
+          'path': file.path.replaceFirst(directory.path, '')
         }).toString();
       } else {
         var data = await file.readAsString();

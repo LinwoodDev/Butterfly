@@ -163,6 +163,7 @@ class AppDocument {
             case 'image':
               return ImageElement.fromJson(e, version);
             case 'paint':
+            case 'pen':
               return PenElement.fromJson(e, version);
           }
           return null;
