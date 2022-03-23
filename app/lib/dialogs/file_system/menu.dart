@@ -25,8 +25,12 @@ class FileSystemAssetMenu extends StatelessWidget {
       : super(key: key);
 
   void _showRenameDialog(BuildContext context, String path) {
-    var fileSystem = DocumentFileSystem.fromPlatform();
-    var _nameController = TextEditingController(text: path);
+    final fileSystem = DocumentFileSystem.fromPlatform();
+    final fileName = path.split('/').last;
+    final parent = path.substring(0, path.length - fileName.length - 1);
+    final _nameController = TextEditingController(
+        text: fileName.substring(0, fileName.length - '.bfly'.length));
+    final bloc = context.read<DocumentBloc>();
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -54,8 +58,7 @@ class FileSystemAssetMenu extends StatelessWidget {
                   onPressed: () async {
                     if (_nameController.text != selectedPath) {
                       var document = await fileSystem.renameAsset(
-                          path, _nameController.text);
-                      var bloc = context.read<DocumentBloc>();
+                          path, parent + '/' + _nameController.text + '.bfly');
                       var state = bloc.state;
                       if (state is! DocumentLoadSuccess) return;
                       if (document != null && state.path == path) {

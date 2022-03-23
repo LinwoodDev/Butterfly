@@ -30,7 +30,7 @@ class FileSystemGridView extends StatelessWidget {
             children: List.generate(directories.length, (index) {
               final directory = directories[index];
               return ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 200),
+                  constraints: const BoxConstraints(maxWidth: 300),
                   child: Card(
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(16))),
@@ -50,12 +50,15 @@ class FileSystemGridView extends StatelessWidget {
                                         size: 32,
                                       ),
                                     ),
-                                    Flexible(
-                                      child: Text(directory.fileName,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6),
+                                    Expanded(
+                                      child: Tooltip(
+                                        message: directory.path,
+                                        child: Text(directory.fileName,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6),
+                                      ),
                                     ),
                                     FileSystemAssetMenu(
                                         selectedPath: selectedPath,
@@ -94,11 +97,21 @@ class FileSystemGridView extends StatelessWidget {
                                     ),
                                   ),
                                   Expanded(
-                                    child: Text(file.fileName,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6),
+                                    child: Tooltip(
+                                      message: file.path,
+                                      child: Text(file.fileName,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6
+                                              ?.copyWith(
+                                                  color:
+                                                      selectedPath == file.path
+                                                          ? Theme.of(context)
+                                                              .colorScheme
+                                                              .primary
+                                                          : null)),
+                                    ),
                                   ),
                                   FileSystemAssetMenu(
                                       selectedPath: selectedPath,
@@ -109,11 +122,11 @@ class FileSystemGridView extends StatelessWidget {
                                 Text(file.name,
                                     overflow: TextOverflow.ellipsis,
                                     style:
-                                        Theme.of(context).textTheme.subtitle1),
+                                        Theme.of(context).textTheme.subtitle2),
                                 Text(file.description,
                                     overflow: TextOverflow.ellipsis,
                                     style:
-                                        Theme.of(context).textTheme.subtitle2),
+                                        Theme.of(context).textTheme.labelSmall),
                               ],
                             ),
                           ))));
