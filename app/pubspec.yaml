@@ -45,12 +45,16 @@ dependencies:
   camera_windows: ^0.1.0
   window_manager: ^0.2.0
   flex_color_scheme: ^4.2.0
+  freezed_annotation: ^1.1.0
 
 dev_dependencies:
   flutter_native_splash: ^2.1.1
   flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
+  freezed: ^1.1.1
+  build_runner: ^2.1.8
+  json_serializable: ^6.1.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

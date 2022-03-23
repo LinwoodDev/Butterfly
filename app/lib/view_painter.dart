@@ -1,6 +1,5 @@
 import 'dart:ui' as ui;
 
-import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/models/baked_viewport.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
 import 'models/area.dart';
+import 'models/background.dart';
 
 Future<ui.Image> loadImage(ImageElement layer) {
   return decodeImageFromList(layer.pixels);
@@ -142,14 +142,15 @@ class ViewPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var background = document.background;
+    var box = background is BoxBackground ? background : null;
     var areaRect = currentArea?.rect;
     if (areaRect != null) {
       areaRect = Rect.fromPoints(transform.globalToLocal(areaRect.topLeft),
           transform.globalToLocal(areaRect.bottomRight));
     }
     if (areaRect != null) {
-      canvas.drawColor(
-          background?.boxColor ?? Colors.lightBlue, BlendMode.srcOver);
+      canvas.drawColor(box != null ? Color(box.boxColor) : Colors.lightBlue,
+          BlendMode.srcOver);
       canvas.drawRRect(
           RRect.fromRectAndRadius(
               areaRect.inflate(5), const Radius.circular(5)),
@@ -160,19 +161,16 @@ class ViewPainter extends CustomPainter {
             ..blendMode = BlendMode.srcOver);
       canvas.clipRect(areaRect.inflate(5));
     }
-    if (background is BoxBackground && renderBackground) {
-      canvas.drawColor(background.boxColor, BlendMode.srcOver);
-      if (background.boxWidth > 0 && background.boxXCount > 0) {
-        var relativeWidth = background.boxWidth * transform.size;
-        var relativeSpace = background.boxXSpace * transform.size;
+    if (box != null && renderBackground) {
+      canvas.drawColor(Color(box.boxColor), BlendMode.srcOver);
+      if (box.boxWidth > 0 && box.boxXCount > 0) {
+        var relativeWidth = box.boxWidth * transform.size;
+        var relativeSpace = box.boxXSpace * transform.size;
         int xCount = (transform.position.dx /
-                    (background.boxWidth * background.boxXCount +
-                        background.boxXSpace))
+                    (box.boxWidth * box.boxXCount + box.boxXSpace))
                 .floor() +
             1;
-        double x = -xCount *
-                (background.boxWidth * background.boxXCount +
-                    background.boxXSpace) +
+        double x = -xCount * (box.boxWidth * box.boxXCount + box.boxXSpace) +
             transform.position.dx;
         x *= transform.size;
 
@@ -182,27 +180,24 @@ class ViewPainter extends CustomPainter {
               Offset(x, 0),
               Offset(x, size.height),
               Paint()
-                ..strokeWidth = background.boxXStroke * transform.size
-                ..color = background.boxXColor);
+                ..strokeWidth = box.boxXStroke * transform.size
+                ..color = Color(box.boxXColor));
           count++;
-          if (count >= background.boxXCount) {
+          if (count >= box.boxXCount) {
             count = 0;
             x += relativeSpace;
           }
           x += relativeWidth;
         }
       }
-      if (background.boxHeight > 0 && background.boxYCount > 0) {
-        var relativeHeight = background.boxHeight * transform.size;
-        var relativeSpace = background.boxYSpace * transform.size;
+      if (box.boxHeight > 0 && box.boxYCount > 0) {
+        var relativeHeight = box.boxHeight * transform.size;
+        var relativeSpace = box.boxYSpace * transform.size;
         int yCount = (transform.position.dy /
-                    (background.boxHeight * background.boxYCount +
-                        background.boxYSpace))
+                    (box.boxHeight * box.boxYCount + box.boxYSpace))
                 .floor() +
             1;
-        double y = -yCount *
-                (background.boxHeight * background.boxYCount +
-                    background.boxYSpace) +
+        double y = -yCount * (box.boxHeight * box.boxYCount + box.boxYSpace) +
             transform.position.dy;
         y *= transform.size;
 
@@ -212,10 +207,10 @@ class ViewPainter extends CustomPainter {
               Offset(0, y),
               Offset(size.width, y),
               Paint()
-                ..strokeWidth = background.boxYStroke * transform.size
-                ..color = background.boxYColor);
+                ..strokeWidth = box.boxYStroke * transform.size
+                ..color = Color(box.boxYColor));
           count++;
-          if (count >= background.boxYCount) {
+          if (count >= box.boxYCount) {
             count = 0;
             y += relativeSpace;
           }

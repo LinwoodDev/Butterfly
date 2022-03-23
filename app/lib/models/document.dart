@@ -1,9 +1,9 @@
 import 'package:butterfly/models/area.dart';
+import 'package:butterfly/models/background.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import 'backgrounds/box.dart';
 import 'elements/element.dart';
 import 'painters/painter.dart';
 import 'palette.dart';
@@ -57,7 +57,7 @@ class AppDocument {
   //final List<PackCollection> packs;
   final List<PadElement> content;
   final List<Painter> painters;
-  final BoxBackground? background;
+  final Background? background;
   final List<ColorPalette> palettes;
   final List<Waypoint> waypoints;
   final List<Area> areas;
@@ -69,7 +69,7 @@ class AppDocument {
       {required this.name,
       this.description = '',
       this.content = const [],
-      this.background = const BoxBackground(),
+      this.background = const Background.empty(),
       this.palettes = const [],
       this.waypoints = const [],
       this.areas = const [],
@@ -123,8 +123,7 @@ class AppDocument {
         .toList();
     var background = json['background'] == null
         ? null
-        : BoxBackground.fromJson(
-            Map<String, dynamic>.from(json['background']), version);
+        : BoxBackground.fromJson(Map<String, dynamic>.from(json['background']));
     var waypoints = List<dynamic>.from(json['waypoints'] ?? [])
         .map((e) => Map<String, dynamic>.from(e))
         .map((e) => Waypoint.fromJson(e))

@@ -1,7 +1,8 @@
-import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'background.dart';
 
 class DocumentTemplate {
   final AppDocument document;
