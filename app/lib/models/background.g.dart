@@ -8,12 +8,12 @@ part of 'background.dart';
 
 _$EmptyBackground _$$EmptyBackgroundFromJson(Map<String, dynamic> json) =>
     _$EmptyBackground(
-      $type: json['runtimeType'] as String?,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$EmptyBackgroundToJson(_$EmptyBackground instance) =>
     <String, dynamic>{
-      'runtimeType': instance.$type,
+      'type': instance.$type,
     };
 
 _$BoxBackground _$$BoxBackgroundFromJson(Map<String, dynamic> json) =>
@@ -29,7 +29,7 @@ _$BoxBackground _$$BoxBackgroundFromJson(Map<String, dynamic> json) =>
       boxColor: json['boxColor'] as int? ?? kColorWhite,
       boxXStroke: (json['boxXStroke'] as num?)?.toDouble() ?? 0.5,
       boxYStroke: (json['boxYStroke'] as num?)?.toDouble() ?? 0.5,
-      $type: json['runtimeType'] as String?,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$BoxBackgroundToJson(_$BoxBackground instance) =>
@@ -45,5 +45,5 @@ Map<String, dynamic> _$$BoxBackgroundToJson(_$BoxBackground instance) =>
       'boxColor': instance.boxColor,
       'boxXStroke': instance.boxXStroke,
       'boxYStroke': instance.boxYStroke,
-      'runtimeType': instance.$type,
+      'type': instance.$type,
     };

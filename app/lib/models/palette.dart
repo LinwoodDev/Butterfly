@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-class ColorPalette {
-  final String name;
-  final List<Color> colors;
+part 'palette.freezed.dart';
+part 'palette.g.dart';
 
+@freezed
+class ColorPalette with _$ColorPalette {
   static const materialColors = [
     Colors.white,
     Colors.pink,
@@ -29,19 +30,14 @@ class ColorPalette {
   static List<ColorPalette> getMaterialPalette(BuildContext context) => [
         ColorPalette(
             name: AppLocalizations.of(context)!.defaultPalette,
-            colors: materialColors),
+            colors: materialColors.map((e) => e.value).toList()),
         ColorPalette(
             name: AppLocalizations.of(context)!.highlighter,
-            colors: materialColors.map((e) => e.withOpacity(0.25)).toList())
+            colors:
+                materialColors.map((e) => e.withOpacity(0.25).value).toList())
       ];
-
-  const ColorPalette({this.name = '', this.colors = const []});
-  ColorPalette.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        colors = List<int>.from(json['colors']).map((e) => Color(e)).toList();
-  Map<String, dynamic> toJson() =>
-      {'name': name, 'colors': colors.map((e) => e.value).toList()};
-
-  ColorPalette copyWith({String? name, List<Color>? colors}) =>
-      ColorPalette(name: name ?? this.name, colors: colors ?? this.colors);
+  const factory ColorPalette(
+      {required String name, @Default([]) List<int> colors}) = _ColorPalette;
+  factory ColorPalette.fromJson(Map<String, dynamic> json) =>
+      _$ColorPaletteFromJson(json);
 }

@@ -15,15 +15,15 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Background _$BackgroundFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
+  switch (json['type']) {
     case 'empty':
       return EmptyBackground.fromJson(json);
     case 'box':
       return BoxBackground.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'Background',
-          'Invalid union type "${json['runtimeType']}"!');
+      throw CheckedFromJsonException(
+          json, 'type', 'Background', 'Invalid union type "${json['type']}"!');
   }
 }
 
@@ -191,7 +191,7 @@ class _$EmptyBackground implements EmptyBackground {
   factory _$EmptyBackground.fromJson(Map<String, dynamic> json) =>
       _$$EmptyBackgroundFromJson(json);
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override
@@ -466,7 +466,7 @@ class _$BoxBackground implements BoxBackground {
   @override
   final double boxYStroke;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override

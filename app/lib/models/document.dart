@@ -109,9 +109,8 @@ class AppDocument {
       json['palettes'] = List<dynamic>.from(
           Map<String, dynamic>.from(json['palettes'] ?? [])
               .entries
-              .map<ColorPalette>((e) => ColorPalette(
-                  colors: List<int>.from(e.value).map((e) => Color(e)).toList(),
-                  name: e.key))
+              .map<ColorPalette>((e) =>
+                  ColorPalette(colors: List<int>.from(e.value), name: e.key))
               .map((e) => e.toJson())
               .toList());
     }

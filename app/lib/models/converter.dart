@@ -1,6 +1,8 @@
 import 'package:butterfly/models/document.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../main.dart';
+
 class DocumentJsonConverter
     extends JsonConverter<AppDocument, Map<String, dynamic>> {
   const DocumentJsonConverter();
@@ -12,6 +14,6 @@ class DocumentJsonConverter
 
   @override
   Map<String, dynamic> toJson(AppDocument object) {
-    return object.toJson();
+    return {'version': kFileVersion}..addAll(object.toJson());
   }
 }

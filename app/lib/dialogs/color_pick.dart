@@ -41,15 +41,15 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 final color = palette.colors[index];
                 final newPalettes =
                     List<ColorPalette>.from(state.document.palettes);
-                final newPalette = List<Color>.from(palette.colors);
+                final newPalette = List<int>.from(palette.colors);
                 return SizedBox(
                     height: 300,
                     child: Column(children: [
                       SizedBox(
                         height: 125,
                         child: Center(
-                            child:
-                                Container(color: color, height: 75, width: 75)),
+                            child: Container(
+                                color: Color(color), height: 75, width: 75)),
                       ),
                       const Divider(thickness: 1),
                       Expanded(
@@ -60,8 +60,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             onTap: () async {
                               var value = await showDialog(
                                   context: context,
-                                  builder: (context) =>
-                                      CustomColorPicker(defaultColor: color));
+                                  builder: (context) => CustomColorPicker(
+                                      defaultColor: Color(color)));
                               if (value != null) {
                                 newPalette[index] = value;
                                 newPalettes[selected] =
@@ -358,15 +358,16 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     var value = await showDialog(
                                         context: context,
                                         builder: (context) => CustomColorPicker(
-                                            defaultColor: widget.defaultColor));
+                                            defaultColor:
+                                                widget.defaultColor)) as Color?;
                                     if (value != null) {
                                       var newPalettes = List<ColorPalette>.from(
                                           state.document.palettes);
                                       newPalettes[selected] =
                                           newPalettes[selected].copyWith(
-                                              colors: List<Color>.from(
+                                              colors: List<int>.from(
                                                   newPalettes[selected].colors)
-                                                ..add(value));
+                                                ..add(value.value));
 
                                       context.read<DocumentBloc>().add(
                                           DocumentPaletteChanged(newPalettes));

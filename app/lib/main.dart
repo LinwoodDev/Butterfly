@@ -20,12 +20,12 @@ import 'settings/personalization.dart';
 import 'package:window_manager/window_manager.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 
-const fileVersion = 4;
+const kFileVersion = 4;
 
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  GetIt.I.registerSingleton<int>(fileVersion, instanceName: 'fileVersion');
+  GetIt.I.registerSingleton<int>(kFileVersion, instanceName: 'fileVersion');
   GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   await setup();
   var prefs = await SharedPreferences.getInstance();
