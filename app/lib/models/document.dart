@@ -18,7 +18,12 @@ abstract class AppDocumentAsset {
 
   String get fileName => path.split('/').last;
 
-  String get directory =>
+  String get fileExtension => fileName.split('.').last;
+
+  String get fileNameWithoutExtension =>
+      fileName.substring(0, fileName.length - fileExtension.length - 1);
+
+  String get parent =>
       path.split('/').sublist(0, path.split('/').length - 1).join('/');
 }
 

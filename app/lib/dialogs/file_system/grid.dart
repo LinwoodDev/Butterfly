@@ -99,7 +99,7 @@ class FileSystemGridView extends StatelessWidget {
                                   Expanded(
                                     child: Tooltip(
                                       message: file.path,
-                                      child: Text(file.fileName,
+                                      child: Text(file.fileNameWithoutExtension,
                                           overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme

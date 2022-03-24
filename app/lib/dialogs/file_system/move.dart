@@ -26,7 +26,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
   void initState() {
     super.initState();
     _nameController.text = widget.asset.fileName;
-    selectedPath = widget.asset.directory;
+    selectedPath = widget.asset.parent;
   }
 
   @override
