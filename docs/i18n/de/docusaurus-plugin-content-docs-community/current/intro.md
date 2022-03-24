@@ -9,13 +9,15 @@ sidebar_position: 0
 
 Willkommen im Community-Abschnitt.
 
-## Thanks
+## Acknowledgements
 
-A big thank you for this libraries:
+A special thanks goes to:
 
-* <https://github.com/flutter/flutter> for providing this useful crossplatform ui framework
-* <https://github.com/leanflutter/window_manager> for all this useful desktop window features
-* <https://github.com/facebook/docusaurus> for an easy-to-use static react documentation framework
+* <https://github.com/flutter/flutter> für die Bereitstellung dieses nützlichen Crossplatform ui Frameworks
+* <https://github.com/leanflutter/window_manager> für all diese nützlichen Desktop-Funktionen
+* <https://github.com/facebook/docusaurus> für ein einfach zu bedienendes statisches Antwortdokumentations-Framework
+
+All other licenses can you found in the settings.
 
 ## Nützliche Links
 
