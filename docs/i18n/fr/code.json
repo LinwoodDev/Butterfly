@@ -312,5 +312,21 @@
   "theme.tags.tagsPageLink": {
     "message": "Voir tous les tags",
     "description": "The label of the link targeting the tag list page"
+  },
+  "Download for Windows": {
+    "message": "Télécharger pour Windows",
+    "description": "homepage windows button"
+  },
+  "Download for Linux": {
+    "message": "Télécharger pour Linux",
+    "description": "homepage linux button"
+  },
+  "Download for Android": {
+    "message": "Télécharger pour Android",
+    "description": "homepage android button"
+  },
+  "Open the web app": {
+    "message": "Ouvrir l'application web",
+    "description": "homepage web button"
   }
 }
