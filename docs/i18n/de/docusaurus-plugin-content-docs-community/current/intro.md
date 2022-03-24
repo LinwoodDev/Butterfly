@@ -9,6 +9,14 @@ sidebar_position: 0
 
 Willkommen im Community-Abschnitt.
 
+## Thanks
+
+A big thank you for this libraries:
+
+* <https://github.com/flutter/flutter> for providing this useful crossplatform ui framework
+* <https://github.com/leanflutter/window_manager> for all this useful desktop window features
+* <https://github.com/facebook/docusaurus> for an easy-to-use static react documentation framework
+
 ## Nützliche Links
 
 * [GitHub](https://github.com/LinwoodCloud/Butterfly)
