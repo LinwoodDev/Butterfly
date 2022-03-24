@@ -134,8 +134,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                   selected = empty
                       ? 0
                       : selected.clamp(0, state.document.palettes.length - 1);
-                  var palette =
-                      empty ? [] : state.document.palettes[selected].colors;
+                  var palette = empty
+                      ? <int>[]
+                      : state.document.palettes[selected].colors;
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -327,7 +328,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       height: 75,
                                       margin: const EdgeInsets.all(5),
                                       decoration: BoxDecoration(
-                                          color: palette[index],
+                                          color: Color(palette[index]),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(32))),
                                     )))).toList(),

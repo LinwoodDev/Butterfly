@@ -157,32 +157,6 @@ class GeneralElementDialog extends StatelessWidget {
                 },
                 title: Text(AppLocalizations.of(context)!.delete),
                 leading: const Icon(PhosphorIcons.trashLight)),
-            const Divider(),
-            ListTile(
-              title: Text(AppLocalizations.of(context)!.document),
-              leading: const Icon(PhosphorIcons.fileLight),
-              onTap: () async {
-                var bloc = context.read<DocumentBloc>();
-                var transformCubit = context.read<TransformCubit>();
-                var actor = context.findAncestorWidgetOfExactType<Actions>();
-                showContextMenu(
-                    context: context,
-                    position: position,
-                    builder: (ctx, close) => MultiBlocProvider(
-                          providers: [
-                            BlocProvider.value(value: bloc),
-                            BlocProvider.value(value: transformCubit),
-                          ],
-                          child: Actions(
-                              actions: actor?.actions ?? {},
-                              child: BackgroundContextMenu(
-                                close: close,
-                                position: position,
-                              )),
-                        ));
-                close();
-              },
-            ),
           ],
         ))
       ]);
@@ -224,17 +198,18 @@ class _GeneralElementDialogHeader extends StatelessWidget {
 
     var bloc = context.read<DocumentBloc>();
     var transformCubit = context.read<TransformCubit>();
-    return SizedBox(
-      height: 50,
-      child: Center(
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              icon,
-              size: 36,
-            ),
+    return Container(
+      height: 75,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Icon(
+            icon,
+            size: 32,
           ),
+        ),
+        Row(children: [
           if (area != null)
             IconButton(
               tooltip: area.name,
@@ -254,10 +229,37 @@ class _GeneralElementDialogHeader extends StatelessWidget {
                             )));
                 close();
               },
-              icon: const Icon(PhosphorIcons.squareLight, size: 36),
-            )
+              padding: const EdgeInsets.all(4.0),
+              icon: const Icon(PhosphorIcons.squareLight, size: 32),
+            ),
+          IconButton(
+            tooltip: AppLocalizations.of(context)!.document,
+            icon: const Icon(PhosphorIcons.fileLight, size: 32),
+            padding: const EdgeInsets.all(4.0),
+            onPressed: () async {
+              var bloc = context.read<DocumentBloc>();
+              var transformCubit = context.read<TransformCubit>();
+              var actor = context.findAncestorWidgetOfExactType<Actions>();
+              showContextMenu(
+                  context: context,
+                  position: position,
+                  builder: (ctx, close) => MultiBlocProvider(
+                        providers: [
+                          BlocProvider.value(value: bloc),
+                          BlocProvider.value(value: transformCubit),
+                        ],
+                        child: Actions(
+                            actions: actor?.actions ?? {},
+                            child: BackgroundContextMenu(
+                              close: close,
+                              position: position,
+                            )),
+                      ));
+              close();
+            },
+          ),
         ]),
-      ),
+      ]),
     );
   }
 }
