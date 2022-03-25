@@ -3,9 +3,8 @@ id: "community"
 slug: "/community"
 sidebar_label: "Domicile"
 sidebar_position: 0
+title: Communauté
 ---
-
-# Communauté
 
 Bienvenue dans la section de la communauté.
 
