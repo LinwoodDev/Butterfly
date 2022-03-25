@@ -2,6 +2,8 @@
 title: Image de marque
 ---
 
+These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+
 ## Logo
 
 ![Logo](/img/logo.svg)
