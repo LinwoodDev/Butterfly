@@ -16,7 +16,7 @@ class PenElement extends PathElement {
 
   @override
   Paint buildPaint([bool preview = false]) => Paint()
-    ..color = property.color
+    ..color = Color(property.color)
     ..style = property.fill ? PaintingStyle.fill : PaintingStyle.stroke
     ..strokeCap = StrokeCap.round;
 

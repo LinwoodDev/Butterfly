@@ -5,7 +5,7 @@ import 'package:butterfly/dialogs/painters/label.dart';
 import 'package:butterfly/dialogs/painters/layer.dart';
 import 'package:butterfly/dialogs/painters/path_eraser.dart';
 import 'package:butterfly/dialogs/painters/pen.dart';
-import 'package:butterfly/models/painters/painter.dart';
+import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/widgets/option_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

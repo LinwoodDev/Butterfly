@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math.dart' show Vector2;
 
 import '../area.dart';
-import '../properties/property.dart';
+import '../property.dart';
 
 part 'path.dart';
 part 'eraser.dart';
@@ -32,8 +32,8 @@ abstract class PadElement {
 
   Offset get position;
 
-  PadElement moveTo(Offset value) {
-    return moveBy(value - position);
+  PadElement moveTo(Offset offset) {
+    return moveBy(offset - position);
   }
 
   bool hit(Offset offset, [double radius = 1.0]);

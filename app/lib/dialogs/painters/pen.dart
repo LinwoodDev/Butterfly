@@ -1,7 +1,7 @@
 import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/color_pick.dart';
-import 'package:butterfly/models/painters/painter.dart';
+import 'package:butterfly/models/painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -104,8 +104,8 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                                 value: context
                                                     .read<DocumentBloc>(),
                                                 child: ColorPickerDialog(
-                                                    defaultColor:
-                                                        painter.property.color),
+                                                    defaultColor: Color(painter
+                                                        .property.color)),
                                               ));
                                       if (color != null) {
                                         setState(() => painter =
@@ -116,7 +116,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          color: painter.property.color,
+                                          color: Color(painter.property.color),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(32))),
                                       constraints: const BoxConstraints(
@@ -130,14 +130,17 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                 title: Text(AppLocalizations.of(context)!
                                     .zoomDependent),
                                 onChanged: (value) => setState(() => painter =
-                                    painter.copyWith(zoomDependent: value))),
+                                    painter.copyWith(
+                                        zoomDependent:
+                                            value ?? painter.zoomDependent))),
                             CheckboxListTile(
                                 value: painter.property.fill,
                                 title: Text(AppLocalizations.of(context)!.fill),
                                 onChanged: (value) => setState(() => painter =
                                     painter.copyWith(
-                                        property: painter.property
-                                            .copyWith(fill: value))))
+                                        property: painter.property.copyWith(
+                                            fill: value ??
+                                                painter.property.fill))))
                           ]),
                         ),
                         const Divider(),

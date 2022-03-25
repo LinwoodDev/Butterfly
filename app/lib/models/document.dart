@@ -1,13 +1,14 @@
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/background.dart';
+import 'package:butterfly/models/colors.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import 'elements/element.dart';
-import 'painters/painter.dart';
+import 'painter.dart';
 import 'palette.dart';
-import 'properties/property.dart';
+import 'property.dart';
 import 'waypoint.dart';
 
 @immutable
@@ -99,9 +100,9 @@ class AppDocument {
       this.handProperty = const HandProperty(),
       DateTime? updatedAt,
       this.painters = const [
-        PenPainter(property: PenProperty(color: Colors.white)),
+        PenPainter(property: PenProperty(color: kColorWhite)),
         PathEraserPainter(),
-        LabelPainter(property: LabelProperty(color: Colors.white)),
+        LabelPainter(property: LabelProperty(color: kColorWhite)),
       ]})
       : updatedAt = updatedAt ?? createdAt;
 
@@ -139,17 +140,17 @@ class AppDocument {
         .map<Painter?>((e) {
           switch (e['type']) {
             case 'eraser':
-              return EraserPainter.fromJson(e, version);
+              return EraserPainter.fromJson(e);
             case 'path-eraser':
-              return PathEraserPainter.fromJson(e, version);
+              return PathEraserPainter.fromJson(e);
             case 'label':
-              return LabelPainter.fromJson(e, version);
+              return LabelPainter.fromJson(e);
             case 'layer':
-              return LayerPainter.fromJson(e, version);
+              return LayerPainter.fromJson(e);
             case 'pen':
-              return PenPainter.fromJson(e, version);
+              return PenPainter.fromJson(e);
             case 'area':
-              return AreaPainter.fromJson(e, version);
+              return AreaPainter.fromJson(e);
           }
           return null;
         })
@@ -160,21 +161,21 @@ class AppDocument {
         .map<PadElement?>((e) {
           switch (e['type']) {
             case 'label':
-              return LabelElement.fromJson(e, version);
+              return LabelElement.fromJson(e);
             case 'eraser':
-              return EraserElement.fromJson(e, version);
+              return EraserElement.fromJson(e);
             case 'image':
-              return ImageElement.fromJson(e, version);
+              return ImageElement.fromJson(e);
             case 'paint':
             case 'pen':
-              return PenElement.fromJson(e, version);
+              return PenElement.fromJson(e);
           }
           return null;
         })
         .whereType<PadElement>()
         .toList();
     var areas = List<dynamic>.from(json['areas'] ?? [])
-        .map((e) => Area.fromJson(Map<String, dynamic>.from(e), version))
+        .map((e) => Area.fromJson(Map<String, dynamic>.from(e)))
         .toList();
     var createdAt =
         DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now();

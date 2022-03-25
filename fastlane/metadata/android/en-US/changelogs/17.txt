@@ -1,0 +1,7 @@
+* Change scroll behavior to move
+    * Add shift to inverse
+* Move zoom options and undo/redo in popup menu
+* Move overflow menu to the left and replace icon to logo
+* Add scrollbar to tools
+* Enable share of data for all platforms
+* Fix open file issues when opening by clicking on the file

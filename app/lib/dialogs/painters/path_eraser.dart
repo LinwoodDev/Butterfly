@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../models/painters/painter.dart';
+import '../../models/painter.dart';
 import '../../widgets/exact_slider.dart';
 
 class PathEraserPainterDialog extends StatefulWidget {
@@ -82,7 +82,9 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                                 title: Text(AppLocalizations.of(context)!
                                     .includeEraser),
                                 onChanged: (value) => setState(() => painter =
-                                    painter.copyWith(includeEraser: value))),
+                                    painter.copyWith(
+                                        includeEraser:
+                                            value ?? painter.includeEraser))),
                             /*CheckboxListTile(
                                 value: painter.deleteWholeStroke,
                                 title: Text(AppLocalizations.of(context)!

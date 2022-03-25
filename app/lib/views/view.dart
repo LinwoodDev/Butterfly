@@ -10,7 +10,7 @@ import 'package:butterfly/dialogs/elements/image.dart';
 import 'package:butterfly/dialogs/elements/label.dart';
 import 'package:butterfly/dialogs/select.dart';
 import 'package:butterfly/models/elements/element.dart';
-import 'package:butterfly/models/painters/painter.dart';
+import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/widgets/context_menu.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -118,6 +118,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       Future<void> createElement(int pointer,
                           Offset localPosition, double pressure) async {
                         var transform = context.read<TransformCubit>().state;
+                        // TODO: Reimplement element creation
+                        /*
                         if (state.currentPainter is BuildedPainter) {
                           var painter = state.currentPainter as BuildedPainter;
                           double zoom = 1;
@@ -131,7 +133,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   pressure,
                                   zoom,
                                   state.currentLayer));
-                        }
+                        }*/
                         if (state.currentPainter is LabelPainter) {
                           var painter = state.currentPainter as LabelPainter;
                           var bloc = context.read<DocumentBloc>();

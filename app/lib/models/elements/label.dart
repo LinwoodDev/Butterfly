@@ -57,8 +57,8 @@ class LabelElement extends PositionedElement {
           style: TextStyle(
               fontSize: property.size,
               fontStyle: property.italic ? FontStyle.italic : FontStyle.normal,
-              color: property.color,
-              fontWeight: property.fontWeight,
+              color: Color(property.color),
+              fontWeight: FontWeight.values[property.fontWeight],
               letterSpacing: property.letterSpacing,
               decorationColor: property.decorationColor,
               decorationStyle: property.decorationStyle,

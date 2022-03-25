@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../models/painters/painter.dart';
-import '../../models/properties/property.dart';
+import '../../models/painter.dart';
+import '../../models/property.dart';
 import '../../widgets/exact_slider.dart';
 
 class LabelPainterDialog extends StatefulWidget {
@@ -148,9 +148,7 @@ class LabelPropertyView extends StatefulWidget {
   final LabelPropertyCallback onChanged;
 
   const LabelPropertyView(
-      {Key? key,
-      this.initialValue = const LabelProperty(),
-      required this.onChanged})
+      {Key? key, required this.initialValue, required this.onChanged})
       : super(key: key);
 
   @override
@@ -198,7 +196,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
       ListTile(
           title: Text(AppLocalizations.of(context)!.fontWeight),
           trailing: DropdownButton<FontWeight>(
-              value: _value.fontWeight,
+              value: FontWeight.values[_value.fontWeight],
               items: List.generate(FontWeight.values.length, (index) {
                 var text = ((index + 1) * 100).toString();
                 if (index == 3) {
@@ -209,12 +207,13 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                 return DropdownMenuItem(
                     child: Text(text), value: FontWeight.values[index]);
               }),
-              onChanged: (value) =>
-                  change(_value.copyWith(fontWeight: value)))),
+              onChanged: (value) => change(_value.copyWith(
+                  fontWeight: value?.index ?? _value.fontWeight)))),
       CheckboxListTile(
           title: Text(AppLocalizations.of(context)!.italic),
           value: _value.italic,
-          onChanged: (value) => change(_value.copyWith(italic: value))),
+          onChanged: (value) =>
+              change(_value.copyWith(italic: value ?? _value.italic))),
       ExpansionPanelList(
         expansionCallback: (panelIndex, isExpanded) =>
             setState(() => _decorationExpanded = !_decorationExpanded),
@@ -234,18 +233,18 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                 CheckboxListTile(
                     title: Text(AppLocalizations.of(context)!.lineThrough),
                     value: _value.lineThrough,
-                    onChanged: (value) =>
-                        change(_value.copyWith(lineThrough: value))),
+                    onChanged: (value) => change(_value.copyWith(
+                        lineThrough: value ?? _value.lineThrough))),
                 CheckboxListTile(
                     title: Text(AppLocalizations.of(context)!.underline),
                     value: _value.underline,
-                    onChanged: (value) =>
-                        change(_value.copyWith(underline: value))),
+                    onChanged: (value) => change(
+                        _value.copyWith(underline: value ?? _value.underline))),
                 CheckboxListTile(
                     title: Text(AppLocalizations.of(context)!.overline),
                     value: _value.overline,
-                    onChanged: (value) =>
-                        change(_value.copyWith(overline: value))),
+                    onChanged: (value) => change(
+                        _value.copyWith(overline: value ?? _value.overline))),
                 ListTile(
                     title: Text(AppLocalizations.of(context)!.style),
                     trailing: DropdownButton<TextDecorationStyle>(
@@ -274,8 +273,9 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                               child: Text(text),
                               value: TextDecorationStyle.values[index]);
                         }),
-                        onChanged: (value) =>
-                            change(_value.copyWith(decorationStyle: value)))),
+                        onChanged: (value) => change(_value.copyWith(
+                            decorationStyle:
+                                value ?? _value.decorationStyle)))),
                 ListTile(
                     onTap: () async {
                       var value = await showDialog(
@@ -284,10 +284,9 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                                 value: context.read<DocumentBloc>(),
                                 child: ColorPickerDialog(
                                     defaultColor: _value.decorationColor),
-                              ));
+                              )) as Color?;
                       if (value != null) {
-                        change(
-                            _value.copyWith(decorationColor: value as Color));
+                        change(_value.copyWith(decorationColor: value.value));
                       }
                     },
                     leading: Container(
@@ -323,7 +322,8 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                     context: context,
                     builder: (ctx) => BlocProvider.value(
                           value: context.read<DocumentBloc>(),
-                          child: ColorPickerDialog(defaultColor: _value.color),
+                          child: ColorPickerDialog(
+                              defaultColor: Color(_value.color)),
                         ));
                 if (color != null) {
                   change(_value.copyWith(color: color));
@@ -331,7 +331,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
               },
               child: Container(
                   decoration: BoxDecoration(
-                      color: _value.color,
+                      color: Color(_value.color),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(32))),
                   constraints:
