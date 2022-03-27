@@ -37,8 +37,9 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
   }
 
   void _changeElement() {
-    context.read<DocumentBloc>().add(ElementChanged(widget.index, element));
-    context.read<SelectionCubit>().change(element);
+    context.read<DocumentBloc>()
+      ..add(ElementChanged(widget.index, element))
+      ..add(const IndexRefreshed());
   }
 
   @override

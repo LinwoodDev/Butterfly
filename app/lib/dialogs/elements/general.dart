@@ -114,7 +114,7 @@ class GeneralElementDialog extends StatelessWidget {
               onTap: () {
                 // Remove the element from the document
                 bloc.add(ElementsRemoved([element]));
-                editingCubit.move(element);
+                state.fetchHand()?.move(context, element);
                 close();
               },
             ),
@@ -122,7 +122,7 @@ class GeneralElementDialog extends StatelessWidget {
               title: Text(AppLocalizations.of(context)!.duplicate),
               leading: const Icon(PhosphorIcons.copyLight),
               onTap: () {
-                editingCubit.move(element);
+                state.fetchHand()?.move(context, element);
                 close();
               },
             ),

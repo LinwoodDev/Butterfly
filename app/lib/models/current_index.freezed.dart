@@ -19,11 +19,13 @@ class _$CurrentIndexTearOff {
   const _$CurrentIndexTearOff();
 
   _CurrentIndex call(int index, Handler handler,
-      [List<PadElement> foregrounds = const []]) {
+      [List<PadElement> foregrounds = const [],
+      List<Rect> selections = const []]) {
     return _CurrentIndex(
       index,
       handler,
       foregrounds,
+      selections,
     );
   }
 }
@@ -36,6 +38,7 @@ mixin _$CurrentIndex {
   int get index => throw _privateConstructorUsedError;
   Handler get handler => throw _privateConstructorUsedError;
   List<PadElement> get foregrounds => throw _privateConstructorUsedError;
+  List<Rect> get selections => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CurrentIndexCopyWith<CurrentIndex> get copyWith =>
@@ -47,7 +50,11 @@ abstract class $CurrentIndexCopyWith<$Res> {
   factory $CurrentIndexCopyWith(
           CurrentIndex value, $Res Function(CurrentIndex) then) =
       _$CurrentIndexCopyWithImpl<$Res>;
-  $Res call({int index, Handler handler, List<PadElement> foregrounds});
+  $Res call(
+      {int index,
+      Handler handler,
+      List<PadElement> foregrounds,
+      List<Rect> selections});
 }
 
 /// @nodoc
@@ -63,6 +70,7 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
     Object? index = freezed,
     Object? handler = freezed,
     Object? foregrounds = freezed,
+    Object? selections = freezed,
   }) {
     return _then(_value.copyWith(
       index: index == freezed
@@ -77,6 +85,10 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           ? _value.foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
               as List<PadElement>,
+      selections: selections == freezed
+          ? _value.selections
+          : selections // ignore: cast_nullable_to_non_nullable
+              as List<Rect>,
     ));
   }
 }
@@ -88,7 +100,11 @@ abstract class _$CurrentIndexCopyWith<$Res>
           _CurrentIndex value, $Res Function(_CurrentIndex) then) =
       __$CurrentIndexCopyWithImpl<$Res>;
   @override
-  $Res call({int index, Handler handler, List<PadElement> foregrounds});
+  $Res call(
+      {int index,
+      Handler handler,
+      List<PadElement> foregrounds,
+      List<Rect> selections});
 }
 
 /// @nodoc
@@ -106,6 +122,7 @@ class __$CurrentIndexCopyWithImpl<$Res> extends _$CurrentIndexCopyWithImpl<$Res>
     Object? index = freezed,
     Object? handler = freezed,
     Object? foregrounds = freezed,
+    Object? selections = freezed,
   }) {
     return _then(_CurrentIndex(
       index == freezed
@@ -120,6 +137,10 @@ class __$CurrentIndexCopyWithImpl<$Res> extends _$CurrentIndexCopyWithImpl<$Res>
           ? _value.foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
               as List<PadElement>,
+      selections == freezed
+          ? _value.selections
+          : selections // ignore: cast_nullable_to_non_nullable
+              as List<Rect>,
     ));
   }
 }
@@ -128,7 +149,7 @@ class __$CurrentIndexCopyWithImpl<$Res> extends _$CurrentIndexCopyWithImpl<$Res>
 
 class _$_CurrentIndex implements _CurrentIndex {
   const _$_CurrentIndex(this.index, this.handler,
-      [this.foregrounds = const []]);
+      [this.foregrounds = const [], this.selections = const []]);
 
   @override
   final int index;
@@ -137,10 +158,13 @@ class _$_CurrentIndex implements _CurrentIndex {
   @JsonKey()
   @override
   final List<PadElement> foregrounds;
+  @JsonKey()
+  @override
+  final List<Rect> selections;
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, foregrounds: $foregrounds)';
+    return 'CurrentIndex(index: $index, handler: $handler, foregrounds: $foregrounds, selections: $selections)';
   }
 
   @override
@@ -151,7 +175,9 @@ class _$_CurrentIndex implements _CurrentIndex {
             const DeepCollectionEquality().equals(other.index, index) &&
             const DeepCollectionEquality().equals(other.handler, handler) &&
             const DeepCollectionEquality()
-                .equals(other.foregrounds, foregrounds));
+                .equals(other.foregrounds, foregrounds) &&
+            const DeepCollectionEquality()
+                .equals(other.selections, selections));
   }
 
   @override
@@ -159,7 +185,8 @@ class _$_CurrentIndex implements _CurrentIndex {
       runtimeType,
       const DeepCollectionEquality().hash(index),
       const DeepCollectionEquality().hash(handler),
-      const DeepCollectionEquality().hash(foregrounds));
+      const DeepCollectionEquality().hash(foregrounds),
+      const DeepCollectionEquality().hash(selections));
 
   @JsonKey(ignore: true)
   @override
@@ -169,7 +196,7 @@ class _$_CurrentIndex implements _CurrentIndex {
 
 abstract class _CurrentIndex implements CurrentIndex {
   const factory _CurrentIndex(int index, Handler handler,
-      [List<PadElement> foregrounds]) = _$_CurrentIndex;
+      [List<PadElement> foregrounds, List<Rect> selections]) = _$_CurrentIndex;
 
   @override
   int get index;
@@ -177,6 +204,8 @@ abstract class _CurrentIndex implements CurrentIndex {
   Handler get handler;
   @override
   List<PadElement> get foregrounds;
+  @override
+  List<Rect> get selections;
   @override
   @JsonKey(ignore: true)
   _$CurrentIndexCopyWith<_CurrentIndex> get copyWith =>

@@ -106,6 +106,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             removeCurrentIndex: event.painter == null));
       }
     });
+    on<IndexRefreshed>((event, emit) async {
+      if (state is DocumentLoadSuccess) {
+        var current = state as DocumentLoadSuccess;
+        final index = current.currentIndex;
+        return _saveDocument(current.copyWith(
+          currentIndex: index.copyWith(
+              foregrounds: index.handler.createForegrounds(),
+              selections: index.handler.createSelections()),
+        ));
+      }
+    });
     on<PainterCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
@@ -144,15 +155,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         final item = painters.removeAt(oldIndex);
         painters.insert(newIndex, item);
-        final index = current.currentIndex != null
-            ? CurrentIndex(
-                oldIndex == current.currentIndex!.index
-                    ? newIndex
-                    : newIndex == current.currentIndex!.index
-                        ? oldIndex
-                        : current.currentIndex!.index,
-                Handler.fromBloc(this))
-            : null;
+        final index = CurrentIndex(
+            oldIndex == current.currentIndex.index
+                ? newIndex
+                : newIndex == current.currentIndex.index
+                    ? oldIndex
+                    : current.currentIndex.index,
+            Handler.fromBloc(this));
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(painters: painters),
             currentIndex: index));

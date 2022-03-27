@@ -16,15 +16,16 @@ class DocumentLoadSuccess extends DocumentState {
   final int currentAreaIndex;
   final List<String> invisibleLayers;
   final BakedViewport? bakedViewport;
-  final CurrentIndex? currentIndex;
+  final CurrentIndex currentIndex;
 
-  const DocumentLoadSuccess(this.document,
+  DocumentLoadSuccess(this.document,
       {this.path,
       this.bakedViewport,
       this.currentAreaIndex = -1,
-      this.currentIndex,
+      CurrentIndex? currentIndex,
       this.currentLayer = '',
-      this.invisibleLayers = const []});
+      this.invisibleLayers = const []})
+      : currentIndex = CurrentIndex(-1, HandHandler());
 
   @override
   List<Object?> get props => [
@@ -41,10 +42,15 @@ class DocumentLoadSuccess extends DocumentState {
     return bakedViewport?.unbakedElements ?? document.content;
   }
 
+  HandHandler? fetchHand() {
+    final handler = currentIndex.handler;
+    if (handler is! HandHandler) return null;
+    return handler;
+  }
+
   Painter? get currentPainter {
-    var index = currentIndex?.index;
+    var index = currentIndex.index;
     if (document.painters.isEmpty ||
-        index == null ||
         index < 0 ||
         index >= document.painters.length) {
       return null;

@@ -66,7 +66,9 @@ class DocumentPaletteChanged extends DocumentEvent {
   List<Object?> get props => [palette];
 }
 
-class ForegroundRefreshed extends DocumentEvent {}
+class IndexRefreshed extends DocumentEvent {
+  const IndexRefreshed();
+}
 
 class CurrentPainterChanged extends DocumentEvent {
   final int? painter;

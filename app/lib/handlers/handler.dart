@@ -2,6 +2,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/painter.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,18 +15,20 @@ part 'path_eraser.dart';
 part 'layer.dart';
 
 abstract class Handler {
-  final DocumentBloc bloc;
-  Handler(this.bloc);
+  const Handler();
 
-  List<PadElement> createForeground() => [];
+  List<PadElement> createForegrounds() => [];
+  List<Rect> createSelections() => [];
 
   void onTapUp(BuildContext context, TapUpDetails details) {}
   void onTapDown(BuildContext context, TapDownDetails details) {}
   void onSecondaryTapUp(BuildContext context, TapUpDetails details) {}
   void onSecondaryTapDown(BuildContext context, TapDownDetails details) {}
-  void onPointerDown(BuildContext context, PointerDownEvent details) {}
-  void onPointerMove(BuildContext context, PointerMoveEvent details) {}
-  void onPointerUp(BuildContext context, PointerUpEvent details) {}
+  void onPointerDown(BuildContext context, PointerDownEvent event) {}
+  void onPointerMove(BuildContext context, PointerMoveEvent event) {}
+  void onPointerUp(BuildContext context, PointerUpEvent event) {}
+  void onPointerHover(BuildContext context, PointerHoverEvent event) {}
+  void onLongPressEnd(BuildContext context, LongPressEndDetails details) {}
 
   factory Handler.fromBloc(DocumentBloc bloc) {
     final state = bloc.state;
@@ -34,23 +37,23 @@ abstract class Handler {
     }
     final painter = state.currentPainter;
     if (painter is PenPainter) {
-      return PenHandler(painter, bloc);
+      return PenHandler(painter);
     }
     if (painter is EraserPainter) {
-      return EraserHandler(painter, bloc);
+      return EraserHandler(painter);
     }
     if (painter is LabelPainter) {
-      return LabelHandler(painter, bloc);
+      return LabelHandler(painter);
     }
     if (painter is AreaPainter) {
-      return AreaHandler(painter, bloc);
+      return AreaHandler(painter);
     }
     if (painter is PathEraserPainter) {
-      return PathEraserHandler(painter, bloc);
+      return PathEraserHandler(painter);
     }
     if (painter is LayerPainter) {
-      return LayerHandler(painter, bloc);
+      return LayerHandler(painter);
     }
-    return HandHandler(bloc);
+    return HandHandler();
   }
 }

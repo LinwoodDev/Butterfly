@@ -39,24 +39,24 @@ void paintElement(Canvas canvas, PadElement element,
 }
 
 class ForegroundPainter extends CustomPainter {
-  final Map<int, PadElement> editingLayer;
+  final List<PadElement> editingLayer;
   final CameraTransform transform;
-  final PadElement? selection;
+  final List<Rect> selection;
   final List<Area> areas;
 
   ForegroundPainter(this.editingLayer,
       [this.transform = const CameraTransform(),
-      this.selection,
+      this.selection = const [],
       this.areas = const []]);
 
   @override
   void paint(Canvas canvas, Size size) {
     canvas.scale(transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
-    for (var element in editingLayer.entries) {
-      paintElement(canvas, element.value, {}, true);
+    for (var element in editingLayer) {
+      paintElement(canvas, element, {}, true);
     }
-    if (selection != null) {
+    for (var rect in selection) {
       /*
       final minX =
           -transform.position.dx + 20 / ((transform.size - 1) / 1.5 + 1);
@@ -64,8 +64,6 @@ class ForegroundPainter extends CustomPainter {
       final minY = -transform.position.dy + 20;
       final maxY = minY + size.height / transform.size - 40 / transform.size;
       */
-      var rect = selection!.rect;
-      rect = Rect.fromLTRB(rect.left, rect.top, rect.right, rect.bottom);
       canvas.drawRRect(
           RRect.fromRectAndRadius(rect.inflate(5), const Radius.circular(5)),
           Paint()
