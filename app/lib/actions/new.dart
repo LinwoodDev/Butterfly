@@ -1,8 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/editing.dart';
-import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
@@ -42,10 +40,6 @@ class NewAction extends Action<NewIntent> {
                 providers: [
                   BlocProvider.value(value: bloc),
                   BlocProvider.value(
-                      value: intent.context.read<SelectionCubit>()),
-                  BlocProvider.value(
-                      value: intent.context.read<EditingCubit>()),
-                  BlocProvider.value(
                       value: intent.context.read<TransformCubit>()),
                 ],
                 child: TemplateDialog(
@@ -71,8 +65,6 @@ class NewAction extends Action<NewIntent> {
     }
 
     bloc.clearHistory();
-    intent.context.read<SelectionCubit>().reset();
-    intent.context.read<EditingCubit>().resetAll();
     intent.context.read<TransformCubit>().reset();
     bloc.emit(DocumentLoadSuccess(document));
   }

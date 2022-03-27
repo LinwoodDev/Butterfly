@@ -1,5 +1,4 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -502,8 +501,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                     void showSelection() {
                                       var selectionCubit =
                                           context.read<SelectionCubit>();
-                                      var editingCubit =
-                                          context.read<EditingCubit>();
                                       var selection = selectionCubit.state;
                                       var bloc = context.read<DocumentBloc>();
                                       if (selection == null) return;
@@ -540,8 +537,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                                       BlocProvider.value(
                                                           value:
                                                               selectionCubit),
-                                                      BlocProvider.value(
-                                                          value: editingCubit),
                                                       BlocProvider.value(
                                                           value: transformCubit)
                                                     ],
@@ -724,38 +719,30 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 builder: (context, transform) {
                                   return Stack(children: [
                                     Container(color: Colors.white),
-                                    BlocBuilder<EditingCubit,
-                                        Map<int, PadElement>>(
-                                      builder: (context, editing) =>
-                                          BlocBuilder<SelectionCubit, dynamic>(
-                                              builder: (context, selection) {
-                                        return CustomPaint(
-                                          size: Size.infinite,
-                                          foregroundPainter: ForegroundPainter(
-                                            editing,
-                                            transform,
-                                            selection is PadElement
-                                                ? selection
-                                                : null,
-                                            state.currentPainter is AreaPainter
-                                                ? (List<Area>.from(
-                                                    state.document.areas)
-                                                  ..addAll(selection is Area
-                                                      ? [selection]
-                                                      : []))
-                                                : [],
-                                          ),
-                                          painter: ViewPainter(state.document,
-                                              elements: state.elements,
-                                              bakedViewport:
-                                                  state.bakedViewport,
-                                              transform: transform,
-                                              currentArea: state.currentArea),
-                                          isComplex: true,
-                                          willChange: true,
-                                        );
-                                      }),
-                                    ),
+                                    CustomPaint(
+                                      size: Size.infinite,
+                                      foregroundPainter: ForegroundPainter(
+                                        editing,
+                                        transform,
+                                        selection is PadElement
+                                            ? selection
+                                            : null,
+                                        state.currentPainter is AreaPainter
+                                            ? (List<Area>.from(
+                                                state.document.areas)
+                                              ..addAll(selection is Area
+                                                  ? [selection]
+                                                  : []))
+                                            : [],
+                                      ),
+                                      painter: ViewPainter(state.document,
+                                          elements: state.elements,
+                                          bakedViewport: state.bakedViewport,
+                                          transform: transform,
+                                          currentArea: state.currentArea),
+                                      isComplex: true,
+                                      willChange: true,
+                                    )
                                   ]);
                                 },
                               )));

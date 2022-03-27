@@ -1,9 +1,13 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'pen.dart';
 part 'eraser.dart';
+part 'hand.dart';
 part 'label.dart';
 part 'area.dart';
 part 'path_eraser.dart';
@@ -12,15 +16,23 @@ part 'layer.dart';
 abstract class Handler {
   final DocumentBloc bloc;
   Handler(this.bloc);
-  void onTapUp(TapUpDetails details) {}
-  void onTapDown(TapDownDetails details) {}
-  void onSecondaryTapUp(TapUpDetails details) {}
-  void onSecondaryTapDown(TapDownDetails details) {}
-  void onPointerDown(PointerDownEvent details) {}
-  void onPointerMove(PointerMoveEvent details) {}
-  void onPointerUp(PointerUpEvent details) {}
 
-  factory Handler.fromPainter(Painter painter, DocumentBloc bloc) {
+  List<PadElement> createForeground() => [];
+
+  void onTapUp(BuildContext context, TapUpDetails details) {}
+  void onTapDown(BuildContext context, TapDownDetails details) {}
+  void onSecondaryTapUp(BuildContext context, TapUpDetails details) {}
+  void onSecondaryTapDown(BuildContext context, TapDownDetails details) {}
+  void onPointerDown(BuildContext context, PointerDownEvent details) {}
+  void onPointerMove(BuildContext context, PointerMoveEvent details) {}
+  void onPointerUp(BuildContext context, PointerUpEvent details) {}
+
+  factory Handler.fromBloc(DocumentBloc bloc) {
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) {
+      throw Exception('Invalid document state');
+    }
+    final painter = state.currentPainter;
     if (painter is PenPainter) {
       return PenHandler(painter, bloc);
     }
@@ -39,6 +51,6 @@ abstract class Handler {
     if (painter is LayerPainter) {
       return LayerHandler(painter, bloc);
     }
-    throw Exception('Unknown painter type');
+    return HandHandler(bloc);
   }
 }

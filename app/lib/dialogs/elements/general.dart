@@ -1,5 +1,4 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/editing.dart';
 import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/layer.dart';
 import 'package:butterfly/models/elements/element.dart';
@@ -32,7 +31,6 @@ class GeneralElementDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       var bloc = context.read<DocumentBloc>();
-      var editingCubit = context.read<EditingCubit>();
       if (state is! DocumentLoadSuccess ||
           index < 0 ||
           index >= state.document.content.length) {

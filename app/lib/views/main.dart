@@ -20,8 +20,6 @@ import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/editing.dart';
-import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
@@ -109,8 +107,6 @@ class _ProjectPageState extends State<ProjectPage> {
         providers: [
           BlocProvider(create: (_) => _bloc!),
           BlocProvider(create: (_) => TransformCubit()),
-          BlocProvider(create: (_) => SelectionCubit()),
-          BlocProvider(create: (_) => EditingCubit()),
         ],
         child: Builder(builder: (context) {
           return Shortcuts(

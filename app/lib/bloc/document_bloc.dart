@@ -4,6 +4,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/baked_viewport.dart';
+import 'package:butterfly/models/current_index.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/painter.dart';
@@ -14,6 +15,7 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
+import '../handlers/handler.dart';
 import '../models/area.dart';
 import '../models/property.dart';
 
@@ -98,9 +100,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     });
     on<CurrentPainterChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
+        final handler = Handler.fromBloc(this);
         return _saveDocument((state as DocumentLoadSuccess).copyWith(
-            currentPainterIndex: event.painter,
-            removeCurrentPainterIndex: event.painter == null));
+            currentIndex: CurrentIndex(event.painter ?? 0, handler),
+            removeCurrentIndex: event.painter == null));
       }
     });
     on<PainterCreated>((event, emit) async {
@@ -141,13 +144,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         final item = painters.removeAt(oldIndex);
         painters.insert(newIndex, item);
+        final index = current.currentIndex != null
+            ? CurrentIndex(
+                oldIndex == current.currentIndex!.index
+                    ? newIndex
+                    : newIndex == current.currentIndex!.index
+                        ? oldIndex
+                        : current.currentIndex!.index,
+                Handler.fromBloc(this))
+            : null;
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(painters: painters),
-            currentPainterIndex: oldIndex == current.currentPainterIndex
-                ? newIndex
-                : newIndex == current.currentPainterIndex
-                    ? oldIndex
-                    : current.currentPainterIndex));
+            currentIndex: index));
       }
     });
     on<DocumentBackgroundChanged>((event, emit) async {
