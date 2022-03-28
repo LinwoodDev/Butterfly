@@ -213,5 +213,7 @@
     "exitArea": "Beende das Gebiet",
     "alreadyExists": "Dieser Wert existiert bereits",
     "currentArea": "Aktueller Bereich",
-    "fullscreen": "Vollbild"
+    "fullscreen": "Vollbild",
+    "textField": "Text field",
+    "selectSensitivity": "Select sensitivity"
 }
