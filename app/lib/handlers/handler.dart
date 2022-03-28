@@ -3,9 +3,17 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/painter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../dialogs/background/context.dart';
+import '../dialogs/elements/general.dart';
+import '../dialogs/elements/image.dart';
+import '../dialogs/elements/label.dart';
+import '../dialogs/select.dart';
+import '../widgets/context_menu.dart';
 
 part 'pen.dart';
 part 'eraser.dart';
@@ -60,17 +68,37 @@ abstract class Handler {
   }
 }
 
-List<PadElement> rayCast(BuildContext context, Offset localPosition) {
+class _RayCastParams {
+  final List<String> invisibleLayers;
+  final List<PadElement> elements;
+  final Offset globalPosition;
+  final double selectSensitivity;
+  final double size;
+
+  const _RayCastParams(this.invisibleLayers, this.elements, this.globalPosition,
+      this.selectSensitivity, this.size);
+}
+
+Future<Set<PadElement>> rayCast(
+    BuildContext context, Offset localPosition) async {
   final bloc = context.read<DocumentBloc>();
   final settings = context.read<SettingsCubit>().state;
   final transform = context.read<TransformCubit>().state;
   final state = bloc.state;
-  if (state is! DocumentLoadSuccess) return [];
+  if (state is! DocumentLoadSuccess) return {};
   final globalPosition = transform.localToGlobal(localPosition);
-  return state.document.content
+  return compute(
+      _executeRayCast,
+      _RayCastParams(state.invisibleLayers, state.document.content,
+          globalPosition, settings.selectSensitivity, transform.size));
+}
+
+Set<PadElement> _executeRayCast(_RayCastParams params) {
+  return params.elements
+      .where((element) => !params.invisibleLayers.contains(element.layer))
       .where((element) => element.hit(
-          globalPosition, settings.selectSensitivity / transform.size))
+          params.globalPosition, params.selectSensitivity / params.size))
       .toList()
       .reversed
-      .toList();
+      .toSet();
 }

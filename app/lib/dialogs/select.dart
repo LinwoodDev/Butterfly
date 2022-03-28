@@ -68,9 +68,7 @@ class _SelectElementDialogState extends State<SelectElementDialog> {
                     color: current == element
                         ? Theme.of(context).colorScheme.primary
                         : null,
-                    onPressed: () {
-                      current = element;
-                    },
+                    onPressed: () => setState(() => current = element),
                   );
                 }),
           ),

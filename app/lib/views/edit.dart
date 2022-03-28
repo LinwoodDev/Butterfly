@@ -99,7 +99,7 @@ class EditToolbar extends StatelessWidget {
                       children: [
                         OptionButton(
                           tooltip: AppLocalizations.of(context)!.hand,
-                          isSelected: state.currentPainter == null,
+                          selected: state.currentPainter == null,
                           icon: const Icon(PhosphorIcons.handLight),
                           selectedIcon: const Icon(PhosphorIcons.handFill),
                           onLongPressed: openHandDialog,
@@ -175,7 +175,7 @@ class EditToolbar extends StatelessWidget {
                                   child: OptionButton(
                                       tooltip: tooltip,
                                       onLongPressed: openDialog,
-                                      isSelected: selected,
+                                      selected: selected,
                                       selectedIcon:
                                           Icon(getPainterActiveIcon(type)),
                                       icon: Icon(getPainterIcon(type)),

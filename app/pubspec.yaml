@@ -49,7 +49,7 @@ dependencies:
   json_annotation: ^4.4.0
 
 dev_dependencies:
-  flutter_native_splash: ^2.1.1
+  flutter_native_splash: ^2.1.2+1
   flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
