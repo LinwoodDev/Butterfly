@@ -2,6 +2,8 @@
 title: Branding
 ---
 
+Diese Assets sind unter [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE) lizenziert.
+
 ## Logo
 
 ![Logo](/img/logo.svg)
