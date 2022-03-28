@@ -1,4 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/painter.dart';
@@ -57,4 +58,19 @@ abstract class Handler {
     }
     return HandHandler();
   }
+}
+
+List<PadElement> rayCast(BuildContext context, Offset localPosition) {
+  final bloc = context.read<DocumentBloc>();
+  final settings = context.read<SettingsCubit>().state;
+  final transform = context.read<TransformCubit>().state;
+  final state = bloc.state;
+  if (state is! DocumentLoadSuccess) return [];
+  final globalPosition = transform.localToGlobal(localPosition);
+  return state.document.content
+      .where((element) => element.hit(
+          globalPosition, settings.selectSensitivity / transform.size))
+      .toList()
+      .reversed
+      .toList();
 }

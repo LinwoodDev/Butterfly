@@ -204,14 +204,16 @@
   "area": "Area",
   "selectArea": "Select an area",
   "aspectRatio": "Aspect ratio",
-  "presets":"Presets",
+  "presets": "Presets",
   "pagePortrait": "Page portrait",
   "pageLandscape": "Page landscape",
-  "square":"Square",
+  "square": "Square",
   "areas": "Areas",
   "enterArea": "Enter the area",
   "exitArea": "Exit the area",
   "alreadyExists": "This value already exists",
   "currentArea": "Current area",
-  "fullscreen": "Fullscreen"
+  "fullscreen": "Fullscreen",
+  "textField": "Text field",
+  "selectSensitivity": "Select sensitivity"
 }

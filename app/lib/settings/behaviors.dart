@@ -107,6 +107,21 @@ class BehaviorsSettingsPage extends StatelessWidget {
                                               context.read<SettingsCubit>();
                                           cubit.changePenSensitivity(value);
                                         }),
+                                    ExactSlider(
+                                        min: 0,
+                                        max: 50,
+                                        value: state.selectSensitivity,
+                                        header: Row(children: [
+                                          const Icon(PhosphorIcons.cursorLight),
+                                          const SizedBox(width: 8),
+                                          Text(AppLocalizations.of(context)!
+                                              .selectSensitivity),
+                                        ]),
+                                        onChanged: (value) {
+                                          final cubit =
+                                              context.read<SettingsCubit>();
+                                          cubit.changeSelectSensitivity(value);
+                                        }),
                                   ])),
                             ]),
                       )),
