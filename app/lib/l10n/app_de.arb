@@ -214,6 +214,6 @@
     "alreadyExists": "Dieser Wert existiert bereits",
     "currentArea": "Aktueller Bereich",
     "fullscreen": "Vollbild",
-    "textField": "Text field",
-    "selectSensitivity": "Select sensitivity"
+    "textField": "Textfeld",
+    "selectSensitivity": "Empfindlichkeit auswählen"
 }
