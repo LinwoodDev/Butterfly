@@ -15,13 +15,18 @@ import '../dialogs/elements/label.dart';
 import '../dialogs/select.dart';
 import '../widgets/context_menu.dart';
 
-part 'pen.dart';
+part 'area.dart';
+
 part 'eraser.dart';
 part 'hand.dart';
+
 part 'label.dart';
-part 'area.dart';
-part 'path_eraser.dart';
+
 part 'layer.dart';
+
+part 'path_eraser.dart';
+
+part 'pen.dart';
 
 abstract class Handler {
   const Handler();
@@ -47,22 +52,22 @@ abstract class Handler {
     final painter =
         index != null ? state.document.painters[index] : state.currentPainter;
     if (painter is PenPainter) {
-      return PenHandler(painter);
+      return PenHandler();
     }
     if (painter is EraserPainter) {
-      return EraserHandler(painter);
+      return EraserHandler();
     }
     if (painter is LabelPainter) {
-      return LabelHandler(painter);
+      return LabelHandler();
     }
     if (painter is AreaPainter) {
-      return AreaHandler(painter);
+      return AreaHandler();
     }
     if (painter is PathEraserPainter) {
-      return PathEraserHandler(painter);
+      return PathEraserHandler();
     }
     if (painter is LayerPainter) {
-      return LayerHandler(painter);
+      return LayerHandler();
     }
     return HandHandler();
   }
