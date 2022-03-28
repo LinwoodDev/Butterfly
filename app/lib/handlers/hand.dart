@@ -2,8 +2,12 @@ part of 'handler.dart';
 
 class HandHandler extends Handler {
   PadElement? movingElement;
+  PadElement? selected;
 
   HandHandler();
+
+  @override
+  List<Rect> createSelections() => [if (selected != null) selected!.rect];
 
   void move(BuildContext context, PadElement next) {
     submitMove(context);
@@ -23,6 +27,7 @@ class HandHandler extends Handler {
       submitMove(context);
       return;
     }
+    final bloc = context.read<DocumentBloc>();
     if (openView) {
       if (kDebugMode) {
         print('Executing ray cast...');
@@ -49,14 +54,18 @@ class HandHandler extends Handler {
                           position: event.position, close: close)),
                 ));
       } else if (hits.length == 1) {
-        showSelection(context, event.localPosition, hits.first);
+        selected = hits.first;
+        bloc.add(const IndexRefreshed());
+        showSelection(context, event.localPosition);
       } else {
         showDialog(
             context: context,
             builder: (context) =>
                 SelectElementDialog(elements: hits.toList())).then((value) {
           if (value is PadElement) {
-            showSelection(context, event.localPosition, value);
+            selected = value;
+            bloc.add(const IndexRefreshed());
+            showSelection(context, event.localPosition);
           }
         });
       }
@@ -64,24 +73,23 @@ class HandHandler extends Handler {
     openView = true;
   }
 
-  void showSelection(
-      BuildContext context, Offset localPosition, PadElement element) {
+  Future<void> showSelection(BuildContext context, Offset localPosition) async {
     final bloc = context.read<DocumentBloc>();
     final transformCubit = context.read<TransformCubit>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     var index = 0;
     var actor = context.findAncestorWidgetOfExactType<Actions>();
-    showContextMenu(
+    await showContextMenu(
         context: context,
         position: localPosition,
         builder: (context, close) {
           Widget? menu;
-          if (element is LabelElement) {
+          if (selected is LabelElement) {
             menu = LabelElementDialog(
                 position: localPosition, index: index, close: close);
           }
-          if (element is ImageElement) {
+          if (selected is ImageElement) {
             menu = ImageElementDialog(
                 position: localPosition, index: index, close: close);
           }
@@ -92,6 +100,8 @@ class HandHandler extends Handler {
             BlocProvider.value(value: transformCubit)
           ], child: Actions(actions: actor?.actions ?? {}, child: menu));
         });
+    selected = null;
+    bloc.add(const IndexRefreshed());
   }
 
   @override

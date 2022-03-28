@@ -24,7 +24,7 @@ class ButterflySettings {
       this.touchSensitivity = 1,
       this.mouseSensitivity = 1,
       this.penSensitivity = 1,
-      this.selectSensitivity = 1,
+      this.selectSensitivity = 5,
       this.inputType = InputType.multiDraw});
 
   ButterflySettings.fromPrefs(SharedPreferences prefs)
@@ -40,7 +40,7 @@ class ButterflySettings {
         touchSensitivity = prefs.getDouble('touch_sensitivity') ?? 1,
         mouseSensitivity = prefs.getDouble('mouse_sensitivity') ?? 1,
         penSensitivity = prefs.getDouble('pen_sensitivity') ?? 1,
-        selectSensitivity = prefs.getDouble('select_sensitivity') ?? 1;
+        selectSensitivity = prefs.getDouble('select_sensitivity') ?? 5;
 
   Locale? get locale => localeTag.isEmpty ? null : Locale(localeTag);
 

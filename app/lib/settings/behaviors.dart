@@ -110,6 +110,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
                                     ExactSlider(
                                         min: 0,
                                         max: 50,
+                                        defaultValue: 5,
                                         value: state.selectSensitivity,
                                         header: Row(children: [
                                           const Icon(PhosphorIcons.cursorLight),
