@@ -15,11 +15,22 @@ class HandHandler extends Handler {
     context.read<DocumentBloc>().add(ElementsCreated([movingElement!]));
   }
 
+  bool openView = true;
+
   @override
   void onPointerUp(BuildContext context, PointerUpEvent event) {
     if (movingElement != null) {
       submitMove(context);
       return;
     }
+  }
+
+  @override
+  void onPointerMove(BuildContext context, PointerMoveEvent event) {
+    final transform = context.read<TransformCubit>().state;
+    if (openView) {
+      openView = (event.delta / transform.size) == Offset.zero;
+    }
+    context.read<TransformCubit>().move(event.delta / transform.size);
   }
 }

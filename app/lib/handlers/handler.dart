@@ -30,12 +30,13 @@ abstract class Handler {
   void onPointerHover(BuildContext context, PointerHoverEvent event) {}
   void onLongPressEnd(BuildContext context, LongPressEndDetails details) {}
 
-  factory Handler.fromBloc(DocumentBloc bloc) {
+  factory Handler.fromBloc(DocumentBloc bloc, [int? index]) {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) {
       throw Exception('Invalid document state');
     }
-    final painter = state.currentPainter;
+    final painter =
+        index != null ? state.document.painters[index] : state.currentPainter;
     if (painter is PenPainter) {
       return PenHandler(painter);
     }

@@ -25,7 +25,7 @@ class DocumentLoadSuccess extends DocumentState {
       CurrentIndex? currentIndex,
       this.currentLayer = '',
       this.invisibleLayers = const []})
-      : currentIndex = CurrentIndex(-1, HandHandler());
+      : currentIndex = currentIndex ?? CurrentIndex(-1, HandHandler());
 
   @override
   List<Object?> get props => [

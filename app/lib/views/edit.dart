@@ -122,9 +122,7 @@ class EditToolbar extends StatelessWidget {
                             itemBuilder: (context, i) {
                               var e = painters[i];
                               var type = e.toJson()['type'];
-                              var selected = i ==
-                                  state.currentIndex.index.clamp(
-                                      0, state.document.painters.length - 1);
+                              var selected = i == state.currentIndex.index;
                               String tooltip = e.name.trim();
                               void openDialog() {
                                 var bloc = context.read<DocumentBloc>();
