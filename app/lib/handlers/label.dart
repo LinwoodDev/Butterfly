@@ -1,4 +1,3 @@
 part of 'handler.dart';
 
-class LabelHandler extends Handler {
-}
+class LabelHandler extends Handler {}

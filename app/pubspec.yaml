@@ -41,7 +41,7 @@ dependencies:
   animations: ^2.0.2
   collection: ^1.15.0
   bloc_concurrency: ^0.2.0
-  camera: ^0.9.4+17
+  camera: ^0.9.4+18
   camera_windows: ^0.1.0
   window_manager: ^0.2.0
   flex_color_scheme: ^4.2.0

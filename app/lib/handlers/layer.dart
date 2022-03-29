@@ -1,4 +1,3 @@
 part of 'handler.dart';
 
-class LayerHandler extends Handler {
-}
+class LayerHandler extends Handler {}

@@ -29,13 +29,10 @@ class HandHandler extends Handler {
     }
     final bloc = context.read<DocumentBloc>();
     if (openView) {
-      if (kDebugMode) {
-        print('Executing ray cast...');
-      }
-      final hits = await rayCast(context, event.localPosition);
-      if (kDebugMode) {
-        print('Ray cast done. Hits: $hits');
-      }
+      final settings = context.read<SettingsCubit>().state;
+      final transform = context.read<TransformCubit>().state;
+      final radius = settings.selectSensitivity / transform.size;
+      final hits = await rayCast(context, event.localPosition, radius);
       if (hits.isEmpty) {
         showContextMenu(
             context: context,

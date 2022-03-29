@@ -1,4 +1,3 @@
 part of 'handler.dart';
 
-class EraserHandler extends Handler {
-}
+class EraserHandler extends Handler {}

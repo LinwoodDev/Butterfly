@@ -16,16 +16,11 @@ import '../dialogs/select.dart';
 import '../widgets/context_menu.dart';
 
 part 'area.dart';
-
 part 'eraser.dart';
 part 'hand.dart';
-
 part 'label.dart';
-
 part 'layer.dart';
-
 part 'path_eraser.dart';
-
 part 'pen.dart';
 
 abstract class Handler {
@@ -77,17 +72,16 @@ class _RayCastParams {
   final List<String> invisibleLayers;
   final List<PadElement> elements;
   final Offset globalPosition;
-  final double selectSensitivity;
+  final double radius;
   final double size;
 
   const _RayCastParams(this.invisibleLayers, this.elements, this.globalPosition,
-      this.selectSensitivity, this.size);
+      this.radius, this.size);
 }
 
 Future<Set<PadElement>> rayCast(
-    BuildContext context, Offset localPosition) async {
+    BuildContext context, Offset localPosition, double radius) async {
   final bloc = context.read<DocumentBloc>();
-  final settings = context.read<SettingsCubit>().state;
   final transform = context.read<TransformCubit>().state;
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return {};
@@ -95,14 +89,13 @@ Future<Set<PadElement>> rayCast(
   return compute(
       _executeRayCast,
       _RayCastParams(state.invisibleLayers, state.document.content,
-          globalPosition, settings.selectSensitivity, transform.size));
+          globalPosition, radius, transform.size));
 }
 
 Set<PadElement> _executeRayCast(_RayCastParams params) {
   return params.elements
       .where((element) => !params.invisibleLayers.contains(element.layer))
-      .where((element) => element.hit(
-          params.globalPosition, params.selectSensitivity / params.size))
+      .where((element) => element.hit(params.globalPosition, params.radius))
       .toList()
       .reversed
       .toSet();
