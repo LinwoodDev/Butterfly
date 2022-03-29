@@ -24,7 +24,7 @@ class EditToolbar extends StatelessWidget {
     switch (type) {
       case 'eraser':
         return PhosphorIcons.eraserLight;
-      case 'path-eraser':
+      case 'pathEraser':
         return PhosphorIcons.pathLight;
       case 'label':
         return PhosphorIcons.textTLight;
@@ -43,7 +43,7 @@ class EditToolbar extends StatelessWidget {
     switch (type) {
       case 'eraser':
         return PhosphorIcons.eraserFill;
-      case 'path-eraser':
+      case 'pathEraser':
         return PhosphorIcons.pathFill;
       case 'label':
         return PhosphorIcons.textTFill;
@@ -151,7 +151,7 @@ class EditToolbar extends StatelessWidget {
                                         case 'eraser':
                                           return EraserPainterDialog(
                                               bloc: bloc, painterIndex: i);
-                                        case 'path-eraser':
+                                        case 'pathEraser':
                                           return PathEraserPainterDialog(
                                               bloc: bloc, painterIndex: i);
                                         case 'label':
@@ -208,7 +208,7 @@ class EditToolbar extends StatelessWidget {
                                   ...[
                                     'pen',
                                     'eraser',
-                                    'path-eraser',
+                                    'pathEraser',
                                     'label',
                                     'layer',
                                     'area'
@@ -222,7 +222,7 @@ class EditToolbar extends StatelessWidget {
                                         name = AppLocalizations.of(context)!
                                             .eraser;
                                         break;
-                                      case 'path-eraser':
+                                      case 'pathEraser':
                                         // ignore: prefer_const_constructors
                                         painter = PathEraserPainter();
                                         name = AppLocalizations.of(context)!

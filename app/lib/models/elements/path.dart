@@ -57,9 +57,10 @@ abstract class PathElement extends PadElement {
           2);
       var current = element.toVector2();
       final l2 = pow(last.x - current.x, 2) + pow(last.y - current.y, 2);
-      if (l2 == 0)
+      if (l2 == 0) {
         return pow(vector.x - current.x, 2) + pow(vector.y - current.y, 2) <=
             widthSquared;
+      }
       var t = ((vector.x - current.x) * (last.x - current.x) +
               (vector.y - current.y) * (last.y - current.y)) /
           l2;

@@ -27,16 +27,25 @@ abstract class Handler {
   const Handler();
 
   List<PadElement> createForegrounds() => [];
+
   List<Rect> createSelections() => [];
 
   void onTapUp(BuildContext context, TapUpDetails details) {}
+
   void onTapDown(BuildContext context, TapDownDetails details) {}
+
   void onSecondaryTapUp(BuildContext context, TapUpDetails details) {}
+
   void onSecondaryTapDown(BuildContext context, TapDownDetails details) {}
+
   void onPointerDown(BuildContext context, PointerDownEvent event) {}
+
   void onPointerMove(BuildContext context, PointerMoveEvent event) {}
+
   void onPointerUp(BuildContext context, PointerUpEvent event) {}
+
   void onPointerHover(BuildContext context, PointerHoverEvent event) {}
+
   void onLongPressEnd(BuildContext context, LongPressEndDetails details) {}
 
   factory Handler.fromBloc(DocumentBloc bloc, [int? index]) {
@@ -74,13 +83,15 @@ class _RayCastParams {
   final Offset globalPosition;
   final double radius;
   final double size;
+  final bool includeEraser;
 
   const _RayCastParams(this.invisibleLayers, this.elements, this.globalPosition,
-      this.radius, this.size);
+      this.radius, this.size, this.includeEraser);
 }
 
-Future<Set<PadElement>> rayCast(
-    BuildContext context, Offset localPosition, double radius) async {
+Future<Set<int>> rayCast(
+    BuildContext context, Offset localPosition, double radius,
+    [bool includeEraser = false]) async {
   final bloc = context.read<DocumentBloc>();
   final transform = context.read<TransformCubit>().state;
   final state = bloc.state;
@@ -89,14 +100,16 @@ Future<Set<PadElement>> rayCast(
   return compute(
       _executeRayCast,
       _RayCastParams(state.invisibleLayers, state.document.content,
-          globalPosition, radius, transform.size));
+          globalPosition, radius, transform.size, includeEraser));
 }
 
-Set<PadElement> _executeRayCast(_RayCastParams params) {
-  return params.elements
-      .where((element) => !params.invisibleLayers.contains(element.layer))
-      .where((element) => element.hit(params.globalPosition, params.radius))
-      .toList()
-      .reversed
-      .toSet();
+Set<int> _executeRayCast(_RayCastParams params) {
+  var elements = Map<int, PadElement>.from(params.elements.asMap())
+    ..removeWhere(
+        (index, element) => params.invisibleLayers.contains(element.layer))
+    ..removeWhere(
+        (index, element) => !element.hit(params.globalPosition, params.radius))
+    ..removeWhere(
+        (index, element) => !params.includeEraser && element is EraserElement);
+  return elements.keys.toSet();
 }

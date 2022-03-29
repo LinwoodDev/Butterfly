@@ -141,7 +141,7 @@ class AppDocument {
           switch (e['type']) {
             case 'eraser':
               return EraserPainter.fromJson(e);
-            case 'path-eraser':
+            case 'pathEraser':
               return PathEraserPainter.fromJson(e);
             case 'label':
               return LabelPainter.fromJson(e);
