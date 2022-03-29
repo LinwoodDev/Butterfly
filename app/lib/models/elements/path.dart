@@ -50,23 +50,26 @@ abstract class PathElement extends PadElement {
     var last = points.first.toVector2();
     var vector = Vector2(offset.dx, offset.dy);
     return points.any((element) {
-      double distance;
-      var current = element.toVector2();
-      var lineWidth = pow(
-          property.strokeWidth + property.strokeMultiplier * element.pressure,
+      var widthSquared = pow(
+          (property.strokeWidth +
+                  property.strokeMultiplier * element.pressure) /
+              2,
           2);
-      var l2 = current.length2 + last.length2;
-      if (l2 == 0) {
-        distance = vector.distanceTo(last);
-      } else {
-        double t = max(0, min(1, (vector - last).dot(current - last) / l2));
-        var projection = current + (last - current) * t;
-        distance = vector.distanceTo(projection);
-      }
-
+      var current = element.toVector2();
+      final l2 = pow(last.x - current.x, 2) + pow(last.y - current.y, 2);
+      if (l2 == 0)
+        return pow(vector.x - current.x, 2) + pow(vector.y - current.y, 2) <=
+            widthSquared;
+      var t = ((vector.x - current.x) * (last.x - current.x) +
+              (vector.y - current.y) * (last.y - current.y)) /
+          l2;
+      t = max(0, min(1, t));
+      var projection = Vector2(
+          last.x + t * (current.x - last.x), last.y + t * (current.y - last.y));
       last = current;
-      // If distance is less than line width, then it is a hit.
-      return distance <= lineWidth / 2;
+      return pow(vector.x - projection.x, 2) +
+              pow(vector.y - projection.y, 2) <=
+          widthSquared;
     });
   }
 
@@ -94,10 +97,12 @@ abstract class PathElement extends PadElement {
     var topLeftCorner = points.first.toOffset();
     var bottomRightCorner = points.first.toOffset();
     for (var element in points) {
-      topLeftCorner = Offset(
-          min(topLeftCorner.dx, element.x), min(topLeftCorner.dy, element.y));
-      bottomRightCorner = Offset(max(bottomRightCorner.dx, element.x),
-          max(bottomRightCorner.dy, element.y));
+      final width =
+          property.strokeWidth + element.pressure * property.strokeMultiplier;
+      topLeftCorner = Offset(min(topLeftCorner.dx, element.x - width),
+          min(topLeftCorner.dy, element.y - width));
+      bottomRightCorner = Offset(max(bottomRightCorner.dx, element.x + width),
+          max(bottomRightCorner.dy, element.y + width));
     }
     return Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
         bottomRightCorner.dx, bottomRightCorner.dy);

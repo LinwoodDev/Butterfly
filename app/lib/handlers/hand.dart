@@ -32,6 +32,7 @@ class HandHandler extends Handler {
       final settings = context.read<SettingsCubit>().state;
       final transform = context.read<TransformCubit>().state;
       final radius = settings.selectSensitivity / transform.size;
+      print(radius);
       final hits = await rayCast(context, event.localPosition, radius);
       if (hits.isEmpty) {
         showContextMenu(
