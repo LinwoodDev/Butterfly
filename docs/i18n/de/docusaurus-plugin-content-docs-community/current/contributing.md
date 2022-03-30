@@ -1,7 +1,7 @@
 ---
-title: Mitwirken
+title: "Mitwirken"
 hide_title: true
-sidebar_label: Mitwirken
+sidebar_label: "Mitwirken"
 ---
 
 ```mdx-code-block
