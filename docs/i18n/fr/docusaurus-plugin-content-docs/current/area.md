@@ -1,9 +1,9 @@
 - - -
-title: Area
+title: Zone d'application
 - - -
 
 ## Introduction
 
-Areas are a way to restrict the size of the canvas. You can create areas by using the [area painter](painters/area.md). If you click on the background you can open the area list dialog using the context menu.
+Les zones sont un moyen de limiter la taille de la toile. Vous pouvez créer des zones en utilisant le peintre d'aire [](painters/area.md). Si vous cliquez sur l'arrière-plan, vous pouvez ouvrir la boîte de dialogue de la liste des zones en utilisant le menu contextuel.
 
-TODO: Add more information about areas.
+TODO : Ajouter plus d'informations sur les zones.
