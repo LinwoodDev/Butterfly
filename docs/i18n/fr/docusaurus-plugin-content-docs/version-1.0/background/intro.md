@@ -1,8 +1,8 @@
 ---
+title: "Arrière-plan"
 sidebar_label: "Introduction"
 ---
 
-# Arrière-plan
 
 Vous pouvez personnaliser l'arrière-plan du papier. Cliquez sur l’icône de fond dans l’outil de vue pour l’ajouter.
 
