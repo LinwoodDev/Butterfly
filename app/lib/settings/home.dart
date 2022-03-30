@@ -60,16 +60,15 @@ class SettingsPage extends StatelessWidget {
           ListTile(
               leading: const Icon(PhosphorIcons.usersLight),
               title: const Text('Discord'),
-              onTap: () => launch('https://discord.linwood.dev')),
+              onTap: () => launch('https://go.linwood.dev/discord')),
           ListTile(
               leading: const Icon(PhosphorIcons.translateLight),
               title: const Text('Crowdin'),
-              onTap: () => launch('https://linwood.crowdin.com')),
+              onTap: () => launch('https://go.linwood.dev/butterfly/crowdin')),
           ListTile(
               leading: const Icon(PhosphorIcons.codeLight),
               title: Text(AppLocalizations.of(context)!.source),
-              onTap: () =>
-                  launch('https://github.com/LinwoodCloud/dev_doctor')),
+              onTap: () => launch('https://go.linwood.dev/butterfly/source')),
           ListTile(
               leading: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               title: Text(AppLocalizations.of(context)!.changelog),
@@ -79,17 +78,16 @@ class SettingsPage extends StatelessWidget {
           ListTile(
               leading: const Icon(PhosphorIcons.stackLight),
               title: Text(AppLocalizations.of(context)!.license),
-              onTap: () => launch(
-                  'https://github.com/LinwoodCloud/butterfly/blob/main/LICENSE')),
+              onTap: () => launch('go.linwood.dev/butterfly/license')),
           ListTile(
               leading: const Icon(PhosphorIcons.identificationCardLight),
               title: Text(AppLocalizations.of(context)!.imprint),
-              onTap: () => launch('https://codedoctor.tk/impress')),
+              onTap: () => launch('go.linwood.dev/impress')),
           ListTile(
               leading: const Icon(PhosphorIcons.shieldLight),
               title: Text(AppLocalizations.of(context)!.privacypolicy),
-              onTap: () => launch(
-                  'https://docs.butterfly.linwood.dev/docs/privacypolicy')),
+              onTap: () =>
+                  launch('https://docs.butterfly.linwood.dev/privacypolicy')),
           ListTile(
               leading: const Icon(PhosphorIcons.infoLight),
               title: Text(AppLocalizations.of(context)!.information),

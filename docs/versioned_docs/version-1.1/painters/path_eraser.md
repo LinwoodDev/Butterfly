@@ -1,9 +1,8 @@
 ---
+title: "Path eraser painter"
 sidebar_label: "Path eraser"
 sidebar_position: 4
 ---
-
-# Path eraser painter
 
 With this painter you can delete the whole path on the paper.
 

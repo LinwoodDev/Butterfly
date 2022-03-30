@@ -1,9 +1,8 @@
 ---
+title: "Tools"
 sidebar_label: "Introduction"
 sidebar_position: 0
 ---
-
-# Tools
 
 Tools can change the camera or select objects.
 

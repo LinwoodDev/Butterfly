@@ -1,8 +1,8 @@
 ---
+title: "Eraser painter"
 sidebar_label: "Eraser"
 sidebar_position: 3
 ---
-# Eraser painter
 
 :::warning It is not recommended to use the eraser.
 

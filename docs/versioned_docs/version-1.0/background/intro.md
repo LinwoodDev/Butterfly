@@ -1,8 +1,8 @@
 ---
+title: "Background"
 sidebar_label: "Introduction"
 ---
 
-# Background
 
 You can customize the background of the paper.
 Click on the background icon in the view tool to add it.

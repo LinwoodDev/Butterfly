@@ -1,4 +1,6 @@
-# Music paper
+---
+title: "Music paper"
+---
 
 | Property | Value |
 |---------:|:------|

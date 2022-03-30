@@ -1,7 +1,7 @@
 ---
 sidebar_label: "Area"
+title: "Area painter"
 ---
-# Area painter
 
 The area painter allows you to create, edit and remove areas.
 
