@@ -1,4 +1,6 @@
-# Papier musical
+- - -
+title: "Music paper"
+- - -
 
 |   Propriété | Valeur |
 | -----------:|:------ |
