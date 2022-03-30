@@ -1,5 +1,5 @@
 - - -
-title: "Music paper"
+title: "Musikpapier"
 - - -
 
 |   Objekt | Wert |
