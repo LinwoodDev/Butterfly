@@ -1,5 +1,5 @@
 - - -
-title: "Music paper"
+title: "Papier de musique"
 - - -
 
 |   Propriété | Valeur |
