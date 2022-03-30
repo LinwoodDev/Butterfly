@@ -1,5 +1,5 @@
 - - -
-title: "Quad paper"
+title: "Papier quadriel"
 - - -
 
 |   Propriété | Valeur |
