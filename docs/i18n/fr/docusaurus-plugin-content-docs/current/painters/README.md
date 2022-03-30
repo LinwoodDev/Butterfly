@@ -1,10 +1,10 @@
 ---
+title: "Peintres"
 slug: /painters
 sidebar_label: "Introduction"
 sidebar_position: 1
 ---
 
-# Peintres
 
 Les peintres peuvent modifier le papier.
 
