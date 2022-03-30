@@ -1,9 +1,8 @@
 ---
+title: "Peintre gomme de chemin"
 sidebar_label: "Effacer le chemin d'accès"
 sidebar_position: 4
 ---
-
-# Peintre gomme de chemin
 
 Avec ce peintre vous pouvez supprimer tout le chemin sur le papier.
 
