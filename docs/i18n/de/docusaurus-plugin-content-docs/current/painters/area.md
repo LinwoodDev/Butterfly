@@ -1,6 +1,6 @@
 ---
 sidebar_label: "Fläche"
-title: "Area painter"
+title: "Flächenmaler"
 ---
 
 Der Flächenmaler ermöglicht das Erstellen, Bearbeiten und Entfernen von Bereichen.
