@@ -1,10 +1,10 @@
 ---
+title: Einführung
 id: intro
 slug: /intro
 sidebar_position: 1
 ---
 
-# Einführung
 
 ![Banner](/img/banner.png)
 
