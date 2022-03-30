@@ -1,8 +1,7 @@
 ---
+title: "Einführung"
 sidebar_position: 1
 ---
-
-# Einführung
 
 ![Banner](/img/banner.png)
 
