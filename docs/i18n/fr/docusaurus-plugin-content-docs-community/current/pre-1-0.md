@@ -1,6 +1,8 @@
-# Versions antérieures à 1.0
+- - -
+title: "Pre-1.0 versions"
+- - -
 
-Ces versions ne sont plus supportées. De nouvelles versions sont disponibles à [versions](versions.md).
+These versions are not supported anymore. New versions are available at [versions](versions.md).
 
 | Version       | Supporté |                                                                                                                                                               |
 | ------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
