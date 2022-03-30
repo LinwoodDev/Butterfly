@@ -78,11 +78,11 @@ class SettingsPage extends StatelessWidget {
           ListTile(
               leading: const Icon(PhosphorIcons.stackLight),
               title: Text(AppLocalizations.of(context)!.license),
-              onTap: () => launch('go.linwood.dev/butterfly/license')),
+              onTap: () => launch('https://go.linwood.dev/butterfly/license')),
           ListTile(
               leading: const Icon(PhosphorIcons.identificationCardLight),
               title: Text(AppLocalizations.of(context)!.imprint),
-              onTap: () => launch('go.linwood.dev/impress')),
+              onTap: () => launch('https://go.linwood.dev/impress')),
           ListTile(
               leading: const Icon(PhosphorIcons.shieldLight),
               title: Text(AppLocalizations.of(context)!.privacypolicy),
