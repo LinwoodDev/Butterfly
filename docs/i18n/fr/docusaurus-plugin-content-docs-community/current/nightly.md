@@ -1,8 +1,7 @@
 ---
+title: "Nightly Builds"
 slug: "/nightly"
 ---
-
-# Compilations nocturnes
 
 :::warning
 
