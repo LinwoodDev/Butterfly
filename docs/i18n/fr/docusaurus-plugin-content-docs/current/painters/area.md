@@ -1,8 +1,7 @@
 ---
 sidebar_label: "Zone de stockage"
+title: "Area painter"
 ---
-
-# Peintre de zone
 
 Le peintre de zone vous permet de créer, éditer et supprimer des zones.
 
