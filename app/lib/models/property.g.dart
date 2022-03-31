@@ -28,7 +28,7 @@ _$LabelProperty _$$LabelPropertyFromJson(Map<String, dynamic> json) =>
       overline: json['overline'] as bool? ?? false,
       italic: json['italic'] as bool? ?? false,
       letterSpacing: (json['letterSpacing'] as num?)?.toDouble() ?? 0,
-      decorationColor: json['decorationColor'] ?? kColorBlack,
+      decorationColor: json['decorationColor'] as int? ?? kColorBlack,
       decorationStyle: $enumDecodeNullable(
               _$TextDecorationStyleEnumMap, json['decorationStyle']) ??
           TextDecorationStyle.solid,

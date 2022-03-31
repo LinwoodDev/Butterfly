@@ -2,7 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/models/baked_viewport.dart';
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/element.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +29,8 @@ void paintElement(Canvas canvas, PadElement element,
       canvas.drawImageRect(
         image,
         Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-        Rect.fromLTWH(element.position.dx, element.position.dy, width, height),
+        Rect.fromLTWH(element.position.dx, element.position.dy,
+            width.toDouble(), height.toDouble()),
         paint,
       );
     }

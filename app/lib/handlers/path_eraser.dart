@@ -3,7 +3,7 @@ part of 'handler.dart';
 class PathEraserHandler extends Handler {
   @override
   Future<void> onPointerMove(
-      BuildContext context, PointerMoveEvent event) async {
+      Size viewportSize, BuildContext context, PointerMoveEvent event) async {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;

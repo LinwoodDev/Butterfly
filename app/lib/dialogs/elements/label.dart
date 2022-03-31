@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../models/elements/element.dart';
+import '../../models/element.dart';
 import '../painters/label.dart';
 
 class LabelElementDialog extends StatelessWidget {

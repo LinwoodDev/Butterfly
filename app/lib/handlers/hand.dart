@@ -22,7 +22,8 @@ class HandHandler extends Handler {
   bool openView = true;
 
   @override
-  Future<void> onPointerUp(BuildContext context, PointerUpEvent event) async {
+  Future<void> onPointerUp(
+      Size viewportSize, BuildContext context, PointerUpEvent event) async {
     if (movingElement != null) {
       submitMove(context);
       return;
@@ -104,7 +105,8 @@ class HandHandler extends Handler {
   }
 
   @override
-  void onPointerMove(BuildContext context, PointerMoveEvent event) {
+  void onPointerMove(
+      Size viewportSize, BuildContext context, PointerMoveEvent event) {
     final transform = context.read<TransformCubit>().state;
     if (openView) {
       openView = (event.delta / transform.size) == Offset.zero;

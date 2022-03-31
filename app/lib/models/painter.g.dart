@@ -76,6 +76,7 @@ Map<String, dynamic> _$$PathEraserPainterToJson(_$PathEraserPainter instance) =>
 _$LayerPainter _$$LayerPainterFromJson(Map<String, dynamic> json) =>
     _$LayerPainter(
       name: json['name'] as String? ?? '',
+      strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       layer: json['layer'] as String? ?? '',
       includeEraser: json['includeEraser'] as bool? ?? false,
       $type: json['type'] as String?,
@@ -84,6 +85,7 @@ _$LayerPainter _$$LayerPainterFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$LayerPainterToJson(_$LayerPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'strokeWidth': instance.strokeWidth,
       'layer': instance.layer,
       'includeEraser': instance.includeEraser,
       'type': instance.$type,

@@ -6,7 +6,6 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/baked_viewport.dart';
 import 'package:butterfly/models/current_index.dart';
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/elements/element.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/waypoint.dart';
@@ -17,6 +16,7 @@ import 'package:replay_bloc/replay_bloc.dart';
 
 import '../handlers/handler.dart';
 import '../models/area.dart';
+import '../models/element.dart';
 import '../models/property.dart';
 
 part 'document_event.dart';

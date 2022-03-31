@@ -283,7 +283,8 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                           builder: (ctx) => BlocProvider.value(
                                 value: context.read<DocumentBloc>(),
                                 child: ColorPickerDialog(
-                                    defaultColor: _value.decorationColor),
+                                    defaultColor:
+                                        Color(_value.decorationColor)),
                               )) as Color?;
                       if (value != null) {
                         change(_value.copyWith(decorationColor: value.value));
@@ -293,7 +294,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                         width: 30,
                         height: 30,
                         decoration: BoxDecoration(
-                            color: _value.decorationColor,
+                            color: Color(_value.decorationColor),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(32)))),
                     title: Text(AppLocalizations.of(context)!.color)),

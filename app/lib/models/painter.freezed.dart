@@ -80,9 +80,13 @@ class _$PainterTearOff {
   }
 
   LayerPainter layer(
-      {String name = '', String layer = '', bool includeEraser = false}) {
+      {String name = '',
+      double strokeWidth = 5,
+      String layer = '',
+      bool includeEraser = false}) {
     return LayerPainter(
       name: name,
+      strokeWidth: strokeWidth,
       layer: layer,
       includeEraser: includeEraser,
     );
@@ -123,7 +127,8 @@ mixin _$Painter {
     required TResult Function(String name, double strokeWidth,
             bool includeEraser, bool deleteWholeStroke)
         pathEraser,
-    required TResult Function(String name, String layer, bool includeEraser)
+    required TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)
         layer,
     required TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)
@@ -139,7 +144,9 @@ mixin _$Painter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
@@ -154,7 +161,9 @@ mixin _$Painter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
@@ -318,7 +327,8 @@ class _$LabelPainter implements LabelPainter {
     required TResult Function(String name, double strokeWidth,
             bool includeEraser, bool deleteWholeStroke)
         pathEraser,
-    required TResult Function(String name, String layer, bool includeEraser)
+    required TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)
         layer,
     required TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)
@@ -337,7 +347,9 @@ class _$LabelPainter implements LabelPainter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
@@ -355,7 +367,9 @@ class _$LabelPainter implements LabelPainter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
@@ -538,7 +552,8 @@ class _$PenPainter implements PenPainter {
     required TResult Function(String name, double strokeWidth,
             bool includeEraser, bool deleteWholeStroke)
         pathEraser,
-    required TResult Function(String name, String layer, bool includeEraser)
+    required TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)
         layer,
     required TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)
@@ -557,7 +572,9 @@ class _$PenPainter implements PenPainter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
@@ -575,7 +592,9 @@ class _$PenPainter implements PenPainter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
@@ -746,7 +765,8 @@ class _$EraserPainter implements EraserPainter {
     required TResult Function(String name, double strokeWidth,
             bool includeEraser, bool deleteWholeStroke)
         pathEraser,
-    required TResult Function(String name, String layer, bool includeEraser)
+    required TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)
         layer,
     required TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)
@@ -765,7 +785,9 @@ class _$EraserPainter implements EraserPainter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
@@ -783,7 +805,9 @@ class _$EraserPainter implements EraserPainter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
@@ -985,7 +1009,8 @@ class _$PathEraserPainter implements PathEraserPainter {
     required TResult Function(String name, double strokeWidth,
             bool includeEraser, bool deleteWholeStroke)
         pathEraser,
-    required TResult Function(String name, String layer, bool includeEraser)
+    required TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)
         layer,
     required TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)
@@ -1004,7 +1029,9 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
@@ -1023,7 +1050,9 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
@@ -1111,7 +1140,8 @@ abstract class $LayerPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
           LayerPainter value, $Res Function(LayerPainter) then) =
       _$LayerPainterCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String layer, bool includeEraser});
+  $Res call(
+      {String name, double strokeWidth, String layer, bool includeEraser});
 }
 
 /// @nodoc
@@ -1127,6 +1157,7 @@ class _$LayerPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
+    Object? strokeWidth = freezed,
     Object? layer = freezed,
     Object? includeEraser = freezed,
   }) {
@@ -1135,6 +1166,10 @@ class _$LayerPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      strokeWidth: strokeWidth == freezed
+          ? _value.strokeWidth
+          : strokeWidth // ignore: cast_nullable_to_non_nullable
+              as double,
       layer: layer == freezed
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
@@ -1152,6 +1187,7 @@ class _$LayerPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
 class _$LayerPainter implements LayerPainter {
   const _$LayerPainter(
       {this.name = '',
+      this.strokeWidth = 5,
       this.layer = '',
       this.includeEraser = false,
       String? $type})
@@ -1165,6 +1201,9 @@ class _$LayerPainter implements LayerPainter {
   final String name;
   @JsonKey()
   @override
+  final double strokeWidth;
+  @JsonKey()
+  @override
   final String layer;
   @JsonKey()
   @override
@@ -1175,7 +1214,7 @@ class _$LayerPainter implements LayerPainter {
 
   @override
   String toString() {
-    return 'Painter.layer(name: $name, layer: $layer, includeEraser: $includeEraser)';
+    return 'Painter.layer(name: $name, strokeWidth: $strokeWidth, layer: $layer, includeEraser: $includeEraser)';
   }
 
   @override
@@ -1184,6 +1223,8 @@ class _$LayerPainter implements LayerPainter {
         (other.runtimeType == runtimeType &&
             other is LayerPainter &&
             const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality()
+                .equals(other.strokeWidth, strokeWidth) &&
             const DeepCollectionEquality().equals(other.layer, layer) &&
             const DeepCollectionEquality()
                 .equals(other.includeEraser, includeEraser));
@@ -1193,6 +1234,7 @@ class _$LayerPainter implements LayerPainter {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(strokeWidth),
       const DeepCollectionEquality().hash(layer),
       const DeepCollectionEquality().hash(includeEraser));
 
@@ -1212,13 +1254,14 @@ class _$LayerPainter implements LayerPainter {
     required TResult Function(String name, double strokeWidth,
             bool includeEraser, bool deleteWholeStroke)
         pathEraser,
-    required TResult Function(String name, String layer, bool includeEraser)
+    required TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)
         layer,
     required TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)
         area,
   }) {
-    return layer(name, this.layer, includeEraser);
+    return layer(name, strokeWidth, this.layer, includeEraser);
   }
 
   @override
@@ -1231,12 +1274,14 @@ class _$LayerPainter implements LayerPainter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
   }) {
-    return layer?.call(name, this.layer, includeEraser);
+    return layer?.call(name, strokeWidth, this.layer, includeEraser);
   }
 
   @override
@@ -1249,14 +1294,16 @@ class _$LayerPainter implements LayerPainter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
     required TResult orElse(),
   }) {
     if (layer != null) {
-      return layer(name, this.layer, includeEraser);
+      return layer(name, strokeWidth, this.layer, includeEraser);
     }
     return orElse();
   }
@@ -1311,14 +1358,18 @@ class _$LayerPainter implements LayerPainter {
 }
 
 abstract class LayerPainter implements Painter {
-  const factory LayerPainter({String name, String layer, bool includeEraser}) =
-      _$LayerPainter;
+  const factory LayerPainter(
+      {String name,
+      double strokeWidth,
+      String layer,
+      bool includeEraser}) = _$LayerPainter;
 
   factory LayerPainter.fromJson(Map<String, dynamic> json) =
       _$LayerPainter.fromJson;
 
   @override
   String get name;
+  double get strokeWidth;
   String get layer;
   bool get includeEraser;
   @override
@@ -1451,7 +1502,8 @@ class _$AreaPainter implements AreaPainter {
     required TResult Function(String name, double strokeWidth,
             bool includeEraser, bool deleteWholeStroke)
         pathEraser,
-    required TResult Function(String name, String layer, bool includeEraser)
+    required TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)
         layer,
     required TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)
@@ -1471,7 +1523,9 @@ class _$AreaPainter implements AreaPainter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,
@@ -1490,7 +1544,9 @@ class _$AreaPainter implements AreaPainter {
     TResult Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(String name, String layer, bool includeEraser)? layer,
+    TResult Function(
+            String name, double strokeWidth, String layer, bool includeEraser)?
+        layer,
     TResult Function(String name, double constrainedWidth,
             double constrainedHeight, double constrainedAspectRatio)?
         area,

@@ -9,7 +9,8 @@ class PenHandler extends Handler {
   List<PadElement> createForegrounds() => elements.values.toList();
 
   @override
-  void onPointerUp(BuildContext context, PointerUpEvent event) {
+  void onPointerUp(
+      Size viewportSize, BuildContext context, PointerUpEvent event) {
     addPoint(context, event.pointer, event.localPosition, event.pressure);
     submitElement(context, event.pointer);
   }
@@ -43,10 +44,12 @@ class PenHandler extends Handler {
   }
 
   @override
-  void onPointerDown(BuildContext context, PointerDownEvent event) =>
+  void onPointerDown(
+          Size viewportSize, BuildContext context, PointerDownEvent event) =>
       addPoint(context, event.pointer, event.localPosition, event.pressure);
 
   @override
-  void onPointerMove(BuildContext context, PointerMoveEvent event) =>
+  void onPointerMove(
+          Size viewportSize, BuildContext context, PointerMoveEvent event) =>
       addPoint(context, event.pointer, event.localPosition, event.pressure);
 }

@@ -50,7 +50,7 @@ class _$PropertyTearOff {
       bool overline = false,
       bool italic = false,
       double letterSpacing = 0,
-      dynamic decorationColor = kColorBlack,
+      int decorationColor = kColorBlack,
       TextDecorationStyle decorationStyle = TextDecorationStyle.solid,
       double decorationThickness = 1}) {
     return LabelProperty(
@@ -114,7 +114,7 @@ mixin _$Property {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)
         label,
@@ -138,7 +138,7 @@ mixin _$Property {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)?
         label,
@@ -161,7 +161,7 @@ mixin _$Property {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)?
         label,
@@ -299,7 +299,7 @@ class _$HandProperty implements HandProperty {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)
         label,
@@ -326,7 +326,7 @@ class _$HandProperty implements HandProperty {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)?
         label,
@@ -352,7 +352,7 @@ class _$HandProperty implements HandProperty {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)?
         label,
@@ -438,7 +438,7 @@ abstract class $LabelPropertyCopyWith<$Res> {
       bool overline,
       bool italic,
       double letterSpacing,
-      dynamic decorationColor,
+      int decorationColor,
       TextDecorationStyle decorationStyle,
       double decorationThickness});
 }
@@ -500,8 +500,10 @@ class _$LabelPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
           ? _value.letterSpacing
           : letterSpacing // ignore: cast_nullable_to_non_nullable
               as double,
-      decorationColor:
-          decorationColor == freezed ? _value.decorationColor : decorationColor,
+      decorationColor: decorationColor == freezed
+          ? _value.decorationColor
+          : decorationColor // ignore: cast_nullable_to_non_nullable
+              as int,
       decorationStyle: decorationStyle == freezed
           ? _value.decorationStyle
           : decorationStyle // ignore: cast_nullable_to_non_nullable
@@ -561,7 +563,7 @@ class _$LabelProperty implements LabelProperty {
   final double letterSpacing;
   @JsonKey()
   @override
-  final dynamic decorationColor;
+  final int decorationColor;
   @JsonKey()
   @override
   final TextDecorationStyle decorationStyle;
@@ -634,7 +636,7 @@ class _$LabelProperty implements LabelProperty {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)
         label,
@@ -672,7 +674,7 @@ class _$LabelProperty implements LabelProperty {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)?
         label,
@@ -709,7 +711,7 @@ class _$LabelProperty implements LabelProperty {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)?
         label,
@@ -790,7 +792,7 @@ abstract class LabelProperty implements Property {
       bool overline,
       bool italic,
       double letterSpacing,
-      dynamic decorationColor,
+      int decorationColor,
       TextDecorationStyle decorationStyle,
       double decorationThickness}) = _$LabelProperty;
 
@@ -805,7 +807,7 @@ abstract class LabelProperty implements Property {
   bool get overline;
   bool get italic;
   double get letterSpacing;
-  dynamic get decorationColor;
+  int get decorationColor;
   TextDecorationStyle get decorationStyle;
   double get decorationThickness;
   @JsonKey(ignore: true)
@@ -923,7 +925,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)
         label,
@@ -950,7 +952,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)?
         label,
@@ -976,7 +978,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)?
         label,
@@ -1175,7 +1177,7 @@ class _$PenProperty with PathProperty implements PenProperty {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)
         label,
@@ -1202,7 +1204,7 @@ class _$PenProperty with PathProperty implements PenProperty {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)?
         label,
@@ -1228,7 +1230,7 @@ class _$PenProperty with PathProperty implements PenProperty {
             bool overline,
             bool italic,
             double letterSpacing,
-            dynamic decorationColor,
+            int decorationColor,
             TextDecorationStyle decorationStyle,
             double decorationThickness)?
         label,

@@ -1,7 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/element.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -13,6 +13,7 @@ import '../dialogs/elements/general.dart';
 import '../dialogs/elements/image.dart';
 import '../dialogs/elements/label.dart';
 import '../dialogs/select.dart';
+import '../models/path_point.dart';
 import '../widgets/context_menu.dart';
 
 part 'area.dart';
@@ -30,23 +31,31 @@ abstract class Handler {
 
   List<Rect> createSelections() => [];
 
-  void onTapUp(BuildContext context, TapUpDetails details) {}
+  void onTapUp(Size viewportSize, BuildContext context, TapUpDetails details) {}
 
-  void onTapDown(BuildContext context, TapDownDetails details) {}
+  void onTapDown(
+      Size viewportSize, BuildContext context, TapDownDetails details) {}
 
-  void onSecondaryTapUp(BuildContext context, TapUpDetails details) {}
+  void onSecondaryTapUp(
+      Size viewportSize, BuildContext context, TapUpDetails details) {}
 
-  void onSecondaryTapDown(BuildContext context, TapDownDetails details) {}
+  void onSecondaryTapDown(
+      Size viewportSize, BuildContext context, TapDownDetails details) {}
 
-  void onPointerDown(BuildContext context, PointerDownEvent event) {}
+  void onPointerDown(
+      Size viewportSize, BuildContext context, PointerDownEvent event) {}
 
-  void onPointerMove(BuildContext context, PointerMoveEvent event) {}
+  void onPointerMove(
+      Size viewportSize, BuildContext context, PointerMoveEvent event) {}
 
-  void onPointerUp(BuildContext context, PointerUpEvent event) {}
+  void onPointerUp(
+      Size viewportSize, BuildContext context, PointerUpEvent event) {}
 
-  void onPointerHover(BuildContext context, PointerHoverEvent event) {}
+  void onPointerHover(
+      Size viewportSize, BuildContext context, PointerHoverEvent event) {}
 
-  void onLongPressEnd(BuildContext context, LongPressEndDetails details) {}
+  void onLongPressEnd(
+      Size viewportSize, BuildContext context, LongPressEndDetails details) {}
 
   factory Handler.fromBloc(DocumentBloc bloc, [int? index]) {
     final state = bloc.state;

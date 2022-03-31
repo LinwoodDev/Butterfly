@@ -1,7 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/layer.dart';
-import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/element.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

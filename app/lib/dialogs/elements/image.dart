@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/elements/element.dart';
+import '../../models/element.dart';
 import '../../widgets/exact_slider.dart';
 
 class ImageElementDialog extends StatefulWidget {
@@ -51,12 +51,12 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
       children: [
         ExactSlider(
           header: Text(AppLocalizations.of(context)!.scale),
-          value: element.scale,
+          value: element.scale.toDouble(),
           min: 0.1,
           max: 5,
           defaultValue: 1,
           onChanged: (value) {
-            setState(() => element = element.copyWith(scale: value));
+            setState(() => element = element.copyWith(scale: value.toInt()));
           },
           onChangeEnd: (value) => _changeElement(),
         ),

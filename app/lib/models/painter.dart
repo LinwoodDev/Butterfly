@@ -69,6 +69,7 @@ class Painter with _$Painter {
 
   const factory Painter.layer(
       {@Default('') String name,
+      @Default(5) double strokeWidth,
       @Default('') String layer,
       @Default(false) bool includeEraser}) = LayerPainter;
 

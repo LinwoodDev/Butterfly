@@ -26,7 +26,7 @@ class Property with _$Property {
       @Default(false) bool overline,
       @Default(false) bool italic,
       @Default(0) double letterSpacing,
-      @Default(kColorBlack) decorationColor,
+      @Default(kColorBlack) int decorationColor,
       @Default(TextDecorationStyle.solid) TextDecorationStyle decorationStyle,
       @Default(1) double decorationThickness}) = LabelProperty;
 

@@ -1,4 +1,4 @@
-import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';

@@ -65,9 +65,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       var openView = false;
 
                       return GestureDetector(
-                          onSecondaryTapUp: (details) {
+                          onTapUp: (details) {
                             state.currentIndex.handler
-                                .onSecondaryTapUp(context, details);
+                                .onTapUp(constraints.biggest, context, details);
+                          },
+                          onTapDown: (details) {
+                            state.currentIndex.handler.onTapDown(
+                                constraints.biggest, context, details);
+                          },
+                          onSecondaryTapUp: (details) {
+                            state.currentIndex.handler.onSecondaryTapUp(
+                                constraints.biggest, context, details);
                           },
                           onScaleUpdate: (details) {
                             if (state.currentPainter is! AreaPainter &&
@@ -91,8 +99,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             size = details.scale;
                           },
                           onLongPressEnd: (details) {
-                            state.currentIndex.handler
-                                .onLongPressEnd(context, details);
+                            state.currentIndex.handler.onLongPressEnd(
+                                constraints.biggest, context, details);
                           },
                           onScaleEnd: (details) => _bake(),
                           onScaleStart: (details) {
@@ -122,21 +130,21 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 }
                               },
                               onPointerDown: (PointerDownEvent event) {
-                                state.currentIndex.handler
-                                    .onPointerDown(context, event);
+                                state.currentIndex.handler.onPointerDown(
+                                    constraints.biggest, context, event);
                               },
                               onPointerUp: (PointerUpEvent event) async {
-                                state.currentIndex.handler
-                                    .onPointerUp(context, event);
+                                state.currentIndex.handler.onPointerUp(
+                                    constraints.biggest, context, event);
                               },
                               behavior: HitTestBehavior.translucent,
                               onPointerHover: (event) {
-                                state.currentIndex.handler
-                                    .onPointerHover(context, event);
+                                state.currentIndex.handler.onPointerHover(
+                                    constraints.biggest, context, event);
                               },
                               onPointerMove: (PointerMoveEvent event) async {
-                                state.currentIndex.handler
-                                    .onPointerMove(context, event);
+                                state.currentIndex.handler.onPointerMove(
+                                    constraints.biggest, context, event);
                               },
                               child:
                                   BlocBuilder<TransformCubit, CameraTransform>(

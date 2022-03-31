@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:butterfly/api/open_image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/element.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
