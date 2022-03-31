@@ -7,6 +7,7 @@ part 'path_point.g.dart';
 
 @freezed
 class PathPoint with _$PathPoint {
+  const PathPoint._();
   const factory PathPoint(double x, double y, [@Default(1) double pressure]) =
       _PathPoint;
 
@@ -21,5 +22,5 @@ class PathPoint with _$PathPoint {
 
   Offset toOffset() => Offset(x, y);
 
-  Vector2 toVector2() => Vector2(x, y);
+  Vector2 toVector() => Vector2(x, y);
 }

@@ -131,8 +131,8 @@ class __$PathPointCopyWithImpl<$Res> extends _$PathPointCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PathPoint implements _PathPoint {
-  const _$_PathPoint(this.x, this.y, [this.pressure = 1]);
+class _$_PathPoint extends _PathPoint {
+  const _$_PathPoint(this.x, this.y, [this.pressure = 1]) : super._();
 
   factory _$_PathPoint.fromJson(Map<String, dynamic> json) =>
       _$$_PathPointFromJson(json);
@@ -178,9 +178,10 @@ class _$_PathPoint implements _PathPoint {
   }
 }
 
-abstract class _PathPoint implements PathPoint {
+abstract class _PathPoint extends PathPoint {
   const factory _PathPoint(double x, double y, [double pressure]) =
       _$_PathPoint;
+  const _PathPoint._() : super._();
 
   factory _PathPoint.fromJson(Map<String, dynamic> json) =
       _$_PathPoint.fromJson;
