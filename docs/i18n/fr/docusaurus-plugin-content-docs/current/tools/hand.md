@@ -1,8 +1,8 @@
 ---
+title: "Main"
 sidebar_label: "Main"
 ---
 
-# Main
 
 C'est un outil spécial pour déplacer la caméra.
 

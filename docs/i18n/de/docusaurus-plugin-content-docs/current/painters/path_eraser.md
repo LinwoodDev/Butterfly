@@ -1,9 +1,9 @@
 ---
+title: "Pfadlöschermaler"
 sidebar_label: "Pfadlöscher"
 sidebar_position: 4
 ---
 
-# Pfadlöschermaler
 
 Mit diesem Maler können Sie den gesamten Pfad auf dem Papier löschen.
 

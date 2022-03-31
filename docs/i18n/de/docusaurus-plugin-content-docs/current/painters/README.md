@@ -1,10 +1,10 @@
 ---
-slug: /painters
+title: "Maler"
+slug: /maler
 sidebar_label: "Einführung"
 sidebar_position: 1
 ---
 
-# Maler
 
 Maler können das Papier bearbeiten.
 

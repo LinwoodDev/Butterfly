@@ -1,9 +1,9 @@
 ---
+title: "Stift Maler"
 sidebar_label: "Stift"
 sidebar_position: 2
 ---
 
-# Stift Maler
 
 Mit diesem Maler können Sie dieses Papier zeichnen.
 

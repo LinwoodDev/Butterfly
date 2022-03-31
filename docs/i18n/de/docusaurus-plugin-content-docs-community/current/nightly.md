@@ -1,8 +1,7 @@
 ---
+title: "Nachts Builds"
 slug: "/nightly"
 ---
-
-# Nachts Builds
 
 :::warning
 

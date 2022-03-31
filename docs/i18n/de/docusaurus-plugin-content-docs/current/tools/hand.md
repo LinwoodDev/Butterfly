@@ -1,8 +1,8 @@
 ---
+title: "Hand"
 sidebar_label: "Hand"
 ---
 
-# Hand
 
 Dies ist ein spezielles Werkzeug, um die Kamera zu bewegen.
 

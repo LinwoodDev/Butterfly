@@ -1,8 +1,7 @@
 ---
 sidebar_label: "Hintergrund"
+title: Hintergrund
 ---
-
-# Hintergrund
 
 Sie können den Hintergrund des Papiers anpassen. Klicken Sie auf das Hintergrundsymbol im Ansichtsdialog um es hinzuzufügen. Es stehen 8 verschiedene Hintergrundvorlagen zur Verfügung.
 
