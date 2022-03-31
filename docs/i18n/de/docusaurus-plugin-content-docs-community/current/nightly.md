@@ -1,6 +1,6 @@
 ---
 title: "Nachts Builds"
-slug: "/nachts"
+slug: "/nightly"
 ---
 
 :::warning
