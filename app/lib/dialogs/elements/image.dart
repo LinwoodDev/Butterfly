@@ -7,16 +7,17 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/element.dart';
+import '../../renderers/renderer.dart';
 import '../../widgets/exact_slider.dart';
 
 class ImageElementDialog extends StatefulWidget {
-  final int index;
+  final ImageRenderer renderer;
   final VoidCallback close;
   final Offset position;
 
   const ImageElementDialog(
       {Key? key,
-      required this.index,
+      required this.renderer,
       required this.close,
       required this.position})
       : super(key: key);
@@ -31,14 +32,12 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
   @override
   void initState() {
     super.initState();
-    var bloc = context.read<DocumentBloc>();
-    element = (bloc.state as DocumentLoadSuccess).document.content[widget.index]
-        as ImageElement;
+    element = widget.renderer.element;
   }
 
   void _changeElement() {
     context.read<DocumentBloc>()
-      ..add(ElementChanged(widget.index, element))
+      ..add(ElementChanged(widget.renderer.element, element))
       ..add(const IndexRefreshed());
   }
 
@@ -46,7 +45,7 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
   Widget build(BuildContext context) {
     return GeneralElementDialog(
       close: widget.close,
-      index: widget.index,
+      renderer: widget.renderer,
       position: widget.position,
       children: [
         ExactSlider(

@@ -6,7 +6,8 @@ class PenHandler extends Handler {
   PenHandler();
 
   @override
-  List<PadElement> createForegrounds() => elements.values.toList();
+  List<Renderer> createForegrounds() =>
+      elements.values.map((e) => PenRenderer(e)).toList();
 
   @override
   void onPointerUp(

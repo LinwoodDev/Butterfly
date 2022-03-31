@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:butterfly/models/baked_viewport.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/element.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -14,38 +15,13 @@ Future<ui.Image> loadImage(ImageElement layer) {
   return decodeImageFromList(layer.pixels);
 }
 
-void paintElement(Canvas canvas, PadElement element,
-    [Map<PadElement, ui.Image> images = const {}, bool preview = false]) {
-  if (element is ImageElement) {
-    if (images.containsKey(element)) {
-      // Resize image to scale of the element
-      // Get image from element pixels
-      var image = images[element];
-      if (image == null) return;
-      var scale = element.scale;
-      var width = image.width * scale;
-      var height = image.height * scale;
-      var paint = Paint()..isAntiAlias = true;
-      canvas.drawImageRect(
-        image,
-        Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-        Rect.fromLTWH(element.position.dx, element.position.dy,
-            width.toDouble(), height.toDouble()),
-        paint,
-      );
-    }
-  } else {
-    element.paint(canvas, preview);
-  }
-}
-
 class ForegroundPainter extends CustomPainter {
-  final List<PadElement> editingLayer;
+  final List<Renderer> renderers;
   final CameraTransform transform;
   final List<Rect> selection;
   final List<Area> areas;
 
-  ForegroundPainter(this.editingLayer,
+  ForegroundPainter(this.renderers,
       [this.transform = const CameraTransform(),
       this.selection = const [],
       this.areas = const []]);
@@ -54,8 +30,8 @@ class ForegroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     canvas.scale(transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
-    for (var element in editingLayer) {
-      paintElement(canvas, element, {}, true);
+    for (var element in renderers) {
+      element.build(canvas, true);
     }
     for (var rect in selection) {
       /*
@@ -100,7 +76,7 @@ class ForegroundPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ForegroundPainter oldDelegate) =>
-      oldDelegate.editingLayer != editingLayer ||
+      oldDelegate.renderers != renderers ||
       oldDelegate.transform != transform ||
       oldDelegate.selection != selection ||
       oldDelegate.areas != areas;
@@ -123,7 +99,7 @@ class ViewPainter extends CustomPainter {
   final AppDocument document;
   final Area? currentArea;
   final bool renderBackground;
-  final List<PadElement> elements;
+  final List<Renderer> renderers;
   final BakedViewport? bakedViewport;
   final Map<PadElement, ui.Image> images;
   final CameraTransform transform;
@@ -132,7 +108,7 @@ class ViewPainter extends CustomPainter {
     this.document, {
     this.currentArea,
     this.renderBackground = true,
-    this.elements = const [],
+    this.renderers = const [],
     this.bakedViewport,
     this.transform = const CameraTransform(),
     this.images = const {},
@@ -236,8 +212,8 @@ class ViewPainter extends CustomPainter {
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
-    for (var element in elements) {
-      paintElement(canvas, element, images);
+    for (var renderer in renderers) {
+      renderer.build(canvas, false);
     }
     canvas.restore();
   }
@@ -249,5 +225,5 @@ class ViewPainter extends CustomPainter {
       transform != oldDelegate.transform ||
       images != oldDelegate.images ||
       bakedViewport != oldDelegate.bakedViewport ||
-      elements != oldDelegate.elements;
+      renderers != oldDelegate.renderers;
 }

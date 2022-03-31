@@ -19,7 +19,7 @@ class _$CurrentIndexTearOff {
   const _$CurrentIndexTearOff();
 
   _CurrentIndex call(int index, Handler handler,
-      [List<PadElement> foregrounds = const [],
+      [List<Renderer<PadElement>> foregrounds = const [],
       List<Rect> selections = const []]) {
     return _CurrentIndex(
       index,
@@ -37,7 +37,8 @@ const $CurrentIndex = _$CurrentIndexTearOff();
 mixin _$CurrentIndex {
   int get index => throw _privateConstructorUsedError;
   Handler get handler => throw _privateConstructorUsedError;
-  List<PadElement> get foregrounds => throw _privateConstructorUsedError;
+  List<Renderer<PadElement>> get foregrounds =>
+      throw _privateConstructorUsedError;
   List<Rect> get selections => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -53,7 +54,7 @@ abstract class $CurrentIndexCopyWith<$Res> {
   $Res call(
       {int index,
       Handler handler,
-      List<PadElement> foregrounds,
+      List<Renderer<PadElement>> foregrounds,
       List<Rect> selections});
 }
 
@@ -84,7 +85,7 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
       foregrounds: foregrounds == freezed
           ? _value.foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
-              as List<PadElement>,
+              as List<Renderer<PadElement>>,
       selections: selections == freezed
           ? _value.selections
           : selections // ignore: cast_nullable_to_non_nullable
@@ -103,7 +104,7 @@ abstract class _$CurrentIndexCopyWith<$Res>
   $Res call(
       {int index,
       Handler handler,
-      List<PadElement> foregrounds,
+      List<Renderer<PadElement>> foregrounds,
       List<Rect> selections});
 }
 
@@ -136,7 +137,7 @@ class __$CurrentIndexCopyWithImpl<$Res> extends _$CurrentIndexCopyWithImpl<$Res>
       foregrounds == freezed
           ? _value.foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
-              as List<PadElement>,
+              as List<Renderer<PadElement>>,
       selections == freezed
           ? _value.selections
           : selections // ignore: cast_nullable_to_non_nullable
@@ -157,7 +158,7 @@ class _$_CurrentIndex implements _CurrentIndex {
   final Handler handler;
   @JsonKey()
   @override
-  final List<PadElement> foregrounds;
+  final List<Renderer<PadElement>> foregrounds;
   @JsonKey()
   @override
   final List<Rect> selections;
@@ -196,14 +197,15 @@ class _$_CurrentIndex implements _CurrentIndex {
 
 abstract class _CurrentIndex implements CurrentIndex {
   const factory _CurrentIndex(int index, Handler handler,
-      [List<PadElement> foregrounds, List<Rect> selections]) = _$_CurrentIndex;
+      [List<Renderer<PadElement>> foregrounds,
+      List<Rect> selections]) = _$_CurrentIndex;
 
   @override
   int get index;
   @override
   Handler get handler;
   @override
-  List<PadElement> get foregrounds;
+  List<Renderer<PadElement>> get foregrounds;
   @override
   List<Rect> get selections;
   @override

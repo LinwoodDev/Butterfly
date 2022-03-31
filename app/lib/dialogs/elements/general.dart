@@ -1,20 +1,18 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/layer.dart';
-import 'package:butterfly/models/element.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../cubits/transform.dart';
-import '../../models/document.dart';
+import '../../renderers/renderer.dart';
 import '../../widgets/context_menu.dart';
 import '../background/context.dart';
 
 class GeneralElementDialog extends StatelessWidget {
-  final int index;
+  final Renderer renderer;
   final VoidCallback close;
   final Offset position;
   final List<Widget> children;
@@ -23,26 +21,18 @@ class GeneralElementDialog extends StatelessWidget {
       {Key? key,
       this.children = const [],
       required this.position,
-      required this.index,
+      required this.renderer,
       required this.close})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+      if (state is! DocumentLoadSuccess) return Container();
       var bloc = context.read<DocumentBloc>();
-      if (state is! DocumentLoadSuccess ||
-          index < 0 ||
-          index >= state.document.content.length) {
-        return Container();
-      }
-      var element = state.document.content[index];
       return Column(mainAxisSize: MainAxisSize.min, children: [
         _GeneralElementDialogHeader(
-            close: close,
-            document: state.document,
-            element: element,
-            position: position),
+            close: close, renderer: renderer, position: position),
         const Divider(),
         Flexible(
             child: ListView(
@@ -50,7 +40,7 @@ class GeneralElementDialog extends StatelessWidget {
           children: [
             ...children,
             if (children.isNotEmpty) const Divider(),
-            element.layer.isEmpty
+            renderer.element.layer.isEmpty
                 ? ListTile(
                     title: Text(AppLocalizations.of(context)!.layer),
                     leading: const Icon(PhosphorIcons.squaresFourLight),
@@ -58,7 +48,7 @@ class GeneralElementDialog extends StatelessWidget {
                     onTap: () {
                       close();
                       var _nameController =
-                          TextEditingController(text: element.layer);
+                          TextEditingController(text: renderer.element.layer);
                       showDialog(
                           context: context,
                           useRootNavigator: true,
@@ -83,8 +73,8 @@ class GeneralElementDialog extends StatelessWidget {
                                         Text(AppLocalizations.of(context)!.ok),
                                     onPressed: () {
                                       bloc.add(ElementChanged(
-                                          index,
-                                          element.copyWith(
+                                          renderer.element,
+                                          renderer.element.copyWith(
                                               layer: _nameController.text)));
                                       Navigator.of(context).pop();
                                     },
@@ -94,11 +84,11 @@ class GeneralElementDialog extends StatelessWidget {
                     })
                 : ListTile(
                     leading: const Icon(PhosphorIcons.squaresFourLight),
-                    title: Text(element.layer),
+                    title: Text(renderer.element.layer),
                     trailing: IconButton(
                       icon: const Icon(PhosphorIcons.trashLight),
-                      onPressed: () => bloc.add(
-                          ElementChanged(index, element.copyWith(layer: ''))),
+                      onPressed: () => bloc.add(ElementChanged(renderer.element,
+                          renderer.element.copyWith(layer: ''))),
                     ),
                     onTap: () {
                       close();
@@ -106,15 +96,16 @@ class GeneralElementDialog extends StatelessWidget {
                           context: context,
                           builder: (context) => BlocProvider.value(
                               value: bloc,
-                              child: LayerDialog(layer: element.layer)));
+                              child:
+                                  LayerDialog(layer: renderer.element.layer)));
                     }),
             ListTile(
               title: Text(AppLocalizations.of(context)!.move),
               leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
               onTap: () {
                 // Remove the element from the document
-                bloc.add(ElementsRemoved([element]));
-                state.fetchHand()?.move(context, element);
+                bloc.add(ElementsRemoved([renderer.element]));
+                state.fetchHand()?.move(context, renderer);
                 close();
               },
             ),
@@ -122,7 +113,7 @@ class GeneralElementDialog extends StatelessWidget {
               title: Text(AppLocalizations.of(context)!.duplicate),
               leading: const Icon(PhosphorIcons.copyLight),
               onTap: () {
-                state.fetchHand()?.move(context, element);
+                state.fetchHand()?.move(context, renderer);
                 close();
               },
             ),
@@ -148,7 +139,8 @@ class GeneralElementDialog extends StatelessWidget {
                                       Text(AppLocalizations.of(context)!.yes),
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    bloc.add(ElementsRemoved([element]));
+                                    bloc.add(
+                                        ElementsRemoved([renderer.element]));
                                   },
                                 ),
                               ]));
@@ -163,14 +155,12 @@ class GeneralElementDialog extends StatelessWidget {
 }
 
 class _GeneralElementDialogHeader extends StatelessWidget {
-  final AppDocument document;
-  final PadElement element;
+  final Renderer renderer;
   final Offset position;
   final VoidCallback close;
   const _GeneralElementDialogHeader(
       {Key? key,
-      required this.document,
-      required this.element,
+      required this.renderer,
       this.position = Offset.zero,
       required this.close})
       : super(key: key);
@@ -178,7 +168,7 @@ class _GeneralElementDialogHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     IconData icon;
-    switch (element.toJson()['type']) {
+    switch (renderer.element.toJson()['type']) {
       case 'label':
         icon = PhosphorIcons.textTLight;
         break;
@@ -192,7 +182,6 @@ class _GeneralElementDialogHeader extends StatelessWidget {
         icon = PhosphorIcons.penLight;
         break;
     }
-    var area = document.areas.firstWhereOrNull((area) => element.inArea(area));
 
     var bloc = context.read<DocumentBloc>();
     var transformCubit = context.read<TransformCubit>();
@@ -208,9 +197,9 @@ class _GeneralElementDialogHeader extends StatelessWidget {
           ),
         ),
         Row(children: [
-          if (area != null)
+          if (renderer.area != null)
             IconButton(
-              tooltip: area.name,
+              tooltip: renderer.area!.name,
               onPressed: () {
                 showContextMenu(
                     context: context,
@@ -221,7 +210,7 @@ class _GeneralElementDialogHeader extends StatelessWidget {
                               BlocProvider.value(value: transformCubit),
                             ],
                             child: AreaContextMenu(
-                              area: area,
+                              area: renderer.area!,
                               close: close,
                               position: position,
                             )));

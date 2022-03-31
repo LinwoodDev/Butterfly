@@ -14,6 +14,7 @@ import '../dialogs/elements/image.dart';
 import '../dialogs/elements/label.dart';
 import '../dialogs/select.dart';
 import '../models/path_point.dart';
+import '../renderers/renderer.dart';
 import '../widgets/context_menu.dart';
 
 part 'area.dart';
@@ -27,7 +28,7 @@ part 'pen.dart';
 abstract class Handler {
   const Handler();
 
-  List<PadElement> createForegrounds() => [];
+  List<Renderer> createForegrounds() => [];
 
   List<Rect> createSelections() => [];
 
@@ -88,17 +89,17 @@ abstract class Handler {
 
 class _RayCastParams {
   final List<String> invisibleLayers;
-  final List<PadElement> elements;
+  final List<Renderer> renderers;
   final Offset globalPosition;
   final double radius;
   final double size;
   final bool includeEraser;
 
-  const _RayCastParams(this.invisibleLayers, this.elements, this.globalPosition,
-      this.radius, this.size, this.includeEraser);
+  const _RayCastParams(this.invisibleLayers, this.renderers,
+      this.globalPosition, this.radius, this.size, this.includeEraser);
 }
 
-Future<Set<int>> rayCast(
+Future<Set<Renderer>> rayCast(
     BuildContext context, Offset localPosition, double radius,
     [bool includeEraser = false]) async {
   final bloc = context.read<DocumentBloc>();
@@ -106,19 +107,21 @@ Future<Set<int>> rayCast(
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return {};
   final globalPosition = transform.localToGlobal(localPosition);
+  final renderers = state.renderers;
   return compute(
-      _executeRayCast,
-      _RayCastParams(state.invisibleLayers, state.document.content,
-          globalPosition, radius, transform.size, includeEraser));
+          _executeRayCast,
+          _RayCastParams(state.invisibleLayers, renderers, globalPosition,
+              radius, transform.size, includeEraser))
+      .then((value) => value.map((e) => renderers[e]).toSet());
 }
 
 Set<int> _executeRayCast(_RayCastParams params) {
-  var elements = Map<int, PadElement>.from(params.elements.asMap())
-    ..removeWhere(
-        (index, element) => params.invisibleLayers.contains(element.layer))
-    ..removeWhere(
-        (index, element) => !element.hit(params.globalPosition, params.radius))
-    ..removeWhere(
-        (index, element) => !params.includeEraser && element is EraserElement);
-  return elements.keys.toSet();
+  return params.renderers
+      .asMap()
+      .entries
+      .where((e) => params.invisibleLayers.contains(e.value.element.layer))
+      .where((e) => e.value.hit(params.globalPosition, params.radius))
+      .where((e) => params.includeEraser || e.value.element is! EraserElement)
+      .map((e) => e.key)
+      .toSet();
 }

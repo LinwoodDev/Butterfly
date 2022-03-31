@@ -14,6 +14,7 @@ class DocumentLoadSuccess extends DocumentState {
   final String? path;
   final String currentLayer;
   final int currentAreaIndex;
+  final List<Renderer> renderers;
   final List<String> invisibleLayers;
   final BakedViewport? bakedViewport;
   final CurrentIndex currentIndex;
@@ -21,6 +22,7 @@ class DocumentLoadSuccess extends DocumentState {
   DocumentLoadSuccess(this.document,
       {this.path,
       this.bakedViewport,
+      this.renderers = const [],
       this.currentAreaIndex = -1,
       CurrentIndex? currentIndex,
       this.currentLayer = '',

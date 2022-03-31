@@ -26,12 +26,12 @@ class ElementsReplaced extends DocumentEvent {
 }
 
 class ElementChanged extends DocumentEvent {
-  final PadElement element;
-  final int index;
-  const ElementChanged(this.index, this.element);
+  final PadElement old;
+  final PadElement updated;
+  const ElementChanged(this.old, this.updated);
 
   @override
-  List<Object?> get props => [element, index];
+  List<Object?> get props => [old, updated];
 }
 
 class ElementsRemoved extends DocumentEvent {

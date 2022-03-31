@@ -18,6 +18,7 @@ import '../handlers/handler.dart';
 import '../models/area.dart';
 import '../models/element.dart';
 import '../models/property.dart';
+import '../renderers/renderer.dart';
 
 part 'document_event.dart';
 part 'document_state.dart';
@@ -63,10 +64,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         var current = state as DocumentLoadSuccess;
         return _saveDocument(
             current.copyWith(
-              document: current.document.copyWith(
-                  content: (List.from(current.document.content)
-                    ..[event.index] = event.element)),
-            ),
+                document: current.document.copyWith(
+                    content: (current.document.content)
+                      ..[current.document.content.indexOf(event.old)] =
+                          event.updated)),
             null);
       }
     });
@@ -295,7 +296,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
       final eq = const ListEquality().equals;
 
-      var elements = current.elements;
+      var renderers = current.renderers;
       var recorder = ui.PictureRecorder();
       var size = event.viewportSize;
       var canvas = ui.Canvas(recorder);
@@ -307,24 +308,23 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           last.x != event.cameraTransform.position.dx ||
           last.y != event.cameraTransform.position.dy ||
           last.scale != event.cameraTransform.size;
-      if (elements.isEmpty && !reset) return;
+      if (renderers.isEmpty && !reset) return;
       if (reset) {
-        elements = current.document.content
-            .where((element) => !invisibleLayers.contains(element.layer))
+        renderers = renderers
+            .where(
+                (element) => !invisibleLayers.contains(element.element.layer))
             .toList();
       }
 
       var images = Map<ImageElement, ui.Image>.from(last?.images ?? {});
       // Bake images if not baked yet
-      for (var element in elements) {
-        if (element is ImageElement && !images.containsKey(element)) {
-          images[element] = await loadImage(element);
-        }
+      for (var renderer in renderers) {
+        await renderer.setup(current.document);
       }
 
       ViewPainter(
         current.document,
-        elements: elements,
+        renderers: renderers,
         transform: event.cameraTransform,
         bakedViewport: reset ? null : last,
         renderBackground: false,
@@ -335,13 +335,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var newImage =
           await picture.toImage((size.width).ceil(), (size.height).ceil());
       current = state as DocumentLoadSuccess;
-      var currentElements = current.elements;
+      var currentElements = current.renderers;
       if (reset) {
-        currentElements = current.document.content
-            .where((element) => !invisibleLayers.contains(element.layer))
+        currentElements = renderers
+            .where(
+                (element) => !invisibleLayers.contains(element.element.layer))
             .toList();
       }
-      if (!eq(elements, currentElements)) return;
+      if (!eq(renderers, currentElements)) return;
       if (last != current.bakedViewport) return;
 
       emit(current.copyWith(

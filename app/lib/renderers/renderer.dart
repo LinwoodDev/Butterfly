@@ -28,7 +28,8 @@ abstract class Renderer<T extends PadElement> {
       _updateArea(document);
   Rect get rect;
   FutureOr<void> build(Canvas canvas, [bool foreground = false]);
-  FutureOr<bool> hit(Offset position) => rect.contains(position);
+  bool hit(Offset position, [double radius = 1]) =>
+      rect.inflate(radius).contains(position);
 
   factory Renderer.fromElement(T element) {
     if (element is PenElement) {

@@ -1,22 +1,22 @@
 part of 'handler.dart';
 
 class HandHandler extends Handler {
-  PadElement? movingElement;
-  PadElement? selected;
+  Renderer? movingElement;
+  Renderer? selected;
 
   HandHandler();
 
   @override
   List<Rect> createSelections() => [if (selected != null) selected!.rect];
 
-  void move(BuildContext context, PadElement next) {
+  void move(BuildContext context, Renderer next) {
     submitMove(context);
     movingElement = next;
   }
 
   void submitMove(BuildContext context) {
     if (movingElement == null) return;
-    context.read<DocumentBloc>().add(ElementsCreated([movingElement!]));
+    context.read<DocumentBloc>().add(ElementsCreated([movingElement!.element]));
   }
 
   bool openView = true;
@@ -35,7 +35,6 @@ class HandHandler extends Handler {
       final settings = context.read<SettingsCubit>().state;
       final transform = context.read<TransformCubit>().state;
       final radius = settings.selectSensitivity / transform.size;
-      final elements = state.document.content;
       final hits = await rayCast(
           context, event.localPosition, radius, hand.includeEraser);
       if (hits.isEmpty) {
@@ -56,15 +55,15 @@ class HandHandler extends Handler {
                           position: event.position, close: close)),
                 ));
       } else if (hits.length == 1) {
-        selected = elements[hits.first];
+        selected = hits.first;
         bloc.add(const IndexRefreshed());
         showSelection(context, event.localPosition);
       } else {
         showDialog(
             context: context,
-            builder: (context) => SelectElementDialog(
-                elements: hits.map((e) => elements[e]).toList())).then((value) {
-          if (value is PadElement) {
+            builder: (context) =>
+                SelectElementDialog(renderers: hits.toList())).then((value) {
+          if (value is Renderer) {
             selected = value;
             bloc.add(const IndexRefreshed());
             showSelection(context, event.localPosition);
@@ -78,23 +77,26 @@ class HandHandler extends Handler {
   Future<void> showSelection(BuildContext context, Offset localPosition) async {
     final bloc = context.read<DocumentBloc>();
     final transformCubit = context.read<TransformCubit>();
-    var index = 0;
     var actor = context.findAncestorWidgetOfExactType<Actions>();
     await showContextMenu(
         context: context,
         position: localPosition,
         builder: (context, close) {
           Widget? menu;
-          if (selected is LabelElement) {
+          if (selected is LabelRenderer) {
             menu = LabelElementDialog(
-                position: localPosition, index: index, close: close);
+                position: localPosition,
+                renderer: selected as LabelRenderer,
+                close: close);
           }
           if (selected is ImageElement) {
             menu = ImageElementDialog(
-                position: localPosition, index: index, close: close);
+                position: localPosition,
+                renderer: selected as ImageRenderer,
+                close: close);
           }
           menu ??= GeneralElementDialog(
-              position: localPosition, index: index, close: close);
+              position: localPosition, renderer: selected!, close: close);
           return MultiBlocProvider(providers: [
             BlocProvider.value(value: bloc),
             BlocProvider.value(value: transformCubit)

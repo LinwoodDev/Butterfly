@@ -1,12 +1,12 @@
-import 'package:butterfly/models/element.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SelectElementDialog extends StatefulWidget {
-  final List<PadElement> elements;
+  final List<Renderer> renderers;
 
-  const SelectElementDialog({Key? key, this.elements = const []})
+  const SelectElementDialog({Key? key, this.renderers = const []})
       : super(key: key);
 
   @override
@@ -14,11 +14,11 @@ class SelectElementDialog extends StatefulWidget {
 }
 
 class _SelectElementDialogState extends State<SelectElementDialog> {
-  PadElement? current;
+  Renderer? current;
 
   @override
   void initState() {
-    current = widget.elements.isEmpty ? null : widget.elements.first;
+    current = widget.renderers.isEmpty ? null : widget.renderers.first;
     super.initState();
   }
 
@@ -44,10 +44,10 @@ class _SelectElementDialogState extends State<SelectElementDialog> {
             width: double.maxFinite,
             child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: widget.elements.length,
+                itemCount: widget.renderers.length,
                 itemBuilder: (context, index) {
-                  final element = widget.elements[index];
-                  final elementType = element.toJson()['type'];
+                  final element = widget.renderers[index];
+                  final elementType = element.element.toJson()['type'];
                   IconData icon;
                   switch (elementType) {
                     case 'image':

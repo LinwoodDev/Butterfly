@@ -160,7 +160,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         state.document.areas,
                                       ),
                                       painter: ViewPainter(state.document,
-                                          elements: state.elements,
+                                          renderers: state.renderers,
                                           bakedViewport: state.bakedViewport,
                                           transform: transform,
                                           currentArea: state.currentArea),
