@@ -269,6 +269,7 @@ class _$PenElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@Implements<PathElement>()
 class _$PenElement implements PenElement {
   const _$PenElement(
       {this.layer = '',
@@ -442,7 +443,7 @@ class _$PenElement implements PenElement {
   }
 }
 
-abstract class PenElement implements PadElement {
+abstract class PenElement implements PadElement, PathElement {
   const factory PenElement(
       {String layer,
       List<PathPoint> points,
@@ -506,6 +507,7 @@ class _$EraserElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@Implements<PathElement>()
 class _$EraserElement implements EraserElement {
   const _$EraserElement(
       {this.layer = '',
@@ -679,7 +681,7 @@ class _$EraserElement implements EraserElement {
   }
 }
 
-abstract class EraserElement implements PadElement {
+abstract class EraserElement implements PadElement, PathElement {
   const factory EraserElement(
       {String layer,
       List<PathPoint> points,

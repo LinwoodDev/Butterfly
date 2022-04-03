@@ -1,6 +1,6 @@
 import 'dart:ui' as ui;
 
-import 'package:butterfly/models/baked_viewport.dart';
+import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -99,19 +99,15 @@ class ViewPainter extends CustomPainter {
   final AppDocument document;
   final Area? currentArea;
   final bool renderBackground;
-  final List<Renderer> renderers;
-  final BakedViewport? bakedViewport;
-  final Map<PadElement, ui.Image> images;
+  final CameraViewport cameraViewport;
   final CameraTransform transform;
 
   ViewPainter(
     this.document, {
     this.currentArea,
     this.renderBackground = true,
-    this.renderers = const [],
-    this.bakedViewport,
+    required this.cameraViewport,
     this.transform = const CameraTransform(),
-    this.images = const {},
   });
 
   @override
@@ -193,26 +189,28 @@ class ViewPainter extends CustomPainter {
         }
       }
     }
-    if (!(bakedViewport?.wasDisposed ?? true)) {
-      var image = bakedViewport!.image;
+    if (cameraViewport.bakedElements.isNotEmpty) {
+      var image = cameraViewport.image;
       var bakedSizeDiff =
-          (transform.size - bakedViewport!.scale) / bakedViewport!.scale;
-      var pos = transform.globalToLocal(-bakedViewport!.toOffset());
+          (transform.size - cameraViewport.scale) / cameraViewport.scale;
+      var pos = transform.globalToLocal(-cameraViewport.toOffset());
 
       // Draw our baked image, scaling it down with drawImageRect.
-      canvas.drawImageRect(
-        image,
-        Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
-        pos &
-            Size(image.width * (1 + bakedSizeDiff),
-                image.height * (1 + bakedSizeDiff)),
-        Paint(),
-      );
+      if (image != null) {
+        canvas.drawImageRect(
+          image,
+          Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
+          pos &
+              Size(image.width * (1 + bakedSizeDiff),
+                  image.height * (1 + bakedSizeDiff)),
+          Paint(),
+        );
+      }
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
-    for (var renderer in renderers) {
+    for (var renderer in cameraViewport.unbakedElements) {
       renderer.build(canvas, false);
     }
     canvas.restore();
@@ -223,7 +221,5 @@ class ViewPainter extends CustomPainter {
       document != oldDelegate.document ||
       renderBackground != oldDelegate.renderBackground ||
       transform != oldDelegate.transform ||
-      images != oldDelegate.images ||
-      bakedViewport != oldDelegate.bakedViewport ||
-      renderers != oldDelegate.renderers;
+      cameraViewport != oldDelegate.cameraViewport;
 }

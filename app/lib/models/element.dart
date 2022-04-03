@@ -17,11 +17,13 @@ abstract class PathElement {
 
 @freezed
 class PadElement with _$PadElement {
+  @Implements<PathElement>()
   const factory PadElement.pen(
       {@Default('') String layer,
       @Default([]) List<PathPoint> points,
       @Default(PenProperty()) PenProperty property}) = PenElement;
 
+  @Implements<PathElement>()
   const factory PadElement.eraser({
     @Default('') String layer,
     @Default([]) List<PathPoint> points,

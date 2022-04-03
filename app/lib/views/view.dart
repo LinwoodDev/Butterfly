@@ -56,7 +56,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             transform ?? context.read<TransformCubit>().state));
                       }
 
-                      if (state.bakedViewport?.toSize() !=
+                      if (state.bakedViewport.toSize() !=
                           Size(constraints.biggest.width.roundToDouble(),
                               constraints.biggest.height.roundToDouble())) {
                         _bake();
@@ -160,8 +160,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         state.document.areas,
                                       ),
                                       painter: ViewPainter(state.document,
-                                          renderers: state.renderers,
-                                          bakedViewport: state.bakedViewport,
+                                          cameraViewport: state.bakedViewport,
                                           transform: transform,
                                           currentArea: state.currentArea),
                                       isComplex: true,

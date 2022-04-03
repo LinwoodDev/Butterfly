@@ -14,15 +14,13 @@ class DocumentLoadSuccess extends DocumentState {
   final String? path;
   final String currentLayer;
   final int currentAreaIndex;
-  final List<Renderer> renderers;
   final List<String> invisibleLayers;
-  final BakedViewport? bakedViewport;
+  final CameraViewport bakedViewport;
   final CurrentIndex currentIndex;
 
   DocumentLoadSuccess(this.document,
       {this.path,
-      this.bakedViewport,
-      this.renderers = const [],
+      this.bakedViewport = const CameraViewport.unbaked(),
       this.currentAreaIndex = -1,
       CurrentIndex? currentIndex,
       this.currentLayer = '',
@@ -40,9 +38,8 @@ class DocumentLoadSuccess extends DocumentState {
         currentAreaIndex
       ];
 
-  List<PadElement> get elements {
-    return bakedViewport?.unbakedElements ?? document.content;
-  }
+  List<Renderer> get renderers => List.from(bakedViewport.bakedElements)
+    ..addAll(bakedViewport.unbakedElements);
 
   HandHandler? fetchHand() {
     final handler = currentIndex.handler;
@@ -77,15 +74,13 @@ class DocumentLoadSuccess extends DocumentState {
           bool removeCurrentIndex = false,
           bool removePath = false,
           List<String>? invisibleLayers,
-          BakedViewport? bakedViewport,
-          bool removeBakedViewport = false}) =>
+          CameraViewport? bakedViewport}) =>
       DocumentLoadSuccess(document ?? this.document,
           path: removePath ? null : path ?? this.path,
           invisibleLayers: invisibleLayers ?? this.invisibleLayers,
           currentLayer: currentLayer ?? this.currentLayer,
           currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
-          bakedViewport:
-              removeBakedViewport ? null : bakedViewport ?? this.bakedViewport,
+          bakedViewport: bakedViewport ?? this.bakedViewport,
           currentIndex:
               removeCurrentIndex ? null : currentIndex ?? this.currentIndex);
 

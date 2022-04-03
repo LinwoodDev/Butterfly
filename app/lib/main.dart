@@ -69,7 +69,10 @@ Future<void> main([List<String> args = const []]) async {
       await windowManager.focus();
     });
   }
-  runApp(ButterflyApp(prefs: prefs, initialLocation: initialLocation));
+  runApp(MultiRepositoryProvider(providers: [
+    RepositoryProvider(create: (context) => DocumentFileSystem.fromPlatform()),
+    RepositoryProvider(create: (context) => TemplateFileSystem.fromPlatform()),
+  ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)));
 }
 
 class ButterflyApp extends StatelessWidget {

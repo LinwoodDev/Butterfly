@@ -29,10 +29,8 @@ class _InsertDialogState extends State<InsertDialog> {
     if (state is! DocumentLoadSuccess) return;
     var bakedViewport = state.bakedViewport;
     bloc.add(ElementsCreated([element]));
-    if (bakedViewport != null) {
-      bloc.add(ImageBaked(bakedViewport.toSize(),
-          MediaQuery.of(context).devicePixelRatio, transform));
-    }
+    bloc.add(ImageBaked(bakedViewport.toSize(),
+        MediaQuery.of(context).devicePixelRatio, transform));
     Navigator.of(context).pop();
   }
 
