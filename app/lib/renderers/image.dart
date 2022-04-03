@@ -3,7 +3,7 @@ part of 'renderer.dart';
 class ImageRenderer extends Renderer<ImageElement> {
   Image? image;
 
-  ImageRenderer(ImageElement element) : super(element);
+  ImageRenderer(ImageElement element, [this.image]) : super(element);
 
   @override
   FutureOr<void> build(Canvas canvas, [bool foreground = false]) async {
@@ -31,7 +31,7 @@ class ImageRenderer extends Renderer<ImageElement> {
       (element.height * element.scale).toDouble());
 
   @override
-  void move(Offset position) {
-    element = element.copyWith(position: position);
+  Renderer<ImageElement> move(Offset position) {
+    return ImageRenderer(element.copyWith(position: position), image);
   }
 }

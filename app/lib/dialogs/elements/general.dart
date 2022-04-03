@@ -113,7 +113,7 @@ class GeneralElementDialog extends StatelessWidget {
               title: Text(AppLocalizations.of(context)!.duplicate),
               leading: const Icon(PhosphorIcons.copyLight),
               onTap: () {
-                state.fetchHand()?.move(context, renderer);
+                state.fetchHand()?.move(context, renderer, true);
                 close();
               },
             ),

@@ -29,7 +29,7 @@ abstract class HitCalculator {
 }
 
 abstract class Renderer<T extends PadElement> {
-  T element;
+  final T element;
   Area? area;
 
   Renderer(this.element);
@@ -59,5 +59,5 @@ abstract class Renderer<T extends PadElement> {
     throw Exception('Invalid element type');
   }
 
-  void move(Offset position);
+  Renderer<T> move(Offset position);
 }

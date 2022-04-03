@@ -2,9 +2,9 @@ part of 'renderer.dart';
 
 class LabelRenderer extends Renderer<LabelElement> {
   @override
-  Rect rect = Rect.zero;
+  Rect rect;
 
-  LabelRenderer(LabelElement element) : super(element);
+  LabelRenderer(LabelElement element, [this.rect = Rect.zero]) : super(element);
 
   TextPainter _createPainter() => TextPainter(
       text: TextSpan(
@@ -45,7 +45,10 @@ class LabelRenderer extends Renderer<LabelElement> {
   }
 
   @override
-  void move(Offset position) {
-    element = element.copyWith(position: position);
+  LabelRenderer move(Offset position) {
+    return LabelRenderer(
+        element.copyWith(position: position),
+        Rect.fromLTWH(
+            element.position.dx, element.position.dy, rect.width, rect.height));
   }
 }

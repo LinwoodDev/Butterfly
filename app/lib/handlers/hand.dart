@@ -13,10 +13,12 @@ class HandHandler extends Handler {
   @override
   List<Rect> createSelections() => [if (selected != null) selected!.rect];
 
-  void move(BuildContext context, Renderer next) {
+  void move(BuildContext context, Renderer next, [bool duplicate = false]) {
     submitMove(context);
     movingElement = next;
-    context.read<DocumentBloc>().add(ElementsRemoved([next.element]));
+    if (!duplicate) {
+      context.read<DocumentBloc>().add(ElementsRemoved([next.element]));
+    }
   }
 
   void submitMove(BuildContext context) {
@@ -32,7 +34,8 @@ class HandHandler extends Handler {
       Size viewportSize, BuildContext context, PointerUpEvent event) async {
     final transform = context.read<TransformCubit>().state;
     if (movingElement != null) {
-      movingElement?.move(transform.localToGlobal(event.localPosition));
+      movingElement =
+          movingElement?.move(transform.localToGlobal(event.localPosition));
       submitMove(context);
       return;
     }
