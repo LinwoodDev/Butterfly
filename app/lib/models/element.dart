@@ -34,7 +34,7 @@ class PadElement with _$PadElement {
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
     @Default('') String text,
-    @Default(LabelProperty()) property,
+    @Default(LabelProperty()) LabelProperty property,
   }) = LabelElement;
 
   const factory PadElement.image({

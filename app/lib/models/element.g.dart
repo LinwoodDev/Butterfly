@@ -55,7 +55,9 @@ _$LabelElement _$$LabelElementFromJson(Map<String, dynamic> json) =>
           : const OffsetJsonConverter()
               .fromJson(json['position'] as Map<String, dynamic>),
       text: json['text'] as String? ?? '',
-      property: json['property'] ?? const LabelProperty(),
+      property: json['property'] == null
+          ? const LabelProperty()
+          : LabelProperty.fromJson(json['property'] as Map<String, dynamic>),
       $type: json['type'] as String?,
     );
 

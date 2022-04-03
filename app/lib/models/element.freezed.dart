@@ -61,7 +61,7 @@ class _$PadElementTearOff {
       {String layer = '',
       @OffsetJsonConverter() Offset position = Offset.zero,
       String text = '',
-      dynamic property = const LabelProperty()}) {
+      LabelProperty property = const LabelProperty()}) {
     return LabelElement(
       layer: layer,
       position: position,
@@ -111,7 +111,7 @@ mixin _$PadElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             String text,
-            dynamic property)
+            LabelProperty property)
         label,
     required TResult Function(
             String layer,
@@ -132,7 +132,7 @@ mixin _$PadElement {
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, dynamic property)?
+            String text, LabelProperty property)?
         label,
     TResult Function(
             String layer,
@@ -153,7 +153,7 @@ mixin _$PadElement {
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, dynamic property)?
+            String text, LabelProperty property)?
         label,
     TResult Function(
             String layer,
@@ -334,7 +334,7 @@ class _$PenElement implements PenElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             String text,
-            dynamic property)
+            LabelProperty property)
         label,
     required TResult Function(
             String layer,
@@ -358,7 +358,7 @@ class _$PenElement implements PenElement {
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, dynamic property)?
+            String text, LabelProperty property)?
         label,
     TResult Function(
             String layer,
@@ -382,7 +382,7 @@ class _$PenElement implements PenElement {
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, dynamic property)?
+            String text, LabelProperty property)?
         label,
     TResult Function(
             String layer,
@@ -572,7 +572,7 @@ class _$EraserElement implements EraserElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             String text,
-            dynamic property)
+            LabelProperty property)
         label,
     required TResult Function(
             String layer,
@@ -596,7 +596,7 @@ class _$EraserElement implements EraserElement {
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, dynamic property)?
+            String text, LabelProperty property)?
         label,
     TResult Function(
             String layer,
@@ -620,7 +620,7 @@ class _$EraserElement implements EraserElement {
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, dynamic property)?
+            String text, LabelProperty property)?
         label,
     TResult Function(
             String layer,
@@ -711,7 +711,7 @@ abstract class $LabelElementCopyWith<$Res>
       {String layer,
       @OffsetJsonConverter() Offset position,
       String text,
-      dynamic property});
+      LabelProperty property});
 }
 
 /// @nodoc
@@ -744,7 +744,10 @@ class _$LabelElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      property: property == freezed ? _value.property : property,
+      property: property == freezed
+          ? _value.property
+          : property // ignore: cast_nullable_to_non_nullable
+              as LabelProperty,
     ));
   }
 }
@@ -775,7 +778,7 @@ class _$LabelElement implements LabelElement {
   final String text;
   @JsonKey()
   @override
-  final dynamic property;
+  final LabelProperty property;
 
   @JsonKey(name: 'type')
   final String $type;
@@ -822,7 +825,7 @@ class _$LabelElement implements LabelElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             String text,
-            dynamic property)
+            LabelProperty property)
         label,
     required TResult Function(
             String layer,
@@ -846,7 +849,7 @@ class _$LabelElement implements LabelElement {
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, dynamic property)?
+            String text, LabelProperty property)?
         label,
     TResult Function(
             String layer,
@@ -870,7 +873,7 @@ class _$LabelElement implements LabelElement {
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, dynamic property)?
+            String text, LabelProperty property)?
         label,
     TResult Function(
             String layer,
@@ -936,7 +939,7 @@ abstract class LabelElement implements PadElement {
       {String layer,
       @OffsetJsonConverter() Offset position,
       String text,
-      dynamic property}) = _$LabelElement;
+      LabelProperty property}) = _$LabelElement;
 
   factory LabelElement.fromJson(Map<String, dynamic> json) =
       _$LabelElement.fromJson;
@@ -946,7 +949,7 @@ abstract class LabelElement implements PadElement {
   @OffsetJsonConverter()
   Offset get position;
   String get text;
-  dynamic get property;
+  LabelProperty get property;
   @override
   @JsonKey(ignore: true)
   $LabelElementCopyWith<LabelElement> get copyWith =>
@@ -1100,7 +1103,7 @@ class _$ImageElement implements ImageElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             String text,
-            dynamic property)
+            LabelProperty property)
         label,
     required TResult Function(
             String layer,
@@ -1124,7 +1127,7 @@ class _$ImageElement implements ImageElement {
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, dynamic property)?
+            String text, LabelProperty property)?
         label,
     TResult Function(
             String layer,
@@ -1148,7 +1151,7 @@ class _$ImageElement implements ImageElement {
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, dynamic property)?
+            String text, LabelProperty property)?
         label,
     TResult Function(
             String layer,
