@@ -24,8 +24,9 @@ part 'document_event.dart';
 part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
-  DocumentBloc(AppDocument initial, String? path)
-      : super(DocumentLoadSuccess(initial, path: path)) {
+  DocumentBloc(AppDocument initial, String? path, List<Renderer> renderer)
+      : super(DocumentLoadSuccess(initial,
+            path: path, cameraViewport: CameraViewport.unbaked(renderer))) {
     _init();
   }
 
@@ -38,8 +39,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 document: current.document.copyWith(
                     content: (List.from(current.document.content)
                       ..addAll(event.elements)))),
-            List<Renderer>.from(current.bakedViewport.unbakedElements)
-              ..addAll(event.elements.map((e) => Renderer.fromElement(e))));
+            event.elements.map((e) => Renderer.fromElement(e)).toList());
       }
     });
     on<ElementsReplaced>((event, emit) async {
@@ -259,7 +259,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         return _saveDocument(
             current.copyWith(
-                bakedViewport: isVisible
+                cameraViewport: isVisible
                     ? CameraViewport.unbaked(current.renderers)
                     : null,
                 invisibleLayers: invisibleLayers),
@@ -307,7 +307,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var recorder = ui.PictureRecorder();
       var size = event.viewportSize;
       var canvas = ui.Canvas(recorder);
-      var last = current.bakedViewport;
+      var last = current.cameraViewport;
       var invisibleLayers = current.invisibleLayers;
       var reset = last.width != size.width.round() ||
           last.height != size.height.round() ||
@@ -340,10 +340,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             .toList();
       }
       if (!eq(renderers, currentElements)) return;
-      if (last != current.bakedViewport) return;
+      if (last != current.cameraViewport) return;
 
       emit(current.copyWith(
-          bakedViewport: CameraViewport.baked(
+          cameraViewport: CameraViewport.baked(
               height: size.height.round(),
               width: size.width.round(),
               scale: event.cameraTransform.size,
@@ -357,7 +357,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var current = state;
       if (current is DocumentLoadSuccess) {
         emit(current.copyWith(
-            bakedViewport: CameraViewport.unbaked(current.renderers)));
+            cameraViewport: CameraViewport.unbaked(current.renderers)));
       }
     });
     on<TemplateCreated>((event, emit) {
@@ -405,22 +405,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     });
   }
 
-  @override
-  void onChange(Change<DocumentState> change) {
-    // Always call super.onChange with the current change
-    super.onChange(change);
-
-    // Custom onChange logic goes here
-
-    var last = change.currentState;
-    var current = change.nextState;
-    if (last is! DocumentLoadSuccess || current is! DocumentLoadSuccess) return;
-    if (last.path != null &&
-        last.bakedViewport.image != current.bakedViewport.image) {
-      last.bakedViewport.image?.dispose();
-    }
-  }
-
   Future<void> _saveDocument(DocumentLoadSuccess current,
       [List<Renderer>? unbakedElements = const []]) async {
     var elements = current.renderers;
@@ -432,9 +416,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     }
     current = current.copyWith(
         document: current.document.copyWith(updatedAt: DateTime.now()),
-        bakedViewport: unbakedElements == null
+        cameraViewport: unbakedElements == null
             ? CameraViewport.unbaked(elements)
-            : current.bakedViewport.withUnbaked(elements));
+            : current.cameraViewport.withUnbaked(elements));
     if (current.path != null) {
       emit(current);
     }

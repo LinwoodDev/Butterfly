@@ -11,7 +11,8 @@ class ImageRenderer extends Renderer<ImageElement> {
     var paint = Paint()..isAntiAlias = true;
     canvas.drawImageRect(
       image!,
-      Rect.fromLTWH(0, 0, image!.width.toDouble(), image!.height.toDouble()),
+      Rect.fromLTWH(0, 0, (element.width * element.scale).toDouble(),
+          (element.height * element.scale).toDouble()),
       rect,
       paint,
     );

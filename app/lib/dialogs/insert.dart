@@ -27,7 +27,7 @@ class _InsertDialogState extends State<InsertDialog> {
     var state = bloc.state;
     var transform = context.read<TransformCubit>().state;
     if (state is! DocumentLoadSuccess) return;
-    var bakedViewport = state.bakedViewport;
+    var bakedViewport = state.cameraViewport;
     bloc.add(ElementsCreated([element]));
     bloc.add(ImageBaked(bakedViewport.toSize(),
         MediaQuery.of(context).devicePixelRatio, transform));

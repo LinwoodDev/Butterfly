@@ -87,9 +87,21 @@ abstract class Handler {
   }
 }
 
+typedef HitRequest = bool Function(Offset position, [double radius]);
+
+class _SmallRenderer {
+  final HitCalculator hitCalculator;
+  final PadElement element;
+
+  _SmallRenderer(this.hitCalculator, this.element);
+  _SmallRenderer.fromRenderer(Renderer renderer)
+      : hitCalculator = renderer.hitCalculator,
+        element = renderer.element;
+}
+
 class _RayCastParams {
   final List<String> invisibleLayers;
-  final List<Renderer> renderers;
+  final List<_SmallRenderer> renderers;
   final Offset globalPosition;
   final double radius;
   final double size;
@@ -110,8 +122,13 @@ Future<Set<Renderer>> rayCast(
   final renderers = state.renderers;
   return compute(
           _executeRayCast,
-          _RayCastParams(state.invisibleLayers, renderers, globalPosition,
-              radius, transform.size, includeEraser))
+          _RayCastParams(
+              state.invisibleLayers,
+              renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
+              globalPosition,
+              radius,
+              transform.size,
+              includeEraser))
       .then((value) => value.map((e) => renderers[e]).toSet());
 }
 
@@ -119,8 +136,9 @@ Set<int> _executeRayCast(_RayCastParams params) {
   return params.renderers
       .asMap()
       .entries
-      .where((e) => params.invisibleLayers.contains(e.value.element.layer))
-      .where((e) => e.value.hit(params.globalPosition, params.radius))
+      .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
+      .where((e) =>
+          e.value.hitCalculator.hit(params.globalPosition, params.radius))
       .where((e) => params.includeEraser || e.value.element is! EraserElement)
       .map((e) => e.key)
       .toSet();

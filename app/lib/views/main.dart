@@ -24,6 +24,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:flutter/foundation.dart';
@@ -96,7 +97,12 @@ class _ProjectPageState extends State<ProjectPage> {
           palettes: ColorPalette.getMaterialPalette(context));
     }
     if (document != null) {
-      setState(() => _bloc = DocumentBloc(document!, widget.path));
+      final renderers =
+          document!.content.map((e) => Renderer.fromElement(e)).toList();
+      for (var renderer in renderers) {
+        await renderer.setup(document!);
+      }
+      setState(() => _bloc = DocumentBloc(document!, widget.path, renderers));
     }
   }
 
