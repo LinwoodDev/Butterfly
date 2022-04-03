@@ -7,16 +7,22 @@ class HandHandler extends Handler {
   HandHandler();
 
   @override
+  List<Renderer<PadElement>> createForegrounds() =>
+      [if (movingElement != null) movingElement!];
+
+  @override
   List<Rect> createSelections() => [if (selected != null) selected!.rect];
 
   void move(BuildContext context, Renderer next) {
     submitMove(context);
     movingElement = next;
+    context.read<DocumentBloc>().add(ElementsRemoved([next.element]));
   }
 
   void submitMove(BuildContext context) {
     if (movingElement == null) return;
     context.read<DocumentBloc>().add(ElementsCreated([movingElement!.element]));
+    movingElement = null;
   }
 
   bool openView = true;
@@ -24,7 +30,9 @@ class HandHandler extends Handler {
   @override
   Future<void> onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) async {
+    final transform = context.read<TransformCubit>().state;
     if (movingElement != null) {
+      movingElement?.move(transform.localToGlobal(event.localPosition));
       submitMove(context);
       return;
     }
@@ -33,7 +41,6 @@ class HandHandler extends Handler {
     final hand = state.document.handProperty;
     if (openView) {
       final settings = context.read<SettingsCubit>().state;
-      final transform = context.read<TransformCubit>().state;
       final radius = settings.selectSensitivity / transform.size;
       final hits = await rayCast(
           context, event.localPosition, radius, hand.includeEraser);
@@ -112,6 +119,9 @@ class HandHandler extends Handler {
     final transform = context.read<TransformCubit>().state;
     if (openView) {
       openView = (event.delta / transform.size) == Offset.zero;
+    }
+    if (movingElement != null) {
+      return;
     }
     context.read<TransformCubit>().move(event.delta / transform.size);
   }

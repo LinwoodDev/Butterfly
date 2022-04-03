@@ -62,7 +62,7 @@ Future<void> main([List<String> args = const []]) async {
       await windowManager.setMinimumSize(const Size(410, 300));
       await windowManager.setSize(const Size(450, 600));
       await windowManager.setTitle('Butterfly');
-      await windowManager.setTitleBarStyle('hidden');
+      await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
       await windowManager.setResizable(true);
       await windowManager.center();
       await windowManager.show();

@@ -80,6 +80,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         var current = state as DocumentLoadSuccess;
         return _saveDocument(
             current.copyWith(
+                cameraViewport: current.cameraViewport.withUnbaked(
+                  current.renderers
+                      .where((element) => !event.elements.contains(
+                            element.element,
+                          ))
+                      .toList(),
+                ),
                 document: current.document.copyWith(
                     content: List.from(current.document.content)
                       ..removeWhere(

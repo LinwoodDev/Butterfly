@@ -47,4 +47,16 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       }
     }
   }
+
+  @override
+  void move(Offset position) {
+    var current = element as PathElement;
+    var center = rect.center;
+    var diff = position - center;
+    var points = current.points
+        .map((element) =>
+            element.copyWith(x: element.x + diff.dx, y: element.y + diff.dy))
+        .toList();
+    element = (current as dynamic).copyWith(points: points) as T;
+  }
 }

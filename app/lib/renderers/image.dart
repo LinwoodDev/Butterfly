@@ -29,4 +29,9 @@ class ImageRenderer extends Renderer<ImageElement> {
       element.position.dy,
       (element.width * element.scale).toDouble(),
       (element.height * element.scale).toDouble());
+
+  @override
+  void move(Offset position) {
+    element = element.copyWith(position: position);
+  }
 }

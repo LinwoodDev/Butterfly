@@ -43,4 +43,9 @@ class LabelRenderer extends Renderer<LabelElement> {
     var current = element.position;
     tp.paint(canvas, current);
   }
+
+  @override
+  void move(Offset position) {
+    element = element.copyWith(position: position);
+  }
 }
