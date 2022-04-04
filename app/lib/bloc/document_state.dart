@@ -38,8 +38,9 @@ class DocumentLoadSuccess extends DocumentState {
         currentAreaIndex
       ];
 
-  List<Renderer> get renderers => List.from(cameraViewport.bakedElements)
-    ..addAll(cameraViewport.unbakedElements);
+  List<Renderer<PadElement>> get renderers =>
+      List.from(cameraViewport.bakedElements)
+        ..addAll(cameraViewport.unbakedElements);
 
   HandHandler? fetchHand() {
     final handler = currentIndex.handler;

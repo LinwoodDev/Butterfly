@@ -6,7 +6,7 @@ class PenHandler extends Handler {
   PenHandler();
 
   @override
-  List<Renderer> createForegrounds() =>
+  List<Renderer> createForegrounds(AppDocument document) =>
       elements.values.map((e) => PenRenderer(e)).toList();
 
   @override

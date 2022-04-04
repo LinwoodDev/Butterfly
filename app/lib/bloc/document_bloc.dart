@@ -24,7 +24,8 @@ part 'document_event.dart';
 part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
-  DocumentBloc(AppDocument initial, String? path, List<Renderer> renderer)
+  DocumentBloc(
+      AppDocument initial, String? path, List<Renderer<PadElement>> renderer)
       : super(DocumentLoadSuccess(initial,
             path: path, cameraViewport: CameraViewport.unbaked(renderer))) {
     _init();
@@ -45,7 +46,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ElementsReplaced>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        var renderers = List<Renderer>.from(current.renderers);
+        var renderers = List<Renderer<PadElement>>.from(current.renderers);
         event.replacedElements.forEach((index, element) {
           final current = element.map((e) => Renderer.fromElement(e));
           if (index == null) {
@@ -66,7 +67,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ElementChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
-        final renderers = <Renderer>[];
+        final renderers = <Renderer<PadElement>>[];
         for (var renderer in current.renderers) {
           if (renderer.element == event.old) {
             final newRenderer = Renderer.fromElement(event.updated);
@@ -135,8 +136,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final index = current.currentIndex;
         return _saveDocument(current.copyWith(
           currentIndex: index.copyWith(
-              foregrounds: index.handler.createForegrounds(),
-              selections: index.handler.createSelections()),
+              foregrounds: index.handler.createForegrounds(current.document),
+              selections: index.handler.createSelections(current.document)),
         ));
       }
     });
@@ -281,7 +282,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                     ? CameraViewport.unbaked(current.renderers)
                     : null,
                 invisibleLayers: invisibleLayers),
-            isVisible ? null : List<Renderer>.from(current.renderers)
+            isVisible
+                ? null
+                : List<Renderer<PadElement>>.from(current.renderers)
               ?..addAll(current.document.content
                   .where((e) => e.layer == event.name)
                   .map((e) => Renderer.fromElement(e))));
@@ -424,13 +427,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   }
 
   Future<void> _saveDocument(DocumentLoadSuccess current,
-      [List<Renderer>? unbakedElements = const []]) async {
+      [List<Renderer<PadElement>>? unbakedElements = const []]) async {
     var elements = current.renderers;
     if (unbakedElements != null) {
       for (var renderer in unbakedElements) {
         await renderer.setup(current.document);
       }
-      elements = List<Renderer>.from(elements)..addAll(unbakedElements);
+      elements = List<Renderer<PadElement>>.from(elements)
+        ..addAll(unbakedElements);
     }
     current = current.copyWith(
         document: current.document.copyWith(updatedAt: DateTime.now()),

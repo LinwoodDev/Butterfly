@@ -2,10 +2,12 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/renderers/renderer.dart';
 
+import 'element.dart';
+
 class CameraViewport {
   final ui.Image? image;
-  final List<Renderer> bakedElements;
-  final List<Renderer> unbakedElements;
+  final List<Renderer<PadElement>> bakedElements;
+  final List<Renderer<PadElement>> unbakedElements;
   final int? width, height;
   final double scale;
   final double x, y;
@@ -40,7 +42,7 @@ class CameraViewport {
         other.y == y;
   }
 
-  CameraViewport withUnbaked(List<Renderer> unbakedElements) =>
+  CameraViewport withUnbaked(List<Renderer<PadElement>> unbakedElements) =>
       CameraViewport.baked(
           image: image,
           width: width,

@@ -8,6 +8,8 @@ import 'package:butterfly/models/element.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 
+import '../cubits/transform.dart';
+
 part 'path.dart';
 part 'pen.dart';
 part 'eraser.dart';
@@ -28,7 +30,7 @@ abstract class HitCalculator {
   bool hit(Offset position, [double radius = 1]);
 }
 
-abstract class Renderer<T extends PadElement> {
+abstract class Renderer<T> {
   final T element;
   Area? area;
 
@@ -41,7 +43,8 @@ abstract class Renderer<T extends PadElement> {
   FutureOr<void> onAreaUpdate(AppDocument document) async =>
       _updateArea(document);
   Rect get rect;
-  FutureOr<void> build(Canvas canvas, [bool foreground = false]);
+  FutureOr<void> build(Canvas canvas, CameraTransform transform,
+      [bool foreground = false]);
   HitCalculator get hitCalculator => DefaultHitCalculator(rect);
   factory Renderer.fromElement(T element) {
     if (element is PenElement) {

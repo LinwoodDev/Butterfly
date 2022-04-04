@@ -3,6 +3,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:butterfly/models/painter.dart';
+import 'package:butterfly/renderers/area.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ import '../dialogs/elements/general.dart';
 import '../dialogs/elements/image.dart';
 import '../dialogs/elements/label.dart';
 import '../dialogs/select.dart';
+import '../models/area.dart';
+import '../models/document.dart';
 import '../models/path_point.dart';
 import '../renderers/renderer.dart';
 import '../widgets/context_menu.dart';
@@ -28,9 +31,9 @@ part 'pen.dart';
 abstract class Handler {
   const Handler();
 
-  List<Renderer> createForegrounds() => [];
+  List<Renderer> createForegrounds(AppDocument document) => [];
 
-  List<Rect> createSelections() => [];
+  List<Rect> createSelections(AppDocument document) => [];
 
   void onTapUp(Size viewportSize, BuildContext context, TapUpDetails details) {}
 
@@ -111,7 +114,7 @@ class _RayCastParams {
       this.globalPosition, this.radius, this.size, this.includeEraser);
 }
 
-Future<Set<Renderer>> rayCast(
+Future<Set<Renderer<PadElement>>> rayCast(
     BuildContext context, Offset localPosition, double radius,
     [bool includeEraser = false]) async {
   final bloc = context.read<DocumentBloc>();

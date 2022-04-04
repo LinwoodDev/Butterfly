@@ -31,7 +31,7 @@ class ForegroundPainter extends CustomPainter {
     canvas.scale(transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var element in renderers) {
-      element.build(canvas, true);
+      element.build(canvas, transform, true);
     }
     for (var rect in selection) {
       /*
@@ -211,7 +211,7 @@ class ViewPainter extends CustomPainter {
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var renderer in cameraViewport.unbakedElements) {
-      renderer.build(canvas, false);
+      renderer.build(canvas, transform, false);
     }
     canvas.restore();
   }

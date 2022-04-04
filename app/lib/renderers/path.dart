@@ -28,7 +28,8 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   }
 
   @override
-  FutureOr<void> build(Canvas canvas, [bool foreground = false]) {
+  FutureOr<void> build(Canvas canvas, CameraTransform transform,
+      [bool foreground = false]) {
     final current = element as PathElement;
     final points = current.points;
     final property = current.property;

@@ -37,7 +37,8 @@ class LabelRenderer extends Renderer<LabelElement> {
   }
 
   @override
-  FutureOr<void> build(Canvas canvas, [bool foreground = false]) {
+  FutureOr<void> build(Canvas canvas, CameraTransform transform,
+      [bool foreground = false]) {
     final tp = _createPainter();
     tp.layout();
     var current = element.position;

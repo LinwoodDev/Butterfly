@@ -7,11 +7,12 @@ class HandHandler extends Handler {
   HandHandler();
 
   @override
-  List<Renderer<PadElement>> createForegrounds() =>
+  List<Renderer> createForegrounds(AppDocument document) =>
       [if (movingElement != null) movingElement!];
 
   @override
-  List<Rect> createSelections() => [if (selected != null) selected!.rect];
+  List<Rect> createSelections(AppDocument document) =>
+      [if (selected != null) selected!.rect];
 
   void move(BuildContext context, Renderer next, [bool duplicate = false]) {
     submitMove(context);
