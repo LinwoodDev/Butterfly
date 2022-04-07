@@ -1,8 +1,11 @@
+import 'package:butterfly/models/colors.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/property.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'background.dart';
+import 'painter.dart';
 
 class DocumentTemplate {
   final AppDocument document;
@@ -19,9 +22,15 @@ class DocumentTemplate {
                 createdAt: DateTime.now(),
                 background: BackgroundTemplate.plain.create())),
         DocumentTemplate(
-            document: AppDocument.dark(
+            document: AppDocument(
                 name: AppLocalizations.of(context)!.plainDark,
                 createdAt: DateTime.now(),
+                painters: [
+                  const PenPainter(property: PenProperty(color: kColorWhite)),
+                  const PathEraserPainter(),
+                  const LabelPainter(
+                      property: LabelProperty(color: kColorWhite)),
+                ],
                 background: BackgroundTemplate.plainDark.create()))
       ];
 

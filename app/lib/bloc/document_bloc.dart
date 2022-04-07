@@ -110,8 +110,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         return _saveDocument(current.copyWith(
-            document: current.document
-                .copyWith(name: event.name, description: event.description)));
+            document: current.document.copyWith(
+                name: event.name ?? current.document.name,
+                description:
+                    event.description ?? current.document.description)));
       }
     });
 
@@ -196,8 +198,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         var current = state as DocumentLoadSuccess;
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(
-                background: event.background,
-                removeBackground: event.background == null)));
+          background: event.background,
+        )));
       }
     });
     on<WaypointCreated>((event, emit) async {

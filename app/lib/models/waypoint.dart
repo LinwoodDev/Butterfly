@@ -1,29 +1,19 @@
 import 'dart:ui';
 
-import 'package:equatable/equatable.dart';
+import 'package:butterfly/models/converter.dart';
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-class Waypoint extends Equatable {
-  final String name;
-  final Offset position;
-  final double? scale;
+part 'waypoint.freezed.dart';
+part 'waypoint.g.dart';
 
+@freezed
+class Waypoint with _$Waypoint {
   static const Waypoint origin = Waypoint('', Offset.zero, 1);
 
-  const Waypoint(this.name, this.position, [this.scale]);
+  const factory Waypoint(String name, @OffsetJsonConverter() Offset position,
+      [double? scale]) = _Waypoint;
 
-  Waypoint.fromJson(Map<String, dynamic> json)
-      : name = json['name'] ?? '',
-        position = Offset(json['position']['x'], json['position']['y']),
-        scale = json['scale'];
-
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'position': {'x': position.dx, 'y': position.dy},
-        'scale': scale
-      };
-
-  @override
-  List<Object?> get props => [name, position, scale];
+  factory Waypoint.fromJson(Map<String, dynamic> json) =>
+      _$WaypointFromJson(json);
 }

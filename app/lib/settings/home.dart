@@ -33,7 +33,7 @@ class SettingsPage extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.data),
             leading: const Icon(PhosphorIcons.databaseLight),
             onTap: () {
-              Navigator.of(context).pop();
+              context.pop();
               GoRouter.of(context).push('/settings/data');
             },
           ),
@@ -41,7 +41,7 @@ class SettingsPage extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.behaviors),
             leading: const Icon(PhosphorIcons.fadersLight),
             onTap: () {
-              Navigator.of(context).pop();
+              context.pop();
               GoRouter.of(context).push('/settings/behaviors');
             },
           ),
@@ -49,7 +49,7 @@ class SettingsPage extends StatelessWidget {
               leading: const Icon(PhosphorIcons.monitorLight),
               title: Text(AppLocalizations.of(context)!.personalization),
               onTap: () {
-                Navigator.of(context).pop();
+                context.pop();
                 GoRouter.of(context).push('/settings/personalization');
               }),
           const Divider(),
