@@ -264,7 +264,7 @@ class __$AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AppDocument implements _AppDocument {
+class _$_AppDocument extends _AppDocument {
   const _$_AppDocument(
       {required this.name,
       this.description = '',
@@ -280,7 +280,8 @@ class _$_AppDocument implements _AppDocument {
         PenPainter(),
         PathEraserPainter(),
         LabelPainter()
-      ]});
+      ]})
+      : super._();
 
   factory _$_AppDocument.fromJson(Map<String, dynamic> json) =>
       _$$_AppDocumentFromJson(json);
@@ -368,7 +369,7 @@ class _$_AppDocument implements _AppDocument {
   }
 }
 
-abstract class _AppDocument implements AppDocument {
+abstract class _AppDocument extends AppDocument {
   const factory _AppDocument(
       {required String name,
       String description,
@@ -381,6 +382,7 @@ abstract class _AppDocument implements AppDocument {
       HandProperty handProperty,
       DateTime? updatedAt,
       List<Painter> painters}) = _$_AppDocument;
+  const _AppDocument._() : super._();
 
   factory _AppDocument.fromJson(Map<String, dynamic> json) =
       _$_AppDocument.fromJson;

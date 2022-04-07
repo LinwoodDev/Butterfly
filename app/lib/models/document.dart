@@ -59,6 +59,7 @@ class AppDocumentDirectory extends AppDocumentAsset {
 
 @freezed
 class AppDocument with _$AppDocument {
+  const AppDocument._();
   const factory AppDocument(
       {required String name,
       @Default('')

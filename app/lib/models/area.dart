@@ -9,7 +9,7 @@ part 'area.g.dart';
 
 @freezed
 class Area with _$Area {
-  Area._();
+  const Area._();
   const factory Area({
     @Default('') String name,
     required double width,
