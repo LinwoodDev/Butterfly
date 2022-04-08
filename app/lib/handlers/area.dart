@@ -2,6 +2,7 @@ part of 'handler.dart';
 
 class AreaHandler extends Handler {
   Rect? currentArea;
+
   @override
   List<Renderer> createForegrounds(AppDocument document) => [
         if (currentArea != null)
@@ -11,9 +12,28 @@ class AreaHandler extends Handler {
               position: currentArea!.topLeft)),
         ...document.areas.map((e) => AreaRenderer(e)).toList()
       ];
+
   @override
   void onPointerDown(
       Size viewportSize, BuildContext context, PointerDownEvent event) {
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state as DocumentLoadSuccess;
+    final area = state.document.areas
+        .firstWhereOrNull((e) => e.rect.contains(event.position));
+    if (area != null) {
+      showContextMenu(
+        position: event.position,
+        context: context,
+        builder: (context, close) => BlocProvider.value(
+            value: bloc,
+            child: AreaContextMenu(
+              close: close,
+              position: event.localPosition,
+              area: area,
+            )),
+      );
+      return;
+    }
     final transform = context.read<TransformCubit>().state;
     final position = transform.localToGlobal(event.localPosition);
     currentArea = Rect.fromLTWH(position.dx, position.dy, 0, 0);
