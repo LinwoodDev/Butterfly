@@ -108,7 +108,9 @@ class EditToolbar extends StatelessWidget {
                             if (state.currentPainter == null) {
                               openHandDialog();
                             } else {
-                              bloc.add(const CurrentPainterChanged(null));
+                              bloc
+                                ..add(const CurrentPainterChanged(null))
+                                ..add(const IndexRefreshed());
                             }
                           },
                         ),
@@ -182,7 +184,9 @@ class EditToolbar extends StatelessWidget {
                                       onPressed: () {
                                         var bloc = context.read<DocumentBloc>();
                                         if (!selected) {
-                                          bloc.add(CurrentPainterChanged(i));
+                                          bloc
+                                            ..add(CurrentPainterChanged(i))
+                                            ..add(const IndexRefreshed());
                                         } else {
                                           openDialog();
                                         }
@@ -192,9 +196,9 @@ class EditToolbar extends StatelessWidget {
                                   index: i,
                                   child: toolWidget);
                             },
-                            onReorder: (oldIndex, newIndex) => context
-                                .read<DocumentBloc>()
-                                .add(PainterReordered(oldIndex, newIndex))),
+                            onReorder: (oldIndex, newIndex) =>
+                                context.read<DocumentBloc>()
+                                  ..add(PainterReordered(oldIndex, newIndex))),
                         const VerticalDivider(),
                         PopupMenuButton<Painter>(
                             tooltip: AppLocalizations.of(context)!.create,

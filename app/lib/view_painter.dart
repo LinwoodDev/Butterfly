@@ -19,12 +19,12 @@ class ForegroundPainter extends CustomPainter {
   final List<Renderer> renderers;
   final CameraTransform transform;
   final List<Rect> selection;
-  final List<Area> areas;
 
-  ForegroundPainter(this.renderers,
-      [this.transform = const CameraTransform(),
-      this.selection = const [],
-      this.areas = const []]);
+  ForegroundPainter(
+    this.renderers, [
+    this.transform = const CameraTransform(),
+    this.selection = const [],
+  ]);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -52,34 +52,13 @@ class ForegroundPainter extends CustomPainter {
             )
             ..strokeWidth = 10 / transform.size);
     }
-    if (areas.isNotEmpty) {
-      // With background and border
-      var paint = Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 5 / transform.size
-        ..color = Colors.lightBlue;
-      var backgroundPaint = Paint()
-        ..style = PaintingStyle.fill
-        ..color = Colors.blue.withOpacity(0.5);
-      for (var area in areas) {
-        canvas.drawRRect(
-            RRect.fromRectAndRadius(
-                area.rect.inflate(5), const Radius.circular(5)),
-            paint);
-        canvas.drawRRect(
-            RRect.fromRectAndRadius(
-                area.rect.inflate(5), const Radius.circular(5)),
-            backgroundPaint);
-      }
-    }
   }
 
   @override
   bool shouldRepaint(ForegroundPainter oldDelegate) =>
       oldDelegate.renderers != renderers ||
       oldDelegate.transform != transform ||
-      oldDelegate.selection != selection ||
-      oldDelegate.areas != areas;
+      oldDelegate.selection != selection;
 }
 
 Future<Map<PadElement, ui.Image>> loadImages(AppDocument document,

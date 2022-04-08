@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
@@ -53,7 +52,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     }
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
-    var doc = jsonDecode(jsonEncode(document.toJson()));
+    var doc = document.toJson();
     doc['type'] = 'file';
     var store = txn.objectStore('documents');
     await store.add(doc, filePath);
@@ -159,7 +158,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
-    var doc = jsonDecode(jsonEncode(document.toJson()));
+    var doc = document.toJson();
     doc['type'] = 'file';
     await store.put(doc, path);
     await txn.completed;
@@ -214,7 +213,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
     var db = await _getDatabase();
     var txn = db.transaction('templates', 'readwrite');
     var store = txn.objectStore('templates');
-    var doc = jsonDecode(jsonEncode(template.toJson()));
+    var doc = template.toJson();
     await store.put(doc, template.name);
   }
 

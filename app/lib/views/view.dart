@@ -157,7 +157,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                         state.currentIndex.foregrounds,
                                         transform,
                                         state.currentIndex.selections,
-                                        state.document.areas,
                                       ),
                                       painter: ViewPainter(state.document,
                                           cameraViewport: state.cameraViewport,
