@@ -16,10 +16,12 @@ class MainViewViewport extends StatefulWidget {
   _MainViewViewportState createState() => _MainViewViewportState();
 }
 
+enum _MouseState { normal, inverse, scale }
+
 class _MainViewViewportState extends State<MainViewViewport> {
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
-  bool shift = false;
+  _MouseState _mouseState = _MouseState.normal;
 
   @override
   void initState() {
@@ -35,7 +37,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
   }
 
   void _handleKey(RawKeyEvent event) {
-    shift = event.data.isShiftPressed;
+    if (event.data.isShiftPressed) {
+      _mouseState = _MouseState.inverse;
+    } else if (event.data.isControlPressed) {
+      _mouseState = _MouseState.scale;
+    } else {
+      _mouseState = _MouseState.normal;
+    }
   }
 
   @override
@@ -121,11 +129,20 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                   scale /= -sensitivity * 100;
                                   scale += 1;
                                   var cubit = context.read<TransformCubit>();
-                                  cubit
-                                    ..move(shift
-                                        ? Offset(-dy, -dx)
-                                        : Offset(-dx, -dy))
-                                    ..zoom(scale, pointerSignal.localPosition);
+                                  if (_mouseState == _MouseState.scale) {
+                                    // Calculate the new scale using dx and dy
+                                    scale =
+                                        -(dx + dy / 2) / sensitivity / 100 + 1;
+                                    cubit.zoom(
+                                        scale, pointerSignal.localPosition);
+                                  } else {
+                                    cubit
+                                      ..move(_mouseState == _MouseState.inverse
+                                          ? Offset(-dy, -dx)
+                                          : Offset(-dx, -dy))
+                                      ..zoom(
+                                          scale, pointerSignal.localPosition);
+                                  }
                                   _bake(cubit.state);
                                 }
                               },

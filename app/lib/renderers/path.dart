@@ -25,6 +25,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     }
     rect = Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
         bottomRightCorner.dx, bottomRightCorner.dy);
+    super.setup(document);
   }
 
   @override

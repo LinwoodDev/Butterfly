@@ -10,11 +10,15 @@ import 'package:flutter/material.dart' hide Image;
 
 import '../cubits/transform.dart';
 
-part 'path.dart';
-part 'pen.dart';
 part 'eraser.dart';
-part 'label.dart';
+
 part 'image.dart';
+
+part 'label.dart';
+
+part 'path.dart';
+
+part 'pen.dart';
 
 class DefaultHitCalculator extends HitCalculator {
   final Rect rect;
@@ -36,6 +40,7 @@ abstract class Renderer<T> {
 
   Renderer(this.element);
 
+  @mustCallSuper
   FutureOr<void> setup(AppDocument document) async => _updateArea(document);
 
   void _updateArea(AppDocument document) => area =

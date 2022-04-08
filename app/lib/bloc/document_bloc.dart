@@ -3,11 +3,11 @@ import 'dart:ui' as ui;
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/models/current_index.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/models/waypoint.dart';
 import 'package:butterfly/view_painter.dart';
 import 'package:collection/collection.dart';
@@ -377,14 +377,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               unbakedElements: [])));
     }, transformer: restartable());
     on<ImageUnbaked>((event, emit) {
-      var current = state;
+      final current = state;
       if (current is DocumentLoadSuccess) {
         emit(current.copyWith(
             cameraViewport: CameraViewport.unbaked(current.renderers)));
       }
     });
     on<TemplateCreated>((event, emit) {
-      var current = state;
+      final current = state;
       if (current is! DocumentLoadSuccess) return;
       TemplateFileSystem.fromPlatform().createTemplate(current.document);
 
@@ -393,36 +393,44 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
     });
     on<DocumentPathChanged>((event, emit) {
-      var current = state;
+      final current = state;
       if (current is! DocumentLoadSuccess) return;
       emit(current.copyWith(path: event.path));
     });
     on<AreaCreated>((event, emit) {
-      var current = state;
+      final current = state;
       if (current is! DocumentLoadSuccess) return;
-      emit(current.copyWith(
-          document: current.document.copyWith(
-              areas: List<Area>.from(current.document.areas)
-                ..add(event.area))));
+      final currentDocument = current.document.copyWith(
+          areas: List<Area>.from(current.document.areas)..add(event.area));
+      emit(current.copyWith(document: currentDocument));
+      for (var element in current.renderers) {
+        element.onAreaUpdate(currentDocument);
+      }
     });
     on<AreaRemoved>((event, emit) {
-      var current = state;
+      final current = state;
       if (current is! DocumentLoadSuccess) return;
-      emit(current.copyWith(
-          document: current.document.copyWith(
-              areas: List<Area>.from(current.document.areas)
-                ..removeAt(event.index))));
+      final currentDocument = current.document.copyWith(
+          areas: List<Area>.from(current.document.areas)
+            ..removeAt(event.index));
+      emit(current.copyWith(document: currentDocument));
+      for (var element in current.renderers) {
+        element.onAreaUpdate(currentDocument);
+      }
     });
     on<AreaChanged>((event, emit) {
-      var current = state;
+      final current = state;
       if (current is! DocumentLoadSuccess) return;
-      emit(current.copyWith(
-          document: current.document.copyWith(
-              areas: List<Area>.from(current.document.areas)
-                ..[event.index] = event.area)));
+      final currentDocument = current.document.copyWith(
+          areas: List<Area>.from(current.document.areas)
+            ..[event.index] = event.area);
+      emit(current.copyWith(document: currentDocument));
+      for (var element in current.renderers) {
+        element.onAreaUpdate(currentDocument);
+      }
     });
     on<CurrentAreaChanged>((event, emit) {
-      var current = state;
+      final current = state;
       if (current is! DocumentLoadSuccess) return;
       emit(current.copyWith(currentAreaIndex: event.area));
     });

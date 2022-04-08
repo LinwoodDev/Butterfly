@@ -34,6 +34,7 @@ class LabelRenderer extends Renderer<LabelElement> {
     tp.layout();
     rect = Rect.fromLTWH(
         element.position.dx, element.position.dy, tp.width, tp.height);
+    super.setup(document);
   }
 
   @override

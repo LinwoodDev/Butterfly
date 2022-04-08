@@ -22,6 +22,7 @@ class ImageRenderer extends Renderer<ImageElement> {
   @override
   FutureOr<void> setup(AppDocument document) async {
     image = await decodeImageFromList(element.pixels);
+    super.setup(document);
   }
 
   @override
