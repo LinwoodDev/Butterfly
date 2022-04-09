@@ -7,11 +7,11 @@ class HandHandler extends Handler {
   HandHandler();
 
   @override
-  List<Renderer> createForegrounds(AppDocument document) =>
+  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
       [if (movingElement != null) movingElement!];
 
   @override
-  List<Rect> createSelections(AppDocument document) =>
+  List<Rect> createSelections(AppDocument document, [Area? currentArea]) =>
       [if (selected != null) selected!.rect];
 
   void move(BuildContext context, Renderer next, [bool duplicate = false]) {
@@ -86,7 +86,6 @@ class HandHandler extends Handler {
         });
       }
     }
-    openView = true;
   }
 
   Future<void> showSelection(BuildContext context, Offset localPosition) async {
@@ -119,6 +118,12 @@ class HandHandler extends Handler {
         });
     selected = null;
     bloc.add(const IndexRefreshed());
+  }
+
+  @override
+  void onPointerDown(
+      Size viewportSize, BuildContext context, PointerDownEvent event) {
+    openView = true;
   }
 
   @override

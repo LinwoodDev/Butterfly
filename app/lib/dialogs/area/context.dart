@@ -49,6 +49,7 @@ class AreaContextMenu extends StatelessWidget {
                 } else {
                   bloc.add(CurrentAreaChanged(index));
                 }
+                bloc.add(const IndexRefreshed());
               },
             ),
             ListTile(

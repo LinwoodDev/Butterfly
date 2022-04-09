@@ -1,16 +1,19 @@
 part of 'handler.dart';
 
 class AreaHandler extends Handler {
-  Rect? currentArea;
+  Rect? currentRect;
 
   @override
-  List<Renderer> createForegrounds(AppDocument document) => [
-        if (currentArea != null)
-          AreaRenderer(Area(
-              width: currentArea!.width,
-              height: currentArea!.height,
-              position: currentArea!.topLeft)),
-        ...document.areas.map((e) => AreaRenderer(e)).toList()
+  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
+      [
+        if (currentArea == null) ...[
+          if (currentRect != null)
+            AreaRenderer(Area(
+                width: currentRect!.width,
+                height: currentRect!.height,
+                position: currentRect!.topLeft)),
+          ...document.areas.map((e) => AreaRenderer(e)).toList()
+        ],
       ];
 
   @override
@@ -20,7 +23,7 @@ class AreaHandler extends Handler {
     final state = bloc.state as DocumentLoadSuccess;
     final area = state.document.areas
         .firstWhereOrNull((e) => e.rect.contains(event.position));
-    if (area != null) {
+    if (area != null || state.currentArea != null) {
       showContextMenu(
         position: event.position,
         context: context,
@@ -29,25 +32,25 @@ class AreaHandler extends Handler {
             child: AreaContextMenu(
               close: close,
               position: event.localPosition,
-              area: area,
+              area: (state.currentArea ?? area)!,
             )),
       );
       return;
     }
     final transform = context.read<TransformCubit>().state;
     final position = transform.localToGlobal(event.localPosition);
-    currentArea = Rect.fromLTWH(position.dx, position.dy, 0, 0);
+    currentRect = Rect.fromLTWH(position.dx, position.dy, 0, 0);
     context.read<DocumentBloc>().add(const IndexRefreshed());
   }
 
   @override
   void onPointerMove(
       Size viewportSize, BuildContext context, PointerMoveEvent event) {
-    if (currentArea == null) return;
+    if (currentRect == null) return;
     final transform = context.read<TransformCubit>().state;
     final position = transform.localToGlobal(event.localPosition);
-    currentArea = Rect.fromLTWH(currentArea!.left, currentArea!.top,
-        position.dx - currentArea!.left, position.dy - currentArea!.top);
+    currentRect = Rect.fromLTWH(currentRect!.left, currentRect!.top,
+        position.dx - currentRect!.left, position.dy - currentRect!.top);
     context.read<DocumentBloc>().add(const IndexRefreshed());
   }
 
@@ -80,14 +83,14 @@ class AreaHandler extends Handler {
   @override
   Future<void> onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) async {
-    if (currentArea == null) return;
+    if (currentRect == null) return;
     final transform = context.read<TransformCubit>().state;
     final position = transform.localToGlobal(event.localPosition);
-    currentArea = Rect.fromLTWH(currentArea!.left, currentArea!.top,
-        position.dx - currentArea!.left, position.dy - currentArea!.top);
+    currentRect = Rect.fromLTWH(currentRect!.left, currentRect!.top,
+        position.dx - currentRect!.left, position.dy - currentRect!.top);
     final name = await _showAreaLabelDialog(context);
     if (name == null) {
-      currentArea = null;
+      currentRect = null;
       context.read<DocumentBloc>().add(const IndexRefreshed());
       return;
     }
@@ -95,10 +98,10 @@ class AreaHandler extends Handler {
     context.read<DocumentBloc>()
       ..add(AreaCreated(Area(
           name: name,
-          width: currentArea!.width,
-          height: currentArea!.height,
-          position: currentArea!.topLeft)))
+          width: currentRect!.width,
+          height: currentRect!.height,
+          position: currentRect!.topLeft)))
       ..add(const IndexRefreshed());
-    currentArea = null;
+    currentRect = null;
   }
 }

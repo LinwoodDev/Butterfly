@@ -138,8 +138,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final index = current.currentIndex;
         return _saveDocument(current.copyWith(
           currentIndex: index.copyWith(
-              foregrounds: index.handler.createForegrounds(current.document),
-              selections: index.handler.createSelections(current.document)),
+              foregrounds: index.handler
+                  .createForegrounds(current.document, current.currentArea),
+              selections: index.handler
+                  .createSelections(current.document, current.currentArea)),
         ));
       }
     });

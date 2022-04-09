@@ -34,9 +34,10 @@ part 'pen.dart';
 abstract class Handler {
   const Handler();
 
-  List<Renderer> createForegrounds(AppDocument document) => [];
+  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
+      [];
 
-  List<Rect> createSelections(AppDocument document) => [];
+  List<Rect> createSelections(AppDocument document, [Area? currentArea]) => [];
 
   void onTapUp(Size viewportSize, BuildContext context, TapUpDetails details) {}
 
