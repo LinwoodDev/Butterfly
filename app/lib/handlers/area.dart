@@ -40,6 +40,10 @@ class AreaHandler extends Handler {
     final transform = context.read<TransformCubit>().state;
     final position = transform.localToGlobal(event.localPosition);
     currentRect = Rect.fromLTWH(position.dx, position.dy, 0, 0);
+    if (state.document.getAreaByRect(currentRect!) != null) {
+      currentRect = null;
+      return;
+    }
     context.read<DocumentBloc>().add(const IndexRefreshed());
   }
 
@@ -48,10 +52,14 @@ class AreaHandler extends Handler {
       Size viewportSize, BuildContext context, PointerMoveEvent event) {
     if (currentRect == null) return;
     final transform = context.read<TransformCubit>().state;
+    final state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
     final position = transform.localToGlobal(event.localPosition);
-    currentRect = Rect.fromLTWH(currentRect!.left, currentRect!.top,
+    final nextRect = Rect.fromLTWH(currentRect!.left, currentRect!.top,
         position.dx - currentRect!.left, position.dy - currentRect!.top);
-    context.read<DocumentBloc>().add(const IndexRefreshed());
+    if (state.document.getAreaByRect(nextRect) == null) {
+      currentRect = nextRect;
+      context.read<DocumentBloc>().add(const IndexRefreshed());
+    }
   }
 
   Future<String?> _showAreaLabelDialog(BuildContext context) {
@@ -85,9 +93,18 @@ class AreaHandler extends Handler {
       Size viewportSize, BuildContext context, PointerUpEvent event) async {
     if (currentRect == null) return;
     final transform = context.read<TransformCubit>().state;
+    final state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
     final position = transform.localToGlobal(event.localPosition);
-    currentRect = Rect.fromLTWH(currentRect!.left, currentRect!.top,
+    if (state.document.getAreaByRect(currentRect!) != null) {
+      currentRect = null;
+      context.read<DocumentBloc>().add(const IndexRefreshed());
+      return;
+    }
+    final nextRect = Rect.fromLTWH(currentRect!.left, currentRect!.top,
         position.dx - currentRect!.left, position.dy - currentRect!.top);
+    if (state.document.getAreaByRect(nextRect) != null) {
+      currentRect = nextRect;
+    }
     final name = await _showAreaLabelDialog(context);
     if (name == null) {
       currentRect = null;

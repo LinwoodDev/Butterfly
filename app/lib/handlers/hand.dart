@@ -103,7 +103,7 @@ class HandHandler extends Handler {
                 renderer: selected as LabelRenderer,
                 close: close);
           }
-          if (selected is ImageElement) {
+          if (selected is ImageRenderer) {
             menu = ImageElementDialog(
                 position: localPosition,
                 renderer: selected as ImageRenderer,
