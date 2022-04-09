@@ -216,9 +216,9 @@
     "fullscreen": "Vollbild",
     "textField": "Textfeld",
     "selectSensitivity": "Empfindlichkeit auswählen",
-    "welcome": "Welcome to Linwood Butterfly",
-    "welcomeContent": "Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device. This app works on Android, Windows, Linux and in the web.",
-    "updated": "App updated to version {version}",
+    "welcome": "Willkommen bei Linwood Schmetterling",
+    "welcomeContent": "Schmetterling ist eine Notiz-App, bei der Ihre Ideen an erster Stelle stehen. Sie können Texte malen, hinzufügen und auf jedem Gerät einfach exportieren. Diese App funktioniert auf Android, Windows, Linux und im Web.",
+    "updated": "App aktualisiert auf Version {version}",
     "@updated": {
         "placeholders": {
             "version": {
@@ -228,5 +228,5 @@
         },
         "description": "This message is shown when the app is updated"
     },
-    "releaseNotes": "Release notes"
+    "releaseNotes": "Versionshinweise"
 }
