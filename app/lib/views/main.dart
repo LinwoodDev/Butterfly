@@ -22,6 +22,8 @@ import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/dialogs/introduction/app.dart';
+import 'package:butterfly/dialogs/introduction/update.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -104,6 +106,24 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       setState(() => _bloc = DocumentBloc(document!, widget.path, renderers));
     }
+    _showIntroduction();
+  }
+
+  Future<void> _showIntroduction() async {
+    final settingsCubit = context.read<SettingsCubit>();
+    if (settingsCubit.isFirstStart()) {
+      await showDialog(
+        context: context,
+        builder: (context) => const AppIntroductionDialog(),
+      );
+    } else if (await settingsCubit.hasNewerVersion()) {
+      await showDialog(
+          context: context,
+          builder: (context) => const UpdateIntroductionDialog());
+    } else {
+      return;
+    }
+    settingsCubit.updateLastVersion();
   }
 
   @override
