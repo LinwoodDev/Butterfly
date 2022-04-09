@@ -7,6 +7,19 @@ class HandHandler extends Handler {
   HandHandler();
 
   @override
+  Future<bool> onRendererUpdated(
+      AppDocument appDocument, Renderer old, Renderer updated) async {
+    if (old == movingElement) {
+      movingElement = updated;
+    } else if (old == selected) {
+      selected = updated;
+    } else {
+      return false;
+    }
+    return true;
+  }
+
+  @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
       [if (movingElement != null) movingElement!];
 

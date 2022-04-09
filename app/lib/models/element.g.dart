@@ -77,7 +77,7 @@ _$ImageElement _$$ImageElementFromJson(Map<String, dynamic> json) =>
           ? Offset.zero
           : const OffsetJsonConverter()
               .fromJson(json['position'] as Map<String, dynamic>),
-      scale: json['scale'] as int? ?? 1,
+      scale: (json['scale'] as num?)?.toDouble() ?? 1,
       pixels: const Uint8ListJsonConverter().fromJson(json['pixels'] as String),
       width: json['width'] as int,
       height: json['height'] as int,

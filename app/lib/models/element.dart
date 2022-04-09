@@ -40,7 +40,7 @@ class PadElement with _$PadElement {
   const factory PadElement.image({
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
-    @Default(1) int scale,
+    @Default(1) double scale,
     @Uint8ListJsonConverter() required Uint8List pixels,
     required int width,
     required int height,

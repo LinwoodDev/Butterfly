@@ -68,23 +68,33 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         final renderers = <Renderer<PadElement>>[];
+        Renderer<PadElement>? oldRenderer, newRenderer;
         for (var renderer in current.renderers) {
           if (renderer.element == event.old) {
-            final newRenderer = Renderer.fromElement(event.updated);
+            newRenderer = Renderer.fromElement(event.updated);
             await newRenderer.setup(current.document);
+            oldRenderer = renderer;
             renderers.add(newRenderer);
           } else {
             renderers.add(renderer);
           }
         }
+        final index = current.document.content.indexOf(event.old);
+        if (index < 0) return;
         return _saveDocument(
-            current.copyWith(
-                document: current.document.copyWith(
-                    content: (current.document.content)
-                      ..[current.document.content.indexOf(event.old)] =
-                          event.updated),
-                cameraViewport: CameraViewport.unbaked(renderers)),
-            null);
+                current.copyWith(
+                    document: current.document.copyWith(
+                        content: (current.document.content)
+                          ..[index] = event.updated),
+                    cameraViewport: CameraViewport.unbaked(renderers)),
+                null)
+            .then((value) async {
+          if (oldRenderer == null || newRenderer == null) return;
+          if (await current.currentIndex.handler
+              .onRendererUpdated(current.document, oldRenderer, newRenderer)) {
+            add(const IndexRefreshed());
+          }
+        });
       }
     });
     on<ElementsRemoved>((event, emit) async {

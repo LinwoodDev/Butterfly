@@ -27,18 +27,18 @@ class ImageElementDialog extends StatefulWidget {
 }
 
 class _ImageElementDialogState extends State<ImageElementDialog> {
-  late ImageElement element;
+  late ImageElement element, newElement;
 
   @override
   void initState() {
     super.initState();
     element = widget.renderer.element;
+    newElement = element;
   }
 
   void _changeElement() {
-    context.read<DocumentBloc>()
-      ..add(ElementChanged(widget.renderer.element, element))
-      ..add(const IndexRefreshed());
+    context.read<DocumentBloc>().add(ElementChanged(element, newElement));
+    element = newElement;
   }
 
   @override
@@ -50,12 +50,12 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
       children: [
         ExactSlider(
           header: Text(AppLocalizations.of(context)!.scale),
-          value: element.scale.toDouble(),
+          value: newElement.scale.toDouble(),
           min: 0.1,
           max: 5,
           defaultValue: 1,
           onChanged: (value) {
-            setState(() => element = element.copyWith(scale: value.toInt()));
+            setState(() => newElement = newElement.copyWith(scale: value));
           },
           onChangeEnd: (value) => _changeElement(),
         ),
@@ -63,7 +63,7 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
           title: Text(AppLocalizations.of(context)!.export),
           leading: const Icon(PhosphorIcons.exportLight),
           onTap: () {
-            openImage(element.pixels);
+            openImage(newElement.pixels);
           },
         ),
       ],

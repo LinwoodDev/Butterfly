@@ -39,6 +39,10 @@ abstract class Handler {
 
   List<Rect> createSelections(AppDocument document, [Area? currentArea]) => [];
 
+  Future<bool> onRendererUpdated(
+          AppDocument appDocument, Renderer old, Renderer updated) async =>
+      false;
+
   void onTapUp(Size viewportSize, BuildContext context, TapUpDetails details) {}
 
   void onTapDown(
