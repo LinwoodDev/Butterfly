@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../api/open_release_notes.dart';
+
 class UpdateIntroductionDialog extends StatelessWidget {
   const UpdateIntroductionDialog({Key? key}) : super(key: key);
 
@@ -29,7 +31,7 @@ class UpdateIntroductionDialog extends StatelessWidget {
                       const SizedBox(height: 10),
                       const Divider(),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => openReleaseNotes(),
                           child:
                               Text(AppLocalizations.of(context)!.releaseNotes)),
                     ]),

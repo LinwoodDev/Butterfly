@@ -55,6 +55,11 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setDouble('mouse_sensitivity', mouseSensitivity);
     await prefs.setDouble('pen_sensitivity', penSensitivity);
     await prefs.setDouble('select_sensitivity', selectSensitivity);
+    if (lastVersion == null && prefs.containsKey('last_version')) {
+      await prefs.remove('last_version');
+    } else if (lastVersion != null) {
+      await prefs.setString('last_version', lastVersion!);
+    }
   }
 }
 

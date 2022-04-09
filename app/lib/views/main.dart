@@ -123,7 +123,8 @@ class _ProjectPageState extends State<ProjectPage> {
     } else {
       return;
     }
-    settingsCubit.updateLastVersion();
+    await settingsCubit.updateLastVersion();
+    await settingsCubit.save();
   }
 
   @override

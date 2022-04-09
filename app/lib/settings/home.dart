@@ -8,6 +8,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../api/open_release_notes.dart';
+
 class SettingsPage extends StatelessWidget {
   final bool isDialog;
 
@@ -54,6 +56,10 @@ class SettingsPage extends StatelessWidget {
               leading: const Icon(PhosphorIcons.articleLight),
               title: Text(AppLocalizations.of(context)!.documentation),
               onTap: () => launch('https://docs.butterfly.linwood.dev')),
+          ListTile(
+              leading: const Icon(PhosphorIcons.flagLight),
+              title: Text(AppLocalizations.of(context)!.releaseNotes),
+              onTap: () => openReleaseNotes()),
           ListTile(
               leading: const Icon(PhosphorIcons.usersLight),
               title: const Text('Discord'),
