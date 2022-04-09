@@ -215,5 +215,18 @@
     "currentArea": "Zone actuelle",
     "fullscreen": "Plein écran",
     "textField": "Champ de texte",
-    "selectSensitivity": "Sélectionner la sensibilité"
+    "selectSensitivity": "Sélectionner la sensibilité",
+    "welcome": "Welcome to Linwood Butterfly",
+    "welcomeContent": "Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device. This app works on Android, Windows, Linux and in the web.",
+    "updated": "App updated to version {version}",
+    "@updated": {
+        "placeholders": {
+            "version": {
+                "type": "String",
+                "example": "1.0.0"
+            }
+        },
+        "description": "This message is shown when the app is updated"
+    },
+    "releaseNotes": "Release notes"
 }
