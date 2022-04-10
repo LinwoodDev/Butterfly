@@ -26,16 +26,23 @@ class DocumentJsonConverter
                 .toList());
       }
       if (fileVersion < 5) {
-        json['painters'] = List.from(json['painters']).map((e) {
+        json['painters'] = List.from((json['painters'] as List).map((e) {
           var map = Map<String, dynamic>.from(e);
           if (map['type'] == 'path-eraser') {
             map['type'] = 'pathEraser';
           }
           return map;
-        });
+        }));
+        json['content'] = List.from((json['content'] as List).map((e) {
+          var map = Map<String, dynamic>.from(e);
+          if (map['type'] == 'paint') {
+            map['type'] = 'pen';
+          }
+          return map;
+        }));
       }
     }
-    return const DocumentJsonConverter().fromJson(json);
+    return AppDocument.fromJson(json);
   }
 
   @override
@@ -48,8 +55,16 @@ class OffsetJsonConverter extends JsonConverter<Offset, Map<String, dynamic>> {
   const OffsetJsonConverter();
 
   @override
-  Offset fromJson(Map<String, dynamic> json) =>
-      Offset(json['x'] ?? 0, json['y'] ?? 0);
+  Offset fromJson(Map<String, dynamic> json) {
+    double x = 0, y = 0;
+    if (json[x] is num) {
+      x = double.parse(json[x].toString());
+    }
+    if (json[y] is num) {
+      y = double.parse(json[y].toString());
+    }
+    return Offset(x, y);
+  }
 
   @override
   Map<String, dynamic> toJson(Offset object) =>

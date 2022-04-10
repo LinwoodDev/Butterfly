@@ -21,8 +21,8 @@ _$PenElement _$$PenElementFromJson(Map<String, dynamic> json) => _$PenElement(
 Map<String, dynamic> _$$PenElementToJson(_$PenElement instance) =>
     <String, dynamic>{
       'layer': instance.layer,
-      'points': instance.points,
-      'property': instance.property,
+      'points': instance.points.map((e) => e.toJson()).toList(),
+      'property': instance.property.toJson(),
       'type': instance.$type,
     };
 
@@ -42,8 +42,8 @@ _$EraserElement _$$EraserElementFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$EraserElementToJson(_$EraserElement instance) =>
     <String, dynamic>{
       'layer': instance.layer,
-      'points': instance.points,
-      'property': instance.property,
+      'points': instance.points.map((e) => e.toJson()).toList(),
+      'property': instance.property.toJson(),
       'type': instance.$type,
     };
 
@@ -66,7 +66,7 @@ Map<String, dynamic> _$$LabelElementToJson(_$LabelElement instance) =>
       'layer': instance.layer,
       'position': const OffsetJsonConverter().toJson(instance.position),
       'text': instance.text,
-      'property': instance.property,
+      'property': instance.property.toJson(),
       'type': instance.$type,
     };
 

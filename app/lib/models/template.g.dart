@@ -14,6 +14,6 @@ _$_DocumentTemplate _$$_DocumentTemplateFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_DocumentTemplateToJson(_$_DocumentTemplate instance) =>
     <String, dynamic>{
-      'document': instance.document,
+      'document': instance.document.toJson(),
       'folder': instance.folder,
     };

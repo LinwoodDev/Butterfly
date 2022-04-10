@@ -18,7 +18,7 @@ _$LabelPainter _$$LabelPainterFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$LabelPainterToJson(_$LabelPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'property': instance.property,
+      'property': instance.property.toJson(),
       'type': instance.$type,
     };
 
@@ -35,7 +35,7 @@ Map<String, dynamic> _$$PenPainterToJson(_$PenPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
       'zoomDependent': instance.zoomDependent,
-      'property': instance.property,
+      'property': instance.property.toJson(),
       'type': instance.$type,
     };
 
@@ -51,7 +51,7 @@ _$EraserPainter _$$EraserPainterFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$EraserPainterToJson(_$EraserPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'property': instance.property,
+      'property': instance.property.toJson(),
       'type': instance.$type,
     };
 
