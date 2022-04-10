@@ -65,6 +65,9 @@ class DocumentLoadSuccess extends DocumentState {
     return document.areas[currentAreaIndex];
   }
 
+  Renderer? getRenderer(PadElement element) =>
+      renderers.firstWhereOrNull((renderer) => renderer.element == element);
+
   DocumentLoadSuccess copyWith(
           {AppDocument? document,
           bool? editMode,

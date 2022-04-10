@@ -12,8 +12,7 @@ class ImageRenderer extends Renderer<ImageElement> {
     var paint = Paint()..isAntiAlias = true;
     canvas.drawImageRect(
       image!,
-      Rect.fromLTWH(0, 0, (element.width * element.scale).toDouble(),
-          (element.height * element.scale).toDouble()),
+      Rect.fromLTWH(0, 0, element.width.toDouble(), element.height.toDouble()),
       rect,
       paint,
     );
@@ -26,11 +25,14 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  Rect get rect => Rect.fromLTWH(
-      element.position.dx,
-      element.position.dy,
-      (element.width * element.scale).toDouble(),
-      (element.height * element.scale).toDouble());
+  Rect get rect {
+    final scale = element.scale <= 0 ? 1 : element.scale;
+    return Rect.fromLTWH(
+        element.position.dx,
+        element.position.dy,
+        (element.width * scale).toDouble(),
+        (element.height * scale).toDouble());
+  }
 
   @override
   Renderer<ImageElement> move(Offset position) {

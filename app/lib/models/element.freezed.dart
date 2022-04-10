@@ -73,7 +73,7 @@ class _$PadElementTearOff {
   ImageElement image(
       {String layer = '',
       @OffsetJsonConverter() Offset position = Offset.zero,
-      int scale = 1,
+      double scale = 1,
       @Uint8ListJsonConverter() required Uint8List pixels,
       required int width,
       required int height}) {
@@ -116,7 +116,7 @@ mixin _$PadElement {
     required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)
@@ -137,7 +137,7 @@ mixin _$PadElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -158,7 +158,7 @@ mixin _$PadElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -339,7 +339,7 @@ class _$PenElement implements PenElement {
     required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)
@@ -363,7 +363,7 @@ class _$PenElement implements PenElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -387,7 +387,7 @@ class _$PenElement implements PenElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -577,7 +577,7 @@ class _$EraserElement implements EraserElement {
     required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)
@@ -601,7 +601,7 @@ class _$EraserElement implements EraserElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -625,7 +625,7 @@ class _$EraserElement implements EraserElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -830,7 +830,7 @@ class _$LabelElement implements LabelElement {
     required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)
@@ -854,7 +854,7 @@ class _$LabelElement implements LabelElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -878,7 +878,7 @@ class _$LabelElement implements LabelElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -966,7 +966,7 @@ abstract class $ImageElementCopyWith<$Res>
   $Res call(
       {String layer,
       @OffsetJsonConverter() Offset position,
-      int scale,
+      double scale,
       @Uint8ListJsonConverter() Uint8List pixels,
       int width,
       int height});
@@ -1003,7 +1003,7 @@ class _$ImageElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
       scale: scale == freezed
           ? _value.scale
           : scale // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       pixels: pixels == freezed
           ? _value.pixels
           : pixels // ignore: cast_nullable_to_non_nullable
@@ -1045,7 +1045,7 @@ class _$ImageElement implements ImageElement {
   final Offset position;
   @JsonKey()
   @override
-  final int scale;
+  final double scale;
   @override
   @Uint8ListJsonConverter()
   final Uint8List pixels;
@@ -1108,7 +1108,7 @@ class _$ImageElement implements ImageElement {
     required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)
@@ -1132,7 +1132,7 @@ class _$ImageElement implements ImageElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -1156,7 +1156,7 @@ class _$ImageElement implements ImageElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            int scale,
+            double scale,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -1216,7 +1216,7 @@ abstract class ImageElement implements PadElement {
   const factory ImageElement(
       {String layer,
       @OffsetJsonConverter() Offset position,
-      int scale,
+      double scale,
       @Uint8ListJsonConverter() required Uint8List pixels,
       required int width,
       required int height}) = _$ImageElement;
@@ -1228,7 +1228,7 @@ abstract class ImageElement implements PadElement {
   String get layer;
   @OffsetJsonConverter()
   Offset get position;
-  int get scale;
+  double get scale;
   @Uint8ListJsonConverter()
   Uint8List get pixels;
   int get width;

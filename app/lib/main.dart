@@ -60,11 +60,10 @@ Future<void> main([List<String> args = const []]) async {
     // Use it only after calling `hiddenWindowAtLaunch`
     windowManager.waitUntilReadyToShow().then((_) async {
       await windowManager.setMinimumSize(const Size(410, 300));
-      await windowManager.setSize(const Size(450, 600));
       await windowManager.setTitle('Butterfly');
       await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
       await windowManager.setResizable(true);
-      await windowManager.center();
+      await windowManager.maximize();
       await windowManager.show();
       await windowManager.focus();
     });
