@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
@@ -46,16 +47,18 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       path = '';
     }
     var filePath = '$path/${convertNameToFile(document.name)}';
-    var counter = 1;
+    var counter = 2;
     while (await hasAsset(filePath)) {
-      filePath = '${document.name}_${++counter}';
+      filePath = '$path/${convertNameToFile(document.name)}_$counter';
+      counter++;
     }
     var db = await _getDatabase();
-    var txn = db.transaction('documents', 'readwrite');
-    var doc = document.toJson();
+    var doc =
+        Map<String, dynamic>.from(jsonDecode(jsonEncode(document.toJson())));
     doc['type'] = 'file';
+    var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
-    await store.add(doc, filePath);
+    await store.put(doc, filePath);
     await txn.completed;
     return AppDocumentFile(filePath, doc);
   }
@@ -99,10 +102,10 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       await txn.completed;
       return null;
     }
-    var map = data as Map;
+    var map = Map<String, dynamic>.from(data as Map);
     if (map['type'] == 'file') {
       await txn.completed;
-      return AppDocumentFile(path, Map<String, dynamic>.from(map));
+      return AppDocumentFile(path, map);
     } else if (map['type'] == 'directory') {
       var cursor = store.openCursor(autoAdvance: true);
       var assets = await Future.wait(
@@ -158,7 +161,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
-    var doc = document.toJson();
+    var doc = jsonDecode(jsonEncode(document.toJson()));
     doc['type'] = 'file';
     await store.put(doc, path);
     await txn.completed;
@@ -213,7 +216,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
     var db = await _getDatabase();
     var txn = db.transaction('templates', 'readwrite');
     var store = txn.objectStore('templates');
-    var doc = template.toJson();
+    var doc = jsonDecode(jsonEncode(template.toJson()));
     await store.put(doc, template.name);
   }
 

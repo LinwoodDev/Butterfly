@@ -24,7 +24,8 @@ class ImportAction extends Action<ImportIntent> {
             builder: (context) => const ImportDialog(), context: intent.context)
         .then((content) {
       if (content == null) return;
-      var document = AppDocument.fromJson(jsonDecode(content));
+      var document =
+          AppDocument.fromJson(Map<String, dynamic>.from(jsonDecode(content)));
       DocumentFileSystem.fromPlatform().importDocument(document).then((file) {
         bloc.emit(DocumentLoadSuccess(document, path: file.path));
       });

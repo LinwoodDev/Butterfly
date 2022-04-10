@@ -128,7 +128,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final handler = Handler.fromBloc(this, event.painter);
         return _saveDocument((state as DocumentLoadSuccess).copyWith(
-            currentIndex: CurrentIndex(event.painter ?? 0, handler),
+            currentIndex: CurrentIndex(event.painter ?? -1, handler),
             removeCurrentIndex: event.painter == null));
       }
     });

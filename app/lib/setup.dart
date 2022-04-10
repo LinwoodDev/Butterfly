@@ -19,7 +19,8 @@ Future<void> setup() async {
     var documents = prefs.getStringList('documents')!;
     prefs.remove('documents');
     await Future.wait(documents
-        .map((e) => AppDocument.fromJson(jsonDecode(e)))
+        .map((e) =>
+            AppDocument.fromJson(Map<String, dynamic>.from(jsonDecode(e))))
         .map((element) => DocumentFileSystem.fromPlatform()
             .updateDocument(element.name, element)));
   }

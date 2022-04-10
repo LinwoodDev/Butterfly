@@ -44,7 +44,7 @@ Future<void> main([List<String> args = const []]) async {
         }).toString();
       } else {
         var data = await file.readAsString();
-        var json = jsonDecode(data);
+        var json = Map<String, dynamic>.from(jsonDecode(data));
         var document = AppDocument.fromJson(json);
         var newFile =
             await DocumentFileSystem.fromPlatform().importDocument(document);
