@@ -6,7 +6,7 @@ import 'package:butterfly/dialogs/import.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../models/document.dart';
+import '../models/converter.dart';
 
 class ImportIntent extends Intent {
   final BuildContext context;
@@ -24,8 +24,8 @@ class ImportAction extends Action<ImportIntent> {
             builder: (context) => const ImportDialog(), context: intent.context)
         .then((content) {
       if (content == null) return;
-      var document =
-          AppDocument.fromJson(Map<String, dynamic>.from(jsonDecode(content)));
+      var document = const DocumentJsonConverter()
+          .fromJson(Map<String, dynamic>.from(jsonDecode(content)));
       DocumentFileSystem.fromPlatform().importDocument(document).then((file) {
         bloc.emit(DocumentLoadSuccess(document, path: file.path));
       });

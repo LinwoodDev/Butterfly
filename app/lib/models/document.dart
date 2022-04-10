@@ -1,5 +1,6 @@
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/background.dart';
+import 'package:butterfly/models/converter.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -47,7 +48,8 @@ class AppDocumentFile extends AppDocumentAsset {
   DateTime? get createdAt =>
       json['createdAt'] == null ? null : DateTime.tryParse(json['createdAt']);
 
-  AppDocument load() => AppDocument.fromJson(Map<String, dynamic>.from(json));
+  AppDocument load() =>
+      const DocumentJsonConverter().fromJson(Map<String, dynamic>.from(json));
 }
 
 @immutable

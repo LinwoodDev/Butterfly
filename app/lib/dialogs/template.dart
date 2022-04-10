@@ -243,8 +243,9 @@ class _TemplateItem extends StatelessWidget {
                               child: Text(AppLocalizations.of(context)!.yes),
                               onPressed: () async {
                                 await TemplateFileSystem.fromPlatform()
-                                    .updateTemplate(
-                                        template.copyWith(document: document));
+                                    .updateTemplate(template.copyWith(
+                                        document:
+                                            document ?? template.document));
                                 Navigator.of(context).pop();
                                 onChanged();
                               })

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../main.dart';
+import 'palette.dart';
 
 class DocumentJsonConverter
     extends JsonConverter<AppDocument, Map<String, dynamic>> {
@@ -13,7 +14,28 @@ class DocumentJsonConverter
 
   @override
   AppDocument fromJson(Map<String, dynamic> json) {
-    return AppDocument.fromJson(json);
+    final fileVersion = json['fileVersion'] as int?;
+    if (fileVersion != null && fileVersion >= 0) {
+      if (fileVersion < 4) {
+        json['palettes'] = List.from(
+            Map<String, dynamic>.from(json['palettes'] ?? [])
+                .entries
+                .map<ColorPalette>((e) => ColorPalette(
+                    colors: List<int>.from(e.value).toList(), name: e.key))
+                .map((e) => e.toJson())
+                .toList());
+      }
+      if (fileVersion < 5) {
+        json['painters'] = List.from(json['painters']).map((e) {
+          var map = Map<String, dynamic>.from(e);
+          if (map['type'] == 'path-eraser') {
+            map['type'] = 'pathEraser';
+          }
+          return map;
+        });
+      }
+    }
+    return const DocumentJsonConverter().fromJson(json);
   }
 
   @override

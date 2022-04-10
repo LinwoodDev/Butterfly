@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/home.dart';
@@ -15,12 +16,11 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'models/document.dart';
 import 'settings/personalization.dart';
 import 'package:window_manager/window_manager.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 
-const kFileVersion = 4;
+const kFileVersion = 5;
 
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +45,7 @@ Future<void> main([List<String> args = const []]) async {
       } else {
         var data = await file.readAsString();
         var json = Map<String, dynamic>.from(jsonDecode(data));
-        var document = AppDocument.fromJson(json);
+        var document = const DocumentJsonConverter().fromJson(json);
         var newFile =
             await DocumentFileSystem.fromPlatform().importDocument(document);
         initialLocation =
@@ -71,6 +71,7 @@ Future<void> main([List<String> args = const []]) async {
   runApp(MultiRepositoryProvider(providers: [
     RepositoryProvider(create: (context) => DocumentFileSystem.fromPlatform()),
     RepositoryProvider(create: (context) => TemplateFileSystem.fromPlatform()),
+    RepositoryProvider(create: (context) => const DocumentJsonConverter()),
   ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)));
 }
 
