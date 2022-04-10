@@ -38,12 +38,12 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
         toolbarHeight: _height,
         leadingWidth: 132,
         leading: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             _MainPopupMenu(
               viewportKey: viewportKey,
             ),
-            IconButton(
+            /*IconButton(
               icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               tooltip: AppLocalizations.of(context)!.undo,
               onPressed: () {
@@ -56,7 +56,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
               onPressed: () {
                 Actions.maybeInvoke<RedoIntent>(context, RedoIntent(context));
               },
-            ),
+            ),*/
           ],
         ),
         title: LayoutBuilder(

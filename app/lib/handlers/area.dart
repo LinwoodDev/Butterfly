@@ -72,6 +72,7 @@ class AreaHandler extends Handler {
                 autofocus: true,
                 decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.name,
+                  filled: true,
                 ),
                 controller: controller,
               ),

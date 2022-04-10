@@ -70,8 +70,8 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
                         initialExpanded: true))),
             TextField(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.name,
-              ),
+                  filled: true, hintText: AppLocalizations.of(context)!.name),
+              autofocus: true,
               controller: _nameController,
             ),
           ],

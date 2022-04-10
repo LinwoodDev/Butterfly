@@ -42,7 +42,9 @@ class LayersDialog extends StatelessWidget {
                           content: TextField(
                             controller: _nameController,
                             autofocus: true,
-                            decoration: const InputDecoration(filled: true),
+                            decoration: InputDecoration(
+                                filled: true,
+                                hintText: AppLocalizations.of(context)!.name),
                           ),
                           actions: [
                             TextButton(

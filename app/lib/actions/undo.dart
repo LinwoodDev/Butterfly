@@ -13,6 +13,7 @@ class UndoAction extends Action<UndoIntent> {
 
   @override
   void invoke(UndoIntent intent) {
-    intent.context.read<DocumentBloc>().undo();
+    // reimplement undo
+    //intent.context.read<DocumentBloc>().undo();
   }
 }

@@ -424,8 +424,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       child: Text(AppLocalizations.of(context)!.create)),
                 ],
                 title: Text(AppLocalizations.of(context)!.enterName),
-                content:
-                    TextField(autofocus: true, controller: _nameController)));
+                content: TextField(
+                    decoration: InputDecoration(
+                        filled: true,
+                        hintText: AppLocalizations.of(context)!.name),
+                    autofocus: true,
+                    controller: _nameController)));
   }
 
   void _editPalette() {
@@ -454,8 +458,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       child: Text(AppLocalizations.of(context)!.ok)),
                 ],
                 title: Text(AppLocalizations.of(context)!.enterName),
-                content:
-                    TextField(autofocus: true, controller: _nameController)));
+                content: TextField(
+                    decoration: InputDecoration(
+                        filled: true,
+                        hintText: AppLocalizations.of(context)!.name),
+                    autofocus: true,
+                    controller: _nameController)));
   }
 
   void _deletePalette() {

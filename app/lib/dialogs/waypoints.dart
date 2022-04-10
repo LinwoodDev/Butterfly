@@ -145,6 +145,7 @@ class WaypointsDialog extends StatelessWidget {
                 content: Column(mainAxisSize: MainAxisSize.min, children: [
                   TextField(
                     controller: nameController,
+                    autofocus: true,
                     decoration: InputDecoration(
                         filled: true,
                         labelText: AppLocalizations.of(context)!.name),

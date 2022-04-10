@@ -13,6 +13,7 @@ class RedoAction extends Action<RedoIntent> {
 
   @override
   void invoke(RedoIntent intent) {
-    intent.context.read<DocumentBloc>().redo();
+    // reimplement undo
+    // intent.context.read<DocumentBloc>().redo();
   }
 }

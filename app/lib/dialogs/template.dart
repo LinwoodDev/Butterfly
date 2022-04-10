@@ -194,7 +194,13 @@ class _TemplateItem extends StatelessWidget {
                       context: context,
                       builder: (context) => AlertDialog(
                             title: Text(AppLocalizations.of(context)!.rename),
-                            content: TextField(controller: _nameController),
+                            content: TextField(
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    hintText:
+                                        AppLocalizations.of(context)!.name),
+                                autofocus: true,
+                                controller: _nameController),
                             actions: [
                               TextButton(
                                   child: Text(
