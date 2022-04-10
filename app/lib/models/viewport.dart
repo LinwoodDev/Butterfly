@@ -49,6 +49,7 @@ class CameraViewport {
           height: height,
           scale: scale,
           unbakedElements: unbakedElements,
+          bakedElements: bakedElements,
           x: x,
           y: y);
 }

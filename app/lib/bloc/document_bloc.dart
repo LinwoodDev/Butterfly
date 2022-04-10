@@ -146,7 +146,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         var current = state as DocumentLoadSuccess;
         final index = current.currentIndex;
-        return _saveDocument(current.copyWith(
+        emit(current.copyWith(
           currentIndex: index.copyWith(
               foregrounds: index.handler
                   .createForegrounds(current.document, current.currentArea),
@@ -450,7 +450,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
   Future<void> _saveDocument(DocumentLoadSuccess current,
       [List<Renderer<PadElement>>? unbakedElements = const []]) async {
-    var elements = current.renderers;
+    var elements = current.cameraViewport.unbakedElements;
     if (unbakedElements != null) {
       for (var renderer in unbakedElements) {
         await renderer.setup(current.document);
@@ -458,17 +458,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       elements = List<Renderer<PadElement>>.from(elements)
         ..addAll(unbakedElements);
     }
-    current = current.copyWith(
+    var nextState = current.copyWith(
         document: current.document.copyWith(updatedAt: DateTime.now()),
         cameraViewport: unbakedElements == null
             ? CameraViewport.unbaked(elements)
             : current.cameraViewport.withUnbaked(elements));
-    if (current.path != null) {
-      emit(current);
+    if (nextState.path != null) {
+      emit(nextState);
     }
-    var path = await current.save();
-    if (current.path == null) {
-      emit(current.copyWith(path: path));
+    var path = await nextState.save();
+    if (nextState.path == null) {
+      emit(nextState.copyWith(path: path));
     }
   }
 }

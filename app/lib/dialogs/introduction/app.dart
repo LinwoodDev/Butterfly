@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../api/open_release_notes.dart';
 
 class AppIntroductionDialog extends StatelessWidget {
   const AppIntroductionDialog({Key? key}) : super(key: key);
@@ -24,13 +27,22 @@ class AppIntroductionDialog extends StatelessWidget {
                 const Divider(),
                 const SizedBox(height: 10),
                 Text(AppLocalizations.of(context)!.welcomeContent),
+                const SizedBox(height: 10),
+                const Divider(),
+                TextButton(
+                    onPressed: () => openReleaseNotes(),
+                    child: Text(AppLocalizations.of(context)!.releaseNotes)),
+                TextButton(
+                    onPressed: () =>
+                        launch('https://docs.butterfly.linwood.dev'),
+                    child: Text(AppLocalizations.of(context)!.documentation)),
               ]),
             ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextButton(
+                ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(AppLocalizations.of(context)!.ok)),
               ],
