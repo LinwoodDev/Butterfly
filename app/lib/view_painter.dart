@@ -111,7 +111,6 @@ class ViewPainter extends CustomPainter {
             ..blendMode = BlendMode.srcOver);
       canvas.clipRect(areaRect.inflate(5));
     }
-    canvas.drawColor(Colors.white, BlendMode.color);
     if (box != null && renderBackground) {
       canvas.drawColor(Color(box.boxColor), BlendMode.srcOver);
       if (box.boxWidth > 0 && box.boxXCount > 0) {

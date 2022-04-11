@@ -12,7 +12,8 @@ class PenHandler extends Handler {
   @override
   void onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) {
-    addPoint(context, event.pointer, event.localPosition, event.pressure);
+    addPoint(context, event.pointer, event.localPosition, event.pressure,
+        event.kind);
     submitElement(context, event.pointer);
   }
 
@@ -24,11 +25,15 @@ class PenHandler extends Handler {
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
-      double pressure) {
+      double pressure, PointerDeviceKind kind) {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
     final painter = state.currentPainter as PenPainter;
+    final inputType = context.read<SettingsCubit>().state.inputType;
+    if (!inputType.canCreate(pointer, elements.keys.firstOrNull, kind)) {
+      return;
+    }
     double zoom = painter.zoomDependent ? transform.size : 1;
 
     final element = elements[pointer] ??
@@ -47,10 +52,12 @@ class PenHandler extends Handler {
   @override
   void onPointerDown(
           Size viewportSize, BuildContext context, PointerDownEvent event) =>
-      addPoint(context, event.pointer, event.localPosition, event.pressure);
+      addPoint(context, event.pointer, event.localPosition, event.pressure,
+          event.kind);
 
   @override
   void onPointerMove(
           Size viewportSize, BuildContext context, PointerMoveEvent event) =>
-      addPoint(context, event.pointer, event.localPosition, event.pressure);
+      addPoint(context, event.pointer, event.localPosition, event.pressure,
+          event.kind);
 }

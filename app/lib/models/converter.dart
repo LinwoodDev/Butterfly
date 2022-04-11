@@ -40,6 +40,8 @@ class DocumentJsonConverter
           }
           return map;
         }));
+        json['background'] = Map<String, dynamic>.from(json['background'] ?? {})
+          ..['type'] = 'box';
       }
     }
     return AppDocument.fromJson(json);

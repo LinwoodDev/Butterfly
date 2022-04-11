@@ -40,14 +40,12 @@ class BackgroundDialog extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 15),
                     child: StatefulBuilder(builder: (context, setState) {
-                      if (background is BoxBackground) {
-                        var box = background as BoxBackground;
-                        return Column(
-                          children: [
-                            Expanded(
-                                child: ListView(
-                              clipBehavior: Clip.antiAlias,
-                              children: [
+                      return Column(
+                        children: [
+                          Expanded(
+                              child: ListView(
+                                  clipBehavior: Clip.antiAlias,
+                                  children: [
                                 Wrap(
                                     children: BackgroundTemplate.values
                                         .where((element) => !element.dark)
@@ -135,297 +133,340 @@ class BackgroundDialog extends StatelessWidget {
                                     ),
                                   );
                                 }).toList()),
-                                const SizedBox(height: 8),
-                                const Divider(),
-                                ListTile(
-                                    onTap: () async {
-                                      var value = await showDialog(
-                                          context: context,
-                                          builder: (_) => BlocProvider.value(
-                                                value: BlocProvider.of<
-                                                    DocumentBloc>(context),
-                                                child: ColorPickerDialog(
-                                                    defaultColor:
-                                                        Color(box.boxColor)),
-                                              )) as Color?;
-                                      if (value != null) {
-                                        setState(() => background = box
-                                            .copyWith(boxColor: value.value));
-                                      }
-                                    },
-                                    leading: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                          color: Color(box.boxColor),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(32))),
-                                    ),
-                                    title: Text(
-                                        AppLocalizations.of(context)!.color)),
-                                const SizedBox(height: 16),
-                                ExpansionPanelList(
-                                    expansionCallback: (int item, bool status) {
-                                      setState(() {
-                                        currentExpansionOpened =
-                                            !status ? item : null;
-                                      });
-                                    },
-                                    children: [
-                                      ExpansionPanel(
-                                          canTapOnHeader: true,
-                                          isExpanded:
-                                              currentExpansionOpened == 0,
-                                          headerBuilder: (context,
-                                                  isExpanded) =>
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .horizontal,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .headline6),
-                                                ],
-                                              ),
-                                          body: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(children: [
-                                              ListTile(
-                                                  leading: Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    decoration: BoxDecoration(
-                                                        color: Color(
-                                                            box.boxXColor),
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .all(
-                                                                Radius.circular(
-                                                                    32))),
-                                                  ),
-                                                  onTap: () async {
-                                                    var value =
-                                                        await showDialog(
-                                                            context: context,
-                                                            builder: (ctx) =>
-                                                                BlocProvider
-                                                                    .value(
-                                                                  value: BlocProvider
-                                                                      .of<DocumentBloc>(
-                                                                          context),
-                                                                  child: ColorPickerDialog(
-                                                                      defaultColor:
-                                                                          Color(
-                                                                              box.boxXColor)),
-                                                                )) as Color?;
-                                                    if (value != null) {
-                                                      setState(() => background =
-                                                          box.copyWith(
-                                                              boxXColor:
-                                                                  value.value));
-                                                    }
-                                                  },
-                                                  title: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .color)),
-                                              const SizedBox(height: 16),
-                                              ExactSlider(
-                                                  onChanged: (value) {
-                                                    background = box.copyWith(
-                                                        boxWidth: value);
-                                                  },
-                                                  header: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .width,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleLarge),
-                                                  value: box.boxWidth,
-                                                  min: 0,
-                                                  max: 100),
-                                              const SizedBox(height: 16),
-                                              ExactSlider(
-                                                  onChanged: (value) =>
-                                                      background = box.copyWith(
-                                                          boxXCount:
-                                                              value.round()),
-                                                  header: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .count,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleLarge),
-                                                  value:
-                                                      box.boxXCount.toDouble(),
-                                                  fractionDigits: 0,
-                                                  min: 0,
-                                                  max: 100),
-                                              const SizedBox(height: 16),
-                                              ExactSlider(
-                                                  onChanged: (value) =>
-                                                      background = box.copyWith(
-                                                          boxXSpace: value),
-                                                  header: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .space,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleLarge),
-                                                  value: box.boxXSpace,
-                                                  min: 0,
-                                                  max: 100),
-                                            ]),
-                                          )),
-                                      ExpansionPanel(
-                                          canTapOnHeader: true,
-                                          isExpanded:
-                                              currentExpansionOpened == 1,
-                                          headerBuilder: (context,
-                                                  isExpanded) =>
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .vertical,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .headline6),
-                                                ],
-                                              ),
-                                          body: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(children: [
-                                              ListTile(
-                                                  leading: Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    decoration: BoxDecoration(
-                                                        color: Color(
-                                                            box.boxYColor),
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .all(
-                                                                Radius.circular(
-                                                                    32))),
-                                                  ),
-                                                  onTap: () async {
-                                                    var value =
-                                                        await showDialog(
-                                                            context: context,
-                                                            builder: (ctx) =>
-                                                                BlocProvider
-                                                                    .value(
-                                                                  value: BlocProvider
-                                                                      .of<DocumentBloc>(
-                                                                          context),
-                                                                  child: ColorPickerDialog(
-                                                                      defaultColor:
-                                                                          Color(
-                                                                              box.boxYColor)),
-                                                                )) as Color?;
-                                                    if (value != null) {
-                                                      setState(() => background =
-                                                          box.copyWith(
-                                                              boxYColor:
-                                                                  value.value));
-                                                    }
-                                                  },
-                                                  title: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .color)),
-                                              const SizedBox(height: 16),
-                                              ExactSlider(
-                                                  onChanged: (value) {
-                                                    background = box.copyWith(
-                                                        boxHeight: value);
-                                                  },
-                                                  header: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .width,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleLarge),
-                                                  value: box.boxHeight,
-                                                  min: 0,
-                                                  max: 100),
-                                              const SizedBox(height: 16),
-                                              ExactSlider(
-                                                  onChanged: (value) =>
-                                                      background = box.copyWith(
-                                                          boxYCount:
-                                                              value.round()),
-                                                  header: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .count,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleLarge),
-                                                  value:
-                                                      box.boxYCount.toDouble(),
-                                                  fractionDigits: 0,
-                                                  min: 0,
-                                                  max: 100),
-                                              const SizedBox(height: 16),
-                                              ExactSlider(
-                                                  onChanged: (value) =>
-                                                      background = box.copyWith(
-                                                          boxYSpace: value),
-                                                  header: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .space,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleLarge),
-                                                  value: box.boxYSpace,
-                                                  min: 0,
-                                                  max: 100),
-                                            ]),
-                                          )),
-                                    ]),
-                              ],
-                            )),
-                            const Divider(),
-                            Row(
-                              children: [
-                                Expanded(child: Container()),
-                                TextButton(
-                                  child: Text(
-                                      AppLocalizations.of(context)!.cancel),
-                                  onPressed: () => Navigator.of(context).pop(),
-                                ),
-                                ElevatedButton(
-                                  child: Text(AppLocalizations.of(context)!.ok),
-                                  onPressed: () {
-                                    context.read<DocumentBloc>().add(
-                                        DocumentBackgroundChanged(background));
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            )
-                          ],
-                        );
-                      }
-                      return Container();
+                                if (background is BoxBackground) ...[
+                                  const SizedBox(height: 8),
+                                  const Divider(),
+                                  ListTile(
+                                      onTap: () async {
+                                        var value = await showDialog(
+                                            context: context,
+                                            builder: (_) => BlocProvider.value(
+                                                  value: BlocProvider.of<
+                                                      DocumentBloc>(context),
+                                                  child: ColorPickerDialog(
+                                                      defaultColor: Color(
+                                                          (background
+                                                                  as BoxBackground)
+                                                              .boxColor)),
+                                                )) as Color?;
+                                        if (value != null) {
+                                          setState(() => background =
+                                              (background as BoxBackground)
+                                                  .copyWith(
+                                                      boxColor: value.value));
+                                        }
+                                      },
+                                      leading: Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            color: Color(
+                                                (background as BoxBackground)
+                                                    .boxColor),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(32))),
+                                      ),
+                                      title: Text(
+                                          AppLocalizations.of(context)!.color)),
+                                  const SizedBox(height: 16),
+                                  ExpansionPanelList(
+                                      expansionCallback:
+                                          (int item, bool status) {
+                                        setState(() {
+                                          currentExpansionOpened =
+                                              !status ? item : null;
+                                        });
+                                      },
+                                      children: [
+                                        ExpansionPanel(
+                                            canTapOnHeader: true,
+                                            isExpanded:
+                                                currentExpansionOpened == 0,
+                                            headerBuilder: (context,
+                                                    isExpanded) =>
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .horizontal,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline6),
+                                                  ],
+                                                ),
+                                            body: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(children: [
+                                                ListTile(
+                                                    leading: Container(
+                                                      width: 30,
+                                                      height: 30,
+                                                      decoration: BoxDecoration(
+                                                          color: Color((background
+                                                                  as BoxBackground)
+                                                              .boxXColor),
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          32))),
+                                                    ),
+                                                    onTap: () async {
+                                                      var value =
+                                                          await showDialog(
+                                                              context: context,
+                                                              builder: (ctx) =>
+                                                                  BlocProvider
+                                                                      .value(
+                                                                    value: BlocProvider.of<
+                                                                            DocumentBloc>(
+                                                                        context),
+                                                                    child: ColorPickerDialog(
+                                                                        defaultColor:
+                                                                            Color((background as BoxBackground).boxXColor)),
+                                                                  )) as Color?;
+                                                      if (value != null) {
+                                                        setState(() => background =
+                                                            (background
+                                                                    as BoxBackground)
+                                                                .copyWith(
+                                                                    boxXColor: value
+                                                                        .value));
+                                                      }
+                                                    },
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .color)),
+                                                const SizedBox(height: 16),
+                                                ExactSlider(
+                                                    onChanged: (value) {
+                                                      background = (background
+                                                              as BoxBackground)
+                                                          .copyWith(
+                                                              boxWidth: value);
+                                                    },
+                                                    header: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .width,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleLarge),
+                                                    value: (background
+                                                            as BoxBackground)
+                                                        .boxWidth,
+                                                    min: 0,
+                                                    max: 100),
+                                                const SizedBox(height: 16),
+                                                ExactSlider(
+                                                    onChanged: (value) =>
+                                                        background = (background
+                                                                as BoxBackground)
+                                                            .copyWith(
+                                                                boxXCount: value
+                                                                    .round()),
+                                                    header: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .count,
+                                                        style: Theme
+                                                                .of(context)
+                                                            .textTheme
+                                                            .titleLarge),
+                                                    value: (background
+                                                            as BoxBackground)
+                                                        .boxXCount
+                                                        .toDouble(),
+                                                    fractionDigits: 0,
+                                                    min: 0,
+                                                    max: 100),
+                                                const SizedBox(height: 16),
+                                                ExactSlider(
+                                                    onChanged: (value) =>
+                                                        background = (background
+                                                                as BoxBackground)
+                                                            .copyWith(
+                                                                boxXSpace:
+                                                                    value),
+                                                    header: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .space,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleLarge),
+                                                    value: (background
+                                                            as BoxBackground)
+                                                        .boxXSpace,
+                                                    min: 0,
+                                                    max: 100),
+                                              ]),
+                                            )),
+                                        ExpansionPanel(
+                                            canTapOnHeader: true,
+                                            isExpanded:
+                                                currentExpansionOpened == 1,
+                                            headerBuilder: (context,
+                                                    isExpanded) =>
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .vertical,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline6),
+                                                  ],
+                                                ),
+                                            body: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(children: [
+                                                ListTile(
+                                                    leading: Container(
+                                                      width: 30,
+                                                      height: 30,
+                                                      decoration: BoxDecoration(
+                                                          color: Color((background
+                                                                  as BoxBackground)
+                                                              .boxYColor),
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          32))),
+                                                    ),
+                                                    onTap: () async {
+                                                      var value =
+                                                          await showDialog(
+                                                              context: context,
+                                                              builder: (ctx) =>
+                                                                  BlocProvider
+                                                                      .value(
+                                                                    value: BlocProvider.of<
+                                                                            DocumentBloc>(
+                                                                        context),
+                                                                    child: ColorPickerDialog(
+                                                                        defaultColor:
+                                                                            Color((background as BoxBackground).boxYColor)),
+                                                                  )) as Color?;
+                                                      if (value != null) {
+                                                        setState(() => background =
+                                                            (background
+                                                                    as BoxBackground)
+                                                                .copyWith(
+                                                                    boxYColor: value
+                                                                        .value));
+                                                      }
+                                                    },
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .color)),
+                                                const SizedBox(height: 16),
+                                                ExactSlider(
+                                                    onChanged: (value) {
+                                                      background = (background
+                                                              as BoxBackground)
+                                                          .copyWith(
+                                                              boxHeight: value);
+                                                    },
+                                                    header: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .width,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleLarge),
+                                                    value: (background
+                                                            as BoxBackground)
+                                                        .boxHeight,
+                                                    min: 0,
+                                                    max: 100),
+                                                const SizedBox(height: 16),
+                                                ExactSlider(
+                                                    onChanged: (value) =>
+                                                        background = (background
+                                                                as BoxBackground)
+                                                            .copyWith(
+                                                                boxYCount: value
+                                                                    .round()),
+                                                    header: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .count,
+                                                        style: Theme
+                                                                .of(context)
+                                                            .textTheme
+                                                            .titleLarge),
+                                                    value: (background
+                                                            as BoxBackground)
+                                                        .boxYCount
+                                                        .toDouble(),
+                                                    fractionDigits: 0,
+                                                    min: 0,
+                                                    max: 100),
+                                                const SizedBox(height: 16),
+                                                ExactSlider(
+                                                    onChanged: (value) =>
+                                                        background = (background
+                                                                as BoxBackground)
+                                                            .copyWith(
+                                                                boxYSpace:
+                                                                    value),
+                                                    header: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .space,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleLarge),
+                                                    value: (background
+                                                            as BoxBackground)
+                                                        .boxYSpace,
+                                                    min: 0,
+                                                    max: 100),
+                                              ]),
+                                            )),
+                                      ]),
+                                ],
+                              ])),
+                          const Divider(),
+                          Row(
+                            children: [
+                              Expanded(child: Container()),
+                              TextButton(
+                                child:
+                                    Text(AppLocalizations.of(context)!.cancel),
+                                onPressed: () => Navigator.of(context).pop(),
+                              ),
+                              ElevatedButton(
+                                child: Text(AppLocalizations.of(context)!.ok),
+                                onPressed: () {
+                                  context.read<DocumentBloc>().add(
+                                      DocumentBackgroundChanged(background));
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          )
+                        ],
+                      );
                     }),
                   ));
             })));
