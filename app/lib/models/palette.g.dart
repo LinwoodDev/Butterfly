@@ -6,8 +6,7 @@ part of 'palette.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ColorPalette _$$_ColorPaletteFromJson(Map<String, dynamic> json) =>
-    _$_ColorPalette(
+_$_ColorPalette _$$_ColorPaletteFromJson(Map json) => _$_ColorPalette(
       name: json['name'] as String,
       colors:
           (json['colors'] as List<dynamic>?)?.map((e) => e as int).toList() ??

@@ -6,7 +6,7 @@ part of 'path_point.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PathPoint _$$_PathPointFromJson(Map<String, dynamic> json) => _$_PathPoint(
+_$_PathPoint _$$_PathPointFromJson(Map json) => _$_PathPoint(
       (json['x'] as num).toDouble(),
       (json['y'] as num).toDouble(),
       (json['pressure'] as num?)?.toDouble() ?? 1,

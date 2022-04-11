@@ -6,8 +6,7 @@ part of 'property.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$HandProperty _$$HandPropertyFromJson(Map<String, dynamic> json) =>
-    _$HandProperty(
+_$HandProperty _$$HandPropertyFromJson(Map json) => _$HandProperty(
       includeEraser: json['includeEraser'] as bool? ?? false,
       $type: json['type'] as String?,
     );
@@ -18,8 +17,7 @@ Map<String, dynamic> _$$HandPropertyToJson(_$HandProperty instance) =>
       'type': instance.$type,
     };
 
-_$LabelProperty _$$LabelPropertyFromJson(Map<String, dynamic> json) =>
-    _$LabelProperty(
+_$LabelProperty _$$LabelPropertyFromJson(Map json) => _$LabelProperty(
       size: (json['size'] as num?)?.toDouble() ?? 12,
       color: json['color'] as int? ?? kColorBlack,
       fontWeight: json['fontWeight'] as int? ?? 3,
@@ -61,8 +59,7 @@ const _$TextDecorationStyleEnumMap = {
   TextDecorationStyle.wavy: 'wavy',
 };
 
-_$EraserProperty _$$EraserPropertyFromJson(Map<String, dynamic> json) =>
-    _$EraserProperty(
+_$EraserProperty _$$EraserPropertyFromJson(Map json) => _$EraserProperty(
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,
       color: json['color'] as int? ?? kColorBlack,
@@ -77,8 +74,7 @@ Map<String, dynamic> _$$EraserPropertyToJson(_$EraserProperty instance) =>
       'type': instance.$type,
     };
 
-_$PenProperty _$$PenPropertyFromJson(Map<String, dynamic> json) =>
-    _$PenProperty(
+_$PenProperty _$$PenPropertyFromJson(Map json) => _$PenProperty(
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,
       color: json['color'] as int? ?? kColorBlack,

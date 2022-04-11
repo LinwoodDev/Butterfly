@@ -26,7 +26,7 @@ class _$AppDocumentTearOff {
       {required String name,
       String description = '',
       List<PadElement> content = const [],
-      dynamic background = const Background.empty(),
+      Background background = const Background.empty(),
       List<ColorPalette> palettes = const [],
       List<Waypoint> waypoints = const [],
       List<Area> areas = const [],
@@ -66,7 +66,7 @@ mixin _$AppDocument {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   List<PadElement> get content => throw _privateConstructorUsedError;
-  dynamic get background => throw _privateConstructorUsedError;
+  Background get background => throw _privateConstructorUsedError;
   List<ColorPalette> get palettes => throw _privateConstructorUsedError;
   List<Waypoint> get waypoints => throw _privateConstructorUsedError;
   List<Area> get areas => throw _privateConstructorUsedError;
@@ -90,7 +90,7 @@ abstract class $AppDocumentCopyWith<$Res> {
       {String name,
       String description,
       List<PadElement> content,
-      dynamic background,
+      Background background,
       List<ColorPalette> palettes,
       List<Waypoint> waypoints,
       List<Area> areas,
@@ -98,6 +98,8 @@ abstract class $AppDocumentCopyWith<$Res> {
       HandProperty handProperty,
       DateTime? updatedAt,
       List<Painter> painters});
+
+  $BackgroundCopyWith<$Res> get background;
 }
 
 /// @nodoc
@@ -138,7 +140,7 @@ class _$AppDocumentCopyWithImpl<$Res> implements $AppDocumentCopyWith<$Res> {
       background: background == freezed
           ? _value.background
           : background // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as Background,
       palettes: palettes == freezed
           ? _value.palettes
           : palettes // ignore: cast_nullable_to_non_nullable
@@ -169,6 +171,13 @@ class _$AppDocumentCopyWithImpl<$Res> implements $AppDocumentCopyWith<$Res> {
               as List<Painter>,
     ));
   }
+
+  @override
+  $BackgroundCopyWith<$Res> get background {
+    return $BackgroundCopyWith<$Res>(_value.background, (value) {
+      return _then(_value.copyWith(background: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -182,7 +191,7 @@ abstract class _$AppDocumentCopyWith<$Res>
       {String name,
       String description,
       List<PadElement> content,
-      dynamic background,
+      Background background,
       List<ColorPalette> palettes,
       List<Waypoint> waypoints,
       List<Area> areas,
@@ -190,6 +199,9 @@ abstract class _$AppDocumentCopyWith<$Res>
       HandProperty handProperty,
       DateTime? updatedAt,
       List<Painter> painters});
+
+  @override
+  $BackgroundCopyWith<$Res> get background;
 }
 
 /// @nodoc
@@ -229,7 +241,10 @@ class __$AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as List<PadElement>,
-      background: background == freezed ? _value.background : background,
+      background: background == freezed
+          ? _value.background
+          : background // ignore: cast_nullable_to_non_nullable
+              as Background,
       palettes: palettes == freezed
           ? _value.palettes
           : palettes // ignore: cast_nullable_to_non_nullable
@@ -296,7 +311,7 @@ class _$_AppDocument extends _AppDocument {
   final List<PadElement> content;
   @JsonKey()
   @override
-  final dynamic background;
+  final Background background;
   @JsonKey()
   @override
   final List<ColorPalette> palettes;
@@ -374,7 +389,7 @@ abstract class _AppDocument extends AppDocument {
       {required String name,
       String description,
       List<PadElement> content,
-      dynamic background,
+      Background background,
       List<ColorPalette> palettes,
       List<Waypoint> waypoints,
       List<Area> areas,
@@ -394,7 +409,7 @@ abstract class _AppDocument extends AppDocument {
   @override
   List<PadElement> get content;
   @override
-  dynamic get background;
+  Background get background;
   @override
   List<ColorPalette> get palettes;
   @override

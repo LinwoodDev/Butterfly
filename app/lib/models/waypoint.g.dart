@@ -6,7 +6,7 @@ part of 'waypoint.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Waypoint _$$_WaypointFromJson(Map<String, dynamic> json) => _$_Waypoint(
+_$_Waypoint _$$_WaypointFromJson(Map json) => _$_Waypoint(
       json['name'] as String,
       const OffsetJsonConverter()
           .fromJson(json['position'] as Map<String, dynamic>),

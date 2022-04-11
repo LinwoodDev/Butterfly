@@ -8,3 +8,4 @@
 * Add an introduction screen for the first start and for a new version
 * Fix open file issues when opening by clicking on the file
 * Temporarily disable undo/redo
+* Fix duplicated keybind of insert and export

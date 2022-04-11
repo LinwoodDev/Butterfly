@@ -13,10 +13,7 @@ Future<bool> isFullScreen() async {
 }
 
 void setup() {
-  if (Platform.isAndroid || Platform.isIOS) {
-    SystemChrome.setSystemUIChangeCallback((systemOverlaysAreVisible) async =>
-        isFullscreen = systemOverlaysAreVisible);
-  }
+  isFullscreen = false;
 }
 
 Future<void> setFullScreen(bool fullScreen) async {

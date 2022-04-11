@@ -69,7 +69,7 @@ class AppDocument with _$AppDocument {
       @Default([])
           List<PadElement> content,
       @Default(Background.empty())
-          background,
+          Background background,
       @Default([])
           List<ColorPalette> palettes,
       @Default([])

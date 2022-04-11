@@ -188,9 +188,8 @@ class _ProjectPageState extends State<ProjectPage> {
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
                   LayersIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
-                  InsertIntent(context, Offset.zero),
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
+                  LogicalKeyboardKey.keyN): InsertIntent(context, Offset.zero),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
                   ChangePathIntent(context),

@@ -52,7 +52,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       counter++;
     }
     var db = await _getDatabase();
-    var doc = document.toJson();
+    var doc = Map<String, dynamic>.from(document.toJson());
     doc['type'] = 'file';
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
