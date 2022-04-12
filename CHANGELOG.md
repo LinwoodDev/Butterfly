@@ -2,6 +2,21 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.3.0-alpha.1 (2022-04-12)
+
+* Change scroll behavior to move
+    * Add shift to inverse
+* Move zoom options and undo/redo in popup menu
+* Move overflow menu to the left and replace icon to logo
+* Add scrollbar to tools
+* Enable share of data for all platforms
+* Restructure the code to separate the logic from the UI
+* Add an introduction screen for the first start and for a new version
+* Fix open file issues when opening by clicking on the file
+* Fix full screen
+* Temporarily disable undo/redo
+* Fix duplicated keybind of insert and export
+
 ## 1.3.0-alpha.0 (2022-03-05)
 
 * Add areas
