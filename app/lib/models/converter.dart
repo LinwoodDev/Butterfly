@@ -49,7 +49,7 @@ class DocumentJsonConverter
 
   @override
   Map<String, dynamic> toJson(AppDocument object) {
-    return {'version': kFileVersion}..addAll(object.toJson());
+    return {'fileVersion': kFileVersion}..addAll(object.toJson());
   }
 }
 

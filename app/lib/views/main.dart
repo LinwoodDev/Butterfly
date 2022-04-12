@@ -214,39 +214,41 @@ class _ProjectPageState extends State<ProjectPage> {
                   InsertIntent: InsertAction(),
                   ChangePathIntent: ChangePathAction(),
                 },
-                child: ClipRect(
-                  child: Builder(builder: (context) {
-                    PreferredSizeWidget appBar = PadAppBar(
-                      viewportKey: _viewportKey,
-                    );
-                    return Focus(
-                        autofocus: true,
-                        child: FocusScope(
-                          child: Scaffold(
-                              appBar: appBar,
-                              body: LayoutBuilder(
-                                  builder: (context, constraints) {
-                                final isMobile =
-                                    MediaQuery.of(context).size.width < 800;
-                                return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Expanded(
-                                          key: _viewportKey,
-                                          child: const MainViewViewport()),
-                                      if (isMobile)
-                                        Align(
-                                            alignment: Alignment.center,
-                                            child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: EditToolbar(
-                                                    isMobile: isMobile)))
-                                    ]);
-                              })),
-                        ));
-                  }),
+                child: SafeArea(
+                  child: ClipRect(
+                    child: Builder(builder: (context) {
+                      PreferredSizeWidget appBar = PadAppBar(
+                        viewportKey: _viewportKey,
+                      );
+                      return Focus(
+                          autofocus: true,
+                          child: FocusScope(
+                            child: Scaffold(
+                                appBar: appBar,
+                                body: LayoutBuilder(
+                                    builder: (context, constraints) {
+                                  final isMobile =
+                                      MediaQuery.of(context).size.width < 800;
+                                  return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        Expanded(
+                                            key: _viewportKey,
+                                            child: const MainViewViewport()),
+                                        if (isMobile)
+                                          Align(
+                                              alignment: Alignment.center,
+                                              child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: EditToolbar(
+                                                      isMobile: isMobile)))
+                                      ]);
+                                })),
+                          ));
+                    }),
+                  ),
                 )),
           );
         }));

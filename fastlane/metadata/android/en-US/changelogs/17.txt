@@ -7,5 +7,6 @@
 * Restructure the code to separate the logic from the UI
 * Add an introduction screen for the first start and for a new version
 * Fix open file issues when opening by clicking on the file
+* Fix full screen
 * Temporarily disable undo/redo
 * Fix duplicated keybind of insert and export
