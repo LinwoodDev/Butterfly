@@ -1,0 +1,12 @@
+name: Publish to WinGet
+on:
+  release:
+    types: [published]
+jobs:
+  publish:
+    runs-on: windows-latest
+    steps:
+      - uses: vedantmgoyal2009/vedantmgoyal2009/winget-pkgs-automation/releaser-action@v1.0.0
+        with:
+          identifier: LinwoodCloud.Butterfly
+          token: ${{ secrets.WINGET_TOKEN }}
