@@ -29,6 +29,7 @@ jobs:
           channel: "beta" # or: 'stable' or 'dev'
       - name: Setup git
         id: setup
+        shell: bash
         run: |
           BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
           [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
@@ -43,20 +44,30 @@ jobs:
           dart pub get -C tools
           dart run tools/set_version.dart --build-number keep --changelog
           git add .
-          git commit -m "Create changelog for ${{ github.event.inputs.next_version }}"
+          git commit -m "Create changelog for ${{ env.BUTTERFLY_VERSION }}"
           git push origin
       - name: Create tag
         run: |
           BUTTERFLY_VERSION="${{ env.BUTTERFLY_VERSION }}"
-          git tag -a v${{ env.BUTTERFLY_VERSION }} -m "Release ${BUTTERFLY_VERSION}"
+          git tag -fa v${{ env.BUTTERFLY_VERSION }} -m "Release ${BUTTERFLY_VERSION}"
           git push origin v${BUTTERFLY_VERSION}
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          prerelease: ${{ !github.event.inputs.stable }}
+          prerelease: ${{ github.event.inputs.stable }}
           tag_name: v${{ env.BUTTERFLY_VERSION }}
           name: v${{ env.BUTTERFLY_VERSION }}
           body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
+      - name: Retag stable
+        if: ${{ !github.event.inputs.stable }}
+        run: |
+          git tag -fa stable -m "Find all stable releases here"
+          git push origin stable -f
+      - name: Retag nightly
+        if: ${{ github.event.inputs.stable }}
+        run: |
+          git tag -fa nightly -m "Find all nightly releases here"
+          git push origin nightly -f
   update-version:
     runs-on: ubuntu-20.04
     needs:
@@ -117,30 +128,21 @@ jobs:
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Update version number
-        if: ${{ !github.event.inputs.stable }}
+        if: ${{ github.event.inputs.stable }}
         run: |
           dart pub get -C tools
           dart run tools/set_version.dart --build-number increment --no-changelog
 
           git add .
-          git commit -m "Update version to ${{ github.event.inputs.next_version }}"
+          git commit -m "Update version number"
           git push origin main
-      - name: Merge develop
-        if: ${{ github.event.inputs.stable }}
-        run: |
-          git fetch
-          git pull
-          git checkout main
-          git pull
-          git merge develop --strategy-option ours
-          git push origin main
-      - name: Merge main
+      - name: Merge main in develop
         run: |
           git fetch
           git pull
           git checkout develop
           git pull
-          git merge main --strategy-option ours
+          git merge origin/main --strategy-option ours
           git push origin develop
   update-develop:
     if: ${{ github.ref == 'refs/heads/main' }}
@@ -175,7 +177,7 @@ jobs:
           git pull
           git checkout develop
           git pull
-          git merge main --strategy-option ours
+          git merge origin/main --strategy-option ours
           git push origin develop
       - name: Update version number
         run: |
@@ -185,7 +187,7 @@ jobs:
           dart run tools/set_version.dart --build-number increment --no-changelog
 
           git add .
-          git commit -m "Update version to ${{ github.event.inputs.next_version }}"
+          git commit -m "Update version number"
           git push origin develop
   notify:
     runs-on: ubuntu-20.04
@@ -194,6 +196,7 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
       - name: Get information
+        shell: bash
         run: |
           BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
           [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
@@ -201,11 +204,17 @@ jobs:
           echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
           BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
+          echo 'BUTTERFLY_CHANGELOG<<EOF' >> $GITHUB_ENV
+          cat fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt >> $GITHUB_ENV
+          echo '' >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v4.0.0
-        if: ${{ github.ref == 'refs/heads/main' || github.event.inputs.stable }}
+        if: ${{ github.ref == 'refs/heads/main' || !github.event.inputs.stable }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
+          embed-title: ${{ env.BUTTERFLY_VERSION }}
+          embed-description: ${{ env.BUTTERFLY_CHANGELOG }}
           content: |
             Version ${{ env.BUTTERFLY_VERSION }} released!
             Download it here: https://docs.butterfly.linwood.dev/downloads
@@ -213,9 +222,11 @@ jobs:
             https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v4.0.0
-        if: ${{ github.ref == 'refs/heads/develop' && !github.event.inputs.stable }}
+        if: ${{ github.ref == 'refs/heads/develop' && github.event.inputs.stable }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
+          embed-title: ${{ env.BUTTERFLY_VERSION }}
+          embed-description: ${{ env.BUTTERFLY_CHANGELOG }}
           content: |
             Pre-release version ${{ env.BUTTERFLY_VERSION }} released!
             Download it here: https://docs.butterfly.linwood.dev/downloads
@@ -229,11 +240,11 @@ jobs:
   #    - uses: actions/checkout@v3
   #    - name: Publish beta
   #      run: fastlane beta
-  #      if: ${{ !github.event.inputs.stable }}
+  #      if: ${{ github.event.inputs.stable }}
   #      env:
   #        PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
   #    - name: Publish stable
   #      run: fastlane deploy
-  #      if: ${{ github.event.inputs.stable }}
+  #      if: ${{ !github.event.inputs.stable }}
   #      env:
   #        PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
