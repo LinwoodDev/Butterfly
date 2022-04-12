@@ -11,12 +11,6 @@ Ne pas utiliser la version nocturne de Butterfly pour la production.
 
 :::
 
-:::note
-
-Pour des raisons de performance, préférez utiliser la version native plutôt que la version web.
-
-:::
-
 ## Liens
 
 <div className="row margin-bottom--lg padding--sm">

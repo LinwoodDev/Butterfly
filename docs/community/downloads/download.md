@@ -9,12 +9,6 @@ title: Downloads
 
 ## Choose your platform
 
-:::note
-
-For performance reasons, prefer using the native version instead of the web version.
-
-:::
-
 <div className="row margin-bottom--lg padding--sm">
 <a class="button button--outline button--primary button--lg margin--sm" href="/downloads/windows">
   Windows

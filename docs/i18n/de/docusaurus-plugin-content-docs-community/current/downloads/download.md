@@ -8,12 +8,6 @@ title: Downloads
 
 ## Wähle deine Plattform
 
-:::note
-
-Aus Performancegründen sollten Sie lieber die native Version anstelle der Webversion verwenden.
-
-:::
-
 <div className="row margin-bottom--lg padding--sm">
 <a class="button button--outline button--primary button--lg margin--sm" href="/downloads/windows">
   Windows

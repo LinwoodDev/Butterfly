@@ -8,12 +8,6 @@ title: Téléchargements
 
 ## Choisissez votre plateforme
 
-:::note
-
-Pour des raisons de performance, préférez utiliser la version native plutôt que la version web.
-
-:::
-
 <div className="row margin-bottom--lg padding--sm">
 <a class="button button--outline button--primary button--lg margin--sm" href="/downloads/windows">
   Windows

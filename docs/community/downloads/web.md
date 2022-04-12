@@ -12,12 +12,6 @@ Do not use the nightly version of Butterfly for production.
 
 :::
 
-:::note
-
-For performance reasons, prefer using the native version instead of the web version.
-
-:::
-
 ## Links
 
 <div className="row margin-bottom--lg padding--sm">
