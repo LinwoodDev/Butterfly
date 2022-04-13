@@ -23,7 +23,7 @@ title: Downloads
 </a>
 </div>
 
-Or you want to [build your own](/build-your-own)
+Oder du möchtest [deine eigene](/build-your-own) bauen
 
 ## Nützliche Links
 
