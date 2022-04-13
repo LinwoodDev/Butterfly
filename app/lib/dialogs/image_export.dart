@@ -149,7 +149,10 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                           ElevatedButton(
                             child: Text(AppLocalizations.of(context)!.export),
                             onPressed: () async {
-                              var data = await generateImage();
+                              final localization =
+                                  AppLocalizations.of(context)!;
+                              Navigator.of(context).pop();
+                              final data = await generateImage();
                               if (data == null) {
                                 return;
                               }
@@ -160,8 +163,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                                       Platform.isMacOS)) {
                                 var path = await FilePicker.platform.saveFile(
                                   type: FileType.image,
-                                  dialogTitle:
-                                      AppLocalizations.of(context)!.export,
+                                  dialogTitle: localization.export,
                                 );
                                 if (path != null) {
                                   var file = File(path);
@@ -174,7 +176,6 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                               } else {
                                 openImage(data.buffer.asUint8List());
                               }
-                              Navigator.of(context).pop();
                             },
                           ),
                         ],

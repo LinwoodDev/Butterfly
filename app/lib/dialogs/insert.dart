@@ -51,6 +51,7 @@ class _InsertDialogState extends State<InsertDialog> {
           title: Text(AppLocalizations.of(context)!.image),
           leading: const Icon(PhosphorIcons.imageLight),
           onTap: () async {
+            final bloc = context.read<DocumentBloc>();
             var files = await FilePicker.platform.pickFiles(
                 type: FileType.image, allowMultiple: false, withData: true);
             if (files?.files.isEmpty ?? true) return;
@@ -65,7 +66,6 @@ class _InsertDialogState extends State<InsertDialog> {
             var image = frame.image.clone();
 
             var bytes = await image.toByteData(format: ui.ImageByteFormat.png);
-            var bloc = context.read<DocumentBloc>();
             var state = bloc.state;
             if (state is! DocumentLoadSuccess) return;
             _submit(ImageElement(
@@ -84,6 +84,7 @@ class _InsertDialogState extends State<InsertDialog> {
               title: Text(AppLocalizations.of(context)!.camera),
               leading: const Icon(PhosphorIcons.cameraLight),
               onTap: () async {
+                final bloc = context.read<DocumentBloc>();
                 var content = await Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const CameraDialog()),
                 ) as Uint8List?;
@@ -95,7 +96,6 @@ class _InsertDialogState extends State<InsertDialog> {
 
                 var bytes =
                     await image.toByteData(format: ui.ImageByteFormat.png);
-                var bloc = context.read<DocumentBloc>();
                 var state = bloc.state;
                 if (state is! DocumentLoadSuccess) return;
                 _submit(ImageElement(

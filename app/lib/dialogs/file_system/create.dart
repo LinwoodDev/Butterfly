@@ -41,18 +41,16 @@ class FileSystemAssetCreateDialog extends StatelessWidget {
           TextButton(
             child: Text(AppLocalizations.of(context)!.create),
             onPressed: () async {
+              Navigator.of(context).pop(true);
               if (_formKey.currentState?.validate() ?? false) {
-                {
-                  if (!isFolder) {
-                    await _fileSystem.createDocument(_nameController.text,
-                        path: path,
-                        palettes: ColorPalette.getMaterialPalette(context));
-                  } else {
-                    await _fileSystem
-                        .createDirectory(path + '/' + _nameController.text);
-                  }
+                if (!isFolder) {
+                  await _fileSystem.createDocument(_nameController.text,
+                      path: path,
+                      palettes: ColorPalette.getMaterialPalette(context));
+                } else {
+                  await _fileSystem
+                      .createDirectory('$path/${_nameController.text}');
                 }
-                Navigator.of(context).pop(true);
               }
             },
           ),

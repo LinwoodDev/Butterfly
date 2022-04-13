@@ -15,7 +15,7 @@ class LayerDialog extends StatelessWidget {
     if (popupMenu) {
       return PopupMenuButton(
           itemBuilder: (context) => _buildListTiles(context)
-              .map((e) => PopupMenuItem(child: e, padding: EdgeInsets.zero))
+              .map((e) => PopupMenuItem(padding: EdgeInsets.zero, child: e))
               .toList());
     }
     return AlertDialog(
@@ -43,13 +43,13 @@ class LayerDialog extends StatelessWidget {
           title: Text(AppLocalizations.of(context)!.rename),
           leading: const Icon(PhosphorIcons.textTLight),
           onTap: () {
-            var _nameController = TextEditingController(text: layer);
+            var nameController = TextEditingController(text: layer);
             showDialog(
                 context: context,
                 builder: (ctx) => AlertDialog(
                       title: Text(AppLocalizations.of(ctx)!.rename),
                       content: TextField(
-                        controller: _nameController,
+                        controller: nameController,
                         autofocus: true,
                         decoration: InputDecoration(
                             filled: true,
@@ -64,9 +64,9 @@ class LayerDialog extends StatelessWidget {
                           child: Text(AppLocalizations.of(ctx)!.ok),
                           onPressed: () {
                             Navigator.pop(ctx);
-                            if (_nameController.text != layer) {
+                            if (nameController.text != layer) {
                               context.read<DocumentBloc>().add(
-                                  LayerRenamed(layer, _nameController.text));
+                                  LayerRenamed(layer, nameController.text));
                               Navigator.pop(ctx);
                             }
                           },

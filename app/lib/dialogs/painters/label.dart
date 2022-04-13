@@ -205,7 +205,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                   text = AppLocalizations.of(context)!.bold;
                 }
                 return DropdownMenuItem(
-                    child: Text(text), value: FontWeight.values[index]);
+                    value: FontWeight.values[index], child: Text(text));
               }),
               onChanged: (value) => change(_value.copyWith(
                   fontWeight: value?.index ?? _value.fontWeight)))),
@@ -270,8 +270,8 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                               text = AppLocalizations.of(context)!.wavy;
                           }
                           return DropdownMenuItem(
-                              child: Text(text),
-                              value: TextDecorationStyle.values[index]);
+                              value: TextDecorationStyle.values[index],
+                              child: Text(text));
                         }),
                         onChanged: (value) => change(_value.copyWith(
                             decorationStyle:

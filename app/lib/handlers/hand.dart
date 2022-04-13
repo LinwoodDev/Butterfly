@@ -85,6 +85,7 @@ class HandHandler extends Handler {
       } else if (hits.length == 1) {
         selected = hits.first;
         bloc.add(const IndexRefreshed());
+        // ignore: use_build_context_synchronously
         showSelection(context, event.localPosition);
       } else {
         showDialog(

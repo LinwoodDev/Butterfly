@@ -30,7 +30,7 @@ class LayersDialog extends StatelessWidget {
                     label:
                         Text(AppLocalizations.of(context)!.selectCustomLayer),
                     onPressed: () {
-                      var _nameController = TextEditingController(
+                      var nameController = TextEditingController(
                           text: (context.read<DocumentBloc>().state
                                   as DocumentLoadSuccess)
                               .currentLayer);
@@ -40,7 +40,7 @@ class LayersDialog extends StatelessWidget {
                           title:
                               Text(AppLocalizations.of(ctx)!.selectCustomLayer),
                           content: TextField(
-                            controller: _nameController,
+                            controller: nameController,
                             autofocus: true,
                             decoration: InputDecoration(
                                 filled: true,
@@ -56,7 +56,7 @@ class LayersDialog extends StatelessWidget {
                               onPressed: () {
                                 Navigator.of(ctx).pop();
                                 BlocProvider.of<DocumentBloc>(context).add(
-                                    CurrentLayerChanged(_nameController.text));
+                                    CurrentLayerChanged(nameController.text));
                               },
                             ),
                           ],

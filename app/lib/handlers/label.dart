@@ -6,12 +6,12 @@ class LabelHandler extends Handler {
       Size viewportSize, BuildContext context, TapUpDetails details) async {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
+    final ratio = MediaQuery.of(context).devicePixelRatio;
     final newElement = await openDialog(context, details.localPosition);
     if (newElement != null) {
       bloc
         ..add(ElementsCreated([newElement]))
-        ..add(ImageBaked(
-            viewportSize, MediaQuery.of(context).devicePixelRatio, transform));
+        ..add(ImageBaked(viewportSize, ratio, transform));
     }
   }
 

@@ -11,7 +11,7 @@ import 'package:path/path.dart' as path;
 
 abstract class GeneralFileSystem {
   String convertNameToFile(String name) {
-    return name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_') + '.bfly';
+    return '${name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_')}.bfly';
   }
 
   FutureOr<String> getAbsolutePath(String relativePath) async {
@@ -126,7 +126,7 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     var name = document.name;
     var attemps = 1;
     while (await hasTemplate(name)) {
-      name = document.name + ' ($attemps)';
+      name = '${document.name} ($attemps)';
       attemps++;
     }
     template =

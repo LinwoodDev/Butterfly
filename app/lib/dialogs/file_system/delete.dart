@@ -21,8 +21,8 @@ class FileSystemAssetDeleteDialog extends StatelessWidget {
         TextButton(
           child: Text(AppLocalizations.of(context)!.yes),
           onPressed: () async {
-            await fileSystem.deleteAsset(path);
             Navigator.of(context).pop(true);
+            await fileSystem.deleteAsset(path);
           },
         )
       ],

@@ -76,10 +76,10 @@ class _ContextMenuState extends State<ContextMenu>
         children: [
           Positioned.fill(
             child: GestureDetector(
+              onTap: _close,
               child: Container(
                 color: Colors.transparent,
               ),
-              onTap: _close,
             ),
           ),
           Positioned(

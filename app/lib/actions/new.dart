@@ -24,13 +24,15 @@ class NewAction extends Action<NewIntent> {
 
   @override
   Future<void> invoke(NewIntent intent) async {
+    final bloc = intent.context.read<DocumentBloc>();
+    final settings = intent.context.read<SettingsCubit>().state;
+    final transformCubit = intent.context.read<TransformCubit>();
     var document = AppDocument(
         name: await formatCurrentDateTime(
             intent.context.read<SettingsCubit>().state.locale),
         createdAt: DateTime.now(),
         palettes: ColorPalette.getMaterialPalette(intent.context));
-    var bloc = intent.context.read<DocumentBloc>();
-    var prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     if (intent.fromTemplate) {
       var state = bloc.state;
       if (state is DocumentLoadSuccess) document = state.document;
@@ -48,8 +50,7 @@ class NewAction extends Action<NewIntent> {
               )) as DocumentTemplate?;
       if (template == null) return;
       document = template.document.copyWith(
-        name: await formatCurrentDateTime(
-            intent.context.read<SettingsCubit>().state.locale),
+        name: await formatCurrentDateTime(settings.locale),
         createdAt: DateTime.now(),
       );
     } else if (prefs.containsKey('default_template')) {
@@ -57,15 +58,14 @@ class NewAction extends Action<NewIntent> {
           .getTemplate(prefs.getString('default_template')!);
       if (template != null) {
         document = template.document.copyWith(
-          name: await formatCurrentDateTime(
-              intent.context.read<SettingsCubit>().state.locale),
+          name: await formatCurrentDateTime(settings.locale),
           createdAt: DateTime.now(),
         );
       }
     }
 
     bloc.clearHistory();
-    intent.context.read<TransformCubit>().reset();
+    transformCubit.reset();
     bloc.emit(DocumentLoadSuccess(document));
   }
 }

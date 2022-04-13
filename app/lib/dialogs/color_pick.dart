@@ -58,7 +58,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             leading: const Icon(PhosphorIcons.penLight),
                             title: Text(AppLocalizations.of(context)!.edit),
                             onTap: () async {
-                              var value = await showDialog(
+                              final bloc = context.read<DocumentBloc>();
+                              final value = await showDialog(
                                   context: context,
                                   builder: (context) => CustomColorPicker(
                                       defaultColor: Color(color)));
@@ -66,9 +67,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                 newPalette[index] = value;
                                 newPalettes[selected] =
                                     palette.copyWith(colors: newPalette);
-                                context
-                                    .read<DocumentBloc>()
-                                    .add(DocumentPaletteChanged(newPalettes));
+                                bloc.add(DocumentPaletteChanged(newPalettes));
                               }
                             }),
                         ListTile(
@@ -356,6 +355,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                             size: 42)),
                                   ),
                                   onTap: () async {
+                                    final bloc = context.read<DocumentBloc>();
                                     var value = await showDialog(
                                         context: context,
                                         builder: (context) => CustomColorPicker(
@@ -369,8 +369,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                               colors: List<int>.from(
                                                   newPalettes[selected].colors)
                                                 ..add(value.value));
-
-                                      context.read<DocumentBloc>().add(
+                                      bloc.add(
                                           DocumentPaletteChanged(newPalettes));
                                     }
                                   },
@@ -386,11 +385,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 if (!widget.viewMode)
                   ElevatedButton(
                       onPressed: () async {
+                        final navigator = Navigator.of(context);
                         var value = await showDialog(
                             context: context,
                             builder: (context) => CustomColorPicker(
                                 defaultColor: widget.defaultColor));
-                        if (value != null) Navigator.of(context).pop(value);
+                        if (value != null) navigator.pop(value);
                       },
                       child: Text(AppLocalizations.of(context)!.custom)),
               ],
@@ -400,7 +400,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void _createPalette() {
-    final _nameController = TextEditingController();
+    final nameController = TextEditingController();
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
@@ -418,7 +418,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                               (bloc.state as DocumentLoadSuccess)
                                   .document
                                   .palettes)
-                            ..add(ColorPalette(name: _nameController.text)),
+                            ..add(ColorPalette(name: nameController.text)),
                         ));
                       },
                       child: Text(AppLocalizations.of(context)!.create)),
@@ -429,13 +429,13 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         filled: true,
                         hintText: AppLocalizations.of(context)!.name),
                     autofocus: true,
-                    controller: _nameController)));
+                    controller: nameController)));
   }
 
   void _editPalette() {
     var state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
     if (selected >= state.document.palettes.length || selected < 0) return;
-    final _nameController =
+    final nameController =
         TextEditingController(text: state.document.palettes[selected].name);
     showDialog(
         context: context,
@@ -449,7 +449,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         var newPalettes =
                             List<ColorPalette>.from(state.document.palettes);
                         newPalettes[selected] = newPalettes[selected]
-                            .copyWith(name: _nameController.text);
+                            .copyWith(name: nameController.text);
                         context
                             .read<DocumentBloc>()
                             .add(DocumentPaletteChanged(newPalettes));
@@ -463,7 +463,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         filled: true,
                         hintText: AppLocalizations.of(context)!.name),
                     autofocus: true,
-                    controller: _nameController)));
+                    controller: nameController)));
   }
 
   void _deletePalette() {

@@ -167,11 +167,12 @@ class _CameraDialogState extends State<CameraDialog>
                             child: Text(AppLocalizations.of(context)!.ok),
                             // Capture image on button press.
                             onPressed: () async {
+                              final navigator = Navigator.of(context);
                               final imageFile =
                                   await _controller?.takePicture();
                               if (imageFile != null) {
                                 var content = await imageFile.readAsBytes();
-                                return Navigator.of(context).pop(content);
+                                return navigator.pop(content);
                               }
                             },
                           ),

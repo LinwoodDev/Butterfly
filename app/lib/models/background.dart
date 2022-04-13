@@ -20,10 +20,7 @@ enum BackgroundTemplate {
 extension BackgroundTemplateExtension on BackgroundTemplate {
   // camelCase to snake_case
   String get asset =>
-      'templates/' +
-      name.replaceAllMapped(
-          RegExp(r'([A-Z])'), (match) => '_${match.group(1)?.toLowerCase()}') +
-      '.png';
+      'templates/${name.replaceAllMapped(RegExp(r'([A-Z])'), (match) => '_${match.group(1)?.toLowerCase()}')}.png';
 
   bool get dark => [
         BackgroundTemplate.plainDark,

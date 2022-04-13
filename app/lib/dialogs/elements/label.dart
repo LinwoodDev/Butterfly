@@ -96,8 +96,8 @@ class EditLabelElementDialog extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(),
               ),
               TextButton(
-                  child: Text(AppLocalizations.of(context)!.ok),
-                  onPressed: submit)
+                  onPressed: submit,
+                  child: Text(AppLocalizations.of(context)!.ok))
             ])
           ]),
         ),

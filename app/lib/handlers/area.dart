@@ -93,6 +93,7 @@ class AreaHandler extends Handler {
   Future<void> onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) async {
     if (currentRect == null) return;
+    final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
     final position = transform.localToGlobal(event.localPosition);
@@ -109,11 +110,11 @@ class AreaHandler extends Handler {
     final name = await _showAreaLabelDialog(context);
     if (name == null) {
       currentRect = null;
-      context.read<DocumentBloc>().add(const IndexRefreshed());
+      bloc.add(const IndexRefreshed());
       return;
     }
 
-    context.read<DocumentBloc>()
+    bloc
       ..add(AreaCreated(Area(
           name: name,
           width: currentRect!.width,

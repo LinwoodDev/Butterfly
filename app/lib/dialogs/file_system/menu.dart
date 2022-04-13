@@ -28,7 +28,7 @@ class FileSystemAssetMenu extends StatelessWidget {
     final fileSystem = DocumentFileSystem.fromPlatform();
     final fileName = path.split('/').last;
     final parent = path.substring(0, path.length - fileName.length - 1);
-    final _nameController = TextEditingController(
+    final nameController = TextEditingController(
         text: fileName.substring(0, fileName.length - '.bfly'.length));
     final bloc = context.read<DocumentBloc>();
     showDialog(
@@ -45,7 +45,7 @@ class FileSystemAssetMenu extends StatelessWidget {
                   }
                   return null;
                 },
-                controller: _nameController,
+                controller: nameController,
                 autofocus: true,
               ),
               actions: [
@@ -56,9 +56,10 @@ class FileSystemAssetMenu extends StatelessWidget {
                 TextButton(
                   child: Text(AppLocalizations.of(context)!.rename),
                   onPressed: () async {
-                    if (_nameController.text != selectedPath) {
+                    Navigator.of(context).pop();
+                    if (nameController.text != selectedPath) {
                       var document = await fileSystem.renameAsset(
-                          path, parent + '/' + _nameController.text + '.bfly');
+                          path, '$parent/${nameController.text}.bfly');
                       var state = bloc.state;
                       if (state is! DocumentLoadSuccess) return;
                       if (document != null && state.path == path) {
@@ -67,7 +68,6 @@ class FileSystemAssetMenu extends StatelessWidget {
                       }
                       onRefreshed();
                     }
-                    Navigator.of(context).pop();
                   },
                 ),
               ],
@@ -81,6 +81,7 @@ class FileSystemAssetMenu extends StatelessWidget {
       child: PopupMenuButton(
         itemBuilder: (context) => [
           PopupMenuItem(
+            padding: EdgeInsets.zero,
             child: ListTile(
               leading: const Icon(PhosphorIcons.folderOpenLight),
               title: Text(AppLocalizations.of(context)!.open),
@@ -89,9 +90,9 @@ class FileSystemAssetMenu extends StatelessWidget {
                 onOpened(asset);
               },
             ),
-            padding: EdgeInsets.zero,
           ),
           PopupMenuItem(
+            padding: EdgeInsets.zero,
             child: ListTile(
                 leading: const Icon(PhosphorIcons.copyLight),
                 title: Text(AppLocalizations.of(context)!.duplicate),
@@ -105,15 +106,16 @@ class FileSystemAssetMenu extends StatelessWidget {
                   if (newPath == null) return;
                   onRefreshed();
                 }),
-            padding: EdgeInsets.zero,
           ),
           PopupMenuItem(
+            padding: EdgeInsets.zero,
             child: ListTile(
                 leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
                 title: Text(AppLocalizations.of(context)!.move),
                 onTap: () async {
+                  final bloc = context.read<DocumentBloc>();
                   Navigator.of(context).pop();
-                  var newPath = await showDialog(
+                  final newPath = await showDialog(
                     context: context,
                     builder: (context) =>
                         FileSystemAssetMoveDialog(asset: asset),
@@ -121,7 +123,6 @@ class FileSystemAssetMenu extends StatelessWidget {
                   if (newPath == null) return;
                   onRefreshed();
                   // Change path if current document is moved
-                  var bloc = context.read<DocumentBloc>();
                   var state = bloc.state;
                   if (state is! DocumentLoadSuccess) return;
                   if (state.path == asset.path) {
@@ -129,9 +130,9 @@ class FileSystemAssetMenu extends StatelessWidget {
                     bloc.emit(state.copyWith(path: newPath));
                   }
                 }),
-            padding: EdgeInsets.zero,
           ),
           PopupMenuItem(
+            padding: EdgeInsets.zero,
             child: ListTile(
                 leading: const Icon(PhosphorIcons.textTLight),
                 title: Text(AppLocalizations.of(context)!.rename),
@@ -139,9 +140,9 @@ class FileSystemAssetMenu extends StatelessWidget {
                   Navigator.of(context).pop();
                   _showRenameDialog(context, asset.path);
                 }),
-            padding: EdgeInsets.zero,
           ),
           PopupMenuItem(
+            padding: EdgeInsets.zero,
             child: ListTile(
               leading: const Icon(PhosphorIcons.trashLight),
               title: Text(AppLocalizations.of(context)!.delete),
@@ -156,7 +157,6 @@ class FileSystemAssetMenu extends StatelessWidget {
                 }
               },
             ),
-            padding: EdgeInsets.zero,
           ),
         ],
       ),

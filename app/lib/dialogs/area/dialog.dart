@@ -111,7 +111,7 @@ class AreasDialog extends StatelessWidget {
                                                                     .rename),
                                                             onTap: () {
                                                               final TextEditingController
-                                                                  _nameController =
+                                                                  nameController =
                                                                   TextEditingController(
                                                                       text: areas[
                                                                               index]
@@ -147,7 +147,7 @@ class AreasDialog extends StatelessWidget {
                                                                                   return null;
                                                                                 },
                                                                                 decoration: const InputDecoration(filled: true),
-                                                                                controller: _nameController,
+                                                                                controller: nameController,
                                                                                 autofocus: true,
                                                                               ),
                                                                               actions: [
@@ -160,7 +160,7 @@ class AreasDialog extends StatelessWidget {
                                                                                   onPressed: () {
                                                                                     if (!(formKey.currentState?.validate() ?? false)) return;
                                                                                     Navigator.of(context).pop();
-                                                                                    bloc.add(AreaChanged(index, areas[index].copyWith(name: _nameController.text)));
+                                                                                    bloc.add(AreaChanged(index, areas[index].copyWith(name: nameController.text)));
                                                                                   },
                                                                                 ),
                                                                               ],

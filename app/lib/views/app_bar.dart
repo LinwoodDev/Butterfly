@@ -397,6 +397,7 @@ class _MainPopupMenu extends StatelessWidget {
                       trailing: const Icon(PhosphorIcons.caretRightLight),
                       title: Text(AppLocalizations.of(context)!.export)))),
           PopupMenuItem(
+              padding: EdgeInsets.zero,
               child: ListTile(
                   onTap: () {
                     Navigator.of(context).pop();
@@ -406,8 +407,7 @@ class _MainPopupMenu extends StatelessWidget {
                   subtitle: Text(
                       context.getShortcut('S', shiftKey: true, altKey: true)),
                   leading: const Icon(PhosphorIcons.wrenchLight),
-                  title: Text(AppLocalizations.of(context)!.projectSettings)),
-              padding: EdgeInsets.zero),
+                  title: Text(AppLocalizations.of(context)!.projectSettings))),
           const PopupMenuDivider(),
           PopupMenuItem(
               padding: EdgeInsets.zero,
@@ -416,8 +416,8 @@ class _MainPopupMenu extends StatelessWidget {
                   title: Text(AppLocalizations.of(context)!.fullscreen),
                   subtitle: Text(context.getShortcut('F11', ctrlKey: false)),
                   onTap: () async {
-                    setFullScreen(!(await isFullScreen()));
                     Navigator.of(context).pop();
+                    setFullScreen(!(await isFullScreen()));
                   })),
           PopupMenuItem(
               padding: EdgeInsets.zero,

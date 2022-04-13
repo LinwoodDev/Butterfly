@@ -47,7 +47,7 @@ class GeneralElementDialog extends StatelessWidget {
                     subtitle: Text(AppLocalizations.of(context)!.notSet),
                     onTap: () {
                       close();
-                      var _nameController =
+                      var nameController =
                           TextEditingController(text: renderer.element.layer);
                       showDialog(
                           context: context,
@@ -56,7 +56,7 @@ class GeneralElementDialog extends StatelessWidget {
                                 title: Text(
                                     AppLocalizations.of(context)!.enterLayer),
                                 content: TextField(
-                                  controller: _nameController,
+                                  controller: nameController,
                                   autofocus: true,
                                   decoration: InputDecoration(
                                       filled: true,
@@ -77,7 +77,7 @@ class GeneralElementDialog extends StatelessWidget {
                                       bloc.add(ElementChanged(
                                           renderer.element,
                                           renderer.element.copyWith(
-                                              layer: _nameController.text)));
+                                              layer: nameController.text)));
                                       Navigator.of(context).pop();
                                     },
                                   ),

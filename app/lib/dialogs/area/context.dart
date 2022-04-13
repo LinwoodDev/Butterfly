@@ -57,8 +57,8 @@ class AreaContextMenu extends StatelessWidget {
               title: Text(AppLocalizations.of(context)!.name),
               subtitle: Text(area.name),
               onTap: () {
-                var _nameController = TextEditingController(text: area.name);
-                var formKey = GlobalKey<FormState>();
+                final nameController = TextEditingController(text: area.name);
+                final formKey = GlobalKey<FormState>();
                 close();
                 showDialog(
                   context: context,
@@ -77,7 +77,7 @@ class AreaContextMenu extends StatelessWidget {
                           return null;
                         },
                         decoration: const InputDecoration(filled: true),
-                        controller: _nameController,
+                        controller: nameController,
                         autofocus: true,
                       ),
                       actions: [
@@ -92,7 +92,7 @@ class AreaContextMenu extends StatelessWidget {
                             bloc.add(
                               AreaChanged(
                                 index,
-                                area.copyWith(name: _nameController.text),
+                                area.copyWith(name: nameController.text),
                               ),
                             );
                           },

@@ -40,6 +40,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
           TextButton(
             child: Text(AppLocalizations.of(context)!.ok),
             onPressed: () async {
+              final navigator = Navigator.of(context);
               var newPath = selectedPath;
               if (selectedPath != '/') {
                 newPath += '/';
@@ -50,7 +51,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
               } else {
                 await _fileSystem.moveAsset(widget.asset.path, newPath);
               }
-              Navigator.of(context).pop(newPath);
+              navigator.pop(newPath);
             },
           ),
         ],
