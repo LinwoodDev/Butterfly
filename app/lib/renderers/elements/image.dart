@@ -26,12 +26,40 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   Rect get rect {
-    final scale = element.scale <= 0 ? 1 : element.scale;
-    return Rect.fromLTWH(
-        element.position.dx,
-        element.position.dy,
-        (element.width * scale).toDouble(),
-        (element.height * scale).toDouble());
+    final constraints = element.constraints;
+    if (constraints is ScaledPadConstraints) {
+      final scale = constraints.scale <= 0 ? 1 : constraints.scale;
+      return Rect.fromLTWH(
+          element.position.dx,
+          element.position.dy,
+          (element.width * scale).toDouble(),
+          (element.height * scale).toDouble());
+    } else if (constraints is FixedPadConstraints) {
+      return Rect.fromLTWH(element.position.dx, element.position.dy,
+          constraints.width, constraints.height);
+    } else if (constraints is DynamicPadConstraints) {
+      var width = constraints.width;
+      var height = constraints.height;
+      final ratio = constraints.aspectRatio;
+      if (ratio != 0) {
+        if (width <= 0) width = height * ratio;
+        if (height <= 0) height = width / ratio;
+      }
+      if (constraints.includeArea) {
+        final areaRect = area?.rect;
+        final rightArea = areaRect?.right ?? 0;
+        final right = element.position.dx + element.width;
+        width = min(rightArea, right) - element.position.dx;
+        final bottomArea = areaRect?.bottom ?? 0;
+        final bottom = element.position.dy + element.height;
+        height = min(bottomArea, bottom) - element.position.dy;
+      }
+      return Rect.fromLTWH(
+          element.position.dx, element.position.dy, width, height);
+    } else {
+      return Rect.fromLTWH(element.position.dx, element.position.dy,
+          element.width.toDouble(), element.height.toDouble());
+    }
   }
 
   @override
