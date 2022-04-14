@@ -57,7 +57,11 @@ class IODocumentFileSystem extends DocumentFileSystem {
     var directory = Directory(absolutePath);
     if (await file.exists()) {
       var json = await file.readAsString();
-      return AppDocumentFile(path, jsonDecode(json));
+      try {
+        return AppDocumentFile(path, jsonDecode(json));
+      } catch (e) {
+        return null;
+      }
     } else if (await directory.exists()) {
       var files = await directory.list().toList();
       var assets = <AppDocumentAsset>[];

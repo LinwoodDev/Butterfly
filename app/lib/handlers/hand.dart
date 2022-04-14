@@ -34,17 +34,18 @@ class HandHandler extends Handler {
     movingElement = next;
     if (!duplicate) {
       context.read<DocumentBloc>()
-        ..add(const IndexRefreshed())
-        ..add(ElementsRemoved([next.element]));
+        ..add(ElementsRemoved([next.element]))
+        ..add(const IndexRefreshed());
     }
   }
 
   void submitMove(BuildContext context) {
     if (movingElement == null) return;
-    final bloc = context.read<DocumentBloc>();
-    bloc.add(ElementsCreated([movingElement!.element]));
+    final current = movingElement!;
     movingElement = null;
-    bloc.add(const IndexRefreshed());
+    context.read<DocumentBloc>()
+      ..add(const IndexRefreshed())
+      ..add(ElementsCreated([current.element]));
   }
 
   bool openView = true;
