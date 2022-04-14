@@ -75,6 +75,9 @@ abstract class Renderer<T> {
       if (element is EmptyBackground) {
         return EmptyBackgroundRenderer(element) as Renderer<T>;
       }
+      if (element is BoxBackground) {
+        return BoxBackgroundRenderer(element) as Renderer<T>;
+      }
     }
 
     throw Exception('Invalid instance type');
