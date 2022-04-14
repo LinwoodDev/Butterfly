@@ -228,5 +228,10 @@
     },
     "description": "This message is shown when the app is updated"
   },
-  "releaseNotes": "Release notes"
+  "releaseNotes": "Release notes",
+  "constraints": "Constraints",
+  "scaledConstraints": "Scaled constraints",
+  "fixedConstraints": "Fixed constraints",
+  "dynamicConstraints": "Dynamic constraints",
+  "none": "None"
 }
