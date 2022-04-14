@@ -11,19 +11,20 @@ part 'element.freezed.dart';
 part 'element.g.dart';
 
 @freezed
-class PadConstraints with _$PadConstraints {
-  const factory PadConstraints.scaled(double scale) = ScaledPadConstraints;
-  const factory PadConstraints.fixed(double height, double width) =
-      FixedPadConstraints;
-  const factory PadConstraints.dynamic({
+class ElementConstraints with _$ElementConstraints {
+  const factory ElementConstraints.scaled(double scale) =
+      ScaledElementConstraints;
+  const factory ElementConstraints.fixed(double height, double width) =
+      FixedElementConstraints;
+  const factory ElementConstraints.dynamic({
     @Default(0) double height,
     @Default(0) double width,
-    @Default(null) double aspectRatio,
+    @Default(0) double aspectRatio,
     @Default(true) bool includeArea,
-  }) = DynamicPadConstraints;
+  }) = DynamicElementConstraints;
 
-  factory PadConstraints.fromJson(Map<String, dynamic> json) =>
-      _$PadConstraintsFromJson(json);
+  factory ElementConstraints.fromJson(Map<String, dynamic> json) =>
+      _$ElementConstraintsFromJson(json);
 }
 
 abstract class PathElement {
@@ -56,7 +57,7 @@ class PadElement with _$PadElement {
   const factory PadElement.image({
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
-    @Default(ScaledPadConstraints(1)) PadConstraints? constraints,
+    @Default(ScaledElementConstraints(1)) ElementConstraints? constraints,
     @Uint8ListJsonConverter() required Uint8List pixels,
     required int width,
     required int height,

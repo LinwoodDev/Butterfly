@@ -6,45 +6,45 @@ part of 'element.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ScaledPadConstraints _$$ScaledPadConstraintsFromJson(Map json) =>
-    _$ScaledPadConstraints(
+_$ScaledElementConstraints _$$ScaledElementConstraintsFromJson(Map json) =>
+    _$ScaledElementConstraints(
       (json['scale'] as num).toDouble(),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$ScaledPadConstraintsToJson(
-        _$ScaledPadConstraints instance) =>
+Map<String, dynamic> _$$ScaledElementConstraintsToJson(
+        _$ScaledElementConstraints instance) =>
     <String, dynamic>{
       'scale': instance.scale,
       'type': instance.$type,
     };
 
-_$FixedPadConstraints _$$FixedPadConstraintsFromJson(Map json) =>
-    _$FixedPadConstraints(
+_$FixedElementConstraints _$$FixedElementConstraintsFromJson(Map json) =>
+    _$FixedElementConstraints(
       (json['height'] as num).toDouble(),
       (json['width'] as num).toDouble(),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$FixedPadConstraintsToJson(
-        _$FixedPadConstraints instance) =>
+Map<String, dynamic> _$$FixedElementConstraintsToJson(
+        _$FixedElementConstraints instance) =>
     <String, dynamic>{
       'height': instance.height,
       'width': instance.width,
       'type': instance.$type,
     };
 
-_$DynamicPadConstraints _$$DynamicPadConstraintsFromJson(Map json) =>
-    _$DynamicPadConstraints(
+_$DynamicElementConstraints _$$DynamicElementConstraintsFromJson(Map json) =>
+    _$DynamicElementConstraints(
       height: (json['height'] as num?)?.toDouble() ?? 0,
       width: (json['width'] as num?)?.toDouble() ?? 0,
-      aspectRatio: (json['aspectRatio'] as num?)?.toDouble() ?? null,
+      aspectRatio: (json['aspectRatio'] as num?)?.toDouble() ?? 0,
       includeArea: json['includeArea'] as bool? ?? true,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$DynamicPadConstraintsToJson(
-        _$DynamicPadConstraints instance) =>
+Map<String, dynamic> _$$DynamicElementConstraintsToJson(
+        _$DynamicElementConstraints instance) =>
     <String, dynamic>{
       'height': instance.height,
       'width': instance.width,
@@ -127,8 +127,8 @@ _$ImageElement _$$ImageElementFromJson(Map json) => _$ImageElement(
           : const OffsetJsonConverter()
               .fromJson(json['position'] as Map<String, dynamic>),
       constraints: json['constraints'] == null
-          ? const ScaledPadConstraints(1)
-          : PadConstraints.fromJson(
+          ? const ScaledElementConstraints(1)
+          : ElementConstraints.fromJson(
               Map<String, dynamic>.from(json['constraints'] as Map)),
       pixels: const Uint8ListJsonConverter().fromJson(json['pixels'] as String),
       width: json['width'] as int,

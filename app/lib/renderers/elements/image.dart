@@ -27,17 +27,17 @@ class ImageRenderer extends Renderer<ImageElement> {
   @override
   Rect get rect {
     final constraints = element.constraints;
-    if (constraints is ScaledPadConstraints) {
+    if (constraints is ScaledElementConstraints) {
       final scale = constraints.scale <= 0 ? 1 : constraints.scale;
       return Rect.fromLTWH(
           element.position.dx,
           element.position.dy,
           (element.width * scale).toDouble(),
           (element.height * scale).toDouble());
-    } else if (constraints is FixedPadConstraints) {
+    } else if (constraints is FixedElementConstraints) {
       return Rect.fromLTWH(element.position.dx, element.position.dy,
           constraints.width, constraints.height);
-    } else if (constraints is DynamicPadConstraints) {
+    } else if (constraints is DynamicElementConstraints) {
       var width = constraints.width;
       var height = constraints.height;
       final ratio = constraints.aspectRatio;
