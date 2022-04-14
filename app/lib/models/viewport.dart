@@ -1,18 +1,21 @@
 import 'dart:ui' as ui;
 
+import 'package:butterfly/models/background.dart';
 import 'package:butterfly/renderers/renderer.dart';
 
 import 'element.dart';
 
 class CameraViewport {
   final ui.Image? image;
+  final Renderer<Background> background;
   final List<Renderer<PadElement>> bakedElements;
   final List<Renderer<PadElement>> unbakedElements;
   final int? width, height;
   final double scale;
   final double x, y;
 
-  const CameraViewport.unbaked([this.unbakedElements = const []])
+  const CameraViewport.unbaked(this.background,
+      [this.unbakedElements = const []])
       : image = null,
         scale = 1,
         width = null,
@@ -20,7 +23,7 @@ class CameraViewport {
         bakedElements = const [],
         x = 0,
         y = 0;
-  CameraViewport.baked(
+  CameraViewport.baked(this.background,
       {required this.image,
       required this.width,
       required this.height,
@@ -43,13 +46,45 @@ class CameraViewport {
   }
 
   CameraViewport withUnbaked(List<Renderer<PadElement>> unbakedElements) =>
-      CameraViewport.baked(
+      CameraViewport.baked(background,
           image: image,
           width: width,
           height: height,
           scale: scale,
           unbakedElements: unbakedElements,
           bakedElements: bakedElements,
+          x: x,
+          y: y);
+  CameraViewport unbake(List<Renderer<PadElement>> unbakedElements) =>
+      CameraViewport.unbaked(background, unbakedElements);
+  CameraViewport bake({
+    required ui.Image image,
+    required int width,
+    required int height,
+    List<Renderer<PadElement>> bakedElements = const [],
+    List<Renderer<PadElement>> unbakedElements = const [],
+    double scale = 1,
+    double x = 0,
+    double y = 0,
+  }) =>
+      CameraViewport.baked(background,
+          image: image,
+          width: width,
+          height: height,
+          scale: scale,
+          bakedElements: bakedElements,
+          unbakedElements: unbakedElements,
+          x: x,
+          y: y);
+
+  withBackground(Renderer<Background> background) =>
+      CameraViewport.baked(background,
+          image: image,
+          width: width,
+          height: height,
+          scale: scale,
+          bakedElements: bakedElements,
+          unbakedElements: unbakedElements,
           x: x,
           y: y);
 }

@@ -20,12 +20,18 @@ class DocumentLoadSuccess extends DocumentState {
 
   DocumentLoadSuccess(this.document,
       {this.path,
-      this.cameraViewport = const CameraViewport.unbaked(),
+      CameraViewport? cameraViewport,
       this.currentAreaIndex = -1,
       CurrentIndex? currentIndex,
       this.currentLayer = '',
       this.invisibleLayers = const []})
-      : currentIndex = currentIndex ?? CurrentIndex(-1, HandHandler());
+      : currentIndex = currentIndex ?? CurrentIndex(-1, HandHandler()),
+        cameraViewport = cameraViewport ??
+            CameraViewport.unbaked(
+                Renderer.fromInstance(document.background)..setup(document),
+                document.content
+                    .map((e) => Renderer.fromInstance(e)..setup(document))
+                    .toList());
 
   @override
   List<Object?> get props => [

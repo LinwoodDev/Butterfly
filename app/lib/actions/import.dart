@@ -28,13 +28,17 @@ class ImportAction extends Action<ImportIntent> {
       if (content == null) return;
       var document = const DocumentJsonConverter()
           .fromJson(Map<String, dynamic>.from(jsonDecode(content)));
-      DocumentFileSystem.fromPlatform().importDocument(document).then((file) {
+      DocumentFileSystem.fromPlatform()
+          .importDocument(document)
+          .then((file) async {
+        final background = Renderer.fromInstance(document.background);
+        await background.setup(document);
         final renderers =
-            document.content.map((e) => Renderer.fromElement(e)).toList();
-        Future.wait(renderers.map((e) async => await e.setup(document)));
+            document.content.map((e) => Renderer.fromInstance(e)).toList();
+        await Future.wait(renderers.map((e) async => await e.setup(document)));
         bloc.emit(DocumentLoadSuccess(document,
             path: file.path,
-            cameraViewport: CameraViewport.unbaked(renderers)));
+            cameraViewport: CameraViewport.unbaked(background, renderers)));
       });
     });
   }

@@ -1,4 +1,4 @@
-part of 'renderer.dart';
+part of '../renderer.dart';
 
 class EraserRenderer extends PathRenderer<EraserElement> {
   EraserRenderer(EraserElement element, [Rect rect = Rect.zero])

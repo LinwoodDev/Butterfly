@@ -1,4 +1,4 @@
-part of 'renderer.dart';
+part of '../renderer.dart';
 
 class PenRenderer extends PathRenderer<PenElement> {
   PenRenderer(PenElement element, [Rect rect = Rect.zero])

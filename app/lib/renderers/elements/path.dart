@@ -1,4 +1,4 @@
-part of 'renderer.dart';
+part of '../renderer.dart';
 
 abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   @override
@@ -29,7 +29,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   }
 
   @override
-  FutureOr<void> build(Canvas canvas, CameraTransform transform,
+  FutureOr<void> build(Canvas canvas, Size size, CameraTransform transform,
       [bool foreground = false]) {
     final current = element as PathElement;
     final points = current.points;

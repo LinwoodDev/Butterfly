@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
 import 'models/area.dart';
-import 'models/background.dart';
 
 Future<ui.Image> loadImage(ImageElement layer) {
   return decodeImageFromList(layer.pixels);
@@ -31,7 +30,7 @@ class ForegroundPainter extends CustomPainter {
     canvas.scale(transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var element in renderers) {
-      element.build(canvas, transform, true);
+      element.build(canvas, size, transform, true);
     }
     for (var rect in selection) {
       /*
@@ -91,16 +90,12 @@ class ViewPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    var background = document.background;
-    var box = background is BoxBackground ? background : null;
     var areaRect = currentArea?.rect;
     if (areaRect != null) {
       areaRect = Rect.fromPoints(transform.globalToLocal(areaRect.topLeft),
           transform.globalToLocal(areaRect.bottomRight));
     }
     if (areaRect != null) {
-      canvas.drawColor(
-          box != null ? Color(box.boxColor) : Colors.white, BlendMode.srcOver);
       canvas.drawRRect(
           RRect.fromRectAndRadius(
               areaRect.inflate(5), const Radius.circular(5)),
@@ -111,62 +106,8 @@ class ViewPainter extends CustomPainter {
             ..blendMode = BlendMode.srcOver);
       canvas.clipRect(areaRect.inflate(5));
     }
-    if (box != null && renderBackground) {
-      canvas.drawColor(Color(box.boxColor), BlendMode.srcOver);
-      if (box.boxWidth > 0 && box.boxXCount > 0) {
-        var relativeWidth = box.boxWidth * transform.size;
-        var relativeSpace = box.boxXSpace * transform.size;
-        int xCount = (transform.position.dx /
-                    (box.boxWidth * box.boxXCount + box.boxXSpace))
-                .floor() +
-            1;
-        double x = -xCount * (box.boxWidth * box.boxXCount + box.boxXSpace) +
-            transform.position.dx;
-        x *= transform.size;
-
-        int count = 0;
-        while (x < size.width) {
-          canvas.drawLine(
-              Offset(x, 0),
-              Offset(x, size.height),
-              Paint()
-                ..strokeWidth = box.boxXStroke * transform.size
-                ..color = Color(box.boxXColor));
-          count++;
-          if (count >= box.boxXCount) {
-            count = 0;
-            x += relativeSpace;
-          }
-          x += relativeWidth;
-        }
-      }
-      if (box.boxHeight > 0 && box.boxYCount > 0) {
-        var relativeHeight = box.boxHeight * transform.size;
-        var relativeSpace = box.boxYSpace * transform.size;
-        int yCount = (transform.position.dy /
-                    (box.boxHeight * box.boxYCount + box.boxYSpace))
-                .floor() +
-            1;
-        double y = -yCount * (box.boxHeight * box.boxYCount + box.boxYSpace) +
-            transform.position.dy;
-        y *= transform.size;
-
-        int count = 0;
-        while (y < size.height) {
-          canvas.drawLine(
-              Offset(0, y),
-              Offset(size.width, y),
-              Paint()
-                ..strokeWidth = box.boxYStroke * transform.size
-                ..color = Color(box.boxYColor));
-          count++;
-          if (count >= box.boxYCount) {
-            count = 0;
-            y += relativeSpace;
-          }
-          y += relativeHeight;
-        }
-      }
+    if (renderBackground) {
+      cameraViewport.background.build(canvas, size, transform);
     }
     if (cameraViewport.bakedElements.isNotEmpty) {
       var image = cameraViewport.image;
@@ -190,7 +131,7 @@ class ViewPainter extends CustomPainter {
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var renderer in cameraViewport.unbakedElements) {
-      renderer.build(canvas, transform, false);
+      renderer.build(canvas, size, transform, false);
     }
     canvas.restore();
   }

@@ -24,8 +24,10 @@ class HandHandler extends Handler {
       [if (movingElement != null) movingElement!];
 
   @override
-  List<Rect> createSelections(AppDocument document, [Area? currentArea]) =>
-      [if (selected != null) selected!.rect];
+  List<Rect> createSelections(AppDocument document, [Area? currentArea]) {
+    final rect = selected?.rect;
+    return rect == null ? [] : [rect];
+  }
 
   void move(BuildContext context, Renderer next, [bool duplicate = false]) {
     submitMove(context);

@@ -40,12 +40,11 @@ class PenHandler extends Handler {
         PenElement(layer: state.currentLayer, property: painter.property);
 
     elements[pointer] = element.copyWith(
+        property: element.property
+            .copyWith(strokeWidth: painter.property.strokeWidth / zoom),
         points: List<PathPoint>.from(element.points)
           ..add(PathPoint.fromOffset(
-              transform.localToGlobal(localPosition),
-              (element.property.strokeWidth +
-                      element.property.strokeMultiplier * pressure) *
-                  zoom)));
+              transform.localToGlobal(localPosition), pressure)));
     bloc.add(const IndexRefreshed());
   }
 

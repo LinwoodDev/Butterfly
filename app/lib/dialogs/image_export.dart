@@ -4,7 +4,6 @@ import 'dart:ui' as ui;
 import 'package:butterfly/api/open_image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -89,7 +88,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
     var current = widget.bloc.state as DocumentLoadSuccess;
     var painter = ViewPainter(current.document,
         renderBackground: _renderBackground,
-        cameraViewport: CameraViewport.unbaked(current.renderers),
+        cameraViewport: current.cameraViewport.unbake(current.renderers),
         transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), scale));
     painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
     var picture = recorder.endRecording();

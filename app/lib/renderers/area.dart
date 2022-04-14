@@ -10,7 +10,7 @@ class AreaRenderer extends Renderer<Area> {
   AreaRenderer(Area element) : super(element);
 
   @override
-  FutureOr<void> build(Canvas canvas, CameraTransform transform,
+  FutureOr<void> build(Canvas canvas, Size size, CameraTransform transform,
       [bool foreground = false]) {
     var paint = Paint()
       ..style = PaintingStyle.stroke

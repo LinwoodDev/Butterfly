@@ -1,4 +1,4 @@
-part of 'renderer.dart';
+part of '../renderer.dart';
 
 class ImageRenderer extends Renderer<ImageElement> {
   Image? image;
@@ -6,7 +6,7 @@ class ImageRenderer extends Renderer<ImageElement> {
   ImageRenderer(ImageElement element, [this.image]) : super(element);
 
   @override
-  FutureOr<void> build(Canvas canvas, CameraTransform transform,
+  FutureOr<void> build(Canvas canvas, Size size, CameraTransform transform,
       [bool foreground = false]) async {
     if (image == null) return;
     var paint = Paint()..isAntiAlias = true;

@@ -100,11 +100,14 @@ class _ProjectPageState extends State<ProjectPage> {
     }
     if (document != null) {
       final renderers =
-          document!.content.map((e) => Renderer.fromElement(e)).toList();
+          document!.content.map((e) => Renderer.fromInstance(e)).toList();
       for (var renderer in renderers) {
         await renderer.setup(document!);
       }
-      setState(() => _bloc = DocumentBloc(document!, widget.path, renderers));
+      final background = Renderer.fromInstance(document!.background);
+      await background.setup(document!);
+      setState(() =>
+          _bloc = DocumentBloc(document!, widget.path, background, renderers));
     }
     _showIntroduction();
   }
