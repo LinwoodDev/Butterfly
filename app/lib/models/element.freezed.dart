@@ -14,6 +14,675 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+PadConstraints _$PadConstraintsFromJson(Map<String, dynamic> json) {
+  switch (json['type']) {
+    case 'scaled':
+      return ScaledPadConstraints.fromJson(json);
+    case 'fixed':
+      return FixedPadConstraints.fromJson(json);
+    case 'dynamic':
+      return DynamicPadConstraints.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'type', 'PadConstraints',
+          'Invalid union type "${json['type']}"!');
+  }
+}
+
+/// @nodoc
+class _$PadConstraintsTearOff {
+  const _$PadConstraintsTearOff();
+
+  ScaledPadConstraints scaled(double scale) {
+    return ScaledPadConstraints(
+      scale,
+    );
+  }
+
+  FixedPadConstraints fixed(double height, double width) {
+    return FixedPadConstraints(
+      height,
+      width,
+    );
+  }
+
+  DynamicPadConstraints dynamic(
+      {double height = 0,
+      double width = 0,
+      double aspectRatio = null,
+      bool includeArea = true}) {
+    return DynamicPadConstraints(
+      height: height,
+      width: width,
+      aspectRatio: aspectRatio,
+      includeArea: includeArea,
+    );
+  }
+
+  PadConstraints fromJson(Map<String, Object?> json) {
+    return PadConstraints.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $PadConstraints = _$PadConstraintsTearOff();
+
+/// @nodoc
+mixin _$PadConstraints {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double scale) scaled,
+    required TResult Function(double height, double width) fixed,
+    required TResult Function(
+            double height, double width, double aspectRatio, bool includeArea)
+        dynamic,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(double scale)? scaled,
+    TResult Function(double height, double width)? fixed,
+    TResult Function(
+            double height, double width, double aspectRatio, bool includeArea)?
+        dynamic,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double scale)? scaled,
+    TResult Function(double height, double width)? fixed,
+    TResult Function(
+            double height, double width, double aspectRatio, bool includeArea)?
+        dynamic,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ScaledPadConstraints value) scaled,
+    required TResult Function(FixedPadConstraints value) fixed,
+    required TResult Function(DynamicPadConstraints value) dynamic,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ScaledPadConstraints value)? scaled,
+    TResult Function(FixedPadConstraints value)? fixed,
+    TResult Function(DynamicPadConstraints value)? dynamic,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ScaledPadConstraints value)? scaled,
+    TResult Function(FixedPadConstraints value)? fixed,
+    TResult Function(DynamicPadConstraints value)? dynamic,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PadConstraintsCopyWith<$Res> {
+  factory $PadConstraintsCopyWith(
+          PadConstraints value, $Res Function(PadConstraints) then) =
+      _$PadConstraintsCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PadConstraintsCopyWithImpl<$Res>
+    implements $PadConstraintsCopyWith<$Res> {
+  _$PadConstraintsCopyWithImpl(this._value, this._then);
+
+  final PadConstraints _value;
+  // ignore: unused_field
+  final $Res Function(PadConstraints) _then;
+}
+
+/// @nodoc
+abstract class $ScaledPadConstraintsCopyWith<$Res> {
+  factory $ScaledPadConstraintsCopyWith(ScaledPadConstraints value,
+          $Res Function(ScaledPadConstraints) then) =
+      _$ScaledPadConstraintsCopyWithImpl<$Res>;
+  $Res call({double scale});
+}
+
+/// @nodoc
+class _$ScaledPadConstraintsCopyWithImpl<$Res>
+    extends _$PadConstraintsCopyWithImpl<$Res>
+    implements $ScaledPadConstraintsCopyWith<$Res> {
+  _$ScaledPadConstraintsCopyWithImpl(
+      ScaledPadConstraints _value, $Res Function(ScaledPadConstraints) _then)
+      : super(_value, (v) => _then(v as ScaledPadConstraints));
+
+  @override
+  ScaledPadConstraints get _value => super._value as ScaledPadConstraints;
+
+  @override
+  $Res call({
+    Object? scale = freezed,
+  }) {
+    return _then(ScaledPadConstraints(
+      scale == freezed
+          ? _value.scale
+          : scale // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ScaledPadConstraints implements ScaledPadConstraints {
+  const _$ScaledPadConstraints(this.scale, {String? $type})
+      : $type = $type ?? 'scaled';
+
+  factory _$ScaledPadConstraints.fromJson(Map<String, dynamic> json) =>
+      _$$ScaledPadConstraintsFromJson(json);
+
+  @override
+  final double scale;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'PadConstraints.scaled(scale: $scale)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ScaledPadConstraints &&
+            const DeepCollectionEquality().equals(other.scale, scale));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(scale));
+
+  @JsonKey(ignore: true)
+  @override
+  $ScaledPadConstraintsCopyWith<ScaledPadConstraints> get copyWith =>
+      _$ScaledPadConstraintsCopyWithImpl<ScaledPadConstraints>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double scale) scaled,
+    required TResult Function(double height, double width) fixed,
+    required TResult Function(
+            double height, double width, double aspectRatio, bool includeArea)
+        dynamic,
+  }) {
+    return scaled(scale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(double scale)? scaled,
+    TResult Function(double height, double width)? fixed,
+    TResult Function(
+            double height, double width, double aspectRatio, bool includeArea)?
+        dynamic,
+  }) {
+    return scaled?.call(scale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double scale)? scaled,
+    TResult Function(double height, double width)? fixed,
+    TResult Function(
+            double height, double width, double aspectRatio, bool includeArea)?
+        dynamic,
+    required TResult orElse(),
+  }) {
+    if (scaled != null) {
+      return scaled(scale);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ScaledPadConstraints value) scaled,
+    required TResult Function(FixedPadConstraints value) fixed,
+    required TResult Function(DynamicPadConstraints value) dynamic,
+  }) {
+    return scaled(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ScaledPadConstraints value)? scaled,
+    TResult Function(FixedPadConstraints value)? fixed,
+    TResult Function(DynamicPadConstraints value)? dynamic,
+  }) {
+    return scaled?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ScaledPadConstraints value)? scaled,
+    TResult Function(FixedPadConstraints value)? fixed,
+    TResult Function(DynamicPadConstraints value)? dynamic,
+    required TResult orElse(),
+  }) {
+    if (scaled != null) {
+      return scaled(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ScaledPadConstraintsToJson(this);
+  }
+}
+
+abstract class ScaledPadConstraints implements PadConstraints {
+  const factory ScaledPadConstraints(double scale) = _$ScaledPadConstraints;
+
+  factory ScaledPadConstraints.fromJson(Map<String, dynamic> json) =
+      _$ScaledPadConstraints.fromJson;
+
+  double get scale;
+  @JsonKey(ignore: true)
+  $ScaledPadConstraintsCopyWith<ScaledPadConstraints> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FixedPadConstraintsCopyWith<$Res> {
+  factory $FixedPadConstraintsCopyWith(
+          FixedPadConstraints value, $Res Function(FixedPadConstraints) then) =
+      _$FixedPadConstraintsCopyWithImpl<$Res>;
+  $Res call({double height, double width});
+}
+
+/// @nodoc
+class _$FixedPadConstraintsCopyWithImpl<$Res>
+    extends _$PadConstraintsCopyWithImpl<$Res>
+    implements $FixedPadConstraintsCopyWith<$Res> {
+  _$FixedPadConstraintsCopyWithImpl(
+      FixedPadConstraints _value, $Res Function(FixedPadConstraints) _then)
+      : super(_value, (v) => _then(v as FixedPadConstraints));
+
+  @override
+  FixedPadConstraints get _value => super._value as FixedPadConstraints;
+
+  @override
+  $Res call({
+    Object? height = freezed,
+    Object? width = freezed,
+  }) {
+    return _then(FixedPadConstraints(
+      height == freezed
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double,
+      width == freezed
+          ? _value.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$FixedPadConstraints implements FixedPadConstraints {
+  const _$FixedPadConstraints(this.height, this.width, {String? $type})
+      : $type = $type ?? 'fixed';
+
+  factory _$FixedPadConstraints.fromJson(Map<String, dynamic> json) =>
+      _$$FixedPadConstraintsFromJson(json);
+
+  @override
+  final double height;
+  @override
+  final double width;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'PadConstraints.fixed(height: $height, width: $width)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is FixedPadConstraints &&
+            const DeepCollectionEquality().equals(other.height, height) &&
+            const DeepCollectionEquality().equals(other.width, width));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(height),
+      const DeepCollectionEquality().hash(width));
+
+  @JsonKey(ignore: true)
+  @override
+  $FixedPadConstraintsCopyWith<FixedPadConstraints> get copyWith =>
+      _$FixedPadConstraintsCopyWithImpl<FixedPadConstraints>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double scale) scaled,
+    required TResult Function(double height, double width) fixed,
+    required TResult Function(
+            double height, double width, double aspectRatio, bool includeArea)
+        dynamic,
+  }) {
+    return fixed(height, width);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(double scale)? scaled,
+    TResult Function(double height, double width)? fixed,
+    TResult Function(
+            double height, double width, double aspectRatio, bool includeArea)?
+        dynamic,
+  }) {
+    return fixed?.call(height, width);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double scale)? scaled,
+    TResult Function(double height, double width)? fixed,
+    TResult Function(
+            double height, double width, double aspectRatio, bool includeArea)?
+        dynamic,
+    required TResult orElse(),
+  }) {
+    if (fixed != null) {
+      return fixed(height, width);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ScaledPadConstraints value) scaled,
+    required TResult Function(FixedPadConstraints value) fixed,
+    required TResult Function(DynamicPadConstraints value) dynamic,
+  }) {
+    return fixed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ScaledPadConstraints value)? scaled,
+    TResult Function(FixedPadConstraints value)? fixed,
+    TResult Function(DynamicPadConstraints value)? dynamic,
+  }) {
+    return fixed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ScaledPadConstraints value)? scaled,
+    TResult Function(FixedPadConstraints value)? fixed,
+    TResult Function(DynamicPadConstraints value)? dynamic,
+    required TResult orElse(),
+  }) {
+    if (fixed != null) {
+      return fixed(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FixedPadConstraintsToJson(this);
+  }
+}
+
+abstract class FixedPadConstraints implements PadConstraints {
+  const factory FixedPadConstraints(double height, double width) =
+      _$FixedPadConstraints;
+
+  factory FixedPadConstraints.fromJson(Map<String, dynamic> json) =
+      _$FixedPadConstraints.fromJson;
+
+  double get height;
+  double get width;
+  @JsonKey(ignore: true)
+  $FixedPadConstraintsCopyWith<FixedPadConstraints> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DynamicPadConstraintsCopyWith<$Res> {
+  factory $DynamicPadConstraintsCopyWith(DynamicPadConstraints value,
+          $Res Function(DynamicPadConstraints) then) =
+      _$DynamicPadConstraintsCopyWithImpl<$Res>;
+  $Res call(
+      {double height, double width, double aspectRatio, bool includeArea});
+}
+
+/// @nodoc
+class _$DynamicPadConstraintsCopyWithImpl<$Res>
+    extends _$PadConstraintsCopyWithImpl<$Res>
+    implements $DynamicPadConstraintsCopyWith<$Res> {
+  _$DynamicPadConstraintsCopyWithImpl(
+      DynamicPadConstraints _value, $Res Function(DynamicPadConstraints) _then)
+      : super(_value, (v) => _then(v as DynamicPadConstraints));
+
+  @override
+  DynamicPadConstraints get _value => super._value as DynamicPadConstraints;
+
+  @override
+  $Res call({
+    Object? height = freezed,
+    Object? width = freezed,
+    Object? aspectRatio = freezed,
+    Object? includeArea = freezed,
+  }) {
+    return _then(DynamicPadConstraints(
+      height: height == freezed
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double,
+      width: width == freezed
+          ? _value.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as double,
+      aspectRatio: aspectRatio == freezed
+          ? _value.aspectRatio
+          : aspectRatio // ignore: cast_nullable_to_non_nullable
+              as double,
+      includeArea: includeArea == freezed
+          ? _value.includeArea
+          : includeArea // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$DynamicPadConstraints implements DynamicPadConstraints {
+  const _$DynamicPadConstraints(
+      {this.height = 0,
+      this.width = 0,
+      this.aspectRatio = null,
+      this.includeArea = true,
+      String? $type})
+      : $type = $type ?? 'dynamic';
+
+  factory _$DynamicPadConstraints.fromJson(Map<String, dynamic> json) =>
+      _$$DynamicPadConstraintsFromJson(json);
+
+  @JsonKey()
+  @override
+  final double height;
+  @JsonKey()
+  @override
+  final double width;
+  @JsonKey()
+  @override
+  final double aspectRatio;
+  @JsonKey()
+  @override
+  final bool includeArea;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'PadConstraints.dynamic(height: $height, width: $width, aspectRatio: $aspectRatio, includeArea: $includeArea)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is DynamicPadConstraints &&
+            const DeepCollectionEquality().equals(other.height, height) &&
+            const DeepCollectionEquality().equals(other.width, width) &&
+            const DeepCollectionEquality()
+                .equals(other.aspectRatio, aspectRatio) &&
+            const DeepCollectionEquality()
+                .equals(other.includeArea, includeArea));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(height),
+      const DeepCollectionEquality().hash(width),
+      const DeepCollectionEquality().hash(aspectRatio),
+      const DeepCollectionEquality().hash(includeArea));
+
+  @JsonKey(ignore: true)
+  @override
+  $DynamicPadConstraintsCopyWith<DynamicPadConstraints> get copyWith =>
+      _$DynamicPadConstraintsCopyWithImpl<DynamicPadConstraints>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double scale) scaled,
+    required TResult Function(double height, double width) fixed,
+    required TResult Function(
+            double height, double width, double aspectRatio, bool includeArea)
+        dynamic,
+  }) {
+    return dynamic(height, width, aspectRatio, includeArea);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(double scale)? scaled,
+    TResult Function(double height, double width)? fixed,
+    TResult Function(
+            double height, double width, double aspectRatio, bool includeArea)?
+        dynamic,
+  }) {
+    return dynamic?.call(height, width, aspectRatio, includeArea);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double scale)? scaled,
+    TResult Function(double height, double width)? fixed,
+    TResult Function(
+            double height, double width, double aspectRatio, bool includeArea)?
+        dynamic,
+    required TResult orElse(),
+  }) {
+    if (dynamic != null) {
+      return dynamic(height, width, aspectRatio, includeArea);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ScaledPadConstraints value) scaled,
+    required TResult Function(FixedPadConstraints value) fixed,
+    required TResult Function(DynamicPadConstraints value) dynamic,
+  }) {
+    return dynamic(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ScaledPadConstraints value)? scaled,
+    TResult Function(FixedPadConstraints value)? fixed,
+    TResult Function(DynamicPadConstraints value)? dynamic,
+  }) {
+    return dynamic?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ScaledPadConstraints value)? scaled,
+    TResult Function(FixedPadConstraints value)? fixed,
+    TResult Function(DynamicPadConstraints value)? dynamic,
+    required TResult orElse(),
+  }) {
+    if (dynamic != null) {
+      return dynamic(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DynamicPadConstraintsToJson(this);
+  }
+}
+
+abstract class DynamicPadConstraints implements PadConstraints {
+  const factory DynamicPadConstraints(
+      {double height,
+      double width,
+      double aspectRatio,
+      bool includeArea}) = _$DynamicPadConstraints;
+
+  factory DynamicPadConstraints.fromJson(Map<String, dynamic> json) =
+      _$DynamicPadConstraints.fromJson;
+
+  double get height;
+  double get width;
+  double get aspectRatio;
+  bool get includeArea;
+  @JsonKey(ignore: true)
+  $DynamicPadConstraintsCopyWith<DynamicPadConstraints> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 PadElement _$PadElementFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'pen':
@@ -73,14 +742,14 @@ class _$PadElementTearOff {
   ImageElement image(
       {String layer = '',
       @OffsetJsonConverter() Offset position = Offset.zero,
-      double scale = 1,
+      PadConstraints? constraints = const ScaledPadConstraints(1),
       @Uint8ListJsonConverter() required Uint8List pixels,
       required int width,
       required int height}) {
     return ImageElement(
       layer: layer,
       position: position,
-      scale: scale,
+      constraints: constraints,
       pixels: pixels,
       width: width,
       height: height,
@@ -116,7 +785,7 @@ mixin _$PadElement {
     required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)
@@ -137,7 +806,7 @@ mixin _$PadElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -158,7 +827,7 @@ mixin _$PadElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -339,7 +1008,7 @@ class _$PenElement implements PenElement {
     required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)
@@ -363,7 +1032,7 @@ class _$PenElement implements PenElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -387,7 +1056,7 @@ class _$PenElement implements PenElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -577,7 +1246,7 @@ class _$EraserElement implements EraserElement {
     required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)
@@ -601,7 +1270,7 @@ class _$EraserElement implements EraserElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -625,7 +1294,7 @@ class _$EraserElement implements EraserElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -830,7 +1499,7 @@ class _$LabelElement implements LabelElement {
     required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)
@@ -854,7 +1523,7 @@ class _$LabelElement implements LabelElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -878,7 +1547,7 @@ class _$LabelElement implements LabelElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -966,10 +1635,12 @@ abstract class $ImageElementCopyWith<$Res>
   $Res call(
       {String layer,
       @OffsetJsonConverter() Offset position,
-      double scale,
+      PadConstraints? constraints,
       @Uint8ListJsonConverter() Uint8List pixels,
       int width,
       int height});
+
+  $PadConstraintsCopyWith<$Res>? get constraints;
 }
 
 /// @nodoc
@@ -986,7 +1657,7 @@ class _$ImageElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
   $Res call({
     Object? layer = freezed,
     Object? position = freezed,
-    Object? scale = freezed,
+    Object? constraints = freezed,
     Object? pixels = freezed,
     Object? width = freezed,
     Object? height = freezed,
@@ -1000,10 +1671,10 @@ class _$ImageElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Offset,
-      scale: scale == freezed
-          ? _value.scale
-          : scale // ignore: cast_nullable_to_non_nullable
-              as double,
+      constraints: constraints == freezed
+          ? _value.constraints
+          : constraints // ignore: cast_nullable_to_non_nullable
+              as PadConstraints?,
       pixels: pixels == freezed
           ? _value.pixels
           : pixels // ignore: cast_nullable_to_non_nullable
@@ -1018,6 +1689,17 @@ class _$ImageElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
               as int,
     ));
   }
+
+  @override
+  $PadConstraintsCopyWith<$Res>? get constraints {
+    if (_value.constraints == null) {
+      return null;
+    }
+
+    return $PadConstraintsCopyWith<$Res>(_value.constraints!, (value) {
+      return _then(_value.copyWith(constraints: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -1026,7 +1708,7 @@ class _$ImageElement implements ImageElement {
   const _$ImageElement(
       {this.layer = '',
       @OffsetJsonConverter() this.position = Offset.zero,
-      this.scale = 1,
+      this.constraints = const ScaledPadConstraints(1),
       @Uint8ListJsonConverter() required this.pixels,
       required this.width,
       required this.height,
@@ -1045,7 +1727,7 @@ class _$ImageElement implements ImageElement {
   final Offset position;
   @JsonKey()
   @override
-  final double scale;
+  final PadConstraints? constraints;
   @override
   @Uint8ListJsonConverter()
   final Uint8List pixels;
@@ -1059,7 +1741,7 @@ class _$ImageElement implements ImageElement {
 
   @override
   String toString() {
-    return 'PadElement.image(layer: $layer, position: $position, scale: $scale, pixels: $pixels, width: $width, height: $height)';
+    return 'PadElement.image(layer: $layer, position: $position, constraints: $constraints, pixels: $pixels, width: $width, height: $height)';
   }
 
   @override
@@ -1069,7 +1751,8 @@ class _$ImageElement implements ImageElement {
             other is ImageElement &&
             const DeepCollectionEquality().equals(other.layer, layer) &&
             const DeepCollectionEquality().equals(other.position, position) &&
-            const DeepCollectionEquality().equals(other.scale, scale) &&
+            const DeepCollectionEquality()
+                .equals(other.constraints, constraints) &&
             const DeepCollectionEquality().equals(other.pixels, pixels) &&
             const DeepCollectionEquality().equals(other.width, width) &&
             const DeepCollectionEquality().equals(other.height, height));
@@ -1080,7 +1763,7 @@ class _$ImageElement implements ImageElement {
       runtimeType,
       const DeepCollectionEquality().hash(layer),
       const DeepCollectionEquality().hash(position),
-      const DeepCollectionEquality().hash(scale),
+      const DeepCollectionEquality().hash(constraints),
       const DeepCollectionEquality().hash(pixels),
       const DeepCollectionEquality().hash(width),
       const DeepCollectionEquality().hash(height));
@@ -1108,13 +1791,13 @@ class _$ImageElement implements ImageElement {
     required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)
         image,
   }) {
-    return image(layer, position, scale, pixels, width, height);
+    return image(layer, position, constraints, pixels, width, height);
   }
 
   @override
@@ -1132,13 +1815,13 @@ class _$ImageElement implements ImageElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
         image,
   }) {
-    return image?.call(layer, position, scale, pixels, width, height);
+    return image?.call(layer, position, constraints, pixels, width, height);
   }
 
   @override
@@ -1156,7 +1839,7 @@ class _$ImageElement implements ImageElement {
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
-            double scale,
+            PadConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             int width,
             int height)?
@@ -1164,7 +1847,7 @@ class _$ImageElement implements ImageElement {
     required TResult orElse(),
   }) {
     if (image != null) {
-      return image(layer, position, scale, pixels, width, height);
+      return image(layer, position, constraints, pixels, width, height);
     }
     return orElse();
   }
@@ -1216,7 +1899,7 @@ abstract class ImageElement implements PadElement {
   const factory ImageElement(
       {String layer,
       @OffsetJsonConverter() Offset position,
-      double scale,
+      PadConstraints? constraints,
       @Uint8ListJsonConverter() required Uint8List pixels,
       required int width,
       required int height}) = _$ImageElement;
@@ -1228,7 +1911,7 @@ abstract class ImageElement implements PadElement {
   String get layer;
   @OffsetJsonConverter()
   Offset get position;
-  double get scale;
+  PadConstraints? get constraints;
   @Uint8ListJsonConverter()
   Uint8List get pixels;
   int get width;

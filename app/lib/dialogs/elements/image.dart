@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/element.dart';
 import '../../renderers/renderer.dart';
-import '../../widgets/exact_slider.dart';
 
 class ImageElementDialog extends StatefulWidget {
   final ImageRenderer renderer;
@@ -48,17 +47,7 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
       renderer: widget.renderer,
       position: widget.position,
       children: [
-        ExactSlider(
-          header: Text(AppLocalizations.of(context)!.scale),
-          value: newElement.scale.toDouble(),
-          min: 0.1,
-          max: 5,
-          defaultValue: 1,
-          onChanged: (value) {
-            setState(() => newElement = newElement.copyWith(scale: value));
-          },
-          onChangeEnd: (value) => _changeElement(),
-        ),
+        // TODO: Add option to change constraints
         ListTile(
           title: Text(AppLocalizations.of(context)!.export),
           leading: const Icon(PhosphorIcons.exportLight),

@@ -10,6 +10,22 @@ import 'property.dart';
 part 'element.freezed.dart';
 part 'element.g.dart';
 
+@freezed
+class PadConstraints with _$PadConstraints {
+  const factory PadConstraints.scaled(double scale) = ScaledPadConstraints;
+  const factory PadConstraints.fixed(double height, double width) =
+      FixedPadConstraints;
+  const factory PadConstraints.dynamic({
+    @Default(0) double height,
+    @Default(0) double width,
+    @Default(null) double aspectRatio,
+    @Default(true) bool includeArea,
+  }) = DynamicPadConstraints;
+
+  factory PadConstraints.fromJson(Map<String, dynamic> json) =>
+      _$PadConstraintsFromJson(json);
+}
+
 abstract class PathElement {
   List<PathPoint> get points;
   PathProperty get property;
@@ -40,7 +56,7 @@ class PadElement with _$PadElement {
   const factory PadElement.image({
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
-    @Default(1) double scale,
+    @Default(ScaledPadConstraints(1)) PadConstraints? constraints,
     @Uint8ListJsonConverter() required Uint8List pixels,
     required int width,
     required int height,
