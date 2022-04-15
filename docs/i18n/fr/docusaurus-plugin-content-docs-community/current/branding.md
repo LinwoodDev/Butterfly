@@ -22,7 +22,13 @@ Ces actifs sont sous licence [CC-BY-4.0](https://github.com/LinwoodCloud/Butterf
 
 [SVG](/img/banner.svg) [PNG](/img/banner.png)
 
-## Couleurs
+## Documentation
+
+![Documentation](/img/docs.svg)
+
+[SVG](/img/docs.svg) [PNG](/img/docs.png)
+
+## Colors
 
 * Primaire : `#f2b138`
 * Sombre primaire : `#f0a61c`
@@ -33,6 +39,6 @@ Ces actifs sont sous licence [CC-BY-4.0](https://github.com/LinwoodCloud/Butterf
 * Clair primaire : `#f7d28c`
 * Accent : `#00469E`
 
-## Polices
+## Fonts
 
 * `Roboto`
