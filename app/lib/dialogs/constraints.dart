@@ -53,6 +53,11 @@ class _ConstraintsContextMenuState extends State<ConstraintsContextMenu> {
           constraints: constraints as ScaledElementConstraints,
           onChanged: _onChanged);
       currentType = AppLocalizations.of(context)!.scaledConstraints;
+    } else if (constraints is DynamicElementConstraints) {
+      content = _DynamicConstraintsContent(
+          constraints: constraints as DynamicElementConstraints,
+          onChanged: _onChanged);
+      currentType = AppLocalizations.of(context)!.dynamicConstraints;
     }
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -179,6 +184,53 @@ class _ScaledConstraintsContent extends StatelessWidget {
             onChanged(ScaledElementConstraints(double.parse(value)));
           },
           initialValue: constraints.scale.toStringAsFixed(2)),
+    ]);
+  }
+}
+
+class _DynamicConstraintsContent extends StatelessWidget {
+  final DynamicElementConstraints constraints;
+  final ValueChanged<ElementConstraints?> onChanged;
+  const _DynamicConstraintsContent(
+      {Key? key, required this.constraints, required this.onChanged})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(shrinkWrap: true, children: [
+      TextFormField(
+          decoration:
+              InputDecoration(labelText: AppLocalizations.of(context)!.width),
+          keyboardType: TextInputType.number,
+          onFieldSubmitted: (value) {
+            onChanged(constraints.copyWith(width: double.parse(value)));
+          },
+          initialValue: constraints.width.toStringAsFixed(2)),
+      TextFormField(
+          decoration:
+              InputDecoration(labelText: AppLocalizations.of(context)!.height),
+          keyboardType: TextInputType.number,
+          onFieldSubmitted: (value) {
+            onChanged(constraints.copyWith(height: double.parse(value)));
+          },
+          initialValue: constraints.height.toStringAsFixed(2)),
+      TextFormField(
+        decoration: InputDecoration(
+            labelText: AppLocalizations.of(context)!.aspectRatio),
+        keyboardType: TextInputType.number,
+        onFieldSubmitted: (value) {
+          onChanged(constraints.copyWith(aspectRatio: double.parse(value)));
+        },
+        initialValue: constraints.aspectRatio.toStringAsFixed(2),
+      ),
+      const SizedBox(height: 8),
+      CheckboxListTile(
+          value: constraints.includeArea,
+          onChanged: (value) {
+            onChanged(constraints.copyWith(
+                includeArea: value ?? constraints.includeArea));
+          },
+          title: Text(AppLocalizations.of(context)!.includeArea)),
     ]);
   }
 }

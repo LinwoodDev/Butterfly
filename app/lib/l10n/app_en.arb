@@ -233,5 +233,6 @@
   "scaledConstraints": "Scaled constraints",
   "fixedConstraints": "Fixed constraints",
   "dynamicConstraints": "Dynamic constraints",
-  "none": "None"
+  "none": "None",
+  "includeArea": "Include area"
 }

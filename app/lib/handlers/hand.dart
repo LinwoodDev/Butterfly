@@ -21,7 +21,7 @@ class HandHandler extends Handler {
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
-      [if (movingElement != null) Renderer.fromInstance(movingElement)];
+      [if (movingElement != null) movingElement!];
 
   @override
   List<Rect> createSelections(AppDocument document, [Area? currentArea]) {
