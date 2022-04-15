@@ -16,6 +16,11 @@ module.exports = {
         locales: ['en', 'de', 'fr'],
     },
     themeConfig: {
+        colorMode: {
+          defaultMode: 'dark',
+          disableSwitch: false,
+          respectPrefersColorScheme: true,
+        },
         algolia: {
             // The application ID provided by Algolia
             appId: 'PQN0C3O7D3',
