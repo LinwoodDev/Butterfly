@@ -35,8 +35,12 @@ class ImageRenderer extends Renderer<ImageElement> {
           (element.width * scale).toDouble(),
           (element.height * scale).toDouble());
     } else if (constraints is FixedElementConstraints) {
-      return Rect.fromLTWH(element.position.dx, element.position.dy,
-          constraints.width, constraints.height);
+      var height = constraints.height;
+      var width = constraints.width;
+      if (height <= 0) height = element.height.toDouble();
+      if (width <= 0) width = element.width.toDouble();
+      return Rect.fromLTWH(
+          element.position.dx, element.position.dy, width, height);
     } else if (constraints is DynamicElementConstraints) {
       var width = constraints.width;
       var height = constraints.height;
@@ -54,6 +58,8 @@ class ImageRenderer extends Renderer<ImageElement> {
         final bottom = element.position.dy + element.height;
         height = min(bottomArea, bottom) - element.position.dy;
       }
+      if (height <= 0) height = element.height.toDouble();
+      if (width <= 0) width = element.width.toDouble();
       return Rect.fromLTWH(
           element.position.dx, element.position.dy, width, height);
     } else {

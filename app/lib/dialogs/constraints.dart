@@ -8,13 +8,15 @@ class ConstraintsContextMenu extends StatefulWidget {
   final ElementConstraints? initialConstraints;
   final bool enableScaled;
   final VoidCallback close;
+  final Offset position;
   final ValueChanged<ElementConstraints?> onChanged;
   const ConstraintsContextMenu(
       {Key? key,
       this.enableScaled = true,
       this.initialConstraints,
       required this.close,
-      required this.onChanged})
+      required this.onChanged,
+      required this.position})
       : super(key: key);
 
   @override
@@ -55,57 +57,56 @@ class _ConstraintsContextMenuState extends State<ConstraintsContextMenu> {
               icon: const Icon(PhosphorIcons.gearLight),
               onPressed: () {
                 widget.close();
-                void openNewConstraint(ElementConstraints? constraints) {
-                  widget.onChanged(constraints);
-                  showContextMenu(
-                    context: context,
-                    builder: (context, close) => ConstraintsContextMenu(
-                      close: close,
-                      onChanged: widget.onChanged,
-                      enableScaled: widget.enableScaled,
-                      initialConstraints: constraints,
-                    ),
-                  );
-                }
 
                 showDialog(
                   context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text(AppLocalizations.of(context)!.constraints),
-                    content: Column(children: [
-                      ListTile(
-                        title: Text(
-                            AppLocalizations.of(context)!.fixedConstraints),
-                        onTap: () {
-                          openNewConstraint(
-                              const FixedElementConstraints(0, 0));
-                        },
-                      ),
-                      if (widget.enableScaled)
+                  builder: (context) {
+                    void openNewConstraint(ElementConstraints? constraints) {
+                      Navigator.pop(context);
+                      widget.onChanged(constraints);
+                      showContextMenu(
+                        context: context,
+                        position: widget.position,
+                        builder: (context, close) => ConstraintsContextMenu(
+                          close: close,
+                          onChanged: widget.onChanged,
+                          enableScaled: widget.enableScaled,
+                          initialConstraints: constraints,
+                          position: widget.position,
+                        ),
+                      );
+                    }
+
+                    return AlertDialog(
+                      title: Text(AppLocalizations.of(context)!.constraints),
+                      content: Column(children: [
                         ListTile(
                           title: Text(
-                              AppLocalizations.of(context)!.scaledConstraints),
-                          onTap: () {
-                            openNewConstraint(
-                                const ScaledElementConstraints(1));
-                          },
+                              AppLocalizations.of(context)!.fixedConstraints),
+                          onTap: () => openNewConstraint(
+                              const FixedElementConstraints(0, 0)),
                         ),
-                      ListTile(
-                        title: Text(
-                            AppLocalizations.of(context)!.dynamicConstraints),
-                        onTap: () {
-                          openNewConstraint(const DynamicElementConstraints());
-                        },
-                      ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.none),
-                        onTap: () {
-                          openNewConstraint(null);
-                        },
-                      ),
-                    ]),
-                    scrollable: true,
-                  ),
+                        if (widget.enableScaled)
+                          ListTile(
+                            title: Text(AppLocalizations.of(context)!
+                                .scaledConstraints),
+                            onTap: () => openNewConstraint(
+                                const ScaledElementConstraints(1)),
+                          ),
+                        ListTile(
+                          title: Text(
+                              AppLocalizations.of(context)!.dynamicConstraints),
+                          onTap: () => openNewConstraint(
+                              const DynamicElementConstraints()),
+                        ),
+                        ListTile(
+                          title: Text(AppLocalizations.of(context)!.none),
+                          onTap: () => openNewConstraint(null),
+                        ),
+                      ]),
+                      scrollable: true,
+                    );
+                  },
                 );
               }),
         ],
