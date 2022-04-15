@@ -10,8 +10,4 @@ class EraserRenderer extends PathRenderer<EraserElement> {
     ..color = Colors.white
     ..strokeCap = StrokeCap.round
     ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear;
-
-  @override
-  PathRenderer<EraserElement> _copyWith({EraserElement? element, Rect? rect}) =>
-      EraserRenderer(element ?? this.element, rect ?? this.rect);
 }

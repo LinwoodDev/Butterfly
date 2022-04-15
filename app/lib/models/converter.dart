@@ -59,12 +59,19 @@ class OffsetJsonConverter extends JsonConverter<Offset, Map<String, dynamic>> {
   @override
   Offset fromJson(Map<String, dynamic> json) {
     double x = 0, y = 0;
-    if (json[x] is num) {
-      x = double.parse(json[x].toString());
+    final xJson = json['x'];
+    final yJson = json['y'];
+    if (xJson is num) {
+      x = xJson.toDouble();
+    } else if (xJson is String) {
+      x = double.parse(xJson);
     }
-    if (json[y] is num) {
-      y = double.parse(json[y].toString());
+    if (yJson is num) {
+      y = yJson.toDouble();
+    } else if (yJson is String) {
+      y = double.parse(yJson);
     }
+
     return Offset(x, y);
   }
 

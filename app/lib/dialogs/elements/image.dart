@@ -71,8 +71,7 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
                 position: widget.position,
                 builder: (context, close) => ConstraintsContextMenu(
                     position: widget.position,
-                    enableScaled:
-                        element.constraints is ScaledElementConstraints,
+                    enableScaled: true,
                     initialConstraints: element.constraints,
                     close: close,
                     onChanged: (constraints) {

@@ -48,74 +48,86 @@ class _ConstraintsContextMenuState extends State<ConstraintsContextMenu> {
           constraints: constraints as FixedElementConstraints,
           onChanged: _onChanged);
       currentType = AppLocalizations.of(context)!.fixedConstraints;
+    } else if (constraints is ScaledElementConstraints) {
+      content = _ScaledConstraintsContent(
+          constraints: constraints as ScaledElementConstraints,
+          onChanged: _onChanged);
+      currentType = AppLocalizations.of(context)!.scaledConstraints;
     }
-    return Column(mainAxisSize: MainAxisSize.min, children: [
-      Row(
-        children: [
-          Expanded(child: Text(currentType)),
-          IconButton(
-              icon: const Icon(PhosphorIcons.gearLight),
-              onPressed: () {
-                widget.close();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Row(
+          children: [
+            Expanded(
+                child: Text(
+              currentType,
+              style: Theme.of(context).textTheme.headline6,
+            )),
+            IconButton(
+                icon: const Icon(PhosphorIcons.gearLight),
+                onPressed: () {
+                  widget.close();
 
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    void openNewConstraint(ElementConstraints? constraints) {
-                      Navigator.pop(context);
-                      widget.onChanged(constraints);
-                      showContextMenu(
-                        context: context,
-                        position: widget.position,
-                        builder: (context, close) => ConstraintsContextMenu(
-                          close: close,
-                          onChanged: widget.onChanged,
-                          enableScaled: widget.enableScaled,
-                          initialConstraints: constraints,
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      void openNewConstraint(ElementConstraints? constraints) {
+                        Navigator.pop(context);
+                        widget.onChanged(constraints);
+                        showContextMenu(
+                          context: context,
                           position: widget.position,
-                        ),
-                      );
-                    }
+                          builder: (context, close) => ConstraintsContextMenu(
+                            close: close,
+                            onChanged: widget.onChanged,
+                            enableScaled: widget.enableScaled,
+                            initialConstraints: constraints,
+                            position: widget.position,
+                          ),
+                        );
+                      }
 
-                    return AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.constraints),
-                      content: Column(children: [
-                        ListTile(
-                          title: Text(
-                              AppLocalizations.of(context)!.fixedConstraints),
-                          onTap: () => openNewConstraint(
-                              const FixedElementConstraints(0, 0)),
-                        ),
-                        if (widget.enableScaled)
+                      return AlertDialog(
+                        title: Text(AppLocalizations.of(context)!.constraints),
+                        content: Column(children: [
+                          ListTile(
+                            title: Text(
+                                AppLocalizations.of(context)!.fixedConstraints),
+                            onTap: () => openNewConstraint(
+                                const FixedElementConstraints(0, 0)),
+                          ),
+                          if (widget.enableScaled)
+                            ListTile(
+                              title: Text(AppLocalizations.of(context)!
+                                  .scaledConstraints),
+                              onTap: () => openNewConstraint(
+                                  const ScaledElementConstraints(1)),
+                            ),
                           ListTile(
                             title: Text(AppLocalizations.of(context)!
-                                .scaledConstraints),
+                                .dynamicConstraints),
                             onTap: () => openNewConstraint(
-                                const ScaledElementConstraints(1)),
+                                const DynamicElementConstraints()),
                           ),
-                        ListTile(
-                          title: Text(
-                              AppLocalizations.of(context)!.dynamicConstraints),
-                          onTap: () => openNewConstraint(
-                              const DynamicElementConstraints()),
-                        ),
-                        ListTile(
-                          title: Text(AppLocalizations.of(context)!.none),
-                          onTap: () => openNewConstraint(null),
-                        ),
-                      ]),
-                      scrollable: true,
-                    );
-                  },
-                );
-              }),
-        ],
-      ),
-      if (content != null) ...[
-        const Divider(),
-        Flexible(child: content),
-      ]
-    ]);
+                          ListTile(
+                            title: Text(AppLocalizations.of(context)!.none),
+                            onTap: () => openNewConstraint(null),
+                          ),
+                        ]),
+                        scrollable: true,
+                      );
+                    },
+                  );
+                }),
+          ],
+        ),
+        if (content != null) ...[
+          const Divider(),
+          Flexible(child: content),
+        ]
+      ]),
+    );
   }
 }
 
@@ -129,24 +141,44 @@ class _FixedConstraintsContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(shrinkWrap: true, children: [
-      TextField(
+      TextFormField(
           decoration:
               InputDecoration(labelText: AppLocalizations.of(context)!.width),
           keyboardType: TextInputType.number,
-          onSubmitted: (value) {
+          onFieldSubmitted: (value) {
             onChanged(constraints.copyWith(width: double.parse(value)));
           },
-          controller: TextEditingController(
-              text: constraints.width.toStringAsFixed(2))),
-      TextField(
+          initialValue: constraints.width.toStringAsFixed(2)),
+      TextFormField(
           decoration:
               InputDecoration(labelText: AppLocalizations.of(context)!.height),
           keyboardType: TextInputType.number,
-          onSubmitted: (value) {
+          onFieldSubmitted: (value) {
             onChanged(constraints.copyWith(height: double.parse(value)));
           },
-          controller: TextEditingController(
-              text: constraints.height.toStringAsFixed(2))),
+          initialValue: constraints.height.toStringAsFixed(2)),
+    ]);
+  }
+}
+
+class _ScaledConstraintsContent extends StatelessWidget {
+  final ScaledElementConstraints constraints;
+  final ValueChanged<ElementConstraints?> onChanged;
+  const _ScaledConstraintsContent(
+      {Key? key, required this.constraints, required this.onChanged})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(shrinkWrap: true, children: [
+      TextFormField(
+          decoration:
+              InputDecoration(labelText: AppLocalizations.of(context)!.scale),
+          keyboardType: TextInputType.number,
+          onFieldSubmitted: (value) {
+            onChanged(ScaledElementConstraints(double.parse(value)));
+          },
+          initialValue: constraints.scale.toStringAsFixed(2)),
     ]);
   }
 }

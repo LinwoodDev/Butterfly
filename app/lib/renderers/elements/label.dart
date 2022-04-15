@@ -47,10 +47,5 @@ class LabelRenderer extends Renderer<LabelElement> {
   }
 
   @override
-  LabelRenderer move(Offset position) {
-    return LabelRenderer(
-        element.copyWith(position: position),
-        Rect.fromLTWH(
-            element.position.dx, element.position.dy, rect.width, rect.height));
-  }
+  LabelElement move(Offset position) => element.copyWith(position: position);
 }
