@@ -30,8 +30,19 @@ class LabelRenderer extends Renderer<LabelElement> {
 
   @override
   FutureOr<void> setup(AppDocument document) {
+    var maxWidth = double.infinity;
+    final constraints = element.constraints;
+    if (constraints is FixedElementConstraints) {
+      maxWidth = constraints.width;
+    } else if (constraints is DynamicElementConstraints) {
+      maxWidth = constraints.width;
+      if (constraints.includeArea && area != null) {
+        maxWidth = min(maxWidth + element.position.dx, area!.rect.right) -
+            element.position.dx;
+      }
+    }
     final tp = _createPainter();
-    tp.layout();
+    tp.layout(maxWidth: maxWidth);
     rect = Rect.fromLTWH(
         element.position.dx, element.position.dy, tp.width, tp.height);
     super.setup(document);
@@ -41,7 +52,7 @@ class LabelRenderer extends Renderer<LabelElement> {
   FutureOr<void> build(Canvas canvas, Size size, CameraTransform transform,
       [bool foreground = false]) {
     final tp = _createPainter();
-    tp.layout();
+    tp.layout(maxWidth: rect.width);
     var current = element.position;
     tp.paint(canvas, current);
   }

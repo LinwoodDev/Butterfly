@@ -63,6 +63,7 @@ class _ImageElementDialogState extends State<ImageElementDialog> {
       children: [
         ListTile(
           title: Text(AppLocalizations.of(context)!.constraints),
+          leading: const Icon(PhosphorIcons.selectionLight),
           subtitle: Text(constraints),
           onTap: () {
             widget.close();

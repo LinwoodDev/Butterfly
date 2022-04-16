@@ -44,6 +44,9 @@ class DocumentJsonConverter
           ..['type'] = 'box';
       }
     }
+    if (json['background']?['type'] == null) {
+      json['background'] = {'type': 'empty'};
+    }
     return AppDocument.fromJson(json);
   }
 

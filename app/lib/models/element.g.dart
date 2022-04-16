@@ -108,6 +108,10 @@ _$LabelElement _$$LabelElementFromJson(Map json) => _$LabelElement(
           ? const LabelProperty()
           : LabelProperty.fromJson(
               Map<String, dynamic>.from(json['property'] as Map)),
+      constraints: json['constraints'] == null
+          ? const DynamicElementConstraints()
+          : ElementConstraints.fromJson(
+              Map<String, dynamic>.from(json['constraints'] as Map)),
       $type: json['type'] as String?,
     );
 
@@ -117,6 +121,7 @@ Map<String, dynamic> _$$LabelElementToJson(_$LabelElement instance) =>
       'position': const OffsetJsonConverter().toJson(instance.position),
       'text': instance.text,
       'property': instance.property.toJson(),
+      'constraints': instance.constraints.toJson(),
       'type': instance.$type,
     };
 

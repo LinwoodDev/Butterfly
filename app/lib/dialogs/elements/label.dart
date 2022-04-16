@@ -7,6 +7,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/element.dart';
+import '../../widgets/context_menu.dart';
+import '../constraints.dart';
 import '../painters/label.dart';
 
 class LabelElementDialog extends StatelessWidget {
@@ -24,6 +26,15 @@ class LabelElementDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var bloc = context.read<DocumentBloc>();
+    final constraints = renderer.element.constraints;
+    String constraintsText;
+    if (constraints is FixedElementConstraints) {
+      constraintsText = AppLocalizations.of(context)!.fixedConstraints;
+    } else if (constraints is DynamicElementConstraints) {
+      constraintsText = AppLocalizations.of(context)!.dynamicConstraints;
+    } else {
+      constraintsText = AppLocalizations.of(context)!.none;
+    }
     return GeneralElementDialog(
       renderer: renderer,
       close: close,
@@ -44,6 +55,30 @@ class LabelElementDialog extends StatelessWidget {
                 bloc.add(ElementChanged(renderer.element, newElement));
               }
             }),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.constraints),
+          subtitle: Text(constraintsText),
+          leading: const Icon(PhosphorIcons.selectionLight),
+          onTap: () async {
+            close();
+            showContextMenu(
+                context: context,
+                position: position,
+                builder: (context, close) => ConstraintsContextMenu(
+                    position: position,
+                    enableScaled: false,
+                    initialConstraints: constraints,
+                    close: close,
+                    onChanged: (constraints) {
+                      close();
+                      bloc.add(ElementChanged(
+                          renderer.element,
+                          renderer.element.copyWith(
+                              constraints: constraints ??
+                                  renderer.element.constraints)));
+                    }));
+          },
+        ),
       ],
     );
   }
