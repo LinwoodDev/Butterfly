@@ -121,7 +121,7 @@ Map<String, dynamic> _$$LabelElementToJson(_$LabelElement instance) =>
       'position': const OffsetJsonConverter().toJson(instance.position),
       'text': instance.text,
       'property': instance.property.toJson(),
-      'constraints': instance.constraints.toJson(),
+      'constraints': instance.constraints?.toJson(),
       'type': instance.$type,
     };
 

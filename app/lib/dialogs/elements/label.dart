@@ -71,11 +71,8 @@ class LabelElementDialog extends StatelessWidget {
                     close: close,
                     onChanged: (constraints) {
                       close();
-                      bloc.add(ElementChanged(
-                          renderer.element,
-                          renderer.element.copyWith(
-                              constraints: constraints ??
-                                  renderer.element.constraints)));
+                      bloc.add(ElementChanged(renderer.element,
+                          renderer.element.copyWith(constraints: constraints)));
                     }));
           },
         ),

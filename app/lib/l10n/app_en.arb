@@ -234,5 +234,13 @@
   "fixedConstraints": "Fixed constraints",
   "dynamicConstraints": "Dynamic constraints",
   "none": "None",
-  "includeArea": "Include area"
+  "includeArea": "Include area",
+  "verticalAlignment": "Vertical alignment",
+  "horizontalAlignment": "Horizontal alignment",
+  "top": "Top",
+  "center": "Center",
+  "bottom": "Bottom",
+  "left": "Left",
+  "right": "Right",
+  "justify": "Justify"
 }

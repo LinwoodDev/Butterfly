@@ -10,6 +10,7 @@ import 'package:flutter/material.dart' hide Image;
 
 import '../cubits/transform.dart';
 import '../models/background.dart';
+import '../models/property.dart';
 
 part 'elements/eraser.dart';
 part 'elements/image.dart';
