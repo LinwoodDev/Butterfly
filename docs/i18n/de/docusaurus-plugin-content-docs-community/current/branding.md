@@ -22,6 +22,12 @@ Diese Assets sind unter [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/bl
 
 [SVG](/img/banner.svg) [PNG](/img/banner.png)
 
+## Dokumentation
+
+![Dokumentation](/img/docs.svg)
+
+[SVG](/img/docs.svg) [PNG](/img/docs.png)
+
 ## Farben
 
 * Primär: `#f2b138`
