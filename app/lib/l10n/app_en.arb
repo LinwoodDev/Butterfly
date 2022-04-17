@@ -228,5 +228,21 @@
     },
     "description": "This message is shown when the app is updated"
   },
-  "releaseNotes": "Release notes"
+  "releaseNotes": "Release notes",
+  "constraints": "Constraints",
+  "scaledConstraints": "Scaled constraints",
+  "fixedConstraints": "Fixed constraints",
+  "dynamicConstraints": "Dynamic constraints",
+  "none": "None",
+  "includeArea": "Include area",
+  "verticalAlignment": "Vertical alignment",
+  "horizontalAlignment": "Horizontal alignment",
+  "top": "Top",
+  "center": "Center",
+  "bottom": "Bottom",
+  "left": "Left",
+  "right": "Right",
+  "justify": "Justify",
+  "constraint": "Constraint",
+  "length": "Length"
 }

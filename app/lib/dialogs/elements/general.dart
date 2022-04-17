@@ -1,6 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/layer.dart';
+import 'package:butterfly/models/element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,7 +13,7 @@ import '../../widgets/context_menu.dart';
 import '../background/context.dart';
 
 class GeneralElementDialog extends StatelessWidget {
-  final Renderer renderer;
+  final Renderer<PadElement> renderer;
   final VoidCallback close;
   final Offset position;
   final List<Widget> children;

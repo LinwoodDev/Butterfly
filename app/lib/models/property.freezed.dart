@@ -52,7 +52,9 @@ class _$PropertyTearOff {
       double letterSpacing = 0,
       int decorationColor = kColorBlack,
       TextDecorationStyle decorationStyle = TextDecorationStyle.solid,
-      double decorationThickness = 1}) {
+      double decorationThickness = 1,
+      HorizontalAlignment horizontalAlignment = HorizontalAlignment.left,
+      VerticalAlignment verticalAlignment = VerticalAlignment.top}) {
     return LabelProperty(
       size: size,
       color: color,
@@ -65,6 +67,8 @@ class _$PropertyTearOff {
       decorationColor: decorationColor,
       decorationStyle: decorationStyle,
       decorationThickness: decorationThickness,
+      horizontalAlignment: horizontalAlignment,
+      verticalAlignment: verticalAlignment,
     );
   }
 
@@ -116,7 +120,9 @@ mixin _$Property {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)
         label,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color)
@@ -140,7 +146,9 @@ mixin _$Property {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)?
         label,
     TResult Function(double strokeWidth, double strokeMultiplier, int color)?
         eraser,
@@ -163,7 +171,9 @@ mixin _$Property {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)?
         label,
     TResult Function(double strokeWidth, double strokeMultiplier, int color)?
         eraser,
@@ -301,7 +311,9 @@ class _$HandProperty implements HandProperty {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)
         label,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color)
@@ -328,7 +340,9 @@ class _$HandProperty implements HandProperty {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)?
         label,
     TResult Function(double strokeWidth, double strokeMultiplier, int color)?
         eraser,
@@ -354,7 +368,9 @@ class _$HandProperty implements HandProperty {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)?
         label,
     TResult Function(double strokeWidth, double strokeMultiplier, int color)?
         eraser,
@@ -440,7 +456,9 @@ abstract class $LabelPropertyCopyWith<$Res> {
       double letterSpacing,
       int decorationColor,
       TextDecorationStyle decorationStyle,
-      double decorationThickness});
+      double decorationThickness,
+      HorizontalAlignment horizontalAlignment,
+      VerticalAlignment verticalAlignment});
 }
 
 /// @nodoc
@@ -466,6 +484,8 @@ class _$LabelPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
     Object? decorationColor = freezed,
     Object? decorationStyle = freezed,
     Object? decorationThickness = freezed,
+    Object? horizontalAlignment = freezed,
+    Object? verticalAlignment = freezed,
   }) {
     return _then(LabelProperty(
       size: size == freezed
@@ -512,6 +532,14 @@ class _$LabelPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
           ? _value.decorationThickness
           : decorationThickness // ignore: cast_nullable_to_non_nullable
               as double,
+      horizontalAlignment: horizontalAlignment == freezed
+          ? _value.horizontalAlignment
+          : horizontalAlignment // ignore: cast_nullable_to_non_nullable
+              as HorizontalAlignment,
+      verticalAlignment: verticalAlignment == freezed
+          ? _value.verticalAlignment
+          : verticalAlignment // ignore: cast_nullable_to_non_nullable
+              as VerticalAlignment,
     ));
   }
 }
@@ -531,6 +559,8 @@ class _$LabelProperty implements LabelProperty {
       this.decorationColor = kColorBlack,
       this.decorationStyle = TextDecorationStyle.solid,
       this.decorationThickness = 1,
+      this.horizontalAlignment = HorizontalAlignment.left,
+      this.verticalAlignment = VerticalAlignment.top,
       String? $type})
       : $type = $type ?? 'label';
 
@@ -570,13 +600,19 @@ class _$LabelProperty implements LabelProperty {
   @JsonKey()
   @override
   final double decorationThickness;
+  @JsonKey()
+  @override
+  final HorizontalAlignment horizontalAlignment;
+  @JsonKey()
+  @override
+  final VerticalAlignment verticalAlignment;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Property.label(size: $size, color: $color, fontWeight: $fontWeight, lineThrough: $lineThrough, underline: $underline, overline: $overline, italic: $italic, letterSpacing: $letterSpacing, decorationColor: $decorationColor, decorationStyle: $decorationStyle, decorationThickness: $decorationThickness)';
+    return 'Property.label(size: $size, color: $color, fontWeight: $fontWeight, lineThrough: $lineThrough, underline: $underline, overline: $overline, italic: $italic, letterSpacing: $letterSpacing, decorationColor: $decorationColor, decorationStyle: $decorationStyle, decorationThickness: $decorationThickness, horizontalAlignment: $horizontalAlignment, verticalAlignment: $verticalAlignment)';
   }
 
   @override
@@ -600,7 +636,11 @@ class _$LabelProperty implements LabelProperty {
             const DeepCollectionEquality()
                 .equals(other.decorationStyle, decorationStyle) &&
             const DeepCollectionEquality()
-                .equals(other.decorationThickness, decorationThickness));
+                .equals(other.decorationThickness, decorationThickness) &&
+            const DeepCollectionEquality()
+                .equals(other.horizontalAlignment, horizontalAlignment) &&
+            const DeepCollectionEquality()
+                .equals(other.verticalAlignment, verticalAlignment));
   }
 
   @override
@@ -616,7 +656,9 @@ class _$LabelProperty implements LabelProperty {
       const DeepCollectionEquality().hash(letterSpacing),
       const DeepCollectionEquality().hash(decorationColor),
       const DeepCollectionEquality().hash(decorationStyle),
-      const DeepCollectionEquality().hash(decorationThickness));
+      const DeepCollectionEquality().hash(decorationThickness),
+      const DeepCollectionEquality().hash(horizontalAlignment),
+      const DeepCollectionEquality().hash(verticalAlignment));
 
   @JsonKey(ignore: true)
   @override
@@ -638,7 +680,9 @@ class _$LabelProperty implements LabelProperty {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)
         label,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color)
@@ -658,7 +702,9 @@ class _$LabelProperty implements LabelProperty {
         letterSpacing,
         decorationColor,
         decorationStyle,
-        decorationThickness);
+        decorationThickness,
+        horizontalAlignment,
+        verticalAlignment);
   }
 
   @override
@@ -676,7 +722,9 @@ class _$LabelProperty implements LabelProperty {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)?
         label,
     TResult Function(double strokeWidth, double strokeMultiplier, int color)?
         eraser,
@@ -695,7 +743,9 @@ class _$LabelProperty implements LabelProperty {
         letterSpacing,
         decorationColor,
         decorationStyle,
-        decorationThickness);
+        decorationThickness,
+        horizontalAlignment,
+        verticalAlignment);
   }
 
   @override
@@ -713,7 +763,9 @@ class _$LabelProperty implements LabelProperty {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)?
         label,
     TResult Function(double strokeWidth, double strokeMultiplier, int color)?
         eraser,
@@ -734,7 +786,9 @@ class _$LabelProperty implements LabelProperty {
           letterSpacing,
           decorationColor,
           decorationStyle,
-          decorationThickness);
+          decorationThickness,
+          horizontalAlignment,
+          verticalAlignment);
     }
     return orElse();
   }
@@ -794,7 +848,9 @@ abstract class LabelProperty implements Property {
       double letterSpacing,
       int decorationColor,
       TextDecorationStyle decorationStyle,
-      double decorationThickness}) = _$LabelProperty;
+      double decorationThickness,
+      HorizontalAlignment horizontalAlignment,
+      VerticalAlignment verticalAlignment}) = _$LabelProperty;
 
   factory LabelProperty.fromJson(Map<String, dynamic> json) =
       _$LabelProperty.fromJson;
@@ -810,6 +866,8 @@ abstract class LabelProperty implements Property {
   int get decorationColor;
   TextDecorationStyle get decorationStyle;
   double get decorationThickness;
+  HorizontalAlignment get horizontalAlignment;
+  VerticalAlignment get verticalAlignment;
   @JsonKey(ignore: true)
   $LabelPropertyCopyWith<LabelProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -927,7 +985,9 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)
         label,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color)
@@ -954,7 +1014,9 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)?
         label,
     TResult Function(double strokeWidth, double strokeMultiplier, int color)?
         eraser,
@@ -980,7 +1042,9 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)?
         label,
     TResult Function(double strokeWidth, double strokeMultiplier, int color)?
         eraser,
@@ -1179,7 +1243,9 @@ class _$PenProperty with PathProperty implements PenProperty {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)
         label,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color)
@@ -1206,7 +1272,9 @@ class _$PenProperty with PathProperty implements PenProperty {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)?
         label,
     TResult Function(double strokeWidth, double strokeMultiplier, int color)?
         eraser,
@@ -1232,7 +1300,9 @@ class _$PenProperty with PathProperty implements PenProperty {
             double letterSpacing,
             int decorationColor,
             TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)?
         label,
     TResult Function(double strokeWidth, double strokeMultiplier, int color)?
         eraser,

@@ -193,6 +193,48 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
           max: 20,
           onChanged: (value) => change(_value.copyWith(letterSpacing: value),
               value != _value.letterSpacing)),
+      ToggleButtons(
+          isSelected: [
+            _value.horizontalAlignment == HorizontalAlignment.left,
+            _value.horizontalAlignment == HorizontalAlignment.center,
+            _value.horizontalAlignment == HorizontalAlignment.right,
+            _value.horizontalAlignment == HorizontalAlignment.justify,
+          ],
+          onPressed: (index) {
+            var alignments = [
+              HorizontalAlignment.left,
+              HorizontalAlignment.center,
+              HorizontalAlignment.right,
+              HorizontalAlignment.justify,
+            ];
+            change(
+                _value.copyWith(horizontalAlignment: alignments[index]), true);
+          },
+          children: const [
+            Icon(PhosphorIcons.textAlignLeftLight),
+            Icon(PhosphorIcons.textAlignCenterLight),
+            Icon(PhosphorIcons.textAlignRightLight),
+            Icon(PhosphorIcons.textAlignJustifyLight),
+          ]),
+      ToggleButtons(
+          isSelected: [
+            _value.verticalAlignment == VerticalAlignment.top,
+            _value.verticalAlignment == VerticalAlignment.center,
+            _value.verticalAlignment == VerticalAlignment.bottom,
+          ],
+          onPressed: (index) {
+            var alignments = [
+              VerticalAlignment.top,
+              VerticalAlignment.center,
+              VerticalAlignment.bottom,
+            ];
+            change(_value.copyWith(verticalAlignment: alignments[index]), true);
+          },
+          children: const [
+            Icon(PhosphorIcons.alignTopLight),
+            Icon(PhosphorIcons.alignCenterVerticalLight),
+            Icon(PhosphorIcons.alignBottomLight),
+          ]),
       ListTile(
           title: Text(AppLocalizations.of(context)!.fontWeight),
           trailing: DropdownButton<FontWeight>(

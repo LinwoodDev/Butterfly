@@ -32,6 +32,12 @@ _$LabelProperty _$$LabelPropertyFromJson(Map json) => _$LabelProperty(
           TextDecorationStyle.solid,
       decorationThickness:
           (json['decorationThickness'] as num?)?.toDouble() ?? 1,
+      horizontalAlignment: $enumDecodeNullable(
+              _$HorizontalAlignmentEnumMap, json['horizontalAlignment']) ??
+          HorizontalAlignment.left,
+      verticalAlignment: $enumDecodeNullable(
+              _$VerticalAlignmentEnumMap, json['verticalAlignment']) ??
+          VerticalAlignment.top,
       $type: json['type'] as String?,
     );
 
@@ -48,6 +54,10 @@ Map<String, dynamic> _$$LabelPropertyToJson(_$LabelProperty instance) =>
       'decorationColor': instance.decorationColor,
       'decorationStyle': _$TextDecorationStyleEnumMap[instance.decorationStyle],
       'decorationThickness': instance.decorationThickness,
+      'horizontalAlignment':
+          _$HorizontalAlignmentEnumMap[instance.horizontalAlignment],
+      'verticalAlignment':
+          _$VerticalAlignmentEnumMap[instance.verticalAlignment],
       'type': instance.$type,
     };
 
@@ -57,6 +67,19 @@ const _$TextDecorationStyleEnumMap = {
   TextDecorationStyle.dotted: 'dotted',
   TextDecorationStyle.dashed: 'dashed',
   TextDecorationStyle.wavy: 'wavy',
+};
+
+const _$HorizontalAlignmentEnumMap = {
+  HorizontalAlignment.left: 'left',
+  HorizontalAlignment.center: 'center',
+  HorizontalAlignment.right: 'right',
+  HorizontalAlignment.justify: 'justify',
+};
+
+const _$VerticalAlignmentEnumMap = {
+  VerticalAlignment.top: 'top',
+  VerticalAlignment.center: 'center',
+  VerticalAlignment.bottom: 'bottom',
 };
 
 _$EraserProperty _$$EraserPropertyFromJson(Map json) => _$EraserProperty(

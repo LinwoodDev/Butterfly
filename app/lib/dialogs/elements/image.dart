@@ -1,6 +1,7 @@
 import 'package:butterfly/api/open_image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/elements/general.dart';
+import 'package:butterfly/widgets/context_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/element.dart';
 import '../../renderers/renderer.dart';
-import '../../widgets/exact_slider.dart';
+import '../constraints.dart';
 
 class ImageElementDialog extends StatefulWidget {
   final ImageRenderer renderer;
@@ -28,36 +29,58 @@ class ImageElementDialog extends StatefulWidget {
 
 class _ImageElementDialogState extends State<ImageElementDialog> {
   late ImageElement element, newElement;
+  late DocumentBloc bloc;
 
   @override
   void initState() {
     super.initState();
     element = widget.renderer.element;
     newElement = element;
+    bloc = context.read<DocumentBloc>();
   }
 
   void _changeElement() {
-    context.read<DocumentBloc>().add(ElementChanged(element, newElement));
+    bloc.add(ElementChanged(element, newElement));
     element = newElement;
   }
 
   @override
   Widget build(BuildContext context) {
+    String constraints;
+    if (element.constraints is ScaledElementConstraints) {
+      constraints = AppLocalizations.of(context)!.scaledConstraints;
+    } else if (element.constraints is FixedElementConstraints) {
+      constraints = AppLocalizations.of(context)!.fixedConstraints;
+    } else if (element.constraints is DynamicElementConstraints) {
+      constraints = AppLocalizations.of(context)!.dynamicConstraints;
+    } else {
+      constraints = AppLocalizations.of(context)!.none;
+    }
     return GeneralElementDialog(
       close: widget.close,
       renderer: widget.renderer,
       position: widget.position,
       children: [
-        ExactSlider(
-          header: Text(AppLocalizations.of(context)!.scale),
-          value: newElement.scale.toDouble(),
-          min: 0.1,
-          max: 5,
-          defaultValue: 1,
-          onChanged: (value) {
-            setState(() => newElement = newElement.copyWith(scale: value));
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.constraints),
+          leading: const Icon(PhosphorIcons.selectionLight),
+          subtitle: Text(constraints),
+          onTap: () {
+            widget.close();
+            showContextMenu(
+                context: context,
+                position: widget.position,
+                builder: (context, close) => ConstraintsContextMenu(
+                    position: widget.position,
+                    enableScaled: true,
+                    initialConstraints: element.constraints,
+                    close: close,
+                    onChanged: (constraints) {
+                      close();
+                      newElement = element.copyWith(constraints: constraints);
+                      _changeElement();
+                    }));
           },
-          onChangeEnd: (value) => _changeElement(),
         ),
         ListTile(
           title: Text(AppLocalizations.of(context)!.export),

@@ -1,17 +1,17 @@
 part of 'handler.dart';
 
 class HandHandler extends Handler {
-  Renderer? movingElement;
-  Renderer? selected;
+  Renderer<PadElement>? movingElement;
+  Renderer<PadElement>? selected;
 
   HandHandler();
 
   @override
   Future<bool> onRendererUpdated(
       AppDocument appDocument, Renderer old, Renderer updated) async {
-    if (old == movingElement) {
+    if (old.element == movingElement && updated is Renderer<PadElement>) {
       movingElement = updated;
-    } else if (old == selected) {
+    } else if (old == selected && updated is Renderer<PadElement>) {
       selected = updated;
     } else {
       return false;
@@ -29,7 +29,8 @@ class HandHandler extends Handler {
     return rect == null ? [] : [rect];
   }
 
-  void move(BuildContext context, Renderer next, [bool duplicate = false]) {
+  void move(BuildContext context, Renderer<PadElement> next,
+      [bool duplicate = false]) {
     submitMove(context);
     movingElement = next;
     if (!duplicate) {
@@ -39,13 +40,13 @@ class HandHandler extends Handler {
     }
   }
 
-  void submitMove(BuildContext context) {
-    if (movingElement == null) return;
-    final current = movingElement!;
+  void submitMove(BuildContext context, [PadElement? element]) {
+    if (movingElement == null && element == null) return;
+    final current = (element ?? movingElement?.element)!;
     movingElement = null;
     context.read<DocumentBloc>()
       ..add(const IndexRefreshed())
-      ..add(ElementsCreated([current.element]));
+      ..add(ElementsCreated([current]));
   }
 
   bool openView = true;
@@ -55,9 +56,8 @@ class HandHandler extends Handler {
       Size viewportSize, BuildContext context, PointerUpEvent event) async {
     final transform = context.read<TransformCubit>().state;
     if (movingElement != null) {
-      movingElement =
-          movingElement?.move(transform.localToGlobal(event.localPosition));
-      submitMove(context);
+      submitMove(context,
+          movingElement?.move(transform.localToGlobal(event.localPosition)));
       return;
     }
     final bloc = context.read<DocumentBloc>();
@@ -96,7 +96,7 @@ class HandHandler extends Handler {
             context: context,
             builder: (context) =>
                 SelectElementDialog(renderers: hits.toList())).then((value) {
-          if (value is Renderer) {
+          if (value is Renderer<PadElement>) {
             selected = value;
             bloc.add(const IndexRefreshed());
             showSelection(context, event.localPosition);

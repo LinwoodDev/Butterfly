@@ -7,6 +7,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/element.dart';
+import '../../widgets/context_menu.dart';
+import '../constraints.dart';
 import '../painters/label.dart';
 
 class LabelElementDialog extends StatelessWidget {
@@ -44,6 +46,24 @@ class LabelElementDialog extends StatelessWidget {
                 bloc.add(ElementChanged(renderer.element, newElement));
               }
             }),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.constraints),
+          leading: const Icon(PhosphorIcons.selectionLight),
+          onTap: () async {
+            close();
+            showContextMenu(
+                context: context,
+                position: position,
+                builder: (context, close) => ConstraintContextMenu(
+                    initialConstraint: renderer.element.constraint,
+                    close: close,
+                    onChanged: (constraint) {
+                      close();
+                      bloc.add(ElementChanged(renderer.element,
+                          renderer.element.copyWith(constraint: constraint)));
+                    }));
+          },
+        ),
       ],
     );
   }

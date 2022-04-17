@@ -32,7 +32,4 @@ class AreaRenderer extends Renderer<Area> {
   @override
   Rect get rect => Rect.fromLTWH(
       element.position.dx, element.position.dy, element.width, element.height);
-
-  @override
-  Renderer<Area> move(Offset position) => throw Exception('Not available');
 }
