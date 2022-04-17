@@ -28,7 +28,7 @@ Diese Assets sind unter [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/bl
 
 [SVG](/img/docs.svg) [PNG](/img/docs.png)
 
-## Colors
+## Farben
 
 * Primär: `#f2b138`
 * Primärer Dunkel: `#f0a61c`
@@ -39,6 +39,6 @@ Diese Assets sind unter [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/bl
 * Primärer Lichttest: `#f7d28c`
 * Akzent: `#00469E`
 
-## Fonts
+## Schriftarten
 
 * `Roboto`
