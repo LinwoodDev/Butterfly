@@ -55,31 +55,19 @@ class LabelRenderer extends Renderer<LabelElement> {
 
   void _updateRect() {
     var maxWidth = double.infinity;
-    final constraints = element.constraints;
-    if (constraints is FixedElementConstraints) {
-      if (constraints.width > 0) maxWidth = constraints.width;
-    } else if (constraints is DynamicElementConstraints) {
-      if (constraints.width > 0) maxWidth = constraints.width;
-      if (constraints.includeArea && area != null) {
-        maxWidth = min(maxWidth + element.position.dx, area!.rect.right) -
-            element.position.dx;
-      }
+    final constraints = element.constraint;
+    if (constraints.size > 0) maxWidth = constraints.size;
+    if (constraints.includeArea && area != null) {
+      maxWidth = min(maxWidth + element.position.dx, area!.rect.right) -
+          element.position.dx;
     }
     final tp = _createPainter();
     tp.layout(maxWidth: maxWidth);
     var height = tp.height;
-    if (constraints is FixedElementConstraints) {
-      if (height < constraints.height) {
-        height = constraints.height;
-      }
-    } else if (constraints is DynamicElementConstraints) {
-      if (height < constraints.height) {
-        height = constraints.height;
-      } else if (constraints.aspectRatio > 0) {
-        height = maxWidth / constraints.aspectRatio;
-      } else if (constraints.includeArea && area != null) {
-        height = min(height, area!.rect.bottom - element.position.dy);
-      }
+    if (height < constraints.length) {
+      height = constraints.length;
+    } else if (constraints.includeArea && area != null) {
+      height = min(height, area!.rect.bottom - element.position.dy);
     }
     rect = Rect.fromLTWH(
         element.position.dx, element.position.dy, tp.width, height);

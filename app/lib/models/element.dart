@@ -11,6 +11,18 @@ part 'element.freezed.dart';
 part 'element.g.dart';
 
 @freezed
+class ElementConstraint with _$ElementConstraint {
+  const factory ElementConstraint({
+    @Default(0) double size,
+    @Default(0) double length,
+    @Default(true) bool includeArea,
+  }) = _ElementConstraint;
+
+  factory ElementConstraint.fromJson(Map<String, dynamic> json) =>
+      _$ElementConstraintFromJson(json);
+}
+
+@freezed
 class ElementConstraints with _$ElementConstraints {
   const factory ElementConstraints.scaled(double scale) =
       ScaledElementConstraints;
@@ -52,7 +64,7 @@ class PadElement with _$PadElement {
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
     @Default('') String text,
     @Default(LabelProperty()) LabelProperty property,
-    @Default(DynamicElementConstraints()) ElementConstraints? constraints,
+    @Default(ElementConstraint()) ElementConstraint constraint,
   }) = LabelElement;
 
   const factory PadElement.image({

@@ -147,16 +147,17 @@ class _FixedConstraintsContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(shrinkWrap: true, children: [
       TextFormField(
-          decoration:
-              InputDecoration(labelText: AppLocalizations.of(context)!.width),
+          decoration: InputDecoration(
+              filled: true, labelText: AppLocalizations.of(context)!.width),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
             onChanged(constraints.copyWith(width: double.parse(value)));
           },
           initialValue: constraints.width.toStringAsFixed(2)),
+      const SizedBox(height: 8),
       TextFormField(
-          decoration:
-              InputDecoration(labelText: AppLocalizations.of(context)!.height),
+          decoration: InputDecoration(
+              filled: true, labelText: AppLocalizations.of(context)!.height),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
             onChanged(constraints.copyWith(height: double.parse(value)));
@@ -177,8 +178,8 @@ class _ScaledConstraintsContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(shrinkWrap: true, children: [
       TextFormField(
-          decoration:
-              InputDecoration(labelText: AppLocalizations.of(context)!.scale),
+          decoration: InputDecoration(
+              filled: true, labelText: AppLocalizations.of(context)!.scale),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
             onChanged(ScaledElementConstraints(double.parse(value)));
@@ -199,24 +200,26 @@ class _DynamicConstraintsContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(shrinkWrap: true, children: [
       TextFormField(
-          decoration:
-              InputDecoration(labelText: AppLocalizations.of(context)!.width),
+          decoration: InputDecoration(
+              filled: true, labelText: AppLocalizations.of(context)!.width),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
             onChanged(constraints.copyWith(width: double.parse(value)));
           },
           initialValue: constraints.width.toStringAsFixed(2)),
+      const SizedBox(height: 8),
       TextFormField(
-          decoration:
-              InputDecoration(labelText: AppLocalizations.of(context)!.height),
+          decoration: InputDecoration(
+              filled: true, labelText: AppLocalizations.of(context)!.height),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
             onChanged(constraints.copyWith(height: double.parse(value)));
           },
           initialValue: constraints.height.toStringAsFixed(2)),
+      const SizedBox(height: 8),
       TextFormField(
         decoration: InputDecoration(
-            labelText: AppLocalizations.of(context)!.aspectRatio),
+            filled: true, labelText: AppLocalizations.of(context)!.aspectRatio),
         keyboardType: TextInputType.number,
         onFieldSubmitted: (value) {
           onChanged(constraints.copyWith(aspectRatio: double.parse(value)));
@@ -232,5 +235,85 @@ class _DynamicConstraintsContent extends StatelessWidget {
           },
           title: Text(AppLocalizations.of(context)!.includeArea)),
     ]);
+  }
+}
+
+class ConstraintContextMenu extends StatefulWidget {
+  final ElementConstraint initialConstraint;
+  final VoidCallback close;
+  final ValueChanged<ElementConstraint> onChanged;
+  const ConstraintContextMenu({
+    Key? key,
+    required this.initialConstraint,
+    required this.close,
+    required this.onChanged,
+  }) : super(key: key);
+
+  @override
+  State<ConstraintContextMenu> createState() => _ConstraintContextMenuState();
+}
+
+class _ConstraintContextMenuState extends State<ConstraintContextMenu> {
+  late ElementConstraint constraint;
+
+  @override
+  void initState() {
+    super.initState();
+    constraint = widget.initialConstraint;
+  }
+
+  void _onChanged(ElementConstraint constraint) {
+    setState(() {
+      this.constraint = constraint;
+    });
+    widget.onChanged(constraint);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Text(
+          AppLocalizations.of(context)!.constraint,
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        const Divider(),
+        ListView(
+          shrinkWrap: true,
+          children: [
+            TextFormField(
+              decoration: InputDecoration(
+                  filled: true, labelText: AppLocalizations.of(context)!.size),
+              keyboardType: TextInputType.number,
+              onFieldSubmitted: (value) {
+                _onChanged(constraint.copyWith(size: double.parse(value)));
+              },
+              initialValue: constraint.size.toStringAsFixed(2),
+            ),
+            const SizedBox(height: 8),
+            TextFormField(
+              decoration: InputDecoration(
+                  filled: true,
+                  labelText: AppLocalizations.of(context)!.length),
+              keyboardType: TextInputType.number,
+              onFieldSubmitted: (value) {
+                _onChanged(constraint.copyWith(length: double.parse(value)));
+              },
+              initialValue: constraint.length.toStringAsFixed(2),
+            ),
+            const SizedBox(height: 8),
+            CheckboxListTile(
+              value: constraint.includeArea,
+              onChanged: (value) {
+                _onChanged(constraint.copyWith(
+                    includeArea: value ?? constraint.includeArea));
+              },
+              title: Text(AppLocalizations.of(context)!.includeArea),
+            ),
+          ],
+        ),
+      ]),
+    );
   }
 }

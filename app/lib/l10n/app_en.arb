@@ -242,5 +242,7 @@
   "bottom": "Bottom",
   "left": "Left",
   "right": "Right",
-  "justify": "Justify"
+  "justify": "Justify",
+  "constraint": "Constraint",
+  "length": "Length"
 }

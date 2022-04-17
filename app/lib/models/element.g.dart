@@ -6,6 +6,21 @@ part of 'element.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$_ElementConstraint _$$_ElementConstraintFromJson(Map json) =>
+    _$_ElementConstraint(
+      size: (json['size'] as num?)?.toDouble() ?? 0,
+      length: (json['length'] as num?)?.toDouble() ?? 0,
+      includeArea: json['includeArea'] as bool? ?? true,
+    );
+
+Map<String, dynamic> _$$_ElementConstraintToJson(
+        _$_ElementConstraint instance) =>
+    <String, dynamic>{
+      'size': instance.size,
+      'length': instance.length,
+      'includeArea': instance.includeArea,
+    };
+
 _$ScaledElementConstraints _$$ScaledElementConstraintsFromJson(Map json) =>
     _$ScaledElementConstraints(
       (json['scale'] as num).toDouble(),
@@ -108,10 +123,10 @@ _$LabelElement _$$LabelElementFromJson(Map json) => _$LabelElement(
           ? const LabelProperty()
           : LabelProperty.fromJson(
               Map<String, dynamic>.from(json['property'] as Map)),
-      constraints: json['constraints'] == null
-          ? const DynamicElementConstraints()
-          : ElementConstraints.fromJson(
-              Map<String, dynamic>.from(json['constraints'] as Map)),
+      constraint: json['constraint'] == null
+          ? const ElementConstraint()
+          : ElementConstraint.fromJson(
+              Map<String, dynamic>.from(json['constraint'] as Map)),
       $type: json['type'] as String?,
     );
 
@@ -121,7 +136,7 @@ Map<String, dynamic> _$$LabelElementToJson(_$LabelElement instance) =>
       'position': const OffsetJsonConverter().toJson(instance.position),
       'text': instance.text,
       'property': instance.property.toJson(),
-      'constraints': instance.constraints?.toJson(),
+      'constraint': instance.constraint.toJson(),
       'type': instance.$type,
     };
 

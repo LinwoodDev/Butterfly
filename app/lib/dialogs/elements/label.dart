@@ -26,15 +26,6 @@ class LabelElementDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var bloc = context.read<DocumentBloc>();
-    final constraints = renderer.element.constraints;
-    String constraintsText;
-    if (constraints is FixedElementConstraints) {
-      constraintsText = AppLocalizations.of(context)!.fixedConstraints;
-    } else if (constraints is DynamicElementConstraints) {
-      constraintsText = AppLocalizations.of(context)!.dynamicConstraints;
-    } else {
-      constraintsText = AppLocalizations.of(context)!.none;
-    }
     return GeneralElementDialog(
       renderer: renderer,
       close: close,
@@ -57,22 +48,19 @@ class LabelElementDialog extends StatelessWidget {
             }),
         ListTile(
           title: Text(AppLocalizations.of(context)!.constraints),
-          subtitle: Text(constraintsText),
           leading: const Icon(PhosphorIcons.selectionLight),
           onTap: () async {
             close();
             showContextMenu(
                 context: context,
                 position: position,
-                builder: (context, close) => ConstraintsContextMenu(
-                    position: position,
-                    enableScaled: false,
-                    initialConstraints: constraints,
+                builder: (context, close) => ConstraintContextMenu(
+                    initialConstraint: renderer.element.constraint,
                     close: close,
-                    onChanged: (constraints) {
+                    onChanged: (constraint) {
                       close();
                       bloc.add(ElementChanged(renderer.element,
-                          renderer.element.copyWith(constraints: constraints)));
+                          renderer.element.copyWith(constraint: constraint)));
                     }));
           },
         ),

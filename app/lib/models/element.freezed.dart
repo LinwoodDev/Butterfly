@@ -14,6 +14,199 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+ElementConstraint _$ElementConstraintFromJson(Map<String, dynamic> json) {
+  return _ElementConstraint.fromJson(json);
+}
+
+/// @nodoc
+class _$ElementConstraintTearOff {
+  const _$ElementConstraintTearOff();
+
+  _ElementConstraint call(
+      {double size = 0, double length = 0, bool includeArea = true}) {
+    return _ElementConstraint(
+      size: size,
+      length: length,
+      includeArea: includeArea,
+    );
+  }
+
+  ElementConstraint fromJson(Map<String, Object?> json) {
+    return ElementConstraint.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $ElementConstraint = _$ElementConstraintTearOff();
+
+/// @nodoc
+mixin _$ElementConstraint {
+  double get size => throw _privateConstructorUsedError;
+  double get length => throw _privateConstructorUsedError;
+  bool get includeArea => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ElementConstraintCopyWith<ElementConstraint> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ElementConstraintCopyWith<$Res> {
+  factory $ElementConstraintCopyWith(
+          ElementConstraint value, $Res Function(ElementConstraint) then) =
+      _$ElementConstraintCopyWithImpl<$Res>;
+  $Res call({double size, double length, bool includeArea});
+}
+
+/// @nodoc
+class _$ElementConstraintCopyWithImpl<$Res>
+    implements $ElementConstraintCopyWith<$Res> {
+  _$ElementConstraintCopyWithImpl(this._value, this._then);
+
+  final ElementConstraint _value;
+  // ignore: unused_field
+  final $Res Function(ElementConstraint) _then;
+
+  @override
+  $Res call({
+    Object? size = freezed,
+    Object? length = freezed,
+    Object? includeArea = freezed,
+  }) {
+    return _then(_value.copyWith(
+      size: size == freezed
+          ? _value.size
+          : size // ignore: cast_nullable_to_non_nullable
+              as double,
+      length: length == freezed
+          ? _value.length
+          : length // ignore: cast_nullable_to_non_nullable
+              as double,
+      includeArea: includeArea == freezed
+          ? _value.includeArea
+          : includeArea // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$ElementConstraintCopyWith<$Res>
+    implements $ElementConstraintCopyWith<$Res> {
+  factory _$ElementConstraintCopyWith(
+          _ElementConstraint value, $Res Function(_ElementConstraint) then) =
+      __$ElementConstraintCopyWithImpl<$Res>;
+  @override
+  $Res call({double size, double length, bool includeArea});
+}
+
+/// @nodoc
+class __$ElementConstraintCopyWithImpl<$Res>
+    extends _$ElementConstraintCopyWithImpl<$Res>
+    implements _$ElementConstraintCopyWith<$Res> {
+  __$ElementConstraintCopyWithImpl(
+      _ElementConstraint _value, $Res Function(_ElementConstraint) _then)
+      : super(_value, (v) => _then(v as _ElementConstraint));
+
+  @override
+  _ElementConstraint get _value => super._value as _ElementConstraint;
+
+  @override
+  $Res call({
+    Object? size = freezed,
+    Object? length = freezed,
+    Object? includeArea = freezed,
+  }) {
+    return _then(_ElementConstraint(
+      size: size == freezed
+          ? _value.size
+          : size // ignore: cast_nullable_to_non_nullable
+              as double,
+      length: length == freezed
+          ? _value.length
+          : length // ignore: cast_nullable_to_non_nullable
+              as double,
+      includeArea: includeArea == freezed
+          ? _value.includeArea
+          : includeArea // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_ElementConstraint implements _ElementConstraint {
+  const _$_ElementConstraint(
+      {this.size = 0, this.length = 0, this.includeArea = true});
+
+  factory _$_ElementConstraint.fromJson(Map<String, dynamic> json) =>
+      _$$_ElementConstraintFromJson(json);
+
+  @JsonKey()
+  @override
+  final double size;
+  @JsonKey()
+  @override
+  final double length;
+  @JsonKey()
+  @override
+  final bool includeArea;
+
+  @override
+  String toString() {
+    return 'ElementConstraint(size: $size, length: $length, includeArea: $includeArea)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ElementConstraint &&
+            const DeepCollectionEquality().equals(other.size, size) &&
+            const DeepCollectionEquality().equals(other.length, length) &&
+            const DeepCollectionEquality()
+                .equals(other.includeArea, includeArea));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(size),
+      const DeepCollectionEquality().hash(length),
+      const DeepCollectionEquality().hash(includeArea));
+
+  @JsonKey(ignore: true)
+  @override
+  _$ElementConstraintCopyWith<_ElementConstraint> get copyWith =>
+      __$ElementConstraintCopyWithImpl<_ElementConstraint>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ElementConstraintToJson(this);
+  }
+}
+
+abstract class _ElementConstraint implements ElementConstraint {
+  const factory _ElementConstraint(
+      {double size, double length, bool includeArea}) = _$_ElementConstraint;
+
+  factory _ElementConstraint.fromJson(Map<String, dynamic> json) =
+      _$_ElementConstraint.fromJson;
+
+  @override
+  double get size;
+  @override
+  double get length;
+  @override
+  bool get includeArea;
+  @override
+  @JsonKey(ignore: true)
+  _$ElementConstraintCopyWith<_ElementConstraint> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 ElementConstraints _$ElementConstraintsFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'scaled':
@@ -735,13 +928,13 @@ class _$PadElementTearOff {
       @OffsetJsonConverter() Offset position = Offset.zero,
       String text = '',
       LabelProperty property = const LabelProperty(),
-      ElementConstraints? constraints = const DynamicElementConstraints()}) {
+      ElementConstraint constraint = const ElementConstraint()}) {
     return LabelElement(
       layer: layer,
       position: position,
       text: text,
       property: property,
-      constraints: constraints,
+      constraint: constraint,
     );
   }
 
@@ -787,7 +980,7 @@ mixin _$PadElement {
             @OffsetJsonConverter() Offset position,
             String text,
             LabelProperty property,
-            ElementConstraints? constraints)
+            ElementConstraint constraint)
         label,
     required TResult Function(
             String layer,
@@ -807,12 +1000,8 @@ mixin _$PadElement {
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            String text,
-            LabelProperty property,
-            ElementConstraints? constraints)?
+    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+            String text, LabelProperty property, ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
@@ -832,12 +1021,8 @@ mixin _$PadElement {
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            String text,
-            LabelProperty property,
-            ElementConstraints? constraints)?
+    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+            String text, LabelProperty property, ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
@@ -1019,7 +1204,7 @@ class _$PenElement implements PenElement {
             @OffsetJsonConverter() Offset position,
             String text,
             LabelProperty property,
-            ElementConstraints? constraints)
+            ElementConstraint constraint)
         label,
     required TResult Function(
             String layer,
@@ -1042,12 +1227,8 @@ class _$PenElement implements PenElement {
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            String text,
-            LabelProperty property,
-            ElementConstraints? constraints)?
+    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+            String text, LabelProperty property, ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
@@ -1070,12 +1251,8 @@ class _$PenElement implements PenElement {
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            String text,
-            LabelProperty property,
-            ElementConstraints? constraints)?
+    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+            String text, LabelProperty property, ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
@@ -1266,7 +1443,7 @@ class _$EraserElement implements EraserElement {
             @OffsetJsonConverter() Offset position,
             String text,
             LabelProperty property,
-            ElementConstraints? constraints)
+            ElementConstraint constraint)
         label,
     required TResult Function(
             String layer,
@@ -1289,12 +1466,8 @@ class _$EraserElement implements EraserElement {
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            String text,
-            LabelProperty property,
-            ElementConstraints? constraints)?
+    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+            String text, LabelProperty property, ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
@@ -1317,12 +1490,8 @@ class _$EraserElement implements EraserElement {
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            String text,
-            LabelProperty property,
-            ElementConstraints? constraints)?
+    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+            String text, LabelProperty property, ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
@@ -1414,9 +1583,9 @@ abstract class $LabelElementCopyWith<$Res>
       @OffsetJsonConverter() Offset position,
       String text,
       LabelProperty property,
-      ElementConstraints? constraints});
+      ElementConstraint constraint});
 
-  $ElementConstraintsCopyWith<$Res>? get constraints;
+  $ElementConstraintCopyWith<$Res> get constraint;
 }
 
 /// @nodoc
@@ -1435,7 +1604,7 @@ class _$LabelElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
     Object? position = freezed,
     Object? text = freezed,
     Object? property = freezed,
-    Object? constraints = freezed,
+    Object? constraint = freezed,
   }) {
     return _then(LabelElement(
       layer: layer == freezed
@@ -1454,21 +1623,17 @@ class _$LabelElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as LabelProperty,
-      constraints: constraints == freezed
-          ? _value.constraints
-          : constraints // ignore: cast_nullable_to_non_nullable
-              as ElementConstraints?,
+      constraint: constraint == freezed
+          ? _value.constraint
+          : constraint // ignore: cast_nullable_to_non_nullable
+              as ElementConstraint,
     ));
   }
 
   @override
-  $ElementConstraintsCopyWith<$Res>? get constraints {
-    if (_value.constraints == null) {
-      return null;
-    }
-
-    return $ElementConstraintsCopyWith<$Res>(_value.constraints!, (value) {
-      return _then(_value.copyWith(constraints: value));
+  $ElementConstraintCopyWith<$Res> get constraint {
+    return $ElementConstraintCopyWith<$Res>(_value.constraint, (value) {
+      return _then(_value.copyWith(constraint: value));
     });
   }
 }
@@ -1481,7 +1646,7 @@ class _$LabelElement implements LabelElement {
       @OffsetJsonConverter() this.position = Offset.zero,
       this.text = '',
       this.property = const LabelProperty(),
-      this.constraints = const DynamicElementConstraints(),
+      this.constraint = const ElementConstraint(),
       String? $type})
       : $type = $type ?? 'label';
 
@@ -1503,14 +1668,14 @@ class _$LabelElement implements LabelElement {
   final LabelProperty property;
   @JsonKey()
   @override
-  final ElementConstraints? constraints;
+  final ElementConstraint constraint;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PadElement.label(layer: $layer, position: $position, text: $text, property: $property, constraints: $constraints)';
+    return 'PadElement.label(layer: $layer, position: $position, text: $text, property: $property, constraint: $constraint)';
   }
 
   @override
@@ -1523,7 +1688,7 @@ class _$LabelElement implements LabelElement {
             const DeepCollectionEquality().equals(other.text, text) &&
             const DeepCollectionEquality().equals(other.property, property) &&
             const DeepCollectionEquality()
-                .equals(other.constraints, constraints));
+                .equals(other.constraint, constraint));
   }
 
   @override
@@ -1533,7 +1698,7 @@ class _$LabelElement implements LabelElement {
       const DeepCollectionEquality().hash(position),
       const DeepCollectionEquality().hash(text),
       const DeepCollectionEquality().hash(property),
-      const DeepCollectionEquality().hash(constraints));
+      const DeepCollectionEquality().hash(constraint));
 
   @JsonKey(ignore: true)
   @override
@@ -1554,7 +1719,7 @@ class _$LabelElement implements LabelElement {
             @OffsetJsonConverter() Offset position,
             String text,
             LabelProperty property,
-            ElementConstraints? constraints)
+            ElementConstraint constraint)
         label,
     required TResult Function(
             String layer,
@@ -1565,7 +1730,7 @@ class _$LabelElement implements LabelElement {
             int height)
         image,
   }) {
-    return label(layer, position, text, property, constraints);
+    return label(layer, position, text, property, constraint);
   }
 
   @override
@@ -1577,12 +1742,8 @@ class _$LabelElement implements LabelElement {
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            String text,
-            LabelProperty property,
-            ElementConstraints? constraints)?
+    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+            String text, LabelProperty property, ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
@@ -1593,7 +1754,7 @@ class _$LabelElement implements LabelElement {
             int height)?
         image,
   }) {
-    return label?.call(layer, position, text, property, constraints);
+    return label?.call(layer, position, text, property, constraint);
   }
 
   @override
@@ -1605,12 +1766,8 @@ class _$LabelElement implements LabelElement {
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            String text,
-            LabelProperty property,
-            ElementConstraints? constraints)?
+    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+            String text, LabelProperty property, ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
@@ -1623,7 +1780,7 @@ class _$LabelElement implements LabelElement {
     required TResult orElse(),
   }) {
     if (label != null) {
-      return label(layer, position, text, property, constraints);
+      return label(layer, position, text, property, constraint);
     }
     return orElse();
   }
@@ -1677,7 +1834,7 @@ abstract class LabelElement implements PadElement {
       @OffsetJsonConverter() Offset position,
       String text,
       LabelProperty property,
-      ElementConstraints? constraints}) = _$LabelElement;
+      ElementConstraint constraint}) = _$LabelElement;
 
   factory LabelElement.fromJson(Map<String, dynamic> json) =
       _$LabelElement.fromJson;
@@ -1688,7 +1845,7 @@ abstract class LabelElement implements PadElement {
   Offset get position;
   String get text;
   LabelProperty get property;
-  ElementConstraints? get constraints;
+  ElementConstraint get constraint;
   @override
   @JsonKey(ignore: true)
   $LabelElementCopyWith<LabelElement> get copyWith =>
@@ -1857,7 +2014,7 @@ class _$ImageElement implements ImageElement {
             @OffsetJsonConverter() Offset position,
             String text,
             LabelProperty property,
-            ElementConstraints? constraints)
+            ElementConstraint constraint)
         label,
     required TResult Function(
             String layer,
@@ -1880,12 +2037,8 @@ class _$ImageElement implements ImageElement {
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            String text,
-            LabelProperty property,
-            ElementConstraints? constraints)?
+    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+            String text, LabelProperty property, ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
@@ -1908,12 +2061,8 @@ class _$ImageElement implements ImageElement {
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            String text,
-            LabelProperty property,
-            ElementConstraints? constraints)?
+    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+            String text, LabelProperty property, ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
