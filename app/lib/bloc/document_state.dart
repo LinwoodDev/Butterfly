@@ -13,43 +13,86 @@ class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final String? path;
   final String currentLayer;
+  final int currentAreaIndex;
   final List<String> invisibleLayers;
-  final int? currentPainterIndex;
+  final CameraViewport cameraViewport;
+  final CurrentIndex currentIndex;
 
-  const DocumentLoadSuccess(this.document,
+  DocumentLoadSuccess(this.document,
       {this.path,
-      this.currentPainterIndex,
+      CameraViewport? cameraViewport,
+      this.currentAreaIndex = -1,
+      CurrentIndex? currentIndex,
       this.currentLayer = '',
-      this.invisibleLayers = const []});
+      this.invisibleLayers = const []})
+      : currentIndex = currentIndex ?? CurrentIndex(-1, HandHandler()),
+        cameraViewport = cameraViewport ??
+            CameraViewport.unbaked(
+                Renderer.fromInstance(document.background)..setup(document),
+                document.content
+                    .map((e) => Renderer.fromInstance(e)..setup(document))
+                    .toList());
 
   @override
-  List<Object?> get props =>
-      [document, currentPainterIndex, path, invisibleLayers];
+  List<Object?> get props => [
+        currentIndex,
+        invisibleLayers,
+        cameraViewport,
+        document,
+        path,
+        currentLayer,
+        currentAreaIndex
+      ];
+
+  List<Renderer<PadElement>> get renderers =>
+      List.from(cameraViewport.bakedElements)
+        ..addAll(cameraViewport.unbakedElements);
+
+  HandHandler? fetchHand() {
+    final handler = currentIndex.handler;
+    if (handler is! HandHandler) return null;
+    return handler;
+  }
 
   Painter? get currentPainter {
-    if (document.painters.isEmpty || currentPainterIndex == null) {
+    var index = currentIndex.index;
+    if (document.painters.isEmpty ||
+        index < 0 ||
+        index >= document.painters.length) {
       return null;
     }
-    return document
-        .painters[currentPainterIndex!.clamp(0, document.painters.length - 1)];
+    return document.painters[index];
   }
 
-  DocumentLoadSuccess copyWith(
-      {AppDocument? document,
-      bool? editMode,
-      int? currentPainterIndex,
-      String? path,
-      String? currentLayer,
-      bool removeCurrentPainterIndex = false,
-      List<String>? invisibleLayers}) {
-    return DocumentLoadSuccess(document ?? this.document,
-        path: path ?? this.path,
-        invisibleLayers: invisibleLayers ?? this.invisibleLayers,
-        currentLayer: currentLayer ?? this.currentLayer,
-        currentPainterIndex: removeCurrentPainterIndex
-            ? null
-            : currentPainterIndex ?? this.currentPainterIndex);
+  Area? get currentArea {
+    if (currentAreaIndex < 0 || currentAreaIndex >= document.areas.length) {
+      return null;
+    }
+    return document.areas[currentAreaIndex];
   }
+
+  Renderer? getRenderer(PadElement element) =>
+      renderers.firstWhereOrNull((renderer) => renderer.element == element);
+
+  DocumentLoadSuccess copyWith(
+          {AppDocument? document,
+          bool? editMode,
+          CurrentIndex? currentIndex,
+          String? path,
+          String? currentLayer,
+          int? currentAreaIndex,
+          bool removeCurrentIndex = false,
+          bool removePath = false,
+          List<String>? invisibleLayers,
+          CameraViewport? cameraViewport}) =>
+      DocumentLoadSuccess(document ?? this.document,
+          path: removePath ? null : path ?? this.path,
+          invisibleLayers: invisibleLayers ?? this.invisibleLayers,
+          currentLayer: currentLayer ?? this.currentLayer,
+          currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
+          cameraViewport: cameraViewport ?? this.cameraViewport,
+          currentIndex:
+              removeCurrentIndex ? null : currentIndex ?? this.currentIndex);
 
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 

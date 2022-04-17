@@ -1,16 +1,19 @@
 import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/color_pick.dart';
-import 'package:butterfly/models/painters/label.dart';
-import 'package:butterfly/models/properties/label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../models/painter.dart';
+import '../../models/property.dart';
+import '../../widgets/exact_slider.dart';
+
 class LabelPainterDialog extends StatefulWidget {
   final DocumentBloc bloc;
   final int painterIndex;
+
   const LabelPainterDialog(
       {Key? key, required this.bloc, required this.painterIndex})
       : super(key: key);
@@ -26,8 +29,8 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: widget.bloc,
-      child: Dialog(child:
-          BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+      child: Dialog(child: Builder(builder: (context) {
+        var state = widget.bloc.state;
         if (state is! DocumentLoadSuccess) return Container();
         var painter =
             state.document.painters[widget.painterIndex] as LabelPainter;
@@ -66,7 +69,9 @@ class _LabelPainterDialogState extends State<LabelPainterDialog> {
                                 controller: _nameController,
                                 onChanged: (value) => setState(() =>
                                     painter = painter.copyWith(name: value))),
+                            const SizedBox(height: 10),
                             LabelPropertyView(
+                                initialValue: painter.property,
                                 onChanged: (property) => setState(() =>
                                     painter =
                                         painter.copyWith(property: property))),
@@ -143,9 +148,7 @@ class LabelPropertyView extends StatefulWidget {
   final LabelPropertyCallback onChanged;
 
   const LabelPropertyView(
-      {Key? key,
-      this.initialValue = const LabelProperty(),
-      required this.onChanged})
+      {Key? key, required this.initialValue, required this.onChanged})
       : super(key: key);
 
   @override
@@ -154,76 +157,88 @@ class LabelPropertyView extends StatefulWidget {
 
 class _LabelPropertyViewState extends State<LabelPropertyView> {
   late LabelProperty _value;
-  final TextEditingController _sizeController = TextEditingController();
-  final TextEditingController _thicknessController = TextEditingController();
-  final TextEditingController _spacingController = TextEditingController();
   bool _decorationExpanded = false;
 
   @override
   void initState() {
     super.initState();
-    _value = widget.initialValue;
-    if (double.tryParse(_sizeController.text) != _value.size) {
-      _sizeController.text = _value.size.toStringAsFixed(2);
-    }
-    if (double.tryParse(_spacingController.text) != _value.letterSpacing) {
-      _spacingController.text = _value.letterSpacing.toStringAsFixed(2);
-    }
-    if (double.tryParse(_thicknessController.text) !=
-        _value.decorationThickness) {
-      _thicknessController.text = _value.decorationThickness.toStringAsFixed(2);
-    }
+    change(widget.initialValue, false);
   }
 
-  void change(LabelProperty newValue) {
+  void change(LabelProperty newValue, [bool notify = true]) {
     setState(() {
       _value = newValue;
     });
-    widget.onChanged(newValue);
+    if (notify) {
+      widget.onChanged(newValue);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Row(children: [
-        ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: TextField(
-              decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.size),
-              controller: _sizeController,
-              onChanged: (value) =>
-                  change(_value.copyWith(size: double.tryParse(value))),
-            )),
-        Expanded(
-            child: Slider(
-                value: _value.size.clamp(6, 96),
-                min: 6,
-                max: 96,
-                onChanged: (value) => change(_value.copyWith(size: value)))),
-      ]),
-      Row(children: [
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 100),
-          child: TextField(
-              decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.spacing),
-              controller: _spacingController,
-              onChanged: (value) => change(
-                  _value.copyWith(letterSpacing: double.tryParse(value)))),
-        ),
-        Expanded(
-            child: Slider(
-                value: _value.letterSpacing.clamp(-50, 50),
-                min: -50,
-                max: 50,
-                onChanged: (value) =>
-                    change(_value.copyWith(letterSpacing: value)))),
-      ]),
+      ExactSlider(
+          header: Text(AppLocalizations.of(context)!.size),
+          value: _value.size,
+          defaultValue: 12,
+          min: 6,
+          max: 512,
+          onChanged: (value) =>
+              change(_value.copyWith(size: value), value != _value.size)),
+      ExactSlider(
+          header: Text(AppLocalizations.of(context)!.spacing),
+          value: _value.letterSpacing,
+          defaultValue: 0,
+          min: 0,
+          max: 20,
+          onChanged: (value) => change(_value.copyWith(letterSpacing: value),
+              value != _value.letterSpacing)),
+      ToggleButtons(
+          isSelected: [
+            _value.horizontalAlignment == HorizontalAlignment.left,
+            _value.horizontalAlignment == HorizontalAlignment.center,
+            _value.horizontalAlignment == HorizontalAlignment.right,
+            _value.horizontalAlignment == HorizontalAlignment.justify,
+          ],
+          onPressed: (index) {
+            var alignments = [
+              HorizontalAlignment.left,
+              HorizontalAlignment.center,
+              HorizontalAlignment.right,
+              HorizontalAlignment.justify,
+            ];
+            change(
+                _value.copyWith(horizontalAlignment: alignments[index]), true);
+          },
+          children: const [
+            Icon(PhosphorIcons.textAlignLeftLight),
+            Icon(PhosphorIcons.textAlignCenterLight),
+            Icon(PhosphorIcons.textAlignRightLight),
+            Icon(PhosphorIcons.textAlignJustifyLight),
+          ]),
+      ToggleButtons(
+          isSelected: [
+            _value.verticalAlignment == VerticalAlignment.top,
+            _value.verticalAlignment == VerticalAlignment.center,
+            _value.verticalAlignment == VerticalAlignment.bottom,
+          ],
+          onPressed: (index) {
+            var alignments = [
+              VerticalAlignment.top,
+              VerticalAlignment.center,
+              VerticalAlignment.bottom,
+            ];
+            change(_value.copyWith(verticalAlignment: alignments[index]), true);
+          },
+          children: const [
+            Icon(PhosphorIcons.alignTopLight),
+            Icon(PhosphorIcons.alignCenterVerticalLight),
+            Icon(PhosphorIcons.alignBottomLight),
+          ]),
       ListTile(
           title: Text(AppLocalizations.of(context)!.fontWeight),
           trailing: DropdownButton<FontWeight>(
-              value: _value.fontWeight,
+              value: FontWeight.values[_value.fontWeight],
               items: List.generate(FontWeight.values.length, (index) {
                 var text = ((index + 1) * 100).toString();
                 if (index == 3) {
@@ -232,19 +247,21 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                   text = AppLocalizations.of(context)!.bold;
                 }
                 return DropdownMenuItem(
-                    child: Text(text), value: FontWeight.values[index]);
+                    value: FontWeight.values[index], child: Text(text));
               }),
-              onChanged: (value) =>
-                  change(_value.copyWith(fontWeight: value)))),
+              onChanged: (value) => change(_value.copyWith(
+                  fontWeight: value?.index ?? _value.fontWeight)))),
       CheckboxListTile(
           title: Text(AppLocalizations.of(context)!.italic),
           value: _value.italic,
-          onChanged: (value) => change(_value.copyWith(italic: value))),
+          onChanged: (value) =>
+              change(_value.copyWith(italic: value ?? _value.italic))),
       ExpansionPanelList(
         expansionCallback: (panelIndex, isExpanded) =>
             setState(() => _decorationExpanded = !_decorationExpanded),
         children: [
           ExpansionPanel(
+              canTapOnHeader: true,
               isExpanded: _decorationExpanded,
               headerBuilder: (context, isExpanded) => Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -258,18 +275,18 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                 CheckboxListTile(
                     title: Text(AppLocalizations.of(context)!.lineThrough),
                     value: _value.lineThrough,
-                    onChanged: (value) =>
-                        change(_value.copyWith(lineThrough: value))),
+                    onChanged: (value) => change(_value.copyWith(
+                        lineThrough: value ?? _value.lineThrough))),
                 CheckboxListTile(
                     title: Text(AppLocalizations.of(context)!.underline),
                     value: _value.underline,
-                    onChanged: (value) =>
-                        change(_value.copyWith(underline: value))),
+                    onChanged: (value) => change(
+                        _value.copyWith(underline: value ?? _value.underline))),
                 CheckboxListTile(
                     title: Text(AppLocalizations.of(context)!.overline),
                     value: _value.overline,
-                    onChanged: (value) =>
-                        change(_value.copyWith(overline: value))),
+                    onChanged: (value) => change(
+                        _value.copyWith(overline: value ?? _value.overline))),
                 ListTile(
                     title: Text(AppLocalizations.of(context)!.style),
                     trailing: DropdownButton<TextDecorationStyle>(
@@ -295,11 +312,12 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                               text = AppLocalizations.of(context)!.wavy;
                           }
                           return DropdownMenuItem(
-                              child: Text(text),
-                              value: TextDecorationStyle.values[index]);
+                              value: TextDecorationStyle.values[index],
+                              child: Text(text));
                         }),
-                        onChanged: (value) =>
-                            change(_value.copyWith(decorationStyle: value)))),
+                        onChanged: (value) => change(_value.copyWith(
+                            decorationStyle:
+                                value ?? _value.decorationStyle)))),
                 ListTile(
                     onTap: () async {
                       var value = await showDialog(
@@ -307,43 +325,31 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                           builder: (ctx) => BlocProvider.value(
                                 value: context.read<DocumentBloc>(),
                                 child: ColorPickerDialog(
-                                    defaultColor: _value.decorationColor),
-                              ));
+                                    defaultColor:
+                                        Color(_value.decorationColor)),
+                              )) as Color?;
                       if (value != null) {
-                        change(
-                            _value.copyWith(decorationColor: value as Color));
+                        change(_value.copyWith(decorationColor: value.value));
                       }
                     },
                     leading: Container(
                         width: 30,
                         height: 30,
                         decoration: BoxDecoration(
-                            color: _value.decorationColor,
+                            color: Color(_value.decorationColor),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(32)))),
                     title: Text(AppLocalizations.of(context)!.color)),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Row(children: [
-                    ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 100),
-                        child: TextField(
-                          decoration: InputDecoration(
-                              labelText:
-                                  AppLocalizations.of(context)!.thickness),
-                          controller: _thicknessController,
-                          onChanged: (value) => change(_value.copyWith(
-                              decorationThickness: double.tryParse(value))),
-                        )),
-                    Expanded(
-                      child: Slider(
-                          value: _value.decorationThickness.clamp(0.1, 4),
-                          min: 0.1,
-                          max: 4,
-                          onChanged: (value) => change(
-                              _value.copyWith(decorationThickness: value))),
-                    )
-                  ]),
+                  child: ExactSlider(
+                      header: Text(AppLocalizations.of(context)!.thickness),
+                      defaultValue: 1,
+                      value: _value.decorationThickness,
+                      min: 0.1,
+                      max: 4,
+                      onChanged: (value) =>
+                          change(_value.copyWith(decorationThickness: value))),
                 ),
               ]))
         ],
@@ -359,7 +365,8 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                     context: context,
                     builder: (ctx) => BlocProvider.value(
                           value: context.read<DocumentBloc>(),
-                          child: ColorPickerDialog(defaultColor: _value.color),
+                          child: ColorPickerDialog(
+                              defaultColor: Color(_value.color)),
                         ));
                 if (color != null) {
                   change(_value.copyWith(color: color));
@@ -367,7 +374,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
               },
               child: Container(
                   decoration: BoxDecoration(
-                      color: _value.color,
+                      color: Color(_value.color),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(32))),
                   constraints:

@@ -14,8 +14,11 @@ module.exports = {
     sidebar: [
         'community',
         'branding',
-        'CHANGELOG',
+        'changelog',
+        'contributing',
+        'code-of-conduct',
         'versions',
+        'nightly',
         'privacypolicy',
         {
             type: 'link',
@@ -24,8 +27,8 @@ module.exports = {
         },
         {
             type: 'link',
-            label: 'Contribution guide',
-            href: 'https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md',
+            href: 'https://github.com/LinwoodCloud/Butterfly',
+            label: 'GitHub'
         }
   ],
 

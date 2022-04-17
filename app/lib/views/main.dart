@@ -1,12 +1,14 @@
 import 'dart:io';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:butterfly/actions/areas.dart';
 import 'package:butterfly/actions/background.dart';
+import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/color_palette.dart';
 import 'package:butterfly/actions/edit_mode.dart';
 import 'package:butterfly/actions/export.dart';
 import 'package:butterfly/actions/image_export.dart';
 import 'package:butterfly/actions/import.dart';
+import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/open.dart';
@@ -19,21 +21,23 @@ import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
-import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/editing.dart';
-import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/dialogs/introduction/app.dart';
+import 'package:butterfly/dialogs/introduction/update.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'view.dart';
 
@@ -53,8 +57,6 @@ class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
   final GlobalKey _viewportKey = GlobalKey();
-  final TextEditingController _scaleController =
-      TextEditingController(text: '100');
 
   @override
   void initState() {
@@ -74,17 +76,58 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Future<void> load() async {
     var fileSystem = DocumentFileSystem.fromPlatform();
+    var prefs = await SharedPreferences.getInstance();
     AppDocument? document;
     if (widget.path != null) {
       await fileSystem.getAsset(widget.path!).then(
           (value) => document = value is AppDocumentFile ? value.load() : null);
     }
-    document ??= AppDocument(
-        name: await formatCurrentDateTime(
-            context.read<SettingsCubit>().state.locale),
-        createdAt: DateTime.now(),
-        palettes: ColorPalette.getMaterialPalette(context));
-    setState(() => _bloc = DocumentBloc(document!, widget.path));
+    if (document == null && prefs.containsKey('default_template')) {
+      var template = await TemplateFileSystem.fromPlatform()
+          .getTemplate(prefs.getString('default_template')!);
+      if (template != null && mounted) {
+        document = template.document.copyWith(
+          name: await formatCurrentDateTime(
+              context.read<SettingsCubit>().state.locale),
+          createdAt: DateTime.now(),
+        );
+      }
+    }
+    if (mounted) {
+      document ??= AppDocument(
+          name: await formatCurrentDateTime(
+              context.read<SettingsCubit>().state.locale),
+          createdAt: DateTime.now(),
+          palettes: ColorPalette.getMaterialPalette(context));
+    }
+    if (document != null) {
+      final renderers =
+          document!.content.map((e) => Renderer.fromInstance(e)).toList();
+      await Future.wait(renderers.map((e) async => await e.setup(document!)));
+      final background = Renderer.fromInstance(document!.background);
+      await background.setup(document!);
+      setState(() =>
+          _bloc = DocumentBloc(document!, widget.path, background, renderers));
+    }
+    _showIntroduction();
+  }
+
+  Future<void> _showIntroduction() async {
+    final settingsCubit = context.read<SettingsCubit>();
+    if (settingsCubit.isFirstStart()) {
+      await showDialog(
+        context: context,
+        builder: (context) => const AppIntroductionDialog(),
+      );
+    } else if (await settingsCubit.hasNewerVersion()) {
+      await showDialog(
+          context: context,
+          builder: (context) => const UpdateIntroductionDialog());
+    } else {
+      return;
+    }
+    await settingsCubit.updateLastVersion();
+    await settingsCubit.save();
   }
 
   @override
@@ -94,8 +137,6 @@ class _ProjectPageState extends State<ProjectPage> {
         providers: [
           BlocProvider(create: (_) => _bloc!),
           BlocProvider(create: (_) => TransformCubit()),
-          BlocProvider(create: (_) => SelectionCubit()),
-          BlocProvider(create: (_) => EditingCubit()),
         ],
         child: Builder(builder: (context) {
           return Shortcuts(
@@ -108,7 +149,10 @@ class _ProjectPageState extends State<ProjectPage> {
                   RedoIntent(context),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
-                  NewIntent(context),
+                  NewIntent(context, fromTemplate: false),
+              LogicalKeySet(LogicalKeyboardKey.control,
+                      LogicalKeyboardKey.shift, LogicalKeyboardKey.keyN):
+                  NewIntent(context, fromTemplate: true),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
                   OpenIntent(context),
@@ -137,8 +181,9 @@ class _ProjectPageState extends State<ProjectPage> {
                   LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyS): ProjectIntent(context),
               LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyW):
-                  WaypointsIntent(context),
+                  LogicalKeyboardKey.control,
+                  LogicalKeyboardKey.shift,
+                  LogicalKeyboardKey.keyP): WaypointsIntent(context),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
                   ColorPaletteIntent(context),
@@ -146,8 +191,17 @@ class _ProjectPageState extends State<ProjectPage> {
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyB):
                   BackgroundIntent(context),
               LogicalKeySet(
+                  LogicalKeyboardKey.control,
+                  LogicalKeyboardKey.shift,
+                  LogicalKeyboardKey.keyA): AreasIntent(context),
+              LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
                   LayersIntent(context),
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
+                  LogicalKeyboardKey.keyN): InsertIntent(context, Offset.zero),
+              LogicalKeySet(
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
+                  ChangePathIntent(context),
             },
             child: Actions(
                 actions: <Type, Action<Intent>>{
@@ -164,175 +218,51 @@ class _ProjectPageState extends State<ProjectPage> {
                   SettingsIntent: SettingsAction(),
                   ProjectIntent: ProjectAction(),
                   WaypointsIntent: WaypointsAction(),
+                  AreasIntent: AreasAction(),
                   ColorPaletteIntent: ColorPaletteAction(),
                   BackgroundIntent: BackgroundAction(),
                   LayersIntent: LayersAction(),
+                  InsertIntent: InsertAction(),
+                  ChangePathIntent: ChangePathAction(),
                 },
-                child: ClipRect(
-                  child: Builder(builder: (context) {
-                    PreferredSizeWidget appBar = _buildAppBar();
-                    if (isWindow()) {
-                      appBar = PreferredSize(
-                          preferredSize: const Size.fromHeight(60),
-                          child: MoveWindow(child: appBar));
-                    }
-                    return Focus(
-                        autofocus: true,
-                        child: Scaffold(
-                            appBar: appBar,
-                            body:
-                                LayoutBuilder(builder: (context, constraints) {
-                              var isMobile = constraints.maxWidth < 600;
-                              return Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Container(
-                                      height: 75,
-                                      color: Theme.of(context).canvasColor,
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: _buildToolSelection(isMobile),
-                                    ),
-                                    Expanded(
-                                        key: _viewportKey,
-                                        child: const MainViewViewport()),
-                                    if (isMobile)
-                                      Align(
-                                          alignment: Alignment.center,
-                                          child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: _buildToolbar()))
-                                  ]);
-                            })));
-                  }),
+                child: SafeArea(
+                  child: ClipRect(
+                    child: Builder(builder: (context) {
+                      PreferredSizeWidget appBar = PadAppBar(
+                        viewportKey: _viewportKey,
+                      );
+                      return Focus(
+                          autofocus: true,
+                          child: FocusScope(
+                            child: Scaffold(
+                                appBar: appBar,
+                                body: LayoutBuilder(
+                                    builder: (context, constraints) {
+                                  final isMobile =
+                                      MediaQuery.of(context).size.width < 800;
+                                  return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        Expanded(
+                                            key: _viewportKey,
+                                            child: const MainViewViewport()),
+                                        if (isMobile)
+                                          Align(
+                                              alignment: Alignment.center,
+                                              child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: EditToolbar(
+                                                      isMobile: isMobile)))
+                                      ]);
+                                })),
+                          ));
+                    }),
+                  ),
                 )),
           );
         }));
-  }
-
-  AppBar _buildAppBar() => AppBar(
-          title: BlocBuilder<DocumentBloc, DocumentState>(
-              builder: (context, state) {
-            if (_bloc!.state is DocumentLoadSuccess) {
-              var current = _bloc!.state as DocumentLoadSuccess;
-              return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      current.document.name,
-                      textAlign: TextAlign.center,
-                    ),
-                    if (current.path != null)
-                      Text(current.path!,
-                          style: Theme.of(context).textTheme.caption,
-                          textAlign: TextAlign.center),
-                  ]);
-            } else {
-              return Text(AppLocalizations.of(context)!.loading);
-            }
-          }),
-          actions: [
-            IconButton(
-              icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
-              tooltip: AppLocalizations.of(context)!.undo,
-              onPressed: () {
-                Actions.maybeInvoke<UndoIntent>(context, UndoIntent(context));
-              },
-            ),
-            IconButton(
-              icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-              tooltip: AppLocalizations.of(context)!.redo,
-              onPressed: () {
-                Actions.maybeInvoke<RedoIntent>(context, RedoIntent(context));
-              },
-            ),
-            const _MainPopupMenu(),
-            if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
-          ]);
-
-  Widget _buildToolbar() => const SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: SizedBox(height: 50, child: EditToolbar()));
-
-  Widget _buildToolSelection(bool isMobile) {
-    return Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            BlocBuilder<TransformCubit, CameraTransform>(
-                builder: (context, transform) {
-              _scaleController.text = (transform.size * 100).round().toString();
-              const zoomConstant = 1 + 0.1;
-
-              return Row(
-                children: [
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.magnifyingGlassMinusLight),
-                      tooltip: AppLocalizations.of(context)!.zoomOut,
-                      onPressed: () {
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        context.read<TransformCubit>().zoom(
-                            1 / zoomConstant,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      }),
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.magnifyingGlassLight),
-                      tooltip: AppLocalizations.of(context)!.resetZoom,
-                      onPressed: () {
-                        var cubit = context.read<TransformCubit>();
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        cubit.size(
-                            1,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      }),
-                  IconButton(
-                      icon: const Icon(PhosphorIcons.magnifyingGlassPlusLight),
-                      tooltip: AppLocalizations.of(context)!.zoomIn,
-                      onPressed: () {
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        context.read<TransformCubit>().zoom(
-                            zoomConstant,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      }),
-                  const SizedBox(width: 10),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 100),
-                    child: TextField(
-                      controller: _scaleController,
-                      onSubmitted: (value) {
-                        var viewportSize = _viewportKey.currentContext?.size ??
-                            MediaQuery.of(context).size;
-                        var cubit = context.read<TransformCubit>();
-                        var scale = double.tryParse(value) ?? 100;
-                        scale /= 100;
-                        cubit.size(
-                            scale,
-                            Offset(viewportSize.width / 2,
-                                viewportSize.height / 2));
-                      },
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.zoom),
-                    ),
-                  ),
-                  if (!isMobile) const VerticalDivider()
-                ],
-              );
-            }),
-          ]),
-          if (!isMobile)
-            Flexible(
-              child: _buildToolbar(),
-            )
-        ]);
   }
 }
 
@@ -342,192 +272,37 @@ class WindowButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isWindow()) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            IconButton(
-              icon: const Icon(PhosphorIcons.minusLight),
-              iconSize: 16,
-              splashRadius: 20,
-              onPressed: () => appWindow.minimize(),
-            ),
-            IconButton(
-              icon: const Icon(PhosphorIcons.squareLight),
-              iconSize: 16,
-              splashRadius: 20,
-              onPressed: () => appWindow.maximizeOrRestore(),
-            ),
-            IconButton(
-              icon: const Icon(PhosphorIcons.xLight),
-              hoverColor: Colors.red,
-              iconSize: 16,
-              splashRadius: 20,
-              onPressed: () => appWindow.close(),
-            )
-          ],
+      return LayoutBuilder(
+        builder: (context, constraints) => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              IconButton(
+                icon: const Icon(PhosphorIcons.minusLight),
+                iconSize: 16,
+                splashRadius: 20,
+                onPressed: () => windowManager.minimize(),
+              ),
+              IconButton(
+                icon: const Icon(PhosphorIcons.squareLight),
+                iconSize: 16,
+                splashRadius: 20,
+                onPressed: () async => await windowManager.isMaximized()
+                    ? windowManager.unmaximize()
+                    : windowManager.maximize(),
+              ),
+              IconButton(
+                icon: const Icon(PhosphorIcons.xLight),
+                hoverColor: Colors.red,
+                iconSize: 16,
+                splashRadius: 20,
+                onPressed: () => windowManager.close(),
+              )
+            ],
+          ),
         ),
       );
     }
     return Container();
-  }
-}
-
-class _MainPopupMenu extends StatelessWidget {
-  const _MainPopupMenu({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      itemBuilder: (context) => <PopupMenuEntry>[
-        PopupMenuItem(
-            padding: EdgeInsets.zero,
-            child: ListTile(
-              leading: const Icon(PhosphorIcons.filePlusLight),
-              title: Text(AppLocalizations.of(context)!.newContent),
-              subtitle: Text(context.getShortcut('N')),
-              onTap: () {
-                Navigator.of(context).pop();
-                Actions.maybeInvoke<NewIntent>(context, NewIntent(context));
-              },
-            )),
-        PopupMenuItem(
-            padding: EdgeInsets.zero,
-            child: ListTile(
-                leading: const Icon(PhosphorIcons.folderOpenLight),
-                title: Text(AppLocalizations.of(context)!.open),
-                subtitle: Text(context.getShortcut('O')),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Actions.maybeInvoke<OpenIntent>(context, OpenIntent(context));
-                })),
-        PopupMenuItem(
-            padding: EdgeInsets.zero,
-            child: PopupMenuButton(
-                itemBuilder: (popupContext) => <PopupMenuEntry>[
-                      PopupMenuItem(
-                          padding: EdgeInsets.zero,
-                          child: ListTile(
-                              leading: const Icon(PhosphorIcons.caretLeftLight),
-                              title: Text(AppLocalizations.of(context)!.back),
-                              onTap: () async {
-                                Navigator.of(context).pop();
-                              })),
-                      const PopupMenuDivider(),
-                      PopupMenuItem(
-                          padding: EdgeInsets.zero,
-                          child: ListTile(
-                              leading: const Icon(PhosphorIcons.databaseLight),
-                              title: Text(AppLocalizations.of(context)!.data),
-                              subtitle: Text(context.getShortcut('I')),
-                              onTap: () async {
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                                Actions.maybeInvoke<ImportIntent>(
-                                    context, ImportIntent(context));
-                              })),
-                      PopupMenuItem(
-                          padding: EdgeInsets.zero,
-                          child: ListTile(
-                              leading: const Icon(PhosphorIcons.sunLight),
-                              title: Text(AppLocalizations.of(context)!.svg),
-                              subtitle: Text(
-                                  context.getShortcut('I', shiftKey: true)),
-                              onTap: () {
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                                Actions.maybeInvoke<SvgImportIntent>(
-                                    context, SvgImportIntent(context));
-                              })),
-                    ],
-                tooltip: '',
-                child: ListTile(
-                  mouseCursor: MouseCursor.defer,
-                  leading: const Icon(PhosphorIcons.arrowSquareInLight),
-                  title: Text(AppLocalizations.of(context)!.import),
-                  trailing: const Icon(PhosphorIcons.caretRightLight),
-                ))),
-        PopupMenuItem(
-            padding: EdgeInsets.zero,
-            child: PopupMenuButton(
-                itemBuilder: (popupContext) => <PopupMenuEntry>[
-                      PopupMenuItem(
-                          padding: EdgeInsets.zero,
-                          child: ListTile(
-                              leading: const Icon(PhosphorIcons.caretLeftLight),
-                              title: Text(AppLocalizations.of(context)!.back),
-                              onTap: () async {
-                                Navigator.of(context).pop();
-                              })),
-                      const PopupMenuDivider(),
-                      PopupMenuItem(
-                          padding: EdgeInsets.zero,
-                          child: ListTile(
-                              leading: const Icon(PhosphorIcons.databaseLight),
-                              title: Text(AppLocalizations.of(context)!.data),
-                              subtitle: Text(context.getShortcut('E')),
-                              onTap: () async {
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                                Actions.maybeInvoke<ExportIntent>(
-                                    context, ExportIntent(context));
-                              })),
-                      PopupMenuItem(
-                          padding: EdgeInsets.zero,
-                          child: ListTile(
-                              leading: const Icon(PhosphorIcons.imageLight),
-                              title: Text(AppLocalizations.of(context)!.image),
-                              subtitle: Text(
-                                  context.getShortcut('E', shiftKey: true)),
-                              onTap: () {
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                                Actions.maybeInvoke<ImageExportIntent>(
-                                    context, ImageExportIntent(context));
-                              })),
-                    ],
-                tooltip: '',
-                child: ListTile(
-                    mouseCursor: MouseCursor.defer,
-                    leading: const Icon(PhosphorIcons.exportLight),
-                    trailing: const Icon(PhosphorIcons.caretRightLight),
-                    title: Text(AppLocalizations.of(context)!.export)))),
-        PopupMenuItem(
-            padding: EdgeInsets.zero,
-            child: ListTile(
-                leading: const Icon(PhosphorIcons.gearLight),
-                title: Text(AppLocalizations.of(context)!.settings),
-                subtitle: Text(context.getShortcut('S', altKey: true)),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Actions.maybeInvoke<SettingsIntent>(
-                      context, SettingsIntent(context));
-                })),
-        const PopupMenuDivider(),
-        PopupMenuItem(
-            padding: EdgeInsets.zero,
-            child: ListTile(
-                leading: const Icon(PhosphorIcons.paletteLight),
-                title: Text(AppLocalizations.of(context)!.color),
-                subtitle: Text(context.getShortcut('P')),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Actions.maybeInvoke<ColorPaletteIntent>(
-                      context, ColorPaletteIntent(context));
-                })),
-        PopupMenuItem(
-            child: ListTile(
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Actions.maybeInvoke<ProjectIntent>(
-                      context, ProjectIntent(context));
-                },
-                subtitle: Text(
-                    context.getShortcut('S', shiftKey: true, altKey: true)),
-                leading: const Icon(PhosphorIcons.wrenchLight),
-                title: Text(AppLocalizations.of(context)!.projectSettings)),
-            padding: EdgeInsets.zero),
-      ],
-    );
   }
 }

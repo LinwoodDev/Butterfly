@@ -61,6 +61,17 @@ class WaypointsDialog extends StatelessWidget {
                                     .document
                                     .waypoints,
                             builder: (context, state) {
+                              void bake() {
+                                var bloc = context.read<DocumentBloc>();
+                                var transformCubit =
+                                    context.read<TransformCubit>();
+                                var state = bloc.state;
+                                if (state is! DocumentLoadSuccess) return;
+                                var baked = state.cameraViewport;
+                                bloc.add(ImageBaked(baked.toSize(), baked.scale,
+                                    transformCubit.state));
+                              }
+
                               if (state is! DocumentLoadSuccess) {
                                 return Container();
                               }
@@ -68,16 +79,29 @@ class WaypointsDialog extends StatelessWidget {
                                   .where((element) => element.name
                                       .contains(_searchController.text))
                                   .toList();
+                              var currentArea = state.currentArea;
                               return ListView(children: [
                                 ListTile(
                                     onTap: () {
                                       context
                                           .read<TransformCubit>()
                                           .moveToWaypoint(Waypoint.origin);
-                                      Navigator.of(context).pop();
+                                      bake();
+                                      Navigator.of(context).pop(true);
                                     },
                                     title: Text(
                                         AppLocalizations.of(context)!.origin)),
+                                if (currentArea != null)
+                                  ListTile(
+                                      onTap: () {
+                                        context
+                                            .read<TransformCubit>()
+                                            .setPosition(-currentArea.position);
+                                        bake();
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      title: Text(AppLocalizations.of(context)!
+                                          .currentArea)),
                                 const Divider(),
                                 ...List.generate(
                                     waypoints.length,
@@ -96,7 +120,8 @@ class WaypointsDialog extends StatelessWidget {
                                                     .read<TransformCubit>()
                                                     .moveToWaypoint(
                                                         waypoints[index]);
-                                                Navigator.of(context).pop();
+                                                bake();
+                                                Navigator.of(context).pop(true);
                                               },
                                               title:
                                                   Text(waypoints[index].name)),
@@ -114,13 +139,15 @@ class WaypointsDialog extends StatelessWidget {
     var nameController = TextEditingController();
     showDialog(
         context: context,
-        builder: (context) => StatefulBuilder(builder: (context, setState) {
+        builder: (ctx) => StatefulBuilder(builder: (ctx, setState) {
               return AlertDialog(
                 title: Text(AppLocalizations.of(context)!.create),
                 content: Column(mainAxisSize: MainAxisSize.min, children: [
                   TextField(
                     controller: nameController,
+                    autofocus: true,
                     decoration: InputDecoration(
+                        filled: true,
                         labelText: AppLocalizations.of(context)!.name),
                   ),
                   const SizedBox(height: 10),
@@ -133,7 +160,7 @@ class WaypointsDialog extends StatelessWidget {
                 ]),
                 actions: [
                   TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
+                      onPressed: () => Navigator.of(ctx).pop(),
                       child: Text(AppLocalizations.of(context)!.cancel)),
                   TextButton(
                       onPressed: () {
@@ -144,7 +171,7 @@ class WaypointsDialog extends StatelessWidget {
                                 saveScale
                                     ? context.read<TransformCubit>().state.size
                                     : null)));
-                        Navigator.of(context).pop();
+                        Navigator.of(ctx).pop();
                       },
                       child: Text(AppLocalizations.of(context)!.create)),
                 ],

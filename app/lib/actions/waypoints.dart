@@ -14,15 +14,15 @@ class WaypointsAction extends Action<WaypointsIntent> {
   WaypointsAction();
 
   @override
-  Object? invoke(WaypointsIntent intent) {
+  Future<dynamic> invoke(WaypointsIntent intent) async {
     var bloc = intent.context.read<DocumentBloc>();
     var transformCubit = intent.context.read<TransformCubit>();
-    showDialog(
+    return await showDialog(
       context: intent.context,
       builder: (context) => MultiBlocProvider(providers: [
         BlocProvider.value(value: transformCubit),
         BlocProvider.value(value: bloc),
       ], child: WaypointsDialog()),
-    );
+    ) as bool?;
   }
 }

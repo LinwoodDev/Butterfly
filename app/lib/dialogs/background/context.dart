@@ -1,14 +1,22 @@
 import 'package:butterfly/actions/background.dart';
+import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../actions/areas.dart';
+import '../../actions/color_palette.dart';
+import '../../cubits/transform.dart';
+
 class BackgroundContextMenu extends StatelessWidget {
   final VoidCallback close;
-  const BackgroundContextMenu({Key? key, required this.close})
+  final Offset position;
+  const BackgroundContextMenu(
+      {Key? key, required this.close, required this.position})
       : super(key: key);
 
   @override
@@ -17,6 +25,19 @@ class BackgroundContextMenu extends StatelessWidget {
       shrinkWrap: true,
       children: [
         ListTile(
+          leading: const Icon(PhosphorIcons.plusLight),
+          title: Text(AppLocalizations.of(context)!.insert),
+          subtitle: Text(context.getShortcut('N', altKey: true)),
+          onTap: () {
+            var transformCubit = context.read<TransformCubit>();
+            close();
+            Actions.maybeInvoke<InsertIntent>(
+                context,
+                InsertIntent(
+                    context, transformCubit.state.localToGlobal(position)));
+          },
+        ),
+        ListTile(
             leading: const Icon(PhosphorIcons.squaresFourLight),
             title: Text(AppLocalizations.of(context)!.layers),
             subtitle: Text(context.getShortcut('L')),
@@ -24,6 +45,15 @@ class BackgroundContextMenu extends StatelessWidget {
               close();
               Actions.maybeInvoke<LayersIntent>(context, LayersIntent(context));
             }),
+        ListTile(
+          leading: const Icon(PhosphorIcons.squareLight),
+          title: Text(AppLocalizations.of(context)!.areas),
+          subtitle: Text(context.getShortcut('A', shiftKey: true)),
+          onTap: () {
+            close();
+            Actions.maybeInvoke<AreasIntent>(context, AreasIntent(context));
+          },
+        ),
         ListTile(
             leading: const Icon(PhosphorIcons.imageLight),
             title: Text(AppLocalizations.of(context)!.background),
@@ -36,11 +66,20 @@ class BackgroundContextMenu extends StatelessWidget {
         ListTile(
             leading: const Icon(PhosphorIcons.mapPinLight),
             title: Text(AppLocalizations.of(context)!.waypoints),
-            subtitle: Text(context.getShortcut('W')),
+            subtitle: Text(context.getShortcut('P', shiftKey: true)),
             onTap: () {
               close();
               Actions.maybeInvoke<WaypointsIntent>(
                   context, WaypointsIntent(context));
+            }),
+        ListTile(
+            leading: const Icon(PhosphorIcons.paletteLight),
+            title: Text(AppLocalizations.of(context)!.color),
+            subtitle: Text(context.getShortcut('P')),
+            onTap: () {
+              close();
+              Actions.maybeInvoke<ColorPaletteIntent>(
+                  context, ColorPaletteIntent(context));
             }),
       ],
     );

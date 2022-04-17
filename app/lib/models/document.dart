@@ -1,23 +1,19 @@
+import 'package:butterfly/models/area.dart';
+import 'package:butterfly/models/background.dart';
+import 'package:butterfly/models/converter.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:xml/xml.dart';
 
-import 'backgrounds/box.dart';
-import 'elements/element.dart';
-import 'elements/eraser.dart';
-import 'elements/image.dart';
-import 'elements/label.dart';
-import 'elements/pen.dart';
-import 'painters/eraser.dart';
-import 'painters/image.dart';
-import 'painters/label.dart';
-import 'painters/layer.dart';
-import 'painters/painter.dart';
-import 'painters/path_eraser.dart';
-import 'painters/pen.dart';
+import '../api/svg_helper.dart';
+import 'element.dart';
+import 'painter.dart';
 import 'palette.dart';
-import 'properties/hand.dart';
+import 'property.dart';
 import 'waypoint.dart';
+
+part 'document.freezed.dart';
+part 'document.g.dart';
 
 @immutable
 abstract class AppDocumentAsset {
@@ -26,6 +22,14 @@ abstract class AppDocumentAsset {
   const AppDocumentAsset(this.path);
 
   String get fileName => path.split('/').last;
+
+  String get fileExtension => fileName.split('.').last;
+
+  String get fileNameWithoutExtension =>
+      fileName.substring(0, fileName.length - fileExtension.length - 1);
+
+  String get parent =>
+      path.split('/').sublist(0, path.split('/').length - 1).join('/');
 }
 
 @immutable
@@ -46,7 +50,8 @@ class AppDocumentFile extends AppDocumentAsset {
   DateTime? get createdAt =>
       json['createdAt'] == null ? null : DateTime.tryParse(json['createdAt']);
 
-  AppDocument load() => AppDocument.fromJson(Map<String, dynamic>.from(json));
+  AppDocument load() =>
+      const DocumentJsonConverter().fromJson(Map<String, dynamic>.from(json));
 }
 
 @immutable
@@ -56,167 +61,52 @@ class AppDocumentDirectory extends AppDocumentAsset {
   const AppDocumentDirectory(String path, this.assets) : super(path);
 }
 
-@immutable
-class AppDocument {
-  final String name, description;
-
-  //final List<PackCollection> packs;
-  final List<PadElement> content;
-  final List<Painter> painters;
-  final BoxBackground? background;
-  final List<ColorPalette> palettes;
-  final List<Waypoint> waypoints;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final HandProperty handProperty;
-
-  const AppDocument(
-      {required this.name,
-      this.description = '',
-      this.content = const [],
-      this.background,
-      this.palettes = const [],
-      this.waypoints = const [],
-      required this.createdAt,
-      this.handProperty = const HandProperty(),
+@freezed
+class AppDocument with _$AppDocument {
+  const AppDocument._();
+  const factory AppDocument(
+      {required String name,
+      @Default('')
+          String description,
+      @Default([])
+          List<PadElement> content,
+      @Default(Background.empty())
+          Background background,
+      @Default([])
+          List<ColorPalette> palettes,
+      @Default([])
+          List<Waypoint> waypoints,
+      @Default([])
+          List<Area> areas,
+      required DateTime createdAt,
+      @Default(HandProperty())
+          HandProperty handProperty,
       DateTime? updatedAt,
-      this.painters = const [
+      @Default([
         PenPainter(),
-        EraserPainter(),
+        PathEraserPainter(),
         LabelPainter(),
-        ImagePainter()
-      ]})
-      : updatedAt = updatedAt ?? createdAt;
+      ])
+          List<Painter> painters}) = _AppDocument;
 
+  factory AppDocument.fromJson(Map<String, dynamic> json) =>
+      _$AppDocumentFromJson(json);
   factory AppDocument.fromSvg(String name, XmlElement svg) {
-    var content = svg.childElements
-        .map<PadElement?>((e) {
-          switch (e.name.qualified.toLowerCase()) {
-            case 'path':
-              return PenElement.fromSvg(e);
-          }
-        })
-        .whereType<PadElement>()
-        .toList();
-    return AppDocument(name: name, createdAt: DateTime.now(), content: content);
-  }
-
-  factory AppDocument.fromJson(Map<String, dynamic> json) {
-    var version = json['fileVersion'] is int
-        ? json['fileVersion']
-        : int.tryParse(json['fileVersion']) ??
-            GetIt.I.get<int>(instanceName: 'fileVersion');
-    if (version >= 0 && version < 4) {
-      json['palettes'] = List<dynamic>.from(
-          Map<String, dynamic>.from(json['palettes'] ?? [])
-              .entries
-              .map<ColorPalette>((e) => ColorPalette(
-                  colors: List<int>.from(e.value).map((e) => Color(e)).toList(),
-                  name: e.key))
-              .map((e) => e.toJson())
-              .toList());
-    }
-    var name = json['name'];
-    var description = json['description'];
-    var palettes = (List<dynamic>.from(json['palettes'] ?? []))
-        .map<ColorPalette>(
-            (e) => ColorPalette.fromJson(Map<String, dynamic>.from(e)))
-        .toList();
-    var background = json['background'] == null
-        ? null
-        : BoxBackground.fromJson(json['background'], version);
-    var waypoints = List<dynamic>.from(json['waypoints'] ?? [])
-        .map((e) => Map<String, dynamic>.from(e))
-        .map((e) => Waypoint.fromJson(e))
-        .toList();
-    var handProperty = HandProperty.fromJson(
-        Map<String, dynamic>.from(json['handProperty'] ?? {}));
-    var painters = List<dynamic>.from(json['painters'] ?? [])
-        .map((e) => Map<String, dynamic>.from(e))
-        .map<Painter>((e) {
-      switch (e['type']) {
-        case 'eraser':
-          return EraserPainter.fromJson(e, version);
-        case 'path-eraser':
-          return PathEraserPainter.fromJson(e, version);
-        case 'label':
-          return LabelPainter.fromJson(e, version);
-        case 'image':
-          return ImagePainter.fromJson(e, version);
-        case 'layer':
-          return LayerPainter.fromJson(e, version);
-        default:
-          return PenPainter.fromJson(e, version);
-      }
-    }).toList();
-    var content = List<dynamic>.from(json['content'])
-        .map((e) => Map<String, dynamic>.from(e))
-        .map<PadElement>((e) {
-      switch (e['type']) {
-        case 'label':
-          return LabelElement.fromJson(e, version);
-        case 'eraser':
-          return EraserElement.fromJson(e, version);
-        case 'image':
-          return ImageElement.fromJson(e, version);
-        default:
-          return PenElement.fromJson(e, version);
-      }
-    }).toList();
-    var createdAt =
-        DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now();
-    var updatedAt = DateTime.tryParse(json['updatedAt'] ?? '') ?? createdAt;
     return AppDocument(
-        createdAt: createdAt,
-        updatedAt: updatedAt,
         name: name,
-        background: background,
-        content: content,
-        description: description,
-        painters: painters,
-        palettes: palettes,
-        waypoints: waypoints,
-        handProperty: handProperty);
+        createdAt: DateTime.now(),
+        content: SvgConverter().getContents(svg));
   }
 
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'description': description,
-        'palettes': palettes.map((e) => e.toJson()).toList(),
-        'painters':
-            painters.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
-        'content':
-            content.map<Map<String, dynamic>>((e) => e.toJson()).toList(),
-        'waypoints': waypoints.map((e) => e.toJson()).toList(),
-        'background': background?.toJson(),
-        'fileVersion': GetIt.I.get<int>(instanceName: 'fileVersion'),
-        'createdAt': createdAt.toIso8601String(),
-        'updatedAt': updatedAt.toIso8601String(),
-        'handProperty': handProperty.toJson()
-      };
+  Area? getArea(Offset offset) {
+    return areas.firstWhereOrNull((e) => e.hit(offset));
+  }
 
-  AppDocument copyWith(
-      {String? name,
-      String? description,
-      List<PadElement>? content,
-      List<Painter>? painters,
-      BoxBackground? background,
-      List<ColorPalette>? palettes,
-      List<Waypoint>? waypoints,
-      bool removeBackground = false,
-      DateTime? createdAt,
-      DateTime? updatedAt,
-      HandProperty? handProperty}) {
-    return AppDocument(
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-        name: name ?? this.name,
-        description: description ?? this.description,
-        content: content ?? this.content,
-        painters: painters ?? this.painters,
-        palettes: palettes ?? this.palettes,
-        waypoints: waypoints ?? this.waypoints,
-        background: removeBackground ? null : (background ?? this.background),
-        handProperty: handProperty ?? this.handProperty);
+  Area? getAreaByRect(Rect rect) {
+    return areas.firstWhereOrNull((e) => rect.overlaps(e.rect));
+  }
+
+  Area? getAreaByName(String value) {
+    return areas.firstWhereOrNull((e) => e.name == value);
   }
 }

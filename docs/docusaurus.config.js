@@ -3,7 +3,7 @@ const redirects = require('./redirects.js');
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
     title: 'Linwood Butterfly',
-    tagline: '🎨 Notes app that changes the world 🎨',
+    tagline: '🎨 Notes that change the world 🎨',
     url: 'https://docs.butterfly.linwood.dev',
     baseUrl: '/',
     onBrokenLinks: 'throw',
@@ -12,14 +12,30 @@ module.exports = {
     organizationName: 'LinwoodCloud', // Usually your GitHub org/user name.
     projectName: 'butterfly', // Usually your repo name.
     i18n: {
-      defaultLocale: 'en',
-      locales: ['en', 'de', 'fr'],
+        defaultLocale: 'en',
+        locales: ['en', 'de', 'fr'],
     },
     themeConfig: {
+        colorMode: {
+          defaultMode: 'dark',
+          disableSwitch: false,
+          respectPrefersColorScheme: true,
+        },
+        algolia: {
+            // The application ID provided by Algolia
+            appId: 'PQN0C3O7D3',
+
+            // Public API key: it is safe to commit it
+            apiKey: '219c0a938f5cec6e889c1e5edaef7035',
+
+            indexName: 'docs-butterfly-linwood',
+
+            //... other Algolia params
+        },
         navbar: {
-            title: 'Linwood Butterfly',
+            title: 'Butterfly',
             logo: {
-                alt: 'Linwood Butterfly Logo',
+                alt: 'Butterfly Logo',
                 src: 'img/logo.svg',
             },
             items: [
@@ -39,21 +55,16 @@ module.exports = {
                     position: 'left',
                     label: 'Community',
                 },
-                {href: 'https://linwood.dev/blog', label: 'Blog', position: 'left'},
+                { href: 'https://linwood.dev/blog', label: 'Blog', position: 'left' },
                 {
                     type: 'docsVersionDropdown',
                     position: 'right',
                     dropdownItemsBefore: [],
-                    dropdownItemsAfter: [{to: '/versions', label: 'All versions'}],
+                    dropdownItemsAfter: [{ to: '/versions', label: 'All versions' }],
                     dropdownActiveClassDisabled: true
                 },
                 {
-                  type: 'localeDropdown',
-                  position: 'right',
-                },
-                {
-                    href: 'https://github.com/LinwoodCloud/Butterfly',
-                    label: 'GitHub',
+                    type: 'localeDropdown',
                     position: 'right',
                 }
             ],
@@ -132,17 +143,21 @@ module.exports = {
                         'https://github.com/LinwoodCloud/butterfly/edit/develop/docs/',
                     versions: {
                         "current": {
-                            label: "1.2-dev",
+                            label: "Nightly",
+                            path: "1.3",
+                        },
+                        "1.2": {
+                            label: "1.2.1",
                             path: "1.2",
                         },
                         "1.1": {
-                            label: "1.1.0",
+                            label: "1.1.2",
                             path: "1.1",
                         },
                         "1.0": {
                             label: "1.0.0",
                             path: "1.0",
-                            banner: "none"
+                            banner: "unmaintained"
                         }
                     }
                 },
@@ -192,7 +207,7 @@ module.exports = {
                     {
                         tagName: 'meta',
                         name: 'theme-color',
-                        content: 'rgb(37, 194, 160)',
+                        content: '#f2b138',
                     },
                 ],
             },

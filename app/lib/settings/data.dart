@@ -33,12 +33,11 @@ class DataSettingsPage extends StatelessWidget {
                       ? state.documentPath
                       : AppLocalizations.of(context)!.defaultPath),
                   onTap: () async {
+                    final settingsCubit = context.read<SettingsCubit>();
                     var selectedDir =
                         await FilePicker.platform.getDirectoryPath();
                     if (selectedDir != null) {
-                      context
-                          .read<SettingsCubit>()
-                          .changeDocumentPath(selectedDir);
+                      settingsCubit.changeDocumentPath(selectedDir);
                     }
                   },
                   trailing: state.documentPath.isNotEmpty
@@ -54,6 +53,7 @@ class DataSettingsPage extends StatelessWidget {
                 leading: const Icon(PhosphorIcons.calendarLight),
                 subtitle: Text(state.dateFormat),
                 onTap: () async {
+                  final settingsCubit = context.read<SettingsCubit>();
                   // Show input dialog
                   final TextEditingController controller =
                       TextEditingController(text: state.dateFormat);
@@ -85,7 +85,7 @@ class DataSettingsPage extends StatelessWidget {
                     ),
                   );
                   if (newFormat != null) {
-                    context.read<SettingsCubit>().changeDateFormat(newFormat);
+                    settingsCubit.changeDateFormat(newFormat);
                   }
                 },
               ),

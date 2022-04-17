@@ -11,6 +11,7 @@ import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'export.dart';
+import '../widgets/exact_slider.dart';
 
 class ColorPickerDialog extends StatefulWidget {
   final bool viewMode;
@@ -40,15 +41,15 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 final color = palette.colors[index];
                 final newPalettes =
                     List<ColorPalette>.from(state.document.palettes);
-                final newPalette = List<Color>.from(palette.colors);
+                final newPalette = List<int>.from(palette.colors);
                 return SizedBox(
                     height: 300,
                     child: Column(children: [
                       SizedBox(
                         height: 125,
                         child: Center(
-                            child:
-                                Container(color: color, height: 75, width: 75)),
+                            child: Container(
+                                color: Color(color), height: 75, width: 75)),
                       ),
                       const Divider(thickness: 1),
                       Expanded(
@@ -57,17 +58,16 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             leading: const Icon(PhosphorIcons.penLight),
                             title: Text(AppLocalizations.of(context)!.edit),
                             onTap: () async {
-                              var value = await showDialog(
+                              final bloc = context.read<DocumentBloc>();
+                              final value = await showDialog(
                                   context: context,
-                                  builder: (context) =>
-                                      CustomColorPicker(defaultColor: color));
+                                  builder: (context) => CustomColorPicker(
+                                      defaultColor: Color(color)));
                               if (value != null) {
                                 newPalette[index] = value;
                                 newPalettes[selected] =
                                     palette.copyWith(colors: newPalette);
-                                context
-                                    .read<DocumentBloc>()
-                                    .add(DocumentPaletteChanged(newPalettes));
+                                bloc.add(DocumentPaletteChanged(newPalettes));
                               }
                             }),
                         ListTile(
@@ -76,7 +76,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           onTap: () {
                             showDialog(
                                 context: context,
-                                builder: (context) => AlertDialog(
+                                builder: (ctx) => AlertDialog(
                                       title: Text(AppLocalizations.of(context)!
                                           .areYouSure),
                                       content: Text(
@@ -88,14 +88,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                 AppLocalizations.of(context)!
                                                     .no),
                                             onPressed: () =>
-                                                Navigator.of(context).pop()),
+                                                Navigator.of(ctx).pop()),
                                         TextButton(
                                             child: Text(
                                                 AppLocalizations.of(context)!
                                                     .yes),
                                             onPressed: () {
-                                              Navigator.of(context).pop();
-                                              Navigator.of(context).pop();
+                                              Navigator.of(ctx).pop();
+                                              Navigator.of(ctx).pop();
                                               newPalette.removeAt(index);
                                               newPalettes[selected] = palette
                                                   .copyWith(colors: newPalette);
@@ -129,8 +129,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                   if (state is! DocumentLoadSuccess) {
                     return Container();
                   }
-                  var palette = state.document.palettes.isEmpty
-                      ? []
+                  var empty = state.document.palettes.isEmpty;
+                  selected = empty
+                      ? 0
+                      : selected.clamp(0, state.document.palettes.length - 1);
+                  var palette = empty
+                      ? <int>[]
                       : state.document.palettes[selected].colors;
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,7 +163,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                         children: [
                                           DropdownButton<int>(
                                             alignment: Alignment.center,
-                                            value: selected,
+                                            value:
+                                                state.document.palettes.isEmpty
+                                                    ? null
+                                                    : selected,
                                             onChanged: (value) {
                                               setState(() {
                                                 selected = value ?? selected;
@@ -192,14 +199,17 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                       .edit,
                                               icon: const Icon(
                                                   PhosphorIcons.penLight),
-                                              onPressed: _editPalette),
+                                              onPressed:
+                                                  empty ? null : _editPalette),
                                           IconButton(
                                               tooltip:
                                                   AppLocalizations.of(context)!
                                                       .remove,
                                               icon: const Icon(
                                                   PhosphorIcons.minusLight),
-                                              onPressed: _deletePalette),
+                                              onPressed: empty
+                                                  ? null
+                                                  : _deletePalette),
                                         ],
                                       ),
                                     ),
@@ -317,7 +327,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       height: 75,
                                       margin: const EdgeInsets.all(5),
                                       decoration: BoxDecoration(
-                                          color: palette[index],
+                                          color: Color(palette[index]),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(32))),
                                     )))).toList(),
@@ -345,20 +355,21 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                             size: 42)),
                                   ),
                                   onTap: () async {
+                                    final bloc = context.read<DocumentBloc>();
                                     var value = await showDialog(
                                         context: context,
                                         builder: (context) => CustomColorPicker(
-                                            defaultColor: widget.defaultColor));
+                                            defaultColor:
+                                                widget.defaultColor)) as Color?;
                                     if (value != null) {
                                       var newPalettes = List<ColorPalette>.from(
                                           state.document.palettes);
                                       newPalettes[selected] =
                                           newPalettes[selected].copyWith(
-                                              colors: List<Color>.from(
+                                              colors: List<int>.from(
                                                   newPalettes[selected].colors)
-                                                ..add(value));
-
-                                      context.read<DocumentBloc>().add(
+                                                ..add(value.value));
+                                      bloc.add(
                                           DocumentPaletteChanged(newPalettes));
                                     }
                                   },
@@ -374,11 +385,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 if (!widget.viewMode)
                   ElevatedButton(
                       onPressed: () async {
+                        final navigator = Navigator.of(context);
                         var value = await showDialog(
                             context: context,
                             builder: (context) => CustomColorPicker(
                                 defaultColor: widget.defaultColor));
-                        if (value != null) Navigator.of(context).pop(value);
+                        if (value != null) navigator.pop(value);
                       },
                       child: Text(AppLocalizations.of(context)!.custom)),
               ],
@@ -388,7 +400,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void _createPalette() {
-    final _nameController = TextEditingController();
+    final nameController = TextEditingController();
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
@@ -406,22 +418,24 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                               (bloc.state as DocumentLoadSuccess)
                                   .document
                                   .palettes)
-                            ..add(ColorPalette(name: _nameController.text)),
+                            ..add(ColorPalette(name: nameController.text)),
                         ));
                       },
                       child: Text(AppLocalizations.of(context)!.create)),
                 ],
                 title: Text(AppLocalizations.of(context)!.enterName),
-                content:
-                    TextField(autofocus: true, controller: _nameController)));
+                content: TextField(
+                    decoration: InputDecoration(
+                        filled: true,
+                        hintText: AppLocalizations.of(context)!.name),
+                    autofocus: true,
+                    controller: nameController)));
   }
 
   void _editPalette() {
     var state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
-    if (selected >= state.document.palettes.length) {
-      return;
-    }
-    final _nameController =
+    if (selected >= state.document.palettes.length || selected < 0) return;
+    final nameController =
         TextEditingController(text: state.document.palettes[selected].name);
     showDialog(
         context: context,
@@ -435,7 +449,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         var newPalettes =
                             List<ColorPalette>.from(state.document.palettes);
                         newPalettes[selected] = newPalettes[selected]
-                            .copyWith(name: _nameController.text);
+                            .copyWith(name: nameController.text);
                         context
                             .read<DocumentBloc>()
                             .add(DocumentPaletteChanged(newPalettes));
@@ -444,33 +458,38 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       child: Text(AppLocalizations.of(context)!.ok)),
                 ],
                 title: Text(AppLocalizations.of(context)!.enterName),
-                content:
-                    TextField(autofocus: true, controller: _nameController)));
+                content: TextField(
+                    decoration: InputDecoration(
+                        filled: true,
+                        hintText: AppLocalizations.of(context)!.name),
+                    autofocus: true,
+                    controller: nameController)));
   }
 
   void _deletePalette() {
     var state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
-    if (selected >= state.document.palettes.length) {
-      return;
-    }
+    if (selected >= state.document.palettes.length || selected < 0) return;
     showDialog(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (ctx) => AlertDialog(
               title: Text(AppLocalizations.of(context)!.areYouSure),
               content: Text(AppLocalizations.of(context)!.reallyDelete),
               actions: [
                 TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => Navigator.of(ctx).pop(),
                     child: Text(AppLocalizations.of(context)!.no)),
                 TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(ctx).pop();
                       var newPalettes =
                           List<ColorPalette>.from(state.document.palettes);
                       newPalettes.removeAt(selected);
                       context
                           .read<DocumentBloc>()
                           .add(DocumentPaletteChanged(newPalettes));
+                      if (selected >= newPalettes.length && selected <= 0) {
+                        selected = newPalettes.length - 1;
+                      }
                     },
                     child: Text(AppLocalizations.of(context)!.yes)),
               ],
@@ -480,19 +499,19 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   void _resetPalette() {
     showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-                title: Text(AppLocalizations.of(context)!.areYouSure),
-                content: Text(AppLocalizations.of(context)!.reallyReset),
+        builder: (ctx) => AlertDialog(
+                title: Text(AppLocalizations.of(ctx)!.areYouSure),
+                content: Text(AppLocalizations.of(ctx)!.reallyReset),
                 actions: [
                   TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text(AppLocalizations.of(context)!.no)),
+                      onPressed: () => Navigator.of(ctx).pop(),
+                      child: Text(AppLocalizations.of(ctx)!.no)),
                   TextButton(
                       onPressed: () {
                         selected = 0;
                         context.read<DocumentBloc>().add(DocumentPaletteChanged(
                             ColorPalette.getMaterialPalette(context)));
-                        Navigator.of(context).pop();
+                        Navigator.of(ctx).pop();
                       },
                       child: Text(AppLocalizations.of(context)!.yes))
                 ]));
@@ -511,15 +530,10 @@ class CustomColorPicker extends StatefulWidget {
 
 class _CustomColorPickerState extends State<CustomColorPicker> {
   late Color color;
-  final TextEditingController _redController = TextEditingController();
-  final TextEditingController _greenController = TextEditingController();
-  final TextEditingController _blueController = TextEditingController();
-  final TextEditingController _alphaController = TextEditingController();
 
   @override
   void initState() {
     color = widget.defaultColor;
-    _updateController();
     super.initState();
   }
 
@@ -527,15 +541,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
       setState(() {
         color = Color.fromARGB(alpha ?? color.alpha, red ?? color.red,
             green ?? color.green, blue ?? color.blue);
-        _updateController();
       });
-
-  void _updateController() {
-    _redController.text = color.red.toString();
-    _greenController.text = color.green.toString();
-    _blueController.text = color.blue.toString();
-    _alphaController.text = color.alpha.toString();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -598,76 +604,44 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
       );
 
   Widget _buildProperties() => Column(children: [
-        Row(children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: TextField(
-                decoration: const InputDecoration(labelText: 'R'),
-                controller: _redController,
-                onChanged: (value) => _changeColor(red: int.tryParse(value))),
-          ),
-          Expanded(
-              child: Slider(
-            activeColor: Colors.red,
-            value: color.red.toDouble(),
-            min: 0,
-            max: 255,
-            divisions: 255,
-            onChanged: (value) => _changeColor(red: value.toInt()),
-          ))
-        ]),
-        Row(children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: TextField(
-                decoration: const InputDecoration(labelText: 'G'),
-                controller: _greenController,
-                onChanged: (value) => _changeColor(green: int.tryParse(value))),
-          ),
-          Expanded(
-              child: Slider(
-            activeColor: Colors.green,
-            value: color.green.toDouble(),
-            min: 0,
-            max: 255,
-            divisions: 255,
-            onChanged: (value) => _changeColor(green: value.toInt()),
-          ))
-        ]),
-        Row(children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: TextField(
-                decoration: const InputDecoration(labelText: 'B'),
-                controller: _blueController,
-                onChanged: (value) => _changeColor(blue: int.tryParse(value))),
-          ),
-          Expanded(
-              child: Slider(
-            activeColor: Colors.blue,
-            value: color.blue.toDouble(),
-            min: 0,
-            max: 255,
-            divisions: 255,
-            onChanged: (value) => _changeColor(blue: value.toInt()),
-          ))
-        ]),
-        Row(children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: TextField(
-                decoration: const InputDecoration(labelText: 'A'),
-                controller: _alphaController,
-                onChanged: (value) => _changeColor(alpha: int.tryParse(value))),
-          ),
-          Expanded(
-              child: Slider(
-            value: color.alpha.toDouble(),
-            min: 0,
-            max: 255,
-            divisions: 255,
-            onChanged: (value) => _changeColor(alpha: value.toInt()),
-          ))
-        ])
+        ExactSlider(
+          header: Text(AppLocalizations.of(context)!.red),
+          fractionDigits: 0,
+          defaultValue: 255,
+          min: 0,
+          max: 255,
+          value: color.red.toDouble(),
+          color: Colors.red,
+          onChanged: (value) => _changeColor(red: value.toInt()),
+        ),
+        ExactSlider(
+          header: Text(AppLocalizations.of(context)!.green),
+          fractionDigits: 0,
+          defaultValue: 255,
+          min: 0,
+          max: 255,
+          value: color.green.toDouble(),
+          color: Colors.green,
+          onChanged: (value) => _changeColor(green: value.toInt()),
+        ),
+        ExactSlider(
+          header: Text(AppLocalizations.of(context)!.blue),
+          fractionDigits: 0,
+          defaultValue: 255,
+          min: 0,
+          max: 255,
+          color: Colors.blue,
+          value: color.blue.toDouble(),
+          onChanged: (value) => _changeColor(blue: value.toInt()),
+        ),
+        ExactSlider(
+          header: Text(AppLocalizations.of(context)!.alpha),
+          fractionDigits: 0,
+          defaultValue: 255,
+          min: 0,
+          max: 255,
+          value: color.alpha.toDouble(),
+          onChanged: (value) => _changeColor(alpha: value.toInt()),
+        ),
       ]);
 }

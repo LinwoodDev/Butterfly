@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/export.dart';
+import 'package:butterfly/models/converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,8 +18,9 @@ class ExportAction extends Action<ExportIntent> {
   @override
   Future<void> invoke(ExportIntent intent) async {
     var bloc = intent.context.read<DocumentBloc>();
-    var data =
-        json.encode((bloc.state as DocumentLoadSuccess).document.toJson());
+    var data = json.encode(intent.context
+        .read<DocumentJsonConverter>()
+        .toJson((bloc.state as DocumentLoadSuccess).document));
     showDialog(
         context: intent.context,
         builder: (context) => ExportDialog(data: data));

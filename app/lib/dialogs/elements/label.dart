@@ -1,28 +1,35 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/elements/general.dart';
-import 'package:butterfly/models/elements/label.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../models/element.dart';
+import '../../widgets/context_menu.dart';
+import '../constraints.dart';
 import '../painters/label.dart';
 
 class LabelElementDialog extends StatelessWidget {
-  final int index;
+  final LabelRenderer renderer;
   final VoidCallback close;
+  final Offset position;
 
-  const LabelElementDialog({Key? key, required this.index, required this.close})
+  const LabelElementDialog(
+      {Key? key,
+      required this.renderer,
+      required this.close,
+      required this.position})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var bloc = context.read<DocumentBloc>();
-    var element = (bloc.state as DocumentLoadSuccess).document.content[index]
-        as LabelElement;
     return GeneralElementDialog(
-      index: index,
+      renderer: renderer,
       close: close,
+      position: position,
       children: [
         ListTile(
             title: Text(AppLocalizations.of(context)!.edit),
@@ -33,11 +40,30 @@ class LabelElementDialog extends StatelessWidget {
                   context: context,
                   builder: (_) => BlocProvider.value(
                       value: bloc,
-                      child: EditLabelElementDialog(element: element)));
+                      child:
+                          EditLabelElementDialog(element: renderer.element)));
               if (newElement != null) {
-                bloc.add(ElementChanged(index, newElement));
+                bloc.add(ElementChanged(renderer.element, newElement));
               }
             }),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.constraints),
+          leading: const Icon(PhosphorIcons.selectionLight),
+          onTap: () async {
+            close();
+            showContextMenu(
+                context: context,
+                position: position,
+                builder: (context, close) => ConstraintContextMenu(
+                    initialConstraint: renderer.element.constraint,
+                    close: close,
+                    onChanged: (constraint) {
+                      close();
+                      bloc.add(ElementChanged(renderer.element,
+                          renderer.element.copyWith(constraint: constraint)));
+                    }));
+          },
+        ),
       ],
     );
   }
@@ -90,8 +116,8 @@ class EditLabelElementDialog extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(),
               ),
               TextButton(
-                  child: Text(AppLocalizations.of(context)!.ok),
-                  onPressed: submit)
+                  onPressed: submit,
+                  child: Text(AppLocalizations.of(context)!.ok))
             ])
           ]),
         ),

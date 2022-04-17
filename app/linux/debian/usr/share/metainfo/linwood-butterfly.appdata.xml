@@ -2,7 +2,7 @@
 <component type="desktop-application">
 	<id>linwood-butterfly</id>
 	<name>Linwood Butterfly</name>
-	<summary>Notes app that changes the world</summary>
+	<summary>Notes that change the world</summary>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-3.0-only</project_license>
 	<recommends>

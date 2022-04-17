@@ -1,9 +1,12 @@
+import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/api/open_image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/elements/element.dart';
+import 'package:butterfly/models/element.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,11 +14,23 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../view_painter.dart';
+import '../widgets/exact_slider.dart';
 
 class ImageExportDialog extends StatefulWidget {
   final DocumentBloc bloc;
+  final double x, y;
+  final int width, height;
+  final double scale;
 
-  const ImageExportDialog({Key? key, required this.bloc}) : super(key: key);
+  const ImageExportDialog(
+      {Key? key,
+      required this.bloc,
+      this.x = 0,
+      this.y = 0,
+      this.width = 1000,
+      this.height = 1000,
+      this.scale = 1})
+      : super(key: key);
 
   @override
   State<ImageExportDialog> createState() => _ImageExportDialogState();
@@ -26,8 +41,6 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   final TextEditingController _xController = TextEditingController(text: '0');
 
   final TextEditingController _yController = TextEditingController(text: '0');
-  final TextEditingController _sizeController =
-      TextEditingController(text: '100');
 
   final TextEditingController _widthController =
       TextEditingController(text: '1000');
@@ -36,8 +49,9 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
       TextEditingController(text: '1000');
 
   bool _renderBackground = true;
-  int x = 0, y = 0, width = 1000, height = 1000;
-  double size = 1;
+  double x = 0, y = 0;
+  int width = 1000, height = 1000;
+  double scale = 1;
 
   ByteData? _previewImage;
   Future? _regeneratingFuture;
@@ -45,6 +59,16 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   @override
   void initState() {
     _regeneratePreviewImage();
+    x = widget.x;
+    y = widget.y;
+    width = widget.width;
+    height = widget.height;
+    scale = widget.scale;
+    _xController.text = x.toString();
+    _yController.text = y.toString();
+    _widthController.text = width.toString();
+    _heightController.text = height.toString();
+
     super.initState();
   }
 
@@ -61,13 +85,11 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   Future<ByteData?> generateImage() async {
     var recorder = ui.PictureRecorder();
     var canvas = Canvas(recorder);
-    var document = (widget.bloc.state as DocumentLoadSuccess).document;
-    images ??= await loadImages(document);
-    var painter = ViewPainter(
-        (widget.bloc.state as DocumentLoadSuccess).document,
+    var current = widget.bloc.state as DocumentLoadSuccess;
+    var painter = ViewPainter(current.document,
         renderBackground: _renderBackground,
-        images: images!,
-        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), size));
+        cameraViewport: current.cameraViewport.unbake(current.renderers),
+        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), scale));
     painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
     var picture = recorder.endRecording();
     var image = await picture.toImage(width, height);
@@ -76,9 +98,6 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
 
   @override
   Widget build(BuildContext context) {
-    if (size.toStringAsFixed(2) != _sizeController.text) {
-      _sizeController.text = (size * 100).toStringAsFixed(2);
-    }
     return BlocProvider.value(
       value: widget.bloc,
       child: Builder(builder: (context) {
@@ -129,12 +148,33 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                           ElevatedButton(
                             child: Text(AppLocalizations.of(context)!.export),
                             onPressed: () async {
-                              var data = await generateImage();
+                              final localization =
+                                  AppLocalizations.of(context)!;
+                              Navigator.of(context).pop();
+                              final data = await generateImage();
                               if (data == null) {
                                 return;
                               }
-                              openImage(data.buffer.asUint8List());
-                              Navigator.of(context).pop();
+
+                              if (!kIsWeb &&
+                                  (Platform.isWindows ||
+                                      Platform.isLinux ||
+                                      Platform.isMacOS)) {
+                                var path = await FilePicker.platform.saveFile(
+                                  type: FileType.image,
+                                  dialogTitle: localization.export,
+                                );
+                                if (path != null) {
+                                  var file = File(path);
+                                  if (!(await file.exists())) {
+                                    file.create(recursive: true);
+                                  }
+                                  await file
+                                      .writeAsBytes(data.buffer.asUint8List());
+                                }
+                              } else {
+                                openImage(data.buffer.asUint8List());
+                              }
                             },
                           ),
                         ],
@@ -178,12 +218,12 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
         TextField(
             controller: _xController,
             decoration: const InputDecoration(labelText: 'X'),
-            onChanged: (value) => x = int.tryParse(value) ?? x,
+            onChanged: (value) => x = double.tryParse(value) ?? x,
             onSubmitted: (value) => _regeneratePreviewImage()),
         TextField(
             controller: _yController,
             decoration: const InputDecoration(labelText: 'Y'),
-            onChanged: (value) => y = int.tryParse(value) ?? y,
+            onChanged: (value) => y = double.tryParse(value) ?? y,
             onSubmitted: (value) => _regeneratePreviewImage()),
         TextField(
             controller: _widthController,
@@ -197,28 +237,16 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                 labelText: AppLocalizations.of(context)!.height),
             onChanged: (value) => height = int.tryParse(value) ?? height,
             onSubmitted: (value) => _regeneratePreviewImage()),
-        Row(children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: TextField(
-                decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.size),
-                controller: _sizeController,
-                onSubmitted: (value) => _regeneratePreviewImage(),
-                onChanged: (value) => setState(() =>
-                    size = (double.tryParse(value) ?? (size * 100)) / 100)),
-          ),
-          Expanded(
-            child: Slider(
-                value: size.clamp(0.1, 1000),
-                min: 0.1,
-                max: 10,
-                onChanged: (value) {
-                  setState(() => size = value);
-                  _regeneratePreviewImage();
-                }),
-          )
-        ]),
+        ExactSlider(
+            header: Text(AppLocalizations.of(context)!.scale),
+            min: 0.1,
+            max: 10,
+            value: scale,
+            defaultValue: 1,
+            onChanged: (value) {
+              scale = value;
+              _regeneratePreviewImage();
+            }),
         CheckboxListTile(
             value: _renderBackground,
             title: Text(AppLocalizations.of(context)!.background),

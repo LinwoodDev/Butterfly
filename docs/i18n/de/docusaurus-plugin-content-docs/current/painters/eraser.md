@@ -1,11 +1,15 @@
 ---
+title: "Radierzeichner"
 sidebar_label: "Eraser"
 sidebar_position: 3
 ---
 
-# Radierzeichner
 
-:::warning Es wird nicht empfohlen den Radier zu verwenden. Bitte verwenden Sie den [Pfadlöscher](path_eraser) wenn dies möglich ist. :::
+:::warning Es wird nicht empfohlen, den Radier zu verwenden.
+
+Bitte verwenden Sie den [Pfadlöscher](path_eraser) wenn dies möglich ist.
+
+:::
 
 Mit diesem Maler können Sie die Elemente auf dem Papier löschen.
 

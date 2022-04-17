@@ -1,11 +1,15 @@
 ---
+title: "Peintre gomme"
 sidebar_label: "Eraser"
 sidebar_position: 3
 ---
 
-# Peintre gomme
 
-:::warning Il n'est pas recommandé d'utiliser la gomme. Veuillez utiliser la gomme de chemin [](path_eraser) si c'est possible. :::
+:::warning Il n'est pas recommandé d'utiliser la gomme.
+
+Veuillez utiliser la gomme de chemin [](path_eraser) si c'est possible.
+
+:::
 
 Avec ce peintre vous pouvez effacer les éléments sur le papier.
 

@@ -13,8 +13,8 @@ class ColorPaletteAction extends Action<ColorPaletteIntent> {
   ColorPaletteAction();
 
   @override
-  Object? invoke(ColorPaletteIntent intent) {
-    showDialog(
+  Future<dynamic> invoke(ColorPaletteIntent intent) {
+    return showDialog(
       context: intent.context,
       builder: (ctx) => BlocProvider.value(
           value: intent.context.read<DocumentBloc>(),

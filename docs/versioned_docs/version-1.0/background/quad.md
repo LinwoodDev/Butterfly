@@ -1,4 +1,6 @@
-# Quad paper
+---
+title: "Quad paper"
+---
 
 | Property | Value |
 | -------: | :---- |

@@ -11,13 +11,13 @@ class SettingsAction extends Action<SettingsIntent> {
   SettingsAction();
 
   @override
-  Object? invoke(SettingsIntent intent) {
-    showDialog(
+  Future<dynamic> invoke(SettingsIntent intent) {
+    return showDialog(
         context: intent.context,
         builder: (context) => Dialog(
             child: ConstrainedBox(
                 constraints:
-                    const BoxConstraints(maxHeight: 400, maxWidth: 600),
+                    const BoxConstraints(maxHeight: 600, maxWidth: 600),
                 child: const SettingsPage(isDialog: true))));
   }
 }

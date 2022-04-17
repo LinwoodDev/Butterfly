@@ -1,10 +1,12 @@
 import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/models/painters/path_eraser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import '../../models/painter.dart';
+import '../../widgets/exact_slider.dart';
 
 class PathEraserPainterDialog extends StatefulWidget {
   final DocumentBloc bloc;
@@ -20,15 +22,12 @@ class PathEraserPainterDialog extends StatefulWidget {
 
 class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _strokeWidthController = TextEditingController();
-  final TextEditingController _strokeMultiplierController =
-      TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: widget.bloc,
-      child: Dialog(child:
-          BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+      child: Dialog(child: Builder(builder: (context) {
+        var state = widget.bloc.state;
         if (state is! DocumentLoadSuccess) return Container();
         var painter =
             state.document.painters[widget.painterIndex] as PathEraserPainter;
@@ -38,22 +37,12 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
               if (_nameController.text != painter.name) {
                 _nameController.text = painter.name;
               }
-              if (double.tryParse(_strokeWidthController.text) !=
-                  painter.strokeWidth) {
-                _strokeWidthController.text =
-                    painter.strokeWidth.toStringAsFixed(2);
-              }
-              if (double.tryParse(_strokeMultiplierController.text) !=
-                  painter.strokeMultiplier) {
-                _strokeMultiplierController.text =
-                    painter.strokeMultiplier.toStringAsFixed(2);
-              }
               return Scaffold(
                   backgroundColor: Colors.transparent,
                   appBar: AppBar(
                     backgroundColor: Colors.transparent,
                     title: Text(AppLocalizations.of(context)!.pathEraser),
-                    leading: const Icon(PhosphorIcons.penLight),
+                    leading: const Icon(PhosphorIcons.pathLight),
                     actions: [
                       IconButton(
                           tooltip: AppLocalizations.of(context)!.help,
@@ -78,62 +67,31 @@ class _PathEraserPainterDialogState extends State<PathEraserPainterDialog> {
                                 controller: _nameController,
                                 onChanged: (value) => setState(() =>
                                     painter = painter.copyWith(name: value))),
-                            Row(children: [
-                              ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 100),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        labelText: AppLocalizations.of(context)!
-                                            .strokeWidth),
-                                    controller: _strokeWidthController,
-                                    onChanged: (value) => setState(() =>
-                                        painter = painter.copyWith(
-                                            strokeWidth:
-                                                double.tryParse(value))),
-                                  )),
-                              Expanded(
-                                child: Slider(
-                                    value: painter.strokeWidth.clamp(0, 10),
-                                    min: 0,
-                                    max: 10,
-                                    onChanged: (value) => setState(() =>
-                                        painter = painter.copyWith(
-                                            strokeWidth: value))),
-                              )
-                            ]),
-                            Row(children: [
-                              ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 100),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        labelText: AppLocalizations.of(context)!
-                                            .strokeMultiplier),
-                                    controller: _strokeMultiplierController,
-                                    onChanged: (value) => setState(() =>
-                                        painter = painter.copyWith(
-                                            strokeMultiplier:
-                                                double.tryParse(value))),
-                                  )),
-                              Expanded(
-                                child: Slider(
-                                    value:
-                                        painter.strokeMultiplier.clamp(0, 100),
-                                    min: 0,
-                                    max: 100,
-                                    onChanged: (value) => setState(() =>
-                                        painter = painter.copyWith(
-                                            strokeMultiplier: value))),
-                              )
-                            ]),
+                            ExactSlider(
+                                header: Text(
+                                    AppLocalizations.of(context)!.strokeWidth),
+                                value: painter.strokeWidth,
+                                min: 0,
+                                max: 70,
+                                defaultValue: 5,
+                                onChanged: (value) => setState(() => painter =
+                                    painter.copyWith(strokeWidth: value))),
                             const SizedBox(height: 10),
                             CheckboxListTile(
                                 value: painter.includeEraser,
                                 title: Text(AppLocalizations.of(context)!
                                     .includeEraser),
                                 onChanged: (value) => setState(() => painter =
-                                    painter.copyWith(includeEraser: value))),
+                                    painter.copyWith(
+                                        includeEraser:
+                                            value ?? painter.includeEraser))),
+                            /*CheckboxListTile(
+                                value: painter.deleteWholeStroke,
+                                title: Text(AppLocalizations.of(context)!
+                                    .deleteWholeStroke),
+                                onChanged: (value) => setState(() => painter =
+                                    painter.copyWith(
+                                        deleteWholeStroke: value))),*/
                           ]),
                         ),
                         const Divider(),

@@ -7,22 +7,31 @@ abstract class DocumentEvent extends ReplayEvent with EquatableMixin {
   List<Object?> get props => [];
 }
 
-class ElementCreated extends DocumentEvent {
-  final PadElement element;
+class ElementsCreated extends DocumentEvent {
+  final List<PadElement> elements;
 
-  const ElementCreated(this.element);
+  const ElementsCreated(this.elements);
 
   @override
-  List<Object?> get props => [element];
+  List<Object?> get props => [elements];
+}
+
+class ElementsReplaced extends DocumentEvent {
+  final Map<int?, List<PadElement>> replacedElements;
+
+  const ElementsReplaced(this.replacedElements);
+
+  @override
+  List<Object?> get props => [replacedElements];
 }
 
 class ElementChanged extends DocumentEvent {
-  final PadElement element;
-  final int index;
-  const ElementChanged(this.index, this.element);
+  final PadElement old;
+  final PadElement updated;
+  const ElementChanged(this.old, this.updated);
 
   @override
-  List<Object?> get props => [element, index];
+  List<Object?> get props => [old, updated];
 }
 
 class ElementsRemoved extends DocumentEvent {
@@ -41,12 +50,24 @@ class DocumentDescriptorChanged extends DocumentEvent {
   List<Object?> get props => [name, description];
 }
 
+class DocumentPathChanged extends DocumentEvent {
+  final String? path;
+
+  const DocumentPathChanged(this.path);
+  @override
+  List<Object?> get props => [path];
+}
+
 class DocumentPaletteChanged extends DocumentEvent {
   final List<ColorPalette> palette;
 
   const DocumentPaletteChanged(this.palette);
   @override
   List<Object?> get props => [palette];
+}
+
+class IndexRefreshed extends DocumentEvent {
+  const IndexRefreshed();
 }
 
 class CurrentPainterChanged extends DocumentEvent {
@@ -184,4 +205,68 @@ class ElementsLayerChanged extends DocumentEvent {
 
   @override
   List<Object?> get props => [layer, elements];
+}
+
+class ImageUnbaked extends DocumentEvent {
+  const ImageUnbaked();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class ImageBaked extends DocumentEvent {
+  final ui.Size viewportSize;
+  final double scale;
+  final CameraTransform cameraTransform;
+
+  const ImageBaked(this.viewportSize, this.scale, this.cameraTransform);
+
+  @override
+  List<Object?> get props => [viewportSize, scale];
+}
+
+class TemplateCreated extends DocumentEvent {
+  final bool deleteDocument;
+
+  const TemplateCreated({this.deleteDocument = true});
+
+  @override
+  List<Object?> get props => [deleteDocument];
+}
+
+class AreaCreated extends DocumentEvent {
+  final Area area;
+
+  const AreaCreated(this.area);
+
+  @override
+  List<Object?> get props => [area];
+}
+
+class AreaRemoved extends DocumentEvent {
+  final int index;
+
+  const AreaRemoved(this.index);
+
+  @override
+  List<Object?> get props => [index];
+}
+
+class AreaChanged extends DocumentEvent {
+  final Area area;
+  final int index;
+  const AreaChanged(this.index, this.area);
+
+  @override
+  List<Object?> get props => [area, index];
+}
+
+class CurrentAreaChanged extends DocumentEvent {
+  final int area;
+
+  const CurrentAreaChanged(this.area);
+  const CurrentAreaChanged.exit() : area = -1;
+
+  @override
+  List<Object?> get props => [area];
 }

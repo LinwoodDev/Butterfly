@@ -8,6 +8,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../api/open_release_notes.dart';
+
 class SettingsPage extends StatelessWidget {
   final bool isDialog;
 
@@ -32,57 +34,63 @@ class SettingsPage extends StatelessWidget {
           ListTile(
             title: Text(AppLocalizations.of(context)!.data),
             leading: const Icon(PhosphorIcons.databaseLight),
-            onTap: () => GoRouter.of(context).push('/settings/data'),
+            onTap: () {
+              GoRouter.of(context).go('/settings/data');
+            },
           ),
           ListTile(
             title: Text(AppLocalizations.of(context)!.behaviors),
             leading: const Icon(PhosphorIcons.fadersLight),
-            onTap: () => GoRouter.of(context).push('/settings/behaviors'),
+            onTap: () {
+              GoRouter.of(context).go('/settings/behaviors');
+            },
           ),
           ListTile(
               leading: const Icon(PhosphorIcons.monitorLight),
               title: Text(AppLocalizations.of(context)!.personalization),
               onTap: () {
-                Navigator.of(context).pop();
-                GoRouter.of(context).push('/settings/personalization');
+                GoRouter.of(context).go('/settings/personalization');
               }),
           const Divider(),
-          ListTile(
-              leading: const Icon(PhosphorIcons.stackLight),
-              title: Text(AppLocalizations.of(context)!.license),
-              onTap: () => launch(
-                  'https://github.com/LinwoodCloud/butterfly/blob/main/LICENSE')),
-          ListTile(
-              leading: const Icon(PhosphorIcons.codeLight),
-              title: Text(AppLocalizations.of(context)!.source),
-              onTap: () =>
-                  launch('https://github.com/LinwoodCloud/dev_doctor')),
-          ListTile(
-              leading: const Icon(PhosphorIcons.usersLight),
-              title: const Text('Discord'),
-              onTap: () => launch('https://discord.linwood.dev')),
-          ListTile(
-              leading: const Icon(PhosphorIcons.translateLight),
-              title: const Text('Crowdin'),
-              onTap: () => launch('https://linwood.crowdin.com')),
           ListTile(
               leading: const Icon(PhosphorIcons.articleLight),
               title: Text(AppLocalizations.of(context)!.documentation),
               onTap: () => launch('https://docs.butterfly.linwood.dev')),
           ListTile(
+              leading: const Icon(PhosphorIcons.flagLight),
+              title: Text(AppLocalizations.of(context)!.releaseNotes),
+              onTap: () => openReleaseNotes()),
+          ListTile(
+              leading: const Icon(PhosphorIcons.usersLight),
+              title: const Text('Discord'),
+              onTap: () => launch('https://go.linwood.dev/discord')),
+          ListTile(
+              leading: const Icon(PhosphorIcons.translateLight),
+              title: const Text('Crowdin'),
+              onTap: () => launch('https://go.linwood.dev/butterfly/crowdin')),
+          ListTile(
+              leading: const Icon(PhosphorIcons.codeLight),
+              title: Text(AppLocalizations.of(context)!.source),
+              onTap: () => launch('https://go.linwood.dev/butterfly/source')),
+          ListTile(
               leading: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               title: Text(AppLocalizations.of(context)!.changelog),
               onTap: () =>
                   launch('https://docs.butterfly.linwood.dev/changelog')),
+          const Divider(),
+          ListTile(
+              leading: const Icon(PhosphorIcons.stackLight),
+              title: Text(AppLocalizations.of(context)!.license),
+              onTap: () => launch('https://go.linwood.dev/butterfly/license')),
           ListTile(
               leading: const Icon(PhosphorIcons.identificationCardLight),
               title: Text(AppLocalizations.of(context)!.imprint),
-              onTap: () => launch('https://codedoctor.tk/impress')),
+              onTap: () => launch('https://go.linwood.dev/impress')),
           ListTile(
               leading: const Icon(PhosphorIcons.shieldLight),
               title: Text(AppLocalizations.of(context)!.privacypolicy),
-              onTap: () => launch(
-                  'https://docs.butterfly.linwood.dev/docs/privacypolicy')),
+              onTap: () =>
+                  launch('https://docs.butterfly.linwood.dev/privacypolicy')),
           ListTile(
               leading: const Icon(PhosphorIcons.infoLight),
               title: Text(AppLocalizations.of(context)!.information),
@@ -105,14 +113,17 @@ class SettingsPage extends StatelessWidget {
                 child: InkWell(
                     onTap: () => launch(
                         'https://vercel.com?utm_source=Linwood&utm_campaign=oss'),
-                    child: SizedBox(
-                        height: 50,
-                        child: SvgPicture.asset('images/powered-by-vercel.svg',
-                            placeholderBuilder: (BuildContext context) =>
-                                Container(
-                                    padding: const EdgeInsets.all(30.0),
-                                    child: const CircularProgressIndicator()),
-                            semanticsLabel: 'Powered by Vercel'))))
+                    child: Material(
+                      child: SizedBox(
+                          height: 50,
+                          child: SvgPicture.asset(
+                              'images/powered-by-vercel.svg',
+                              placeholderBuilder: (BuildContext context) =>
+                                  Container(
+                                      padding: const EdgeInsets.all(30.0),
+                                      child: const CircularProgressIndicator()),
+                              semanticsLabel: 'Powered by Vercel')),
+                    )))
         ]))));
   }
 }

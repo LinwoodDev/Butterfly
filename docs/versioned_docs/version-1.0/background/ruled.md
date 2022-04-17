@@ -1,4 +1,6 @@
-# Ruled paper
+---
+title: "Ruled paper"
+---
 
 | Property | Value |
 | -------: | :---- |

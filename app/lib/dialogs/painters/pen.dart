@@ -1,11 +1,13 @@
 import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/color_pick.dart';
-import 'package:butterfly/models/painters/pen.dart';
+import 'package:butterfly/models/painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import '../../widgets/exact_slider.dart';
 
 class PenPainterDialog extends StatefulWidget {
   final DocumentBloc bloc;
@@ -21,16 +23,13 @@ class PenPainterDialog extends StatefulWidget {
 
 class _PenPainterDialogState extends State<PenPainterDialog> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _strokeWidthController = TextEditingController();
-  final TextEditingController _strokeMultiplierController =
-      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: widget.bloc,
-      child: Dialog(child:
-          BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+      child: Dialog(child: Builder(builder: (context) {
+        var state = widget.bloc.state;
         if (state is! DocumentLoadSuccess) return Container();
         var painter =
             state.document.painters[widget.painterIndex] as PenPainter;
@@ -39,16 +38,6 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
             child: StatefulBuilder(builder: (context, setState) {
               if (_nameController.text != painter.name) {
                 _nameController.text = painter.name;
-              }
-              if (double.tryParse(_strokeWidthController.text) !=
-                  painter.property.strokeWidth) {
-                _strokeWidthController.text =
-                    painter.property.strokeWidth.toStringAsFixed(2);
-              }
-              if (double.tryParse(_strokeMultiplierController.text) !=
-                  painter.property.strokeMultiplier) {
-                _strokeMultiplierController.text =
-                    painter.property.strokeMultiplier.toStringAsFixed(2);
               }
               return Scaffold(
                   backgroundColor: Colors.transparent,
@@ -79,60 +68,28 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                 controller: _nameController,
                                 onChanged: (value) => setState(() =>
                                     painter = painter.copyWith(name: value))),
-                            Row(children: [
-                              ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 100),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        labelText: AppLocalizations.of(context)!
-                                            .strokeWidth),
-                                    controller: _strokeWidthController,
-                                    onChanged: (value) => setState(() =>
-                                        painter = painter.copyWith(
-                                            property: painter.property.copyWith(
-                                                strokeWidth:
-                                                    double.tryParse(value)))),
-                                  )),
-                              Expanded(
-                                child: Slider(
-                                    value: painter.property.strokeWidth
-                                        .clamp(0, 50),
-                                    min: 0,
-                                    max: 50,
-                                    onChanged: (value) => setState(() =>
-                                        painter = painter.copyWith(
-                                            property: painter.property.copyWith(
-                                                strokeWidth: value)))),
-                              )
-                            ]),
-                            Row(children: [
-                              ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 100),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        labelText: AppLocalizations.of(context)!
-                                            .strokeMultiplier),
-                                    controller: _strokeMultiplierController,
-                                    onChanged: (value) => setState(() =>
-                                        painter = painter.copyWith(
-                                            property: painter.property.copyWith(
-                                                strokeMultiplier:
-                                                    double.tryParse(value)))),
-                                  )),
-                              Expanded(
-                                child: Slider(
-                                    value: painter.property.strokeMultiplier
-                                        .clamp(0, 100),
-                                    min: 0,
-                                    max: 100,
-                                    onChanged: (value) => setState(() =>
-                                        painter = painter.copyWith(
-                                            property: painter.property.copyWith(
-                                                strokeMultiplier: value)))),
-                              )
-                            ]),
+                            ExactSlider(
+                                header: Text(
+                                    AppLocalizations.of(context)!.strokeWidth),
+                                value: painter.property.strokeWidth,
+                                min: 0,
+                                max: 70,
+                                defaultValue: 5,
+                                onChanged: (value) => setState(() => painter =
+                                    painter.copyWith(
+                                        property: painter.property
+                                            .copyWith(strokeWidth: value)))),
+                            ExactSlider(
+                                header: Text(AppLocalizations.of(context)!
+                                    .strokeMultiplier),
+                                value: painter.property.strokeMultiplier,
+                                min: 0,
+                                max: 70,
+                                defaultValue: 5,
+                                onChanged: (value) => setState(() => painter =
+                                    painter.copyWith(
+                                        property: painter.property.copyWith(
+                                            strokeMultiplier: value)))),
                             const SizedBox(height: 50),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -147,8 +104,8 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                                 value: context
                                                     .read<DocumentBloc>(),
                                                 child: ColorPickerDialog(
-                                                    defaultColor:
-                                                        painter.property.color),
+                                                    defaultColor: Color(painter
+                                                        .property.color)),
                                               ));
                                       if (color != null) {
                                         setState(() => painter =
@@ -159,7 +116,7 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          color: painter.property.color,
+                                          color: Color(painter.property.color),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(32))),
                                       constraints: const BoxConstraints(
@@ -173,14 +130,17 @@ class _PenPainterDialogState extends State<PenPainterDialog> {
                                 title: Text(AppLocalizations.of(context)!
                                     .zoomDependent),
                                 onChanged: (value) => setState(() => painter =
-                                    painter.copyWith(zoomDependent: value))),
+                                    painter.copyWith(
+                                        zoomDependent:
+                                            value ?? painter.zoomDependent))),
                             CheckboxListTile(
                                 value: painter.property.fill,
                                 title: Text(AppLocalizations.of(context)!.fill),
                                 onChanged: (value) => setState(() => painter =
                                     painter.copyWith(
-                                        property: painter.property
-                                            .copyWith(fill: value))))
+                                        property: painter.property.copyWith(
+                                            fill: value ??
+                                                painter.property.fill))))
                           ]),
                         ),
                         const Divider(),

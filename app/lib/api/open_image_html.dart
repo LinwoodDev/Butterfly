@@ -11,7 +11,7 @@ void openImage(List<int> bytes) {
   var doc = js_util.getProperty(d, 'document');
   var img = js_util.callMethod(doc, 'createElement', ['img']);
   js_util.callMethod(img, 'setAttribute',
-      ['src', 'data:image/png;base64,' + base64.encode(bytes)]);
+      ['src', 'data:image/png;base64,${base64.encode(bytes)}']);
   var body = js_util.getProperty(doc, 'body');
   js_util.callMethod(body, 'append', [img]);
 }

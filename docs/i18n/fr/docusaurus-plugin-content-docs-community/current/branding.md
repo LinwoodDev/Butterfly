@@ -2,6 +2,8 @@
 title: Image de marque
 ---
 
+Ces actifs sont sous licence [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+
 ## Logo
 
 ![Logo](/img/logo.svg)
@@ -19,6 +21,12 @@ title: Image de marque
 ![Bannière](/img/banner.svg)
 
 [SVG](/img/banner.svg) [PNG](/img/banner.png)
+
+## Documentation
+
+![Documentation](/img/docs.svg)
+
+[SVG](/img/docs.svg) [PNG](/img/docs.png)
 
 ## Couleurs
 

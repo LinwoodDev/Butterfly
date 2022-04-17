@@ -5,6 +5,12 @@
  * work well for content-centric websites.
  */
 
+/* Import Montserrat font from file */
+@font-face {
+  font-family: 'Raleway';
+  src: url('/Raleway.ttf') format('truetype');
+}
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #f2b138;
@@ -15,11 +21,98 @@
   --ifm-color-primary-lighter: #f5c162;
   --ifm-color-primary-lightest: #f7d28c;
   --ifm-code-font-size: 95%;
+  --ifm-font-family-base: 'Raleway', sans-serif;
+  --ifm-menu-color-background-active: var(--ifm-color-primary-darkest);
+  --ifm-menu-link-padding-vertical: 0.75rem;
+  --ifm-menu-color-active: var(--ifm-color-gray-100);
+  --custom-border-radius: 8px;
+  --custom-border-radius-md: 12px;
+  --ifm-code-border-radius: var(--custom-border-radius);
+  --ifm-button-border-radius: var(--custom-border-radius);
+  scroll-behavior: smooth;
 }
 
+img {
+  border-radius: 12px;
+}
+
+.DocSearch-Button {
+  border-radius: var(--custom-border-radius-md) !important;
+}
+.menu__list-item-collapsible {
+  --ifm-menu-color-active: var(--ifm-color-emphasis-900);
+}
+.footer {
+  --ifm-footer-background-color:var(--ifm-color-emphasis-900);
+  --ifm-footer-link-color: var(--ifm-color-emphasis-700);
+}
+.footer--dark {
+  --ifm-footer-title-color: var(--ifm-color-primary-darkest);
+  --ifm-footer-background-color:var(--ifm-color-emphasis-100);
+  --ifm-footer-color: inherit;
+}
+.navbar__link--active {
+  font-weight: bold;
+}
+.navbar__link--active::after {
+  background: var(--ifm-color-primary);
+  content: "";
+  display: flex;
+  height: 4px;
+  margin-left: -5px;
+  margin-right: -5px;
+  margin-top: -4px;
+  position: relative;
+  top: 18px;
+  width: calc(100% + 10px);
+}
 .docusaurus-highlight-code-line {
   background-color: rgb(72, 77, 91);
   display: block;
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme='light'] .DocSearch {
+  /* --docsearch-primary-color: var(--ifm-color-primary); */
+  /* --docsearch-text-color: var(--ifm-font-color-base); */
+  --docsearch-muted-color: var(--ifm-color-secondary-darkest);
+  --docsearch-container-background: rgba(94, 100, 112, 0.7);
+  /* Modal */
+  --docsearch-modal-background: var(--ifm-color-secondary-lighter);
+  /* Search box */
+  --docsearch-searchbox-background: var(--ifm-color-secondary);
+  --docsearch-searchbox-focus-background: var(--ifm-color-white);
+  /* Hit */
+  --docsearch-hit-color: var(--ifm-font-color-base);
+  --docsearch-hit-active-color: var(--ifm-color-white);
+  --docsearch-hit-background: var(--ifm-color-white);
+  /* Footer */
+  --docsearch-footer-background: var(--ifm-color-white);
+}
+
+html[data-theme='dark'] .DocSearch {
+  --docsearch-text-color: var(--ifm-font-color-base);
+  --docsearch-muted-color: var(--ifm-color-secondary-darkest);
+  --docsearch-container-background: rgba(47, 55, 69, 0.7);
+  /* Modal */
+  --docsearch-modal-background: var(--ifm-background-color);
+  /* Search box */
+  --docsearch-searchbox-background: var(--ifm-background-color);
+  --docsearch-searchbox-focus-background: var(--ifm-color-black);
+  /* Hit */
+  --docsearch-hit-color: var(--ifm-font-color-base);
+  --docsearch-hit-active-color: var(--ifm-color-white);
+  --docsearch-hit-background: var(--ifm-color-emphasis-100);
+  /* Footer */
+  --docsearch-footer-background: var(--ifm-background-surface-color);
+  --docsearch-key-gradient: linear-gradient(
+    -26.5deg,
+    var(--ifm-color-emphasis-200) 0%,
+    var(--ifm-color-emphasis-100) 100%
+  );
+}
+
+.DocSearch-Button {
+  border-radius: 10px;
 }

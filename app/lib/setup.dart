@@ -2,8 +2,12 @@ import 'dart:convert';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:butterfly/api/full_screen_stub.dart'
+    if (dart.library.io) 'package:butterfly/api/full_screen_io.dart'
+    if (dart.library.js) 'package:butterfly/api/full_screen_html.dart'
+    as full_screen;
 
-import 'models/document.dart';
+import 'models/converter.dart';
 
 Future<void> setup() async {
   // Convert old file system to new file system
@@ -15,8 +19,10 @@ Future<void> setup() async {
     var documents = prefs.getStringList('documents')!;
     prefs.remove('documents');
     await Future.wait(documents
-        .map((e) => AppDocument.fromJson(jsonDecode(e)))
+        .map((e) => const DocumentJsonConverter()
+            .fromJson(Map<String, dynamic>.from(jsonDecode(e))))
         .map((element) => DocumentFileSystem.fromPlatform()
             .updateDocument(element.name, element)));
   }
+  full_screen.setup();
 }

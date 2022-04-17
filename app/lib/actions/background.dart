@@ -13,12 +13,12 @@ class BackgroundAction extends Action<BackgroundIntent> {
   BackgroundAction();
 
   @override
-  Object? invoke(BackgroundIntent intent) {
-    showDialog(
+  Future<dynamic> invoke(BackgroundIntent intent) {
+    return showDialog(
       context: intent.context,
       builder: (context) => BlocProvider.value(
           value: intent.context.read<DocumentBloc>(),
-          child: BackgroundDialog()),
+          child: const BackgroundDialog()),
     );
   }
 }

@@ -4,7 +4,7 @@ title: Layer
 
 With this tool you can change the layer of multiple objects. Read more about layers [here](../layers.md).
 
-# Configuration
+## Configuration
 
 |       Property | Default | Description                                                             |
 |---------------:|:-------:|:------------------------------------------------------------------------|
