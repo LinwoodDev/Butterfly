@@ -68,6 +68,7 @@ class HandHandler extends Handler {
       final radius = settings.selectSensitivity / transform.size;
       final hits = await rayCast(
           context, event.localPosition, radius, hand.includeEraser);
+      if (selected != null) return;
       if (hits.isEmpty) {
         showContextMenu(
             context: context,
@@ -109,30 +110,36 @@ class HandHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     final transformCubit = context.read<TransformCubit>();
     var actor = context.findAncestorWidgetOfExactType<Actions>();
-    await showContextMenu(
-        context: context,
-        position: localPosition,
-        builder: (context, close) {
-          Widget? menu;
-          if (selected is LabelRenderer) {
-            menu = LabelElementDialog(
-                position: localPosition,
-                renderer: selected as LabelRenderer,
-                close: close);
-          }
-          if (selected is ImageRenderer) {
-            menu = ImageElementDialog(
-                position: localPosition,
-                renderer: selected as ImageRenderer,
-                close: close);
-          }
-          menu ??= GeneralElementDialog(
-              position: localPosition, renderer: selected!, close: close);
-          return MultiBlocProvider(providers: [
-            BlocProvider.value(value: bloc),
-            BlocProvider.value(value: transformCubit)
-          ], child: Actions(actions: actor?.actions ?? {}, child: menu));
-        });
+    if (selected != null) {
+      await showContextMenu(
+          context: context,
+          position: localPosition,
+          builder: (context, close) {
+            Widget? menu;
+            if (selected is LabelRenderer) {
+              menu = LabelElementDialog(
+                  position: localPosition,
+                  renderer: selected as LabelRenderer,
+                  close: close);
+            }
+            if (selected is ImageRenderer) {
+              menu = ImageElementDialog(
+                  position: localPosition,
+                  renderer: selected as ImageRenderer,
+                  close: close);
+            }
+            if (selected == null) {
+              close();
+              return Container();
+            }
+            menu ??= GeneralElementDialog(
+                position: localPosition, renderer: selected!, close: close);
+            return MultiBlocProvider(providers: [
+              BlocProvider.value(value: bloc),
+              BlocProvider.value(value: transformCubit)
+            ], child: Actions(actions: actor?.actions ?? {}, child: menu));
+          });
+    }
     selected = null;
     bloc.add(const IndexRefreshed());
   }
