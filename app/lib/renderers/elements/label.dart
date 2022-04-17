@@ -68,6 +68,8 @@ class LabelRenderer extends Renderer<LabelElement> {
     var height = tp.height;
     if (height < constraints.length) {
       height = constraints.length;
+    } else if (constraints.includeArea && area != null) {
+      height = max(height, area!.rect.bottom - element.position.dy);
     }
     rect = Rect.fromLTWH(
         element.position.dx, element.position.dy, tp.width, height);

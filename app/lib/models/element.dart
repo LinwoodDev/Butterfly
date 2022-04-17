@@ -64,7 +64,7 @@ class PadElement with _$PadElement {
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
     @Default('') String text,
     @Default(LabelProperty()) LabelProperty property,
-    @Default(ElementConstraint()) ElementConstraint constraint,
+    @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
   }) = LabelElement;
 
   const factory PadElement.image({
