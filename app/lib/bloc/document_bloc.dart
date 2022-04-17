@@ -419,36 +419,46 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       emit(current.copyWith(path: event.path));
     });
-    on<AreaCreated>((event, emit) {
+    on<AreaCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       final currentDocument = current.document.copyWith(
           areas: List<Area>.from(current.document.areas)..add(event.area));
       emit(current.copyWith(document: currentDocument));
       for (var element in current.renderers) {
-        element.onAreaUpdate(currentDocument);
+        if (await element.onAreaUpdate(currentDocument, event.area)) {
+          _repaint();
+        }
       }
     });
-    on<AreaRemoved>((event, emit) {
+    on<AreaRemoved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final currentDocument = current.document.copyWith(
-          areas: List<Area>.from(current.document.areas)
-            ..removeAt(event.index));
+      final areas = List<Area>.from(current.document.areas);
+      final area = areas.removeAt(event.index);
+      final currentDocument = current.document.copyWith(areas: areas);
       emit(current.copyWith(document: currentDocument));
       for (var element in current.renderers) {
-        element.onAreaUpdate(currentDocument);
+        if (element.area == area &&
+            await element.onAreaUpdate(currentDocument, null)) {
+          _repaint();
+        }
       }
     });
-    on<AreaChanged>((event, emit) {
+    on<AreaChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final currentDocument = current.document.copyWith(
-          areas: List<Area>.from(current.document.areas)
-            ..[event.index] = event.area);
+      final areas = List<Area>.from(current.document.areas);
+      final area = areas[event.index];
+      final currentDocument =
+          current.document.copyWith(areas: areas..[event.index] = event.area);
       emit(current.copyWith(document: currentDocument));
       for (var element in current.renderers) {
-        element.onAreaUpdate(currentDocument);
+        if (element.area == area) {
+          if (await element.onAreaUpdate(currentDocument, event.area)) {
+            _repaint();
+          }
+        }
       }
     });
     on<CurrentAreaChanged>((event, emit) {
@@ -480,5 +490,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     if (nextState.path == null) {
       emit(nextState.copyWith(path: path));
     }
+  }
+
+  void _repaint() {
+    final current = state;
+    if (current is! DocumentLoadSuccess) return;
+    emit(current.copyWith(cameraViewport: current.cameraViewport.unbake()));
   }
 }

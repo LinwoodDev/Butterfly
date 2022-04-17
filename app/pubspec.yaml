@@ -50,7 +50,7 @@ dependencies:
   path: ^1.8.1
 
 dev_dependencies:
-  flutter_native_splash: ^2.1.5
+  flutter_native_splash: ^2.1.6
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter

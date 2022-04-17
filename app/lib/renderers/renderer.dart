@@ -47,8 +47,13 @@ abstract class Renderer<T> {
   void _updateArea(AppDocument document) => area = rect == null
       ? null
       : document.areas.firstWhereOrNull((area) => area.rect.overlaps(rect!));
-  FutureOr<void> onAreaUpdate(AppDocument document) async =>
-      _updateArea(document);
+  FutureOr<bool> onAreaUpdate(AppDocument document, Area? area) async {
+    if (area?.rect.overlaps(rect!) ?? false) {
+      this.area = area;
+    }
+    return false;
+  }
+
   Rect? get rect => null;
   FutureOr<void> build(Canvas canvas, Size size, CameraTransform transform,
       [bool foreground = false]);

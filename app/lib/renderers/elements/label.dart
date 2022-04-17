@@ -42,15 +42,17 @@ class LabelRenderer extends Renderer<LabelElement> {
       textScaleFactor: 1.0);
 
   @override
-  FutureOr<void> setup(AppDocument document) {
+  FutureOr<void> setup(AppDocument document) async {
     _updateRect();
-    super.setup(document);
+    await super.setup(document);
+    _updateRect();
   }
 
   @override
-  FutureOr<void> onAreaUpdate(AppDocument document) async {
-    await super.onAreaUpdate(document);
+  FutureOr<bool> onAreaUpdate(AppDocument document, Area? area) async {
+    await super.onAreaUpdate(document, area);
     _updateRect();
+    return true;
   }
 
   void _updateRect() {
@@ -66,8 +68,6 @@ class LabelRenderer extends Renderer<LabelElement> {
     var height = tp.height;
     if (height < constraints.length) {
       height = constraints.length;
-    } else if (constraints.includeArea && area != null) {
-      height = min(height, area!.rect.bottom - element.position.dy);
     }
     rect = Rect.fromLTWH(
         element.position.dx, element.position.dy, tp.width, height);

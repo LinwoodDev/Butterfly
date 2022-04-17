@@ -55,8 +55,12 @@ class CameraViewport {
           bakedElements: bakedElements,
           x: x,
           y: y);
-  CameraViewport unbake(List<Renderer<PadElement>> unbakedElements) =>
-      CameraViewport.unbaked(background, unbakedElements);
+  CameraViewport unbake([List<Renderer<PadElement>>? unbakedElements]) =>
+      CameraViewport.unbaked(
+          background,
+          unbakedElements ??
+              (List<Renderer<PadElement>>.from(this.unbakedElements)
+                ..addAll(bakedElements)));
   CameraViewport bake({
     required ui.Image image,
     required int width,

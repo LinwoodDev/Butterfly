@@ -101,9 +101,7 @@ class _ProjectPageState extends State<ProjectPage> {
     if (document != null) {
       final renderers =
           document!.content.map((e) => Renderer.fromInstance(e)).toList();
-      for (var renderer in renderers) {
-        await renderer.setup(document!);
-      }
+      await Future.wait(renderers.map((e) async => await e.setup(document!)));
       final background = Renderer.fromInstance(document!.background);
       await background.setup(document!);
       setState(() =>
