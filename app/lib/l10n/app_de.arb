@@ -242,7 +242,7 @@
     "bottom": "Unten",
     "left": "Links",
     "right": "Rechts",
-    "justify": "<unk> <unk>",
+    "justify": "Blocksatz",
     "constraint": "Einschränkung",
     "length": "Länge"
 }
