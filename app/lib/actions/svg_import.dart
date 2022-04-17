@@ -8,6 +8,8 @@ import 'package:xml/xml.dart';
 import '../api/format_date_time.dart';
 import '../cubits/settings.dart';
 import '../dialogs/svg_import.dart';
+import '../models/viewport.dart';
+import '../renderers/renderer.dart';
 
 class SvgImportIntent extends Intent {
   final BuildContext context;
@@ -30,8 +32,17 @@ class SvgImportAction extends Action<SvgImportIntent> {
           await formatCurrentDateTime(
               intent.context.read<SettingsCubit>().state.locale),
           XmlDocument.parse(content).rootElement);
-      DocumentFileSystem.fromPlatform().importDocument(document).then((file) {
-        bloc.emit(DocumentLoadSuccess(document, path: file.path));
+      await DocumentFileSystem.fromPlatform()
+          .importDocument(document)
+          .then((file) async {
+        final background = Renderer.fromInstance(document.background);
+        await background.setup(document);
+        final renderers =
+            document.content.map((e) => Renderer.fromInstance(e)).toList();
+        await Future.wait(renderers.map((e) async => await e.setup(document)));
+        bloc.emit(DocumentLoadSuccess(document,
+            path: file.path,
+            cameraViewport: CameraViewport.unbaked(background, renderers)));
       });
     });
   }

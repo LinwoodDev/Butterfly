@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/painting.dart';
 import 'package:xml/xml.dart';
 
@@ -35,56 +37,165 @@ class SvgConverter {
       color = e.getAttribute('fill') ?? 'black';
     }
 
+    d = d.trim().replaceAll('-', ',-');
+
     while (d.isNotEmpty || operation.isNotEmpty) {
       var cmd = d.isEmpty ? '' : d[0];
       d = d.isEmpty ? '' : d.substring(1);
-      if (RegExp(r'[0-9]|\.|\ ').hasMatch(cmd)) {
+      // Add the number to the current operation
+      if (RegExp(r'[0-9]|\.|\,|\  |\-').hasMatch(cmd)) {
         number += cmd;
         continue;
       }
-      var positions = number.split(' ');
+      // Split with space and ,
+      final args =
+          number.split(RegExp(r'[\s,]')).where((s) => s.isNotEmpty).toList();
       switch (operation) {
         case 'M':
           lastPosition =
-              Offset(double.parse(positions[0]), double.parse(positions[1]));
+              Offset(_processExpression(args[0]), _processExpression(args[1]));
           points.add(PathPoint.fromOffset(lastPosition, 0));
           break;
         case 'm':
-          lastPosition = Offset(lastPosition.dx + double.parse(positions[0]),
-              lastPosition.dy + double.parse(positions[1]));
+          lastPosition = Offset(lastPosition.dx + _processExpression(args[0]),
+              lastPosition.dy + _processExpression(args[1]));
           points.add(PathPoint.fromOffset(lastPosition, 0));
           break;
         case 'L':
           points.add(PathPoint.fromOffset(
-              Offset(double.parse(positions[0]), double.parse(positions[1])),
+              Offset(_processExpression(args[0]), _processExpression(args[1])),
               strokeWidth));
           break;
         case 'l':
-          lastPosition = Offset(lastPosition.dx + double.parse(positions[0]),
-              lastPosition.dy + double.parse(positions[1]));
+          lastPosition = Offset(lastPosition.dx + _processExpression(args[0]),
+              lastPosition.dy + _processExpression(args[1]));
           points.add(PathPoint.fromOffset(lastPosition, strokeWidth));
           break;
         case 'H':
           points.add(PathPoint.fromOffset(
-              Offset(double.parse(positions[0]), lastPosition.dy),
+              Offset(_processExpression(args[0]), lastPosition.dy),
               strokeWidth));
           break;
         case 'h':
           points.add(PathPoint.fromOffset(
-              Offset(lastPosition.dx + double.parse(positions[0]),
+              Offset(lastPosition.dx + _processExpression(args[0]),
                   lastPosition.dy),
               strokeWidth));
           break;
         case 'V':
           points.add(PathPoint.fromOffset(
-              Offset(lastPosition.dx, double.parse(positions[0])),
+              Offset(lastPosition.dx, _processExpression(args[0])),
               strokeWidth));
           break;
         case 'v':
           points.add(PathPoint.fromOffset(
               Offset(lastPosition.dx,
-                  lastPosition.dy + double.parse(positions[0])),
+                  lastPosition.dy + _processExpression(args[0])),
               strokeWidth));
+          break;
+        case 'C':
+          points.add(PathPoint.fromOffset(
+              Offset(_processExpression(args[0]), _processExpression(args[1])),
+              strokeWidth));
+          points.add(PathPoint.fromOffset(
+              Offset(_processExpression(args[2]), _processExpression(args[3])),
+              strokeWidth));
+          points.add(PathPoint.fromOffset(
+              Offset(_processExpression(args[4]), _processExpression(args[5])),
+              strokeWidth));
+          break;
+        case 'c':
+          lastPosition = Offset(lastPosition.dx + _processExpression(args[0]),
+              lastPosition.dy + _processExpression(args[1]));
+          points.add(PathPoint.fromOffset(
+              Offset(lastPosition.dx, lastPosition.dy), strokeWidth));
+          lastPosition = Offset(lastPosition.dx + _processExpression(args[2]),
+              lastPosition.dy + _processExpression(args[3]));
+          points.add(PathPoint.fromOffset(
+              Offset(lastPosition.dx, lastPosition.dy), strokeWidth));
+          lastPosition = Offset(lastPosition.dx + _processExpression(args[4]),
+              lastPosition.dy + _processExpression(args[5]));
+          points.add(PathPoint.fromOffset(
+              Offset(lastPosition.dx, lastPosition.dy), strokeWidth));
+          break;
+        case 'S':
+          points.add(PathPoint.fromOffset(
+              Offset(_processExpression(args[0]), _processExpression(args[1])),
+              strokeWidth));
+          points.add(PathPoint.fromOffset(
+              Offset(_processExpression(args[2]), _processExpression(args[3])),
+              strokeWidth));
+          break;
+        case 's':
+          lastPosition = Offset(lastPosition.dx + _processExpression(args[0]),
+              lastPosition.dy + _processExpression(args[1]));
+          points.add(PathPoint.fromOffset(
+              Offset(lastPosition.dx, lastPosition.dy), strokeWidth));
+          lastPosition = Offset(lastPosition.dx + _processExpression(args[2]),
+              lastPosition.dy + _processExpression(args[3]));
+          points.add(PathPoint.fromOffset(
+              Offset(lastPosition.dx, lastPosition.dy), strokeWidth));
+          break;
+        case 'Q':
+          points.add(PathPoint.fromOffset(
+              Offset(_processExpression(args[0]), _processExpression(args[1])),
+              strokeWidth));
+          points.add(PathPoint.fromOffset(
+              Offset(_processExpression(args[2]), _processExpression(args[3])),
+              strokeWidth));
+          break;
+        case 'q':
+          lastPosition = Offset(lastPosition.dx + _processExpression(args[0]),
+              lastPosition.dy + _processExpression(args[1]));
+          points.add(PathPoint.fromOffset(
+              Offset(lastPosition.dx, lastPosition.dy), strokeWidth));
+          lastPosition = Offset(lastPosition.dx + _processExpression(args[2]),
+              lastPosition.dy + _processExpression(args[3]));
+          points.add(PathPoint.fromOffset(
+              Offset(lastPosition.dx, lastPosition.dy), strokeWidth));
+          break;
+        case 'T':
+          points.add(PathPoint.fromOffset(
+              Offset(_processExpression(args[0]), _processExpression(args[1])),
+              strokeWidth));
+          break;
+        case 't':
+          lastPosition = Offset(lastPosition.dx + _processExpression(args[0]),
+              lastPosition.dy + _processExpression(args[1]));
+          points.add(PathPoint.fromOffset(
+              Offset(lastPosition.dx, lastPosition.dy), strokeWidth));
+          break;
+        case 'A':
+          final rx = _processExpression(args[0]);
+          final ry = _processExpression(args[1]);
+          final xAxisRotation = _processExpression(args[2]);
+          final largeArcFlag = _processExpression(args[3]);
+          final sweepFlag = _processExpression(args[4]);
+          final x = _processExpression(args[5]);
+          final y = _processExpression(args[6]);
+          // Calculate points and add to list
+          final current = _calculateArc(Offset.zero, Offset(x, y), rx, ry,
+              xAxisRotation, largeArcFlag, sweepFlag);
+          current.map((e) => PathPoint(x, y)).forEach(points.add);
+          break;
+        case 'a':
+          final rx = _processExpression(args[0]);
+          final ry = _processExpression(args[1]);
+          final xAxisRotation = _processExpression(args[2]);
+          final largeArcFlag = _processExpression(args[3]);
+          final sweepFlag = _processExpression(args[4]);
+          final x = _processExpression(args[5]);
+          final y = _processExpression(args[6]);
+          // Calculate points and add to list
+          final current = _calculateArc(lastPosition, Offset(x, y), rx, ry,
+              xAxisRotation, largeArcFlag, sweepFlag);
+          current.map((e) => PathPoint(x, y)).forEach(points.add);
+          break;
+        case 'Z':
+        case 'z':
+          // Close path
+          points.add(PathPoint.fromOffset(
+              Offset(points.first.x, points.first.y), strokeWidth));
           break;
       }
       operation = cmd;
@@ -97,6 +208,158 @@ class SvgConverter {
             fill: fill,
             strokeWidth: 0,
             strokeMultiplier: 1));
+  }
+
+  List<Offset> _calculateArc(Offset lastPosition, Offset position, double rx,
+      double ry, double xAxisRotation, double largeArcFlag, double sweepFlag) {
+    // https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+
+    // Convert to radians
+    xAxisRotation = xAxisRotation * pi / 180;
+    final xAxisRotationCos = cos(xAxisRotation);
+    final xAxisRotationSin = sin(xAxisRotation);
+
+    // Calculate the center of the ellipse
+    final centerX = (lastPosition.dx + position.dx) / 2;
+    final centerY = (lastPosition.dy + position.dy) / 2;
+
+    // Calculate the start angle and end angle
+    final startAngle = atan2(
+        (lastPosition.dy - centerY) * xAxisRotationCos -
+            (lastPosition.dx - centerX) * xAxisRotationSin,
+        (lastPosition.dy - centerY) * xAxisRotationSin +
+            (lastPosition.dx - centerX) * xAxisRotationCos);
+    var endAngle = atan2(
+        (position.dy - centerY) * xAxisRotationCos -
+            (position.dx - centerX) * xAxisRotationSin,
+        (position.dy - centerY) * xAxisRotationSin +
+            (position.dx - centerX) * xAxisRotationCos);
+
+    // Ensure the start angle is less than the end angle
+    final angle = endAngle - startAngle;
+    if (angle < 0) {
+      endAngle += 2 * pi;
+    }
+
+    // Calculate the number of segments
+    final segments = max((angle.abs() / (pi / 2).ceil()), 1);
+
+    // Calculate the angle per segment
+    final anglePerSegment = angle / segments;
+
+    // Calculate the tangent angles
+    final tangentAngle1 = startAngle + anglePerSegment * 0.25;
+    final tangentAngle2 = startAngle + anglePerSegment * 0.75;
+
+    // Calculate the tangent points
+    final tangentX1 = centerX +
+        (rx * cos(tangentAngle1) * xAxisRotationCos -
+            ry * sin(tangentAngle1) * xAxisRotationSin);
+    final tangentY1 = centerY +
+        (rx * cos(tangentAngle1) * xAxisRotationSin +
+            ry * sin(tangentAngle1) * xAxisRotationCos);
+    final tangentX2 = centerX +
+        (rx * cos(tangentAngle2) * xAxisRotationCos -
+            ry * sin(tangentAngle2) * xAxisRotationSin);
+    final tangentY2 = centerY +
+        (rx * cos(tangentAngle2) * xAxisRotationSin +
+            ry * sin(tangentAngle2) * xAxisRotationCos);
+
+    // Calculate the control points
+    final controlX1 = tangentX1 +
+        (rx * cos(tangentAngle1 - anglePerSegment / 2) * xAxisRotationCos -
+            ry * sin(tangentAngle1 - anglePerSegment / 2) * xAxisRotationSin);
+    final controlY1 = tangentY1 +
+        (rx * cos(tangentAngle1 - anglePerSegment / 2) * xAxisRotationSin +
+            ry * sin(tangentAngle1 - anglePerSegment / 2) * xAxisRotationCos);
+    final controlX2 = tangentX2 +
+        (rx * cos(tangentAngle2 + anglePerSegment / 2) * xAxisRotationCos -
+            ry * sin(tangentAngle2 + anglePerSegment / 2) * xAxisRotationSin);
+    final controlY2 = tangentY2 +
+        (rx * cos(tangentAngle2 + anglePerSegment / 2) * xAxisRotationSin +
+            ry * sin(tangentAngle2 + anglePerSegment / 2) * xAxisRotationCos);
+
+    // Calculate the points
+    final points = <Offset>[];
+    for (var i = 0; i <= segments; i++) {
+      final angle = startAngle + i * anglePerSegment;
+      final x = centerX +
+          (rx * cos(angle) * xAxisRotationCos -
+              ry * sin(angle) * xAxisRotationSin);
+      final y = centerY +
+          (rx * cos(angle) * xAxisRotationSin +
+              ry * sin(angle) * xAxisRotationCos);
+      points.add(Offset(x, y));
+    }
+
+    // Calculate the first control point
+    final firstControlX = points[0].dx +
+        (rx * cos(startAngle + anglePerSegment / 2) * xAxisRotationCos -
+            ry * sin(startAngle + anglePerSegment / 2) * xAxisRotationSin);
+    final firstControlY = points[0].dy +
+        (rx * cos(startAngle + anglePerSegment / 2) * xAxisRotationSin +
+            ry * sin(startAngle + anglePerSegment / 2) * xAxisRotationCos);
+
+    // Calculate the last control point
+    final lastControlX = points[points.length - 1].dx +
+        (rx * cos(endAngle - anglePerSegment / 2) * xAxisRotationCos -
+            ry * sin(endAngle - anglePerSegment / 2) * xAxisRotationSin);
+    final lastControlY = points[points.length - 1].dy +
+        (rx * cos(endAngle - anglePerSegment / 2) * xAxisRotationSin +
+            ry * sin(endAngle - anglePerSegment / 2) * xAxisRotationCos);
+
+    // Add the first point
+    points.insert(0, Offset(firstControlX, firstControlY));
+
+    // Add the last point
+    points.add(Offset(lastControlX, lastControlY));
+
+    // Add the first control point
+    points.insert(1, Offset(controlX1, controlY1));
+
+    // Add the last control point
+    points.add(Offset(controlX2, controlY2));
+
+    // Return the points
+    return points;
+  }
+
+  double _processExpression(String expression) {
+    expression = expression.trim();
+    if (expression.isEmpty) {
+      return 0;
+    }
+    // Split the expression on +, -, *, /, ^, (, )
+    var parts = expression.split(RegExp(r'[\+\-\*\/\^\(\)]'));
+    // Remove empty parts
+    parts = parts.where((part) => part.isNotEmpty).toList();
+    if (parts.length == 1) {
+      // Only one part, return the value
+      return double.tryParse(parts[0]) ?? 0;
+    }
+    if (parts.length != 2) {
+      throw Exception('Invalid expression');
+    }
+    // Get the numbers
+    final num1 = num.parse(parts[0]).toDouble();
+    final num2 = num.parse(parts[1]).toDouble();
+    final operation =
+        expression.substring(parts[0].length, parts[0].length + 1);
+    // Process the expression
+    switch (operation) {
+      case '+':
+        return num1 + num2;
+      case '-':
+        return num1 - num2;
+      case '*':
+        return num1 * num2;
+      case '/':
+        return num1 / num2;
+      case '^':
+        return pow(num1, num2).toDouble();
+      default:
+        throw Exception('Invalid expression');
+    }
   }
 
   int stringToColor(String text) {
@@ -155,6 +418,7 @@ class SvgConverter {
 
 // HTML color names
   static const kColorNames = <String, int>{
+    'none': 0x00000000,
     'aliceblue': 0xFFF0F8FF,
     'antiquewhite': 0xFFFAEBD7,
     'aqua': 0xFF00FFFF,

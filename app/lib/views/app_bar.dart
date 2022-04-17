@@ -1,4 +1,6 @@
 import 'package:butterfly/actions/change_path.dart';
+import 'package:butterfly/actions/svg_export.dart';
+import 'package:butterfly/actions/svg_import.dart';
 import 'package:butterfly/api/full_screen_stub.dart'
     if (dart.library.io) 'package:butterfly/api/full_screen_io.dart'
     if (dart.library.js) 'package:butterfly/api/full_screen_html.dart';
@@ -338,16 +340,50 @@ class _MainPopupMenu extends StatelessWidget {
                   })),
           PopupMenuItem(
               padding: EdgeInsets.zero,
-              child: ListTile(
-                leading: const Icon(PhosphorIcons.arrowSquareInLight),
-                title: Text(AppLocalizations.of(context)!.import),
-                subtitle: Text(context.getShortcut('I')),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Actions.maybeInvoke<ImportIntent>(
-                      context, ImportIntent(context));
-                },
-              )),
+              child: PopupMenuButton(
+                  itemBuilder: (popupContext) => <PopupMenuEntry>[
+                        PopupMenuItem(
+                            padding: EdgeInsets.zero,
+                            child: ListTile(
+                                leading:
+                                    const Icon(PhosphorIcons.caretLeftLight),
+                                title: Text(AppLocalizations.of(context)!.back),
+                                onTap: () async {
+                                  Navigator.of(context).pop();
+                                })),
+                        const PopupMenuDivider(),
+                        PopupMenuItem(
+                            padding: EdgeInsets.zero,
+                            child: ListTile(
+                                leading: const Icon(PhosphorIcons.sunLight),
+                                title: Text(AppLocalizations.of(context)!.svg),
+                                subtitle: Text(
+                                    context.getShortcut('I', altKey: true)),
+                                onTap: () async {
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pop();
+                                  Actions.maybeInvoke<SvgImportIntent>(
+                                      context, SvgImportIntent(context));
+                                })),
+                        PopupMenuItem(
+                            padding: EdgeInsets.zero,
+                            child: ListTile(
+                              leading: const Icon(PhosphorIcons.databaseLight),
+                              title: Text(AppLocalizations.of(context)!.data),
+                              subtitle: Text(context.getShortcut('I')),
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                Actions.maybeInvoke<ImportIntent>(
+                                    context, ImportIntent(context));
+                              },
+                            )),
+                      ],
+                  tooltip: '',
+                  child: ListTile(
+                      mouseCursor: MouseCursor.defer,
+                      leading: const Icon(PhosphorIcons.arrowSquareInLight),
+                      trailing: const Icon(PhosphorIcons.caretRightLight),
+                      title: Text(AppLocalizations.of(context)!.import)))),
           PopupMenuItem(
               padding: EdgeInsets.zero,
               child: PopupMenuButton(
@@ -362,6 +398,19 @@ class _MainPopupMenu extends StatelessWidget {
                                   Navigator.of(context).pop();
                                 })),
                         const PopupMenuDivider(),
+                        PopupMenuItem(
+                            padding: EdgeInsets.zero,
+                            child: ListTile(
+                                leading: const Icon(PhosphorIcons.sunLight),
+                                title: Text(AppLocalizations.of(context)!.svg),
+                                subtitle: Text(
+                                    context.getShortcut('E', altKey: true)),
+                                onTap: () async {
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pop();
+                                  Actions.maybeInvoke<SvgExportIntent>(
+                                      context, SvgExportIntent(context));
+                                })),
                         PopupMenuItem(
                             padding: EdgeInsets.zero,
                             child: ListTile(

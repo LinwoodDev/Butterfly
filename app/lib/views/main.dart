@@ -159,9 +159,7 @@ class _ProjectPageState extends State<ProjectPage> {
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
                   ImportIntent(context),
-              LogicalKeySet(
-                  LogicalKeyboardKey.control,
-                  LogicalKeyboardKey.shift,
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
                   LogicalKeyboardKey.keyI): SvgImportIntent(context),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
