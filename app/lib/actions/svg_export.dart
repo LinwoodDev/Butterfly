@@ -27,7 +27,6 @@ class SvgExportAction extends Action<SvgExportIntent> {
                 height: size.height.round(),
                 x: -transform.position.dx,
                 y: -transform.position.dy,
-                scale: transform.size,
               ),
             ),
         context: intent.context);

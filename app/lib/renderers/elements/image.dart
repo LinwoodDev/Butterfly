@@ -24,13 +24,12 @@ class ImageRenderer extends Renderer<ImageElement> {
     final data = element.pixels;
     final encoded = base64Encode(data);
     final dataUrl = 'data:image/png;base64,$encoded';
-    final localRect = this.rect.shift(rect.topLeft);
     // Create image
     xml.getElement('svg')?.createElement('image', attributes: {
-      'x': '${localRect.left}',
-      'y': '${localRect.top}',
-      'width': '${localRect.width}',
-      'height': '${localRect.height}',
+      'x': '${this.rect.left}',
+      'y': '${this.rect.top}',
+      'width': '${this.rect.width}',
+      'height': '${this.rect.height}',
       'xlink:href': dataUrl,
     });
   }

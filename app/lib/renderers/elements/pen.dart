@@ -14,11 +14,9 @@ class PenRenderer extends PathRenderer<PenElement> {
     for (var element in points) {
       final width =
           property.strokeWidth + element.pressure * property.strokeMultiplier;
-      final localPosition = rect.topLeft + element.toOffset();
-      final lastLocalPosition = rect.topLeft + last.toOffset();
       xml.getElement('svg')?.createElement('path', attributes: {
-        'd': 'M${localPosition.dx} ${localPosition.dy} '
-            'L${lastLocalPosition.dx} ${lastLocalPosition.dy} ',
+        'd': 'M${element.x} ${element.y} '
+            'L${last.x} ${last.y} ',
         'fill': property.fill
             ? '#${property.color.toRadixString(16).substring(2)}'
             : 'none',

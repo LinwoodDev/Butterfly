@@ -56,7 +56,6 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
 
   @override
   void initState() {
-    _regeneratePreviewImage();
     x = widget.x;
     y = widget.y;
     width = widget.width;
@@ -66,6 +65,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
     _yController.text = y.toString();
     _widthController.text = width.toString();
     _heightController.text = height.toString();
+    _regeneratePreviewImage();
 
     super.initState();
   }

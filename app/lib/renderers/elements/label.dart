@@ -106,14 +106,12 @@ class LabelRenderer extends Renderer<LabelElement> {
     if (property.overline) textDecoration += 'overline ';
     textDecoration +=
         '${property.decorationStyle.name} ${property.decorationThickness}px ${property.decorationColor.toRadixString(16).substring(2)}';
-
-    final localRect = this.rect.shift(rect.topLeft);
     final foreignObject =
         xml.getElement('svg')?.createElement('foreignObject', attributes: {
-      'x': '${localRect.left}px',
-      'y': '${localRect.top}px',
-      'width': '${localRect.width}px',
-      'height': '${localRect.height}px',
+      'x': '${this.rect.left}px',
+      'y': '${this.rect.top}px',
+      'width': '${this.rect.width}px',
+      'height': '${this.rect.height}px',
     });
     String alignItems = 'center';
     switch (element.property.verticalAlignment) {

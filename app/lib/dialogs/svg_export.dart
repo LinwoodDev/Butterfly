@@ -17,21 +17,18 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:xml/xml.dart';
 
 import '../view_painter.dart';
-import '../widgets/exact_slider.dart';
 
 class SvgExportDialog extends StatefulWidget {
   final double x, y;
   final int width, height;
-  final double scale;
 
-  const SvgExportDialog(
-      {Key? key,
-      this.x = 0,
-      this.y = 0,
-      this.width = 1000,
-      this.height = 1000,
-      this.scale = 1})
-      : super(key: key);
+  const SvgExportDialog({
+    Key? key,
+    this.x = 0,
+    this.y = 0,
+    this.width = 1000,
+    this.height = 1000,
+  }) : super(key: key);
 
   @override
   State<SvgExportDialog> createState() => _SvgExportDialogState();
@@ -52,23 +49,21 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
   bool _renderBackground = true;
   double x = 0, y = 0;
   int width = 1000, height = 1000;
-  double scale = 1;
 
   ByteData? _previewImage;
   Future? _regeneratingFuture;
 
   @override
   void initState() {
-    _regeneratePreviewImage();
     x = widget.x;
     y = widget.y;
     width = widget.width;
     height = widget.height;
-    scale = widget.scale;
     _xController.text = x.toString();
     _yController.text = y.toString();
     _widthController.text = width.toString();
     _heightController.text = height.toString();
+    _regeneratePreviewImage();
 
     super.initState();
   }
@@ -90,7 +85,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
     var painter = ViewPainter(current.document,
         renderBackground: _renderBackground,
         cameraViewport: current.cameraViewport.unbake(current.renderers),
-        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), scale));
+        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble())));
     painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
     var picture = recorder.endRecording();
     var image = await picture.toImage(width, height);
@@ -105,7 +100,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
       'version': '1.1',
       'width': '${width}px',
       'height': '${height}px',
-      'viewBox': '0 0 $width $height',
+      'viewBox': '$x $y $width $height',
     });
 
     var current = context.read<DocumentBloc>().state as DocumentLoadSuccess;
@@ -252,16 +247,6 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
                 labelText: AppLocalizations.of(context)!.height),
             onChanged: (value) => height = int.tryParse(value) ?? height,
             onSubmitted: (value) => _regeneratePreviewImage()),
-        ExactSlider(
-            header: Text(AppLocalizations.of(context)!.scale),
-            min: 0.1,
-            max: 10,
-            value: scale,
-            defaultValue: 1,
-            onChanged: (value) {
-              scale = value;
-              _regeneratePreviewImage();
-            }),
         CheckboxListTile(
             value: _renderBackground,
             title: Text(AppLocalizations.of(context)!.background),
