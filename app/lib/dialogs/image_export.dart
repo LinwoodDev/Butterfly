@@ -17,14 +17,12 @@ import '../view_painter.dart';
 import '../widgets/exact_slider.dart';
 
 class ImageExportDialog extends StatefulWidget {
-  final DocumentBloc bloc;
   final double x, y;
   final int width, height;
   final double scale;
 
   const ImageExportDialog(
       {Key? key,
-      required this.bloc,
       this.x = 0,
       this.y = 0,
       this.width = 1000,
@@ -85,7 +83,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   Future<ByteData?> generateImage() async {
     var recorder = ui.PictureRecorder();
     var canvas = Canvas(recorder);
-    var current = widget.bloc.state as DocumentLoadSuccess;
+    var current = context.read<DocumentBloc>().state as DocumentLoadSuccess;
     var painter = ViewPainter(current.document,
         renderBackground: _renderBackground,
         cameraViewport: current.cameraViewport.unbake(current.renderers),
@@ -98,94 +96,90 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: widget.bloc,
-      child: Builder(builder: (context) {
-        return Dialog(
-          child: Container(
-            constraints: const BoxConstraints(maxHeight: 500, maxWidth: 1000),
-            child: Scaffold(
-                backgroundColor: Colors.transparent,
-                appBar: AppBar(
-                  title: Text(AppLocalizations.of(context)!.export),
-                  leading: const Icon(PhosphorIcons.exportLight),
-                ),
-                body: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: LayoutBuilder(builder: (context, constraints) {
-                          var isMobile = constraints.maxWidth < 600;
-                          if (isMobile) {
-                            return ListView(
-                              children: [_buildPreview(), _buildProperties()],
-                            );
-                          }
-                          return Row(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Expanded(
-                                  child: _buildPreview(),
+    return Builder(builder: (context) {
+      return Dialog(
+        child: Container(
+          constraints: const BoxConstraints(maxHeight: 500, maxWidth: 1000),
+          child: Scaffold(
+              backgroundColor: Colors.transparent,
+              appBar: AppBar(
+                title: Text(AppLocalizations.of(context)!.export),
+                leading: const Icon(PhosphorIcons.exportLight),
+              ),
+              body: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: LayoutBuilder(builder: (context, constraints) {
+                        var isMobile = constraints.maxWidth < 600;
+                        if (isMobile) {
+                          return ListView(
+                            children: [_buildPreview(), _buildProperties()],
+                          );
+                        }
+                        return Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Expanded(
+                                child: _buildPreview(),
+                              ),
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  child: _buildProperties(),
                                 ),
-                                Expanded(
-                                  child: SingleChildScrollView(
-                                    child: _buildProperties(),
-                                  ),
-                                )
-                              ]);
-                        }),
-                      ),
-                      const Divider(),
-                      Row(
-                        children: [
-                          Expanded(child: Container()),
-                          TextButton(
-                            child: Text(AppLocalizations.of(context)!.cancel),
-                            onPressed: () => Navigator.of(context).pop(),
-                          ),
-                          ElevatedButton(
-                            child: Text(AppLocalizations.of(context)!.export),
-                            onPressed: () async {
-                              final localization =
-                                  AppLocalizations.of(context)!;
-                              Navigator.of(context).pop();
-                              final data = await generateImage();
-                              if (data == null) {
-                                return;
-                              }
+                              )
+                            ]);
+                      }),
+                    ),
+                    const Divider(),
+                    Row(
+                      children: [
+                        Expanded(child: Container()),
+                        TextButton(
+                          child: Text(AppLocalizations.of(context)!.cancel),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                        ElevatedButton(
+                          child: Text(AppLocalizations.of(context)!.export),
+                          onPressed: () async {
+                            final localization = AppLocalizations.of(context)!;
+                            Navigator.of(context).pop();
+                            final data = await generateImage();
+                            if (data == null) {
+                              return;
+                            }
 
-                              if (!kIsWeb &&
-                                  (Platform.isWindows ||
-                                      Platform.isLinux ||
-                                      Platform.isMacOS)) {
-                                var path = await FilePicker.platform.saveFile(
-                                  type: FileType.image,
-                                  dialogTitle: localization.export,
-                                );
-                                if (path != null) {
-                                  var file = File(path);
-                                  if (!(await file.exists())) {
-                                    file.create(recursive: true);
-                                  }
-                                  await file
-                                      .writeAsBytes(data.buffer.asUint8List());
+                            if (!kIsWeb &&
+                                (Platform.isWindows ||
+                                    Platform.isLinux ||
+                                    Platform.isMacOS)) {
+                              var path = await FilePicker.platform.saveFile(
+                                type: FileType.image,
+                                dialogTitle: localization.export,
+                              );
+                              if (path != null) {
+                                var file = File(path);
+                                if (!(await file.exists())) {
+                                  file.create(recursive: true);
                                 }
-                              } else {
-                                openImage(data.buffer.asUint8List());
+                                await file
+                                    .writeAsBytes(data.buffer.asUint8List());
                               }
-                            },
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                )),
-          ),
-        );
-      }),
-    );
+                            } else {
+                              openImage(data.buffer.asUint8List());
+                            }
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )),
+        ),
+      );
+    });
   }
 
   Widget _buildPreview() => Padding(

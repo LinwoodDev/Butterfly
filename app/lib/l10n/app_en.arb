@@ -245,5 +245,6 @@
   "right": "Right",
   "justify": "Justify",
   "constraint": "Constraint",
-  "length": "Length"
+  "length": "Length",
+  "exportSvg": "Export SVG"
 }

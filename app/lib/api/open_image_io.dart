@@ -15,3 +15,15 @@ void openImage(List<int> bytes) {
     }
   });
 }
+
+void openSvg(String svg) {
+  getApplicationDocumentsDirectory().then((dir) {
+    var file = File('${dir.path}/export.svg');
+    file.writeAsStringSync(svg);
+    if (Platform.isAndroid || Platform.isIOS) {
+      Share.shareFiles([file.path]);
+    } else {
+      launch('file://${file.path}');
+    }
+  });
+}

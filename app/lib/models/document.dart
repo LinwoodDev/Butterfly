@@ -3,9 +3,7 @@ import 'package:butterfly/models/background.dart';
 import 'package:butterfly/models/converter.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:xml/xml.dart';
 
-import '../api/svg_helper.dart';
 import 'element.dart';
 import 'painter.dart';
 import 'palette.dart';
@@ -91,12 +89,6 @@ class AppDocument with _$AppDocument {
 
   factory AppDocument.fromJson(Map<String, dynamic> json) =>
       _$AppDocumentFromJson(json);
-  factory AppDocument.fromSvg(String name, XmlElement svg) {
-    return AppDocument(
-        name: name,
-        createdAt: DateTime.now(),
-        content: SvgConverter().getContents(svg));
-  }
 
   Area? getArea(Offset offset) {
     return areas.firstWhereOrNull((e) => e.hit(offset));

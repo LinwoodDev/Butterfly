@@ -19,13 +19,15 @@ class ImageExportAction extends Action<ImageExportIntent> {
     var transform = intent.context.read<TransformCubit>().state;
     var size = MediaQuery.of(intent.context).size;
     showDialog(
-        builder: (context) => ImageExportDialog(
-              bloc: bloc,
-              width: size.width.round(),
-              height: size.height.round(),
-              x: -transform.position.dx,
-              y: -transform.position.dy,
-              scale: transform.size,
+        builder: (context) => BlocProvider.value(
+              value: bloc,
+              child: ImageExportDialog(
+                width: size.width.round(),
+                height: size.height.round(),
+                x: -transform.position.dx,
+                y: -transform.position.dy,
+                scale: transform.size,
+              ),
             ),
         context: intent.context);
   }

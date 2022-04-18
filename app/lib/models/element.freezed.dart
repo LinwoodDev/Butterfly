@@ -928,7 +928,7 @@ class _$PadElementTearOff {
       @OffsetJsonConverter() Offset position = Offset.zero,
       String text = '',
       LabelProperty property = const LabelProperty(),
-      ElementConstraint constraint = const ElementConstraint()}) {
+      ElementConstraint constraint = const ElementConstraint(size: 1000)}) {
     return LabelElement(
       layer: layer,
       position: position,
@@ -1646,7 +1646,7 @@ class _$LabelElement implements LabelElement {
       @OffsetJsonConverter() this.position = Offset.zero,
       this.text = '',
       this.property = const LabelProperty(),
-      this.constraint = const ElementConstraint(),
+      this.constraint = const ElementConstraint(size: 1000),
       String? $type})
       : $type = $type ?? 'label';
 

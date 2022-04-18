@@ -19,6 +19,23 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
+  void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
+    // Create data url
+    final data = element.pixels;
+    final encoded = base64Encode(data);
+    final dataUrl = 'data:image/png;base64,$encoded';
+    final localRect = this.rect.shift(rect.topLeft);
+    // Create image
+    xml.getElement('svg')?.createElement('image', attributes: {
+      'x': '${localRect.left}',
+      'y': '${localRect.top}',
+      'width': '${localRect.width}',
+      'height': '${localRect.height}',
+      'xlink:href': dataUrl,
+    });
+  }
+
+  @override
   FutureOr<void> setup(AppDocument document) async {
     image = await decodeImageFromList(element.pixels);
     super.setup(document);
