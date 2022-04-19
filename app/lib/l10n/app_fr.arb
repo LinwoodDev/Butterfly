@@ -168,6 +168,7 @@
     "deleteElements": "Supprimer les éléments",
     "deleteElementsConfirm": "Voulez-vous vraiment supprimer les éléments sélectionnés ?",
     "selectCustomLayer": "Sélectionnez une couche personnalisée",
+    "svg": "SVG",
     "sensitivity": "Sensibilité",
     "sensitivityHint": "Plus la valeur est élevée, plus l'entrée est sensible",
     "touchSensitivity": "Sensibilité tactile",
@@ -244,5 +245,6 @@
     "right": "Droite",
     "justify": "Justifier",
     "constraint": "Contrainte",
-    "length": "Longueur"
+    "length": "Longueur",
+    "exportSvg": "Export SVG"
 }

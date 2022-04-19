@@ -168,6 +168,7 @@
     "deleteElements": "Elemente löschen",
     "deleteElementsConfirm": "Möchten Sie die ausgewählten Elemente wirklich löschen?",
     "selectCustomLayer": "Eigene Ebene auswählen",
+    "svg": "SVG",
     "sensitivity": "Empfindlichkeit",
     "sensitivityHint": "Je höher der Wert, desto sensibler die Eingabe",
     "touchSensitivity": "Berührungsempfindlichkeit",
@@ -244,5 +245,6 @@
     "right": "Rechts",
     "justify": "Blocksatz",
     "constraint": "Einschränkung",
-    "length": "Länge"
+    "length": "Länge",
+    "exportSvg": "SVG exportieren"
 }
