@@ -116,15 +116,14 @@ _$LabelElement _$$LabelElementFromJson(Map json) => _$LabelElement(
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null
           ? Offset.zero
-          : const OffsetJsonConverter()
-              .fromJson(json['position'] as Map<String, dynamic>),
+          : const OffsetJsonConverter().fromJson(json['position'] as Map),
       text: json['text'] as String? ?? '',
       property: json['property'] == null
           ? const LabelProperty()
           : LabelProperty.fromJson(
               Map<String, dynamic>.from(json['property'] as Map)),
       constraint: json['constraint'] == null
-          ? const ElementConstraint()
+          ? const ElementConstraint(size: 1000)
           : ElementConstraint.fromJson(
               Map<String, dynamic>.from(json['constraint'] as Map)),
       $type: json['type'] as String?,
@@ -144,8 +143,7 @@ _$ImageElement _$$ImageElementFromJson(Map json) => _$ImageElement(
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null
           ? Offset.zero
-          : const OffsetJsonConverter()
-              .fromJson(json['position'] as Map<String, dynamic>),
+          : const OffsetJsonConverter().fromJson(json['position'] as Map),
       constraints: json['constraints'] == null
           ? const ScaledElementConstraints(1)
           : ElementConstraints.fromJson(

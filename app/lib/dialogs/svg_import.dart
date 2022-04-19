@@ -8,14 +8,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class ImportDialog extends StatefulWidget {
-  const ImportDialog({Key? key}) : super(key: key);
+class SvgImportDialog extends StatefulWidget {
+  const SvgImportDialog({Key? key}) : super(key: key);
 
   @override
-  _ImportDialogState createState() => _ImportDialogState();
+  _SvgImportDialogState createState() => _SvgImportDialogState();
 }
 
-class _ImportDialogState extends State<ImportDialog> {
+class _SvgImportDialogState extends State<SvgImportDialog> {
   @override
   Widget build(BuildContext context) {
     var isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
@@ -39,7 +39,7 @@ class _ImportDialogState extends State<ImportDialog> {
               FilePicker.platform
                   .pickFiles(
                       type: isMobile ? FileType.any : FileType.custom,
-                      allowedExtensions: isMobile ? null : ['bfly', 'json'])
+                      allowedExtensions: isMobile ? null : ['svg'])
                   .then((files) {
                 if (files?.files.isEmpty ?? true) return;
                 var e = files!.files.first;

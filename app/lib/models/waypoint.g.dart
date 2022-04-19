@@ -8,8 +8,7 @@ part of 'waypoint.dart';
 
 _$_Waypoint _$$_WaypointFromJson(Map json) => _$_Waypoint(
       json['name'] as String,
-      const OffsetJsonConverter()
-          .fromJson(json['position'] as Map<String, dynamic>),
+      const OffsetJsonConverter().fromJson(json['position'] as Map),
       (json['scale'] as num?)?.toDouble(),
     );
 

@@ -15,6 +15,7 @@ import 'package:butterfly/actions/open.dart';
 import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/settings.dart';
+import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -164,6 +165,8 @@ class _ProjectPageState extends State<ProjectPage> {
                   LogicalKeyboardKey.control,
                   LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyE): ImageExportIntent(context),
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
+                  LogicalKeyboardKey.keyE): SvgExportIntent(context),
               LogicalKeySet(LogicalKeyboardKey.tab): EditModeIntent(context),
               LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
                   LogicalKeyboardKey.keyS): SettingsIntent(context),
@@ -202,6 +205,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   NewIntent: NewAction(),
                   OpenIntent: OpenAction(),
                   ImportIntent: ImportAction(),
+                  SvgExportIntent: SvgExportAction(),
                   ImageExportIntent: ImageExportAction(),
                   ExportIntent: ExportAction(),
                   EditModeIntent: EditModeAction(),

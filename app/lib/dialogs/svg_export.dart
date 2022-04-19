@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/api/open_image.dart';
+import 'package:butterfly/api/xml_helper.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/element.dart';
@@ -12,29 +13,28 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:xml/xml.dart';
 
 import '../view_painter.dart';
-import '../widgets/exact_slider.dart';
 
-class ImageExportDialog extends StatefulWidget {
+class SvgExportDialog extends StatefulWidget {
   final double x, y;
   final int width, height;
-  final double scale;
 
-  const ImageExportDialog(
-      {Key? key,
-      this.x = 0,
-      this.y = 0,
-      this.width = 1000,
-      this.height = 1000,
-      this.scale = 1})
-      : super(key: key);
+  const SvgExportDialog({
+    Key? key,
+    this.x = 0,
+    this.y = 0,
+    this.width = 1000,
+    this.height = 1000,
+  }) : super(key: key);
 
   @override
-  State<ImageExportDialog> createState() => _ImageExportDialogState();
+  State<SvgExportDialog> createState() => _SvgExportDialogState();
 }
 
-class _ImageExportDialogState extends State<ImageExportDialog> {
+class _SvgExportDialogState extends State<SvgExportDialog> {
   Map<PadElement, ui.Image>? images;
   final TextEditingController _xController = TextEditingController(text: '0');
 
@@ -49,7 +49,6 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   bool _renderBackground = true;
   double x = 0, y = 0;
   int width = 1000, height = 1000;
-  double scale = 1;
 
   ByteData? _previewImage;
   Future? _regeneratingFuture;
@@ -60,7 +59,6 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
     y = widget.y;
     width = widget.width;
     height = widget.height;
-    scale = widget.scale;
     _xController.text = x.toString();
     _yController.text = y.toString();
     _widthController.text = width.toString();
@@ -72,7 +70,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
 
   Future<void> _regeneratePreviewImage() async {
     if (_regeneratingFuture != null) return;
-    var imageFuture = generateImage();
+    var imageFuture = _generateImage();
     _regeneratingFuture =
         _regeneratingFuture?.then((value) => imageFuture) ?? imageFuture;
     var image = await _regeneratingFuture;
@@ -80,18 +78,60 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
     if (mounted) setState(() => _previewImage = image);
   }
 
-  Future<ByteData?> generateImage() async {
+  Future<ByteData?> _generateImage() async {
     var recorder = ui.PictureRecorder();
     var canvas = Canvas(recorder);
     var current = context.read<DocumentBloc>().state as DocumentLoadSuccess;
     var painter = ViewPainter(current.document,
         renderBackground: _renderBackground,
         cameraViewport: current.cameraViewport.unbake(current.renderers),
-        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), scale));
+        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble())));
     painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
     var picture = recorder.endRecording();
     var image = await picture.toImage(width, height);
     return await image.toByteData(format: ui.ImageByteFormat.png);
+  }
+
+  Future<XmlDocument> _generateSvg() async {
+    final document = XmlDocument();
+    document.createElement('svg', attributes: {
+      'xmlns': 'http://www.w3.org/2000/svg',
+      'xmlns:xlink': 'http://www.w3.org/1999/xlink',
+      'version': '1.1',
+      'width': '${width}px',
+      'height': '${height}px',
+      'viewBox': '$x $y $width $height',
+    });
+
+    var current = context.read<DocumentBloc>().state as DocumentLoadSuccess;
+    final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
+    for (var e in current.renderers) {
+      e.buildSvg(document, current.document, rect);
+    }
+    return document;
+  }
+
+  Future<void> _exportSvg() async {
+    final data = await _generateSvg();
+    if (!mounted) return;
+
+    if (!kIsWeb &&
+        (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+      var path = await FilePicker.platform.saveFile(
+        type: FileType.image,
+        dialogTitle: AppLocalizations.of(context)!.export,
+      );
+      if (path != null) {
+        var file = File(path);
+        if (!(await file.exists())) {
+          file.create(recursive: true);
+        }
+        await file.writeAsString(data.toXmlString());
+        launch('file://${file.path}');
+      }
+    } else {
+      openSvg(data.toXmlString());
+    }
   }
 
   @override
@@ -144,32 +184,8 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                         ElevatedButton(
                           child: Text(AppLocalizations.of(context)!.export),
                           onPressed: () async {
-                            final localization = AppLocalizations.of(context)!;
                             Navigator.of(context).pop();
-                            final data = await generateImage();
-                            if (data == null) {
-                              return;
-                            }
-
-                            if (!kIsWeb &&
-                                (Platform.isWindows ||
-                                    Platform.isLinux ||
-                                    Platform.isMacOS)) {
-                              var path = await FilePicker.platform.saveFile(
-                                type: FileType.image,
-                                dialogTitle: localization.export,
-                              );
-                              if (path != null) {
-                                var file = File(path);
-                                if (!(await file.exists())) {
-                                  file.create(recursive: true);
-                                }
-                                await file
-                                    .writeAsBytes(data.buffer.asUint8List());
-                              }
-                            } else {
-                              openImage(data.buffer.asUint8List());
-                            }
+                            _exportSvg();
                           },
                         ),
                       ],
@@ -231,16 +247,6 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                 labelText: AppLocalizations.of(context)!.height),
             onChanged: (value) => height = int.tryParse(value) ?? height,
             onSubmitted: (value) => _regeneratePreviewImage()),
-        ExactSlider(
-            header: Text(AppLocalizations.of(context)!.scale),
-            min: 0.1,
-            max: 10,
-            value: scale,
-            defaultValue: 1,
-            onChanged: (value) {
-              scale = value;
-              _regeneratePreviewImage();
-            }),
         CheckboxListTile(
             value: _renderBackground,
             title: Text(AppLocalizations.of(context)!.background),

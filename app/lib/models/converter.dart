@@ -8,12 +8,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../main.dart';
 import 'palette.dart';
 
-class DocumentJsonConverter
-    extends JsonConverter<AppDocument, Map<String, dynamic>> {
+class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
   const DocumentJsonConverter();
 
   @override
-  AppDocument fromJson(Map<String, dynamic> json) {
+  AppDocument fromJson(Map json) {
     final fileVersion = json['fileVersion'] as int?;
     if (fileVersion != null && fileVersion >= 0) {
       if (fileVersion < 4) {
@@ -47,7 +46,7 @@ class DocumentJsonConverter
     if (json['background']?['type'] == null) {
       json['background'] = {'type': 'empty'};
     }
-    return AppDocument.fromJson(json);
+    return AppDocument.fromJson(Map<String, dynamic>.from(json));
   }
 
   @override
@@ -56,11 +55,11 @@ class DocumentJsonConverter
   }
 }
 
-class OffsetJsonConverter extends JsonConverter<Offset, Map<String, dynamic>> {
+class OffsetJsonConverter extends JsonConverter<Offset, Map> {
   const OffsetJsonConverter();
 
   @override
-  Offset fromJson(Map<String, dynamic> json) {
+  Offset fromJson(Map json) {
     double x = 0, y = 0;
     final xJson = json['x'];
     final yJson = json['y'];
@@ -79,8 +78,7 @@ class OffsetJsonConverter extends JsonConverter<Offset, Map<String, dynamic>> {
   }
 
   @override
-  Map<String, dynamic> toJson(Offset object) =>
-      {'x': object.dx, 'y': object.dy};
+  Map toJson(Offset object) => {'x': object.dx, 'y': object.dy};
 }
 
 class Uint8ListJsonConverter extends JsonConverter<Uint8List, String> {

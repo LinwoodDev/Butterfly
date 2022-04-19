@@ -110,13 +110,15 @@ class AreaContextMenu extends StatelessWidget {
                 close();
                 var bloc = context.read<DocumentBloc>();
                 showDialog(
-                    builder: (context) => ImageExportDialog(
-                          bloc: bloc,
-                          width: area.width.round(),
-                          height: area.height.round(),
-                          x: area.position.dx,
-                          y: area.position.dy,
-                          scale: 1,
+                    builder: (context) => BlocProvider.value(
+                          value: bloc,
+                          child: ImageExportDialog(
+                            width: area.width.round(),
+                            height: area.height.round(),
+                            x: area.position.dx,
+                            y: area.position.dy,
+                            scale: 1,
+                          ),
                         ),
                     context: context);
               },

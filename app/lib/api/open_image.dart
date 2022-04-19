@@ -6,3 +6,7 @@ import 'package:butterfly/api/open_image_stub.dart'
 void openImage(List<int> bytes) {
   open_image.openImage(bytes);
 }
+
+void openSvg(String svg) {
+  open_image.openSvg(svg);
+}

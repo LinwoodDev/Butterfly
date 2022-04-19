@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui' show Image;
 
@@ -7,6 +8,9 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
+import 'package:xml/xml.dart';
+
+import '../api/xml_helper.dart';
 
 import '../cubits/transform.dart';
 import '../models/background.dart';
@@ -59,6 +63,7 @@ abstract class Renderer<T> {
       [bool foreground = false]);
   HitCalculator? get hitCalculator =>
       rect == null ? null : DefaultHitCalculator(rect!);
+  void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {}
   factory Renderer.fromInstance(T element) {
     // Elements
     if (element is PadElement) {

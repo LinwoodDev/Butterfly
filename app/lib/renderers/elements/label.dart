@@ -98,5 +98,63 @@ class LabelRenderer extends Renderer<LabelElement> {
   }
 
   @override
+  void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
+    final property = element.property;
+    String textDecoration = '';
+    if (property.underline) textDecoration += 'underline ';
+    if (property.lineThrough) textDecoration += 'line-through ';
+    if (property.overline) textDecoration += 'overline ';
+    textDecoration +=
+        '${property.decorationStyle.name} ${property.decorationThickness}px ${property.decorationColor.toRadixString(16).substring(2)}';
+    final foreignObject =
+        xml.getElement('svg')?.createElement('foreignObject', attributes: {
+      'x': '${this.rect.left}px',
+      'y': '${this.rect.top}px',
+      'width': '${this.rect.width}px',
+      'height': '${this.rect.height}px',
+    });
+    String alignItems = 'center';
+    switch (element.property.verticalAlignment) {
+      case VerticalAlignment.top:
+        alignItems = 'flex-start';
+        break;
+      case VerticalAlignment.bottom:
+        alignItems = 'flex-end';
+        break;
+      case VerticalAlignment.center:
+        alignItems = 'center';
+        break;
+    }
+    String alignContent = 'center';
+    switch (element.property.horizontalAlignment) {
+      case HorizontalAlignment.left:
+        alignContent = 'flex-start';
+        break;
+      case HorizontalAlignment.right:
+        alignContent = 'flex-end';
+        break;
+      case HorizontalAlignment.center:
+        alignContent = 'center';
+        break;
+      case HorizontalAlignment.justify:
+        alignContent = 'space-between';
+        break;
+    }
+    final div = foreignObject?.createElement('div', attributes: {
+      'style': 'font-size: ${property.size}px;'
+          'font-style: ${property.italic ? 'italic' : 'normal'};'
+          'font-weight: ${property.fontWeight};'
+          'letter-spacing: ${property.letterSpacing}px;'
+          'color: #${property.color.toRadixString(16).substring(2)};'
+          'text-decoration: $textDecoration;'
+          'display: flex;'
+          'align-items: $alignItems;'
+          'justify-content: $alignContent;',
+      'xmlns': 'http://www.w3.org/1999/xhtml',
+    });
+    div?.innerText = element.text;
+  }
+
+  @override
   LabelElement move(Offset position) => element.copyWith(position: position);
 }

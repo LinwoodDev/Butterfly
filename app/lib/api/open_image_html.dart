@@ -15,3 +15,12 @@ void openImage(List<int> bytes) {
   var body = js_util.getProperty(doc, 'body');
   js_util.callMethod(body, 'append', [img]);
 }
+
+void openSvg(String data) {
+  // Open svg in the web browser
+  var d = js_util.callMethod(window, 'open', []);
+  // Get document from js_util and add svg to this document
+  var doc = js_util.getProperty(d, 'document');
+  var body = js_util.getProperty(doc, 'body');
+  js_util.setProperty(body, 'innerHTML', data);
+}

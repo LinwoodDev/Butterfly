@@ -10,8 +10,7 @@ _$_Area _$$_AreaFromJson(Map json) => _$_Area(
       name: json['name'] as String? ?? '',
       width: (json['width'] as num).toDouble(),
       height: (json['height'] as num).toDouble(),
-      position: const OffsetJsonConverter()
-          .fromJson(json['position'] as Map<String, dynamic>),
+      position: const OffsetJsonConverter().fromJson(json['position'] as Map),
     );
 
 Map<String, dynamic> _$$_AreaToJson(_$_Area instance) => <String, dynamic>{
