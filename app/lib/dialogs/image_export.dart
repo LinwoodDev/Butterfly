@@ -157,6 +157,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                                     Platform.isMacOS)) {
                               var path = await FilePicker.platform.saveFile(
                                 type: FileType.image,
+                                fileName: 'export.png',
                                 dialogTitle: localization.export,
                               );
                               if (path != null) {

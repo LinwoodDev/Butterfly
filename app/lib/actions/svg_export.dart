@@ -16,15 +16,16 @@ class SvgExportAction extends Action<SvgExportIntent> {
 
   @override
   Future<void> invoke(SvgExportIntent intent) async {
-    var bloc = intent.context.read<DocumentBloc>();
-    var transform = intent.context.read<TransformCubit>().state;
-    var size = MediaQuery.of(intent.context).size;
+    final bloc = intent.context.read<DocumentBloc>();
+    final transform = intent.context.read<TransformCubit>().state;
+    final size = MediaQuery.of(intent.context).size;
+    var scale = transform.size;
     showDialog(
         builder: (context) => BlocProvider.value(
               value: bloc,
               child: SvgExportDialog(
-                width: size.width.round(),
-                height: size.height.round(),
+                width: (size.width / scale).round(),
+                height: (size.height / scale).round(),
                 x: -transform.position.dx,
                 y: -transform.position.dy,
               ),

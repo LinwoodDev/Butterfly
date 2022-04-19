@@ -118,7 +118,9 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
     if (!kIsWeb &&
         (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
       var path = await FilePicker.platform.saveFile(
-        type: FileType.image,
+        type: FileType.custom,
+        allowedExtensions: ['svg'],
+        fileName: 'export.svg',
         dialogTitle: AppLocalizations.of(context)!.export,
       );
       if (path != null) {
@@ -143,7 +145,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
           child: Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
-                title: Text(AppLocalizations.of(context)!.export),
+                title: Text(AppLocalizations.of(context)!.exportSvg),
                 leading: const Icon(PhosphorIcons.exportLight),
               ),
               body: Padding(

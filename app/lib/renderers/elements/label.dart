@@ -149,7 +149,9 @@ class LabelRenderer extends Renderer<LabelElement> {
           'text-decoration: $textDecoration;'
           'display: flex;'
           'align-items: $alignItems;'
-          'justify-content: $alignContent;',
+          'justify-content: $alignContent;'
+          'height: ${this.rect.height}px;'
+          'width: ${this.rect.width}px;',
       'xmlns': 'http://www.w3.org/1999/xhtml',
     });
     div?.innerText = element.text;
