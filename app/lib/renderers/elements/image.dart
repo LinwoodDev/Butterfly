@@ -31,6 +31,7 @@ class ImageRenderer extends Renderer<ImageElement> {
       'width': '${this.rect.width}',
       'height': '${this.rect.height}',
       'xlink:href': dataUrl,
+      'mask': 'url(#eraser-mask)',
     });
   }
 

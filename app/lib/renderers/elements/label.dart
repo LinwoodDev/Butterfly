@@ -23,6 +23,7 @@ class LabelRenderer extends Renderer<LabelElement> {
       text: TextSpan(
           style: TextStyle(
               fontSize: element.property.size,
+              fontFamily: 'Roboto',
               fontStyle:
                   element.property.italic ? FontStyle.italic : FontStyle.normal,
               color: Color(element.property.color),
@@ -111,7 +112,7 @@ class LabelRenderer extends Renderer<LabelElement> {
       'x': '${this.rect.left}px',
       'y': '${this.rect.top}px',
       'width': '${this.rect.width}px',
-      'height': '${this.rect.height}px',
+      'height': '${min(this.rect.height, rect.bottom)}px',
     });
     String alignItems = 'center';
     switch (element.property.verticalAlignment) {
@@ -144,6 +145,7 @@ class LabelRenderer extends Renderer<LabelElement> {
       'style': 'font-size: ${property.size}px;'
           'font-style: ${property.italic ? 'italic' : 'normal'};'
           'font-weight: ${property.fontWeight};'
+          'font-family: Roboto;'
           'letter-spacing: ${property.letterSpacing}px;'
           'color: #${property.color.toRadixString(16).substring(2)};'
           'text-decoration: $textDecoration;'

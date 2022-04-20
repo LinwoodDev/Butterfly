@@ -67,18 +67,17 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
 
   @override
   void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
-    var g = xml.createElement('g', id: 'box-background');
+    var g =
+        xml.getOrCreateElement('svg').createElement('g', id: 'box-background');
 
     g.createElement('rect', attributes: {
       'x': '${rect.left}',
       'y': '${rect.top}',
       'width': '${rect.width}',
       'height': '${rect.height}',
-      'fill': '${element.boxColor}'
+      'fill': '#${element.boxColor.toRadixString(16).substring(2)}'
     });
     if (element.boxWidth > 0 && element.boxXCount > 0) {
-      var relativeWidth = element.boxWidth * rect.width;
-      var relativeSpace = element.boxXSpace * rect.width;
       int xCount = (rect.left /
                   (element.boxWidth * element.boxXCount + element.boxXSpace))
               .floor() +
@@ -86,7 +85,6 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
       double x =
           -xCount * (element.boxWidth * element.boxXCount + element.boxXSpace) +
               rect.left;
-      x *= rect.width;
 
       int count = 0;
       while (x < rect.width) {
@@ -94,21 +92,19 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
           'x1': '$x',
           'y1': '${rect.top}',
           'x2': '$x',
-          'y2': '${rect.height}',
-          'stroke': '${element.boxXColor}',
-          'stroke-width': '${element.boxXStroke * rect.width}'
+          'y2': '${rect.top + rect.height}',
+          'stroke': '#${element.boxXColor.toRadixString(16).substring(2)}',
+          'stroke-width': '${element.boxXStroke}'
         });
         count++;
         if (count >= element.boxXCount) {
           count = 0;
-          x += relativeSpace;
+          x += element.boxXSpace;
         }
-        x += relativeWidth;
+        x += element.boxWidth;
       }
     }
     if (element.boxHeight > 0 && element.boxYCount > 0) {
-      var relativeHeight = element.boxHeight * rect.height;
-      var relativeSpace = element.boxYSpace * rect.height;
       int yCount = (rect.top /
                   (element.boxHeight * element.boxYCount + element.boxYSpace))
               .floor() +
@@ -116,24 +112,23 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
       double y = -yCount *
               (element.boxHeight * element.boxYCount + element.boxYSpace) +
           rect.top;
-      y *= rect.height;
 
       int count = 0;
       while (y < rect.height) {
         g.createElement('line', attributes: {
           'x1': '${rect.left}',
           'y1': '$y',
-          'x2': '${rect.width}',
+          'x2': '${rect.left + rect.width}',
           'y2': '$y',
-          'stroke': '${element.boxYColor}',
-          'stroke-width': '${element.boxYStroke * rect.height}'
+          'stroke': '#${element.boxYColor.toRadixString(16).substring(2)}',
+          'stroke-width': '${element.boxYStroke}'
         });
         count++;
         if (count >= element.boxYCount) {
           count = 0;
-          y += relativeSpace;
+          y += element.boxYSpace;
         }
-        y += relativeHeight;
+        y += element.boxHeight;
       }
     }
   }

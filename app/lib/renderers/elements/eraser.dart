@@ -15,8 +15,10 @@ class EraserRenderer extends PathRenderer<EraserElement> {
 
   @override
   void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
-    final mask =
-        xml.getElement('svg')?.getOrCreateElement('mask', id: 'eraser-mask');
+    final mask = xml
+        .getElement('svg')
+        ?.getOrCreateElement('defs')
+        .getOrCreateElement('mask', id: 'eraser-mask');
     final points = element.points;
     final property = element.property;
     if (points.isEmpty) return;
@@ -29,11 +31,13 @@ class EraserRenderer extends PathRenderer<EraserElement> {
         'd': 'M${element.x} ${element.y} '
             'L${last.x} ${last.y} ',
         'fill': 'none',
-        'stroke': 'white',
+        'stroke': 'black',
         'stroke-width': '${width * 2}',
         'stroke-linecap': 'round',
         'stroke-linejoin': 'round',
+        'mask': 'url(#eraser-mask)',
       });
+      last = element;
     }
   }
 }
