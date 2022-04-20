@@ -2,6 +2,14 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.3.0-beta.0 (2022-04-20)
+
+* Add svg export
+* Add constraints to label and image
+* Add horizontal and vertical alignment to label
+* Reimplement eraser
+* Fixing stroke width
+
 ## 1.3.0-alpha.1 (2022-04-12)
 
 * Change scroll behavior to move
