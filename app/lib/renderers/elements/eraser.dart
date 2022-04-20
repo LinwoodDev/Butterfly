@@ -5,11 +5,13 @@ class EraserRenderer extends PathRenderer<EraserElement> {
       : super(element, rect);
 
   @override
-  Paint buildPaint([bool foreground = false]) => Paint()
-    ..style = PaintingStyle.stroke
-    ..color = Colors.white
-    ..strokeCap = StrokeCap.round
-    ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear;
+  Paint buildPaint([bool foreground = false]) {
+    return Paint()
+      ..style = PaintingStyle.stroke
+      ..color = Colors.white
+      ..strokeCap = StrokeCap.round
+      ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear;
+  }
 
   @override
   void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {

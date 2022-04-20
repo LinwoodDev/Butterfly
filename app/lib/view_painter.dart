@@ -109,6 +109,7 @@ class ViewPainter extends CustomPainter {
     if (renderBackground) {
       cameraViewport.background.build(canvas, size, transform);
     }
+    canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     if (cameraViewport.bakedElements.isNotEmpty) {
       var image = cameraViewport.image;
       var bakedSizeDiff =
@@ -127,7 +128,6 @@ class ViewPainter extends CustomPainter {
         );
       }
     }
-    canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var renderer in cameraViewport.unbakedElements) {

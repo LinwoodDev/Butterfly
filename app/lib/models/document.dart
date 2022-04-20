@@ -3,6 +3,7 @@ import 'package:butterfly/models/background.dart';
 import 'package:butterfly/models/converter.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:collection/collection.dart';
 
 import 'element.dart';
 import 'painter.dart';

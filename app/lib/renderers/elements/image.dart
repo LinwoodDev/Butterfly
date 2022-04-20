@@ -6,8 +6,8 @@ class ImageRenderer extends Renderer<ImageElement> {
   ImageRenderer(ImageElement element, [this.image]) : super(element);
 
   @override
-  FutureOr<void> build(Canvas canvas, Size size, CameraTransform transform,
-      [bool foreground = false]) async {
+  void build(Canvas canvas, Size size, CameraTransform transform,
+      [bool foreground = false]) {
     if (image == null) return;
     var paint = Paint()..isAntiAlias = true;
     canvas.drawImageRect(

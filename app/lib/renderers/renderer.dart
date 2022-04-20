@@ -59,7 +59,7 @@ abstract class Renderer<T> {
   }
 
   Rect? get rect => null;
-  FutureOr<void> build(Canvas canvas, Size size, CameraTransform transform,
+  void build(Canvas canvas, Size size, CameraTransform transform,
       [bool foreground = false]);
   HitCalculator? get hitCalculator =>
       rect == null ? null : DefaultHitCalculator(rect!);
