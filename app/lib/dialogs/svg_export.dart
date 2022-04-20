@@ -94,7 +94,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
 
   Future<XmlDocument> _generateSvg() async {
     final document = XmlDocument();
-    document.createElement('svg', attributes: {
+    final svg = document.createElement('svg', attributes: {
       'xmlns': 'http://www.w3.org/2000/svg',
       'xmlns:xlink': 'http://www.w3.org/1999/xlink',
       'version': '1.1',
@@ -102,9 +102,21 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
       'height': '${height}px',
       'viewBox': '$x $y $width $height',
     });
+    svg
+        .createElement('defs')
+        .createElement('mask', id: 'eraser-mask')
+        .createElement('rect', attributes: {
+      'x': '0',
+      'y': '0',
+      'width': '${width}px',
+      'height': '${height}px',
+      'fill': 'white',
+    });
 
     var current = context.read<DocumentBloc>().state as DocumentLoadSuccess;
     final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
+    current.cameraViewport.background
+        .buildSvg(document, current.document, rect);
     for (var e in current.renderers) {
       e.buildSvg(document, current.document, rect);
     }
