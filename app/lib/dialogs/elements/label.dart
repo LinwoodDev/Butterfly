@@ -1,6 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/elements/general.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -84,42 +85,46 @@ class EditLabelElementDialog extends StatelessWidget {
     return Dialog(
         child: ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 500, maxHeight: 500),
-      child: Scaffold(
-        appBar: AppBar(
-          leading: const Icon(PhosphorIcons.textTLight),
-          title: Text(AppLocalizations.of(context)!.enterText),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Expanded(
-                child: ListView(shrinkWrap: true, children: [
-              TextField(
-                controller: _textController,
-                autofocus: true,
-                keyboardType: TextInputType.multiline,
-                minLines: 3,
-                maxLines: 5,
-                decoration: const InputDecoration(filled: true),
-                onSubmitted: (value) => submit(),
-              ),
-              LabelPropertyView(
-                initialValue: property,
-                onChanged: (value) => property = value,
-              ),
-            ])),
-            const Divider(),
-            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-              TextButton(
-                child: Text(AppLocalizations.of(context)!.cancel),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              TextButton(
-                  onPressed: submit,
-                  child: Text(AppLocalizations.of(context)!.ok))
-            ])
-          ]),
-        ),
+      child: Column(
+        children: [
+          Header(
+            leading: const Icon(PhosphorIcons.textTLight),
+            title: Text(AppLocalizations.of(context)!.enterText),
+          ),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                Expanded(
+                    child: ListView(shrinkWrap: true, children: [
+                  TextField(
+                    controller: _textController,
+                    autofocus: true,
+                    keyboardType: TextInputType.multiline,
+                    minLines: 3,
+                    maxLines: 5,
+                    decoration: const InputDecoration(filled: true),
+                    onSubmitted: (value) => submit(),
+                  ),
+                  LabelPropertyView(
+                    initialValue: property,
+                    onChanged: (value) => property = value,
+                  ),
+                ])),
+                const Divider(),
+                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  TextButton(
+                    child: Text(AppLocalizations.of(context)!.cancel),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  TextButton(
+                      onPressed: submit,
+                      child: Text(AppLocalizations.of(context)!.ok))
+                ])
+              ]),
+            ),
+          ),
+        ],
       ),
     ));
   }

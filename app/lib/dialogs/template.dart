@@ -1,5 +1,6 @@
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
+import 'package:butterfly/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -47,70 +48,78 @@ class _TemplateDialogState extends State<TemplateDialog> {
     return Dialog(
         child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
-            child: Scaffold(
-                appBar: AppBar(
+            child: Column(
+              children: [
+                Header(
                   title: Text(AppLocalizations.of(context)!.templates),
                   leading: IconButton(
                     icon: const Icon(PhosphorIcons.xLight),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
+                  actions: widget.currentDocument == null
+                      ? []
+                      : [
+                          TextButton.icon(
+                            onPressed: () =>
+                                _showCreateDialog(widget.currentDocument!),
+                            label: Text(AppLocalizations.of(context)!.create),
+                            icon: const Icon(PhosphorIcons.plusLight),
+                          )
+                        ],
                 ),
-                floatingActionButton: widget.currentDocument == null
-                    ? null
-                    : FloatingActionButton.extended(
-                        onPressed: () =>
-                            _showCreateDialog(widget.currentDocument!),
-                        label: Text(AppLocalizations.of(context)!.create),
-                        icon: const Icon(PhosphorIcons.plusLight),
-                      ),
-                body: FutureBuilder<List<DocumentTemplate>>(
-                    future: _templatesFuture,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
-                      }
-                      if (!snapshot.hasData || _prefs == null) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      var templates = snapshot.data!;
-                      return Column(children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                              decoration: const InputDecoration(
-                                filled: true,
-                                prefixIcon:
-                                    Icon(PhosphorIcons.magnifyingGlassLight),
-                              ),
-                              textAlignVertical: TextAlignVertical.center,
-                              controller: _searchController,
-                              autofocus: true,
-                              onChanged: (value) async {
-                                load();
-                                setState(() {});
-                              }),
-                        ),
-                        const Divider(),
-                        Expanded(
-                            child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 15),
-                                child: ListView.builder(
-                                    itemCount: templates.length,
-                                    itemBuilder: (context, index) {
-                                      var template = templates[index];
-                                      return _TemplateItem(
-                                        prefs: _prefs!,
-                                        template: template,
-                                        document: widget.currentDocument,
-                                        onChanged: () {
-                                          load();
-                                          setState(() {});
-                                        },
-                                      );
-                                    })))
-                      ]);
-                    }))));
+                Flexible(
+                  child: FutureBuilder<List<DocumentTemplate>>(
+                      future: _templatesFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Text(snapshot.error.toString());
+                        }
+                        if (!snapshot.hasData || _prefs == null) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        var templates = snapshot.data!;
+                        return Column(children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                                decoration: const InputDecoration(
+                                  filled: true,
+                                  prefixIcon:
+                                      Icon(PhosphorIcons.magnifyingGlassLight),
+                                ),
+                                textAlignVertical: TextAlignVertical.center,
+                                controller: _searchController,
+                                autofocus: true,
+                                onChanged: (value) async {
+                                  load();
+                                  setState(() {});
+                                }),
+                          ),
+                          const Divider(),
+                          Expanded(
+                              child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 15),
+                                  child: ListView.builder(
+                                      itemCount: templates.length,
+                                      itemBuilder: (context, index) {
+                                        var template = templates[index];
+                                        return _TemplateItem(
+                                          prefs: _prefs!,
+                                          template: template,
+                                          document: widget.currentDocument,
+                                          onChanged: () {
+                                            load();
+                                            setState(() {});
+                                          },
+                                        );
+                                      })))
+                        ]);
+                      }),
+                ),
+              ],
+            )));
   }
 
   void _showCreateDialog(AppDocument document) {

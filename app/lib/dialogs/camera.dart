@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../widgets/header.dart';
+
 class CameraDialog extends StatefulWidget {
   const CameraDialog({Key? key}) : super(key: key);
 
@@ -127,60 +129,66 @@ class _CameraDialogState extends State<CameraDialog>
     return Dialog(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxHeight: 600, maxWidth: 600),
-        child: Scaffold(
-          appBar: AppBar(
-              title: Text(AppLocalizations.of(context)!.camera),
-              leading: const Icon(PhosphorIcons.cameraLight)),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: FutureBuilder<List<CameraDescription>>(
-                future: availableCameras(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Align(
-                      alignment: Alignment.center,
-                      child: Text(snapshot.error.toString()),
-                    );
-                  }
-                  if (!snapshot.hasData) {
-                    return const Align(
-                      alignment: Alignment.center,
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(child: _buildCameraPreview()),
-                      const Divider(),
-                      _buildCameraToggles(snapshot.data!),
-                      const Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+        child: Column(
+          children: [
+            Header(
+                title: Text(AppLocalizations.of(context)!.camera),
+                leading: const Icon(PhosphorIcons.cameraLight)),
+            Flexible(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                child: FutureBuilder<List<CameraDescription>>(
+                    future: availableCameras(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Align(
+                          alignment: Alignment.center,
+                          child: Text(snapshot.error.toString()),
+                        );
+                      }
+                      if (!snapshot.hasData) {
+                        return const Align(
+                          alignment: Alignment.center,
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          TextButton(
-                            child: Text(AppLocalizations.of(context)!.cancel),
-                            onPressed: () => Navigator.of(context).pop(),
-                          ),
-                          TextButton(
-                            child: Text(AppLocalizations.of(context)!.ok),
-                            // Capture image on button press.
-                            onPressed: () async {
-                              final navigator = Navigator.of(context);
-                              final imageFile =
-                                  await _controller?.takePicture();
-                              if (imageFile != null) {
-                                var content = await imageFile.readAsBytes();
-                                return navigator.pop(content);
-                              }
-                            },
-                          ),
+                          Expanded(child: _buildCameraPreview()),
+                          const Divider(),
+                          _buildCameraToggles(snapshot.data!),
+                          const Divider(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                child:
+                                    Text(AppLocalizations.of(context)!.cancel),
+                                onPressed: () => Navigator.of(context).pop(),
+                              ),
+                              TextButton(
+                                child: Text(AppLocalizations.of(context)!.ok),
+                                // Capture image on button press.
+                                onPressed: () async {
+                                  final navigator = Navigator.of(context);
+                                  final imageFile =
+                                      await _controller?.takePicture();
+                                  if (imageFile != null) {
+                                    var content = await imageFile.readAsBytes();
+                                    return navigator.pop(content);
+                                  }
+                                },
+                              ),
+                            ],
+                          )
                         ],
-                      )
-                    ],
-                  );
-                }),
-          ),
+                      );
+                    }),
+              ),
+            ),
+          ],
         ),
       ),
     );

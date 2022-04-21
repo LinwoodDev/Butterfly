@@ -5,6 +5,7 @@ import 'package:butterfly/api/open_image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/element.dart';
+import 'package:butterfly/widgets/header.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -100,84 +101,89 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
       return Dialog(
         child: Container(
           constraints: const BoxConstraints(maxHeight: 500, maxWidth: 1000),
-          child: Scaffold(
-              backgroundColor: Colors.transparent,
-              appBar: AppBar(
+          child: Column(
+            children: [
+              Header(
                 title: Text(AppLocalizations.of(context)!.export),
                 leading: const Icon(PhosphorIcons.exportLight),
               ),
-              body: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: LayoutBuilder(builder: (context, constraints) {
-                        var isMobile = constraints.maxWidth < 600;
-                        if (isMobile) {
-                          return ListView(
-                            children: [_buildPreview(), _buildProperties()],
-                          );
-                        }
-                        return Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Expanded(
-                                child: _buildPreview(),
-                              ),
-                              Expanded(
-                                child: SingleChildScrollView(
-                                  child: _buildProperties(),
+              Flexible(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: LayoutBuilder(builder: (context, constraints) {
+                          var isMobile = constraints.maxWidth < 600;
+                          if (isMobile) {
+                            return ListView(
+                              children: [_buildPreview(), _buildProperties()],
+                            );
+                          }
+                          return Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(
+                                  child: _buildPreview(),
                                 ),
-                              )
-                            ]);
-                      }),
-                    ),
-                    const Divider(),
-                    Row(
-                      children: [
-                        Expanded(child: Container()),
-                        TextButton(
-                          child: Text(AppLocalizations.of(context)!.cancel),
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
-                        ElevatedButton(
-                          child: Text(AppLocalizations.of(context)!.export),
-                          onPressed: () async {
-                            final localization = AppLocalizations.of(context)!;
-                            Navigator.of(context).pop();
-                            final data = await generateImage();
-                            if (data == null) {
-                              return;
-                            }
-
-                            if (!kIsWeb &&
-                                (Platform.isWindows ||
-                                    Platform.isLinux ||
-                                    Platform.isMacOS)) {
-                              var path = await FilePicker.platform.saveFile(
-                                type: FileType.image,
-                                fileName: 'export.png',
-                                dialogTitle: localization.export,
-                              );
-                              if (path != null) {
-                                var file = File(path);
-                                if (!(await file.exists())) {
-                                  file.create(recursive: true);
-                                }
-                                await file
-                                    .writeAsBytes(data.buffer.asUint8List());
+                                Expanded(
+                                  child: SingleChildScrollView(
+                                    child: _buildProperties(),
+                                  ),
+                                )
+                              ]);
+                        }),
+                      ),
+                      const Divider(),
+                      Row(
+                        children: [
+                          Expanded(child: Container()),
+                          TextButton(
+                            child: Text(AppLocalizations.of(context)!.cancel),
+                            onPressed: () => Navigator.of(context).pop(),
+                          ),
+                          ElevatedButton(
+                            child: Text(AppLocalizations.of(context)!.export),
+                            onPressed: () async {
+                              final localization =
+                                  AppLocalizations.of(context)!;
+                              Navigator.of(context).pop();
+                              final data = await generateImage();
+                              if (data == null) {
+                                return;
                               }
-                            } else {
-                              openImage(data.buffer.asUint8List());
-                            }
-                          },
-                        ),
-                      ],
-                    )
-                  ],
+
+                              if (!kIsWeb &&
+                                  (Platform.isWindows ||
+                                      Platform.isLinux ||
+                                      Platform.isMacOS)) {
+                                var path = await FilePicker.platform.saveFile(
+                                  type: FileType.image,
+                                  fileName: 'export.png',
+                                  dialogTitle: localization.export,
+                                );
+                                if (path != null) {
+                                  var file = File(path);
+                                  if (!(await file.exists())) {
+                                    file.create(recursive: true);
+                                  }
+                                  await file
+                                      .writeAsBytes(data.buffer.asUint8List());
+                                }
+                              } else {
+                                openImage(data.buffer.asUint8List());
+                              }
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-              )),
+              ),
+            ],
+          ),
         ),
       );
     });

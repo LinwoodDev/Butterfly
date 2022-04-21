@@ -10,6 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../widgets/header.dart';
 import 'export.dart';
 import '../widgets/exact_slider.dart';
 
@@ -548,49 +549,54 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
     return Dialog(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxHeight: 500, maxWidth: 1000),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            title: Text(AppLocalizations.of(context)!.color),
-            leading: const Icon(PhosphorIcons.paletteLight),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: LayoutBuilder(builder: (context, constraints) {
-              var isMobile = constraints.maxWidth < 600;
-              return Column(
-                children: [
-                  Expanded(
-                      child: isMobile
-                          ? SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  _buildPreview(),
-                                  _buildProperties(),
-                                ],
-                              ),
-                            )
-                          : Row(children: [
-                              Expanded(flex: 2, child: _buildPreview()),
-                              Expanded(
-                                  flex: 3,
-                                  child: SingleChildScrollView(
-                                      child: _buildProperties()))
-                            ])),
-                  const Divider(),
-                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    TextButton(
-                        child: Text(AppLocalizations.of(context)!.cancel),
-                        onPressed: () => Navigator.of(context).pop()),
-                    ElevatedButton(
-                        child: Text(AppLocalizations.of(context)!.ok),
-                        onPressed: () => Navigator.of(context).pop(color)),
-                  ])
-                ],
-              );
-            }),
-          ),
+        child: Column(
+          children: [
+            Header(
+              title: Text(AppLocalizations.of(context)!.color),
+              leading: const Icon(PhosphorIcons.paletteLight),
+            ),
+            Flexible(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                child: LayoutBuilder(builder: (context, constraints) {
+                  var isMobile = constraints.maxWidth < 600;
+                  return Column(
+                    children: [
+                      Expanded(
+                          child: isMobile
+                              ? SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      _buildPreview(),
+                                      _buildProperties(),
+                                    ],
+                                  ),
+                                )
+                              : Row(children: [
+                                  Expanded(flex: 2, child: _buildPreview()),
+                                  Expanded(
+                                      flex: 3,
+                                      child: SingleChildScrollView(
+                                          child: _buildProperties()))
+                                ])),
+                      const Divider(),
+                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                        TextButton(
+                            child: Text(AppLocalizations.of(context)!.cancel),
+                            onPressed: () => Navigator.of(context).pop()),
+                        ElevatedButton(
+                            child: Text(AppLocalizations.of(context)!.ok),
+                            onPressed: () => Navigator.of(context).pop(color)),
+                      ])
+                    ],
+                  );
+                }),
+              ),
+            ),
+          ],
         ),
       ),
     );
