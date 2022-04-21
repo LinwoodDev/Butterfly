@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 
 class ThemeManager {
   static List<String> getThemes() => List<String>.from(kCustomSchemes.keys)
-    ..addAll(FlexScheme.values.map((e) => e.name));
+    ..addAll(FlexScheme.values.map((e) => e.name))
+    ..remove('custom');
   static ThemeData getThemeByName(String name, {bool dark = false}) {
     FlexSchemeColor? colorScheme;
+    if (name.isEmpty) name = 'classic';
     if (kCustomSchemes.containsKey(name)) {
       colorScheme =
           dark ? kCustomSchemes[name]!.dark : kCustomSchemes[name]!.light;
