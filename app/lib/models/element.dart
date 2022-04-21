@@ -23,6 +23,7 @@ class ElementConstraint with _$ElementConstraint {
 }
 
 @freezed
+@immutable
 class ElementConstraints with _$ElementConstraints {
   const factory ElementConstraints.scaled(double scale) =
       ScaledElementConstraints;
@@ -45,6 +46,7 @@ abstract class PathElement {
 }
 
 @freezed
+@immutable
 class PadElement with _$PadElement {
   @Implements<PathElement>()
   const factory PadElement.pen(

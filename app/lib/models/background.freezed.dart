@@ -12,7 +12,7 @@ part of 'background.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Background _$BackgroundFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
@@ -26,49 +26,6 @@ Background _$BackgroundFromJson(Map<String, dynamic> json) {
           json, 'type', 'Background', 'Invalid union type "${json['type']}"!');
   }
 }
-
-/// @nodoc
-class _$BackgroundTearOff {
-  const _$BackgroundTearOff();
-
-  EmptyBackground empty() {
-    return const EmptyBackground();
-  }
-
-  BoxBackground box(
-      {double boxWidth = 0,
-      double boxHeight = 0,
-      int boxXCount = 1,
-      int boxYCount = 1,
-      double boxXSpace = 0,
-      double boxYSpace = 0,
-      int boxXColor = kColorBlue,
-      int boxYColor = kColorRed,
-      int boxColor = kColorWhite,
-      double boxXStroke = 0.5,
-      double boxYStroke = 0.5}) {
-    return BoxBackground(
-      boxWidth: boxWidth,
-      boxHeight: boxHeight,
-      boxXCount: boxXCount,
-      boxYCount: boxYCount,
-      boxXSpace: boxXSpace,
-      boxYSpace: boxYSpace,
-      boxXColor: boxXColor,
-      boxYColor: boxYColor,
-      boxColor: boxColor,
-      boxXStroke: boxXStroke,
-      boxYStroke: boxYStroke,
-    );
-  }
-
-  Background fromJson(Map<String, Object?> json) {
-    return Background.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Background = _$BackgroundTearOff();
 
 /// @nodoc
 mixin _$Background {
@@ -186,7 +143,7 @@ class _$EmptyBackgroundCopyWithImpl<$Res> extends _$BackgroundCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$EmptyBackground implements EmptyBackground {
-  const _$EmptyBackground({String? $type}) : $type = $type ?? 'empty';
+  const _$EmptyBackground({final String? $type}) : $type = $type ?? 'empty';
 
   factory _$EmptyBackground.fromJson(Map<String, dynamic> json) =>
       _$$EmptyBackgroundFromJson(json);
@@ -205,6 +162,7 @@ class _$EmptyBackground implements EmptyBackground {
         (other.runtimeType == runtimeType && other is EmptyBackground);
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -426,44 +384,44 @@ class _$BoxBackground implements BoxBackground {
       this.boxColor = kColorWhite,
       this.boxXStroke = 0.5,
       this.boxYStroke = 0.5,
-      String? $type})
+      final String? $type})
       : $type = $type ?? 'box';
 
   factory _$BoxBackground.fromJson(Map<String, dynamic> json) =>
       _$$BoxBackgroundFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final double boxWidth;
-  @JsonKey()
   @override
+  @JsonKey()
   final double boxHeight;
-  @JsonKey()
   @override
+  @JsonKey()
   final int boxXCount;
-  @JsonKey()
   @override
+  @JsonKey()
   final int boxYCount;
-  @JsonKey()
   @override
+  @JsonKey()
   final double boxXSpace;
-  @JsonKey()
   @override
+  @JsonKey()
   final double boxYSpace;
-  @JsonKey()
   @override
+  @JsonKey()
   final int boxXColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final int boxYColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final int boxColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final double boxXStroke;
-  @JsonKey()
   @override
+  @JsonKey()
   final double boxYStroke;
 
   @JsonKey(name: 'type')
@@ -494,6 +452,7 @@ class _$BoxBackground implements BoxBackground {
                 .equals(other.boxYStroke, boxYStroke));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -623,32 +582,32 @@ class _$BoxBackground implements BoxBackground {
 
 abstract class BoxBackground implements Background {
   const factory BoxBackground(
-      {double boxWidth,
-      double boxHeight,
-      int boxXCount,
-      int boxYCount,
-      double boxXSpace,
-      double boxYSpace,
-      int boxXColor,
-      int boxYColor,
-      int boxColor,
-      double boxXStroke,
-      double boxYStroke}) = _$BoxBackground;
+      {final double boxWidth,
+      final double boxHeight,
+      final int boxXCount,
+      final int boxYCount,
+      final double boxXSpace,
+      final double boxYSpace,
+      final int boxXColor,
+      final int boxYColor,
+      final int boxColor,
+      final double boxXStroke,
+      final double boxYStroke}) = _$BoxBackground;
 
   factory BoxBackground.fromJson(Map<String, dynamic> json) =
       _$BoxBackground.fromJson;
 
-  double get boxWidth;
-  double get boxHeight;
-  int get boxXCount;
-  int get boxYCount;
-  double get boxXSpace;
-  double get boxYSpace;
-  int get boxXColor;
-  int get boxYColor;
-  int get boxColor;
-  double get boxXStroke;
-  double get boxYStroke;
+  double get boxWidth => throw _privateConstructorUsedError;
+  double get boxHeight => throw _privateConstructorUsedError;
+  int get boxXCount => throw _privateConstructorUsedError;
+  int get boxYCount => throw _privateConstructorUsedError;
+  double get boxXSpace => throw _privateConstructorUsedError;
+  double get boxYSpace => throw _privateConstructorUsedError;
+  int get boxXColor => throw _privateConstructorUsedError;
+  int get boxYColor => throw _privateConstructorUsedError;
+  int get boxColor => throw _privateConstructorUsedError;
+  double get boxXStroke => throw _privateConstructorUsedError;
+  double get boxYStroke => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $BoxBackgroundCopyWith<BoxBackground> get copyWith =>
       throw _privateConstructorUsedError;

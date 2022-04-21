@@ -12,7 +12,7 @@ part of 'property.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Property _$PropertyFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
@@ -30,79 +30,6 @@ Property _$PropertyFromJson(Map<String, dynamic> json) {
           json, 'type', 'Property', 'Invalid union type "${json['type']}"!');
   }
 }
-
-/// @nodoc
-class _$PropertyTearOff {
-  const _$PropertyTearOff();
-
-  HandProperty hand({bool includeEraser = false}) {
-    return HandProperty(
-      includeEraser: includeEraser,
-    );
-  }
-
-  LabelProperty label(
-      {double size = 12,
-      int color = kColorBlack,
-      int fontWeight = 3,
-      bool lineThrough = false,
-      bool underline = false,
-      bool overline = false,
-      bool italic = false,
-      double letterSpacing = 0,
-      int decorationColor = kColorBlack,
-      TextDecorationStyle decorationStyle = TextDecorationStyle.solid,
-      double decorationThickness = 1,
-      HorizontalAlignment horizontalAlignment = HorizontalAlignment.left,
-      VerticalAlignment verticalAlignment = VerticalAlignment.top}) {
-    return LabelProperty(
-      size: size,
-      color: color,
-      fontWeight: fontWeight,
-      lineThrough: lineThrough,
-      underline: underline,
-      overline: overline,
-      italic: italic,
-      letterSpacing: letterSpacing,
-      decorationColor: decorationColor,
-      decorationStyle: decorationStyle,
-      decorationThickness: decorationThickness,
-      horizontalAlignment: horizontalAlignment,
-      verticalAlignment: verticalAlignment,
-    );
-  }
-
-  EraserProperty eraser(
-      {double strokeWidth = 5,
-      double strokeMultiplier = 10,
-      int color = kColorBlack}) {
-    return EraserProperty(
-      strokeWidth: strokeWidth,
-      strokeMultiplier: strokeMultiplier,
-      color: color,
-    );
-  }
-
-  PenProperty pen(
-      {double strokeWidth = 5,
-      double strokeMultiplier = 10,
-      int color = kColorBlack,
-      bool fill = false}) {
-    return PenProperty(
-      strokeWidth: strokeWidth,
-      strokeMultiplier: strokeMultiplier,
-      color: color,
-      fill: fill,
-    );
-  }
-
-  Property fromJson(Map<String, Object?> json) {
-    return Property.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Property = _$PropertyTearOff();
 
 /// @nodoc
 mixin _$Property {
@@ -260,14 +187,14 @@ class _$HandPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$HandProperty implements HandProperty {
-  const _$HandProperty({this.includeEraser = false, String? $type})
+  const _$HandProperty({this.includeEraser = false, final String? $type})
       : $type = $type ?? 'hand';
 
   factory _$HandProperty.fromJson(Map<String, dynamic> json) =>
       _$$HandPropertyFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final bool includeEraser;
 
   @JsonKey(name: 'type')
@@ -287,6 +214,7 @@ class _$HandProperty implements HandProperty {
                 .equals(other.includeEraser, includeEraser));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(includeEraser));
@@ -429,12 +357,12 @@ class _$HandProperty implements HandProperty {
 }
 
 abstract class HandProperty implements Property {
-  const factory HandProperty({bool includeEraser}) = _$HandProperty;
+  const factory HandProperty({final bool includeEraser}) = _$HandProperty;
 
   factory HandProperty.fromJson(Map<String, dynamic> json) =
       _$HandProperty.fromJson;
 
-  bool get includeEraser;
+  bool get includeEraser => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $HandPropertyCopyWith<HandProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -561,50 +489,50 @@ class _$LabelProperty implements LabelProperty {
       this.decorationThickness = 1,
       this.horizontalAlignment = HorizontalAlignment.left,
       this.verticalAlignment = VerticalAlignment.top,
-      String? $type})
+      final String? $type})
       : $type = $type ?? 'label';
 
   factory _$LabelProperty.fromJson(Map<String, dynamic> json) =>
       _$$LabelPropertyFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final double size;
-  @JsonKey()
   @override
+  @JsonKey()
   final int color;
-  @JsonKey()
   @override
+  @JsonKey()
   final int fontWeight;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool lineThrough;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool underline;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool overline;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool italic;
-  @JsonKey()
   @override
+  @JsonKey()
   final double letterSpacing;
-  @JsonKey()
   @override
+  @JsonKey()
   final int decorationColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final TextDecorationStyle decorationStyle;
-  @JsonKey()
   @override
+  @JsonKey()
   final double decorationThickness;
-  @JsonKey()
   @override
+  @JsonKey()
   final HorizontalAlignment horizontalAlignment;
-  @JsonKey()
   @override
+  @JsonKey()
   final VerticalAlignment verticalAlignment;
 
   @JsonKey(name: 'type')
@@ -643,6 +571,7 @@ class _$LabelProperty implements LabelProperty {
                 .equals(other.verticalAlignment, verticalAlignment));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -838,36 +767,37 @@ class _$LabelProperty implements LabelProperty {
 
 abstract class LabelProperty implements Property {
   const factory LabelProperty(
-      {double size,
-      int color,
-      int fontWeight,
-      bool lineThrough,
-      bool underline,
-      bool overline,
-      bool italic,
-      double letterSpacing,
-      int decorationColor,
-      TextDecorationStyle decorationStyle,
-      double decorationThickness,
-      HorizontalAlignment horizontalAlignment,
-      VerticalAlignment verticalAlignment}) = _$LabelProperty;
+      {final double size,
+      final int color,
+      final int fontWeight,
+      final bool lineThrough,
+      final bool underline,
+      final bool overline,
+      final bool italic,
+      final double letterSpacing,
+      final int decorationColor,
+      final TextDecorationStyle decorationStyle,
+      final double decorationThickness,
+      final HorizontalAlignment horizontalAlignment,
+      final VerticalAlignment verticalAlignment}) = _$LabelProperty;
 
   factory LabelProperty.fromJson(Map<String, dynamic> json) =
       _$LabelProperty.fromJson;
 
-  double get size;
-  int get color;
-  int get fontWeight;
-  bool get lineThrough;
-  bool get underline;
-  bool get overline;
-  bool get italic;
-  double get letterSpacing;
-  int get decorationColor;
-  TextDecorationStyle get decorationStyle;
-  double get decorationThickness;
-  HorizontalAlignment get horizontalAlignment;
-  VerticalAlignment get verticalAlignment;
+  double get size => throw _privateConstructorUsedError;
+  int get color => throw _privateConstructorUsedError;
+  int get fontWeight => throw _privateConstructorUsedError;
+  bool get lineThrough => throw _privateConstructorUsedError;
+  bool get underline => throw _privateConstructorUsedError;
+  bool get overline => throw _privateConstructorUsedError;
+  bool get italic => throw _privateConstructorUsedError;
+  double get letterSpacing => throw _privateConstructorUsedError;
+  int get decorationColor => throw _privateConstructorUsedError;
+  TextDecorationStyle get decorationStyle => throw _privateConstructorUsedError;
+  double get decorationThickness => throw _privateConstructorUsedError;
+  HorizontalAlignment get horizontalAlignment =>
+      throw _privateConstructorUsedError;
+  VerticalAlignment get verticalAlignment => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $LabelPropertyCopyWith<LabelProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -916,26 +846,25 @@ class _$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@With<PathProperty>()
 class _$EraserProperty with PathProperty implements EraserProperty {
   const _$EraserProperty(
       {this.strokeWidth = 5,
       this.strokeMultiplier = 10,
       this.color = kColorBlack,
-      String? $type})
+      final String? $type})
       : $type = $type ?? 'eraser';
 
   factory _$EraserProperty.fromJson(Map<String, dynamic> json) =>
       _$$EraserPropertyFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final double strokeWidth;
-  @JsonKey()
   @override
+  @JsonKey()
   final double strokeMultiplier;
-  @JsonKey()
   @override
+  @JsonKey()
   final int color;
 
   @JsonKey(name: 'type')
@@ -958,6 +887,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             const DeepCollectionEquality().equals(other.color, color));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1104,16 +1034,16 @@ class _$EraserProperty with PathProperty implements EraserProperty {
 
 abstract class EraserProperty implements Property, PathProperty {
   const factory EraserProperty(
-      {double strokeWidth,
-      double strokeMultiplier,
-      int color}) = _$EraserProperty;
+      {final double strokeWidth,
+      final double strokeMultiplier,
+      final int color}) = _$EraserProperty;
 
   factory EraserProperty.fromJson(Map<String, dynamic> json) =
       _$EraserProperty.fromJson;
 
-  double get strokeWidth;
-  double get strokeMultiplier;
-  int get color;
+  double get strokeWidth => throw _privateConstructorUsedError;
+  double get strokeMultiplier => throw _privateConstructorUsedError;
+  int get color => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $EraserPropertyCopyWith<EraserProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1168,30 +1098,29 @@ class _$PenPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@With<PathProperty>()
 class _$PenProperty with PathProperty implements PenProperty {
   const _$PenProperty(
       {this.strokeWidth = 5,
       this.strokeMultiplier = 10,
       this.color = kColorBlack,
       this.fill = false,
-      String? $type})
+      final String? $type})
       : $type = $type ?? 'pen';
 
   factory _$PenProperty.fromJson(Map<String, dynamic> json) =>
       _$$PenPropertyFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final double strokeWidth;
-  @JsonKey()
   @override
+  @JsonKey()
   final double strokeMultiplier;
-  @JsonKey()
   @override
+  @JsonKey()
   final int color;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool fill;
 
   @JsonKey(name: 'type')
@@ -1215,6 +1144,7 @@ class _$PenProperty with PathProperty implements PenProperty {
             const DeepCollectionEquality().equals(other.fill, fill));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1362,18 +1292,18 @@ class _$PenProperty with PathProperty implements PenProperty {
 
 abstract class PenProperty implements Property, PathProperty {
   const factory PenProperty(
-      {double strokeWidth,
-      double strokeMultiplier,
-      int color,
-      bool fill}) = _$PenProperty;
+      {final double strokeWidth,
+      final double strokeMultiplier,
+      final int color,
+      final bool fill}) = _$PenProperty;
 
   factory PenProperty.fromJson(Map<String, dynamic> json) =
       _$PenProperty.fromJson;
 
-  double get strokeWidth;
-  double get strokeMultiplier;
-  int get color;
-  bool get fill;
+  double get strokeWidth => throw _privateConstructorUsedError;
+  double get strokeMultiplier => throw _privateConstructorUsedError;
+  int get color => throw _privateConstructorUsedError;
+  bool get fill => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PenPropertyCopyWith<PenProperty> get copyWith =>
       throw _privateConstructorUsedError;

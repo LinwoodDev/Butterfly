@@ -12,32 +12,11 @@ part of 'element.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ElementConstraint _$ElementConstraintFromJson(Map<String, dynamic> json) {
   return _ElementConstraint.fromJson(json);
 }
-
-/// @nodoc
-class _$ElementConstraintTearOff {
-  const _$ElementConstraintTearOff();
-
-  _ElementConstraint call(
-      {double size = 0, double length = 0, bool includeArea = true}) {
-    return _ElementConstraint(
-      size: size,
-      length: length,
-      includeArea: includeArea,
-    );
-  }
-
-  ElementConstraint fromJson(Map<String, Object?> json) {
-    return ElementConstraint.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $ElementConstraint = _$ElementConstraintTearOff();
 
 /// @nodoc
 mixin _$ElementConstraint {
@@ -144,14 +123,14 @@ class _$_ElementConstraint implements _ElementConstraint {
   factory _$_ElementConstraint.fromJson(Map<String, dynamic> json) =>
       _$$_ElementConstraintFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final double size;
-  @JsonKey()
   @override
+  @JsonKey()
   final double length;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool includeArea;
 
   @override
@@ -170,6 +149,7 @@ class _$_ElementConstraint implements _ElementConstraint {
                 .equals(other.includeArea, includeArea));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -190,17 +170,19 @@ class _$_ElementConstraint implements _ElementConstraint {
 
 abstract class _ElementConstraint implements ElementConstraint {
   const factory _ElementConstraint(
-      {double size, double length, bool includeArea}) = _$_ElementConstraint;
+      {final double size,
+      final double length,
+      final bool includeArea}) = _$_ElementConstraint;
 
   factory _ElementConstraint.fromJson(Map<String, dynamic> json) =
       _$_ElementConstraint.fromJson;
 
   @override
-  double get size;
+  double get size => throw _privateConstructorUsedError;
   @override
-  double get length;
+  double get length => throw _privateConstructorUsedError;
   @override
-  bool get includeArea;
+  bool get includeArea => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ElementConstraintCopyWith<_ElementConstraint> get copyWith =>
@@ -221,44 +203,6 @@ ElementConstraints _$ElementConstraintsFromJson(Map<String, dynamic> json) {
           'Invalid union type "${json['type']}"!');
   }
 }
-
-/// @nodoc
-class _$ElementConstraintsTearOff {
-  const _$ElementConstraintsTearOff();
-
-  ScaledElementConstraints scaled(double scale) {
-    return ScaledElementConstraints(
-      scale,
-    );
-  }
-
-  FixedElementConstraints fixed(double height, double width) {
-    return FixedElementConstraints(
-      height,
-      width,
-    );
-  }
-
-  DynamicElementConstraints dynamic(
-      {double height = 0,
-      double width = 0,
-      double aspectRatio = 0,
-      bool includeArea = true}) {
-    return DynamicElementConstraints(
-      height: height,
-      width: width,
-      aspectRatio: aspectRatio,
-      includeArea: includeArea,
-    );
-  }
-
-  ElementConstraints fromJson(Map<String, Object?> json) {
-    return ElementConstraints.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $ElementConstraints = _$ElementConstraintsTearOff();
 
 /// @nodoc
 mixin _$ElementConstraints {
@@ -368,7 +312,7 @@ class _$ScaledElementConstraintsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ScaledElementConstraints implements ScaledElementConstraints {
-  const _$ScaledElementConstraints(this.scale, {String? $type})
+  const _$ScaledElementConstraints(this.scale, {final String? $type})
       : $type = $type ?? 'scaled';
 
   factory _$ScaledElementConstraints.fromJson(Map<String, dynamic> json) =>
@@ -393,6 +337,7 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
             const DeepCollectionEquality().equals(other.scale, scale));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(scale));
@@ -484,13 +429,13 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
 }
 
 abstract class ScaledElementConstraints implements ElementConstraints {
-  const factory ScaledElementConstraints(double scale) =
+  const factory ScaledElementConstraints(final double scale) =
       _$ScaledElementConstraints;
 
   factory ScaledElementConstraints.fromJson(Map<String, dynamic> json) =
       _$ScaledElementConstraints.fromJson;
 
-  double get scale;
+  double get scale => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ScaledElementConstraintsCopyWith<ScaledElementConstraints> get copyWith =>
       throw _privateConstructorUsedError;
@@ -536,7 +481,8 @@ class _$FixedElementConstraintsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$FixedElementConstraints implements FixedElementConstraints {
-  const _$FixedElementConstraints(this.height, this.width, {String? $type})
+  const _$FixedElementConstraints(this.height, this.width,
+      {final String? $type})
       : $type = $type ?? 'fixed';
 
   factory _$FixedElementConstraints.fromJson(Map<String, dynamic> json) =>
@@ -564,6 +510,7 @@ class _$FixedElementConstraints implements FixedElementConstraints {
             const DeepCollectionEquality().equals(other.width, width));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -657,14 +604,14 @@ class _$FixedElementConstraints implements FixedElementConstraints {
 }
 
 abstract class FixedElementConstraints implements ElementConstraints {
-  const factory FixedElementConstraints(double height, double width) =
-      _$FixedElementConstraints;
+  const factory FixedElementConstraints(
+      final double height, final double width) = _$FixedElementConstraints;
 
   factory FixedElementConstraints.fromJson(Map<String, dynamic> json) =
       _$FixedElementConstraints.fromJson;
 
-  double get height;
-  double get width;
+  double get height => throw _privateConstructorUsedError;
+  double get width => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $FixedElementConstraintsCopyWith<FixedElementConstraints> get copyWith =>
       throw _privateConstructorUsedError;
@@ -727,23 +674,23 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
       this.width = 0,
       this.aspectRatio = 0,
       this.includeArea = true,
-      String? $type})
+      final String? $type})
       : $type = $type ?? 'dynamic';
 
   factory _$DynamicElementConstraints.fromJson(Map<String, dynamic> json) =>
       _$$DynamicElementConstraintsFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final double height;
-  @JsonKey()
   @override
+  @JsonKey()
   final double width;
-  @JsonKey()
   @override
+  @JsonKey()
   final double aspectRatio;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool includeArea;
 
   @JsonKey(name: 'type')
@@ -767,6 +714,7 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
                 .equals(other.includeArea, includeArea));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -863,18 +811,18 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
 
 abstract class DynamicElementConstraints implements ElementConstraints {
   const factory DynamicElementConstraints(
-      {double height,
-      double width,
-      double aspectRatio,
-      bool includeArea}) = _$DynamicElementConstraints;
+      {final double height,
+      final double width,
+      final double aspectRatio,
+      final bool includeArea}) = _$DynamicElementConstraints;
 
   factory DynamicElementConstraints.fromJson(Map<String, dynamic> json) =
       _$DynamicElementConstraints.fromJson;
 
-  double get height;
-  double get width;
-  double get aspectRatio;
-  bool get includeArea;
+  double get height => throw _privateConstructorUsedError;
+  double get width => throw _privateConstructorUsedError;
+  double get aspectRatio => throw _privateConstructorUsedError;
+  bool get includeArea => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $DynamicElementConstraintsCopyWith<DynamicElementConstraints> get copyWith =>
       throw _privateConstructorUsedError;
@@ -898,75 +846,8 @@ PadElement _$PadElementFromJson(Map<String, dynamic> json) {
 }
 
 /// @nodoc
-class _$PadElementTearOff {
-  const _$PadElementTearOff();
-
-  PenElement pen(
-      {String layer = '',
-      List<PathPoint> points = const [],
-      PenProperty property = const PenProperty()}) {
-    return PenElement(
-      layer: layer,
-      points: points,
-      property: property,
-    );
-  }
-
-  EraserElement eraser(
-      {String layer = '',
-      List<PathPoint> points = const [],
-      EraserProperty property = const EraserProperty()}) {
-    return EraserElement(
-      layer: layer,
-      points: points,
-      property: property,
-    );
-  }
-
-  LabelElement label(
-      {String layer = '',
-      @OffsetJsonConverter() Offset position = Offset.zero,
-      String text = '',
-      LabelProperty property = const LabelProperty(),
-      ElementConstraint constraint = const ElementConstraint(size: 1000)}) {
-    return LabelElement(
-      layer: layer,
-      position: position,
-      text: text,
-      property: property,
-      constraint: constraint,
-    );
-  }
-
-  ImageElement image(
-      {String layer = '',
-      @OffsetJsonConverter() Offset position = Offset.zero,
-      ElementConstraints? constraints = const ScaledElementConstraints(1),
-      @Uint8ListJsonConverter() required Uint8List pixels,
-      required int width,
-      required int height}) {
-    return ImageElement(
-      layer: layer,
-      position: position,
-      constraints: constraints,
-      pixels: pixels,
-      width: width,
-      height: height,
-    );
-  }
-
-  PadElement fromJson(Map<String, Object?> json) {
-    return PadElement.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $PadElement = _$PadElementTearOff();
-
-/// @nodoc
 mixin _$PadElement {
   String get layer => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -1138,26 +1019,31 @@ class _$PenElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@Implements<PathElement>()
 class _$PenElement implements PenElement {
   const _$PenElement(
       {this.layer = '',
-      this.points = const [],
+      final List<PathPoint> points = const [],
       this.property = const PenProperty(),
-      String? $type})
-      : $type = $type ?? 'pen';
+      final String? $type})
+      : _points = points,
+        $type = $type ?? 'pen';
 
   factory _$PenElement.fromJson(Map<String, dynamic> json) =>
       _$$PenElementFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String layer;
-  @JsonKey()
+  final List<PathPoint> _points;
   @override
-  final List<PathPoint> points;
   @JsonKey()
+  List<PathPoint> get points {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_points);
+  }
+
   @override
+  @JsonKey()
   final PenProperty property;
 
   @JsonKey(name: 'type')
@@ -1178,6 +1064,7 @@ class _$PenElement implements PenElement {
             const DeepCollectionEquality().equals(other.property, property));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1315,17 +1202,17 @@ class _$PenElement implements PenElement {
 
 abstract class PenElement implements PadElement, PathElement {
   const factory PenElement(
-      {String layer,
-      List<PathPoint> points,
-      PenProperty property}) = _$PenElement;
+      {final String layer,
+      final List<PathPoint> points,
+      final PenProperty property}) = _$PenElement;
 
   factory PenElement.fromJson(Map<String, dynamic> json) =
       _$PenElement.fromJson;
 
   @override
-  String get layer;
-  List<PathPoint> get points;
-  PenProperty get property;
+  String get layer => throw _privateConstructorUsedError;
+  List<PathPoint> get points => throw _privateConstructorUsedError;
+  PenProperty get property => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $PenElementCopyWith<PenElement> get copyWith =>
@@ -1377,26 +1264,31 @@ class _$EraserElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@Implements<PathElement>()
 class _$EraserElement implements EraserElement {
   const _$EraserElement(
       {this.layer = '',
-      this.points = const [],
+      final List<PathPoint> points = const [],
       this.property = const EraserProperty(),
-      String? $type})
-      : $type = $type ?? 'eraser';
+      final String? $type})
+      : _points = points,
+        $type = $type ?? 'eraser';
 
   factory _$EraserElement.fromJson(Map<String, dynamic> json) =>
       _$$EraserElementFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String layer;
-  @JsonKey()
+  final List<PathPoint> _points;
   @override
-  final List<PathPoint> points;
   @JsonKey()
+  List<PathPoint> get points {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_points);
+  }
+
   @override
+  @JsonKey()
   final EraserProperty property;
 
   @JsonKey(name: 'type')
@@ -1417,6 +1309,7 @@ class _$EraserElement implements EraserElement {
             const DeepCollectionEquality().equals(other.property, property));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1554,17 +1447,17 @@ class _$EraserElement implements EraserElement {
 
 abstract class EraserElement implements PadElement, PathElement {
   const factory EraserElement(
-      {String layer,
-      List<PathPoint> points,
-      EraserProperty property}) = _$EraserElement;
+      {final String layer,
+      final List<PathPoint> points,
+      final EraserProperty property}) = _$EraserElement;
 
   factory EraserElement.fromJson(Map<String, dynamic> json) =
       _$EraserElement.fromJson;
 
   @override
-  String get layer;
-  List<PathPoint> get points;
-  EraserProperty get property;
+  String get layer => throw _privateConstructorUsedError;
+  List<PathPoint> get points => throw _privateConstructorUsedError;
+  EraserProperty get property => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $EraserElementCopyWith<EraserElement> get copyWith =>
@@ -1647,27 +1540,27 @@ class _$LabelElement implements LabelElement {
       this.text = '',
       this.property = const LabelProperty(),
       this.constraint = const ElementConstraint(size: 1000),
-      String? $type})
+      final String? $type})
       : $type = $type ?? 'label';
 
   factory _$LabelElement.fromJson(Map<String, dynamic> json) =>
       _$$LabelElementFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String layer;
-  @JsonKey()
   @override
+  @JsonKey()
   @OffsetJsonConverter()
   final Offset position;
-  @JsonKey()
   @override
+  @JsonKey()
   final String text;
-  @JsonKey()
   @override
+  @JsonKey()
   final LabelProperty property;
-  @JsonKey()
   @override
+  @JsonKey()
   final ElementConstraint constraint;
 
   @JsonKey(name: 'type')
@@ -1691,6 +1584,7 @@ class _$LabelElement implements LabelElement {
                 .equals(other.constraint, constraint));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1830,22 +1724,22 @@ class _$LabelElement implements LabelElement {
 
 abstract class LabelElement implements PadElement {
   const factory LabelElement(
-      {String layer,
-      @OffsetJsonConverter() Offset position,
-      String text,
-      LabelProperty property,
-      ElementConstraint constraint}) = _$LabelElement;
+      {final String layer,
+      @OffsetJsonConverter() final Offset position,
+      final String text,
+      final LabelProperty property,
+      final ElementConstraint constraint}) = _$LabelElement;
 
   factory LabelElement.fromJson(Map<String, dynamic> json) =
       _$LabelElement.fromJson;
 
   @override
-  String get layer;
+  String get layer => throw _privateConstructorUsedError;
   @OffsetJsonConverter()
-  Offset get position;
-  String get text;
-  LabelProperty get property;
-  ElementConstraint get constraint;
+  Offset get position => throw _privateConstructorUsedError;
+  String get text => throw _privateConstructorUsedError;
+  LabelProperty get property => throw _privateConstructorUsedError;
+  ElementConstraint get constraint => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $LabelElementCopyWith<LabelElement> get copyWith =>
@@ -1939,21 +1833,21 @@ class _$ImageElement implements ImageElement {
       @Uint8ListJsonConverter() required this.pixels,
       required this.width,
       required this.height,
-      String? $type})
+      final String? $type})
       : $type = $type ?? 'image';
 
   factory _$ImageElement.fromJson(Map<String, dynamic> json) =>
       _$$ImageElementFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String layer;
-  @JsonKey()
   @override
+  @JsonKey()
   @OffsetJsonConverter()
   final Offset position;
-  @JsonKey()
   @override
+  @JsonKey()
   final ElementConstraints? constraints;
   @override
   @Uint8ListJsonConverter()
@@ -1985,6 +1879,7 @@ class _$ImageElement implements ImageElement {
             const DeepCollectionEquality().equals(other.height, height));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -2125,25 +2020,25 @@ class _$ImageElement implements ImageElement {
 
 abstract class ImageElement implements PadElement {
   const factory ImageElement(
-      {String layer,
-      @OffsetJsonConverter() Offset position,
-      ElementConstraints? constraints,
-      @Uint8ListJsonConverter() required Uint8List pixels,
-      required int width,
-      required int height}) = _$ImageElement;
+      {final String layer,
+      @OffsetJsonConverter() final Offset position,
+      final ElementConstraints? constraints,
+      @Uint8ListJsonConverter() required final Uint8List pixels,
+      required final int width,
+      required final int height}) = _$ImageElement;
 
   factory ImageElement.fromJson(Map<String, dynamic> json) =
       _$ImageElement.fromJson;
 
   @override
-  String get layer;
+  String get layer => throw _privateConstructorUsedError;
   @OffsetJsonConverter()
-  Offset get position;
-  ElementConstraints? get constraints;
+  Offset get position => throw _privateConstructorUsedError;
+  ElementConstraints? get constraints => throw _privateConstructorUsedError;
   @Uint8ListJsonConverter()
-  Uint8List get pixels;
-  int get width;
-  int get height;
+  Uint8List get pixels => throw _privateConstructorUsedError;
+  int get width => throw _privateConstructorUsedError;
+  int get height => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $ImageElementCopyWith<ImageElement> get copyWith =>

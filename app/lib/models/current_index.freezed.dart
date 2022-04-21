@@ -12,26 +12,7 @@ part of 'current_index.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$CurrentIndexTearOff {
-  const _$CurrentIndexTearOff();
-
-  _CurrentIndex call(int index, Handler handler,
-      [List<Renderer> foregrounds = const [],
-      List<Rect> selections = const []]) {
-    return _CurrentIndex(
-      index,
-      handler,
-      foregrounds,
-      selections,
-    );
-  }
-}
-
-/// @nodoc
-const $CurrentIndex = _$CurrentIndexTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$CurrentIndex {
@@ -149,18 +130,30 @@ class __$CurrentIndexCopyWithImpl<$Res> extends _$CurrentIndexCopyWithImpl<$Res>
 
 class _$_CurrentIndex implements _CurrentIndex {
   const _$_CurrentIndex(this.index, this.handler,
-      [this.foregrounds = const [], this.selections = const []]);
+      [final List<Renderer> foregrounds = const [],
+      final List<Rect> selections = const []])
+      : _foregrounds = foregrounds,
+        _selections = selections;
 
   @override
   final int index;
   @override
   final Handler handler;
-  @JsonKey()
+  final List<Renderer> _foregrounds;
   @override
-  final List<Renderer> foregrounds;
   @JsonKey()
+  List<Renderer> get foregrounds {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_foregrounds);
+  }
+
+  final List<Rect> _selections;
   @override
-  final List<Rect> selections;
+  @JsonKey()
+  List<Rect> get selections {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_selections);
+  }
 
   @override
   String toString() {
@@ -195,17 +188,18 @@ class _$_CurrentIndex implements _CurrentIndex {
 }
 
 abstract class _CurrentIndex implements CurrentIndex {
-  const factory _CurrentIndex(int index, Handler handler,
-      [List<Renderer> foregrounds, List<Rect> selections]) = _$_CurrentIndex;
+  const factory _CurrentIndex(final int index, final Handler handler,
+      [final List<Renderer> foregrounds,
+      final List<Rect> selections]) = _$_CurrentIndex;
 
   @override
-  int get index;
+  int get index => throw _privateConstructorUsedError;
   @override
-  Handler get handler;
+  Handler get handler => throw _privateConstructorUsedError;
   @override
-  List<Renderer> get foregrounds;
+  List<Renderer> get foregrounds => throw _privateConstructorUsedError;
   @override
-  List<Rect> get selections;
+  List<Rect> get selections => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CurrentIndexCopyWith<_CurrentIndex> get copyWith =>

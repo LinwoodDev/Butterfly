@@ -7,9 +7,9 @@ const kClassicSecondaryColor = Color(0xFF00469E);
 const kClassicSecondaryVariantColor = Color(0xFF00206f);
 const kClassicColor = FlexSchemeColor(
     primary: kClassicPrimaryColor,
-    primaryVariant: kClassicPrimaryVariantColor,
+    primaryContainer: kClassicPrimaryVariantColor,
     secondary: kClassicSecondaryColor,
-    secondaryVariant: kClassicSecondaryVariantColor);
+    secondaryContainer: kClassicSecondaryVariantColor);
 const kClassicTheme = FlexSchemeData(
   name: 'Classic',
   description: 'The old look',

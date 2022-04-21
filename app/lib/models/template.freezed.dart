@@ -12,30 +12,11 @@ part of 'template.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 DocumentTemplate _$DocumentTemplateFromJson(Map<String, dynamic> json) {
   return _DocumentTemplate.fromJson(json);
 }
-
-/// @nodoc
-class _$DocumentTemplateTearOff {
-  const _$DocumentTemplateTearOff();
-
-  _DocumentTemplate call({required AppDocument document, String folder = '/'}) {
-    return _DocumentTemplate(
-      document: document,
-      folder: folder,
-    );
-  }
-
-  DocumentTemplate fromJson(Map<String, Object?> json) {
-    return DocumentTemplate.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $DocumentTemplate = _$DocumentTemplateTearOff();
 
 /// @nodoc
 mixin _$DocumentTemplate {
@@ -145,8 +126,8 @@ class _$_DocumentTemplate extends _DocumentTemplate {
 
   @override
   final AppDocument document;
-  @JsonKey()
   @override
+  @JsonKey()
   final String folder;
 
   @override
@@ -163,6 +144,7 @@ class _$_DocumentTemplate extends _DocumentTemplate {
             const DeepCollectionEquality().equals(other.folder, folder));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -182,16 +164,17 @@ class _$_DocumentTemplate extends _DocumentTemplate {
 
 abstract class _DocumentTemplate extends DocumentTemplate {
   const factory _DocumentTemplate(
-      {required AppDocument document, String folder}) = _$_DocumentTemplate;
+      {required final AppDocument document,
+      final String folder}) = _$_DocumentTemplate;
   const _DocumentTemplate._() : super._();
 
   factory _DocumentTemplate.fromJson(Map<String, dynamic> json) =
       _$_DocumentTemplate.fromJson;
 
   @override
-  AppDocument get document;
+  AppDocument get document => throw _privateConstructorUsedError;
   @override
-  String get folder;
+  String get folder => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DocumentTemplateCopyWith<_DocumentTemplate> get copyWith =>
