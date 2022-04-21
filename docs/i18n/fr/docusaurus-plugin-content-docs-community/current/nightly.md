@@ -1,8 +1,7 @@
 ---
+title: "Compilations nocturnes"
 slug: "/nightly"
 ---
-
-# Compilations nocturnes
 
 :::warning
 

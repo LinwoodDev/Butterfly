@@ -45,7 +45,9 @@ class _HandDialogState extends State<HandDialog> {
                               title: Text(
                                   AppLocalizations.of(context)!.includeEraser),
                               onChanged: (value) => setState(() => property =
-                                  property.copyWith(includeEraser: value))),
+                                  property.copyWith(
+                                      includeEraser:
+                                          value ?? property.includeEraser))),
                         ]),
                       ),
                       const Divider(),

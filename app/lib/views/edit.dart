@@ -5,12 +5,7 @@ import 'package:butterfly/dialogs/painters/label.dart';
 import 'package:butterfly/dialogs/painters/layer.dart';
 import 'package:butterfly/dialogs/painters/path_eraser.dart';
 import 'package:butterfly/dialogs/painters/pen.dart';
-import 'package:butterfly/models/painters/eraser.dart';
-import 'package:butterfly/models/painters/label.dart';
-import 'package:butterfly/models/painters/layer.dart';
-import 'package:butterfly/models/painters/painter.dart';
-import 'package:butterfly/models/painters/path_eraser.dart';
-import 'package:butterfly/models/painters/pen.dart';
+import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/widgets/option_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,16 +13,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../dialogs/painters/area.dart';
-import '../models/painters/area.dart';
 
 class EditToolbar extends StatelessWidget {
-  const EditToolbar({Key? key}) : super(key: key);
+  final bool isMobile;
+  final ScrollController _scrollController = ScrollController();
+
+  EditToolbar({Key? key, required this.isMobile}) : super(key: key);
 
   IconData getPainterIcon(String type) {
     switch (type) {
       case 'eraser':
         return PhosphorIcons.eraserLight;
-      case 'path-eraser':
+      case 'pathEraser':
         return PhosphorIcons.pathLight;
       case 'label':
         return PhosphorIcons.textTLight;
@@ -46,7 +43,7 @@ class EditToolbar extends StatelessWidget {
     switch (type) {
       case 'eraser':
         return PhosphorIcons.eraserFill;
-      case 'path-eraser':
+      case 'pathEraser':
         return PhosphorIcons.pathFill;
       case 'label':
         return PhosphorIcons.textTFill;
@@ -63,41 +60,46 @@ class EditToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
+    return Scrollbar(
+        controller: _scrollController,
         child: SizedBox(
-            height: 50,
-            child: BlocBuilder<DocumentBloc, DocumentState>(
-              builder: (context, state) {
-                if (state is! DocumentLoadSuccess) return Container();
-                var painters = state.document.painters;
-                void openHandDialog() {
-                  var bloc = context.read<DocumentBloc>();
-                  showGeneralDialog(
-                      context: context,
-                      transitionBuilder: (context, a1, a2, widget) {
-                        // Slide transition
-                        return SlideTransition(
-                          position: Tween<Offset>(
-                                  begin: const Offset(0, -1), end: Offset.zero)
-                              .animate(a1),
-                          child: widget,
-                        );
-                      },
-                      barrierDismissible: true,
-                      barrierLabel: AppLocalizations.of(context)!.close,
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          BlocProvider.value(
-                              value: bloc, child: const HandDialog()));
-                }
+          height: 50,
+          child: BlocBuilder<DocumentBloc, DocumentState>(
+            builder: (context, state) {
+              if (state is! DocumentLoadSuccess) return Container();
+              var painters = state.document.painters;
+              void openHandDialog() {
+                var bloc = context.read<DocumentBloc>();
+                showGeneralDialog(
+                    context: context,
+                    transitionBuilder: (context, a1, a2, widget) {
+                      // Slide transition
+                      return SlideTransition(
+                        position: Tween<Offset>(
+                                begin: const Offset(0, -1), end: Offset.zero)
+                            .animate(a1),
+                        child: widget,
+                      );
+                    },
+                    barrierDismissible: true,
+                    barrierLabel: AppLocalizations.of(context)!.close,
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        BlocProvider.value(
+                            value: bloc, child: const HandDialog()));
+              }
 
-                return Material(
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              return Material(
+                child: Align(
+                  alignment:
+                      isMobile ? Alignment.center : Alignment.centerRight,
+                  child: ListView(
+                      controller: _scrollController,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
                       children: [
                         OptionButton(
                           tooltip: AppLocalizations.of(context)!.hand,
-                          isSelected: state.currentPainter == null,
+                          selected: state.currentPainter == null,
                           icon: const Icon(PhosphorIcons.handLight),
                           selectedIcon: const Icon(PhosphorIcons.handFill),
                           onLongPressed: openHandDialog,
@@ -106,7 +108,9 @@ class EditToolbar extends StatelessWidget {
                             if (state.currentPainter == null) {
                               openHandDialog();
                             } else {
-                              bloc.add(const CurrentPainterChanged(null));
+                              bloc
+                                ..add(const CurrentPainterChanged(null))
+                                ..add(const IndexRefreshed());
                             }
                           },
                         ),
@@ -120,9 +124,7 @@ class EditToolbar extends StatelessWidget {
                             itemBuilder: (context, i) {
                               var e = painters[i];
                               var type = e.toJson()['type'];
-                              var selected = i ==
-                                  state.currentPainterIndex?.clamp(
-                                      0, state.document.painters.length - 1);
+                              var selected = i == state.currentIndex.index;
                               String tooltip = e.name.trim();
                               void openDialog() {
                                 var bloc = context.read<DocumentBloc>();
@@ -151,7 +153,7 @@ class EditToolbar extends StatelessWidget {
                                         case 'eraser':
                                           return EraserPainterDialog(
                                               bloc: bloc, painterIndex: i);
-                                        case 'path-eraser':
+                                        case 'pathEraser':
                                           return PathEraserPainterDialog(
                                               bloc: bloc, painterIndex: i);
                                         case 'label':
@@ -175,14 +177,16 @@ class EditToolbar extends StatelessWidget {
                                   child: OptionButton(
                                       tooltip: tooltip,
                                       onLongPressed: openDialog,
-                                      isSelected: selected,
+                                      selected: selected,
                                       selectedIcon:
                                           Icon(getPainterActiveIcon(type)),
                                       icon: Icon(getPainterIcon(type)),
                                       onPressed: () {
                                         var bloc = context.read<DocumentBloc>();
                                         if (!selected) {
-                                          bloc.add(CurrentPainterChanged(i));
+                                          bloc
+                                            ..add(CurrentPainterChanged(i))
+                                            ..add(const IndexRefreshed());
                                         } else {
                                           openDialog();
                                         }
@@ -192,9 +196,9 @@ class EditToolbar extends StatelessWidget {
                                   index: i,
                                   child: toolWidget);
                             },
-                            onReorder: (oldIndex, newIndex) => context
-                                .read<DocumentBloc>()
-                                .add(PainterReordered(oldIndex, newIndex))),
+                            onReorder: (oldIndex, newIndex) =>
+                                context.read<DocumentBloc>()
+                                  ..add(PainterReordered(oldIndex, newIndex))),
                         const VerticalDivider(),
                         PopupMenuButton<Painter>(
                             tooltip: AppLocalizations.of(context)!.create,
@@ -202,11 +206,13 @@ class EditToolbar extends StatelessWidget {
                                 .read<DocumentBloc>()
                                 .add(PainterCreated(value)),
                             icon: const Icon(PhosphorIcons.plusLight),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16)),
                             itemBuilder: (context) => [
                                   ...[
                                     'pen',
                                     'eraser',
-                                    'path-eraser',
+                                    'pathEraser',
                                     'label',
                                     'layer',
                                     'area'
@@ -220,7 +226,7 @@ class EditToolbar extends StatelessWidget {
                                         name = AppLocalizations.of(context)!
                                             .eraser;
                                         break;
-                                      case 'path-eraser':
+                                      case 'pathEraser':
                                         // ignore: prefer_const_constructors
                                         painter = PathEraserPainter();
                                         name = AppLocalizations.of(context)!
@@ -260,8 +266,10 @@ class EditToolbar extends StatelessWidget {
                                   })
                                 ])
                       ]),
-                );
-              },
-            )));
+                ),
+              );
+            },
+          ),
+        ));
   }
 }

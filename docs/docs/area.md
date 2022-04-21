@@ -1,4 +1,6 @@
-# Area
+---
+title: Area
+---
 
 ## Introduction
 

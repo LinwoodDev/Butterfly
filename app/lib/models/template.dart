@@ -1,15 +1,26 @@
-import 'package:butterfly/models/backgrounds/box.dart';
+import 'package:butterfly/models/colors.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/property.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class DocumentTemplate {
-  final AppDocument document;
-  final String folder;
+import 'background.dart';
+import 'painter.dart';
+
+part 'template.freezed.dart';
+part 'template.g.dart';
+
+@freezed
+class DocumentTemplate with _$DocumentTemplate {
   String get name => document.name;
   String get description => document.description;
 
-  DocumentTemplate({required this.document, this.folder = '/'});
+  const DocumentTemplate._();
+
+  const factory DocumentTemplate(
+      {required AppDocument document,
+      @Default('/') String folder}) = _DocumentTemplate;
 
   static List<DocumentTemplate> getDefaults(BuildContext context) => [
         DocumentTemplate(
@@ -18,26 +29,18 @@ class DocumentTemplate {
                 createdAt: DateTime.now(),
                 background: BackgroundTemplate.plain.create())),
         DocumentTemplate(
-            document: AppDocument.dark(
+            document: AppDocument(
                 name: AppLocalizations.of(context)!.plainDark,
                 createdAt: DateTime.now(),
+                painters: [
+                  const PenPainter(property: PenProperty(color: kColorWhite)),
+                  const PathEraserPainter(),
+                  const LabelPainter(
+                      property: LabelProperty(color: kColorWhite)),
+                ],
                 background: BackgroundTemplate.plainDark.create()))
       ];
 
-  DocumentTemplate.fromJson(Map<String, dynamic> json)
-      : document =
-            AppDocument.fromJson(Map<String, dynamic>.from(json['document'])),
-        folder = json['folder'] ?? '/';
-
-  Map<String, dynamic> toJson() => {
-        'document': document.toJson(),
-        'folder': folder,
-      };
-
-  DocumentTemplate copyWith({AppDocument? document, String? folder}) {
-    return DocumentTemplate(
-      document: document ?? this.document,
-      folder: folder ?? this.folder,
-    );
-  }
+  factory DocumentTemplate.fromJson(Map<String, dynamic> json) =>
+      _$DocumentTemplateFromJson(json);
 }

@@ -1,5 +1,7 @@
 # Butterfly Documentation
 
+Read more [here](../README.md)
+
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
 ## Installation
@@ -7,6 +9,10 @@ This website is built using [Docusaurus 2](https://docusaurus.io/), a modern sta
 ```console
 yarn install
 ```
+
+## Structure
+
+All documentation is stored in the `docs` directory. The stable/outdated docs is stored at `versioned_docs/version-X.X`.
 
 ## Local Development
 

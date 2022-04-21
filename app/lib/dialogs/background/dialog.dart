@@ -1,12 +1,12 @@
 import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/models/backgrounds/box.dart';
 import 'package:butterfly/widgets/exact_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../models/background.dart';
 import '../color_pick.dart';
 
 class BackgroundDialog extends StatelessWidget {
@@ -132,9 +132,9 @@ class BackgroundDialog extends StatelessWidget {
                                     ),
                                   );
                                 }).toList()),
-                                const SizedBox(height: 8),
-                                const Divider(),
                                 if (background is BoxBackground) ...[
+                                  const SizedBox(height: 8),
+                                  const Divider(),
                                   ListTile(
                                       onTap: () async {
                                         var value = await showDialog(
@@ -143,20 +143,25 @@ class BackgroundDialog extends StatelessWidget {
                                                   value: BlocProvider.of<
                                                       DocumentBloc>(context),
                                                   child: ColorPickerDialog(
-                                                      defaultColor:
-                                                          background!.boxColor),
-                                                ));
+                                                      defaultColor: Color(
+                                                          (background
+                                                                  as BoxBackground)
+                                                              .boxColor)),
+                                                )) as Color?;
                                         if (value != null) {
                                           setState(() => background =
-                                              background!.copyWith(
-                                                  boxColor: value as Color));
+                                              (background as BoxBackground)
+                                                  .copyWith(
+                                                      boxColor: value.value));
                                         }
                                       },
                                       leading: Container(
                                         width: 30,
                                         height: 30,
                                         decoration: BoxDecoration(
-                                            color: background!.boxColor,
+                                            color: Color(
+                                                (background as BoxBackground)
+                                                    .boxColor),
                                             borderRadius:
                                                 const BorderRadius.all(
                                                     Radius.circular(32))),
@@ -203,8 +208,9 @@ class BackgroundDialog extends StatelessWidget {
                                                       width: 30,
                                                       height: 30,
                                                       decoration: BoxDecoration(
-                                                          color: background!
-                                                              .boxXColor,
+                                                          color: Color((background
+                                                                  as BoxBackground)
+                                                              .boxXColor),
                                                           borderRadius:
                                                               const BorderRadius
                                                                       .all(
@@ -224,13 +230,15 @@ class BackgroundDialog extends StatelessWidget {
                                                                         context),
                                                                     child: ColorPickerDialog(
                                                                         defaultColor:
-                                                                            background!.boxXColor),
-                                                                  ));
+                                                                            Color((background as BoxBackground).boxXColor)),
+                                                                  )) as Color?;
                                                       if (value != null) {
                                                         setState(() => background =
-                                                            background!.copyWith(
-                                                                boxXColor: value
-                                                                    as Color));
+                                                            (background
+                                                                    as BoxBackground)
+                                                                .copyWith(
+                                                                    boxXColor: value
+                                                                        .value));
                                                       }
                                                     },
                                                     title: Text(
@@ -240,8 +248,9 @@ class BackgroundDialog extends StatelessWidget {
                                                 const SizedBox(height: 16),
                                                 ExactSlider(
                                                     onChanged: (value) {
-                                                      background =
-                                                          background?.copyWith(
+                                                      background = (background
+                                                              as BoxBackground)
+                                                          .copyWith(
                                                               boxWidth: value);
                                                     },
                                                     header: Text(
@@ -251,24 +260,30 @@ class BackgroundDialog extends StatelessWidget {
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .titleLarge),
-                                                    value: background!.boxWidth,
+                                                    value: (background
+                                                            as BoxBackground)
+                                                        .boxWidth,
                                                     min: 0,
                                                     max: 100),
                                                 const SizedBox(height: 16),
                                                 ExactSlider(
                                                     onChanged: (value) =>
-                                                        background = background
-                                                            ?.copyWith(
+                                                        background = (background
+                                                                as BoxBackground)
+                                                            .copyWith(
                                                                 boxXCount: value
                                                                     .round()),
                                                     header: Text(
                                                         AppLocalizations.of(
                                                                 context)!
                                                             .count,
-                                                        style: Theme.of(context)
+                                                        style: Theme
+                                                                .of(context)
                                                             .textTheme
                                                             .titleLarge),
-                                                    value: background!.boxXCount
+                                                    value: (background
+                                                            as BoxBackground)
+                                                        .boxXCount
                                                         .toDouble(),
                                                     fractionDigits: 0,
                                                     min: 0,
@@ -276,8 +291,9 @@ class BackgroundDialog extends StatelessWidget {
                                                 const SizedBox(height: 16),
                                                 ExactSlider(
                                                     onChanged: (value) =>
-                                                        background = background
-                                                            ?.copyWith(
+                                                        background = (background
+                                                                as BoxBackground)
+                                                            .copyWith(
                                                                 boxXSpace:
                                                                     value),
                                                     header: Text(
@@ -287,8 +303,9 @@ class BackgroundDialog extends StatelessWidget {
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .titleLarge),
-                                                    value:
-                                                        background!.boxXSpace,
+                                                    value: (background
+                                                            as BoxBackground)
+                                                        .boxXSpace,
                                                     min: 0,
                                                     max: 100),
                                               ]),
@@ -323,8 +340,9 @@ class BackgroundDialog extends StatelessWidget {
                                                       width: 30,
                                                       height: 30,
                                                       decoration: BoxDecoration(
-                                                          color: background!
-                                                              .boxYColor,
+                                                          color: Color((background
+                                                                  as BoxBackground)
+                                                              .boxYColor),
                                                           borderRadius:
                                                               const BorderRadius
                                                                       .all(
@@ -344,13 +362,15 @@ class BackgroundDialog extends StatelessWidget {
                                                                         context),
                                                                     child: ColorPickerDialog(
                                                                         defaultColor:
-                                                                            background!.boxYColor),
-                                                                  ));
+                                                                            Color((background as BoxBackground).boxYColor)),
+                                                                  )) as Color?;
                                                       if (value != null) {
                                                         setState(() => background =
-                                                            background!.copyWith(
-                                                                boxYColor: value
-                                                                    as Color));
+                                                            (background
+                                                                    as BoxBackground)
+                                                                .copyWith(
+                                                                    boxYColor: value
+                                                                        .value));
                                                       }
                                                     },
                                                     title: Text(
@@ -360,8 +380,9 @@ class BackgroundDialog extends StatelessWidget {
                                                 const SizedBox(height: 16),
                                                 ExactSlider(
                                                     onChanged: (value) {
-                                                      background =
-                                                          background?.copyWith(
+                                                      background = (background
+                                                              as BoxBackground)
+                                                          .copyWith(
                                                               boxHeight: value);
                                                     },
                                                     header: Text(
@@ -371,25 +392,30 @@ class BackgroundDialog extends StatelessWidget {
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .titleLarge),
-                                                    value:
-                                                        background!.boxHeight,
+                                                    value: (background
+                                                            as BoxBackground)
+                                                        .boxHeight,
                                                     min: 0,
                                                     max: 100),
                                                 const SizedBox(height: 16),
                                                 ExactSlider(
                                                     onChanged: (value) =>
-                                                        background = background
-                                                            ?.copyWith(
+                                                        background = (background
+                                                                as BoxBackground)
+                                                            .copyWith(
                                                                 boxYCount: value
                                                                     .round()),
                                                     header: Text(
                                                         AppLocalizations.of(
                                                                 context)!
                                                             .count,
-                                                        style: Theme.of(context)
+                                                        style: Theme
+                                                                .of(context)
                                                             .textTheme
                                                             .titleLarge),
-                                                    value: background!.boxYCount
+                                                    value: (background
+                                                            as BoxBackground)
+                                                        .boxYCount
                                                         .toDouble(),
                                                     fractionDigits: 0,
                                                     min: 0,
@@ -397,8 +423,9 @@ class BackgroundDialog extends StatelessWidget {
                                                 const SizedBox(height: 16),
                                                 ExactSlider(
                                                     onChanged: (value) =>
-                                                        background = background
-                                                            ?.copyWith(
+                                                        background = (background
+                                                                as BoxBackground)
+                                                            .copyWith(
                                                                 boxYSpace:
                                                                     value),
                                                     header: Text(
@@ -408,8 +435,9 @@ class BackgroundDialog extends StatelessWidget {
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .titleLarge),
-                                                    value:
-                                                        background!.boxYSpace,
+                                                    value: (background
+                                                            as BoxBackground)
+                                                        .boxYSpace,
                                                     min: 0,
                                                     max: 100),
                                               ]),

@@ -187,13 +187,19 @@ class _TemplateItem extends StatelessWidget {
                 title: Text(AppLocalizations.of(context)!.rename),
                 onTap: () async {
                   Navigator.of(context).pop();
-                  final TextEditingController _nameController =
+                  final TextEditingController nameController =
                       TextEditingController(text: template.document.name);
                   await showDialog<String>(
                       context: context,
                       builder: (context) => AlertDialog(
                             title: Text(AppLocalizations.of(context)!.rename),
-                            content: TextField(controller: _nameController),
+                            content: TextField(
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    hintText:
+                                        AppLocalizations.of(context)!.name),
+                                autofocus: true,
+                                controller: nameController),
                             actions: [
                               TextButton(
                                   child: Text(
@@ -202,10 +208,10 @@ class _TemplateItem extends StatelessWidget {
                               TextButton(
                                   child: Text(AppLocalizations.of(context)!.ok),
                                   onPressed: () async {
+                                    Navigator.of(context).pop();
                                     await TemplateFileSystem.fromPlatform()
                                         .renameTemplate(template.document.name,
-                                            _nameController.text);
-                                    Navigator.of(context).pop();
+                                            nameController.text);
                                     onChanged();
                                   })
                             ],
@@ -235,10 +241,11 @@ class _TemplateItem extends StatelessWidget {
                           TextButton(
                               child: Text(AppLocalizations.of(context)!.yes),
                               onPressed: () async {
-                                await TemplateFileSystem.fromPlatform()
-                                    .updateTemplate(
-                                        template.copyWith(document: document));
                                 Navigator.of(context).pop();
+                                await TemplateFileSystem.fromPlatform()
+                                    .updateTemplate(template.copyWith(
+                                        document:
+                                            document ?? template.document));
                                 onChanged();
                               })
                         ],
@@ -269,9 +276,9 @@ class _TemplateItem extends StatelessWidget {
                                 child:
                                     Text(AppLocalizations.of(context)!.delete),
                                 onPressed: () async {
+                                  Navigator.of(context).pop();
                                   await TemplateFileSystem.fromPlatform()
                                       .deleteTemplate(template.document.name);
-                                  Navigator.of(context).pop();
                                   onChanged();
                                 },
                               ),

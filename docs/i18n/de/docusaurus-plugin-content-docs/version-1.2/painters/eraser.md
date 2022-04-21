@@ -1,9 +1,8 @@
 ---
+title: "Radierzeichner"
 sidebar_label: "Eraser"
 sidebar_position: 3
 ---
-
-# Radierzeichner
 
 :::warning Es wird nicht empfohlen, den Radier zu verwenden.
 

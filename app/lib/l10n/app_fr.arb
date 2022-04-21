@@ -168,6 +168,7 @@
     "deleteElements": "Supprimer les éléments",
     "deleteElementsConfirm": "Voulez-vous vraiment supprimer les éléments sélectionnés ?",
     "selectCustomLayer": "Sélectionnez une couche personnalisée",
+    "svg": "SVG",
     "sensitivity": "Sensibilité",
     "sensitivityHint": "Plus la valeur est élevée, plus l'entrée est sensible",
     "touchSensitivity": "Sensibilité tactile",
@@ -213,5 +214,37 @@
     "exitArea": "Quitter la zone",
     "alreadyExists": "Cette valeur existe déjà",
     "currentArea": "Zone actuelle",
-    "fullscreen": "Plein écran"
+    "fullscreen": "Plein écran",
+    "textField": "Champ de texte",
+    "selectSensitivity": "Sélectionner la sensibilité",
+    "welcome": "Bienvenue sur Linwood Butterfly",
+    "welcomeContent": "Butterfly est une application de note où vos idées viennent en premier. Vous pouvez peindre, ajouter des textes et les exporter facilement sur chaque appareil. Cette application fonctionne sur Android, Windows, Linux et sur le Web.",
+    "updated": "Application mise à jour vers la version {version}",
+    "@updated": {
+        "placeholders": {
+            "version": {
+                "type": "String",
+                "example": "1.0.0"
+            }
+        },
+        "description": "This message is shown when the app is updated"
+    },
+    "releaseNotes": "Notes de version",
+    "constraints": "Contraintes",
+    "scaledConstraints": "Contraintes mises à l'échelle",
+    "fixedConstraints": "Contraintes fixes",
+    "dynamicConstraints": "Contraintes dynamiques",
+    "none": "Aucun",
+    "includeArea": "Inclure la zone",
+    "verticalAlignment": "Alignement vertical",
+    "horizontalAlignment": "Alignement horizontal",
+    "top": "En haut",
+    "center": "Centrer",
+    "bottom": "Bas",
+    "left": "Gauche",
+    "right": "Droite",
+    "justify": "Justifier",
+    "constraint": "Contrainte",
+    "length": "Longueur",
+    "exportSvg": "Export SVG"
 }

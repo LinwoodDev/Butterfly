@@ -15,20 +15,21 @@ import 'package:butterfly/actions/open.dart';
 import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/settings.dart';
+import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/editing.dart';
-import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/dialogs/introduction/app.dart';
+import 'package:butterfly/dialogs/introduction/update.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/edit.dart';
-import 'package:butterfly/views/tool.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -99,8 +100,33 @@ class _ProjectPageState extends State<ProjectPage> {
           palettes: ColorPalette.getMaterialPalette(context));
     }
     if (document != null) {
-      setState(() => _bloc = DocumentBloc(document!, widget.path));
+      final renderers =
+          document!.content.map((e) => Renderer.fromInstance(e)).toList();
+      await Future.wait(renderers.map((e) async => await e.setup(document!)));
+      final background = Renderer.fromInstance(document!.background);
+      await background.setup(document!);
+      setState(() =>
+          _bloc = DocumentBloc(document!, widget.path, background, renderers));
     }
+    _showIntroduction();
+  }
+
+  Future<void> _showIntroduction() async {
+    final settingsCubit = context.read<SettingsCubit>();
+    if (settingsCubit.isFirstStart()) {
+      await showDialog(
+        context: context,
+        builder: (context) => const AppIntroductionDialog(),
+      );
+    } else if (await settingsCubit.hasNewerVersion()) {
+      await showDialog(
+          context: context,
+          builder: (context) => const UpdateIntroductionDialog());
+    } else {
+      return;
+    }
+    await settingsCubit.updateLastVersion();
+    await settingsCubit.save();
   }
 
   @override
@@ -110,8 +136,6 @@ class _ProjectPageState extends State<ProjectPage> {
         providers: [
           BlocProvider(create: (_) => _bloc!),
           BlocProvider(create: (_) => TransformCubit()),
-          BlocProvider(create: (_) => SelectionCubit()),
-          BlocProvider(create: (_) => EditingCubit()),
         ],
         child: Builder(builder: (context) {
           return Shortcuts(
@@ -141,6 +165,8 @@ class _ProjectPageState extends State<ProjectPage> {
                   LogicalKeyboardKey.control,
                   LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyE): ImageExportIntent(context),
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
+                  LogicalKeyboardKey.keyE): SvgExportIntent(context),
               LogicalKeySet(LogicalKeyboardKey.tab): EditModeIntent(context),
               LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
                   LogicalKeyboardKey.keyS): SettingsIntent(context),
@@ -166,9 +192,8 @@ class _ProjectPageState extends State<ProjectPage> {
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
                   LayersIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
-                  InsertIntent(context, Offset.zero),
+              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
+                  LogicalKeyboardKey.keyN): InsertIntent(context, Offset.zero),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
                   ChangePathIntent(context),
@@ -180,6 +205,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   NewIntent: NewAction(),
                   OpenIntent: OpenAction(),
                   ImportIntent: ImportAction(),
+                  SvgExportIntent: SvgExportAction(),
                   ImageExportIntent: ImageExportAction(),
                   ExportIntent: ExportAction(),
                   EditModeIntent: EditModeAction(),
@@ -193,40 +219,41 @@ class _ProjectPageState extends State<ProjectPage> {
                   InsertIntent: InsertAction(),
                   ChangePathIntent: ChangePathAction(),
                 },
-                child: ClipRect(
-                  child: Builder(builder: (context) {
-                    PreferredSizeWidget appBar = PadAppBar();
-                    return Focus(
-                        autofocus: true,
-                        child: Scaffold(
-                            appBar: appBar,
-                            body:
-                                LayoutBuilder(builder: (context, constraints) {
-                              var isMobile = constraints.maxWidth < 600;
-                              return Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Container(
-                                      height: 75,
-                                      color: Theme.of(context).canvasColor,
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: ToolSelection(
-                                          isMobile: isMobile,
-                                          viewportKey: _viewportKey),
-                                    ),
-                                    Expanded(
-                                        key: _viewportKey,
-                                        child: const MainViewViewport()),
-                                    if (isMobile)
-                                      const Align(
-                                          alignment: Alignment.center,
-                                          child: Padding(
-                                              padding: EdgeInsets.all(8.0),
-                                              child: EditToolbar()))
-                                  ]);
-                            })));
-                  }),
+                child: SafeArea(
+                  child: ClipRect(
+                    child: Builder(builder: (context) {
+                      PreferredSizeWidget appBar = PadAppBar(
+                        viewportKey: _viewportKey,
+                      );
+                      return Focus(
+                          autofocus: true,
+                          child: FocusScope(
+                            child: Scaffold(
+                                appBar: appBar,
+                                body: LayoutBuilder(
+                                    builder: (context, constraints) {
+                                  final isMobile =
+                                      MediaQuery.of(context).size.width < 800;
+                                  return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        Expanded(
+                                            key: _viewportKey,
+                                            child: const MainViewViewport()),
+                                        if (isMobile)
+                                          Align(
+                                              alignment: Alignment.center,
+                                              child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: EditToolbar(
+                                                      isMobile: isMobile)))
+                                      ]);
+                                })),
+                          ));
+                    }),
+                  ),
                 )),
           );
         }));

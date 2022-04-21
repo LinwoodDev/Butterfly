@@ -8,6 +8,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../api/open_release_notes.dart';
+
 class SettingsPage extends StatelessWidget {
   final bool isDialog;
 
@@ -32,24 +34,21 @@ class SettingsPage extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.data),
             leading: const Icon(PhosphorIcons.databaseLight),
             onTap: () {
-              Navigator.of(context).pop();
-              GoRouter.of(context).push('/settings/data');
+              GoRouter.of(context).go('/settings/data');
             },
           ),
           ListTile(
             title: Text(AppLocalizations.of(context)!.behaviors),
             leading: const Icon(PhosphorIcons.fadersLight),
             onTap: () {
-              Navigator.of(context).pop();
-              GoRouter.of(context).push('/settings/behaviors');
+              GoRouter.of(context).go('/settings/behaviors');
             },
           ),
           ListTile(
               leading: const Icon(PhosphorIcons.monitorLight),
               title: Text(AppLocalizations.of(context)!.personalization),
               onTap: () {
-                Navigator.of(context).pop();
-                GoRouter.of(context).push('/settings/personalization');
+                GoRouter.of(context).go('/settings/personalization');
               }),
           const Divider(),
           ListTile(
@@ -57,18 +56,21 @@ class SettingsPage extends StatelessWidget {
               title: Text(AppLocalizations.of(context)!.documentation),
               onTap: () => launch('https://docs.butterfly.linwood.dev')),
           ListTile(
+              leading: const Icon(PhosphorIcons.flagLight),
+              title: Text(AppLocalizations.of(context)!.releaseNotes),
+              onTap: () => openReleaseNotes()),
+          ListTile(
               leading: const Icon(PhosphorIcons.usersLight),
               title: const Text('Discord'),
-              onTap: () => launch('https://discord.linwood.dev')),
+              onTap: () => launch('https://go.linwood.dev/discord')),
           ListTile(
               leading: const Icon(PhosphorIcons.translateLight),
               title: const Text('Crowdin'),
-              onTap: () => launch('https://linwood.crowdin.com')),
+              onTap: () => launch('https://go.linwood.dev/butterfly/crowdin')),
           ListTile(
               leading: const Icon(PhosphorIcons.codeLight),
               title: Text(AppLocalizations.of(context)!.source),
-              onTap: () =>
-                  launch('https://github.com/LinwoodCloud/dev_doctor')),
+              onTap: () => launch('https://go.linwood.dev/butterfly/source')),
           ListTile(
               leading: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               title: Text(AppLocalizations.of(context)!.changelog),
@@ -78,17 +80,16 @@ class SettingsPage extends StatelessWidget {
           ListTile(
               leading: const Icon(PhosphorIcons.stackLight),
               title: Text(AppLocalizations.of(context)!.license),
-              onTap: () => launch(
-                  'https://github.com/LinwoodCloud/butterfly/blob/main/LICENSE')),
+              onTap: () => launch('https://go.linwood.dev/butterfly/license')),
           ListTile(
               leading: const Icon(PhosphorIcons.identificationCardLight),
               title: Text(AppLocalizations.of(context)!.imprint),
-              onTap: () => launch('https://codedoctor.tk/impress')),
+              onTap: () => launch('https://go.linwood.dev/impress')),
           ListTile(
               leading: const Icon(PhosphorIcons.shieldLight),
               title: Text(AppLocalizations.of(context)!.privacypolicy),
-              onTap: () => launch(
-                  'https://docs.butterfly.linwood.dev/docs/privacypolicy')),
+              onTap: () =>
+                  launch('https://docs.butterfly.linwood.dev/privacypolicy')),
           ListTile(
               leading: const Icon(PhosphorIcons.infoLight),
               title: Text(AppLocalizations.of(context)!.information),

@@ -57,14 +57,18 @@ class IODocumentFileSystem extends DocumentFileSystem {
     var directory = Directory(absolutePath);
     if (await file.exists()) {
       var json = await file.readAsString();
-      return AppDocumentFile(path, jsonDecode(json));
+      try {
+        return AppDocumentFile(path, jsonDecode(json));
+      } catch (e) {
+        return null;
+      }
     } else if (await directory.exists()) {
       var files = await directory.list().toList();
       var assets = <AppDocumentAsset>[];
       for (var file in files) {
         try {
           var currentPath =
-              path + '/' + file.path.replaceAll('\\', '/').split('/').last;
+              '$path/${file.path.replaceAll('\\', '/').split('/').last}';
           if (currentPath.startsWith('//')) {
             currentPath = currentPath.substring(1);
           }
@@ -117,7 +121,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
       path = null;
     }
     path ??=
-        (await getApplicationDocumentsDirectory()).path + '/Linwood/Butterfly';
+        '${(await getApplicationDocumentsDirectory()).path}/Linwood/Butterfly';
     // Convert \ to /
     path = path.replaceAll('\\', '/');
     path += '/Documents';
@@ -138,7 +142,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     var files = await dir.list().toList();
     for (var file in files) {
       var asset = await getAsset(
-          name + '/' + file.path.replaceAll('\\', '/').split('/').last);
+          '$name/${file.path.replaceAll('\\', '/').split('/').last}');
       if (asset != null) {
         assets.add(asset);
       }
@@ -193,7 +197,7 @@ class IOTemplateFileSystem extends TemplateFileSystem {
       path = null;
     }
     path ??=
-        (await getApplicationDocumentsDirectory()).path + '/Linwood/Butterfly';
+        '${(await getApplicationDocumentsDirectory()).path}/Linwood/Butterfly';
     // Convert \ to /
     path = path.replaceAll('\\', '/');
     path += '/Templates';

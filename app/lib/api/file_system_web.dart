@@ -46,16 +46,17 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       path = '';
     }
     var filePath = '$path/${convertNameToFile(document.name)}';
-    var counter = 1;
+    var counter = 2;
     while (await hasAsset(filePath)) {
-      filePath = '${document.name}_${++counter}';
+      filePath = '$path/${convertNameToFile(document.name)}_$counter';
+      counter++;
     }
     var db = await _getDatabase();
-    var txn = db.transaction('documents', 'readwrite');
-    var doc = document.toJson();
+    var doc = Map<String, dynamic>.from(document.toJson());
     doc['type'] = 'file';
+    var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
-    await store.add(doc, filePath);
+    await store.put(doc, filePath);
     await txn.completed;
     return AppDocumentFile(filePath, doc);
   }
@@ -99,10 +100,10 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       await txn.completed;
       return null;
     }
-    var map = data as Map;
+    var map = Map<String, dynamic>.from(data as Map);
     if (map['type'] == 'file') {
       await txn.completed;
-      return AppDocumentFile(path, Map<String, dynamic>.from(map));
+      return AppDocumentFile(path, map);
     } else if (map['type'] == 'directory') {
       var cursor = store.openCursor(autoAdvance: true);
       var assets = await Future.wait(
@@ -230,12 +231,12 @@ class WebTemplateFileSystem extends TemplateFileSystem {
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     var shouldCreate = force;
+    var defaults = DocumentTemplate.getDefaults(context);
     var prefs = await SharedPreferences.getInstance();
     if (!shouldCreate) {
       shouldCreate = !prefs.containsKey('defaultTemplate');
     }
     if (!shouldCreate) return false;
-    var defaults = DocumentTemplate.getDefaults(context);
     await Future.wait(defaults.map((e) => updateTemplate(e)));
     prefs.setBool('defaultTemplate', true);
     return true;

@@ -1,9 +1,8 @@
 ---
+title: "Label painter"
 sidebar_label: "Label"
 sidebar_position: 5
 ---
-
-# Label painter
 
 With this painter you can add text to the paper.
 

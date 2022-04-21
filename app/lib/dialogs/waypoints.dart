@@ -66,11 +66,9 @@ class WaypointsDialog extends StatelessWidget {
                                     context.read<TransformCubit>();
                                 var state = bloc.state;
                                 if (state is! DocumentLoadSuccess) return;
-                                var baked = state.bakedViewport;
-                                if (baked != null) {
-                                  bloc.add(ImageBaked(baked.toSize(),
-                                      baked.scale, transformCubit.state));
-                                }
+                                var baked = state.cameraViewport;
+                                bloc.add(ImageBaked(baked.toSize(), baked.scale,
+                                    transformCubit.state));
                               }
 
                               if (state is! DocumentLoadSuccess) {
@@ -146,6 +144,7 @@ class WaypointsDialog extends StatelessWidget {
                 content: Column(mainAxisSize: MainAxisSize.min, children: [
                   TextField(
                     controller: nameController,
+                    autofocus: true,
                     decoration: InputDecoration(
                         filled: true,
                         labelText: AppLocalizations.of(context)!.name),

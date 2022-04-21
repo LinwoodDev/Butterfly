@@ -168,6 +168,7 @@
     "deleteElements": "Elemente löschen",
     "deleteElementsConfirm": "Möchten Sie die ausgewählten Elemente wirklich löschen?",
     "selectCustomLayer": "Eigene Ebene auswählen",
+    "svg": "SVG",
     "sensitivity": "Empfindlichkeit",
     "sensitivityHint": "Je höher der Wert, desto sensibler die Eingabe",
     "touchSensitivity": "Berührungsempfindlichkeit",
@@ -213,5 +214,37 @@
     "exitArea": "Beende das Gebiet",
     "alreadyExists": "Dieser Wert existiert bereits",
     "currentArea": "Aktueller Bereich",
-    "fullscreen": "Vollbild"
+    "fullscreen": "Vollbild",
+    "textField": "Textfeld",
+    "selectSensitivity": "Empfindlichkeit auswählen",
+    "welcome": "Willkommen bei Linwood Butterfly",
+    "welcomeContent": "Schmetterling ist eine Notiz-App, bei der Ihre Ideen an erster Stelle stehen. Sie können Texte malen, hinzufügen und auf jedem Gerät einfach exportieren. Diese App funktioniert auf Android, Windows, Linux und im Web.",
+    "updated": "App aktualisiert auf Version {version}",
+    "@updated": {
+        "placeholders": {
+            "version": {
+                "type": "String",
+                "example": "1.0.0"
+            }
+        },
+        "description": "This message is shown when the app is updated"
+    },
+    "releaseNotes": "Versionshinweise",
+    "constraints": "Einschränkungen",
+    "scaledConstraints": "Skalierte Einschränkungen",
+    "fixedConstraints": "Feste Beziehungen",
+    "dynamicConstraints": "Dynamische Beziehungen",
+    "none": "Keine",
+    "includeArea": "Bereich einbeziehen",
+    "verticalAlignment": "Vertikale Ausrichtung",
+    "horizontalAlignment": "Horizontale Ausrichtung",
+    "top": "Oben",
+    "center": "Zentriert",
+    "bottom": "Unten",
+    "left": "Links",
+    "right": "Rechts",
+    "justify": "Blocksatz",
+    "constraint": "Einschränkung",
+    "length": "Länge",
+    "exportSvg": "SVG exportieren"
 }

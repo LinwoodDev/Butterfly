@@ -1,10 +1,10 @@
 ---
+title: "Painters"
 slug: /painters
 sidebar_label: "Introduction"
 sidebar_position: 1
 ---
 
-# Painters
 
 Painters can edit the paper.
 

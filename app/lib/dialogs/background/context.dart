@@ -27,7 +27,7 @@ class BackgroundContextMenu extends StatelessWidget {
         ListTile(
           leading: const Icon(PhosphorIcons.plusLight),
           title: Text(AppLocalizations.of(context)!.insert),
-          subtitle: Text(context.getShortcut('E')),
+          subtitle: Text(context.getShortcut('N', altKey: true)),
           onTap: () {
             var transformCubit = context.read<TransformCubit>();
             close();

@@ -1,8 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/editing.dart';
-import 'package:butterfly/cubits/selection.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
@@ -26,13 +24,15 @@ class NewAction extends Action<NewIntent> {
 
   @override
   Future<void> invoke(NewIntent intent) async {
+    final bloc = intent.context.read<DocumentBloc>();
+    final settings = intent.context.read<SettingsCubit>().state;
+    final transformCubit = intent.context.read<TransformCubit>();
     var document = AppDocument(
         name: await formatCurrentDateTime(
             intent.context.read<SettingsCubit>().state.locale),
         createdAt: DateTime.now(),
         palettes: ColorPalette.getMaterialPalette(intent.context));
-    var bloc = intent.context.read<DocumentBloc>();
-    var prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     if (intent.fromTemplate) {
       var state = bloc.state;
       if (state is DocumentLoadSuccess) document = state.document;
@@ -42,10 +42,6 @@ class NewAction extends Action<NewIntent> {
                 providers: [
                   BlocProvider.value(value: bloc),
                   BlocProvider.value(
-                      value: intent.context.read<SelectionCubit>()),
-                  BlocProvider.value(
-                      value: intent.context.read<EditingCubit>()),
-                  BlocProvider.value(
                       value: intent.context.read<TransformCubit>()),
                 ],
                 child: TemplateDialog(
@@ -54,8 +50,7 @@ class NewAction extends Action<NewIntent> {
               )) as DocumentTemplate?;
       if (template == null) return;
       document = template.document.copyWith(
-        name: await formatCurrentDateTime(
-            intent.context.read<SettingsCubit>().state.locale),
+        name: await formatCurrentDateTime(settings.locale),
         createdAt: DateTime.now(),
       );
     } else if (prefs.containsKey('default_template')) {
@@ -63,17 +58,14 @@ class NewAction extends Action<NewIntent> {
           .getTemplate(prefs.getString('default_template')!);
       if (template != null) {
         document = template.document.copyWith(
-          name: await formatCurrentDateTime(
-              intent.context.read<SettingsCubit>().state.locale),
+          name: await formatCurrentDateTime(settings.locale),
           createdAt: DateTime.now(),
         );
       }
     }
 
     bloc.clearHistory();
-    intent.context.read<SelectionCubit>().reset();
-    intent.context.read<EditingCubit>().resetAll();
-    intent.context.read<TransformCubit>().reset();
+    transformCubit.reset();
     bloc.emit(DocumentLoadSuccess(document));
   }
 }

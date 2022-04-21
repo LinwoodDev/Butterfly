@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../models/painters/layer.dart';
+import '../../models/painter.dart';
 
 class LayerPainterDialog extends StatefulWidget {
   final DocumentBloc bloc;
@@ -83,7 +83,9 @@ class _LayerPainterDialogState extends State<LayerPainterDialog> {
                                 title: Text(AppLocalizations.of(context)!
                                     .includeEraser),
                                 onChanged: (value) => setState(() => painter =
-                                    painter.copyWith(includeEraser: value))),
+                                    painter.copyWith(
+                                        includeEraser:
+                                            value ?? painter.includeEraser))),
                           ]),
                         ),
                         const Divider(),

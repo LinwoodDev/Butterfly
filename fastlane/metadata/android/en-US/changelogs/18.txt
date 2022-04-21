@@ -1,0 +1,5 @@
+* Add svg export
+* Add constraints to label and image
+* Add horizontal and vertical alignment to label
+* Reimplement eraser
+* Fixing stroke width

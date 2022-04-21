@@ -39,7 +39,7 @@ class _ImportDialogState extends State<ImportDialog> {
               FilePicker.platform
                   .pickFiles(
                       type: isMobile ? FileType.any : FileType.custom,
-                      allowedExtensions: isMobile ? null : ['bfly'])
+                      allowedExtensions: isMobile ? null : ['bfly', 'json'])
                   .then((files) {
                 if (files?.files.isEmpty ?? true) return;
                 var e = files!.files.first;

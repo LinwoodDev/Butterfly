@@ -10,5 +10,9 @@
   "sidebar.sidebar.link.Contribution guide": {
     "message": "Beitragsanleitung",
     "description": "The label for link Contribution guide in sidebar sidebar, linking to https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md"
+  },
+  "sidebar.sidebar.link.GitHub": {
+    "message": "GitHub",
+    "description": "The label for link GitHub in sidebar sidebar, linking to https://github.com/LinwoodCloud/Butterfly"
   }
 }

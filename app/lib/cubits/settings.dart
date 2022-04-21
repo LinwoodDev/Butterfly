@@ -2,66 +2,47 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-@immutable
-class ButterflySettings {
-  final ThemeMode theme;
-  final String design;
-  final String localeTag;
-  final String documentPath;
-  final String dateFormat;
-  final InputType inputType;
-  final double touchSensitivity, mouseSensitivity, penSensitivity;
+part 'settings.freezed.dart';
 
-  const ButterflySettings(
-      {this.theme = ThemeMode.system,
-      this.localeTag = '',
-      this.documentPath = '',
-      this.design = '',
-      this.dateFormat = '',
-      this.touchSensitivity = 1,
-      this.mouseSensitivity = 1,
-      this.penSensitivity = 1,
-      this.inputType = InputType.multiDraw});
+@freezed
+class ButterflySettings with _$ButterflySettings {
+  const ButterflySettings._();
+  const factory ButterflySettings(
+      {@Default(ThemeMode.system) ThemeMode theme,
+      @Default('') String localeTag,
+      @Default('') String documentPath,
+      @Default('') String dateFormat,
+      @Default(1) double touchSensitivity,
+      @Default(1) double mouseSensitivity,
+      @Default(1) double penSensitivity,
+      @Default(5) double selectSensitivity,
+      @Default(InputType.multiDraw) InputType inputType,
+      String? lastVersion}) = _ButterflySettings;
 
-  ButterflySettings.fromPrefs(SharedPreferences prefs)
-      : localeTag = prefs.getString('locale') ?? '',
-        inputType = prefs.containsKey('input_type')
-            ? InputType.values.byName(prefs.getString('input_type')!)
-            : InputType.multiDraw,
-        documentPath = prefs.getString('document_path') ?? '',
-        theme = prefs.containsKey('theme_mode')
-            ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
-            : ThemeMode.system,
-        dateFormat = prefs.getString('date_format') ?? '',
-        touchSensitivity = prefs.getDouble('touch_sensitivity') ?? 1,
-        mouseSensitivity = prefs.getDouble('mouse_sensitivity') ?? 1,
-        penSensitivity = prefs.getDouble('pen_sensitivity') ?? 1,
-        design = prefs.getString('design') ?? '';
+  factory ButterflySettings.fromPrefs(
+          SharedPreferences prefs) =>
+      ButterflySettings(
+          localeTag: prefs.getString('locale') ?? '',
+          inputType:
+              prefs.containsKey('input_type')
+                  ? InputType.values.byName(prefs.getString('input_type')!)
+                  : InputType.multiDraw,
+          documentPath: prefs.getString('document_path') ?? '',
+          theme: prefs.containsKey('theme_mode')
+              ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
+              : ThemeMode.system,
+          dateFormat: prefs.getString('date_format') ?? '',
+          touchSensitivity: prefs.getDouble('touch_sensitivity') ?? 1,
+          mouseSensitivity: prefs.getDouble('mouse_sensitivity') ?? 1,
+          penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
+          selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
+          lastVersion: prefs.getString('last_version'));
 
   Locale? get locale => localeTag.isEmpty ? null : Locale(localeTag);
-
-  ButterflySettings copyWith(
-          {ThemeMode? theme,
-          String? design,
-          String? localeTag,
-          String? documentPath,
-          String? dateFormat,
-          InputType? inputType,
-          double? touchSensitivity,
-          double? mouseSensitivity,
-          double? penSensitivity}) =>
-      ButterflySettings(
-          theme: theme ?? this.theme,
-          design: design ?? this.design,
-          documentPath: documentPath ?? this.documentPath,
-          dateFormat: dateFormat ?? this.dateFormat,
-          inputType: inputType ?? this.inputType,
-          localeTag: localeTag ?? this.localeTag,
-          touchSensitivity: touchSensitivity ?? this.touchSensitivity,
-          mouseSensitivity: mouseSensitivity ?? this.mouseSensitivity,
-          penSensitivity: penSensitivity ?? this.penSensitivity);
 
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
@@ -73,7 +54,12 @@ class ButterflySettings {
     await prefs.setDouble('touch_sensitivity', touchSensitivity);
     await prefs.setDouble('mouse_sensitivity', mouseSensitivity);
     await prefs.setDouble('pen_sensitivity', penSensitivity);
-    await prefs.setString('design', design);
+    await prefs.setDouble('select_sensitivity', selectSensitivity);
+    if (lastVersion == null && prefs.containsKey('last_version')) {
+      await prefs.remove('last_version');
+    } else if (lastVersion != null) {
+      await prefs.setString('last_version', lastVersion!);
+    }
   }
 }
 
@@ -181,6 +167,31 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> resetPenSensitivity() {
     emit(state.copyWith(penSensitivity: 1));
+    return save();
+  }
+
+  Future<void> changeSelectSensitivity(double sensitivity) {
+    emit(state.copyWith(selectSensitivity: sensitivity));
+    return save();
+  }
+
+  Future<void> resetSelectSensitivity() {
+    emit(state.copyWith(selectSensitivity: 1));
+    return save();
+  }
+
+  bool isFirstStart() {
+    return state.lastVersion == null;
+  }
+
+  Future<bool> hasNewerVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version != state.lastVersion;
+  }
+
+  Future<void> updateLastVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    emit(state.copyWith(lastVersion: packageInfo.version));
     return save();
   }
 

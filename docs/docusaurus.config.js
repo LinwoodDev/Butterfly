@@ -16,6 +16,11 @@ module.exports = {
         locales: ['en', 'de', 'fr'],
     },
     themeConfig: {
+        colorMode: {
+          defaultMode: 'dark',
+          disableSwitch: false,
+          respectPrefersColorScheme: true,
+        },
         algolia: {
             // The application ID provided by Algolia
             appId: 'PQN0C3O7D3',
@@ -142,7 +147,7 @@ module.exports = {
                             path: "1.3",
                         },
                         "1.2": {
-                            label: "1.2.0",
+                            label: "1.2.1",
                             path: "1.2",
                         },
                         "1.1": {
@@ -202,7 +207,7 @@ module.exports = {
                     {
                         tagName: 'meta',
                         name: 'theme-color',
-                        content: 'rgb(37, 194, 160)',
+                        content: '#f2b138',
                     },
                 ],
             },

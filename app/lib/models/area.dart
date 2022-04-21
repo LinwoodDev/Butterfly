@@ -1,26 +1,23 @@
 import 'dart:ui' as ui;
 
+import 'package:butterfly/models/converter.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Area {
-  final String name;
-  final Offset position;
-  final double width, height;
+part 'area.freezed.dart';
+part 'area.g.dart';
 
-  const Area({
-    this.name = '',
-    required this.width,
-    required this.height,
-    required this.position,
-  });
+@freezed
+class Area with _$Area {
+  const Area._();
+  const factory Area({
+    @Default('') String name,
+    required double width,
+    required double height,
+    @OffsetJsonConverter() required Offset position,
+  }) = _Area;
 
-  Area.fromJson(Map<String, dynamic> json, [int? fileVersion])
-      : name = json['name'] ?? '',
-        height = json['height'],
-        width = json['width'],
-        position = json['position'] != null
-            ? Offset(json['position']['x'], json['position']['y'])
-            : Offset.zero;
+  factory Area.fromJson(Map<String, dynamic> json) => _$AreaFromJson(json);
   // Aspect ratio is the ratio between width and height.
   factory Area.fromPoints(Offset first, Offset second,
       {double width = 0,
@@ -49,28 +46,7 @@ class Area {
         width: realWidth, height: realHeight, position: position, name: name);
   }
 
-  Map<String, dynamic> toJson() => {
-        'height': height,
-        'width': width,
-        'position': {'x': position.dx, 'y': position.dy},
-        'name': name,
-      };
-
   Offset get second => Offset(position.dx + width, position.dy + height);
-
-  Area copyWith({
-    double? width,
-    double? height,
-    Offset? position,
-    String? name,
-  }) {
-    return Area(
-      width: width ?? this.width,
-      height: height ?? this.height,
-      position: position ?? this.position,
-      name: name ?? this.name,
-    );
-  }
 
   bool hit(Offset offset, [double radius = 1]) {
     return offset.dx >= position.dx - radius &&

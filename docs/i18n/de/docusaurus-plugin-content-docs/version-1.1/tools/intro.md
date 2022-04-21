@@ -1,9 +1,8 @@
 ---
+title: "Werkzeuge"
 sidebar_label: "Einführung"
 sidebar_position: 0
 ---
-
-# Werkzeuge
 
 Werkzeuge können die Kamera ändern oder Objekte auswählen.
 

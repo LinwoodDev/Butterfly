@@ -41,5 +41,8 @@
       "source": "/docs/privacypolicy",
       "destination": "/privacypolicy"
     }
-  ]
+  ],
+  "github": {
+      "silent": true
+  }
 }

@@ -1,9 +1,9 @@
 ---
+title: "Peintre stylo"
 sidebar_label: "Stylo"
 sidebar_position: 2
 ---
 
-# Peintre stylo
 
 Avec ce peintre vous pouvez dessiner sur ce papier.
 

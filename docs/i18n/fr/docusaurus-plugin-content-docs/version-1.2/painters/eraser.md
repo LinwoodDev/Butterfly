@@ -1,9 +1,8 @@
 ---
+title: "Peintre gomme"
 sidebar_label: "Eraser"
 sidebar_position: 3
 ---
-
-# Peintre gomme
 
 :::warning Il n'est pas recommandé d'utiliser la gomme.
 

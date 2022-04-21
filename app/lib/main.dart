@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/home.dart';
@@ -16,31 +17,41 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'models/document.dart';
 import 'settings/personalization.dart';
 import 'package:window_manager/window_manager.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 
-const fileVersion = 4;
+const kFileVersion = 5;
 
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  GetIt.I.registerSingleton<int>(fileVersion, instanceName: 'fileVersion');
+  GetIt.I.registerSingleton<int>(kFileVersion, instanceName: 'fileVersion');
   GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   await setup();
   var prefs = await SharedPreferences.getInstance();
   var initialLocation = '/';
   if (args.isNotEmpty && !kIsWeb) {
-    var path = args[0];
+    var path = args[0].replaceAll('\\', '/');
     var file = File(path);
     if (await file.exists()) {
-      var data = await file.readAsString();
-      var json = jsonDecode(data);
-      var document = AppDocument.fromJson(json);
-      var newFile =
-          await DocumentFileSystem.fromPlatform().importDocument(document);
-      initialLocation = newFile.path;
+      var directory =
+          Directory(await DocumentFileSystem.fromPlatform().getDirectory());
+      // Test if file is in directory
+      if (file.path.startsWith(directory.path)) {
+        // Relative path
+        initialLocation = Uri(path: '/', queryParameters: {
+          'path': file.path.replaceFirst(directory.path, '')
+        }).toString();
+      } else {
+        var data = await file.readAsString();
+        var json = Map<String, dynamic>.from(jsonDecode(data));
+        var document = const DocumentJsonConverter().fromJson(json);
+        var newFile =
+            await DocumentFileSystem.fromPlatform().importDocument(document);
+        initialLocation =
+            Uri(path: '/', queryParameters: {'path': newFile.path}).toString();
+      }
     }
   }
 
@@ -49,17 +60,20 @@ Future<void> main([List<String> args = const []]) async {
 
     // Use it only after calling `hiddenWindowAtLaunch`
     windowManager.waitUntilReadyToShow().then((_) async {
-      await windowManager.setMinimumSize(const Size(400, 300));
-      await windowManager.setSize(const Size(400, 600));
+      await windowManager.setMinimumSize(const Size(410, 300));
       await windowManager.setTitle('Butterfly');
-      await windowManager.setTitleBarStyle('hidden');
+      await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
       await windowManager.setResizable(true);
-      await windowManager.center();
+      await windowManager.maximize();
       await windowManager.show();
       await windowManager.focus();
     });
   }
-  runApp(ButterflyApp(prefs: prefs, initialLocation: initialLocation));
+  runApp(MultiRepositoryProvider(providers: [
+    RepositoryProvider(create: (context) => DocumentFileSystem.fromPlatform()),
+    RepositoryProvider(create: (context) => TemplateFileSystem.fromPlatform()),
+    RepositoryProvider(create: (context) => const DocumentJsonConverter()),
+  ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)));
 }
 
 class ButterflyApp extends StatelessWidget {

@@ -168,6 +168,7 @@
   "deleteElements": "Delete elements",
   "deleteElementsConfirm": "Do you really want to delete the selected elements?",
   "selectCustomLayer": "Select a custom layer",
+  "svg": "SVG",
   "sensitivity": "Sensitivity",
   "sensitivityHint": "The higher the value, the more sensitive the input",
   "touchSensitivity": "Touch sensitivity",
@@ -204,15 +205,47 @@
   "area": "Area",
   "selectArea": "Select an area",
   "aspectRatio": "Aspect ratio",
-  "presets":"Presets",
+  "presets": "Presets",
   "pagePortrait": "Page portrait",
   "pageLandscape": "Page landscape",
-  "square":"Square",
+  "square": "Square",
   "areas": "Areas",
   "enterArea": "Enter the area",
   "exitArea": "Exit the area",
   "alreadyExists": "This value already exists",
   "currentArea": "Current area",
   "fullscreen": "Fullscreen",
-  "design": "Design"
+  "design": "Design",
+  "textField": "Text field",
+  "selectSensitivity": "Select sensitivity",
+  "welcome": "Welcome to Linwood Butterfly",
+  "welcomeContent": "Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device. This app works on Android, Windows, Linux and in the web.",
+  "updated": "App updated to version {version}",
+  "@updated": {
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0"
+      }
+    },
+    "description": "This message is shown when the app is updated"
+  },
+  "releaseNotes": "Release notes",
+  "constraints": "Constraints",
+  "scaledConstraints": "Scaled constraints",
+  "fixedConstraints": "Fixed constraints",
+  "dynamicConstraints": "Dynamic constraints",
+  "none": "None",
+  "includeArea": "Include area",
+  "verticalAlignment": "Vertical alignment",
+  "horizontalAlignment": "Horizontal alignment",
+  "top": "Top",
+  "center": "Center",
+  "bottom": "Bottom",
+  "left": "Left",
+  "right": "Right",
+  "justify": "Justify",
+  "constraint": "Constraint",
+  "length": "Length",
+  "exportSvg": "Export SVG"
 }

@@ -43,7 +43,7 @@ class FileSystemListView extends StatelessWidget {
           return ListTile(
             selected: document.path == selectedPath,
             leading: const Icon(PhosphorIcons.folderLight),
-            title: Text(document.fileName),
+            title: Text(document.fileNameWithoutExtension),
             onTap: () => onOpened(document),
             trailing: FileSystemAssetMenu(
               asset: document,

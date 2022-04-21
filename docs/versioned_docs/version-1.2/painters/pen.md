@@ -1,9 +1,8 @@
 ---
+title: "Pen painter"
 sidebar_label: "Pen"
 sidebar_position: 2
 ---
-
-# Pen painter
 
 With this painter you can draw on this paper.
 
