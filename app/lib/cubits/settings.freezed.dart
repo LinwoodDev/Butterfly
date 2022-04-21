@@ -12,40 +12,7 @@ part of 'settings.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$ButterflySettingsTearOff {
-  const _$ButterflySettingsTearOff();
-
-  _ButterflySettings call(
-      {ThemeMode theme = ThemeMode.system,
-      String localeTag = '',
-      String documentPath = '',
-      String dateFormat = '',
-      double touchSensitivity = 1,
-      double mouseSensitivity = 1,
-      double penSensitivity = 1,
-      double selectSensitivity = 5,
-      InputType inputType = InputType.multiDraw,
-      String? lastVersion}) {
-    return _ButterflySettings(
-      theme: theme,
-      localeTag: localeTag,
-      documentPath: documentPath,
-      dateFormat: dateFormat,
-      touchSensitivity: touchSensitivity,
-      mouseSensitivity: mouseSensitivity,
-      penSensitivity: penSensitivity,
-      selectSensitivity: selectSensitivity,
-      inputType: inputType,
-      lastVersion: lastVersion,
-    );
-  }
-}
-
-/// @nodoc
-const $ButterflySettings = _$ButterflySettingsTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$ButterflySettings {
@@ -58,6 +25,7 @@ mixin _$ButterflySettings {
   double get penSensitivity => throw _privateConstructorUsedError;
   double get selectSensitivity => throw _privateConstructorUsedError;
   InputType get inputType => throw _privateConstructorUsedError;
+  String get design => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -80,6 +48,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       double penSensitivity,
       double selectSensitivity,
       InputType inputType,
+      String design,
       String? lastVersion});
 }
 
@@ -103,6 +72,7 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? penSensitivity = freezed,
     Object? selectSensitivity = freezed,
     Object? inputType = freezed,
+    Object? design = freezed,
     Object? lastVersion = freezed,
   }) {
     return _then(_value.copyWith(
@@ -142,6 +112,10 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _value.inputType
           : inputType // ignore: cast_nullable_to_non_nullable
               as InputType,
+      design: design == freezed
+          ? _value.design
+          : design // ignore: cast_nullable_to_non_nullable
+              as String,
       lastVersion: lastVersion == freezed
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
@@ -167,6 +141,7 @@ abstract class _$ButterflySettingsCopyWith<$Res>
       double penSensitivity,
       double selectSensitivity,
       InputType inputType,
+      String design,
       String? lastVersion});
 }
 
@@ -192,6 +167,7 @@ class __$ButterflySettingsCopyWithImpl<$Res>
     Object? penSensitivity = freezed,
     Object? selectSensitivity = freezed,
     Object? inputType = freezed,
+    Object? design = freezed,
     Object? lastVersion = freezed,
   }) {
     return _then(_ButterflySettings(
@@ -231,6 +207,10 @@ class __$ButterflySettingsCopyWithImpl<$Res>
           ? _value.inputType
           : inputType // ignore: cast_nullable_to_non_nullable
               as InputType,
+      design: design == freezed
+          ? _value.design
+          : design // ignore: cast_nullable_to_non_nullable
+              as String,
       lastVersion: lastVersion == freezed
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
@@ -252,42 +232,46 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.penSensitivity = 1,
       this.selectSensitivity = 5,
       this.inputType = InputType.multiDraw,
+      this.design = '',
       this.lastVersion})
       : super._();
 
-  @JsonKey()
   @override
+  @JsonKey()
   final ThemeMode theme;
-  @JsonKey()
   @override
+  @JsonKey()
   final String localeTag;
-  @JsonKey()
   @override
+  @JsonKey()
   final String documentPath;
-  @JsonKey()
   @override
+  @JsonKey()
   final String dateFormat;
-  @JsonKey()
   @override
+  @JsonKey()
   final double touchSensitivity;
-  @JsonKey()
   @override
+  @JsonKey()
   final double mouseSensitivity;
-  @JsonKey()
   @override
+  @JsonKey()
   final double penSensitivity;
-  @JsonKey()
   @override
+  @JsonKey()
   final double selectSensitivity;
-  @JsonKey()
   @override
+  @JsonKey()
   final InputType inputType;
+  @override
+  @JsonKey()
+  final String design;
   @override
   final String? lastVersion;
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, inputType: $inputType, lastVersion: $lastVersion)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, inputType: $inputType, design: $design, lastVersion: $lastVersion)';
   }
 
   @override
@@ -310,6 +294,7 @@ class _$_ButterflySettings extends _ButterflySettings {
             const DeepCollectionEquality()
                 .equals(other.selectSensitivity, selectSensitivity) &&
             const DeepCollectionEquality().equals(other.inputType, inputType) &&
+            const DeepCollectionEquality().equals(other.design, design) &&
             const DeepCollectionEquality()
                 .equals(other.lastVersion, lastVersion));
   }
@@ -326,6 +311,7 @@ class _$_ButterflySettings extends _ButterflySettings {
       const DeepCollectionEquality().hash(penSensitivity),
       const DeepCollectionEquality().hash(selectSensitivity),
       const DeepCollectionEquality().hash(inputType),
+      const DeepCollectionEquality().hash(design),
       const DeepCollectionEquality().hash(lastVersion));
 
   @JsonKey(ignore: true)
@@ -336,38 +322,41 @@ class _$_ButterflySettings extends _ButterflySettings {
 
 abstract class _ButterflySettings extends ButterflySettings {
   const factory _ButterflySettings(
-      {ThemeMode theme,
-      String localeTag,
-      String documentPath,
-      String dateFormat,
-      double touchSensitivity,
-      double mouseSensitivity,
-      double penSensitivity,
-      double selectSensitivity,
-      InputType inputType,
-      String? lastVersion}) = _$_ButterflySettings;
+      {final ThemeMode theme,
+      final String localeTag,
+      final String documentPath,
+      final String dateFormat,
+      final double touchSensitivity,
+      final double mouseSensitivity,
+      final double penSensitivity,
+      final double selectSensitivity,
+      final InputType inputType,
+      final String design,
+      final String? lastVersion}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
-  ThemeMode get theme;
+  ThemeMode get theme => throw _privateConstructorUsedError;
   @override
-  String get localeTag;
+  String get localeTag => throw _privateConstructorUsedError;
   @override
-  String get documentPath;
+  String get documentPath => throw _privateConstructorUsedError;
   @override
-  String get dateFormat;
+  String get dateFormat => throw _privateConstructorUsedError;
   @override
-  double get touchSensitivity;
+  double get touchSensitivity => throw _privateConstructorUsedError;
   @override
-  double get mouseSensitivity;
+  double get mouseSensitivity => throw _privateConstructorUsedError;
   @override
-  double get penSensitivity;
+  double get penSensitivity => throw _privateConstructorUsedError;
   @override
-  double get selectSensitivity;
+  double get selectSensitivity => throw _privateConstructorUsedError;
   @override
-  InputType get inputType;
+  InputType get inputType => throw _privateConstructorUsedError;
   @override
-  String? get lastVersion;
+  String get design => throw _privateConstructorUsedError;
+  @override
+  String? get lastVersion => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ButterflySettingsCopyWith<_ButterflySettings> get copyWith =>

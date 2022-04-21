@@ -12,32 +12,11 @@ part of 'waypoint.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Waypoint _$WaypointFromJson(Map<String, dynamic> json) {
   return _Waypoint.fromJson(json);
 }
-
-/// @nodoc
-class _$WaypointTearOff {
-  const _$WaypointTearOff();
-
-  _Waypoint call(String name, @OffsetJsonConverter() Offset position,
-      [double? scale]) {
-    return _Waypoint(
-      name,
-      position,
-      scale,
-    );
-  }
-
-  Waypoint fromJson(Map<String, Object?> json) {
-    return Waypoint.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Waypoint = _$WaypointTearOff();
 
 /// @nodoc
 mixin _$Waypoint {
@@ -174,6 +153,7 @@ class _$_Waypoint with DiagnosticableTreeMixin implements _Waypoint {
             const DeepCollectionEquality().equals(other.scale, scale));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -193,18 +173,19 @@ class _$_Waypoint with DiagnosticableTreeMixin implements _Waypoint {
 }
 
 abstract class _Waypoint implements Waypoint {
-  const factory _Waypoint(String name, @OffsetJsonConverter() Offset position,
-      [double? scale]) = _$_Waypoint;
+  const factory _Waypoint(
+      final String name, @OffsetJsonConverter() final Offset position,
+      [final double? scale]) = _$_Waypoint;
 
   factory _Waypoint.fromJson(Map<String, dynamic> json) = _$_Waypoint.fromJson;
 
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
   @OffsetJsonConverter()
-  Offset get position;
+  Offset get position => throw _privateConstructorUsedError;
   @override
-  double? get scale;
+  double? get scale => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$WaypointCopyWith<_Waypoint> get copyWith =>

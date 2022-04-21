@@ -45,7 +45,7 @@ dependencies:
   camera: ^0.9.4+19
   camera_windows: ^0.1.0
   window_manager: ^0.2.1
-  flex_color_scheme: ^4.2.0
+  flex_color_scheme: ^5.0.0
   freezed_annotation: ^2.0.1
   json_annotation: ^4.4.0
   path: ^1.8.1

@@ -12,7 +12,7 @@ part of 'painter.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Painter _$PainterFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
@@ -36,87 +36,8 @@ Painter _$PainterFromJson(Map<String, dynamic> json) {
 }
 
 /// @nodoc
-class _$PainterTearOff {
-  const _$PainterTearOff();
-
-  LabelPainter label(
-      {String name = '', LabelProperty property = const LabelProperty()}) {
-    return LabelPainter(
-      name: name,
-      property: property,
-    );
-  }
-
-  PenPainter pen(
-      {String name = '',
-      bool zoomDependent = false,
-      PenProperty property = const PenProperty()}) {
-    return PenPainter(
-      name: name,
-      zoomDependent: zoomDependent,
-      property: property,
-    );
-  }
-
-  EraserPainter eraser(
-      {String name = '', EraserProperty property = const EraserProperty()}) {
-    return EraserPainter(
-      name: name,
-      property: property,
-    );
-  }
-
-  PathEraserPainter pathEraser(
-      {String name = '',
-      double strokeWidth = 5,
-      bool includeEraser = false,
-      bool deleteWholeStroke = false}) {
-    return PathEraserPainter(
-      name: name,
-      strokeWidth: strokeWidth,
-      includeEraser: includeEraser,
-      deleteWholeStroke: deleteWholeStroke,
-    );
-  }
-
-  LayerPainter layer(
-      {String name = '',
-      double strokeWidth = 5,
-      String layer = '',
-      bool includeEraser = false}) {
-    return LayerPainter(
-      name: name,
-      strokeWidth: strokeWidth,
-      layer: layer,
-      includeEraser: includeEraser,
-    );
-  }
-
-  AreaPainter area(
-      {String name = '',
-      double constrainedWidth = 0,
-      double constrainedHeight = 0,
-      double constrainedAspectRatio = 0}) {
-    return AreaPainter(
-      name: name,
-      constrainedWidth: constrainedWidth,
-      constrainedHeight: constrainedHeight,
-      constrainedAspectRatio: constrainedAspectRatio,
-    );
-  }
-
-  Painter fromJson(Map<String, Object?> json) {
-    return Painter.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Painter = _$PainterTearOff();
-
-/// @nodoc
 mixin _$Painter {
   String get name => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, LabelProperty property) label,
@@ -275,17 +196,19 @@ class _$LabelPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
 @JsonSerializable()
 class _$LabelPainter implements LabelPainter {
   const _$LabelPainter(
-      {this.name = '', this.property = const LabelProperty(), String? $type})
+      {this.name = '',
+      this.property = const LabelProperty(),
+      final String? $type})
       : $type = $type ?? 'label';
 
   factory _$LabelPainter.fromJson(Map<String, dynamic> json) =>
       _$$LabelPainterFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String name;
-  @JsonKey()
   @override
+  @JsonKey()
   final LabelProperty property;
 
   @JsonKey(name: 'type')
@@ -305,6 +228,7 @@ class _$LabelPainter implements LabelPainter {
             const DeepCollectionEquality().equals(other.property, property));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -431,15 +355,15 @@ class _$LabelPainter implements LabelPainter {
 }
 
 abstract class LabelPainter implements Painter {
-  const factory LabelPainter({String name, LabelProperty property}) =
-      _$LabelPainter;
+  const factory LabelPainter(
+      {final String name, final LabelProperty property}) = _$LabelPainter;
 
   factory LabelPainter.fromJson(Map<String, dynamic> json) =
       _$LabelPainter.fromJson;
 
   @override
-  String get name;
-  LabelProperty get property;
+  String get name => throw _privateConstructorUsedError;
+  LabelProperty get property => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $LabelPainterCopyWith<LabelPainter> get copyWith =>
@@ -494,20 +418,20 @@ class _$PenPainter implements PenPainter {
       {this.name = '',
       this.zoomDependent = false,
       this.property = const PenProperty(),
-      String? $type})
+      final String? $type})
       : $type = $type ?? 'pen';
 
   factory _$PenPainter.fromJson(Map<String, dynamic> json) =>
       _$$PenPainterFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String name;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool zoomDependent;
-  @JsonKey()
   @override
+  @JsonKey()
   final PenProperty property;
 
   @JsonKey(name: 'type')
@@ -529,6 +453,7 @@ class _$PenPainter implements PenPainter {
             const DeepCollectionEquality().equals(other.property, property));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -657,15 +582,17 @@ class _$PenPainter implements PenPainter {
 
 abstract class PenPainter implements Painter {
   const factory PenPainter(
-      {String name, bool zoomDependent, PenProperty property}) = _$PenPainter;
+      {final String name,
+      final bool zoomDependent,
+      final PenProperty property}) = _$PenPainter;
 
   factory PenPainter.fromJson(Map<String, dynamic> json) =
       _$PenPainter.fromJson;
 
   @override
-  String get name;
-  bool get zoomDependent;
-  PenProperty get property;
+  String get name => throw _privateConstructorUsedError;
+  bool get zoomDependent => throw _privateConstructorUsedError;
+  PenProperty get property => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $PenPainterCopyWith<PenPainter> get copyWith =>
@@ -713,17 +640,19 @@ class _$EraserPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
 @JsonSerializable()
 class _$EraserPainter implements EraserPainter {
   const _$EraserPainter(
-      {this.name = '', this.property = const EraserProperty(), String? $type})
+      {this.name = '',
+      this.property = const EraserProperty(),
+      final String? $type})
       : $type = $type ?? 'eraser';
 
   factory _$EraserPainter.fromJson(Map<String, dynamic> json) =>
       _$$EraserPainterFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String name;
-  @JsonKey()
   @override
+  @JsonKey()
   final EraserProperty property;
 
   @JsonKey(name: 'type')
@@ -743,6 +672,7 @@ class _$EraserPainter implements EraserPainter {
             const DeepCollectionEquality().equals(other.property, property));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -869,15 +799,15 @@ class _$EraserPainter implements EraserPainter {
 }
 
 abstract class EraserPainter implements Painter {
-  const factory EraserPainter({String name, EraserProperty property}) =
-      _$EraserPainter;
+  const factory EraserPainter(
+      {final String name, final EraserProperty property}) = _$EraserPainter;
 
   factory EraserPainter.fromJson(Map<String, dynamic> json) =
       _$EraserPainter.fromJson;
 
   @override
-  String get name;
-  EraserProperty get property;
+  String get name => throw _privateConstructorUsedError;
+  EraserProperty get property => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $EraserPainterCopyWith<EraserPainter> get copyWith =>
@@ -944,23 +874,23 @@ class _$PathEraserPainter implements PathEraserPainter {
       this.strokeWidth = 5,
       this.includeEraser = false,
       this.deleteWholeStroke = false,
-      String? $type})
+      final String? $type})
       : $type = $type ?? 'pathEraser';
 
   factory _$PathEraserPainter.fromJson(Map<String, dynamic> json) =>
       _$$PathEraserPainterFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String name;
-  @JsonKey()
   @override
+  @JsonKey()
   final double strokeWidth;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool includeEraser;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool deleteWholeStroke;
 
   @JsonKey(name: 'type')
@@ -985,6 +915,7 @@ class _$PathEraserPainter implements PathEraserPainter {
                 .equals(other.deleteWholeStroke, deleteWholeStroke));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1115,19 +1046,19 @@ class _$PathEraserPainter implements PathEraserPainter {
 
 abstract class PathEraserPainter implements Painter {
   const factory PathEraserPainter(
-      {String name,
-      double strokeWidth,
-      bool includeEraser,
-      bool deleteWholeStroke}) = _$PathEraserPainter;
+      {final String name,
+      final double strokeWidth,
+      final bool includeEraser,
+      final bool deleteWholeStroke}) = _$PathEraserPainter;
 
   factory PathEraserPainter.fromJson(Map<String, dynamic> json) =
       _$PathEraserPainter.fromJson;
 
   @override
-  String get name;
-  double get strokeWidth;
-  bool get includeEraser;
-  bool get deleteWholeStroke;
+  String get name => throw _privateConstructorUsedError;
+  double get strokeWidth => throw _privateConstructorUsedError;
+  bool get includeEraser => throw _privateConstructorUsedError;
+  bool get deleteWholeStroke => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $PathEraserPainterCopyWith<PathEraserPainter> get copyWith =>
@@ -1190,23 +1121,23 @@ class _$LayerPainter implements LayerPainter {
       this.strokeWidth = 5,
       this.layer = '',
       this.includeEraser = false,
-      String? $type})
+      final String? $type})
       : $type = $type ?? 'layer';
 
   factory _$LayerPainter.fromJson(Map<String, dynamic> json) =>
       _$$LayerPainterFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String name;
-  @JsonKey()
   @override
+  @JsonKey()
   final double strokeWidth;
-  @JsonKey()
   @override
+  @JsonKey()
   final String layer;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool includeEraser;
 
   @JsonKey(name: 'type')
@@ -1230,6 +1161,7 @@ class _$LayerPainter implements LayerPainter {
                 .equals(other.includeEraser, includeEraser));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1359,19 +1291,19 @@ class _$LayerPainter implements LayerPainter {
 
 abstract class LayerPainter implements Painter {
   const factory LayerPainter(
-      {String name,
-      double strokeWidth,
-      String layer,
-      bool includeEraser}) = _$LayerPainter;
+      {final String name,
+      final double strokeWidth,
+      final String layer,
+      final bool includeEraser}) = _$LayerPainter;
 
   factory LayerPainter.fromJson(Map<String, dynamic> json) =
       _$LayerPainter.fromJson;
 
   @override
-  String get name;
-  double get strokeWidth;
-  String get layer;
-  bool get includeEraser;
+  String get name => throw _privateConstructorUsedError;
+  double get strokeWidth => throw _privateConstructorUsedError;
+  String get layer => throw _privateConstructorUsedError;
+  bool get includeEraser => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $LayerPainterCopyWith<LayerPainter> get copyWith =>
@@ -1437,23 +1369,23 @@ class _$AreaPainter implements AreaPainter {
       this.constrainedWidth = 0,
       this.constrainedHeight = 0,
       this.constrainedAspectRatio = 0,
-      String? $type})
+      final String? $type})
       : $type = $type ?? 'area';
 
   factory _$AreaPainter.fromJson(Map<String, dynamic> json) =>
       _$$AreaPainterFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String name;
-  @JsonKey()
   @override
+  @JsonKey()
   final double constrainedWidth;
-  @JsonKey()
   @override
+  @JsonKey()
   final double constrainedHeight;
-  @JsonKey()
   @override
+  @JsonKey()
   final double constrainedAspectRatio;
 
   @JsonKey(name: 'type')
@@ -1478,6 +1410,7 @@ class _$AreaPainter implements AreaPainter {
                 .equals(other.constrainedAspectRatio, constrainedAspectRatio));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1610,19 +1543,19 @@ class _$AreaPainter implements AreaPainter {
 
 abstract class AreaPainter implements Painter {
   const factory AreaPainter(
-      {String name,
-      double constrainedWidth,
-      double constrainedHeight,
-      double constrainedAspectRatio}) = _$AreaPainter;
+      {final String name,
+      final double constrainedWidth,
+      final double constrainedHeight,
+      final double constrainedAspectRatio}) = _$AreaPainter;
 
   factory AreaPainter.fromJson(Map<String, dynamic> json) =
       _$AreaPainter.fromJson;
 
   @override
-  String get name;
-  double get constrainedWidth;
-  double get constrainedHeight;
-  double get constrainedAspectRatio;
+  String get name => throw _privateConstructorUsedError;
+  double get constrainedWidth => throw _privateConstructorUsedError;
+  double get constrainedHeight => throw _privateConstructorUsedError;
+  double get constrainedAspectRatio => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $AreaPainterCopyWith<AreaPainter> get copyWith =>

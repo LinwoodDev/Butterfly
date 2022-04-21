@@ -63,7 +63,6 @@ class _TemplateDialogState extends State<TemplateDialog> {
                         label: Text(AppLocalizations.of(context)!.create),
                         icon: const Icon(PhosphorIcons.plusLight),
                       ),
-                backgroundColor: Colors.transparent,
                 body: FutureBuilder<List<DocumentTemplate>>(
                     future: _templatesFuture,
                     builder: (context, snapshot) {

@@ -128,7 +128,6 @@ class _CameraDialogState extends State<CameraDialog>
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxHeight: 600, maxWidth: 600),
         child: Scaffold(
-          backgroundColor: Colors.transparent,
           appBar: AppBar(
               title: Text(AppLocalizations.of(context)!.camera),
               leading: const Icon(PhosphorIcons.cameraLight)),

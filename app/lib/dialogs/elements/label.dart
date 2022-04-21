@@ -89,7 +89,6 @@ class EditLabelElementDialog extends StatelessWidget {
           leading: const Icon(PhosphorIcons.textTLight),
           title: Text(AppLocalizations.of(context)!.enterText),
         ),
-        backgroundColor: Colors.transparent,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           child: Column(mainAxisSize: MainAxisSize.min, children: [

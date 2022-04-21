@@ -12,30 +12,11 @@ part of 'palette.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ColorPalette _$ColorPaletteFromJson(Map<String, dynamic> json) {
   return _ColorPalette.fromJson(json);
 }
-
-/// @nodoc
-class _$ColorPaletteTearOff {
-  const _$ColorPaletteTearOff();
-
-  _ColorPalette call({required String name, List<int> colors = const []}) {
-    return _ColorPalette(
-      name: name,
-      colors: colors,
-    );
-  }
-
-  ColorPalette fromJson(Map<String, Object?> json) {
-    return ColorPalette.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $ColorPalette = _$ColorPaletteTearOff();
 
 /// @nodoc
 mixin _$ColorPalette {
@@ -123,16 +104,21 @@ class __$ColorPaletteCopyWithImpl<$Res> extends _$ColorPaletteCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ColorPalette implements _ColorPalette {
-  const _$_ColorPalette({required this.name, this.colors = const []});
+  const _$_ColorPalette({required this.name, final List<int> colors = const []})
+      : _colors = colors;
 
   factory _$_ColorPalette.fromJson(Map<String, dynamic> json) =>
       _$$_ColorPaletteFromJson(json);
 
   @override
   final String name;
-  @JsonKey()
+  final List<int> _colors;
   @override
-  final List<int> colors;
+  @JsonKey()
+  List<int> get colors {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_colors);
+  }
 
   @override
   String toString() {
@@ -148,6 +134,7 @@ class _$_ColorPalette implements _ColorPalette {
             const DeepCollectionEquality().equals(other.colors, colors));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -166,16 +153,16 @@ class _$_ColorPalette implements _ColorPalette {
 }
 
 abstract class _ColorPalette implements ColorPalette {
-  const factory _ColorPalette({required String name, List<int> colors}) =
-      _$_ColorPalette;
+  const factory _ColorPalette(
+      {required final String name, final List<int> colors}) = _$_ColorPalette;
 
   factory _ColorPalette.fromJson(Map<String, dynamic> json) =
       _$_ColorPalette.fromJson;
 
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  List<int> get colors;
+  List<int> get colors => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ColorPaletteCopyWith<_ColorPalette> get copyWith =>

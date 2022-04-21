@@ -7,6 +7,7 @@ import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/home.dart';
+import 'package:butterfly/theme/manager.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -91,122 +92,11 @@ class ButterflyApp extends StatelessWidget {
   }
 
   Widget _buildApp() {
-    var primaryColor = const Color(0xFFF2B138);
-    var primarySwatch = createMaterialColor(primaryColor);
-    var accentColor = const Color(0xFF00469E);
-    buildThemeData(context) => ThemeData(
-        fontFamily: 'Roboto',
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        dialogTheme: DialogTheme(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        ),
-        cardTheme: CardTheme(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-        outlinedButtonTheme: OutlinedButtonThemeData(
-          style: OutlinedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-        // Modern appbar
-        appBarTheme: AppBarTheme(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            elevation: 0,
-            iconTheme: IconThemeData(color: Theme.of(context).iconTheme.color),
-            titleTextStyle: Theme.of(context).textTheme.headline6),
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: primarySwatch,
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: primarySwatch[200],
-            foregroundColor: Colors.black,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12))),
-        colorScheme:
-            ColorScheme.light(primary: primaryColor, secondary: accentColor));
-    buildDarkThemeData(context) => ThemeData(
-        fontFamily: 'Roboto',
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        brightness: Brightness.dark,
-        dialogTheme: DialogTheme(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        ),
-        cardTheme: CardTheme(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-        outlinedButtonTheme: OutlinedButtonThemeData(
-          style: OutlinedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-        // Modern appbar
-        appBarTheme: AppBarTheme(
-            color: Colors.transparent,
-            elevation: 0,
-            centerTitle: true,
-            iconTheme: const IconThemeData(color: Colors.white),
-            titleTextStyle: Theme.of(context)
-                .textTheme
-                .headline6
-                ?.copyWith(color: Colors.white)),
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: primarySwatch,
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: primarySwatch[200],
-            foregroundColor: Colors.black,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12))),
-        colorScheme:
-            ColorScheme.dark(primary: primaryColor, secondary: accentColor));
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.theme != current.theme ||
-            previous.localeTag != current.localeTag,
+            previous.localeTag != current.localeTag ||
+            previous.design != current.design,
         builder: (context, state) {
           return MaterialApp.router(
             key: _appKey,
@@ -216,9 +106,9 @@ class ButterflyApp extends StatelessWidget {
             routerDelegate: router.routerDelegate,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            theme: buildThemeData(context),
+            theme: ThemeManager.getThemeByName(state.design),
             themeMode: state.theme,
-            darkTheme: buildDarkThemeData(context),
+            darkTheme: ThemeManager.getThemeByName(state.design, dark: true),
           );
         });
   }

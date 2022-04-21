@@ -24,7 +24,6 @@ class BackgroundDialog extends StatelessWidget {
               var background = state.document.background;
 
               return Scaffold(
-                  backgroundColor: Colors.transparent,
                   appBar: AppBar(
                     title: Text(AppLocalizations.of(context)!.background),
                     leading: const Icon(PhosphorIcons.imageLight),

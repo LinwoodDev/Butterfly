@@ -21,6 +21,7 @@ class ButterflySettings with _$ButterflySettings {
       @Default(1) double penSensitivity,
       @Default(5) double selectSensitivity,
       @Default(InputType.multiDraw) InputType inputType,
+      @Default('') String design,
       String? lastVersion}) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -40,6 +41,7 @@ class ButterflySettings with _$ButterflySettings {
           mouseSensitivity: prefs.getDouble('mouse_sensitivity') ?? 1,
           penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
           selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
+          design: prefs.getString('design') ?? '',
           lastVersion: prefs.getString('last_version'));
 
   Locale? get locale => localeTag.isEmpty ? null : Locale(localeTag);
@@ -55,6 +57,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setDouble('mouse_sensitivity', mouseSensitivity);
     await prefs.setDouble('pen_sensitivity', penSensitivity);
     await prefs.setDouble('select_sensitivity', selectSensitivity);
+    await prefs.setString('design', design);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
     } else if (lastVersion != null) {
@@ -94,6 +97,14 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> changeTheme(ThemeMode theme) async {
     emit(state.copyWith(theme: theme));
+  }
+
+  Future<void> changeDesign(String design) async {
+    emit(state.copyWith(design: design));
+  }
+
+  Future<void> resetDesign() async {
+    emit(state.copyWith(design: ''));
   }
 
   Future<void> changeLocale(Locale? locale) {

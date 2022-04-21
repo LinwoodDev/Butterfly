@@ -12,36 +12,11 @@ part of 'area.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Area _$AreaFromJson(Map<String, dynamic> json) {
   return _Area.fromJson(json);
 }
-
-/// @nodoc
-class _$AreaTearOff {
-  const _$AreaTearOff();
-
-  _Area call(
-      {String name = '',
-      required double width,
-      required double height,
-      @OffsetJsonConverter() required ui.Offset position}) {
-    return _Area(
-      name: name,
-      width: width,
-      height: height,
-      position: position,
-    );
-  }
-
-  Area fromJson(Map<String, Object?> json) {
-    return Area.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Area = _$AreaTearOff();
 
 /// @nodoc
 mixin _$Area {
@@ -164,8 +139,8 @@ class _$_Area extends _Area {
 
   factory _$_Area.fromJson(Map<String, dynamic> json) => _$$_AreaFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String name;
   @override
   final double width;
@@ -191,6 +166,7 @@ class _$_Area extends _Area {
             const DeepCollectionEquality().equals(other.position, position));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -212,23 +188,23 @@ class _$_Area extends _Area {
 
 abstract class _Area extends Area {
   const factory _Area(
-      {String name,
-      required double width,
-      required double height,
-      @OffsetJsonConverter() required ui.Offset position}) = _$_Area;
+      {final String name,
+      required final double width,
+      required final double height,
+      @OffsetJsonConverter() required final ui.Offset position}) = _$_Area;
   const _Area._() : super._();
 
   factory _Area.fromJson(Map<String, dynamic> json) = _$_Area.fromJson;
 
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  double get width;
+  double get width => throw _privateConstructorUsedError;
   @override
-  double get height;
+  double get height => throw _privateConstructorUsedError;
   @override
   @OffsetJsonConverter()
-  ui.Offset get position;
+  ui.Offset get position => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AreaCopyWith<_Area> get copyWith => throw _privateConstructorUsedError;

@@ -12,31 +12,11 @@ part of 'path_point.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 PathPoint _$PathPointFromJson(Map<String, dynamic> json) {
   return _PathPoint.fromJson(json);
 }
-
-/// @nodoc
-class _$PathPointTearOff {
-  const _$PathPointTearOff();
-
-  _PathPoint call(double x, double y, [double pressure = 1]) {
-    return _PathPoint(
-      x,
-      y,
-      pressure,
-    );
-  }
-
-  PathPoint fromJson(Map<String, Object?> json) {
-    return PathPoint.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $PathPoint = _$PathPointTearOff();
 
 /// @nodoc
 mixin _$PathPoint {
@@ -141,8 +121,8 @@ class _$_PathPoint extends _PathPoint {
   final double x;
   @override
   final double y;
-  @JsonKey()
   @override
+  @JsonKey()
   final double pressure;
 
   @override
@@ -160,6 +140,7 @@ class _$_PathPoint extends _PathPoint {
             const DeepCollectionEquality().equals(other.pressure, pressure));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -179,19 +160,19 @@ class _$_PathPoint extends _PathPoint {
 }
 
 abstract class _PathPoint extends PathPoint {
-  const factory _PathPoint(double x, double y, [double pressure]) =
-      _$_PathPoint;
+  const factory _PathPoint(final double x, final double y,
+      [final double pressure]) = _$_PathPoint;
   const _PathPoint._() : super._();
 
   factory _PathPoint.fromJson(Map<String, dynamic> json) =
       _$_PathPoint.fromJson;
 
   @override
-  double get x;
+  double get x => throw _privateConstructorUsedError;
   @override
-  double get y;
+  double get y => throw _privateConstructorUsedError;
   @override
-  double get pressure;
+  double get pressure => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PathPointCopyWith<_PathPoint> get copyWith =>

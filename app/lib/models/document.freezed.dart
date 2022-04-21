@@ -12,54 +12,11 @@ part of 'document.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 AppDocument _$AppDocumentFromJson(Map<String, dynamic> json) {
   return _AppDocument.fromJson(json);
 }
-
-/// @nodoc
-class _$AppDocumentTearOff {
-  const _$AppDocumentTearOff();
-
-  _AppDocument call(
-      {required String name,
-      String description = '',
-      List<PadElement> content = const [],
-      Background background = const Background.empty(),
-      List<ColorPalette> palettes = const [],
-      List<Waypoint> waypoints = const [],
-      List<Area> areas = const [],
-      required DateTime createdAt,
-      HandProperty handProperty = const HandProperty(),
-      DateTime? updatedAt,
-      List<Painter> painters = const [
-        PenPainter(),
-        PathEraserPainter(),
-        LabelPainter()
-      ]}) {
-    return _AppDocument(
-      name: name,
-      description: description,
-      content: content,
-      background: background,
-      palettes: palettes,
-      waypoints: waypoints,
-      areas: areas,
-      createdAt: createdAt,
-      handProperty: handProperty,
-      updatedAt: updatedAt,
-      painters: painters,
-    );
-  }
-
-  AppDocument fromJson(Map<String, Object?> json) {
-    return AppDocument.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $AppDocument = _$AppDocumentTearOff();
 
 /// @nodoc
 mixin _$AppDocument {
@@ -283,54 +240,83 @@ class _$_AppDocument extends _AppDocument {
   const _$_AppDocument(
       {required this.name,
       this.description = '',
-      this.content = const [],
+      final List<PadElement> content = const [],
       this.background = const Background.empty(),
-      this.palettes = const [],
-      this.waypoints = const [],
-      this.areas = const [],
+      final List<ColorPalette> palettes = const [],
+      final List<Waypoint> waypoints = const [],
+      final List<Area> areas = const [],
       required this.createdAt,
       this.handProperty = const HandProperty(),
       this.updatedAt,
-      this.painters = const [
+      final List<Painter> painters = const [
         PenPainter(),
         PathEraserPainter(),
         LabelPainter()
       ]})
-      : super._();
+      : _content = content,
+        _palettes = palettes,
+        _waypoints = waypoints,
+        _areas = areas,
+        _painters = painters,
+        super._();
 
   factory _$_AppDocument.fromJson(Map<String, dynamic> json) =>
       _$$_AppDocumentFromJson(json);
 
   @override
   final String name;
-  @JsonKey()
   @override
+  @JsonKey()
   final String description;
-  @JsonKey()
+  final List<PadElement> _content;
   @override
-  final List<PadElement> content;
   @JsonKey()
+  List<PadElement> get content {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_content);
+  }
+
   @override
+  @JsonKey()
   final Background background;
-  @JsonKey()
+  final List<ColorPalette> _palettes;
   @override
-  final List<ColorPalette> palettes;
   @JsonKey()
+  List<ColorPalette> get palettes {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_palettes);
+  }
+
+  final List<Waypoint> _waypoints;
   @override
-  final List<Waypoint> waypoints;
   @JsonKey()
+  List<Waypoint> get waypoints {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_waypoints);
+  }
+
+  final List<Area> _areas;
   @override
-  final List<Area> areas;
+  @JsonKey()
+  List<Area> get areas {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_areas);
+  }
+
   @override
   final DateTime createdAt;
-  @JsonKey()
   @override
+  @JsonKey()
   final HandProperty handProperty;
   @override
   final DateTime? updatedAt;
-  @JsonKey()
+  final List<Painter> _painters;
   @override
-  final List<Painter> painters;
+  @JsonKey()
+  List<Painter> get painters {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_painters);
+  }
 
   @override
   String toString() {
@@ -358,6 +344,7 @@ class _$_AppDocument extends _AppDocument {
             const DeepCollectionEquality().equals(other.painters, painters));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -386,44 +373,44 @@ class _$_AppDocument extends _AppDocument {
 
 abstract class _AppDocument extends AppDocument {
   const factory _AppDocument(
-      {required String name,
-      String description,
-      List<PadElement> content,
-      Background background,
-      List<ColorPalette> palettes,
-      List<Waypoint> waypoints,
-      List<Area> areas,
-      required DateTime createdAt,
-      HandProperty handProperty,
-      DateTime? updatedAt,
-      List<Painter> painters}) = _$_AppDocument;
+      {required final String name,
+      final String description,
+      final List<PadElement> content,
+      final Background background,
+      final List<ColorPalette> palettes,
+      final List<Waypoint> waypoints,
+      final List<Area> areas,
+      required final DateTime createdAt,
+      final HandProperty handProperty,
+      final DateTime? updatedAt,
+      final List<Painter> painters}) = _$_AppDocument;
   const _AppDocument._() : super._();
 
   factory _AppDocument.fromJson(Map<String, dynamic> json) =
       _$_AppDocument.fromJson;
 
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  String get description;
+  String get description => throw _privateConstructorUsedError;
   @override
-  List<PadElement> get content;
+  List<PadElement> get content => throw _privateConstructorUsedError;
   @override
-  Background get background;
+  Background get background => throw _privateConstructorUsedError;
   @override
-  List<ColorPalette> get palettes;
+  List<ColorPalette> get palettes => throw _privateConstructorUsedError;
   @override
-  List<Waypoint> get waypoints;
+  List<Waypoint> get waypoints => throw _privateConstructorUsedError;
   @override
-  List<Area> get areas;
+  List<Area> get areas => throw _privateConstructorUsedError;
   @override
-  DateTime get createdAt;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @override
-  HandProperty get handProperty;
+  HandProperty get handProperty => throw _privateConstructorUsedError;
   @override
-  DateTime? get updatedAt;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
   @override
-  List<Painter> get painters;
+  List<Painter> get painters => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AppDocumentCopyWith<_AppDocument> get copyWith =>

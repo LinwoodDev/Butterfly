@@ -145,30 +145,33 @@ class EditToolbar extends StatelessWidget {
                                     barrierLabel:
                                         AppLocalizations.of(context)!.close,
                                     pageBuilder: (context, animation,
-                                        secondaryAnimation) {
-                                      switch (type) {
-                                        case 'pen':
-                                          return PenPainterDialog(
-                                              bloc: bloc, painterIndex: i);
-                                        case 'eraser':
-                                          return EraserPainterDialog(
-                                              bloc: bloc, painterIndex: i);
-                                        case 'pathEraser':
-                                          return PathEraserPainterDialog(
-                                              bloc: bloc, painterIndex: i);
-                                        case 'label':
-                                          return LabelPainterDialog(
-                                              bloc: bloc, painterIndex: i);
-                                        case 'layer':
-                                          return LayerPainterDialog(
-                                              bloc: bloc, painterIndex: i);
-                                        case 'area':
-                                          return AreaPainterDialog(
-                                              bloc: bloc, painterIndex: i);
-                                        default:
-                                          return Container();
-                                      }
-                                    });
+                                            secondaryAnimation) =>
+                                        BlocProvider.value(
+                                            value: bloc,
+                                            child: Builder(builder: (context) {
+                                              switch (type) {
+                                                case 'pen':
+                                                  return PenPainterDialog(
+                                                      painterIndex: i);
+                                                case 'eraser':
+                                                  return EraserPainterDialog(
+                                                      painterIndex: i);
+                                                case 'pathEraser':
+                                                  return PathEraserPainterDialog(
+                                                      painterIndex: i);
+                                                case 'label':
+                                                  return LabelPainterDialog(
+                                                      painterIndex: i);
+                                                case 'layer':
+                                                  return LayerPainterDialog(
+                                                      painterIndex: i);
+                                                case 'area':
+                                                  return AreaPainterDialog(
+                                                      painterIndex: i);
+                                                default:
+                                                  return Container();
+                                              }
+                                            })));
                               }
 
                               Widget toolWidget = Padding(
