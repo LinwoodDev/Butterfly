@@ -1,6 +1,6 @@
-import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/color_pick.dart';
+import 'package:butterfly/dialogs/painters/general.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,132 +10,25 @@ import '../../models/painter.dart';
 import '../../models/property.dart';
 import '../../widgets/exact_slider.dart';
 
-class LabelPainterDialog extends StatefulWidget {
-  final DocumentBloc bloc;
+class LabelPainterDialog extends StatelessWidget {
   final int painterIndex;
 
-  const LabelPainterDialog(
-      {Key? key, required this.bloc, required this.painterIndex})
+  const LabelPainterDialog({Key? key, required this.painterIndex})
       : super(key: key);
 
   @override
-  _LabelPainterDialogState createState() => _LabelPainterDialogState();
-}
-
-class _LabelPainterDialogState extends State<LabelPainterDialog> {
-  final TextEditingController _nameController = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: widget.bloc,
-      child: Dialog(child: Builder(builder: (context) {
-        var state = widget.bloc.state;
-        if (state is! DocumentLoadSuccess) return Container();
-        var painter =
-            state.document.painters[widget.painterIndex] as LabelPainter;
-        return Container(
-            constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
-            child: StatefulBuilder(builder: (context, setState) {
-              if (_nameController.text != painter.name) {
-                _nameController.text = painter.name;
-              }
-              return Scaffold(
-                  appBar: AppBar(
-                    title: Text(AppLocalizations.of(context)!.label),
-                    leading: const Icon(PhosphorIcons.textTLight),
-                    actions: [
-                      IconButton(
-                          tooltip: AppLocalizations.of(context)!.help,
-                          icon:
-                              const Icon(PhosphorIcons.circleWavyQuestionLight),
-                          onPressed: () => openHelp(['painters', 'label'])),
-                    ],
-                  ),
-                  body: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: ListView(children: [
-                            TextField(
-                                decoration: InputDecoration(
-                                    filled: true,
-                                    labelText:
-                                        AppLocalizations.of(context)!.name),
-                                controller: _nameController,
-                                onChanged: (value) => setState(() =>
-                                    painter = painter.copyWith(name: value))),
-                            const SizedBox(height: 10),
-                            LabelPropertyView(
-                                initialValue: painter.property,
-                                onChanged: (property) => setState(() =>
-                                    painter =
-                                        painter.copyWith(property: property))),
-                          ]),
-                        ),
-                        const Divider(),
-                        Row(
-                          children: [
-                            OutlinedButton(
-                              style: OutlinedButton.styleFrom(
-                                  primary: Theme.of(context).colorScheme.error),
-                              child: Text(AppLocalizations.of(context)!.delete),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                            actions: [
-                                              TextButton(
-                                                child: Text(AppLocalizations.of(
-                                                        context)!
-                                                    .no),
-                                                onPressed: () =>
-                                                    Navigator.of(context).pop(),
-                                              ),
-                                              TextButton(
-                                                child: Text(AppLocalizations.of(
-                                                        context)!
-                                                    .yes),
-                                                onPressed: () {
-                                                  widget.bloc.add(
-                                                      PainterRemoved(
-                                                          widget.painterIndex));
-                                                  Navigator.of(context).pop();
-                                                },
-                                              )
-                                            ],
-                                            title: Text(
-                                                AppLocalizations.of(context)!
-                                                    .areYouSure),
-                                            content: Text(
-                                                AppLocalizations.of(context)!
-                                                    .reallyDelete)));
-                              },
-                            ),
-                            Expanded(child: Container()),
-                            TextButton(
-                              child: Text(AppLocalizations.of(context)!.cancel),
-                              onPressed: () => Navigator.of(context).pop(),
-                            ),
-                            ElevatedButton(
-                              child: Text(AppLocalizations.of(context)!.ok),
-                              onPressed: () {
-                                widget.bloc.add(PainterChanged(
-                                    painter, widget.painterIndex));
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ));
-            }));
-      })),
-    );
+    return GeneralPainterDialog<LabelPainter>(
+        index: painterIndex,
+        title: AppLocalizations.of(context)!.label,
+        icon: PhosphorIcons.textTLight,
+        help: 'label',
+        builder: (context, painter, setPainter) => [
+              LabelPropertyView(
+                  initialValue: painter.property,
+                  onChanged: (property) =>
+                      setPainter(painter.copyWith(property: property))),
+            ]);
   }
 }
 
@@ -174,7 +67,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return Column(mainAxisSize: MainAxisSize.min, children: [
       ExactSlider(
           header: Text(AppLocalizations.of(context)!.size),
           value: _value.size,
@@ -352,7 +245,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
               ]))
         ],
       ),
-      const SizedBox(height: 50),
+      const SizedBox(height: 32),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

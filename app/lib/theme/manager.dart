@@ -26,11 +26,15 @@ class ThemeManager {
       return FlexThemeData.dark(
           fontFamily: 'Roboto',
           colors: colorScheme,
+          useMaterial3: true,
+          useMaterial3ErrorColors: true,
           appBarStyle: FlexAppBarStyle.material);
     } else {
       return FlexThemeData.light(
           fontFamily: 'Roboto',
           colors: colorScheme,
+          useMaterial3: true,
+          useMaterial3ErrorColors: true,
           appBarStyle: FlexAppBarStyle.material);
     }
   }

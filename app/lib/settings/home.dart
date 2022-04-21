@@ -19,6 +19,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.transparent,
           title: Text(AppLocalizations.of(context)!.settings),
           leading: isDialog
               ? IconButton(
@@ -27,6 +28,7 @@ class SettingsPage extends StatelessWidget {
                 )
               : null,
         ),
+        backgroundColor: Colors.transparent,
         body: Scrollbar(
             child: SingleChildScrollView(
                 child: Column(children: [
