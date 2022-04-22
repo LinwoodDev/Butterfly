@@ -49,6 +49,7 @@ dependencies:
   freezed_annotation: ^2.0.1
   json_annotation: ^4.4.0
   path: ^1.8.1
+  printing: ^5.8.0
 
 dev_dependencies:
   flutter_native_splash: ^2.1.6

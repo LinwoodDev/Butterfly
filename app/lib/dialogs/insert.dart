@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:printing/printing.dart';
 
 class InsertDialog extends StatefulWidget {
   final Offset position;
@@ -22,13 +23,13 @@ class InsertDialog extends StatefulWidget {
 }
 
 class _InsertDialogState extends State<InsertDialog> {
-  void _submit(PadElement element) {
+  void _submit(List<PadElement> elements) {
     var bloc = context.read<DocumentBloc>();
     var state = bloc.state;
     var transform = context.read<TransformCubit>().state;
     if (state is! DocumentLoadSuccess) return;
     var bakedViewport = state.cameraViewport;
-    bloc.add(ElementsCreated([element]));
+    bloc.add(ElementsCreated(elements));
     bloc.add(ImageBaked(bakedViewport.toSize(),
         MediaQuery.of(context).devicePixelRatio, transform));
     Navigator.of(context).pop();
@@ -68,12 +69,14 @@ class _InsertDialogState extends State<InsertDialog> {
             var bytes = await image.toByteData(format: ui.ImageByteFormat.png);
             var state = bloc.state;
             if (state is! DocumentLoadSuccess) return;
-            _submit(ImageElement(
-                height: image.height,
-                width: image.width,
-                layer: state.currentLayer,
-                pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
-                position: widget.position));
+            _submit([
+              ImageElement(
+                  height: image.height,
+                  width: image.width,
+                  layer: state.currentLayer,
+                  pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
+                  position: widget.position)
+            ]);
           },
         ),
         if (kIsWeb ||
@@ -98,13 +101,42 @@ class _InsertDialogState extends State<InsertDialog> {
                     await image.toByteData(format: ui.ImageByteFormat.png);
                 var state = bloc.state;
                 if (state is! DocumentLoadSuccess) return;
-                _submit(ImageElement(
-                    height: image.height,
-                    width: image.width,
-                    layer: state.currentLayer,
-                    pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
-                    position: widget.position));
+                _submit([
+                  ImageElement(
+                      height: image.height,
+                      width: image.width,
+                      layer: state.currentLayer,
+                      pixels: bytes?.buffer.asUint8List() ?? Uint8List(0),
+                      position: widget.position)
+                ]);
               }),
+        ListTile(
+            title: Text(AppLocalizations.of(context)!.pdf),
+            onTap: () async {
+              final files = await FilePicker.platform.pickFiles(
+                  type: FileType.custom,
+                  allowedExtensions: ['pdf'],
+                  allowMultiple: false,
+                  withData: true);
+              if (files?.files.isEmpty ?? true) return;
+              var e = files!.files.first;
+              var content = e.bytes ?? Uint8List(0);
+              if (!kIsWeb) {
+                content = File(e.path ?? '').readAsBytesSync();
+              }
+              var y = widget.position.dy;
+              final elements = <ImageElement>[];
+              await for (var page in Printing.raster(content)) {
+                final png = await page.toPng();
+                elements.add(ImageElement(
+                    height: page.height,
+                    width: page.width,
+                    pixels: png,
+                    position: Offset(widget.position.dx, y)));
+                y = y + page.height;
+              }
+              _submit(elements);
+            }),
       ]),
       actions: [
         TextButton(

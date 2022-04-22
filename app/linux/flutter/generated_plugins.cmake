@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  printing
   url_launcher_linux
   window_manager
 )

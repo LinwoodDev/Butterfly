@@ -7,12 +7,15 @@
 #include "generated_plugin_registrant.h"
 
 #include <camera_windows/camera_windows.h>
+#include <printing/printing_plugin.h>
 #include <url_launcher_windows/url_launcher_windows.h>
 #include <window_manager/window_manager_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   CameraWindowsRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("CameraWindows"));
+  PrintingPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("PrintingPlugin"));
   UrlLauncherWindowsRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("UrlLauncherWindows"));
   WindowManagerPluginRegisterWithRegistrar(

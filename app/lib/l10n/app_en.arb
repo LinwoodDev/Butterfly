@@ -247,5 +247,7 @@
   "justify": "Justify",
   "constraint": "Constraint",
   "length": "Length",
-  "exportSvg": "Export SVG"
+  "exportSvg": "Export SVG",
+  "pdf": "PDF",
+  "selectPages": "Select pages"
 }
