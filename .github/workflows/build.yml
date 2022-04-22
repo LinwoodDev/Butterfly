@@ -9,7 +9,7 @@ jobs:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
       - name: 🔧 Setup java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: "11"
           distribution: "adopt"
