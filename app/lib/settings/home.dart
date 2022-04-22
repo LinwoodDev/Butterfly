@@ -56,7 +56,8 @@ class SettingsPage extends StatelessWidget {
           ListTile(
               leading: const Icon(PhosphorIcons.articleLight),
               title: Text(AppLocalizations.of(context)!.documentation),
-              onTap: () => launch('https://docs.butterfly.linwood.dev')),
+              onTap: () =>
+                  launchUrl(Uri.https('docs.butterfly.linwood.dev', ''))),
           ListTile(
               leading: const Icon(PhosphorIcons.flagLight),
               title: Text(AppLocalizations.of(context)!.releaseNotes),
@@ -64,34 +65,37 @@ class SettingsPage extends StatelessWidget {
           ListTile(
               leading: const Icon(PhosphorIcons.usersLight),
               title: const Text('Discord'),
-              onTap: () => launch('https://go.linwood.dev/discord')),
+              onTap: () => launchUrl(Uri.https('go.linwood.dev', 'discord'))),
           ListTile(
               leading: const Icon(PhosphorIcons.translateLight),
               title: const Text('Crowdin'),
-              onTap: () => launch('https://go.linwood.dev/butterfly/crowdin')),
+              onTap: () =>
+                  launchUrl(Uri.https('go.linwood.dev', 'butterfly/crowdin'))),
           ListTile(
               leading: const Icon(PhosphorIcons.codeLight),
               title: Text(AppLocalizations.of(context)!.source),
-              onTap: () => launch('https://go.linwood.dev/butterfly/source')),
+              onTap: () =>
+                  launchUrl(Uri.https('go.linwood.dev', 'butterfly/source'))),
           ListTile(
               leading: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               title: Text(AppLocalizations.of(context)!.changelog),
-              onTap: () =>
-                  launch('https://docs.butterfly.linwood.dev/changelog')),
+              onTap: () => launchUrl(
+                  Uri.https('docs.butterfly.linwood.dev', 'changelog'))),
           const Divider(),
           ListTile(
               leading: const Icon(PhosphorIcons.stackLight),
               title: Text(AppLocalizations.of(context)!.license),
-              onTap: () => launch('https://go.linwood.dev/butterfly/license')),
+              onTap: () =>
+                  launchUrl(Uri.https('go.linwood.dev', 'butterfly/license'))),
           ListTile(
               leading: const Icon(PhosphorIcons.identificationCardLight),
               title: Text(AppLocalizations.of(context)!.imprint),
-              onTap: () => launch('https://go.linwood.dev/impress')),
+              onTap: () => launchUrl(Uri.https('go.linwood.dev', 'impress'))),
           ListTile(
               leading: const Icon(PhosphorIcons.shieldLight),
               title: Text(AppLocalizations.of(context)!.privacypolicy),
-              onTap: () =>
-                  launch('https://docs.butterfly.linwood.dev/privacypolicy')),
+              onTap: () => launchUrl(
+                  Uri.https('docs.butterfly.linwood.dev', 'privacypolicy'))),
           ListTile(
               leading: const Icon(PhosphorIcons.infoLight),
               title: Text(AppLocalizations.of(context)!.information),
@@ -112,8 +116,8 @@ class SettingsPage extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.all(5),
                 child: InkWell(
-                    onTap: () => launch(
-                        'https://vercel.com?utm_source=Linwood&utm_campaign=oss'),
+                    onTap: () => launchUrl(Uri.https('vercel.com', '',
+                        {'utm_source': 'Linwood', 'utm_campaign': 'oss'})),
                     child: Material(
                       child: SizedBox(
                           height: 50,

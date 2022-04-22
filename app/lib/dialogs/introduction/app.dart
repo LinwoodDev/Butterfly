@@ -34,7 +34,7 @@ class AppIntroductionDialog extends StatelessWidget {
                     child: Text(AppLocalizations.of(context)!.releaseNotes)),
                 TextButton(
                     onPressed: () =>
-                        launch('https://docs.butterfly.linwood.dev'),
+                        launchUrl(Uri.https('docs.butterfly.linwood.dev', '')),
                     child: Text(AppLocalizations.of(context)!.documentation)),
               ]),
             ),

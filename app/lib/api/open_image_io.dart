@@ -11,7 +11,7 @@ void openImage(List<int> bytes) {
     if (Platform.isAndroid || Platform.isIOS) {
       Share.shareFiles([file.path]);
     } else {
-      launch('file://${file.path}');
+      launchUrl(Uri.file(file.path));
     }
   });
 }
@@ -23,7 +23,7 @@ void openSvg(String svg) {
     if (Platform.isAndroid || Platform.isIOS) {
       Share.shareFiles([file.path]);
     } else {
-      launch('file://${file.path}');
+      launchUrl(Uri.file(file.path));
     }
   });
 }

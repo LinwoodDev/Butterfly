@@ -142,7 +142,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
           file.create(recursive: true);
         }
         await file.writeAsString(data.toXmlString());
-        launch('file://${file.path}');
+        launchUrl(Uri.file(file.path));
       }
     } else {
       openSvg(data.toXmlString());
