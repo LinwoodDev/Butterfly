@@ -215,6 +215,7 @@
     "alreadyExists": "Cette valeur existe déjà",
     "currentArea": "Zone actuelle",
     "fullscreen": "Plein écran",
+    "design": "Conception",
     "textField": "Champ de texte",
     "selectSensitivity": "Sélectionner la sensibilité",
     "welcome": "Bienvenue sur Linwood Butterfly",
@@ -246,5 +247,5 @@
     "justify": "Justifier",
     "constraint": "Contrainte",
     "length": "Longueur",
-    "exportSvg": "Export SVG"
+    "exportSvg": "Exporter SVG"
 }
