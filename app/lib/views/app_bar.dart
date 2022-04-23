@@ -202,7 +202,7 @@ class _MainPopupMenu extends StatelessWidget {
                     bloc: transformCubit,
                     builder: (context, transform) {
                       _scaleController.text =
-                          (transform.size * 100).toStringAsFixed(2);
+                          (transform.size * 100).toStringAsFixed(0);
                       const zoomConstant = 1 + 0.1;
                       void bake() {
                         var size = viewportKey.currentContext?.size;
@@ -261,7 +261,7 @@ class _MainPopupMenu extends StatelessWidget {
                           const SizedBox(width: 10),
                           Expanded(
                             child: ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 200),
+                              constraints: const BoxConstraints(maxWidth: 150),
                               child: TextField(
                                 controller: _scaleController,
                                 onSubmitted: (value) {
