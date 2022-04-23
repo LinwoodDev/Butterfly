@@ -131,7 +131,7 @@ class _InsertDialogState extends State<InsertDialog> {
                 elements.add(ImageElement(
                     height: page.height,
                     width: page.width,
-                    pixels: png,
+                    pixels: Uint8List.fromList(png),
                     position: Offset(widget.position.dx, y)));
                 y = y + page.height;
               }

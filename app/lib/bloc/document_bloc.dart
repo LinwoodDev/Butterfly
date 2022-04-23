@@ -90,7 +90,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         return _saveDocument(
                 current.copyWith(
                     document: current.document.copyWith(
-                        content: (current.document.content)
+                        content: List.from(current.document.content)
                           ..[index] = event.updated),
                     cameraViewport: current.cameraViewport.unbake(renderers)),
                 null)
@@ -369,7 +369,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       ViewPainter(
         current.document,
         transform: event.cameraTransform,
-        cameraViewport: reset ? current.cameraViewport.unbake(renderers) : last,
+        cameraViewport:
+            reset ? current.cameraViewport.withUnbaked(renderers) : last,
         renderBackground: false,
       ).paint(canvas, event.viewportSize);
 

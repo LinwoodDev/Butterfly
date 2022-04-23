@@ -10,8 +10,9 @@ class ImageRenderer extends Renderer<ImageElement> {
       [bool foreground = false]) {
     if (image == null) return;
     var paint = Paint()..isAntiAlias = true;
+
     canvas.drawImageRect(
-      image!,
+      image!.clone(),
       Rect.fromLTWH(0, 0, element.width.toDouble(), element.height.toDouble()),
       rect,
       paint,
