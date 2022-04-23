@@ -59,7 +59,7 @@ class _InsertDialogState extends State<InsertDialog> {
             var e = files!.files.first;
             var content = e.bytes ?? Uint8List(0);
             if (!kIsWeb) {
-              content = File(e.path ?? '').readAsBytesSync();
+              content = await File(e.path ?? '').readAsBytes();
             }
             var codec =
                 await ui.instantiateImageCodec(content, targetWidth: 500);
@@ -122,7 +122,7 @@ class _InsertDialogState extends State<InsertDialog> {
               var e = files!.files.first;
               var content = e.bytes ?? Uint8List(0);
               if (!kIsWeb) {
-                content = File(e.path ?? '').readAsBytesSync();
+                content = await File(e.path ?? '').readAsBytes();
               }
               var y = widget.position.dy;
               final elements = <ImageElement>[];

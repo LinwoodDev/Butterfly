@@ -261,7 +261,7 @@ class _MainPopupMenu extends StatelessWidget {
                           const SizedBox(width: 10),
                           Expanded(
                             child: ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 150),
+                              constraints: const BoxConstraints(minWidth: 100),
                               child: TextField(
                                 controller: _scaleController,
                                 onSubmitted: (value) {
