@@ -2,17 +2,11 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/element.dart';
 import 'package:butterfly/renderers/renderer.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
 import 'models/area.dart';
-
-Future<ui.Image> loadImage(ImageElement layer) {
-  return decodeImageFromList(layer.pixels);
-}
 
 class ForegroundPainter extends CustomPainter {
   final List<Renderer> renderers;
@@ -58,19 +52,6 @@ class ForegroundPainter extends CustomPainter {
       oldDelegate.renderers != renderers ||
       oldDelegate.transform != transform ||
       oldDelegate.selection != selection;
-}
-
-Future<Map<PadElement, ui.Image>> loadImages(AppDocument document,
-    [Map<PadElement, ui.Image> loadedImages = const {}]) async {
-  var images = Map<PadElement, ui.Image>.from(loadedImages);
-  if (kIsWeb && document.content.any((element) => element is ImageElement)) {}
-  for (var layer in document.content) {
-    if (layer is ImageElement && !images.containsKey(layer)) {
-      images[layer] = await loadImage(layer);
-    }
-  }
-  images.removeWhere((key, value) => !document.content.contains(key));
-  return images;
 }
 
 class ViewPainter extends CustomPainter {

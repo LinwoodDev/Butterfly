@@ -87,7 +87,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
     var current = context.read<DocumentBloc>().state as DocumentLoadSuccess;
     var painter = ViewPainter(current.document,
         renderBackground: _renderBackground,
-        cameraViewport: current.cameraViewport.unbake(current.renderers),
+        cameraViewport: current.cameraViewport.withUnbaked(current.renderers),
         transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), scale));
     painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
     var picture = recorder.endRecording();
