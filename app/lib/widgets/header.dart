@@ -5,13 +5,13 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../api/open_help.dart';
 
 class Header extends StatelessWidget {
-  final Widget leading;
+  final Widget? leading;
   final Widget title;
   final List<String>? help;
   final List<Widget> actions;
   const Header(
       {Key? key,
-      required this.leading,
+      this.leading,
       required this.title,
       this.help,
       this.actions = const []})
@@ -22,8 +22,9 @@ class Header extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Row(children: [
-        IconTheme(
-            data: Theme.of(context).appBarTheme.iconTheme!, child: leading),
+        if (leading != null)
+          IconTheme(
+              data: Theme.of(context).appBarTheme.iconTheme!, child: leading!),
         const SizedBox(width: 16),
         Expanded(
           child: DefaultTextStyle(

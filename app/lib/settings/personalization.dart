@@ -8,7 +8,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../theme/manager.dart';
 
 class PersonalizationSettingsPage extends StatelessWidget {
-  const PersonalizationSettingsPage({Key? key}) : super(key: key);
+  final bool inView;
+  const PersonalizationSettingsPage({Key? key, this.inView = false})
+      : super(key: key);
 
   String _getThemeName(BuildContext context, ThemeMode mode) {
     switch (mode) {
@@ -39,7 +41,10 @@ class PersonalizationSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: inView ? Colors.transparent : null,
         appBar: AppBar(
+          automaticallyImplyLeading: !inView,
+          backgroundColor: inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context)!.personalization),
           actions: [
             if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]

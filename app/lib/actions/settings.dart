@@ -17,7 +17,7 @@ class SettingsAction extends Action<SettingsIntent> {
         builder: (context) => Dialog(
             child: ConstrainedBox(
                 constraints:
-                    const BoxConstraints(maxHeight: 600, maxWidth: 600),
+                    const BoxConstraints(maxHeight: 600, maxWidth: 800),
                 child: const SettingsPage(isDialog: true))));
   }
 }

@@ -7,13 +7,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class BehaviorsSettingsPage extends StatelessWidget {
-  const BehaviorsSettingsPage({Key? key}) : super(key: key);
+  final bool inView;
+  const BehaviorsSettingsPage({Key? key, this.inView = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: inView ? Colors.transparent : null,
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.behaviors),
+          backgroundColor: inView ? Colors.transparent : null,
+          automaticallyImplyLeading: !inView,
           actions: [
             if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
           ],

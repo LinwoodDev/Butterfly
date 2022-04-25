@@ -10,12 +10,16 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class DataSettingsPage extends StatelessWidget {
-  const DataSettingsPage({Key? key}) : super(key: key);
+  final bool inView;
+  const DataSettingsPage({Key? key, this.inView = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: inView ? Colors.transparent : null,
         appBar: AppBar(
+          automaticallyImplyLeading: !inView,
+          backgroundColor: inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context)!.data),
           actions: [
             if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
