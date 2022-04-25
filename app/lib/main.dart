@@ -113,10 +113,11 @@ class ButterflyApp extends StatelessWidget {
         });
   }
 
-  get router => GoRouter(
+  GoRouter get router => GoRouter(
         initialLocation: initialLocation,
         routes: [
           GoRoute(
+              name: 'home',
               path: '/',
               builder: (context, state) {
                 final path = state.queryParams['path']; // may be null

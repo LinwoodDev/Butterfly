@@ -24,6 +24,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/introduction/app.dart';
+import 'package:butterfly/dialogs/introduction/start.dart';
 import 'package:butterfly/dialogs/introduction/update.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
@@ -55,6 +56,7 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
+  TransformCubit? _transformCubit;
   final GlobalKey _viewportKey = GlobalKey();
 
   @override
@@ -74,10 +76,13 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   Future<void> load() async {
-    var fileSystem = DocumentFileSystem.fromPlatform();
-    var prefs = await SharedPreferences.getInstance();
+    final settingsCubit = context.read<SettingsCubit>();
+    final fileSystem = DocumentFileSystem.fromPlatform();
+    final prefs = await SharedPreferences.getInstance();
+    var documentOpened = false;
     AppDocument? document;
     if (widget.path != null) {
+      documentOpened = true;
       await fileSystem.getAsset(widget.path!).then(
           (value) => document = value is AppDocumentFile ? value.load() : null);
     }
@@ -105,13 +110,16 @@ class _ProjectPageState extends State<ProjectPage> {
       await Future.wait(renderers.map((e) async => await e.setup(document!)));
       final background = Renderer.fromInstance(document!.background);
       await background.setup(document!);
-      setState(() =>
-          _bloc = DocumentBloc(document!, widget.path, background, renderers));
+      setState(() {
+        _bloc = DocumentBloc(
+            settingsCubit, document!, widget.path, background, renderers);
+        _transformCubit = TransformCubit();
+      });
     }
-    _showIntroduction();
+    _showIntroduction(documentOpened);
   }
 
-  Future<void> _showIntroduction() async {
+  Future<void> _showIntroduction([bool documentOpened = false]) async {
     final settingsCubit = context.read<SettingsCubit>();
     if (settingsCubit.isFirstStart()) {
       await showDialog(
@@ -122,11 +130,24 @@ class _ProjectPageState extends State<ProjectPage> {
       await showDialog(
           context: context,
           builder: (context) => const UpdateIntroductionDialog());
-    } else {
-      return;
+      await settingsCubit.updateLastVersion();
+      await settingsCubit.save();
     }
-    await settingsCubit.updateLastVersion();
-    await settingsCubit.save();
+    if (!documentOpened) {
+      await showDialog(
+          context: context,
+          builder: (context) => MultiBlocProvider(providers: [
+                BlocProvider<DocumentBloc>.value(
+                  value: _bloc!,
+                ),
+                BlocProvider<TransformCubit>.value(
+                  value: _transformCubit!,
+                ),
+                BlocProvider<SettingsCubit>.value(
+                  value: settingsCubit,
+                ),
+              ], child: const StartIntroductionDialog()));
+    }
   }
 
   @override
@@ -135,7 +156,7 @@ class _ProjectPageState extends State<ProjectPage> {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => _bloc!),
-          BlocProvider(create: (_) => TransformCubit()),
+          BlocProvider(create: (_) => _transformCubit!),
         ],
         child: Builder(builder: (context) {
           return Shortcuts(

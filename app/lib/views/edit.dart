@@ -185,7 +185,8 @@ class EditToolbar extends StatelessWidget {
                                           Icon(getPainterActiveIcon(type)),
                                       icon: Icon(getPainterIcon(type)),
                                       onPressed: () {
-                                        var bloc = context.read<DocumentBloc>();
+                                        final bloc =
+                                            context.read<DocumentBloc>();
                                         if (!selected) {
                                           bloc
                                             ..add(CurrentPainterChanged(i))

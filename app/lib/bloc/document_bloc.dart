@@ -15,6 +15,7 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
+import '../cubits/settings.dart';
 import '../handlers/handler.dart';
 import '../models/area.dart';
 import '../models/element.dart';
@@ -25,10 +26,11 @@ part 'document_event.dart';
 part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
-  DocumentBloc(AppDocument initial, String? path,
+  DocumentBloc(SettingsCubit settingsCubit, AppDocument initial, String? path,
       Renderer<Background> background, List<Renderer<PadElement>> renderer)
       : super(DocumentLoadSuccess(initial,
             path: path,
+            settingsCubit: settingsCubit,
             cameraViewport: CameraViewport.unbaked(background, renderer))) {
     _init();
   }

@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings.freezed.dart';
 
+const kRecentHistorySize = 5;
+
 @freezed
 class ButterflySettings with _$ButterflySettings {
   const ButterflySettings._();
@@ -22,6 +24,7 @@ class ButterflySettings with _$ButterflySettings {
       @Default(5) double selectSensitivity,
       @Default(InputType.multiDraw) InputType inputType,
       @Default('') String design,
+      @Default([]) List<String> recentHistory,
       String? lastVersion}) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -42,6 +45,7 @@ class ButterflySettings with _$ButterflySettings {
           penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
           selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
           design: prefs.getString('design') ?? '',
+          recentHistory: prefs.getStringList('recent_history') ?? [],
           lastVersion: prefs.getString('last_version'));
 
   Locale? get locale => localeTag.isEmpty ? null : Locale(localeTag);
@@ -58,6 +62,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setDouble('pen_sensitivity', penSensitivity);
     await prefs.setDouble('select_sensitivity', selectSensitivity);
     await prefs.setString('design', design);
+    await prefs.setStringList('recent_history', recentHistory);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
     } else if (lastVersion != null) {
@@ -184,6 +189,29 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> resetSelectSensitivity() {
     emit(state.copyWith(selectSensitivity: 1));
+    return save();
+  }
+
+  Future<void> addRecentHistory(String path) async {
+    final recentHistory = state.recentHistory.toList();
+    recentHistory.remove(path);
+    recentHistory.insert(0, path);
+    if (recentHistory.length > 10) {
+      recentHistory.removeLast();
+    }
+    emit(state.copyWith(recentHistory: recentHistory));
+    return save();
+  }
+
+  Future<void> removeRecentHistory(String path) async {
+    final recentHistory = state.recentHistory.toList();
+    recentHistory.remove(path);
+    emit(state.copyWith(recentHistory: recentHistory));
+    return save();
+  }
+
+  Future<void> resetRecentHistory() {
+    emit(state.copyWith(recentHistory: []));
     return save();
   }
 

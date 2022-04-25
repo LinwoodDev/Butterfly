@@ -25,7 +25,8 @@ class NewAction extends Action<NewIntent> {
   @override
   Future<void> invoke(NewIntent intent) async {
     final bloc = intent.context.read<DocumentBloc>();
-    final settings = intent.context.read<SettingsCubit>().state;
+    final settingsCubit = intent.context.read<SettingsCubit>();
+    final settings = settingsCubit.state;
     final transformCubit = intent.context.read<TransformCubit>();
     var document = AppDocument(
         name: await formatCurrentDateTime(
@@ -66,6 +67,6 @@ class NewAction extends Action<NewIntent> {
 
     bloc.clearHistory();
     transformCubit.reset();
-    bloc.emit(DocumentLoadSuccess(document));
+    bloc.emit(DocumentLoadSuccess(document, settingsCubit: settingsCubit));
   }
 }

@@ -4,10 +4,12 @@ import 'package:butterfly/api/full_screen_stub.dart'
     if (dart.library.io) 'package:butterfly/api/full_screen_io.dart'
     if (dart.library.js) 'package:butterfly/api/full_screen_html.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -332,11 +334,33 @@ class _MainPopupMenu extends StatelessWidget {
                   leading: const Icon(PhosphorIcons.folderOpenLight),
                   title: Text(AppLocalizations.of(context)!.open),
                   subtitle: Text(context.getShortcut('O')),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Actions.maybeInvoke<OpenIntent>(
-                        context, OpenIntent(context));
-                  })),
+                  trailing: PopupMenuButton(
+                    icon: const Icon(PhosphorIcons.caretRightLight),
+                    itemBuilder: (context) => <PopupMenuEntry>[
+                      PopupMenuItem(
+                        child: Text(AppLocalizations.of(context)!.back),
+                      ),
+                      const PopupMenuDivider(),
+                      ...context
+                          .read<SettingsCubit>()
+                          .state
+                          .recentHistory
+                          .map((path) => PopupMenuItem(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  GoRouter.of(context)
+                                      .pushNamed('home', queryParams: {
+                                    'path': path,
+                                  });
+                                },
+                                child: Text(path),
+                              )),
+                    ],
+                  )),
+              onTap: () {
+                Navigator.of(context).pop();
+                Actions.maybeInvoke<OpenIntent>(context, OpenIntent(context));
+              }),
           PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(

@@ -17,9 +17,11 @@ class DocumentLoadSuccess extends DocumentState {
   final List<String> invisibleLayers;
   final CameraViewport cameraViewport;
   final CurrentIndex currentIndex;
+  final SettingsCubit settingsCubit;
 
   DocumentLoadSuccess(this.document,
       {this.path,
+      required this.settingsCubit,
       CameraViewport? cameraViewport,
       this.currentAreaIndex = -1,
       CurrentIndex? currentIndex,
@@ -91,6 +93,7 @@ class DocumentLoadSuccess extends DocumentState {
           currentLayer: currentLayer ?? this.currentLayer,
           currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
           cameraViewport: cameraViewport ?? this.cameraViewport,
+          settingsCubit: settingsCubit,
           currentIndex:
               removeCurrentIndex ? null : currentIndex ?? this.currentIndex);
 
@@ -100,11 +103,13 @@ class DocumentLoadSuccess extends DocumentState {
     if (path == null) {
       return DocumentFileSystem.fromPlatform()
           .importDocument(document)
-          .then((value) => value.path);
+          .then((value) => value.path)
+        ..then(settingsCubit.addRecentHistory);
     }
     return DocumentFileSystem.fromPlatform()
         .updateDocument(path!, document)
-        .then((value) => value.path);
+        .then((value) => value.path)
+      ..then(settingsCubit.addRecentHistory);
   }
 }
 
