@@ -45,7 +45,9 @@ class _SettingsPageState extends State<SettingsPage> {
           ListTile(
             title: Text(AppLocalizations.of(context)!.data),
             leading: const Icon(PhosphorIcons.databaseLight),
-            selected: widget.isDialog ? _view == SettingsView.data : false,
+            selected: widget.isDialog && !isMobile
+                ? _view == SettingsView.data
+                : false,
             onTap: () {
               if (isMobile) {
                 Navigator.of(context).pop();
@@ -60,7 +62,9 @@ class _SettingsPageState extends State<SettingsPage> {
           ListTile(
             title: Text(AppLocalizations.of(context)!.behaviors),
             leading: const Icon(PhosphorIcons.fadersLight),
-            selected: widget.isDialog ? _view == SettingsView.behaviors : false,
+            selected: widget.isDialog && !isMobile
+                ? _view == SettingsView.behaviors
+                : false,
             onTap: () {
               if (isMobile) {
                 Navigator.of(context).pop();
@@ -75,7 +79,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ListTile(
               leading: const Icon(PhosphorIcons.monitorLight),
               title: Text(AppLocalizations.of(context)!.personalization),
-              selected: widget.isDialog
+              selected: widget.isDialog && !isMobile
                   ? _view == SettingsView.personalization
                   : false,
               onTap: () {
