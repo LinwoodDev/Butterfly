@@ -249,5 +249,8 @@
     "length": "Länge",
     "exportSvg": "SVG exportieren",
     "pdf": "PDF",
-    "selectPages": "Seiten auswählen"
+    "selectPages": "Seiten auswählen",
+    "recentFiles": "Recent files",
+    "start": "Start",
+    "noRecentFiles": "No recent files"
 }
