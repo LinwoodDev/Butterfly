@@ -57,6 +57,7 @@ jobs:
           prerelease: ${{ github.event.inputs.stable }}
           tag_name: v${{ env.BUTTERFLY_VERSION }}
           name: v${{ env.BUTTERFLY_VERSION }}
+          token: ${{ secrets.CI_PAT }}
           body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
       - name: Retag stable
         if: ${{ !github.event.inputs.stable }}

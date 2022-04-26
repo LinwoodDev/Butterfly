@@ -222,6 +222,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         continue-on-error: true
         with:
+          prerelease: true
           tag_name: stable
           files: |
             Butterfly-Setup.exe
@@ -237,6 +238,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         continue-on-error: true
         with:
+          prerelease: true
           tag_name: nightly
           files: |
             Butterfly-Setup.exe

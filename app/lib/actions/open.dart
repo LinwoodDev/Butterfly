@@ -27,9 +27,8 @@ class OpenAction extends Action<OpenIntent> {
             .getAsset(value)
             .then((document) async {
           if (document is! AppDocumentFile) return;
-          GoRouter.of(intent.context).go(
-              Uri(path: '/', queryParameters: {'path': document.path})
-                  .toString());
+          GoRouter.of(intent.context)
+              .goNamed('home', queryParams: {'path': document.path});
         });
       }
     });
