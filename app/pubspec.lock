@@ -1026,7 +1026,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.1"
+    version: "2.5.2"
   window_manager:
     dependency: "direct main"
     description:

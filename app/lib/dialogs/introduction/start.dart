@@ -22,23 +22,29 @@ class StartIntroductionDialog extends StatelessWidget {
           padding: const EdgeInsets.all(24),
           child: LayoutBuilder(builder: (context, constraints) {
             final isMobile = constraints.maxWidth < 600;
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.start,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                const SizedBox(height: 16),
-                Flexible(
-                  child: GridView.count(
-                    shrinkWrap: true,
-                    crossAxisCount: isMobile ? 1 : 2,
-                    children: const [_CreateStartView(), _RecentStartView()],
-                  ),
-                ),
-              ],
-            );
+            return Column(mainAxisSize: MainAxisSize.min, children: [
+              Text(
+                AppLocalizations.of(context)!.start,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const SizedBox(height: 16),
+              Flexible(
+                  child: isMobile
+                      ? Column(
+                          children: [
+                            Flexible(child: _CreateStartView()),
+                            const SizedBox(height: 16),
+                            Flexible(child: _RecentStartView()),
+                          ],
+                        )
+                      : Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                              Flexible(child: _CreateStartView()),
+                              const SizedBox(height: 16),
+                              Flexible(child: _RecentStartView()),
+                            ])),
+            ]);
           }),
         ),
       ),
@@ -47,7 +53,9 @@ class StartIntroductionDialog extends StatelessWidget {
 }
 
 class _CreateStartView extends StatelessWidget {
-  const _CreateStartView({Key? key}) : super(key: key);
+  final ScrollController _scrollController = ScrollController();
+
+  _CreateStartView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +78,7 @@ class _CreateStartView extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
+                      controller: _scrollController,
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
@@ -112,7 +121,9 @@ class _CreateStartView extends StatelessWidget {
 }
 
 class _RecentStartView extends StatelessWidget {
-  const _RecentStartView({Key? key}) : super(key: key);
+  final ScrollController _scrollController = ScrollController();
+
+  _RecentStartView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +148,8 @@ class _RecentStartView extends StatelessWidget {
                     ))
                   : ListView(
                       shrinkWrap: true,
+                      controller: _scrollController,
+                      physics: const ScrollPhysics(),
                       children: recents.map((recent) {
                         return Dismissible(
                           key: Key(recent),
