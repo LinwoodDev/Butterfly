@@ -250,7 +250,7 @@
     "exportSvg": "SVG exportieren",
     "pdf": "PDF",
     "selectPages": "Seiten auswählen",
-    "recentFiles": "Recent files",
+    "recentFiles": "Letzte Dateien",
     "start": "Start",
-    "noRecentFiles": "No recent files"
+    "noRecentFiles": "Keine aktuellen Dateien"
 }
