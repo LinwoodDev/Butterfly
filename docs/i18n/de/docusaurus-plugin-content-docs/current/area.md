@@ -6,17 +6,17 @@ title: Bereich
 
 ![Fläche](area.png)
 
-Areas are a way to restrict the size of the canvas. You can create areas by using the [area painter](painters/area.md). If you click on the background you can open the area list dialog using the context menu.
+Flächen sind eine Möglichkeit, die Größe der Leinwand zu beschränken. Sie können Flächen mit dem [-Flächenmaler](painters/area.md) erstellen. Wenn Sie auf den Hintergrund klicken, können Sie den Bereichslisten-Dialog über das Kontextmenü öffnen.
 
-## Creating and deleting areas
+## Bereiche erstellen und löschen
 
-Use the [area painter](painters/area.md) to create an area. Areas cannot overlap. After you created an area you need to name it.
+Benutzen Sie den [-Flächen-Maler](painters/area.md) um eine Fläche zu erstellen. Flächen können sich nicht überschneiden. Nachdem Sie einen Bereich erstellt haben, müssen Sie ihn benennen.
 
-Click on the area if you want to modify it. You can also use the area dialog.
+Klicken Sie auf den Bereich, wenn Sie ihn ändern möchten. Sie können auch den Bereichsdialog benutzen.
 
-You have a few options in this menu:
+Sie haben ein paar Optionen in diesem Menü:
 
-* `Enter area`: Enter the area. You cannot paint outside of the area. Exit the area by clicking on the background with the area painter.
-* `Name`: Change the name of the current area
-* `Export`: Export this part of the canvas as an image
-* `Delete`: Delete this area
+* `Bereich`betreten: Bereich eingeben. Sie können nicht außerhalb des Bereichs malen. Verlasse das Gebiet, indem du auf den Hintergrund mit dem Flächenmaler klickst.
+* `Name`: Ändere den Namen des aktuellen Bereichs
+* `Exportieren`: Exportiere diesen Teil der Leinwand als Bild
+* `Löschen`: Diesen Bereich löschen
