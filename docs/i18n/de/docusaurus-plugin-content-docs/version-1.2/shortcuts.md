@@ -1,28 +1,28 @@
 ---
-title: Shortcuts
+title: Verknüpfungen
 ---
 
-There are a few shortcuts that you can use in the editor. Some of them are written below the buttons.
+Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige davon sind unter den Buttons geschrieben.
 
 ## Allgemein
 
-* `Ctrl` + `N`: New file
-* `Ctrl` + `Shift` + `N`: New file from template
-* `Ctrl` + `O`: Open file
-* `Ctrl` + `I`: Import file
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Strg` + `N`: Neue Datei
+* `Strg` + `Umschalt` + `N`: Neue Datei aus Vorlage
+* `Strg` + `O`: Datei öffnen
+* `Strg` + `I`: Datei importieren
+* `Strg` + `E`: Datei exportieren
+* `Strg` + `Shift` + `E`: Datei als Bild exportieren
+* `Strg` + `Alt` + `E`: Datei als svg exportieren
+* `Strg` + `Alt` + `S`: Einstellungen öffnen
 
-## Project
+## Projekt
 
-* `Ctrl` + `Z`: Undo
-* `Ctrl` + `Y`: Redo
+* `Strg` + `Z`: Rückgängig
+* `Strg` + `Y`: Erneut
 * `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Shift` + `S`: Open project settings
+* `Strg` + `Alt` + `Umschalt` + `S`: Projekteinstellungen öffnen
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Change path
+* `Strg` + `P`: Farbpalette öffnen
+* `Strg` + `B`: Hintergrunddialog öffnen
+* `Strg` + `L`: Ebenendialog öffnen
+* `Strg` + `S`: Pfad ändern
