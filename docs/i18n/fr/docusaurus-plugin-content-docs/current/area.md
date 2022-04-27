@@ -6,17 +6,17 @@ title: Zone d'application
 
 ![Zone de stockage](area.png)
 
-Areas are a way to restrict the size of the canvas. You can create areas by using the [area painter](painters/area.md). If you click on the background you can open the area list dialog using the context menu.
+Les zones sont un moyen de limiter la taille de la toile. Vous pouvez créer des zones en utilisant le peintre d'aire [](painters/area.md). Si vous cliquez sur l'arrière-plan, vous pouvez ouvrir la boîte de dialogue de la liste des zones en utilisant le menu contextuel.
 
-## Creating and deleting areas
+## Création et suppression des zones
 
-Use the [area painter](painters/area.md) to create an area. Areas cannot overlap. After you created an area you need to name it.
+Utilisez le peintre d'aire [](painters/area.md) pour créer une zone. Les zones ne peuvent pas se chevaucher. Une fois que vous avez créé une zone, vous devez la nommer.
 
-Click on the area if you want to modify it. You can also use the area dialog.
+Cliquez sur la zone si vous souhaitez la modifier. Vous pouvez également utiliser la boîte de dialogue de la zone.
 
-You have a few options in this menu:
+Vous avez quelques options dans ce menu :
 
-* `Enter area`: Enter the area. You cannot paint outside of the area. Exit the area by clicking on the background with the area painter.
-* `Name`: Change the name of the current area
-* `Export`: Export this part of the canvas as an image
-* `Delete`: Delete this area
+* `Entrez la zone`: Entrez la zone. Vous ne pouvez pas peindre en dehors de la zone. Sortez de la zone en cliquant sur le fond avec le peintre de la zone.
+* `Nom`: Changer le nom de la zone actuelle
+* `Exporter`: Exporter cette partie de la toile en tant qu'image
+* `Supprimer`: Supprimer cette zone
