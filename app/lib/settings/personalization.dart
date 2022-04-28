@@ -68,12 +68,14 @@ class PersonalizationSettingsPage extends StatelessWidget {
                 title: Text(AppLocalizations.of(context)!.locale),
                 subtitle: Text(_getLocaleName(context, state.localeTag)),
                 onTap: () => _openLocaleModal(context)),
-                CheckboxListTile(
-                  secondary: const Icon(PhosphorIcons.squaresFourLight),
-                  title: Text(AppLocalizations.of(context)!.start),
-                  value: state.startEnabled,
-                  onChanged: (value) => context.read<SettingsCubit>().changeStartEnabled(value ?? true),
-                ),
+            CheckboxListTile(
+              secondary: const Icon(PhosphorIcons.squaresFourLight),
+              title: Text(AppLocalizations.of(context)!.start),
+              value: state.startEnabled,
+              onChanged: (value) => context
+                  .read<SettingsCubit>()
+                  .changeStartEnabled(value ?? true),
+            ),
           ]),
         ));
   }

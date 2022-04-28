@@ -28,27 +28,26 @@ class ButterflySettings with _$ButterflySettings {
       @Default(true) bool startEnabled,
       String? lastVersion}) = _ButterflySettings;
 
-  factory ButterflySettings.fromPrefs(
-          SharedPreferences prefs) =>
+  factory ButterflySettings.fromPrefs(SharedPreferences prefs) =>
       ButterflySettings(
-          localeTag: prefs.getString('locale') ?? '',
-          inputType:
-              prefs.containsKey('input_type')
-                  ? InputType.values.byName(prefs.getString('input_type')!)
-                  : InputType.multiDraw,
-          documentPath: prefs.getString('document_path') ?? '',
-          theme: prefs.containsKey('theme_mode')
-              ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
-              : ThemeMode.system,
-          dateFormat: prefs.getString('date_format') ?? '',
-          touchSensitivity: prefs.getDouble('touch_sensitivity') ?? 1,
-          mouseSensitivity: prefs.getDouble('mouse_sensitivity') ?? 1,
-          penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
-          selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
-          design: prefs.getString('design') ?? '',
-          recentHistory: prefs.getStringList('recent_history') ?? [],
-          startEnabled: prefs.getBool('start_enabled') ?? true,
-          lastVersion: prefs.getString('last_version'),);
+        localeTag: prefs.getString('locale') ?? '',
+        inputType: prefs.containsKey('input_type')
+            ? InputType.values.byName(prefs.getString('input_type')!)
+            : InputType.multiDraw,
+        documentPath: prefs.getString('document_path') ?? '',
+        theme: prefs.containsKey('theme_mode')
+            ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
+            : ThemeMode.system,
+        dateFormat: prefs.getString('date_format') ?? '',
+        touchSensitivity: prefs.getDouble('touch_sensitivity') ?? 1,
+        mouseSensitivity: prefs.getDouble('mouse_sensitivity') ?? 1,
+        penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
+        selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
+        design: prefs.getString('design') ?? '',
+        recentHistory: prefs.getStringList('recent_history') ?? [],
+        startEnabled: prefs.getBool('start_enabled') ?? true,
+        lastVersion: prefs.getString('last_version'),
+      );
 
   Locale? get locale => localeTag.isEmpty ? null : Locale(localeTag);
 

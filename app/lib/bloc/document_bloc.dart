@@ -390,7 +390,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
       if (!eq(renderers, currentElements)) return;
       if (last != current.cameraViewport) return;
-      if(event.undoLast) undo();
+      if (event.undoLast) undo();
       emit(current.copyWith(
           cameraViewport: current.cameraViewport.bake(
               height: size.height.round(),
