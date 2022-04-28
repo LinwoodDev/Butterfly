@@ -247,5 +247,10 @@
     "justify": "Justifier",
     "constraint": "Contrainte",
     "length": "Longueur",
-    "exportSvg": "Exporter SVG"
+    "exportSvg": "Exporter SVG",
+    "pdf": "PDF",
+    "selectPages": "Sélectionner les pages",
+    "recentFiles": "Fichiers récents",
+    "start": "Début",
+    "noRecentFiles": "Aucun fichier récent"
 }

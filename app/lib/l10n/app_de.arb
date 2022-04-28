@@ -247,5 +247,10 @@
     "justify": "Blocksatz",
     "constraint": "Einschränkung",
     "length": "Länge",
-    "exportSvg": "SVG exportieren"
+    "exportSvg": "SVG exportieren",
+    "pdf": "PDF",
+    "selectPages": "Seiten auswählen",
+    "recentFiles": "Letzte Dateien",
+    "start": "Start",
+    "noRecentFiles": "Keine aktuellen Dateien"
 }
