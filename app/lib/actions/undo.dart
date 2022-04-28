@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/document_bloc.dart';
 
 class UndoIntent extends Intent {
   final BuildContext context;
@@ -11,7 +14,6 @@ class UndoAction extends Action<UndoIntent> {
 
   @override
   void invoke(UndoIntent intent) {
-    // reimplement undo
-    //intent.context.read<DocumentBloc>().undo();
+    intent.context.read<DocumentBloc>().undo();
   }
 }

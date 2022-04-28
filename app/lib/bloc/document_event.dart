@@ -218,8 +218,10 @@ class ImageBaked extends DocumentEvent {
   final ui.Size viewportSize;
   final double scale;
   final CameraTransform cameraTransform;
+  final bool undoLast;
 
-  const ImageBaked(this.viewportSize, this.scale, this.cameraTransform);
+  const ImageBaked(this.viewportSize, this.scale, this.cameraTransform,
+      [this.undoLast = true]);
 
   @override
   List<Object?> get props => [viewportSize, scale];

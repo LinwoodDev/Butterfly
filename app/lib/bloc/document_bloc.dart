@@ -154,6 +154,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         final index = current.currentIndex;
+        undo();
         emit(current.copyWith(
           currentIndex: index.copyWith(
               foregrounds: index.handler
@@ -389,7 +390,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
       if (!eq(renderers, currentElements)) return;
       if (last != current.cameraViewport) return;
-
+      if(event.undoLast) undo();
       emit(current.copyWith(
           cameraViewport: current.cameraViewport.bake(
               height: size.height.round(),
@@ -491,6 +492,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     }
     var path = await nextState.save();
     if (nextState.path == null) {
+      clearHistory();
       emit(nextState.copyWith(path: path));
     }
   }

@@ -19,7 +19,9 @@ import '../actions/import.dart';
 import '../actions/new.dart';
 import '../actions/open.dart';
 import '../actions/project.dart';
+import '../actions/redo.dart';
 import '../actions/settings.dart';
+import '../actions/undo.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/transform.dart';
 import 'main.dart';
@@ -38,28 +40,37 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
         toolbarHeight: _height,
         leadingWidth: 132,
-        leading: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _MainPopupMenu(
-              viewportKey: viewportKey,
-            ),
-            /*IconButton(
-              icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
-              tooltip: AppLocalizations.of(context)!.undo,
-              onPressed: () {
-                Actions.maybeInvoke<UndoIntent>(context, UndoIntent(context));
-              },
-            ),
-            IconButton(
-              icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-              tooltip: AppLocalizations.of(context)!.redo,
-              onPressed: () {
-                Actions.maybeInvoke<RedoIntent>(context, RedoIntent(context));
-              },
-            ),*/
-          ],
-        ),
+        leading:
+            BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _MainPopupMenu(
+                viewportKey: viewportKey,
+              ),
+              IconButton(
+                icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
+                tooltip: AppLocalizations.of(context)!.undo,
+                onPressed: !bloc.canUndo
+                    ? null
+                    : () {
+                        Actions.maybeInvoke<UndoIntent>(
+                            context, UndoIntent(context));
+                      },
+              ),
+              IconButton(
+                icon: const Icon(PhosphorIcons.arrowClockwiseLight),
+                tooltip: AppLocalizations.of(context)!.redo,
+                onPressed: !bloc.canRedo
+                    ? null
+                    : () {
+                        Actions.maybeInvoke<RedoIntent>(
+                            context, RedoIntent(context));
+                      },
+              ),
+            ],
+          );
+        }),
         title: LayoutBuilder(
           builder: (context, constraints) =>
               BlocBuilder<DocumentBloc, DocumentState>(
@@ -329,38 +340,39 @@ class _MainPopupMenu extends StatelessWidget {
                 },
               )),
           PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                  leading: const Icon(PhosphorIcons.folderOpenLight),
-                  title: Text(AppLocalizations.of(context)!.open),
-                  subtitle: Text(context.getShortcut('O')),
-                  trailing: PopupMenuButton(
-                    icon: const Icon(PhosphorIcons.caretRightLight),
-                    itemBuilder: (context) => <PopupMenuEntry>[
-                      PopupMenuItem(
-                        child: Text(AppLocalizations.of(context)!.back),
-                      ),
-                      const PopupMenuDivider(),
-                      ...context
-                          .read<SettingsCubit>()
-                          .state
-                          .recentHistory
-                          .map((path) => PopupMenuItem(
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                  GoRouter.of(context)
-                                      .pushNamed('home', queryParams: {
-                                    'path': path,
-                                  });
-                                },
-                                child: Text(path),
-                              )),
-                    ],
-                  )),
-              onTap: () {
-                Navigator.of(context).pop();
-                Actions.maybeInvoke<OpenIntent>(context, OpenIntent(context));
-              }),
+            padding: EdgeInsets.zero,
+            child: ListTile(
+                leading: const Icon(PhosphorIcons.folderOpenLight),
+                title: Text(AppLocalizations.of(context)!.open),
+                subtitle: Text(context.getShortcut('O')),
+                trailing: PopupMenuButton(
+                  icon: const Icon(PhosphorIcons.caretRightLight),
+                  itemBuilder: (context) => <PopupMenuEntry>[
+                    PopupMenuItem(
+                      child: Text(AppLocalizations.of(context)!.back),
+                    ),
+                    const PopupMenuDivider(),
+                    ...context
+                        .read<SettingsCubit>()
+                        .state
+                        .recentHistory
+                        .map((path) => PopupMenuItem(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                GoRouter.of(context)
+                                    .pushNamed('home', queryParams: {
+                                  'path': path,
+                                });
+                              },
+                              child: Text(path),
+                            )),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Actions.maybeInvoke<OpenIntent>(context, OpenIntent(context));
+                }),
+          ),
           PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(
