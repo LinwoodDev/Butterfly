@@ -116,3 +116,17 @@ html[data-theme='dark'] .DocSearch {
 .DocSearch-Button {
   border-radius: 10px;
 }
+
+.menu__list-item-collapsible {
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.5rem 0rem;
+}
+.menu__list-item-collapsible--active {
+  background-color: var(--ifm-color-primary-darkest);
+  color: var(--ifm-color-white);
+}
+.menu__list-item-collapsible--active:hover {
+  background-color: var(--ifm-color-primary-darkest);
+  color: var(--ifm-color-white);
+}
