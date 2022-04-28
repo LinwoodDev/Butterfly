@@ -25,6 +25,7 @@ class ButterflySettings with _$ButterflySettings {
       @Default(InputType.multiDraw) InputType inputType,
       @Default('') String design,
       @Default([]) List<String> recentHistory,
+      @Default(true) bool startEnabled,
       String? lastVersion}) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -46,7 +47,8 @@ class ButterflySettings with _$ButterflySettings {
           selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
           design: prefs.getString('design') ?? '',
           recentHistory: prefs.getStringList('recent_history') ?? [],
-          lastVersion: prefs.getString('last_version'));
+          startEnabled: prefs.getBool('start_enabled') ?? true,
+          lastVersion: prefs.getString('last_version'),);
 
   Locale? get locale => localeTag.isEmpty ? null : Locale(localeTag);
 
@@ -63,6 +65,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setDouble('select_sensitivity', selectSensitivity);
     await prefs.setString('design', design);
     await prefs.setStringList('recent_history', recentHistory);
+    await prefs.setBool('start_enabled', startEnabled);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
     } else if (lastVersion != null) {
@@ -214,6 +217,13 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     emit(state.copyWith(recentHistory: []));
     return save();
   }
+
+  Future<void> changeStartEnabled(bool value) {
+    emit(state.copyWith(startEnabled: value));
+    return save();
+  }
+
+  Future<void> resetStartEnabled() => changeStartEnabled(true);
 
   bool isFirstStart() {
     return state.lastVersion == null;

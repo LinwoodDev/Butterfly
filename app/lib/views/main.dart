@@ -126,6 +126,8 @@ class _ProjectPageState extends State<ProjectPage> {
         context: context,
         builder: (context) => const AppIntroductionDialog(),
       );
+      await settingsCubit.updateLastVersion();
+      await settingsCubit.save();
     } else if (await settingsCubit.hasNewerVersion()) {
       await showDialog(
           context: context,
@@ -133,7 +135,7 @@ class _ProjectPageState extends State<ProjectPage> {
       await settingsCubit.updateLastVersion();
       await settingsCubit.save();
     }
-    if (!documentOpened) {
+    if (!documentOpened && settingsCubit.state.startEnabled) {
       await showDialog(
           context: context,
           builder: (context) => MultiBlocProvider(providers: [
