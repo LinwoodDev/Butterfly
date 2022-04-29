@@ -253,7 +253,7 @@
     "recentFiles": "Fichiers récents",
     "start": "Début",
     "noRecentFiles": "Aucun fichier récent",
-    "countPages": "{count,plural, =0{No pages} =1{1 page} other{{count} pages}}",
+    "countPages": "{count,plural, =0{Aucune page} =1{1 page} other{{count} pages}}",
     "@countPages": {
         "placeholders": {
             "count": {
