@@ -39,6 +39,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../models/background.dart';
 import 'view.dart';
 
 bool isWindow() =>
@@ -79,6 +80,19 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Future<void> load() async {
     final settingsCubit = context.read<SettingsCubit>();
+    if (widget.embedded) {
+      setState(() {
+        _bloc = DocumentBloc(
+            settingsCubit,
+            AppDocument(createdAt: DateTime.now(), name: ''),
+            widget.path,
+            BoxBackgroundRenderer(const BoxBackground()),
+            [],
+            true);
+        _transformCubit = TransformCubit();
+      });
+      return;
+    }
     final fileSystem = DocumentFileSystem.fromPlatform();
     final prefs = await SharedPreferences.getInstance();
     var documentOpened = false;
@@ -156,7 +170,8 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_bloc == null) return const Center(child: CircularProgressIndicator());
+    if (_bloc == null)
+      return const Material(child: Center(child: CircularProgressIndicator()));
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => _bloc!),
@@ -198,20 +213,20 @@ class _ProjectPageState extends State<ProjectPage> {
                   LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyA): AreasIntent(context),
               LogicalKeySet(
-                  LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
-              LayersIntent(context),
+                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
+                  LayersIntent(context),
               LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
                   LogicalKeyboardKey.keyN): InsertIntent(context, Offset.zero),
               if (!widget.embedded) ...{
                 LogicalKeySet(
-                    LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
-                OpenIntent(context),
+                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
+                    OpenIntent(context),
                 LogicalKeySet(
-                    LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
-                ImportIntent(context),
+                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
+                    ImportIntent(context),
                 LogicalKeySet(
-                    LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
-                ExportIntent(context),
+                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
+                    ExportIntent(context),
                 LogicalKeySet(
                     LogicalKeyboardKey.control,
                     LogicalKeyboardKey.shift,
@@ -225,8 +240,8 @@ class _ProjectPageState extends State<ProjectPage> {
                     LogicalKeyboardKey.alt,
                     LogicalKeyboardKey.keyS): SettingsIntent(context),
                 LogicalKeySet(
-                    LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
-                ChangePathIntent(context),
+                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
+                    ChangePathIntent(context),
               },
             },
             child: Actions(

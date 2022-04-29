@@ -6,7 +6,6 @@ Embedding is a simple way to include the app in your website.
 Add the following code to your website:
 
 ```html
-
 <iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
@@ -31,7 +30,7 @@ Parameters:
 
 ```javascript
 onSave: (data) => {
-  // Do something
+    // Do something
 }
 ```
 
@@ -45,7 +44,7 @@ Parameters:
 
 ```javascript
 onExit: (data) => {
-  // Do something
+    // Do something
 }
 ```
 
@@ -59,7 +58,7 @@ Parameters:
 
 ```javascript
 onChange: (data) => {
-  // Do something
+    // Do something
 }
 ```
 

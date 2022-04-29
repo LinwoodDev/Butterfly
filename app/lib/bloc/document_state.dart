@@ -38,8 +38,7 @@ class DocumentLoadSuccess extends DocumentState {
                     .toList());
 
   @override
-  List<Object?> get props =>
-      [
+  List<Object?> get props => [
         currentIndex,
         invisibleLayers,
         cameraViewport,
@@ -99,6 +98,7 @@ class DocumentLoadSuccess extends DocumentState {
           currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
           cameraViewport: cameraViewport ?? this.cameraViewport,
           settingsCubit: settingsCubit,
+          embedded: embedded,
           currentIndex:
               removeCurrentIndex ? null : currentIndex ?? this.currentIndex);
 
