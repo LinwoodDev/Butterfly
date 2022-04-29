@@ -2,6 +2,17 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.3.0-beta.1 (2022-04-29)
+
+* Add custom designs
+* Add material 3 components
+* Add start, update and app introduction dialog
+* Add settings to disable start dialog
+* Implement pdf import
+* Reimplement undo/redo
+* Round scale
+* Redesigned settings dialog
+
 ## 1.3.0-beta.0 (2022-04-20)
 
 * Add svg export
