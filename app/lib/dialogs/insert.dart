@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/camera.dart';
+import 'package:butterfly/dialogs/pages.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -112,6 +113,7 @@ class _InsertDialogState extends State<InsertDialog> {
               }),
         ListTile(
             title: Text(AppLocalizations.of(context)!.pdf),
+            leading: const Icon(PhosphorIcons.filePdfLight),
             onTap: () async {
               final files = await FilePicker.platform.pickFiles(
                   type: FileType.custom,
@@ -135,7 +137,18 @@ class _InsertDialogState extends State<InsertDialog> {
                     position: Offset(widget.position.dx, y)));
                 y = y + page.height;
               }
-              _submit(elements);
+              final selectedPages = await showDialog<List<int>>(
+                  context: context,
+                  builder: (context) => PagesDialog(
+                      pages: elements.map((e) => e.pixels).toList()));
+              if (selectedPages == null) return;
+              final selectedElements = elements
+                  .asMap()
+                  .entries
+                  .where((e) => selectedPages.contains(e.key))
+                  .map((e) => e.value)
+                  .toList();
+              _submit(selectedElements);
             }),
       ]),
       actions: [

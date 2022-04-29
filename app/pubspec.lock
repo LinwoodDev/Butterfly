@@ -133,7 +133,7 @@ packages:
       name: camera
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.4+20"
+    version: "0.9.4+21"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -273,7 +273,7 @@ packages:
       name: flex_color_scheme
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "5.0.1"
   flutter:
     dependency: "direct main"
     description: flutter

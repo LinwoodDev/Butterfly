@@ -1,0 +1,8 @@
+* Add custom designs
+* Add material 3 components
+* Add start, update and app introduction dialog
+* Add settings to disable start dialog
+* Implement pdf export
+* Reimplement undo/redo
+* Round scale
+* Redesigned settings dialog

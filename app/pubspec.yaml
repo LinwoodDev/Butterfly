@@ -42,10 +42,10 @@ dependencies:
   xml: ^5.4.1
   collection: ^1.16.0
   bloc_concurrency: ^0.2.0
-  camera: ^0.9.4+20
+  camera: ^0.9.4+21
   camera_windows: ^0.1.0
   window_manager: ^0.2.2
-  flex_color_scheme: ^5.0.0
+  flex_color_scheme: ^5.0.1
   freezed_annotation: ^2.0.1
   json_annotation: ^4.5.0
   path: ^1.8.1
