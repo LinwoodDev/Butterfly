@@ -142,12 +142,16 @@ class _InsertDialogState extends State<InsertDialog> {
                   builder: (context) => PagesDialog(
                       pages: elements.map((e) => e.pixels).toList()));
               if (selectedPages == null) return;
-              final selectedElements = elements
-                  .asMap()
-                  .entries
-                  .where((e) => selectedPages.contains(e.key))
-                  .map((e) => e.value)
-                  .toList();
+              final selectedElements = <ImageElement>[];
+              y = widget.position.dy;
+              for (var i = 0; i < elements.length; i++) {
+                if (selectedPages.contains(i)) {
+                  final current = elements[i];
+                  selectedElements.add(current.copyWith(
+                      position: Offset(widget.position.dx, y)));
+                  y += current.height;
+                }
+              }
               _submit(selectedElements);
             }),
       ]),
