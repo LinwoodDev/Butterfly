@@ -18,6 +18,7 @@ class DocumentLoadSuccess extends DocumentState {
   final CameraViewport cameraViewport;
   final CurrentIndex currentIndex;
   final SettingsCubit settingsCubit;
+  final bool embedded;
 
   DocumentLoadSuccess(this.document,
       {this.path,
@@ -26,6 +27,7 @@ class DocumentLoadSuccess extends DocumentState {
       this.currentAreaIndex = -1,
       CurrentIndex? currentIndex,
       this.currentLayer = '',
+      this.embedded = false,
       this.invisibleLayers = const []})
       : currentIndex = currentIndex ?? CurrentIndex(-1, HandHandler()),
         cameraViewport = cameraViewport ??
@@ -36,14 +38,17 @@ class DocumentLoadSuccess extends DocumentState {
                     .toList());
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props =>
+      [
         currentIndex,
         invisibleLayers,
         cameraViewport,
         document,
         path,
         currentLayer,
-        currentAreaIndex
+        currentAreaIndex,
+        settingsCubit,
+        embedded
       ];
 
   List<Renderer<PadElement>> get renderers =>
@@ -100,6 +105,7 @@ class DocumentLoadSuccess extends DocumentState {
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 
   Future<String> save() {
+    if (embedded) return Future.value('');
     if (path == null) {
       return DocumentFileSystem.fromPlatform()
           .importDocument(document)

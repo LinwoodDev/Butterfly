@@ -16,9 +16,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'settings/personalization.dart';
-import 'package:window_manager/window_manager.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 
 const kFileVersion = 5;
@@ -145,6 +145,14 @@ class ButterflyApp extends StatelessWidget {
                   ],
                 ),
               ]),
+          GoRoute(
+            name: 'embed',
+            path: '/embed',
+            builder: (context, state) {
+              final path = state.queryParams['path']; // may be null
+              return ProjectPage(path: path, embedded: true);
+            },
+          )
         ],
       );
 

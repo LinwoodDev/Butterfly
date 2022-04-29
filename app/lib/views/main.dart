@@ -46,8 +46,10 @@ bool isWindow() =>
 
 class ProjectPage extends StatefulWidget {
   final String? path;
+  final bool embedded;
 
-  const ProjectPage({Key? key, this.path}) : super(key: key);
+  const ProjectPage({Key? key, this.path, this.embedded = false})
+      : super(key: key);
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
@@ -175,33 +177,16 @@ class _ProjectPageState extends State<ProjectPage> {
               LogicalKeySet(LogicalKeyboardKey.control,
                       LogicalKeyboardKey.shift, LogicalKeyboardKey.keyN):
                   NewIntent(context, fromTemplate: true),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
-                  OpenIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
-                  ImportIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
-                  ExportIntent(context),
+              LogicalKeySet(LogicalKeyboardKey.tab): EditModeIntent(context),
               LogicalKeySet(
                   LogicalKeyboardKey.control,
                   LogicalKeyboardKey.shift,
-                  LogicalKeyboardKey.keyE): ImageExportIntent(context),
-              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
-                  LogicalKeyboardKey.keyE): SvgExportIntent(context),
-              LogicalKeySet(LogicalKeyboardKey.tab): EditModeIntent(context),
-              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
-                  LogicalKeyboardKey.keyS): SettingsIntent(context),
+                  LogicalKeyboardKey.keyP): WaypointsIntent(context),
               LogicalKeySet(
                   LogicalKeyboardKey.control,
                   LogicalKeyboardKey.alt,
                   LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyS): ProjectIntent(context),
-              LogicalKeySet(
-                  LogicalKeyboardKey.control,
-                  LogicalKeyboardKey.shift,
-                  LogicalKeyboardKey.keyP): WaypointsIntent(context),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
                   ColorPaletteIntent(context),
@@ -213,13 +198,36 @@ class _ProjectPageState extends State<ProjectPage> {
                   LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyA): AreasIntent(context),
               LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
-                  LayersIntent(context),
+                  LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
+              LayersIntent(context),
               LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
                   LogicalKeyboardKey.keyN): InsertIntent(context, Offset.zero),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
-                  ChangePathIntent(context),
+              if (!widget.embedded) ...{
+                LogicalKeySet(
+                    LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
+                OpenIntent(context),
+                LogicalKeySet(
+                    LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
+                ImportIntent(context),
+                LogicalKeySet(
+                    LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
+                ExportIntent(context),
+                LogicalKeySet(
+                    LogicalKeyboardKey.control,
+                    LogicalKeyboardKey.shift,
+                    LogicalKeyboardKey.keyE): ImageExportIntent(context),
+                LogicalKeySet(
+                    LogicalKeyboardKey.control,
+                    LogicalKeyboardKey.alt,
+                    LogicalKeyboardKey.keyE): SvgExportIntent(context),
+                LogicalKeySet(
+                    LogicalKeyboardKey.control,
+                    LogicalKeyboardKey.alt,
+                    LogicalKeyboardKey.keyS): SettingsIntent(context),
+                LogicalKeySet(
+                    LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
+                ChangePathIntent(context),
+              },
             },
             child: Actions(
                 actions: <Type, Action<Intent>>{

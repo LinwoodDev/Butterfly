@@ -27,10 +27,12 @@ part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(SettingsCubit settingsCubit, AppDocument initial, String? path,
-      Renderer<Background> background, List<Renderer<PadElement>> renderer)
+      Renderer<Background> background, List<Renderer<PadElement>> renderer,
+      [bool embedded = false])
       : super(DocumentLoadSuccess(initial,
             path: path,
             settingsCubit: settingsCubit,
+            embedded: embedded,
             cameraViewport: CameraViewport.unbaked(background, renderer))) {
     _init();
   }
@@ -487,6 +489,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         cameraViewport: unbakedElements == null
             ? current.cameraViewport.unbake(elements)
             : current.cameraViewport.withUnbaked(elements));
+    if (current.embedded) {
+      emit(nextState);
+      return;
+    }
     if (nextState.path != null) {
       emit(nextState);
     }
