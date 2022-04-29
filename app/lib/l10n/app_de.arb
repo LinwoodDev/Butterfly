@@ -252,5 +252,23 @@
     "selectPages": "Seiten auswählen",
     "recentFiles": "Letzte Dateien",
     "start": "Start",
-    "noRecentFiles": "Keine aktuellen Dateien"
+    "noRecentFiles": "Keine aktuellen Dateien",
+    "countPages": "{count,plural, =0{Keine Seiten} =1{1 Seite} other{{count} Seiten}}",
+    "@countPages": {
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "pageIndex": "Seite {index}",
+    "@pageIndex": {
+        "placeholders": {
+            "index": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    }
 }
