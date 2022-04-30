@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/api/open_image.dart';
-import 'package:butterfly/api/xml_helper.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/element.dart';
@@ -15,7 +14,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:xml/xml.dart';
 
 import '../view_painter.dart';
 
@@ -93,39 +91,11 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
     return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
-  Future<XmlDocument> _generateSvg() async {
-    final document = XmlDocument();
-    final svg = document.createElement('svg', attributes: {
-      'xmlns': 'http://www.w3.org/2000/svg',
-      'xmlns:xlink': 'http://www.w3.org/1999/xlink',
-      'version': '1.1',
-      'width': '${width}px',
-      'height': '${height}px',
-      'viewBox': '$x $y $width $height',
-    });
-    svg
-        .createElement('defs')
-        .createElement('mask', id: 'eraser-mask')
-        .createElement('rect', attributes: {
-      'x': '0',
-      'y': '0',
-      'width': '${width}px',
-      'height': '${height}px',
-      'fill': 'white',
-    });
-
-    var current = context.read<DocumentBloc>().state as DocumentLoadSuccess;
-    final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
-    current.cameraViewport.background
-        .buildSvg(document, current.document, rect);
-    for (var e in current.renderers) {
-      e.buildSvg(document, current.document, rect);
-    }
-    return document;
-  }
-
   Future<void> _exportSvg() async {
-    final data = await _generateSvg();
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final data = state.renderSVG(width: width, height: height, x: x, y: y);
     if (!mounted) return;
 
     if (!kIsWeb &&

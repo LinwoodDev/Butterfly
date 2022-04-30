@@ -7,6 +7,12 @@ abstract class DocumentEvent extends ReplayEvent with EquatableMixin {
   List<Object?> get props => [];
 }
 
+class DocumentUpdated extends DocumentEvent {
+  final AppDocument document;
+
+  DocumentUpdated(this.document);
+}
+
 class ElementsCreated extends DocumentEvent {
   final List<PadElement> elements;
 

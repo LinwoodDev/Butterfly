@@ -27,6 +27,7 @@ import 'package:butterfly/dialogs/introduction/app.dart';
 import 'package:butterfly/dialogs/introduction/start.dart';
 import 'package:butterfly/dialogs/introduction/update.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/views/app_bar.dart';
@@ -39,6 +40,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../models/background.dart';
 import 'view.dart';
 
 bool isWindow() =>
@@ -46,8 +48,9 @@ bool isWindow() =>
 
 class ProjectPage extends StatefulWidget {
   final String? path;
+  final Embedding? embedding;
 
-  const ProjectPage({Key? key, this.path}) : super(key: key);
+  const ProjectPage({Key? key, this.path, this.embedding}) : super(key: key);
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
@@ -77,6 +80,20 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Future<void> load() async {
     final settingsCubit = context.read<SettingsCubit>();
+    if (widget.embedding != null) {
+      setState(() {
+        _bloc = DocumentBloc(
+            settingsCubit,
+            AppDocument(createdAt: DateTime.now(), name: ''),
+            widget.path,
+            BoxBackgroundRenderer(const BoxBackground()),
+            [],
+            widget.embedding);
+        _transformCubit = TransformCubit();
+        widget.embedding?.handler.register(_bloc!);
+      });
+      return;
+    }
     final fileSystem = DocumentFileSystem.fromPlatform();
     final prefs = await SharedPreferences.getInstance();
     var documentOpened = false;
@@ -153,8 +170,16 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    widget.embedding?.handler.unregister();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (_bloc == null) return const Center(child: CircularProgressIndicator());
+    if (_bloc == null) {
+      return const Material(child: Center(child: CircularProgressIndicator()));
+    }
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => _bloc!),
@@ -175,33 +200,16 @@ class _ProjectPageState extends State<ProjectPage> {
               LogicalKeySet(LogicalKeyboardKey.control,
                       LogicalKeyboardKey.shift, LogicalKeyboardKey.keyN):
                   NewIntent(context, fromTemplate: true),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
-                  OpenIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
-                  ImportIntent(context),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
-                  ExportIntent(context),
+              LogicalKeySet(LogicalKeyboardKey.tab): EditModeIntent(context),
               LogicalKeySet(
                   LogicalKeyboardKey.control,
                   LogicalKeyboardKey.shift,
-                  LogicalKeyboardKey.keyE): ImageExportIntent(context),
-              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
-                  LogicalKeyboardKey.keyE): SvgExportIntent(context),
-              LogicalKeySet(LogicalKeyboardKey.tab): EditModeIntent(context),
-              LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
-                  LogicalKeyboardKey.keyS): SettingsIntent(context),
+                  LogicalKeyboardKey.keyP): WaypointsIntent(context),
               LogicalKeySet(
                   LogicalKeyboardKey.control,
                   LogicalKeyboardKey.alt,
                   LogicalKeyboardKey.shift,
                   LogicalKeyboardKey.keyS): ProjectIntent(context),
-              LogicalKeySet(
-                  LogicalKeyboardKey.control,
-                  LogicalKeyboardKey.shift,
-                  LogicalKeyboardKey.keyP): WaypointsIntent(context),
               LogicalKeySet(
                       LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
                   ColorPaletteIntent(context),
@@ -217,9 +225,32 @@ class _ProjectPageState extends State<ProjectPage> {
                   LayersIntent(context),
               LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
                   LogicalKeyboardKey.keyN): InsertIntent(context, Offset.zero),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
-                  ChangePathIntent(context),
+              if (widget.embedding == null) ...{
+                LogicalKeySet(
+                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
+                    OpenIntent(context),
+                LogicalKeySet(
+                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
+                    ImportIntent(context),
+                LogicalKeySet(
+                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
+                    ExportIntent(context),
+                LogicalKeySet(
+                    LogicalKeyboardKey.control,
+                    LogicalKeyboardKey.shift,
+                    LogicalKeyboardKey.keyE): ImageExportIntent(context),
+                LogicalKeySet(
+                    LogicalKeyboardKey.control,
+                    LogicalKeyboardKey.alt,
+                    LogicalKeyboardKey.keyE): SvgExportIntent(context),
+                LogicalKeySet(
+                    LogicalKeyboardKey.control,
+                    LogicalKeyboardKey.alt,
+                    LogicalKeyboardKey.keyS): SettingsIntent(context),
+                LogicalKeySet(
+                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
+                    ChangePathIntent(context),
+              },
             },
             child: Actions(
                 actions: <Type, Action<Intent>>{
