@@ -18,7 +18,7 @@ class DocumentLoadSuccess extends DocumentState {
   final CameraViewport cameraViewport;
   final CurrentIndex currentIndex;
   final SettingsCubit settingsCubit;
-  final bool embedded;
+  final Embedding? embedding;
 
   DocumentLoadSuccess(this.document,
       {this.path,
@@ -27,7 +27,7 @@ class DocumentLoadSuccess extends DocumentState {
       this.currentAreaIndex = -1,
       CurrentIndex? currentIndex,
       this.currentLayer = '',
-      this.embedded = false,
+      this.embedding,
       this.invisibleLayers = const []})
       : currentIndex = currentIndex ?? CurrentIndex(-1, HandHandler()),
         cameraViewport = cameraViewport ??
@@ -47,7 +47,7 @@ class DocumentLoadSuccess extends DocumentState {
         currentLayer,
         currentAreaIndex,
         settingsCubit,
-        embedded
+        embedding
       ];
 
   List<Renderer<PadElement>> get renderers =>
@@ -98,14 +98,14 @@ class DocumentLoadSuccess extends DocumentState {
           currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
           cameraViewport: cameraViewport ?? this.cameraViewport,
           settingsCubit: settingsCubit,
-          embedded: embedded,
+          embedding: embedding,
           currentIndex:
               removeCurrentIndex ? null : currentIndex ?? this.currentIndex);
 
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 
   Future<String> save() {
-    if (embedded) return Future.value('');
+    if (embedding != null) return Future.value('');
     if (path == null) {
       return DocumentFileSystem.fromPlatform()
           .importDocument(document)
@@ -116,6 +116,50 @@ class DocumentLoadSuccess extends DocumentState {
         .updateDocument(path!, document)
         .then((value) => value.path)
       ..then(settingsCubit.addRecentHistory);
+  }
+
+  Future<ByteData?> render(
+      int width, int height, double x, double y, double scale,
+      {bool renderBackground = true}) async {
+    var recorder = ui.PictureRecorder();
+    var canvas = Canvas(recorder);
+    var painter = ViewPainter(document,
+        renderBackground: renderBackground,
+        cameraViewport: cameraViewport.withUnbaked(renderers),
+        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), scale));
+    painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
+    var picture = recorder.endRecording();
+    var image = await picture.toImage(width, height);
+    return await image.toByteData(format: ui.ImageByteFormat.png);
+  }
+
+  XmlDocument renderSVG(int width, int height, double x, double y) {
+    final document = XmlDocument();
+    final svg = document.createElement('svg', attributes: {
+      'xmlns': 'http://www.w3.org/2000/svg',
+      'xmlns:xlink': 'http://www.w3.org/1999/xlink',
+      'version': '1.1',
+      'width': '${width}px',
+      'height': '${height}px',
+      'viewBox': '$x $y $width $height',
+    });
+    svg
+        .createElement('defs')
+        .createElement('mask', id: 'eraser-mask')
+        .createElement('rect', attributes: {
+      'x': '0',
+      'y': '0',
+      'width': '${width}px',
+      'height': '${height}px',
+      'fill': 'white',
+    });
+
+    final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
+    cameraViewport.background.buildSvg(document, this.document, rect);
+    for (var e in renderers) {
+      e.buildSvg(document, this.document, rect);
+    }
+    return document;
   }
 }
 

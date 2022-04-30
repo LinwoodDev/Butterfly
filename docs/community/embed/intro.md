@@ -21,49 +21,50 @@ Add the following code to your website:
 
 ## Events
 
-### onSave
+Examples how to use it:
 
-> The `onSave` event is emitted when the user clicks the save button.
+```javascript
+const embedElement = document.querySelector('#butterfly');
+embedElement.addEventListener('save', (data) => {
+  console.log('Saving...');
+});
+```
+
+### save
+
+> The `save` event is emitted when the user clicks the save button.
 
 Parameters:
 
 * `data` (Type `String`): The data of the document.
 
-```javascript
-onSave: (data) => {
-    // Do something
-}
-```
+### exit
 
-### onExit
-
-> The `onExit` event is emitted when the user clicks the exit button.
+> The `exit` event is emitted when the user clicks the exit button.
 
 Parameters:
 
 * `data` (Type `String`): The data of the document.
 
-```javascript
-onExit: (data) => {
-    // Do something
-}
-```
+### change
 
-### onChange
-
-> The `onChange` event is emitted when the user changes the document.
+> The `change` event is emitted when the user changes the document.
 
 Parameters:
 
 * `data` (Type `String`): The data of the document.
-
-```javascript
-onChange: (data) => {
-    // Do something
-}
-```
 
 ## Methods
+
+Example how to use it:
+
+```javascript
+const embedElement = document.querySelector('#butterfly');
+embedElement.dispatchEvent(new CustomEvent('getData', {}));
+embedElement.addEventListener('getData', (data) => {
+    console.log(data);
+});
+```
 
 ### getData
 
@@ -72,10 +73,6 @@ onChange: (data) => {
 No parameters.
 Returns: `String`
 
-```javascript
-const data = getData()
-```
-
 ### setData
 
 > The `setData` method sets the data of the document.
@@ -83,10 +80,6 @@ const data = getData()
 Parameters:
 
 * `data` (Type `String`): The data of the document.
-
-```javascript
-setData(data)
- ```
 
 ### render
 
@@ -100,10 +93,6 @@ Parameters:
 
 Returns: `String` (Base64 encoded image)
 
-```javascript
-const image = render(width, height, scale)
- ```
-
 ### renderSVG
 
 > The `renderSVG` method renders the document to a svg image.
@@ -114,7 +103,3 @@ Parameters:
 * `height` (Type `Number`): The height of the image.
 
 Returns: `String` (SVG)
-
-```javascript
-const svg = renderSVG(width, height)
- ```

@@ -1,7 +1,10 @@
+import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'dart:ui';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/api/xml_helper.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/background.dart';
 import 'package:butterfly/models/current_index.dart';
@@ -14,8 +17,10 @@ import 'package:butterfly/view_painter.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:replay_bloc/replay_bloc.dart';
+import 'package:xml/xml.dart';
 
 import '../cubits/settings.dart';
+import '../embed/embedding.dart';
 import '../handlers/handler.dart';
 import '../models/area.dart';
 import '../models/element.dart';
@@ -28,16 +33,23 @@ part 'document_state.dart';
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(SettingsCubit settingsCubit, AppDocument initial, String? path,
       Renderer<Background> background, List<Renderer<PadElement>> renderer,
-      [bool embedded = false])
+      [Embedding? embedding])
       : super(DocumentLoadSuccess(initial,
             path: path,
             settingsCubit: settingsCubit,
-            embedded: embedded,
+            embedding: embedding,
             cameraViewport: CameraViewport.unbaked(background, renderer))) {
     _init();
   }
 
   void _init() {
+    on<DocumentUpdated>((event, emit) async {
+      final current = state;
+      if (current is DocumentLoadSuccess) {
+        clearHistory();
+        _saveDocument(current.copyWith(document: event.document), null);
+      }
+    });
     on<ElementsCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
@@ -489,7 +501,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         cameraViewport: unbakedElements == null
             ? current.cameraViewport.unbake(elements)
             : current.cameraViewport.withUnbaked(elements));
-    if (current.embedded) {
+    if (current.embedding != null) {
       emit(nextState);
       return;
     }

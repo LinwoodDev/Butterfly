@@ -22,6 +22,7 @@ import '../actions/project.dart';
 import '../actions/redo.dart';
 import '../actions/settings.dart';
 import '../actions/undo.dart';
+import '../embed/action.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/transform.dart';
 import 'main.dart';
@@ -300,7 +301,7 @@ class _MainPopupMenu extends StatelessWidget {
                       );
                     }),
               )),
-          if (state.path != null && !state.embedded) ...[
+          if (state.path != null && state.embedding == null) ...[
             PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(
@@ -339,7 +340,7 @@ class _MainPopupMenu extends StatelessWidget {
                       context, NewIntent(context, fromTemplate: true));
                 },
               )),
-          if (!state.embedded) ...[
+          if (state.embedding == null) ...[
             PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(
@@ -452,7 +453,7 @@ class _MainPopupMenu extends StatelessWidget {
                         trailing: const Icon(PhosphorIcons.caretRightLight),
                         title: Text(AppLocalizations.of(context)!.export)))),
           ],
-          if (state.embedded)
+          if (state.embedding?.save ?? false)
             PopupMenuItem(
                 padding: EdgeInsets.zero,
                 child: ListTile(
@@ -460,7 +461,7 @@ class _MainPopupMenu extends StatelessWidget {
                     title: Text(AppLocalizations.of(context)!.save),
                     onTap: () {
                       Navigator.of(context).pop();
-                      // TODO: save
+                      sendEmbedMessage('save', state.document.toJson());
                     })),
           PopupMenuItem(
               padding: EdgeInsets.zero,
@@ -485,7 +486,7 @@ class _MainPopupMenu extends StatelessWidget {
                     Navigator.of(context).pop();
                     setFullScreen(!(await isFullScreen()));
                   })),
-          if (!state.embedded)
+          if (state.embedding == null)
             PopupMenuItem(
                 padding: EdgeInsets.zero,
                 child: ListTile(
@@ -497,7 +498,7 @@ class _MainPopupMenu extends StatelessWidget {
                       Actions.maybeInvoke<SettingsIntent>(
                           context, SettingsIntent(context));
                     })),
-          if (state.embedded)
+          if (state.embedding != null)
             PopupMenuItem(
                 padding: EdgeInsets.zero,
                 child: ListTile(
@@ -505,7 +506,7 @@ class _MainPopupMenu extends StatelessWidget {
                     title: Text(AppLocalizations.of(context)!.exit),
                     onTap: () {
                       Navigator.of(context).pop();
-                      // TODO: exit
+                      sendEmbedMessage('exit', state.document.toJson());
                     })),
         ],
       );

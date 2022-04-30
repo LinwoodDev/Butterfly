@@ -18,6 +18,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'embed/embedding.dart';
 import 'settings/personalization.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 
@@ -149,7 +150,8 @@ class ButterflyApp extends StatelessWidget {
             name: 'embed',
             path: '/embed',
             builder: (context, state) {
-              return const ProjectPage(embedded: true);
+              return ProjectPage(
+                  embedding: Embedding.fromQuery(state.queryParams));
             },
           )
         ],

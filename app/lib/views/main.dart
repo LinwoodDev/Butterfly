@@ -27,6 +27,7 @@ import 'package:butterfly/dialogs/introduction/app.dart';
 import 'package:butterfly/dialogs/introduction/start.dart';
 import 'package:butterfly/dialogs/introduction/update.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/views/app_bar.dart';
@@ -47,10 +48,9 @@ bool isWindow() =>
 
 class ProjectPage extends StatefulWidget {
   final String? path;
-  final bool embedded;
+  final Embedding? embedding;
 
-  const ProjectPage({Key? key, this.path, this.embedded = false})
-      : super(key: key);
+  const ProjectPage({Key? key, this.path, this.embedding}) : super(key: key);
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
@@ -80,7 +80,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Future<void> load() async {
     final settingsCubit = context.read<SettingsCubit>();
-    if (widget.embedded) {
+    if (widget.embedding != null) {
       setState(() {
         _bloc = DocumentBloc(
             settingsCubit,
@@ -88,8 +88,9 @@ class _ProjectPageState extends State<ProjectPage> {
             widget.path,
             BoxBackgroundRenderer(const BoxBackground()),
             [],
-            true);
+            widget.embedding);
         _transformCubit = TransformCubit();
+        widget.embedding?.handler.register(_bloc!);
       });
       return;
     }
@@ -218,7 +219,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   LayersIntent(context),
               LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.alt,
                   LogicalKeyboardKey.keyN): InsertIntent(context, Offset.zero),
-              if (!widget.embedded) ...{
+              if (widget.embedding == null) ...{
                 LogicalKeySet(
                         LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
                     OpenIntent(context),
