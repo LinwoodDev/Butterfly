@@ -13,7 +13,7 @@ Add the following code to your website:
 ## Options
 
 | Option   | Type                      | Default | Description                                                                           |
-|----------|---------------------------|---------|---------------------------------------------------------------------------------------|
+| -------- | ------------------------- | ------- | ------------------------------------------------------------------------------------- |
 | save     | Boolean (true, false)     | true    | Enable save. If disabled, only an exit button will be shown                           |
 | editable | Boolean (true, false)     | true    | Enable editing. If disabled, the document will be read-only                           |
 | theme    | user, system, light, dark | user    | The theme to use. If user, the theme will be chosen by the user in the settings       |
@@ -61,8 +61,10 @@ Example how to use it:
 ```javascript
 const embedElement = document.querySelector('#butterfly');
 embedElement.dispatchEvent(new CustomEvent('getData', {}));
-embedElement.addEventListener('getData', (data) => {
-    console.log(data);
+embedElement.addEventListener('message', (data) => {
+  if(data.type === 'getData') {
+    console.log(data.message);
+  }
 });
 ```
 

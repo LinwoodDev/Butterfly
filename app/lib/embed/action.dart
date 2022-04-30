@@ -1,9 +1,9 @@
 import 'action_stub.dart' if (dart.library.html) 'action_web.dart' as embed;
 
-typedef EmbedMessageHandler = void Function(Object message);
+typedef EmbedMessageHandler = void Function(Object? message);
 typedef EventListener = void Function(dynamic event);
 
-void sendEmbedMessage(String type, Object message) {
+void sendEmbedMessage(String type, String message) {
   embed.sendEmbedMessage(type, message);
 }
 

@@ -53,7 +53,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   double scale = 1;
 
   ByteData? _previewImage;
-  Future? _regeneratingFuture;
+  Future<ByteData?>? _regeneratingFuture;
 
   @override
   void initState() {

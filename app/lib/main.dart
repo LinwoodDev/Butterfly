@@ -115,7 +115,7 @@ class ButterflyApp extends StatelessWidget {
   }
 
   GoRouter get router => GoRouter(
-        initialLocation: initialLocation,
+        initialLocation: '/embed',
         routes: [
           GoRoute(
               name: 'home',

@@ -50,6 +50,7 @@ dependencies:
   json_annotation: ^4.5.0
   path: ^1.8.1
   printing: ^5.8.0
+  js: ^0.6.4
 
 dev_dependencies:
   flutter_native_splash: ^2.1.6

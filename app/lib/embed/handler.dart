@@ -16,7 +16,7 @@ class EmbedHandler {
     getDataListener ??= onEmbedMessage('getData', (message) async {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
-        sendEmbedMessage('getData', state.document.toJson());
+        sendEmbedMessage('getData', json.encode(state.document.toJson()));
       }
     });
     setDataListener ??= onEmbedMessage('setData', (message) async {
@@ -56,17 +56,16 @@ class EmbedHandler {
           scale = map['scale'] ?? 1;
           renderBackground = map['renderBackground'] ?? true;
         }
-        sendEmbedMessage(
-          'render',
-          state.render(
-            width: width,
-            height: height,
-            x: x,
-            y: y,
-            scale: scale,
-            renderBackground: renderBackground,
-          ),
+        final data = await state.render(
+          width: width,
+          height: height,
+          x: x,
+          y: y,
+          scale: scale,
+          renderBackground: renderBackground,
         );
+        sendEmbedMessage(
+            'render', base64.encode(data?.buffer.asUint8List() ?? []));
       }
     });
     renderSVGListener ??= onEmbedMessage('renderSVG', (message) async {

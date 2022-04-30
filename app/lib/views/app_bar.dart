@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/api/full_screen_stub.dart'
@@ -461,7 +463,8 @@ class _MainPopupMenu extends StatelessWidget {
                     title: Text(AppLocalizations.of(context)!.save),
                     onTap: () {
                       Navigator.of(context).pop();
-                      sendEmbedMessage('save', state.document.toJson());
+                      sendEmbedMessage(
+                          'save', json.encode(state.document.toJson()));
                     })),
           PopupMenuItem(
               padding: EdgeInsets.zero,
@@ -506,7 +509,8 @@ class _MainPopupMenu extends StatelessWidget {
                     title: Text(AppLocalizations.of(context)!.exit),
                     onTap: () {
                       Navigator.of(context).pop();
-                      sendEmbedMessage('exit', state.document.toJson());
+                      sendEmbedMessage(
+                          'exit', json.encode(state.document.toJson()));
                     })),
         ],
       );
