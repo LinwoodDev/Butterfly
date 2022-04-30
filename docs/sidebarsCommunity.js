@@ -10,26 +10,34 @@
  */
 
 module.exports = {
-    // By default, Docusaurus generates a sidebar from the docs folder structure
-    sidebar: [
-        'community',
-        'branding',
-        'changelog',
-        'contributing',
-        'code-of-conduct',
-        'versions',
-        'nightly',
-        'privacypolicy',
-        {
-            type: 'link',
-            href: 'https://discord.linwood.dev',
-            label: 'Discord'
-        },
-        {
-            type: 'link',
-            href: 'https://github.com/LinwoodCloud/Butterfly',
-            label: 'GitHub'
-        }
+  // By default, Docusaurus generates a sidebar from the docs folder structure
+  sidebar: [
+    'community',
+    'branding',
+    'changelog',
+    'contributing',
+    'code-of-conduct',
+    {
+      type: 'category',
+      label: "Embedding",
+      items: [
+        'embed/intro',
+        'embed/playground',
+      ]
+    },
+    'versions',
+    'nightly',
+    'privacypolicy',
+    {
+      type: 'link',
+      href: 'https://discord.linwood.dev',
+      label: 'Discord'
+    },
+    {
+      type: 'link',
+      href: 'https://github.com/LinwoodCloud/Butterfly',
+      label: 'GitHub'
+    }
   ],
 
   // But you can create a sidebar manually
