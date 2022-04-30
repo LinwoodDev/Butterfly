@@ -170,8 +170,9 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_bloc == null)
+    if (_bloc == null) {
       return const Material(child: Center(child: CircularProgressIndicator()));
+    }
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => _bloc!),

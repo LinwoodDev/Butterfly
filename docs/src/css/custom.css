@@ -130,3 +130,102 @@ html[data-theme='dark'] .DocSearch {
   background-color: var(--ifm-color-primary-darkest);
   color: var(--ifm-color-white);
 }
+
+
+
+/* -- Checkbox -- */
+.checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkbox-checkmark {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox:hover input ~ .checkbox-checkmark {
+  background-color: var(--ifm-color-emphasis-300);
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox input:checked ~ .checkbox-checkmark {
+  background-color: var(--ifm-color-primary);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkbox-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox input:checked ~ .checkbox-checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox .checkbox-checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.input {
+  display: block;
+  width: 100%;
+  flex: 1;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ifm-font-color-base);
+  background-color: var(--ifm-background-color);
+  background-clip: padding-box;
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  margin: 0.5rem 1rem;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+}
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}

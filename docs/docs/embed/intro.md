@@ -1,5 +1,6 @@
 ---
 title: Embed
+sidebar_label: Intro
 ---
 
 Embedding is a simple way to include the app in your website.

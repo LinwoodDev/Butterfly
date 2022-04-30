@@ -149,8 +149,7 @@ class ButterflyApp extends StatelessWidget {
             name: 'embed',
             path: '/embed',
             builder: (context, state) {
-              final path = state.queryParams['path']; // may be null
-              return ProjectPage(path: path, embedded: true);
+              return const ProjectPage(embedded: true);
             },
           )
         ],
