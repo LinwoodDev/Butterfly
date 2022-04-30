@@ -170,6 +170,12 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    widget.embedding?.handler.unregister();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (_bloc == null) {
       return const Material(child: Center(child: CircularProgressIndicator()));

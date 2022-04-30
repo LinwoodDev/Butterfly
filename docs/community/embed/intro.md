@@ -90,6 +90,7 @@ Parameters:
 * `width` (Type `Number`): The width of the image.
 * `height` (Type `Number`): The height of the image.
 * `scale` (Type `Number`): The scale of the image.
+* `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
 Returns: `String` (Base64 encoded image)
 
@@ -101,5 +102,6 @@ Parameters:
 
 * `width` (Type `Number`): The width of the image.
 * `height` (Type `Number`): The height of the image.
+* `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
 Returns: `String` (SVG)

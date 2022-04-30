@@ -95,7 +95,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final data = state.renderSVG(width, height, x, y);
+    final data = state.renderSVG(width: width, height: height, x: x, y: y);
     if (!mounted) return;
 
     if (!kIsWeb &&

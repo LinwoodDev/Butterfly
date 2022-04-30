@@ -39,12 +39,14 @@ class EmbedHandler {
       if (state is DocumentLoadSuccess) {
         double x = 0, y = 0, scale = 1;
         int width = 100, height = 100;
+        bool renderBackground = true;
         if (message is Map) {
           x = message['x'] ?? 0;
           y = message['y'] ?? 0;
           width = message['width'] ?? 100;
           height = message['height'] ?? 100;
           scale = message['scale'] ?? 1;
+          renderBackground = message['renderBackground'] ?? true;
         } else if (message is String) {
           final map = json.decode(message);
           x = map['x'] ?? 0;
@@ -52,8 +54,19 @@ class EmbedHandler {
           width = map['width'] ?? 100;
           height = map['height'] ?? 100;
           scale = map['scale'] ?? 1;
+          renderBackground = map['renderBackground'] ?? true;
         }
-        sendEmbedMessage('render', state.render(width, height, x, y, scale));
+        sendEmbedMessage(
+          'render',
+          state.render(
+            width: width,
+            height: height,
+            x: x,
+            y: y,
+            scale: scale,
+            renderBackground: renderBackground,
+          ),
+        );
       }
     });
     renderSVGListener ??= onEmbedMessage('renderSVG', (message) async {
@@ -61,19 +74,33 @@ class EmbedHandler {
       if (state is DocumentLoadSuccess) {
         double x = 0, y = 0;
         int width = 100, height = 100;
+        bool renderBackground = true;
         if (message is Map) {
           x = message['x'] ?? 0;
           y = message['y'] ?? 0;
           width = message['width'] ?? 100;
           height = message['height'] ?? 100;
+          renderBackground = message['renderBackground'] ?? true;
         } else if (message is String) {
           final map = json.decode(message);
           x = map['x'] ?? 0;
           y = map['y'] ?? 0;
           width = map['width'] ?? 100;
           height = map['height'] ?? 100;
+          renderBackground = map['renderBackground'] ?? true;
         }
-        sendEmbedMessage('renderSVG', state.renderSVG(width, height, x, y));
+        sendEmbedMessage(
+          'renderSVG',
+          state
+              .renderSVG(
+                width: width,
+                height: height,
+                x: x,
+                y: y,
+                renderBackground: renderBackground,
+              )
+              .toXmlString(),
+        );
       }
     });
   }
@@ -86,6 +113,14 @@ class EmbedHandler {
     if (setDataListener != null) {
       removeEmbedMessageListener(setDataListener!);
       setDataListener = null;
+    }
+    if (renderListener != null) {
+      removeEmbedMessageListener(renderListener!);
+      renderListener = null;
+    }
+    if (renderSVGListener != null) {
+      removeEmbedMessageListener(renderSVGListener!);
+      renderSVGListener = null;
     }
   }
 }

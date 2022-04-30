@@ -119,8 +119,12 @@ class DocumentLoadSuccess extends DocumentState {
   }
 
   Future<ByteData?> render(
-      int width, int height, double x, double y, double scale,
-      {bool renderBackground = true}) async {
+      {required int width,
+      required int height,
+      double x = 0,
+      double y = 0,
+      double scale = 1,
+      bool renderBackground = true}) async {
     var recorder = ui.PictureRecorder();
     var canvas = Canvas(recorder);
     var painter = ViewPainter(document,
@@ -133,7 +137,12 @@ class DocumentLoadSuccess extends DocumentState {
     return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
-  XmlDocument renderSVG(int width, int height, double x, double y) {
+  XmlDocument renderSVG(
+      {required int width,
+      required int height,
+      double x = 0,
+      double y = 0,
+      bool renderBackground = true}) {
     final document = XmlDocument();
     final svg = document.createElement('svg', attributes: {
       'xmlns': 'http://www.w3.org/2000/svg',
@@ -155,7 +164,9 @@ class DocumentLoadSuccess extends DocumentState {
     });
 
     final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
-    cameraViewport.background.buildSvg(document, this.document, rect);
+    if (renderBackground) {
+      cameraViewport.background.buildSvg(document, this.document, rect);
+    }
     for (var e in renderers) {
       e.buildSvg(document, this.document, rect);
     }
