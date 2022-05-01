@@ -1,61 +1,61 @@
 ---
-title: Embed
-sidebar_label: Intro
+title: Einbetten
+sidebar_label: Einleitung
 ---
 
-Embedding is a simple way to include the app in your website. Add the following code to your website:
+Einbetten ist eine einfache Möglichkeit, die App in Ihre Website einzubinden. Fügen Sie den folgenden Code Ihrer Webseite hinzu:
 
 ```html
 <iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
-## Options
+## Optionen
 
-| Option   | Type                      | Standard | Beschreibung                                                                          |
-| -------- | ------------------------- | -------- | ------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)     | true     | Enable save. If disabled, only an exit button will be shown                           |
-| editable | Boolean (true, false)     | true     | Enable editing. If disabled, the document will be read-only                           |
-| theme    | user, system, light, dark | user     | The theme to use. If user, the theme will be chosen by the user in the settings       |
-| language | String                    | user     | The language to use. If user, the language will be chosen by the user in the settings |
+| Option     | Typ                            | Standard | Beschreibung                                                                                             |
+| ---------- | ------------------------------ | -------- | -------------------------------------------------------------------------------------------------------- |
+| speichern  | Boolesche (wahr, falsch)       | true     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt                            |
+| editierbar | Boolesche (wahr, falsch)       | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt                              |
+| thema      | benutzer, System, hell, dunkel | benutzer | Das zu verwendende Theme. Wenn Benutzer, wird das Thema vom Benutzer in den Einstellungen ausgewählt     |
+| sprache    | String                         | benutzer | Die zu verwendende Sprache. Wenn Benutzer, wird die Sprache vom Benutzer in den Einstellungen ausgewählt |
 
-## Events
+## Ereignisse
 
-Examples how to use it:
+Beispiele wie man es verwendet:
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
 embedElement.addEventListener('save', (data) => {
-  console.log('Saving...');
+  console.log('Speichern...');
 });
 ```
 
-### save
+### speichern
 
-> The `save` event is emitted when the user clicks the save button.
+> Das Ereignis `speichern` wird abgesendet, wenn der Benutzer auf den Speicherknopf klickt.
 
-Parameters:
+Parameter:
 
-* `data` (Type `String`): The data of the document.
+* `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
 
-### exit
+### beenden
 
-> The `exit` event is emitted when the user clicks the exit button.
+> Das `Exit` Event wird abgesendet, wenn der Benutzer auf den Exit-Button klickt.
 
-Parameters:
+Parameter:
 
-* `data` (Type `String`): The data of the document.
+* `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
 
-### change
+### ändern
 
-> The `change` event is emitted when the user changes the document.
+> Das `Änderungs-` Ereignis wird abgesendet, wenn der Benutzer das Dokument ändert.
 
-Parameters:
+Parameter:
 
-* `data` (Type `String`): The data of the document.
+* `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
 
-## Methods
+## Methoden
 
-Example how to use it:
+Beispiel wie man es nutzt:
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
@@ -69,39 +69,39 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> Die `getData` Methode gibt die Daten des Dokuments zurück.
 
-No parameters. Returns: `String`
+Keine Parameter. Rückgabewerte: `Zeichenkette`
 
 ### setData
 
-> The `setData` method sets the data of the document.
+> Die `setData` Methode legt die Daten des Dokuments fest.
 
-Parameters:
+Parameter:
 
-* `data` (Type `String`): The data of the document.
+* `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
 
-### render
+### rendern
 
-> The `render` method renders the document to a png image.
+> Die `Rendering-` Methode macht das Dokument zu einem PNG-Bild.
 
-Parameters:
+Parameter:
 
-* `width` (Type `Number`): The width of the image.
-* `height` (Type `Number`): The height of the image.
-* `scale` (Type `Number`): The scale of the image.
-* `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+* `Breite` (Typ `Nummer`): Die Breite des Bildes.
+* `Höhe` (Typ `Nummer`): Die Höhe des Bildes.
+* `Skala` (Typ `Nummer`): Die Skala des Bildes.
+* `RenderHintergrund` (Typ `Boolesche`): Falls aktiviert, wird der Hintergrund gerendert.
 
-Returns: `String` (Base64 encoded image)
+Gibt zurück: `String` (Base64 kodiertes Bild)
 
 ### renderSVG
 
-> The `renderSVG` method renders the document to a svg image.
+> Die `RenderSVG` Methode macht das Dokument zu einem svg-Bild.
 
-Parameters:
+Parameter:
 
-* `width` (Type `Number`): The width of the image.
-* `height` (Type `Number`): The height of the image.
-* `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+* `Breite` (Typ `Nummer`): Die Breite des Bildes.
+* `Höhe` (Typ `Nummer`): Die Höhe des Bildes.
+* `RenderHintergrund` (Typ `Boolesche`): Falls aktiviert, wird der Hintergrund gerendert.
 
-Returns: `String` (SVG)
+Rückgabewerte: `Zeichenkette` (SVG)
