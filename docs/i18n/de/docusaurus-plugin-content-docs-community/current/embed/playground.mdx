@@ -7,7 +7,7 @@ Lesen Sie die [-Dokumentation](intro) , um zu erfahren, wie Sie die Einbettungsf
 
 { useState } aus 'Reaktion' importieren
 
-export const EmbedPlayground = () => { const [host, setHost] = useState("https://butterfly.linwood. ev") const [speichern, setSave] = useState(true) const [bearbeitbar, setEditable] = useState(true) const [theme, setTheme] = useState("user") const [language, setLanguage] = useState("user") const url = `${host}/embed? ave=${save}&editable=${editable}&theme=${theme}&language=${language}`; return (
+export const EmbedPlayground = () => { const [host, setHost] = useState("https://butterfly.linwood.dev") const [save, setSave] = useState(true) const [editable, setEditable] = useState(true) const [theme, setTheme] = useState("user") const [language, setLanguage] = useState("user") const url = `${host}/embed?save=${save}&editable=${editable}&theme=${theme}&language=${language}`; return (
       <div>
         <div className="input-group">
             <label htmlFor="language">Host</label>
