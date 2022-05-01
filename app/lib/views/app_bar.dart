@@ -319,30 +319,30 @@ class _MainPopupMenu extends StatelessWidget {
             ),
             const PopupMenuDivider(),
           ],
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                leading: const Icon(PhosphorIcons.filePlusLight),
-                title: Text(AppLocalizations.of(context)!.newContent),
-                subtitle: Text(context.getShortcut('N')),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Actions.maybeInvoke<NewIntent>(context, NewIntent(context));
-                },
-              )),
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                leading: const Icon(PhosphorIcons.fileLight),
-                title: Text(AppLocalizations.of(context)!.templates),
-                subtitle: Text(context.getShortcut('N', shiftKey: true)),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Actions.maybeInvoke<NewIntent>(
-                      context, NewIntent(context, fromTemplate: true));
-                },
-              )),
           if (state.embedding == null) ...[
+            PopupMenuItem(
+                padding: EdgeInsets.zero,
+                child: ListTile(
+                  leading: const Icon(PhosphorIcons.filePlusLight),
+                  title: Text(AppLocalizations.of(context)!.newContent),
+                  subtitle: Text(context.getShortcut('N')),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Actions.maybeInvoke<NewIntent>(context, NewIntent(context));
+                  },
+                )),
+            PopupMenuItem(
+                padding: EdgeInsets.zero,
+                child: ListTile(
+                  leading: const Icon(PhosphorIcons.fileLight),
+                  title: Text(AppLocalizations.of(context)!.templates),
+                  subtitle: Text(context.getShortcut('N', shiftKey: true)),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Actions.maybeInvoke<NewIntent>(
+                        context, NewIntent(context, fromTemplate: true));
+                  },
+                )),
             PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(
@@ -479,17 +479,17 @@ class _MainPopupMenu extends StatelessWidget {
                   leading: const Icon(PhosphorIcons.wrenchLight),
                   title: Text(AppLocalizations.of(context)!.projectSettings))),
           const PopupMenuDivider(),
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                  leading: const Icon(PhosphorIcons.arrowsOutLight),
-                  title: Text(AppLocalizations.of(context)!.fullscreen),
-                  subtitle: Text(context.getShortcut('F11', ctrlKey: false)),
-                  onTap: () async {
-                    Navigator.of(context).pop();
-                    setFullScreen(!(await isFullScreen()));
-                  })),
-          if (state.embedding == null)
+          if (state.embedding == null) ...[
+            PopupMenuItem(
+                padding: EdgeInsets.zero,
+                child: ListTile(
+                    leading: const Icon(PhosphorIcons.arrowsOutLight),
+                    title: Text(AppLocalizations.of(context)!.fullscreen),
+                    subtitle: Text(context.getShortcut('F11', ctrlKey: false)),
+                    onTap: () async {
+                      Navigator.of(context).pop();
+                      setFullScreen(!(await isFullScreen()));
+                    })),
             PopupMenuItem(
                 padding: EdgeInsets.zero,
                 child: ListTile(
@@ -501,6 +501,7 @@ class _MainPopupMenu extends StatelessWidget {
                       Actions.maybeInvoke<SettingsIntent>(
                           context, SettingsIntent(context));
                     })),
+          ],
           if (state.embedding != null)
             PopupMenuItem(
                 padding: EdgeInsets.zero,
