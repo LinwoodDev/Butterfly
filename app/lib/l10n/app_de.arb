@@ -270,5 +270,6 @@
                 "example": "1"
             }
         }
-    }
+    },
+    "exit": "Beenden"
 }
