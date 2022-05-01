@@ -7,7 +7,7 @@ Lisez la documentation [](intro) pour apprendre comment utiliser la fonctionnali
 
 importer { useState } depuis 'react'
 
-export const EmbedPlayground = () => { const [hôte, setHost] = useState("https://butterfly.linwood. ev") const [save, setSave] = useState(true) const [editable, setEditable] = useState(true) const [theme, setTheme] = useState("user") const [language, setLanguage] = useState("user") const url = `${host}/embed? ave=${save}&modifiable=${editable}&thème=${theme}&langue=${language}`; retour (
+export const EmbedPlayground = () => { const [host, setHost] = useState("https://butterfly.linwood.dev") const [save, setSave] = useState(true) const [editable, setEditable] = useState(true) const [theme, setTheme] = useState("user") const [language, setLanguage] = useState("user") const url = `${host}/embed?save=${save}&editable=${editable}&theme=${theme}&language=${language}`; return (
       <div>
         <div className="input-group">
             <label htmlFor="language">Hôte</label>
