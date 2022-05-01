@@ -5,7 +5,7 @@ sidebar_label: Terrain de jeux
 
 Lisez la documentation [](intro) pour apprendre comment utiliser la fonctionnalité d'insertion.
 
-importer { useState } depuis 'react'
+import { useState } from 'react'
 
 export const EmbedPlayground = () => { const [host, setHost] = useState("https://butterfly.linwood.dev") const [save, setSave] = useState(true) const [editable, setEditable] = useState(true) const [theme, setTheme] = useState("user") const [language, setLanguage] = useState("user") const url = `${host}/embed?save=${save}&editable=${editable}&theme=${theme}&language=${language}`; return (
       <div>
