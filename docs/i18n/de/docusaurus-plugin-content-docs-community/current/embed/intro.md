@@ -23,7 +23,7 @@ Beispiele wie man es verwendet:
 ```javascript
 const embedElement = document.querySelector('#butterfly');
 embedElement.addEventListener('save', (data) => {
-  console.log('Speichern...');
+  console.log('Saving...');
 });
 ```
 
