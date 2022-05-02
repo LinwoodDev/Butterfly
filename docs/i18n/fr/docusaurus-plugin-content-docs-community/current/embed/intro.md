@@ -11,12 +11,10 @@ Intégrer est un moyen simple d'inclure l'application dans votre site Web. Ajout
 
 ## Options
 
-| Option     | Type de texte                         | Par défaut  | Libellé                                                                                              |
-| ---------- | ------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------- |
-| économiser | Booléen (vrai, faux)                  | true        | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                           |
-| modifiable | Booléen (vrai, faux)                  | true        | Activer l'édition. Si désactivé, le document sera en lecture seule                                   |
-| Thème      | utilisateur, système, lumière, sombre | utilisateur | Le thème à utiliser. Si l'utilisateur, le thème sera choisi par l'utilisateur dans les paramètres    |
-| Langue     | Chaîne de caractères                  | utilisateur | La langue à utiliser. Si l'utilisateur, la langue sera choisie par l'utilisateur dans les paramètres |
+| Option   | Type de texte         | Par défaut | Libellé                                                                    |
+| -------- | --------------------- | ---------- | -------------------------------------------------------------------------- |
+| save     | Boolean (true, false) | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché |
+| editable | Boolean (true, false) | true       | Activer l'édition. Si désactivé, le document sera en lecture seule         |
 
 ## Évènements
 
@@ -25,11 +23,11 @@ Exemples d'utilisation :
 ```javascript
 const embedElement = document.querySelector('#butterfly');
 embedElement.addEventListener('save', (data) => {
-  console.log('Sauvegarde...');
+  console.log('Saving...');
 });
 ```
 
-### économiser
+### save
 
 > L'événement `save` est émis lorsque l'utilisateur clique sur le bouton Enregistrer.
 
@@ -37,7 +35,7 @@ Paramètres:
 
 * `données` (Type `String`) : Les données du document.
 
-### Sortir
+### exit
 
 > L'événement `exit` est émis lorsque l'utilisateur clique sur le bouton de fermeture.
 
@@ -45,7 +43,7 @@ Paramètres:
 
 * `données` (Type `String`) : Les données du document.
 
-### changer
+### change
 
 > L'événement `change` est émis lorsque l'utilisateur change le document.
 
@@ -73,7 +71,7 @@ embedElement.addEventListener('message', (data) => {
 
 Aucun paramètre. Renvoie : `Chaîne`
 
-### définir les données
+### setData
 
 > La méthode `setData` définit les données du document.
 
@@ -81,7 +79,7 @@ Paramètres:
 
 * `données` (Type `String`) : Les données du document.
 
-### rendu
+### render
 
 > La méthode `rendu` rend le document à une image png.
 
@@ -94,7 +92,7 @@ Paramètres:
 
 Renvoie : `String` (image encodée en Base64)
 
-### Raccourci SVG
+### renderSVG
 
 > La méthode `renderSVG` rend le document à une image svg.
 
