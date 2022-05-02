@@ -11,12 +11,10 @@ Einbetten ist eine einfache Möglichkeit, die App in Ihre Website einzubinden. F
 
 ## Optionen
 
-| Option     | Typ                            | Standard | Beschreibung                                                                                             |
-| ---------- | ------------------------------ | -------- | -------------------------------------------------------------------------------------------------------- |
-| speichern  | Boolesche (wahr, falsch)       | true     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt                            |
-| editierbar | Boolesche (wahr, falsch)       | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt                              |
-| thema      | benutzer, System, hell, dunkel | benutzer | Das zu verwendende Theme. Wenn Benutzer, wird das Thema vom Benutzer in den Einstellungen ausgewählt     |
-| sprache    | String                         | benutzer | Die zu verwendende Sprache. Wenn Benutzer, wird die Sprache vom Benutzer in den Einstellungen ausgewählt |
+| Option     | Typ                      | Standard | Beschreibung                                                                  |
+| ---------- | ------------------------ | -------- | ----------------------------------------------------------------------------- |
+| speichern  | Boolesche (wahr, falsch) | true     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt |
+| editierbar | Boolesche (wahr, falsch) | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt   |
 
 ## Ereignisse
 
