@@ -91,6 +91,7 @@ class _GeneralPainterDialogState<T extends Painter>
                               primary: Theme.of(context).colorScheme.error),
                           child: Text(AppLocalizations.of(context)!.delete),
                           onPressed: () {
+                            final bloc = context.read<DocumentBloc>();
                             Navigator.of(context).pop();
                             showDialog(
                                 context: context,
@@ -108,7 +109,7 @@ class _GeneralPainterDialogState<T extends Painter>
                                                 AppLocalizations.of(context)!
                                                     .yes),
                                             onPressed: () {
-                                              context.read<DocumentBloc>().add(
+                                              bloc.add(
                                                   PainterRemoved(widget.index));
                                               Navigator.of(context).pop();
                                             },
