@@ -54,6 +54,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
+        if (event.elements.isEmpty) return;
         final renderers =
             event.elements.map((e) => Renderer.fromInstance(e)).toList();
         await Future.wait(
@@ -126,6 +127,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
+        if (event.elements.isEmpty) return;
         return _saveDocument(
             current.copyWith(
                 cameraViewport: current.cameraViewport.withUnbaked(
