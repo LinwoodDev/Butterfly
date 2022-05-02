@@ -11,10 +11,10 @@ Einbetten ist eine einfache Möglichkeit, die App in Ihre Website einzubinden. F
 
 ## Optionen
 
-| Option     | Typ                      | Standard | Beschreibung                                                                  |
-| ---------- | ------------------------ | -------- | ----------------------------------------------------------------------------- |
-| speichern  | Boolesche (wahr, falsch) | true     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt |
-| editierbar | Boolesche (wahr, falsch) | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt   |
+| Option   | Typ                   | Standard | Beschreibung                                                                  |
+| -------- | --------------------- | -------- | ----------------------------------------------------------------------------- |
+| save     | Boolean (true, false) | true     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt |
+| editable | Boolean (true, false) | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt   |
 
 ## Ereignisse
 
@@ -27,7 +27,7 @@ embedElement.addEventListener('save', (data) => {
 });
 ```
 
-### speichern
+### save
 
 > Das Ereignis `speichern` wird abgesendet, wenn der Benutzer auf den Speicherknopf klickt.
 
