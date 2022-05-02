@@ -35,7 +35,7 @@ Paramètres:
 
 * `données` (Type `String`) : Les données du document.
 
-### Sortir
+### exit
 
 > L'événement `exit` est émis lorsque l'utilisateur clique sur le bouton de fermeture.
 
@@ -43,7 +43,7 @@ Paramètres:
 
 * `données` (Type `String`) : Les données du document.
 
-### changer
+### change
 
 > L'événement `change` est émis lorsque l'utilisateur change le document.
 
@@ -71,7 +71,7 @@ embedElement.addEventListener('message', (data) => {
 
 Aucun paramètre. Renvoie : `Chaîne`
 
-### définir les données
+### setData
 
 > La méthode `setData` définit les données du document.
 
@@ -79,7 +79,7 @@ Paramètres:
 
 * `données` (Type `String`) : Les données du document.
 
-### rendu
+### render
 
 > La méthode `rendu` rend le document à une image png.
 
@@ -92,7 +92,7 @@ Paramètres:
 
 Renvoie : `String` (image encodée en Base64)
 
-### Raccourci SVG
+### renderSVG
 
 > La méthode `renderSVG` rend le document à une image svg.
 
