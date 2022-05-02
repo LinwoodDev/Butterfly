@@ -35,7 +35,7 @@ Parameter:
 
 * `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
 
-### beenden
+### exit
 
 > Das `Exit` Event wird abgesendet, wenn der Benutzer auf den Exit-Button klickt.
 
@@ -43,7 +43,7 @@ Parameter:
 
 * `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
 
-### ändern
+### change
 
 > Das `Änderungs-` Ereignis wird abgesendet, wenn der Benutzer das Dokument ändert.
 
@@ -79,7 +79,7 @@ Parameter:
 
 * `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
 
-### rendern
+### render
 
 > Die `Rendering-` Methode macht das Dokument zu einem PNG-Bild.
 
