@@ -18,131 +18,135 @@ class WaypointsDialog extends StatelessWidget {
     return Dialog(
         child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
-            child: Column(
-              children: [
-                Header(
-                    title: Text(AppLocalizations.of(context)!.waypoints),
-                    leading: IconButton(
-                      icon: const Icon(PhosphorIcons.xLight),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                    actions: [
-                      TextButton.icon(
-                        onPressed: () => _showCreateDialog(context),
-                        label: Text(AppLocalizations.of(context)!.create),
-                        icon: const Icon(PhosphorIcons.plusLight),
-                      )
-                    ]),
-                Flexible(
-                  child: Column(
+            child: BlocBuilder<DocumentBloc, DocumentState>(
+                buildWhen: (previous, current) =>
+                    (previous as DocumentLoadSuccess).document.waypoints !=
+                    (current as DocumentLoadSuccess).document.waypoints,
+                builder: (context, state) {
+                  if (state is! DocumentLoadSuccess) {
+                    return Container();
+                  }
+                  return Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          decoration: const InputDecoration(
-                            filled: true,
-                            prefixIcon:
-                                Icon(PhosphorIcons.magnifyingGlassLight),
+                      Header(
+                          title: Text(AppLocalizations.of(context)!.waypoints),
+                          leading: IconButton(
+                            icon: const Icon(PhosphorIcons.xLight),
+                            onPressed: () => Navigator.of(context).pop(),
                           ),
-                          textAlignVertical: TextAlignVertical.center,
-                          controller: _searchController,
-                          autofocus: true,
+                          actions: [
+                            if (state.embedding?.editable ?? true)
+                              TextButton.icon(
+                                onPressed: () => _showCreateDialog(context),
+                                label:
+                                    Text(AppLocalizations.of(context)!.create),
+                                icon: const Icon(PhosphorIcons.plusLight),
+                              )
+                          ]),
+                      Flexible(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                  filled: true,
+                                  prefixIcon:
+                                      Icon(PhosphorIcons.magnifyingGlassLight),
+                                ),
+                                textAlignVertical: TextAlignVertical.center,
+                                controller: _searchController,
+                                autofocus: true,
+                              ),
+                            ),
+                            const Divider(),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 15),
+                                child: ValueListenableBuilder(
+                                    valueListenable: _searchController,
+                                    builder: (context, value, child) {
+                                      void bake() {
+                                        var bloc = context.read<DocumentBloc>();
+                                        var transformCubit =
+                                            context.read<TransformCubit>();
+                                        var baked = state.cameraViewport;
+                                        bloc.add(ImageBaked(baked.toSize(),
+                                            baked.scale, transformCubit.state));
+                                      }
+
+                                      var waypoints = state.document.waypoints
+                                          .where((element) => element.name
+                                              .contains(_searchController.text))
+                                          .toList();
+                                      var currentArea = state.currentArea;
+                                      return ListView(children: [
+                                        ListTile(
+                                            onTap: () {
+                                              context
+                                                  .read<TransformCubit>()
+                                                  .moveToWaypoint(
+                                                      Waypoint.origin);
+                                              bake();
+                                              Navigator.of(context).pop(true);
+                                            },
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .origin)),
+                                        if (currentArea != null)
+                                          ListTile(
+                                              onTap: () {
+                                                context
+                                                    .read<TransformCubit>()
+                                                    .setPosition(
+                                                        -currentArea.position);
+                                                bake();
+                                                Navigator.of(context).pop(true);
+                                              },
+                                              title: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .currentArea)),
+                                        const Divider(),
+                                        ...List.generate(
+                                            waypoints.length,
+                                            (index) => Dismissible(
+                                                  key: ObjectKey(
+                                                      waypoints[index]),
+                                                  background: Container(
+                                                      color: Colors.red),
+                                                  onDismissed: (direction) {
+                                                    context
+                                                        .read<DocumentBloc>()
+                                                        .add(WaypointRemoved(
+                                                            index));
+                                                  },
+                                                  child: ListTile(
+                                                      onTap: () {
+                                                        context
+                                                            .read<
+                                                                TransformCubit>()
+                                                            .moveToWaypoint(
+                                                                waypoints[
+                                                                    index]);
+                                                        bake();
+                                                        Navigator.of(context)
+                                                            .pop(true);
+                                                      },
+                                                      title: Text(
+                                                          waypoints[index]
+                                                              .name)),
+                                                ))
+                                      ]);
+                                    }),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const Divider(),
-                      Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
-                        child: ValueListenableBuilder(
-                          valueListenable: _searchController,
-                          builder: (context, value, child) => BlocBuilder<
-                                  DocumentBloc, DocumentState>(
-                              buildWhen: (previous, current) =>
-                                  (previous as DocumentLoadSuccess)
-                                      .document
-                                      .waypoints !=
-                                  (current as DocumentLoadSuccess)
-                                      .document
-                                      .waypoints,
-                              builder: (context, state) {
-                                void bake() {
-                                  var bloc = context.read<DocumentBloc>();
-                                  var transformCubit =
-                                      context.read<TransformCubit>();
-                                  var state = bloc.state;
-                                  if (state is! DocumentLoadSuccess) return;
-                                  var baked = state.cameraViewport;
-                                  bloc.add(ImageBaked(baked.toSize(),
-                                      baked.scale, transformCubit.state));
-                                }
-
-                                if (state is! DocumentLoadSuccess) {
-                                  return Container();
-                                }
-                                var waypoints = state.document.waypoints
-                                    .where((element) => element.name
-                                        .contains(_searchController.text))
-                                    .toList();
-                                var currentArea = state.currentArea;
-                                return ListView(children: [
-                                  ListTile(
-                                      onTap: () {
-                                        context
-                                            .read<TransformCubit>()
-                                            .moveToWaypoint(Waypoint.origin);
-                                        bake();
-                                        Navigator.of(context).pop(true);
-                                      },
-                                      title: Text(AppLocalizations.of(context)!
-                                          .origin)),
-                                  if (currentArea != null)
-                                    ListTile(
-                                        onTap: () {
-                                          context
-                                              .read<TransformCubit>()
-                                              .setPosition(
-                                                  -currentArea.position);
-                                          bake();
-                                          Navigator.of(context).pop(true);
-                                        },
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .currentArea)),
-                                  const Divider(),
-                                  ...List.generate(
-                                      waypoints.length,
-                                      (index) => Dismissible(
-                                            key: ObjectKey(waypoints[index]),
-                                            background:
-                                                Container(color: Colors.red),
-                                            onDismissed: (direction) {
-                                              context
-                                                  .read<DocumentBloc>()
-                                                  .add(WaypointRemoved(index));
-                                            },
-                                            child: ListTile(
-                                                onTap: () {
-                                                  context
-                                                      .read<TransformCubit>()
-                                                      .moveToWaypoint(
-                                                          waypoints[index]);
-                                                  bake();
-                                                  Navigator.of(context)
-                                                      .pop(true);
-                                                },
-                                                title: Text(
-                                                    waypoints[index].name)),
-                                          ))
-                                ]);
-                              }),
-                        ),
-                      )),
                     ],
-                  ),
-                ),
-              ],
-            )));
+                  );
+                })));
   }
 
   void _showCreateDialog(BuildContext context) {

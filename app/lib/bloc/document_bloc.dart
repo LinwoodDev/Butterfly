@@ -53,6 +53,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ElementsCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         final renderers =
             event.elements.map((e) => Renderer.fromInstance(e)).toList();
         await Future.wait(
@@ -68,6 +69,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ElementsReplaced>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         var renderers = List<Renderer<PadElement>>.from(current.renderers);
         event.replacedElements.forEach((index, element) {
           final current = element.map((e) => Renderer.fromInstance(e));
@@ -87,8 +89,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
     });
     on<ElementChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
+      final current = state;
+      if (current is DocumentLoadSuccess) {
+        if (!(current.embedding?.editable ?? true)) return;
         final renderers = <Renderer<PadElement>>[];
         Renderer<PadElement>? oldRenderer, newRenderer;
         for (var renderer in current.renderers) {
@@ -122,6 +125,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ElementsRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(
             current.copyWith(
                 cameraViewport: current.cameraViewport.withUnbaked(
@@ -141,6 +145,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentDescriptorChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 name: event.name ?? current.document.name,
@@ -152,14 +157,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentPaletteChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(palettes: event.palette)));
       }
     });
     on<CurrentPainterChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
+      final current = state;
+      if (current is DocumentLoadSuccess) {
+        if (!(current.embedding?.editable ?? true)) return;
         final handler = Handler.fromBloc(this, event.painter);
-        emit((state as DocumentLoadSuccess).copyWith(
+        emit(current.copyWith(
             currentIndex: CurrentIndex(event.painter ?? -1, handler),
             removeCurrentIndex: event.painter == null));
       }
@@ -179,8 +187,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
     });
     on<PainterCreated>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
+      final current = state;
+      if (current is DocumentLoadSuccess) {
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 painters: List.from(current.document.painters)
@@ -190,6 +199,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PainterChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 painters: List.from(current.document.painters)
@@ -199,6 +209,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PainterRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 painters: List.from(current.document.painters)
@@ -208,6 +219,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PainterReordered>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         var painters = List<Painter>.from(current.document.painters);
         var oldIndex = event.oldIndex;
         var newIndex = event.newIndex;
@@ -231,6 +243,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentBackgroundChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         final Renderer<Background> background =
             Renderer.fromInstance(event.background);
         await background.setup(current.document);
@@ -244,6 +257,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<WaypointCreated>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 waypoints: List<Waypoint>.from(current.document.waypoints)
@@ -253,6 +267,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<WaypointRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 waypoints: List<Waypoint>.from(current.document.waypoints)
@@ -262,6 +277,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<HandPropertyChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(handProperty: event.property)));
       }
@@ -270,6 +286,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<LayerRenamed>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(current.copyWith(
             document: current.document.copyWith(
                 content: List<PadElement>.from(current.document.content)
@@ -283,6 +300,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<LayerRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(
             current.copyWith(
                 document: current.document.copyWith(
@@ -297,6 +315,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<LayerElementsDeleted>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(
             current.copyWith(
                 document: current.document.copyWith(
@@ -335,6 +354,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<CurrentLayerChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(current.copyWith(
           currentLayer: event.name,
         ));
@@ -344,6 +364,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ElementsLayerChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
+        if (!(current.embedding?.editable ?? true)) return;
         var content = List<PadElement>.from(current.document.content);
         for (var element in event.elements) {
           var i = current.document.content.indexOf(element);
@@ -435,6 +456,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentPathChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
       emit(current.copyWith(path: event.path));
     });
     on<AreaCreated>((event, emit) async {
@@ -452,6 +474,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<AreaRemoved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
       final areas = List<Area>.from(current.document.areas);
       final area = areas.removeAt(event.index);
       final currentDocument = current.document.copyWith(areas: areas);
@@ -466,6 +489,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<AreaChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
       final areas = List<Area>.from(current.document.areas);
       final area = areas[event.index];
       final currentDocument =
@@ -482,6 +506,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<CurrentAreaChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
       emit(current.copyWith(currentAreaIndex: event.area));
     });
   }

@@ -16,8 +16,6 @@ Add the following code to your website:
 | -------- | ------------------------- | ------- | ------------------------------------------------------------------------------------- |
 | save     | Boolean (true, false)     | true    | Enable save. If disabled, only an exit button will be shown                           |
 | editable | Boolean (true, false)     | true    | Enable editing. If disabled, the document will be read-only                           |
-| theme    | user, system, light, dark | user    | The theme to use. If user, the theme will be chosen by the user in the settings       |
-| language | String                    | user    | The language to use. If user, the language will be chosen by the user in the settings |
 
 ## Events
 

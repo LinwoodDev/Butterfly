@@ -69,7 +69,7 @@ class HandHandler extends Handler {
       final hits = await rayCast(
           context, event.localPosition, radius, hand.includeEraser);
       if (selected != null) return;
-      if (hits.isEmpty) {
+      if (hits.isEmpty || !(state.embedding?.editable ?? true)) {
         showContextMenu(
             context: context,
             position: event.position,

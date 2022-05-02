@@ -4,8 +4,6 @@ export default function EmbedPlayground() {
   const [host, setHost] = useState("https://butterfly.linwood.dev")
   const [save, setSave] = useState(true)
   const [editable, setEditable] = useState(true)
-  const [theme, setTheme] = useState("user")
-  const [language, setLanguage] = useState("user")
   const url = `${host}/embed?save=${save}&editable=${editable}&theme=${theme}&language=${language}`;
   return (
     <div>
@@ -21,14 +19,6 @@ export default function EmbedPlayground() {
         <input type="checkbox" checked={editable} id="editable" onChange={() => setEditable(!editable)} />
         <span className="checkbox-checkmark"></span>
       </label>
-      <div className="input-group">
-        <label htmlFor="theme">Theme</label>
-        <input className="input" type="text" value={theme} id="theme" onChange={(e) => setTheme(e.target.value)} />
-      </div>
-      <div className="input-group">
-        <label htmlFor="language">Language</label>
-        <input className="input" type="text" value={language} id="language" onChange={(e) => setLanguage(e.target.value)} />
-      </div>
       <h2 className="padding-top--lg padding-bottom--sm">Preview</h2>
       <iframe src={url} width="100%" height="500px" allowtransparency="true"></iframe>
       <div className="input-group">
