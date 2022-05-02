@@ -4,7 +4,7 @@ export default function EmbedPlayground() {
   const [host, setHost] = useState("https://butterfly.linwood.dev")
   const [save, setSave] = useState(true)
   const [editable, setEditable] = useState(true)
-  const url = `${host}/embed?save=${save}&editable=${editable}&theme=${theme}&language=${language}`;
+  const url = `${host}/embed?save=${save}&editable=${editable}`;
   return (
     <div>
       <div className="input-group">
