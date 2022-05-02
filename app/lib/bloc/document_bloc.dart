@@ -46,8 +46,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentUpdated>((event, emit) async {
       final current = state;
       if (current is DocumentLoadSuccess) {
-        clearHistory();
         _saveDocument(current.copyWith(document: event.document), null);
+        clearHistory();
       }
     });
     on<ElementsCreated>((event, emit) async {
@@ -533,13 +533,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       emit(nextState);
       return;
     }
-    if (nextState.path != null) {
-      emit(nextState);
-    }
+    emit(nextState);
     var path = await nextState.save();
-    if (nextState.path == null) {
+    var currentState = state;
+    if (currentState is! DocumentLoadSuccess) return;
+    if (currentState.path == null && state is DocumentLoadSuccess) {
+      emit(currentState.copyWith(path: path));
       clearHistory();
-      emit(nextState.copyWith(path: path));
     }
   }
 

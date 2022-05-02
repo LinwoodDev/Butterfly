@@ -1,31 +1,36 @@
 part of 'handler.dart';
 
 class PenHandler extends Handler {
-  final Map<int, PenElement> elements = {};
+  Map<int, PenElement> elements = {};
+  List<PenElement> submittedElements = [];
 
   PenHandler();
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
-      elements.values.map((e) => PenRenderer(e)).toList();
+      elements.values.map((e) => PenRenderer(e)).toList()
+        ..addAll(submittedElements.map((e) => PenRenderer(e)));
 
   @override
   void onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) {
     addPoint(context, event.pointer, event.localPosition, event.pressure,
-        event.kind);
+        event.kind, false);
     submitElement(context, event.pointer);
   }
 
   void submitElement(BuildContext context, int index) {
     final bloc = context.read<DocumentBloc>();
     var element = elements.remove(index);
-    if (element != null) bloc.add(ElementsCreated([element]));
+    if (element == null) return;
+    submittedElements.add(element);
     bloc.add(const IndexRefreshed());
+    if (elements.isEmpty) bloc.add(ElementsCreated(submittedElements));
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
-      double pressure, PointerDeviceKind kind) {
+      double pressure, PointerDeviceKind kind,
+      [bool refresh = true]) {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
@@ -47,7 +52,7 @@ class PenHandler extends Handler {
         points: List<PathPoint>.from(element.points)
           ..add(PathPoint.fromOffset(
               transform.localToGlobal(localPosition), pressure / zoom)));
-    bloc.add(const IndexRefreshed());
+    if (refresh) bloc.add(const IndexRefreshed());
   }
 
   @override
