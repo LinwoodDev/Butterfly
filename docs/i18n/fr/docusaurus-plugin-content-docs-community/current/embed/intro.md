@@ -11,10 +11,10 @@ Intégrer est un moyen simple d'inclure l'application dans votre site Web. Ajout
 
 ## Options
 
-| Option     | Type de texte        | Par défaut | Libellé                                                                    |
-| ---------- | -------------------- | ---------- | -------------------------------------------------------------------------- |
-| économiser | Booléen (vrai, faux) | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché |
-| modifiable | Booléen (vrai, faux) | true       | Activer l'édition. Si désactivé, le document sera en lecture seule         |
+| Option   | Type de texte         | Par défaut | Libellé                                                                    |
+| -------- | --------------------- | ---------- | -------------------------------------------------------------------------- |
+| save     | Boolean (true, false) | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché |
+| editable | Boolean (true, false) | true       | Activer l'édition. Si désactivé, le document sera en lecture seule         |
 
 ## Évènements
 
@@ -23,11 +23,11 @@ Exemples d'utilisation :
 ```javascript
 const embedElement = document.querySelector('#butterfly');
 embedElement.addEventListener('save', (data) => {
-  console.log('Sauvegarde...');
+  console.log('Saving...');
 });
 ```
 
-### économiser
+### save
 
 > L'événement `save` est émis lorsque l'utilisateur clique sur le bouton Enregistrer.
 
