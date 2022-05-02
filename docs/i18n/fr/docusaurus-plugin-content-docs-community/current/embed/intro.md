@@ -11,12 +11,10 @@ Intégrer est un moyen simple d'inclure l'application dans votre site Web. Ajout
 
 ## Options
 
-| Option     | Type de texte                         | Par défaut  | Libellé                                                                                              |
-| ---------- | ------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------- |
-| économiser | Booléen (vrai, faux)                  | true        | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                           |
-| modifiable | Booléen (vrai, faux)                  | true        | Activer l'édition. Si désactivé, le document sera en lecture seule                                   |
-| Thème      | utilisateur, système, lumière, sombre | utilisateur | Le thème à utiliser. Si l'utilisateur, le thème sera choisi par l'utilisateur dans les paramètres    |
-| Langue     | Chaîne de caractères                  | utilisateur | La langue à utiliser. Si l'utilisateur, la langue sera choisie par l'utilisateur dans les paramètres |
+| Option     | Type de texte        | Par défaut | Libellé                                                                    |
+| ---------- | -------------------- | ---------- | -------------------------------------------------------------------------- |
+| économiser | Booléen (vrai, faux) | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché |
+| modifiable | Booléen (vrai, faux) | true       | Activer l'édition. Si désactivé, le document sera en lecture seule         |
 
 ## Évènements
 
