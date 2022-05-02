@@ -13,7 +13,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
@@ -27,7 +26,6 @@ const kFileVersion = 5;
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  GetIt.I.registerSingleton<int>(kFileVersion, instanceName: 'fileVersion');
   GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   await setup();
   var prefs = await SharedPreferences.getInstance();

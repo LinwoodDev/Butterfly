@@ -15,13 +15,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
-  animations:
-    dependency: "direct main"
-    description:
-      name: animations
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.2"
   archive:
     dependency: transitive
     description:
@@ -357,13 +350,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
-  get_it:
-    dependency: "direct main"
-    description:
-      name: get_it
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "7.2.0"
   glob:
     dependency: transitive
     description:
