@@ -57,7 +57,7 @@ class ForegroundPainter extends CustomPainter {
 class ViewPainter extends CustomPainter {
   final AppDocument document;
   final Area? currentArea;
-  final bool renderBackground;
+  final bool renderBackground, renderBaked;
   final CameraViewport cameraViewport;
   final CameraTransform transform;
 
@@ -65,6 +65,7 @@ class ViewPainter extends CustomPainter {
     this.document, {
     this.currentArea,
     this.renderBackground = true,
+    this.renderBaked = true,
     required this.cameraViewport,
     this.transform = const CameraTransform(),
   });
@@ -91,7 +92,7 @@ class ViewPainter extends CustomPainter {
       cameraViewport.background.build(canvas, size, transform);
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
-    if (cameraViewport.bakedElements.isNotEmpty) {
+    if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {
       var image = cameraViewport.image;
       var bakedSizeDiff =
           (transform.size - cameraViewport.scale) / cameraViewport.scale;

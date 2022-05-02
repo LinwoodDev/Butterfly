@@ -410,6 +410,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         cameraViewport:
             reset ? current.cameraViewport.withUnbaked(renderers) : last,
         renderBackground: false,
+        renderBaked: !reset,
       ).paint(canvas, event.viewportSize);
 
       var picture = recorder.endRecording();
