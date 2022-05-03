@@ -3,6 +3,7 @@ part of 'handler.dart';
 class HandHandler extends Handler {
   Renderer<PadElement>? movingElement;
   Renderer<PadElement>? selected;
+  Offset? currentMovePosition;
 
   HandHandler();
 
@@ -20,8 +21,16 @@ class HandHandler extends Handler {
   }
 
   @override
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
-      [if (movingElement != null) movingElement!];
+  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
+    if (movingElement != null) {
+      final currentElement = currentMovePosition == null
+          ? movingElement!.element
+          : movingElement!.move(currentMovePosition!);
+      final renderer = Renderer.fromInstance(currentElement);
+      return [renderer];
+    }
+    return [];
+  }
 
   @override
   List<Rect> createSelections(AppDocument document, [Area? currentArea]) {
@@ -158,8 +167,22 @@ class HandHandler extends Handler {
       openView = (event.delta / transform.size) == Offset.zero;
     }
     if (movingElement != null) {
+      currentMovePosition = transform.localToGlobal(event.localPosition);
+      context.read<DocumentBloc>().add(const IndexRefreshed());
       return;
     }
     context.read<TransformCubit>().move(event.delta / transform.size);
+  }
+
+  @override
+  void onPointerHover(
+      Size viewportSize, BuildContext context, PointerHoverEvent event) {
+    if (movingElement != null) {
+      currentMovePosition = context
+          .read<TransformCubit>()
+          .state
+          .localToGlobal(event.localPosition);
+      context.read<DocumentBloc>().add(const IndexRefreshed());
+    }
   }
 }

@@ -8,7 +8,13 @@ class ImageRenderer extends Renderer<ImageElement> {
   @override
   void build(Canvas canvas, Size size, CameraTransform transform,
       [bool foreground = false]) {
-    if (image == null) return;
+    if (image == null) {
+      // Render placeholder
+      final paint = Paint()
+        ..color = Colors.grey
+        ..style = PaintingStyle.fill;
+      canvas.drawRect(rect, paint);
+    }
     var paint = Paint()..isAntiAlias = true;
 
     canvas.drawImageRect(

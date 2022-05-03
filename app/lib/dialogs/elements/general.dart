@@ -46,6 +46,9 @@ class _GeneralElementDialogState<T extends PadElement>
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       if (state is! DocumentLoadSuccess) return Container();
       final bloc = context.read<DocumentBloc>();
+      if (widget.index < 0 || widget.index >= state.document.content.length) {
+        return Container();
+      }
       final current = state.getRenderer(state.document.content[widget.index]);
       if (current is! Renderer<T>) return Container();
       renderer = current;
