@@ -102,4 +102,12 @@ class AppDocument with _$AppDocument {
   Area? getAreaByName(String value) {
     return areas.firstWhereOrNull((e) => e.name == value);
   }
+
+  Set<String> getAreaNames() {
+    return areas.map((e) => e.name).toSet();
+  }
+
+  Set<String> getLayerNames() {
+    return content.map((e) => e.layer).toSet();
+  }
 }

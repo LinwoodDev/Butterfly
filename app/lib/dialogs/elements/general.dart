@@ -68,7 +68,7 @@ class _GeneralElementDialogState<T extends PadElement>
           shrinkWrap: true,
           children: [
             if (children != null) ...children,
-            if (children?.isNotEmpty ?? true) const Divider(),
+            if (children?.isNotEmpty ?? false) const Divider(),
             renderer.element.layer.isEmpty
                 ? ListTile(
                     title: Text(AppLocalizations.of(context)!.layer),
@@ -76,41 +76,81 @@ class _GeneralElementDialogState<T extends PadElement>
                     subtitle: Text(AppLocalizations.of(context)!.notSet),
                     onTap: () {
                       widget.close();
-                      var nameController =
-                          TextEditingController(text: renderer.element.layer);
+                      final layers = state.document.getLayerNames()..remove('');
                       showDialog(
                           context: context,
                           useRootNavigator: true,
                           builder: (context) => AlertDialog(
                                 title: Text(
                                     AppLocalizations.of(context)!.enterLayer),
-                                content: TextField(
-                                  controller: nameController,
-                                  autofocus: true,
-                                  decoration: InputDecoration(
-                                      filled: true,
-                                      hintText:
-                                          AppLocalizations.of(context)!.name),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    child: Text(
-                                        AppLocalizations.of(context)!.cancel),
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                  ),
-                                  TextButton(
-                                    child:
-                                        Text(AppLocalizations.of(context)!.ok),
-                                    onPressed: () {
+                                content: SizedBox(
+                                  width: 400,
+                                  child: Autocomplete<String>(
+                                    optionsBuilder: (textEditingValue) {
+                                      if (textEditingValue.text.isEmpty) {
+                                        return layers;
+                                      }
+                                      return layers
+                                          .where((layer) => layer
+                                              .toLowerCase()
+                                              .contains(textEditingValue.text
+                                                  .toLowerCase()))
+                                          .toSet()
+                                        ..add(textEditingValue.text);
+                                    },
+                                    onSelected: (value) {
                                       bloc.add(ElementChanged(
                                           renderer.element,
-                                          renderer.element.copyWith(
-                                              layer: nameController.text)));
+                                          renderer.element
+                                              .copyWith(layer: value)));
                                       Navigator.of(context).pop();
                                     },
+                                    fieldViewBuilder: (BuildContext context,
+                                        TextEditingController
+                                            textEditingController,
+                                        FocusNode focusNode,
+                                        VoidCallback onFieldSubmitted) {
+                                      return TextFormField(
+                                          controller: textEditingController,
+                                          focusNode: focusNode,
+                                          onFieldSubmitted: (String value) {
+                                            onFieldSubmitted();
+                                          },
+                                          autofocus: true,
+                                          decoration: InputDecoration(
+                                              filled: true,
+                                              hintText:
+                                                  AppLocalizations.of(context)!
+                                                      .name));
+                                    },
+                                    optionsViewBuilder: (BuildContext context,
+                                        AutocompleteOnSelected<String>
+                                            onSelected,
+                                        Iterable<String> options) {
+                                      return Align(
+                                        alignment: Alignment.topLeft,
+                                        child: ConstrainedBox(
+                                          constraints: const BoxConstraints(
+                                              maxWidth: 400, maxHeight: 300),
+                                          child: Material(
+                                            child: ListView.builder(
+                                                shrinkWrap: true,
+                                                itemCount: options.length,
+                                                itemBuilder: (context, index) {
+                                                  final option =
+                                                      options.elementAt(index);
+                                                  return ListTile(
+                                                      title: Text(option),
+                                                      onTap: () {
+                                                        onSelected(option);
+                                                      });
+                                                }),
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                ],
+                                ),
                               ));
                     })
                 : ListTile(
