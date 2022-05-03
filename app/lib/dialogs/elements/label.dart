@@ -1,6 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/elements/general.dart';
-import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,13 +12,13 @@ import '../constraints.dart';
 import '../painters/label.dart';
 
 class LabelElementDialog extends StatelessWidget {
-  final LabelRenderer renderer;
+  final int index;
   final VoidCallback close;
   final Offset position;
 
   const LabelElementDialog(
       {Key? key,
-      required this.renderer,
+      required this.index,
       required this.close,
       required this.position})
       : super(key: key);
@@ -27,11 +26,11 @@ class LabelElementDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var bloc = context.read<DocumentBloc>();
-    return GeneralElementDialog(
-      renderer: renderer,
+    return GeneralElementDialog<LabelElement>(
+      index: index,
       close: close,
       position: position,
-      children: [
+      builder: (context, renderer, onChanged) => [
         ListTile(
             title: Text(AppLocalizations.of(context)!.edit),
             leading: const Icon(PhosphorIcons.textTLight),
@@ -44,7 +43,7 @@ class LabelElementDialog extends StatelessWidget {
                       child:
                           EditLabelElementDialog(element: renderer.element)));
               if (newElement != null) {
-                bloc.add(ElementChanged(renderer.element, newElement));
+                onChanged(newElement);
               }
             }),
         ListTile(
@@ -60,8 +59,8 @@ class LabelElementDialog extends StatelessWidget {
                     close: close,
                     onChanged: (constraint) {
                       close();
-                      bloc.add(ElementChanged(renderer.element,
-                          renderer.element.copyWith(constraint: constraint)));
+                      onChanged(
+                          renderer.element.copyWith(constraint: constraint));
                     }));
           },
         ),

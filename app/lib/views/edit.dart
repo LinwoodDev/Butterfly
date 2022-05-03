@@ -127,6 +127,29 @@ class EditToolbar extends StatelessWidget {
                                 var type = e.toJson()['type'];
                                 var selected = i == state.currentIndex.index;
                                 String tooltip = e.name.trim();
+                                if (tooltip.isEmpty) {
+                                  if (type == 'pen') {
+                                    tooltip = AppLocalizations.of(context)!.pen;
+                                  } else if (type == 'eraser') {
+                                    tooltip =
+                                        AppLocalizations.of(context)!.eraser;
+                                  } else if (type == 'pathEraser') {
+                                    tooltip = AppLocalizations.of(context)!
+                                        .pathEraser;
+                                  } else if (type == 'label') {
+                                    tooltip =
+                                        AppLocalizations.of(context)!.label;
+                                  } else if (type == 'image') {
+                                    tooltip =
+                                        AppLocalizations.of(context)!.image;
+                                  } else if (type == 'layer') {
+                                    tooltip =
+                                        AppLocalizations.of(context)!.layer;
+                                  } else if (type == 'area') {
+                                    tooltip =
+                                        AppLocalizations.of(context)!.area;
+                                  }
+                                }
                                 void openDialog() {
                                   var bloc = context.read<DocumentBloc>();
                                   showGeneralDialog(

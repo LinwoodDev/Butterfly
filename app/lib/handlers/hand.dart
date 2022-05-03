@@ -108,9 +108,13 @@ class HandHandler extends Handler {
 
   Future<void> showSelection(BuildContext context, Offset localPosition) async {
     final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
     final transformCubit = context.read<TransformCubit>();
     var actor = context.findAncestorWidgetOfExactType<Actions>();
     if (selected != null) {
+      final index = state.document.content.indexOf(selected!.element);
+      if (index < 0) return;
       await showContextMenu(
           context: context,
           position: localPosition,
@@ -118,22 +122,18 @@ class HandHandler extends Handler {
             Widget? menu;
             if (selected is LabelRenderer) {
               menu = LabelElementDialog(
-                  position: localPosition,
-                  renderer: selected as LabelRenderer,
-                  close: close);
+                  position: localPosition, index: index, close: close);
             }
             if (selected is ImageRenderer) {
               menu = ImageElementDialog(
-                  position: localPosition,
-                  renderer: selected as ImageRenderer,
-                  close: close);
+                  position: localPosition, index: index, close: close);
             }
             if (selected == null) {
               close();
               return Container();
             }
             menu ??= GeneralElementDialog(
-                position: localPosition, renderer: selected!, close: close);
+                position: localPosition, index: index, close: close);
             return MultiBlocProvider(providers: [
               BlocProvider.value(value: bloc),
               BlocProvider.value(value: transformCubit)

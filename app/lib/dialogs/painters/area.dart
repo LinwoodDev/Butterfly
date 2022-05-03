@@ -16,8 +16,8 @@ class AreaPainterDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return GeneralPainterDialog<AreaPainter>(
         icon: PhosphorIcons.squareLight,
-        title: AppLocalizations.of(context)!.eraser,
-        help: 'eraser',
+        title: AppLocalizations.of(context)!.area,
+        help: 'area',
         index: painterIndex,
         builder: (context, painter, setPainter) => [
               ExactSlider(

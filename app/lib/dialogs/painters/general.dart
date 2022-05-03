@@ -91,36 +91,10 @@ class _GeneralPainterDialogState<T extends Painter>
                               primary: Theme.of(context).colorScheme.error),
                           child: Text(AppLocalizations.of(context)!.delete),
                           onPressed: () {
-                            final bloc = context.read<DocumentBloc>();
                             Navigator.of(context).pop();
-                            showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                        actions: [
-                                          TextButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .no),
-                                            onPressed: () =>
-                                                Navigator.of(context).pop(),
-                                          ),
-                                          TextButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .yes),
-                                            onPressed: () {
-                                              bloc.add(
-                                                  PainterRemoved(widget.index));
-                                              Navigator.of(context).pop();
-                                            },
-                                          )
-                                        ],
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .areYouSure),
-                                        content: Text(
-                                            AppLocalizations.of(context)!
-                                                .reallyDelete)));
+                            context
+                                .read<DocumentBloc>()
+                                .add(PainterChanged(painter, widget.index));
                           },
                         ),
                         Expanded(child: Container()),
