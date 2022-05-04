@@ -258,9 +258,9 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                           value: context.read<DocumentBloc>(),
                           child: ColorPickerDialog(
                               defaultColor: Color(_value.color)),
-                        ));
+                        )) as Color?;
                 if (color != null) {
-                  change(_value.copyWith(color: color));
+                  change(_value.copyWith(color: color.value));
                 }
               },
               child: Container(

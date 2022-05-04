@@ -65,138 +65,143 @@ class _GeneralElementDialogState<T extends PadElement>
             close: widget.close, renderer: renderer, position: widget.position),
         const Divider(),
         Flexible(
-            child: ListView(
-          shrinkWrap: true,
-          children: [
-            if (children != null) ...children,
-            if (children?.isNotEmpty ?? false) const Divider(),
-            renderer.element.layer.isEmpty
-                ? ListTile(
-                    title: Text(AppLocalizations.of(context)!.layer),
-                    leading: const Icon(PhosphorIcons.squaresFourLight),
-                    subtitle: Text(AppLocalizations.of(context)!.notSet),
-                    onTap: () {
-                      widget.close();
-                      final layers = state.document.getLayerNames()..remove('');
-                      showDialog(
-                          context: context,
-                          useRootNavigator: true,
-                          builder: (context) => AlertDialog(
-                                title: Text(
-                                    AppLocalizations.of(context)!.enterLayer),
-                                content: SizedBox(
-                                  width: 400,
-                                  child: Autocomplete<String>(
-                                    optionsBuilder: (textEditingValue) {
-                                      if (textEditingValue.text.isEmpty) {
-                                        return layers;
-                                      }
-                                      return layers
-                                          .where((layer) => layer
-                                              .toLowerCase()
-                                              .contains(textEditingValue.text
-                                                  .toLowerCase()))
-                                          .toSet()
-                                        ..add(textEditingValue.text);
-                                    },
-                                    onSelected: (value) {
-                                      bloc.add(ElementChanged(
-                                          renderer.element,
-                                          renderer.element
-                                              .copyWith(layer: value)));
-                                      Navigator.of(context).pop();
-                                    },
-                                    fieldViewBuilder: (BuildContext context,
-                                        TextEditingController
-                                            textEditingController,
-                                        FocusNode focusNode,
-                                        VoidCallback onFieldSubmitted) {
-                                      return TextFormField(
-                                          controller: textEditingController,
-                                          focusNode: focusNode,
-                                          onFieldSubmitted: (String value) {
-                                            onFieldSubmitted();
-                                          },
-                                          autofocus: true,
-                                          decoration: InputDecoration(
-                                              filled: true,
-                                              hintText:
-                                                  AppLocalizations.of(context)!
-                                                      .name));
-                                    },
-                                    optionsViewBuilder: (BuildContext context,
-                                        AutocompleteOnSelected<String>
-                                            onSelected,
-                                        Iterable<String> options) {
-                                      return Align(
-                                        alignment: Alignment.topLeft,
-                                        child: ConstrainedBox(
-                                          constraints: const BoxConstraints(
-                                              maxWidth: 400, maxHeight: 300),
-                                          child: Material(
-                                            child: ListView.builder(
-                                                shrinkWrap: true,
-                                                itemCount: options.length,
-                                                itemBuilder: (context, index) {
-                                                  final option =
-                                                      options.elementAt(index);
-                                                  return ListTile(
-                                                      title: Text(option),
-                                                      onTap: () {
-                                                        onSelected(option);
-                                                      });
-                                                }),
+            child: Material(
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              if (children != null) ...children,
+              if (children?.isNotEmpty ?? false) const Divider(),
+              renderer.element.layer.isEmpty
+                  ? ListTile(
+                      title: Text(AppLocalizations.of(context)!.layer),
+                      leading: const Icon(PhosphorIcons.squaresFourLight),
+                      subtitle: Text(AppLocalizations.of(context)!.notSet),
+                      onTap: () {
+                        widget.close();
+                        final layers = state.document.getLayerNames()
+                          ..remove('');
+                        showDialog(
+                            context: context,
+                            useRootNavigator: true,
+                            builder: (context) => AlertDialog(
+                                  title: Text(
+                                      AppLocalizations.of(context)!.enterLayer),
+                                  content: SizedBox(
+                                    width: 400,
+                                    child: Autocomplete<String>(
+                                      optionsBuilder: (textEditingValue) {
+                                        if (textEditingValue.text.isEmpty) {
+                                          return layers;
+                                        }
+                                        return layers
+                                            .where((layer) => layer
+                                                .toLowerCase()
+                                                .contains(textEditingValue.text
+                                                    .toLowerCase()))
+                                            .toSet()
+                                          ..add(textEditingValue.text);
+                                      },
+                                      onSelected: (value) {
+                                        bloc.add(ElementChanged(
+                                            renderer.element,
+                                            renderer.element
+                                                .copyWith(layer: value)));
+                                        Navigator.of(context).pop();
+                                      },
+                                      fieldViewBuilder: (BuildContext context,
+                                          TextEditingController
+                                              textEditingController,
+                                          FocusNode focusNode,
+                                          VoidCallback onFieldSubmitted) {
+                                        return TextFormField(
+                                            controller: textEditingController,
+                                            focusNode: focusNode,
+                                            onFieldSubmitted: (String value) {
+                                              onFieldSubmitted();
+                                            },
+                                            autofocus: true,
+                                            decoration: InputDecoration(
+                                                filled: true,
+                                                hintText: AppLocalizations.of(
+                                                        context)!
+                                                    .name));
+                                      },
+                                      optionsViewBuilder: (BuildContext context,
+                                          AutocompleteOnSelected<String>
+                                              onSelected,
+                                          Iterable<String> options) {
+                                        return Align(
+                                          alignment: Alignment.topLeft,
+                                          child: ConstrainedBox(
+                                            constraints: const BoxConstraints(
+                                                maxWidth: 400, maxHeight: 300),
+                                            child: Material(
+                                              child: ListView.builder(
+                                                  shrinkWrap: true,
+                                                  itemCount: options.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    final option = options
+                                                        .elementAt(index);
+                                                    return ListTile(
+                                                        title: Text(option),
+                                                        onTap: () {
+                                                          onSelected(option);
+                                                        });
+                                                  }),
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    },
+                                        );
+                                      },
+                                    ),
                                   ),
-                                ),
-                              ));
-                    })
-                : ListTile(
-                    leading: const Icon(PhosphorIcons.squaresFourLight),
-                    title: Text(renderer.element.layer),
-                    trailing: IconButton(
-                      icon: const Icon(PhosphorIcons.trashLight),
-                      onPressed: () => bloc.add(ElementChanged(renderer.element,
-                          renderer.element.copyWith(layer: ''))),
-                    ),
-                    onTap: () {
-                      widget.close();
-                      showDialog(
-                          context: context,
-                          builder: (context) => BlocProvider.value(
-                              value: bloc,
-                              child:
-                                  LayerDialog(layer: renderer.element.layer)));
-                    }),
-            ListTile(
-              title: Text(AppLocalizations.of(context)!.move),
-              leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
-              onTap: () {
-                // Remove the element from the document
-                bloc.add(ElementsRemoved([renderer.element]));
-                state.fetchHand()?.move(context, renderer);
-                widget.close();
-              },
-            ),
-            ListTile(
-              title: Text(AppLocalizations.of(context)!.duplicate),
-              leading: const Icon(PhosphorIcons.copyLight),
-              onTap: () {
-                state.fetchHand()?.move(context, renderer, true);
-                widget.close();
-              },
-            ),
-            ListTile(
+                                ));
+                      })
+                  : ListTile(
+                      leading: const Icon(PhosphorIcons.squaresFourLight),
+                      title: Text(renderer.element.layer),
+                      trailing: IconButton(
+                        icon: const Icon(PhosphorIcons.trashLight),
+                        onPressed: () => bloc.add(ElementChanged(
+                            renderer.element,
+                            renderer.element.copyWith(layer: ''))),
+                      ),
+                      onTap: () {
+                        widget.close();
+                        showDialog(
+                            context: context,
+                            builder: (context) => BlocProvider.value(
+                                value: bloc,
+                                child: LayerDialog(
+                                    layer: renderer.element.layer)));
+                      }),
+              ListTile(
+                title: Text(AppLocalizations.of(context)!.move),
+                leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
                 onTap: () {
-                  widget.close();
+                  // Remove the element from the document
                   bloc.add(ElementsRemoved([renderer.element]));
+                  state.fetchHand()?.move(context, renderer);
+                  widget.close();
                 },
-                title: Text(AppLocalizations.of(context)!.delete),
-                leading: const Icon(PhosphorIcons.trashLight)),
-          ],
+              ),
+              ListTile(
+                title: Text(AppLocalizations.of(context)!.duplicate),
+                leading: const Icon(PhosphorIcons.copyLight),
+                onTap: () {
+                  state.fetchHand()?.move(context, renderer, true);
+                  widget.close();
+                },
+              ),
+              ListTile(
+                  onTap: () {
+                    widget.close();
+                    bloc.add(ElementsRemoved([renderer.element]));
+                  },
+                  title: Text(AppLocalizations.of(context)!.delete),
+                  leading: const Icon(PhosphorIcons.trashLight)),
+            ],
+          ),
         ))
       ]);
     });
