@@ -67,7 +67,8 @@ Root: HKCR; Subkey: "{#MyAppName}-File\shell\open\command"; ValueType: string; V
 [Icons]
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 
-Name: "{group}\Visit Website"; Filename: "http://www.linwood.dev/"
+Name: "{group}\Visit Website"; Filename: "https://www.linwood.dev/"
+Name: "{group}\Butterfly Documentation"; Filename: "https://docs.butterfly.linwood.dev/"
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 

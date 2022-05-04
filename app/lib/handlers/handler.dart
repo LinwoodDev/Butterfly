@@ -2,6 +2,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/area/context.dart';
+import 'package:butterfly/dialogs/elements/elements.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/renderers/area.dart';
@@ -13,10 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../dialogs/background/context.dart';
-import '../dialogs/elements/general.dart';
-import '../dialogs/elements/image.dart';
 import '../dialogs/elements/label.dart';
-import '../dialogs/select.dart';
 import '../models/area.dart';
 import '../models/document.dart';
 import '../models/path_point.dart';

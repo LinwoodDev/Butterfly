@@ -1,10 +1,11 @@
+import 'package:butterfly/models/element.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/visualizer/element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SelectElementDialog extends StatefulWidget {
-  final List<Renderer> renderers;
+  final List<Renderer<PadElement>> renderers;
 
   const SelectElementDialog({Key? key, this.renderers = const []})
       : super(key: key);
@@ -14,7 +15,7 @@ class SelectElementDialog extends StatefulWidget {
 }
 
 class _SelectElementDialogState extends State<SelectElementDialog> {
-  Renderer? current;
+  Renderer<PadElement>? current;
 
   @override
   void initState() {
@@ -46,29 +47,13 @@ class _SelectElementDialogState extends State<SelectElementDialog> {
                 shrinkWrap: true,
                 itemCount: widget.renderers.length,
                 itemBuilder: (context, index) {
-                  final element = widget.renderers[index];
-                  final elementType = element.element.toJson()['type'];
-                  IconData icon;
-                  switch (elementType) {
-                    case 'image':
-                      icon = PhosphorIcons.imageLight;
-                      break;
-                    case 'label':
-                      icon = PhosphorIcons.textTLight;
-                      break;
-                    case 'eraser':
-                      icon = PhosphorIcons.eraserLight;
-                      break;
-                    default:
-                      icon = PhosphorIcons.penLight;
-                      break;
-                  }
+                  final renderer = widget.renderers[index];
                   return IconButton(
-                    icon: Icon(icon),
-                    color: current == element
+                    icon: Icon(renderer.element.getIcon()),
+                    color: current == renderer
                         ? Theme.of(context).colorScheme.primary
                         : null,
-                    onPressed: () => setState(() => current = element),
+                    onPressed: () => setState(() => current = renderer),
                   );
                 }),
           ),

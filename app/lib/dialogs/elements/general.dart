@@ -11,6 +11,7 @@ import '../../cubits/transform.dart';
 import '../../renderers/renderer.dart';
 import '../../widgets/context_menu.dart';
 import '../background/context.dart';
+import '../../visualizer/element.dart';
 
 typedef ElementChangedCallback<T extends PadElement> = void Function(T element);
 typedef ElementWidgetsBuilder<T extends PadElement> = List<Widget> Function(
@@ -203,7 +204,7 @@ class _GeneralElementDialogState<T extends PadElement>
 }
 
 class _GeneralElementDialogHeader extends StatelessWidget {
-  final Renderer renderer;
+  final Renderer<PadElement> renderer;
   final Offset position;
   final VoidCallback close;
   const _GeneralElementDialogHeader(
@@ -215,22 +216,6 @@ class _GeneralElementDialogHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    IconData icon;
-    switch (renderer.element.toJson()['type']) {
-      case 'label':
-        icon = PhosphorIcons.textTLight;
-        break;
-      case 'image':
-        icon = PhosphorIcons.imageLight;
-        break;
-      case 'eraser':
-        icon = PhosphorIcons.eraserLight;
-        break;
-      default:
-        icon = PhosphorIcons.penLight;
-        break;
-    }
-
     var bloc = context.read<DocumentBloc>();
     var transformCubit = context.read<TransformCubit>();
     return Container(
@@ -240,7 +225,7 @@ class _GeneralElementDialogHeader extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(4.0),
           child: Icon(
-            icon,
+            renderer.element.getIcon(),
             size: 32,
           ),
         ),

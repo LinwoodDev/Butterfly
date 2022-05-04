@@ -95,62 +95,39 @@ class HandHandler extends Handler {
                       child: BackgroundContextMenu(
                           position: event.position, close: close)),
                 ));
-      } else if (hits.length == 1) {
+      } else {
         selected = hits.first;
         bloc.add(const IndexRefreshed());
         // ignore: use_build_context_synchronously
-        showSelection(context, event.localPosition);
-      } else {
-        showDialog(
+        await showContextMenu(
             context: context,
-            builder: (context) =>
-                SelectElementDialog(renderers: hits.toList())).then((value) {
-          if (value is Renderer<PadElement>) {
-            selected = value;
-            bloc.add(const IndexRefreshed());
-            showSelection(context, event.localPosition);
-          }
-        });
+            position: event.position,
+            builder: (_, close) {
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider.value(value: bloc),
+                  BlocProvider.value(value: context.read<TransformCubit>()),
+                ],
+                child: Actions(
+                  actions: context
+                          .findAncestorWidgetOfExactType<Actions>()
+                          ?.actions ??
+                      {},
+                  child: ElementsDialog(
+                      close: close,
+                      elements: hits.toList(),
+                      onChanged: (element) {
+                        selected = element;
+                        bloc.add(const IndexRefreshed());
+                      },
+                      position: event.position),
+                ),
+              );
+            });
+        selected = null;
+        bloc.add(const IndexRefreshed());
       }
     }
-  }
-
-  Future<void> showSelection(BuildContext context, Offset localPosition) async {
-    final bloc = context.read<DocumentBloc>();
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
-    final transformCubit = context.read<TransformCubit>();
-    var actor = context.findAncestorWidgetOfExactType<Actions>();
-    if (selected != null) {
-      final index = state.document.content.indexOf(selected!.element);
-      if (index < 0) return;
-      await showContextMenu(
-          context: context,
-          position: localPosition,
-          builder: (context, close) {
-            Widget? menu;
-            if (selected is LabelRenderer) {
-              menu = LabelElementDialog(
-                  position: localPosition, index: index, close: close);
-            }
-            if (selected is ImageRenderer) {
-              menu = ImageElementDialog(
-                  position: localPosition, index: index, close: close);
-            }
-            if (selected == null) {
-              close();
-              return Container();
-            }
-            menu ??= GeneralElementDialog(
-                position: localPosition, index: index, close: close);
-            return MultiBlocProvider(providers: [
-              BlocProvider.value(value: bloc),
-              BlocProvider.value(value: transformCubit)
-            ], child: Actions(actions: actor?.actions ?? {}, child: menu));
-          });
-    }
-    selected = null;
-    bloc.add(const IndexRefreshed());
   }
 
   @override
