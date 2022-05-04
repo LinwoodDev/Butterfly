@@ -55,11 +55,11 @@ class PenPainterDialog extends StatelessWidget {
                                   child: ColorPickerDialog(
                                       defaultColor:
                                           Color(painter.property.color)),
-                                ));
+                                )) as Color?;
                         if (color != null) {
                           setPainter(painter.copyWith(
-                              property:
-                                  painter.property.copyWith(color: color)));
+                              property: painter.property
+                                  .copyWith(color: color.value)));
                         }
                       },
                       child: Container(

@@ -94,7 +94,7 @@ class _GeneralPainterDialogState<T extends Painter>
                             Navigator.of(context).pop();
                             context
                                 .read<DocumentBloc>()
-                                .add(PainterChanged(painter, widget.index));
+                                .add(PainterRemoved(widget.index));
                           },
                         ),
                         Expanded(child: Container()),

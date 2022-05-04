@@ -212,7 +212,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
+        CurrentIndex? nextIndex;
+        if (current.currentIndex.index == event.index) {
+          nextIndex = CurrentIndex(-1, HandHandler());
+        } else if (current.currentIndex.index > event.index) {
+          nextIndex = current.currentIndex
+              .copyWith(index: current.currentIndex.index - 1);
+        } else {
+          nextIndex =
+              current.currentIndex.copyWith(index: current.currentIndex.index);
+        }
         return _saveDocument(current.copyWith(
+            currentIndex: nextIndex,
             document: current.document.copyWith(
                 painters: List.from(current.document.painters)
                   ..removeAt(event.index))));
