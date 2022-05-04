@@ -271,5 +271,6 @@
             }
         }
     },
-    "exit": "Quitter"
+    "exit": "Quitter",
+    "noElements": "No elements"
 }
