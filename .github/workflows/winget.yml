@@ -9,4 +9,5 @@ jobs:
       - uses: vedantmgoyal2009/vedantmgoyal2009/winget-pkgs-automation/releaser-action@v1.0.0
         with:
           identifier: LinwoodCloud.Butterfly
+          version-regex: '(?<=v).*'
           token: ${{ secrets.CI_PAT }}
