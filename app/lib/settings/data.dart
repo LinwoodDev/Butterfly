@@ -22,7 +22,10 @@ class DataSettingsPage extends StatelessWidget {
           backgroundColor: inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context)!.data),
           actions: [
-            if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
+            if (!inView && isWindow()) ...[
+              const VerticalDivider(),
+              const WindowButtons()
+            ]
           ],
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(

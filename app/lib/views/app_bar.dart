@@ -382,7 +382,7 @@ class _MainPopupMenu extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 child: ListTile(
                   leading: const Icon(PhosphorIcons.arrowSquareInLight),
-                  title: Text(AppLocalizations.of(context)!.data),
+                  title: Text(AppLocalizations.of(context)!.import),
                   subtitle: Text(context.getShortcut('I')),
                   onTap: () {
                     Navigator.of(context).pop();
