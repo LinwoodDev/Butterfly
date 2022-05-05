@@ -272,6 +272,6 @@
         }
     },
     "exit": "Quitter",
-    "noElements": "No elements",
-    "invertSelection": "Invert selection"
+    "noElements": "Aucun élément",
+    "invertSelection": "Inverser la sélection"
 }
