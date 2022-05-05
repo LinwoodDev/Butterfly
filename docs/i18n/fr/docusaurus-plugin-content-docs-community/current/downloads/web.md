@@ -7,7 +7,7 @@ sidebar_position: 5
 
 :::note
 
-This is a progressive web application. You can install it on your browser and use it offline. All data is stored in your browser.
+Ceci est une application web progressive. Vous pouvez l'installer sur votre navigateur et l'utiliser hors ligne. Toutes les données sont stockées dans votre navigateur.
 
 :::
 
@@ -16,13 +16,13 @@ This is a progressive web application. You can install it on your browser and us
 
 <div className="row margin-bottom--lg padding--sm">
 <a class="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
-  Main
+  Principal
 </a>
 <a class="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
-  Preview
+  Aperçu
 </a>
 </div>
 
 ## Versions
 
-The main and the preview (develop) versions of Butterfly are not the same as the stable and nightly versions. They are not directly associated with a release. They are updated as soon as a new commit is pushed to the repository.
+Les versions principale et la version preview (développement) de Butterfly ne sont pas les mêmes que les versions stable et nocturne. Ils ne sont pas directement associés à une publication. Ils sont mis à jour dès qu'un nouveau commit est poussé dans le référentiel.
