@@ -4,8 +4,8 @@ title: "Couches"
 
 Les calques sont une option pour regrouper les éléments ensemble. Cliquez sur l'élément pour voir et changer le calque. Utilisez le [calque peintre](painters/layer.md) pour changer les calques de plusieurs éléments.
 
-## The layers dialog
+## La boîte de dialogue des couches
 
-Open the layer dialog by clicking on an empty canvas and clicking on "Layers".
+Ouvrez la boîte de dialogue des calques en cliquant sur une toile vide et en cliquant sur "Calques".
 
-Here you can see all the layers in the project. Remove a layer by clicking on the trash icon or moving to the left or right. Change the visibility of a layer by clicking on the eye icon.
+Ici vous pouvez voir toutes les couches du projet. Supprimez un calque en cliquant sur l'icône de la corbeille ou en se déplaçant à gauche ou à droite. Modifiez la visibilité d'un calque en cliquant sur l'icône de l'oeil.
