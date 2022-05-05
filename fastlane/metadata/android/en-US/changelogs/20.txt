@@ -1,0 +1,16 @@
+* Implement embed functionality
+* Fixing a lot of bugs ([#158](https://github.com/LinwoodCloud/Butterfly/issues/158), Thanks to vi)
+    * Add move/duplicate indicator
+    * Add layer suggestions
+    * Add multi element selection context menu
+    * Remove delete confirmation when trying to delete an element or a painter
+    * Fixing pixelated view when paint on it
+    * Fix error when trying to delete the painter
+    * Fix undo does not work on path eraser
+    * Fix Drawing with multiple fingers leave multiple trails
+    * Fix error while trying to delete an element
+    * Fix error after deleting a painter
+* Remove settings window buttons
+* Change size of start dialog
+* Add padding to pdf import dialog
+* Add responsive slider
