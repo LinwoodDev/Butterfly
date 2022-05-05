@@ -7,7 +7,7 @@ sidebar_position: 4
 
 :::warning
 
-Android 5.0 (API level 21) is the minimum supported version to run Butterfly.
+Android 5.0 (API niveau 21) est la version minimale supportée pour exécuter Butterfly.
 
 :::
 
@@ -22,7 +22,7 @@ Android 5.0 (API level 21) is the minimum supported version to run Butterfly.
 </a>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+En savoir plus sur la version nocturne de Butterfly [ici](/nightly).
 
 ## Magasins
 
@@ -37,4 +37,4 @@ Read more about the nightly version of Butterfly [here](/nightly).
 
 ## Le programme bêta sur le Play Store
 
-Click on [this link](https://play.google.com/apps/testing/dev.linwood.butterfly) to register for the [nightly](/nightly) version of the app. Please note that this version can have bugs. The play store version will automatically be updated when a new nightly version is released.
+Cliquez sur [ce lien](https://play.google.com/apps/testing/dev.linwood.butterfly) pour vous inscrire à la version [nightly](/nightly) de l'application. Veuillez noter que cette version peut avoir des bugs. La version Play Store sera automatiquement mise à jour lorsqu'une nouvelle version nocturne sera publiée.
