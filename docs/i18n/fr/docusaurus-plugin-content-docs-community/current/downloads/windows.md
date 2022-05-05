@@ -36,7 +36,7 @@ sidebar_position: 2
 </div>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+En savoir plus sur la version nocturne de Butterfly [ici](/nightly).
 
 ## Installer à l'aide de winget
 
