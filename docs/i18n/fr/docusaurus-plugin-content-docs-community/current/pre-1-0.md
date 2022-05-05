@@ -1,6 +1,6 @@
----
+- - -
 title: "Pré-1.0 versions"
----
+- - -
 
 Ces versions ne sont plus supportées. De nouvelles versions sont disponibles à [versions](versions.md).
 
