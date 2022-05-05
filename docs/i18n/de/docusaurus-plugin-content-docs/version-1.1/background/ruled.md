@@ -1,6 +1,6 @@
-- - -
+---
 title: "Ruled paper"
-- - -
+---
 
 |   Objekt | Wert |
 | --------:|:---- |

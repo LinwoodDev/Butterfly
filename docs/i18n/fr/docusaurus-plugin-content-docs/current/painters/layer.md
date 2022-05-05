@@ -2,7 +2,7 @@
 title: Couche
 ---
 
-Avec cet outil vous pouvez changer le calque de plusieurs objets. En savoir plus sur les couches [ici](../layers.md).
+Avec cet outil vous pouvez changer le calque de plusieurs objets. En savoir plus sur les couches [ici](../layers.md). Lorsque vous cliquez sur un objet, le calque de l'objet sera changé en calque de la configuration. Laisser le champ de calque vide définira le calque par défaut.
 
 ## Configuration
 

@@ -5,12 +5,6 @@ sidebar_position: 2
 
 ![Version de la version stable](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Version de la sortie nocturne](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-:::warning
-
-Ne pas utiliser la version nocturne de Butterfly pour la production.
-
-:::
-
 ## Binaires
 
 <div className="row margin-bottom--lg padding--sm">
@@ -41,6 +35,8 @@ Ne pas utiliser la version nocturne de Butterfly pour la production.
   </ul>
 </div>
 </div>
+
+En savoir plus sur la version nocturne de Butterfly [ici](/nightly).
 
 ## Installer à l'aide de winget
 

@@ -191,7 +191,7 @@
     "replace": "Ersetzen",
     "reallyReplace": "Wollen Sie wirklich die Vorlage ersetzen? Dieser Vorgang kann nicht rückgängig gemacht werden!",
     "defaultTemplate": "Standardvorlage",
-    "insert": "Insert",
+    "insert": "Einfügen",
     "document": "Dokument",
     "camera": "Kamera",
     "printout": "Drucken",
@@ -271,5 +271,7 @@
             }
         }
     },
-    "exit": "Beenden"
+    "exit": "Beenden",
+    "noElements": "Keine Elemente",
+    "invertSelection": "Auswahl umkehren"
 }
