@@ -1,11 +1,11 @@
 ---
-title: Storage
+title: Stockage
 ---
 
 ## Web
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Les données de l'application sont stockées dans votre navigateur. Il est stocké dans un stockage local. Ouvrez les outils de développement dans votre navigateur et vous verrez les données.
 
-## Native platforms
+## Plateformes indigènes
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+Par défaut, l'application enregistre les données dans votre dossier de documents dans un sous-dossier appelé "Linwood/Butterfly". Ce dossier est créé lorsque vous enregistrez les premières données. Ce dossier peut être modifié dans les paramètres.
