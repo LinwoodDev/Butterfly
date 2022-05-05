@@ -1,6 +1,6 @@
-- - -
+---
 title: "Papier rouillé"
-- - -
+---
 
 |   Propriété | Valeur |
 | -----------:|:------ |
