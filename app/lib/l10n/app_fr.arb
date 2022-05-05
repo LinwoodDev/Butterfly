@@ -271,5 +271,7 @@
             }
         }
     },
-    "exit": "Quitter"
+    "exit": "Quitter",
+    "noElements": "Aucun élément",
+    "invertSelection": "Inverser la sélection"
 }

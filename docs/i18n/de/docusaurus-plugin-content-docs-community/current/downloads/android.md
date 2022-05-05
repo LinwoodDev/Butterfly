@@ -7,7 +7,7 @@ sidebar_position: 4
 
 :::warning
 
-Verwenden Sie nicht die nächtliche Version von Butterfly für die Produktion.
+Android 5.0 (API Level 21) ist die mindestens unterstützte Version um Butterfly auszuführen.
 
 :::
 
@@ -21,6 +21,8 @@ Verwenden Sie nicht die nächtliche Version von Butterfly für die Produktion.
   Nachts
 </a>
 </div>
+
+Lesen Sie mehr über die nächtliche Version von Butterfly [hier](/nightly).
 
 ## Filialen
 
