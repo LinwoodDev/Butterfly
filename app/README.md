@@ -24,6 +24,7 @@ lib
 - models
 - settings
 - views
+- visualizer
 - widgets
 ```
 
@@ -37,4 +38,5 @@ lib
 * The `models` directory stores all the models that are used in the app. For example the `Document` model or the painters.
 * The `settings` directory stores all the settings pages that are used in the app.
 * The `views` directory stores all the views that are used in the main page. For example the appbar, the toolbar or the main view.
+* The `visualizer` directory stores all converters between the models and the ui.
 * The `widgets` directory stores all general widget that is not specific to the app. For example the `OptionButton` widget.
