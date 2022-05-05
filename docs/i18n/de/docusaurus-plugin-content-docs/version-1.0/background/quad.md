@@ -1,6 +1,6 @@
----
+- - -
 title: "Quad paper"
----
+- - -
 
 |   Objekt | Wert |
 | --------:|:---- |
