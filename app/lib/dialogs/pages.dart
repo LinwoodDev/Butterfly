@@ -35,8 +35,8 @@ class _PagesDialogState extends State<PagesDialog> {
             title:
                 Text(AppLocalizations.of(context)!.countPages(selected.length)),
             actions: [
-              IconButton(
-                  tooltip: AppLocalizations.of(context)!.invertSelection,
+              TextButton.icon(
+                  label: Text(AppLocalizations.of(context)!.invertSelection),
                   icon: const Icon(PhosphorIcons.selectionInverseLight),
                   onPressed: () {
                     setState(() {

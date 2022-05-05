@@ -66,6 +66,29 @@ class _ExactSliderState extends State<ExactSlider> {
 
   @override
   Widget build(BuildContext context) {
+    final textField = TextField(
+        decoration: InputDecoration(
+            filled: true,
+            labelText: widget.label,
+            floatingLabelAlignment: FloatingLabelAlignment.center),
+        textAlign: TextAlign.center,
+        controller: _controller,
+        onEditingComplete: () => widget.onChangeEnd?.call(_value),
+        onChanged: (value) => _changeValue(double.tryParse(value) ?? _value));
+    final slider = Slider(
+      value: _value.clamp(widget.min, widget.max),
+      min: widget.min,
+      max: widget.max,
+      activeColor: widget.color,
+      onChangeEnd: widget.onChangeEnd,
+      onChanged: (value) {
+        _value = value;
+        _changeValue(value);
+      },
+    );
+    final resetButton = IconButton(
+        onPressed: () => _changeValue(widget.defaultValue),
+        icon: const Icon(PhosphorIcons.clockCounterClockwiseLight));
     return Align(
         alignment: Alignment.topCenter,
         child: ConstrainedBox(
@@ -78,39 +101,32 @@ class _ExactSliderState extends State<ExactSlider> {
                       child: DefaultTextStyle(
                           style: Theme.of(context).textTheme.titleMedium!,
                           child: widget.header!)),
-                Row(children: [
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 75),
-                    child: TextField(
-                        decoration: InputDecoration(
-                            filled: true,
-                            labelText: widget.label,
-                            floatingLabelAlignment:
-                                FloatingLabelAlignment.center),
-                        textAlign: TextAlign.center,
-                        controller: _controller,
-                        onEditingComplete: () =>
-                            widget.onChangeEnd?.call(_value),
-                        onChanged: (value) =>
-                            _changeValue(double.tryParse(value) ?? _value)),
-                  ),
-                  Expanded(
-                      child: Slider(
-                    value: _value.clamp(widget.min, widget.max),
-                    min: widget.min,
-                    max: widget.max,
-                    activeColor: widget.color,
-                    onChangeEnd: widget.onChangeEnd,
-                    onChanged: (value) {
-                      _value = value;
-                      _changeValue(value);
-                    },
-                  )),
-                  IconButton(
-                      onPressed: () => _changeValue(widget.defaultValue),
-                      icon:
-                          const Icon(PhosphorIcons.clockCounterClockwiseLight)),
-                ]),
+                LayoutBuilder(builder: (context, constraints) {
+                  final width = constraints.maxWidth;
+                  if (width < 300) {
+                    return Column(
+                      children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Flexible(child: textField),
+                              const SizedBox(width: 8),
+                              resetButton,
+                            ]),
+                        slider,
+                      ],
+                    );
+                  }
+                  return Row(children: [
+                    ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 75),
+                        child: textField),
+                    Expanded(child: slider),
+                    resetButton,
+                  ]);
+                }),
               ],
             )));
   }
