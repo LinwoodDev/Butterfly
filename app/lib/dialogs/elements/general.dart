@@ -225,8 +225,9 @@ class _GeneralElementDialogHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var bloc = context.read<DocumentBloc>();
-    var transformCubit = context.read<TransformCubit>();
+    final bloc = context.read<DocumentBloc>();
+    final transformCubit = context.read<TransformCubit>();
+    final currentIndexCubit = context.read<CurrentIndexCubit>();
     return Container(
       height: 75,
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -250,6 +251,7 @@ class _GeneralElementDialogHeader extends StatelessWidget {
                             providers: [
                               BlocProvider.value(value: bloc),
                               BlocProvider.value(value: transformCubit),
+                              BlocProvider.value(value: currentIndexCubit)
                             ],
                             child: AreaContextMenu(
                               area: renderer.area!,
@@ -276,6 +278,7 @@ class _GeneralElementDialogHeader extends StatelessWidget {
                         providers: [
                           BlocProvider.value(value: bloc),
                           BlocProvider.value(value: transformCubit),
+                          BlocProvider.value(value: currentIndexCubit)
                         ],
                         child: Actions(
                             actions: actor?.actions ?? {},

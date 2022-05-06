@@ -134,10 +134,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
-        if (event.elements.isEmpty) return;
+        if (event.elements.isEmpty ||
+            !current.document.content
+                .any((element) => event.elements.contains(element))) return;
         return _saveDocument(
             current.copyWith(
-                cameraViewport: current.cameraViewport.withUnbaked(
+                cameraViewport: current.cameraViewport.unbake(
                   current.renderers
                       .where((element) => !event.elements.contains(
                             element.element,
@@ -340,7 +342,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         return _saveDocument(
             current.copyWith(
                 cameraViewport: isVisible
-                    ? current.cameraViewport.unbake(current.renderers)
+                    ? current.cameraViewport.unbake(
+                        List<Renderer<PadElement>>.from(current.renderers)
+                            .where((e) => e.element.layer == event.name)
+                            .toList())
                     : null,
                 invisibleLayers: invisibleLayers),
             isVisible
@@ -408,8 +413,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       ViewPainter(
         current.document,
         transform: event.cameraTransform,
-        cameraViewport:
-            reset ? current.cameraViewport.withUnbaked(renderers) : last,
+        cameraViewport: reset ? current.cameraViewport.unbake(renderers) : last,
         renderBackground: false,
         renderBaked: !reset,
       ).paint(canvas, event.viewportSize);

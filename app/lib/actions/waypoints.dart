@@ -4,6 +4,8 @@ import 'package:butterfly/dialogs/waypoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../cubits/current_index.dart';
+
 class WaypointsIntent extends Intent {
   final BuildContext context;
 
@@ -22,6 +24,7 @@ class WaypointsAction extends Action<WaypointsIntent> {
       builder: (context) => MultiBlocProvider(providers: [
         BlocProvider.value(value: transformCubit),
         BlocProvider.value(value: bloc),
+        BlocProvider.value(value: intent.context.read<CurrentIndexCubit>())
       ], child: WaypointsDialog()),
     ) as bool?;
   }

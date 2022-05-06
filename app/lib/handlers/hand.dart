@@ -86,6 +86,8 @@ class HandHandler extends Handler {
                   providers: [
                     BlocProvider.value(value: context.read<DocumentBloc>()),
                     BlocProvider.value(value: context.read<TransformCubit>()),
+                    BlocProvider.value(
+                        value: context.read<CurrentIndexCubit>()),
                   ],
                   child: Actions(
                       actions: context
@@ -107,6 +109,7 @@ class HandHandler extends Handler {
                 providers: [
                   BlocProvider.value(value: bloc),
                   BlocProvider.value(value: context.read<TransformCubit>()),
+                  BlocProvider.value(value: context.read<CurrentIndexCubit>()),
                 ],
                 child: Actions(
                   actions: context

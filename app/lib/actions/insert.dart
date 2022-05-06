@@ -1,4 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,8 @@ class InsertAction extends Action<InsertIntent> {
       context: intent.context,
       builder: (context) => MultiBlocProvider(providers: [
         BlocProvider.value(value: intent.context.read<DocumentBloc>()),
-        BlocProvider.value(value: intent.context.read<TransformCubit>())
+        BlocProvider.value(value: intent.context.read<TransformCubit>()),
+        BlocProvider.value(value: intent.context.read<CurrentIndexCubit>())
       ], child: InsertDialog(position: intent.position)),
     );
   }

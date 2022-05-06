@@ -46,6 +46,8 @@ class NewAction extends Action<NewIntent> {
                   BlocProvider.value(value: bloc),
                   BlocProvider.value(
                       value: intent.context.read<TransformCubit>()),
+                  BlocProvider.value(
+                      value: intent.context.read<CurrentIndexCubit>())
                 ],
                 child: TemplateDialog(
                   currentDocument: document,

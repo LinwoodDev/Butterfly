@@ -31,9 +31,8 @@ class PenHandler extends Handler {
         ..add(ElementsCreated(List<PadElement>.from(submittedElements)))
         ..add(ImageBaked(viewportSize, transform));
       submittedElements.clear();
-    } else {
-      cubit.refresh(bloc);
     }
+    cubit.refresh(bloc);
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
