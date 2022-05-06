@@ -3,7 +3,7 @@ title: "Compilations nocturnes"
 slug: "/nightly"
 ---
 
-:::avertissement
+:::warning
 
 Ne pas utiliser la version nocturne de Butterfly pour la production.
 
