@@ -1,5 +1,5 @@
 ---
-title: Bereich
+title: Fläche
 ---
 
 ## Einführung

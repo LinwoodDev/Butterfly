@@ -1,5 +1,5 @@
 ---
-title: "Ruled paper"
+title: "Gelenktes Papier"
 ---
 
 |   Objekt | Wert |
