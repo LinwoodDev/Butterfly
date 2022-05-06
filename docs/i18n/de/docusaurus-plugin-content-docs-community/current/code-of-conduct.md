@@ -1,6 +1,6 @@
 ---
 title: Verhaltenskodex
-hide_title: wahr
+hide_title: true
 sidebar_label: Verhaltenskodex
 ---
 
