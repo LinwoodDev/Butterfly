@@ -7,25 +7,32 @@ class PenHandler extends Handler {
   PenHandler();
 
   @override
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
-      elements.values.map((e) => PenRenderer(e)).toList()
-        ..addAll(submittedElements.map((e) => PenRenderer(e)));
+  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
+    return elements.values.map((e) => PenRenderer(e)).toList()
+      ..addAll(submittedElements.map((e) => PenRenderer(e)));
+  }
 
   @override
   void onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) {
     addPoint(context, event.pointer, event.localPosition, event.pressure,
         event.kind, false);
-    submitElement(context, event.pointer);
+    submitElement(viewportSize, context, event.pointer);
   }
 
-  void submitElement(BuildContext context, int index) {
+  void submitElement(Size viewportSize, BuildContext context, int index) {
     final bloc = context.read<DocumentBloc>();
+    final transform = context.read<TransformCubit>().state;
     var element = elements.remove(index);
     if (element == null) return;
     submittedElements.add(element);
-    bloc.add(const IndexRefreshed());
-    if (elements.isEmpty) bloc.add(ElementsCreated(submittedElements));
+    if (elements.isEmpty) {
+      bloc
+        ..add(ElementsCreated(List<PadElement>.from(submittedElements)))
+        ..add(ImageBaked(viewportSize, transform.size, transform));
+    } else {
+      bloc.add(const IndexRefreshed());
+    }
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
@@ -57,9 +64,14 @@ class PenHandler extends Handler {
 
   @override
   void onPointerDown(
-          Size viewportSize, BuildContext context, PointerDownEvent event) =>
-      addPoint(context, event.pointer, event.localPosition, event.pressure,
-          event.kind);
+      Size viewportSize, BuildContext context, PointerDownEvent event) {
+    // Clean up submitted elements
+    if (elements.isEmpty) {
+      submittedElements.clear();
+    }
+    addPoint(context, event.pointer, event.localPosition, event.pressure,
+        event.kind);
+  }
 
   @override
   void onPointerMove(
