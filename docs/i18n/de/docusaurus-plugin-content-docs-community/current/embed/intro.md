@@ -13,8 +13,8 @@ Einbetten ist eine einfache Möglichkeit, die App in Ihre Website einzubinden. F
 
 | Option     | Typ                   | Standard | Beschreibung                                                                  |
 | ---------- | --------------------- | -------- | ----------------------------------------------------------------------------- |
-| speichern  | Boolean (true, false) | wahr     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt |
-| editierbar | Boolean (true, false) | wahr     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt   |
+| speichern  | Boolean (true, false) | true     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt |
+| editierbar | Boolean (true, false) | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt   |
 
 ## Ereignisse
 
