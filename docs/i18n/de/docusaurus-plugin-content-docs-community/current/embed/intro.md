@@ -11,10 +11,10 @@ Einbetten ist eine einfache Möglichkeit, die App in Ihre Website einzubinden. F
 
 ## Optionen
 
-| Option   | Typ                   | Standard | Beschreibung                                                                  |
-| -------- | --------------------- | -------- | ----------------------------------------------------------------------------- |
-| save     | Boolean (true, false) | true     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt |
-| editable | Boolean (true, false) | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt   |
+| Option     | Typ                   | Standard | Beschreibung                                                                  |
+| ---------- | --------------------- | -------- | ----------------------------------------------------------------------------- |
+| speichern  | Boolean (true, false) | wahr     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt |
+| editierbar | Boolean (true, false) | wahr     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt   |
 
 ## Ereignisse
 
@@ -23,11 +23,11 @@ Beispiele wie man es verwendet:
 ```javascript
 const embedElement = document.querySelector('#butterfly');
 embedElement.addEventListener('save', (data) => {
-  console.log('Saving...');
+  console.log('Speichern...');
 });
 ```
 
-### save
+### speichern
 
 > Das Ereignis `speichern` wird abgesendet, wenn der Benutzer auf den Speicherknopf klickt.
 
@@ -35,7 +35,7 @@ Parameter:
 
 * `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
 
-### exit
+### beenden
 
 > Das `Exit` Event wird abgesendet, wenn der Benutzer auf den Exit-Button klickt.
 
@@ -43,7 +43,7 @@ Parameter:
 
 * `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
 
-### change
+### ändern
 
 > Das `Änderungs-` Ereignis wird abgesendet, wenn der Benutzer das Dokument ändert.
 
@@ -79,7 +79,7 @@ Parameter:
 
 * `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
 
-### render
+### rendern
 
 > Die `Rendering-` Methode macht das Dokument zu einem PNG-Bild.
 
