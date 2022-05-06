@@ -9,8 +9,8 @@ sidebar_position: 1
 3. Navigiere zum App-Verzeichnis
 4. Benutze das Flutter-Werkzeug, um die Anwendung zu kompilieren
    * `flutter build apk`
-   * `flutter Apfel bauen`
-   * `flutter Build-Web`
-   * `flutter build Linux`
-   * `flutter Build-Fenster`
+   * `flutter build appbundle`
+   * `flutter build web`
+   * `flutter build linux`
+   * `flutter build windows`
 5. Die kompilierten Dateien befinden sich im Build-Verzeichnis
