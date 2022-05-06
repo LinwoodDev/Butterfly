@@ -13,8 +13,8 @@ Intégrer est un moyen simple d'inclure l'application dans votre site Web. Ajout
 
 | Option     | Type de texte         | Par défaut | Libellé                                                                    |
 | ---------- | --------------------- | ---------- | -------------------------------------------------------------------------- |
-| économiser | Boolean (true, false) | vrai       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché |
-| modifiable | Boolean (true, false) | vrai       | Activer l'édition. Si désactivé, le document sera en lecture seule         |
+| économiser | Boolean (true, false) | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché |
+| modifiable | Boolean (true, false) | true       | Activer l'édition. Si désactivé, le document sera en lecture seule         |
 
 ## Évènements
 
