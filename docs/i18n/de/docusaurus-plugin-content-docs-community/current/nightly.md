@@ -3,7 +3,7 @@ title: "Nachts Builds"
 slug: "/nightly"
 ---
 
-:::warning
+:::Warnung
 
 Verwenden Sie nicht die nächtliche Version von Butterfly für die Produktion.
 
