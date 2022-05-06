@@ -90,7 +90,7 @@ class _PagesDialogState extends State<PagesDialog> {
                   child: Text(AppLocalizations.of(context)!.cancel),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
-                TextButton(
+                ElevatedButton(
                   child: Text(AppLocalizations.of(context)!.ok),
                   onPressed: () => Navigator.of(context).pop(selected),
                 ),

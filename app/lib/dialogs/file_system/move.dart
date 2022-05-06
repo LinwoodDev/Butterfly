@@ -37,7 +37,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
             child: Text(AppLocalizations.of(context)!.cancel),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          TextButton(
+          ElevatedButton(
             child: Text(AppLocalizations.of(context)!.ok),
             onPressed: () async {
               final navigator = Navigator.of(context);

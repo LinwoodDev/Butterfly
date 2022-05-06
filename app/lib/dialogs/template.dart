@@ -134,7 +134,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 child: Text(AppLocalizations.of(context)!.cancel),
                 onPressed: () => Navigator.of(context).pop(),
               ),
-              TextButton(
+              ElevatedButton(
                 child: Text(AppLocalizations.of(context)!.create),
                 onPressed: () async {
                   this
@@ -214,7 +214,7 @@ class _TemplateItem extends StatelessWidget {
                                   child: Text(
                                       AppLocalizations.of(context)!.cancel),
                                   onPressed: () => Navigator.of(context).pop()),
-                              TextButton(
+                              ElevatedButton(
                                   child: Text(AppLocalizations.of(context)!.ok),
                                   onPressed: () async {
                                     Navigator.of(context).pop();
@@ -247,7 +247,7 @@ class _TemplateItem extends StatelessWidget {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               }),
-                          TextButton(
+                          ElevatedButton(
                               child: Text(AppLocalizations.of(context)!.yes),
                               onPressed: () async {
                                 Navigator.of(context).pop();
@@ -281,7 +281,7 @@ class _TemplateItem extends StatelessWidget {
                                     Text(AppLocalizations.of(context)!.cancel),
                                 onPressed: () => Navigator.of(context).pop(),
                               ),
-                              TextButton(
+                              ElevatedButton(
                                 child:
                                     Text(AppLocalizations.of(context)!.delete),
                                 onPressed: () async {

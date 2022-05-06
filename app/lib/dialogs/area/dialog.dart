@@ -159,7 +159,7 @@ class AreasDialog extends StatelessWidget {
                                                                                     child: Text(AppLocalizations.of(context)!.cancel),
                                                                                     onPressed: () => Navigator.of(context).pop(),
                                                                                   ),
-                                                                                  TextButton(
+                                                                                  ElevatedButton(
                                                                                     child: Text(AppLocalizations.of(context)!.ok),
                                                                                     onPressed: () {
                                                                                       if (!(formKey.currentState?.validate() ?? false)) return;

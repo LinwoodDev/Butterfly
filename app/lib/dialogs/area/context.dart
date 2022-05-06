@@ -86,7 +86,7 @@ class AreaContextMenu extends StatelessWidget {
                           child: Text(AppLocalizations.of(context)!.cancel),
                           onPressed: () => Navigator.pop(context),
                         ),
-                        TextButton(
+                        ElevatedButton(
                           child: Text(AppLocalizations.of(context)!.ok),
                           onPressed: () {
                             Navigator.pop(context);

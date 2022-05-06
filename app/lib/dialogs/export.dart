@@ -73,7 +73,7 @@ class ExportDialog extends StatelessWidget {
                                           AppLocalizations.of(context)!.no),
                                       onPressed: () =>
                                           Navigator.of(context).pop()),
-                                  TextButton(
+                                  ElevatedButton(
                                       child: Text(
                                           AppLocalizations.of(context)!.yes),
                                       onPressed: () {

@@ -54,7 +54,7 @@ class LayersDialog extends StatelessWidget {
                                         Text(AppLocalizations.of(ctx)!.cancel),
                                     onPressed: () => Navigator.of(ctx).pop(),
                                   ),
-                                  TextButton(
+                                  ElevatedButton(
                                     child: Text(AppLocalizations.of(ctx)!.ok),
                                     onPressed: () {
                                       Navigator.of(ctx).pop();

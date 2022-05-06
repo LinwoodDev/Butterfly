@@ -60,7 +60,7 @@ class LayerDialog extends StatelessWidget {
                           child: Text(AppLocalizations.of(ctx)!.cancel),
                           onPressed: () => Navigator.pop(ctx),
                         ),
-                        TextButton(
+                        ElevatedButton(
                           child: Text(AppLocalizations.of(ctx)!.ok),
                           onPressed: () {
                             Navigator.pop(ctx);
@@ -90,7 +90,7 @@ class LayerDialog extends StatelessWidget {
                           child: Text(AppLocalizations.of(ctx)!.no),
                           onPressed: () => Navigator.pop(ctx),
                         ),
-                        TextButton(
+                        ElevatedButton(
                           child: Text(AppLocalizations.of(ctx)!.yes),
                           onPressed: () {
                             Navigator.pop(ctx);
@@ -118,7 +118,7 @@ class LayerDialog extends StatelessWidget {
                           child: Text(AppLocalizations.of(ctx)!.no),
                           onPressed: () => Navigator.pop(ctx),
                         ),
-                        TextButton(
+                        ElevatedButton(
                           child: Text(AppLocalizations.of(ctx)!.yes),
                           onPressed: () {
                             Navigator.pop(ctx);

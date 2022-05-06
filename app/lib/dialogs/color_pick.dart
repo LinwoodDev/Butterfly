@@ -90,7 +90,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                                     .no),
                                             onPressed: () =>
                                                 Navigator.of(ctx).pop()),
-                                        TextButton(
+                                        ElevatedButton(
                                             child: Text(
                                                 AppLocalizations.of(context)!
                                                     .yes),
@@ -406,7 +406,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                   TextButton(
                       onPressed: () => Navigator.of(ctx).pop(),
                       child: Text(AppLocalizations.of(context)!.cancel)),
-                  TextButton(
+                  ElevatedButton(
                       onPressed: () {
                         Navigator.of(ctx).pop();
                         var bloc = context.read<DocumentBloc>();
@@ -442,7 +442,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                   TextButton(
                       onPressed: () => Navigator.of(context).pop(),
                       child: Text(AppLocalizations.of(context)!.cancel)),
-                  TextButton(
+                  ElevatedButton(
                       onPressed: () {
                         var newPalettes =
                             List<ColorPalette>.from(state.document.palettes);
@@ -476,7 +476,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 TextButton(
                     onPressed: () => Navigator.of(ctx).pop(),
                     child: Text(AppLocalizations.of(context)!.no)),
-                TextButton(
+                ElevatedButton(
                     onPressed: () {
                       Navigator.of(ctx).pop();
                       var newPalettes =
@@ -504,7 +504,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                   TextButton(
                       onPressed: () => Navigator.of(ctx).pop(),
                       child: Text(AppLocalizations.of(ctx)!.no)),
-                  TextButton(
+                  ElevatedButton(
                       onPressed: () {
                         selected = 0;
                         context.read<DocumentBloc>().add(DocumentPaletteChanged(

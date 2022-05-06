@@ -177,7 +177,7 @@ class WaypointsDialog extends StatelessWidget {
                   TextButton(
                       onPressed: () => Navigator.of(ctx).pop(),
                       child: Text(AppLocalizations.of(context)!.cancel)),
-                  TextButton(
+                  ElevatedButton(
                       onPressed: () {
                         context.read<DocumentBloc>().add(WaypointCreated(
                             Waypoint(

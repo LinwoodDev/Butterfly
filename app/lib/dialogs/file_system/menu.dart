@@ -53,7 +53,7 @@ class FileSystemAssetMenu extends StatelessWidget {
                   child: Text(AppLocalizations.of(context)!.cancel),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
-                TextButton(
+                ElevatedButton(
                   child: Text(AppLocalizations.of(context)!.rename),
                   onPressed: () async {
                     Navigator.of(context).pop();

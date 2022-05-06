@@ -18,7 +18,7 @@ class FileSystemAssetDeleteDialog extends StatelessWidget {
           child: Text(AppLocalizations.of(context)!.no),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        TextButton(
+        ElevatedButton(
           child: Text(AppLocalizations.of(context)!.yes),
           onPressed: () async {
             Navigator.of(context).pop(true);

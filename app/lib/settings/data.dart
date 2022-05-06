@@ -82,7 +82,7 @@ class DataSettingsPage extends StatelessWidget {
                           child: Text(AppLocalizations.of(context)!.cancel),
                           onPressed: () => Navigator.of(context).pop(),
                         ),
-                        TextButton(
+                        ElevatedButton(
                           child: Text(AppLocalizations.of(context)!.ok),
                           onPressed: () {
                             Navigator.of(context).pop(controller.text);

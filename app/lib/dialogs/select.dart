@@ -34,7 +34,7 @@ class _SelectElementDialogState extends State<SelectElementDialog> {
               Navigator.of(context).pop();
             },
           ),
-          TextButton(
+          ElevatedButton(
             child: Text(AppLocalizations.of(context)!.ok),
             onPressed: () => Navigator.of(context).pop(current),
           ),
