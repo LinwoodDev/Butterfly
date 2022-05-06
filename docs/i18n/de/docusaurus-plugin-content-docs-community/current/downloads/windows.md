@@ -1,5 +1,5 @@
 ---
-title: "Fenster"
+title: "Windows"
 sidebar_position: 2
 ---
 
