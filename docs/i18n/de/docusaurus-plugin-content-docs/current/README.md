@@ -1,6 +1,6 @@
 ---
 title: Einführung
-id: intro
+id: einleitung
 slug: /intro
 sidebar_position: 1
 ---
