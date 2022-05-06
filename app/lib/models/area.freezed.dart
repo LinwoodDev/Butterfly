@@ -79,9 +79,9 @@ class _$AreaCopyWithImpl<$Res> implements $AreaCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$AreaCopyWith<$Res> implements $AreaCopyWith<$Res> {
-  factory _$AreaCopyWith(_Area value, $Res Function(_Area) then) =
-      __$AreaCopyWithImpl<$Res>;
+abstract class _$$_AreaCopyWith<$Res> implements $AreaCopyWith<$Res> {
+  factory _$$_AreaCopyWith(_$_Area value, $Res Function(_$_Area) then) =
+      __$$_AreaCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
@@ -91,13 +91,13 @@ abstract class _$AreaCopyWith<$Res> implements $AreaCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res>
-    implements _$AreaCopyWith<$Res> {
-  __$AreaCopyWithImpl(_Area _value, $Res Function(_Area) _then)
-      : super(_value, (v) => _then(v as _Area));
+class __$$_AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res>
+    implements _$$_AreaCopyWith<$Res> {
+  __$$_AreaCopyWithImpl(_$_Area _value, $Res Function(_$_Area) _then)
+      : super(_value, (v) => _then(v as _$_Area));
 
   @override
-  _Area get _value => super._value as _Area;
+  _$_Area get _value => super._value as _$_Area;
 
   @override
   $Res call({
@@ -106,7 +106,7 @@ class __$AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res>
     Object? height = freezed,
     Object? position = freezed,
   }) {
-    return _then(_Area(
+    return _then(_$_Area(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -159,7 +159,7 @@ class _$_Area extends _Area {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Area &&
+            other is _$_Area &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.width, width) &&
             const DeepCollectionEquality().equals(other.height, height) &&
@@ -177,8 +177,8 @@ class _$_Area extends _Area {
 
   @JsonKey(ignore: true)
   @override
-  _$AreaCopyWith<_Area> get copyWith =>
-      __$AreaCopyWithImpl<_Area>(this, _$identity);
+  _$$_AreaCopyWith<_$_Area> get copyWith =>
+      __$$_AreaCopyWithImpl<_$_Area>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -207,5 +207,5 @@ abstract class _Area extends Area {
   ui.Offset get position => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AreaCopyWith<_Area> get copyWith => throw _privateConstructorUsedError;
+  _$$_AreaCopyWith<_$_Area> get copyWith => throw _privateConstructorUsedError;
 }

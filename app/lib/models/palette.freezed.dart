@@ -64,37 +64,38 @@ class _$ColorPaletteCopyWithImpl<$Res> implements $ColorPaletteCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ColorPaletteCopyWith<$Res>
+abstract class _$$_ColorPaletteCopyWith<$Res>
     implements $ColorPaletteCopyWith<$Res> {
-  factory _$ColorPaletteCopyWith(
-          _ColorPalette value, $Res Function(_ColorPalette) then) =
-      __$ColorPaletteCopyWithImpl<$Res>;
+  factory _$$_ColorPaletteCopyWith(
+          _$_ColorPalette value, $Res Function(_$_ColorPalette) then) =
+      __$$_ColorPaletteCopyWithImpl<$Res>;
   @override
   $Res call({String name, List<int> colors});
 }
 
 /// @nodoc
-class __$ColorPaletteCopyWithImpl<$Res> extends _$ColorPaletteCopyWithImpl<$Res>
-    implements _$ColorPaletteCopyWith<$Res> {
-  __$ColorPaletteCopyWithImpl(
-      _ColorPalette _value, $Res Function(_ColorPalette) _then)
-      : super(_value, (v) => _then(v as _ColorPalette));
+class __$$_ColorPaletteCopyWithImpl<$Res>
+    extends _$ColorPaletteCopyWithImpl<$Res>
+    implements _$$_ColorPaletteCopyWith<$Res> {
+  __$$_ColorPaletteCopyWithImpl(
+      _$_ColorPalette _value, $Res Function(_$_ColorPalette) _then)
+      : super(_value, (v) => _then(v as _$_ColorPalette));
 
   @override
-  _ColorPalette get _value => super._value as _ColorPalette;
+  _$_ColorPalette get _value => super._value as _$_ColorPalette;
 
   @override
   $Res call({
     Object? name = freezed,
     Object? colors = freezed,
   }) {
-    return _then(_ColorPalette(
+    return _then(_$_ColorPalette(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
       colors: colors == freezed
-          ? _value.colors
+          ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<int>,
     ));
@@ -129,9 +130,9 @@ class _$_ColorPalette implements _ColorPalette {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ColorPalette &&
+            other is _$_ColorPalette &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.colors, colors));
+            const DeepCollectionEquality().equals(other._colors, _colors));
   }
 
   @JsonKey(ignore: true)
@@ -139,12 +140,12 @@ class _$_ColorPalette implements _ColorPalette {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(colors));
+      const DeepCollectionEquality().hash(_colors));
 
   @JsonKey(ignore: true)
   @override
-  _$ColorPaletteCopyWith<_ColorPalette> get copyWith =>
-      __$ColorPaletteCopyWithImpl<_ColorPalette>(this, _$identity);
+  _$$_ColorPaletteCopyWith<_$_ColorPalette> get copyWith =>
+      __$$_ColorPaletteCopyWithImpl<_$_ColorPalette>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -165,6 +166,6 @@ abstract class _ColorPalette implements ColorPalette {
   List<int> get colors => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ColorPaletteCopyWith<_ColorPalette> get copyWith =>
+  _$$_ColorPaletteCopyWith<_$_ColorPalette> get copyWith =>
       throw _privateConstructorUsedError;
 }

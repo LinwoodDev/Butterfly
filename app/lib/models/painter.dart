@@ -6,8 +6,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'property.dart';
 
-part 'painter.freezed.dart';
 part 'painter.g.dart';
+part 'painter.freezed.dart';
 
 const double _kSquareRatio = 1.0;
 const double _kAPortraitRatio = sqrt2;

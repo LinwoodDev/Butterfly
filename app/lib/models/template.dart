@@ -8,8 +8,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'background.dart';
 import 'painter.dart';
 
-part 'template.freezed.dart';
 part 'template.g.dart';
+part 'template.freezed.dart';
 
 @freezed
 class DocumentTemplate with _$DocumentTemplate {

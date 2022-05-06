@@ -156,30 +156,30 @@ class _$PainterCopyWithImpl<$Res> implements $PainterCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $LabelPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory $LabelPainterCopyWith(
-          LabelPainter value, $Res Function(LabelPainter) then) =
-      _$LabelPainterCopyWithImpl<$Res>;
+abstract class _$$LabelPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
+  factory _$$LabelPainterCopyWith(
+          _$LabelPainter value, $Res Function(_$LabelPainter) then) =
+      __$$LabelPainterCopyWithImpl<$Res>;
   @override
   $Res call({String name, LabelProperty property});
 }
 
 /// @nodoc
-class _$LabelPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
-    implements $LabelPainterCopyWith<$Res> {
-  _$LabelPainterCopyWithImpl(
-      LabelPainter _value, $Res Function(LabelPainter) _then)
-      : super(_value, (v) => _then(v as LabelPainter));
+class __$$LabelPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+    implements _$$LabelPainterCopyWith<$Res> {
+  __$$LabelPainterCopyWithImpl(
+      _$LabelPainter _value, $Res Function(_$LabelPainter) _then)
+      : super(_value, (v) => _then(v as _$LabelPainter));
 
   @override
-  LabelPainter get _value => super._value as LabelPainter;
+  _$LabelPainter get _value => super._value as _$LabelPainter;
 
   @override
   $Res call({
     Object? name = freezed,
     Object? property = freezed,
   }) {
-    return _then(LabelPainter(
+    return _then(_$LabelPainter(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -223,7 +223,7 @@ class _$LabelPainter implements LabelPainter {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is LabelPainter &&
+            other is _$LabelPainter &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.property, property));
   }
@@ -237,8 +237,8 @@ class _$LabelPainter implements LabelPainter {
 
   @JsonKey(ignore: true)
   @override
-  $LabelPainterCopyWith<LabelPainter> get copyWith =>
-      _$LabelPainterCopyWithImpl<LabelPainter>(this, _$identity);
+  _$$LabelPainterCopyWith<_$LabelPainter> get copyWith =>
+      __$$LabelPainterCopyWithImpl<_$LabelPainter>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -366,27 +366,28 @@ abstract class LabelPainter implements Painter {
   LabelProperty get property => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  $LabelPainterCopyWith<LabelPainter> get copyWith =>
+  _$$LabelPainterCopyWith<_$LabelPainter> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PenPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory $PenPainterCopyWith(
-          PenPainter value, $Res Function(PenPainter) then) =
-      _$PenPainterCopyWithImpl<$Res>;
+abstract class _$$PenPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
+  factory _$$PenPainterCopyWith(
+          _$PenPainter value, $Res Function(_$PenPainter) then) =
+      __$$PenPainterCopyWithImpl<$Res>;
   @override
   $Res call({String name, bool zoomDependent, PenProperty property});
 }
 
 /// @nodoc
-class _$PenPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
-    implements $PenPainterCopyWith<$Res> {
-  _$PenPainterCopyWithImpl(PenPainter _value, $Res Function(PenPainter) _then)
-      : super(_value, (v) => _then(v as PenPainter));
+class __$$PenPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+    implements _$$PenPainterCopyWith<$Res> {
+  __$$PenPainterCopyWithImpl(
+      _$PenPainter _value, $Res Function(_$PenPainter) _then)
+      : super(_value, (v) => _then(v as _$PenPainter));
 
   @override
-  PenPainter get _value => super._value as PenPainter;
+  _$PenPainter get _value => super._value as _$PenPainter;
 
   @override
   $Res call({
@@ -394,7 +395,7 @@ class _$PenPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
     Object? zoomDependent = freezed,
     Object? property = freezed,
   }) {
-    return _then(PenPainter(
+    return _then(_$PenPainter(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -446,7 +447,7 @@ class _$PenPainter implements PenPainter {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is PenPainter &&
+            other is _$PenPainter &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.zoomDependent, zoomDependent) &&
@@ -463,8 +464,8 @@ class _$PenPainter implements PenPainter {
 
   @JsonKey(ignore: true)
   @override
-  $PenPainterCopyWith<PenPainter> get copyWith =>
-      _$PenPainterCopyWithImpl<PenPainter>(this, _$identity);
+  _$$PenPainterCopyWith<_$PenPainter> get copyWith =>
+      __$$PenPainterCopyWithImpl<_$PenPainter>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -595,35 +596,36 @@ abstract class PenPainter implements Painter {
   PenProperty get property => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  $PenPainterCopyWith<PenPainter> get copyWith =>
+  _$$PenPainterCopyWith<_$PenPainter> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $EraserPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory $EraserPainterCopyWith(
-          EraserPainter value, $Res Function(EraserPainter) then) =
-      _$EraserPainterCopyWithImpl<$Res>;
+abstract class _$$EraserPainterCopyWith<$Res>
+    implements $PainterCopyWith<$Res> {
+  factory _$$EraserPainterCopyWith(
+          _$EraserPainter value, $Res Function(_$EraserPainter) then) =
+      __$$EraserPainterCopyWithImpl<$Res>;
   @override
   $Res call({String name, EraserProperty property});
 }
 
 /// @nodoc
-class _$EraserPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
-    implements $EraserPainterCopyWith<$Res> {
-  _$EraserPainterCopyWithImpl(
-      EraserPainter _value, $Res Function(EraserPainter) _then)
-      : super(_value, (v) => _then(v as EraserPainter));
+class __$$EraserPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+    implements _$$EraserPainterCopyWith<$Res> {
+  __$$EraserPainterCopyWithImpl(
+      _$EraserPainter _value, $Res Function(_$EraserPainter) _then)
+      : super(_value, (v) => _then(v as _$EraserPainter));
 
   @override
-  EraserPainter get _value => super._value as EraserPainter;
+  _$EraserPainter get _value => super._value as _$EraserPainter;
 
   @override
   $Res call({
     Object? name = freezed,
     Object? property = freezed,
   }) {
-    return _then(EraserPainter(
+    return _then(_$EraserPainter(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -667,7 +669,7 @@ class _$EraserPainter implements EraserPainter {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is EraserPainter &&
+            other is _$EraserPainter &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.property, property));
   }
@@ -681,8 +683,8 @@ class _$EraserPainter implements EraserPainter {
 
   @JsonKey(ignore: true)
   @override
-  $EraserPainterCopyWith<EraserPainter> get copyWith =>
-      _$EraserPainterCopyWithImpl<EraserPainter>(this, _$identity);
+  _$$EraserPainterCopyWith<_$EraserPainter> get copyWith =>
+      __$$EraserPainterCopyWithImpl<_$EraserPainter>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -810,16 +812,16 @@ abstract class EraserPainter implements Painter {
   EraserProperty get property => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  $EraserPainterCopyWith<EraserPainter> get copyWith =>
+  _$$EraserPainterCopyWith<_$EraserPainter> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PathEraserPainterCopyWith<$Res>
+abstract class _$$PathEraserPainterCopyWith<$Res>
     implements $PainterCopyWith<$Res> {
-  factory $PathEraserPainterCopyWith(
-          PathEraserPainter value, $Res Function(PathEraserPainter) then) =
-      _$PathEraserPainterCopyWithImpl<$Res>;
+  factory _$$PathEraserPainterCopyWith(
+          _$PathEraserPainter value, $Res Function(_$PathEraserPainter) then) =
+      __$$PathEraserPainterCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
@@ -829,14 +831,15 @@ abstract class $PathEraserPainterCopyWith<$Res>
 }
 
 /// @nodoc
-class _$PathEraserPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
-    implements $PathEraserPainterCopyWith<$Res> {
-  _$PathEraserPainterCopyWithImpl(
-      PathEraserPainter _value, $Res Function(PathEraserPainter) _then)
-      : super(_value, (v) => _then(v as PathEraserPainter));
+class __$$PathEraserPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res>
+    implements _$$PathEraserPainterCopyWith<$Res> {
+  __$$PathEraserPainterCopyWithImpl(
+      _$PathEraserPainter _value, $Res Function(_$PathEraserPainter) _then)
+      : super(_value, (v) => _then(v as _$PathEraserPainter));
 
   @override
-  PathEraserPainter get _value => super._value as PathEraserPainter;
+  _$PathEraserPainter get _value => super._value as _$PathEraserPainter;
 
   @override
   $Res call({
@@ -845,7 +848,7 @@ class _$PathEraserPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
     Object? includeEraser = freezed,
     Object? deleteWholeStroke = freezed,
   }) {
-    return _then(PathEraserPainter(
+    return _then(_$PathEraserPainter(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -905,7 +908,7 @@ class _$PathEraserPainter implements PathEraserPainter {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is PathEraserPainter &&
+            other is _$PathEraserPainter &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.strokeWidth, strokeWidth) &&
@@ -926,8 +929,8 @@ class _$PathEraserPainter implements PathEraserPainter {
 
   @JsonKey(ignore: true)
   @override
-  $PathEraserPainterCopyWith<PathEraserPainter> get copyWith =>
-      _$PathEraserPainterCopyWithImpl<PathEraserPainter>(this, _$identity);
+  _$$PathEraserPainterCopyWith<_$PathEraserPainter> get copyWith =>
+      __$$PathEraserPainterCopyWithImpl<_$PathEraserPainter>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1061,29 +1064,29 @@ abstract class PathEraserPainter implements Painter {
   bool get deleteWholeStroke => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  $PathEraserPainterCopyWith<PathEraserPainter> get copyWith =>
+  _$$PathEraserPainterCopyWith<_$PathEraserPainter> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LayerPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory $LayerPainterCopyWith(
-          LayerPainter value, $Res Function(LayerPainter) then) =
-      _$LayerPainterCopyWithImpl<$Res>;
+abstract class _$$LayerPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
+  factory _$$LayerPainterCopyWith(
+          _$LayerPainter value, $Res Function(_$LayerPainter) then) =
+      __$$LayerPainterCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name, double strokeWidth, String layer, bool includeEraser});
 }
 
 /// @nodoc
-class _$LayerPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
-    implements $LayerPainterCopyWith<$Res> {
-  _$LayerPainterCopyWithImpl(
-      LayerPainter _value, $Res Function(LayerPainter) _then)
-      : super(_value, (v) => _then(v as LayerPainter));
+class __$$LayerPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+    implements _$$LayerPainterCopyWith<$Res> {
+  __$$LayerPainterCopyWithImpl(
+      _$LayerPainter _value, $Res Function(_$LayerPainter) _then)
+      : super(_value, (v) => _then(v as _$LayerPainter));
 
   @override
-  LayerPainter get _value => super._value as LayerPainter;
+  _$LayerPainter get _value => super._value as _$LayerPainter;
 
   @override
   $Res call({
@@ -1092,7 +1095,7 @@ class _$LayerPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
     Object? layer = freezed,
     Object? includeEraser = freezed,
   }) {
-    return _then(LayerPainter(
+    return _then(_$LayerPainter(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1152,7 +1155,7 @@ class _$LayerPainter implements LayerPainter {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is LayerPainter &&
+            other is _$LayerPainter &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.strokeWidth, strokeWidth) &&
@@ -1172,8 +1175,8 @@ class _$LayerPainter implements LayerPainter {
 
   @JsonKey(ignore: true)
   @override
-  $LayerPainterCopyWith<LayerPainter> get copyWith =>
-      _$LayerPainterCopyWithImpl<LayerPainter>(this, _$identity);
+  _$$LayerPainterCopyWith<_$LayerPainter> get copyWith =>
+      __$$LayerPainterCopyWithImpl<_$LayerPainter>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1306,15 +1309,15 @@ abstract class LayerPainter implements Painter {
   bool get includeEraser => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  $LayerPainterCopyWith<LayerPainter> get copyWith =>
+  _$$LayerPainterCopyWith<_$LayerPainter> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AreaPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory $AreaPainterCopyWith(
-          AreaPainter value, $Res Function(AreaPainter) then) =
-      _$AreaPainterCopyWithImpl<$Res>;
+abstract class _$$AreaPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
+  factory _$$AreaPainterCopyWith(
+          _$AreaPainter value, $Res Function(_$AreaPainter) then) =
+      __$$AreaPainterCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
@@ -1324,14 +1327,14 @@ abstract class $AreaPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AreaPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
-    implements $AreaPainterCopyWith<$Res> {
-  _$AreaPainterCopyWithImpl(
-      AreaPainter _value, $Res Function(AreaPainter) _then)
-      : super(_value, (v) => _then(v as AreaPainter));
+class __$$AreaPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+    implements _$$AreaPainterCopyWith<$Res> {
+  __$$AreaPainterCopyWithImpl(
+      _$AreaPainter _value, $Res Function(_$AreaPainter) _then)
+      : super(_value, (v) => _then(v as _$AreaPainter));
 
   @override
-  AreaPainter get _value => super._value as AreaPainter;
+  _$AreaPainter get _value => super._value as _$AreaPainter;
 
   @override
   $Res call({
@@ -1340,7 +1343,7 @@ class _$AreaPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
     Object? constrainedHeight = freezed,
     Object? constrainedAspectRatio = freezed,
   }) {
-    return _then(AreaPainter(
+    return _then(_$AreaPainter(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1400,7 +1403,7 @@ class _$AreaPainter implements AreaPainter {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is AreaPainter &&
+            other is _$AreaPainter &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.constrainedWidth, constrainedWidth) &&
@@ -1421,8 +1424,8 @@ class _$AreaPainter implements AreaPainter {
 
   @JsonKey(ignore: true)
   @override
-  $AreaPainterCopyWith<AreaPainter> get copyWith =>
-      _$AreaPainterCopyWithImpl<AreaPainter>(this, _$identity);
+  _$$AreaPainterCopyWith<_$AreaPainter> get copyWith =>
+      __$$AreaPainterCopyWithImpl<_$AreaPainter>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1558,6 +1561,6 @@ abstract class AreaPainter implements Painter {
   double get constrainedAspectRatio => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  $AreaPainterCopyWith<AreaPainter> get copyWith =>
+  _$$AreaPainterCopyWith<_$AreaPainter> get copyWith =>
       throw _privateConstructorUsedError;
 }

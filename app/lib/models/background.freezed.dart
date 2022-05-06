@@ -123,21 +123,22 @@ class _$BackgroundCopyWithImpl<$Res> implements $BackgroundCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $EmptyBackgroundCopyWith<$Res> {
-  factory $EmptyBackgroundCopyWith(
-          EmptyBackground value, $Res Function(EmptyBackground) then) =
-      _$EmptyBackgroundCopyWithImpl<$Res>;
+abstract class _$$EmptyBackgroundCopyWith<$Res> {
+  factory _$$EmptyBackgroundCopyWith(
+          _$EmptyBackground value, $Res Function(_$EmptyBackground) then) =
+      __$$EmptyBackgroundCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$EmptyBackgroundCopyWithImpl<$Res> extends _$BackgroundCopyWithImpl<$Res>
-    implements $EmptyBackgroundCopyWith<$Res> {
-  _$EmptyBackgroundCopyWithImpl(
-      EmptyBackground _value, $Res Function(EmptyBackground) _then)
-      : super(_value, (v) => _then(v as EmptyBackground));
+class __$$EmptyBackgroundCopyWithImpl<$Res>
+    extends _$BackgroundCopyWithImpl<$Res>
+    implements _$$EmptyBackgroundCopyWith<$Res> {
+  __$$EmptyBackgroundCopyWithImpl(
+      _$EmptyBackground _value, $Res Function(_$EmptyBackground) _then)
+      : super(_value, (v) => _then(v as _$EmptyBackground));
 
   @override
-  EmptyBackground get _value => super._value as EmptyBackground;
+  _$EmptyBackground get _value => super._value as _$EmptyBackground;
 }
 
 /// @nodoc
@@ -159,7 +160,7 @@ class _$EmptyBackground implements EmptyBackground {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is EmptyBackground);
+        (other.runtimeType == runtimeType && other is _$EmptyBackground);
   }
 
   @JsonKey(ignore: true)
@@ -278,10 +279,10 @@ abstract class EmptyBackground implements Background {
 }
 
 /// @nodoc
-abstract class $BoxBackgroundCopyWith<$Res> {
-  factory $BoxBackgroundCopyWith(
-          BoxBackground value, $Res Function(BoxBackground) then) =
-      _$BoxBackgroundCopyWithImpl<$Res>;
+abstract class _$$BoxBackgroundCopyWith<$Res> {
+  factory _$$BoxBackgroundCopyWith(
+          _$BoxBackground value, $Res Function(_$BoxBackground) then) =
+      __$$BoxBackgroundCopyWithImpl<$Res>;
   $Res call(
       {double boxWidth,
       double boxHeight,
@@ -297,14 +298,14 @@ abstract class $BoxBackgroundCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BoxBackgroundCopyWithImpl<$Res> extends _$BackgroundCopyWithImpl<$Res>
-    implements $BoxBackgroundCopyWith<$Res> {
-  _$BoxBackgroundCopyWithImpl(
-      BoxBackground _value, $Res Function(BoxBackground) _then)
-      : super(_value, (v) => _then(v as BoxBackground));
+class __$$BoxBackgroundCopyWithImpl<$Res> extends _$BackgroundCopyWithImpl<$Res>
+    implements _$$BoxBackgroundCopyWith<$Res> {
+  __$$BoxBackgroundCopyWithImpl(
+      _$BoxBackground _value, $Res Function(_$BoxBackground) _then)
+      : super(_value, (v) => _then(v as _$BoxBackground));
 
   @override
-  BoxBackground get _value => super._value as BoxBackground;
+  _$BoxBackground get _value => super._value as _$BoxBackground;
 
   @override
   $Res call({
@@ -320,7 +321,7 @@ class _$BoxBackgroundCopyWithImpl<$Res> extends _$BackgroundCopyWithImpl<$Res>
     Object? boxXStroke = freezed,
     Object? boxYStroke = freezed,
   }) {
-    return _then(BoxBackground(
+    return _then(_$BoxBackground(
       boxWidth: boxWidth == freezed
           ? _value.boxWidth
           : boxWidth // ignore: cast_nullable_to_non_nullable
@@ -436,7 +437,7 @@ class _$BoxBackground implements BoxBackground {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is BoxBackground &&
+            other is _$BoxBackground &&
             const DeepCollectionEquality().equals(other.boxWidth, boxWidth) &&
             const DeepCollectionEquality().equals(other.boxHeight, boxHeight) &&
             const DeepCollectionEquality().equals(other.boxXCount, boxXCount) &&
@@ -470,8 +471,8 @@ class _$BoxBackground implements BoxBackground {
 
   @JsonKey(ignore: true)
   @override
-  $BoxBackgroundCopyWith<BoxBackground> get copyWith =>
-      _$BoxBackgroundCopyWithImpl<BoxBackground>(this, _$identity);
+  _$$BoxBackgroundCopyWith<_$BoxBackground> get copyWith =>
+      __$$BoxBackgroundCopyWithImpl<_$BoxBackground>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -609,6 +610,6 @@ abstract class BoxBackground implements Background {
   double get boxXStroke => throw _privateConstructorUsedError;
   double get boxYStroke => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BoxBackgroundCopyWith<BoxBackground> get copyWith =>
+  _$$BoxBackgroundCopyWith<_$BoxBackground> get copyWith =>
       throw _privateConstructorUsedError;
 }

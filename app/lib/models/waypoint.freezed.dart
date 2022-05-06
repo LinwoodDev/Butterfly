@@ -71,22 +71,24 @@ class _$WaypointCopyWithImpl<$Res> implements $WaypointCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$WaypointCopyWith<$Res> implements $WaypointCopyWith<$Res> {
-  factory _$WaypointCopyWith(_Waypoint value, $Res Function(_Waypoint) then) =
-      __$WaypointCopyWithImpl<$Res>;
+abstract class _$$_WaypointCopyWith<$Res> implements $WaypointCopyWith<$Res> {
+  factory _$$_WaypointCopyWith(
+          _$_Waypoint value, $Res Function(_$_Waypoint) then) =
+      __$$_WaypointCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name, @OffsetJsonConverter() Offset position, double? scale});
 }
 
 /// @nodoc
-class __$WaypointCopyWithImpl<$Res> extends _$WaypointCopyWithImpl<$Res>
-    implements _$WaypointCopyWith<$Res> {
-  __$WaypointCopyWithImpl(_Waypoint _value, $Res Function(_Waypoint) _then)
-      : super(_value, (v) => _then(v as _Waypoint));
+class __$$_WaypointCopyWithImpl<$Res> extends _$WaypointCopyWithImpl<$Res>
+    implements _$$_WaypointCopyWith<$Res> {
+  __$$_WaypointCopyWithImpl(
+      _$_Waypoint _value, $Res Function(_$_Waypoint) _then)
+      : super(_value, (v) => _then(v as _$_Waypoint));
 
   @override
-  _Waypoint get _value => super._value as _Waypoint;
+  _$_Waypoint get _value => super._value as _$_Waypoint;
 
   @override
   $Res call({
@@ -94,7 +96,7 @@ class __$WaypointCopyWithImpl<$Res> extends _$WaypointCopyWithImpl<$Res>
     Object? position = freezed,
     Object? scale = freezed,
   }) {
-    return _then(_Waypoint(
+    return _then(_$_Waypoint(
       name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -147,7 +149,7 @@ class _$_Waypoint with DiagnosticableTreeMixin implements _Waypoint {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Waypoint &&
+            other is _$_Waypoint &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.position, position) &&
             const DeepCollectionEquality().equals(other.scale, scale));
@@ -163,8 +165,8 @@ class _$_Waypoint with DiagnosticableTreeMixin implements _Waypoint {
 
   @JsonKey(ignore: true)
   @override
-  _$WaypointCopyWith<_Waypoint> get copyWith =>
-      __$WaypointCopyWithImpl<_Waypoint>(this, _$identity);
+  _$$_WaypointCopyWith<_$_Waypoint> get copyWith =>
+      __$$_WaypointCopyWithImpl<_$_Waypoint>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -188,6 +190,6 @@ abstract class _Waypoint implements Waypoint {
   double? get scale => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$WaypointCopyWith<_Waypoint> get copyWith =>
+  _$$_WaypointCopyWith<_$_Waypoint> get copyWith =>
       throw _privateConstructorUsedError;
 }

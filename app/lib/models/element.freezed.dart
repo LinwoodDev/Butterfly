@@ -71,25 +71,25 @@ class _$ElementConstraintCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$ElementConstraintCopyWith<$Res>
+abstract class _$$_ElementConstraintCopyWith<$Res>
     implements $ElementConstraintCopyWith<$Res> {
-  factory _$ElementConstraintCopyWith(
-          _ElementConstraint value, $Res Function(_ElementConstraint) then) =
-      __$ElementConstraintCopyWithImpl<$Res>;
+  factory _$$_ElementConstraintCopyWith(_$_ElementConstraint value,
+          $Res Function(_$_ElementConstraint) then) =
+      __$$_ElementConstraintCopyWithImpl<$Res>;
   @override
   $Res call({double size, double length, bool includeArea});
 }
 
 /// @nodoc
-class __$ElementConstraintCopyWithImpl<$Res>
+class __$$_ElementConstraintCopyWithImpl<$Res>
     extends _$ElementConstraintCopyWithImpl<$Res>
-    implements _$ElementConstraintCopyWith<$Res> {
-  __$ElementConstraintCopyWithImpl(
-      _ElementConstraint _value, $Res Function(_ElementConstraint) _then)
-      : super(_value, (v) => _then(v as _ElementConstraint));
+    implements _$$_ElementConstraintCopyWith<$Res> {
+  __$$_ElementConstraintCopyWithImpl(
+      _$_ElementConstraint _value, $Res Function(_$_ElementConstraint) _then)
+      : super(_value, (v) => _then(v as _$_ElementConstraint));
 
   @override
-  _ElementConstraint get _value => super._value as _ElementConstraint;
+  _$_ElementConstraint get _value => super._value as _$_ElementConstraint;
 
   @override
   $Res call({
@@ -97,7 +97,7 @@ class __$ElementConstraintCopyWithImpl<$Res>
     Object? length = freezed,
     Object? includeArea = freezed,
   }) {
-    return _then(_ElementConstraint(
+    return _then(_$_ElementConstraint(
       size: size == freezed
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
@@ -142,7 +142,7 @@ class _$_ElementConstraint implements _ElementConstraint {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ElementConstraint &&
+            other is _$_ElementConstraint &&
             const DeepCollectionEquality().equals(other.size, size) &&
             const DeepCollectionEquality().equals(other.length, length) &&
             const DeepCollectionEquality()
@@ -159,8 +159,9 @@ class _$_ElementConstraint implements _ElementConstraint {
 
   @JsonKey(ignore: true)
   @override
-  _$ElementConstraintCopyWith<_ElementConstraint> get copyWith =>
-      __$ElementConstraintCopyWithImpl<_ElementConstraint>(this, _$identity);
+  _$$_ElementConstraintCopyWith<_$_ElementConstraint> get copyWith =>
+      __$$_ElementConstraintCopyWithImpl<_$_ElementConstraint>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -185,7 +186,7 @@ abstract class _ElementConstraint implements ElementConstraint {
   bool get includeArea => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ElementConstraintCopyWith<_ElementConstraint> get copyWith =>
+  _$$_ElementConstraintCopyWith<_$_ElementConstraint> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -277,30 +278,30 @@ class _$ElementConstraintsCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $ScaledElementConstraintsCopyWith<$Res> {
-  factory $ScaledElementConstraintsCopyWith(ScaledElementConstraints value,
-          $Res Function(ScaledElementConstraints) then) =
-      _$ScaledElementConstraintsCopyWithImpl<$Res>;
+abstract class _$$ScaledElementConstraintsCopyWith<$Res> {
+  factory _$$ScaledElementConstraintsCopyWith(_$ScaledElementConstraints value,
+          $Res Function(_$ScaledElementConstraints) then) =
+      __$$ScaledElementConstraintsCopyWithImpl<$Res>;
   $Res call({double scale});
 }
 
 /// @nodoc
-class _$ScaledElementConstraintsCopyWithImpl<$Res>
+class __$$ScaledElementConstraintsCopyWithImpl<$Res>
     extends _$ElementConstraintsCopyWithImpl<$Res>
-    implements $ScaledElementConstraintsCopyWith<$Res> {
-  _$ScaledElementConstraintsCopyWithImpl(ScaledElementConstraints _value,
-      $Res Function(ScaledElementConstraints) _then)
-      : super(_value, (v) => _then(v as ScaledElementConstraints));
+    implements _$$ScaledElementConstraintsCopyWith<$Res> {
+  __$$ScaledElementConstraintsCopyWithImpl(_$ScaledElementConstraints _value,
+      $Res Function(_$ScaledElementConstraints) _then)
+      : super(_value, (v) => _then(v as _$ScaledElementConstraints));
 
   @override
-  ScaledElementConstraints get _value =>
-      super._value as ScaledElementConstraints;
+  _$ScaledElementConstraints get _value =>
+      super._value as _$ScaledElementConstraints;
 
   @override
   $Res call({
     Object? scale = freezed,
   }) {
-    return _then(ScaledElementConstraints(
+    return _then(_$ScaledElementConstraints(
       scale == freezed
           ? _value.scale
           : scale // ignore: cast_nullable_to_non_nullable
@@ -333,7 +334,7 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is ScaledElementConstraints &&
+            other is _$ScaledElementConstraints &&
             const DeepCollectionEquality().equals(other.scale, scale));
   }
 
@@ -344,9 +345,10 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
 
   @JsonKey(ignore: true)
   @override
-  $ScaledElementConstraintsCopyWith<ScaledElementConstraints> get copyWith =>
-      _$ScaledElementConstraintsCopyWithImpl<ScaledElementConstraints>(
-          this, _$identity);
+  _$$ScaledElementConstraintsCopyWith<_$ScaledElementConstraints>
+      get copyWith =>
+          __$$ScaledElementConstraintsCopyWithImpl<_$ScaledElementConstraints>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -437,35 +439,36 @@ abstract class ScaledElementConstraints implements ElementConstraints {
 
   double get scale => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ScaledElementConstraintsCopyWith<ScaledElementConstraints> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ScaledElementConstraintsCopyWith<_$ScaledElementConstraints>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FixedElementConstraintsCopyWith<$Res> {
-  factory $FixedElementConstraintsCopyWith(FixedElementConstraints value,
-          $Res Function(FixedElementConstraints) then) =
-      _$FixedElementConstraintsCopyWithImpl<$Res>;
+abstract class _$$FixedElementConstraintsCopyWith<$Res> {
+  factory _$$FixedElementConstraintsCopyWith(_$FixedElementConstraints value,
+          $Res Function(_$FixedElementConstraints) then) =
+      __$$FixedElementConstraintsCopyWithImpl<$Res>;
   $Res call({double height, double width});
 }
 
 /// @nodoc
-class _$FixedElementConstraintsCopyWithImpl<$Res>
+class __$$FixedElementConstraintsCopyWithImpl<$Res>
     extends _$ElementConstraintsCopyWithImpl<$Res>
-    implements $FixedElementConstraintsCopyWith<$Res> {
-  _$FixedElementConstraintsCopyWithImpl(FixedElementConstraints _value,
-      $Res Function(FixedElementConstraints) _then)
-      : super(_value, (v) => _then(v as FixedElementConstraints));
+    implements _$$FixedElementConstraintsCopyWith<$Res> {
+  __$$FixedElementConstraintsCopyWithImpl(_$FixedElementConstraints _value,
+      $Res Function(_$FixedElementConstraints) _then)
+      : super(_value, (v) => _then(v as _$FixedElementConstraints));
 
   @override
-  FixedElementConstraints get _value => super._value as FixedElementConstraints;
+  _$FixedElementConstraints get _value =>
+      super._value as _$FixedElementConstraints;
 
   @override
   $Res call({
     Object? height = freezed,
     Object? width = freezed,
   }) {
-    return _then(FixedElementConstraints(
+    return _then(_$FixedElementConstraints(
       height == freezed
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
@@ -505,7 +508,7 @@ class _$FixedElementConstraints implements FixedElementConstraints {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is FixedElementConstraints &&
+            other is _$FixedElementConstraints &&
             const DeepCollectionEquality().equals(other.height, height) &&
             const DeepCollectionEquality().equals(other.width, width));
   }
@@ -519,8 +522,8 @@ class _$FixedElementConstraints implements FixedElementConstraints {
 
   @JsonKey(ignore: true)
   @override
-  $FixedElementConstraintsCopyWith<FixedElementConstraints> get copyWith =>
-      _$FixedElementConstraintsCopyWithImpl<FixedElementConstraints>(
+  _$$FixedElementConstraintsCopyWith<_$FixedElementConstraints> get copyWith =>
+      __$$FixedElementConstraintsCopyWithImpl<_$FixedElementConstraints>(
           this, _$identity);
 
   @override
@@ -613,30 +616,31 @@ abstract class FixedElementConstraints implements ElementConstraints {
   double get height => throw _privateConstructorUsedError;
   double get width => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $FixedElementConstraintsCopyWith<FixedElementConstraints> get copyWith =>
+  _$$FixedElementConstraintsCopyWith<_$FixedElementConstraints> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DynamicElementConstraintsCopyWith<$Res> {
-  factory $DynamicElementConstraintsCopyWith(DynamicElementConstraints value,
-          $Res Function(DynamicElementConstraints) then) =
-      _$DynamicElementConstraintsCopyWithImpl<$Res>;
+abstract class _$$DynamicElementConstraintsCopyWith<$Res> {
+  factory _$$DynamicElementConstraintsCopyWith(
+          _$DynamicElementConstraints value,
+          $Res Function(_$DynamicElementConstraints) then) =
+      __$$DynamicElementConstraintsCopyWithImpl<$Res>;
   $Res call(
       {double height, double width, double aspectRatio, bool includeArea});
 }
 
 /// @nodoc
-class _$DynamicElementConstraintsCopyWithImpl<$Res>
+class __$$DynamicElementConstraintsCopyWithImpl<$Res>
     extends _$ElementConstraintsCopyWithImpl<$Res>
-    implements $DynamicElementConstraintsCopyWith<$Res> {
-  _$DynamicElementConstraintsCopyWithImpl(DynamicElementConstraints _value,
-      $Res Function(DynamicElementConstraints) _then)
-      : super(_value, (v) => _then(v as DynamicElementConstraints));
+    implements _$$DynamicElementConstraintsCopyWith<$Res> {
+  __$$DynamicElementConstraintsCopyWithImpl(_$DynamicElementConstraints _value,
+      $Res Function(_$DynamicElementConstraints) _then)
+      : super(_value, (v) => _then(v as _$DynamicElementConstraints));
 
   @override
-  DynamicElementConstraints get _value =>
-      super._value as DynamicElementConstraints;
+  _$DynamicElementConstraints get _value =>
+      super._value as _$DynamicElementConstraints;
 
   @override
   $Res call({
@@ -645,7 +649,7 @@ class _$DynamicElementConstraintsCopyWithImpl<$Res>
     Object? aspectRatio = freezed,
     Object? includeArea = freezed,
   }) {
-    return _then(DynamicElementConstraints(
+    return _then(_$DynamicElementConstraints(
       height: height == freezed
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
@@ -705,7 +709,7 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is DynamicElementConstraints &&
+            other is _$DynamicElementConstraints &&
             const DeepCollectionEquality().equals(other.height, height) &&
             const DeepCollectionEquality().equals(other.width, width) &&
             const DeepCollectionEquality()
@@ -725,9 +729,9 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
 
   @JsonKey(ignore: true)
   @override
-  $DynamicElementConstraintsCopyWith<DynamicElementConstraints> get copyWith =>
-      _$DynamicElementConstraintsCopyWithImpl<DynamicElementConstraints>(
-          this, _$identity);
+  _$$DynamicElementConstraintsCopyWith<_$DynamicElementConstraints>
+      get copyWith => __$$DynamicElementConstraintsCopyWithImpl<
+          _$DynamicElementConstraints>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -824,8 +828,8 @@ abstract class DynamicElementConstraints implements ElementConstraints {
   double get aspectRatio => throw _privateConstructorUsedError;
   bool get includeArea => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DynamicElementConstraintsCopyWith<DynamicElementConstraints> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DynamicElementConstraintsCopyWith<_$DynamicElementConstraints>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 PadElement _$PadElementFromJson(Map<String, dynamic> json) {
@@ -977,22 +981,24 @@ class _$PadElementCopyWithImpl<$Res> implements $PadElementCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $PenElementCopyWith<$Res> implements $PadElementCopyWith<$Res> {
-  factory $PenElementCopyWith(
-          PenElement value, $Res Function(PenElement) then) =
-      _$PenElementCopyWithImpl<$Res>;
+abstract class _$$PenElementCopyWith<$Res>
+    implements $PadElementCopyWith<$Res> {
+  factory _$$PenElementCopyWith(
+          _$PenElement value, $Res Function(_$PenElement) then) =
+      __$$PenElementCopyWithImpl<$Res>;
   @override
   $Res call({String layer, List<PathPoint> points, PenProperty property});
 }
 
 /// @nodoc
-class _$PenElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
-    implements $PenElementCopyWith<$Res> {
-  _$PenElementCopyWithImpl(PenElement _value, $Res Function(PenElement) _then)
-      : super(_value, (v) => _then(v as PenElement));
+class __$$PenElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
+    implements _$$PenElementCopyWith<$Res> {
+  __$$PenElementCopyWithImpl(
+      _$PenElement _value, $Res Function(_$PenElement) _then)
+      : super(_value, (v) => _then(v as _$PenElement));
 
   @override
-  PenElement get _value => super._value as PenElement;
+  _$PenElement get _value => super._value as _$PenElement;
 
   @override
   $Res call({
@@ -1000,13 +1006,13 @@ class _$PenElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
     Object? points = freezed,
     Object? property = freezed,
   }) {
-    return _then(PenElement(
+    return _then(_$PenElement(
       layer: layer == freezed
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
       points: points == freezed
-          ? _value.points
+          ? _value._points
           : points // ignore: cast_nullable_to_non_nullable
               as List<PathPoint>,
       property: property == freezed
@@ -1058,9 +1064,9 @@ class _$PenElement implements PenElement {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is PenElement &&
+            other is _$PenElement &&
             const DeepCollectionEquality().equals(other.layer, layer) &&
-            const DeepCollectionEquality().equals(other.points, points) &&
+            const DeepCollectionEquality().equals(other._points, _points) &&
             const DeepCollectionEquality().equals(other.property, property));
   }
 
@@ -1069,13 +1075,13 @@ class _$PenElement implements PenElement {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(layer),
-      const DeepCollectionEquality().hash(points),
+      const DeepCollectionEquality().hash(_points),
       const DeepCollectionEquality().hash(property));
 
   @JsonKey(ignore: true)
   @override
-  $PenElementCopyWith<PenElement> get copyWith =>
-      _$PenElementCopyWithImpl<PenElement>(this, _$identity);
+  _$$PenElementCopyWith<_$PenElement> get copyWith =>
+      __$$PenElementCopyWithImpl<_$PenElement>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1215,29 +1221,29 @@ abstract class PenElement implements PadElement, PathElement {
   PenProperty get property => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  $PenElementCopyWith<PenElement> get copyWith =>
+  _$$PenElementCopyWith<_$PenElement> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $EraserElementCopyWith<$Res>
+abstract class _$$EraserElementCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory $EraserElementCopyWith(
-          EraserElement value, $Res Function(EraserElement) then) =
-      _$EraserElementCopyWithImpl<$Res>;
+  factory _$$EraserElementCopyWith(
+          _$EraserElement value, $Res Function(_$EraserElement) then) =
+      __$$EraserElementCopyWithImpl<$Res>;
   @override
   $Res call({String layer, List<PathPoint> points, EraserProperty property});
 }
 
 /// @nodoc
-class _$EraserElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
-    implements $EraserElementCopyWith<$Res> {
-  _$EraserElementCopyWithImpl(
-      EraserElement _value, $Res Function(EraserElement) _then)
-      : super(_value, (v) => _then(v as EraserElement));
+class __$$EraserElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
+    implements _$$EraserElementCopyWith<$Res> {
+  __$$EraserElementCopyWithImpl(
+      _$EraserElement _value, $Res Function(_$EraserElement) _then)
+      : super(_value, (v) => _then(v as _$EraserElement));
 
   @override
-  EraserElement get _value => super._value as EraserElement;
+  _$EraserElement get _value => super._value as _$EraserElement;
 
   @override
   $Res call({
@@ -1245,13 +1251,13 @@ class _$EraserElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
     Object? points = freezed,
     Object? property = freezed,
   }) {
-    return _then(EraserElement(
+    return _then(_$EraserElement(
       layer: layer == freezed
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
       points: points == freezed
-          ? _value.points
+          ? _value._points
           : points // ignore: cast_nullable_to_non_nullable
               as List<PathPoint>,
       property: property == freezed
@@ -1303,9 +1309,9 @@ class _$EraserElement implements EraserElement {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is EraserElement &&
+            other is _$EraserElement &&
             const DeepCollectionEquality().equals(other.layer, layer) &&
-            const DeepCollectionEquality().equals(other.points, points) &&
+            const DeepCollectionEquality().equals(other._points, _points) &&
             const DeepCollectionEquality().equals(other.property, property));
   }
 
@@ -1314,13 +1320,13 @@ class _$EraserElement implements EraserElement {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(layer),
-      const DeepCollectionEquality().hash(points),
+      const DeepCollectionEquality().hash(_points),
       const DeepCollectionEquality().hash(property));
 
   @JsonKey(ignore: true)
   @override
-  $EraserElementCopyWith<EraserElement> get copyWith =>
-      _$EraserElementCopyWithImpl<EraserElement>(this, _$identity);
+  _$$EraserElementCopyWith<_$EraserElement> get copyWith =>
+      __$$EraserElementCopyWithImpl<_$EraserElement>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1460,16 +1466,16 @@ abstract class EraserElement implements PadElement, PathElement {
   EraserProperty get property => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  $EraserElementCopyWith<EraserElement> get copyWith =>
+  _$$EraserElementCopyWith<_$EraserElement> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LabelElementCopyWith<$Res>
+abstract class _$$LabelElementCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory $LabelElementCopyWith(
-          LabelElement value, $Res Function(LabelElement) then) =
-      _$LabelElementCopyWithImpl<$Res>;
+  factory _$$LabelElementCopyWith(
+          _$LabelElement value, $Res Function(_$LabelElement) then) =
+      __$$LabelElementCopyWithImpl<$Res>;
   @override
   $Res call(
       {String layer,
@@ -1482,14 +1488,14 @@ abstract class $LabelElementCopyWith<$Res>
 }
 
 /// @nodoc
-class _$LabelElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
-    implements $LabelElementCopyWith<$Res> {
-  _$LabelElementCopyWithImpl(
-      LabelElement _value, $Res Function(LabelElement) _then)
-      : super(_value, (v) => _then(v as LabelElement));
+class __$$LabelElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
+    implements _$$LabelElementCopyWith<$Res> {
+  __$$LabelElementCopyWithImpl(
+      _$LabelElement _value, $Res Function(_$LabelElement) _then)
+      : super(_value, (v) => _then(v as _$LabelElement));
 
   @override
-  LabelElement get _value => super._value as LabelElement;
+  _$LabelElement get _value => super._value as _$LabelElement;
 
   @override
   $Res call({
@@ -1499,7 +1505,7 @@ class _$LabelElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
     Object? property = freezed,
     Object? constraint = freezed,
   }) {
-    return _then(LabelElement(
+    return _then(_$LabelElement(
       layer: layer == freezed
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
@@ -1575,7 +1581,7 @@ class _$LabelElement implements LabelElement {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is LabelElement &&
+            other is _$LabelElement &&
             const DeepCollectionEquality().equals(other.layer, layer) &&
             const DeepCollectionEquality().equals(other.position, position) &&
             const DeepCollectionEquality().equals(other.text, text) &&
@@ -1596,8 +1602,8 @@ class _$LabelElement implements LabelElement {
 
   @JsonKey(ignore: true)
   @override
-  $LabelElementCopyWith<LabelElement> get copyWith =>
-      _$LabelElementCopyWithImpl<LabelElement>(this, _$identity);
+  _$$LabelElementCopyWith<_$LabelElement> get copyWith =>
+      __$$LabelElementCopyWithImpl<_$LabelElement>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1742,16 +1748,16 @@ abstract class LabelElement implements PadElement {
   ElementConstraint get constraint => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  $LabelElementCopyWith<LabelElement> get copyWith =>
+  _$$LabelElementCopyWith<_$LabelElement> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ImageElementCopyWith<$Res>
+abstract class _$$ImageElementCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory $ImageElementCopyWith(
-          ImageElement value, $Res Function(ImageElement) then) =
-      _$ImageElementCopyWithImpl<$Res>;
+  factory _$$ImageElementCopyWith(
+          _$ImageElement value, $Res Function(_$ImageElement) then) =
+      __$$ImageElementCopyWithImpl<$Res>;
   @override
   $Res call(
       {String layer,
@@ -1765,14 +1771,14 @@ abstract class $ImageElementCopyWith<$Res>
 }
 
 /// @nodoc
-class _$ImageElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
-    implements $ImageElementCopyWith<$Res> {
-  _$ImageElementCopyWithImpl(
-      ImageElement _value, $Res Function(ImageElement) _then)
-      : super(_value, (v) => _then(v as ImageElement));
+class __$$ImageElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
+    implements _$$ImageElementCopyWith<$Res> {
+  __$$ImageElementCopyWithImpl(
+      _$ImageElement _value, $Res Function(_$ImageElement) _then)
+      : super(_value, (v) => _then(v as _$ImageElement));
 
   @override
-  ImageElement get _value => super._value as ImageElement;
+  _$ImageElement get _value => super._value as _$ImageElement;
 
   @override
   $Res call({
@@ -1783,7 +1789,7 @@ class _$ImageElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
     Object? width = freezed,
     Object? height = freezed,
   }) {
-    return _then(ImageElement(
+    return _then(_$ImageElement(
       layer: layer == freezed
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
@@ -1869,7 +1875,7 @@ class _$ImageElement implements ImageElement {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is ImageElement &&
+            other is _$ImageElement &&
             const DeepCollectionEquality().equals(other.layer, layer) &&
             const DeepCollectionEquality().equals(other.position, position) &&
             const DeepCollectionEquality()
@@ -1892,8 +1898,8 @@ class _$ImageElement implements ImageElement {
 
   @JsonKey(ignore: true)
   @override
-  $ImageElementCopyWith<ImageElement> get copyWith =>
-      _$ImageElementCopyWithImpl<ImageElement>(this, _$identity);
+  _$$ImageElementCopyWith<_$ImageElement> get copyWith =>
+      __$$ImageElementCopyWithImpl<_$ImageElement>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2041,6 +2047,6 @@ abstract class ImageElement implements PadElement {
   int get height => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  $ImageElementCopyWith<ImageElement> get copyWith =>
+  _$$ImageElementCopyWith<_$ImageElement> get copyWith =>
       throw _privateConstructorUsedError;
 }

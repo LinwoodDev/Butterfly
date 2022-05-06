@@ -74,11 +74,11 @@ class _$DocumentTemplateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$DocumentTemplateCopyWith<$Res>
+abstract class _$$_DocumentTemplateCopyWith<$Res>
     implements $DocumentTemplateCopyWith<$Res> {
-  factory _$DocumentTemplateCopyWith(
-          _DocumentTemplate value, $Res Function(_DocumentTemplate) then) =
-      __$DocumentTemplateCopyWithImpl<$Res>;
+  factory _$$_DocumentTemplateCopyWith(
+          _$_DocumentTemplate value, $Res Function(_$_DocumentTemplate) then) =
+      __$$_DocumentTemplateCopyWithImpl<$Res>;
   @override
   $Res call({AppDocument document, String folder});
 
@@ -87,22 +87,22 @@ abstract class _$DocumentTemplateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$DocumentTemplateCopyWithImpl<$Res>
+class __$$_DocumentTemplateCopyWithImpl<$Res>
     extends _$DocumentTemplateCopyWithImpl<$Res>
-    implements _$DocumentTemplateCopyWith<$Res> {
-  __$DocumentTemplateCopyWithImpl(
-      _DocumentTemplate _value, $Res Function(_DocumentTemplate) _then)
-      : super(_value, (v) => _then(v as _DocumentTemplate));
+    implements _$$_DocumentTemplateCopyWith<$Res> {
+  __$$_DocumentTemplateCopyWithImpl(
+      _$_DocumentTemplate _value, $Res Function(_$_DocumentTemplate) _then)
+      : super(_value, (v) => _then(v as _$_DocumentTemplate));
 
   @override
-  _DocumentTemplate get _value => super._value as _DocumentTemplate;
+  _$_DocumentTemplate get _value => super._value as _$_DocumentTemplate;
 
   @override
   $Res call({
     Object? document = freezed,
     Object? folder = freezed,
   }) {
-    return _then(_DocumentTemplate(
+    return _then(_$_DocumentTemplate(
       document: document == freezed
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
@@ -139,7 +139,7 @@ class _$_DocumentTemplate extends _DocumentTemplate {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _DocumentTemplate &&
+            other is _$_DocumentTemplate &&
             const DeepCollectionEquality().equals(other.document, document) &&
             const DeepCollectionEquality().equals(other.folder, folder));
   }
@@ -153,8 +153,8 @@ class _$_DocumentTemplate extends _DocumentTemplate {
 
   @JsonKey(ignore: true)
   @override
-  _$DocumentTemplateCopyWith<_DocumentTemplate> get copyWith =>
-      __$DocumentTemplateCopyWithImpl<_DocumentTemplate>(this, _$identity);
+  _$$_DocumentTemplateCopyWith<_$_DocumentTemplate> get copyWith =>
+      __$$_DocumentTemplateCopyWithImpl<_$_DocumentTemplate>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -177,6 +177,6 @@ abstract class _DocumentTemplate extends DocumentTemplate {
   String get folder => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$DocumentTemplateCopyWith<_DocumentTemplate> get copyWith =>
+  _$$_DocumentTemplateCopyWith<_$_DocumentTemplate> get copyWith =>
       throw _privateConstructorUsedError;
 }

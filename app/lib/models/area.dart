@@ -4,8 +4,8 @@ import 'package:butterfly/models/converter.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'area.freezed.dart';
 part 'area.g.dart';
+part 'area.freezed.dart';
 
 @freezed
 class Area with _$Area {

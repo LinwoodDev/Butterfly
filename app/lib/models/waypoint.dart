@@ -4,8 +4,8 @@ import 'package:butterfly/models/converter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'waypoint.freezed.dart';
 part 'waypoint.g.dart';
+part 'waypoint.freezed.dart';
 
 @freezed
 class Waypoint with _$Waypoint {

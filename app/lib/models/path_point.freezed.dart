@@ -69,22 +69,23 @@ class _$PathPointCopyWithImpl<$Res> implements $PathPointCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$PathPointCopyWith<$Res> implements $PathPointCopyWith<$Res> {
-  factory _$PathPointCopyWith(
-          _PathPoint value, $Res Function(_PathPoint) then) =
-      __$PathPointCopyWithImpl<$Res>;
+abstract class _$$_PathPointCopyWith<$Res> implements $PathPointCopyWith<$Res> {
+  factory _$$_PathPointCopyWith(
+          _$_PathPoint value, $Res Function(_$_PathPoint) then) =
+      __$$_PathPointCopyWithImpl<$Res>;
   @override
   $Res call({double x, double y, double pressure});
 }
 
 /// @nodoc
-class __$PathPointCopyWithImpl<$Res> extends _$PathPointCopyWithImpl<$Res>
-    implements _$PathPointCopyWith<$Res> {
-  __$PathPointCopyWithImpl(_PathPoint _value, $Res Function(_PathPoint) _then)
-      : super(_value, (v) => _then(v as _PathPoint));
+class __$$_PathPointCopyWithImpl<$Res> extends _$PathPointCopyWithImpl<$Res>
+    implements _$$_PathPointCopyWith<$Res> {
+  __$$_PathPointCopyWithImpl(
+      _$_PathPoint _value, $Res Function(_$_PathPoint) _then)
+      : super(_value, (v) => _then(v as _$_PathPoint));
 
   @override
-  _PathPoint get _value => super._value as _PathPoint;
+  _$_PathPoint get _value => super._value as _$_PathPoint;
 
   @override
   $Res call({
@@ -92,7 +93,7 @@ class __$PathPointCopyWithImpl<$Res> extends _$PathPointCopyWithImpl<$Res>
     Object? y = freezed,
     Object? pressure = freezed,
   }) {
-    return _then(_PathPoint(
+    return _then(_$_PathPoint(
       x == freezed
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
@@ -134,7 +135,7 @@ class _$_PathPoint extends _PathPoint {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _PathPoint &&
+            other is _$_PathPoint &&
             const DeepCollectionEquality().equals(other.x, x) &&
             const DeepCollectionEquality().equals(other.y, y) &&
             const DeepCollectionEquality().equals(other.pressure, pressure));
@@ -150,8 +151,8 @@ class _$_PathPoint extends _PathPoint {
 
   @JsonKey(ignore: true)
   @override
-  _$PathPointCopyWith<_PathPoint> get copyWith =>
-      __$PathPointCopyWithImpl<_PathPoint>(this, _$identity);
+  _$$_PathPointCopyWith<_$_PathPoint> get copyWith =>
+      __$$_PathPointCopyWithImpl<_$_PathPoint>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -175,6 +176,6 @@ abstract class _PathPoint extends PathPoint {
   double get pressure => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$PathPointCopyWith<_PathPoint> get copyWith =>
+  _$$_PathPointCopyWith<_$_PathPoint> get copyWith =>
       throw _privateConstructorUsedError;
 }

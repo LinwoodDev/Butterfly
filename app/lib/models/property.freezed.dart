@@ -154,28 +154,28 @@ class _$PropertyCopyWithImpl<$Res> implements $PropertyCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $HandPropertyCopyWith<$Res> {
-  factory $HandPropertyCopyWith(
-          HandProperty value, $Res Function(HandProperty) then) =
-      _$HandPropertyCopyWithImpl<$Res>;
+abstract class _$$HandPropertyCopyWith<$Res> {
+  factory _$$HandPropertyCopyWith(
+          _$HandProperty value, $Res Function(_$HandProperty) then) =
+      __$$HandPropertyCopyWithImpl<$Res>;
   $Res call({bool includeEraser});
 }
 
 /// @nodoc
-class _$HandPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
-    implements $HandPropertyCopyWith<$Res> {
-  _$HandPropertyCopyWithImpl(
-      HandProperty _value, $Res Function(HandProperty) _then)
-      : super(_value, (v) => _then(v as HandProperty));
+class __$$HandPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
+    implements _$$HandPropertyCopyWith<$Res> {
+  __$$HandPropertyCopyWithImpl(
+      _$HandProperty _value, $Res Function(_$HandProperty) _then)
+      : super(_value, (v) => _then(v as _$HandProperty));
 
   @override
-  HandProperty get _value => super._value as HandProperty;
+  _$HandProperty get _value => super._value as _$HandProperty;
 
   @override
   $Res call({
     Object? includeEraser = freezed,
   }) {
-    return _then(HandProperty(
+    return _then(_$HandProperty(
       includeEraser: includeEraser == freezed
           ? _value.includeEraser
           : includeEraser // ignore: cast_nullable_to_non_nullable
@@ -209,7 +209,7 @@ class _$HandProperty implements HandProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is HandProperty &&
+            other is _$HandProperty &&
             const DeepCollectionEquality()
                 .equals(other.includeEraser, includeEraser));
   }
@@ -221,8 +221,8 @@ class _$HandProperty implements HandProperty {
 
   @JsonKey(ignore: true)
   @override
-  $HandPropertyCopyWith<HandProperty> get copyWith =>
-      _$HandPropertyCopyWithImpl<HandProperty>(this, _$identity);
+  _$$HandPropertyCopyWith<_$HandProperty> get copyWith =>
+      __$$HandPropertyCopyWithImpl<_$HandProperty>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -364,15 +364,15 @@ abstract class HandProperty implements Property {
 
   bool get includeEraser => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $HandPropertyCopyWith<HandProperty> get copyWith =>
+  _$$HandPropertyCopyWith<_$HandProperty> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LabelPropertyCopyWith<$Res> {
-  factory $LabelPropertyCopyWith(
-          LabelProperty value, $Res Function(LabelProperty) then) =
-      _$LabelPropertyCopyWithImpl<$Res>;
+abstract class _$$LabelPropertyCopyWith<$Res> {
+  factory _$$LabelPropertyCopyWith(
+          _$LabelProperty value, $Res Function(_$LabelProperty) then) =
+      __$$LabelPropertyCopyWithImpl<$Res>;
   $Res call(
       {double size,
       int color,
@@ -390,14 +390,14 @@ abstract class $LabelPropertyCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LabelPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
-    implements $LabelPropertyCopyWith<$Res> {
-  _$LabelPropertyCopyWithImpl(
-      LabelProperty _value, $Res Function(LabelProperty) _then)
-      : super(_value, (v) => _then(v as LabelProperty));
+class __$$LabelPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
+    implements _$$LabelPropertyCopyWith<$Res> {
+  __$$LabelPropertyCopyWithImpl(
+      _$LabelProperty _value, $Res Function(_$LabelProperty) _then)
+      : super(_value, (v) => _then(v as _$LabelProperty));
 
   @override
-  LabelProperty get _value => super._value as LabelProperty;
+  _$LabelProperty get _value => super._value as _$LabelProperty;
 
   @override
   $Res call({
@@ -415,7 +415,7 @@ class _$LabelPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
     Object? horizontalAlignment = freezed,
     Object? verticalAlignment = freezed,
   }) {
-    return _then(LabelProperty(
+    return _then(_$LabelProperty(
       size: size == freezed
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
@@ -547,7 +547,7 @@ class _$LabelProperty implements LabelProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is LabelProperty &&
+            other is _$LabelProperty &&
             const DeepCollectionEquality().equals(other.size, size) &&
             const DeepCollectionEquality().equals(other.color, color) &&
             const DeepCollectionEquality()
@@ -591,8 +591,8 @@ class _$LabelProperty implements LabelProperty {
 
   @JsonKey(ignore: true)
   @override
-  $LabelPropertyCopyWith<LabelProperty> get copyWith =>
-      _$LabelPropertyCopyWithImpl<LabelProperty>(this, _$identity);
+  _$$LabelPropertyCopyWith<_$LabelProperty> get copyWith =>
+      __$$LabelPropertyCopyWithImpl<_$LabelProperty>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -799,27 +799,27 @@ abstract class LabelProperty implements Property {
       throw _privateConstructorUsedError;
   VerticalAlignment get verticalAlignment => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LabelPropertyCopyWith<LabelProperty> get copyWith =>
+  _$$LabelPropertyCopyWith<_$LabelProperty> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $EraserPropertyCopyWith<$Res> {
-  factory $EraserPropertyCopyWith(
-          EraserProperty value, $Res Function(EraserProperty) then) =
-      _$EraserPropertyCopyWithImpl<$Res>;
+abstract class _$$EraserPropertyCopyWith<$Res> {
+  factory _$$EraserPropertyCopyWith(
+          _$EraserProperty value, $Res Function(_$EraserProperty) then) =
+      __$$EraserPropertyCopyWithImpl<$Res>;
   $Res call({double strokeWidth, double strokeMultiplier, int color});
 }
 
 /// @nodoc
-class _$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
-    implements $EraserPropertyCopyWith<$Res> {
-  _$EraserPropertyCopyWithImpl(
-      EraserProperty _value, $Res Function(EraserProperty) _then)
-      : super(_value, (v) => _then(v as EraserProperty));
+class __$$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
+    implements _$$EraserPropertyCopyWith<$Res> {
+  __$$EraserPropertyCopyWithImpl(
+      _$EraserProperty _value, $Res Function(_$EraserProperty) _then)
+      : super(_value, (v) => _then(v as _$EraserProperty));
 
   @override
-  EraserProperty get _value => super._value as EraserProperty;
+  _$EraserProperty get _value => super._value as _$EraserProperty;
 
   @override
   $Res call({
@@ -827,7 +827,7 @@ class _$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
     Object? strokeMultiplier = freezed,
     Object? color = freezed,
   }) {
-    return _then(EraserProperty(
+    return _then(_$EraserProperty(
       strokeWidth: strokeWidth == freezed
           ? _value.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
@@ -879,7 +879,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is EraserProperty &&
+            other is _$EraserProperty &&
             const DeepCollectionEquality()
                 .equals(other.strokeWidth, strokeWidth) &&
             const DeepCollectionEquality()
@@ -897,8 +897,8 @@ class _$EraserProperty with PathProperty implements EraserProperty {
 
   @JsonKey(ignore: true)
   @override
-  $EraserPropertyCopyWith<EraserProperty> get copyWith =>
-      _$EraserPropertyCopyWithImpl<EraserProperty>(this, _$identity);
+  _$$EraserPropertyCopyWith<_$EraserProperty> get copyWith =>
+      __$$EraserPropertyCopyWithImpl<_$EraserProperty>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1045,28 +1045,28 @@ abstract class EraserProperty implements Property, PathProperty {
   double get strokeMultiplier => throw _privateConstructorUsedError;
   int get color => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $EraserPropertyCopyWith<EraserProperty> get copyWith =>
+  _$$EraserPropertyCopyWith<_$EraserProperty> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PenPropertyCopyWith<$Res> {
-  factory $PenPropertyCopyWith(
-          PenProperty value, $Res Function(PenProperty) then) =
-      _$PenPropertyCopyWithImpl<$Res>;
+abstract class _$$PenPropertyCopyWith<$Res> {
+  factory _$$PenPropertyCopyWith(
+          _$PenProperty value, $Res Function(_$PenProperty) then) =
+      __$$PenPropertyCopyWithImpl<$Res>;
   $Res call(
       {double strokeWidth, double strokeMultiplier, int color, bool fill});
 }
 
 /// @nodoc
-class _$PenPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
-    implements $PenPropertyCopyWith<$Res> {
-  _$PenPropertyCopyWithImpl(
-      PenProperty _value, $Res Function(PenProperty) _then)
-      : super(_value, (v) => _then(v as PenProperty));
+class __$$PenPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
+    implements _$$PenPropertyCopyWith<$Res> {
+  __$$PenPropertyCopyWithImpl(
+      _$PenProperty _value, $Res Function(_$PenProperty) _then)
+      : super(_value, (v) => _then(v as _$PenProperty));
 
   @override
-  PenProperty get _value => super._value as PenProperty;
+  _$PenProperty get _value => super._value as _$PenProperty;
 
   @override
   $Res call({
@@ -1075,7 +1075,7 @@ class _$PenPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
     Object? color = freezed,
     Object? fill = freezed,
   }) {
-    return _then(PenProperty(
+    return _then(_$PenProperty(
       strokeWidth: strokeWidth == freezed
           ? _value.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
@@ -1135,7 +1135,7 @@ class _$PenProperty with PathProperty implements PenProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is PenProperty &&
+            other is _$PenProperty &&
             const DeepCollectionEquality()
                 .equals(other.strokeWidth, strokeWidth) &&
             const DeepCollectionEquality()
@@ -1155,8 +1155,8 @@ class _$PenProperty with PathProperty implements PenProperty {
 
   @JsonKey(ignore: true)
   @override
-  $PenPropertyCopyWith<PenProperty> get copyWith =>
-      _$PenPropertyCopyWithImpl<PenProperty>(this, _$identity);
+  _$$PenPropertyCopyWith<_$PenProperty> get copyWith =>
+      __$$PenPropertyCopyWithImpl<_$PenProperty>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1305,6 +1305,6 @@ abstract class PenProperty implements Property, PathProperty {
   int get color => throw _privateConstructorUsedError;
   bool get fill => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $PenPropertyCopyWith<PenProperty> get copyWith =>
+  _$$PenPropertyCopyWith<_$PenProperty> get copyWith =>
       throw _privateConstructorUsedError;
 }

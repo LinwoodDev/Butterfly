@@ -2,14 +2,12 @@ import 'package:butterfly/models/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'property.freezed.dart';
 part 'property.g.dart';
+part 'property.freezed.dart';
 
 abstract class PathProperty {
   double get strokeWidth;
   double get strokeMultiplier;
-
-  Map<String, dynamic> toJson();
 }
 
 enum HorizontalAlignment { left, center, right, justify }

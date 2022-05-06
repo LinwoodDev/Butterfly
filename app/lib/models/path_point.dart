@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:vector_math/vector_math.dart' show Vector2;
 
-part 'path_point.freezed.dart';
 part 'path_point.g.dart';
+part 'path_point.freezed.dart';
 
 @freezed
 class PathPoint with _$PathPoint {

@@ -11,8 +11,8 @@ import 'palette.dart';
 import 'property.dart';
 import 'waypoint.dart';
 
-part 'document.freezed.dart';
 part 'document.g.dart';
+part 'document.freezed.dart';
 
 @immutable
 abstract class AppDocumentAsset {

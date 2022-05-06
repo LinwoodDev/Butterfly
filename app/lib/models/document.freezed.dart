@@ -138,11 +138,11 @@ class _$AppDocumentCopyWithImpl<$Res> implements $AppDocumentCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$AppDocumentCopyWith<$Res>
+abstract class _$$_AppDocumentCopyWith<$Res>
     implements $AppDocumentCopyWith<$Res> {
-  factory _$AppDocumentCopyWith(
-          _AppDocument value, $Res Function(_AppDocument) then) =
-      __$AppDocumentCopyWithImpl<$Res>;
+  factory _$$_AppDocumentCopyWith(
+          _$_AppDocument value, $Res Function(_$_AppDocument) then) =
+      __$$_AppDocumentCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
@@ -162,14 +162,14 @@ abstract class _$AppDocumentCopyWith<$Res>
 }
 
 /// @nodoc
-class __$AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
-    implements _$AppDocumentCopyWith<$Res> {
-  __$AppDocumentCopyWithImpl(
-      _AppDocument _value, $Res Function(_AppDocument) _then)
-      : super(_value, (v) => _then(v as _AppDocument));
+class __$$_AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
+    implements _$$_AppDocumentCopyWith<$Res> {
+  __$$_AppDocumentCopyWithImpl(
+      _$_AppDocument _value, $Res Function(_$_AppDocument) _then)
+      : super(_value, (v) => _then(v as _$_AppDocument));
 
   @override
-  _AppDocument get _value => super._value as _AppDocument;
+  _$_AppDocument get _value => super._value as _$_AppDocument;
 
   @override
   $Res call({
@@ -185,7 +185,7 @@ class __$AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
     Object? updatedAt = freezed,
     Object? painters = freezed,
   }) {
-    return _then(_AppDocument(
+    return _then(_$_AppDocument(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -195,7 +195,7 @@ class __$AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
           : description // ignore: cast_nullable_to_non_nullable
               as String,
       content: content == freezed
-          ? _value.content
+          ? _value._content
           : content // ignore: cast_nullable_to_non_nullable
               as List<PadElement>,
       background: background == freezed
@@ -203,15 +203,15 @@ class __$AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
           : background // ignore: cast_nullable_to_non_nullable
               as Background,
       palettes: palettes == freezed
-          ? _value.palettes
+          ? _value._palettes
           : palettes // ignore: cast_nullable_to_non_nullable
               as List<ColorPalette>,
       waypoints: waypoints == freezed
-          ? _value.waypoints
+          ? _value._waypoints
           : waypoints // ignore: cast_nullable_to_non_nullable
               as List<Waypoint>,
       areas: areas == freezed
-          ? _value.areas
+          ? _value._areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>,
       createdAt: createdAt == freezed
@@ -227,7 +227,7 @@ class __$AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       painters: painters == freezed
-          ? _value.painters
+          ? _value._painters
           : painters // ignore: cast_nullable_to_non_nullable
               as List<Painter>,
     ));
@@ -327,21 +327,22 @@ class _$_AppDocument extends _AppDocument {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _AppDocument &&
+            other is _$_AppDocument &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.content, content) &&
+            const DeepCollectionEquality().equals(other._content, _content) &&
             const DeepCollectionEquality()
                 .equals(other.background, background) &&
-            const DeepCollectionEquality().equals(other.palettes, palettes) &&
-            const DeepCollectionEquality().equals(other.waypoints, waypoints) &&
-            const DeepCollectionEquality().equals(other.areas, areas) &&
+            const DeepCollectionEquality().equals(other._palettes, _palettes) &&
+            const DeepCollectionEquality()
+                .equals(other._waypoints, _waypoints) &&
+            const DeepCollectionEquality().equals(other._areas, _areas) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality()
                 .equals(other.handProperty, handProperty) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
-            const DeepCollectionEquality().equals(other.painters, painters));
+            const DeepCollectionEquality().equals(other._painters, _painters));
   }
 
   @JsonKey(ignore: true)
@@ -350,20 +351,20 @@ class _$_AppDocument extends _AppDocument {
       runtimeType,
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(content),
+      const DeepCollectionEquality().hash(_content),
       const DeepCollectionEquality().hash(background),
-      const DeepCollectionEquality().hash(palettes),
-      const DeepCollectionEquality().hash(waypoints),
-      const DeepCollectionEquality().hash(areas),
+      const DeepCollectionEquality().hash(_palettes),
+      const DeepCollectionEquality().hash(_waypoints),
+      const DeepCollectionEquality().hash(_areas),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(handProperty),
       const DeepCollectionEquality().hash(updatedAt),
-      const DeepCollectionEquality().hash(painters));
+      const DeepCollectionEquality().hash(_painters));
 
   @JsonKey(ignore: true)
   @override
-  _$AppDocumentCopyWith<_AppDocument> get copyWith =>
-      __$AppDocumentCopyWithImpl<_AppDocument>(this, _$identity);
+  _$$_AppDocumentCopyWith<_$_AppDocument> get copyWith =>
+      __$$_AppDocumentCopyWithImpl<_$_AppDocument>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -413,6 +414,6 @@ abstract class _AppDocument extends AppDocument {
   List<Painter> get painters => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AppDocumentCopyWith<_AppDocument> get copyWith =>
+  _$$_AppDocumentCopyWith<_$_AppDocument> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -7,8 +7,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'path_point.dart';
 import 'property.dart';
 
-part 'element.freezed.dart';
 part 'element.g.dart';
+part 'element.freezed.dart';
 
 @freezed
 class ElementConstraint with _$ElementConstraint {
