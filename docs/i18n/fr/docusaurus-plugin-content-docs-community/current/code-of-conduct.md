@@ -1,6 +1,6 @@
 ---
 title: Code de conduite
-hide_title: vrai
+hide_title: true
 sidebar_label: Code de conduite
 ---
 
