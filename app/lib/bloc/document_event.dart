@@ -76,6 +76,10 @@ class IndexRefreshed extends DocumentEvent {
   const IndexRefreshed();
 }
 
+class DocumentSaved extends DocumentEvent {
+  const DocumentSaved();
+}
+
 class CurrentPainterChanged extends DocumentEvent {
   final int? painter;
 

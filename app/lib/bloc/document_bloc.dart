@@ -16,6 +16,7 @@ import 'package:butterfly/models/waypoint.dart';
 import 'package:butterfly/view_painter.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 import 'package:xml/xml.dart';
 
@@ -523,6 +524,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       emit(current.copyWith(currentAreaIndex: event.area));
     });
+    on<DocumentSaved>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      undo();
+      emit(current.copyWith(saved: true));
+    });
   }
 
   Future<void> _saveDocument(DocumentLoadSuccess current,
@@ -536,6 +544,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ..addAll(unbakedElements);
     }
     var nextState = current.copyWith(
+        saved: false,
         document: current.document.copyWith(updatedAt: DateTime.now()),
         cameraViewport: unbakedElements == null
             ? current.cameraViewport.unbake(elements)
@@ -545,12 +554,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       return;
     }
     emit(nextState);
-    var path = await nextState.save();
-    var currentState = state;
-    if (currentState is! DocumentLoadSuccess) return;
-    if (currentState.path == null && state is DocumentLoadSuccess) {
-      emit(currentState.copyWith(path: path));
-      clearHistory();
+    String? path = current.path;
+    if (path == null || !kIsWeb) {
+      path = await nextState.save();
+      var currentState = state;
+      if (currentState is! DocumentLoadSuccess) return;
+      if (currentState.path == null && state is DocumentLoadSuccess) {
+        emit(currentState.copyWith(path: path, saved: true));
+        clearHistory();
+      }
     }
   }
 

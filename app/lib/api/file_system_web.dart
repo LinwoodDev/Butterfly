@@ -9,9 +9,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'file_system.dart';
 
+Database? _db;
 Future<Database> _getDatabase() async {
+  if (_db != null) return _db!;
   var idbFactory = getIdbFactory()!;
-  return await idbFactory.open('butterfly.db', version: 3,
+  _db = await idbFactory.open('butterfly.db', version: 3,
       onUpgradeNeeded: (VersionChangeEvent event) async {
     Database db = event.database;
     if (event.oldVersion < 1) {
@@ -32,6 +34,7 @@ Future<Database> _getDatabase() async {
       db.createObjectStore('templates');
     }
   });
+  return _db!;
 }
 
 class WebDocumentFileSystem extends DocumentFileSystem {
@@ -51,9 +54,9 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       filePath = '$path/${convertNameToFile(document.name)}_$counter';
       counter++;
     }
-    var db = await _getDatabase();
     var doc = Map<String, dynamic>.from(document.toJson());
     doc['type'] = 'file';
+    final db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
     await store.put(doc, filePath);

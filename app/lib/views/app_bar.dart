@@ -8,6 +8,7 @@ import 'package:butterfly/api/full_screen_stub.dart'
 import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/edit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,6 +23,7 @@ import '../actions/new.dart';
 import '../actions/open.dart';
 import '../actions/project.dart';
 import '../actions/redo.dart';
+import '../actions/save.dart';
 import '../actions/settings.dart';
 import '../actions/undo.dart';
 import '../embed/action.dart';
@@ -82,7 +84,8 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                 previous is! DocumentLoadSuccess) return true;
             return _nameController.text != current.document.name ||
                 previous.path != current.path ||
-                _areaController.text != current.currentArea?.name;
+                _areaController.text != current.currentArea?.name ||
+                previous.saved != current.saved;
           }, builder: (ctx, state) {
             Widget title;
             final isMobile = MediaQuery.of(context).size.width < 800;
@@ -157,6 +160,22 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                         ),
                     ]),
               );
+              if (kIsWeb && (state.embedding?.editable ?? true)) {
+                title = Row(children: [
+                  Expanded(child: title),
+                  IconButton(
+                    icon: state.saved
+                        ? const Icon(PhosphorIcons.floppyDiskFill)
+                        : const Icon(PhosphorIcons.floppyDiskLight),
+                    tooltip: AppLocalizations.of(context)!.save,
+                    onPressed: () {
+                      Actions.maybeInvoke<SaveIntent>(
+                          context, SaveIntent(context));
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                ]);
+              }
             } else {
               title = Text(AppLocalizations.of(ctx)!.loading);
             }

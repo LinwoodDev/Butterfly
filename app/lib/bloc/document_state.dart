@@ -19,9 +19,11 @@ class DocumentLoadSuccess extends DocumentState {
   final CurrentIndex currentIndex;
   final SettingsCubit settingsCubit;
   final Embedding? embedding;
+  final bool saved;
 
   DocumentLoadSuccess(this.document,
       {this.path,
+      this.saved = true,
       required this.settingsCubit,
       CameraViewport? cameraViewport,
       this.currentAreaIndex = -1,
@@ -89,6 +91,7 @@ class DocumentLoadSuccess extends DocumentState {
           int? currentAreaIndex,
           bool removeCurrentIndex = false,
           bool removePath = false,
+          bool? saved,
           List<String>? invisibleLayers,
           CameraViewport? cameraViewport}) =>
       DocumentLoadSuccess(document ?? this.document,
@@ -97,6 +100,7 @@ class DocumentLoadSuccess extends DocumentState {
           currentLayer: currentLayer ?? this.currentLayer,
           currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
           cameraViewport: cameraViewport ?? this.cameraViewport,
+          saved: saved ?? this.saved,
           settingsCubit: settingsCubit,
           embedding: embedding,
           currentIndex:

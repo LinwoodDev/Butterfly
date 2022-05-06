@@ -14,6 +14,7 @@ import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/open.dart';
 import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
+import 'package:butterfly/actions/save.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/actions/undo.dart';
@@ -272,6 +273,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   LayersIntent: LayersAction(),
                   InsertIntent: InsertAction(),
                   ChangePathIntent: ChangePathAction(),
+                  SaveIntent: SaveAction(),
                 },
                 child: SafeArea(
                   child: ClipRect(
