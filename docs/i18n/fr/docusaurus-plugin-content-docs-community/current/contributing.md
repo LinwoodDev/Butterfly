@@ -1,6 +1,6 @@
 ---
 title: "Contribuer"
-hide_title: vrai
+hide_title: true
 sidebar_label: "Contribuer"
 ---
 
