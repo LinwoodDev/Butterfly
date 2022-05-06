@@ -1,6 +1,6 @@
 ---
 title: Änderungsverlauf
-hide_title: wahr
+hide_title: true
 sidebar_label: Änderungsverlauf
 ---
 
