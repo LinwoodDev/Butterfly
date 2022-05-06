@@ -5,7 +5,7 @@ sidebar_label: Historique des modifications
 ---
 
 ```mdx-code-block
-Importer le changelog, {toc as ChangelogTOC} de "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
