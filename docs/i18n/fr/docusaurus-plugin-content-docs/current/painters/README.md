@@ -17,8 +17,8 @@ Le nom du peintre sera affiché comme infobulle au survol du peintre.
 ## Peintres disponibles
 
 ```mdx-code-block
-import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+importer DocCardList depuis '@theme/DocCardList';
+importer {useCurrentSidebarCategory} depuis '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
