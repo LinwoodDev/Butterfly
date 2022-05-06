@@ -81,7 +81,7 @@ Paramètres:
 
 ### render
 
-> La méthode `rendu` rend le document à une image png.
+> La méthode `render` rend le document à une image png.
 
 Paramètres:
 

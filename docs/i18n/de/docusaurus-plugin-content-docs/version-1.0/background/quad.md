@@ -1,5 +1,5 @@
 ---
-title: "Quad paper"
+title: "Quad Papier"
 ---
 
 |   Objekt | Wert |
