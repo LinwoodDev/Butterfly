@@ -1,6 +1,6 @@
 ---
-id: "communauté"
-slug: "/fr/community"
+id: "community"
+slug: "/community"
 sidebar_label: "Domicile"
 sidebar_position: 0
 title: "Communauté"
@@ -21,4 +21,4 @@ Toutes les autres licences peuvent être trouvées dans les paramètres.
 ## Liens utiles
 
 * [GitHub](https://github.com/LinwoodCloud/Butterfly)
-* [Discord.](https://go.linwood.dev/discord)
+* [Discord](https://go.linwood.dev/discord)
