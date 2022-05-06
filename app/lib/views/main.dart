@@ -61,7 +61,7 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
-  final CurrentIndexCubit _currentIndexCubit = CurrentIndexCubit();
+  late CurrentIndexCubit _currentIndexCubit;
   TransformCubit? _transformCubit;
   final GlobalKey _viewportKey = GlobalKey();
 
@@ -82,6 +82,7 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   Future<void> load() async {
+    _currentIndexCubit = CurrentIndexCubit();
     final settingsCubit = context.read<SettingsCubit>();
     if (widget.embedding != null) {
       setState(() {
@@ -160,9 +161,10 @@ class _ProjectPageState extends State<ProjectPage> {
       await showDialog(
           context: context,
           builder: (context) => MultiBlocProvider(providers: [
-                BlocProvider<DocumentBloc>.value(
-                  value: _bloc!,
-                ),
+                if (_bloc != null)
+                  BlocProvider<DocumentBloc>.value(
+                    value: _bloc!,
+                  ),
                 BlocProvider<TransformCubit>.value(
                   value: _transformCubit!,
                 ),

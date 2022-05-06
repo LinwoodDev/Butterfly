@@ -410,6 +410,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 (element) => !invisibleLayers.contains(element.element.layer))
             .toList();
       }
+      canvas.scale(event.pixelRatio);
+
       ViewPainter(
         current.document,
         transform: event.cameraTransform,
@@ -419,8 +421,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       ).paint(canvas, event.viewportSize);
 
       var picture = recorder.endRecording();
-      var newImage =
-          await picture.toImage((size.width).ceil(), (size.height).ceil());
+      var newImage = await picture.toImage(
+          (size.width * event.pixelRatio).ceil(),
+          (size.height * event.pixelRatio).ceil());
       current = state as DocumentLoadSuccess;
       var currentElements = current.renderers;
       if (reset) {

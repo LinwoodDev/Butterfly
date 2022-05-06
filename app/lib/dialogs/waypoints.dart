@@ -72,8 +72,11 @@ class WaypointsDialog extends StatelessWidget {
                                         var transformCubit =
                                             context.read<TransformCubit>();
                                         var baked = state.cameraViewport;
-                                        bloc.add(ImageBaked(baked.toSize(),
-                                            transformCubit.state));
+                                        bloc.add(ImageBaked(
+                                            baked.toSize(),
+                                            transformCubit.state,
+                                            MediaQuery.of(context)
+                                                .devicePixelRatio));
                                       }
 
                                       var waypoints = state.document.waypoints

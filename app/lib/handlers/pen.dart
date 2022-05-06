@@ -29,7 +29,8 @@ class PenHandler extends Handler {
     if (elements.isEmpty) {
       bloc
         ..add(ElementsCreated(List<PadElement>.from(submittedElements)))
-        ..add(ImageBaked(viewportSize, transform));
+        ..add(ImageBaked(
+            viewportSize, transform, MediaQuery.of(context).devicePixelRatio));
       submittedElements.clear();
     }
     cubit.refresh(bloc);

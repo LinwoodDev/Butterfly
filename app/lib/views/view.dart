@@ -61,7 +61,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       void _bake([CameraTransform? transform]) {
                         context.read<DocumentBloc>().add(ImageBaked(
                             constraints.biggest,
-                            transform ?? context.read<TransformCubit>().state));
+                            transform ?? context.read<TransformCubit>().state,
+                            MediaQuery.of(context).devicePixelRatio));
                       }
 
                       if (state.cameraViewport.toSize() !=
