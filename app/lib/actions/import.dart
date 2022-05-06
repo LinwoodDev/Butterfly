@@ -7,6 +7,7 @@ import 'package:butterfly/models/viewport.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../cubits/current_index.dart';
 import '../cubits/settings.dart';
 import '../models/converter.dart';
 import '../renderers/renderer.dart';
@@ -24,6 +25,7 @@ class ImportAction extends Action<ImportIntent> {
   Future<void> invoke(ImportIntent intent) async {
     final bloc = intent.context.read<DocumentBloc>();
     final settingsCubit = intent.context.read<SettingsCubit>();
+    final currentIndexCubit = intent.context.read<CurrentIndexCubit>();
     showDialog(
             builder: (context) => const ImportDialog(), context: intent.context)
         .then((content) {
@@ -40,6 +42,7 @@ class ImportAction extends Action<ImportIntent> {
         await Future.wait(renderers.map((e) async => await e.setup(document)));
         bloc.emit(DocumentLoadSuccess(document,
             path: file.path,
+            currentIndexCubit: currentIndexCubit,
             settingsCubit: settingsCubit,
             cameraViewport: CameraViewport.unbaked(background, renderers)));
       });

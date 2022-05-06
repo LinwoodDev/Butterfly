@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../cubits/current_index.dart';
 import '../dialogs/template.dart';
 
 class NewIntent extends Intent {
@@ -28,6 +29,7 @@ class NewAction extends Action<NewIntent> {
     final settingsCubit = intent.context.read<SettingsCubit>();
     final settings = settingsCubit.state;
     final transformCubit = intent.context.read<TransformCubit>();
+    final currentIndexCubit = intent.context.read<CurrentIndexCubit>();
     var document = AppDocument(
         name: await formatCurrentDateTime(
             intent.context.read<SettingsCubit>().state.locale),
@@ -67,6 +69,7 @@ class NewAction extends Action<NewIntent> {
 
     bloc.clearHistory();
     transformCubit.reset();
-    bloc.emit(DocumentLoadSuccess(document, settingsCubit: settingsCubit));
+    bloc.emit(DocumentLoadSuccess(document,
+        settingsCubit: settingsCubit, currentIndexCubit: currentIndexCubit));
   }
 }

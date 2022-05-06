@@ -4,7 +4,7 @@ class PenHandler extends Handler {
   Map<int, PenElement> elements = {};
   List<PenElement> submittedElements = [];
 
-  PenHandler();
+  PenHandler(CurrentIndexCubit cubit) : super(cubit);
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
@@ -31,7 +31,7 @@ class PenHandler extends Handler {
         ..add(ElementsCreated(List<PadElement>.from(submittedElements)))
         ..add(ImageBaked(viewportSize, transform.size, transform));
     } else {
-      bloc.add(const IndexRefreshed());
+      cubit.refresh(bloc);
     }
   }
 
@@ -41,7 +41,8 @@ class PenHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
-    final painter = state.currentPainter as PenPainter;
+    final painter = cubit.fetchPainter<PenPainter>(bloc);
+    if (painter == null) return;
     final inputType = context.read<SettingsCubit>().state.inputType;
     if (!inputType.canCreate(pointer, elements.keys.firstOrNull, kind)) {
       return;
@@ -59,7 +60,7 @@ class PenHandler extends Handler {
         points: List<PathPoint>.from(element.points)
           ..add(PathPoint.fromOffset(
               transform.localToGlobal(localPosition), pressure / zoom)));
-    if (refresh) bloc.add(const IndexRefreshed());
+    if (refresh) cubit.refresh(bloc);
   }
 
   @override

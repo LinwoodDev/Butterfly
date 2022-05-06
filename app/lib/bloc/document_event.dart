@@ -72,21 +72,8 @@ class DocumentPaletteChanged extends DocumentEvent {
   List<Object?> get props => [palette];
 }
 
-class IndexRefreshed extends DocumentEvent {
-  const IndexRefreshed();
-}
-
 class DocumentSaved extends DocumentEvent {
   const DocumentSaved();
-}
-
-class CurrentPainterChanged extends DocumentEvent {
-  final int? painter;
-
-  const CurrentPainterChanged(this.painter);
-
-  @override
-  List<Object?> get props => [painter];
 }
 
 class PainterCreated extends DocumentEvent {

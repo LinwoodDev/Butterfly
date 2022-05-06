@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CurrentIndex {
   int get index => throw _privateConstructorUsedError;
-  Handler get handler => throw _privateConstructorUsedError;
+  Handler? get handler => throw _privateConstructorUsedError;
   List<Renderer> get foregrounds => throw _privateConstructorUsedError;
   List<Rect> get selections => throw _privateConstructorUsedError;
 
@@ -33,7 +33,7 @@ abstract class $CurrentIndexCopyWith<$Res> {
       _$CurrentIndexCopyWithImpl<$Res>;
   $Res call(
       {int index,
-      Handler handler,
+      Handler? handler,
       List<Renderer> foregrounds,
       List<Rect> selections});
 }
@@ -61,7 +61,7 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
       handler: handler == freezed
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
-              as Handler,
+              as Handler?,
       foregrounds: foregrounds == freezed
           ? _value.foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
@@ -83,7 +83,7 @@ abstract class _$CurrentIndexCopyWith<$Res>
   @override
   $Res call(
       {int index,
-      Handler handler,
+      Handler? handler,
       List<Renderer> foregrounds,
       List<Rect> selections});
 }
@@ -113,7 +113,7 @@ class __$CurrentIndexCopyWithImpl<$Res> extends _$CurrentIndexCopyWithImpl<$Res>
       handler == freezed
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
-              as Handler,
+              as Handler?,
       foregrounds == freezed
           ? _value.foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
@@ -138,7 +138,7 @@ class _$_CurrentIndex implements _CurrentIndex {
   @override
   final int index;
   @override
-  final Handler handler;
+  final Handler? handler;
   final List<Renderer> _foregrounds;
   @override
   @JsonKey()
@@ -188,14 +188,14 @@ class _$_CurrentIndex implements _CurrentIndex {
 }
 
 abstract class _CurrentIndex implements CurrentIndex {
-  const factory _CurrentIndex(final int index, final Handler handler,
+  const factory _CurrentIndex(final int index, final Handler? handler,
       [final List<Renderer> foregrounds,
       final List<Rect> selections]) = _$_CurrentIndex;
 
   @override
   int get index => throw _privateConstructorUsedError;
   @override
-  Handler get handler => throw _privateConstructorUsedError;
+  Handler? get handler => throw _privateConstructorUsedError;
   @override
   List<Renderer> get foregrounds => throw _privateConstructorUsedError;
   @override

@@ -16,8 +16,8 @@ class DocumentLoadSuccess extends DocumentState {
   final int currentAreaIndex;
   final List<String> invisibleLayers;
   final CameraViewport cameraViewport;
-  final CurrentIndex currentIndex;
   final SettingsCubit settingsCubit;
+  final CurrentIndexCubit currentIndexCubit;
   final Embedding? embedding;
   final bool saved;
 
@@ -25,14 +25,13 @@ class DocumentLoadSuccess extends DocumentState {
       {this.path,
       this.saved = true,
       required this.settingsCubit,
+      required this.currentIndexCubit,
       CameraViewport? cameraViewport,
       this.currentAreaIndex = -1,
-      CurrentIndex? currentIndex,
       this.currentLayer = '',
       this.embedding,
       this.invisibleLayers = const []})
-      : currentIndex = currentIndex ?? CurrentIndex(-1, HandHandler()),
-        cameraViewport = cameraViewport ??
+      : cameraViewport = cameraViewport ??
             CameraViewport.unbaked(
                 Renderer.fromInstance(document.background)..setup(document),
                 document.content
@@ -41,7 +40,6 @@ class DocumentLoadSuccess extends DocumentState {
 
   @override
   List<Object?> get props => [
-        currentIndex,
         invisibleLayers,
         cameraViewport,
         document,
@@ -56,22 +54,6 @@ class DocumentLoadSuccess extends DocumentState {
       List.from(cameraViewport.bakedElements)
         ..addAll(cameraViewport.unbakedElements);
 
-  HandHandler? fetchHand() {
-    final handler = currentIndex.handler;
-    if (handler is! HandHandler) return null;
-    return handler;
-  }
-
-  Painter? get currentPainter {
-    var index = currentIndex.index;
-    if (document.painters.isEmpty ||
-        index < 0 ||
-        index >= document.painters.length) {
-      return null;
-    }
-    return document.painters[index];
-  }
-
   Area? get currentArea {
     if (currentAreaIndex < 0 || currentAreaIndex >= document.areas.length) {
       return null;
@@ -85,26 +67,25 @@ class DocumentLoadSuccess extends DocumentState {
   DocumentLoadSuccess copyWith(
           {AppDocument? document,
           bool? editMode,
-          CurrentIndex? currentIndex,
           String? path,
           String? currentLayer,
           int? currentAreaIndex,
-          bool removeCurrentIndex = false,
           bool removePath = false,
           bool? saved,
           List<String>? invisibleLayers,
           CameraViewport? cameraViewport}) =>
-      DocumentLoadSuccess(document ?? this.document,
-          path: removePath ? null : path ?? this.path,
-          invisibleLayers: invisibleLayers ?? this.invisibleLayers,
-          currentLayer: currentLayer ?? this.currentLayer,
-          currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
-          cameraViewport: cameraViewport ?? this.cameraViewport,
-          saved: saved ?? this.saved,
-          settingsCubit: settingsCubit,
-          embedding: embedding,
-          currentIndex:
-              removeCurrentIndex ? null : currentIndex ?? this.currentIndex);
+      DocumentLoadSuccess(
+        document ?? this.document,
+        path: removePath ? null : path ?? this.path,
+        invisibleLayers: invisibleLayers ?? this.invisibleLayers,
+        currentLayer: currentLayer ?? this.currentLayer,
+        currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
+        cameraViewport: cameraViewport ?? this.cameraViewport,
+        saved: saved ?? this.saved,
+        settingsCubit: settingsCubit,
+        embedding: embedding,
+        currentIndexCubit: currentIndexCubit,
+      );
 
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 

@@ -4,7 +4,7 @@ class EraserHandler extends Handler {
   Map<int, EraserElement> elements = {};
   List<EraserElement> submittedElements = [];
 
-  EraserHandler();
+  EraserHandler(CurrentIndexCubit cubit) : super(cubit);
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
@@ -31,7 +31,7 @@ class EraserHandler extends Handler {
         ..add(ElementsCreated(List<PadElement>.from(submittedElements)))
         ..add(ImageBaked(viewportSize, transform.size, transform));
     } else {
-      bloc.add(const IndexRefreshed());
+      cubit.refresh(bloc);
     }
   }
 
@@ -41,7 +41,8 @@ class EraserHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
-    final painter = state.currentPainter as EraserPainter;
+    final painter = cubit.fetchPainter<EraserPainter>(bloc);
+    if (painter == null) return;
     final inputType = context.read<SettingsCubit>().state.inputType;
     if (!inputType.canCreate(pointer, elements.keys.firstOrNull, kind)) {
       return;
@@ -58,7 +59,7 @@ class EraserHandler extends Handler {
         points: List<PathPoint>.from(element.points)
           ..add(PathPoint.fromOffset(
               transform.localToGlobal(localPosition), pressure)));
-    if (refresh) bloc.add(const IndexRefreshed());
+    if (refresh) cubit.refresh(bloc);
   }
 
   @override

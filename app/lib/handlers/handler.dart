@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../cubits/current_index.dart';
 import '../dialogs/background/context.dart';
 import '../dialogs/elements/label.dart';
 import '../models/area.dart';
@@ -30,7 +31,9 @@ part 'path_eraser.dart';
 part 'pen.dart';
 
 abstract class Handler {
-  const Handler();
+  final CurrentIndexCubit cubit;
+
+  const Handler(this.cubit);
 
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
       [];
@@ -67,32 +70,35 @@ abstract class Handler {
   void onLongPressEnd(
       Size viewportSize, BuildContext context, LongPressEndDetails details) {}
 
-  factory Handler.fromBloc(DocumentBloc bloc, [int? index]) {
+  factory Handler.fromBloc(
+      CurrentIndexCubit currentIndexCubit, DocumentBloc bloc,
+      [int? index]) {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) {
       throw Exception('Invalid document state');
     }
-    final painter =
-        index != null ? state.document.painters[index] : state.currentPainter;
+    final painter = index != null
+        ? state.document.painters[index]
+        : currentIndexCubit.getPainter(bloc);
     if (painter is PenPainter) {
-      return PenHandler();
+      return PenHandler(currentIndexCubit);
     }
     if (painter is EraserPainter) {
-      return EraserHandler();
+      return EraserHandler(currentIndexCubit);
     }
     if (painter is LabelPainter) {
-      return LabelHandler();
+      return LabelHandler(currentIndexCubit);
     }
     if (painter is AreaPainter) {
-      return AreaHandler();
+      return AreaHandler(currentIndexCubit);
     }
     if (painter is PathEraserPainter) {
-      return PathEraserHandler();
+      return PathEraserHandler(currentIndexCubit);
     }
     if (painter is LayerPainter) {
-      return LayerHandler();
+      return LayerHandler(currentIndexCubit);
     }
-    return HandHandler();
+    return HandHandler(currentIndexCubit);
   }
 }
 

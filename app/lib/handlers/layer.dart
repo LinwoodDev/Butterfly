@@ -1,13 +1,15 @@
 part of 'handler.dart';
 
 class LayerHandler extends Handler {
+  LayerHandler(CurrentIndexCubit cubit) : super(cubit);
+
   @override
   Future<void> onPointerMove(
       Size viewportSize, BuildContext context, PointerMoveEvent event) async {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
-    final state = bloc.state as DocumentLoadSuccess;
-    final painter = state.currentPainter as LayerPainter;
+    final painter = cubit.fetchPainter<LayerPainter>(bloc);
+    if (painter == null) return;
     final hits = await rayCast(
         context, event.localPosition, painter.strokeWidth / transform.size);
     bloc.add(ElementsLayerChanged(

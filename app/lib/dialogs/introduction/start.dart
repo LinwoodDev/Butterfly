@@ -1,5 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/material.dart';
@@ -89,6 +90,8 @@ class _CreateStartView extends StatelessWidget {
                             onTap: () async {
                               final settingsCubit =
                                   context.read<SettingsCubit>();
+                              final currentIndexCubit =
+                                  context.read<CurrentIndexCubit>();
                               final bloc = context.read<DocumentBloc>();
                               final transformCubit =
                                   context.read<TransformCubit>();
@@ -102,7 +105,9 @@ class _CreateStartView extends StatelessWidget {
 
                               bloc.clearHistory();
                               transformCubit.reset();
+                              currentIndexCubit.reset();
                               bloc.emit(DocumentLoadSuccess(document,
+                                  currentIndexCubit: currentIndexCubit,
                                   settingsCubit: settingsCubit));
                             });
                       },

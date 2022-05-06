@@ -3,6 +3,8 @@ part of 'handler.dart';
 class AreaHandler extends Handler {
   Rect? currentRect;
 
+  AreaHandler(CurrentIndexCubit cubit) : super(cubit);
+
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
       [
@@ -44,7 +46,7 @@ class AreaHandler extends Handler {
       currentRect = null;
       return;
     }
-    context.read<DocumentBloc>().add(const IndexRefreshed());
+    cubit.refresh(bloc);
   }
 
   @override
@@ -52,13 +54,14 @@ class AreaHandler extends Handler {
       Size viewportSize, BuildContext context, PointerMoveEvent event) {
     if (currentRect == null) return;
     final transform = context.read<TransformCubit>().state;
-    final state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state as DocumentLoadSuccess;
     final position = transform.localToGlobal(event.localPosition);
     final nextRect = Rect.fromLTWH(currentRect!.left, currentRect!.top,
         position.dx - currentRect!.left, position.dy - currentRect!.top);
     if (state.document.getAreaByRect(nextRect) == null) {
       currentRect = nextRect;
-      context.read<DocumentBloc>().add(const IndexRefreshed());
+      cubit.refresh(bloc);
     }
   }
 
@@ -99,7 +102,7 @@ class AreaHandler extends Handler {
     final position = transform.localToGlobal(event.localPosition);
     if (state.document.getAreaByRect(currentRect!) != null) {
       currentRect = null;
-      context.read<DocumentBloc>().add(const IndexRefreshed());
+      cubit.refresh(bloc);
       return;
     }
     final nextRect = Rect.fromLTWH(currentRect!.left, currentRect!.top,
@@ -110,17 +113,16 @@ class AreaHandler extends Handler {
     final name = await _showAreaLabelDialog(context);
     if (name == null) {
       currentRect = null;
-      bloc.add(const IndexRefreshed());
+      cubit.refresh(bloc);
       return;
     }
 
-    bloc
-      ..add(AreaCreated(Area(
-          name: name,
-          width: currentRect!.width,
-          height: currentRect!.height,
-          position: currentRect!.topLeft)))
-      ..add(const IndexRefreshed());
+    bloc.add(AreaCreated(Area(
+        name: name,
+        width: currentRect!.width,
+        height: currentRect!.height,
+        position: currentRect!.topLeft)));
+    cubit.refresh(bloc);
     currentRect = null;
   }
 }

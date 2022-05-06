@@ -1,7 +1,8 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/painter.dart';
+import 'package:butterfly/handlers/handler.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -71,26 +72,27 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       }
 
                       var openView = false;
+                      final CurrentIndexCubit cubit =
+                          context.read<CurrentIndexCubit>();
 
                       return GestureDetector(
                           onTapUp: (details) {
-                            state.currentIndex.handler
+                            cubit
+                                .getHandler()
                                 .onTapUp(constraints.biggest, context, details);
                           },
                           onTapDown: (details) {
-                            state.currentIndex.handler.onTapDown(
+                            cubit.getHandler().onTapDown(
                                 constraints.biggest, context, details);
                           },
                           onSecondaryTapUp: (details) {
-                            state.currentIndex.handler.onSecondaryTapUp(
+                            cubit.getHandler().onSecondaryTapUp(
                                 constraints.biggest, context, details);
                           },
                           onScaleUpdate: (details) {
-                            if (state.currentPainter is! AreaPainter &&
-                                (state.currentPainter != null ||
-                                    details.scale == 1)) return;
+                            if (details.scale == 1) return;
                             if (openView) openView = details.scale == 1;
-                            var cubit = context.read<TransformCubit>();
+                            var transformCubit = context.read<TransformCubit>();
                             var current = details.scale;
                             current = current - size;
                             current += 1;
@@ -98,16 +100,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 .read<SettingsCubit>()
                                 .state
                                 .touchSensitivity;
-                            cubit.zoom((1 - current) / -sensitivity + 1,
+                            transformCubit.zoom(
+                                (1 - current) / -sensitivity + 1,
                                 details.localFocalPoint);
-                            if (state.currentPainter != null &&
+                            if (cubit.fetchHandler<HandHandler>() != null &&
                                 details.pointerCount == 2) {
-                              cubit.move(details.focalPointDelta);
+                              transformCubit.move(details.focalPointDelta);
                             }
                             size = details.scale;
                           },
                           onLongPressEnd: (details) {
-                            state.currentIndex.handler.onLongPressEnd(
+                            cubit.getHandler().onLongPressEnd(
                                 constraints.biggest, context, details);
                           },
                           onScaleEnd: (details) => _bake(),
@@ -147,42 +150,47 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 }
                               },
                               onPointerDown: (PointerDownEvent event) {
-                                state.currentIndex.handler.onPointerDown(
+                                cubit.getHandler().onPointerDown(
                                     constraints.biggest, context, event);
                               },
                               onPointerUp: (PointerUpEvent event) async {
-                                state.currentIndex.handler.onPointerUp(
+                                cubit.getHandler().onPointerUp(
                                     constraints.biggest, context, event);
                               },
                               behavior: HitTestBehavior.translucent,
                               onPointerHover: (event) {
-                                state.currentIndex.handler.onPointerHover(
+                                cubit.getHandler().onPointerHover(
                                     constraints.biggest, context, event);
                               },
                               onPointerMove: (PointerMoveEvent event) async {
-                                state.currentIndex.handler.onPointerMove(
+                                cubit.getHandler().onPointerMove(
                                     constraints.biggest, context, event);
                               },
                               child:
                                   BlocBuilder<TransformCubit, CameraTransform>(
                                 builder: (context, transform) {
-                                  return Stack(children: [
-                                    Container(color: Colors.white),
-                                    CustomPaint(
-                                      size: Size.infinite,
-                                      foregroundPainter: ForegroundPainter(
-                                        state.currentIndex.foregrounds,
-                                        transform,
-                                        state.currentIndex.selections,
-                                      ),
-                                      painter: ViewPainter(state.document,
-                                          cameraViewport: state.cameraViewport,
-                                          transform: transform,
-                                          currentArea: state.currentArea),
-                                      isComplex: true,
-                                      willChange: true,
-                                    )
-                                  ]);
+                                  return BlocBuilder<CurrentIndexCubit,
+                                      CurrentIndex>(
+                                    builder: (context, currentIndex) =>
+                                        Stack(children: [
+                                      Container(color: Colors.white),
+                                      CustomPaint(
+                                        size: Size.infinite,
+                                        foregroundPainter: ForegroundPainter(
+                                          currentIndex.foregrounds,
+                                          transform,
+                                          currentIndex.selections,
+                                        ),
+                                        painter: ViewPainter(state.document,
+                                            cameraViewport:
+                                                state.cameraViewport,
+                                            transform: transform,
+                                            currentArea: state.currentArea),
+                                        isComplex: true,
+                                        willChange: true,
+                                      )
+                                    ]),
+                                  );
                                 },
                               )));
                     }))));

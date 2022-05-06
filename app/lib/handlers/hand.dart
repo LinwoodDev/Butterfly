@@ -5,7 +5,7 @@ class HandHandler extends Handler {
   Renderer<PadElement>? selected;
   Offset? currentMovePosition;
 
-  HandHandler();
+  HandHandler(CurrentIndexCubit cubit) : super(cubit);
 
   @override
   Future<bool> onRendererUpdated(
@@ -43,9 +43,9 @@ class HandHandler extends Handler {
     submitMove(context);
     movingElement = next;
     if (!duplicate) {
-      context.read<DocumentBloc>()
-        ..add(ElementsRemoved([next.element]))
-        ..add(const IndexRefreshed());
+      final bloc = context.read<DocumentBloc>();
+      bloc.add(ElementsRemoved([next.element]));
+      cubit.refresh(bloc);
     }
   }
 
@@ -53,9 +53,9 @@ class HandHandler extends Handler {
     if (movingElement == null && element == null) return;
     final current = (element ?? movingElement?.element)!;
     movingElement = null;
-    context.read<DocumentBloc>()
-      ..add(const IndexRefreshed())
-      ..add(ElementsCreated([current]));
+    final bloc = context.read<DocumentBloc>();
+    bloc.add(ElementsCreated([current]));
+    cubit.refresh(bloc);
   }
 
   bool openView = true;
@@ -97,7 +97,7 @@ class HandHandler extends Handler {
                 ));
       } else {
         selected = hits.first;
-        bloc.add(const IndexRefreshed());
+        cubit.refresh(bloc);
         // ignore: use_build_context_synchronously
         await showContextMenu(
             context: context,
@@ -118,14 +118,14 @@ class HandHandler extends Handler {
                       elements: hits.toList(),
                       onChanged: (element) {
                         selected = element;
-                        bloc.add(const IndexRefreshed());
+                        cubit.refresh(bloc);
                       },
                       position: event.position),
                 ),
               );
             });
         selected = null;
-        bloc.add(const IndexRefreshed());
+        cubit.refresh(bloc);
       }
     }
   }
@@ -139,13 +139,14 @@ class HandHandler extends Handler {
   @override
   void onPointerMove(
       Size viewportSize, BuildContext context, PointerMoveEvent event) {
+    final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     if (openView) {
       openView = (event.delta / transform.size) == Offset.zero;
     }
     if (movingElement != null) {
       currentMovePosition = transform.localToGlobal(event.localPosition);
-      context.read<DocumentBloc>().add(const IndexRefreshed());
+      cubit.refresh(bloc);
       return;
     }
     context.read<TransformCubit>().move(event.delta / transform.size);
@@ -154,12 +155,13 @@ class HandHandler extends Handler {
   @override
   void onPointerHover(
       Size viewportSize, BuildContext context, PointerHoverEvent event) {
+    final bloc = context.read<DocumentBloc>();
     if (movingElement != null) {
       currentMovePosition = context
           .read<TransformCubit>()
           .state
           .localToGlobal(event.localPosition);
-      context.read<DocumentBloc>().add(const IndexRefreshed());
+      cubit.refresh(bloc);
     }
   }
 }

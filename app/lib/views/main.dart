@@ -22,6 +22,7 @@ import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/introduction/app.dart';
@@ -60,6 +61,7 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
+  final CurrentIndexCubit _currentIndexCubit = CurrentIndexCubit();
   TransformCubit? _transformCubit;
   final GlobalKey _viewportKey = GlobalKey();
 
@@ -85,6 +87,7 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _bloc = DocumentBloc(
             settingsCubit,
+            _currentIndexCubit,
             AppDocument(createdAt: DateTime.now(), name: ''),
             widget.path,
             BoxBackgroundRenderer(const BoxBackground()),
@@ -129,8 +132,8 @@ class _ProjectPageState extends State<ProjectPage> {
       final background = Renderer.fromInstance(document!.background);
       await background.setup(document!);
       setState(() {
-        _bloc = DocumentBloc(
-            settingsCubit, document!, widget.path, background, renderers);
+        _bloc = DocumentBloc(settingsCubit, _currentIndexCubit, document!,
+            widget.path, background, renderers);
         _transformCubit = TransformCubit();
       });
     }
@@ -165,6 +168,9 @@ class _ProjectPageState extends State<ProjectPage> {
                 ),
                 BlocProvider<SettingsCubit>.value(
                   value: settingsCubit,
+                ),
+                BlocProvider<CurrentIndexCubit>.value(
+                  value: _currentIndexCubit,
                 ),
               ], child: const StartIntroductionDialog()));
     }

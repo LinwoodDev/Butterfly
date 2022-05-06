@@ -7,7 +7,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/xml_helper.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/background.dart';
-import 'package:butterfly/models/current_index.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/models/palette.dart';
@@ -22,7 +22,6 @@ import 'package:xml/xml.dart';
 
 import '../cubits/settings.dart';
 import '../embed/embedding.dart';
-import '../handlers/handler.dart';
 import '../models/area.dart';
 import '../models/element.dart';
 import '../models/property.dart';
@@ -32,12 +31,18 @@ part 'document_event.dart';
 part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
-  DocumentBloc(SettingsCubit settingsCubit, AppDocument initial, String? path,
-      Renderer<Background> background, List<Renderer<PadElement>> renderer,
+  DocumentBloc(
+      SettingsCubit settingsCubit,
+      CurrentIndexCubit currentIndexCubit,
+      AppDocument initial,
+      String? path,
+      Renderer<Background> background,
+      List<Renderer<PadElement>> renderer,
       [Embedding? embedding])
       : super(DocumentLoadSuccess(initial,
             path: path,
             settingsCubit: settingsCubit,
+            currentIndexCubit: currentIndexCubit,
             embedding: embedding,
             cameraViewport: CameraViewport.unbaked(background, renderer))) {
     _init();
@@ -117,9 +122,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 null)
             .then((value) async {
           if (oldRenderer == null || newRenderer == null) return;
-          if (await current.currentIndex.handler
+          if (await current.currentIndexCubit
+              .getHandler()
               .onRendererUpdated(current.document, oldRenderer, newRenderer)) {
-            add(const IndexRefreshed());
+            current.currentIndexCubit.refresh(this);
           }
         });
       }
@@ -165,30 +171,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             document: current.document.copyWith(palettes: event.palette)));
       }
     });
-    on<CurrentPainterChanged>((event, emit) async {
-      final current = state;
-      if (current is DocumentLoadSuccess) {
-        if (!(current.embedding?.editable ?? true)) return;
-        final handler = Handler.fromBloc(this, event.painter);
-        emit(current.copyWith(
-            currentIndex: CurrentIndex(event.painter ?? -1, handler),
-            removeCurrentIndex: event.painter == null));
-      }
-    });
-    on<IndexRefreshed>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        final index = current.currentIndex;
-        undo();
-        emit(current.copyWith(
-          currentIndex: index.copyWith(
-              foregrounds: index.handler
-                  .createForegrounds(current.document, current.currentArea),
-              selections: index.handler
-                  .createSelections(current.document, current.currentArea)),
-        ));
-      }
-    });
     on<PainterCreated>((event, emit) async {
       final current = state;
       if (current is DocumentLoadSuccess) {
@@ -213,21 +195,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
-        CurrentIndex? nextIndex;
-        if (current.currentIndex.index == event.index) {
-          nextIndex = CurrentIndex(-1, HandHandler());
-        } else if (current.currentIndex.index > event.index) {
-          nextIndex = current.currentIndex
-              .copyWith(index: current.currentIndex.index - 1);
-        } else {
-          nextIndex =
-              current.currentIndex.copyWith(index: current.currentIndex.index);
-        }
+        final cubit = current.currentIndexCubit;
         return _saveDocument(current.copyWith(
-            currentIndex: nextIndex,
-            document: current.document.copyWith(
-                painters: List.from(current.document.painters)
-                  ..removeAt(event.index))));
+                document: current.document.copyWith(
+                    painters: List.from(current.document.painters)
+                      ..removeAt(event.index))))
+            .then((value) {
+          final currentIndex = current.currentIndexCubit.state;
+          if (currentIndex.index == event.index) {
+            cubit.reset();
+          } else if (currentIndex.index > event.index) {
+            cubit.changeIndex(currentIndex.index - 1);
+          } else {
+            cubit.changeIndex(currentIndex.index);
+          }
+        });
       }
     });
     on<PainterReordered>((event, emit) async {
@@ -242,16 +224,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         final item = painters.removeAt(oldIndex);
         painters.insert(newIndex, item);
-        final index = CurrentIndex(
-            oldIndex == current.currentIndex.index
-                ? newIndex
-                : newIndex == current.currentIndex.index
-                    ? oldIndex
-                    : current.currentIndex.index,
-            Handler.fromBloc(this));
+        final cubit = current.currentIndexCubit;
+        final currentIndex = cubit.state;
+        cubit.changePainter(
+          this,
+          oldIndex == currentIndex.index
+              ? newIndex
+              : newIndex == currentIndex.index
+                  ? oldIndex
+                  : currentIndex.index,
+        );
         return _saveDocument(current.copyWith(
-            document: current.document.copyWith(painters: painters),
-            currentIndex: index));
+          document: current.document.copyWith(painters: painters),
+        ));
       }
     });
     on<DocumentBackgroundChanged>((event, emit) async {

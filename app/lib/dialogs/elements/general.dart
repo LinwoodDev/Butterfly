@@ -1,12 +1,14 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/layer.dart';
+import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../cubits/current_index.dart';
 import '../../cubits/transform.dart';
 import '../../renderers/renderer.dart';
 import '../../widgets/context_menu.dart';
@@ -47,6 +49,7 @@ class _GeneralElementDialogState<T extends PadElement>
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       if (state is! DocumentLoadSuccess) return Container();
       final bloc = context.read<DocumentBloc>();
+      final cubit = context.read<CurrentIndexCubit>();
       if (widget.index < 0 || widget.index >= state.document.content.length) {
         return Container();
       }
@@ -180,8 +183,7 @@ class _GeneralElementDialogState<T extends PadElement>
                 leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
                 onTap: () {
                   // Remove the element from the document
-                  bloc.add(ElementsRemoved([renderer.element]));
-                  state.fetchHand()?.move(context, renderer);
+                  cubit.fetchHandler<HandHandler>()?.move(context, renderer);
                   widget.close();
                 },
               ),
@@ -189,7 +191,9 @@ class _GeneralElementDialogState<T extends PadElement>
                 title: Text(AppLocalizations.of(context)!.duplicate),
                 leading: const Icon(PhosphorIcons.copyLight),
                 onTap: () {
-                  state.fetchHand()?.move(context, renderer, true);
+                  cubit
+                      .fetchHandler<HandHandler>()
+                      ?.move(context, renderer, true);
                   widget.close();
                 },
               ),
