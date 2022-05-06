@@ -29,7 +29,8 @@ class PenHandler extends Handler {
     if (elements.isEmpty) {
       bloc
         ..add(ElementsCreated(List<PadElement>.from(submittedElements)))
-        ..add(ImageBaked(viewportSize, transform.size, transform));
+        ..add(ImageBaked(viewportSize, transform));
+      submittedElements.clear();
     } else {
       cubit.refresh(bloc);
     }
@@ -66,10 +67,6 @@ class PenHandler extends Handler {
   @override
   void onPointerDown(
       Size viewportSize, BuildContext context, PointerDownEvent event) {
-    // Clean up submitted elements
-    if (elements.isEmpty) {
-      submittedElements.clear();
-    }
     addPoint(context, event.pointer, event.localPosition, event.pressure,
         event.kind);
   }
