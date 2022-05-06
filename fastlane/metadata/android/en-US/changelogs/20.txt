@@ -14,3 +14,5 @@
 * Change size of start dialog
 * Add padding to pdf import dialog
 * Add responsive slider
+* Highlight primary button in dialogs
+* Remove autosave on web

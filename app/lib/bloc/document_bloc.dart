@@ -225,15 +225,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final item = painters.removeAt(oldIndex);
         painters.insert(newIndex, item);
         final cubit = current.currentIndexCubit;
-        final currentIndex = cubit.state;
-        cubit.changePainter(
-          this,
-          oldIndex == currentIndex.index
-              ? newIndex
-              : newIndex == currentIndex.index
-                  ? oldIndex
-                  : currentIndex.index,
-        );
+        var nextCurrentIndex = cubit.state.index;
+        if (nextCurrentIndex == oldIndex) {
+          nextCurrentIndex = newIndex;
+        } else if (nextCurrentIndex > oldIndex &&
+            nextCurrentIndex <= newIndex) {
+          nextCurrentIndex -= 1;
+        } else if (nextCurrentIndex < oldIndex &&
+            nextCurrentIndex >= newIndex) {
+          nextCurrentIndex += 1;
+        }
+        cubit.changeIndex(nextCurrentIndex);
         return _saveDocument(current.copyWith(
           document: current.document.copyWith(painters: painters),
         ));

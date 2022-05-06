@@ -191,6 +191,7 @@ class _ProjectPageState extends State<ProjectPage> {
         providers: [
           BlocProvider(create: (_) => _bloc!),
           BlocProvider(create: (_) => _transformCubit!),
+          BlocProvider(create: (_) => _currentIndexCubit),
         ],
         child: Builder(builder: (context) {
           return Shortcuts(
