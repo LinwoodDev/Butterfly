@@ -4,7 +4,7 @@
     "description": "The label for version current"
   },
   "sidebar.sidebar.link.Discord": {
-    "message": "Discord",
+    "message": "Discord.",
     "description": "The label for link Discord in sidebar sidebar, linking to https://discord.linwood.dev"
   },
   "sidebar.sidebar.link.Contribution guide": {
