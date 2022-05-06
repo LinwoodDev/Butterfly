@@ -1,6 +1,6 @@
 ---
 title: "Politique de confidentialité"
-slug: /privacypolicy
+slug: /fr/privacypolicy
 ---
 
 
