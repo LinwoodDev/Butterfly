@@ -51,20 +51,28 @@ img {
   --ifm-footer-background-color:var(--ifm-color-emphasis-100);
   --ifm-footer-color: inherit;
 }
+.navbar__item {
+  margin: 0;
+  padding: 0;
+}
+.navbar__link {
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.8rem;
+  margin: 0.25rem;
+  transition: background 0.2s ease-in-out;
+}
+.navbar__link:hover {
+  background: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-emphasis-900);
+}
 .navbar__link--active {
   font-weight: bold;
+  background: var(--ifm-color-primary-dark);
+  color: var(--ifm-color-white);
 }
-.navbar__link--active::after {
-  background: var(--ifm-color-primary);
-  content: "";
-  display: flex;
-  height: 4px;
-  margin-left: -5px;
-  margin-right: -5px;
-  margin-top: -4px;
-  position: relative;
-  top: 18px;
-  width: calc(100% + 10px);
+.navbar__link--active:hover {
+  background: var(--ifm-color-primary-darkest);
+  color: var(--ifm-color-white);
 }
 .docusaurus-highlight-code-line {
   background-color: rgb(72, 77, 91);
@@ -123,7 +131,7 @@ html[data-theme='dark'] .DocSearch {
   padding: 0.5rem 0rem;
 }
 .menu__list-item-collapsible--active {
-  background-color: var(--ifm-color-primary-darkest);
+  background-color: var(--ifm-color-primary-dark);
   color: var(--ifm-color-white);
 }
 .menu__list-item-collapsible--active:hover {
@@ -131,7 +139,15 @@ html[data-theme='dark'] .DocSearch {
   color: var(--ifm-color-white);
 }
 
+.menu__link--active:not(.menu__link--sublist) {
+  background-color: var(--ifm-color-primary-dark);
+  font-weight: bold;
+  transition: background 0.2s ease-in-out;
 
+}
+.menu__link--active:not(.menu__link--sublist):hover {
+  background-color: var(--ifm-color-primary-darkest);
+}
 
 /* -- Checkbox -- */
 .checkbox {
