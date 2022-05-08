@@ -63,7 +63,7 @@ Future<void> main([List<String> args = const []]) async {
       await windowManager.setTitle('Butterfly');
       await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
       await windowManager.setResizable(true);
-      await windowManager.maximize();
+      // await windowManager.maximize();
       await windowManager.show();
       await windowManager.focus();
     });
@@ -107,6 +107,10 @@ class ButterflyApp extends StatelessWidget {
             supportedLocales: AppLocalizations.supportedLocales,
             theme: ThemeManager.getThemeByName(state.design),
             themeMode: state.theme,
+            builder: (context, child) {
+              return DragToResizeArea(
+                  resizeEdgeSize: 8, child: child ?? Container());
+            },
             darkTheme: ThemeManager.getThemeByName(state.design, dark: true),
           );
         });
