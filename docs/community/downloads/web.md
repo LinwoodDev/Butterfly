@@ -17,10 +17,10 @@ All data is stored in your browser.
 ## Links
 
 <div className="row margin-bottom--lg padding--sm">
-<a class="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
+<a className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
   Main
 </a>
-<a class="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
+<a className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
   Preview
 </a>
 </div>

@@ -245,3 +245,33 @@ html[data-theme='dark'] .DocSearch {
   align-items: center;
   width: 100%;
 }
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+}
+.icon-button svg {
+  fill: var(--ifm-button-color);
+  stroke: var(--ifm-button-color);
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+:where(.icon-button--windows) {
+  --ifm-button-background-color: #0078D6;
+  --ifm-button-border-color: #0078D6;
+}
+
+:where(.icon-button--linux) {
+  --ifm-button-background-color: #FCC624;
+  --ifm-button-border-color: #FCC624;
+}
+:where(.icon-button--android) {
+  --ifm-button-background-color: #3DDC84;
+  --ifm-button-border-color: #3DDC84;
+}
+:where(.icon-button--pwa) {
+  --ifm-button-background-color: #5A0FC8;
+  --ifm-button-border-color: #5A0FC8;
+}
