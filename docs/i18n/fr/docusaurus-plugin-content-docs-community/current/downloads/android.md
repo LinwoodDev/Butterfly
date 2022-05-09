@@ -14,11 +14,11 @@ Android 5.0 (API niveau 21) est la version minimale supportée pour exécuter Bu
 ## Binaires
 
 <div className="row margin-bottom--lg padding--sm">
-<a class="button button--outline button--info button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/app-release.apk">
-  Écurie
+<a className="button button--outline button--info button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/app-release.apk">
+  Stable
 </a>
-<a class="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/app-release.apk">
-  Nuit
+<a className="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/app-release.apk">
+  Nightly
 </a>
 </div>
 
@@ -27,10 +27,10 @@ En savoir plus sur la version nocturne de Butterfly [ici](/nightly).
 ## Magasins
 
 <div className="row margin-bottom--lg padding--sm">
-<a class="button button--outline button--primary button--lg margin--sm" href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
+<a className="button button--outline button--primary button--lg margin--sm" href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
   Play Store
 </a>
-<a class="button button--outline button--primary button--lg margin--sm" href="https://f-droid.org/de/packages/dev.linwood.butterfly">
+<a className="button button--outline button--primary button--lg margin--sm" href="https://f-droid.org/de/packages/dev.linwood.butterfly">
   F-Droid
 </a>
 </div>
