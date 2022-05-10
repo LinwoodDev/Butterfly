@@ -1,5 +1,6 @@
 ---
-title: Verknüpfungen
+title: "Verknüpfungen"
+sidebar_position: 2
 ---
 
 Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige davon sind unter den Buttons geschrieben.
