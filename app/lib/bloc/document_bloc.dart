@@ -52,7 +52,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentUpdated>((event, emit) async {
       final current = state;
       if (current is DocumentLoadSuccess) {
-        _saveDocument(current.copyWith(document: event.document), null);
+        final renderers = event.document.content
+            .map((e) => Renderer.fromInstance(e))
+            .toList();
+        Future.wait(renderers.map((r) async => await r.setup(event.document)));
+        final background = Renderer.fromInstance(event.document.background);
+        _saveDocument(
+            current.copyWith(
+                document: event.document,
+                cameraViewport: CameraViewport.unbaked(background, renderers)),
+            null);
         clearHistory();
       }
     });

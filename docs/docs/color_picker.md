@@ -1,5 +1,6 @@
 ---
 title: Color picker
+sidebar_position: 2
 ---
 
 ![Color picker](color_picker.png)

@@ -58,10 +58,10 @@ Example how to use it:
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
-embedElement.dispatchEvent(new CustomEvent('getData', {}));
+embedElement.pushMessage('getData', {});
 embedElement.addEventListener('message', (data) => {
-  if(data.type === 'getData') {
-    console.log(data.message);
+  if(data.detail.type === 'getData') {
+    console.log(data.detail.message);
   }
 });
 ```

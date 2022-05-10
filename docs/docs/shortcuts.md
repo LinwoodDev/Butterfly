@@ -1,5 +1,6 @@
 ---
-title: Shortcuts
+title: "Shortcuts"
+sidebar_position: 2
 ---
 
 There are a few shortcuts that you can use in the editor.

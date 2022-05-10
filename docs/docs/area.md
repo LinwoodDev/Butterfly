@@ -1,5 +1,6 @@
 ---
-title: Area
+title: "Area"
+sidebar_position: 2
 ---
 
 ## Introduction
