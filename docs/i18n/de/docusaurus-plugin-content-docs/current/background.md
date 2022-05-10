@@ -1,5 +1,6 @@
 ---
 sidebar_label: "Hintergrund"
+sidebar_position: 2
 title: Hintergrund
 ---
 
