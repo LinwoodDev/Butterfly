@@ -15,10 +15,10 @@ Android 5.0 (API Level 21) ist die mindestens unterstützte Version um Butterfly
 
 <div className="row margin-bottom--lg padding--sm">
 <a className="button button--outline button--info button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/app-release.apk">
-  Stable
+  Stabil
 </a>
 <a className="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/app-release.apk">
-  Nightly
+  Nachts
 </a>
 </div>
 
