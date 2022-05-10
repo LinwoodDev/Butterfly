@@ -15,10 +15,10 @@ Android 5.0 (API niveau 21) est la version minimale supportée pour exécuter Bu
 
 <div className="row margin-bottom--lg padding--sm">
 <a className="button button--outline button--info button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/app-release.apk">
-  Stable
+  Écurie
 </a>
 <a className="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/app-release.apk">
-  Nightly
+  Nuit
 </a>
 </div>
 
