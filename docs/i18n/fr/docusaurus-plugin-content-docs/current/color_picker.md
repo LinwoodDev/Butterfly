@@ -1,5 +1,6 @@
 ---
 title: Sélecteur de couleurs
+sidebar_position: 2
 ---
 
 ![Sélecteur de couleurs](color_picker.png)
