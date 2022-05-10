@@ -1,5 +1,6 @@
 ---
 title: "Couches"
+sidebar_position: 2
 ---
 
 Les calques sont une option pour regrouper les éléments ensemble. Cliquez sur l'élément pour voir et changer le calque. Utilisez le [calque peintre](painters/layer.md) pour changer les calques de plusieurs éléments.
