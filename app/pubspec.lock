@@ -42,7 +42,7 @@ packages:
       name: barcode
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.2.1"
   bloc:
     dependency: transitive
     description:
@@ -119,7 +119,7 @@ packages:
       name: built_value
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.2.3"
+    version: "8.3.0"
   camera:
     dependency: "direct main"
     description:
@@ -622,7 +622,7 @@ packages:
       name: pdf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.7.4"
+    version: "3.8.0"
   petitparser:
     dependency: transitive
     description:
@@ -664,7 +664,7 @@ packages:
       name: printing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.8.0"
+    version: "5.9.0"
   process:
     dependency: transitive
     description:
