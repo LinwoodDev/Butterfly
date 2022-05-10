@@ -1,5 +1,6 @@
 ---
-title: Stockage
+title: "Stockage"
+sidebar_position: 2
 ---
 
 ## Web
