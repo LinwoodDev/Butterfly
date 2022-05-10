@@ -1,5 +1,6 @@
 ---
 title: Farbauswahl
+sidebar_position: 2
 ---
 
 ![Farbauswahl](color_picker.png)
