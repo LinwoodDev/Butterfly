@@ -1,5 +1,6 @@
 ---
-title: Zone d'application
+title: "Zone d'application"
+sidebar_position: 2
 ---
 
 ## Introduction
