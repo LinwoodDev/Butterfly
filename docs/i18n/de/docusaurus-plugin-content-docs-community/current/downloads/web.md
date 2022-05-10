@@ -15,10 +15,10 @@ Dies ist eine progressive Web-Anwendung. Sie können es in Ihrem Browser install
 ## Links
 
 <div className="row margin-bottom--lg padding--sm">
-<a class="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
+<a className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
   Haupt
 </a>
-<a class="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
+<a className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
   Vorschau
 </a>
 </div>
