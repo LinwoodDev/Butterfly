@@ -16,10 +16,10 @@ Ceci est une application web progressive. Vous pouvez l'installer sur votre navi
 
 <div className="row margin-bottom--lg padding--sm">
 <a className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
-  Main
+  Principal
 </a>
 <a className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
-  Preview
+  Aperçu
 </a>
 </div>
 
