@@ -27,4 +27,5 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `B`: Hintergrunddialog öffnen
 * `Strg` + `Umschalt` + `A`: Öffne Bereiche Dialog
 * `Strg` + `L`: Ebenendialog öffnen
-* `Strg` + `S`: Pfad ändern
+* `Ctrl` + `S`: Save
+* `Alt` + `S`: Change path
