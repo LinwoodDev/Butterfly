@@ -44,13 +44,13 @@ If you need help, don't hesitate to ask questions. You can reach me on discord o
 
 ## Comparison
 
-| Name                             | ⚡ Butterfly ⚡ | OneNote                                            |
-| -------------------------------- | ------------- | -------------------------------------------------- |
-| Add texts, draw, erase           | ✅             | ✅                                                  |
-| Organizing your ideas in folders | ✅             | ✅                                                  |
-| Web version                      | ✅             | ✅                                                  |
+| Name                             | ⚡ Butterfly ⚡ | OneNote                                             |
+|----------------------------------|---------------|-----------------------------------------------------|
+| Add texts, draw, erase           | ✅             | ✅                                                   |
+| Organizing your ideas in folders | ✅             | ✅                                                   |
+| Web version                      | ✅             | ✅                                                   |
 | Free                             | ✅             | ⚠️ (Basic version is free)                          |
 | Offline support                  | ✅             | ⚠️ (Only supports offline mode in the windows app)  |
 | Image export                     | ✅             | ⚠️ (Only supports printing)                         |
 | Infinite drawing board           | ✅             | ⚠️ (Only supports moving in the positive direction) |
-| Cross platform                   | ✅             | ❌                                                  |
+| Cross platform                   | ✅             | ❌                                                   |

@@ -214,7 +214,7 @@
   "exitArea": "Exit the area",
   "alreadyExists": "This value already exists",
   "currentArea": "Current area",
-  "fullscreen": "Fullscreen",
+  "fullScreen": "Full screen",
   "design": "Design",
   "textField": "Text field",
   "selectSensitivity": "Select sensitivity",

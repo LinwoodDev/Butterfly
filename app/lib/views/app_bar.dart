@@ -503,7 +503,7 @@ class _MainPopupMenu extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 child: ListTile(
                     leading: const Icon(PhosphorIcons.arrowsOutLight),
-                    title: Text(AppLocalizations.of(context)!.fullscreen),
+                    title: Text(AppLocalizations.of(context)!.fullScreen),
                     subtitle: Text(context.getShortcut('F11', ctrlKey: false)),
                     onTap: () async {
                       Navigator.of(context).pop();

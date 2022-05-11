@@ -100,9 +100,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
                                 .read<SettingsCubit>()
                                 .state
                                 .touchSensitivity;
+                            var point = details.localFocalPoint;
                             transformCubit.zoom(
-                                (1 - current) / -sensitivity + 1,
-                                details.localFocalPoint);
+                                (1 - current) / -sensitivity + 1, point);
                             if (cubit.fetchHandler<HandHandler>() != null &&
                                 details.pointerCount == 2) {
                               transformCubit.move(details.focalPointDelta);
