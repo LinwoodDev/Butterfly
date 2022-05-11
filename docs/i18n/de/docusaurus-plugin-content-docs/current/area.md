@@ -1,5 +1,6 @@
 ---
-title: Fläche
+title: "Fläche"
+sidebar_position: 2
 ---
 
 ## Einführung

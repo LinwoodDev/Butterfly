@@ -1,5 +1,6 @@
 ---
-title: Migration en cours
+title: "Migration en cours"
+sidebar_position: 2
 ---
 
 Ce guide vous montrera comment migrer vers la dernière version.

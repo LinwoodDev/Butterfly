@@ -1,5 +1,6 @@
 ---
-title: Raccourcis
+title: "Raccourcis"
+sidebar_position: 2
 ---
 
 Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d'entre elles sont écrites sous les boutons.

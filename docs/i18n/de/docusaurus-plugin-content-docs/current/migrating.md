@@ -1,5 +1,6 @@
 ---
-title: Migrieren
+title: "Migrieren"
+sidebar_position: 2
 ---
 
 Diese Anleitung zeigt Ihnen, wie Sie zur neuesten Version migrieren.
