@@ -108,28 +108,8 @@ class LayerDialog extends StatelessWidget {
           title: Text(AppLocalizations.of(context)!.remove),
           leading: const Icon(PhosphorIcons.xLight),
           onTap: () {
-            showDialog(
-                context: context,
-                builder: (ctx) => AlertDialog(
-                      title: Text(AppLocalizations.of(ctx)!.remove),
-                      content: Text(AppLocalizations.of(ctx)!.removeConfirm),
-                      actions: [
-                        TextButton(
-                          child: Text(AppLocalizations.of(ctx)!.no),
-                          onPressed: () => Navigator.pop(ctx),
-                        ),
-                        ElevatedButton(
-                          child: Text(AppLocalizations.of(ctx)!.yes),
-                          onPressed: () {
-                            Navigator.pop(ctx);
-                            context
-                                .read<DocumentBloc>()
-                                .add(LayerRemoved(layer));
-                            Navigator.pop(ctx);
-                          },
-                        ),
-                      ],
-                    ));
+            context.read<DocumentBloc>().add(LayerRemoved(layer));
+            Navigator.pop(context);
           },
         ),
       ];

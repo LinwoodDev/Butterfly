@@ -313,8 +313,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
+        var renderers = await Future.wait(
+            List<Renderer<PadElement>>.from(current.renderers).map((e) async {
+          if (e.element.layer == event.name) {
+            var renderer = Renderer.fromInstance(e.element.copyWith(layer: ''));
+            await renderer.setup(current.document);
+            return renderer;
+          }
+          return e;
+        }));
         return _saveDocument(
             current.copyWith(
+                cameraViewport: current.cameraViewport.unbake(renderers),
                 document: current.document.copyWith(
                     content: List<PadElement>.from(current.document.content)
                         .where((e) => e.layer == event.name)
@@ -558,7 +568,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     }
     emit(nextState);
     String? path = current.path;
-    if (path == null || !kIsWeb) {
+    if (!kIsWeb) {
       path = await nextState.save();
       var currentState = state;
       if (currentState is! DocumentLoadSuccess) return;
