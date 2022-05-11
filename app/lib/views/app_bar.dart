@@ -171,7 +171,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                           ),
                       ]),
                 );
-                if (kIsWeb && state.embedding == null) {
+                if (kIsWeb && (state.embedding?.save ?? true)) {
                   title = Row(children: [
                     Expanded(child: title),
                     IconButton(
@@ -338,7 +338,8 @@ class _MainPopupMenu extends StatelessWidget {
               child: ListTile(
                 leading: const Icon(PhosphorIcons.folderLight),
                 title: Text(AppLocalizations.of(context)!.changeDocumentPath),
-                subtitle: Text(context.getShortcut('S')),
+                subtitle: Text(
+                    context.getShortcut('S', ctrlKey: false, altKey: true)),
                 onTap: () {
                   Navigator.of(context).pop();
                   Actions.maybeInvoke<ChangePathIntent>(
@@ -484,17 +485,6 @@ class _MainPopupMenu extends StatelessWidget {
                         trailing: const Icon(PhosphorIcons.caretRightLight),
                         title: Text(AppLocalizations.of(context)!.export)))),
           ],
-          if (state.embedding?.save ?? false)
-            PopupMenuItem(
-                padding: EdgeInsets.zero,
-                child: ListTile(
-                    leading: const Icon(PhosphorIcons.floppyDiskLight),
-                    title: Text(AppLocalizations.of(context)!.save),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      sendEmbedMessage(
-                          'save', json.encode(state.document.toJson()));
-                    })),
           PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(

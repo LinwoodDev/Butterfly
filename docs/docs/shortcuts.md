@@ -28,4 +28,5 @@ Some of them are written below the buttons.
 * `Ctrl` + `B`: Open background dialog
 * `Ctrl` + `Shift` + `A`: Open areas dialog
 * `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Change path
+* `Ctrl` + `S`: Save
+* `Alt` + `S`: Change path

@@ -257,9 +257,11 @@ class _ProjectPageState extends State<ProjectPage> {
                     LogicalKeyboardKey.control,
                     LogicalKeyboardKey.alt,
                     LogicalKeyboardKey.keyS): SettingsIntent(context),
+                LogicalKeySet(LogicalKeyboardKey.alt, LogicalKeyboardKey.keyS):
+                    ChangePathIntent(context),
                 LogicalKeySet(
                         LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
-                    ChangePathIntent(context),
+                    SaveIntent(context),
               },
             },
             child: Actions(
