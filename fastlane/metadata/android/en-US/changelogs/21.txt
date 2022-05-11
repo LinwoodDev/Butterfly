@@ -1,3 +1,4 @@
 * Implement drag resize area and popup window menu on desktop platforms
 * Fix pixel ratio
 * Fixing safe area bug in settings
+* Fix embedding

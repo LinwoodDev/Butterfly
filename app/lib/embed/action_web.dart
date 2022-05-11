@@ -7,7 +7,7 @@ import 'package:js/js.dart';
 
 import 'action.dart';
 
-typedef PushMessageHandler = void Function(String type, Object message);
+typedef PushMessageHandler = void Function(String type, [Object? message]);
 
 @JS('pushMessage')
 external set _pushMessage(PushMessageHandler f);
@@ -16,12 +16,12 @@ void setup() {
   _pushMessage = allowInterop(pushMessage);
 }
 
-void pushMessage(String type, Object message) {
+void pushMessage(String type, [Object? message]) {
   window.dispatchEvent(CustomEvent('receive',
       detail: jsify({'type': type, 'message': message})));
 }
 
-void sendEmbedMessage(String type, String message) {
+void sendEmbedMessage(String type, [Object? message]) {
   window.dispatchEvent(
       CustomEvent('message', detail: {'type': type, 'message': message}));
 }
