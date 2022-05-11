@@ -22,8 +22,10 @@ Beispiele wie man es verwendet:
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
-embedElement.addEventListener('save', (data) => {
-  console.log('Saving...');
+embedElement.addEventListener('message', (data) => {
+  if(data.detail.type === 'save') {
+    console.log('Saving...', data.detail.message);
+  }
 });
 ```
 
