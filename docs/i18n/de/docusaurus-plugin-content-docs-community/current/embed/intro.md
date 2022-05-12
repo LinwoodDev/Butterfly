@@ -24,7 +24,7 @@ Beispiele wie man es verwendet:
 const embedElement = document.querySelector('#butterfly');
 embedElement.addEventListener('message', (data) => {
   if(data.detail.type === 'save') {
-    console.log('Saving...', data.detail.message);
+    console.log('Speichern...', data.detail.message);
   }
 });
 ```
