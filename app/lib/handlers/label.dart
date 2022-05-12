@@ -1,7 +1,7 @@
 part of 'handler.dart';
 
 class LabelHandler extends Handler {
-  LabelHandler(CurrentIndexCubit cubit) : super(cubit);
+  LabelHandler(super.cubit);
 
   @override
   Future<void> onTapUp(

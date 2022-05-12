@@ -1,8 +1,7 @@
 part of '../renderer.dart';
 
 class PenRenderer extends PathRenderer<PenElement> {
-  PenRenderer(PenElement element, [Rect rect = Rect.zero])
-      : super(element, rect);
+  PenRenderer(super.element, [super.rect = Rect.zero]);
 
   @override
   void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {

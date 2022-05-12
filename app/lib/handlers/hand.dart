@@ -5,7 +5,7 @@ class HandHandler extends Handler {
   Renderer<PadElement>? selected;
   Offset? currentMovePosition;
 
-  HandHandler(CurrentIndexCubit cubit) : super(cubit);
+  HandHandler(super.cubit);
 
   @override
   Future<bool> onRendererUpdated(

@@ -4,7 +4,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   @override
   Rect rect = Rect.zero;
 
-  PathRenderer(T element, [this.rect = Rect.zero]) : super(element);
+  PathRenderer(super.element, [this.rect = Rect.zero]);
 
   Paint buildPaint([bool foreground = false]);
 

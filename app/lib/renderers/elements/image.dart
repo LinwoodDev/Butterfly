@@ -3,7 +3,7 @@ part of '../renderer.dart';
 class ImageRenderer extends Renderer<ImageElement> {
   Image? image;
 
-  ImageRenderer(ImageElement element, [this.image]) : super(element);
+  ImageRenderer(super.element, [this.image]);
 
   @override
   void build(Canvas canvas, Size size, CameraTransform transform,

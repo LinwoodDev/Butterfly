@@ -4,7 +4,7 @@ class EraserHandler extends Handler {
   Map<int, EraserElement> elements = {};
   List<EraserElement> submittedElements = [];
 
-  EraserHandler(CurrentIndexCubit cubit) : super(cubit);
+  EraserHandler(super.cubit);
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {

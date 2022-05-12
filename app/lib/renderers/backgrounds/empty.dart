@@ -1,7 +1,7 @@
 part of '../renderer.dart';
 
 class EmptyBackgroundRenderer extends Renderer<EmptyBackground> {
-  EmptyBackgroundRenderer(EmptyBackground element) : super(element);
+  EmptyBackgroundRenderer(super.element);
 
   @override
   void build(Canvas canvas, Size size, CameraTransform transform,

@@ -4,7 +4,7 @@ class LabelRenderer extends Renderer<LabelElement> {
   @override
   Rect rect;
 
-  LabelRenderer(LabelElement element, [this.rect = Rect.zero]) : super(element);
+  LabelRenderer(super.element, [this.rect = Rect.zero]);
 
   TextAlign _convertAlignment(HorizontalAlignment alignment) {
     switch (alignment) {

@@ -35,7 +35,7 @@ abstract class AppDocumentAsset {
 class AppDocumentFile extends AppDocumentAsset {
   final Map<String, dynamic> json;
 
-  const AppDocumentFile(String path, this.json) : super(path);
+  const AppDocumentFile(super.path, this.json);
 
   int get fileVersion => json['fileVersion'];
 
@@ -57,7 +57,7 @@ class AppDocumentFile extends AppDocumentAsset {
 class AppDocumentDirectory extends AppDocumentAsset {
   final List<AppDocumentAsset> assets;
 
-  const AppDocumentDirectory(String path, this.assets) : super(path);
+  const AppDocumentDirectory(super.path, this.assets);
 }
 
 @freezed

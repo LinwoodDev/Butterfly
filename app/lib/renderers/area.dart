@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 class AreaRenderer extends Renderer<Area> {
   AreaRenderer(super.element);
 
-
   @override
   void build(Canvas canvas, Size size, CameraTransform transform,
       [bool foreground = false]) {

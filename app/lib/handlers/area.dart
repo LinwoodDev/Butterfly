@@ -3,7 +3,7 @@ part of 'handler.dart';
 class AreaHandler extends Handler {
   Rect? currentRect;
 
-  AreaHandler(CurrentIndexCubit cubit) : super(cubit);
+  AreaHandler(super.cubit);
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>

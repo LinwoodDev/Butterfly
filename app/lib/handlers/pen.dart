@@ -4,7 +4,7 @@ class PenHandler extends Handler {
   Map<int, PenElement> elements = {};
   List<PenElement> submittedElements = [];
 
-  PenHandler(CurrentIndexCubit cubit) : super(cubit);
+  PenHandler(super.cubit);
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {

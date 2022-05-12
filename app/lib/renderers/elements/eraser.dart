@@ -1,8 +1,7 @@
 part of '../renderer.dart';
 
 class EraserRenderer extends PathRenderer<EraserElement> {
-  EraserRenderer(EraserElement element, [Rect rect = Rect.zero])
-      : super(element, rect);
+  EraserRenderer(super.element, [super.rect]);
 
   @override
   Paint buildPaint([bool foreground = false]) {

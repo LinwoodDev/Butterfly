@@ -1,7 +1,7 @@
 part of '../renderer.dart';
 
 class BoxBackgroundRenderer extends Renderer<BoxBackground> {
-  BoxBackgroundRenderer(BoxBackground element) : super(element);
+  BoxBackgroundRenderer(super.element);
 
   @override
   void build(Canvas canvas, Size size, CameraTransform transform,
