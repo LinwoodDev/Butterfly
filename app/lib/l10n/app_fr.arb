@@ -214,7 +214,7 @@
     "exitArea": "Quitter la zone",
     "alreadyExists": "Cette valeur existe déjà",
     "currentArea": "Zone actuelle",
-    "fullscreen": "Plein écran",
+    "fullScreen": "Plein écran",
     "design": "Conception",
     "textField": "Champ de texte",
     "selectSensitivity": "Sélectionner la sensibilité",

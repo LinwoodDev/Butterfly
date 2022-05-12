@@ -27,4 +27,5 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 * `Ctrl` + `B`: Ouvrir la boîte de dialogue d'arrière-plan
 * `Ctrl` + `Maj` + `A`: Ouvrir la boîte de dialogue des zones
 * `Ctrl` + `L`: Ouvrir la boîte de dialogue des calques
-* `Ctrl` + `S`: Changer le chemin
+* `Ctrl` + `S`: Enregistrer
+* `Alt` + `S`: Changer le chemin
