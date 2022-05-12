@@ -357,7 +357,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                         context: context,
                                         builder: (context) => CustomColorPicker(
                                             defaultColor:
-                                                widget.defaultColor)) as Color?;
+                                                widget.defaultColor)) as int?;
                                     if (value != null) {
                                       var newPalettes = List<ColorPalette>.from(
                                           state.document.palettes);
@@ -365,7 +365,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                           newPalettes[selected].copyWith(
                                               colors: List<int>.from(
                                                   newPalettes[selected].colors)
-                                                ..add(value.value));
+                                                ..add(value));
                                       bloc.add(
                                           DocumentPaletteChanged(newPalettes));
                                     }
@@ -386,7 +386,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         var value = await showDialog(
                             context: context,
                             builder: (context) => CustomColorPicker(
-                                defaultColor: widget.defaultColor));
+                                defaultColor: widget.defaultColor)) as int?;
                         if (value != null) navigator.pop(value);
                       },
                       child: Text(AppLocalizations.of(context)!.custom)),
@@ -584,7 +584,8 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                             onPressed: () => Navigator.of(context).pop()),
                         ElevatedButton(
                             child: Text(AppLocalizations.of(context)!.ok),
-                            onPressed: () => Navigator.of(context).pop(color)),
+                            onPressed: () =>
+                                Navigator.of(context).pop(color.value)),
                       ])
                     ],
                   );

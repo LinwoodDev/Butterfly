@@ -157,12 +157,11 @@ class BackgroundDialog extends StatelessWidget {
                                                             (background
                                                                     as BoxBackground)
                                                                 .boxColor)),
-                                                  )) as Color?;
+                                                  )) as int?;
                                           if (value != null) {
                                             setState(() => background =
                                                 (background as BoxBackground)
-                                                    .copyWith(
-                                                        boxColor: value.value));
+                                                    .copyWith(boxColor: value));
                                           }
                                         },
                                         leading: Container(
@@ -245,15 +244,14 @@ class BackgroundDialog extends StatelessWidget {
                                                                       child: ColorPickerDialog(
                                                                           defaultColor:
                                                                               Color((background as BoxBackground).boxXColor)),
-                                                                    )) as Color?;
+                                                                    )) as int?;
                                                         if (value != null) {
                                                           setState(() => background =
                                                               (background
                                                                       as BoxBackground)
                                                                   .copyWith(
                                                                       boxXColor:
-                                                                          value
-                                                                              .value));
+                                                                          value));
                                                         }
                                                       },
                                                       title: Text(
@@ -384,15 +382,14 @@ class BackgroundDialog extends StatelessWidget {
                                                                       child: ColorPickerDialog(
                                                                           defaultColor:
                                                                               Color((background as BoxBackground).boxYColor)),
-                                                                    )) as Color?;
+                                                                    )) as int?;
                                                         if (value != null) {
                                                           setState(() => background =
                                                               (background
                                                                       as BoxBackground)
                                                                   .copyWith(
                                                                       boxYColor:
-                                                                          value
-                                                                              .value));
+                                                                          value));
                                                         }
                                                       },
                                                       title: Text(

@@ -216,9 +216,9 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                                 child: ColorPickerDialog(
                                     defaultColor:
                                         Color(_value.decorationColor)),
-                              )) as Color?;
+                              )) as int?;
                       if (value != null) {
-                        change(_value.copyWith(decorationColor: value.value));
+                        change(_value.copyWith(decorationColor: value));
                       }
                     },
                     leading: Container(
@@ -256,9 +256,9 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                           value: context.read<DocumentBloc>(),
                           child: ColorPickerDialog(
                               defaultColor: Color(_value.color)),
-                        )) as Color?;
+                        )) as int?;
                 if (color != null) {
-                  change(_value.copyWith(color: color.value));
+                  change(_value.copyWith(color: color));
                 }
               },
               child: Container(
