@@ -2,3 +2,4 @@
 * Fix pixel ratio
 * Fixing safe area bug in settings
 * Fix embedding
+* Upgrade to flutter 3

@@ -15,15 +15,15 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.CI_PAT }}
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.13.0-0.4.pre
-          channel: "beta" # or: 'stable' or 'dev'
+          flutter-version: '3.0.0'
+          channel: "stable" # or: 'beta' or 'dev'
       - name: Setup git
         id: setup
         shell: bash
@@ -67,7 +67,7 @@ jobs:
           git tag -fa nightly -m "Find all nightly releases here"
           git push origin nightly -f
   update-version:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - release
     steps:
@@ -76,8 +76,8 @@ jobs:
           token: ${{ secrets.CI_PAT }}
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.13.0-0.4.pre
-          channel: "beta" # or: 'stable' or 'dev'
+          flutter-version: '3.0.0'
+          channel: "stable" # or: 'beta' or 'dev'
       - name: Setup git
         id: setup
         run: |
@@ -100,7 +100,7 @@ jobs:
           git push origin
   update-main:
     if: ${{ github.ref == 'refs/heads/develop' }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - release
       - update-version
@@ -112,8 +112,8 @@ jobs:
           token: ${{ secrets.CI_PAT }}
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.13.0-0.4.pre
-          channel: "beta" # or: 'stable' or 'dev'
+          flutter-version: '3.0.0'
+          channel: "stable" # or: 'beta' or 'dev'
       - name: Setup git
         id: setup
         run: |
@@ -144,7 +144,7 @@ jobs:
           git push origin develop
   update-develop:
     if: ${{ github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - release
       - update-version
@@ -156,8 +156,8 @@ jobs:
           token: ${{ secrets.CI_PAT }}
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.13.0-0.4.pre
-          channel: "beta" # or: 'stable' or 'dev'
+          flutter-version: '3.0.0'
+          channel: "stable" # or: 'beta' or 'dev'
       - name: Setup git
         id: setup
         run: |
@@ -188,7 +188,7 @@ jobs:
           git commit -m "Update version number"
           git push origin develop
   notify:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -233,7 +233,7 @@ jobs:
             Read more about here: https://docs.butterfly.linwood.dev/nightly
 
   #publish-to-play-store:
-  #  runs-on: ubuntu-20.04
+  #  runs-on: ubuntu-22.04
   #  steps:
   #    - uses: actions/checkout@v3
   #    - name: Publish beta

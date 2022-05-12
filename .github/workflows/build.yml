@@ -4,7 +4,7 @@ on: [push, release]
 
 jobs:
   build-apk:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -15,8 +15,8 @@ jobs:
           distribution: "adopt"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.13.0-0.4.pre
-          channel: "beta" # or: 'stable' or 'dev'
+          flutter-version: '3.0.0'
+          channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |
           cd app
@@ -39,8 +39,8 @@ jobs:
         uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.13.0-0.4.pre
-          channel: "beta" # or: 'stable' or 'dev'
+          flutter-version: '3.0.0'
+          channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
@@ -74,7 +74,7 @@ jobs:
           path: |
             app/build/windows/Butterfly-Setup.exe
   build-linux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -84,8 +84,8 @@ jobs:
           sudo apt-get install -y python3-pip python3-setuptools desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev liblzma-dev clang dpkg-dev patchelf alien
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.13.0-0.4.pre
-          channel: "beta" # or: 'stable' or 'dev'
+          flutter-version: '3.0.0'
+          channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
@@ -169,7 +169,7 @@ jobs:
   #        path: |
   #          build/windows/runner/Release/**
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - build-apk
       - build-windows
