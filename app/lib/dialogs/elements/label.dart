@@ -17,11 +17,10 @@ class LabelElementDialog extends StatelessWidget {
   final Offset position;
 
   const LabelElementDialog(
-      {Key? key,
+      {super.key,
       required this.index,
       required this.close,
-      required this.position})
-      : super(key: key);
+      required this.position});
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +71,7 @@ class LabelElementDialog extends StatelessWidget {
 class EditLabelElementDialog extends StatelessWidget {
   final LabelElement element;
   final TextEditingController _textController = TextEditingController();
-  EditLabelElementDialog({Key? key, this.element = const LabelElement()})
-      : super(key: key);
+  EditLabelElementDialog({super.key, this.element = const LabelElement()});
 
   @override
   Widget build(BuildContext context) {

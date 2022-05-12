@@ -14,11 +14,10 @@ class AreaContextMenu extends StatelessWidget {
   final Area area;
 
   const AreaContextMenu(
-      {Key? key,
+      {super.key,
       required this.close,
       required this.position,
-      required this.area})
-      : super(key: key);
+      required this.area});
 
   @override
   Widget build(BuildContext context) {

@@ -9,8 +9,7 @@ import '../../widgets/exact_slider.dart';
 class AreaPainterDialog extends StatelessWidget {
   final int painterIndex;
 
-  const AreaPainterDialog({Key? key, required this.painterIndex})
-      : super(key: key);
+  const AreaPainterDialog({super.key, required this.painterIndex});
 
   @override
   Widget build(BuildContext context) {

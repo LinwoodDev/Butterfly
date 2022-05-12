@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../api/open_release_notes.dart';
 
 class UpdateIntroductionDialog extends StatelessWidget {
-  const UpdateIntroductionDialog({Key? key}) : super(key: key);
+  const UpdateIntroductionDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

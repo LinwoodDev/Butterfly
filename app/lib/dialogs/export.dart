@@ -11,7 +11,7 @@ import 'package:share_plus/share_plus.dart';
 class ExportDialog extends StatelessWidget {
   final String data;
 
-  const ExportDialog({Key? key, required this.data}) : super(key: key);
+  const ExportDialog({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {

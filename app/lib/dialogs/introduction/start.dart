@@ -12,7 +12,7 @@ import '../../api/format_date_time.dart';
 import '../../cubits/settings.dart';
 
 class StartIntroductionDialog extends StatelessWidget {
-  const StartIntroductionDialog({Key? key}) : super(key: key);
+  const StartIntroductionDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class StartIntroductionDialog extends StatelessWidget {
 class _CreateStartView extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
 
-  _CreateStartView({Key? key}) : super(key: key);
+  _CreateStartView();
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +128,7 @@ class _CreateStartView extends StatelessWidget {
 class _RecentStartView extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
 
-  _RecentStartView({Key? key}) : super(key: key);
+  _RecentStartView();
 
   @override
   Widget build(BuildContext context) {

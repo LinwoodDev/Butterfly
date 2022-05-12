@@ -19,8 +19,7 @@ class ColorPickerDialog extends StatefulWidget {
   final Color defaultColor;
 
   const ColorPickerDialog(
-      {Key? key, this.defaultColor = Colors.white, this.viewMode = false})
-      : super(key: key);
+      {super.key, this.defaultColor = Colors.white, this.viewMode = false});
 
   @override
   _ColorPickerDialogState createState() => _ColorPickerDialogState();
@@ -519,8 +518,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 class CustomColorPicker extends StatefulWidget {
   final Color defaultColor;
 
-  const CustomColorPicker({Key? key, this.defaultColor = Colors.white})
-      : super(key: key);
+  const CustomColorPicker({super.key, this.defaultColor = Colors.white});
 
   @override
   _CustomColorPickerState createState() => _CustomColorPickerState();

@@ -13,8 +13,7 @@ import '../../widgets/exact_slider.dart';
 class LabelPainterDialog extends StatelessWidget {
   final int painterIndex;
 
-  const LabelPainterDialog({Key? key, required this.painterIndex})
-      : super(key: key);
+  const LabelPainterDialog({super.key, required this.painterIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +38,7 @@ class LabelPropertyView extends StatefulWidget {
   final LabelPropertyCallback onChanged;
 
   const LabelPropertyView(
-      {Key? key, required this.initialValue, required this.onChanged})
-      : super(key: key);
+      {super.key, required this.initialValue, required this.onChanged});
 
   @override
   State<LabelPropertyView> createState() => _LabelPropertyViewState();

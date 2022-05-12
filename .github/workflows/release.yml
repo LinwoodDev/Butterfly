@@ -15,7 +15,7 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -67,7 +67,7 @@ jobs:
           git tag -fa nightly -m "Find all nightly releases here"
           git push origin nightly -f
   update-version:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     needs:
       - release
     steps:
@@ -100,7 +100,7 @@ jobs:
           git push origin
   update-main:
     if: ${{ github.ref == 'refs/heads/develop' }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     needs:
       - release
       - update-version
@@ -144,7 +144,7 @@ jobs:
           git push origin develop
   update-develop:
     if: ${{ github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     needs:
       - release
       - update-version
@@ -188,7 +188,7 @@ jobs:
           git commit -m "Update version number"
           git push origin develop
   notify:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -233,7 +233,7 @@ jobs:
             Read more about here: https://docs.butterfly.linwood.dev/nightly
 
   #publish-to-play-store:
-  #  runs-on: ubuntu-22.04
+  #  runs-on: ubuntu-20.04
   #  steps:
   #    - uses: actions/checkout@v3
   #    - name: Publish beta

@@ -11,7 +11,7 @@ import '../widgets/header.dart';
 class WaypointsDialog extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
 
-  WaypointsDialog({Key? key}) : super(key: key);
+  WaypointsDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -12,8 +12,7 @@ import '../../widgets/exact_slider.dart';
 class PenPainterDialog extends StatelessWidget {
   final int painterIndex;
 
-  const PenPainterDialog({Key? key, required this.painterIndex})
-      : super(key: key);
+  const PenPainterDialog({super.key, required this.painterIndex});
 
   @override
   Widget build(BuildContext context) {

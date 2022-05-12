@@ -10,7 +10,7 @@ import 'layer.dart';
 class LayersDialog extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
 
-  LayersDialog({Key? key}) : super(key: key);
+  LayersDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

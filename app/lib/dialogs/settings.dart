@@ -11,7 +11,7 @@ class PadSettingsDialog extends StatelessWidget {
   final TextEditingController _descriptionController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  PadSettingsDialog({Key? key}) : super(key: key);
+  PadSettingsDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

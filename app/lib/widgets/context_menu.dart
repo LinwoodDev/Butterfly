@@ -13,13 +13,12 @@ class ContextMenu extends StatefulWidget {
   final double maxWidth, maxHeight;
 
   const ContextMenu(
-      {Key? key,
+      {super.key,
       this.position = Offset.zero,
       required this.close,
       required this.builder,
       this.maxHeight = 300,
-      this.maxWidth = 300})
-      : super(key: key);
+      this.maxWidth = 300});
 
   @override
   State<ContextMenu> createState() => _ContextMenuState();

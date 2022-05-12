@@ -9,7 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/header.dart';
 
 class CameraDialog extends StatefulWidget {
-  const CameraDialog({Key? key}) : super(key: key);
+  const CameraDialog({super.key});
 
   @override
   _CameraDialogState createState() => _CameraDialogState();

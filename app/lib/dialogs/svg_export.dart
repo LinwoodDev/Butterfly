@@ -22,12 +22,12 @@ class SvgExportDialog extends StatefulWidget {
   final int width, height;
 
   const SvgExportDialog({
-    Key? key,
+    super.key,
     this.x = 0,
     this.y = 0,
     this.width = 1000,
     this.height = 1000,
-  }) : super(key: key);
+  });
 
   @override
   State<SvgExportDialog> createState() => _SvgExportDialogState();

@@ -8,8 +8,7 @@ import 'general.dart';
 
 class EraserPainterDialog extends StatelessWidget {
   final int painterIndex;
-  const EraserPainterDialog({Key? key, required this.painterIndex})
-      : super(key: key);
+  const EraserPainterDialog({super.key, required this.painterIndex});
 
   @override
   Widget build(BuildContext context) {

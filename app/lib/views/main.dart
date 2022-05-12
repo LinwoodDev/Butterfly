@@ -52,7 +52,7 @@ class ProjectPage extends StatefulWidget {
   final String? path;
   final Embedding? embedding;
 
-  const ProjectPage({Key? key, this.path, this.embedding}) : super(key: key);
+  const ProjectPage({super.key, this.path, this.embedding});
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
@@ -328,7 +328,7 @@ class _ProjectPageState extends State<ProjectPage> {
 }
 
 class WindowButtons extends StatelessWidget {
-  const WindowButtons({Key? key}) : super(key: key);
+  const WindowButtons({super.key});
 
   @override
   Widget build(BuildContext context) {

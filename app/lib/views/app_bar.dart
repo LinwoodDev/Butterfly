@@ -37,7 +37,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _areaController = TextEditingController();
 
-  PadAppBar({Key? key, required this.viewportKey}) : super(key: key);
+  PadAppBar({super.key, required this.viewportKey});
 
   @override
   Widget build(BuildContext context) {
@@ -224,7 +224,7 @@ class _MainPopupMenu extends StatelessWidget {
       TextEditingController(text: '100');
   final GlobalKey viewportKey;
 
-  _MainPopupMenu({Key? key, required this.viewportKey}) : super(key: key);
+  _MainPopupMenu({required this.viewportKey});
 
   @override
   Widget build(BuildContext context) {

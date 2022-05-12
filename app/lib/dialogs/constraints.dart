@@ -11,13 +11,12 @@ class ConstraintsContextMenu extends StatefulWidget {
   final Offset position;
   final ValueChanged<ElementConstraints?> onChanged;
   const ConstraintsContextMenu(
-      {Key? key,
+      {super.key,
       this.enableScaled = true,
       this.initialConstraints,
       required this.close,
       required this.onChanged,
-      required this.position})
-      : super(key: key);
+      required this.position});
 
   @override
   State<ConstraintsContextMenu> createState() => _ConstraintsContextMenuState();
@@ -140,8 +139,7 @@ class _FixedConstraintsContent extends StatelessWidget {
   final FixedElementConstraints constraints;
   final ValueChanged<ElementConstraints?> onChanged;
   const _FixedConstraintsContent(
-      {Key? key, required this.constraints, required this.onChanged})
-      : super(key: key);
+      {required this.constraints, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -171,8 +169,7 @@ class _ScaledConstraintsContent extends StatelessWidget {
   final ScaledElementConstraints constraints;
   final ValueChanged<ElementConstraints?> onChanged;
   const _ScaledConstraintsContent(
-      {Key? key, required this.constraints, required this.onChanged})
-      : super(key: key);
+      {required this.constraints, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -193,8 +190,7 @@ class _DynamicConstraintsContent extends StatelessWidget {
   final DynamicElementConstraints constraints;
   final ValueChanged<ElementConstraints?> onChanged;
   const _DynamicConstraintsContent(
-      {Key? key, required this.constraints, required this.onChanged})
-      : super(key: key);
+      {required this.constraints, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -243,11 +239,11 @@ class ConstraintContextMenu extends StatefulWidget {
   final VoidCallback close;
   final ValueChanged<ElementConstraint> onChanged;
   const ConstraintContextMenu({
-    Key? key,
+    super.key,
     required this.initialConstraint,
     required this.close,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<ConstraintContextMenu> createState() => _ConstraintContextMenuState();

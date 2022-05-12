@@ -9,7 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ImportDialog extends StatefulWidget {
-  const ImportDialog({Key? key}) : super(key: key);
+  const ImportDialog({super.key});
 
   @override
   _ImportDialogState createState() => _ImportDialogState();

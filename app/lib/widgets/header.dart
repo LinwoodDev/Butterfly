@@ -10,12 +10,11 @@ class Header extends StatelessWidget {
   final List<String>? help;
   final List<Widget> actions;
   const Header(
-      {Key? key,
+      {super.key,
       this.leading,
       required this.title,
       this.help,
-      this.actions = const []})
-      : super(key: key);
+      this.actions = const []});
 
   @override
   Widget build(BuildContext context) {

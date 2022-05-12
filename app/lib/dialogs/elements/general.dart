@@ -28,12 +28,11 @@ class GeneralElementDialog<T extends PadElement> extends StatefulWidget {
   final ElementWidgetsBuilder<T>? builder;
 
   const GeneralElementDialog(
-      {Key? key,
+      {super.key,
       required this.position,
       required this.index,
       required this.close,
-      this.builder})
-      : super(key: key);
+      this.builder});
 
   @override
   State<GeneralElementDialog<T>> createState() =>
@@ -217,11 +216,9 @@ class _GeneralElementDialogHeader extends StatelessWidget {
   final Offset position;
   final VoidCallback close;
   const _GeneralElementDialogHeader(
-      {Key? key,
-      required this.renderer,
+      {required this.renderer,
       this.position = Offset.zero,
-      required this.close})
-      : super(key: key);
+      required this.close});
 
   @override
   Widget build(BuildContext context) {

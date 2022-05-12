@@ -8,8 +8,7 @@ import '../../widgets/exact_slider.dart';
 
 class PathEraserPainterDialog extends StatelessWidget {
   final int painterIndex;
-  const PathEraserPainterDialog({Key? key, required this.painterIndex})
-      : super(key: key);
+  const PathEraserPainterDialog({super.key, required this.painterIndex});
 
   @override
   Widget build(BuildContext context) {

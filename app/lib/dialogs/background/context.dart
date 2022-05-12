@@ -17,8 +17,7 @@ class BackgroundContextMenu extends StatelessWidget {
   final VoidCallback close;
   final Offset position;
   const BackgroundContextMenu(
-      {Key? key, required this.close, required this.position})
-      : super(key: key);
+      {super.key, required this.close, required this.position});
 
   @override
   Widget build(BuildContext context) {

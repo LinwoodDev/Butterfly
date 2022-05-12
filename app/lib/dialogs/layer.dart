@@ -7,8 +7,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class LayerDialog extends StatelessWidget {
   final String layer;
   final bool popupMenu;
-  const LayerDialog({Key? key, required this.layer, this.popupMenu = false})
-      : super(key: key);
+  const LayerDialog({super.key, required this.layer, this.popupMenu = false});
 
   @override
   Widget build(BuildContext context) {

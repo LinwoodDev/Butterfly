@@ -4,7 +4,7 @@ on: [push, release]
 
 jobs:
   build-apk:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -74,7 +74,7 @@ jobs:
           path: |
             app/build/windows/Butterfly-Setup.exe
   build-linux:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -169,7 +169,7 @@ jobs:
   #        path: |
   #          build/windows/runner/Release/**
   deploy:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     needs:
       - build-apk
       - build-windows

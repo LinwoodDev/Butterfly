@@ -9,7 +9,7 @@ import '../../widgets/header.dart';
 class AreasDialog extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
 
-  AreasDialog({Key? key}) : super(key: key);
+  AreasDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

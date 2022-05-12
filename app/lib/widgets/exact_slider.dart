@@ -14,7 +14,7 @@ class ExactSlider extends StatefulWidget {
   final Color? color;
 
   const ExactSlider(
-      {Key? key,
+      {super.key,
       this.label,
       this.fractionDigits = 2,
       this.defaultValue = 1,
@@ -24,8 +24,7 @@ class ExactSlider extends StatefulWidget {
       this.value,
       this.header,
       this.onChangeEnd,
-      required this.onChanged})
-      : super(key: key);
+      required this.onChanged});
 
   @override
   _ExactSliderState createState() => _ExactSliderState();

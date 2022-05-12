@@ -8,7 +8,7 @@ import '../widgets/header.dart';
 
 class PagesDialog extends StatefulWidget {
   final List<Uint8List> pages;
-  const PagesDialog({Key? key, this.pages = const []}) : super(key: key);
+  const PagesDialog({super.key, this.pages = const []});
 
   @override
   State<PagesDialog> createState() => _PagesDialogState();

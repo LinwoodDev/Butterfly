@@ -17,12 +17,11 @@ class FileSystemAssetMenu extends StatelessWidget {
   final String selectedPath;
 
   const FileSystemAssetMenu(
-      {Key? key,
+      {super.key,
       required this.selectedPath,
       required this.asset,
       required this.onOpened,
-      required this.onRefreshed})
-      : super(key: key);
+      required this.onRefreshed});
 
   void _showRenameDialog(BuildContext context, String path) {
     final fileSystem = DocumentFileSystem.fromPlatform();

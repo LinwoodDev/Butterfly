@@ -12,8 +12,7 @@ import '../bloc/document_bloc.dart';
 
 class TemplateDialog extends StatefulWidget {
   final AppDocument? currentDocument;
-  const TemplateDialog({Key? key, required this.currentDocument})
-      : super(key: key);
+  const TemplateDialog({super.key, required this.currentDocument});
 
   @override
   State<TemplateDialog> createState() => _TemplateDialogState();
@@ -158,12 +157,10 @@ class _TemplateItem extends StatelessWidget {
   final VoidCallback onChanged;
   final SharedPreferences prefs;
   const _TemplateItem(
-      {Key? key,
-      required this.template,
+      {required this.template,
       required this.onChanged,
       required this.document,
-      required this.prefs})
-      : super(key: key);
+      required this.prefs});
 
   @override
   Widget build(BuildContext context) {

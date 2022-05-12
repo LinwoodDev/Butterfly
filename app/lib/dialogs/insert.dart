@@ -17,7 +17,7 @@ import 'package:printing/printing.dart';
 
 class InsertDialog extends StatefulWidget {
   final Offset position;
-  const InsertDialog({Key? key, required this.position}) : super(key: key);
+  const InsertDialog({super.key, required this.position});
 
   @override
   _InsertDialogState createState() => _InsertDialogState();

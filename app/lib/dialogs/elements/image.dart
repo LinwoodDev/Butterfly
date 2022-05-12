@@ -14,11 +14,10 @@ class ImageElementDialog extends StatelessWidget {
   final Offset position;
 
   const ImageElementDialog(
-      {Key? key,
+      {super.key,
       required this.index,
       required this.close,
-      required this.position})
-      : super(key: key);
+      required this.position});
 
   @override
   Widget build(BuildContext context) {

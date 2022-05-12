@@ -8,8 +8,7 @@ import '../../models/painter.dart';
 class LayerPainterDialog extends StatelessWidget {
   final int painterIndex;
 
-  const LayerPainterDialog({Key? key, required this.painterIndex})
-      : super(key: key);
+  const LayerPainterDialog({super.key, required this.painterIndex});
 
   @override
   Widget build(BuildContext context) {

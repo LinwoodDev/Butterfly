@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../view_painter.dart';
 
 class MainViewViewport extends StatefulWidget {
-  const MainViewViewport({Key? key}) : super(key: key);
+  const MainViewViewport({super.key});
 
   @override
   _MainViewViewportState createState() => _MainViewViewportState();

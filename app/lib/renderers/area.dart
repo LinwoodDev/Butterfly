@@ -5,7 +5,8 @@ import 'package:butterfly/renderers/renderer.dart';
 import 'package:flutter/material.dart';
 
 class AreaRenderer extends Renderer<Area> {
-  AreaRenderer(Area element) : super(element);
+  AreaRenderer(super.element);
+
 
   @override
   void build(Canvas canvas, Size size, CameraTransform transform,

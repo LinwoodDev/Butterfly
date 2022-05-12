@@ -17,7 +17,7 @@ typedef AssetOpenedCallback = void Function(AppDocumentAsset path);
 class FileSystemDialog extends StatefulWidget {
   final DocumentBloc bloc;
 
-  const FileSystemDialog({Key? key, required this.bloc}) : super(key: key);
+  const FileSystemDialog({super.key, required this.bloc});
 
   @override
   _FileSystemDialogState createState() => _FileSystemDialogState();

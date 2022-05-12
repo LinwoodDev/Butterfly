@@ -7,8 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SelectElementDialog extends StatefulWidget {
   final List<Renderer<PadElement>> renderers;
 
-  const SelectElementDialog({Key? key, this.renderers = const []})
-      : super(key: key);
+  const SelectElementDialog({super.key, this.renderers = const []});
 
   @override
   State<SelectElementDialog> createState() => _SelectElementDialogState();

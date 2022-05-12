@@ -9,8 +9,7 @@ import '../theme/manager.dart';
 
 class PersonalizationSettingsPage extends StatelessWidget {
   final bool inView;
-  const PersonalizationSettingsPage({Key? key, this.inView = false})
-      : super(key: key);
+  const PersonalizationSettingsPage({super.key, this.inView = false});
 
   String _getThemeName(BuildContext context, ThemeMode mode) {
     switch (mode) {

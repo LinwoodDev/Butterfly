@@ -15,12 +15,11 @@ class ElementsDialog extends StatefulWidget {
   final Offset position;
   final ValueChanged<Renderer<PadElement>>? onChanged;
   const ElementsDialog(
-      {Key? key,
+      {super.key,
       required this.elements,
       required this.close,
       this.onChanged,
-      required this.position})
-      : super(key: key);
+      required this.position});
 
   @override
   State<ElementsDialog> createState() => _ElementsDialogState();

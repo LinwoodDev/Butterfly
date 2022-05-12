@@ -18,7 +18,7 @@ enum SettingsView { data, behaviors, personalization }
 
 class SettingsPage extends StatefulWidget {
   final bool isDialog;
-  const SettingsPage({Key? key, this.isDialog = false}) : super(key: key);
+  const SettingsPage({super.key, this.isDialog = false});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();

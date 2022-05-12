@@ -7,7 +7,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../widgets/header.dart';
 
 class HandDialog extends StatefulWidget {
-  const HandDialog({Key? key}) : super(key: key);
+  const HandDialog({super.key});
 
   @override
   _HandDialogState createState() => _HandDialogState();

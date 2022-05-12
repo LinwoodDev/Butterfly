@@ -11,7 +11,7 @@ import '../../models/background.dart';
 import '../color_pick.dart';
 
 class BackgroundDialog extends StatelessWidget {
-  const BackgroundDialog({Key? key}) : super(key: key);
+  const BackgroundDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

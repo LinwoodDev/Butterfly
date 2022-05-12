@@ -9,8 +9,7 @@ class FileSystemAssetMoveDialog extends StatefulWidget {
   final bool duplicate;
   final AppDocumentAsset asset;
   const FileSystemAssetMoveDialog(
-      {Key? key, this.duplicate = false, required this.asset})
-      : super(key: key);
+      {super.key, this.duplicate = false, required this.asset});
 
   @override
   State<FileSystemAssetMoveDialog> createState() =>

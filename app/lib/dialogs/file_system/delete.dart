@@ -4,8 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FileSystemAssetDeleteDialog extends StatelessWidget {
   final String path;
-  const FileSystemAssetDeleteDialog({Key? key, required this.path})
-      : super(key: key);
+  const FileSystemAssetDeleteDialog({super.key, required this.path});
 
   @override
   Widget build(BuildContext context) {

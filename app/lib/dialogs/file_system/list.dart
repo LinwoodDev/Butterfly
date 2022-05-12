@@ -11,12 +11,11 @@ class FileSystemListView extends StatelessWidget {
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
   const FileSystemListView(
-      {Key? key,
+      {super.key,
       required this.assets,
       required this.selectedPath,
       required this.onOpened,
-      required this.onRefreshed})
-      : super(key: key);
+      required this.onRefreshed});
 
   @override
   Widget build(BuildContext context) {

@@ -12,12 +12,11 @@ class FileSystemDirectoryTreeView extends StatefulWidget {
   final bool initialExpanded;
 
   const FileSystemDirectoryTreeView(
-      {Key? key,
+      {super.key,
       required this.path,
       required this.onPathSelected,
       this.initialExpanded = false,
-      this.selectedPath = '/'})
-      : super(key: key);
+      this.selectedPath = '/'});
 
   @override
   FileSystemDirectoryTreeViewState createState() =>

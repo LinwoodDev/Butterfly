@@ -8,8 +8,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class BehaviorsSettingsPage extends StatelessWidget {
   final bool inView;
-  const BehaviorsSettingsPage({Key? key, this.inView = false})
-      : super(key: key);
+  const BehaviorsSettingsPage({super.key, this.inView = false});
 
   @override
   Widget build(BuildContext context) {

@@ -11,8 +11,8 @@ class FileSystemAssetCreateDialog extends StatelessWidget {
   final _nameController = TextEditingController();
   final _fileSystem = DocumentFileSystem.fromPlatform();
 
-  FileSystemAssetCreateDialog({Key? key, this.isFolder = false, this.path = ''})
-      : super(key: key);
+  FileSystemAssetCreateDialog(
+      {super.key, this.isFolder = false, this.path = ''});
 
   @override
   Widget build(BuildContext context) {

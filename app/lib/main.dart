@@ -80,8 +80,7 @@ class ButterflyApp extends StatelessWidget {
   final SharedPreferences prefs;
   final GlobalKey _appKey = GlobalKey();
 
-  ButterflyApp({Key? key, required this.prefs, this.initialLocation = '/'})
-      : super(key: key);
+  ButterflyApp({super.key, required this.prefs, this.initialLocation = '/'});
 
   // This widget is the root of your application.
   @override

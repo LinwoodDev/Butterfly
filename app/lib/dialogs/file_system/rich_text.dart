@@ -4,8 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FileSystemFileRichText extends StatelessWidget {
   final AppDocumentFile file;
-  const FileSystemFileRichText({Key? key, required this.file})
-      : super(key: key);
+  const FileSystemFileRichText({super.key, required this.file});
 
   @override
   Widget build(BuildContext context) {

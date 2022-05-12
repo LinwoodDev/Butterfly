@@ -11,7 +11,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class DataSettingsPage extends StatelessWidget {
   final bool inView;
-  const DataSettingsPage({Key? key, this.inView = false}) : super(key: key);
+  const DataSettingsPage({super.key, this.inView = false});
 
   @override
   Widget build(BuildContext context) {

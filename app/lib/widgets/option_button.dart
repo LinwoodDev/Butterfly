@@ -8,14 +8,13 @@ class OptionButton extends StatelessWidget {
   final String tooltip;
 
   const OptionButton(
-      {Key? key,
+      {super.key,
       this.tooltip = '',
       required this.icon,
       required this.selectedIcon,
       required this.onPressed,
       required this.onLongPressed,
-      this.selected = false})
-      : super(key: key);
+      this.selected = false});
   @override
   Widget build(BuildContext context) {
     return Tooltip(

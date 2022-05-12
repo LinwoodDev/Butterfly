@@ -23,13 +23,12 @@ class ImageExportDialog extends StatefulWidget {
   final double scale;
 
   const ImageExportDialog(
-      {Key? key,
+      {super.key,
       this.x = 0,
       this.y = 0,
       this.width = 1000,
       this.height = 1000,
-      this.scale = 1})
-      : super(key: key);
+      this.scale = 1});
 
   @override
   State<ImageExportDialog> createState() => _ImageExportDialogState();

@@ -19,7 +19,7 @@ class EditToolbar extends StatelessWidget {
   final bool isMobile;
   final ScrollController _scrollController = ScrollController();
 
-  EditToolbar({Key? key, required this.isMobile}) : super(key: key);
+  EditToolbar({super.key, required this.isMobile});
 
   IconData getPainterIcon(String type) {
     switch (type) {

@@ -17,13 +17,12 @@ class GeneralPainterDialog<T extends Painter> extends StatefulWidget {
   final int index;
   final PainterWidgetsBuilder<T> builder;
   const GeneralPainterDialog(
-      {Key? key,
+      {super.key,
       required this.icon,
       required this.title,
       required this.help,
       required this.index,
-      required this.builder})
-      : super(key: key);
+      required this.builder});
 
   @override
   State<GeneralPainterDialog<T>> createState() =>
