@@ -22,7 +22,7 @@ class DataSettingsPage extends StatelessWidget {
           backgroundColor: inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context)!.data),
           actions: [
-            if (!inView && isWindow()) ...[
+            if (!inView && !kIsWeb && isWindow()) ...[
               const VerticalDivider(),
               const WindowButtons()
             ]

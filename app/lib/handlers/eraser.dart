@@ -22,19 +22,14 @@ class EraserHandler extends Handler {
 
   void submitElement(Size viewportSize, BuildContext context, int index) {
     final bloc = context.read<DocumentBloc>();
-    final transform = context.read<TransformCubit>().state;
     var element = elements.remove(index);
     if (element == null) return;
     submittedElements.add(element);
     if (elements.isEmpty) {
-      bloc
-        ..add(ElementsCreated(List<PadElement>.from(submittedElements)))
-        ..add(ImageBaked(
-            viewportSize, transform, MediaQuery.of(context).devicePixelRatio));
+      bloc.add(ElementsCreated(List<PadElement>.from(submittedElements)));
       submittedElements.clear();
-    } else {
-      cubit.refresh(bloc);
     }
+    cubit.refresh(bloc);
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
@@ -49,7 +44,6 @@ class EraserHandler extends Handler {
     if (!inputType.canCreate(pointer, elements.keys.firstOrNull, kind)) {
       return;
     }
-
     final element = elements[pointer] ??
         EraserElement(
           layer: state.currentLayer,

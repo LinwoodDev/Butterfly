@@ -54,7 +54,7 @@ Future<void> main([List<String> args = const []]) async {
     }
   }
 
-  if (isWindow()) {
+  if (!kIsWeb && isWindow()) {
     await windowManager.ensureInitialized();
 
     // Use it only after calling `hiddenWindowAtLaunch`
