@@ -274,10 +274,10 @@
     "exit": "Beenden",
     "noElements": "Keine Elemente",
     "invertSelection": "Auswahl umkehren",
-    "errorWhileImporting": "Error while importing",
-    "errorWhileImportingContent": "An error occurred while importing the file",
-    "showDetails": "Show details",
-    "hideDetails": "Hide details",
-    "error": "Error",
-    "stackTrace": "Stack trace"
+    "errorWhileImporting": "Fehler beim Importieren",
+    "errorWhileImportingContent": "Fehler beim Importieren der Datei",
+    "showDetails": "Details anzeigen",
+    "hideDetails": "Details ausblenden",
+    "error": "Fehler",
+    "stackTrace": "Stapelverfolgung"
 }
