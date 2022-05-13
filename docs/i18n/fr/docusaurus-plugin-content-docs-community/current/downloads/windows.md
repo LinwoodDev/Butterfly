@@ -43,3 +43,9 @@ En savoir plus sur la version nocturne de Butterfly [ici](/nightly).
 ```powershell
 winget install LinwoodCloud.Butterfly
 ```
+
+### Nightly version
+
+```powershell
+winget install LinwoodCloud.Butterfly.Nightly
+```
