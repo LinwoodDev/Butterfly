@@ -273,5 +273,11 @@
     },
     "exit": "Quitter",
     "noElements": "Aucun élément",
-    "invertSelection": "Inverser la sélection"
+    "invertSelection": "Inverser la sélection",
+    "errorWhileImporting": "Erreur lors de l'importation",
+    "errorWhileImportingContent": "Une erreur s'est produite lors de l'importation du fichier",
+    "showDetails": "Afficher les détails",
+    "hideDetails": "Cacher les détails",
+    "error": "Erreur",
+    "stackTrace": "Trace de pile"
 }
