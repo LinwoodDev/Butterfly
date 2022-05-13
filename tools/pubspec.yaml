@@ -5,4 +5,4 @@ dependencies:
   args: ^2.3.0
   intl: ^0.17.0
   lints: ^2.0.0
-  yaml: ^3.1.0
+  yaml: ^3.1.1

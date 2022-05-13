@@ -273,5 +273,11 @@
   },
   "exit": "Exit",
   "noElements": "No elements",
-  "invertSelection": "Invert selection"
+  "invertSelection": "Invert selection",
+  "errorWhileImporting": "Error while importing",
+  "errorWhileImportingContent": "An error occurred while importing the file",
+  "showDetails": "Show details",
+  "hideDetails": "Hide details",
+  "error": "Error",
+  "stackTrace": "Stack trace"
 }
