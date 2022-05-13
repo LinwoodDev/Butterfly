@@ -2,6 +2,15 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.3.0-rc.0 (2022-05-13)
+
+* Implement drag resize area and popup window menu on desktop platforms
+* Fix pixel ratio
+* Fixing safe area bug in settings
+* Fix embedding
+* Upgrade to flutter 3
+* Show error message if an error occurred while inserting
+
 ## 1.3.0-beta.2 (2022-05-06)
 
 * Implement embed functionality
