@@ -39,11 +39,10 @@ class _InsertDialogState extends State<InsertDialog> {
   }
 
   Future<void> _insertImage(Uint8List content) async {
-    compute(_runInsertImage, content).catchError((error, stackTrace) =>
-        showDialog(
-            context: context,
-            builder: (context) =>
-                ErrorDialog(error: error, stackTrace: stackTrace)));
+    _runInsertImage(content).catchError((error, stackTrace) => showDialog(
+        context: context,
+        builder: (context) =>
+            ErrorDialog(error: error, stackTrace: stackTrace)));
   }
 
   Future<void> _runInsertImage(Uint8List content) async {

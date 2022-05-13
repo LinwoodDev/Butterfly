@@ -273,5 +273,11 @@
     },
     "exit": "Beenden",
     "noElements": "Keine Elemente",
-    "invertSelection": "Auswahl umkehren"
+    "invertSelection": "Auswahl umkehren",
+    "errorWhileImporting": "Fehler beim Importieren",
+    "errorWhileImportingContent": "Fehler beim Importieren der Datei",
+    "showDetails": "Details anzeigen",
+    "hideDetails": "Details ausblenden",
+    "error": "Fehler",
+    "stackTrace": "Stapelverfolgung"
 }
