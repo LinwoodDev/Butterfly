@@ -16,6 +16,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-20.04
+    outputs:
+      build_number: ${{ steps.setup.outputs.build_number }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -34,6 +36,7 @@ jobs:
           echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
           BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
+          echo "::set-output name=build_number::${BUTTERFLY_BUILD_NUMBER}"
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Create changelog
@@ -57,12 +60,12 @@ jobs:
           token: ${{ secrets.CI_PAT }}
           body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
       - name: Retag stable
-        if: ${{ !github.event.inputs.stable && github.ref == "refs/heads/main" }}
+        if: ${{ !github.event.inputs.stable || github.ref == 'refs/heads/main' }}
         run: |
           git tag -fa stable -m "Find all stable releases here"
           git push origin stable -f
       - name: Retag nightly
-        if: ${{ github.event.inputs.stable }}
+        if: ${{ github.event.inputs.stable && github.ref == 'refs/heads/develop' }}
         run: |
           git tag -fa nightly -m "Find all nightly releases here"
           git push origin nightly -f
@@ -123,7 +126,7 @@ jobs:
         if: ${{ github.event.inputs.stable }}
         run: |
           dart pub get -C tools
-          NEXT_BUILD_NUMBER=$(expr ${{ env.BUTTERFLY_BUILD_NUMBER }} + 1)
+          NEXT_BUILD_NUMBER=$(expr ${{ needs.release.outputs.build_number }} + 1)
           dart run tools/set_version.dart --build-number $NEXT_BUILD_NUMBER --no-changelog
 
           git add .
