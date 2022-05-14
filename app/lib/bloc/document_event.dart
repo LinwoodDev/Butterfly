@@ -214,11 +214,9 @@ class ImageUnbaked extends DocumentEvent {
 class ImageBaked extends DocumentEvent {
   final ui.Size viewportSize;
   final CameraTransform cameraTransform;
-  final bool undoLast;
   final double pixelRatio;
 
-  const ImageBaked(this.viewportSize, this.cameraTransform, this.pixelRatio,
-      [this.undoLast = true]);
+  const ImageBaked(this.viewportSize, this.cameraTransform, this.pixelRatio);
 
   @override
   List<Object?> get props => [viewportSize, pixelRatio];

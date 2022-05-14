@@ -28,6 +28,7 @@ import '../models/property.dart';
 import '../renderers/renderer.dart';
 
 part 'document_event.dart';
+
 part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
@@ -455,7 +456,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
       if (!eq(renderers, currentElements)) return;
       if (last != current.cameraViewport) return;
-      if (event.undoLast) undo();
       emit(current.copyWith(
           cameraViewport: current.cameraViewport.bake(
               height: size.height.round(),
@@ -579,6 +579,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         clearHistory();
       }
     }
+  }
+
+  @override
+  bool shouldReplay(DocumentState state) {
+    // Disable replay for state where only camera viewport has changed.
+    final statement = state is DocumentLoadSuccess &&
+        state.cameraViewport.unbakedElements.isNotEmpty;
+    return statement;
   }
 
   void _repaint() {

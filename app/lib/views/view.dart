@@ -50,149 +50,143 @@ class _MainViewViewportState extends State<MainViewViewport> {
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-        child: ClipRRect(
-            child: LayoutBuilder(
-                builder: (context, constraints) =>
-                    BlocBuilder<DocumentBloc, DocumentState>(
-                        builder: (context, state) {
-                      if (state is! DocumentLoadSuccess) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      void _bake([CameraTransform? transform]) {
-                        context.read<DocumentBloc>().add(ImageBaked(
-                            constraints.biggest,
-                            transform ?? context.read<TransformCubit>().state,
-                            MediaQuery.of(context).devicePixelRatio));
-                      }
+        child: ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
+      void _bake([CameraTransform? transform]) {
+        context.read<DocumentBloc>().add(ImageBaked(
+            constraints.biggest,
+            transform ?? context.read<TransformCubit>().state,
+            MediaQuery.of(context).devicePixelRatio));
+      }
 
-                      if (state.cameraViewport.toSize() !=
-                          Size(constraints.biggest.width.roundToDouble(),
-                              constraints.biggest.height.roundToDouble())) {
-                        _bake();
-                      }
+      final current = context.read<DocumentBloc>().state;
+      if (current is DocumentLoadSuccess &&
+          current.cameraViewport.toSize() !=
+              Size(constraints.biggest.width.roundToDouble(),
+                  constraints.biggest.height.roundToDouble())) {
+        _bake();
+      }
+      return BlocBuilder<DocumentBloc, DocumentState>(
+          builder: (context, state) {
+        if (state is! DocumentLoadSuccess) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-                      var openView = false;
-                      final CurrentIndexCubit cubit =
-                          context.read<CurrentIndexCubit>();
+        var openView = false;
+        final CurrentIndexCubit cubit = context.read<CurrentIndexCubit>();
 
-                      return GestureDetector(
-                          onTapUp: (details) {
-                            cubit
-                                .getHandler()
-                                .onTapUp(constraints.biggest, context, details);
-                          },
-                          onTapDown: (details) {
-                            cubit.getHandler().onTapDown(
-                                constraints.biggest, context, details);
-                          },
-                          onSecondaryTapUp: (details) {
-                            cubit.getHandler().onSecondaryTapUp(
-                                constraints.biggest, context, details);
-                          },
-                          onScaleUpdate: (details) {
-                            if (details.scale == 1) return;
-                            if (openView) openView = details.scale == 1;
-                            var transformCubit = context.read<TransformCubit>();
-                            var current = details.scale;
-                            current = current - size;
-                            current += 1;
-                            var sensitivity = context
-                                .read<SettingsCubit>()
-                                .state
-                                .touchSensitivity;
-                            var point = details.localFocalPoint;
-                            transformCubit.zoom(
-                                (1 - current) / -sensitivity + 1, point);
-                            if (cubit.fetchHandler<HandHandler>() != null &&
-                                details.pointerCount == 2) {
-                              transformCubit.move(details.focalPointDelta);
-                            }
-                            size = details.scale;
-                          },
-                          onLongPressEnd: (details) {
-                            cubit.getHandler().onLongPressEnd(
-                                constraints.biggest, context, details);
-                          },
-                          onScaleEnd: (details) => _bake(),
-                          onScaleStart: (details) {
-                            size = 1;
-                          },
-                          child: Listener(
-                              onPointerSignal: (pointerSignal) {
-                                if (pointerSignal is PointerScrollEvent) {
-                                  // dx and dy are the delta between the last scroll event
-                                  var dx = pointerSignal.scrollDelta.dx;
-                                  var dy = pointerSignal.scrollDelta.dy;
-                                  // Get zoom by dx and dy
-                                  var scale = pointerSignal.size;
-                                  var sensitivity = context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .mouseSensitivity;
-                                  scale /= -sensitivity * 100;
-                                  scale += 1;
-                                  var cubit = context.read<TransformCubit>();
-                                  if (_mouseState == _MouseState.scale) {
-                                    // Calculate the new scale using dx and dy
-                                    scale =
-                                        -(dx + dy / 2) / sensitivity / 100 + 1;
-                                    cubit.zoom(
-                                        scale, pointerSignal.localPosition);
-                                  } else {
-                                    cubit
-                                      ..move(_mouseState == _MouseState.inverse
-                                          ? Offset(-dy, -dx)
-                                          : Offset(-dx, -dy))
-                                      ..zoom(
-                                          scale, pointerSignal.localPosition);
-                                  }
-                                  _bake(cubit.state);
-                                }
-                              },
-                              onPointerDown: (PointerDownEvent event) {
-                                cubit.getHandler().onPointerDown(
-                                    constraints.biggest, context, event);
-                              },
-                              onPointerUp: (PointerUpEvent event) async {
-                                cubit.getHandler().onPointerUp(
-                                    constraints.biggest, context, event);
-                              },
-                              behavior: HitTestBehavior.translucent,
-                              onPointerHover: (event) {
-                                cubit.getHandler().onPointerHover(
-                                    constraints.biggest, context, event);
-                              },
-                              onPointerMove: (PointerMoveEvent event) async {
-                                cubit.getHandler().onPointerMove(
-                                    constraints.biggest, context, event);
-                              },
-                              child:
-                                  BlocBuilder<TransformCubit, CameraTransform>(
-                                builder: (context, transform) {
-                                  return BlocBuilder<CurrentIndexCubit,
-                                      CurrentIndex>(
-                                    builder: (context, currentIndex) =>
-                                        Stack(children: [
-                                      Container(color: Colors.white),
-                                      CustomPaint(
-                                        size: Size.infinite,
-                                        foregroundPainter: ForegroundPainter(
-                                          currentIndex.foregrounds,
-                                          transform,
-                                          currentIndex.selections,
-                                        ),
-                                        painter: ViewPainter(state.document,
-                                            cameraViewport:
-                                                state.cameraViewport,
-                                            transform: transform,
-                                            currentArea: state.currentArea),
-                                        isComplex: true,
-                                        willChange: true,
-                                      )
-                                    ]),
-                                  );
-                                },
-                              )));
-                    }))));
+        return GestureDetector(
+            onTapUp: (details) {
+              cubit.getHandler().onTapUp(constraints.biggest, context, details);
+            },
+            onTapDown: (details) {
+              cubit
+                  .getHandler()
+                  .onTapDown(constraints.biggest, context, details);
+            },
+            onSecondaryTapUp: (details) {
+              cubit
+                  .getHandler()
+                  .onSecondaryTapUp(constraints.biggest, context, details);
+            },
+            onScaleUpdate: (details) {
+              if (details.scale == 1) return;
+              if (openView) openView = details.scale == 1;
+              var transformCubit = context.read<TransformCubit>();
+              var current = details.scale;
+              current = current - size;
+              current += 1;
+              var sensitivity =
+                  context.read<SettingsCubit>().state.touchSensitivity;
+              var point = details.localFocalPoint;
+              transformCubit.zoom((1 - current) / -sensitivity + 1, point);
+              if (cubit.fetchHandler<HandHandler>() != null &&
+                  details.pointerCount == 2) {
+                transformCubit
+                    .move(details.focalPointDelta / transformCubit.state.size);
+              }
+              size = details.scale;
+            },
+            onLongPressEnd: (details) {
+              cubit
+                  .getHandler()
+                  .onLongPressEnd(constraints.biggest, context, details);
+            },
+            onScaleEnd: (details) => _bake(),
+            onScaleStart: (details) {
+              size = 1;
+            },
+            child: Listener(
+                onPointerSignal: (pointerSignal) {
+                  if (pointerSignal is PointerScrollEvent) {
+                    // dx and dy are the delta between the last scroll event
+                    var dx = pointerSignal.scrollDelta.dx;
+                    var dy = pointerSignal.scrollDelta.dy;
+                    // Get zoom by dx and dy
+                    var scale = pointerSignal.size;
+                    var sensitivity =
+                        context.read<SettingsCubit>().state.mouseSensitivity;
+                    scale /= -sensitivity * 100;
+                    scale += 1;
+                    var cubit = context.read<TransformCubit>();
+                    if (_mouseState == _MouseState.scale) {
+                      // Calculate the new scale using dx and dy
+                      scale = -(dx + dy / 2) / sensitivity / 100 + 1;
+                      cubit.zoom(scale, pointerSignal.localPosition);
+                    } else {
+                      cubit
+                        ..move(_mouseState == _MouseState.inverse
+                            ? Offset(-dy, -dx)
+                            : Offset(-dx, -dy))
+                        ..zoom(scale, pointerSignal.localPosition);
+                    }
+                    _bake(cubit.state);
+                  }
+                },
+                onPointerDown: (PointerDownEvent event) {
+                  cubit
+                      .getHandler()
+                      .onPointerDown(constraints.biggest, context, event);
+                },
+                onPointerUp: (PointerUpEvent event) async {
+                  cubit
+                      .getHandler()
+                      .onPointerUp(constraints.biggest, context, event);
+                },
+                behavior: HitTestBehavior.translucent,
+                onPointerHover: (event) {
+                  cubit
+                      .getHandler()
+                      .onPointerHover(constraints.biggest, context, event);
+                },
+                onPointerMove: (PointerMoveEvent event) async {
+                  cubit
+                      .getHandler()
+                      .onPointerMove(constraints.biggest, context, event);
+                },
+                child: BlocBuilder<TransformCubit, CameraTransform>(
+                  builder: (context, transform) {
+                    return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                      builder: (context, currentIndex) => Stack(children: [
+                        Container(color: Colors.white),
+                        CustomPaint(
+                          size: Size.infinite,
+                          foregroundPainter: ForegroundPainter(
+                            currentIndex.foregrounds,
+                            transform,
+                            currentIndex.selections,
+                          ),
+                          painter: ViewPainter(state.document,
+                              cameraViewport: state.cameraViewport,
+                              transform: transform,
+                              currentArea: state.currentArea),
+                          isComplex: true,
+                          willChange: true,
+                        )
+                      ]),
+                    );
+                  },
+                )));
+      });
+    })));
   }
 }

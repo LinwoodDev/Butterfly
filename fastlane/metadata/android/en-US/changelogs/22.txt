@@ -1,0 +1,2 @@
+* Fix undo on scrolling
+* Change scroll focus point relative to the zoom

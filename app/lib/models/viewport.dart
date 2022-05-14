@@ -2,10 +2,13 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/models/background.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import 'element.dart';
 
-class CameraViewport {
+@immutable
+class CameraViewport extends Equatable {
   final ui.Image? image;
   final Renderer<Background> background;
   final List<Renderer<PadElement>> bakedElements;
@@ -23,7 +26,8 @@ class CameraViewport {
         bakedElements = const [],
         x = 0,
         y = 0;
-  CameraViewport.baked(this.background,
+
+  const CameraViewport.baked(this.background,
       {required this.image,
       required this.width,
       required this.height,
@@ -55,12 +59,14 @@ class CameraViewport {
           bakedElements: bakedElements,
           x: x,
           y: y);
+
   CameraViewport unbake([List<Renderer<PadElement>>? unbakedElements]) =>
       CameraViewport.unbaked(
           background,
           unbakedElements ??
               (List<Renderer<PadElement>>.from(this.unbakedElements)
                 ..addAll(bakedElements)));
+
   CameraViewport bake({
     required ui.Image image,
     required int width,
@@ -91,4 +97,17 @@ class CameraViewport {
           unbakedElements: unbakedElements,
           x: x,
           y: y);
+
+  @override
+  List<Object?> get props => [
+        image,
+        background,
+        bakedElements,
+        unbakedElements,
+        width,
+        height,
+        scale,
+        x,
+        y
+      ];
 }
