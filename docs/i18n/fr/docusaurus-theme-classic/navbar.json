@@ -18,5 +18,29 @@
   "item.label.Blog": {
     "message": "Blogue",
     "description": "Navbar item with label Blog"
+  },
+  "item.label.More": {
+    "message": "En savoir plus",
+    "description": "Navbar item with label More"
+  },
+  "item.label.Discord": {
+    "message": "Discord",
+    "description": "Navbar item with label Discord"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.Crowdin": {
+    "message": "Crowdin",
+    "description": "Navbar item with label Crowdin"
+  },
+  "item.label.Twitter": {
+    "message": "Twitter",
+    "description": "Navbar item with label Twitter"
+  },
+  "item.label.License": {
+    "message": "Licence",
+    "description": "Navbar item with label License"
   }
 }
