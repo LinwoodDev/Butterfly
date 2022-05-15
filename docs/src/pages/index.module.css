@@ -23,9 +23,16 @@
   justify-content: center;
 }
 
+.indexCtas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .indexCtas a {
   margin: 10px 8px;
 }
+
 .screenshot {
   width: 100%;
   max-width: 50em;

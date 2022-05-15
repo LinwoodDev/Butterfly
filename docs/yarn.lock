@@ -3285,6 +3285,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"animate.css@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "animate.css@npm:4.1.1"
+  checksum: c7eb91540423532c549725a6dedea993735a05eadaa49ed4d1965ce166a6db36459adcc9667c1dfe13657fab92a2875bbee34ad0d942444a731badab69f762c8
+  languageName: node
+  linkType: hard
+
 "ansi-align@npm:^3.0.0, ansi-align@npm:^3.0.1":
   version: 3.0.1
   resolution: "ansi-align@npm:3.0.1"
@@ -3746,12 +3753,13 @@ __metadata:
     "@docusaurus/preset-classic": 2.0.0-beta.20
     "@docusaurus/theme-common": 2.0.0-beta.20
     "@mdx-js/react": ^1
+    animate.css: ^4.1.1
     clsx: ^1.1.1
     markdownlint-cli2: ^0.4.0
     prism-react-renderer: ^1.3.1
     react: ^17.0.2
+    react-animation-on-scroll: ^5.1.0
     react-dom: ^17.0.2
-    simple-aos: ^4.1.0
     ua-parser-js: ^1.0.2
   dependenciesMeta:
     react@17.0.2:
@@ -7365,6 +7373,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.throttle@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "lodash.throttle@npm:4.1.1"
+  checksum: 129c0a28cee48b348aef146f638ef8a8b197944d4e9ec26c1890c19d9bf5a5690fe11b655c77a4551268819b32d27f4206343e30c78961f60b561b8608c8c805
+  languageName: node
+  linkType: hard
+
 "lodash.uniq@npm:4.5.0, lodash.uniq@npm:^4.5.0":
   version: 4.5.0
   resolution: "lodash.uniq@npm:4.5.0"
@@ -9128,6 +9143,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-animation-on-scroll@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "react-animation-on-scroll@npm:5.1.0"
+  dependencies:
+    lodash.throttle: ^4.1.1
+  peerDependencies:
+    react: ">= 15.4.1"
+  checksum: ed98bcebdf7defacc093b5158756d4aab8d555491a2ec258abd4b10339326a0fa122f93ca58050404cc3b49a235ef1f1171d71b031ecb9294a93eb466842acba
+  languageName: node
+  linkType: hard
+
 "react-base16-styling@npm:^0.6.0":
   version: 0.6.0
   resolution: "react-base16-styling@npm:0.6.0"
@@ -10099,13 +10125,6 @@ __metadata:
   version: 3.0.7
   resolution: "signal-exit@npm:3.0.7"
   checksum: a2f098f247adc367dffc27845853e9959b9e88b01cb301658cfe4194352d8d2bb32e18467c786a7fe15f1d44b233ea35633d076d5e737870b7139949d1ab6318
-  languageName: node
-  linkType: hard
-
-"simple-aos@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "simple-aos@npm:4.1.0"
-  checksum: 9e7461a59bb521587cbacf06781d94499db2ef5eb9a56cfb0cced4bc761eb33e7991283b94a8c3f227d9b40843b6aebf606beb97e4b95931af21629bf0875b36
   languageName: node
   linkType: hard
 
