@@ -1,2 +1,3 @@
 * Fix undo on scrolling
+* Fix appbar title
 * Change scroll focus point relative to the zoom

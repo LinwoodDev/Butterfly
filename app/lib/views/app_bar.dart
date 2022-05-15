@@ -26,9 +26,9 @@ import '../actions/redo.dart';
 import '../actions/save.dart';
 import '../actions/settings.dart';
 import '../actions/undo.dart';
-import '../embed/action.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/transform.dart';
+import '../embed/action.dart';
 import 'main.dart';
 
 class PadAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -95,70 +95,69 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                   previous is! DocumentLoadSuccess) return true;
               return _nameController.text != current.document.name ||
                   previous.path != current.path ||
-                  _areaController.text != current.currentArea?.name ||
+                  (current.currentArea != null &&
+                      _areaController.text != current.currentArea?.name) ||
                   previous.saved != current.saved;
             }, builder: (ctx, state) {
               Widget title;
               final isMobile = MediaQuery.of(context).size.width < 800;
               if (state is DocumentLoadSuccess) {
-                _nameController.text = state.document.name;
-                var titleEdit = false;
-                var titleFocus = FocusNode();
+                if (_nameController.text != state.document.name) {
+                  _nameController.text = state.document.name;
+                }
                 var area = state.currentArea;
-                _areaController.text = area?.name ?? '';
+                if (_nameController.text != area?.name) {
+                  _areaController.text = area?.name ?? '';
+                }
+                print('rerender');
                 title = StatefulBuilder(
                   builder: (context, setState) => Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            setState(() => titleEdit = true);
-
-                            FocusScope.of(context).requestFocus(titleFocus);
-                            _nameController.selection =
-                                TextSelection.fromPosition(TextPosition(
-                                    offset: _nameController.text.length));
+                        Focus(
+                          onFocusChange: (hasFocus) {
+                            if (hasFocus) {
+                              // Add cursor to end of text
+                              if (area == null) {
+                                _nameController.selection =
+                                    TextSelection.fromPosition(TextPosition(
+                                        affinity: TextAffinity.downstream,
+                                        offset: _nameController.text.length));
+                              } else {
+                                _areaController.selection =
+                                    TextSelection.fromPosition(TextPosition(
+                                        affinity: TextAffinity.downstream,
+                                        offset: _areaController.text.length));
+                              }
+                            }
                           },
-                          child: Focus(
-                            onFocusChange: (value) {
-                              if (!value) setState(() => titleEdit = false);
+                          child: TextField(
+                            controller: area == null
+                                ? _nameController
+                                : _areaController,
+                            textAlign: TextAlign.center,
+                            style: area == null
+                                ? Theme.of(context).textTheme.headline6
+                                : Theme.of(context).textTheme.headline4,
+                            onChanged: (value) {
+                              if (area == null) {
+                                bloc.add(
+                                    DocumentDescriptorChanged(name: value));
+                              } else {
+                                bloc.add(AreaChanged(
+                                  state.currentAreaIndex,
+                                  area.copyWith(name: value),
+                                ));
+                              }
                             },
-                            autofocus: titleEdit,
-                            child: IgnorePointer(
-                              ignoring: !titleEdit,
-                              child: TextField(
-                                controller: area == null
-                                    ? _nameController
-                                    : _areaController,
-                                textAlign: TextAlign.center,
-                                focusNode: titleFocus,
-                                style: area == null
-                                    ? Theme.of(context).textTheme.headline6
-                                    : Theme.of(context).textTheme.headline4,
-                                onChanged: (value) {
-                                  if (area == null) {
-                                    bloc.add(
-                                        DocumentDescriptorChanged(name: value));
-                                  } else {
-                                    bloc.add(AreaChanged(
-                                      state.currentAreaIndex,
-                                      area.copyWith(name: value),
-                                    ));
-                                  }
-                                },
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.zero,
-                                  hintText:
-                                      AppLocalizations.of(context)!.untitled,
-                                  hintStyle: area == null
-                                      ? Theme.of(context).textTheme.headline6
-                                      : Theme.of(context).textTheme.headline4,
-                                  border: InputBorder.none,
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 500),
-                                ),
-                              ),
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.zero,
+                              hintText: AppLocalizations.of(context)!.untitled,
+                              hintStyle: area == null
+                                  ? Theme.of(context).textTheme.headline6
+                                  : Theme.of(context).textTheme.headline4,
+                              border: InputBorder.none,
                             ),
                           ),
                         ),
