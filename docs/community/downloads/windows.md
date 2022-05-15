@@ -6,6 +6,10 @@ sidebar_position: 2
 ![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
+## Minimum system requirements
+
+* Windows 10 or higher.
+
 ## Binaries
 
 <div className="row margin-bottom--lg padding--sm">
@@ -45,8 +49,32 @@ Read more about the nightly version of Butterfly [here](/nightly).
 winget install LinwoodCloud.Butterfly
 ```
 
+To upgrade the winget package, run:
+
+```powershell
+winget upgrade LinwoodCloud.Butterfly
+```
+
+To uninstall the winget package, run:
+
+```powershell
+winget uninstall LinwoodCloud.Butterfly
+```
+
 ### Nightly version
 
 ```powershell
 winget install LinwoodCloud.Butterfly.Nightly
+```
+
+To upgrade the winget package, run:
+
+```powershell
+winget upgrade LinwoodCloud.Butterfly.Nightly
+```
+
+To uninstall the winget package, run:
+
+```powershell
+winget uninstall LinwoodCloud.Butterfly.Nightly
 ```

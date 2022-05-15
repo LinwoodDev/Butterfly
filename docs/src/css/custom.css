@@ -60,6 +60,13 @@ img {
   padding: 0.4rem 0.8rem;
   margin: 0.25rem;
   transition: background 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 996px) {
+  .navbar__link {
+    display: none;
+  }
 }
 .navbar__link:hover {
   background: var(--ifm-color-emphasis-300);

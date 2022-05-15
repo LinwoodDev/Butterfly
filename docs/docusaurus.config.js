@@ -17,9 +17,9 @@ module.exports = {
     },
     themeConfig: {
         colorMode: {
-          defaultMode: 'dark',
-          disableSwitch: false,
-          respectPrefersColorScheme: true,
+            defaultMode: 'dark',
+            disableSwitch: false,
+            respectPrefersColorScheme: true,
         },
         algolia: {
             // The application ID provided by Algolia
@@ -52,10 +52,32 @@ module.exports = {
                 },
                 {
                     to: 'community',
-                    position: 'left',
                     label: 'Community',
                 },
-                { href: 'https://linwood.dev/blog', label: 'Blog', position: 'left' },
+                {
+                    type: 'dropdown',
+                    label: 'More',
+                    position: 'left',
+                    items: [
+                        {
+                            label: 'Discord',
+                            href: 'https://discord.linwood.dev',
+                        },
+                        {
+                            label: 'GitHub',
+                            href: 'https://github.com/LinwoodCloud/Butterfly',
+                        },
+                        { href: 'https://linwood.dev/blog', label: 'Blog' },
+                        {
+                            label: 'Twitter',
+                            href: 'https://twitter.com/LinwoodCloud',
+                        },
+                        {
+                            label: 'License',
+                            href: 'https://github.com/LinwoodCloud/Butterfly/blob/develop/LICENSE',
+                        }
+                    ],
+                },
                 {
                     type: 'docsVersionDropdown',
                     position: 'right',
