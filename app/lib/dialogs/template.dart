@@ -58,10 +58,10 @@ class _TemplateDialogState extends State<TemplateDialog> {
                   actions: widget.currentDocument == null
                       ? []
                       : [
-                          TextButton.icon(
+                          IconButton(
                             onPressed: () =>
                                 _showCreateDialog(widget.currentDocument!),
-                            label: Text(AppLocalizations.of(context)!.create),
+                            tooltip: AppLocalizations.of(context)!.create,
                             icon: const Icon(PhosphorIcons.plusLight),
                           )
                         ],

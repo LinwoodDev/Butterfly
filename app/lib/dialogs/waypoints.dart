@@ -36,10 +36,9 @@ class WaypointsDialog extends StatelessWidget {
                           ),
                           actions: [
                             if (state.embedding?.editable ?? true)
-                              TextButton.icon(
+                              IconButton(
                                 onPressed: () => _showCreateDialog(context),
-                                label:
-                                    Text(AppLocalizations.of(context)!.create),
+                                tooltip: AppLocalizations.of(context)!.create,
                                 icon: const Icon(PhosphorIcons.plusLight),
                               )
                           ]),

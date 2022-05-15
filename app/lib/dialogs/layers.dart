@@ -26,10 +26,10 @@ class LayersDialog extends StatelessWidget {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     actions: [
-                      TextButton.icon(
+                      IconButton(
                           icon: const Icon(PhosphorIcons.selectionLight),
-                          label: Text(
-                              AppLocalizations.of(context)!.selectCustomLayer),
+                          tooltip:
+                              AppLocalizations.of(context)!.selectCustomLayer,
                           onPressed: () {
                             var nameController = TextEditingController(
                                 text: (context.read<DocumentBloc>().state

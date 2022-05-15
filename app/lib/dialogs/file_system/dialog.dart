@@ -91,8 +91,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             ? PhosphorIcons.listLight
                             : PhosphorIcons.gridFourLight),
                         onPressed: () => setState(() => gridView = !gridView)),
-                    TextButton.icon(
-                      label: Text(AppLocalizations.of(context)!.create),
+                    IconButton(
+                      tooltip: AppLocalizations.of(context)!.create,
                       icon: const Icon(PhosphorIcons.plusLight),
                       onPressed: () async {
                         await showModalBottomSheet<ThemeMode>(
