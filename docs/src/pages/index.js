@@ -6,9 +6,8 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import HomepageFeatures from "../components/HomepageFeatures";
 import Translate from '@docusaurus/Translate';
-import AOS from 'aos';
+import AOS from 'simple-aos';
 import UAParser from 'ua-parser-js';
-import 'aos/dist/aos.css';
 
 
 function HomepageHeader() {

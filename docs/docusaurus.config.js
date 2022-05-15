@@ -67,14 +67,21 @@ module.exports = {
                             label: 'GitHub',
                             href: 'https://github.com/LinwoodCloud/Butterfly',
                         },
-                        { href: 'https://linwood.dev/blog', label: 'Blog' },
+                        {
+                            label: 'Blog', 
+                            href: 'https://linwood.dev/blog'
+                        },
+                        {
+                            label: 'Crowdin',
+                            href: 'https://go.linwood.dev/butterfly/crowdin'
+                        },
                         {
                             label: 'Twitter',
                             href: 'https://twitter.com/LinwoodCloud',
                         },
                         {
                             label: 'License',
-                            href: 'https://github.com/LinwoodCloud/Butterfly/blob/develop/LICENSE',
+                            href: 'https://go.linwood.dev/butterfly/license',
                         }
                     ],
                 },
