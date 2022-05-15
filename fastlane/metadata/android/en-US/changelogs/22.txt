@@ -1,3 +1,4 @@
 * Fix undo on scrolling
-* Change scroll focus point relative to the zoom
 * Replace text buttons to icon buttons in dialog actions
+* Fix appbar title
+* Change scroll focus point relative to the zoom

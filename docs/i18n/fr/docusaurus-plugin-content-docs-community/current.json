@@ -7,12 +7,12 @@
     "message": "Discord",
     "description": "The label for link Discord in sidebar sidebar, linking to https://discord.linwood.dev"
   },
-  "sidebar.sidebar.link.Contribution guide": {
-    "message": "Guide de contribution",
-    "description": "The label for link Contribution guide in sidebar sidebar, linking to https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md"
-  },
   "sidebar.sidebar.link.GitHub": {
     "message": "GitHub",
     "description": "The label for link GitHub in sidebar sidebar, linking to https://github.com/LinwoodCloud/Butterfly"
+  },
+  "sidebar.sidebar.category.Embedding": {
+    "message": "Embedding",
+    "description": "The label for category Embedding in sidebar sidebar"
   }
 }
