@@ -53,9 +53,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
         child: ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
       void _bake([CameraTransform? transform]) {
         context.read<DocumentBloc>().add(ImageBaked(
-            constraints.biggest,
-            transform ?? context.read<TransformCubit>().state,
-            MediaQuery.of(context).devicePixelRatio));
+            viewportSize: constraints.biggest,
+            cameraTransform: transform ?? context.read<TransformCubit>().state,
+            pixelRatio: MediaQuery.of(context).devicePixelRatio));
       }
 
       final current = context.read<DocumentBloc>().state;

@@ -14,6 +14,7 @@ class CameraViewport extends Equatable {
   final List<Renderer<PadElement>> bakedElements;
   final List<Renderer<PadElement>> unbakedElements;
   final int? width, height;
+  final double pixelRatio;
   final double scale;
   final double x, y;
 
@@ -24,6 +25,7 @@ class CameraViewport extends Equatable {
         width = null,
         height = null,
         bakedElements = const [],
+        pixelRatio = 1,
         x = 0,
         y = 0;
 
@@ -31,6 +33,7 @@ class CameraViewport extends Equatable {
       {required this.image,
       required this.width,
       required this.height,
+      required this.pixelRatio,
       this.bakedElements = const [],
       this.unbakedElements = const [],
       this.scale = 1,
@@ -57,6 +60,7 @@ class CameraViewport extends Equatable {
           scale: scale,
           unbakedElements: unbakedElements,
           bakedElements: bakedElements,
+          pixelRatio: pixelRatio,
           x: x,
           y: y);
 
@@ -71,6 +75,7 @@ class CameraViewport extends Equatable {
     required ui.Image image,
     required int width,
     required int height,
+    required double pixelRatio,
     List<Renderer<PadElement>> bakedElements = const [],
     List<Renderer<PadElement>> unbakedElements = const [],
     double scale = 1,
@@ -82,6 +87,7 @@ class CameraViewport extends Equatable {
           width: width,
           height: height,
           scale: scale,
+          pixelRatio: pixelRatio,
           bakedElements: bakedElements,
           unbakedElements: unbakedElements,
           x: x,
@@ -89,6 +95,7 @@ class CameraViewport extends Equatable {
 
   withBackground(Renderer<Background> background) =>
       CameraViewport.baked(background,
+          pixelRatio: pixelRatio,
           image: image,
           width: width,
           height: height,
@@ -108,6 +115,7 @@ class CameraViewport extends Equatable {
         height,
         scale,
         x,
-        y
+        y,
+        pixelRatio
       ];
 }

@@ -13,7 +13,10 @@ class LabelHandler extends Handler {
     if (newElement != null) {
       bloc
         ..add(ElementsCreated([newElement]))
-        ..add(ImageBaked(viewportSize, transform, pixelRatio));
+        ..add(ImageBaked(
+            viewportSize: viewportSize,
+            cameraTransform: transform,
+            pixelRatio: pixelRatio));
     }
   }
 

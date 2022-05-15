@@ -254,8 +254,11 @@ class _MainPopupMenu extends StatelessWidget {
                       void bake() {
                         var size = viewportKey.currentContext?.size;
                         if (size != null) {
-                          bloc.add(ImageBaked(size, transform,
-                              MediaQuery.of(context).devicePixelRatio));
+                          bloc.add(ImageBaked(
+                              viewportSize: size,
+                              cameraTransform: transform,
+                              pixelRatio:
+                                  MediaQuery.of(context).devicePixelRatio));
                         }
                       }
 

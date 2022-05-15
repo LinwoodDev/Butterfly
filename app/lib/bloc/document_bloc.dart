@@ -407,18 +407,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ImageBaked>((event, emit) async {
       var current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (event.viewportSize.height <= 0 || event.viewportSize.width <= 0) {
+      final size = event.viewportSize ?? current.cameraViewport.toSize();
+      final pixelRatio = event.pixelRatio ?? current.cameraViewport.pixelRatio;
+      if (size.height <= 0 || size.width <= 0) {
         return;
       }
       final eq = const ListEquality().equals;
 
       var renderers = current.renderers;
-      var recorder = ui.PictureRecorder();
-      var size = event.viewportSize;
-      var canvas = ui.Canvas(recorder);
+      final recorder = ui.PictureRecorder();
+      final canvas = ui.Canvas(recorder);
       var last = current.cameraViewport;
       var invisibleLayers = current.invisibleLayers;
-      var reset = last.width != size.width.round() ||
+      final reset = last.width != size.width.round() ||
           last.height != size.height.round() ||
           last.x != event.cameraTransform.position.dx ||
           last.y != event.cameraTransform.position.dy ||
@@ -430,7 +431,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 (element) => !invisibleLayers.contains(element.element.layer))
             .toList();
       }
-      canvas.scale(event.pixelRatio);
+      canvas.scale(pixelRatio);
 
       ViewPainter(
         current.document,
@@ -438,13 +439,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         cameraViewport: reset ? current.cameraViewport.unbake(renderers) : last,
         renderBackground: false,
         renderBaked: !reset,
-      ).paint(canvas, event.viewportSize);
+      ).paint(canvas, size);
 
       var picture = recorder.endRecording();
 
       var newImage = await picture.toImage(
-          (size.width * event.pixelRatio).ceil(),
-          (size.height * event.pixelRatio).ceil());
+          (size.width * pixelRatio).ceil(), (size.height * pixelRatio).ceil());
 
       current = state as DocumentLoadSuccess;
       var currentElements = current.renderers;
@@ -460,6 +460,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           cameraViewport: current.cameraViewport.bake(
               height: size.height.round(),
               width: size.width.round(),
+              pixelRatio: pixelRatio,
               scale: event.cameraTransform.size,
               x: event.cameraTransform.position.dx,
               y: event.cameraTransform.position.dy,
@@ -583,7 +584,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
   @override
   bool shouldReplay(DocumentState state) {
-    // Disable replay for state where only camera viewport has changed.
+    // Disable replay for state where baked
     final statement = state is DocumentLoadSuccess &&
         state.cameraViewport.unbakedElements.isNotEmpty;
     return statement;
