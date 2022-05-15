@@ -5,11 +5,9 @@ sidebar_position: 4
 
 ![Stable Release-Version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nachts Release Version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-:::warning
+## Minimum system requirements
 
-Android 5.0 (API Level 21) ist die mindestens unterstützte Version um Butterfly auszuführen.
-
-:::
+* Android 5.0 (API level 21) or higher.
 
 ## Binärdateien
 
@@ -24,7 +22,7 @@ Android 5.0 (API Level 21) ist die mindestens unterstützte Version um Butterfly
 
 Lesen Sie mehr über die nächtliche Version von Butterfly [hier](/nightly).
 
-## Filialen
+## Stores
 
 <div className="row margin-bottom--lg padding--sm">
 <a className="button button--outline button--primary button--lg margin--sm" href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
@@ -35,6 +33,6 @@ Lesen Sie mehr über die nächtliche Version von Butterfly [hier](/nightly).
 </a>
 </div>
 
-## Das Beta-Programm im Play Store
+## The beta program on play store
 
-Klicken Sie auf [diesen Link](https://play.google.com/apps/testing/dev.linwood.butterfly) um sich für die [nächtlich](/nightly) Version der App zu registrieren. Bitte beachten Sie, dass diese Version Bugs haben kann. Die Play Store-Version wird automatisch aktualisiert, wenn eine neue nächtliche Version veröffentlicht wird.
+Click on [this link](https://play.google.com/apps/testing/dev.linwood.butterfly) to register for the [nightly](/nightly) version of the app. Please note that this version can have bugs. The play store version will automatically be updated when a new nightly version is released.
