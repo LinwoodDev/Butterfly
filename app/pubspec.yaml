@@ -40,7 +40,7 @@ dependencies:
   xml: ^5.4.1
   collection: ^1.16.0
   bloc_concurrency: ^0.2.0
-  camera: ^0.9.4+24
+  camera: ^0.9.5
   camera_windows: ^0.1.0+1
   window_manager: ^0.2.3
   flex_color_scheme: ^5.0.1
@@ -51,7 +51,7 @@ dependencies:
   js: ^0.6.4
 
 dev_dependencies:
-  flutter_native_splash: ^2.1.6
+  flutter_native_splash: ^2.2.0+1
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
