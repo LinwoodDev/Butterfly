@@ -282,9 +282,9 @@
     "stackTrace": "Stapelverfolgung",
     "alwaysOnTop": "Immer oben",
     "exitAlwaysOnTop": "Immer oben beenden",
-    "maximize": "Maximize",
-    "minimize": "Minimize",
+    "maximize": "Maximieren",
+    "minimize": "Minimieren",
     "restore": "Wiederherstellen",
-    "enterFullScreen": "Vollbild eingeben",
+    "enterFullScreen": "Vollbild öffnen",
     "exitFullScreen": "Vollbild beenden"
 }
