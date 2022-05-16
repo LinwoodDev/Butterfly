@@ -279,5 +279,6 @@
     "showDetails": "Afficher les détails",
     "hideDetails": "Cacher les détails",
     "error": "Erreur",
-    "stackTrace": "Trace de pile"
+    "stackTrace": "Trace de pile",
+    "alwaysOnTop": "Always on top"
 }
