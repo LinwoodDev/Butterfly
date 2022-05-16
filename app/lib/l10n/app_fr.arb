@@ -280,11 +280,11 @@
     "hideDetails": "Cacher les détails",
     "error": "Erreur",
     "stackTrace": "Trace de pile",
-    "alwaysOnTop": "Always on top",
-    "exitAlwaysOnTop": "Exit always on top",
+    "alwaysOnTop": "Toujours au dessus",
+    "exitAlwaysOnTop": "Quitter toujours en haut",
     "maximize": "Maximize",
     "minimize": "Minimize",
-    "restore": "Restore",
-    "enterFullScreen": "Enter full screen",
-    "exitFullScreen": "Exit full screen"
+    "restore": "Restaurer",
+    "enterFullScreen": "Entrer en plein écran",
+    "exitFullScreen": "Quitter le mode plein écran"
 }
