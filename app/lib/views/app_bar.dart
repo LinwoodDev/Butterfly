@@ -499,7 +499,7 @@ class _MainPopupMenu extends StatelessWidget {
                   leading: const Icon(PhosphorIcons.wrenchLight),
                   title: Text(AppLocalizations.of(context)!.projectSettings))),
           const PopupMenuDivider(),
-          if (state.embedding == null) ...[
+          if (state.embedding == null && (kIsWeb || !isWindow())) ...[
             PopupMenuItem(
                 padding: EdgeInsets.zero,
                 child: ListTile(
@@ -510,6 +510,8 @@ class _MainPopupMenu extends StatelessWidget {
                       Navigator.of(context).pop();
                       setFullScreen(!(await isFullScreen()));
                     })),
+          ],
+          if (state.embedding == null) ...[
             PopupMenuItem(
                 padding: EdgeInsets.zero,
                 child: ListTile(

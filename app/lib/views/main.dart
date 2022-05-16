@@ -41,6 +41,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../models/background.dart';
 import 'view.dart';
@@ -339,9 +340,56 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 }
 
-class WindowButtons extends StatelessWidget {
+class WindowButtons extends StatefulWidget {
   const WindowButtons({super.key});
 
+  @override
+  State<WindowButtons> createState() => _WindowButtonsState();
+}
+
+class _WindowButtonsState extends State<WindowButtons> with WindowListener {
+  bool maximized = false, alwaysOnTop = false, fullScreen = false;
+
+  @override
+  void initState() {
+    super.initState();
+    updateStates();
+  }
+
+  Future<void> updateStates() async {
+    final nextMaximized = await windowManager.isMaximized();
+    final nextAlwaysOnTop = await windowManager.isAlwaysOnTop();
+    final nextFullScreen = await windowManager.isFullScreen();
+    if (mounted) {
+      setState(() {
+        maximized = nextMaximized;
+        alwaysOnTop = nextAlwaysOnTop;
+        fullScreen = nextFullScreen;
+      });
+    }
+  }
+
+  @override
+  void onWindowUnmaximize() {
+    setState(() => maximized = false);
+  }
+
+  @override
+  void onWindowMaximize() {
+    setState(() => maximized = true);
+  }
+
+  @override
+  void onWindowEnterFullScreen() {
+    setState(() => fullScreen = true);
+  }
+
+  @override
+  void onWindowLeaveFullScreen() {
+    setState(() => fullScreen = false);
+  }
+
+  @override
   @override
   Widget build(BuildContext context) {
     if (isWindow()) {
@@ -349,7 +397,27 @@ class WindowButtons extends StatelessWidget {
         builder: (context, constraints) => Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              IconButton(
+                icon: Icon(alwaysOnTop
+                    ? PhosphorIcons.pushPinFill
+                    : PhosphorIcons.pushPinLight),
+                onPressed: () async {
+                  await windowManager.setAlwaysOnTop(!alwaysOnTop);
+                  setState(() => alwaysOnTop = !alwaysOnTop);
+                },
+              ),
+              IconButton(
+                icon: Icon(fullScreen
+                    ? PhosphorIcons.arrowsInLight
+                    : PhosphorIcons.arrowsOutLight),
+                onPressed: () async {
+                  await windowManager.setFullScreen(!fullScreen);
+                  setState(() => fullScreen = !fullScreen);
+                },
+              ),
+              const VerticalDivider(),
               IconButton(
                 icon: const Icon(PhosphorIcons.minusLight),
                 iconSize: 16,
@@ -357,7 +425,8 @@ class WindowButtons extends StatelessWidget {
                 onPressed: () => windowManager.minimize(),
               ),
               IconButton(
-                icon: const Icon(PhosphorIcons.squareLight),
+                icon:
+                    Icon(PhosphorIcons.squareLight, size: maximized ? 16 : 20),
                 iconSize: 16,
                 splashRadius: 20,
                 onPressed: () async => await windowManager.isMaximized()

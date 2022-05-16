@@ -279,5 +279,6 @@
   "showDetails": "Show details",
   "hideDetails": "Hide details",
   "error": "Error",
-  "stackTrace": "Stack trace"
+  "stackTrace": "Stack trace",
+  "alwaysOnTop": "Always on top"
 }
