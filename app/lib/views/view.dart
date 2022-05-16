@@ -91,7 +91,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
             onScaleUpdate: (details) {
               if (details.scale == 1) return;
               if (openView) openView = details.scale == 1;
-              var transformCubit = context.read<TransformCubit>();
+              final transformCubit = context.read<TransformCubit>();
+              final currentIndex = context.read<CurrentIndexCubit>();
+              if (currentIndex.fetchHandler<HandHandler>() == null) return;
               var current = details.scale;
               current = current - size;
               current += 1;
@@ -99,11 +101,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   context.read<SettingsCubit>().state.touchSensitivity;
               var point = details.localFocalPoint;
               transformCubit.zoom((1 - current) / -sensitivity + 1, point);
-              if (cubit.fetchHandler<HandHandler>() != null &&
-                  details.pointerCount == 2) {
-                transformCubit
-                    .move(details.focalPointDelta / transformCubit.state.size);
-              }
               size = details.scale;
             },
             onLongPressEnd: (details) {
@@ -111,7 +108,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   .getHandler()
                   .onLongPressEnd(constraints.biggest, context, details);
             },
-            onScaleEnd: (details) => _bake(),
+            onScaleEnd: (details) {
+              final currentIndex = context.read<CurrentIndexCubit>();
+              if (currentIndex.fetchHandler<HandHandler>() == null) return;
+              _bake();
+            },
             onScaleStart: (details) {
               size = 1;
             },

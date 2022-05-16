@@ -59,11 +59,13 @@ class HandHandler extends Handler {
   }
 
   bool openView = true;
+  int? _firstPointer;
 
   @override
   Future<void> onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) async {
     final transform = context.read<TransformCubit>().state;
+    _firstPointer = null;
     if (movingElement != null) {
       submitMove(context,
           movingElement?.move(transform.localToGlobal(event.localPosition)));
@@ -137,6 +139,7 @@ class HandHandler extends Handler {
   void onPointerDown(
       Size viewportSize, BuildContext context, PointerDownEvent event) {
     openView = true;
+    _firstPointer ??= event.pointer;
   }
 
   @override
@@ -152,7 +155,9 @@ class HandHandler extends Handler {
       cubit.refresh(bloc);
       return;
     }
-    context.read<TransformCubit>().move(event.delta / transform.size);
+    if (_firstPointer == event.pointer) {
+      context.read<TransformCubit>().move(event.localDelta / transform.size);
+    }
   }
 
   @override

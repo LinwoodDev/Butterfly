@@ -26,7 +26,10 @@ class EraserHandler extends Handler {
     if (element == null) return;
     submittedElements.add(element);
     if (elements.isEmpty) {
-      bloc.add(ElementsCreated(List<PadElement>.from(submittedElements)));
+      bloc
+        ..add(ElementsCreated(List<PadElement>.from(submittedElements)))
+        ..add(
+            ImageBaked(cameraTransform: context.read<TransformCubit>().state));
       submittedElements.clear();
     }
     cubit.refresh(bloc);

@@ -449,7 +449,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       current = state as DocumentLoadSuccess;
       var currentElements = current.renderers;
       if (reset) {
-        currentElements = renderers
+        currentElements = currentElements
             .where(
                 (element) => !invisibleLayers.contains(element.element.layer))
             .toList();

@@ -2,3 +2,4 @@
 * Replace text buttons to icon buttons in dialog actions
 * Fix appbar title
 * Change scroll focus point relative to the zoom
+* Fix zoom multiplier when using multiple fingers
