@@ -4,3 +4,4 @@
 * Change scroll focus point relative to the zoom
 * Fix zoom multiplier when using multiple fingers
 * Add alwaysontop, move fullscreen to right top corner on desktop
+* Add tooltips on window buttons
