@@ -280,5 +280,11 @@
     "hideDetails": "Details ausblenden",
     "error": "Fehler",
     "stackTrace": "Stapelverfolgung",
-    "alwaysOnTop": "Always on top"
+    "alwaysOnTop": "Always on top",
+    "exitAlwaysOnTop": "Exit always on top",
+    "maximize": "Maximize",
+    "minimize": "Minimize",
+    "restore": "Restore",
+    "enterFullScreen": "Enter full screen",
+    "exitFullScreen": "Exit full screen"
 }
