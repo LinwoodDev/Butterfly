@@ -279,5 +279,6 @@
     "showDetails": "Details anzeigen",
     "hideDetails": "Details ausblenden",
     "error": "Fehler",
-    "stackTrace": "Stapelverfolgung"
+    "stackTrace": "Stapelverfolgung",
+    "alwaysOnTop": "Always on top"
 }
