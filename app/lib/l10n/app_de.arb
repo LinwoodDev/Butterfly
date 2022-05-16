@@ -279,5 +279,12 @@
     "showDetails": "Details anzeigen",
     "hideDetails": "Details ausblenden",
     "error": "Fehler",
-    "stackTrace": "Stapelverfolgung"
+    "stackTrace": "Stapelverfolgung",
+    "alwaysOnTop": "Immer oben",
+    "exitAlwaysOnTop": "Immer oben beenden",
+    "maximize": "Maximieren",
+    "minimize": "Minimieren",
+    "restore": "Wiederherstellen",
+    "enterFullScreen": "Vollbild öffnen",
+    "exitFullScreen": "Vollbild beenden"
 }

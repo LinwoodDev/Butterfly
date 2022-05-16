@@ -279,5 +279,12 @@
     "showDetails": "Afficher les détails",
     "hideDetails": "Cacher les détails",
     "error": "Erreur",
-    "stackTrace": "Trace de pile"
+    "stackTrace": "Trace de pile",
+    "alwaysOnTop": "Toujours au dessus",
+    "exitAlwaysOnTop": "Quitter toujours en haut",
+    "maximize": "Maximiser",
+    "minimize": "Minimiser",
+    "restore": "Restaurer",
+    "enterFullScreen": "Entrer en plein écran",
+    "exitFullScreen": "Quitter le mode plein écran"
 }
