@@ -48,6 +48,8 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     if (path == '/' || path == '//') {
       path = '';
     }
+    // Create directory if it doesn't exist
+    await createDirectory(path);
     var filePath = '$path/${convertNameToFile(document.name)}';
     var counter = 2;
     while (await hasAsset(filePath)) {
@@ -159,6 +161,16 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     if (!path.startsWith('/')) {
       path = '/$path';
     }
+    // Remove trailing slash
+    if (path.endsWith('/')) {
+      path = path.substring(0, path.length - 1);
+    }
+    final pathWithoutSlash = path.substring(1);
+    // Create directory if it doesn't exist
+    if (pathWithoutSlash.contains('/')) {
+      await createDirectory(
+          pathWithoutSlash.substring(0, pathWithoutSlash.lastIndexOf('/')));
+    }
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
@@ -181,7 +193,15 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
-    store.add({'type': 'directory'}, name);
+    final parents = name.split('/');
+    String last = '/';
+    if (parents.length <= 1) return await getRootDirectory();
+    for (var current in parents.sublist(1)) {
+      final data = {'type': 'directory'};
+      final path = '$last$current';
+      await store.put(data, path);
+      last = '$path/';
+    }
     await txn.completed;
     return AppDocumentDirectory(name, const []);
   }

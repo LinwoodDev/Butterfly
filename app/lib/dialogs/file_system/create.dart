@@ -41,7 +41,7 @@ class FileSystemAssetCreateDialog extends StatelessWidget {
           ElevatedButton(
             child: Text(AppLocalizations.of(context)!.create),
             onPressed: () async {
-              Navigator.of(context).pop(true);
+              final navigator = Navigator.of(context);
               if (_formKey.currentState?.validate() ?? false) {
                 if (!isFolder) {
                   await _fileSystem.createDocument(_nameController.text,
@@ -52,6 +52,7 @@ class FileSystemAssetCreateDialog extends StatelessWidget {
                       .createDirectory('$path/${_nameController.text}');
                 }
               }
+              navigator.pop(true);
             },
           ),
         ],

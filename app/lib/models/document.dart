@@ -58,6 +58,11 @@ class AppDocumentDirectory extends AppDocumentAsset {
   final List<AppDocumentAsset> assets;
 
   const AppDocumentDirectory(super.path, this.assets);
+
+  @override
+  String get fileNameWithoutExtension => fileName;
+  @override
+  String get fileExtension => '';
 }
 
 @freezed
