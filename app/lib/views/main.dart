@@ -406,18 +406,19 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              IconButton(
-                icon: Icon(alwaysOnTop
-                    ? PhosphorIcons.pushPinFill
-                    : PhosphorIcons.pushPinLight),
-                tooltip: alwaysOnTop
-                    ? AppLocalizations.of(context)!.exitAlwaysOnTop
-                    : AppLocalizations.of(context)!.alwaysOnTop,
-                onPressed: () async {
-                  await windowManager.setAlwaysOnTop(!alwaysOnTop);
-                  setState(() => alwaysOnTop = !alwaysOnTop);
-                },
-              ),
+              if (!fullScreen)
+                IconButton(
+                  icon: Icon(alwaysOnTop
+                      ? PhosphorIcons.pushPinFill
+                      : PhosphorIcons.pushPinLight),
+                  tooltip: alwaysOnTop
+                      ? AppLocalizations.of(context)!.exitAlwaysOnTop
+                      : AppLocalizations.of(context)!.alwaysOnTop,
+                  onPressed: () async {
+                    await windowManager.setAlwaysOnTop(!alwaysOnTop);
+                    setState(() => alwaysOnTop = !alwaysOnTop);
+                  },
+                ),
               IconButton(
                 icon: Icon(fullScreen
                     ? PhosphorIcons.arrowsInLight
@@ -426,37 +427,40 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                     ? AppLocalizations.of(context)!.exitFullScreen
                     : AppLocalizations.of(context)!.enterFullScreen,
                 onPressed: () async {
-                  await windowManager.setFullScreen(!fullScreen);
+                  setState(() => fullScreen = !fullScreen);
+                  await windowManager.setFullScreen(fullScreen);
                 },
               ),
-              const VerticalDivider(),
-              IconButton(
-                icon: const Icon(PhosphorIcons.minusLight),
-                tooltip: AppLocalizations.of(context)!.minimize,
-                iconSize: 16,
-                splashRadius: 20,
-                onPressed: () => windowManager.minimize(),
-              ),
-              IconButton(
-                icon:
-                    Icon(PhosphorIcons.squareLight, size: maximized ? 14 : 20),
-                tooltip: maximized
-                    ? AppLocalizations.of(context)!.restore
-                    : AppLocalizations.of(context)!.maximize,
-                iconSize: 16,
-                splashRadius: 20,
-                onPressed: () async => await windowManager.isMaximized()
-                    ? windowManager.unmaximize()
-                    : windowManager.maximize(),
-              ),
-              IconButton(
-                icon: const Icon(PhosphorIcons.xLight),
-                tooltip: AppLocalizations.of(context)!.close,
-                hoverColor: Colors.red,
-                iconSize: 16,
-                splashRadius: 20,
-                onPressed: () => windowManager.close(),
-              )
+              if (!fullScreen) ...[
+                const VerticalDivider(),
+                IconButton(
+                  icon: const Icon(PhosphorIcons.minusLight),
+                  tooltip: AppLocalizations.of(context)!.minimize,
+                  iconSize: 16,
+                  splashRadius: 20,
+                  onPressed: () => windowManager.minimize(),
+                ),
+                IconButton(
+                  icon: Icon(PhosphorIcons.squareLight,
+                      size: maximized ? 14 : 20),
+                  tooltip: maximized
+                      ? AppLocalizations.of(context)!.restore
+                      : AppLocalizations.of(context)!.maximize,
+                  iconSize: 16,
+                  splashRadius: 20,
+                  onPressed: () async => await windowManager.isMaximized()
+                      ? windowManager.unmaximize()
+                      : windowManager.maximize(),
+                ),
+                IconButton(
+                  icon: const Icon(PhosphorIcons.xLight),
+                  tooltip: AppLocalizations.of(context)!.close,
+                  hoverColor: Colors.red,
+                  iconSize: 16,
+                  splashRadius: 20,
+                  onPressed: () => windowManager.close(),
+                )
+              ]
             ],
           ),
         ),
