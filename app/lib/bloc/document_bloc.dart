@@ -578,8 +578,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      undo();
-      emit(current.copyWith(saved: true));
+      emit(current.copyWith(saved: true, path: event.path));
+      if (current.path == null) clearHistory();
     });
   }
 

@@ -16,16 +16,15 @@ class SaveAction extends Action<SaveIntent> {
   SaveAction();
 
   @override
-  void invoke(SaveIntent intent) {
+  Future<void> invoke(SaveIntent intent) async {
     final bloc = intent.context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     if (state.embedding?.save ?? false) {
       sendEmbedMessage('save', json.encode(state.document.toJson()));
     } else {
-      if (state.path == null) return;
-      state.save();
-      bloc.add(const DocumentSaved());
+      final path = await state.save();
+      bloc.add(DocumentSaved(path));
     }
   }
 }

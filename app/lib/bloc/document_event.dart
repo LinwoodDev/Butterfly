@@ -73,7 +73,9 @@ class DocumentPaletteChanged extends DocumentEvent {
 }
 
 class DocumentSaved extends DocumentEvent {
-  const DocumentSaved();
+  final String? path;
+
+  const DocumentSaved([this.path]);
 }
 
 class PainterCreated extends DocumentEvent {
