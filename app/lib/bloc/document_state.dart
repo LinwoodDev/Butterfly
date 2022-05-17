@@ -47,7 +47,8 @@ class DocumentLoadSuccess extends DocumentState {
         currentLayer,
         currentAreaIndex,
         settingsCubit,
-        embedding
+        embedding,
+        saved
       ];
 
   List<Renderer<PadElement>> get renderers =>

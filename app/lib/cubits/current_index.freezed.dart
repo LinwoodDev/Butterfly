@@ -75,11 +75,11 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$CurrentIndexCopyWith<$Res>
+abstract class _$$_CurrentIndexCopyWith<$Res>
     implements $CurrentIndexCopyWith<$Res> {
-  factory _$CurrentIndexCopyWith(
-          _CurrentIndex value, $Res Function(_CurrentIndex) then) =
-      __$CurrentIndexCopyWithImpl<$Res>;
+  factory _$$_CurrentIndexCopyWith(
+          _$_CurrentIndex value, $Res Function(_$_CurrentIndex) then) =
+      __$$_CurrentIndexCopyWithImpl<$Res>;
   @override
   $Res call(
       {int index,
@@ -89,14 +89,15 @@ abstract class _$CurrentIndexCopyWith<$Res>
 }
 
 /// @nodoc
-class __$CurrentIndexCopyWithImpl<$Res> extends _$CurrentIndexCopyWithImpl<$Res>
-    implements _$CurrentIndexCopyWith<$Res> {
-  __$CurrentIndexCopyWithImpl(
-      _CurrentIndex _value, $Res Function(_CurrentIndex) _then)
-      : super(_value, (v) => _then(v as _CurrentIndex));
+class __$$_CurrentIndexCopyWithImpl<$Res>
+    extends _$CurrentIndexCopyWithImpl<$Res>
+    implements _$$_CurrentIndexCopyWith<$Res> {
+  __$$_CurrentIndexCopyWithImpl(
+      _$_CurrentIndex _value, $Res Function(_$_CurrentIndex) _then)
+      : super(_value, (v) => _then(v as _$_CurrentIndex));
 
   @override
-  _CurrentIndex get _value => super._value as _CurrentIndex;
+  _$_CurrentIndex get _value => super._value as _$_CurrentIndex;
 
   @override
   $Res call({
@@ -105,7 +106,7 @@ class __$CurrentIndexCopyWithImpl<$Res> extends _$CurrentIndexCopyWithImpl<$Res>
     Object? foregrounds = freezed,
     Object? selections = freezed,
   }) {
-    return _then(_CurrentIndex(
+    return _then(_$_CurrentIndex(
       index == freezed
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -115,11 +116,11 @@ class __$CurrentIndexCopyWithImpl<$Res> extends _$CurrentIndexCopyWithImpl<$Res>
           : handler // ignore: cast_nullable_to_non_nullable
               as Handler?,
       foregrounds == freezed
-          ? _value.foregrounds
+          ? _value._foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>,
       selections == freezed
-          ? _value.selections
+          ? _value._selections
           : selections // ignore: cast_nullable_to_non_nullable
               as List<Rect>,
     ));
@@ -164,13 +165,13 @@ class _$_CurrentIndex implements _CurrentIndex {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CurrentIndex &&
+            other is _$_CurrentIndex &&
             const DeepCollectionEquality().equals(other.index, index) &&
             const DeepCollectionEquality().equals(other.handler, handler) &&
             const DeepCollectionEquality()
-                .equals(other.foregrounds, foregrounds) &&
+                .equals(other._foregrounds, _foregrounds) &&
             const DeepCollectionEquality()
-                .equals(other.selections, selections));
+                .equals(other._selections, _selections));
   }
 
   @override
@@ -178,13 +179,13 @@ class _$_CurrentIndex implements _CurrentIndex {
       runtimeType,
       const DeepCollectionEquality().hash(index),
       const DeepCollectionEquality().hash(handler),
-      const DeepCollectionEquality().hash(foregrounds),
-      const DeepCollectionEquality().hash(selections));
+      const DeepCollectionEquality().hash(_foregrounds),
+      const DeepCollectionEquality().hash(_selections));
 
   @JsonKey(ignore: true)
   @override
-  _$CurrentIndexCopyWith<_CurrentIndex> get copyWith =>
-      __$CurrentIndexCopyWithImpl<_CurrentIndex>(this, _$identity);
+  _$$_CurrentIndexCopyWith<_$_CurrentIndex> get copyWith =>
+      __$$_CurrentIndexCopyWithImpl<_$_CurrentIndex>(this, _$identity);
 }
 
 abstract class _CurrentIndex implements CurrentIndex {
@@ -202,6 +203,6 @@ abstract class _CurrentIndex implements CurrentIndex {
   List<Rect> get selections => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$CurrentIndexCopyWith<_CurrentIndex> get copyWith =>
+  _$$_CurrentIndexCopyWith<_$_CurrentIndex> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -61,8 +61,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
       final current = context.read<DocumentBloc>().state;
       if (current is DocumentLoadSuccess &&
           current.cameraViewport.toSize() !=
-              Size(constraints.biggest.width.roundToDouble(),
-                  constraints.biggest.height.roundToDouble())) {
+              Size(constraints.biggest.width.ceilToDouble(),
+                  constraints.biggest.height.ceilToDouble())) {
         _bake();
       }
       return BlocBuilder<DocumentBloc, DocumentState>(

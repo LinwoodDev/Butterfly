@@ -26,8 +26,9 @@ class PenHandler extends Handler {
     if (element == null) return;
     submittedElements.add(element);
     if (elements.isEmpty) {
+      final current = List<PadElement>.from(submittedElements);
       bloc
-        ..add(ElementsCreated(List<PadElement>.from(submittedElements)))
+        ..add(ElementsCreated(current))
         ..add(
             ImageBaked(cameraTransform: context.read<TransformCubit>().state));
       submittedElements.clear();

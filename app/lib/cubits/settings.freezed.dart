@@ -139,11 +139,11 @@ class _$ButterflySettingsCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$ButterflySettingsCopyWith<$Res>
+abstract class _$$_ButterflySettingsCopyWith<$Res>
     implements $ButterflySettingsCopyWith<$Res> {
-  factory _$ButterflySettingsCopyWith(
-          _ButterflySettings value, $Res Function(_ButterflySettings) then) =
-      __$ButterflySettingsCopyWithImpl<$Res>;
+  factory _$$_ButterflySettingsCopyWith(_$_ButterflySettings value,
+          $Res Function(_$_ButterflySettings) then) =
+      __$$_ButterflySettingsCopyWithImpl<$Res>;
   @override
   $Res call(
       {ThemeMode theme,
@@ -162,15 +162,15 @@ abstract class _$ButterflySettingsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$ButterflySettingsCopyWithImpl<$Res>
+class __$$_ButterflySettingsCopyWithImpl<$Res>
     extends _$ButterflySettingsCopyWithImpl<$Res>
-    implements _$ButterflySettingsCopyWith<$Res> {
-  __$ButterflySettingsCopyWithImpl(
-      _ButterflySettings _value, $Res Function(_ButterflySettings) _then)
-      : super(_value, (v) => _then(v as _ButterflySettings));
+    implements _$$_ButterflySettingsCopyWith<$Res> {
+  __$$_ButterflySettingsCopyWithImpl(
+      _$_ButterflySettings _value, $Res Function(_$_ButterflySettings) _then)
+      : super(_value, (v) => _then(v as _$_ButterflySettings));
 
   @override
-  _ButterflySettings get _value => super._value as _ButterflySettings;
+  _$_ButterflySettings get _value => super._value as _$_ButterflySettings;
 
   @override
   $Res call({
@@ -188,7 +188,7 @@ class __$ButterflySettingsCopyWithImpl<$Res>
     Object? startEnabled = freezed,
     Object? lastVersion = freezed,
   }) {
-    return _then(_ButterflySettings(
+    return _then(_$_ButterflySettings(
       theme: theme == freezed
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
@@ -230,7 +230,7 @@ class __$ButterflySettingsCopyWithImpl<$Res>
           : design // ignore: cast_nullable_to_non_nullable
               as String,
       recentHistory: recentHistory == freezed
-          ? _value.recentHistory
+          ? _value._recentHistory
           : recentHistory // ignore: cast_nullable_to_non_nullable
               as List<String>,
       startEnabled: startEnabled == freezed
@@ -318,7 +318,7 @@ class _$_ButterflySettings extends _ButterflySettings {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ButterflySettings &&
+            other is _$_ButterflySettings &&
             const DeepCollectionEquality().equals(other.theme, theme) &&
             const DeepCollectionEquality().equals(other.localeTag, localeTag) &&
             const DeepCollectionEquality()
@@ -336,7 +336,7 @@ class _$_ButterflySettings extends _ButterflySettings {
             const DeepCollectionEquality().equals(other.inputType, inputType) &&
             const DeepCollectionEquality().equals(other.design, design) &&
             const DeepCollectionEquality()
-                .equals(other.recentHistory, recentHistory) &&
+                .equals(other._recentHistory, _recentHistory) &&
             const DeepCollectionEquality()
                 .equals(other.startEnabled, startEnabled) &&
             const DeepCollectionEquality()
@@ -356,14 +356,15 @@ class _$_ButterflySettings extends _ButterflySettings {
       const DeepCollectionEquality().hash(selectSensitivity),
       const DeepCollectionEquality().hash(inputType),
       const DeepCollectionEquality().hash(design),
-      const DeepCollectionEquality().hash(recentHistory),
+      const DeepCollectionEquality().hash(_recentHistory),
       const DeepCollectionEquality().hash(startEnabled),
       const DeepCollectionEquality().hash(lastVersion));
 
   @JsonKey(ignore: true)
   @override
-  _$ButterflySettingsCopyWith<_ButterflySettings> get copyWith =>
-      __$ButterflySettingsCopyWithImpl<_ButterflySettings>(this, _$identity);
+  _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>
+      __$$_ButterflySettingsCopyWithImpl<_$_ButterflySettings>(
+          this, _$identity);
 }
 
 abstract class _ButterflySettings extends ButterflySettings {
@@ -411,6 +412,6 @@ abstract class _ButterflySettings extends ButterflySettings {
   String? get lastVersion => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ButterflySettingsCopyWith<_ButterflySettings> get copyWith =>
+  _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>
       throw _privateConstructorUsedError;
 }

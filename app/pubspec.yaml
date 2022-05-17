@@ -40,7 +40,7 @@ dependencies:
   xml: ^5.4.1
   collection: ^1.16.0
   bloc_concurrency: ^0.2.0
-  camera: ^0.9.5
+  camera: ^0.9.5+1
   camera_windows: ^0.1.0+1
   window_manager: ^0.2.3
   flex_color_scheme: ^5.0.1
@@ -55,9 +55,9 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
-  analyzer: ^4.0.0
+  analyzer: ^4.1.0
   freezed: ^2.0.3
-  build_runner: ^2.1.10
+  build_runner: ^2.1.11
   json_serializable: ^6.2.0
 
 # For information on the generic Dart part of this file, see the
