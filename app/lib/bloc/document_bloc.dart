@@ -485,9 +485,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         currentRenderers = current.renderers;
       }
       currentRenderers
-          .where((element) => !invisibleLayers.contains(element.element.layer))
-          .toList();
-      currentRenderers = currentRenderers
+          .whereNot(
+              (element) => invisibleLayers.contains(element.element.layer))
           .whereNot((element) => renderers.contains(element))
           .toList();
       emit(current.copyWith(
@@ -598,7 +597,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         saved: false,
         document: current.document.copyWith(updatedAt: DateTime.now()),
         cameraViewport: unbakedElements == null
-            ? current.cameraViewport.unbake(elements)
+            ? current.cameraViewport.unbake(
+                List<Renderer<PadElement>>.from(elements)
+                  ..addAll(current.cameraViewport.bakedElements))
             : current.cameraViewport.withUnbaked(elements));
     if (current.embedding != null) {
       emit(nextState);
