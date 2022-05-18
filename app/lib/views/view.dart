@@ -140,7 +140,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             : Offset(-dx, -dy))
                         ..zoom(scale, pointerSignal.localPosition);
                     }
-                    _bake(cubit.state);
+                    final currentSize =
+                        context.read<TransformCubit>().state.size;
+                    Future.delayed(const Duration(milliseconds: 500), () {
+                      if (currentSize ==
+                              context.read<TransformCubit>().state.size &&
+                          currentSize != state.cameraViewport.scale) {
+                        _bake();
+                      }
+                    });
                   }
                 },
                 onPointerDown: (PointerDownEvent event) {

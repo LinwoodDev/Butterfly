@@ -8,3 +8,4 @@
 * Disable window buttons in full screen
 * Fix file system on web (Creating directory if not exist)#
 * Fix file system directory error
+* Fix baking issues

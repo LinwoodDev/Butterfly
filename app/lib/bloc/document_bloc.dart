@@ -466,6 +466,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           .toList();
       canvas.scale(pixelRatio);
 
+      // Wait one frame
+      await Future.delayed(const Duration(milliseconds: 1));
+
       ViewPainter(
         current.document,
         transform: event.cameraTransform,
@@ -483,8 +486,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var currentRenderers = current.cameraViewport.unbakedElements;
       if (reset) {
         currentRenderers = current.renderers;
+      } else {
+        renderers.addAll(current.cameraViewport.bakedElements);
       }
-      currentRenderers
+      currentRenderers = currentRenderers
           .whereNot(
               (element) => invisibleLayers.contains(element.element.layer))
           .whereNot((element) => renderers.contains(element))

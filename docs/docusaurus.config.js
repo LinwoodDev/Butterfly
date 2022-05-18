@@ -51,7 +51,10 @@ module.exports = {
                     position: 'left'
                 },
                 {
-                    to: 'community',
+                    type: 'doc',
+                    docId: 'community',
+                    docsPluginId: 'community',
+                    position: 'left',
                     label: 'Community',
                 },
                 {
@@ -199,19 +202,18 @@ module.exports = {
     ],
     plugins: [
         [
-            '@docusaurus/plugin-client-redirects',
-            {
-                redirects: redirects
-            },
-        ],
-        [
             '@docusaurus/plugin-content-docs',
             {
                 id: 'community',
                 path: 'community',
                 routeBasePath: '/',
                 sidebarPath: require.resolve('./sidebarsCommunity.js')
-
+            },
+        ],
+        [
+            '@docusaurus/plugin-client-redirects',
+            {
+                redirects: redirects
             },
         ],
         [
@@ -241,5 +243,6 @@ module.exports = {
                 ],
             },
         ],
+        // Other tweaks
     ]
 };
