@@ -2,6 +2,20 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.3.0-rc.1 (2022-05-18)
+
+* Fix undo on scrolling
+* Replace text buttons to icon buttons in dialog actions
+* Fix appbar title
+* Change scroll focus point relative to the zoom
+* Fix zoom multiplier when using multiple fingers
+* Add alwaysontop, move fullscreen to right top corner on desktop
+* Add tooltips on window buttons
+* Disable window buttons in full screen
+* Fix file system on web (Creating directory if not exist)#
+* Fix file system directory error
+* Fix baking issues
+
 ## 1.3.0-rc.0 (2022-05-13)
 
 * Implement drag resize area and popup window menu on desktop platforms
