@@ -18,7 +18,7 @@ class StartIntroductionDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 800, maxHeight: 600),
+        constraints: const BoxConstraints.expand(width: 800, height: 600),
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: LayoutBuilder(builder: (context, constraints) {

@@ -61,6 +61,7 @@ class _GeneralPainterDialogState<T extends Painter>
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Flexible(
                       child: ConstrainedBox(
@@ -83,7 +84,9 @@ class _GeneralPainterDialogState<T extends Painter>
                       ),
                     ),
                     const Divider(),
-                    Row(
+                    Wrap(
+                      alignment: WrapAlignment.spaceBetween,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         OutlinedButton(
                           style: OutlinedButton.styleFrom(
@@ -97,19 +100,21 @@ class _GeneralPainterDialogState<T extends Painter>
                           },
                         ),
                         Expanded(child: Container()),
-                        TextButton(
-                          child: Text(AppLocalizations.of(context)!.cancel),
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
-                        ElevatedButton(
-                          child: Text(AppLocalizations.of(context)!.ok),
-                          onPressed: () {
-                            context
-                                .read<DocumentBloc>()
-                                .add(PainterChanged(painter, widget.index));
-                            Navigator.of(context).pop();
-                          },
-                        ),
+                        Wrap(children: [
+                          TextButton(
+                            child: Text(AppLocalizations.of(context)!.cancel),
+                            onPressed: () => Navigator.of(context).pop(),
+                          ),
+                          ElevatedButton(
+                            child: Text(AppLocalizations.of(context)!.ok),
+                            onPressed: () {
+                              context
+                                  .read<DocumentBloc>()
+                                  .add(PainterChanged(painter, widget.index));
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ])
                       ],
                     )
                   ],

@@ -622,7 +622,7 @@ packages:
       name: pdf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.8.0"
+    version: "3.8.1"
   petitparser:
     dependency: transitive
     description:
@@ -664,7 +664,7 @@ packages:
       name: printing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.9.0"
+    version: "5.9.1"
   process:
     dependency: transitive
     description:

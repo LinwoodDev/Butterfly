@@ -47,7 +47,7 @@ dependencies:
   freezed_annotation: ^2.0.3
   json_annotation: ^4.5.0
   path: ^1.8.1
-  printing: ^5.9.0
+  printing: ^5.9.1
   js: ^0.6.4
 
 dev_dependencies:
