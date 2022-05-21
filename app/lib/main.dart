@@ -22,7 +22,6 @@ import 'settings/personalization.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 
 const kFileVersion = 5;
-
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -56,12 +55,14 @@ Future<void> main([List<String> args = const []]) async {
 
   if (!kIsWeb && isWindow()) {
     await windowManager.ensureInitialized();
+    final kWindowOptions = WindowOptions(
+      minimumSize: const Size(410, 300),
+      title: 'Butterfly',
+      titleBarStyle: TitleBarStyle.hidden,
+    );
 
     // Use it only after calling `hiddenWindowAtLaunch`
-    windowManager.waitUntilReadyToShow().then((_) async {
-      await windowManager.setMinimumSize(const Size(410, 300));
-      await windowManager.setTitle('Butterfly');
-      await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
+    windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
       await windowManager.setResizable(true);
       // await windowManager.maximize();
       await windowManager.show();

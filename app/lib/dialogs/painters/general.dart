@@ -99,7 +99,6 @@ class _GeneralPainterDialogState<T extends Painter>
                                 .add(PainterRemoved(widget.index));
                           },
                         ),
-                        Expanded(child: Container()),
                         Wrap(children: [
                           TextButton(
                             child: Text(AppLocalizations.of(context)!.cancel),
