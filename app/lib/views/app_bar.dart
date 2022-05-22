@@ -380,6 +380,9 @@ class _MainPopupMenu extends StatelessWidget {
                   title: Text(AppLocalizations.of(context)!.open),
                   subtitle: Text(context.getShortcut('O')),
                   trailing: PopupMenuButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    offset: const Offset(60, 0),
                     icon: const Icon(PhosphorIcons.caretRightLight),
                     itemBuilder: (context) => <PopupMenuEntry>[
                       PopupMenuItem(
@@ -423,6 +426,9 @@ class _MainPopupMenu extends StatelessWidget {
             PopupMenuItem(
                 padding: EdgeInsets.zero,
                 child: PopupMenuButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    offset: const Offset(285, 0),
                     itemBuilder: (popupContext) => <PopupMenuEntry>[
                           PopupMenuItem(
                               padding: EdgeInsets.zero,
