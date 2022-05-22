@@ -3,6 +3,7 @@ title: "Politique de confidentialité"
 slug: /privacypolicy
 ---
 
+Ceci est la politique de confidentialité de l'application. Veuillez le lire attentivement. Cliquez [ici](https://go.linwood.dev/privacypolicy) pour lire la politique de confidentialité du site Web.
 
 CodeDoctor a construit l'application Butterfly en tant qu'application Open Source. Ce SERVICE est fourni par CodeDoctor sans frais et est destiné à être utilisé tel quel.
 
