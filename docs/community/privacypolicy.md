@@ -3,6 +3,8 @@ title: "Privacy Policy"
 slug: /privacypolicy
 ---
 
+This is the privacy policy of the app. Please read it carefully.
+Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
 
 CodeDoctor built the Butterfly app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
 

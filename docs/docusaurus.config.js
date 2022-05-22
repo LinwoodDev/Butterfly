@@ -146,11 +146,15 @@ module.exports = {
                     items: [
                         {
                             label: 'Imprint',
-                            href: 'https://codedoctor.tk/impress',
+                            href: 'https://go.linwood.dev/imprint',
                         },
                         {
-                            label: 'Privacy Policy',
+                            label: 'Privacy Policy of the app',
                             href: '/privacypolicy',
+                        },
+                        {
+                            label: 'Privacy Policy of the website',
+                            href: 'https://go.linwood.dev/privacypolicy',
                         },
                     ],
                 }
