@@ -2,6 +2,12 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.3.0-rc.2 (2022-05-22)
+
+* Fix layout on bigger screens
+* Fix image export
+* Improve position of submenus
+
 ## 1.3.0-rc.1 (2022-05-18)
 
 * Fix undo on scrolling
