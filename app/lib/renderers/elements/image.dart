@@ -14,6 +14,7 @@ class ImageRenderer extends Renderer<ImageElement> {
         ..color = Colors.grey
         ..style = PaintingStyle.fill;
       canvas.drawRect(rect, paint);
+      return;
     }
     var paint = Paint()..isAntiAlias = true;
 
