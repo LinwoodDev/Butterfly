@@ -187,6 +187,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           painter: ViewPainter(state.document,
                               cameraViewport: state.cameraViewport,
                               transform: transform,
+                              invisibleLayers: state.invisibleLayers,
                               currentArea: state.currentArea),
                           isComplex: true,
                           willChange: true,

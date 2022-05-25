@@ -60,10 +60,12 @@ class ViewPainter extends CustomPainter {
   final bool renderBackground, renderBaked;
   final CameraViewport cameraViewport;
   final CameraTransform transform;
+  final List<String> invisibleLayers;
 
   ViewPainter(
     this.document, {
     this.currentArea,
+    this.invisibleLayers = const [],
     this.renderBackground = true,
     this.renderBaked = true,
     required this.cameraViewport,
@@ -111,7 +113,9 @@ class ViewPainter extends CustomPainter {
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var renderer in cameraViewport.unbakedElements) {
-      renderer.build(canvas, size, transform, false);
+      if (!invisibleLayers.contains(renderer.element.layer)) {
+        renderer.build(canvas, size, transform, false);
+      }
     }
     canvas.restore();
   }

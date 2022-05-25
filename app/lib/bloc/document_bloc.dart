@@ -393,21 +393,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           invisibleLayers.remove(event.name);
         }
         return _saveDocument(
-            emit,
-            current.copyWith(
-                cameraViewport: isVisible
-                    ? current.cameraViewport.unbake(
-                        List<Renderer<PadElement>>.from(current.renderers)
-                            .where((e) => e.element.layer == event.name)
-                            .toList())
-                    : null,
-                invisibleLayers: invisibleLayers),
-            isVisible
-                ? null
-                : List<Renderer<PadElement>>.from(current.renderers)
-              ?..addAll(current.document.content
-                  .where((e) => e.layer == event.name)
-                  .map((e) => Renderer.fromInstance(e))));
+            emit, current.copyWith(invisibleLayers: invisibleLayers), null);
       }
     });
 
