@@ -345,7 +345,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
-        var renderers = await Future.wait(
+        final renderers = await Future.wait(
             List<Renderer<PadElement>>.from(current.renderers).map((e) async {
           if (e.element.layer == event.name) {
             var renderer = Renderer.fromInstance(e.element.copyWith(layer: ''));
@@ -354,15 +354,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           }
           return e;
         }));
+        final content = <PadElement>[];
+        for (var element in current.document.content) {
+          if (element.layer == event.name) {
+            content.add(element.copyWith(layer: ''));
+          } else {
+            content.add(element);
+          }
+        }
         return _saveDocument(
             emit,
             current.copyWith(
                 cameraViewport: current.cameraViewport.unbake(renderers),
-                document: current.document.copyWith(
-                    content: List<PadElement>.from(current.document.content)
-                        .where((e) => e.layer == event.name)
-                        .map((e) => e.copyWith(layer: ''))
-                        .toList())),
+                document: current.document.copyWith(content: content)),
             null);
       }
     });
@@ -441,7 +445,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final recorder = ui.PictureRecorder();
       final canvas = ui.Canvas(recorder);
       var last = current.cameraViewport;
-      var invisibleLayers = current.invisibleLayers;
       final reset = last.width != size.width.ceil() ||
           last.height != size.height.ceil() ||
           last.x != event.cameraTransform.position.dx ||
@@ -451,9 +454,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (reset) {
         renderers = current.renderers;
       }
-      renderers = renderers
-          .where((element) => !invisibleLayers.contains(element.element.layer))
-          .toList();
       canvas.scale(pixelRatio);
 
       // Wait one frame
@@ -480,8 +480,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         renderers.addAll(current.cameraViewport.bakedElements);
       }
       currentRenderers = currentRenderers
-          .whereNot(
-              (element) => invisibleLayers.contains(element.element.layer))
           .whereNot((element) => renderers.contains(element))
           .toList();
       emit(current.copyWith(
