@@ -33,14 +33,18 @@
   },
   "link.item.label.Imprint": {
     "message": "Mentions légales",
-    "description": "The label of footer link with label=Imprint linking to https://codedoctor.tk/impress"
-  },
-  "link.item.label.Privacy Policy": {
-    "message": "Politique de confidentialité",
-    "description": "The label of footer link with label=Privacy Policy linking to /privacypolicy"
+    "description": "The label of footer link with label=Imprint linking to https://go.linwood.dev/imprint"
   },
   "copyright": {
     "message": "Copyright © 2022 LinwoodCloud.",
     "description": "The footer copyright"
+  },
+  "link.item.label.Privacy Policy of the app": {
+    "message": "Privacy Policy of the app",
+    "description": "The label of footer link with label=Privacy Policy of the app linking to /privacypolicy"
+  },
+  "link.item.label.Privacy Policy of the website": {
+    "message": "Privacy Policy of the website",
+    "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
   }
 }
