@@ -2,6 +2,12 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.3.0 (2022-05-26)
+
+* Fix bug where document will be cleared after removing a layer or rename a layer
+
+Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
+
 ## 1.3.0-rc.2 (2022-05-22)
 
 * Fix layout on bigger screens
