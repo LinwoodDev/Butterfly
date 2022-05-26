@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class ErrorDialog extends StatefulWidget {
   final dynamic error;
   final StackTrace stackTrace;
-  const ErrorDialog({Key? key, required this.error, required this.stackTrace})
-      : super(key: key);
+  const ErrorDialog({super.key, required this.error, required this.stackTrace});
 
   @override
   State<ErrorDialog> createState() => _ErrorDialogState();

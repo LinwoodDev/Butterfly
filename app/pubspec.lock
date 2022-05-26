@@ -252,7 +252,7 @@ packages:
       name: file_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.1"
+    version: "4.6.0"
   fixnum:
     dependency: transitive
     description:
