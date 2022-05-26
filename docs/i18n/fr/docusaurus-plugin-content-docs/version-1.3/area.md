@@ -1,5 +1,5 @@
 ---
-title: "Zone d'application"
+title: "Zone de stockage"
 sidebar_position: 2
 ---
 
