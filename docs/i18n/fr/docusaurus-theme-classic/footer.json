@@ -40,11 +40,11 @@
     "description": "The footer copyright"
   },
   "link.item.label.Privacy Policy of the app": {
-    "message": "Privacy Policy of the app",
+    "message": "Politique de confidentialité de l'application",
     "description": "The label of footer link with label=Privacy Policy of the app linking to /privacypolicy"
   },
   "link.item.label.Privacy Policy of the website": {
-    "message": "Privacy Policy of the website",
+    "message": "Politique de confidentialité du site web",
     "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
   }
 }
