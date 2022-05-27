@@ -8,13 +8,16 @@
 
 Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 
-## 1.3.0-rc.2 (2022-05-22)
+<details>
+ <summary>1.3 Nightly Changelog</summary>
+
+### 1.3.0-rc.2 (2022-05-22)
 
 * Fix layout on bigger screens
 * Fix image export
 * Improve position of submenus
 
-## 1.3.0-rc.1 (2022-05-18)
+### 1.3.0-rc.1 (2022-05-18)
 
 * Fix undo on scrolling
 * Replace text buttons to icon buttons in dialog actions
@@ -28,7 +31,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Fix file system directory error
 * Fix baking issues
 
-## 1.3.0-rc.0 (2022-05-13)
+### 1.3.0-rc.0 (2022-05-13)
 
 * Implement drag resize area and popup window menu on desktop platforms
 * Fix pixel ratio
@@ -37,7 +40,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Upgrade to flutter 3
 * Show error message if an error occurred while inserting
 
-## 1.3.0-beta.2 (2022-05-06)
+### 1.3.0-beta.2 (2022-05-06)
 
 * Implement embed functionality
 * Fixing a lot of bugs ([#158](https://github.com/LinwoodCloud/Butterfly/issues/158), Thanks to vi)
@@ -58,7 +61,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Highlight primary button in dialogs
 * Remove autosave on web
 
-## 1.3.0-beta.1 (2022-04-29)
+### 1.3.0-beta.1 (2022-04-29)
 
 * Add custom designs
 * Add material 3 components
@@ -69,7 +72,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Round scale
 * Redesigned settings dialog
 
-## 1.3.0-beta.0 (2022-04-20)
+### 1.3.0-beta.0 (2022-04-20)
 
 * Add svg export
 * Add constraints to label and image
@@ -77,7 +80,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Reimplement eraser
 * Fixing stroke width
 
-## 1.3.0-alpha.1 (2022-04-12)
+### 1.3.0-alpha.1 (2022-04-12)
 
 * Change scroll behavior to move
     * Add shift to inverse
@@ -92,13 +95,15 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Temporarily disable undo/redo
 * Fix duplicated keybind of insert and export
 
-## 1.3.0-alpha.0 (2022-03-05)
+### 1.3.0-alpha.0 (2022-03-05)
 
 * Add areas
     * Export areas
 * Add area painter to declare areas
 * Add full screen
 * Update flutter version
+
+</details>
 
 ## 1.2.1 (2022-03-05)
 
@@ -160,7 +165,10 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Adding deb and AppImage export type for linux
 * Improve responsive file system dialog
 
-## 1.0.0-rc.6 (2021-12-18)
+<details>
+ <summary>1.0 Nightly Changelog</summary>
+
+### 1.0.0-rc.6 (2021-12-18)
 
 * Add context menu
 * Add zoom-dependent stroke width ([#31](https://github.com/LinwoodCloud/Butterfly/issues/31))
@@ -169,7 +177,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Fix internal router, use / instead of hash
 * Fix responsive issues on color picker, file system and image export
 
-## 1.0.0-rc.5 (2021-12-10)
+### 1.0.0-rc.5 (2021-12-10)
 
 * Add eraser exclude property for the hand
 * Add folder creation feature to the file system
@@ -185,7 +193,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Fix splash screen on screen readers
 * Fix some dialog themes to have rounded corners
 
-## 1.0.0-rc.4 (2021-11-27)
+### 1.0.0-rc.4 (2021-11-27)
 
 * Add file system with files and folders native and indexeddb in web ([#53](https://github.com/LinwoodCloud/butterfly/pull/53))
   * Custom save location
@@ -195,7 +203,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Fixing dialogs will open multiple times ([#47](https://github.com/LinwoodCloud/butterfly/issues/47))
 * Improve performance for images ([#35](https://github.com/LinwoodCloud/butterfly/issues/35))
 
-## 1.0.0-rc.3 (2021-11-14)
+### 1.0.0-rc.3 (2021-11-14)
 
 * Add shortcuts
 * Add default name for documents
@@ -203,7 +211,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Fixing zooming
 * Fixing version on windows installer
 
-## 1.0.0-rc.2 (2021-11-07)
+### 1.0.0-rc.2 (2021-11-07)
 
 * Change home page to drawing page ([#17](https://github.com/LinwoodCloud/butterfly/issues/17))
 * Fixing zoom issues ([#20](https://github.com/LinwoodCloud/butterfly/issues/20))
@@ -218,7 +226,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Rename old save dialog to export dialog
 * Add popup menu in the top right corner of the main view
 
-## 1.0.0-rc.1 (2021-10-30)
+### 1.0.0-rc.1 (2021-10-30)
 
 * Add new graphic engine to allow moving in the negative direction
 * Big performance issues were fixed
@@ -227,7 +235,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Fixing empty names in document name ([#14](https://github.com/LinwoodCloud/butterfly/issues/14))
 * Fixing open/save dialog
 
-## 1.0.0-rc.0 (2021-10-20)
+### 1.0.0-rc.0 (2021-10-20)
 
 * Add new design system
 * Add image painter and layer
@@ -239,7 +247,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Fix lag when zooming out of the viewport
 * Split custom painter from view internally
 
-## 1.0.0-beta.0 (2021-10-15)
+### 1.0.0-beta.0 (2021-10-15)
 
 * Add new color picker
   * Multiple palettes
@@ -249,6 +257,8 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Add new label properties (font weight, italic, decoration)
 * Fix shared preferences bug that prevents starting the app on android
 
-## 1.0.0-alpha.0 (2021-10-10)
+### 1.0.0-alpha.0 (2021-10-10)
 
 First release 🎉
+
+</details>
