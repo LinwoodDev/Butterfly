@@ -91,7 +91,7 @@ packages:
       name: build_resolvers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.8"
+    version: "2.0.9"
   build_runner:
     dependency: "direct dev"
     description:
@@ -126,7 +126,7 @@ packages:
       name: camera
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.7"
+    version: "0.9.7+1"
   camera_platform_interface:
     dependency: transitive
     description:
