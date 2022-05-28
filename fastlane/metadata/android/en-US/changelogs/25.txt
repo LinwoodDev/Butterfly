@@ -1,1 +1,2 @@
 * Fix bake issues when moving the camera with a gesture
+* Fix move gesture relative to viewport
