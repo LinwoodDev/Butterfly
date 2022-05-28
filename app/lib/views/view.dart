@@ -58,6 +58,23 @@ class _MainViewViewportState extends State<MainViewViewport> {
             pixelRatio: MediaQuery.of(context).devicePixelRatio));
       }
 
+      void _delayBake() {
+        final transform = context.read<TransformCubit>().state;
+        final currentSize = transform.size;
+        final currentPosition = transform.position;
+        Future.delayed(const Duration(milliseconds: 100), () {
+          final state = context.read<DocumentBloc>().state;
+          if (state is! DocumentLoadSuccess) return;
+          final transform = context.read<TransformCubit>().state;
+          if (currentSize == transform.size &&
+              currentPosition == transform.position &&
+              (currentSize != state.cameraViewport.scale ||
+                  currentPosition != state.cameraViewport.toOffset())) {
+            _bake();
+          }
+        });
+      }
+
       final current = context.read<DocumentBloc>().state;
       if (current is DocumentLoadSuccess &&
           current.cameraViewport.toSize() !=
@@ -111,7 +128,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
             onScaleEnd: (details) {
               final currentIndex = context.read<CurrentIndexCubit>();
               if (currentIndex.fetchHandler<HandHandler>() == null) return;
-              _bake();
+              _delayBake();
             },
             onScaleStart: (details) {
               size = 1;
@@ -140,15 +157,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             : Offset(-dx, -dy))
                         ..zoom(scale, pointerSignal.localPosition);
                     }
-                    final currentSize =
-                        context.read<TransformCubit>().state.size;
-                    Future.delayed(const Duration(milliseconds: 500), () {
-                      if (currentSize ==
-                              context.read<TransformCubit>().state.size &&
-                          currentSize != state.cameraViewport.scale) {
-                        _bake();
-                      }
-                    });
+                    _delayBake();
                   }
                 },
                 onPointerDown: (PointerDownEvent event) {
