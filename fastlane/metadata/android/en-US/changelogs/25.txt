@@ -1,0 +1,1 @@
+* Fix bake issues when moving the camera with a gesture
