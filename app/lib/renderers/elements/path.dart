@@ -36,6 +36,14 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     final property = current.property;
     final paint = buildPaint(foreground);
     if (points.isNotEmpty) {
+      if (paint.style == PaintingStyle.fill) {
+        final path = Path();
+        final first = points.first;
+        path.moveTo(first.x, first.y);
+        points.sublist(1).forEach((point) => path.lineTo(point.x, point.y));
+        canvas.drawPath(path, paint);
+        return;
+      }
       var first = points.first;
       var previous = first;
       for (var element in points) {

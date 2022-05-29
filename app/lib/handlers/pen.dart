@@ -50,6 +50,8 @@ class PenHandler extends Handler {
     }
     double zoom = painter.zoomDependent ? transform.size : 1;
 
+    final createNew = !elements.containsKey(pointer);
+
     final element = elements[pointer] ??
         PenElement(
           layer: state.currentLayer,
@@ -59,8 +61,8 @@ class PenHandler extends Handler {
 
     elements[pointer] = element.copyWith(
         points: List<PathPoint>.from(element.points)
-          ..add(PathPoint.fromOffset(
-              transform.localToGlobal(localPosition), pressure / zoom)));
+          ..add(PathPoint.fromOffset(transform.localToGlobal(localPosition),
+              (createNew ? 0 : pressure) / zoom)));
     if (refresh) cubit.refresh(bloc);
   }
 

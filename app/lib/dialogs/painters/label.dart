@@ -1,13 +1,11 @@
-import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/dialogs/color_pick.dart';
 import 'package:butterfly/dialogs/painters/general.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/painter.dart';
 import '../../models/property.dart';
+import '../../widgets/color_field.dart';
 import '../../widgets/exact_slider.dart';
 
 class LabelPainterDialog extends StatelessWidget {
@@ -207,28 +205,11 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                         onChanged: (value) => change(_value.copyWith(
                             decorationStyle:
                                 value ?? _value.decorationStyle)))),
-                ListTile(
-                    onTap: () async {
-                      var value = await showDialog(
-                          context: context,
-                          builder: (ctx) => BlocProvider.value(
-                                value: context.read<DocumentBloc>(),
-                                child: ColorPickerDialog(
-                                    defaultColor:
-                                        Color(_value.decorationColor)),
-                              )) as int?;
-                      if (value != null) {
-                        change(_value.copyWith(decorationColor: value));
-                      }
-                    },
-                    leading: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                            color: Color(_value.decorationColor),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(32)))),
-                    title: Text(AppLocalizations.of(context)!.color)),
+                ColorField(
+                    title: Text(AppLocalizations.of(context)!.color),
+                    color: Color(_value.decorationColor),
+                    onChanged: (value) =>
+                        change(_value.copyWith(decorationColor: value.value))),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: ExactSlider(
@@ -244,32 +225,10 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
         ],
       ),
       const SizedBox(height: 32),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          InkWell(
-              borderRadius: const BorderRadius.all(Radius.circular(32)),
-              onTap: () async {
-                var color = await showDialog(
-                    context: context,
-                    builder: (ctx) => BlocProvider.value(
-                          value: context.read<DocumentBloc>(),
-                          child: ColorPickerDialog(
-                              defaultColor: Color(_value.color)),
-                        )) as int?;
-                if (color != null) {
-                  change(_value.copyWith(color: color));
-                }
-              },
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: Color(_value.color),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(32))),
-                  constraints:
-                      const BoxConstraints(maxWidth: 100, maxHeight: 100))),
-        ],
-      )
+      ColorField(
+          title: Text(AppLocalizations.of(context)!.color),
+          color: Color(_value.color),
+          onChanged: (value) => change(_value.copyWith(color: value.value))),
     ]);
   }
 }
