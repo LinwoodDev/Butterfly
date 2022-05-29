@@ -26,8 +26,9 @@ class EraserHandler extends Handler {
     if (element == null) return;
     submittedElements.add(element);
     if (elements.isEmpty) {
+      final current = List<PadElement>.from(submittedElements);
       bloc
-        ..add(ElementsCreated(List<PadElement>.from(submittedElements)))
+        ..add(ElementsCreated(current))
         ..add(
             ImageBaked(cameraTransform: context.read<TransformCubit>().state));
       submittedElements.clear();
@@ -47,6 +48,8 @@ class EraserHandler extends Handler {
     if (!inputType.canCreate(pointer, elements.keys.firstOrNull, kind)) {
       return;
     }
+    final createNew = elements.containsKey(pointer);
+
     final element = elements[pointer] ??
         EraserElement(
           layer: state.currentLayer,
@@ -56,8 +59,8 @@ class EraserHandler extends Handler {
 
     elements[pointer] = element.copyWith(
         points: List<PathPoint>.from(element.points)
-          ..add(PathPoint.fromOffset(
-              transform.localToGlobal(localPosition), pressure)));
+          ..add(PathPoint.fromOffset(transform.localToGlobal(localPosition),
+              (createNew ? 0 : pressure))));
     if (refresh) cubit.refresh(bloc);
   }
 

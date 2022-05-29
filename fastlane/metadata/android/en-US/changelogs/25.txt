@@ -1,4 +1,6 @@
+* Reimplement color field
 * Fix bake issues when moving the camera with a gesture
 * Fix move gesture relative to viewport
 * Fix fill mode
 * Fix hard edges in settings dialog
+* Fix firefox bug when creating a new path

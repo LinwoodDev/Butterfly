@@ -1,5 +1,6 @@
 import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/widgets/color_field.dart';
 import 'package:butterfly/widgets/exact_slider.dart';
 import 'package:butterfly/widgets/header.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/background.dart';
-import '../color_pick.dart';
 
 class BackgroundDialog extends StatelessWidget {
   const BackgroundDialog({super.key});
@@ -144,40 +144,16 @@ class BackgroundDialog extends StatelessWidget {
                                   if (background is BoxBackground) ...[
                                     const SizedBox(height: 8),
                                     const Divider(),
-                                    ListTile(
-                                        onTap: () async {
-                                          var value = await showDialog(
-                                              context: context,
-                                              builder: (_) =>
-                                                  BlocProvider.value(
-                                                    value: BlocProvider.of<
-                                                        DocumentBloc>(context),
-                                                    child: ColorPickerDialog(
-                                                        defaultColor: Color(
-                                                            (background
-                                                                    as BoxBackground)
-                                                                .boxColor)),
-                                                  )) as int?;
-                                          if (value != null) {
-                                            setState(() => background =
-                                                (background as BoxBackground)
-                                                    .copyWith(boxColor: value));
-                                          }
-                                        },
-                                        leading: Container(
-                                          width: 30,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                              color: Color(
-                                                  (background as BoxBackground)
-                                                      .boxColor),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(32))),
-                                        ),
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .color)),
+                                    ColorField(
+                                      title: Text(
+                                          AppLocalizations.of(context)!.color),
+                                      color: Color((background as BoxBackground)
+                                          .boxColor),
+                                      onChanged: (value) => setState(() =>
+                                          background = (background
+                                                  as BoxBackground)
+                                              .copyWith(boxColor: value.value)),
+                                    ),
                                     const SizedBox(height: 16),
                                     ExpansionPanelList(
                                         expansionCallback:
@@ -216,48 +192,21 @@ class BackgroundDialog extends StatelessWidget {
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 child: Column(children: [
-                                                  ListTile(
-                                                      leading: Container(
-                                                        width: 30,
-                                                        height: 30,
-                                                        decoration: BoxDecoration(
-                                                            color: Color((background
-                                                                    as BoxBackground)
-                                                                .boxXColor),
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                        .all(
-                                                                    Radius.circular(
-                                                                        32))),
-                                                      ),
-                                                      onTap: () async {
-                                                        var value =
-                                                            await showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder: (ctx) =>
-                                                                    BlocProvider
-                                                                        .value(
-                                                                      value: BlocProvider.of<
-                                                                              DocumentBloc>(
-                                                                          context),
-                                                                      child: ColorPickerDialog(
-                                                                          defaultColor:
-                                                                              Color((background as BoxBackground).boxXColor)),
-                                                                    )) as int?;
-                                                        if (value != null) {
-                                                          setState(() => background =
-                                                              (background
-                                                                      as BoxBackground)
-                                                                  .copyWith(
-                                                                      boxXColor:
-                                                                          value));
-                                                        }
-                                                      },
-                                                      title: Text(
-                                                          AppLocalizations.of(
-                                                                  context)!
-                                                              .color)),
+                                                  ColorField(
+                                                    color: Color((background
+                                                            as BoxBackground)
+                                                        .boxXColor),
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .color),
+                                                    onChanged: (value) => setState(() =>
+                                                        background = (background
+                                                                as BoxBackground)
+                                                            .copyWith(
+                                                                boxXColor: value
+                                                                    .value)),
+                                                  ),
                                                   const SizedBox(height: 16),
                                                   ExactSlider(
                                                       onChanged: (value) {
@@ -354,48 +303,21 @@ class BackgroundDialog extends StatelessWidget {
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 child: Column(children: [
-                                                  ListTile(
-                                                      leading: Container(
-                                                        width: 30,
-                                                        height: 30,
-                                                        decoration: BoxDecoration(
-                                                            color: Color((background
-                                                                    as BoxBackground)
-                                                                .boxYColor),
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                        .all(
-                                                                    Radius.circular(
-                                                                        32))),
-                                                      ),
-                                                      onTap: () async {
-                                                        var value =
-                                                            await showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder: (ctx) =>
-                                                                    BlocProvider
-                                                                        .value(
-                                                                      value: BlocProvider.of<
-                                                                              DocumentBloc>(
-                                                                          context),
-                                                                      child: ColorPickerDialog(
-                                                                          defaultColor:
-                                                                              Color((background as BoxBackground).boxYColor)),
-                                                                    )) as int?;
-                                                        if (value != null) {
-                                                          setState(() => background =
-                                                              (background
-                                                                      as BoxBackground)
-                                                                  .copyWith(
-                                                                      boxYColor:
-                                                                          value));
-                                                        }
-                                                      },
-                                                      title: Text(
-                                                          AppLocalizations.of(
-                                                                  context)!
-                                                              .color)),
+                                                  ColorField(
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .color),
+                                                    color: Color((background
+                                                            as BoxBackground)
+                                                        .boxYColor),
+                                                    onChanged: (value) => setState(() =>
+                                                        background = (background
+                                                                as BoxBackground)
+                                                            .copyWith(
+                                                                boxYColor: value
+                                                                    .value)),
+                                                  ),
                                                   const SizedBox(height: 16),
                                                   ExactSlider(
                                                       onChanged: (value) {
