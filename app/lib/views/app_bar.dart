@@ -216,22 +216,18 @@ class _MainPopupMenu extends StatelessWidget {
                   IconButton(
                     icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
                     tooltip: AppLocalizations.of(context)!.undo,
-                    onPressed: !bloc.canUndo
-                        ? null
-                        : () {
-                            Actions.maybeInvoke<UndoIntent>(
-                                context, UndoIntent(context));
-                          },
+                    onPressed: () {
+                      Actions.maybeInvoke<UndoIntent>(
+                          context, UndoIntent(context));
+                    },
                   ),
                   IconButton(
                     icon: const Icon(PhosphorIcons.arrowClockwiseLight),
                     tooltip: AppLocalizations.of(context)!.redo,
-                    onPressed: !bloc.canRedo
-                        ? null
-                        : () {
-                            Actions.maybeInvoke<RedoIntent>(
-                                context, RedoIntent(context));
-                          },
+                    onPressed: () {
+                      Actions.maybeInvoke<RedoIntent>(
+                          context, RedoIntent(context));
+                    },
                   ),
                 ],
               ),

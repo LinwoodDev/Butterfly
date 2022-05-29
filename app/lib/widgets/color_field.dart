@@ -13,14 +13,13 @@ class ColorField extends StatelessWidget {
   final ValueChanged<Color>? onChanged;
 
   const ColorField(
-      {Key? key,
+      {super.key,
       this.color = Colors.white,
       this.enabled = true,
       this.leading,
       this.title,
       this.subtitle,
-      this.onChanged})
-      : super(key: key);
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
