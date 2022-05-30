@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -19,6 +21,7 @@ import '../dialogs/elements/label.dart';
 import '../models/area.dart';
 import '../models/document.dart';
 import '../models/path_point.dart';
+import '../models/property.dart';
 import '../renderers/renderer.dart';
 import '../widgets/context_menu.dart';
 
@@ -26,6 +29,7 @@ part 'area.dart';
 part 'eraser.dart';
 part 'hand.dart';
 part 'label.dart';
+part 'laser.dart';
 part 'layer.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
@@ -97,6 +101,9 @@ abstract class Handler {
     }
     if (painter is LayerPainter) {
       return LayerHandler(currentIndexCubit);
+    }
+    if (painter is LaserPainter) {
+      return LaserHandler(currentIndexCubit);
     }
     return HandHandler(currentIndexCubit);
   }

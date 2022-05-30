@@ -3,10 +3,12 @@ import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/hand.dart';
 import 'package:butterfly/dialogs/painters/eraser.dart';
 import 'package:butterfly/dialogs/painters/label.dart';
+import 'package:butterfly/dialogs/painters/laser.dart';
 import 'package:butterfly/dialogs/painters/layer.dart';
 import 'package:butterfly/dialogs/painters/path_eraser.dart';
 import 'package:butterfly/dialogs/painters/pen.dart';
 import 'package:butterfly/models/painter.dart';
+import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/widgets/option_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,44 +22,6 @@ class EditToolbar extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
 
   EditToolbar({super.key, required this.isMobile});
-
-  IconData getPainterIcon(String type) {
-    switch (type) {
-      case 'eraser':
-        return PhosphorIcons.eraserLight;
-      case 'pathEraser':
-        return PhosphorIcons.pathLight;
-      case 'label':
-        return PhosphorIcons.textTLight;
-      case 'image':
-        return PhosphorIcons.imageLight;
-      case 'layer':
-        return PhosphorIcons.squaresFourLight;
-      case 'area':
-        return PhosphorIcons.squareLight;
-      default:
-        return PhosphorIcons.penLight;
-    }
-  }
-
-  IconData getPainterActiveIcon(String type) {
-    switch (type) {
-      case 'eraser':
-        return PhosphorIcons.eraserFill;
-      case 'pathEraser':
-        return PhosphorIcons.pathFill;
-      case 'label':
-        return PhosphorIcons.textTFill;
-      case 'image':
-        return PhosphorIcons.imageFill;
-      case 'layer':
-        return PhosphorIcons.squaresFourFill;
-      case 'area':
-        return PhosphorIcons.squareFill;
-      default:
-        return PhosphorIcons.penFill;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,32 +95,11 @@ class EditToolbar extends StatelessWidget {
                                 itemCount: painters.length,
                                 itemBuilder: (context, i) {
                                   var e = painters[i];
-                                  var type = e.toJson()['type'];
-                                  var selected = i == currentIndex.index;
+                                  final type = e.toJson()['type'];
+                                  final selected = i == currentIndex.index;
                                   String tooltip = e.name.trim();
                                   if (tooltip.isEmpty) {
-                                    if (type == 'pen') {
-                                      tooltip =
-                                          AppLocalizations.of(context)!.pen;
-                                    } else if (type == 'eraser') {
-                                      tooltip =
-                                          AppLocalizations.of(context)!.eraser;
-                                    } else if (type == 'pathEraser') {
-                                      tooltip = AppLocalizations.of(context)!
-                                          .pathEraser;
-                                    } else if (type == 'label') {
-                                      tooltip =
-                                          AppLocalizations.of(context)!.label;
-                                    } else if (type == 'image') {
-                                      tooltip =
-                                          AppLocalizations.of(context)!.image;
-                                    } else if (type == 'layer') {
-                                      tooltip =
-                                          AppLocalizations.of(context)!.layer;
-                                    } else if (type == 'area') {
-                                      tooltip =
-                                          AppLocalizations.of(context)!.area;
-                                    }
+                                    tooltip = e.getLocalizedString(context);
                                   }
                                   void openDialog() {
                                     var bloc = context.read<DocumentBloc>();
@@ -201,6 +144,9 @@ class EditToolbar extends StatelessWidget {
                                                     case 'area':
                                                       return AreaPainterDialog(
                                                           painterIndex: i);
+                                                    case 'laser':
+                                                      return LaserPainterDialog(
+                                                          painterIndex: i);
                                                     default:
                                                       return Container();
                                                   }
@@ -215,8 +161,8 @@ class EditToolbar extends StatelessWidget {
                                           onLongPressed: openDialog,
                                           selected: selected,
                                           selectedIcon:
-                                              Icon(getPainterActiveIcon(type)),
-                                          icon: Icon(getPainterIcon(type)),
+                                              Icon(e.getIcon(filled: true)),
+                                          icon: Icon(e.getIcon(filled: false)),
                                           onPressed: () {
                                             final bloc =
                                                 context.read<DocumentBloc>();
@@ -246,59 +192,15 @@ class EditToolbar extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16)),
                                 itemBuilder: (context) => [
-                                      ...[
-                                        'pen',
-                                        'eraser',
-                                        'pathEraser',
-                                        'label',
-                                        'layer',
-                                        'area'
-                                      ].map((e) {
-                                        final Painter painter;
-                                        String name;
-                                        switch (e) {
-                                          case 'eraser':
-                                            // ignore: prefer_const_constructors
-                                            painter = EraserPainter();
-                                            name = AppLocalizations.of(context)!
-                                                .eraser;
-                                            break;
-                                          case 'pathEraser':
-                                            // ignore: prefer_const_constructors
-                                            painter = PathEraserPainter();
-                                            name = AppLocalizations.of(context)!
-                                                .pathEraser;
-                                            break;
-                                          case 'label':
-                                            // ignore: prefer_const_constructors
-                                            painter = LabelPainter();
-                                            name = AppLocalizations.of(context)!
-                                                .label;
-                                            break;
-                                          case 'layer':
-                                            // ignore: prefer_const_constructors
-                                            painter = LayerPainter();
-                                            name = AppLocalizations.of(context)!
-                                                .layer;
-                                            break;
-                                          case 'area':
-                                            // ignore: prefer_const_constructors
-                                            painter = AreaPainter();
-                                            name = AppLocalizations.of(context)!
-                                                .area;
-                                            break;
-                                          default:
-                                            // ignore: prefer_const_constructors
-                                            painter = PenPainter();
-                                            name = AppLocalizations.of(context)!
-                                                .pen;
-                                        }
+                                      ...PainterVisualizer.getAllPainters()
+                                          .map((e) {
                                         return PopupMenuItem<Painter>(
-                                            value: painter,
+                                            value: e,
                                             child: ListTile(
                                               mouseCursor: MouseCursor.defer,
-                                              title: Text(name),
-                                              leading: Icon(getPainterIcon(e)),
+                                              title: Text(e
+                                                  .getLocalizedString(context)),
+                                              leading: Icon(e.getIcon()),
                                             ));
                                       })
                                     ])

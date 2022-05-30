@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:butterfly/models/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -79,6 +80,13 @@ class Painter with _$Painter {
     @Default(0) double constrainedHeight,
     @Default(0) double constrainedAspectRatio,
   }) = AreaPainter;
+
+  const factory Painter.laser(
+      {@Default('') String name,
+      @Default(5) double duration,
+      @Default(5) double strokeWidth,
+      @Default(10) double strokeMultiplier,
+      @Default(kColorRed) int color}) = LaserPainter;
 
   factory Painter.fromJson(Map<String, dynamic> json) =>
       _$PainterFromJson(json);

@@ -108,3 +108,22 @@ Map<String, dynamic> _$$AreaPainterToJson(_$AreaPainter instance) =>
       'constrainedAspectRatio': instance.constrainedAspectRatio,
       'type': instance.$type,
     };
+
+_$LaserPainter _$$LaserPainterFromJson(Map json) => _$LaserPainter(
+      name: json['name'] as String? ?? '',
+      duration: (json['duration'] as num?)?.toDouble() ?? 5,
+      strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
+      strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,
+      color: json['color'] as int? ?? kColorRed,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$LaserPainterToJson(_$LaserPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'duration': instance.duration,
+      'strokeWidth': instance.strokeWidth,
+      'strokeMultiplier': instance.strokeMultiplier,
+      'color': instance.color,
+      'type': instance.$type,
+    };

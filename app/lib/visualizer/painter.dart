@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -5,7 +7,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../models/painter.dart';
 
 extension PainterVisualizer on Painter {
-  String getName(BuildContext context) {
+  String getLocalizedString(BuildContext context) {
     if (this is PenPainter) {
       return AppLocalizations.of(context)!.pen;
     }
@@ -27,28 +29,46 @@ extension PainterVisualizer on Painter {
     if (this is LayerPainter) {
       return AppLocalizations.of(context)!.layer;
     }
+    if (this is LaserPainter) {
+      return AppLocalizations.of(context)!.laser;
+    }
     throw UnimplementedError();
   }
 
-  IconData getIcon() {
+  IconData getIcon({bool filled = false}) {
     if (this is PenPainter) {
-      return PhosphorIcons.penLight;
+      return filled ? PhosphorIcons.penFill : PhosphorIcons.penLight;
     }
     if (this is LabelPainter) {
-      return PhosphorIcons.textTLight;
+      return filled ? PhosphorIcons.textTFill : PhosphorIcons.textTLight;
     }
     if (this is PathEraserPainter) {
-      return PhosphorIcons.pathLight;
+      return filled ? PhosphorIcons.pathFill : PhosphorIcons.pathLight;
     }
     if (this is EraserPainter) {
-      return PhosphorIcons.eraserLight;
+      return filled ? PhosphorIcons.eraserFill : PhosphorIcons.eraserLight;
     }
     if (this is AreaPainter) {
-      return PhosphorIcons.squareLight;
+      return filled ? PhosphorIcons.squareFill : PhosphorIcons.squareLight;
     }
     if (this is LayerPainter) {
-      return PhosphorIcons.squaresFourFill;
+      return filled
+          ? PhosphorIcons.squaresFourFill
+          : PhosphorIcons.squaresFourLight;
+    }
+    if (this is LaserPainter) {
+      return filled ? PhosphorIcons.cursorFill : PhosphorIcons.cursorLight;
     }
     throw UnimplementedError();
   }
+
+  static List<Painter> getAllPainters() => [
+        PenPainter(),
+        PathEraserPainter(),
+        LabelPainter(),
+        EraserPainter(),
+        LayerPainter(),
+        AreaPainter(),
+        LaserPainter()
+      ];
 }
