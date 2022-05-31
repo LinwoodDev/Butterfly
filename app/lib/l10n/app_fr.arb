@@ -202,7 +202,7 @@
     "green": "Vert",
     "blue": "Bleu",
     "alpha": "Alphabétisation",
-    "area": "Zone de stockage",
+    "area": "Zone",
     "selectArea": "Sélectionnez une zone",
     "aspectRatio": "Ratio d'aspect",
     "presets": "Préréglages",
@@ -288,5 +288,5 @@
     "enterFullScreen": "Entrer en plein écran",
     "exitFullScreen": "Quitter le mode plein écran",
     "laser": "Laser",
-    "duration": "Duration"
+    "duration": "Durée"
 }
