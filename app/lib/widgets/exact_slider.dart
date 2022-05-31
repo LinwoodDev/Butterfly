@@ -42,8 +42,8 @@ class _ExactSliderState extends State<ExactSlider> {
   }
 
   void _changeValue(double value) {
-    _controller.text = _value.toStringAsFixed(widget.fractionDigits);
     if (_value != value) {
+      _controller.text = _value.toStringAsFixed(widget.fractionDigits);
       setState(() {
         _value = value;
       });
@@ -56,38 +56,15 @@ class _ExactSliderState extends State<ExactSlider> {
   void didUpdateWidget(covariant ExactSlider oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value) {
+      _controller.text = _value.toStringAsFixed(widget.fractionDigits);
       setState(() {
         _value = widget.value ?? widget.defaultValue;
-        _controller.text = _value.toStringAsFixed(widget.fractionDigits);
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final textField = TextField(
-        decoration: InputDecoration(
-            filled: true,
-            labelText: widget.label,
-            floatingLabelAlignment: FloatingLabelAlignment.center),
-        textAlign: TextAlign.center,
-        controller: _controller,
-        onEditingComplete: () => widget.onChangeEnd?.call(_value),
-        onChanged: (value) => _changeValue(double.tryParse(value) ?? _value));
-    final slider = Slider(
-      value: _value.clamp(widget.min, widget.max),
-      min: widget.min,
-      max: widget.max,
-      activeColor: widget.color,
-      onChangeEnd: widget.onChangeEnd,
-      onChanged: (value) {
-        _value = value;
-        _changeValue(value);
-      },
-    );
-    final resetButton = IconButton(
-        onPressed: () => _changeValue(widget.defaultValue),
-        icon: const Icon(PhosphorIcons.clockCounterClockwiseLight));
     return Align(
         alignment: Alignment.topCenter,
         child: ConstrainedBox(
@@ -101,6 +78,31 @@ class _ExactSliderState extends State<ExactSlider> {
                           style: Theme.of(context).textTheme.titleMedium!,
                           child: widget.header!)),
                 LayoutBuilder(builder: (context, constraints) {
+                  final textField = TextFormField(
+                      decoration: InputDecoration(
+                          filled: true,
+                          labelText: widget.label,
+                          floatingLabelAlignment:
+                              FloatingLabelAlignment.center),
+                      textAlign: TextAlign.center,
+                      controller: _controller,
+                      onEditingComplete: () => widget.onChangeEnd?.call(_value),
+                      onChanged: (value) =>
+                          _changeValue(double.tryParse(value) ?? _value));
+                  final slider = Slider(
+                    value: _value.clamp(widget.min, widget.max),
+                    min: widget.min,
+                    max: widget.max,
+                    activeColor: widget.color,
+                    onChangeEnd: widget.onChangeEnd,
+                    onChanged: (value) {
+                      _changeValue(value);
+                    },
+                  );
+                  final resetButton = IconButton(
+                      onPressed: () => _changeValue(widget.defaultValue),
+                      icon:
+                          const Icon(PhosphorIcons.clockCounterClockwiseLight));
                   final width = constraints.maxWidth;
                   if (width < 300) {
                     return Column(

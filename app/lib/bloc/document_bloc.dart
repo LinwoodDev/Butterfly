@@ -424,12 +424,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             content[i] = element.copyWith(layer: event.layer);
           }
         }
+        final renderer = content.map((e) => Renderer.fromInstance(e)).toList();
+        await Future.wait(
+            renderer.map((e) async => await e.setup(current.document)));
         return _saveDocument(
             emit,
             current.copyWith(
-                document: current.document.copyWith(
-              content: content,
-            )));
+              document: current.document.copyWith(
+                content: content,
+              ),
+              cameraViewport: current.cameraViewport.unbake(renderer),
+            ),
+            null);
       }
     });
     on<ImageBaked>((event, emit) async {
