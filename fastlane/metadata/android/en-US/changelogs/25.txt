@@ -6,3 +6,4 @@
 * Fix firefox bug when creating a new path
 * Fix undo/redo buttons
 * Fix invalid elements after changing the layer
+* Fix background dialog slider
