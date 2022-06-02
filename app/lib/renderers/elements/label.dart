@@ -100,6 +100,7 @@ class LabelRenderer extends Renderer<LabelElement> {
 
   @override
   void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
+    if (!this.rect.overlaps(rect)) return;
     final property = element.property;
     String textDecoration = '';
     if (property.underline) textDecoration += 'underline ';

@@ -142,8 +142,8 @@ class DocumentLoadSuccess extends DocumentState {
         .createElement('defs')
         .createElement('mask', id: 'eraser-mask')
         .createElement('rect', attributes: {
-      'x': '0',
-      'y': '0',
+      'x': '${x}px',
+      'y': '${y}px',
       'width': '${width}px',
       'height': '${height}px',
       'fill': 'white',
