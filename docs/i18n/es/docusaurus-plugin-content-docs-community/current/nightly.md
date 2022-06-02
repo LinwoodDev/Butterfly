@@ -1,6 +1,6 @@
 ---
 title: "Construcciones nocturnas"
-slug: "/nocturno"
+slug: "/nightly"
 ---
 
 :::warning
