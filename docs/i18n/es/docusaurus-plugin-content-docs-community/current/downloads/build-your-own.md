@@ -1,6 +1,6 @@
 ---
 title: "Construye tu propio"
-slug: "/build-tuyo"
+slug: "/build-your-own"
 sidebar_position: 1
 ---
 
