@@ -61,8 +61,31 @@ class _TemplateDialogState extends State<TemplateDialog> {
                           const Icon(PhosphorIcons.clockCounterClockwiseLight),
                       tooltip: AppLocalizations.of(context)!.defaultTemplate,
                       onPressed: () async {
-                        await _fileSystem.createDefault(context, force: true);
-                        setState(() {});
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text(
+                                AppLocalizations.of(context)!.defaultTemplate),
+                            content:
+                                Text(AppLocalizations.of(context)!.reallyReset),
+                            actions: [
+                              TextButton(
+                                child:
+                                    Text(AppLocalizations.of(context)!.cancel),
+                                onPressed: () => Navigator.of(context).pop(),
+                              ),
+                              TextButton(
+                                child: Text(AppLocalizations.of(context)!.ok),
+                                onPressed: () async {
+                                  final navigator = Navigator.of(context);
+                                  await _fileSystem.createDefault(this.context,
+                                      force: true);
+                                  navigator.pop();
+                                },
+                              ),
+                            ],
+                          ),
+                        );
                       },
                     ),
                     ...widget.currentDocument == null

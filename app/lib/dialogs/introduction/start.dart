@@ -100,9 +100,34 @@ class _CreateStartViewState extends State<_CreateStartView> {
                           icon: const Icon(
                               PhosphorIcons.clockCounterClockwiseLight),
                           onPressed: () async {
-                            await templateSystem.createDefault(context,
-                                force: true);
-                            setState(() {});
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text(AppLocalizations.of(context)!
+                                    .defaultTemplate),
+                                content: Text(
+                                    AppLocalizations.of(context)!.reallyReset),
+                                actions: [
+                                  TextButton(
+                                    child: Text(
+                                        AppLocalizations.of(context)!.cancel),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ),
+                                  TextButton(
+                                    child:
+                                        Text(AppLocalizations.of(context)!.ok),
+                                    onPressed: () async {
+                                      final navigator = Navigator.of(context);
+                                      await templateSystem.createDefault(
+                                          this.context,
+                                          force: true);
+                                      navigator.pop();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
                           },
                         ),
                       ],
