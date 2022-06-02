@@ -33,6 +33,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
         return AppLocalizations.of(context)!.german;
       case 'en':
         return AppLocalizations.of(context)!.english;
+      case 'es':
+        return AppLocalizations.of(context)!.spanish;
       default:
         return AppLocalizations.of(context)!.defaultLocale;
     }
