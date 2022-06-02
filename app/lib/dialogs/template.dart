@@ -55,16 +55,27 @@ class _TemplateDialogState extends State<TemplateDialog> {
                     icon: const Icon(PhosphorIcons.xLight),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
-                  actions: widget.currentDocument == null
-                      ? []
-                      : [
-                          IconButton(
-                            onPressed: () =>
-                                _showCreateDialog(widget.currentDocument!),
-                            tooltip: AppLocalizations.of(context)!.create,
-                            icon: const Icon(PhosphorIcons.plusLight),
-                          )
-                        ],
+                  actions: [
+                    IconButton(
+                      icon:
+                          const Icon(PhosphorIcons.clockCounterClockwiseLight),
+                      tooltip: AppLocalizations.of(context)!.defaultTemplate,
+                      onPressed: () async {
+                        await _fileSystem.createDefault(context, force: true);
+                        setState(() {});
+                      },
+                    ),
+                    ...widget.currentDocument == null
+                        ? []
+                        : [
+                            IconButton(
+                              onPressed: () =>
+                                  _showCreateDialog(widget.currentDocument!),
+                              tooltip: AppLocalizations.of(context)!.create,
+                              icon: const Icon(PhosphorIcons.plusLight),
+                            )
+                          ],
+                  ],
                 ),
                 Flexible(
                   child: FutureBuilder<List<DocumentTemplate>>(

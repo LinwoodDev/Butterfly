@@ -156,7 +156,13 @@ class IOTemplateFileSystem extends TemplateFileSystem {
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     var defaults = DocumentTemplate.getDefaults(context);
     var directory = await getDirectory();
-    if (await Directory(directory).exists()) return false;
+    if (await Directory(directory).exists()) {
+      if (force) {
+        await Directory(directory).delete(recursive: true);
+      } else {
+        return false;
+      }
+    }
     await Future.wait(defaults.map((e) => updateTemplate(e)));
     return true;
   }
