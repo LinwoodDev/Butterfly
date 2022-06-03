@@ -26,6 +26,7 @@ class ButterflySettings with _$ButterflySettings {
       @Default('') String design,
       @Default([]) List<String> recentHistory,
       @Default(true) bool startEnabled,
+      @Default(true) bool colorEnabled,
       String? lastVersion}) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) =>
@@ -47,6 +48,7 @@ class ButterflySettings with _$ButterflySettings {
         recentHistory: prefs.getStringList('recent_history') ?? [],
         startEnabled: prefs.getBool('start_enabled') ?? true,
         lastVersion: prefs.getString('last_version'),
+        colorEnabled: prefs.getBool('color_enabled') ?? true,
       );
 
   Locale? get locale => localeTag.isEmpty ? null : Locale(localeTag);
@@ -65,6 +67,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('design', design);
     await prefs.setStringList('recent_history', recentHistory);
     await prefs.setBool('start_enabled', startEnabled);
+    await prefs.setBool('color_enabled', colorEnabled);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
     } else if (lastVersion != null) {
@@ -223,6 +226,13 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> resetStartEnabled() => changeStartEnabled(true);
+
+  Future<void> changeColorEnabled(bool value) {
+    emit(state.copyWith(colorEnabled: value));
+    return save();
+  }
+
+  Future<void> resetColorEnabled() => changeColorEnabled(true);
 
   bool isFirstStart() {
     return state.lastVersion == null;

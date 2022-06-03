@@ -32,12 +32,14 @@ class LaserHandler extends Handler {
   }
 
   void _updateColors(LaserPainter painter) {
-    final difference = DateTime.now().difference(_lastChanged!);
+    final difference = _lastChanged == null
+        ? Duration.zero
+        : DateTime.now().difference(_lastChanged!);
     final duration = _getDuration(painter);
     submittedElements = submittedElements.map((element) {
       var color = Color(element.property.color);
       final opacity = 1 -
-          ((difference.inMilliseconds / duration.inMilliseconds) *
+          ((difference.inMilliseconds / duration.inMilliseconds) /
               color.opacity);
       color = color.withOpacity(opacity.clamp(0, 1));
       return element.copyWith(
@@ -46,8 +48,9 @@ class LaserHandler extends Handler {
     }).toList();
     var color = Color(painter.color);
     // Fade out opacity
-    final opacity = 1 -
-        ((difference.inMilliseconds / duration.inMilliseconds) * color.opacity);
+    final opacity =
+        (1 - (difference.inMilliseconds / duration.inMilliseconds)) *
+            color.opacity;
     color = color.withOpacity(opacity.clamp(0, 1));
     final colorValue = color.value;
     elements.forEach((key, element) {

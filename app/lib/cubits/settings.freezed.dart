@@ -28,6 +28,7 @@ mixin _$ButterflySettings {
   String get design => throw _privateConstructorUsedError;
   List<String> get recentHistory => throw _privateConstructorUsedError;
   bool get startEnabled => throw _privateConstructorUsedError;
+  bool get colorEnabled => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -53,6 +54,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       String design,
       List<String> recentHistory,
       bool startEnabled,
+      bool colorEnabled,
       String? lastVersion});
 }
 
@@ -79,6 +81,7 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? design = freezed,
     Object? recentHistory = freezed,
     Object? startEnabled = freezed,
+    Object? colorEnabled = freezed,
     Object? lastVersion = freezed,
   }) {
     return _then(_value.copyWith(
@@ -130,6 +133,10 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _value.startEnabled
           : startEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      colorEnabled: colorEnabled == freezed
+          ? _value.colorEnabled
+          : colorEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       lastVersion: lastVersion == freezed
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
@@ -158,6 +165,7 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       String design,
       List<String> recentHistory,
       bool startEnabled,
+      bool colorEnabled,
       String? lastVersion});
 }
 
@@ -186,6 +194,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? design = freezed,
     Object? recentHistory = freezed,
     Object? startEnabled = freezed,
+    Object? colorEnabled = freezed,
     Object? lastVersion = freezed,
   }) {
     return _then(_$_ButterflySettings(
@@ -237,6 +246,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.startEnabled
           : startEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      colorEnabled: colorEnabled == freezed
+          ? _value.colorEnabled
+          : colorEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       lastVersion: lastVersion == freezed
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
@@ -261,6 +274,7 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.design = '',
       final List<String> recentHistory = const [],
       this.startEnabled = true,
+      this.colorEnabled = true,
       this.lastVersion})
       : _recentHistory = recentHistory,
         super._();
@@ -307,11 +321,14 @@ class _$_ButterflySettings extends _ButterflySettings {
   @JsonKey()
   final bool startEnabled;
   @override
+  @JsonKey()
+  final bool colorEnabled;
+  @override
   final String? lastVersion;
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, inputType: $inputType, design: $design, recentHistory: $recentHistory, startEnabled: $startEnabled, lastVersion: $lastVersion)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, inputType: $inputType, design: $design, recentHistory: $recentHistory, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion)';
   }
 
   @override
@@ -340,6 +357,8 @@ class _$_ButterflySettings extends _ButterflySettings {
             const DeepCollectionEquality()
                 .equals(other.startEnabled, startEnabled) &&
             const DeepCollectionEquality()
+                .equals(other.colorEnabled, colorEnabled) &&
+            const DeepCollectionEquality()
                 .equals(other.lastVersion, lastVersion));
   }
 
@@ -358,6 +377,7 @@ class _$_ButterflySettings extends _ButterflySettings {
       const DeepCollectionEquality().hash(design),
       const DeepCollectionEquality().hash(_recentHistory),
       const DeepCollectionEquality().hash(startEnabled),
+      const DeepCollectionEquality().hash(colorEnabled),
       const DeepCollectionEquality().hash(lastVersion));
 
   @JsonKey(ignore: true)
@@ -381,6 +401,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final String design,
       final List<String> recentHistory,
       final bool startEnabled,
+      final bool colorEnabled,
       final String? lastVersion}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
@@ -408,6 +429,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   List<String> get recentHistory => throw _privateConstructorUsedError;
   @override
   bool get startEnabled => throw _privateConstructorUsedError;
+  @override
+  bool get colorEnabled => throw _privateConstructorUsedError;
   @override
   String? get lastVersion => throw _privateConstructorUsedError;
   @override
