@@ -55,8 +55,8 @@ Future<void> main([List<String> args = const []]) async {
 
   if (!kIsWeb && isWindow()) {
     await windowManager.ensureInitialized();
-    final kWindowOptions = WindowOptions(
-      minimumSize: const Size(410, 300),
+    const kWindowOptions = WindowOptions(
+      minimumSize: Size(410, 300),
       title: 'Butterfly',
       titleBarStyle: TitleBarStyle.hidden,
     );

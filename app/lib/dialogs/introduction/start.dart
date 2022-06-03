@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/format_date_time.dart';
 import '../../cubits/settings.dart';
@@ -33,7 +34,7 @@ class StartIntroductionDialog extends StatelessWidget {
                   child: isMobile
                       ? Column(
                           children: [
-                            Flexible(child: _CreateStartView()),
+                            const Flexible(child: _CreateStartView()),
                             const SizedBox(height: 16),
                             Flexible(child: _RecentStartView()),
                           ],
@@ -41,7 +42,7 @@ class StartIntroductionDialog extends StatelessWidget {
                       : Row(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                              Flexible(child: _CreateStartView()),
+                              const Flexible(child: _CreateStartView()),
                               const SizedBox(height: 16),
                               Flexible(child: _RecentStartView()),
                             ])),
@@ -53,10 +54,15 @@ class StartIntroductionDialog extends StatelessWidget {
   }
 }
 
-class _CreateStartView extends StatelessWidget {
-  final ScrollController _scrollController = ScrollController();
+class _CreateStartView extends StatefulWidget {
+  const _CreateStartView();
 
-  _CreateStartView();
+  @override
+  State<_CreateStartView> createState() => _CreateStartViewState();
+}
+
+class _CreateStartViewState extends State<_CreateStartView> {
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +83,56 @@ class _CreateStartView extends StatelessWidget {
                     .createDefault(context)
                     .then((_) => templateSystem.getTemplates()),
                 builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return ListView(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.error,
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        Text(
+                          snapshot.error.toString(),
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        OutlinedButton.icon(
+                          label: Text(
+                              AppLocalizations.of(context)!.defaultTemplate),
+                          icon: const Icon(
+                              PhosphorIcons.clockCounterClockwiseLight),
+                          onPressed: () async {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text(AppLocalizations.of(context)!
+                                    .defaultTemplate),
+                                content: Text(
+                                    AppLocalizations.of(context)!.reallyReset),
+                                actions: [
+                                  TextButton(
+                                    child: Text(
+                                        AppLocalizations.of(context)!.cancel),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ),
+                                  TextButton(
+                                    child:
+                                        Text(AppLocalizations.of(context)!.ok),
+                                    onPressed: () async {
+                                      final navigator = Navigator.of(context);
+                                      await templateSystem.createDefault(
+                                          this.context,
+                                          force: true);
+                                      navigator.pop();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  }
                   if (snapshot.hasData) {
                     return ListView.builder(
                       controller: _scrollController,

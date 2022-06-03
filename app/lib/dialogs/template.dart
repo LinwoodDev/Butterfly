@@ -55,16 +55,50 @@ class _TemplateDialogState extends State<TemplateDialog> {
                     icon: const Icon(PhosphorIcons.xLight),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
-                  actions: widget.currentDocument == null
-                      ? []
-                      : [
-                          IconButton(
-                            onPressed: () =>
-                                _showCreateDialog(widget.currentDocument!),
-                            tooltip: AppLocalizations.of(context)!.create,
-                            icon: const Icon(PhosphorIcons.plusLight),
-                          )
-                        ],
+                  actions: [
+                    IconButton(
+                      icon:
+                          const Icon(PhosphorIcons.clockCounterClockwiseLight),
+                      tooltip: AppLocalizations.of(context)!.defaultTemplate,
+                      onPressed: () async {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text(
+                                AppLocalizations.of(context)!.defaultTemplate),
+                            content:
+                                Text(AppLocalizations.of(context)!.reallyReset),
+                            actions: [
+                              TextButton(
+                                child:
+                                    Text(AppLocalizations.of(context)!.cancel),
+                                onPressed: () => Navigator.of(context).pop(),
+                              ),
+                              TextButton(
+                                child: Text(AppLocalizations.of(context)!.ok),
+                                onPressed: () async {
+                                  final navigator = Navigator.of(context);
+                                  await _fileSystem.createDefault(this.context,
+                                      force: true);
+                                  navigator.pop();
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                    ...widget.currentDocument == null
+                        ? []
+                        : [
+                            IconButton(
+                              onPressed: () =>
+                                  _showCreateDialog(widget.currentDocument!),
+                              tooltip: AppLocalizations.of(context)!.create,
+                              icon: const Icon(PhosphorIcons.plusLight),
+                            )
+                          ],
+                  ],
                 ),
                 Flexible(
                   child: FutureBuilder<List<DocumentTemplate>>(

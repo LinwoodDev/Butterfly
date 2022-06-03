@@ -5,6 +5,7 @@ class PenRenderer extends PathRenderer<PenElement> {
 
   @override
   void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
+    if (!this.rect.overlaps(rect)) return;
     final points = element.points;
     final property = element.property;
     if (points.isEmpty) return;

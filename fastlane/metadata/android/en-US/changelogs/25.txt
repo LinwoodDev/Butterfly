@@ -7,3 +7,10 @@
 * Fix undo/redo buttons
 * Fix invalid elements after changing the layer
 * Fix background dialog slider
+* Fix svg export
+    * Only export elements that are in this bounds
+    * Fix option to disable background
+    * Fix offset of eraser mask
+* Fix loading of templates in old version
+* Add reset button in templates
+* Ignore invalid templates

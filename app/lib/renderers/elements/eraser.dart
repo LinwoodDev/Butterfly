@@ -14,6 +14,7 @@ class EraserRenderer extends PathRenderer<EraserElement> {
 
   @override
   void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
+    if (!this.rect.overlaps(rect)) return;
     final mask = xml
         .getElement('svg')
         ?.getOrCreateElement('defs')

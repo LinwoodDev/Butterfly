@@ -156,7 +156,13 @@ class IOTemplateFileSystem extends TemplateFileSystem {
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     var defaults = DocumentTemplate.getDefaults(context);
     var directory = await getDirectory();
-    if (await Directory(directory).exists()) return false;
+    if (await Directory(directory).exists()) {
+      if (force) {
+        await Directory(directory).delete(recursive: true);
+      } else {
+        return false;
+      }
+    }
     await Future.wait(defaults.map((e) => updateTemplate(e)));
     return true;
   }
@@ -222,8 +228,14 @@ class IOTemplateFileSystem extends TemplateFileSystem {
     var templates = <DocumentTemplate>[];
     for (var file in files) {
       if (file is! File) continue;
-      var json = await file.readAsString();
-      templates.add(DocumentTemplate.fromJson(jsonDecode(json)));
+      try {
+        var json = await file.readAsString();
+        templates.add(DocumentTemplate.fromJson(jsonDecode(json)));
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
     }
     return templates;
   }

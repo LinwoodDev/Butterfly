@@ -28,6 +28,7 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
+    if (!this.rect.overlaps(rect)) return;
     // Create data url
     final data = element.pixels;
     final encoded = base64Encode(data);

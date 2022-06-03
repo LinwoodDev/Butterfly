@@ -89,10 +89,10 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
       int count = 0;
       while (x < rect.width) {
         g.createElement('line', attributes: {
-          'x1': '$x',
-          'y1': '${rect.top}',
-          'x2': '$x',
-          'y2': '${rect.top + rect.height}',
+          'x1': '${x + rect.left}px',
+          'y1': '${rect.top}px',
+          'x2': '${x + rect.left}px',
+          'y2': '${rect.top + rect.height}px',
           'stroke': '#${element.boxXColor.toRadixString(16).substring(2)}',
           'stroke-width': '${element.boxXStroke}'
         });
@@ -116,10 +116,10 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
       int count = 0;
       while (y < rect.height) {
         g.createElement('line', attributes: {
-          'x1': '${rect.left}',
-          'y1': '$y',
-          'x2': '${rect.left + rect.width}',
-          'y2': '$y',
+          'x1': '${rect.left}px',
+          'y1': '${y + rect.top}px',
+          'x2': '${rect.left + rect.width}px',
+          'y2': '${y + rect.top}px',
           'stroke': '#${element.boxYColor.toRadixString(16).substring(2)}',
           'stroke-width': '${element.boxYStroke}'
         });

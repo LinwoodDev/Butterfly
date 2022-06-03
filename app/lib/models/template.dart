@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'background.dart';
+import 'converter.dart';
 import 'painter.dart';
 
 part 'template.g.dart';
@@ -19,7 +20,7 @@ class DocumentTemplate with _$DocumentTemplate {
   const DocumentTemplate._();
 
   const factory DocumentTemplate(
-      {required AppDocument document,
+      {@DocumentJsonConverter() required AppDocument document,
       @Default('/') String folder}) = _DocumentTemplate;
 
   static List<DocumentTemplate> getDefaults(BuildContext context) => [

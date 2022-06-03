@@ -20,6 +20,7 @@ DocumentTemplate _$DocumentTemplateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DocumentTemplate {
+  @DocumentJsonConverter()
   AppDocument get document => throw _privateConstructorUsedError;
   String get folder => throw _privateConstructorUsedError;
 
@@ -34,7 +35,7 @@ abstract class $DocumentTemplateCopyWith<$Res> {
   factory $DocumentTemplateCopyWith(
           DocumentTemplate value, $Res Function(DocumentTemplate) then) =
       _$DocumentTemplateCopyWithImpl<$Res>;
-  $Res call({AppDocument document, String folder});
+  $Res call({@DocumentJsonConverter() AppDocument document, String folder});
 
   $AppDocumentCopyWith<$Res> get document;
 }
@@ -80,7 +81,7 @@ abstract class _$$_DocumentTemplateCopyWith<$Res>
           _$_DocumentTemplate value, $Res Function(_$_DocumentTemplate) then) =
       __$$_DocumentTemplateCopyWithImpl<$Res>;
   @override
-  $Res call({AppDocument document, String folder});
+  $Res call({@DocumentJsonConverter() AppDocument document, String folder});
 
   @override
   $AppDocumentCopyWith<$Res> get document;
@@ -118,13 +119,15 @@ class __$$_DocumentTemplateCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_DocumentTemplate extends _DocumentTemplate {
-  const _$_DocumentTemplate({required this.document, this.folder = '/'})
+  const _$_DocumentTemplate(
+      {@DocumentJsonConverter() required this.document, this.folder = '/'})
       : super._();
 
   factory _$_DocumentTemplate.fromJson(Map<String, dynamic> json) =>
       _$$_DocumentTemplateFromJson(json);
 
   @override
+  @DocumentJsonConverter()
   final AppDocument document;
   @override
   @JsonKey()
@@ -164,7 +167,7 @@ class _$_DocumentTemplate extends _DocumentTemplate {
 
 abstract class _DocumentTemplate extends DocumentTemplate {
   const factory _DocumentTemplate(
-      {required final AppDocument document,
+      {@DocumentJsonConverter() required final AppDocument document,
       final String folder}) = _$_DocumentTemplate;
   const _DocumentTemplate._() : super._();
 
@@ -172,6 +175,7 @@ abstract class _DocumentTemplate extends DocumentTemplate {
       _$_DocumentTemplate.fromJson;
 
   @override
+  @DocumentJsonConverter()
   AppDocument get document => throw _privateConstructorUsedError;
   @override
   String get folder => throw _privateConstructorUsedError;
