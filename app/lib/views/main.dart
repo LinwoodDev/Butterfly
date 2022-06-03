@@ -33,6 +33,7 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/views/app_bar.dart';
+import 'package:butterfly/views/color.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -316,6 +317,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.stretch,
                                         children: [
+                                          const ColorView(),
                                           Expanded(
                                               key: _viewportKey,
                                               child: const MainViewViewport()),
@@ -327,7 +329,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                         const EdgeInsets.all(
                                                             8.0),
                                                     child: EditToolbar(
-                                                        isMobile: isMobile)))
+                                                        isMobile: isMobile))),
                                         ]);
                                   })),
                             ));

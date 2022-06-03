@@ -37,4 +37,15 @@ class LabelHandler extends Handler {
               ),
             )));
   }
+
+  @override
+  int? getColor(DocumentBloc bloc) =>
+      getPainter<PenPainter>(bloc)?.property.color;
+
+  @override
+  PenPainter? setColor(DocumentBloc bloc, int color) {
+    final painter = getPainter<PenPainter>(bloc);
+    if (painter == null) return null;
+    return painter.copyWith(property: painter.property.copyWith(color: color));
+  }
 }

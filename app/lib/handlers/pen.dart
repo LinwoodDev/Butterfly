@@ -78,4 +78,15 @@ class PenHandler extends Handler {
           Size viewportSize, BuildContext context, PointerMoveEvent event) =>
       addPoint(context, event.pointer, event.localPosition, event.pressure,
           event.kind);
+
+  @override
+  int? getColor(DocumentBloc bloc) =>
+      getPainter<PenPainter>(bloc)?.property.color;
+
+  @override
+  PenPainter? setColor(DocumentBloc bloc, int color) {
+    final painter = getPainter<PenPainter>(bloc);
+    if (painter == null) return null;
+    return painter.copyWith(property: painter.property.copyWith(color: color));
+  }
 }

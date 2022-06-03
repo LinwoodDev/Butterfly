@@ -115,4 +115,8 @@ class AppDocument with _$AppDocument {
   Set<String> getLayerNames() {
     return content.map((e) => e.layer).toSet();
   }
+
+  ColorPalette? getPalette(String name) {
+    return palettes.firstWhereOrNull((e) => e.name == name);
+  }
 }

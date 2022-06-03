@@ -74,6 +74,10 @@ abstract class Handler {
   void onLongPressEnd(
       Size viewportSize, BuildContext context, LongPressEndDetails details) {}
 
+  int? getColor(DocumentBloc bloc) => null;
+
+  Painter? setColor(DocumentBloc bloc, int color) => null;
+
   factory Handler.fromBloc(
       CurrentIndexCubit currentIndexCubit, DocumentBloc bloc,
       [int? index]) {
@@ -107,6 +111,9 @@ abstract class Handler {
     }
     return HandHandler(currentIndexCubit);
   }
+
+  T? getPainter<T extends Painter>(DocumentBloc bloc) =>
+      cubit.fetchPainter<T>(bloc);
 }
 
 typedef HitRequest = bool Function(Offset position, [double radius]);
