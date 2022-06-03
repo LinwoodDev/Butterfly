@@ -2,6 +2,25 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.0-alpha.0 (2022-06-03)
+
+* Reimplement color field
+* Fix bake issues when moving the camera with a gesture
+* Fix move gesture relative to viewport
+* Fix fill mode
+* Fix hard edges in settings dialog
+* Fix firefox bug when creating a new path
+* Fix undo/redo buttons
+* Fix invalid elements after changing the layer
+* Fix background dialog slider
+* Fix svg export
+    * Only export elements that are in this bounds
+    * Fix option to disable background
+    * Fix offset of eraser mask
+* Fix loading of templates in old version
+* Add reset button in templates
+* Ignore invalid templates
+
 ## 1.3.0 (2022-05-26)
 
 * Fix bug where document will be cleared after removing a layer or rename a layer
