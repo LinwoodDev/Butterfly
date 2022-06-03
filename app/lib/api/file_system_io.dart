@@ -228,8 +228,14 @@ class IOTemplateFileSystem extends TemplateFileSystem {
     var templates = <DocumentTemplate>[];
     for (var file in files) {
       if (file is! File) continue;
-      var json = await file.readAsString();
-      templates.add(DocumentTemplate.fromJson(jsonDecode(json)));
+      try {
+        var json = await file.readAsString();
+        templates.add(DocumentTemplate.fromJson(jsonDecode(json)));
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
     }
     return templates;
   }

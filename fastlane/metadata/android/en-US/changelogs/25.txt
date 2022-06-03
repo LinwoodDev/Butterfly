@@ -13,3 +13,4 @@
     * Fix offset of eraser mask
 * Fix loading of templates in old version
 * Add reset button in templates
+* Ignore invalid templates

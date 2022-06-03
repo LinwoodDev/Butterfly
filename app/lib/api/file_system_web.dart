@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:idb_shim/idb.dart';
 import 'package:idb_shim/idb_browser.dart';
@@ -273,8 +274,15 @@ class WebTemplateFileSystem extends TemplateFileSystem {
     var cursor = store.openCursor(autoAdvance: true);
     var templates = <DocumentTemplate>[];
     await cursor.forEach((cursor) {
-      var map = cursor.value as Map;
-      templates.add(DocumentTemplate.fromJson(Map<String, dynamic>.from(map)));
+      try {
+        var map = cursor.value as Map;
+        templates
+            .add(DocumentTemplate.fromJson(Map<String, dynamic>.from(map)));
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
     });
     await txn.completed;
     return templates;

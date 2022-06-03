@@ -8,13 +8,12 @@ part of 'template.dart';
 
 _$_DocumentTemplate _$$_DocumentTemplateFromJson(Map json) =>
     _$_DocumentTemplate(
-      document: AppDocument.fromJson(
-          Map<String, dynamic>.from(json['document'] as Map)),
+      document: const DocumentJsonConverter().fromJson(json['document'] as Map),
       folder: json['folder'] as String? ?? '/',
     );
 
 Map<String, dynamic> _$$_DocumentTemplateToJson(_$_DocumentTemplate instance) =>
     <String, dynamic>{
-      'document': instance.document.toJson(),
+      'document': const DocumentJsonConverter().toJson(instance.document),
       'folder': instance.folder,
     };
