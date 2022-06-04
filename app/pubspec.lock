@@ -617,7 +617,7 @@ packages:
     source: hosted
     version: "2.0.7"
   pdf:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: pdf
       url: "https://pub.dartlang.org"

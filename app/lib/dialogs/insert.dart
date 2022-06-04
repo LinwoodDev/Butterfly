@@ -12,6 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:pdf/pdf.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:printing/printing.dart';
 
@@ -49,7 +50,7 @@ class _InsertDialogState extends State<InsertDialog> {
 
   Future<void> _runInsertImage(Uint8List content) async {
     var bloc = context.read<DocumentBloc>();
-    var codec = await ui.instantiateImageCodec(content, targetWidth: 500);
+    var codec = await ui.instantiateImageCodec(content);
     var frame = await codec.getNextFrame();
     var image = frame.image.clone();
 
@@ -78,6 +79,7 @@ class _InsertDialogState extends State<InsertDialog> {
           Text(AppLocalizations.of(context)!.insert),
         ],
       ),
+      scrollable: true,
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         ListTile(
           title: Text(AppLocalizations.of(context)!.image),
@@ -124,31 +126,29 @@ class _InsertDialogState extends State<InsertDialog> {
                 if (!kIsWeb) {
                   content = await File(e.path ?? '').readAsBytes();
                 }
-                var y = widget.position.dy;
-                final elements = <ImageElement>[];
+                final elements = <Uint8List>[];
                 await for (var page in Printing.raster(content)) {
                   final png = await page.toPng();
-                  elements.add(ImageElement(
+                  elements.add(png);
+                }
+                final callback = await showDialog<PageDialogCallback>(
+                    context: context,
+                    builder: (context) => PagesDialog(pages: elements));
+                if (callback == null) return;
+                final selectedElements = <ImageElement>[];
+                var y = widget.position.dy;
+                await for (var page in Printing.raster(content,
+                    pages: callback.pages,
+                    dpi: PdfPageFormat.inch * callback.quality)) {
+                  final png = await page.toPng();
+                  final scale = callback.quality;
+                  selectedElements.add(ImageElement(
                       height: page.height,
                       width: page.width,
-                      pixels: Uint8List.fromList(png),
+                      pixels: png,
+                      constraints: ElementConstraints.scaled(scale),
                       position: Offset(widget.position.dx, y)));
-                  y = y + page.height;
-                }
-                final selectedPages = await showDialog<List<int>>(
-                    context: context,
-                    builder: (context) => PagesDialog(
-                        pages: elements.map((e) => e.pixels).toList()));
-                if (selectedPages == null) return;
-                final selectedElements = <ImageElement>[];
-                y = widget.position.dy;
-                for (var i = 0; i < elements.length; i++) {
-                  if (selectedPages.contains(i)) {
-                    final current = elements[i];
-                    selectedElements.add(current.copyWith(
-                        position: Offset(widget.position.dx, y)));
-                    y += current.height;
-                  }
+                  y += page.height;
                 }
                 _submit(selectedElements);
               } catch (e, stackTrace) {

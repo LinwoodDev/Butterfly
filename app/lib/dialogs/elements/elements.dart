@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../renderers/renderer.dart';
+import 'image.dart';
 
 class ElementsDialog extends StatefulWidget {
   final List<Renderer<PadElement>> elements;
@@ -45,8 +46,8 @@ class _ElementsDialogState extends State<ElementsDialog> {
       if (element is LabelElement) {
         content = LabelElementDialog(
             index: index, close: widget.close, position: widget.position);
-      } else if (element is LabelElement) {
-        content = LabelElementDialog(
+      } else if (element is ImageElement) {
+        content = ImageElementDialog(
             index: index, close: widget.close, position: widget.position);
       } else if (element != null) {
         content = GeneralElementDialog(

@@ -1,10 +1,19 @@
 import 'dart:typed_data';
 
+import 'package:butterfly/widgets/exact_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../widgets/header.dart';
+
+@immutable
+class PageDialogCallback {
+  final List<int> pages;
+  final double quality;
+
+  const PageDialogCallback(this.pages, this.quality);
+}
 
 class PagesDialog extends StatefulWidget {
   final List<Uint8List> pages;
@@ -16,6 +25,7 @@ class PagesDialog extends StatefulWidget {
 
 class _PagesDialogState extends State<PagesDialog> {
   List<int> selected = const [];
+  double quality = 2.0;
 
   @override
   void initState() {
@@ -54,6 +64,7 @@ class _PagesDialogState extends State<PagesDialog> {
             padding: const EdgeInsets.all(8.0),
             child: Material(
               child: ListView.builder(
+                shrinkWrap: true,
                 itemCount: widget.pages.length,
                 itemBuilder: (context, index) {
                   // Show border for selected pages
@@ -81,6 +92,13 @@ class _PagesDialogState extends State<PagesDialog> {
               ),
             ),
           )),
+          ExactSlider(
+            onChanged: (value) => setState(() => quality = value),
+            defaultValue: 2,
+            value: quality,
+            max: 10,
+            label: AppLocalizations.of(context)!.quality,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -92,7 +110,8 @@ class _PagesDialogState extends State<PagesDialog> {
                 ),
                 ElevatedButton(
                   child: Text(AppLocalizations.of(context)!.ok),
-                  onPressed: () => Navigator.of(context).pop(selected),
+                  onPressed: () => Navigator.of(context)
+                      .pop(PageDialogCallback(selected, quality)),
                 ),
               ],
             ),

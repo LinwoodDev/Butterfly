@@ -16,7 +16,7 @@ class ImageRenderer extends Renderer<ImageElement> {
       canvas.drawRect(rect, paint);
       return;
     }
-    var paint = Paint()..isAntiAlias = true;
+    var paint = Paint();
 
     canvas.drawImageRect(
       image!.clone(),

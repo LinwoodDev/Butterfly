@@ -2,3 +2,7 @@
 * Add duplicate to change document path
 * Add color view to label, pen and laser painter
 * Add spanish translation
+* Add quality slider to pdf
+* Move android storage to external
+* Fix image low quality
+* Fix window_manager errors on mobile devices
