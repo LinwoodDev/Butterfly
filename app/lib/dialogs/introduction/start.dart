@@ -78,100 +78,103 @@ class _CreateStartViewState extends State<_CreateStartView> {
               style: Theme.of(context).textTheme.headline6,
             ),
             Flexible(
-              child: FutureBuilder<List<DocumentTemplate>>(
-                future: templateSystem
-                    .createDefault(context)
-                    .then((_) => templateSystem.getTemplates()),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return ListView(
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.error,
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                        Text(
-                          snapshot.error.toString(),
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                        OutlinedButton.icon(
-                          label: Text(
-                              AppLocalizations.of(context)!.defaultTemplate),
-                          icon: const Icon(
-                              PhosphorIcons.clockCounterClockwiseLight),
-                          onPressed: () async {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text(AppLocalizations.of(context)!
-                                    .defaultTemplate),
-                                content: Text(
-                                    AppLocalizations.of(context)!.reallyReset),
-                                actions: [
-                                  TextButton(
-                                    child: Text(
-                                        AppLocalizations.of(context)!.cancel),
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                  ),
-                                  TextButton(
-                                    child:
-                                        Text(AppLocalizations.of(context)!.ok),
-                                    onPressed: () async {
-                                      final navigator = Navigator.of(context);
-                                      await templateSystem.createDefault(
-                                          this.context,
-                                          force: true);
-                                      navigator.pop();
-                                    },
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    );
-                  }
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      controller: _scrollController,
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        final template = snapshot.data![index];
-                        return ListTile(
-                            title: Text(template.name),
-                            subtitle: Text(template.description),
-                            onTap: () async {
-                              final settingsCubit =
-                                  context.read<SettingsCubit>();
-                              final currentIndexCubit =
-                                  context.read<CurrentIndexCubit>();
-                              final bloc = context.read<DocumentBloc>();
-                              final transformCubit =
-                                  context.read<TransformCubit>();
-                              Navigator.of(context).pop();
-                              final settings = settingsCubit.state;
-                              final document = template.document.copyWith(
-                                name: await formatCurrentDateTime(
-                                    settings.locale),
-                                createdAt: DateTime.now(),
+              child: Material(
+                color: Colors.transparent,
+                child: FutureBuilder<List<DocumentTemplate>>(
+                  future: templateSystem
+                      .createDefault(context)
+                      .then((_) => templateSystem.getTemplates()),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return ListView(
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.error,
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                          Text(
+                            snapshot.error.toString(),
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                          OutlinedButton.icon(
+                            label: Text(
+                                AppLocalizations.of(context)!.defaultTemplate),
+                            icon: const Icon(
+                                PhosphorIcons.clockCounterClockwiseLight),
+                            onPressed: () async {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text(AppLocalizations.of(context)!
+                                      .defaultTemplate),
+                                  content: Text(AppLocalizations.of(context)!
+                                      .reallyReset),
+                                  actions: [
+                                    TextButton(
+                                      child: Text(
+                                          AppLocalizations.of(context)!.cancel),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                    ),
+                                    TextButton(
+                                      child: Text(
+                                          AppLocalizations.of(context)!.ok),
+                                      onPressed: () async {
+                                        final navigator = Navigator.of(context);
+                                        await templateSystem.createDefault(
+                                            this.context,
+                                            force: true);
+                                        navigator.pop();
+                                      },
+                                    ),
+                                  ],
+                                ),
                               );
+                            },
+                          ),
+                        ],
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        controller: _scrollController,
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          final template = snapshot.data![index];
+                          return ListTile(
+                              title: Text(template.name),
+                              subtitle: Text(template.description),
+                              onTap: () async {
+                                final settingsCubit =
+                                    context.read<SettingsCubit>();
+                                final currentIndexCubit =
+                                    context.read<CurrentIndexCubit>();
+                                final bloc = context.read<DocumentBloc>();
+                                final transformCubit =
+                                    context.read<TransformCubit>();
+                                Navigator.of(context).pop();
+                                final settings = settingsCubit.state;
+                                final document = template.document.copyWith(
+                                  name: await formatCurrentDateTime(
+                                      settings.locale),
+                                  createdAt: DateTime.now(),
+                                );
 
-                              bloc.clearHistory();
-                              transformCubit.reset();
-                              currentIndexCubit.reset();
-                              bloc.emit(DocumentLoadSuccess(document,
-                                  currentIndexCubit: currentIndexCubit,
-                                  settingsCubit: settingsCubit));
-                            });
-                      },
-                    );
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                },
+                                bloc.clearHistory();
+                                transformCubit.reset();
+                                currentIndexCubit.reset();
+                                bloc.emit(DocumentLoadSuccess(document,
+                                    currentIndexCubit: currentIndexCubit,
+                                    settingsCubit: settingsCubit));
+                              });
+                        },
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
               ),
             ),
           ],
@@ -201,30 +204,33 @@ class _RecentStartView extends StatelessWidget {
               style: Theme.of(context).textTheme.headline6,
             ),
             Flexible(
-              child: recents.isEmpty
-                  ? Center(
-                      child: Text(
-                      AppLocalizations.of(context)!.noRecentFiles,
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ))
-                  : ListView(
-                      shrinkWrap: true,
-                      controller: _scrollController,
-                      physics: const ScrollPhysics(),
-                      children: recents.map((recent) {
-                        return Dismissible(
-                          key: Key(recent),
-                          onDismissed: (direction) {
-                            settingsCubit.removeRecentHistory(recent);
-                          },
-                          child: ListTile(
-                              title: Text(recent),
-                              onTap: () {
-                                GoRouter.of(context).pushNamed('home',
-                                    queryParams: {'path': recent});
-                              }),
-                        );
-                      }).toList()),
+              child: Material(
+                color: Colors.transparent,
+                child: recents.isEmpty
+                    ? Center(
+                        child: Text(
+                        AppLocalizations.of(context)!.noRecentFiles,
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ))
+                    : ListView(
+                        shrinkWrap: true,
+                        controller: _scrollController,
+                        physics: const ScrollPhysics(),
+                        children: recents.map((recent) {
+                          return Dismissible(
+                            key: Key(recent),
+                            onDismissed: (direction) {
+                              settingsCubit.removeRecentHistory(recent);
+                            },
+                            child: ListTile(
+                                title: Text(recent),
+                                onTap: () {
+                                  GoRouter.of(context).pushNamed('home',
+                                      queryParams: {'path': recent});
+                                }),
+                          );
+                        }).toList()),
+              ),
             ),
           ],
         ),
