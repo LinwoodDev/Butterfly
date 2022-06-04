@@ -289,5 +289,6 @@
     "enterFullScreen": "Vollbild öffnen",
     "exitFullScreen": "Vollbild beenden",
     "laser": "Laser",
-    "duration": "Dauer"
+    "duration": "Dauer",
+    "quality": "Quality"
 }
