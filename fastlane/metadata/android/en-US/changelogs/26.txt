@@ -1,0 +1,4 @@
+* Add laser painter to paint strokes temporarily
+* Add duplicate to change document path
+* Add color view to label, pen and laser painter
+* Add spanish translation

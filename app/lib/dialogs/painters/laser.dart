@@ -28,7 +28,7 @@ class LaserPainterDialog extends StatelessWidget {
                   onChanged: (value) =>
                       setPainter(painter.copyWith(strokeWidth: value))),
               ExactSlider(
-                  header: Text(AppLocalizations.of(context)!.strokeWidth),
+                  header: Text(AppLocalizations.of(context)!.strokeMultiplier),
                   value: painter.strokeMultiplier,
                   min: 0,
                   max: 70,

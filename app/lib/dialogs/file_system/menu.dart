@@ -100,7 +100,7 @@ class FileSystemAssetMenu extends StatelessWidget {
                   var newPath = await showDialog(
                     context: context,
                     builder: (context) => FileSystemAssetMoveDialog(
-                        asset: asset, duplicate: true),
+                        asset: asset, moveMode: MoveMode.duplicate),
                   ) as String?;
                   if (newPath == null) return;
                   onRefreshed();
@@ -116,8 +116,8 @@ class FileSystemAssetMenu extends StatelessWidget {
                   Navigator.of(context).pop();
                   final newPath = await showDialog(
                     context: context,
-                    builder: (context) =>
-                        FileSystemAssetMoveDialog(asset: asset),
+                    builder: (context) => FileSystemAssetMoveDialog(
+                        asset: asset, moveMode: MoveMode.move),
                   ) as String?;
                   if (newPath == null) return;
                   onRefreshed();

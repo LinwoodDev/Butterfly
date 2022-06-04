@@ -36,21 +36,22 @@ class LaserHandler extends Handler {
         ? Duration.zero
         : DateTime.now().difference(_lastChanged!);
     final duration = _getDuration(painter);
+    var color = Color(painter.color);
+    final painterOpacity = color.opacity;
     submittedElements = submittedElements.map((element) {
       var color = Color(element.property.color);
-      final opacity = 1 -
-          ((difference.inMilliseconds / duration.inMilliseconds) /
-              color.opacity);
+      final opacity =
+          (1 - (difference.inMilliseconds / duration.inMilliseconds)) *
+              painterOpacity;
       color = color.withOpacity(opacity.clamp(0, 1));
       return element.copyWith(
         property: element.property.copyWith(color: color.value),
       );
     }).toList();
-    var color = Color(painter.color);
     // Fade out opacity
     final opacity =
         (1 - (difference.inMilliseconds / duration.inMilliseconds)) *
-            color.opacity;
+            painterOpacity;
     color = color.withOpacity(opacity.clamp(0, 1));
     final colorValue = color.value;
     elements.forEach((key, element) {
@@ -77,9 +78,13 @@ class LaserHandler extends Handler {
   @override
   void onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) {
+    final bloc = context.read<DocumentBloc>();
     addPoint(context, event.pointer, event.localPosition, event.pressure,
         event.kind);
-    _startTimer(context.read<DocumentBloc>());
+    var element = elements.remove(event.pointer);
+    if (element == null) return;
+    submittedElements.add(element);
+    cubit.refresh(bloc);
   }
 
   void addPoint(
@@ -112,7 +117,7 @@ class LaserHandler extends Handler {
           ..add(PathPoint.fromOffset(
               transform.localToGlobal(localPosition), pressure)));
     cubit.refresh(bloc);
-    _stopTimer(bloc);
+    _startTimer(bloc);
   }
 
   @override
