@@ -51,9 +51,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final document = blocState.document;
     final handler = state.handler;
     final currentArea = blocState.currentArea;
-    emit(state.copyWith(
-        foregrounds: handler?.createForegrounds(document, currentArea) ?? [],
-        selections: handler?.createSelections(document, currentArea) ?? []));
+    if (!isClosed) {
+      emit(state.copyWith(
+          foregrounds: handler?.createForegrounds(document, currentArea) ?? [],
+          selections: handler?.createSelections(document, currentArea) ?? []));
+    }
   }
 
   Painter? getPainter(DocumentBloc bloc) {

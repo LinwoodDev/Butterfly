@@ -75,9 +75,15 @@ class LaserHandler extends Handler {
       ..addAll(submittedElements.map((e) => PenRenderer(e)));
   }
 
+  bool _moving = false;
+
   @override
   void onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) {
+    if (_moving) {
+      _moving = false;
+      return;
+    }
     final bloc = context.read<DocumentBloc>();
     addPoint(context, event.pointer, event.localPosition, event.pressure,
         event.kind);
@@ -123,15 +129,26 @@ class LaserHandler extends Handler {
   @override
   void onPointerDown(
       Size viewportSize, BuildContext context, PointerDownEvent event) {
+    if (kSecondaryMouseButton == event.buttons) {
+      _moving = true;
+      return;
+    }
     addPoint(context, event.pointer, event.localPosition, event.pressure,
         event.kind);
   }
 
   @override
   void onPointerMove(
-          Size viewportSize, BuildContext context, PointerMoveEvent event) =>
-      addPoint(context, event.pointer, event.localPosition, event.pressure,
-          event.kind);
+      Size viewportSize, BuildContext context, PointerMoveEvent event) {
+    if (kSecondaryMouseButton == event.buttons) {
+      final transform = context.read<TransformCubit>().state;
+      context.read<TransformCubit>().move(event.localDelta / transform.size);
+      return;
+    }
+    addPoint(context, event.pointer, event.localPosition, event.pressure,
+        event.kind);
+  }
+
   @override
   int? getColor(DocumentBloc bloc) => getPainter<LaserPainter>(bloc)?.color;
 
