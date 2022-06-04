@@ -2,7 +2,7 @@
 
 <!--ENTER CHANGELOG HERE-->
 
-## 1.4.0-alpha.0 (2022-06-03)
+## 1.3.1 (2022-06-03)
 
 * Reimplement color field
 * Fix bake issues when moving the camera with a gesture

@@ -2,7 +2,10 @@
 * Add duplicate to change document path
 * Add color view to label, pen and laser painter
 * Add spanish translation
-* Add quality slider to pdf
+* Add quality slider to pdf ([#184](https://github.com/LinwoodCloud/Butterfly/issues/184))
+* Add copy to change document path ([#180](https://github.com/LinwoodCloud/Butterfly/issues/180))
 * Move android storage to external
+* Center image on moving ([#185](https://github.com/LinwoodCloud/Butterfly/issues/185))
 * Fix image low quality
+* Fix missing constraints button in image element dialog
 * Fix window_manager errors on mobile devices
