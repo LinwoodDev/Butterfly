@@ -35,7 +35,8 @@ class ForegroundPainter extends CustomPainter {
       final maxY = minY + size.height / transform.size - 40 / transform.size;
       */
       canvas.drawRRect(
-          RRect.fromRectAndRadius(rect.inflate(5), const Radius.circular(5)),
+          RRect.fromRectAndRadius(
+              rect.inflate(5 / transform.size), const Radius.circular(5)),
           Paint()
             ..style = PaintingStyle.stroke
             ..shader = ui.Gradient.linear(
@@ -43,7 +44,7 @@ class ForegroundPainter extends CustomPainter {
               rect.bottomRight,
               [Colors.red, Colors.yellow],
             )
-            ..strokeWidth = 10 / transform.size);
+            ..strokeWidth = 5 / transform.size);
     }
   }
 
