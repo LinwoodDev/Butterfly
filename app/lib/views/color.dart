@@ -19,6 +19,17 @@ class ColorView extends StatefulWidget {
 class _ColorViewState extends State<ColorView> {
   String? currentPalette;
   final ScrollController _scrollController = ScrollController();
+  final GlobalKey _animatedKey = GlobalKey();
+  double _height = 50;
+
+  void _setOpened(bool opened) {
+    if (opened && _height == 0) {
+      _height = 50;
+    }
+    if (!opened && _height != 0) {
+      _height = 0;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,100 +37,112 @@ class _ColorViewState extends State<ColorView> {
         buildWhen: (previous, current) =>
             previous.colorEnabled != current.colorEnabled,
         builder: (context, settings) {
-          if (!settings.colorEnabled) {
-            return Container();
-          }
           return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
             builder: (context, currentIndex) =>
                 BlocBuilder<DocumentBloc, DocumentState>(
                     builder: (context, state) {
-              if (state is! DocumentLoadSuccess) return Container();
-              final painter = currentIndex.handler;
-              final bloc = context.read<DocumentBloc>();
-              final color = painter?.getColor(bloc);
-              if (color == null) return Container();
-              currentPalette ??= state.document.palettes.firstOrNull?.name;
-              final palette = currentPalette == null
-                  ? null
-                  : state.document.getPalette(currentPalette!);
-              return SizedBox(
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    if (!(palette?.colors.contains(color) ?? false)) ...[
-                      _ColorButton(
-                          current: color,
-                          color: color,
-                          bloc: bloc,
-                          painterIndex: currentIndex.index),
-                      const VerticalDivider(),
-                    ],
-                    Expanded(
-                        child: Scrollbar(
-                      controller: _scrollController,
-                      child: ListView.builder(
-                          controller: _scrollController,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: palette?.colors.length ?? 0,
-                          itemBuilder: (context, index) {
-                            final current = palette?.colors[index];
-                            if (current == null) return Container();
-                            return _ColorButton(
-                                bloc: bloc,
-                                painterIndex: currentIndex.index,
-                                color: color,
-                                current: current,
-                                handler: painter);
-                          }),
-                    )),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon: const Icon(PhosphorIcons.penLight),
-                          onPressed: () async {
-                            final nextColor = await showDialog(
-                                context: context,
-                                builder: (context) => CustomColorPicker(
-                                    defaultColor: Color(color))) as int?;
-                            if (nextColor != null) {
-                              final newPainter =
-                                  painter?.setColor(bloc, nextColor);
-                              if (newPainter == null) return;
-                              bloc.add(PainterChanged(
-                                  newPainter, currentIndex.index));
-                            }
-                          },
-                        ),
-                        PopupMenuButton(
-                          icon: const Icon(PhosphorIcons.listLight),
-                          itemBuilder: (context) => [
-                            for (final palette in state.document.palettes)
-                              PopupMenuItem(
-                                value: palette.name,
-                                textStyle: palette.name == currentPalette
-                                    ? Theme.of(context)
-                                        .textTheme
-                                        .subtitle1
-                                        ?.copyWith(
-                                          color: Theme.of(context).primaryColor,
-                                        )
-                                    : null,
-                                child: Text(palette.name),
-                                onTap: () {
-                                  setState(() {
-                                    currentPalette = palette.name;
-                                  });
-                                },
-                              ),
-                          ],
-                        )
+              Widget? child;
+              if (!settings.colorEnabled) {
+                _setOpened(false);
+              } else if (state is! DocumentLoadSuccess) {
+                _setOpened(false);
+              } else {
+                final painter = currentIndex.handler;
+                final bloc = context.read<DocumentBloc>();
+                final color = painter?.getColor(bloc);
+                if (color == null) {
+                  _setOpened(false);
+                } else {
+                  currentPalette ??= state.document.palettes.firstOrNull?.name;
+                  final palette = currentPalette == null
+                      ? null
+                      : state.document.getPalette(currentPalette!);
+                  _setOpened(true);
+                  child = Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (!(palette?.colors.contains(color) ?? false)) ...[
+                        _ColorButton(
+                            current: color,
+                            color: color,
+                            bloc: bloc,
+                            painterIndex: currentIndex.index),
+                        const VerticalDivider(),
                       ],
-                    )
-                  ],
-                ),
+                      Expanded(
+                          child: Scrollbar(
+                        controller: _scrollController,
+                        child: ListView.builder(
+                            controller: _scrollController,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: palette?.colors.length ?? 0,
+                            itemBuilder: (context, index) {
+                              final current = palette?.colors[index];
+                              if (current == null) return Container();
+                              return _ColorButton(
+                                  bloc: bloc,
+                                  painterIndex: currentIndex.index,
+                                  color: color,
+                                  current: current,
+                                  handler: painter);
+                            }),
+                      )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: const Icon(PhosphorIcons.penLight),
+                            onPressed: () async {
+                              final nextColor = await showDialog(
+                                  context: context,
+                                  builder: (context) => CustomColorPicker(
+                                      defaultColor: Color(color))) as int?;
+                              if (nextColor != null) {
+                                final newPainter =
+                                    painter?.setColor(bloc, nextColor);
+                                if (newPainter == null) return;
+                                bloc.add(PainterChanged(
+                                    newPainter, currentIndex.index));
+                              }
+                            },
+                          ),
+                          PopupMenuButton(
+                            icon: const Icon(PhosphorIcons.listLight),
+                            itemBuilder: (context) => [
+                              for (final palette in state.document.palettes)
+                                PopupMenuItem(
+                                  value: palette.name,
+                                  textStyle: palette.name == currentPalette
+                                      ? Theme.of(context)
+                                          .textTheme
+                                          .subtitle1
+                                          ?.copyWith(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          )
+                                      : null,
+                                  child: Text(palette.name),
+                                  onTap: () {
+                                    setState(() {
+                                      currentPalette = palette.name;
+                                    });
+                                  },
+                                ),
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  );
+                }
+              }
+              return AnimatedContainer(
+                height: _height,
+                key: _animatedKey,
+                curve: Curves.fastOutSlowIn,
+                duration: const Duration(milliseconds: 200),
+                child: child,
               );
             }),
           );
