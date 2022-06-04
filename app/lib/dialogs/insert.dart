@@ -141,7 +141,7 @@ class _InsertDialogState extends State<InsertDialog> {
                     pages: callback.pages,
                     dpi: PdfPageFormat.inch * callback.quality)) {
                   final png = await page.toPng();
-                  final scale = callback.quality;
+                  final scale = 1 / callback.quality;
                   selectedElements.add(ImageElement(
                       height: page.height,
                       width: page.width,

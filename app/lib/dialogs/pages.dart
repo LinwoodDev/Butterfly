@@ -97,6 +97,7 @@ class _PagesDialogState extends State<PagesDialog> {
             defaultValue: 2,
             value: quality,
             max: 10,
+            min: 0.5,
             label: AppLocalizations.of(context)!.quality,
           ),
           Padding(

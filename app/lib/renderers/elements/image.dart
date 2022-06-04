@@ -95,5 +95,6 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  ImageElement move(Offset position) => element.copyWith(position: position);
+  ImageElement move(Offset position) => element.copyWith(
+      position: position - Offset(rect.width / 2, rect.height / 2));
 }
