@@ -286,5 +286,6 @@
   "minimize": "Minimize",
   "restore": "Restore",
   "enterFullScreen": "Enter full screen",
-  "exitFullScreen": "Exit full screen"
+  "exitFullScreen": "Exit full screen",
+  "quality": "Quality"
 }

@@ -11,6 +11,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'file_system.dart';
 
+Future<String> getButterflyDirectory() async {
+  String? path;
+  if (Platform.isAndroid) path = (await getExternalStorageDirectory())?.path;
+  path ??= (await getApplicationDocumentsDirectory()).path;
+  path += '/Linwood/Butterfly';
+  return path;
+}
+
 class IODocumentFileSystem extends DocumentFileSystem {
   @override
   Future<AppDocumentFile> importDocument(AppDocument document,
@@ -120,8 +128,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (path == '') {
       path = null;
     }
-    path ??=
-        '${(await getApplicationDocumentsDirectory()).path}/Linwood/Butterfly';
+    path ??= await getButterflyDirectory();
     // Convert \ to /
     path = path.replaceAll('\\', '/');
     path += '/Documents';
@@ -202,8 +209,7 @@ class IOTemplateFileSystem extends TemplateFileSystem {
     if (path == '') {
       path = null;
     }
-    path ??=
-        '${(await getApplicationDocumentsDirectory()).path}/Linwood/Butterfly';
+    path ??= await getButterflyDirectory();
     // Convert \ to /
     path = path.replaceAll('\\', '/');
     path += '/Templates';

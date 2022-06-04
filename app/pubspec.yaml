@@ -49,6 +49,7 @@ dependencies:
   path: ^1.8.1
   printing: ^5.9.1
   js: ^0.6.4
+  pdf: ^3.8.1
 
 dev_dependencies:
   flutter_native_splash: ^2.2.2

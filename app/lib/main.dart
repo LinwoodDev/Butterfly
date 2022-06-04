@@ -109,7 +109,9 @@ class ButterflyApp extends StatelessWidget {
             themeMode: state.theme,
             builder: (context, child) {
               final content = child ?? Container();
-              if (kIsWeb) return content;
+              if (kIsWeb || (!Platform.isWindows && !Platform.isLinux)) {
+                return content;
+              }
               return DragToResizeArea(resizeEdgeSize: 8, child: content);
             },
             darkTheme: ThemeManager.getThemeByName(state.design, dark: true),

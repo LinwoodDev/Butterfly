@@ -1,12 +1,16 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:butterfly/api/file_system.dart';
+import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:butterfly/api/full_screen_stub.dart'
     if (dart.library.io) 'package:butterfly/api/full_screen_io.dart'
     if (dart.library.js) 'package:butterfly/api/full_screen_html.dart'
     as full_screen;
 
+import 'api/file_system_io.dart';
 import 'models/converter.dart';
 
 Future<void> setup() async {
@@ -24,5 +28,32 @@ Future<void> setup() async {
         .map((element) => DocumentFileSystem.fromPlatform()
             .updateDocument(element.name, element)));
   }
+
+  // Moving to external storage on Android
+  if (!kIsWeb && Platform.isAndroid) {
+    var dir = await getApplicationDocumentsDirectory();
+    final oldPath = '${dir.path}/Linwood/Butterfly';
+    final newPath = await getButterflyDirectory();
+    await _moveDirectory(oldPath, newPath);
+  }
   full_screen.setup();
+}
+
+Future<void> _moveDirectory(String oldPath, String newPath) async {
+  var oldDirectory = Directory(oldPath);
+  if (await oldDirectory.exists()) {
+    var files = await oldDirectory.list().toList();
+    for (final file in files) {
+      if (file is File) {
+        var newFile = File('$newPath/${file.path.split('/').last}');
+        final content = await file.readAsBytes();
+        await newFile.create(recursive: true);
+        await newFile.writeAsBytes(content);
+        await file.delete();
+      } else if (file is Directory) {
+        await _moveDirectory(
+            file.path, '$newPath/${file.path.split('/').last}');
+      }
+    }
+  }
 }
