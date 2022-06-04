@@ -6,6 +6,7 @@
 * Add copy to change document path ([#180](https://github.com/LinwoodCloud/Butterfly/issues/180))
 * Move android storage to external
 * Center image on moving ([#185](https://github.com/LinwoodCloud/Butterfly/issues/185))
+* Improve spacing of selection rect based on the zoom
 * Fix image low quality
 * Fix missing constraints button in image element dialog
 * Fix window_manager errors on mobile devices

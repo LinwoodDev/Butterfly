@@ -107,30 +107,31 @@ class _ColorViewState extends State<ColorView> {
                               }
                             },
                           ),
-                          PopupMenuButton(
-                            icon: const Icon(PhosphorIcons.listLight),
-                            itemBuilder: (context) => [
-                              for (final palette in state.document.palettes)
-                                PopupMenuItem(
-                                  value: palette.name,
-                                  textStyle: palette.name == currentPalette
-                                      ? Theme.of(context)
-                                          .textTheme
-                                          .subtitle1
-                                          ?.copyWith(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                          )
-                                      : null,
-                                  child: Text(palette.name),
-                                  onTap: () {
-                                    setState(() {
-                                      currentPalette = palette.name;
-                                    });
-                                  },
-                                ),
-                            ],
-                          )
+                          if (state.document.palettes.length > 1)
+                            PopupMenuButton(
+                              icon: const Icon(PhosphorIcons.listLight),
+                              itemBuilder: (context) => [
+                                for (final palette in state.document.palettes)
+                                  PopupMenuItem(
+                                    value: palette.name,
+                                    textStyle: palette.name == currentPalette
+                                        ? Theme.of(context)
+                                            .textTheme
+                                            .subtitle1
+                                            ?.copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            )
+                                        : null,
+                                    child: Text(palette.name),
+                                    onTap: () {
+                                      setState(() {
+                                        currentPalette = palette.name;
+                                      });
+                                    },
+                                  ),
+                              ],
+                            )
                         ],
                       )
                     ],
