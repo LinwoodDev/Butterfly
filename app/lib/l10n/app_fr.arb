@@ -289,5 +289,6 @@
     "enterFullScreen": "Entrer en plein écran",
     "exitFullScreen": "Quitter le mode plein écran",
     "laser": "Laser",
-    "duration": "Durée"
+    "duration": "Durée",
+    "quality": "Qualité"
 }
