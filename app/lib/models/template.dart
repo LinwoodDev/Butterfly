@@ -1,5 +1,6 @@
 import 'package:butterfly/models/colors.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/property.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -28,6 +29,7 @@ class DocumentTemplate with _$DocumentTemplate {
             document: AppDocument(
                 name: AppLocalizations.of(context)!.plain,
                 createdAt: DateTime.now(),
+                palettes: ColorPalette.getMaterialPalette(context),
                 background: BackgroundTemplate.plain.create())),
         DocumentTemplate(
             document: AppDocument(
@@ -39,6 +41,7 @@ class DocumentTemplate with _$DocumentTemplate {
                   const LabelPainter(
                       property: LabelProperty(color: kColorWhite)),
                 ],
+                palettes: ColorPalette.getMaterialPalette(context),
                 background: BackgroundTemplate.plainDark.create()))
       ];
 
