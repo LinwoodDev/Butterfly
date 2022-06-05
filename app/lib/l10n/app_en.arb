@@ -292,5 +292,7 @@
   "duration": "Duration",
   "quality": "Quality",
   "local": "Local",
-  "addRemote": "Add remote"
+  "addRemote": "Add remote",
+  "remotes": "Remotes",
+  "noRemotes": "No remotes"
 }

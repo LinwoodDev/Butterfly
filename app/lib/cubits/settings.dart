@@ -14,10 +14,12 @@ part 'settings.freezed.dart';
 const kRecentHistorySize = 5;
 
 @freezed
-class RemoteStorage {
+class RemoteStorage with _$RemoteStorage {
   const factory RemoteStorage({
     required String name,
     required String url,
+    required String documentsPath,
+    required String templatesPath,
     Uint8List? icon,
   }) = _RemoteStorage;
 }
@@ -40,19 +42,22 @@ class ButterflySettings with _$ButterflySettings {
       @Default(true) bool startEnabled,
       @Default(true) bool colorEnabled,
       String? lastVersion,
-      @Default([]) List<RemoteStorage> storages}) = _ButterflySettings;
+      @Default([]) List<RemoteStorage> remotes}) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
-    final storages = prefs.getStringList('storages')?.map((e) {
-      final map = Map?.from(json.decode(e));
-      return RemoteStorage(
-        name: map['name'] ?? '',
-        url: map['url'] ?? '',
-        icon: map['icon'] != null
-            ? Uint8List.fromList(base64.decode(map['icon']!))
-            : null,
-      );
-    }).toList();
+    final remotes = prefs.getStringList('remotes')?.map((e) {
+          final map = Map?.from(json.decode(e));
+          return RemoteStorage(
+            name: map['name'] ?? '',
+            url: map['url'] ?? '',
+            icon: map['icon'] != null
+                ? Uint8List.fromList(base64.decode(map['icon']!))
+                : null,
+            documentsPath: map['documentsPath'] ?? '',
+            templatesPath: map['templatesPath'] ?? '',
+          );
+        }).toList() ??
+        const [];
     return ButterflySettings(
       localeTag: prefs.getString('locale') ?? '',
       inputType: prefs.containsKey('input_type')
@@ -78,7 +83,7 @@ class ButterflySettings with _$ButterflySettings {
       startEnabled: prefs.getBool('start_enabled') ?? true,
       lastVersion: prefs.getString('last_version'),
       colorEnabled: prefs.getBool('color_enabled') ?? true,
-      storages: storages ?? [],
+      remotes: remotes,
     );
   }
 
