@@ -23,14 +23,23 @@ class AreaHandler extends Handler {
       Size viewportSize, BuildContext context, PointerDownEvent event) {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state as DocumentLoadSuccess;
-    final area = state.document.areas
-        .firstWhereOrNull((e) => e.rect.contains(event.position));
+    final transform = context.read<TransformCubit>().state;
+    final globalPosition = transform.localToGlobal(event.position);
+    final area = state.document.getArea(globalPosition);
+    final currentIndexCubit = context.read<CurrentIndexCubit>();
     if (area != null || state.currentArea != null) {
       showContextMenu(
         position: event.position,
         context: context,
-        builder: (context, close) => BlocProvider.value(
-            value: bloc,
+        builder: (context, close) => MultiBlocProvider(
+            providers: [
+              BlocProvider<DocumentBloc>.value(
+                value: bloc,
+              ),
+              BlocProvider<CurrentIndexCubit>.value(
+                value: currentIndexCubit,
+              ),
+            ],
             child: AreaContextMenu(
               close: close,
               position: event.localPosition,
@@ -39,7 +48,6 @@ class AreaHandler extends Handler {
       );
       return;
     }
-    final transform = context.read<TransformCubit>().state;
     final position = transform.localToGlobal(event.localPosition);
     currentRect = Rect.fromLTWH(position.dx, position.dy, 0, 0);
     if (state.document.getAreaByRect(currentRect!) != null) {
@@ -84,7 +92,7 @@ class AreaHandler extends Handler {
                   child: Text(AppLocalizations.of(context)!.cancel),
                   onPressed: () => Navigator.pop(context, null),
                 ),
-                TextButton(
+                ElevatedButton(
                   child: Text(AppLocalizations.of(context)!.ok),
                   onPressed: () => Navigator.pop(context, controller.text),
                 ),

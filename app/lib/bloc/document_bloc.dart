@@ -527,7 +527,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       final currentDocument = current.document.copyWith(
           areas: List<Area>.from(current.document.areas)..add(event.area));
-      emit(current.copyWith(document: currentDocument));
+      _saveDocument(emit, current.copyWith(document: currentDocument));
       for (var element in current.renderers) {
         if (await element.onAreaUpdate(currentDocument, event.area)) {
           _repaint(emit);
@@ -541,13 +541,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final areas = List<Area>.from(current.document.areas);
       final area = areas.removeAt(event.index);
       final currentDocument = current.document.copyWith(areas: areas);
-      emit(current.copyWith(document: currentDocument));
       for (var element in current.renderers) {
         if (element.area == area &&
             await element.onAreaUpdate(currentDocument, null)) {
           _repaint(emit);
         }
       }
+      _saveDocument(emit, current.copyWith(document: currentDocument));
     });
     on<AreaChanged>((event, emit) async {
       final current = state;
