@@ -2,6 +2,7 @@
 * Fixing area issues
     * Fix bug when area has negative values
     * Fix bug when area is not visible when changing the painter
+    * Fix app bar title does not change after exiting the area
 * Improve spacing of selection rect based on the zoom
 * Move android storage to external
 * Center image on moving ([#185](https://github.com/LinwoodCloud/Butterfly/issues/185))

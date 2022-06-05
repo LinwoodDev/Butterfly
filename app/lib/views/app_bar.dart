@@ -64,7 +64,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                 previous is! DocumentLoadSuccess) return true;
             return _nameController.text != current.document.name ||
                 previous.path != current.path ||
-                (current.currentArea != null &&
+                (current.currentArea != previous.currentArea &&
                     _areaController.text != current.currentArea?.name) ||
                 previous.saved != current.saved;
           }, builder: (ctx, state) {
@@ -77,6 +77,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
               if (_nameController.text != area?.name) {
                 _areaController.text = area?.name ?? '';
               }
+              print(area);
               title = StatefulBuilder(
                 builder: (context, setState) => Column(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -286,5 +286,6 @@
     "minimize": "Minimieren",
     "restore": "Wiederherstellen",
     "enterFullScreen": "Vollbild öffnen",
-    "exitFullScreen": "Vollbild beenden"
+    "exitFullScreen": "Vollbild beenden",
+    "quality": "Qualität"
 }

@@ -286,5 +286,6 @@
     "minimize": "Minimiser",
     "restore": "Restaurer",
     "enterFullScreen": "Entrer en plein écran",
-    "exitFullScreen": "Quitter le mode plein écran"
+    "exitFullScreen": "Quitter le mode plein écran",
+    "quality": "Qualité"
 }
