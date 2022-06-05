@@ -1,5 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/dialogs/svg_export.dart';
 import 'package:butterfly/models/area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -110,17 +111,57 @@ class AreaContextMenu extends StatelessWidget {
                 close();
                 var bloc = context.read<DocumentBloc>();
                 showDialog(
-                    builder: (context) => BlocProvider.value(
-                          value: bloc,
-                          child: ImageExportDialog(
-                            width: area.width.round(),
-                            height: area.height.round(),
-                            x: area.position.dx,
-                            y: area.position.dy,
-                            scale: 1,
-                          ),
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    scrollable: true,
+                    title: Text(AppLocalizations.of(context)!.export),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: Text(AppLocalizations.of(context)!.image),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            showDialog(
+                                builder: (context) => BlocProvider.value(
+                                      value: bloc,
+                                      child: ImageExportDialog(
+                                        width: area.width.round(),
+                                        height: area.height.round(),
+                                        x: area.position.dx,
+                                        y: area.position.dy,
+                                        scale: 1,
+                                      ),
+                                    ),
+                                context: context);
+                          },
                         ),
-                    context: context);
+                        ListTile(
+                          title: Text(AppLocalizations.of(context)!.svg),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            showDialog(
+                                builder: (context) => BlocProvider.value(
+                                    value: bloc,
+                                    child: SvgExportDialog(
+                                      width: area.width.round(),
+                                      height: area.height.round(),
+                                      x: area.position.dx,
+                                      y: area.position.dy,
+                                    )),
+                                context: context);
+                          },
+                        )
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.cancel),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
+                  ),
+                );
               },
             ),
             ListTile(

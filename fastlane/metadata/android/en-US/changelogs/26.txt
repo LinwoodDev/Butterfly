@@ -1,0 +1,3 @@
+* Fixing area issues
+    * Fix bug when area has negative values
+    * Fix bug when area is not visible when changing the painter
