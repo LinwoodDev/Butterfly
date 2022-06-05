@@ -34,8 +34,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void changeHandler(int index, Handler handler) =>
       emit(CurrentIndex(index, handler));
   Handler? changePainter(DocumentBloc bloc, int index) {
+    final blocState = bloc.state;
+    if (blocState is! DocumentLoadSuccess) return null;
+    final document = blocState.document;
+    final currentArea = blocState.currentArea;
     final handler = Handler.fromBloc(this, bloc, index);
-    emit(CurrentIndex(index, handler));
+    emit(CurrentIndex(
+        index,
+        handler,
+        handler.createForegrounds(document, currentArea),
+        handler.createSelections(document, currentArea)));
     return handler;
   }
 

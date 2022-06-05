@@ -1,0 +1,10 @@
+* Add quality slider to pdf
+* Fixing area issues
+    * Fix bug when area has negative values
+    * Fix bug when area is not visible when changing the painter
+* Improve spacing of selection rect based on the zoom
+* Move android storage to external
+* Center image on moving ([#185](https://github.com/LinwoodCloud/Butterfly/issues/185))
+* Fix image low quality
+* Fix missing constraints button in image element dialog
+* Fix window_manager errors on mobile devices

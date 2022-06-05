@@ -48,14 +48,18 @@ class Area with _$Area {
 
   Offset get second => Offset(position.dx + width, position.dy + height);
 
-  bool hit(Offset offset, [double radius = 1]) {
-    return offset.dx >= position.dx - radius &&
-        offset.dx <= position.dx + width + radius &&
-        offset.dy >= position.dy - radius &&
-        offset.dy <= position.dy + height + radius;
-  }
+  bool hit(Offset offset, [double radius = 1]) =>
+      rect.contains(offset) &&
+      (offset.dx - position.dx).abs() < radius &&
+      (offset.dy - position.dy).abs() < radius;
 
-  ui.Rect get rect => Rect.fromLTWH(position.dx, position.dy, width, height);
+  ui.Rect get rect {
+    final topLeft = Offset(
+      width < 0 ? position.dx + width : position.dx,
+      height < 0 ? position.dy + height : position.dy,
+    );
+    return ui.Rect.fromLTWH(topLeft.dx, topLeft.dy, width.abs(), height.abs());
+  }
 
   Area moveBy(Offset offset) => copyWith(position: position + offset);
 }
