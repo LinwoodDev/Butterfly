@@ -227,7 +227,7 @@ class _RecentStartView extends StatelessWidget {
                                 onTap: () {
                                   GoRouter.of(context).push(Uri(
                                     pathSegments: [
-                                      '/',
+                                      '',
                                       'local',
                                       ...recent.split('/').sublist(1),
                                     ],

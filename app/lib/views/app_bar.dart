@@ -393,7 +393,7 @@ class _MainPopupMenu extends StatelessWidget {
                                 onTap: () {
                                   Navigator.of(context).pop();
                                   GoRouter.of(context).push(Uri(pathSegments: [
-                                    '/',
+                                    '',
                                     'local',
                                     ...path.split('/').sublist(1)
                                   ]).toString());

@@ -40,7 +40,7 @@ Future<void> main([List<String> args = const []]) async {
         // Relative path
         initialLocation = Uri(
           pathSegments: [
-            '/',
+            '',
             'local',
             ...file.path.replaceFirst(directory.path, '').split('/').sublist(1),
           ],
@@ -53,7 +53,7 @@ Future<void> main([List<String> args = const []]) async {
             await DocumentFileSystem.fromPlatform().importDocument(document);
         initialLocation = Uri(
           pathSegments: [
-            '/',
+            '',
             'local',
             ...newFile.path.split('/').sublist(1),
           ],

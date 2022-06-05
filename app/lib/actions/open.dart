@@ -29,7 +29,7 @@ class OpenAction extends Action<OpenIntent> {
           if (document is! AppDocumentFile) return;
           GoRouter.of(intent.context).push(Uri(
             pathSegments: [
-              '/',
+              '',
               'local',
               ...document.path.split('/').sublist(1),
             ],

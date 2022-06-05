@@ -45,7 +45,13 @@ class ButterflySettings with _$ButterflySettings {
         penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
         selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
         design: prefs.getString('design') ?? '',
-        recentHistory: prefs.getStringList('recent_history') ?? [],
+        recentHistory: prefs.getStringList('recent_history')?.map((e) {
+              if (e.startsWith('/')) {
+                return e;
+              }
+              return '/$e';
+            }).toList() ??
+            [],
         startEnabled: prefs.getBool('start_enabled') ?? true,
         lastVersion: prefs.getString('last_version'),
         colorEnabled: prefs.getBool('color_enabled') ?? true,
@@ -201,6 +207,9 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     final recentHistory = state.recentHistory.toList();
     recentHistory.remove(path);
     recentHistory.insert(0, path);
+    if (!path.startsWith('/')) {
+      path = '/$path';
+    }
     if (recentHistory.length > 10) {
       recentHistory.removeLast();
     }
