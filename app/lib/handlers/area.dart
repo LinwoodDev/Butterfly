@@ -24,7 +24,7 @@ class AreaHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state as DocumentLoadSuccess;
     final transform = context.read<TransformCubit>().state;
-    final globalPosition = transform.localToGlobal(event.position);
+    final globalPosition = transform.localToGlobal(event.localPosition);
     final area = state.document.getArea(globalPosition);
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     if (area != null || state.currentArea != null) {
