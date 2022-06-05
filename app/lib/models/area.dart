@@ -48,10 +48,7 @@ class Area with _$Area {
 
   Offset get second => Offset(position.dx + width, position.dy + height);
 
-  bool hit(Offset offset, [double radius = 1]) =>
-      rect.contains(offset) &&
-      (offset.dx - position.dx).abs() < radius &&
-      (offset.dy - position.dy).abs() < radius;
+  bool hit(Offset offset) => rect.contains(offset);
 
   ui.Rect get rect {
     final topLeft = Offset(
