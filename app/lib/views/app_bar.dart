@@ -64,7 +64,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                 previous is! DocumentLoadSuccess) return true;
             return _nameController.text != current.document.name ||
                 previous.path != current.path ||
-                (current.currentArea != null &&
+                (current.currentArea != previous.currentArea &&
                     _areaController.text != current.currentArea?.name) ||
                 previous.saved != current.saved;
           }, builder: (ctx, state) {
