@@ -151,10 +151,44 @@ class DocumentLoadSuccess extends DocumentState {
 
     final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
     if (renderBackground) {
-      cameraViewport.background.buildSvg(document, this.document, rect);
+      cameraViewport.background.buildSVG(document, this.document, rect);
     }
     for (var e in renderers) {
-      e.buildSvg(document, this.document, rect);
+      e.buildSVG(document, this.document, rect);
+    }
+    return document;
+  }
+
+  pw.Document renderPDF(
+      {required List<String> areas, bool renderBackground = true}) {
+    final document = pw.Document();
+    for (final areaName in areas) {
+      final area = this.document.getAreaByName(areaName);
+      if (area == null) {
+        continue;
+      }
+      final pageFormat = PdfPageFormat(area.width, area.height);
+      document.addPage(pw.Page(
+          pageFormat: pageFormat,
+          build: (context) {
+            List<pw.Widget> elements = [];
+
+            if (renderBackground) {
+              final background = cameraViewport.background
+                  .buildPDF(context, this.document, area);
+              if (background != null) {
+                elements.add(background);
+              }
+            }
+
+            for (final e in renderers) {
+              final element = e.buildPDF(context, this.document, area);
+              if (element != null) {
+                elements.add(element);
+              }
+            }
+            return pw.Stack(children: elements);
+          }));
     }
     return document;
   }

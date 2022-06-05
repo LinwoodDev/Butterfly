@@ -4,7 +4,7 @@ class PenRenderer extends PathRenderer<PenElement> {
   PenRenderer(super.element, [super.rect = Rect.zero]);
 
   @override
-  void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
+  void buildSVG(XmlDocument xml, AppDocument document, Rect rect) {
     if (!this.rect.overlaps(rect)) return;
     final points = element.points;
     final property = element.property;

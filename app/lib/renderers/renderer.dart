@@ -9,6 +9,7 @@ import 'package:butterfly/models/element.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:xml/xml.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 import '../api/xml_helper.dart';
 
@@ -63,7 +64,10 @@ abstract class Renderer<T> {
       [bool foreground = false]);
   HitCalculator? get hitCalculator =>
       rect == null ? null : DefaultHitCalculator(rect!);
-  void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {}
+  void buildSVG(XmlDocument xml, AppDocument document, Rect rect) {}
+  pw.Widget? buildPDF(pw.Context context, AppDocument document, Area area) =>
+      null;
+
   factory Renderer.fromInstance(T element) {
     // Elements
     if (element is PadElement) {

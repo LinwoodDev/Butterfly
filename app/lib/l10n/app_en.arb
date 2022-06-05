@@ -290,5 +290,6 @@
   "exitFullScreen": "Exit full screen",
   "laser": "Laser",
   "duration": "Duration",
-  "quality": "Quality"
+  "quality": "Quality",
+  "exportPdf": "Export PDF"
 }

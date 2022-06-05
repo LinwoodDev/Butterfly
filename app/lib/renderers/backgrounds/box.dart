@@ -66,7 +66,7 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
+  void buildSVG(XmlDocument xml, AppDocument document, Rect rect) {
     var g =
         xml.getOrCreateElement('svg').createElement('g', id: 'box-background');
 

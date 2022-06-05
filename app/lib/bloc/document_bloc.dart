@@ -17,8 +17,10 @@ import 'package:butterfly/view_painter.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pdf/pdf.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 import 'package:xml/xml.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 import '../cubits/settings.dart';
 import '../embed/embedding.dart';
