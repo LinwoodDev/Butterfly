@@ -1,5 +1,10 @@
 part of 'document_bloc.dart';
 
+enum StorageType {
+  local,
+  cloud,
+}
+
 abstract class DocumentState extends Equatable {
   const DocumentState();
 
@@ -12,6 +17,7 @@ class DocumentLoadInProgress extends DocumentState {}
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final String? path;
+  final StorageType storageType;
   final String currentLayer;
   final int currentAreaIndex;
   final List<String> invisibleLayers;
@@ -23,6 +29,7 @@ class DocumentLoadSuccess extends DocumentState {
 
   DocumentLoadSuccess(this.document,
       {this.path,
+      this.storageType = StorageType.local,
       this.saved = true,
       required this.settingsCubit,
       required this.currentIndexCubit,

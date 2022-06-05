@@ -225,8 +225,13 @@ class _RecentStartView extends StatelessWidget {
                             child: ListTile(
                                 title: Text(recent),
                                 onTap: () {
-                                  GoRouter.of(context).pushNamed('home',
-                                      queryParams: {'path': recent});
+                                  GoRouter.of(context).push(Uri(
+                                    pathSegments: [
+                                      '/',
+                                      'local',
+                                      ...recent.split('/').sublist(1),
+                                    ],
+                                  ).toString());
                                 }),
                           );
                         }).toList()),

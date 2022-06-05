@@ -38,17 +38,26 @@ Future<void> main([List<String> args = const []]) async {
       // Test if file is in directory
       if (file.path.startsWith(directory.path)) {
         // Relative path
-        initialLocation = Uri(path: '/', queryParameters: {
-          'path': file.path.replaceFirst(directory.path, '')
-        }).toString();
+        initialLocation = Uri(
+          pathSegments: [
+            '/',
+            'local',
+            ...file.path.replaceFirst(directory.path, '').split('/').sublist(1),
+          ],
+        ).toString();
       } else {
         var data = await file.readAsString();
         var json = Map<String, dynamic>.from(jsonDecode(data));
         var document = const DocumentJsonConverter().fromJson(json);
         var newFile =
             await DocumentFileSystem.fromPlatform().importDocument(document);
-        initialLocation =
-            Uri(path: '/', queryParameters: {'path': newFile.path}).toString();
+        initialLocation = Uri(
+          pathSegments: [
+            '/',
+            'local',
+            ...newFile.path.split('/').sublist(1),
+          ],
+        ).toString();
       }
     }
   }
@@ -126,8 +135,7 @@ class ButterflyApp extends StatelessWidget {
               name: 'home',
               path: '/',
               builder: (context, state) {
-                final path = state.queryParams['path']; // may be null
-                return ProjectPage(path: path);
+                return const ProjectPage();
               },
               routes: [
                 GoRoute(
@@ -151,6 +159,14 @@ class ButterflyApp extends StatelessWidget {
                   ],
                 ),
               ]),
+          GoRoute(
+            name: 'local',
+            path: '/local/:path(.*)',
+            builder: (context, state) {
+              final path = state.params['path'];
+              return ProjectPage(path: path);
+            },
+          ),
           GoRoute(
             name: 'embed',
             path: '/embed',

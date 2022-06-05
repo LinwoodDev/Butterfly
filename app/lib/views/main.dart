@@ -52,9 +52,11 @@ bool isWindow() =>
 
 class ProjectPage extends StatefulWidget {
   final String? path;
+  final StorageType type;
   final Embedding? embedding;
 
-  const ProjectPage({super.key, this.path, this.embedding});
+  const ProjectPage(
+      {super.key, this.path, this.embedding, this.type = StorageType.local});
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
