@@ -15,6 +15,159 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
+mixin _$RemoteStorage {
+  String get name => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
+  Uint8List? get icon => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $RemoteStorageCopyWith<RemoteStorage> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RemoteStorageCopyWith<$Res> {
+  factory $RemoteStorageCopyWith(
+          RemoteStorage value, $Res Function(RemoteStorage) then) =
+      _$RemoteStorageCopyWithImpl<$Res>;
+  $Res call({String name, String url, Uint8List? icon});
+}
+
+/// @nodoc
+class _$RemoteStorageCopyWithImpl<$Res>
+    implements $RemoteStorageCopyWith<$Res> {
+  _$RemoteStorageCopyWithImpl(this._value, this._then);
+
+  final RemoteStorage _value;
+  // ignore: unused_field
+  final $Res Function(RemoteStorage) _then;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? url = freezed,
+    Object? icon = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_RemoteStorageCopyWith<$Res>
+    implements $RemoteStorageCopyWith<$Res> {
+  factory _$$_RemoteStorageCopyWith(
+          _$_RemoteStorage value, $Res Function(_$_RemoteStorage) then) =
+      __$$_RemoteStorageCopyWithImpl<$Res>;
+  @override
+  $Res call({String name, String url, Uint8List? icon});
+}
+
+/// @nodoc
+class __$$_RemoteStorageCopyWithImpl<$Res>
+    extends _$RemoteStorageCopyWithImpl<$Res>
+    implements _$$_RemoteStorageCopyWith<$Res> {
+  __$$_RemoteStorageCopyWithImpl(
+      _$_RemoteStorage _value, $Res Function(_$_RemoteStorage) _then)
+      : super(_value, (v) => _then(v as _$_RemoteStorage));
+
+  @override
+  _$_RemoteStorage get _value => super._value as _$_RemoteStorage;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? url = freezed,
+    Object? icon = freezed,
+  }) {
+    return _then(_$_RemoteStorage(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RemoteStorage implements _RemoteStorage {
+  const _$_RemoteStorage({required this.name, required this.url, this.icon});
+
+  @override
+  final String name;
+  @override
+  final String url;
+  @override
+  final Uint8List? icon;
+
+  @override
+  String toString() {
+    return 'RemoteStorage(name: $name, url: $url, icon: $icon)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RemoteStorage &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.url, url) &&
+            const DeepCollectionEquality().equals(other.icon, icon));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(url),
+      const DeepCollectionEquality().hash(icon));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_RemoteStorageCopyWith<_$_RemoteStorage> get copyWith =>
+      __$$_RemoteStorageCopyWithImpl<_$_RemoteStorage>(this, _$identity);
+}
+
+abstract class _RemoteStorage implements RemoteStorage {
+  const factory _RemoteStorage(
+      {required final String name,
+      required final String url,
+      final Uint8List? icon}) = _$_RemoteStorage;
+
+  @override
+  String get name => throw _privateConstructorUsedError;
+  @override
+  String get url => throw _privateConstructorUsedError;
+  @override
+  Uint8List? get icon => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$_RemoteStorageCopyWith<_$_RemoteStorage> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ButterflySettings {
   ThemeMode get theme => throw _privateConstructorUsedError;
   String get localeTag => throw _privateConstructorUsedError;
@@ -30,6 +183,7 @@ mixin _$ButterflySettings {
   bool get startEnabled => throw _privateConstructorUsedError;
   bool get colorEnabled => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
+  List<RemoteStorage> get storages => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -55,7 +209,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       List<String> recentHistory,
       bool startEnabled,
       bool colorEnabled,
-      String? lastVersion});
+      String? lastVersion,
+      List<RemoteStorage> storages});
 }
 
 /// @nodoc
@@ -83,6 +238,7 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? startEnabled = freezed,
     Object? colorEnabled = freezed,
     Object? lastVersion = freezed,
+    Object? storages = freezed,
   }) {
     return _then(_value.copyWith(
       theme: theme == freezed
@@ -141,6 +297,10 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
               as String?,
+      storages: storages == freezed
+          ? _value.storages
+          : storages // ignore: cast_nullable_to_non_nullable
+              as List<RemoteStorage>,
     ));
   }
 }
@@ -166,7 +326,8 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       List<String> recentHistory,
       bool startEnabled,
       bool colorEnabled,
-      String? lastVersion});
+      String? lastVersion,
+      List<RemoteStorage> storages});
 }
 
 /// @nodoc
@@ -196,6 +357,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? startEnabled = freezed,
     Object? colorEnabled = freezed,
     Object? lastVersion = freezed,
+    Object? storages = freezed,
   }) {
     return _then(_$_ButterflySettings(
       theme: theme == freezed
@@ -254,6 +416,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
               as String?,
+      storages: storages == freezed
+          ? _value._storages
+          : storages // ignore: cast_nullable_to_non_nullable
+              as List<RemoteStorage>,
     ));
   }
 }
@@ -275,8 +441,10 @@ class _$_ButterflySettings extends _ButterflySettings {
       final List<String> recentHistory = const [],
       this.startEnabled = true,
       this.colorEnabled = true,
-      this.lastVersion})
+      this.lastVersion,
+      final List<RemoteStorage> storages = const []})
       : _recentHistory = recentHistory,
+        _storages = storages,
         super._();
 
   @override
@@ -325,10 +493,17 @@ class _$_ButterflySettings extends _ButterflySettings {
   final bool colorEnabled;
   @override
   final String? lastVersion;
+  final List<RemoteStorage> _storages;
+  @override
+  @JsonKey()
+  List<RemoteStorage> get storages {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_storages);
+  }
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, inputType: $inputType, design: $design, recentHistory: $recentHistory, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, inputType: $inputType, design: $design, recentHistory: $recentHistory, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, storages: $storages)';
   }
 
   @override
@@ -359,7 +534,8 @@ class _$_ButterflySettings extends _ButterflySettings {
             const DeepCollectionEquality()
                 .equals(other.colorEnabled, colorEnabled) &&
             const DeepCollectionEquality()
-                .equals(other.lastVersion, lastVersion));
+                .equals(other.lastVersion, lastVersion) &&
+            const DeepCollectionEquality().equals(other._storages, _storages));
   }
 
   @override
@@ -378,7 +554,8 @@ class _$_ButterflySettings extends _ButterflySettings {
       const DeepCollectionEquality().hash(_recentHistory),
       const DeepCollectionEquality().hash(startEnabled),
       const DeepCollectionEquality().hash(colorEnabled),
-      const DeepCollectionEquality().hash(lastVersion));
+      const DeepCollectionEquality().hash(lastVersion),
+      const DeepCollectionEquality().hash(_storages));
 
   @JsonKey(ignore: true)
   @override
@@ -402,7 +579,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final List<String> recentHistory,
       final bool startEnabled,
       final bool colorEnabled,
-      final String? lastVersion}) = _$_ButterflySettings;
+      final String? lastVersion,
+      final List<RemoteStorage> storages}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
@@ -433,6 +611,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   bool get colorEnabled => throw _privateConstructorUsedError;
   @override
   String? get lastVersion => throw _privateConstructorUsedError;
+  @override
+  List<RemoteStorage> get storages => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>

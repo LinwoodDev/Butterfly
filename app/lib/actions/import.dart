@@ -30,8 +30,8 @@ class ImportAction extends Action<ImportIntent> {
             builder: (context) => const ImportDialog(), context: intent.context)
         .then((content) {
       if (content == null) return;
-      var document = const DocumentJsonConverter()
-          .fromJson(Map<String, dynamic>.from(jsonDecode(content)));
+      var document =
+          const DocumentJsonConverter().fromJson(Map.from(jsonDecode(content)));
       DocumentFileSystem.fromPlatform()
           .importDocument(document)
           .then((file) async {

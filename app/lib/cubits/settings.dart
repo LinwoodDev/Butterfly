@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +12,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'settings.freezed.dart';
 
 const kRecentHistorySize = 5;
+
+@freezed
+class RemoteStorage {
+  const factory RemoteStorage({
+    required String name,
+    required String url,
+    Uint8List? icon,
+  }) = _RemoteStorage;
+}
 
 @freezed
 class ButterflySettings with _$ButterflySettings {
@@ -27,35 +39,48 @@ class ButterflySettings with _$ButterflySettings {
       @Default([]) List<String> recentHistory,
       @Default(true) bool startEnabled,
       @Default(true) bool colorEnabled,
-      String? lastVersion}) = _ButterflySettings;
+      String? lastVersion,
+      @Default([]) List<RemoteStorage> storages}) = _ButterflySettings;
 
-  factory ButterflySettings.fromPrefs(SharedPreferences prefs) =>
-      ButterflySettings(
-        localeTag: prefs.getString('locale') ?? '',
-        inputType: prefs.containsKey('input_type')
-            ? InputType.values.byName(prefs.getString('input_type')!)
-            : InputType.multiDraw,
-        documentPath: prefs.getString('document_path') ?? '',
-        theme: prefs.containsKey('theme_mode')
-            ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
-            : ThemeMode.system,
-        dateFormat: prefs.getString('date_format') ?? '',
-        touchSensitivity: prefs.getDouble('touch_sensitivity') ?? 1,
-        mouseSensitivity: prefs.getDouble('mouse_sensitivity') ?? 1,
-        penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
-        selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
-        design: prefs.getString('design') ?? '',
-        recentHistory: prefs.getStringList('recent_history')?.map((e) {
-              if (e.startsWith('/')) {
-                return e;
-              }
-              return '/$e';
-            }).toList() ??
-            [],
-        startEnabled: prefs.getBool('start_enabled') ?? true,
-        lastVersion: prefs.getString('last_version'),
-        colorEnabled: prefs.getBool('color_enabled') ?? true,
+  factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
+    final storages = prefs.getStringList('storages')?.map((e) {
+      final map = Map?.from(json.decode(e));
+      return RemoteStorage(
+        name: map['name'] ?? '',
+        url: map['url'] ?? '',
+        icon: map['icon'] != null
+            ? Uint8List.fromList(base64.decode(map['icon']!))
+            : null,
       );
+    }).toList();
+    return ButterflySettings(
+      localeTag: prefs.getString('locale') ?? '',
+      inputType: prefs.containsKey('input_type')
+          ? InputType.values.byName(prefs.getString('input_type')!)
+          : InputType.multiDraw,
+      documentPath: prefs.getString('document_path') ?? '',
+      theme: prefs.containsKey('theme_mode')
+          ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
+          : ThemeMode.system,
+      dateFormat: prefs.getString('date_format') ?? '',
+      touchSensitivity: prefs.getDouble('touch_sensitivity') ?? 1,
+      mouseSensitivity: prefs.getDouble('mouse_sensitivity') ?? 1,
+      penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
+      selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
+      design: prefs.getString('design') ?? '',
+      recentHistory: prefs.getStringList('recent_history')?.map((e) {
+            if (e.startsWith('/')) {
+              return e;
+            }
+            return '/$e';
+          }).toList() ??
+          [],
+      startEnabled: prefs.getBool('start_enabled') ?? true,
+      lastVersion: prefs.getString('last_version'),
+      colorEnabled: prefs.getBool('color_enabled') ?? true,
+      storages: storages ?? [],
+    );
+  }
 
   Locale? get locale => localeTag.isEmpty ? null : Locale(localeTag);
 

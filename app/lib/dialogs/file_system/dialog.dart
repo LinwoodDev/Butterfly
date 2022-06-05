@@ -5,6 +5,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/file_system/create.dart';
 import 'package:butterfly/dialogs/file_system/grid.dart';
 import 'package:butterfly/dialogs/file_system/list.dart';
+import 'package:butterfly/dialogs/file_system/popup.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/widgets/header.dart';
 import 'package:flutter/material.dart';
@@ -145,12 +146,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       var isMobile = constraints.maxWidth < 600;
                       var pathInput = Row(
                         children: [
-                          IconButton(
-                              icon: const Icon(PhosphorIcons.houseLight),
-                              onPressed: () {
-                                _pathController.text = '/';
-                                loadDocuments();
-                              }),
+                          const OpenPopupButton(),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(

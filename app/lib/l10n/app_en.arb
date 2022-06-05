@@ -290,5 +290,7 @@
   "exitFullScreen": "Exit full screen",
   "laser": "Laser",
   "duration": "Duration",
-  "quality": "Quality"
+  "quality": "Quality",
+  "local": "Local",
+  "addRemote": "Add remote"
 }
