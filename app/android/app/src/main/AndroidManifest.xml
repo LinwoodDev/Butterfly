@@ -2,7 +2,9 @@
     package="dev.linwood.butterfly">
    <application
         android:label="Butterfly"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="true" 
+        android:fullBackupContent="@xml/backup_rules">
         <activity
             android:name=".MainActivity"
             android:exported="true"

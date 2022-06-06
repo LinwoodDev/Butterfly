@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -24,8 +25,12 @@ class OpenPopupButton extends StatelessWidget {
           padding: EdgeInsets.zero,
           child: ListTile(
             mouseCursor: MouseCursor.defer,
-            title: Text(AppLocalizations.of(context)!.addRemote),
-            leading: const Icon(PhosphorIcons.plusLight),
+            title: Text(AppLocalizations.of(context)!.configureRemotes),
+            leading: const Icon(PhosphorIcons.gearLight),
+            onTap: () {
+              Navigator.of(context).pop();
+              GoRouter.of(context).push('/settings/remotes');
+            },
           ),
         ),
       ],

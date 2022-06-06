@@ -7,6 +7,7 @@ import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/home.dart';
+import 'package:butterfly/settings/remotes.dart';
 import 'package:butterfly/theme/manager.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:flutter/foundation.dart';
@@ -155,6 +156,10 @@ class ButterflyApp extends StatelessWidget {
                     GoRoute(
                       path: 'data',
                       builder: (context, state) => const DataSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'remotes',
+                      builder: (context, state) => const RemotesSettingsPage(),
                     ),
                   ],
                 ),

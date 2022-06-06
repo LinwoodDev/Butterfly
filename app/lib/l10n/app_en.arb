@@ -294,5 +294,10 @@
   "local": "Local",
   "addRemote": "Add remote",
   "remotes": "Remotes",
-  "noRemotes": "No remotes"
+  "noRemotes": "No remotes",
+  "configureRemotes": "Configure remotes",
+  "url": "URL",
+  "connect": "Connect",
+  "username": "Username",
+  "password": "Password"
 }
