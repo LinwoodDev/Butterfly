@@ -1,12 +1,11 @@
 import 'dart:io';
 
 import 'package:butterfly/api/file_system_io.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void openImage(List<int> bytes) {
-  getExternalStorageDirectory().then((dir) {
+  getButterflyDirectory().then((dir) {
     var file = File('$dir/Temp/export.png');
     file.create(recursive: true);
     if (Platform.isAndroid || Platform.isIOS) {
