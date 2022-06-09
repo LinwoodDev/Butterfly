@@ -31,14 +31,14 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
             map['type'] = 'pathEraser';
           }
           return map;
-        }));
+        })).where((map) => map['type'] != 'image');
         json['content'] = List.from((json['content'] as List).map((e) {
           var map = Map<String, dynamic>.from(e);
           if (map['type'] == 'paint') {
             map['type'] = 'pen';
           }
           return map;
-        }));
+        })).toList();
         json['background'] = Map<String, dynamic>.from(json['background'] ?? {})
           ..['type'] = 'box';
       }
