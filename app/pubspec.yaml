@@ -40,7 +40,7 @@ dependencies:
   xml: ^6.0.1
   collection: ^1.16.0
   bloc_concurrency: ^0.2.0
-  camera: ^0.9.7+1
+  camera: ^0.9.8
   camera_windows: ^0.1.0+2
   window_manager: ^0.2.5
   flex_color_scheme: ^5.0.1
