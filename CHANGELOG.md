@@ -2,7 +2,7 @@
 
 <!--ENTER CHANGELOG HERE-->
 
-## 1.4.0-alpha.0 (2022-06-10)
+## 1.3.2 (2022-06-10)
 
 * Add laser painter to paint strokes temporarily
 * Add duplicate to change document path
