@@ -2,6 +2,15 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.0-alpha.0 (2022-06-10)
+
+* Add laser painter to paint strokes temporarily
+* Add duplicate to change document path
+* Add color view to label, pen and laser painter
+* Add spanish translation
+* Add quality slider to pdf ([#184](https://github.com/LinwoodCloud/Butterfly/issues/184))
+* Add copy to change document path ([#180](https://github.com/LinwoodCloud/Butterfly/issues/180))
+
 ## 1.3.1 (2022-06-03)
 
 * Reimplement color field

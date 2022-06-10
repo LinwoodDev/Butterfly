@@ -10,3 +10,4 @@
 * Fix image low quality
 * Fix missing constraints button in image element dialog
 * Fix window_manager errors on mobile devices
+* Remove image painter for file-version < 5

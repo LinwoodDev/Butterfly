@@ -126,6 +126,20 @@ packages:
       name: camera
       url: "https://pub.dartlang.org"
     source: hosted
+    version: "0.9.8"
+  camera_android:
+    dependency: transitive
+    description:
+      name: camera_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.7+1"
+  camera_avfoundation:
+    dependency: transitive
+    description:
+      name: camera_avfoundation
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.9.7+1"
   camera_platform_interface:
     dependency: transitive
@@ -734,7 +748,7 @@ packages:
       name: share_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.6"
+    version: "4.0.5"
   share_plus_linux:
     dependency: transitive
     description:
@@ -942,7 +956,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.2"
+    version: "6.1.3"
   url_launcher_android:
     dependency: transitive
     description:
