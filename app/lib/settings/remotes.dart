@@ -33,28 +33,34 @@ class RemotesSettingsPage extends StatelessWidget {
           label: Text(AppLocalizations.of(context)!.addRemote),
           icon: const Icon(PhosphorIcons.plusLight),
         ),
-        body: BlocBuilder<SettingsCubit, ButterflySettings>(
-            buildWhen: (previous, current) =>
-                previous.inputType == current.inputType,
-            builder: (context, state) {
-              if (state.remotes.isEmpty) {
-                return Center(
-                  child: Text(AppLocalizations.of(context)!.noRemotes),
-                );
-              }
-              return ListView.builder(
-                  itemCount: state.remotes.length,
-                  itemBuilder: (context, index) {
-                    final remote = state.remotes[index];
-                    return ListTile(
-                      title: Text(remote.name),
-                      subtitle: Text(remote.url),
-                      leading: remote.icon != null
-                          ? Image.memory(remote.icon!)
-                          : const Icon(PhosphorIcons.cloudFill),
-                    );
-                  });
-            }));
+        body: Builder(builder: (context) {
+          if (kIsWeb) {
+            return Center(
+                child: Text(AppLocalizations.of(context)!.webNotSupported));
+          }
+          return BlocBuilder<SettingsCubit, ButterflySettings>(
+              buildWhen: (previous, current) =>
+                  previous.inputType == current.inputType,
+              builder: (context, state) {
+                if (state.remotes.isEmpty) {
+                  return Center(
+                    child: Text(AppLocalizations.of(context)!.noRemotes),
+                  );
+                }
+                return ListView.builder(
+                    itemCount: state.remotes.length,
+                    itemBuilder: (context, index) {
+                      final remote = state.remotes[index];
+                      return ListTile(
+                        title: Text(remote.name),
+                        subtitle: Text(remote.url),
+                        leading: remote.icon != null
+                            ? Image.memory(remote.icon!)
+                            : const Icon(PhosphorIcons.cloudFill),
+                      );
+                    });
+              });
+        }));
   }
 }
 

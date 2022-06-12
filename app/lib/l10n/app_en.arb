@@ -299,5 +299,6 @@
   "url": "URL",
   "connect": "Connect",
   "username": "Username",
-  "password": "Password"
+  "password": "Password",
+  "webNotSupported": "Web not supported"
 }

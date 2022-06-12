@@ -109,22 +109,23 @@ class _SettingsPageState extends State<SettingsPage> {
                               });
                             }
                           }),
-                      ListTile(
-                          leading: const Icon(PhosphorIcons.cloudLight),
-                          title: Text(AppLocalizations.of(context)!.remotes),
-                          selected: widget.isDialog && !isMobile
-                              ? _view == SettingsView.remotes
-                              : false,
-                          onTap: () {
-                            if (isMobile) {
-                              Navigator.of(context).pop();
-                              GoRouter.of(context).go('/settings/remotes');
-                            } else {
-                              setState(() {
-                                _view = SettingsView.remotes;
-                              });
-                            }
-                          }),
+                      if (!kIsWeb)
+                        ListTile(
+                            leading: const Icon(PhosphorIcons.cloudLight),
+                            title: Text(AppLocalizations.of(context)!.remotes),
+                            selected: widget.isDialog && !isMobile
+                                ? _view == SettingsView.remotes
+                                : false,
+                            onTap: () {
+                              if (isMobile) {
+                                Navigator.of(context).pop();
+                                GoRouter.of(context).go('/settings/remotes');
+                              } else {
+                                setState(() {
+                                  _view = SettingsView.remotes;
+                                });
+                              }
+                            }),
                       const Divider(),
                       ListTile(
                           leading: const Icon(PhosphorIcons.articleLight),
