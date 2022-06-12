@@ -7,7 +7,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../models/painter.dart';
 
 extension PainterVisualizer on Painter {
-  String getLocalizedString(BuildContext context) {
+  String getLocalizedName(BuildContext context) {
     if (this is PenPainter) {
       return AppLocalizations.of(context)!.pen;
     }

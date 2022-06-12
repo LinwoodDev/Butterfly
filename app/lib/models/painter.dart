@@ -32,7 +32,7 @@ extension AreaRatioPresetExtension on AreaRatioPreset {
     }
   }
 
-  String getLocalized(BuildContext context) {
+  String getLocalizedName(BuildContext context) {
     switch (this) {
       case AreaRatioPreset.square:
         return AppLocalizations.of(context)!.square;

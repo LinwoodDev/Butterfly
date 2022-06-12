@@ -99,7 +99,7 @@ class EditToolbar extends StatelessWidget {
                                   final selected = i == currentIndex.index;
                                   String tooltip = e.name.trim();
                                   if (tooltip.isEmpty) {
-                                    tooltip = e.getLocalizedString(context);
+                                    tooltip = e.getLocalizedName(context);
                                   }
                                   void openDialog() {
                                     var bloc = context.read<DocumentBloc>();
@@ -198,8 +198,8 @@ class EditToolbar extends StatelessWidget {
                                             value: e,
                                             child: ListTile(
                                               mouseCursor: MouseCursor.defer,
-                                              title: Text(e
-                                                  .getLocalizedString(context)),
+                                              title: Text(
+                                                  e.getLocalizedName(context)),
                                               leading: Icon(e.getIcon()),
                                             ));
                                       })
