@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: apk-build
-          path: linwood-butterfly-android.apk
+          path: app/linwood-butterfly-android.apk
   build-windows:
     runs-on: windows-2022
     defaults:
@@ -69,13 +69,13 @@ jobs:
         with:
           name: windows-build
           path: |
-            build/windows/runner/Release/**
+            app/build/windows/runner/Release/**
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
           name: windows-setup
           path: |
-            build/windows/linwood-butterfly-windows-setup.exe
+            app/build/windows/linwood-butterfly-windows-setup.exe
   build-linux:
     runs-on: ubuntu-20.04
     defaults:
@@ -126,13 +126,13 @@ jobs:
         with:
           name: linux-build
           path: |
-            build/linux/x64/release/bundle/**
+            app/build/linux/x64/release/bundle/**
       - name: Archive .deb
         uses: actions/upload-artifact@v3
         with:
           name: linux-deb
           path: |
-            linwood-butterfly-linux.deb
+            app/linwood-butterfly-linux.deb
       #- name: Archive .rpm
       #  uses: actions/upload-artifact@v3
       #  with:
@@ -144,7 +144,7 @@ jobs:
         with:
           name: linux-appimage
           path: |
-            linwood-butterfly-linux.AppImage
+            app/linwood-butterfly-linux.AppImage
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
