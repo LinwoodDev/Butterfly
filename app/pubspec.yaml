@@ -52,7 +52,7 @@ dependencies:
   pdf: ^3.8.1
 
 dev_dependencies:
-  flutter_native_splash: ^2.2.3
+  flutter_native_splash: ^2.2.3+1
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter

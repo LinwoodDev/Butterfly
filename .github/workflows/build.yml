@@ -21,17 +21,21 @@ jobs:
         run: |
           cd app
           flutter pub get
-      #- run: flutter test
       - name: 🏭 Build
         run: |
           cd app
           flutter doctor -v
           flutter build apk -v --release
+      # Rename
+      - name: 📦 Copy APK
+        run: |
+          cd app
+          cp app/build/app/outputs/flutter-apk/app-release.apk linwood-butterfly-android.apk
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
           name: apk-build
-          path: app/build/app/outputs/flutter-apk/app-release.apk
+          path: linwood-butterfly-android.apk
   build-windows:
     runs-on: windows-2022
     steps:
@@ -72,7 +76,7 @@ jobs:
         with:
           name: windows-setup
           path: |
-            app/build/windows/Butterfly-Setup.exe
+            app/build/windows/linwood-butterfly-windows-setup.exe
   build-linux:
     runs-on: ubuntu-20.04
     steps:
@@ -103,24 +107,24 @@ jobs:
           cd app
           cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
           dpkg-deb --build --root-owner-group linux/debian
-          cp linux/*.deb linwood-butterfly-linux-x86_64.deb
+          cp linux/*.deb linwood-butterfly-linux.deb
       #- name: Build .rpm executable
       #  run: |
       #    cd app
-      #    alien -r linwood-butterfly-linux-x86_64.deb
-      #    mv linwood-butterfly*.rpm linwood-butterfly-linux-x86_64.rpm
+      #    alien -r linwood-butterfly-linux.deb
+      #    mv linwood-butterfly*.rpm linwood-butterfly-linux.rpm
       - name: Build .AppImage executable
         run: |
           cd app
           wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.0.0-beta.1/appimage-builder-1.0.0-677acbd-x86_64.AppImage
-          chmod +x appimage-builder-x86_64.AppImage
+          chmod +x appimage-builder.AppImage
           # install (optional)
-          sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
+          sudo mv appimage-builder.AppImage /usr/local/bin/appimage-builder
           appimage-builder --recipe AppImageBuilder.yml --skip-test
       - name: Rename AppImage
         run: |
           cd app
-          mv ./*.AppImage* Linwood-Butterfly-linux-x86_64.AppImage
+          mv ./*.AppImage* linwood-butterfly-linux.AppImage
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -132,19 +136,19 @@ jobs:
         with:
           name: linux-deb
           path: |
-            app/linwood-butterfly-linux-x86_64.deb
+            app/linwood-butterfly-linux.deb
       #- name: Archive .rpm
       #  uses: actions/upload-artifact@v3
       #  with:
       #    name: linux-rpm
       #    path: |
-      #      app/linwood-butterfly-linux-x86_64.rpm
+      #      app/linwood-butterfly-linux.rpm
       - name: Archive .AppImage
         uses: actions/upload-artifact@v3
         with:
           name: linux-appimage
           path: |
-            app/Linwood-Butterfly-linux-x86_64.AppImage
+            app/linwood-butterfly-linux.AppImage
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
@@ -209,8 +213,8 @@ jobs:
           name: windows-setup
       - name: 📦 Zip artifacts
         run: |
-          zip -r windows.zip windows-build/*
-          zip -r linux.zip linux-build/*
+          zip -r linwood-butterfly-windows.zip windows-build/*
+          zip -r linwood-butterfly-linux.zip linux-build/*
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -226,12 +230,12 @@ jobs:
           prerelease: true
           tag_name: stable
           files: |
-            Butterfly-Setup.exe
-            app-release.apk
-            windows.zip
-            linux.zip
-            linwood-butterfly-linux-x86_64.deb
-            Linwood-Butterfly-linux-x86_64.AppImage
+            linwood-butterfly-windows-setup.exe
+            linwood-butterfly-windows.zip
+            linwood-butterfly-android.apk
+            linwood-butterfly-linux.zip
+            linwood-butterfly-linux.deb
+            linwood-butterfly-linux.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
@@ -242,12 +246,12 @@ jobs:
           prerelease: true
           tag_name: nightly
           files: |
-            Butterfly-Setup.exe
-            app-release.apk
-            windows.zip
-            linux.zip
-            linwood-butterfly-linux-x86_64.deb
-            Linwood-Butterfly-linux-x86_64.AppImage
+            linwood-butterfly-windows-setup.exe
+            linwood-butterfly-windows.zip
+            linwood-butterfly-android.apk
+            linwood-butterfly-linux.zip
+            linwood-butterfly-linux.deb
+            linwood-butterfly-linux.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
@@ -256,11 +260,11 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         with:
           files: |
-            Butterfly-Setup.exe
-            app-release.apk
-            windows.zip
-            linux.zip
-            linwood-butterfly-linux-x86_64.deb
-            Linwood-Butterfly-linux-x86_64.AppImage
+            linwood-butterfly-windows-setup.exe
+            linwood-butterfly-windows.zip
+            linwood-butterfly-android.apk
+            linwood-butterfly-linux.zip
+            linwood-butterfly-linux.deb
+            linwood-butterfly-linux.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
