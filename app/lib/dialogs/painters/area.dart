@@ -48,7 +48,7 @@ class AreaPainterDialog extends StatelessWidget {
                         itemBuilder: (context) => AreaRatioPreset.values
                             .map((e) => PopupMenuItem(
                                   value: e,
-                                  child: Text(e.getLocalized(context)),
+                                  child: Text(e.getLocalizedName(context)),
                                 ))
                             .toList(),
                         onSelected: (preset) => setPainter(painter.copyWith(

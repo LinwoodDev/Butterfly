@@ -412,7 +412,7 @@ packages:
       name: idb_shim
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.1+1"
   image:
     dependency: "direct main"
     description:
@@ -741,7 +741,7 @@ packages:
       name: sembast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.0"
+    version: "3.2.0+1"
   share_plus:
     dependency: "direct main"
     description:
