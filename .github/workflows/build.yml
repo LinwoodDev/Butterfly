@@ -75,9 +75,6 @@ jobs:
             app/build/windows/Butterfly-Setup.exe
   build-linux:
     runs-on: ubuntu-20.04
-    defaults:
-      run:
-        working-directory: app
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -93,14 +90,17 @@ jobs:
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
+          cd app
           flutter pub get
       - name: 🏭 Build
         run: |
+          cd app
           flutter clean
           flutter doctor -v
           flutter build linux -v --release
       - name: Build .deb executable
         run: |
+          cd app
           cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
           dpkg-deb --build --root-owner-group linux/debian
           cp linux/*.deb linwood-butterfly-linux-x86_64.deb
@@ -109,26 +109,30 @@ jobs:
       #    cd app
       #    alien -r linwood-butterfly-linux-x86_64.deb
       #    mv linwood-butterfly*.rpm linwood-butterfly-linux-x86_64.rpm
-      - name: Build AppImage unsing appimage-builder
-        uses: docker://appimagecrafters/appimage-builder:1.0.3
-        with:
-          entrypoint: appimage-builder
-          args: --recipe ./AppImageBuilder.yml --skip-test
+      - name: Build .AppImage executable
+        run: |
+          cd app
+          wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.0.0-beta.1/appimage-builder-1.0.0-677acbd-x86_64.AppImage
+          chmod +x appimage-builder-x86_64.AppImage
+          # install (optional)
+          sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
+          appimage-builder --recipe AppImageBuilder.yml --skip-test
       - name: Rename AppImage
         run: |
+          cd app
           mv ./*.AppImage* Linwood-Butterfly-linux-x86_64.AppImage
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
           name: linux-build
           path: |
-            build/linux/x64/release/bundle/**
+            app/build/linux/x64/release/bundle/**
       - name: Archive .deb
         uses: actions/upload-artifact@v3
         with:
           name: linux-deb
           path: |
-            linwood-butterfly-linux-x86_64.deb
+            app/linwood-butterfly-linux-x86_64.deb
       #- name: Archive .rpm
       #  uses: actions/upload-artifact@v3
       #  with:
@@ -140,7 +144,7 @@ jobs:
         with:
           name: linux-appimage
           path: |
-            Linwood-Butterfly-linux-x86_64.AppImage
+            app/Linwood-Butterfly-linux-x86_64.AppImage
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
