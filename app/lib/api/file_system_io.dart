@@ -6,8 +6,10 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xml/xml.dart';
 
 import '../cubits/settings.dart';
 import 'file_system.dart';
@@ -248,87 +250,229 @@ class IOTemplateFileSystem extends TemplateFileSystem {
   }
 }
 
-class RemoteDocumentFileSystem extends DocumentFileSystem {
-  final RemoteStorage remote;
+class DavRemoteDocumentFileSystem extends DocumentFileSystem {
+  final DavRemoteStorage remote;
 
-  RemoteDocumentFileSystem(this.remote);
+  DavRemoteDocumentFileSystem(this.remote);
 
-  @override
-  Future<AppDocumentDirectory> createDirectory(String name) {
-    // TODO: implement createDirectory
-    throw UnimplementedError();
+  final http.Client client = http.Client();
+  Future<http.StreamedResponse> _createRequest(String path,
+      {String method = 'GET', String? body}) {
+    final url = remote.buildDocumentsUri(path: path.split('/'));
+    final request = http.Request(method, url);
+    if (body != null) {
+      request.body = body;
+    }
+    request.headers['Authorization'] =
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${remote.password}'))}';
+    return client.send(request);
   }
 
   @override
-  Future<void> deleteAsset(String path) {
-    // TODO: implement deleteAsset
-    throw UnimplementedError();
+  Future<AppDocumentDirectory> createDirectory(String name) async {
+    var path = name;
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
+    if (!path.endsWith('/')) {
+      path = '$path/';
+    }
+    final response = await _createRequest(path, method: 'MKCOL');
+    if (response.statusCode != 201) {
+      throw Exception('Failed to create directory: ${response.statusCode}');
+    }
+    return AppDocumentDirectory(path.substring(0, path.length - 1), const []);
   }
 
   @override
-  Future<AppDocumentAsset?> getAsset(String path) {
-    // TODO: implement getAsset
-    throw UnimplementedError();
+  Future<void> deleteAsset(String path) async {
+    final response = await _createRequest(path, method: 'DELETE');
+    if (response.statusCode != 204) {
+      throw Exception('Failed to delete asset: ${response.statusCode}');
+    }
   }
 
   @override
-  Future<bool> hasAsset(String path) {
-    // TODO: implement hasAsset
-    throw UnimplementedError();
+  Future<AppDocumentAsset?> getAsset(String path) async {
+    var response = await _createRequest(path);
+    if (response.statusCode != 200) {
+      return null;
+    }
+    var content = await response.stream.bytesToString();
+    final xml = XmlDocument.parse(content);
+    final fileName = remote.path.split('/').last;
+    final currentElement = xml
+        .findElements('d:response')
+        .where(
+            (element) => element.getAttribute('d:href') == '/$fileName/$path')
+        .first;
+    final resourceType = currentElement
+        .findElements('d:propstat')
+        .first
+        .findElements('d:prop')
+        .first
+        .findElements('d:resourcetype')
+        .first;
+    if (resourceType.getElement('d:collection') != null) {
+      return AppDocumentDirectory(
+          path,
+          xml
+              .findElements('d:response')
+              .where((element) =>
+                  element.getAttribute('d:href') != '/$fileName/$path')
+              .map((e) {
+            final currentResourceType = e
+                .findElements('d:propstat')
+                .first
+                .findElements('d:prop')
+                .first
+                .findElements('d:resourcetype')
+                .first;
+            final path = e
+                .findElements('d:href')
+                .first
+                .text
+                .substring(fileName.length + 1);
+            if (currentResourceType.getElement('d:collection') != null) {
+              return AppDocumentDirectory(path, const []);
+            } else {
+              return AppDocumentFile(path, {});
+            }
+          }).toList());
+    }
+    response = await _createRequest(path, method: 'GET');
+    if (response.statusCode != 200) {
+      throw Exception('Failed to get asset: ${response.statusCode}');
+    }
+    content = await response.stream.bytesToString();
+    return AppDocumentFile(path, json.decode(content));
+  }
+
+  @override
+  Future<bool> hasAsset(String path) async {
+    final response = await _createRequest(path);
+    return response.statusCode == 200;
   }
 
   @override
   Future<AppDocumentFile> importDocument(AppDocument document,
-      {String path = '/'}) {
-    // TODO: implement importDocument
-    throw UnimplementedError();
+      {String path = '/'}) async {
+    var fileName = document.name;
+    if (fileName.endsWith('.bfly')) {
+      fileName = fileName.substring(0, fileName.length - 5);
+    }
+    final has = await hasAsset(path);
+    if (!has) {
+      await createDirectory(path);
+    }
+    final asset = await getAsset(path);
+    if (asset is! AppDocumentDirectory) {
+      throw Exception('Failed to get directory: $path');
+    }
+    // get unique fileName
+    var counter = 1;
+    while (asset.assets.any((a) => a.path == '$path/$fileName.bfly')) {
+      fileName = convertNameToFile('${document.name}_${++counter}');
+    }
+    final content = document.toJson();
+    final response = await _createRequest('$path/$fileName.bfly',
+        method: 'PUT', body: json.encode(content));
+    if (response.statusCode != 201) {
+      throw Exception('Failed to import document: ${response.statusCode}');
+    }
+    return AppDocumentFile('$path/$fileName.bfly', content);
   }
 
   @override
-  Future<AppDocumentFile> updateDocument(String path, AppDocument document) {
-    // TODO: implement updateDocument
-    throw UnimplementedError();
+  Future<AppDocumentFile> updateDocument(
+      String path, AppDocument document) async {
+    final content = document.toJson();
+    final response =
+        await _createRequest(path, method: 'PUT', body: json.encode(content));
+    if (response.statusCode != 201) {
+      throw Exception('Failed to update document: ${response.statusCode}');
+    }
+    return AppDocumentFile(path, content);
   }
 }
 
-class RemoteTemplateFileSystem extends TemplateFileSystem {
-  final RemoteStorage remote;
+class DavRemoteTemplateFileSystem extends TemplateFileSystem {
+  final DavRemoteStorage remote;
 
-  RemoteTemplateFileSystem(this.remote);
+  DavRemoteTemplateFileSystem(this.remote);
 
-  @override
-  Future<bool> createDefault(BuildContext context, {bool force = false}) {
-    // TODO: implement createDefault
-    throw UnimplementedError();
+  final http.Client client = http.Client();
+  Future<http.StreamedResponse> _createRequest(String path,
+      {String method = 'GET', String? body}) {
+    final url = remote.buildTemplatesUri(path: path.split('/'));
+    final request = http.Request(method, url);
+    if (body != null) {
+      request.body = body;
+    }
+    request.headers['Authorization'] =
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${remote.password}'))}';
+    return client.send(request);
   }
 
   @override
-  Future<void> deleteTemplate(String name) {
-    // TODO: implement deleteTemplate
-    throw UnimplementedError();
+  Future<bool> createDefault(BuildContext context, {bool force = false}) async {
+    var defaults = DocumentTemplate.getDefaults(context);
+    // Create directory if it doesn't exist
+    await _createRequest('', method: 'MKCOL');
+    await Future.wait(defaults.map((e) => updateTemplate(e)));
+    return true;
   }
 
   @override
-  Future<DocumentTemplate?> getTemplate(String name) {
-    // TODO: implement getTemplate
-    throw UnimplementedError();
+  Future<void> deleteTemplate(String name) async {
+    final response = await _createRequest(name, method: 'DELETE');
+    if (response.statusCode != 204) {
+      throw Exception('Failed to delete template: ${response.statusCode}');
+    }
   }
 
   @override
-  Future<List<DocumentTemplate>> getTemplates() {
-    // TODO: implement getTemplates
-    throw UnimplementedError();
+  Future<DocumentTemplate?> getTemplate(String name) async {
+    final response = await _createRequest(name);
+    if (response.statusCode != 200) {
+      return null;
+    }
+    var content = '';
+    await response.stream.transform(utf8.decoder).listen((data) {
+      content += data;
+    }).asFuture();
+    return DocumentTemplate.fromJson(json.decode(content));
+  }
+
+  @override
+  Future<List<DocumentTemplate>> getTemplates() async {
+    final response = await _createRequest('', method: 'PROPFIND');
+    if (response.statusCode != 207) {
+      throw Exception('Failed to get templates: ${response.statusCode}');
+    }
+    final content = await response.stream.bytesToString();
+    final xml = XmlDocument.parse(content);
+    return (await Future.wait(xml
+            .findElements('d:response')
+            .where((element) =>
+                element.findElements('d:href').first.text.endsWith('.bfly'))
+            .map((e) {
+      final path =
+          e.findElements('d:href').first.text.substring(remote.path.length + 1);
+      return getTemplate(path);
+    })))
+        .whereType<DocumentTemplate>()
+        .toList();
   }
 
   @override
   Future<bool> hasTemplate(String name) {
-    // TODO: implement hasTemplate
-    throw UnimplementedError();
+    return _createRequest(name).then((response) => response.statusCode == 200);
   }
 
   @override
   Future<void> updateTemplate(DocumentTemplate template) {
-    // TODO: implement updateTemplate
-    throw UnimplementedError();
+    return _createRequest(template.name,
+        method: 'PUT', body: json.encode(template));
   }
 }

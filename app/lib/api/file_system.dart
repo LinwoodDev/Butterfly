@@ -6,8 +6,8 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/template.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:path/path.dart' as path;
 
 abstract class GeneralFileSystem {
@@ -84,12 +84,12 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     return newAsset;
   }
 
-  static DocumentFileSystem fromPlatform({RemoteStorage? remote}) {
+  static DocumentFileSystem fromPlatform({final RemoteStorage? remote}) {
     if (kIsWeb) {
       return WebDocumentFileSystem();
     } else {
-      if (remote != null) {
-        return RemoteDocumentFileSystem(remote);
+      if (remote is DavRemoteStorage) {
+        return DavRemoteDocumentFileSystem(remote);
       }
       return IODocumentFileSystem();
     }
@@ -161,8 +161,8 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     if (kIsWeb) {
       return WebTemplateFileSystem();
     } else {
-      if (remote != null) {
-        return RemoteTemplateFileSystem(remote);
+      if (remote is DavRemoteStorage) {
+        return DavRemoteTemplateFileSystem(remote);
       }
       return IOTemplateFileSystem();
     }
