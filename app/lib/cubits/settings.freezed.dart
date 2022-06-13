@@ -14,14 +14,81 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+RemoteStorage _$RemoteStorageFromJson(Map<String, dynamic> json) {
+  return DavRemoteStorage.fromJson(json);
+}
+
 /// @nodoc
 mixin _$RemoteStorage {
   String get name => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
+  String get password => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
+  String get path => throw _privateConstructorUsedError;
   String get documentsPath => throw _privateConstructorUsedError;
   String get templatesPath => throw _privateConstructorUsedError;
-  Uint8List? get icon => throw _privateConstructorUsedError;
-
+  @Uint8ListJsonConverter()
+  Uint8List get icon => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String name,
+            String username,
+            String password,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            @Uint8ListJsonConverter() Uint8List icon)
+        dav,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(
+            String name,
+            String username,
+            String password,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            @Uint8ListJsonConverter() Uint8List icon)?
+        dav,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String name,
+            String username,
+            String password,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            @Uint8ListJsonConverter() Uint8List icon)?
+        dav,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DavRemoteStorage value) dav,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DavRemoteStorage value)? dav,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DavRemoteStorage value)? dav,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $RemoteStorageCopyWith<RemoteStorage> get copyWith =>
       throw _privateConstructorUsedError;
@@ -34,10 +101,13 @@ abstract class $RemoteStorageCopyWith<$Res> {
       _$RemoteStorageCopyWithImpl<$Res>;
   $Res call(
       {String name,
+      String username,
+      String password,
       String url,
+      String path,
       String documentsPath,
       String templatesPath,
-      Uint8List? icon});
+      @Uint8ListJsonConverter() Uint8List icon});
 }
 
 /// @nodoc
@@ -52,7 +122,10 @@ class _$RemoteStorageCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
+    Object? username = freezed,
+    Object? password = freezed,
     Object? url = freezed,
+    Object? path = freezed,
     Object? documentsPath = freezed,
     Object? templatesPath = freezed,
     Object? icon = freezed,
@@ -62,9 +135,21 @@ class _$RemoteStorageCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
       url: url == freezed
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
               as String,
       documentsPath: documentsPath == freezed
           ? _value.documentsPath
@@ -77,53 +162,71 @@ class _$RemoteStorageCopyWithImpl<$Res>
       icon: icon == freezed
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as Uint8List,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$$_RemoteStorageCopyWith<$Res>
+abstract class _$$DavRemoteStorageCopyWith<$Res>
     implements $RemoteStorageCopyWith<$Res> {
-  factory _$$_RemoteStorageCopyWith(
-          _$_RemoteStorage value, $Res Function(_$_RemoteStorage) then) =
-      __$$_RemoteStorageCopyWithImpl<$Res>;
+  factory _$$DavRemoteStorageCopyWith(
+          _$DavRemoteStorage value, $Res Function(_$DavRemoteStorage) then) =
+      __$$DavRemoteStorageCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
+      String username,
+      String password,
       String url,
+      String path,
       String documentsPath,
       String templatesPath,
-      Uint8List? icon});
+      @Uint8ListJsonConverter() Uint8List icon});
 }
 
 /// @nodoc
-class __$$_RemoteStorageCopyWithImpl<$Res>
+class __$$DavRemoteStorageCopyWithImpl<$Res>
     extends _$RemoteStorageCopyWithImpl<$Res>
-    implements _$$_RemoteStorageCopyWith<$Res> {
-  __$$_RemoteStorageCopyWithImpl(
-      _$_RemoteStorage _value, $Res Function(_$_RemoteStorage) _then)
-      : super(_value, (v) => _then(v as _$_RemoteStorage));
+    implements _$$DavRemoteStorageCopyWith<$Res> {
+  __$$DavRemoteStorageCopyWithImpl(
+      _$DavRemoteStorage _value, $Res Function(_$DavRemoteStorage) _then)
+      : super(_value, (v) => _then(v as _$DavRemoteStorage));
 
   @override
-  _$_RemoteStorage get _value => super._value as _$_RemoteStorage;
+  _$DavRemoteStorage get _value => super._value as _$DavRemoteStorage;
 
   @override
   $Res call({
     Object? name = freezed,
+    Object? username = freezed,
+    Object? password = freezed,
     Object? url = freezed,
+    Object? path = freezed,
     Object? documentsPath = freezed,
     Object? templatesPath = freezed,
     Object? icon = freezed,
   }) {
-    return _then(_$_RemoteStorage(
+    return _then(_$DavRemoteStorage(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
       url: url == freezed
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
               as String,
       documentsPath: documentsPath == freezed
           ? _value.documentsPath
@@ -136,44 +239,61 @@ class __$$_RemoteStorageCopyWithImpl<$Res>
       icon: icon == freezed
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as Uint8List,
     ));
   }
 }
 
 /// @nodoc
-
-class _$_RemoteStorage implements _RemoteStorage {
-  const _$_RemoteStorage(
+@JsonSerializable()
+class _$DavRemoteStorage extends DavRemoteStorage {
+  const _$DavRemoteStorage(
       {required this.name,
+      required this.username,
+      required this.password,
       required this.url,
+      required this.path,
       required this.documentsPath,
       required this.templatesPath,
-      this.icon});
+      @Uint8ListJsonConverter() required this.icon})
+      : super._();
+
+  factory _$DavRemoteStorage.fromJson(Map<String, dynamic> json) =>
+      _$$DavRemoteStorageFromJson(json);
 
   @override
   final String name;
   @override
+  final String username;
+  @override
+  final String password;
+  @override
   final String url;
+  @override
+  final String path;
   @override
   final String documentsPath;
   @override
   final String templatesPath;
   @override
-  final Uint8List? icon;
+  @Uint8ListJsonConverter()
+  final Uint8List icon;
 
   @override
   String toString() {
-    return 'RemoteStorage(name: $name, url: $url, documentsPath: $documentsPath, templatesPath: $templatesPath, icon: $icon)';
+    return 'RemoteStorage.dav(name: $name, username: $username, password: $password, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, icon: $icon)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RemoteStorage &&
+            other is _$DavRemoteStorage &&
             const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.password, password) &&
             const DeepCollectionEquality().equals(other.url, url) &&
+            const DeepCollectionEquality().equals(other.path, path) &&
             const DeepCollectionEquality()
                 .equals(other.documentsPath, documentsPath) &&
             const DeepCollectionEquality()
@@ -181,42 +301,152 @@ class _$_RemoteStorage implements _RemoteStorage {
             const DeepCollectionEquality().equals(other.icon, icon));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(password),
       const DeepCollectionEquality().hash(url),
+      const DeepCollectionEquality().hash(path),
       const DeepCollectionEquality().hash(documentsPath),
       const DeepCollectionEquality().hash(templatesPath),
       const DeepCollectionEquality().hash(icon));
 
   @JsonKey(ignore: true)
   @override
-  _$$_RemoteStorageCopyWith<_$_RemoteStorage> get copyWith =>
-      __$$_RemoteStorageCopyWithImpl<_$_RemoteStorage>(this, _$identity);
+  _$$DavRemoteStorageCopyWith<_$DavRemoteStorage> get copyWith =>
+      __$$DavRemoteStorageCopyWithImpl<_$DavRemoteStorage>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String name,
+            String username,
+            String password,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            @Uint8ListJsonConverter() Uint8List icon)
+        dav,
+  }) {
+    return dav(name, username, password, url, path, documentsPath,
+        templatesPath, icon);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(
+            String name,
+            String username,
+            String password,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            @Uint8ListJsonConverter() Uint8List icon)?
+        dav,
+  }) {
+    return dav?.call(name, username, password, url, path, documentsPath,
+        templatesPath, icon);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String name,
+            String username,
+            String password,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            @Uint8ListJsonConverter() Uint8List icon)?
+        dav,
+    required TResult orElse(),
+  }) {
+    if (dav != null) {
+      return dav(name, username, password, url, path, documentsPath,
+          templatesPath, icon);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DavRemoteStorage value) dav,
+  }) {
+    return dav(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DavRemoteStorage value)? dav,
+  }) {
+    return dav?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DavRemoteStorage value)? dav,
+    required TResult orElse(),
+  }) {
+    if (dav != null) {
+      return dav(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DavRemoteStorageToJson(this);
+  }
 }
 
-abstract class _RemoteStorage implements RemoteStorage {
-  const factory _RemoteStorage(
-      {required final String name,
-      required final String url,
-      required final String documentsPath,
-      required final String templatesPath,
-      final Uint8List? icon}) = _$_RemoteStorage;
+abstract class DavRemoteStorage extends RemoteStorage {
+  const factory DavRemoteStorage(
+          {required final String name,
+          required final String username,
+          required final String password,
+          required final String url,
+          required final String path,
+          required final String documentsPath,
+          required final String templatesPath,
+          @Uint8ListJsonConverter() required final Uint8List icon}) =
+      _$DavRemoteStorage;
+  const DavRemoteStorage._() : super._();
+
+  factory DavRemoteStorage.fromJson(Map<String, dynamic> json) =
+      _$DavRemoteStorage.fromJson;
 
   @override
   String get name => throw _privateConstructorUsedError;
   @override
+  String get username => throw _privateConstructorUsedError;
+  @override
+  String get password => throw _privateConstructorUsedError;
+  @override
   String get url => throw _privateConstructorUsedError;
+  @override
+  String get path => throw _privateConstructorUsedError;
   @override
   String get documentsPath => throw _privateConstructorUsedError;
   @override
   String get templatesPath => throw _privateConstructorUsedError;
   @override
-  Uint8List? get icon => throw _privateConstructorUsedError;
+  @Uint8ListJsonConverter()
+  Uint8List get icon => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$$_RemoteStorageCopyWith<_$_RemoteStorage> get copyWith =>
+  _$$DavRemoteStorageCopyWith<_$DavRemoteStorage> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

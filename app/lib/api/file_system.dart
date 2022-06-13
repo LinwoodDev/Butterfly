@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:butterfly/api/file_system_io.dart';
 import 'package:butterfly/api/file_system_web.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/template.dart';
@@ -83,10 +84,13 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     return newAsset;
   }
 
-  static DocumentFileSystem fromPlatform() {
+  static DocumentFileSystem fromPlatform({RemoteStorage? remote}) {
     if (kIsWeb) {
       return WebDocumentFileSystem();
     } else {
+      if (remote != null) {
+        return RemoteDocumentFileSystem(remote);
+      }
       return IODocumentFileSystem();
     }
   }
@@ -153,10 +157,13 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     return newTemplate;
   }
 
-  static TemplateFileSystem fromPlatform() {
+  static TemplateFileSystem fromPlatform({RemoteStorage? remote}) {
     if (kIsWeb) {
       return WebTemplateFileSystem();
     } else {
+      if (remote != null) {
+        return RemoteTemplateFileSystem(remote);
+      }
       return IOTemplateFileSystem();
     }
   }

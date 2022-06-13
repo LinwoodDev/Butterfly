@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:butterfly/models/converter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,18 +11,68 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings.freezed.dart';
+part 'settings.g.dart';
 
 const kRecentHistorySize = 5;
 
 @freezed
 class RemoteStorage with _$RemoteStorage {
-  const factory RemoteStorage({
+  const factory RemoteStorage.dav({
     required String name,
+    required String username,
+    required String password,
     required String url,
+    required String path,
     required String documentsPath,
     required String templatesPath,
-    Uint8List? icon,
-  }) = _RemoteStorage;
+    @Uint8ListJsonConverter() required Uint8List icon,
+  }) = DavRemoteStorage;
+
+  factory RemoteStorage.fromJson(Map<String, dynamic> json) =>
+      _$RemoteStorageFromJson(json);
+
+  RemoteStorage._();
+
+  Uri get uri => Uri.parse(url);
+
+  Uri buildUri({
+    List<String> path = const [],
+    Map<String, String> query = const {},
+  }) {
+    final currentUri = uri;
+    return Uri(
+      scheme: currentUri.scheme,
+      port: currentUri.port,
+      queryParameters: {
+        ...currentUri.queryParameters,
+        ...query,
+      },
+      pathSegments: {
+        ...currentUri.pathSegments,
+        ...path,
+      },
+    );
+  }
+
+  Uri buildDocumentsUri({
+    List<String> path = const [],
+    Map<String, String> query = const {},
+  }) {
+    return buildUri(
+      path: [documentsPath, ...path],
+      query: query,
+    );
+  }
+
+  Uri buildTemplatesUri({
+    List<String> path = const [],
+    Map<String, String> query = const {},
+  }) {
+    return buildUri(
+      path: [templatesPath, ...path],
+      query: query,
+    );
+  }
 }
 
 @freezed
@@ -46,16 +97,7 @@ class ButterflySettings with _$ButterflySettings {
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final remotes = prefs.getStringList('remotes')?.map((e) {
-          final map = Map?.from(json.decode(e));
-          return RemoteStorage(
-            name: map['name'] ?? '',
-            url: map['url'] ?? '',
-            icon: map['icon'] != null
-                ? Uint8List.fromList(base64.decode(map['icon']!))
-                : null,
-            documentsPath: map['documentsPath'] ?? '',
-            templatesPath: map['templatesPath'] ?? '',
-          );
+          return RemoteStorage.fromJson(json.decode(e));
         }).toList() ??
         const [];
     return ButterflySettings(
@@ -109,6 +151,8 @@ class ButterflySettings with _$ButterflySettings {
     } else if (lastVersion != null) {
       await prefs.setString('last_version', lastVersion!);
     }
+    await prefs.setStringList(
+        'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
   }
 }
 

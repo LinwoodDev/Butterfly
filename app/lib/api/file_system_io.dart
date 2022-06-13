@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../cubits/settings.dart';
 import 'file_system.dart';
 
 Future<String> getButterflyDirectory() async {
@@ -244,5 +245,90 @@ class IOTemplateFileSystem extends TemplateFileSystem {
       }
     }
     return templates;
+  }
+}
+
+class RemoteDocumentFileSystem extends DocumentFileSystem {
+  final RemoteStorage remote;
+
+  RemoteDocumentFileSystem(this.remote);
+
+  @override
+  Future<AppDocumentDirectory> createDirectory(String name) {
+    // TODO: implement createDirectory
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteAsset(String path) {
+    // TODO: implement deleteAsset
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<AppDocumentAsset?> getAsset(String path) {
+    // TODO: implement getAsset
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> hasAsset(String path) {
+    // TODO: implement hasAsset
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<AppDocumentFile> importDocument(AppDocument document,
+      {String path = '/'}) {
+    // TODO: implement importDocument
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<AppDocumentFile> updateDocument(String path, AppDocument document) {
+    // TODO: implement updateDocument
+    throw UnimplementedError();
+  }
+}
+
+class RemoteTemplateFileSystem extends TemplateFileSystem {
+  final RemoteStorage remote;
+
+  RemoteTemplateFileSystem(this.remote);
+
+  @override
+  Future<bool> createDefault(BuildContext context, {bool force = false}) {
+    // TODO: implement createDefault
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteTemplate(String name) {
+    // TODO: implement deleteTemplate
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<DocumentTemplate?> getTemplate(String name) {
+    // TODO: implement getTemplate
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<DocumentTemplate>> getTemplates() {
+    // TODO: implement getTemplates
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> hasTemplate(String name) {
+    // TODO: implement hasTemplate
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateTemplate(DocumentTemplate template) {
+    // TODO: implement updateTemplate
+    throw UnimplementedError();
   }
 }

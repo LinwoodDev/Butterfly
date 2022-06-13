@@ -300,5 +300,9 @@
   "connect": "Connect",
   "username": "Username",
   "password": "Password",
-  "webNotSupported": "Web not supported"
+  "webNotSupported": "Web not supported",
+  "advanced": "Advanced",
+  "directory": "Directory",
+  "documentsDirectory": "Documents directory",
+  "templatesDirectory": "Templates directory"
 }

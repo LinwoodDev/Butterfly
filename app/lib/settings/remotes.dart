@@ -54,9 +54,7 @@ class RemotesSettingsPage extends StatelessWidget {
                       return ListTile(
                         title: Text(remote.name),
                         subtitle: Text(remote.url),
-                        leading: remote.icon != null
-                            ? Image.memory(remote.icon!)
-                            : const Icon(PhosphorIcons.cloudFill),
+                        leading: Image.memory(remote.icon),
                       );
                     });
               });
@@ -72,11 +70,14 @@ class _AddRemoteDialog extends StatefulWidget {
 }
 
 class __AddRemoteDialogState extends State<_AddRemoteDialog> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _urlController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  bool _isConnected = false;
+  final TextEditingController _nameController = TextEditingController(),
+      _urlController = TextEditingController(),
+      _usernameController = TextEditingController(),
+      _passwordController = TextEditingController(),
+      _directoryController = TextEditingController(),
+      _documentsDirectoryController = TextEditingController(),
+      _templatesDirectoryController = TextEditingController();
+  bool _isConnected = false, _advanced = false;
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +121,42 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     decoration: InputDecoration(
                         labelText: AppLocalizations.of(context)!.password),
                   ),
+                ] else ...[
+                  _DirectoryField(
+                    controller: _directoryController,
+                    label: AppLocalizations.of(context)!.directory,
+                  ),
+                  const SizedBox(height: 8),
+                  ExpansionPanelList(
+                    expansionCallback: (index, isExpanded) =>
+                        setState(() => _advanced = !isExpanded),
+                    children: [
+                      ExpansionPanel(
+                        headerBuilder: ((context, isExpanded) => Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                  AppLocalizations.of(context)!.advanced,
+                                  style: Theme.of(context).textTheme.headline6,
+                                  textAlign: TextAlign.center),
+                            )),
+                        canTapOnHeader: true,
+                        isExpanded: _advanced,
+                        body: Column(children: [
+                          _DirectoryField(
+                            controller: _documentsDirectoryController,
+                            label: AppLocalizations.of(context)!
+                                .documentsDirectory,
+                          ),
+                          const SizedBox(height: 8),
+                          _DirectoryField(
+                            controller: _templatesDirectoryController,
+                            label: AppLocalizations.of(context)!
+                                .templatesDirectory,
+                          ),
+                        ]),
+                      ),
+                    ],
+                  ),
                 ]
               ]),
             ),
@@ -156,6 +193,25 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
             ),
           ]),
         ),
+      ),
+    );
+  }
+}
+
+class _DirectoryField extends StatelessWidget {
+  final TextEditingController? controller;
+  final String? label;
+  const _DirectoryField({this.controller, this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        suffixIcon: IconButton(
+            icon: const Icon(PhosphorIcons.folderLight),
+            onPressed: () async {}),
       ),
     );
   }
