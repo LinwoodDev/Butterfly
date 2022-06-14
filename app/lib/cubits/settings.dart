@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:butterfly/models/converter.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,9 +20,7 @@ const kRecentHistorySize = 5;
 @freezed
 class RemoteStorage with _$RemoteStorage {
   const factory RemoteStorage.dav({
-    required String name,
     required String username,
-    required String password,
     required String url,
     required String path,
     required String documentsPath,
@@ -73,6 +73,12 @@ class RemoteStorage with _$RemoteStorage {
       query: query,
     );
   }
+
+  String get identifier => '$username@$url';
+
+  Future<String> getPassword() async =>
+      (await const FlutterSecureStorage().read(key: 'remotes/$identifier')) ??
+      '';
 }
 
 @freezed
@@ -93,7 +99,8 @@ class ButterflySettings with _$ButterflySettings {
       @Default(true) bool startEnabled,
       @Default(true) bool colorEnabled,
       String? lastVersion,
-      @Default([]) List<RemoteStorage> remotes}) = _ButterflySettings;
+      @Default([]) List<RemoteStorage> remotes,
+      @Default('') String defaultRemote}) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final remotes = prefs.getStringList('remotes')?.map((e) {
@@ -126,6 +133,7 @@ class ButterflySettings with _$ButterflySettings {
       lastVersion: prefs.getString('last_version'),
       colorEnabled: prefs.getBool('color_enabled') ?? true,
       remotes: remotes,
+      defaultRemote: prefs.getString('default_remote') ?? '',
     );
   }
 
@@ -153,6 +161,19 @@ class ButterflySettings with _$ButterflySettings {
     }
     await prefs.setStringList(
         'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
+    await prefs.setString('default_remote', defaultRemote);
+  }
+
+  RemoteStorage? getRemote(String identifier) {
+    return remotes.firstWhereOrNull((e) => e.identifier == identifier);
+  }
+
+  bool hasRemote(String identifier) {
+    return remotes.any((e) => e.identifier == identifier);
+  }
+
+  RemoteStorage? getDefaultRemote() {
+    return remotes.firstWhereOrNull((e) => e.identifier == defaultRemote);
   }
 }
 
@@ -333,4 +354,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> save() => state.save();
+
+  Future<void> addRemote(RemoteStorage storage, {required String password}) {
+    emit(state.copyWith(remotes: List.from(state.remotes)..add(storage)));
+    const FlutterSecureStorage()
+        .write(key: 'remotes/${storage.identifier}', value: password);
+    return save();
+  }
 }

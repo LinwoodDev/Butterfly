@@ -257,14 +257,14 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
 
   final http.Client client = http.Client();
   Future<http.StreamedResponse> _createRequest(String path,
-      {String method = 'GET', String? body}) {
+      {String method = 'GET', String? body}) async {
     final url = remote.buildDocumentsUri(path: path.split('/'));
     final request = http.Request(method, url);
     if (body != null) {
       request.body = body;
     }
     request.headers['Authorization'] =
-        'Basic ${base64Encode(utf8.encode('${remote.username}:${remote.password}'))}';
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getPassword()}'))}';
     return client.send(request);
   }
 
@@ -403,14 +403,14 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem {
 
   final http.Client client = http.Client();
   Future<http.StreamedResponse> _createRequest(String path,
-      {String method = 'GET', String? body}) {
+      {String method = 'GET', String? body}) async {
     final url = remote.buildTemplatesUri(path: path.split('/'));
     final request = http.Request(method, url);
     if (body != null) {
       request.body = body;
     }
     request.headers['Authorization'] =
-        'Basic ${base64Encode(utf8.encode('${remote.username}:${remote.password}'))}';
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getPassword()}'))}';
     return client.send(request);
   }
 

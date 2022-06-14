@@ -7,9 +7,7 @@ part of 'settings.dart';
 // **************************************************************************
 
 _$DavRemoteStorage _$$DavRemoteStorageFromJson(Map json) => _$DavRemoteStorage(
-      name: json['name'] as String,
       username: json['username'] as String,
-      password: json['password'] as String,
       url: json['url'] as String,
       path: json['path'] as String,
       documentsPath: json['documentsPath'] as String,
@@ -19,9 +17,7 @@ _$DavRemoteStorage _$$DavRemoteStorageFromJson(Map json) => _$DavRemoteStorage(
 
 Map<String, dynamic> _$$DavRemoteStorageToJson(_$DavRemoteStorage instance) =>
     <String, dynamic>{
-      'name': instance.name,
       'username': instance.username,
-      'password': instance.password,
       'url': instance.url,
       'path': instance.path,
       'documentsPath': instance.documentsPath,

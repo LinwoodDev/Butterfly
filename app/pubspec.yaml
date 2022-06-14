@@ -51,6 +51,7 @@ dependencies:
   js: ^0.6.4
   pdf: ^3.8.1
   http: ^0.13.4
+  flutter_secure_storage: ^5.0.2
 
 dev_dependencies:
   flutter_native_splash: ^2.2.3+1

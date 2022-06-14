@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:flutter/foundation.dart';
@@ -5,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:http/http.dart' as http;
 
 import '../widgets/header.dart';
 
@@ -52,9 +56,10 @@ class RemotesSettingsPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final remote = state.remotes[index];
                       return ListTile(
-                        title: Text(remote.name),
-                        subtitle: Text(remote.url),
-                        leading: Image.memory(remote.icon),
+                        title: Text(remote.identifier),
+                        leading: remote.icon.isEmpty
+                            ? const Icon(PhosphorIcons.cloudFill)
+                            : Image.memory(remote.icon),
                       );
                     });
               });
@@ -70,14 +75,71 @@ class _AddRemoteDialog extends StatefulWidget {
 }
 
 class __AddRemoteDialogState extends State<_AddRemoteDialog> {
-  final TextEditingController _nameController = TextEditingController(),
-      _urlController = TextEditingController(),
+  final TextEditingController _urlController = TextEditingController(),
       _usernameController = TextEditingController(),
       _passwordController = TextEditingController(),
       _directoryController = TextEditingController(),
       _documentsDirectoryController = TextEditingController(),
       _templatesDirectoryController = TextEditingController();
   bool _isConnected = false, _advanced = false;
+
+  void _connect() async {
+    final loc = AppLocalizations.of(context)!;
+    final url = Uri.tryParse(_urlController.text.trim());
+    if (_urlController.text.isEmpty || url == null) {
+      _showCreatingError(loc.urlNotValid);
+      return;
+    }
+    var response = await http.get(url, headers: {
+      'Accept': 'application/json',
+      'Authorization':
+          'Basic ${base64Encode(utf8.encode('${_usernameController.text}:${_passwordController.text}'))}',
+    });
+    if (response.statusCode != 200) {
+      _showCreatingError(loc.cannotConnectToRemote);
+      return;
+    }
+    setState(() => _isConnected = true);
+  }
+
+  Future<void> _create() async {
+    final settingsCubit = context.read<SettingsCubit>();
+    final url = Uri.parse(_urlController.text.trim());
+    final iconUrl = Uri.parse('${url.origin}/favicon.ico');
+    final navigator = Navigator.of(context);
+    final iconResponse = await http.get(iconUrl);
+    var icon = Uint8List(0);
+    if (iconResponse.statusCode == 200) {
+      icon = iconResponse.bodyBytes;
+    }
+    final remoteStorage = DavRemoteStorage(
+      username: _usernameController.text,
+      url: _urlController.text,
+      path: _directoryController.text,
+      documentsPath: _documentsDirectoryController.text,
+      templatesPath: _templatesDirectoryController.text,
+      icon: icon,
+    );
+    await settingsCubit.addRemote(remoteStorage,
+        password: _passwordController.text);
+    navigator.pop();
+  }
+
+  void _showCreatingError(String error) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title:
+                  Text(AppLocalizations.of(context)!.errorWhileCreatingRemote),
+              content: Text(error),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(AppLocalizations.of(context)!.ok),
+                ),
+              ],
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,12 +155,6 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
             const SizedBox(height: 16.0),
             Flexible(
               child: ListView(children: [
-                TextField(
-                  controller: _nameController,
-                  decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.name),
-                ),
-                const SizedBox(height: 8),
                 TextField(
                   controller: _urlController,
                   readOnly: _isConnected,
@@ -176,16 +232,12 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                 ),
                 if (_isConnected) ...[
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                    onPressed: _create,
                     child: Text(AppLocalizations.of(context)!.create),
                   ),
                 ] else ...[
                   ElevatedButton(
-                    onPressed: () {
-                      setState(() => _isConnected = true);
-                    },
+                    onPressed: _connect,
                     child: Text(AppLocalizations.of(context)!.connect),
                   ),
                 ]

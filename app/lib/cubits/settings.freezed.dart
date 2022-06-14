@@ -20,9 +20,7 @@ RemoteStorage _$RemoteStorageFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RemoteStorage {
-  String get name => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
   String get path => throw _privateConstructorUsedError;
   String get documentsPath => throw _privateConstructorUsedError;
@@ -32,9 +30,7 @@ mixin _$RemoteStorage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String name,
             String username,
-            String password,
             String url,
             String path,
             String documentsPath,
@@ -46,9 +42,7 @@ mixin _$RemoteStorage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
-            String name,
             String username,
-            String password,
             String url,
             String path,
             String documentsPath,
@@ -60,9 +54,7 @@ mixin _$RemoteStorage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String name,
             String username,
-            String password,
             String url,
             String path,
             String documentsPath,
@@ -100,9 +92,7 @@ abstract class $RemoteStorageCopyWith<$Res> {
           RemoteStorage value, $Res Function(RemoteStorage) then) =
       _$RemoteStorageCopyWithImpl<$Res>;
   $Res call(
-      {String name,
-      String username,
-      String password,
+      {String username,
       String url,
       String path,
       String documentsPath,
@@ -121,9 +111,7 @@ class _$RemoteStorageCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? name = freezed,
     Object? username = freezed,
-    Object? password = freezed,
     Object? url = freezed,
     Object? path = freezed,
     Object? documentsPath = freezed,
@@ -131,17 +119,9 @@ class _$RemoteStorageCopyWithImpl<$Res>
     Object? icon = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: password == freezed
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
               as String,
       url: url == freezed
           ? _value.url
@@ -175,9 +155,7 @@ abstract class _$$DavRemoteStorageCopyWith<$Res>
       __$$DavRemoteStorageCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name,
-      String username,
-      String password,
+      {String username,
       String url,
       String path,
       String documentsPath,
@@ -198,9 +176,7 @@ class __$$DavRemoteStorageCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? name = freezed,
     Object? username = freezed,
-    Object? password = freezed,
     Object? url = freezed,
     Object? path = freezed,
     Object? documentsPath = freezed,
@@ -208,17 +184,9 @@ class __$$DavRemoteStorageCopyWithImpl<$Res>
     Object? icon = freezed,
   }) {
     return _then(_$DavRemoteStorage(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: password == freezed
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
               as String,
       url: url == freezed
           ? _value.url
@@ -248,9 +216,7 @@ class __$$DavRemoteStorageCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DavRemoteStorage extends DavRemoteStorage {
   const _$DavRemoteStorage(
-      {required this.name,
-      required this.username,
-      required this.password,
+      {required this.username,
       required this.url,
       required this.path,
       required this.documentsPath,
@@ -262,11 +228,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
       _$$DavRemoteStorageFromJson(json);
 
   @override
-  final String name;
-  @override
   final String username;
-  @override
-  final String password;
   @override
   final String url;
   @override
@@ -281,7 +243,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
 
   @override
   String toString() {
-    return 'RemoteStorage.dav(name: $name, username: $username, password: $password, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, icon: $icon)';
+    return 'RemoteStorage.dav(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, icon: $icon)';
   }
 
   @override
@@ -289,9 +251,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DavRemoteStorage &&
-            const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.username, username) &&
-            const DeepCollectionEquality().equals(other.password, password) &&
             const DeepCollectionEquality().equals(other.url, url) &&
             const DeepCollectionEquality().equals(other.path, path) &&
             const DeepCollectionEquality()
@@ -305,9 +265,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(username),
-      const DeepCollectionEquality().hash(password),
       const DeepCollectionEquality().hash(url),
       const DeepCollectionEquality().hash(path),
       const DeepCollectionEquality().hash(documentsPath),
@@ -323,9 +281,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String name,
             String username,
-            String password,
             String url,
             String path,
             String documentsPath,
@@ -333,17 +289,14 @@ class _$DavRemoteStorage extends DavRemoteStorage {
             @Uint8ListJsonConverter() Uint8List icon)
         dav,
   }) {
-    return dav(name, username, password, url, path, documentsPath,
-        templatesPath, icon);
+    return dav(username, url, path, documentsPath, templatesPath, icon);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
-            String name,
             String username,
-            String password,
             String url,
             String path,
             String documentsPath,
@@ -351,17 +304,14 @@ class _$DavRemoteStorage extends DavRemoteStorage {
             @Uint8ListJsonConverter() Uint8List icon)?
         dav,
   }) {
-    return dav?.call(name, username, password, url, path, documentsPath,
-        templatesPath, icon);
+    return dav?.call(username, url, path, documentsPath, templatesPath, icon);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String name,
             String username,
-            String password,
             String url,
             String path,
             String documentsPath,
@@ -371,8 +321,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
     required TResult orElse(),
   }) {
     if (dav != null) {
-      return dav(name, username, password, url, path, documentsPath,
-          templatesPath, icon);
+      return dav(username, url, path, documentsPath, templatesPath, icon);
     }
     return orElse();
   }
@@ -413,9 +362,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
 
 abstract class DavRemoteStorage extends RemoteStorage {
   const factory DavRemoteStorage(
-          {required final String name,
-          required final String username,
-          required final String password,
+          {required final String username,
           required final String url,
           required final String path,
           required final String documentsPath,
@@ -428,11 +375,7 @@ abstract class DavRemoteStorage extends RemoteStorage {
       _$DavRemoteStorage.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
-  @override
   String get username => throw _privateConstructorUsedError;
-  @override
-  String get password => throw _privateConstructorUsedError;
   @override
   String get url => throw _privateConstructorUsedError;
   @override
@@ -467,6 +410,7 @@ mixin _$ButterflySettings {
   bool get colorEnabled => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
   List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
+  String get defaultRemote => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -493,7 +437,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       bool startEnabled,
       bool colorEnabled,
       String? lastVersion,
-      List<RemoteStorage> remotes});
+      List<RemoteStorage> remotes,
+      String defaultRemote});
 }
 
 /// @nodoc
@@ -522,6 +467,7 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? colorEnabled = freezed,
     Object? lastVersion = freezed,
     Object? remotes = freezed,
+    Object? defaultRemote = freezed,
   }) {
     return _then(_value.copyWith(
       theme: theme == freezed
@@ -584,6 +530,10 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _value.remotes
           : remotes // ignore: cast_nullable_to_non_nullable
               as List<RemoteStorage>,
+      defaultRemote: defaultRemote == freezed
+          ? _value.defaultRemote
+          : defaultRemote // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -610,7 +560,8 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       bool startEnabled,
       bool colorEnabled,
       String? lastVersion,
-      List<RemoteStorage> remotes});
+      List<RemoteStorage> remotes,
+      String defaultRemote});
 }
 
 /// @nodoc
@@ -641,6 +592,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? colorEnabled = freezed,
     Object? lastVersion = freezed,
     Object? remotes = freezed,
+    Object? defaultRemote = freezed,
   }) {
     return _then(_$_ButterflySettings(
       theme: theme == freezed
@@ -703,6 +655,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value._remotes
           : remotes // ignore: cast_nullable_to_non_nullable
               as List<RemoteStorage>,
+      defaultRemote: defaultRemote == freezed
+          ? _value.defaultRemote
+          : defaultRemote // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -725,7 +681,8 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.startEnabled = true,
       this.colorEnabled = true,
       this.lastVersion,
-      final List<RemoteStorage> remotes = const []})
+      final List<RemoteStorage> remotes = const [],
+      this.defaultRemote = ''})
       : _recentHistory = recentHistory,
         _remotes = remotes,
         super._();
@@ -785,8 +742,12 @@ class _$_ButterflySettings extends _ButterflySettings {
   }
 
   @override
+  @JsonKey()
+  final String defaultRemote;
+
+  @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, inputType: $inputType, design: $design, recentHistory: $recentHistory, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, inputType: $inputType, design: $design, recentHistory: $recentHistory, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote)';
   }
 
   @override
@@ -818,7 +779,9 @@ class _$_ButterflySettings extends _ButterflySettings {
                 .equals(other.colorEnabled, colorEnabled) &&
             const DeepCollectionEquality()
                 .equals(other.lastVersion, lastVersion) &&
-            const DeepCollectionEquality().equals(other._remotes, _remotes));
+            const DeepCollectionEquality().equals(other._remotes, _remotes) &&
+            const DeepCollectionEquality()
+                .equals(other.defaultRemote, defaultRemote));
   }
 
   @override
@@ -838,7 +801,8 @@ class _$_ButterflySettings extends _ButterflySettings {
       const DeepCollectionEquality().hash(startEnabled),
       const DeepCollectionEquality().hash(colorEnabled),
       const DeepCollectionEquality().hash(lastVersion),
-      const DeepCollectionEquality().hash(_remotes));
+      const DeepCollectionEquality().hash(_remotes),
+      const DeepCollectionEquality().hash(defaultRemote));
 
   @JsonKey(ignore: true)
   @override
@@ -863,7 +827,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool startEnabled,
       final bool colorEnabled,
       final String? lastVersion,
-      final List<RemoteStorage> remotes}) = _$_ButterflySettings;
+      final List<RemoteStorage> remotes,
+      final String defaultRemote}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
@@ -896,6 +861,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   String? get lastVersion => throw _privateConstructorUsedError;
   @override
   List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
+  @override
+  String get defaultRemote => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>

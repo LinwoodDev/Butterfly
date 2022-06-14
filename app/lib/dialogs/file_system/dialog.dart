@@ -191,9 +191,6 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                         ],
                       );
                       var searchInput = Row(children: [
-                        RemoteButton(
-                          onChanged: (String value) {},
-                        ),
                         Flexible(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -211,6 +208,9 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                               controller: _searchController,
                             ),
                           ),
+                        ),
+                        RemoteButton(
+                          onChanged: (String value) {},
                         ),
                       ]);
                       return Padding(

@@ -213,7 +213,7 @@
   "areas": "Areas",
   "enterArea": "Enter the area",
   "exitArea": "Exit the area",
-  "alreadyExists": "This value already exists",
+  "alreadyExists": "This element already exists",
   "currentArea": "Current area",
   "fullScreen": "Full screen",
   "design": "Design",
@@ -304,5 +304,8 @@
   "advanced": "Advanced",
   "directory": "Directory",
   "documentsDirectory": "Documents directory",
-  "templatesDirectory": "Templates directory"
+  "templatesDirectory": "Templates directory",
+  "errorWhileCreatingRemote": "Error while creating remote",
+  "cannotConnectToRemote": "Cannot connect to remote",
+  "urlNotValid": "URL not valid"
 }
