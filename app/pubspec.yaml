@@ -32,7 +32,7 @@ dependencies:
   file_picker: ^4.6.1
   phosphor_flutter: ^1.4.0
   replay_bloc: ^0.2.1
-  share_plus: ^4.0.7
+  share_plus: ^4.0.8
   package_info_plus: ^1.4.2
   idb_shim: ^2.0.1+1
   flutter_launcher_icons: ^0.9.3
