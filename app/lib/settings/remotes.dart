@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
@@ -51,17 +52,26 @@ class RemotesSettingsPage extends StatelessWidget {
                     child: Text(AppLocalizations.of(context)!.noRemotes),
                   );
                 }
-                return ListView.builder(
-                    itemCount: state.remotes.length,
-                    itemBuilder: (context, index) {
-                      final remote = state.remotes[index];
-                      return ListTile(
-                        title: Text(remote.identifier),
-                        leading: remote.icon.isEmpty
-                            ? const Icon(PhosphorIcons.cloudFill)
-                            : Image.memory(remote.icon),
-                      );
-                    });
+                return Material(
+                  child: ListView.builder(
+                      itemCount: state.remotes.length,
+                      itemBuilder: (context, index) {
+                        final remote = state.remotes[index];
+                        return Dismissible(
+                          key: Key(remote.identifier),
+                          onDismissed: (details) {
+                            BlocProvider.of<SettingsCubit>(context)
+                                .deleteRemote(remote.identifier);
+                          },
+                          child: ListTile(
+                            title: Text(remote.identifier),
+                            leading: remote.icon.isEmpty
+                                ? const Icon(PhosphorIcons.cloudFill)
+                                : Image.memory(remote.icon),
+                          ),
+                        );
+                      }),
+                );
               });
         }));
   }
@@ -110,7 +120,18 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     final iconResponse = await http.get(iconUrl);
     var icon = Uint8List(0);
     if (iconResponse.statusCode == 200) {
-      icon = iconResponse.bodyBytes;
+      // Test if the icon is a valid image
+      try {
+        final image = await decodeImageFromList(iconResponse.bodyBytes);
+        final imageBytes = (await image.toByteData(format: ImageByteFormat.png))
+            ?.buffer
+            .asUint8List();
+        if (imageBytes?.isNotEmpty ?? false) {
+          icon = imageBytes!;
+        }
+      } catch (e) {
+        icon = Uint8List(0);
+      }
     }
     final remoteStorage = DavRemoteStorage(
       username: _usernameController.text,

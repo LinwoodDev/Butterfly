@@ -361,4 +361,12 @@ class SettingsCubit extends Cubit<ButterflySettings> {
         .write(key: 'remotes/${storage.identifier}', value: password);
     return save();
   }
+
+  Future<void> deleteRemote(String identifier) async {
+    emit(state.copyWith(
+        remotes:
+            state.remotes.where((r) => r.identifier != identifier).toList()));
+    const FlutterSecureStorage().delete(key: 'remotes/$identifier');
+    return save();
+  }
 }
