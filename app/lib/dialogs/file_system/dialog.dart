@@ -5,7 +5,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/file_system/create.dart';
 import 'package:butterfly/dialogs/file_system/grid.dart';
 import 'package:butterfly/dialogs/file_system/list.dart';
-import 'package:butterfly/dialogs/file_system/popup.dart';
+import 'package:butterfly/widgets/remote_button.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/widgets/header.dart';
 import 'package:flutter/material.dart';
@@ -146,7 +146,13 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       var isMobile = constraints.maxWidth < 600;
                       var pathInput = Row(
                         children: [
-                          const OpenPopupButton(),
+                          IconButton(
+                            icon: const Icon(PhosphorIcons.houseLight),
+                            onPressed: () {
+                              _pathController.text = '/';
+                              loadDocuments();
+                            },
+                          ),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -184,22 +190,29 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                           ),
                         ],
                       );
-                      var searchInput = Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        child: TextField(
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: const InputDecoration(
-                            filled: true,
-                            prefixIcon:
-                                Icon(PhosphorIcons.magnifyingGlassLight),
-                          ),
-                          onChanged: (value) {
-                            loadDocuments();
-                          },
-                          controller: _searchController,
+                      var searchInput = Row(children: [
+                        RemoteButton(
+                          onChanged: (String value) {},
                         ),
-                      );
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            child: TextField(
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                prefixIcon:
+                                    Icon(PhosphorIcons.magnifyingGlassLight),
+                              ),
+                              onChanged: (value) {
+                                loadDocuments();
+                              },
+                              controller: _searchController,
+                            ),
+                          ),
+                        ),
+                      ]);
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: isMobile

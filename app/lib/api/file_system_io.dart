@@ -336,7 +336,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
             if (currentResourceType.getElement('d:collection') != null) {
               return AppDocumentDirectory(path, const []);
             } else {
-              return AppDocumentFile(path, {});
+              return AppDocumentFile(path, const {});
             }
           }).toList());
     }

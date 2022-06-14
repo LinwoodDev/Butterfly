@@ -31,7 +31,7 @@ class RemoteStorage with _$RemoteStorage {
   factory RemoteStorage.fromJson(Map<String, dynamic> json) =>
       _$RemoteStorageFromJson(json);
 
-  RemoteStorage._();
+  const RemoteStorage._();
 
   Uri get uri => Uri.parse(url);
 
