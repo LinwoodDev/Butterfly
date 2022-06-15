@@ -22,14 +22,18 @@ jobs:
       - name: 📦 Get dependencies
         run: |
           flutter pub get
-      - name: 🏭 Build
+      #- run: flutter test
+      - name: 🏭 Build nightly
+        if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
           flutter doctor -v
-          flutter build apk -v --release
-      # Rename
-      - name: 📦 Copy APK
+          flutter build apk -v --release --flavor development
+      - name: 🏭 Build production
+        if: ${{ github.ref == 'refs/tags/stable' }}
         run: |
-          cp build/app/outputs/flutter-apk/app-release.apk linwood-butterfly-android.apk
+          cd app
+          flutter doctor -v
+          flutter build apk -v --release --flavor production
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
