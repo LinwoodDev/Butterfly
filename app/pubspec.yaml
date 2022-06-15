@@ -56,10 +56,13 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
+  flutter_driver:
+    sdk: flutter
   analyzer: ^4.1.0
   freezed: ^2.0.3
   build_runner: ^2.1.11
   json_serializable: ^6.2.0
+  espresso: ^0.2.0+2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
