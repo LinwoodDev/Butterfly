@@ -1,1 +1,2 @@
 package_name("dev.linwood.butterfly") # e.g. com.krausefx.app
+json_key_file("play-store-credentials.json")

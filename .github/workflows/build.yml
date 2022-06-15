@@ -1,9 +1,11 @@
 name: Flutter build
 
 on: [push, release]
-
 jobs:
   build-apk:
+    defaults:
+      run:
+        working-directory: app
     runs-on: ubuntu-20.04
     steps:
       - name: ⬆️ Checkout
@@ -15,17 +17,15 @@ jobs:
           distribution: "adopt"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.1'
+          flutter-version: '3.0.2'
           channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |
-          cd app
           flutter pub get
       #- run: flutter test
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
-          cd app
           flutter doctor -v
           flutter build apk -v --release --flavor development
       - name: 🏭 Build production
@@ -38,33 +38,33 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: apk-build
-          path: app/build/app/outputs/flutter-apk/app-release.apk
+          path: app/linwood-butterfly-android.apk
   build-windows:
     runs-on: windows-2022
+    defaults:
+      run:
+        working-directory: app
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.1'
+          flutter-version: '3.0.2'
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
         run: |
-          cd app
           flutter pub get
       - name: 🏭 Build
         shell: pwsh
         run: |
-          cd app
           flutter clean
           flutter doctor -v
           flutter build windows -v --release
       - name: Build setup
         shell: pwsh
         run: |
-          cd app
           Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:BUTTERFLY_VERSION -Value "$($_.matches.groups[1])"}
           & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION ButterflySetup.iss
         # flutter pub run msix:create
@@ -79,9 +79,12 @@ jobs:
         with:
           name: windows-setup
           path: |
-            app/build/windows/Butterfly-Setup.exe
+            app/build/windows/linwood-butterfly-windows-setup.exe
   build-linux:
     runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: app
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -91,42 +94,37 @@ jobs:
           sudo apt-get install -y python3-pip python3-setuptools desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev liblzma-dev clang dpkg-dev patchelf alien
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.1'
+          flutter-version: '3.0.2'
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
-          cd app
           flutter pub get
       - name: 🏭 Build
         run: |
-          cd app
           flutter clean
           flutter doctor -v
           flutter build linux -v --release
       - name: Build .deb executable
         run: |
-          cd app
           cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
           dpkg-deb --build --root-owner-group linux/debian
-          cp linux/*.deb linwood-butterfly-linux-x86_64.deb
+          cp linux/*.deb linwood-butterfly-linux.deb
       #- name: Build .rpm executable
       #  run: |
       #    cd app
-      #    alien -r linwood-butterfly-linux-x86_64.deb
-      #    mv linwood-butterfly*.rpm linwood-butterfly-linux-x86_64.rpm
+      #    alien -r linwood-butterfly-linux.deb
+      #    mv linwood-butterfly*.rpm linwood-butterfly-linux.rpm
       - name: Build .AppImage executable
         run: |
-          cd app
-          sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /usr/local/bin/appimagetool
-          sudo chmod +x /usr/local/bin/appimagetool
-          sudo pip3 install appimage-builder
+          wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.0.0-beta.1/appimage-builder-1.0.0-677acbd-x86_64.AppImage
+          chmod +x appimage-builder-x86_64.AppImage
+          sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
           appimage-builder --recipe AppImageBuilder.yml --skip-test
       - name: Rename AppImage
         run: |
-          cd app
-          mv ./*.AppImage* Linwood-Butterfly-linux-x86_64.AppImage
+          mv ./*.AppImage* linwood-butterfly-linux.AppImage
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -138,19 +136,19 @@ jobs:
         with:
           name: linux-deb
           path: |
-            app/linwood-butterfly-linux-x86_64.deb
+            app/linwood-butterfly-linux.deb
       #- name: Archive .rpm
       #  uses: actions/upload-artifact@v3
       #  with:
       #    name: linux-rpm
       #    path: |
-      #      app/linwood-butterfly-linux-x86_64.rpm
+      #      app/linwood-butterfly-linux.rpm
       - name: Archive .AppImage
         uses: actions/upload-artifact@v3
         with:
           name: linux-appimage
           path: |
-            app/Linwood-Butterfly-linux-x86_64.AppImage
+            app/linwood-butterfly-linux.AppImage
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
@@ -215,8 +213,8 @@ jobs:
           name: windows-setup
       - name: 📦 Zip artifacts
         run: |
-          zip -r windows.zip windows-build/*
-          zip -r linux.zip linux-build/*
+          zip -r linwood-butterfly-windows.zip windows-build/*
+          zip -r linwood-butterfly-linux.zip linux-build/*
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -232,12 +230,12 @@ jobs:
           prerelease: true
           tag_name: stable
           files: |
-            Butterfly-Setup.exe
-            app-release.apk
-            windows.zip
-            linux.zip
-            linwood-butterfly-linux-x86_64.deb
-            Linwood-Butterfly-linux-x86_64.AppImage
+            linwood-butterfly-windows-setup.exe
+            linwood-butterfly-windows.zip
+            linwood-butterfly-android.apk
+            linwood-butterfly-linux.zip
+            linwood-butterfly-linux.deb
+            linwood-butterfly-linux.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
@@ -248,12 +246,12 @@ jobs:
           prerelease: true
           tag_name: nightly
           files: |
-            Butterfly-Setup.exe
-            app-release.apk
-            windows.zip
-            linux.zip
-            linwood-butterfly-linux-x86_64.deb
-            Linwood-Butterfly-linux-x86_64.AppImage
+            linwood-butterfly-windows-setup.exe
+            linwood-butterfly-windows.zip
+            linwood-butterfly-android.apk
+            linwood-butterfly-linux.zip
+            linwood-butterfly-linux.deb
+            linwood-butterfly-linux.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
@@ -262,11 +260,56 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         with:
           files: |
-            Butterfly-Setup.exe
-            app-release.apk
-            windows.zip
-            linux.zip
-            linwood-butterfly-linux-x86_64.deb
-            Linwood-Butterfly-linux-x86_64.AppImage
+            linwood-butterfly-windows-setup.exe
+            linwood-butterfly-windows.zip
+            linwood-butterfly-android.apk
+            linwood-butterfly-linux.zip
+            linwood-butterfly-linux.deb
+            linwood-butterfly-linux.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  deploy-to-play-store:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+      - name: Setup git
+        run: |
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - name: Import files
+        env:
+          KEY_JKS: ${{ secrets.KEY_JKS }}
+          KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
+          PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
+        run: |
+          cd app/android
+          echo $KEY_PROPERTIES | base64 --decode > key.properties
+          echo $KEY_JKS | base64 --decode > key.jks
+          echo $PLAY_STORE_CREDENTIALS | base64 --decode > play-store-credentials.json
+      - name: 🔧 Setup java
+        uses: actions/setup-java@v3
+        with:
+          java-version: "11"
+          distribution: "adopt"
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.2'
+          channel: "stable" # or: 'beta' or 'dev'
+      - name: 📦 Get dependencies
+        run: |
+          flutter pub get
+      - name: Setup Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1.2"
+          bundler-cache: true
+          working-directory: app/android
+      - name: 🚀 Deploy to Play Store
+        if: ${{ github.ref == 'refs/tags/stable' }}
+        run: bundle exec fastlane deploy
+      - name: 🚀 Deploy to Play Store
+        if: ${{ github.ref == 'refs/tags/nightly' }}
+        run: bundle exec fastlane beta
