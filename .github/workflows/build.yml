@@ -22,11 +22,18 @@ jobs:
           cd app
           flutter pub get
       #- run: flutter test
-      - name: 🏭 Build
+      - name: 🏭 Build nightly
+        if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
           cd app
           flutter doctor -v
-          flutter build apk -v --release
+          flutter build apk -v --release --flavor development
+      - name: 🏭 Build production
+        if: ${{ github.ref == 'refs/tags/stable' }}
+        run: |
+          cd app
+          flutter doctor -v
+          flutter build apk -v --release --flavor production
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
