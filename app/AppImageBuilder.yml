@@ -24,6 +24,8 @@ AppDir:
     - sourceline: deb http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse
     include:
     - libgtk-3-0
+    - libsecret-1-dev
+    - libjsoncpp-dev
     exclude:
     - humanity-icon-theme
     - hicolor-icon-theme

@@ -8,8 +8,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../widgets/header.dart';
 
@@ -26,6 +26,17 @@ class RemotesSettingsPage extends StatelessWidget {
           backgroundColor: inView ? Colors.transparent : null,
           automaticallyImplyLeading: !inView,
           actions: [
+            BlocBuilder<SettingsCubit, ButterflySettings>(
+                builder: (context, settings) {
+              return IconButton(
+                icon: settings.defaultRemote.isEmpty
+                    ? const Icon(PhosphorIcons.houseFill)
+                    : const Icon(PhosphorIcons.houseLight),
+                onPressed: () {
+                  BlocProvider.of<SettingsCubit>(context).setDefaultRemote('');
+                },
+              );
+            }),
             if (!inView && !kIsWeb && isWindow()) ...[
               const VerticalDivider(),
               const WindowButtons()
@@ -66,8 +77,17 @@ class RemotesSettingsPage extends StatelessWidget {
                           child: ListTile(
                             title: Text(remote.identifier),
                             leading: remote.icon.isEmpty
-                                ? const Icon(PhosphorIcons.cloudFill)
+                                ? null
                                 : Image.memory(remote.icon),
+                            trailing: IconButton(
+                              icon: remote.identifier == state.defaultRemote
+                                  ? const Icon(PhosphorIcons.cloudFill)
+                                  : const Icon(PhosphorIcons.cloudLight),
+                              onPressed: () {
+                                BlocProvider.of<SettingsCubit>(context)
+                                    .setDefaultRemote(remote.identifier);
+                              },
+                            ),
                           ),
                         );
                       }),

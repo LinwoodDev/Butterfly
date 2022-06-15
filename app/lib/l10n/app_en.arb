@@ -307,5 +307,6 @@
   "templatesDirectory": "Templates directory",
   "errorWhileCreatingRemote": "Error while creating remote",
   "cannotConnectToRemote": "Cannot connect to remote",
-  "urlNotValid": "URL not valid"
+  "urlNotValid": "URL not valid",
+  "remote": "Remote"
 }

@@ -369,4 +369,9 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     const FlutterSecureStorage().delete(key: 'remotes/$identifier');
     return save();
   }
+
+  Future<void> setDefaultRemote(String identifier) async {
+    emit(state.copyWith(defaultRemote: identifier));
+    return save();
+  }
 }

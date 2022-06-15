@@ -5,9 +5,9 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/file_system/create.dart';
 import 'package:butterfly/dialogs/file_system/grid.dart';
 import 'package:butterfly/dialogs/file_system/list.dart';
-import 'package:butterfly/widgets/remote_button.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/widgets/header.dart';
+import 'package:butterfly/widgets/remote_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -192,25 +192,30 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       );
                       var searchInput = Row(children: [
                         Flexible(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
-                            child: TextField(
-                              textAlignVertical: TextAlignVertical.center,
-                              decoration: const InputDecoration(
-                                filled: true,
-                                prefixIcon:
-                                    Icon(PhosphorIcons.magnifyingGlassLight),
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(minWidth: 300),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              child: TextField(
+                                textAlignVertical: TextAlignVertical.center,
+                                decoration: const InputDecoration(
+                                  filled: true,
+                                  prefixIcon:
+                                      Icon(PhosphorIcons.magnifyingGlassLight),
+                                ),
+                                onChanged: (value) {
+                                  loadDocuments();
+                                },
+                                controller: _searchController,
                               ),
-                              onChanged: (value) {
-                                loadDocuments();
-                              },
-                              controller: _searchController,
                             ),
                           ),
                         ),
-                        RemoteButton(
-                          onChanged: (String value) {},
+                        Flexible(
+                          child: RemoteButton(
+                            onChanged: (String value) {},
+                          ),
                         ),
                       ]);
                       return Padding(

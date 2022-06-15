@@ -19,6 +19,11 @@ The current stable version is located in the main branch. This branch is feature
 All nightly versions gets released from here. Please create feature requests and bug
 fixing pull requests here.
 
+### Dependencies
+
+- libsecret-1-dev
+- libjsoncpp-dev
+
 ## Documentation
 
 The documentation uses docusaurus as generator and markdown for the pages.

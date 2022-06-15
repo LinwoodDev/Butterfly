@@ -2,9 +2,9 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RemoteButton extends StatefulWidget {
   final String currentRemote;
@@ -37,32 +37,39 @@ class _RemoteButtonState extends State<RemoteButton> {
         return Container();
       }
       return Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(
-              minWidth: 100,
-              maxWidth: 200,
-            ),
-            child: DropdownButton<String>(
-              onChanged: (String? value) {
-                _currentRemote = value ?? widget.currentRemote;
-              },
-              value: _currentRemote,
-              selectedItemBuilder: (BuildContext context) {
-                return [];
-              },
-              items: [
-                DropdownMenuItem(
-                  value: '',
-                  child: Text(AppLocalizations.of(context)!.local),
+          Flexible(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                minWidth: 200,
+                maxWidth: 300,
+              ),
+              child: DropdownButtonFormField<String>(
+                onChanged: (String? value) {
+                  _currentRemote = value ?? widget.currentRemote;
+                },
+                value: _currentRemote,
+                selectedItemBuilder: (BuildContext context) {
+                  return [];
+                },
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.remote,
+                  border: const OutlineInputBorder(),
                 ),
-                ...settings.remotes.map((remote) {
-                  return DropdownMenuItem(
-                    value: remote.identifier,
-                    child: Text(remote.identifier),
-                  );
-                }),
-              ],
+                items: [
+                  DropdownMenuItem(
+                    value: '',
+                    child: Text(AppLocalizations.of(context)!.local),
+                  ),
+                  ...settings.remotes.map((remote) {
+                    return DropdownMenuItem(
+                      value: remote.identifier,
+                      child: Text(remote.identifier),
+                    );
+                  }),
+                ],
+              ),
             ),
           ),
           IconButton(
