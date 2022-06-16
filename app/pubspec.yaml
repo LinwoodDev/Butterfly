@@ -35,7 +35,7 @@ dependencies:
   share_plus: ^4.0.8
   package_info_plus: ^1.4.2
   idb_shim: ^2.0.1+1
-  go_router: ^3.1.1
+  go_router: ^4.0.0
   xml: ^6.0.1
   collection: ^1.16.0
   bloc_concurrency: ^0.2.0
@@ -56,10 +56,13 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
+  flutter_driver:
+    sdk: flutter
   analyzer: ^4.1.0
   freezed: ^2.0.3
   build_runner: ^2.1.11
   json_serializable: ^6.2.0
+  espresso: ^0.2.0+2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

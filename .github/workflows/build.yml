@@ -28,12 +28,13 @@ jobs:
         run: |
           flutter doctor -v
           flutter build apk -v --release --flavor development
+          cp build/app/outputs/flutter-apk/app-development-release.apk linwood-butterfly-android.apk
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' }}
         run: |
-          cd app
           flutter doctor -v
           flutter build apk -v --release --flavor production
+          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android.apk
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -268,3 +269,52 @@ jobs:
             linwood-butterfly-linux.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  deploy-to-play-store:
+    runs-on: ubuntu-20.04
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+      - name: Setup git
+        run: |
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - name: Import files
+        env:
+          KEY_JKS: ${{ secrets.KEY_JKS }}
+          KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
+          PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
+        run: |
+          cd app/android
+          echo "$KEY_PROPERTIES" | base64 --decode > key.properties
+          echo "$KEY_JKS" | base64 --decode > key.jks
+          echo "$PLAY_STORE_CREDENTIALS" | base64 --decode > play-store-credentials.json
+      - name: 🔧 Setup java
+        uses: actions/setup-java@v3
+        with:
+          java-version: "11"
+          distribution: "adopt"
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.2'
+          channel: "stable" # or: 'beta' or 'dev'
+      - name: 📦 Get dependencies
+        run: |
+          cd app
+          flutter pub get
+      - name: Setup Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1.2"
+          bundler-cache: true
+          working-directory: app/android
+      - name: 🚀 Deploy to Play Store
+        if: ${{ github.ref == 'refs/tags/stable' }}
+        run: bundle exec fastlane deploy
+        working-directory: app/android
+      - name: 🚀 Deploy to Play Store
+        if: ${{ github.ref == 'refs/tags/nightly' }}
+        run: bundle exec fastlane beta
+        working-directory: app/android
