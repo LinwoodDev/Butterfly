@@ -89,9 +89,9 @@ Future<void> main([List<String> args = const []]) async {
 class ButterflyApp extends StatelessWidget {
   final String initialLocation;
   final SharedPreferences prefs;
-  final GlobalKey _appKey = GlobalKey();
 
-  ButterflyApp({super.key, required this.prefs, this.initialLocation = '/'});
+  const ButterflyApp(
+      {super.key, required this.prefs, this.initialLocation = '/'});
 
   // This widget is the root of your application.
   @override
@@ -107,29 +107,25 @@ class ButterflyApp extends StatelessWidget {
             previous.localeTag != current.localeTag ||
             previous.design != current.design,
         builder: (context, state) {
-          return MaterialApp.router(
-            key: _appKey,
+          final router = MaterialApp.router(
             locale: state.locale,
             title: 'Butterfly',
-            routeInformationParser: router.routeInformationParser,
-            routerDelegate: router.routerDelegate,
+            routeInformationParser: _router.routeInformationParser,
+            routerDelegate: _router.routerDelegate,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             theme: ThemeManager.getThemeByName(state.design),
             themeMode: state.theme,
-            builder: (context, child) {
-              final content = child ?? Container();
-              if (kIsWeb || (!Platform.isWindows && !Platform.isLinux)) {
-                return content;
-              }
-              return DragToResizeArea(resizeEdgeSize: 8, child: content);
-            },
             darkTheme: ThemeManager.getThemeByName(state.design, dark: true),
           );
+          if (kIsWeb || (!Platform.isWindows && !Platform.isLinux)) {
+            return router;
+          }
+          return DragToResizeArea(resizeEdgeSize: 8, child: router);
         });
   }
 
-  GoRouter get router => GoRouter(
+  GoRouter get _router => GoRouter(
         initialLocation: initialLocation,
         routes: [
           GoRoute(

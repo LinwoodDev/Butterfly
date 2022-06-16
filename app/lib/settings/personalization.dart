@@ -66,6 +66,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
               leading: const Icon(PhosphorIcons.paletteLight),
               title: Text(AppLocalizations.of(context)!.design),
               subtitle: Text(state.design),
+              trailing:
+                  _ThemeBox(theme: ThemeManager.getThemeByName(state.design)),
               onTap: () => _openDesignModal(context),
             ),
             ListTile(
@@ -107,22 +109,32 @@ class PersonalizationSettingsPage extends StatelessWidget {
 
           return Container(
               margin: const EdgeInsets.only(bottom: 20),
-              child: ListView(shrinkWrap: true, children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: Text(
-                    AppLocalizations.of(context)!.theme,
-                    style: Theme.of(context).textTheme.headline5,
-                    textAlign: TextAlign.center,
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 20),
+                    child: Text(
+                      AppLocalizations.of(context)!.theme,
+                      style: Theme.of(context).textTheme.headline5,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                ...ThemeManager.getThemes().map((e) => ListTile(
-                      title: Text(e),
-                      selected: e == currentDesign,
-                      onTap: () => changeDesign(e),
-                    ))
-              ]));
+                  ...ThemeManager.getThemes().map(
+                    (e) {
+                      final theme = ThemeManager.getThemeByName(e);
+                      return ListTile(
+                          title: Text(e),
+                          selected: e == currentDesign,
+                          onTap: () => changeDesign(e),
+                          leading: _ThemeBox(
+                            theme: theme,
+                          ));
+                    },
+                  ),
+                ],
+              ));
         });
   }
 
@@ -206,5 +218,65 @@ class PersonalizationSettingsPage extends StatelessWidget {
                 const SizedBox(height: 32),
               ]));
         });
+  }
+}
+
+class _ThemeBox extends StatelessWidget {
+  final ThemeData theme;
+  static const double size = 12;
+  const _ThemeBox({required this.theme});
+
+  @override
+  Widget build(BuildContext context) {
+    // 2x2 grid of colors
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(mainAxisSize: MainAxisSize.min, children: [
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(size),
+              ),
+            ),
+          ),
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.secondary,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(size),
+              ),
+            ),
+          ),
+        ]),
+        Row(mainAxisSize: MainAxisSize.min, children: [
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primaryContainer,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(size),
+              ),
+            ),
+          ),
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.tertiary,
+              borderRadius: const BorderRadius.only(
+                bottomRight: Radius.circular(size),
+              ),
+            ),
+          ),
+        ]),
+      ],
+    );
   }
 }

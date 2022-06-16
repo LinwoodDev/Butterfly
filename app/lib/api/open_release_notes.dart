@@ -4,5 +4,5 @@ Future<bool> openReleaseNotes() {
   return launchUrl(Uri(
       scheme: 'https',
       host: 'go.linwood.dev',
-      pathSegments: ['butterfly', '1-3']));
+      pathSegments: ['butterfly', '1-4']));
 }
