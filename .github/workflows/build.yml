@@ -6,7 +6,7 @@ jobs:
     defaults:
       run:
         working-directory: app
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -82,7 +82,7 @@ jobs:
           path: |
             app/build/windows/linwood-butterfly-windows-setup.exe
   build-linux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     defaults:
       run:
         working-directory: app
@@ -175,7 +175,7 @@ jobs:
   #        path: |
   #          build/windows/runner/Release/**
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - build-apk
       - build-windows
@@ -270,8 +270,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
-    runs-on: ubuntu-20.04
-    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-22.04
+    # if: startsWith(github.ref, 'refs/tags/')
+    defaults:
+      run:
+        working-directory: app
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -287,7 +290,7 @@ jobs:
           KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
           PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
         run: |
-          cd app/android
+          cd android
           echo "$KEY_PROPERTIES" | base64 --decode > key.properties
           echo "$KEY_JKS" | base64 --decode > key.jks
           echo "$PLAY_STORE_CREDENTIALS" | base64 --decode > play-store-credentials.json
@@ -302,7 +305,6 @@ jobs:
           channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |
-          cd app
           flutter pub get
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
