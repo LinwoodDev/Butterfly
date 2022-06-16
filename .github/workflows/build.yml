@@ -301,6 +301,7 @@ jobs:
           channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |
+          cd app
           flutter pub get
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
@@ -311,6 +312,8 @@ jobs:
       - name: 🚀 Deploy to Play Store
         if: ${{ github.ref == 'refs/tags/stable' }}
         run: bundle exec fastlane deploy
+        working-directory: app/android
       - name: 🚀 Deploy to Play Store
         if: ${{ github.ref == 'refs/tags/nightly' }}
         run: bundle exec fastlane beta
+        working-directory: app/android
