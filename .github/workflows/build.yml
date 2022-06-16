@@ -28,12 +28,13 @@ jobs:
         run: |
           flutter doctor -v
           flutter build apk -v --release --flavor development
+          cp build/app/outputs/flutter-apk/app-development-release.apk linwood-butterfly-android.apk
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' }}
         run: |
-          cd app
           flutter doctor -v
           flutter build apk -v --release --flavor production
+          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android.apk
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -286,9 +287,9 @@ jobs:
           PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
         run: |
           cd app/android
-          echo $KEY_PROPERTIES | base64 --decode > key.properties
-          echo $KEY_JKS | base64 --decode > key.jks
-          echo $PLAY_STORE_CREDENTIALS | base64 --decode > play-store-credentials.json
+          echo "$KEY_PROPERTIES" | base64 --decode > key.properties
+          echo "$KEY_JKS" | base64 --decode > key.jks
+          echo "$PLAY_STORE_CREDENTIALS" | base64 --decode > play-store-credentials.json
       - name: 🔧 Setup java
         uses: actions/setup-java@v3
         with:

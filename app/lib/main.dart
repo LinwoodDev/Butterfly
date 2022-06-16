@@ -101,8 +101,9 @@ class ButterflyApp extends StatelessWidget {
             key: _appKey,
             locale: state.locale,
             title: 'Butterfly',
-            routeInformationParser: router.routeInformationParser,
-            routerDelegate: router.routerDelegate,
+            routeInformationProvider: _router.routeInformationProvider,
+            routeInformationParser: _router.routeInformationParser,
+            routerDelegate: _router.routerDelegate,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             theme: ThemeManager.getThemeByName(state.design),
@@ -119,7 +120,7 @@ class ButterflyApp extends StatelessWidget {
         });
   }
 
-  GoRouter get router => GoRouter(
+  GoRouter get _router => GoRouter(
         initialLocation: initialLocation,
         routes: [
           GoRoute(
