@@ -6,3 +6,4 @@
 * Add copy to change document path ([#180](https://github.com/LinwoodCloud/Butterfly/issues/180))
 * Add theme preview
 * Fix negative values for exporting svgs and pngs
+* Fix svg export preview
