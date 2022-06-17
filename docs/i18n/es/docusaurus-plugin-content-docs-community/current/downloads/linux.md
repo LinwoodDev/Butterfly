@@ -28,13 +28,13 @@ sidebar_position: 3
   <button className="button button--outline button--danger button--lg">Nightly</button>
   <ul className="dropdown__menu">
     <li>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linux.zip">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-linux.zip">
         Portable
       </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-linux-x86_64.deb">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-linux.deb">
         DEB
       </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/Linwood-Butterfly-linux-x86_64.AppImage">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-linux.AppImage">
         AppImage
       </a>
     </li>
