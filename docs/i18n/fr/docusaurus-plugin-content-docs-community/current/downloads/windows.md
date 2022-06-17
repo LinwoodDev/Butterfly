@@ -29,10 +29,10 @@ sidebar_position: 2
   <button className="button button--outline button--danger button--lg">Nuit</button>
   <ul className="dropdown__menu">
     <li>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/Butterfly-Setup.exe">
-        Configuration
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-windows-setup.exe">
+        Setup
       </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/windows.zip">
+      <a className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-windows.zip">
         Portable
       </a>
     </li>

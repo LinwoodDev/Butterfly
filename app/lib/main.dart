@@ -106,23 +106,26 @@ class ButterflyApp extends StatelessWidget {
             previous.theme != current.theme ||
             previous.localeTag != current.localeTag ||
             previous.design != current.design,
-        builder: (context, state) {
-          final router = MaterialApp.router(
-            locale: state.locale,
-            title: 'Butterfly',
-            routeInformationParser: _router.routeInformationParser,
-            routerDelegate: _router.routerDelegate,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            theme: ThemeManager.getThemeByName(state.design),
-            themeMode: state.theme,
-            darkTheme: ThemeManager.getThemeByName(state.design, dark: true),
-          );
-          if (kIsWeb || (!Platform.isWindows && !Platform.isLinux)) {
-            return router;
-          }
-          return DragToResizeArea(resizeEdgeSize: 8, child: router);
-        });
+        builder: (context, state) => MaterialApp.router(
+              locale: state.locale,
+              title: 'Butterfly',
+              routeInformationParser: _router.routeInformationParser,
+              routerDelegate: _router.routerDelegate,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              theme: ThemeManager.getThemeByName(state.design),
+              themeMode: state.theme,
+              builder: (context, child) {
+                if (child == null) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (kIsWeb || (!Platform.isWindows && !Platform.isLinux)) {
+                  return child;
+                }
+                return DragToResizeArea(resizeEdgeSize: 8, child: child);
+              },
+              darkTheme: ThemeManager.getThemeByName(state.design, dark: true),
+            ));
   }
 
   GoRouter get _router => GoRouter(

@@ -86,16 +86,17 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
       height < 0 ? y + height : y,
     );
     final currentSize = Size(
-      (width < 0 ? -width : width).toDouble(),
-      (height < 0 ? -height : height).toDouble(),
+      width.abs().toDouble(),
+      height.abs().toDouble(),
     );
     var painter = ViewPainter(current.document,
         renderBackground: _renderBackground,
         cameraViewport: current.cameraViewport.unbake(current.renderers),
-        transform: CameraTransform(-currentPosition, y.toDouble()));
+        transform: CameraTransform(-currentPosition, 1));
     painter.paint(canvas, currentSize);
     var picture = recorder.endRecording();
-    var image = await picture.toImage(width, height);
+    var image = await picture.toImage(
+        currentSize.width.toInt(), currentSize.height.toInt());
     return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
@@ -103,11 +104,19 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
+    final currentPosition = Offset(
+      width < 0 ? x + width : x,
+      height < 0 ? y + height : y,
+    );
+    final currentSize = Size(
+      width.abs().toDouble(),
+      height.abs().toDouble(),
+    );
     final data = state.renderSVG(
-      width: width,
-      height: height,
-      x: x,
-      y: y,
+      width: currentSize.width.toInt(),
+      height: currentSize.height.toInt(),
+      x: currentPosition.dx,
+      y: currentPosition.dy,
       renderBackground: _renderBackground,
     );
     if (!mounted) return;

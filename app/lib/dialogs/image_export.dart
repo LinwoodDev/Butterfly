@@ -89,8 +89,8 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
       height < 0 ? y + height : y,
     );
     final currentSize = Size(
-      (width < 0 ? -width : width).toDouble(),
-      (height < 0 ? -height : height).toDouble(),
+      width.abs().toDouble(),
+      height.abs().toDouble(),
     );
     var painter = ViewPainter(current.document,
         renderBackground: _renderBackground,
@@ -98,7 +98,8 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
         transform: CameraTransform(-currentPosition, scale));
     painter.paint(canvas, currentSize);
     var picture = recorder.endRecording();
-    var image = await picture.toImage(width, height);
+    var image = await picture.toImage(
+        currentSize.width.toInt(), currentSize.height.toInt());
     return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
