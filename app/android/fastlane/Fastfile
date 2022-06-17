@@ -24,14 +24,14 @@ Dir.chdir("../../..") do
 
     desc "Submit a new Beta Build to Crashlytics Beta"
     lane :beta do
-      sh "flutter build appbundle -v --release --flavor beta"
-      upload_to_play_store(track: 'beta', aab: '../build/app/outputs/bundle/release/app-release.aab', metadata_path: "app/android/fastlane/metadata")
+      sh "flutter build appbundle -v --release --flavor development"
+      upload_to_play_store(track: 'beta', aab: 'app/build/app/outputs/bundle/release/app-release.aab', metadata_path: "app/android/fastlane/metadata")
     end
 
     desc "Deploy a new version to the Google Play"
     lane :deploy do
       sh "flutter build appbundle -v --release --flavor production"
-      upload_to_play_store(aab: '../build/app/outputs/bundle/release/app-release.aab', metadata_path: "app/android/fastlane/metadata")
+      upload_to_play_store(aab: 'app/build/app/outputs/bundle/release/app-release.aab', metadata_path: "app/android/fastlane/metadata")
     end
   end
 end
