@@ -294,18 +294,19 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<AppDocumentAsset?> getAsset(String path) async {
-    var response = await _createRequest(path);
-    if (response.statusCode != 200) {
+    if (path.endsWith('/')) {
+      path = path.substring(0, path.length - 1);
+    }
+    var response = await _createRequest(path, method: 'PROPFIND');
+    if (response.statusCode != 207) {
       return null;
     }
     var content = await response.stream.bytesToString();
     final xml = XmlDocument.parse(content);
-    final fileName = remote.path.split('/').last;
-    final currentElement = xml
-        .findElements('d:response')
-        .where(
-            (element) => element.getAttribute('d:href') == '/$fileName/$path')
-        .first;
+    final fileName = remote.buildDocumentsUri(path: path.split('/')).path;
+    final currentElement = xml.findAllElements('d:response').where((element) {
+      return element.getElement('d:href')?.text == fileName;
+    }).first;
     final resourceType = currentElement
         .findElements('d:propstat')
         .first
@@ -314,31 +315,33 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
         .findElements('d:resourcetype')
         .first;
     if (resourceType.getElement('d:collection') != null) {
-      return AppDocumentDirectory(
-          path,
-          xml
-              .findElements('d:response')
-              .where((element) =>
-                  element.getAttribute('d:href') != '/$fileName/$path')
-              .map((e) {
-            final currentResourceType = e
-                .findElements('d:propstat')
-                .first
-                .findElements('d:prop')
-                .first
-                .findElements('d:resourcetype')
-                .first;
-            final path = e
-                .findElements('d:href')
-                .first
-                .text
-                .substring(fileName.length + 1);
-            if (currentResourceType.getElement('d:collection') != null) {
-              return AppDocumentDirectory(path, const []);
-            } else {
-              return AppDocumentFile(path, const {});
-            }
-          }).toList());
+      final assets = await Future.wait(xml
+          .findAllElements('d:response')
+          .where((element) =>
+              element.getElement('d:href')?.text.startsWith(fileName) ?? false)
+          .where((element) => element.getElement('d:href')?.text != fileName)
+          .map((e) async {
+        final currentResourceType = e
+            .findElements('d:propstat')
+            .first
+            .findElements('d:prop')
+            .first
+            .findElements('d:resourcetype')
+            .first;
+        final path =
+            e.findElements('d:href').first.text.substring(fileName.length);
+        if (currentResourceType.getElement('d:collection') != null) {
+          return AppDocumentDirectory(path, const []);
+        } else {
+          response = await _createRequest(path, method: 'GET');
+          if (response.statusCode != 200) {
+            throw Exception('Failed to get asset: ${response.statusCode}');
+          }
+          content = await response.stream.bytesToString();
+          return AppDocumentFile(path, json.decode(content));
+        }
+      }).toList());
+      return AppDocumentDirectory(path, assets);
     }
     response = await _createRequest(path, method: 'GET');
     if (response.statusCode != 200) {
@@ -457,8 +460,11 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem {
             .where((element) =>
                 element.findElements('d:href').first.text.endsWith('.bfly'))
             .map((e) {
-      final path =
-          e.findElements('d:href').first.text.substring(remote.path.length + 1);
+      final path = e
+          .findElements('d:href')
+          .first
+          .text
+          .substring(remote.templatesPath.length + 1);
       return getTemplate(path);
     })))
         .whereType<DocumentTemplate>()

@@ -146,10 +146,11 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       var isMobile = constraints.maxWidth < 600;
                       var pathInput = Row(
                         children: [
-                          IconButton(
-                            icon: const Icon(PhosphorIcons.houseLight),
-                            onPressed: () {
+                          RemoteButton(
+                            onChanged: (value) {
                               _pathController.text = '/';
+                              _fileSystem = DocumentFileSystem.fromPlatform(
+                                  remote: value);
                               loadDocuments();
                             },
                           ),
@@ -210,11 +211,6 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                 controller: _searchController,
                               ),
                             ),
-                          ),
-                        ),
-                        Flexible(
-                          child: RemoteButton(
-                            onChanged: (String value) {},
                           ),
                         ),
                       ]);
@@ -285,10 +281,9 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
       path = '';
     }
     var success = await showDialog(
-            context: context,
-            builder: (context) =>
-                FileSystemAssetCreateDialog(isFolder: isFolder, path: path))
-        as bool?;
+        context: context,
+        builder: (context) => FileSystemAssetCreateDialog(
+            isFolder: isFolder, path: path, fileSystem: _fileSystem)) as bool?;
     if (success ?? false) {
       loadDocuments();
     }

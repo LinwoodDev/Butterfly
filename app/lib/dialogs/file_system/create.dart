@@ -9,10 +9,13 @@ class FileSystemAssetCreateDialog extends StatelessWidget {
   final String path;
   final GlobalKey<FormState> _formKey = GlobalKey();
   final _nameController = TextEditingController();
-  final _fileSystem = DocumentFileSystem.fromPlatform();
+  final DocumentFileSystem fileSystem;
 
   FileSystemAssetCreateDialog(
-      {super.key, this.isFolder = false, this.path = ''});
+      {super.key,
+      this.isFolder = false,
+      this.path = '',
+      required this.fileSystem});
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +47,11 @@ class FileSystemAssetCreateDialog extends StatelessWidget {
               final navigator = Navigator.of(context);
               if (_formKey.currentState?.validate() ?? false) {
                 if (!isFolder) {
-                  await _fileSystem.createDocument(_nameController.text,
+                  await fileSystem.createDocument(_nameController.text,
                       path: path,
                       palettes: ColorPalette.getMaterialPalette(context));
                 } else {
-                  await _fileSystem
+                  await fileSystem
                       .createDirectory('$path/${_nameController.text}');
                 }
               }

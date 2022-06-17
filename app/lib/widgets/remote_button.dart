@@ -3,12 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class RemoteButton extends StatefulWidget {
   final String currentRemote;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<RemoteStorage?> onChanged;
 
   const RemoteButton(
       {super.key, this.currentRemote = '', required this.onChanged});
@@ -18,68 +17,54 @@ class RemoteButton extends StatefulWidget {
 }
 
 class _RemoteButtonState extends State<RemoteButton> {
-  late String _currentRemote;
+  late RemoteStorage? _currentRemote;
 
   @override
   void initState() {
-    _currentRemote = widget.currentRemote;
+    _currentRemote =
+        context.read<SettingsCubit>().state.getRemote(widget.currentRemote);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (kIsWeb) {
-      return Container();
-    }
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         builder: (context, settings) {
-      if (settings.remotes.isEmpty) {
-        return Container();
+      if (settings.remotes.isEmpty || kIsWeb) {
+        return IconButton(
+            onPressed: () => widget.onChanged(null),
+            icon: const Icon(PhosphorIcons.houseLight));
       }
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Flexible(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                minWidth: 200,
-                maxWidth: 300,
-              ),
-              child: DropdownButtonFormField<String>(
-                onChanged: (String? value) {
-                  _currentRemote = value ?? widget.currentRemote;
-                },
-                value: _currentRemote,
-                selectedItemBuilder: (BuildContext context) {
-                  return [];
-                },
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.remote,
-                  border: const OutlineInputBorder(),
-                ),
-                items: [
-                  DropdownMenuItem(
-                    value: '',
-                    child: Text(AppLocalizations.of(context)!.local),
-                  ),
-                  ...settings.remotes.map((remote) {
-                    return DropdownMenuItem(
-                      value: remote.identifier,
-                      child: Text(remote.identifier),
-                    );
-                  }),
-                ],
-              ),
-            ),
-          ),
-          IconButton(
-            tooltip: AppLocalizations.of(context)!.configureRemotes,
-            icon: const Icon(PhosphorIcons.gearLight),
-            onPressed: () {
-              Navigator.of(context).pop();
-              GoRouter.of(context).push('/settings/remotes');
+      return PopupMenuButton<RemoteStorage?>(
+        initialValue: _currentRemote,
+        icon: _currentRemote == null
+            ? const Icon(PhosphorIcons.houseLight)
+            : _currentRemote!.icon.isEmpty
+                ? const Icon(PhosphorIcons.cloudLight)
+                : Image.memory(_currentRemote!.icon),
+        onSelected: (remote) {
+          setState(() {
+            _currentRemote = remote;
+          });
+          widget.onChanged(remote);
+        },
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            value: null,
+            child: Text(AppLocalizations.of(context)!.local),
+            onTap: () {
+              setState(() {
+                _currentRemote = null;
+              });
+              widget.onChanged(null);
             },
           ),
+          ...settings.remotes.map((remote) {
+            return PopupMenuItem(
+              value: remote,
+              child: Text(remote.identifier),
+            );
+          }),
         ],
       );
     });

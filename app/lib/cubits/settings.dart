@@ -40,15 +40,20 @@ class RemoteStorage with _$RemoteStorage {
     Map<String, String> query = const {},
   }) {
     final currentUri = uri;
+    final paths = List<String>.from(currentUri.pathSegments);
+    if (paths.lastOrNull == '') {
+      paths.removeLast();
+    }
     return Uri(
       scheme: currentUri.scheme,
       port: currentUri.port,
+      host: currentUri.host,
       queryParameters: {
         ...currentUri.queryParameters,
         ...query,
       },
       pathSegments: {
-        ...currentUri.pathSegments,
+        ...paths,
         ...path,
       },
     );
@@ -59,7 +64,7 @@ class RemoteStorage with _$RemoteStorage {
     Map<String, String> query = const {},
   }) {
     return buildUri(
-      path: [documentsPath, ...path],
+      path: [...documentsPath.split('/'), ...path],
       query: query,
     );
   }
@@ -69,7 +74,7 @@ class RemoteStorage with _$RemoteStorage {
     Map<String, String> query = const {},
   }) {
     return buildUri(
-      path: [templatesPath, ...path],
+      path: [...templatesPath.split('/'), ...path],
       query: query,
     );
   }
