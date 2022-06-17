@@ -255,12 +255,14 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                   ? FileSystemGridView(
                                       selectedPath: selectedPath,
                                       assets: _documents,
+                                      fileSystem: _fileSystem,
                                       onOpened: _openAsset,
                                       onRefreshed: loadDocuments,
                                     )
                                   : FileSystemListView(
                                       selectedPath: selectedPath,
                                       assets: _documents,
+                                      fileSystem: _fileSystem,
                                       onOpened: _openAsset,
                                       onRefreshed: loadDocuments,
                                     );

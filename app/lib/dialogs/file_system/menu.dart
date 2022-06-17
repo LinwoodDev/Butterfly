@@ -14,6 +14,7 @@ class FileSystemAssetMenu extends StatelessWidget {
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
   final AppDocumentAsset asset;
+  final DocumentFileSystem fileSystem;
   final String selectedPath;
 
   const FileSystemAssetMenu(
@@ -21,10 +22,10 @@ class FileSystemAssetMenu extends StatelessWidget {
       required this.selectedPath,
       required this.asset,
       required this.onOpened,
+      required this.fileSystem,
       required this.onRefreshed});
 
   void _showRenameDialog(BuildContext context, String path) {
-    final fileSystem = DocumentFileSystem.fromPlatform();
     final fileName = path.split('/').last;
     final parent = path.substring(0, path.length - fileName.length - 1);
     final nameController = TextEditingController(
@@ -149,8 +150,10 @@ class FileSystemAssetMenu extends StatelessWidget {
                 Navigator.of(context).pop();
                 var success = await showDialog(
                     context: context,
-                    builder: (context) =>
-                        FileSystemAssetDeleteDialog(path: asset.path)) as bool?;
+                    builder: (context) => FileSystemAssetDeleteDialog(
+                          path: asset.path,
+                          fileSystem: fileSystem,
+                        )) as bool?;
                 if (success ?? false) {
                   onRefreshed();
                 }
