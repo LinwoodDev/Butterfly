@@ -251,6 +251,7 @@ class IOTemplateFileSystem extends TemplateFileSystem {
 }
 
 class DavRemoteDocumentFileSystem extends DocumentFileSystem {
+  @override
   final DavRemoteStorage remote;
 
   DavRemoteDocumentFileSystem(this.remote);
@@ -297,6 +298,9 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
     }
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
     var response = await _createRequest(path, method: 'PROPFIND');
     if (response.statusCode != 207) {
       return null;
@@ -305,7 +309,8 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
     final xml = XmlDocument.parse(content);
     final fileName = remote.buildDocumentsUri(path: path.split('/')).path;
     final currentElement = xml.findAllElements('d:response').where((element) {
-      return element.getElement('d:href')?.text == fileName;
+      final current = element.getElement('d:href')?.text;
+      return current == fileName || current == '$fileName/';
     }).first;
     final resourceType = currentElement
         .findElements('d:propstat')
@@ -319,8 +324,10 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
           .findAllElements('d:response')
           .where((element) =>
               element.getElement('d:href')?.text.startsWith(fileName) ?? false)
-          .where((element) => element.getElement('d:href')?.text != fileName)
-          .map((e) async {
+          .where((element) {
+        final current = element.getElement('d:href')?.text;
+        return current != fileName && current != '$fileName/';
+      }).map((e) async {
         final currentResourceType = e
             .findElements('d:propstat')
             .first
@@ -328,8 +335,17 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
             .first
             .findElements('d:resourcetype')
             .first;
-        final path =
-            e.findElements('d:href').first.text.substring(fileName.length);
+        var path = e
+            .findElements('d:href')
+            .first
+            .text
+            .substring(remote.buildDocumentsUri().path.length);
+        if (path.endsWith('/')) {
+          path = path.substring(0, path.length - 1);
+        }
+        if (!path.startsWith('/')) {
+          path = '/$path';
+        }
         if (currentResourceType.getElement('d:collection') != null) {
           return AppDocumentDirectory(path, const []);
         } else {
@@ -400,6 +416,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
 }
 
 class DavRemoteTemplateFileSystem extends TemplateFileSystem {
+  @override
   final DavRemoteStorage remote;
 
   DavRemoteTemplateFileSystem(this.remote);

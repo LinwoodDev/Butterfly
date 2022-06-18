@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/create.dart';
 import 'package:butterfly/dialogs/file_system/grid.dart';
 import 'package:butterfly/dialogs/file_system/list.dart';
@@ -34,7 +35,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
 
   @override
   void initState() {
-    _fileSystem = DocumentFileSystem.fromPlatform();
+    _fileSystem =
+        context.read<SettingsCubit>().state.getDefaultDocumentFileSystem();
     loadDocuments();
     super.initState();
   }
@@ -147,6 +149,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       var pathInput = Row(
                         children: [
                           RemoteButton(
+                            currentRemote: _fileSystem.remote?.identifier ?? '',
                             onChanged: (value) {
                               _pathController.text = '/';
                               _fileSystem = DocumentFileSystem.fromPlatform(

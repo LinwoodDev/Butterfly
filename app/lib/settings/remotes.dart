@@ -222,6 +222,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   _DirectoryField(
                     controller: _directoryController,
                     label: AppLocalizations.of(context)!.directory,
+                    onChanged: (value) {
+                      _documentsDirectoryController.text = '$value/Documents';
+                      _templatesDirectoryController.text = '$value/Templates';
+                    },
                   ),
                   const SizedBox(height: 8),
                   ExpansionPanelList(
@@ -294,7 +298,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
 class _DirectoryField extends StatelessWidget {
   final TextEditingController? controller;
   final String? label;
-  const _DirectoryField({this.controller, this.label});
+  final ValueChanged<String>? onChanged;
+  const _DirectoryField({this.controller, this.label, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -302,10 +307,11 @@ class _DirectoryField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        suffixIcon: IconButton(
+        /*suffixIcon: IconButton(
             icon: const Icon(PhosphorIcons.folderLight),
-            onPressed: () async {}),
+            onPressed: () async {}),*/
       ),
+      onChanged: onChanged,
     );
   }
 }

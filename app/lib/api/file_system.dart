@@ -11,6 +11,8 @@ import 'package:flutter/widgets.dart';
 import 'package:path/path.dart' as path;
 
 abstract class GeneralFileSystem {
+  RemoteStorage? get remote => null;
+
   String convertNameToFile(String name) {
     return '${name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_')}.bfly';
   }

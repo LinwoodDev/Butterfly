@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/models/converter.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
@@ -84,6 +85,11 @@ class RemoteStorage with _$RemoteStorage {
   Future<String> getPassword() async =>
       (await const FlutterSecureStorage().read(key: 'remotes/$identifier')) ??
       '';
+  DocumentFileSystem get documentFileSystem =>
+      DocumentFileSystem.fromPlatform(remote: this);
+
+  TemplateFileSystem get templateFileSystem =>
+      TemplateFileSystem.fromPlatform(remote: this);
 }
 
 @freezed
@@ -180,6 +186,12 @@ class ButterflySettings with _$ButterflySettings {
   RemoteStorage? getDefaultRemote() {
     return remotes.firstWhereOrNull((e) => e.identifier == defaultRemote);
   }
+
+  DocumentFileSystem getDefaultDocumentFileSystem() =>
+      DocumentFileSystem.fromPlatform(remote: getDefaultRemote());
+
+  TemplateFileSystem getDefaultTemplateFileSystem() =>
+      TemplateFileSystem.fromPlatform(remote: getDefaultRemote());
 }
 
 enum InputType { multiDraw, moveFirst, moveLast, onlyStylus }

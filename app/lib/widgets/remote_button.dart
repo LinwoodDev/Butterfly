@@ -59,6 +59,7 @@ class _RemoteButtonState extends State<RemoteButton> {
               widget.onChanged(null);
             },
           ),
+          const PopupMenuDivider(),
           ...settings.remotes.map((remote) {
             return PopupMenuItem(
               value: remote,
