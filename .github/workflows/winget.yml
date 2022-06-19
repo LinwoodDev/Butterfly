@@ -7,12 +7,12 @@ jobs:
     runs-on: windows-latest
     steps:
       - if: github.event_name == 'released'
-        uses: vedantmgoyal2009/vedantmgoyal2009/winget-pkgs-automation/releaser-action@v1.0.0
+        uses: vedantmgoyal2009/winget-releaser@latest
         with:
           identifier: LinwoodCloud.Butterfly
           token: ${{ secrets.CI_PAT }}
       - if: github.event_name == 'prereleased'
-        uses: vedantmgoyal2009/vedantmgoyal2009/winget-pkgs-automation/releaser-action@v1.0.0
+        uses: vedantmgoyal2009/winget-releaser@latest
         with:
           identifier: LinwoodCloud.Butterfly.Nightly
           version-regex: '(?<=v).*'
