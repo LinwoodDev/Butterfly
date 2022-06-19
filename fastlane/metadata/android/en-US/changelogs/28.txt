@@ -1,0 +1,1 @@
+* Fix invalid namespace on android
