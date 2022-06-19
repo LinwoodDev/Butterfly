@@ -346,6 +346,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
         if (!path.startsWith('/')) {
           path = '/$path';
         }
+        path = Uri.decodeComponent(path);
         if (currentResourceType.getElement('d:collection') != null) {
           return AppDocumentDirectory(path, const []);
         } else {
@@ -437,6 +438,11 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem {
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     var defaults = DocumentTemplate.getDefaults(context);
+    // test if directory exists
+    final response = await _createRequest('', method: 'PROPFIND');
+    if (response.statusCode != 404 && !force) {
+      return false;
+    }
     // Create directory if it doesn't exist
     await _createRequest('', method: 'MKCOL');
     await Future.wait(defaults.map((e) => updateTemplate(e)));
@@ -453,35 +459,34 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem {
 
   @override
   Future<DocumentTemplate?> getTemplate(String name) async {
+    if (name.startsWith('/')) {
+      name = name.substring(1);
+    }
     final response = await _createRequest(name);
     if (response.statusCode != 200) {
       return null;
     }
-    var content = '';
-    await response.stream.transform(utf8.decoder).listen((data) {
-      content += data;
-    }).asFuture();
+    final content = await response.stream.bytesToString();
     return DocumentTemplate.fromJson(json.decode(content));
   }
 
   @override
   Future<List<DocumentTemplate>> getTemplates() async {
     final response = await _createRequest('', method: 'PROPFIND');
+    if (response.statusCode == 404) {
+      return [];
+    }
     if (response.statusCode != 207) {
       throw Exception('Failed to get templates: ${response.statusCode}');
     }
     final content = await response.stream.bytesToString();
     final xml = XmlDocument.parse(content);
     return (await Future.wait(xml
-            .findElements('d:response')
-            .where((element) =>
-                element.findElements('d:href').first.text.endsWith('.bfly'))
+            .findAllElements('d:href')
+            .where((element) => element.text.endsWith('.bfly'))
             .map((e) {
-      final path = e
-          .findElements('d:href')
-          .first
-          .text
-          .substring(remote.templatesPath.length + 1);
+      var path = e.text.substring(remote.buildTemplatesUri().path.length);
+      path = Uri.decodeComponent(path);
       return getTemplate(path);
     })))
         .whereType<DocumentTemplate>()
@@ -495,7 +500,7 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem {
 
   @override
   Future<void> updateTemplate(DocumentTemplate template) {
-    return _createRequest(template.name,
+    return _createRequest('${template.name}.bfly',
         method: 'PUT', body: json.encode(template));
   }
 }

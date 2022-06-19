@@ -1,6 +1,8 @@
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:butterfly/widgets/header.dart';
+import 'package:butterfly/widgets/remote_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,7 +29,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
   @override
   void initState() {
     super.initState();
-    _fileSystem = TemplateFileSystem.fromPlatform();
+    _fileSystem =
+        context.read<SettingsCubit>().state.getDefaultTemplateFileSystem();
     SharedPreferences.getInstance().then((value) => _prefs = value);
   }
 
@@ -56,6 +59,15 @@ class _TemplateDialogState extends State<TemplateDialog> {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   actions: [
+                    RemoteButton(
+                      currentRemote: _fileSystem.remote?.identifier ?? '',
+                      onChanged: (value) {
+                        _fileSystem =
+                            TemplateFileSystem.fromPlatform(remote: value);
+                        load();
+                        setState(() {});
+                      },
+                    ),
                     IconButton(
                       icon:
                           const Icon(PhosphorIcons.clockCounterClockwiseLight),
