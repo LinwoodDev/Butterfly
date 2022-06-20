@@ -36,7 +36,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       SettingsCubit settingsCubit,
       CurrentIndexCubit currentIndexCubit,
       AppDocument initial,
-      AssetLocation? location,
+      AssetLocation location,
       Renderer<Background> background,
       List<Renderer<PadElement>> renderer,
       [Embedding? embedding])
@@ -510,11 +510,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<TemplateCreated>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      TemplateFileSystem.fromPlatform(remote: current.getRemoteStorage())
+      final remote = current.getRemoteStorage();
+      TemplateFileSystem.fromPlatform(remote: remote)
           .createTemplate(current.document);
 
       if (event.deleteDocument) {
-        emit(current.copyWith(removePath: true));
+        emit(current.copyWith(
+            location:
+                AssetLocation(remote: remote?.identifier ?? '', path: '')));
       }
     });
     on<DocumentPathChanged>((event, emit) {
@@ -578,7 +581,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       emit(current.copyWith(saved: true, location: event.location));
-      if (current.location == null) clearHistory();
+      if (current.location.path == '') clearHistory();
     });
   }
 
@@ -607,11 +610,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     }
     emit(nextState);
     AssetLocation? path = current.location;
-    if (!kIsWeb) {
+    if (!kIsWeb && path.remote == '') {
       path = await nextState.save();
       var currentState = state;
       if (currentState is! DocumentLoadSuccess) return;
-      if (currentState.location == null && state is DocumentLoadSuccess) {
+      if (currentState.location.path == '' && state is DocumentLoadSuccess) {
         emit(currentState.copyWith(location: path, saved: true));
         clearHistory();
       }

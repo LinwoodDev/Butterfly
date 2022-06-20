@@ -19,8 +19,8 @@ class ChangePathAction extends Action<ChangePathIntent> {
   Future<void> invoke(ChangePathIntent intent) async {
     var bloc = intent.context.read<DocumentBloc>();
     var state = bloc.state;
-    if (state is! DocumentLoadSuccess || state.location == null) return;
-    final location = state.location!;
+    if (state is! DocumentLoadSuccess || state.location.path == '') return;
+    final location = state.location;
     final settings = intent.context.read<SettingsCubit>().state;
     final fileSystem = DocumentFileSystem.fromPlatform(
         remote: settings.getRemote(location.remote));

@@ -105,8 +105,8 @@ class __$$_AssetLocationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AssetLocation implements _AssetLocation {
-  const _$_AssetLocation({this.remote = '', required this.path});
+class _$_AssetLocation extends _AssetLocation {
+  const _$_AssetLocation({this.remote = '', required this.path}) : super._();
 
   factory _$_AssetLocation.fromJson(Map<String, dynamic> json) =>
       _$$_AssetLocationFromJson(json);
@@ -149,9 +149,10 @@ class _$_AssetLocation implements _AssetLocation {
   }
 }
 
-abstract class _AssetLocation implements AssetLocation {
+abstract class _AssetLocation extends AssetLocation {
   const factory _AssetLocation(
       {final String remote, required final String path}) = _$_AssetLocation;
+  const _AssetLocation._() : super._();
 
   factory _AssetLocation.fromJson(Map<String, dynamic> json) =
       _$_AssetLocation.fromJson;

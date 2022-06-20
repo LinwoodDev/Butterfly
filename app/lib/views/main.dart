@@ -92,7 +92,7 @@ class _ProjectPageState extends State<ProjectPage> {
             settingsCubit,
             _currentIndexCubit,
             AppDocument(createdAt: DateTime.now(), name: ''),
-            widget.location,
+            widget.location ?? const AssetLocation(path: ''),
             BoxBackgroundRenderer(const BoxBackground()),
             [],
             widget.embedding);
@@ -139,8 +139,14 @@ class _ProjectPageState extends State<ProjectPage> {
       final background = Renderer.fromInstance(document!.background);
       await background.setup(document!);
       setState(() {
-        _bloc = DocumentBloc(settingsCubit, _currentIndexCubit, document!,
-            widget.location, background, renderers);
+        _bloc = DocumentBloc(
+            settingsCubit,
+            _currentIndexCubit,
+            document!,
+            widget.location ??
+                AssetLocation(path: '', remote: remote?.identifier ?? ''),
+            background,
+            renderers);
         _transformCubit = TransformCubit();
       });
     }

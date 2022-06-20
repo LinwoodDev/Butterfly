@@ -24,6 +24,8 @@ class AssetLocation with _$AssetLocation {
   factory AssetLocation.fromJson(Map<String, dynamic> json) =>
       _$AssetLocationFromJson(json);
 
+  const AssetLocation._();
+
   String get identifier => remote == '' ? path : '$remote@$path';
 }
 

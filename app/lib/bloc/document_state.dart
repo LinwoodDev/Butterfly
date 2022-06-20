@@ -16,7 +16,7 @@ class DocumentLoadInProgress extends DocumentState {}
 
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
-  final AssetLocation? location;
+  final AssetLocation location;
   final StorageType storageType;
   final String currentLayer;
   final int currentAreaIndex;
@@ -28,7 +28,7 @@ class DocumentLoadSuccess extends DocumentState {
   final bool saved;
 
   DocumentLoadSuccess(this.document,
-      {this.location,
+      {required this.location,
       this.storageType = StorageType.local,
       this.saved = true,
       required this.settingsCubit,
@@ -78,13 +78,12 @@ class DocumentLoadSuccess extends DocumentState {
           AssetLocation? location,
           String? currentLayer,
           int? currentAreaIndex,
-          bool removePath = false,
           bool? saved,
           List<String>? invisibleLayers,
           CameraViewport? cameraViewport}) =>
       DocumentLoadSuccess(
         document ?? this.document,
-        location: removePath ? null : location ?? this.location,
+        location: location ?? this.location,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
         currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
@@ -100,20 +99,21 @@ class DocumentLoadSuccess extends DocumentState {
   Future<AssetLocation> save() {
     final storage = getRemoteStorage();
     if (embedding != null) return Future.value(AssetLocation.local(''));
-    if (location == null || location?.path == '') {
-      return DocumentFileSystem.fromPlatform(remote: getRemoteStorage())
+    if (location.path == '') {
+      return DocumentFileSystem.fromPlatform(remote: storage)
           .importDocument(document)
           .then((value) => value.location)
         ..then(settingsCubit.addRecentHistory);
     }
     return DocumentFileSystem.fromPlatform(remote: storage)
-        .updateDocument(location!.path, document)
+        .updateDocument(location.path, document)
         .then((value) => value.location)
       ..then(settingsCubit.addRecentHistory);
   }
 
-  RemoteStorage? getRemoteStorage() =>
-      location == null ? null : settingsCubit.state.getRemote(location!.remote);
+  RemoteStorage? getRemoteStorage() => location.remote.isEmpty
+      ? null
+      : settingsCubit.state.getRemote(location.remote);
 
   Future<ByteData?> render(
       {required int width,

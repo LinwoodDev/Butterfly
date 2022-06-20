@@ -2,6 +2,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -167,6 +168,11 @@ class _CreateStartViewState extends State<_CreateStartView> {
                                 transformCubit.reset();
                                 currentIndexCubit.reset();
                                 bloc.emit(DocumentLoadSuccess(document,
+                                    location: AssetLocation(
+                                        path: '',
+                                        remote:
+                                            templateSystem.remote?.identifier ??
+                                                ''),
                                     currentIndexCubit: currentIndexCubit,
                                     settingsCubit: settingsCubit));
                               });
@@ -228,8 +234,8 @@ class _RecentStartView extends StatelessWidget {
                                 title: Text(recent.identifier),
                                 onTap: () {
                                   if (recent.remote != '') {
-                                    GoRouter.of(context).pushNamed(
-                                        '/remote/${recent.remote}/${recent.path}');
+                                    GoRouter.of(context).push(
+                                        '/remote/${Uri.encodeComponent(recent.remote)}/${Uri.encodeComponent(recent.path)}');
                                     return;
                                   }
                                   GoRouter.of(context).push(Uri(

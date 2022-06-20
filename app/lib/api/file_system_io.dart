@@ -258,9 +258,9 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
   DavRemoteDocumentFileSystem(this.remote);
 
   final http.Client client = http.Client();
-  Future<http.StreamedResponse> _createRequest(String path,
+  Future<http.StreamedResponse> _createRequest(List<String> path,
       {String method = 'GET', String? body}) async {
-    final url = remote.buildDocumentsUri(path: path.split('/'));
+    final url = remote.buildDocumentsUri(path: path);
     final request = http.Request(method, url);
     if (body != null) {
       request.body = body;
@@ -279,7 +279,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
     if (!path.endsWith('/')) {
       path = '$path/';
     }
-    final response = await _createRequest(path, method: 'MKCOL');
+    final response = await _createRequest(path.split('/'), method: 'MKCOL');
     if (response.statusCode != 201) {
       throw Exception('Failed to create directory: ${response.statusCode}');
     }
@@ -292,7 +292,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<void> deleteAsset(String path) async {
-    final response = await _createRequest(path, method: 'DELETE');
+    final response = await _createRequest(path.split('/'), method: 'DELETE');
     if (response.statusCode != 204) {
       throw Exception('Failed to delete asset: ${response.statusCode}');
     }
@@ -306,7 +306,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
-    var response = await _createRequest(path, method: 'PROPFIND');
+    var response = await _createRequest(path.split('/'), method: 'PROPFIND');
     if (response.statusCode != 207) {
       return null;
     }
@@ -356,7 +356,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
           return AppDocumentDirectory(
               AssetLocation(remote: remote.identifier, path: path), const []);
         } else {
-          response = await _createRequest(path, method: 'GET');
+          response = await _createRequest(path.split('/'), method: 'GET');
           if (response.statusCode != 200) {
             throw Exception('Failed to get asset: ${response.statusCode}');
           }
@@ -369,7 +369,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
       return AppDocumentDirectory(
           AssetLocation(remote: remote.identifier, path: path), assets);
     }
-    response = await _createRequest(path, method: 'GET');
+    response = await _createRequest(path.split('/'), method: 'GET');
     if (response.statusCode != 200) {
       throw Exception('Failed to get asset: ${response.statusCode}');
     }
@@ -380,7 +380,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<bool> hasAsset(String path) async {
-    final response = await _createRequest(path);
+    final response = await _createRequest(path.split('/'));
     return response.statusCode == 200;
   }
 
@@ -391,6 +391,12 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
     if (fileName.endsWith('.bfly')) {
       fileName = fileName.substring(0, fileName.length - 5);
     }
+    if (!path.endsWith('/') && path != '/') {
+      path = '$path/';
+    }
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
     final has = await hasAsset(path);
     if (!has) {
       await createDirectory(path);
@@ -399,28 +405,30 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
     if (asset is! AppDocumentDirectory) {
       throw Exception('Failed to get directory: $path');
     }
+    final filePath = convertNameToFile('$path$fileName');
     // get unique fileName
     var counter = 1;
-    while (asset.assets.any((a) => a.path == '$path/$fileName.bfly')) {
+    while (asset.assets.any((a) => a.path == filePath)) {
       fileName = convertNameToFile('${document.name}_${++counter}');
     }
     final content = document.toJson();
-    final response = await _createRequest('$path/$fileName.bfly',
-        method: 'PUT', body: json.encode(content));
+    final response = await _createRequest(
+        path == '' || path == '/' ? [filePath] : [...path.split('/'), fileName],
+        method: 'PUT',
+        body: json.encode(content));
     if (response.statusCode != 201) {
       throw Exception('Failed to import document: ${response.statusCode}');
     }
     return AppDocumentFile(
-        AssetLocation(remote: remote.identifier, path: '$path/$fileName.bfly'),
-        content);
+        AssetLocation(remote: remote.identifier, path: filePath), content);
   }
 
   @override
   Future<AppDocumentFile> updateDocument(
       String path, AppDocument document) async {
     final content = document.toJson();
-    final response =
-        await _createRequest(path, method: 'PUT', body: json.encode(content));
+    final response = await _createRequest(path.split('/'),
+        method: 'PUT', body: json.encode(content));
     if (response.statusCode != 201) {
       throw Exception('Failed to update document: ${response.statusCode}');
     }

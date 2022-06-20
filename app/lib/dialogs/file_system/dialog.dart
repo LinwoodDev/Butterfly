@@ -252,7 +252,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             builder: (context, state) {
                               var selectedPath = '';
                               if (state is DocumentLoadSuccess) {
-                                selectedPath = state.location?.path ?? '';
+                                selectedPath = state.location.path;
                               }
                               return gridView
                                   ? FileSystemGridView(

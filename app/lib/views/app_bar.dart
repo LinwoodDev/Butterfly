@@ -126,16 +126,17 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                           ),
                         ),
                       ),
-                      if (state.location != null && area == null)
+                      if (state.location.path != '' && area == null)
                         Text(
-                          state.location!.identifier,
+                          state.location.identifier,
                           style: Theme.of(ctx).textTheme.caption,
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                         ),
                     ]),
               );
-              if (kIsWeb && (state.embedding?.save ?? true)) {
+              if ((kIsWeb && (state.embedding?.save ?? true)) ||
+                  state.location.remote != '') {
                 title = Row(children: [
                   Expanded(child: title),
                   IconButton(
@@ -328,7 +329,7 @@ class _MainPopupMenu extends StatelessWidget {
                       );
                     }),
               )),
-          if (state.location != null && state.embedding == null) ...[
+          if (state.location.path != '' && state.embedding == null) ...[
             PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(
@@ -393,8 +394,8 @@ class _MainPopupMenu extends StatelessWidget {
                                 onTap: () {
                                   Navigator.of(context).pop();
                                   if (location.remote != '') {
-                                    GoRouter.of(context).pushNamed(
-                                        '/remote/${location.remote}/${location.path}');
+                                    GoRouter.of(context).push(
+                                        '/remote/${Uri.encodeComponent(location.remote)}/${Uri.encodeComponent(location.path)}');
                                     return;
                                   }
                                   GoRouter.of(context).push(Uri(
