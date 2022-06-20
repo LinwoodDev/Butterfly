@@ -2,6 +2,10 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.0-alpha.0 (2022-06-20)
+
+* Fix invalid namespace on android
+
 ## 1.4.0-alpha.0 (2022-06-17)
 
 * Add laser painter to paint strokes temporarily
