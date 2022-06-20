@@ -19,6 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'embed/embedding.dart';
+import 'models/document.dart';
 import 'settings/personalization.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 
@@ -168,7 +169,7 @@ class ButterflyApp extends StatelessWidget {
             path: '/local/:path(.*)',
             builder: (context, state) {
               final path = state.params['path'];
-              return ProjectPage(path: path);
+              return ProjectPage(location: AssetLocation.local(path ?? ''));
             },
           ),
           GoRoute(

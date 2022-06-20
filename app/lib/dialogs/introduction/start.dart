@@ -66,7 +66,9 @@ class _CreateStartViewState extends State<_CreateStartView> {
 
   @override
   Widget build(BuildContext context) {
-    final templateSystem = TemplateFileSystem.fromPlatform();
+    final settings = context.read<SettingsCubit>().state;
+    final templateSystem =
+        TemplateFileSystem.fromPlatform(remote: settings.getDefaultRemote());
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -192,7 +194,7 @@ class _RecentStartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settingsCubit = context.read<SettingsCubit>();
-    final recents = settingsCubit.state.recentHistory;
+    final recents = settingsCubit.state.history;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -218,18 +220,23 @@ class _RecentStartView extends StatelessWidget {
                         physics: const ScrollPhysics(),
                         children: recents.map((recent) {
                           return Dismissible(
-                            key: Key(recent),
+                            key: Key(recent.identifier),
                             onDismissed: (direction) {
                               settingsCubit.removeRecentHistory(recent);
                             },
                             child: ListTile(
-                                title: Text(recent),
+                                title: Text(recent.identifier),
                                 onTap: () {
+                                  if (recent.remote != '') {
+                                    GoRouter.of(context).pushNamed(
+                                        '/remote/${recent.remote}/${recent.path}');
+                                    return;
+                                  }
                                   GoRouter.of(context).push(Uri(
                                     pathSegments: [
                                       '',
                                       'local',
-                                      ...recent.split('/').sublist(1),
+                                      ...recent.path.split('/').sublist(1),
                                     ],
                                   ).toString());
                                 }),

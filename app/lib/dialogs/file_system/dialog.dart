@@ -252,7 +252,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             builder: (context, state) {
                               var selectedPath = '';
                               if (state is DocumentLoadSuccess) {
-                                selectedPath = state.path ?? '';
+                                selectedPath = state.location?.path ?? '';
                               }
                               return gridView
                                   ? FileSystemGridView(
@@ -296,7 +296,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
 
   void _openAsset(AppDocumentAsset asset) {
     if (asset is AppDocumentFile) {
-      Navigator.of(context).pop(asset.path);
+      Navigator.of(context).pop(asset.location);
     } else {
       _pathController.text = asset.path;
       loadDocuments();

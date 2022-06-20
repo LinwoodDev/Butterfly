@@ -63,7 +63,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
             if (current is! DocumentLoadSuccess ||
                 previous is! DocumentLoadSuccess) return true;
             return _nameController.text != current.document.name ||
-                previous.path != current.path ||
+                previous.location != current.location ||
                 (current.currentArea != previous.currentArea &&
                     _areaController.text != current.currentArea?.name) ||
                 previous.saved != current.saved;
@@ -126,9 +126,9 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                           ),
                         ),
                       ),
-                      if (state.path != null && area == null)
+                      if (state.location != null && area == null)
                         Text(
-                          state.path!,
+                          state.location!.identifier,
                           style: Theme.of(ctx).textTheme.caption,
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
@@ -328,7 +328,7 @@ class _MainPopupMenu extends StatelessWidget {
                       );
                     }),
               )),
-          if (state.path != null && state.embedding == null) ...[
+          if (state.location != null && state.embedding == null) ...[
             PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(
@@ -388,17 +388,24 @@ class _MainPopupMenu extends StatelessWidget {
                       ...context
                           .read<SettingsCubit>()
                           .state
-                          .recentHistory
-                          .map((path) => PopupMenuItem(
+                          .history
+                          .map((location) => PopupMenuItem(
                                 onTap: () {
                                   Navigator.of(context).pop();
-                                  GoRouter.of(context).push(Uri(pathSegments: [
-                                    '',
-                                    'local',
-                                    ...path.split('/').sublist(1)
-                                  ]).toString());
+                                  if (location.remote != '') {
+                                    GoRouter.of(context).pushNamed(
+                                        '/remote/${location.remote}/${location.path}');
+                                    return;
+                                  }
+                                  GoRouter.of(context).push(Uri(
+                                    pathSegments: [
+                                      '',
+                                      'local',
+                                      ...location.path.split('/').sublist(1),
+                                    ],
+                                  ).toString());
                                 },
-                                child: Text(path),
+                                child: Text(location.identifier),
                               )),
                     ],
                   ),

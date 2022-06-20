@@ -62,9 +62,12 @@ class FileSystemAssetMenu extends StatelessWidget {
                           path, '$parent/${nameController.text}.bfly');
                       var state = bloc.state;
                       if (state is! DocumentLoadSuccess) return;
-                      if (document != null && state.path == path) {
+                      if (document != null && state.location?.path == path) {
                         bloc.clearHistory();
-                        bloc.emit(state.copyWith(path: path));
+                        bloc.emit(state.copyWith(
+                            location: AssetLocation(
+                                remote: state.location?.remote ?? '',
+                                path: path)));
                       }
                       onRefreshed();
                     }
@@ -101,7 +104,9 @@ class FileSystemAssetMenu extends StatelessWidget {
                   var newPath = await showDialog(
                     context: context,
                     builder: (context) => FileSystemAssetMoveDialog(
-                        asset: asset, moveMode: MoveMode.duplicate),
+                        fileSystem: fileSystem,
+                        asset: asset,
+                        moveMode: MoveMode.duplicate),
                   ) as String?;
                   if (newPath == null) return;
                   onRefreshed();
@@ -118,16 +123,21 @@ class FileSystemAssetMenu extends StatelessWidget {
                   final newPath = await showDialog(
                     context: context,
                     builder: (context) => FileSystemAssetMoveDialog(
-                        asset: asset, moveMode: MoveMode.move),
+                        fileSystem: fileSystem,
+                        asset: asset,
+                        moveMode: MoveMode.move),
                   ) as String?;
                   if (newPath == null) return;
                   onRefreshed();
                   // Change path if current document is moved
                   var state = bloc.state;
                   if (state is! DocumentLoadSuccess) return;
-                  if (state.path == asset.path) {
+                  if (state.location?.path == asset.path) {
                     bloc.clearHistory();
-                    bloc.emit(state.copyWith(path: newPath));
+                    bloc.emit(state.copyWith(
+                        location: AssetLocation(
+                            remote: state.location?.remote ?? '',
+                            path: newPath)));
                   }
                 }),
           ),

@@ -57,11 +57,11 @@ class DocumentDescriptorChanged extends DocumentEvent {
 }
 
 class DocumentPathChanged extends DocumentEvent {
-  final String? path;
+  final AssetLocation? location;
 
-  const DocumentPathChanged(this.path);
+  const DocumentPathChanged(this.location);
   @override
-  List<Object?> get props => [path];
+  List<Object?> get props => [location];
 }
 
 class DocumentPaletteChanged extends DocumentEvent {
@@ -73,9 +73,11 @@ class DocumentPaletteChanged extends DocumentEvent {
 }
 
 class DocumentSaved extends DocumentEvent {
-  final String? path;
+  final AssetLocation? location;
 
-  const DocumentSaved([this.path]);
+  const DocumentSaved([this.location]);
+  @override
+  List<Object?> get props => [location];
 }
 
 class PainterCreated extends DocumentEvent {

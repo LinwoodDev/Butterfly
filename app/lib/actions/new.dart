@@ -59,7 +59,8 @@ class NewAction extends Action<NewIntent> {
         createdAt: DateTime.now(),
       );
     } else if (prefs.containsKey('default_template')) {
-      var template = await TemplateFileSystem.fromPlatform()
+      var template = await TemplateFileSystem.fromPlatform(
+              remote: settings.getDefaultRemote())
           .getTemplate(prefs.getString('default_template')!);
       if (template != null) {
         document = template.document.copyWith(

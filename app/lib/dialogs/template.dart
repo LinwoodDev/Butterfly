@@ -153,6 +153,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                         return _TemplateItem(
                                           prefs: _prefs!,
                                           template: template,
+                                          fileSystem: _fileSystem,
                                           document: widget.currentDocument,
                                           onChanged: () {
                                             load();
@@ -200,10 +201,12 @@ class _TemplateDialogState extends State<TemplateDialog> {
 class _TemplateItem extends StatelessWidget {
   final AppDocument? document;
   final DocumentTemplate template;
+  final TemplateFileSystem fileSystem;
   final VoidCallback onChanged;
   final SharedPreferences prefs;
   const _TemplateItem(
       {required this.template,
+      required this.fileSystem,
       required this.onChanged,
       required this.document,
       required this.prefs});
@@ -261,9 +264,9 @@ class _TemplateItem extends StatelessWidget {
                                   child: Text(AppLocalizations.of(context)!.ok),
                                   onPressed: () async {
                                     Navigator.of(context).pop();
-                                    await TemplateFileSystem.fromPlatform()
-                                        .renameTemplate(template.document.name,
-                                            nameController.text);
+                                    await fileSystem.renameTemplate(
+                                        template.document.name,
+                                        nameController.text);
                                     onChanged();
                                   })
                             ],
@@ -294,8 +297,8 @@ class _TemplateItem extends StatelessWidget {
                               child: Text(AppLocalizations.of(context)!.yes),
                               onPressed: () async {
                                 Navigator.of(context).pop();
-                                await TemplateFileSystem.fromPlatform()
-                                    .updateTemplate(template.copyWith(
+                                await fileSystem.updateTemplate(
+                                    template.copyWith(
                                         document:
                                             document ?? template.document));
                                 onChanged();
@@ -329,7 +332,7 @@ class _TemplateItem extends StatelessWidget {
                                     Text(AppLocalizations.of(context)!.delete),
                                 onPressed: () async {
                                   Navigator.of(context).pop();
-                                  await TemplateFileSystem.fromPlatform()
+                                  await fileSystem
                                       .deleteTemplate(template.document.name);
                                   onChanged();
                                 },

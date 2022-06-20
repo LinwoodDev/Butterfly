@@ -40,7 +40,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
     file = await file.create(recursive: true);
     await file.writeAsString(json.encode(document.toJson()));
     return AppDocumentFile(
-        path == '/' ? '/$name' : '$path/$name', document.toJson());
+        AssetLocation.local(path == '/' ? '/$name' : '$path/$name'),
+        document.toJson());
   }
 
   @override
@@ -69,7 +70,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (await file.exists()) {
       var json = await file.readAsString();
       try {
-        return AppDocumentFile(path, jsonDecode(json));
+        return AppDocumentFile(AssetLocation.local(path), jsonDecode(json));
       } catch (e) {
         return null;
       }
@@ -99,7 +100,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
           : (a as AppDocumentFile).name.compareTo(
               b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
 
-      return AppDocumentDirectory(path, assets);
+      return AppDocumentDirectory(AssetLocation.local(path), assets);
     }
     return null;
   }
@@ -118,7 +119,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     }
     await file.writeAsString(jsonEncode(document.toJson()));
 
-    return AppDocumentFile(path, document.toJson());
+    return AppDocumentFile(AssetLocation.local(path), document.toJson());
   }
 
   @override
@@ -157,7 +158,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
         assets.add(asset);
       }
     }
-    return AppDocumentDirectory(name, assets);
+    return AppDocumentDirectory(AssetLocation.local(name), assets);
   }
 }
 
@@ -282,7 +283,11 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
     if (response.statusCode != 201) {
       throw Exception('Failed to create directory: ${response.statusCode}');
     }
-    return AppDocumentDirectory(path.substring(0, path.length - 1), const []);
+    return AppDocumentDirectory(
+        AssetLocation(
+            remote: remote.identifier,
+            path: path.substring(0, path.length - 1)),
+        const []);
   }
 
   @override
@@ -348,24 +353,29 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
         }
         path = Uri.decodeComponent(path);
         if (currentResourceType.getElement('d:collection') != null) {
-          return AppDocumentDirectory(path, const []);
+          return AppDocumentDirectory(
+              AssetLocation(remote: remote.identifier, path: path), const []);
         } else {
           response = await _createRequest(path, method: 'GET');
           if (response.statusCode != 200) {
             throw Exception('Failed to get asset: ${response.statusCode}');
           }
           content = await response.stream.bytesToString();
-          return AppDocumentFile(path, json.decode(content));
+          return AppDocumentFile(
+              AssetLocation(remote: remote.identifier, path: path),
+              json.decode(content));
         }
       }).toList());
-      return AppDocumentDirectory(path, assets);
+      return AppDocumentDirectory(
+          AssetLocation(remote: remote.identifier, path: path), assets);
     }
     response = await _createRequest(path, method: 'GET');
     if (response.statusCode != 200) {
       throw Exception('Failed to get asset: ${response.statusCode}');
     }
     content = await response.stream.bytesToString();
-    return AppDocumentFile(path, json.decode(content));
+    return AppDocumentFile(AssetLocation(remote: remote.identifier, path: path),
+        json.decode(content));
   }
 
   @override
@@ -400,7 +410,9 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
     if (response.statusCode != 201) {
       throw Exception('Failed to import document: ${response.statusCode}');
     }
-    return AppDocumentFile('$path/$fileName.bfly', content);
+    return AppDocumentFile(
+        AssetLocation(remote: remote.identifier, path: '$path/$fileName.bfly'),
+        content);
   }
 
   @override
@@ -412,7 +424,8 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
     if (response.statusCode != 201) {
       throw Exception('Failed to update document: ${response.statusCode}');
     }
-    return AppDocumentFile(path, content);
+    return AppDocumentFile(
+        AssetLocation(remote: remote.identifier, path: path), content);
   }
 }
 

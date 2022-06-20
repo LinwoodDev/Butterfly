@@ -405,7 +405,7 @@ mixin _$ButterflySettings {
   double get selectSensitivity => throw _privateConstructorUsedError;
   InputType get inputType => throw _privateConstructorUsedError;
   String get design => throw _privateConstructorUsedError;
-  List<String> get recentHistory => throw _privateConstructorUsedError;
+  List<AssetLocation> get history => throw _privateConstructorUsedError;
   bool get startEnabled => throw _privateConstructorUsedError;
   bool get colorEnabled => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
@@ -433,7 +433,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       double selectSensitivity,
       InputType inputType,
       String design,
-      List<String> recentHistory,
+      List<AssetLocation> history,
       bool startEnabled,
       bool colorEnabled,
       String? lastVersion,
@@ -462,7 +462,7 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? selectSensitivity = freezed,
     Object? inputType = freezed,
     Object? design = freezed,
-    Object? recentHistory = freezed,
+    Object? history = freezed,
     Object? startEnabled = freezed,
     Object? colorEnabled = freezed,
     Object? lastVersion = freezed,
@@ -510,10 +510,10 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
               as String,
-      recentHistory: recentHistory == freezed
-          ? _value.recentHistory
-          : recentHistory // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      history: history == freezed
+          ? _value.history
+          : history // ignore: cast_nullable_to_non_nullable
+              as List<AssetLocation>,
       startEnabled: startEnabled == freezed
           ? _value.startEnabled
           : startEnabled // ignore: cast_nullable_to_non_nullable
@@ -556,7 +556,7 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       double selectSensitivity,
       InputType inputType,
       String design,
-      List<String> recentHistory,
+      List<AssetLocation> history,
       bool startEnabled,
       bool colorEnabled,
       String? lastVersion,
@@ -587,7 +587,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? selectSensitivity = freezed,
     Object? inputType = freezed,
     Object? design = freezed,
-    Object? recentHistory = freezed,
+    Object? history = freezed,
     Object? startEnabled = freezed,
     Object? colorEnabled = freezed,
     Object? lastVersion = freezed,
@@ -635,10 +635,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
               as String,
-      recentHistory: recentHistory == freezed
-          ? _value._recentHistory
-          : recentHistory // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      history: history == freezed
+          ? _value._history
+          : history // ignore: cast_nullable_to_non_nullable
+              as List<AssetLocation>,
       startEnabled: startEnabled == freezed
           ? _value.startEnabled
           : startEnabled // ignore: cast_nullable_to_non_nullable
@@ -677,13 +677,13 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.selectSensitivity = 5,
       this.inputType = InputType.multiDraw,
       this.design = '',
-      final List<String> recentHistory = const [],
+      final List<AssetLocation> history = const [],
       this.startEnabled = true,
       this.colorEnabled = true,
       this.lastVersion,
       final List<RemoteStorage> remotes = const [],
       this.defaultRemote = ''})
-      : _recentHistory = recentHistory,
+      : _history = history,
         _remotes = remotes,
         super._();
 
@@ -717,12 +717,12 @@ class _$_ButterflySettings extends _ButterflySettings {
   @override
   @JsonKey()
   final String design;
-  final List<String> _recentHistory;
+  final List<AssetLocation> _history;
   @override
   @JsonKey()
-  List<String> get recentHistory {
+  List<AssetLocation> get history {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_recentHistory);
+    return EqualUnmodifiableListView(_history);
   }
 
   @override
@@ -747,7 +747,7 @@ class _$_ButterflySettings extends _ButterflySettings {
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, inputType: $inputType, design: $design, recentHistory: $recentHistory, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, inputType: $inputType, design: $design, history: $history, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote)';
   }
 
   @override
@@ -771,8 +771,7 @@ class _$_ButterflySettings extends _ButterflySettings {
                 .equals(other.selectSensitivity, selectSensitivity) &&
             const DeepCollectionEquality().equals(other.inputType, inputType) &&
             const DeepCollectionEquality().equals(other.design, design) &&
-            const DeepCollectionEquality()
-                .equals(other._recentHistory, _recentHistory) &&
+            const DeepCollectionEquality().equals(other._history, _history) &&
             const DeepCollectionEquality()
                 .equals(other.startEnabled, startEnabled) &&
             const DeepCollectionEquality()
@@ -797,7 +796,7 @@ class _$_ButterflySettings extends _ButterflySettings {
       const DeepCollectionEquality().hash(selectSensitivity),
       const DeepCollectionEquality().hash(inputType),
       const DeepCollectionEquality().hash(design),
-      const DeepCollectionEquality().hash(_recentHistory),
+      const DeepCollectionEquality().hash(_history),
       const DeepCollectionEquality().hash(startEnabled),
       const DeepCollectionEquality().hash(colorEnabled),
       const DeepCollectionEquality().hash(lastVersion),
@@ -823,7 +822,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final double selectSensitivity,
       final InputType inputType,
       final String design,
-      final List<String> recentHistory,
+      final List<AssetLocation> history,
       final bool startEnabled,
       final bool colorEnabled,
       final String? lastVersion,
@@ -852,7 +851,7 @@ abstract class _ButterflySettings extends ButterflySettings {
   @override
   String get design => throw _privateConstructorUsedError;
   @override
-  List<String> get recentHistory => throw _privateConstructorUsedError;
+  List<AssetLocation> get history => throw _privateConstructorUsedError;
   @override
   bool get startEnabled => throw _privateConstructorUsedError;
   @override

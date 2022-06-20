@@ -14,6 +14,158 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+AssetLocation _$AssetLocationFromJson(Map<String, dynamic> json) {
+  return _AssetLocation.fromJson(json);
+}
+
+/// @nodoc
+mixin _$AssetLocation {
+  String get remote => throw _privateConstructorUsedError;
+  String get path => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $AssetLocationCopyWith<AssetLocation> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AssetLocationCopyWith<$Res> {
+  factory $AssetLocationCopyWith(
+          AssetLocation value, $Res Function(AssetLocation) then) =
+      _$AssetLocationCopyWithImpl<$Res>;
+  $Res call({String remote, String path});
+}
+
+/// @nodoc
+class _$AssetLocationCopyWithImpl<$Res>
+    implements $AssetLocationCopyWith<$Res> {
+  _$AssetLocationCopyWithImpl(this._value, this._then);
+
+  final AssetLocation _value;
+  // ignore: unused_field
+  final $Res Function(AssetLocation) _then;
+
+  @override
+  $Res call({
+    Object? remote = freezed,
+    Object? path = freezed,
+  }) {
+    return _then(_value.copyWith(
+      remote: remote == freezed
+          ? _value.remote
+          : remote // ignore: cast_nullable_to_non_nullable
+              as String,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_AssetLocationCopyWith<$Res>
+    implements $AssetLocationCopyWith<$Res> {
+  factory _$$_AssetLocationCopyWith(
+          _$_AssetLocation value, $Res Function(_$_AssetLocation) then) =
+      __$$_AssetLocationCopyWithImpl<$Res>;
+  @override
+  $Res call({String remote, String path});
+}
+
+/// @nodoc
+class __$$_AssetLocationCopyWithImpl<$Res>
+    extends _$AssetLocationCopyWithImpl<$Res>
+    implements _$$_AssetLocationCopyWith<$Res> {
+  __$$_AssetLocationCopyWithImpl(
+      _$_AssetLocation _value, $Res Function(_$_AssetLocation) _then)
+      : super(_value, (v) => _then(v as _$_AssetLocation));
+
+  @override
+  _$_AssetLocation get _value => super._value as _$_AssetLocation;
+
+  @override
+  $Res call({
+    Object? remote = freezed,
+    Object? path = freezed,
+  }) {
+    return _then(_$_AssetLocation(
+      remote: remote == freezed
+          ? _value.remote
+          : remote // ignore: cast_nullable_to_non_nullable
+              as String,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_AssetLocation implements _AssetLocation {
+  const _$_AssetLocation({this.remote = '', required this.path});
+
+  factory _$_AssetLocation.fromJson(Map<String, dynamic> json) =>
+      _$$_AssetLocationFromJson(json);
+
+  @override
+  @JsonKey()
+  final String remote;
+  @override
+  final String path;
+
+  @override
+  String toString() {
+    return 'AssetLocation(remote: $remote, path: $path)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_AssetLocation &&
+            const DeepCollectionEquality().equals(other.remote, remote) &&
+            const DeepCollectionEquality().equals(other.path, path));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(remote),
+      const DeepCollectionEquality().hash(path));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_AssetLocationCopyWith<_$_AssetLocation> get copyWith =>
+      __$$_AssetLocationCopyWithImpl<_$_AssetLocation>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_AssetLocationToJson(this);
+  }
+}
+
+abstract class _AssetLocation implements AssetLocation {
+  const factory _AssetLocation(
+      {final String remote, required final String path}) = _$_AssetLocation;
+
+  factory _AssetLocation.fromJson(Map<String, dynamic> json) =
+      _$_AssetLocation.fromJson;
+
+  @override
+  String get remote => throw _privateConstructorUsedError;
+  @override
+  String get path => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$_AssetLocationCopyWith<_$_AssetLocation> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 AppDocument _$AppDocumentFromJson(Map<String, dynamic> json) {
   return _AppDocument.fromJson(json);
 }

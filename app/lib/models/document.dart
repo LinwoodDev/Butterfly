@@ -14,18 +14,33 @@ import 'waypoint.dart';
 part 'document.g.dart';
 part 'document.freezed.dart';
 
+@freezed
+class AssetLocation with _$AssetLocation {
+  const factory AssetLocation(
+      {@Default('') String remote, required String path}) = _AssetLocation;
+
+  factory AssetLocation.local(String path) => AssetLocation(path: path);
+
+  factory AssetLocation.fromJson(Map<String, dynamic> json) =>
+      _$AssetLocationFromJson(json);
+
+  String get identifier => remote == '' ? path : '$remote@$path';
+}
+
 @immutable
 abstract class AppDocumentAsset {
-  final String path;
+  final AssetLocation location;
 
-  const AppDocumentAsset(this.path);
+  const AppDocumentAsset(this.location);
 
-  String get fileName => path.split('/').last;
+  String get fileName => location.path.split('/').last;
 
   String get fileExtension => fileName.split('.').last;
 
   String get fileNameWithoutExtension =>
       fileName.substring(0, fileName.length - fileExtension.length - 1);
+
+  String get path => location.path;
 
   String get parent =>
       path.split('/').sublist(0, path.split('/').length - 1).join('/');

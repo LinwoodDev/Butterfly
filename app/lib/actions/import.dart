@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubits/current_index.dart';
 import '../cubits/settings.dart';
 import '../models/converter.dart';
+import '../models/document.dart';
 import '../renderers/renderer.dart';
 
 class ImportIntent extends Intent {
@@ -32,7 +33,8 @@ class ImportAction extends Action<ImportIntent> {
       if (content == null) return;
       var document =
           const DocumentJsonConverter().fromJson(Map.from(jsonDecode(content)));
-      DocumentFileSystem.fromPlatform()
+      DocumentFileSystem.fromPlatform(
+              remote: settingsCubit.state.getDefaultRemote())
           .importDocument(document)
           .then((file) async {
         final background = Renderer.fromInstance(document.background);
@@ -41,7 +43,7 @@ class ImportAction extends Action<ImportIntent> {
             document.content.map((e) => Renderer.fromInstance(e)).toList();
         await Future.wait(renderers.map((e) async => await e.setup(document)));
         bloc.emit(DocumentLoadSuccess(document,
-            path: file.path,
+            location: AssetLocation.local(file.path),
             currentIndexCubit: currentIndexCubit,
             settingsCubit: settingsCubit,
             cameraViewport: CameraViewport.unbaked(background, renderers)));

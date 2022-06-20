@@ -10,8 +10,12 @@ enum MoveMode { duplicate, move }
 class FileSystemAssetMoveDialog extends StatefulWidget {
   final MoveMode? moveMode;
   final AppDocumentAsset asset;
+  final DocumentFileSystem fileSystem;
   const FileSystemAssetMoveDialog(
-      {super.key, this.moveMode, required this.asset});
+      {super.key,
+      this.moveMode,
+      required this.asset,
+      required this.fileSystem});
 
   @override
   State<FileSystemAssetMoveDialog> createState() =>
@@ -21,7 +25,6 @@ class FileSystemAssetMoveDialog extends StatefulWidget {
 class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
   final TextEditingController _nameController = TextEditingController();
   late String selectedPath;
-  final _fileSystem = DocumentFileSystem.fromPlatform();
 
   @override
   void initState() {
@@ -38,9 +41,9 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
     }
     newPath += _nameController.text;
     if (duplicate) {
-      await _fileSystem.duplicateAsset(widget.asset.path, newPath);
+      await widget.fileSystem.duplicateAsset(widget.asset.path, newPath);
     } else {
-      await _fileSystem.moveAsset(widget.asset.path, newPath);
+      await widget.fileSystem.moveAsset(widget.asset.path, newPath);
     }
     navigator.pop(newPath);
   }
@@ -87,6 +90,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
                     const BoxConstraints(maxWidth: 500, maxHeight: 400),
                 child: SingleChildScrollView(
                     child: FileSystemDirectoryTreeView(
+                        fileSystem: widget.fileSystem,
                         path: '/',
                         onPathSelected: (path) => selectedPath = path,
                         initialExpanded: true))),

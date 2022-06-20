@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/models/converter.dart';
+import 'package:butterfly/models/document.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +107,7 @@ class ButterflySettings with _$ButterflySettings {
       @Default(5) double selectSensitivity,
       @Default(InputType.multiDraw) InputType inputType,
       @Default('') String design,
-      @Default([]) List<String> recentHistory,
+      @Default([]) List<AssetLocation> history,
       @Default(true) bool startEnabled,
       @Default(true) bool colorEnabled,
       String? lastVersion,
@@ -133,12 +134,18 @@ class ButterflySettings with _$ButterflySettings {
       penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
       selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
       design: prefs.getString('design') ?? '',
-      recentHistory: prefs.getStringList('recent_history')?.map((e) {
-            if (e.startsWith('/')) {
-              return e;
-            }
-            return '/$e';
-          }).toList() ??
+      history: prefs
+              .getStringList('history')
+              ?.map((e) {
+                // Try to parse the asset location
+                try {
+                  return AssetLocation.fromJson(json.decode(e));
+                } catch (e) {
+                  return null;
+                }
+              })
+              .whereType<AssetLocation>()
+              .toList() ??
           [],
       startEnabled: prefs.getBool('start_enabled') ?? true,
       lastVersion: prefs.getString('last_version'),
@@ -162,7 +169,8 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setDouble('pen_sensitivity', penSensitivity);
     await prefs.setDouble('select_sensitivity', selectSensitivity);
     await prefs.setString('design', design);
-    await prefs.setStringList('recent_history', recentHistory);
+    await prefs.setStringList(
+        'history', history.map((e) => json.encode(e.toJson())).toList());
     await prefs.setBool('start_enabled', startEnabled);
     await prefs.setBool('color_enabled', colorEnabled);
     if (lastVersion == null && prefs.containsKey('last_version')) {
@@ -315,29 +323,26 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> addRecentHistory(String path) async {
-    final recentHistory = state.recentHistory.toList();
-    recentHistory.remove(path);
-    recentHistory.insert(0, path);
-    if (!path.startsWith('/')) {
-      path = '/$path';
+  Future<void> addRecentHistory(AssetLocation location) async {
+    final history = state.history.toList();
+    history.remove(location);
+    history.insert(0, location);
+    if (history.length > 10) {
+      history.removeLast();
     }
-    if (recentHistory.length > 10) {
-      recentHistory.removeLast();
-    }
-    emit(state.copyWith(recentHistory: recentHistory));
+    emit(state.copyWith(history: history));
     return save();
   }
 
-  Future<void> removeRecentHistory(String path) async {
-    final recentHistory = state.recentHistory.toList();
-    recentHistory.remove(path);
-    emit(state.copyWith(recentHistory: recentHistory));
+  Future<void> removeRecentHistory(AssetLocation location) async {
+    final history = state.history.toList();
+    history.remove(location);
+    emit(state.copyWith(history: history));
     return save();
   }
 
   Future<void> resetRecentHistory() {
-    emit(state.copyWith(recentHistory: []));
+    emit(state.copyWith(history: []));
     return save();
   }
 
