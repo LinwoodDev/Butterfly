@@ -10,6 +10,6 @@ export default function DownloadButton({className, href, children}) {
         }, 500);
     }
     return (
-        <a className={className} href={href} download onClick={onClick}>{children}</a>
+        <a className={className} href={href} download target="_blank" onClick={onClick}>{children}</a>
     );
 }
