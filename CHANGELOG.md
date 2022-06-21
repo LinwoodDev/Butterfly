@@ -2,7 +2,11 @@
 
 <!--ENTER CHANGELOG HERE-->
 
-## 1.3.2 (2022-06-10)
+## 1.4.0-alpha.0 (2022-06-20)
+
+* Fix invalid namespace on android
+
+## 1.4.0-alpha.0 (2022-06-17)
 
 * Add laser painter to paint strokes temporarily
 * Add duplicate to change document path
@@ -10,6 +14,22 @@
 * Add spanish translation
 * Add quality slider to pdf ([#184](https://github.com/LinwoodCloud/Butterfly/issues/184))
 * Add copy to change document path ([#180](https://github.com/LinwoodCloud/Butterfly/issues/180))
+
+## 1.3.2 (2022-06-10)
+
+* Add quality slider to pdf
+* Add material palette to default templates
+* Fixing area issues
+    * Fix bug when area has negative values
+    * Fix bug when area is not visible when changing the painter
+    * Fix app bar title does not change after exiting the area
+* Improve spacing of selection rect based on the zoom
+* Move android storage to external
+* Center image on moving ([#185](https://github.com/LinwoodCloud/Butterfly/issues/185))
+* Fix image low quality
+* Fix missing constraints button in image element dialog
+* Fix window_manager errors on mobile devices
+* Remove image painter for file-version < 5
 
 ## 1.3.1 (2022-06-03)
 
