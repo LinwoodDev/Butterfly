@@ -64,7 +64,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var store = txn.objectStore('documents');
     await store.put(doc, filePath);
     await txn.completed;
-    return AppDocumentFile(filePath, doc);
+    return AppDocumentFile(AssetLocation.local(filePath), doc);
   }
 
   @override
@@ -109,7 +109,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var map = Map<String, dynamic>.from(data as Map);
     if (map['type'] == 'file') {
       await txn.completed;
-      return AppDocumentFile(path, map);
+      return AppDocumentFile(AssetLocation.local(path), map);
     } else if (map['type'] == 'directory') {
       var cursor = store.openCursor(autoAdvance: true);
       var assets = await Future.wait(
@@ -125,9 +125,10 @@ class WebDocumentFileSystem extends DocumentFileSystem {
             !key.substring(path.length + 1).contains('/')) {
           var data = cursor.value as Map<dynamic, dynamic>;
           if (data['type'] == 'file') {
-            return AppDocumentFile(key, Map<String, dynamic>.from(data));
+            return AppDocumentFile(
+                AssetLocation.local(key), Map<String, dynamic>.from(data));
           } else if (data['type'] == 'directory') {
-            return AppDocumentDirectory(key, const []);
+            return AppDocumentDirectory(AssetLocation.local(key), const []);
           }
           return null;
         }
@@ -140,7 +141,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
           : (a as AppDocumentFile).name.compareTo(
               b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
       await txn.completed;
-      return AppDocumentDirectory(path, assets.toList());
+      return AppDocumentDirectory(AssetLocation.local(path), assets.toList());
     }
     return null;
   }
@@ -179,7 +180,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     doc['type'] = 'file';
     await store.put(doc, path);
     await txn.completed;
-    return AppDocumentFile(path, doc);
+    return AppDocumentFile(AssetLocation.local(path), doc);
   }
 
   @override
@@ -204,7 +205,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       last = '$path/';
     }
     await txn.completed;
-    return AppDocumentDirectory(name, const []);
+    return AppDocumentDirectory(AssetLocation.local(name), const []);
   }
 }
 

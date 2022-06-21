@@ -1,14 +1,97 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/models/converter.dart';
+import 'package:butterfly/models/document.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings.freezed.dart';
+part 'settings.g.dart';
 
 const kRecentHistorySize = 5;
+
+@freezed
+class RemoteStorage with _$RemoteStorage {
+  const factory RemoteStorage.dav({
+    required String username,
+    required String url,
+    required String path,
+    required String documentsPath,
+    required String templatesPath,
+    @Uint8ListJsonConverter() required Uint8List icon,
+  }) = DavRemoteStorage;
+
+  factory RemoteStorage.fromJson(Map<String, dynamic> json) =>
+      _$RemoteStorageFromJson(json);
+
+  const RemoteStorage._();
+
+  Uri get uri => Uri.parse(url);
+
+  Uri buildUri({
+    List<String> path = const [],
+    Map<String, String> query = const {},
+  }) {
+    final currentUri = uri;
+    final paths = List<String>.from(currentUri.pathSegments);
+    if (paths.lastOrNull == '') {
+      paths.removeLast();
+    }
+    return Uri(
+      scheme: currentUri.scheme,
+      port: currentUri.port,
+      host: currentUri.host,
+      queryParameters: {
+        ...currentUri.queryParameters,
+        ...query,
+      },
+      pathSegments: {
+        ...paths,
+        ...path,
+      },
+    );
+  }
+
+  Uri buildDocumentsUri({
+    List<String> path = const [],
+    Map<String, String> query = const {},
+  }) {
+    return buildUri(
+      path: [...documentsPath.split('/'), ...path],
+      query: query,
+    );
+  }
+
+  Uri buildTemplatesUri({
+    List<String> path = const [],
+    Map<String, String> query = const {},
+  }) {
+    return buildUri(
+      path: [...templatesPath.split('/'), ...path],
+      query: query,
+    );
+  }
+
+  String get identifier => '$username@$url';
+
+  Future<String> getPassword() async =>
+      (await const FlutterSecureStorage().read(key: 'remotes/$identifier')) ??
+      '';
+  DocumentFileSystem get documentFileSystem =>
+      DocumentFileSystem.fromPlatform(remote: this);
+
+  TemplateFileSystem get templateFileSystem =>
+      TemplateFileSystem.fromPlatform(remote: this);
+}
 
 @freezed
 class ButterflySettings with _$ButterflySettings {
@@ -24,32 +107,53 @@ class ButterflySettings with _$ButterflySettings {
       @Default(5) double selectSensitivity,
       @Default(InputType.multiDraw) InputType inputType,
       @Default('') String design,
-      @Default([]) List<String> recentHistory,
+      @Default([]) List<AssetLocation> history,
       @Default(true) bool startEnabled,
       @Default(true) bool colorEnabled,
-      String? lastVersion}) = _ButterflySettings;
+      String? lastVersion,
+      @Default([]) List<RemoteStorage> remotes,
+      @Default('') String defaultRemote}) = _ButterflySettings;
 
-  factory ButterflySettings.fromPrefs(SharedPreferences prefs) =>
-      ButterflySettings(
-        localeTag: prefs.getString('locale') ?? '',
-        inputType: prefs.containsKey('input_type')
-            ? InputType.values.byName(prefs.getString('input_type')!)
-            : InputType.multiDraw,
-        documentPath: prefs.getString('document_path') ?? '',
-        theme: prefs.containsKey('theme_mode')
-            ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
-            : ThemeMode.system,
-        dateFormat: prefs.getString('date_format') ?? '',
-        touchSensitivity: prefs.getDouble('touch_sensitivity') ?? 1,
-        mouseSensitivity: prefs.getDouble('mouse_sensitivity') ?? 1,
-        penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
-        selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
-        design: prefs.getString('design') ?? '',
-        recentHistory: prefs.getStringList('recent_history') ?? [],
-        startEnabled: prefs.getBool('start_enabled') ?? true,
-        lastVersion: prefs.getString('last_version'),
-        colorEnabled: prefs.getBool('color_enabled') ?? true,
-      );
+  factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
+    final remotes = prefs.getStringList('remotes')?.map((e) {
+          return RemoteStorage.fromJson(json.decode(e));
+        }).toList() ??
+        const [];
+    return ButterflySettings(
+      localeTag: prefs.getString('locale') ?? '',
+      inputType: prefs.containsKey('input_type')
+          ? InputType.values.byName(prefs.getString('input_type')!)
+          : InputType.multiDraw,
+      documentPath: prefs.getString('document_path') ?? '',
+      theme: prefs.containsKey('theme_mode')
+          ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
+          : ThemeMode.system,
+      dateFormat: prefs.getString('date_format') ?? '',
+      touchSensitivity: prefs.getDouble('touch_sensitivity') ?? 1,
+      mouseSensitivity: prefs.getDouble('mouse_sensitivity') ?? 1,
+      penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
+      selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
+      design: prefs.getString('design') ?? '',
+      history: prefs
+              .getStringList('history')
+              ?.map((e) {
+                // Try to parse the asset location
+                try {
+                  return AssetLocation.fromJson(json.decode(e));
+                } catch (e) {
+                  return null;
+                }
+              })
+              .whereType<AssetLocation>()
+              .toList() ??
+          [],
+      startEnabled: prefs.getBool('start_enabled') ?? true,
+      lastVersion: prefs.getString('last_version'),
+      colorEnabled: prefs.getBool('color_enabled') ?? true,
+      remotes: remotes,
+      defaultRemote: prefs.getString('default_remote') ?? '',
+    );
+  }
 
   Locale? get locale => localeTag.isEmpty ? null : Locale(localeTag);
 
@@ -65,7 +169,8 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setDouble('pen_sensitivity', penSensitivity);
     await prefs.setDouble('select_sensitivity', selectSensitivity);
     await prefs.setString('design', design);
-    await prefs.setStringList('recent_history', recentHistory);
+    await prefs.setStringList(
+        'history', history.map((e) => json.encode(e.toJson())).toList());
     await prefs.setBool('start_enabled', startEnabled);
     await prefs.setBool('color_enabled', colorEnabled);
     if (lastVersion == null && prefs.containsKey('last_version')) {
@@ -73,7 +178,28 @@ class ButterflySettings with _$ButterflySettings {
     } else if (lastVersion != null) {
       await prefs.setString('last_version', lastVersion!);
     }
+    await prefs.setStringList(
+        'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
+    await prefs.setString('default_remote', defaultRemote);
   }
+
+  RemoteStorage? getRemote(String identifier) {
+    return remotes.firstWhereOrNull((e) => e.identifier == identifier);
+  }
+
+  bool hasRemote(String identifier) {
+    return remotes.any((e) => e.identifier == identifier);
+  }
+
+  RemoteStorage? getDefaultRemote() {
+    return remotes.firstWhereOrNull((e) => e.identifier == defaultRemote);
+  }
+
+  DocumentFileSystem getDefaultDocumentFileSystem() =>
+      DocumentFileSystem.fromPlatform(remote: getDefaultRemote());
+
+  TemplateFileSystem getDefaultTemplateFileSystem() =>
+      TemplateFileSystem.fromPlatform(remote: getDefaultRemote());
 }
 
 enum InputType { multiDraw, moveFirst, moveLast, onlyStylus }
@@ -197,26 +323,26 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> addRecentHistory(String path) async {
-    final recentHistory = state.recentHistory.toList();
-    recentHistory.remove(path);
-    recentHistory.insert(0, path);
-    if (recentHistory.length > 10) {
-      recentHistory.removeLast();
+  Future<void> addRecentHistory(AssetLocation location) async {
+    final history = state.history.toList();
+    history.remove(location);
+    history.insert(0, location);
+    if (history.length > 10) {
+      history.removeLast();
     }
-    emit(state.copyWith(recentHistory: recentHistory));
+    emit(state.copyWith(history: history));
     return save();
   }
 
-  Future<void> removeRecentHistory(String path) async {
-    final recentHistory = state.recentHistory.toList();
-    recentHistory.remove(path);
-    emit(state.copyWith(recentHistory: recentHistory));
+  Future<void> removeRecentHistory(AssetLocation location) async {
+    final history = state.history.toList();
+    history.remove(location);
+    emit(state.copyWith(history: history));
     return save();
   }
 
   Future<void> resetRecentHistory() {
-    emit(state.copyWith(recentHistory: []));
+    emit(state.copyWith(history: []));
     return save();
   }
 
@@ -250,4 +376,24 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> save() => state.save();
+
+  Future<void> addRemote(RemoteStorage storage, {required String password}) {
+    emit(state.copyWith(remotes: List.from(state.remotes)..add(storage)));
+    const FlutterSecureStorage()
+        .write(key: 'remotes/${storage.identifier}', value: password);
+    return save();
+  }
+
+  Future<void> deleteRemote(String identifier) async {
+    emit(state.copyWith(
+        remotes:
+            state.remotes.where((r) => r.identifier != identifier).toList()));
+    const FlutterSecureStorage().delete(key: 'remotes/$identifier');
+    return save();
+  }
+
+  Future<void> setDefaultRemote(String identifier) async {
+    emit(state.copyWith(defaultRemote: identifier));
+    return save();
+  }
 }

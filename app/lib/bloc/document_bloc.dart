@@ -36,12 +36,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       SettingsCubit settingsCubit,
       CurrentIndexCubit currentIndexCubit,
       AppDocument initial,
-      String? path,
+      AssetLocation location,
       Renderer<Background> background,
       List<Renderer<PadElement>> renderer,
       [Embedding? embedding])
       : super(DocumentLoadSuccess(initial,
-            path: path,
+            location: location,
             settingsCubit: settingsCubit,
             currentIndexCubit: currentIndexCubit,
             embedding: embedding,
@@ -510,17 +510,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<TemplateCreated>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      TemplateFileSystem.fromPlatform().createTemplate(current.document);
+      final remote = current.getRemoteStorage();
+      TemplateFileSystem.fromPlatform(remote: remote)
+          .createTemplate(current.document);
 
       if (event.deleteDocument) {
-        emit(current.copyWith(removePath: true));
+        emit(current.copyWith(
+            location:
+                AssetLocation(remote: remote?.identifier ?? '', path: '')));
       }
     });
     on<DocumentPathChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      emit(current.copyWith(path: event.path));
+      emit(current.copyWith(location: event.location));
     });
     on<AreaCreated>((event, emit) async {
       final current = state;
@@ -576,8 +580,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      emit(current.copyWith(saved: true, path: event.path));
-      if (current.path == null) clearHistory();
+      emit(current.copyWith(saved: true, location: event.location));
+      if (current.location.path == '') clearHistory();
     });
   }
 
@@ -605,13 +609,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       return;
     }
     emit(nextState);
-    String? path = current.path;
-    if (!kIsWeb) {
+    AssetLocation? path = current.location;
+    if (!kIsWeb && path.remote == '') {
       path = await nextState.save();
       var currentState = state;
       if (currentState is! DocumentLoadSuccess) return;
-      if (currentState.path == null && state is DocumentLoadSuccess) {
-        emit(currentState.copyWith(path: path, saved: true));
+      if (currentState.location.path == '' && state is DocumentLoadSuccess) {
+        emit(currentState.copyWith(location: path, saved: true));
         clearHistory();
       }
     }

@@ -1,5 +1,10 @@
 part of 'document_bloc.dart';
 
+enum StorageType {
+  local,
+  cloud,
+}
+
 abstract class DocumentState extends Equatable {
   const DocumentState();
 
@@ -11,7 +16,8 @@ class DocumentLoadInProgress extends DocumentState {}
 
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
-  final String? path;
+  final AssetLocation location;
+  final StorageType storageType;
   final String currentLayer;
   final int currentAreaIndex;
   final List<String> invisibleLayers;
@@ -22,7 +28,8 @@ class DocumentLoadSuccess extends DocumentState {
   final bool saved;
 
   DocumentLoadSuccess(this.document,
-      {this.path,
+      {required this.location,
+      this.storageType = StorageType.local,
       this.saved = true,
       required this.settingsCubit,
       required this.currentIndexCubit,
@@ -43,7 +50,7 @@ class DocumentLoadSuccess extends DocumentState {
         invisibleLayers,
         cameraViewport,
         document,
-        path,
+        location,
         currentLayer,
         currentAreaIndex,
         settingsCubit,
@@ -68,16 +75,15 @@ class DocumentLoadSuccess extends DocumentState {
   DocumentLoadSuccess copyWith(
           {AppDocument? document,
           bool? editMode,
-          String? path,
+          AssetLocation? location,
           String? currentLayer,
           int? currentAreaIndex,
-          bool removePath = false,
           bool? saved,
           List<String>? invisibleLayers,
           CameraViewport? cameraViewport}) =>
       DocumentLoadSuccess(
         document ?? this.document,
-        path: removePath ? null : path ?? this.path,
+        location: location ?? this.location,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
         currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
@@ -90,19 +96,24 @@ class DocumentLoadSuccess extends DocumentState {
 
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 
-  Future<String> save() {
-    if (embedding != null) return Future.value('');
-    if (path == null) {
-      return DocumentFileSystem.fromPlatform()
+  Future<AssetLocation> save() {
+    final storage = getRemoteStorage();
+    if (embedding != null) return Future.value(AssetLocation.local(''));
+    if (location.path == '') {
+      return DocumentFileSystem.fromPlatform(remote: storage)
           .importDocument(document)
-          .then((value) => value.path)
+          .then((value) => value.location)
         ..then(settingsCubit.addRecentHistory);
     }
-    return DocumentFileSystem.fromPlatform()
-        .updateDocument(path!, document)
-        .then((value) => value.path)
+    return DocumentFileSystem.fromPlatform(remote: storage)
+        .updateDocument(location.path, document)
+        .then((value) => value.location)
       ..then(settingsCubit.addRecentHistory);
   }
+
+  RemoteStorage? getRemoteStorage() => location.remote.isEmpty
+      ? null
+      : settingsCubit.state.getRemote(location.remote);
 
   Future<ByteData?> render(
       {required int width,

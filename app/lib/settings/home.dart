@@ -13,8 +13,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../api/open_release_notes.dart';
+import 'remotes.dart';
 
-enum SettingsView { data, behaviors, personalization }
+enum SettingsView { data, behaviors, personalization, remotes }
 
 class SettingsPage extends StatefulWidget {
   final bool isDialog;
@@ -108,6 +109,23 @@ class _SettingsPageState extends State<SettingsPage> {
                               });
                             }
                           }),
+                      if (!kIsWeb)
+                        ListTile(
+                            leading: const Icon(PhosphorIcons.cloudLight),
+                            title: Text(AppLocalizations.of(context)!.remotes),
+                            selected: widget.isDialog && !isMobile
+                                ? _view == SettingsView.remotes
+                                : false,
+                            onTap: () {
+                              if (isMobile) {
+                                Navigator.of(context).pop();
+                                GoRouter.of(context).go('/settings/remotes');
+                              } else {
+                                setState(() {
+                                  _view = SettingsView.remotes;
+                                });
+                              }
+                            }),
                       const Divider(),
                       ListTile(
                           leading: const Icon(PhosphorIcons.articleLight),
@@ -218,6 +236,9 @@ class _SettingsPageState extends State<SettingsPage> {
               break;
             case SettingsView.personalization:
               content = const PersonalizationSettingsPage(inView: true);
+              break;
+            case SettingsView.remotes:
+              content = const RemotesSettingsPage(inView: true);
               break;
           }
           return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [

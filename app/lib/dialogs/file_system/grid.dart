@@ -1,3 +1,4 @@
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/dialogs/file_system/dialog.dart';
 import 'package:butterfly/dialogs/file_system/menu.dart';
 import 'package:butterfly/models/document.dart';
@@ -9,12 +10,14 @@ class FileSystemGridView extends StatelessWidget {
   final List<AppDocumentAsset> assets;
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
+  final DocumentFileSystem fileSystem;
   const FileSystemGridView(
       {super.key,
       required this.assets,
       required this.selectedPath,
       required this.onOpened,
-      required this.onRefreshed});
+      required this.onRefreshed,
+      required this.fileSystem});
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +63,12 @@ class FileSystemGridView extends StatelessWidget {
                                       ),
                                     ),
                                     FileSystemAssetMenu(
-                                        selectedPath: selectedPath,
-                                        asset: directory,
-                                        onOpened: onOpened,
-                                        onRefreshed: onRefreshed)
+                                      selectedPath: selectedPath,
+                                      asset: directory,
+                                      onOpened: onOpened,
+                                      onRefreshed: onRefreshed,
+                                      fileSystem: fileSystem,
+                                    )
                                   ]),
                                 ],
                               )))));
@@ -113,6 +118,7 @@ class FileSystemGridView extends StatelessWidget {
                                     ),
                                   ),
                                   FileSystemAssetMenu(
+                                      fileSystem: fileSystem,
                                       selectedPath: selectedPath,
                                       asset: file,
                                       onOpened: onOpened,

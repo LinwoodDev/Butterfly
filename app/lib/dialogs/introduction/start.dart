@@ -2,6 +2,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,7 +67,9 @@ class _CreateStartViewState extends State<_CreateStartView> {
 
   @override
   Widget build(BuildContext context) {
-    final templateSystem = TemplateFileSystem.fromPlatform();
+    final settings = context.read<SettingsCubit>().state;
+    final templateSystem =
+        TemplateFileSystem.fromPlatform(remote: settings.getDefaultRemote());
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -165,6 +168,11 @@ class _CreateStartViewState extends State<_CreateStartView> {
                                 transformCubit.reset();
                                 currentIndexCubit.reset();
                                 bloc.emit(DocumentLoadSuccess(document,
+                                    location: AssetLocation(
+                                        path: '',
+                                        remote:
+                                            templateSystem.remote?.identifier ??
+                                                ''),
                                     currentIndexCubit: currentIndexCubit,
                                     settingsCubit: settingsCubit));
                               });
@@ -192,7 +200,7 @@ class _RecentStartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settingsCubit = context.read<SettingsCubit>();
-    final recents = settingsCubit.state.recentHistory;
+    final recents = settingsCubit.state.history;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -218,15 +226,25 @@ class _RecentStartView extends StatelessWidget {
                         physics: const ScrollPhysics(),
                         children: recents.map((recent) {
                           return Dismissible(
-                            key: Key(recent),
+                            key: Key(recent.identifier),
                             onDismissed: (direction) {
                               settingsCubit.removeRecentHistory(recent);
                             },
                             child: ListTile(
-                                title: Text(recent),
+                                title: Text(recent.identifier),
                                 onTap: () {
-                                  GoRouter.of(context).pushNamed('home',
-                                      queryParams: {'path': recent});
+                                  if (recent.remote != '') {
+                                    GoRouter.of(context).push(
+                                        '/remote/${Uri.encodeComponent(recent.remote)}/${Uri.encodeComponent(recent.path)}');
+                                    return;
+                                  }
+                                  GoRouter.of(context).push(Uri(
+                                    pathSegments: [
+                                      '',
+                                      'local',
+                                      ...recent.path.split('/').sublist(1),
+                                    ],
+                                  ).toString());
                                 }),
                           );
                         }).toList()),

@@ -4,11 +4,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FileSystemAssetDeleteDialog extends StatelessWidget {
   final String path;
-  const FileSystemAssetDeleteDialog({super.key, required this.path});
+  final DocumentFileSystem fileSystem;
+  const FileSystemAssetDeleteDialog(
+      {super.key, required this.path, required this.fileSystem});
 
   @override
   Widget build(BuildContext context) {
-    var fileSystem = DocumentFileSystem.fromPlatform();
     return AlertDialog(
       title: Text(AppLocalizations.of(context)!.areYouSure),
       content: Text(AppLocalizations.of(context)!.reallyDelete),
