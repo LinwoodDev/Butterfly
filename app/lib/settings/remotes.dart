@@ -108,6 +108,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
   final TextEditingController _urlController = TextEditingController(),
       _usernameController = TextEditingController(),
       _passwordController = TextEditingController(),
+      _iconController = TextEditingController(text: '/favicon.ico'),
       _directoryController = TextEditingController(),
       _documentsDirectoryController = TextEditingController(),
       _templatesDirectoryController = TextEditingController();
@@ -132,27 +133,41 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     setState(() => _isConnected = true);
   }
 
-  Future<void> _create() async {
-    final settingsCubit = context.read<SettingsCubit>();
-    final url = Uri.parse(_urlController.text.trim());
-    final iconUrl = Uri.parse('${url.origin}/favicon.ico');
-    final navigator = Navigator.of(context);
-    final iconResponse = await http.get(iconUrl);
-    var icon = Uint8List(0);
-    if (iconResponse.statusCode == 200) {
-      // Test if the icon is a valid image
-      try {
-        final image = await decodeImageFromList(iconResponse.bodyBytes);
-        final imageBytes = (await image.toByteData(format: ImageByteFormat.png))
-            ?.buffer
-            .asUint8List();
-        if (imageBytes?.isNotEmpty ?? false) {
-          icon = imageBytes!;
-        }
-      } catch (e) {
-        icon = Uint8List(0);
+  Future<Uint8List> _getIcon() async {
+    var url = Uri.tryParse(_iconController.text.trim());
+
+    if (!(url?.isAbsolute ?? true)) {
+      url = Uri.tryParse(_urlController.text.trim())
+          ?.resolve(_iconController.text.trim());
+    }
+    if (url == null) {
+      return Uint8List(0);
+    }
+
+    final response = await http.get(url);
+    if (response.statusCode != 200) {
+      return Uint8List(0);
+    }
+    try {
+      final image = await decodeImageFromList(response.bodyBytes);
+      final imageBytes = (await image.toByteData(format: ImageByteFormat.png))
+          ?.buffer
+          .asUint8List();
+      if (imageBytes?.isNotEmpty ?? false) {
+        return imageBytes!;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
       }
     }
+    return Uint8List(0);
+  }
+
+  Future<void> _create() async {
+    final navigator = Navigator.of(context);
+    final settingsCubit = context.read<SettingsCubit>();
+    final icon = await _getIcon();
     final remoteStorage = DavRemoteStorage(
       username: _usernameController.text,
       url: _urlController.text,
@@ -201,6 +216,11 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   readOnly: _isConnected,
                   decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.url),
+                ),
+                TextField(
+                  controller: _iconController,
+                  decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.icon),
                 ),
                 const Divider(
                   height: 32,

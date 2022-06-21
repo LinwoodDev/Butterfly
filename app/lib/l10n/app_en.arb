@@ -308,5 +308,6 @@
   "errorWhileCreatingRemote": "Error while creating remote",
   "cannotConnectToRemote": "Cannot connect to remote",
   "urlNotValid": "URL not valid",
-  "remote": "Remote"
+  "remote": "Remote",
+  "icon": "Icon"
 }

@@ -429,7 +429,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
     final content = document.toJson();
     final response = await _createRequest(path.split('/'),
         method: 'PUT', body: json.encode(content));
-    if (response.statusCode != 201) {
+    if (response.statusCode != 201 && response.statusCode != 204) {
       throw Exception('Failed to update document: ${response.statusCode}');
     }
     return AppDocumentFile(
