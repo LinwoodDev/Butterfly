@@ -34,7 +34,7 @@ Get started by running:
 ```bash
 cd docs
 yarn install
-yarn dev
+yarn start
 ```
 
 All stable documentation can be found in the `versioned_docs` folder.
