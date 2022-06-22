@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:butterfly/api/file_system_io.dart';
-import 'package:butterfly/api/file_system_web.dart';
+import 'package:butterfly/api/file_system_html.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';

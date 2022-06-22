@@ -1,5 +1,6 @@
-* Add remote storage
+* Add remote storage ([#88](https://github.com/LinwoodCloud/Butterfly/issues/88))
     * Add remote settings
     * Add storage option to template and open dialog
     * Specify remote in title
+* Exporting on web now downloads the file
 * Remove cdns on the web

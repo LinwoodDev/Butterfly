@@ -1,12 +1,8 @@
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
+import 'package:butterfly/api/save_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:share_plus/share_plus.dart';
 
 class ExportDialog extends StatelessWidget {
   final String data;
@@ -15,7 +11,6 @@ class ExportDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
     return AlertDialog(
         title: Row(
           children: [
@@ -38,60 +33,13 @@ class ExportDialog extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               title: Text(AppLocalizations.of(context)!.clipboard)),
-          if (!kIsWeb && !isMobile)
-            ListTile(
-                onTap: () {
-                  FilePicker.platform.saveFile(
-                      fileName: 'butterfly.bfly',
-                      type: FileType.custom,
-                      allowedExtensions: ['json', 'bfly']).then((value) {
-                    if (value == null) {
-                      return;
-                    }
-                    var fileName = value;
-                    if (!fileName.endsWith('.bfly') &&
-                        !fileName.endsWith('.json')) fileName += '.bfly';
-                    var file = File(fileName);
-                    void write() {
-                      file.writeAsStringSync(data);
-                      Navigator.of(context).pop();
-                    }
-
-                    if (!file.existsSync()) {
-                      write();
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                title: Text(
-                                    AppLocalizations.of(context)!.areYouSure),
-                                content: Text(AppLocalizations.of(context)!
-                                    .existOverride),
-                                actions: [
-                                  TextButton(
-                                      child: Text(
-                                          AppLocalizations.of(context)!.no),
-                                      onPressed: () =>
-                                          Navigator.of(context).pop()),
-                                  ElevatedButton(
-                                      child: Text(
-                                          AppLocalizations.of(context)!.yes),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        write();
-                                      })
-                                ],
-                              ));
-                    }
-                  });
-                },
-                title: Text(AppLocalizations.of(context)!.file)),
           ListTile(
-              onTap: () {
-                Share.share(data);
-                Navigator.of(context).pop();
+              onTap: () async {
+                final navigator = Navigator.of(context);
+                await saveData(context, data);
+                navigator.pop();
               },
-              title: Text(AppLocalizations.of(context)!.share)),
+              title: Text(AppLocalizations.of(context)!.file)),
         ]));
   }
 }
