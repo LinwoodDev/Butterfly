@@ -4,3 +4,4 @@
     * Specify remote in title
 * Exporting on web now downloads the file
 * Remove cdns on the web
+* Fix settings rounded corners

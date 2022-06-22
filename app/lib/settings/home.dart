@@ -53,6 +53,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             Flexible(
               child: Material(
+                color: widget.isDialog ? Colors.transparent : null,
                 child: ListView(
                     controller: _scrollController,
                     shrinkWrap: true,
@@ -206,6 +207,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                       'utm_campaign': 'oss'
                                     })),
                                 child: Material(
+                                  color: Colors.transparent,
                                   child: SizedBox(
                                       height: 50,
                                       child: SvgPicture.asset(

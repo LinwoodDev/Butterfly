@@ -1,8 +1,6 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
-import 'dart:convert';
 import 'dart:html';
-import 'dart:js_util' as js_util;
 
 void openImage(List<int> bytes) {
   final a = document.createElement('a') as AnchorElement;
