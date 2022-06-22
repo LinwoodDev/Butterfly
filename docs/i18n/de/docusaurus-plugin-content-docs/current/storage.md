@@ -11,7 +11,7 @@ Die Anwendungsdaten werden in Ihrem Browser gespeichert. Es wird in einem lokale
 
 Standardmäßig speichert die Anwendung die Daten in Ihrem Dokumentenordner in einem Unterordner namens "Linwood/Butterfly". Dieser Ordner wird beim Speichern der ersten Daten erstellt. Dieser Ordner kann in den Einstellungen geändert werden.
 
-## Remote storage
+## Remote storage {#remote}
 
 :::note
 
