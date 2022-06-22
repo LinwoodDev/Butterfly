@@ -11,18 +11,18 @@ Les données de l'application sont stockées dans votre navigateur. Il est stock
 
 Par défaut, l'application enregistre les données dans votre dossier de documents dans un sous-dossier appelé "Linwood/Butterfly". Ce dossier est créé lorsque vous enregistrez les premières données. Ce dossier peut être modifié dans les paramètres.
 
-## Remote storage {#remote}
+## Stockage à distance {#remote}
 
 :::note
 
-This feature is not available on the web.
+Cette fonctionnalité n'est pas disponible sur le Web.
 
 :::
 
-The application can be saved in a remote server. This is useful if you want to share the data with other people or if you have multiple computers. Currently only the `WebDAV` protocol is supported.
+L'application peut être enregistrée sur un serveur distant. Ceci est utile si vous voulez partager les données avec d'autres personnes ou si vous avez plusieurs ordinateurs. Actuellement, seul le protocole `WebDAV` est pris en charge.
 
-To add a remote server, go to the settings and click on `Remotes`. Then click on `Add remote`. Add the URL of the remote server and the username and password. After that you can specify the folder where the data is stored.
+Pour ajouter un serveur distant, allez dans les paramètres et cliquez sur `Télécommandes`. Puis cliquez sur `Ajouter une télécommande`. Ajoute l'URL du serveur distant et le nom d'utilisateur et le mot de passe. Ensuite, vous pouvez spécifier le dossier où les données sont stockées.
 
-To get the webdav url, please visit the documentation:
+Pour obtenir l'url webdav, veuillez visiter la documentation:
 
-* [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html)
+* [Nuage suivant](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html)
