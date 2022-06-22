@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:flutter/foundation.dart';
@@ -26,6 +27,9 @@ class RemotesSettingsPage extends StatelessWidget {
           backgroundColor: inView ? Colors.transparent : null,
           automaticallyImplyLeading: !inView,
           actions: [
+            IconButton(
+                icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+                onPressed: () => openHelp(['storage'], 'remote')),
             BlocBuilder<SettingsCubit, ButterflySettings>(
                 builder: (context, settings) {
               return IconButton(

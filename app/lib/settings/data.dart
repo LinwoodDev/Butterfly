@@ -32,69 +32,88 @@ class DataSettingsPage extends StatelessWidget {
             builder: (context, state) {
           return ListView(
             children: [
-              if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
-                ListTile(
-                  title: Text(AppLocalizations.of(context)!.documentDirectory),
-                  leading: const Icon(PhosphorIcons.folderLight),
-                  subtitle: Text(state.documentPath.isNotEmpty
-                      ? state.documentPath
-                      : AppLocalizations.of(context)!.defaultPath),
-                  onTap: () async {
-                    final settingsCubit = context.read<SettingsCubit>();
-                    var selectedDir =
-                        await FilePicker.platform.getDirectoryPath();
-                    if (selectedDir != null) {
-                      settingsCubit.changeDocumentPath(selectedDir);
-                    }
-                  },
-                  trailing: state.documentPath.isNotEmpty
-                      ? IconButton(
-                          icon: const Icon(PhosphorIcons.trashLight),
-                          onPressed: () =>
-                              context.read<SettingsCubit>().resetDocumentPath(),
-                        )
-                      : null,
-                ),
-              ListTile(
-                title: Text(AppLocalizations.of(context)!.dateFormat),
-                leading: const Icon(PhosphorIcons.calendarLight),
-                subtitle: Text(state.dateFormat),
-                onTap: () async {
-                  final settingsCubit = context.read<SettingsCubit>();
-                  // Show input dialog
-                  final TextEditingController controller =
-                      TextEditingController(text: state.dateFormat);
-                  final String? newFormat = await showDialog<String>(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.dateFormat),
-                      content: TextField(
-                        controller: controller,
-                        autofocus: true,
-                        decoration: InputDecoration(
-                          hintText: 'yyyy-MM-dd',
-                          filled: true,
-                          labelText: AppLocalizations.of(context)!.dateFormat,
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          child: Text(AppLocalizations.of(context)!.cancel),
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
-                        ElevatedButton(
-                          child: Text(AppLocalizations.of(context)!.ok),
-                          onPressed: () {
-                            Navigator.of(context).pop(controller.text);
+              Card(
+                margin: const EdgeInsets.all(8),
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
+                          ListTile(
+                            title: Text(AppLocalizations.of(context)!
+                                .documentDirectory),
+                            leading: const Icon(PhosphorIcons.folderLight),
+                            subtitle: Text(state.documentPath.isNotEmpty
+                                ? state.documentPath
+                                : AppLocalizations.of(context)!.defaultPath),
+                            onTap: () async {
+                              final settingsCubit =
+                                  context.read<SettingsCubit>();
+                              var selectedDir =
+                                  await FilePicker.platform.getDirectoryPath();
+                              if (selectedDir != null) {
+                                settingsCubit.changeDocumentPath(selectedDir);
+                              }
+                            },
+                            trailing: state.documentPath.isNotEmpty
+                                ? IconButton(
+                                    icon: const Icon(PhosphorIcons.trashLight),
+                                    onPressed: () => context
+                                        .read<SettingsCubit>()
+                                        .resetDocumentPath(),
+                                  )
+                                : null,
+                          ),
+                        ListTile(
+                          title: Text(AppLocalizations.of(context)!.dateFormat),
+                          leading: const Icon(PhosphorIcons.calendarLight),
+                          subtitle: Text(state.dateFormat),
+                          onTap: () async {
+                            final settingsCubit = context.read<SettingsCubit>();
+                            // Show input dialog
+                            final TextEditingController controller =
+                                TextEditingController(text: state.dateFormat);
+                            final String? newFormat = await showDialog<String>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text(
+                                    AppLocalizations.of(context)!.dateFormat),
+                                content: TextField(
+                                  controller: controller,
+                                  autofocus: true,
+                                  decoration: InputDecoration(
+                                    hintText: 'yyyy-MM-dd',
+                                    filled: true,
+                                    labelText: AppLocalizations.of(context)!
+                                        .dateFormat,
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: Text(
+                                        AppLocalizations.of(context)!.cancel),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ),
+                                  ElevatedButton(
+                                    child:
+                                        Text(AppLocalizations.of(context)!.ok),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(controller.text);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                            if (newFormat != null) {
+                              settingsCubit.changeDateFormat(newFormat);
+                            }
                           },
                         ),
-                      ],
-                    ),
-                  );
-                  if (newFormat != null) {
-                    settingsCubit.changeDateFormat(newFormat);
-                  }
-                },
+                      ]),
+                ),
               ),
             ],
           );

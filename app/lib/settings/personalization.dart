@@ -57,41 +57,61 @@ class PersonalizationSettingsPage extends StatelessWidget {
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(
           builder: (context, state) => ListView(children: [
-            ListTile(
-                leading: const Icon(PhosphorIcons.eyeLight),
-                title: Text(AppLocalizations.of(context)!.theme),
-                subtitle: Text(_getThemeName(context, state.theme)),
-                onTap: () => _openThemeModal(context)),
-            ListTile(
-              leading: const Icon(PhosphorIcons.paletteLight),
-              title: Text(AppLocalizations.of(context)!.design),
-              subtitle: Text(state.design),
-              trailing:
-                  _ThemeBox(theme: ThemeManager.getThemeByName(state.design)),
-              onTap: () => _openDesignModal(context),
+            Card(
+              margin: const EdgeInsets.all(8),
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ListTile(
+                          leading: const Icon(PhosphorIcons.eyeLight),
+                          title: Text(AppLocalizations.of(context)!.theme),
+                          subtitle: Text(_getThemeName(context, state.theme)),
+                          onTap: () => _openThemeModal(context)),
+                      ListTile(
+                        leading: const Icon(PhosphorIcons.paletteLight),
+                        title: Text(AppLocalizations.of(context)!.design),
+                        subtitle: Text(state.design),
+                        trailing: _ThemeBox(
+                            theme: ThemeManager.getThemeByName(state.design)),
+                        onTap: () => _openDesignModal(context),
+                      ),
+                      ListTile(
+                          leading: const Icon(PhosphorIcons.translateLight),
+                          title: Text(AppLocalizations.of(context)!.locale),
+                          subtitle:
+                              Text(_getLocaleName(context, state.localeTag)),
+                          onTap: () => _openLocaleModal(context)),
+                    ]),
+              ),
             ),
-            ListTile(
-                leading: const Icon(PhosphorIcons.translateLight),
-                title: Text(AppLocalizations.of(context)!.locale),
-                subtitle: Text(_getLocaleName(context, state.localeTag)),
-                onTap: () => _openLocaleModal(context)),
-            const Divider(),
-            CheckboxListTile(
-              secondary: const Icon(PhosphorIcons.squaresFourLight),
-              title: Text(AppLocalizations.of(context)!.start),
-              value: state.startEnabled,
-              onChanged: (value) => context
-                  .read<SettingsCubit>()
-                  .changeStartEnabled(value ?? true),
+            Card(
+              margin: const EdgeInsets.all(8),
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      CheckboxListTile(
+                        secondary: const Icon(PhosphorIcons.squaresFourLight),
+                        title: Text(AppLocalizations.of(context)!.start),
+                        value: state.startEnabled,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeStartEnabled(value ?? true),
+                      ),
+                      CheckboxListTile(
+                        secondary: const Icon(PhosphorIcons.paletteLight),
+                        title: Text(AppLocalizations.of(context)!.color),
+                        value: state.colorEnabled,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeColorEnabled(value ?? true),
+                      ),
+                    ]),
+              ),
             ),
-            CheckboxListTile(
-              secondary: const Icon(PhosphorIcons.paletteLight),
-              title: Text(AppLocalizations.of(context)!.color),
-              value: state.colorEnabled,
-              onChanged: (value) => context
-                  .read<SettingsCubit>()
-                  .changeColorEnabled(value ?? true),
-            )
           ]),
         ));
   }
