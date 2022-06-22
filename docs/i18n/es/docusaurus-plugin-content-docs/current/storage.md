@@ -11,18 +11,18 @@ Los datos de la aplicación se almacenan en su navegador. Se almacena en un alma
 
 Por defecto, la aplicación guarda los datos en la carpeta de documentos en una subcarpeta llamada "Linwood/Butterfly". Esta carpeta se crea cuando guarda los primeros datos. Esta carpeta se puede cambiar en la configuración.
 
-## Remote storage
+## Almacenamiento remoto {#remote}
 
 :::note
 
-This feature is not available on the web.
+Esta característica no está disponible en la web.
 
 :::
 
-The application can be saved in a remote server. This is useful if you want to share the data with other people or if you have multiple computers. Currently only the `WebDAV` protocol is supported.
+La aplicación se puede guardar en un servidor remoto. Esto es útil si desea compartir los datos con otras personas o si tiene varios equipos. Actualmente sólo se admite el protocolo `WebDAV`.
 
-To add a remote server, go to the settings and click on `Remotes`. Then click on `Add remote`. Add the URL of the remote server and the username and password. After that you can specify the folder where the data is stored.
+Para añadir un servidor remoto, ve a la configuración y haz clic en `Remotas`. Luego haga clic en `Añadir remoto`. Añadir la URL del servidor remoto y el nombre de usuario y contraseña. Después, puede especificar la carpeta donde se almacenan los datos.
 
-To get the webdav url, please visit the documentation:
+Para obtener la url webdav, por favor visite la documentación:
 
 * [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html)
