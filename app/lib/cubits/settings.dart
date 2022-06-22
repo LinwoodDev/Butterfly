@@ -81,7 +81,7 @@ class RemoteStorage with _$RemoteStorage {
     );
   }
 
-  String get identifier => '$username@$url';
+  String get identifier => '$username@${uri.host}/$path';
 
   Future<String> getPassword() async =>
       (await const FlutterSecureStorage().read(key: 'remotes/$identifier')) ??

@@ -37,6 +37,8 @@ class _RemoteButtonState extends State<RemoteButton> {
       }
       return PopupMenuButton<RemoteStorage?>(
         initialValue: _currentRemote,
+        position: PopupMenuPosition.under,
+        constraints: const BoxConstraints(maxWidth: 500),
         icon: _currentRemote == null
             ? const Icon(PhosphorIcons.houseLight)
             : _currentRemote!.icon.isEmpty
@@ -63,7 +65,17 @@ class _RemoteButtonState extends State<RemoteButton> {
           ...settings.remotes.map((remote) {
             return PopupMenuItem(
               value: remote,
-              child: Text(remote.identifier),
+              child: Row(
+                children: [
+                  if (remote.icon.isNotEmpty) ...[
+                    Image.memory(remote.icon),
+                    const SizedBox(width: 8),
+                  ],
+                  Flexible(
+                      child:
+                          Text(remote.identifier, overflow: TextOverflow.clip)),
+                ],
+              ),
             );
           }),
         ],

@@ -1,0 +1,5 @@
+* Add remote storage
+    * Add remote settings
+    * Add storage option to template and open dialog
+    * Specify remote in title
+* Remove cdns on the web
