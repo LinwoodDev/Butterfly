@@ -14,6 +14,7 @@ class FileSystemAssetMenu extends StatelessWidget {
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
   final AppDocumentAsset asset;
+  final DocumentFileSystem fileSystem;
   final String selectedPath;
 
   const FileSystemAssetMenu(
@@ -21,10 +22,10 @@ class FileSystemAssetMenu extends StatelessWidget {
       required this.selectedPath,
       required this.asset,
       required this.onOpened,
+      required this.fileSystem,
       required this.onRefreshed});
 
   void _showRenameDialog(BuildContext context, String path) {
-    final fileSystem = DocumentFileSystem.fromPlatform();
     final fileName = path.split('/').last;
     final parent = path.substring(0, path.length - fileName.length - 1);
     final nameController = TextEditingController(
@@ -61,9 +62,11 @@ class FileSystemAssetMenu extends StatelessWidget {
                           path, '$parent/${nameController.text}.bfly');
                       var state = bloc.state;
                       if (state is! DocumentLoadSuccess) return;
-                      if (document != null && state.path == path) {
+                      if (document != null && state.location.path == path) {
                         bloc.clearHistory();
-                        bloc.emit(state.copyWith(path: path));
+                        bloc.emit(state.copyWith(
+                            location: AssetLocation(
+                                remote: state.location.remote, path: path)));
                       }
                       onRefreshed();
                     }
@@ -100,7 +103,9 @@ class FileSystemAssetMenu extends StatelessWidget {
                   var newPath = await showDialog(
                     context: context,
                     builder: (context) => FileSystemAssetMoveDialog(
-                        asset: asset, moveMode: MoveMode.duplicate),
+                        fileSystem: fileSystem,
+                        asset: asset,
+                        moveMode: MoveMode.duplicate),
                   ) as String?;
                   if (newPath == null) return;
                   onRefreshed();
@@ -117,16 +122,20 @@ class FileSystemAssetMenu extends StatelessWidget {
                   final newPath = await showDialog(
                     context: context,
                     builder: (context) => FileSystemAssetMoveDialog(
-                        asset: asset, moveMode: MoveMode.move),
+                        fileSystem: fileSystem,
+                        asset: asset,
+                        moveMode: MoveMode.move),
                   ) as String?;
                   if (newPath == null) return;
                   onRefreshed();
                   // Change path if current document is moved
                   var state = bloc.state;
                   if (state is! DocumentLoadSuccess) return;
-                  if (state.path == asset.path) {
+                  if (state.location.path == asset.path) {
                     bloc.clearHistory();
-                    bloc.emit(state.copyWith(path: newPath));
+                    bloc.emit(state.copyWith(
+                        location: AssetLocation(
+                            remote: state.location.remote, path: newPath)));
                   }
                 }),
           ),
@@ -149,8 +158,10 @@ class FileSystemAssetMenu extends StatelessWidget {
                 Navigator.of(context).pop();
                 var success = await showDialog(
                     context: context,
-                    builder: (context) =>
-                        FileSystemAssetDeleteDialog(path: asset.path)) as bool?;
+                    builder: (context) => FileSystemAssetDeleteDialog(
+                          path: asset.path,
+                          fileSystem: fileSystem,
+                        )) as bool?;
                 if (success ?? false) {
                   onRefreshed();
                 }

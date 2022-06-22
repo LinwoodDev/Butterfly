@@ -1,39 +1,70 @@
-# Contributing
+# Contribution guide
 
-I do this project in my free time. It helps me a lot if you can contribute to this project. Please read
-the [Code of Conduct](https://docs.butterfly.linwood.dev/code-of-conduct) first!
+There are many ways to contribute to this project.
+Thanks to everyone who has contributed!
+If you have any questions, please contact me at <contact@linwood.dev>.
 
-## Issues
+There is a discord server for this project [here](https://discord.linwood.dev).
 
-If you find bugs or have feature request, you can create an issue by
-clicking [here](https://github.com/LinwoodCloud/butterfly/issues/new/choose).
+Please follow the [Code of Conduct](https://docs.butterfly.linwood.dev/code-of-conduct).
 
-## Nightly Builds
+## Give feedback
 
-Read more about them [here](https://docs.butterfly.linwood.dev/nightly).
+The best way to give feedback is to open an issue on GitHub.
+Please report any bug you find [here](https://github.com/LinwoodCloud/Butterfly/issues/new?assignees=CodeDoctorDE&labels=bug%2Ctriage&template=bug_report.yml&title=%5BBug%5D%3A+).
+
+If you have a feature that you would like to see added, please open an issue [here](https://github.com/LinwoodCloud/Butterfly/issues/new?assignees=CodeDoctorDE&labels=enhancement%2Ctriage&template=feature_request.yml&title=%5BFeature+request%5D%3A+).
+
+## Test nightly builds
+
+Nightly builds are not production ready and need to be tested.
+Please report any bugs in the github issues section.
+
+Read more about it [here](https://docs.butterfly.linwood.dev/nightly).
+
+## Write documentation
+
+Documentation is important for users to understand the program and its features.
+The documentation is written in markdown, a simple markup language. It can be found in the `docs` folder.
+
+To start, please install yarn (<https://yarnpkg.com/getting-started/install>).
+
+Get started by running:
+
+```bash
+cd docs
+yarn install
+yarn start
+```
+
+All stable documentation can be found in the `versioned_docs` folder.
+
+Fork the project and create a pull request to add your documentation to the `develop` branch.
+
+## Translate
+
+Crowdin is a service that allows you to translate the documentation and the app.
+Click [here](https://translate.linwood.dev/butterfly) to see the project and start translating.
+If you have a new language to add, please contact me.
 
 ## Code
 
-This app is built wíth Flutter and is developed in the programming language Dart.
-The current stable version is located in the main branch. This branch is feature freezed and only accept bug fixing pull requests. The develop branch is the next version of the app.
-All nightly versions gets released from here. Please create feature requests and bug
-fixing pull requests here.
+This project is written in [Dart](https://dart.dev/) and was built with [Flutter](https://flutter.dev/).
+The app source code can be found in the `app` folder.
 
-## Documentation
+Please install the dependencies first:
 
-The documentation uses docusaurus as generator and markdown for the pages.
-The development version of the documentation can be found in docs/docs and
-the versioned docs in docs/versioned_docs. Fork this project and create a pull request
-on the develop branch to help me improving the documentation.
+- libsecret-1-dev
+- libjsoncpp-dev
 
-## Translation
+To get started, run:
 
-Help me to translate the app on [crowdin](https://linwood.crowdin.com/butterfly).
+```bash
+cd app
+flutter pub get
+flutter run
+```
 
-## Community Server
+All subdirectories are documented in the `app/README.md` file.
 
-A project without a community isn't a good project. You can [join the discord](https://discord.linwood.dev) to talk with others or get the latest news!
-
-## Security/Branches
-
-Read more about security [here](https://docs.butterfly.linwood.dev/versions)
+Fork the project and create a pull request to add your code to the `develop` branch.

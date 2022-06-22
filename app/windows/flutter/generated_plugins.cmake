@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   camera_windows
+  flutter_secure_storage_windows
   printing
   screen_retriever
   url_launcher_windows

@@ -7,6 +7,7 @@ import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/home.dart';
+import 'package:butterfly/settings/remotes.dart';
 import 'package:butterfly/theme/manager.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:flutter/foundation.dart';
@@ -18,6 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'embed/embedding.dart';
+import 'models/document.dart';
 import 'settings/personalization.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 
@@ -38,17 +40,26 @@ Future<void> main([List<String> args = const []]) async {
       // Test if file is in directory
       if (file.path.startsWith(directory.path)) {
         // Relative path
-        initialLocation = Uri(path: '/', queryParameters: {
-          'path': file.path.replaceFirst(directory.path, '')
-        }).toString();
+        initialLocation = Uri(
+          pathSegments: [
+            '',
+            'local',
+            ...file.path.replaceFirst(directory.path, '').split('/').sublist(1),
+          ],
+        ).toString();
       } else {
         var data = await file.readAsString();
         var json = Map<String, dynamic>.from(jsonDecode(data));
         var document = const DocumentJsonConverter().fromJson(json);
         var newFile =
             await DocumentFileSystem.fromPlatform().importDocument(document);
-        initialLocation =
-            Uri(path: '/', queryParameters: {'path': newFile.path}).toString();
+        initialLocation = Uri(
+          pathSegments: [
+            '',
+            'local',
+            ...newFile.path.split('/').sublist(1),
+          ],
+        ).toString();
       }
     }
   }
@@ -80,7 +91,8 @@ class ButterflyApp extends StatelessWidget {
   final String initialLocation;
   final SharedPreferences prefs;
 
-  ButterflyApp({super.key, required this.prefs, this.initialLocation = '/'});
+  const ButterflyApp(
+      {super.key, required this.prefs, this.initialLocation = '/'});
 
   // This widget is the root of your application.
   @override
@@ -117,44 +129,68 @@ class ButterflyApp extends StatelessWidget {
             ));
   }
 
-  late final GoRouter _router = GoRouter(
-    initialLocation: initialLocation,
-    routes: [
-      GoRoute(
-          name: 'home',
-          path: '/',
-          builder: (context, state) {
-            final path = state.queryParams['path']; // may be null
-            return ProjectPage(path: path);
-          },
-          routes: [
-            GoRoute(
-              path: 'settings',
-              builder: (context, state) => const SettingsPage(),
+  GoRouter get _router => GoRouter(
+        initialLocation: initialLocation,
+        routes: [
+          GoRoute(
+              name: 'home',
+              path: '/',
+              builder: (context, state) {
+                return const ProjectPage();
+              },
               routes: [
                 GoRoute(
-                  path: 'behaviors',
-                  builder: (context, state) => const BehaviorsSettingsPage(),
+                  path: 'settings',
+                  builder: (context, state) => const SettingsPage(),
+                  routes: [
+                    GoRoute(
+                      path: 'behaviors',
+                      builder: (context, state) =>
+                          const BehaviorsSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'personalization',
+                      builder: (context, state) =>
+                          const PersonalizationSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'data',
+                      builder: (context, state) => const DataSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'remotes',
+                      builder: (context, state) => const RemotesSettingsPage(),
+                    ),
+                  ],
                 ),
-                GoRoute(
-                  path: 'personalization',
-                  builder: (context, state) =>
-                      const PersonalizationSettingsPage(),
-                ),
-                GoRoute(
-                  path: 'data',
-                  builder: (context, state) => const DataSettingsPage(),
-                ),
-              ],
-            ),
-          ]),
-      GoRoute(
-        name: 'embed',
-        path: '/embed',
-        builder: (context, state) {
-          return ProjectPage(embedding: Embedding.fromQuery(state.queryParams));
-        },
-      )
-    ],
-  );
+              ]),
+          GoRoute(
+            name: 'local',
+            path: '/local/:path(.*)',
+            builder: (context, state) {
+              final path = state.params['path'];
+              return ProjectPage(location: AssetLocation.local(path ?? ''));
+            },
+          ),
+          GoRoute(
+            name: 'remote',
+            path: '/remote/:remote/:path(.*)',
+            builder: (context, state) {
+              final remote = state.params['remote'];
+              final path = state.params['path'];
+              return ProjectPage(
+                  location:
+                      AssetLocation(remote: remote ?? '', path: path ?? ''));
+            },
+          ),
+          GoRoute(
+            name: 'embed',
+            path: '/embed',
+            builder: (context, state) {
+              return ProjectPage(
+                  embedding: Embedding.fromQuery(state.queryParams));
+            },
+          )
+        ],
+      );
 }

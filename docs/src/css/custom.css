@@ -282,3 +282,11 @@ html[data-theme='dark'] .DocSearch {
   --ifm-button-background-color: #5A0FC8;
   --ifm-button-border-color: #5A0FC8;
 }
+
+.text-center {
+  text-align: center;
+}
+
+.flex-center {
+  justify-content: center;
+}

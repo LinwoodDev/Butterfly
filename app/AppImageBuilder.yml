@@ -11,7 +11,7 @@ AppDir:
     id: dev.linwood.butterfly
     name: Linwood Butterfly
     icon: linwood-butterfly
-    version: 1.4.0-alpha.1
+    version: 1.4.0-alpha.2
     exec: butterfly
     exec_args: $@
   apt:
@@ -24,6 +24,8 @@ AppDir:
     - sourceline: deb http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse
     include:
     - libgtk-3-0
+    - libsecret-1-dev
+    - libjsoncpp-dev
     exclude:
     - humanity-icon-theme
     - hicolor-icon-theme

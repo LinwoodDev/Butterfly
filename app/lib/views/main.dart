@@ -51,10 +51,10 @@ bool isWindow() =>
     !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
 
 class ProjectPage extends StatefulWidget {
-  final String? path;
+  final AssetLocation? location;
   final Embedding? embedding;
 
-  const ProjectPage({super.key, this.path, this.embedding});
+  const ProjectPage({super.key, this.location, this.embedding});
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
@@ -75,7 +75,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   void didUpdateWidget(ProjectPage oldWidget) {
-    if (oldWidget.path != widget.path) {
+    if (oldWidget.location != widget.location) {
       _bloc?.close();
       _bloc = null;
       load();
@@ -92,7 +92,7 @@ class _ProjectPageState extends State<ProjectPage> {
             settingsCubit,
             _currentIndexCubit,
             AppDocument(createdAt: DateTime.now(), name: ''),
-            widget.path,
+            widget.location ?? const AssetLocation(path: ''),
             BoxBackgroundRenderer(const BoxBackground()),
             [],
             widget.embedding);
@@ -101,17 +101,21 @@ class _ProjectPageState extends State<ProjectPage> {
       });
       return;
     }
-    final fileSystem = DocumentFileSystem.fromPlatform();
+    RemoteStorage? remote;
+    remote = widget.location != null
+        ? settingsCubit.state.getRemote(widget.location!.remote)
+        : settingsCubit.state.getDefaultRemote();
+    final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
     final prefs = await SharedPreferences.getInstance();
     var documentOpened = false;
     AppDocument? document;
-    if (widget.path != null) {
+    if (widget.location != null) {
       documentOpened = true;
-      await fileSystem.getAsset(widget.path!).then(
+      await fileSystem.getAsset(widget.location!.path).then(
           (value) => document = value is AppDocumentFile ? value.load() : null);
     }
     if (document == null && prefs.containsKey('default_template')) {
-      var template = await TemplateFileSystem.fromPlatform()
+      var template = await TemplateFileSystem.fromPlatform(remote: remote)
           .getTemplate(prefs.getString('default_template')!);
       if (template != null && mounted) {
         document = template.document.copyWith(
@@ -135,8 +139,14 @@ class _ProjectPageState extends State<ProjectPage> {
       final background = Renderer.fromInstance(document!.background);
       await background.setup(document!);
       setState(() {
-        _bloc = DocumentBloc(settingsCubit, _currentIndexCubit, document!,
-            widget.path, background, renderers);
+        _bloc = DocumentBloc(
+            settingsCubit,
+            _currentIndexCubit,
+            document!,
+            widget.location ??
+                AssetLocation(path: '', remote: remote?.identifier ?? ''),
+            background,
+            renderers);
         _transformCubit = TransformCubit();
       });
     }

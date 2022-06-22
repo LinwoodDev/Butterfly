@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/create.dart';
 import 'package:butterfly/dialogs/file_system/grid.dart';
 import 'package:butterfly/dialogs/file_system/list.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/widgets/header.dart';
+import 'package:butterfly/widgets/remote_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -33,7 +35,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
 
   @override
   void initState() {
-    _fileSystem = DocumentFileSystem.fromPlatform();
+    _fileSystem =
+        context.read<SettingsCubit>().state.getDefaultDocumentFileSystem();
     loadDocuments();
     super.initState();
   }
@@ -145,12 +148,15 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       var isMobile = constraints.maxWidth < 600;
                       var pathInput = Row(
                         children: [
-                          IconButton(
-                              icon: const Icon(PhosphorIcons.houseLight),
-                              onPressed: () {
-                                _pathController.text = '/';
-                                loadDocuments();
-                              }),
+                          RemoteButton(
+                            currentRemote: _fileSystem.remote?.identifier ?? '',
+                            onChanged: (value) {
+                              _pathController.text = '/';
+                              _fileSystem = DocumentFileSystem.fromPlatform(
+                                  remote: value);
+                              loadDocuments();
+                            },
+                          ),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -188,22 +194,29 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                           ),
                         ],
                       );
-                      var searchInput = Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        child: TextField(
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: const InputDecoration(
-                            filled: true,
-                            prefixIcon:
-                                Icon(PhosphorIcons.magnifyingGlassLight),
+                      var searchInput = Row(children: [
+                        Flexible(
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(minWidth: 300),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              child: TextField(
+                                textAlignVertical: TextAlignVertical.center,
+                                decoration: const InputDecoration(
+                                  filled: true,
+                                  prefixIcon:
+                                      Icon(PhosphorIcons.magnifyingGlassLight),
+                                ),
+                                onChanged: (value) {
+                                  loadDocuments();
+                                },
+                                controller: _searchController,
+                              ),
+                            ),
                           ),
-                          onChanged: (value) {
-                            loadDocuments();
-                          },
-                          controller: _searchController,
                         ),
-                      );
+                      ]);
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: isMobile
@@ -239,18 +252,20 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             builder: (context, state) {
                               var selectedPath = '';
                               if (state is DocumentLoadSuccess) {
-                                selectedPath = state.path ?? '';
+                                selectedPath = state.location.path;
                               }
                               return gridView
                                   ? FileSystemGridView(
                                       selectedPath: selectedPath,
                                       assets: _documents,
+                                      fileSystem: _fileSystem,
                                       onOpened: _openAsset,
                                       onRefreshed: loadDocuments,
                                     )
                                   : FileSystemListView(
                                       selectedPath: selectedPath,
                                       assets: _documents,
+                                      fileSystem: _fileSystem,
                                       onOpened: _openAsset,
                                       onRefreshed: loadDocuments,
                                     );
@@ -271,10 +286,9 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
       path = '';
     }
     var success = await showDialog(
-            context: context,
-            builder: (context) =>
-                FileSystemAssetCreateDialog(isFolder: isFolder, path: path))
-        as bool?;
+        context: context,
+        builder: (context) => FileSystemAssetCreateDialog(
+            isFolder: isFolder, path: path, fileSystem: _fileSystem)) as bool?;
     if (success ?? false) {
       loadDocuments();
     }
@@ -282,7 +296,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
 
   void _openAsset(AppDocumentAsset asset) {
     if (asset is AppDocumentFile) {
-      Navigator.of(context).pop(asset.path);
+      Navigator.of(context).pop(asset.location);
     } else {
       _pathController.text = asset.path;
       loadDocuments();
