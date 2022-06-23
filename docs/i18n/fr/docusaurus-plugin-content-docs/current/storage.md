@@ -25,4 +25,4 @@ Pour ajouter un serveur distant, allez dans les paramètres et cliquez sur `Tél
 
 Pour obtenir l'url webdav, veuillez visiter la documentation:
 
-* [Nuage suivant](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html)
+* [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html)
