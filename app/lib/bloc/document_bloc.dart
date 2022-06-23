@@ -524,7 +524,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      emit(current.copyWith(location: event.location));
+      emit(current.copyWith(
+          location: AssetLocation(
+              remote: current.location.remote, path: event.location)));
     });
     on<AreaCreated>((event, emit) async {
       final current = state;

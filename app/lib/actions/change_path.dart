@@ -26,7 +26,7 @@ class ChangePathAction extends Action<ChangePathIntent> {
         remote: settings.getRemote(location.remote));
     var asset = await fileSystem.getAsset(location.path);
     if (asset == null) return;
-    var newPath = await showDialog(
+    var newPath = await showDialog<String?>(
         context: intent.context,
         builder: (context) => FileSystemAssetMoveDialog(
               asset: asset,

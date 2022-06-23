@@ -27,7 +27,6 @@ class FileSystemDialog extends StatefulWidget {
 }
 
 class _FileSystemDialogState extends State<FileSystemDialog> {
-  List<AppDocumentAsset> _documents = [];
   bool gridView = true;
   late DocumentFileSystem _fileSystem;
   final TextEditingController _pathController =
@@ -38,11 +37,10 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
   void initState() {
     _fileSystem =
         context.read<SettingsCubit>().state.getDefaultDocumentFileSystem();
-    loadDocuments();
     super.initState();
   }
 
-  Future<void> loadDocuments() async {
+  Future<List<AppDocumentAsset>> _loadDocuments() async {
     var documents = await _fileSystem
         .getAsset(_pathController.text)
         .then<List<AppDocumentAsset>>((value) => (value is AppDocumentDirectory
@@ -65,9 +63,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   : false))
           .toList();
     }
-    if (mounted) {
-      setState(() => _documents = documents);
-    }
+    return documents;
   }
 
   @override
@@ -87,7 +83,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   ),
                   actions: [
                     IconButton(
-                      onPressed: () => loadDocuments(),
+                      onPressed: () => setState(() {}),
                       icon: const Icon(PhosphorIcons.arrowClockwiseLight),
                     ),
                     IconButton(
@@ -155,7 +151,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                               _pathController.text = '/';
                               _fileSystem = DocumentFileSystem.fromPlatform(
                                   remote: value);
-                              loadDocuments();
+                              setState(() {});
                             },
                           ),
                           Expanded(
@@ -188,7 +184,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                   if (_pathController.text.isEmpty) {
                                     _pathController.text = '/';
                                   }
-                                  loadDocuments();
+                                  setState(() {});
                                 }
                               }
                             },
@@ -210,7 +206,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                       Icon(PhosphorIcons.magnifyingGlassLight),
                                 ),
                                 onChanged: (value) {
-                                  loadDocuments();
+                                  setState(() {});
                                 },
                                 controller: _searchController,
                               ),
@@ -248,28 +244,60 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                     }),
                     const Divider(),
                     Flexible(
-                        child: BlocBuilder<DocumentBloc, DocumentState>(
-                            bloc: widget.bloc,
-                            builder: (context, state) {
-                              var selectedPath = '';
-                              if (state is DocumentLoadSuccess) {
-                                selectedPath = state.location.path;
-                              }
-                              return gridView
-                                  ? FileSystemGridView(
-                                      selectedPath: selectedPath,
-                                      assets: _documents,
-                                      fileSystem: _fileSystem,
-                                      onOpened: _openAsset,
-                                      onRefreshed: loadDocuments,
-                                    )
-                                  : FileSystemListView(
-                                      selectedPath: selectedPath,
-                                      assets: _documents,
-                                      fileSystem: _fileSystem,
-                                      onOpened: _openAsset,
-                                      onRefreshed: loadDocuments,
-                                    );
+                        child: FutureBuilder<List<AppDocumentAsset>>(
+                            future: _loadDocuments(),
+                            builder: (context, snapshot) {
+                              return BlocBuilder<DocumentBloc, DocumentState>(
+                                  bloc: widget.bloc,
+                                  builder: (context, state) {
+                                    var selectedPath = '';
+                                    if (state is DocumentLoadSuccess) {
+                                      selectedPath = state.location.path;
+                                    }
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const Align(
+                                        alignment: Alignment.center,
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
+                                    if (snapshot.hasError) {
+                                      return ListView(children: [
+                                        Text(
+                                          AppLocalizations.of(context)!.error,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
+                                        ),
+                                        Text(
+                                          snapshot.error.toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
+                                        ),
+                                      ]);
+                                    }
+                                    final assets = snapshot.data ?? [];
+                                    void onRefreshed() {
+                                      setState(() {});
+                                    }
+
+                                    return gridView
+                                        ? FileSystemGridView(
+                                            selectedPath: selectedPath,
+                                            assets: assets,
+                                            fileSystem: _fileSystem,
+                                            onOpened: _openAsset,
+                                            onRefreshed: onRefreshed,
+                                          )
+                                        : FileSystemListView(
+                                            selectedPath: selectedPath,
+                                            assets: assets,
+                                            fileSystem: _fileSystem,
+                                            onOpened: _openAsset,
+                                            onRefreshed: onRefreshed,
+                                          );
+                                  });
                             })),
                   ],
                 ),
@@ -291,7 +319,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
         builder: (context) => FileSystemAssetCreateDialog(
             isFolder: isFolder, path: path, fileSystem: _fileSystem)) as bool?;
     if (success ?? false) {
-      loadDocuments();
+      setState(() {});
     }
   }
 
@@ -306,7 +334,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
       }
     } else {
       _pathController.text = asset.path;
-      loadDocuments();
+      setState(() {});
     }
   }
 }

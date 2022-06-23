@@ -61,6 +61,11 @@ class FileSystemDirectoryTreeViewState
     return FutureBuilder<AppDocumentDirectory>(
         future: _directoryFuture,
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Align(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator());
+          }
           if (snapshot.hasData) {
             var directory = snapshot.data!;
             var children = directory.assets.whereType<AppDocumentDirectory>();

@@ -57,7 +57,7 @@ class DocumentDescriptorChanged extends DocumentEvent {
 }
 
 class DocumentPathChanged extends DocumentEvent {
-  final AssetLocation? location;
+  final String location;
 
   const DocumentPathChanged(this.location);
   @override
