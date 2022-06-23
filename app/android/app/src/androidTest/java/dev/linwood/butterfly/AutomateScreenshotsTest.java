@@ -28,6 +28,7 @@ public class AutomateScreenshotsTest {
     @Before
     public void setUp() throws Exception {
         ActivityScenario.launch(MainActivity.class);
+        Thread.sleep(5000);
     }
 
     @BeforeClass
@@ -35,11 +36,15 @@ public class AutomateScreenshotsTest {
         Screengrab.setDefaultScreenshotStrategy(new UiAutomatorScreenshotStrategy());
 
         new CleanStatusBar()
+                .setClock("1200")
                 .setMobileNetworkDataType(MobileDataType.LTE)
                 .setBluetoothState(BluetoothState.DISCONNECTED)
                 .enable();
 
     }
+
+    @Rule
+    public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
 
     @AfterClass
     public static void afterAll() {
