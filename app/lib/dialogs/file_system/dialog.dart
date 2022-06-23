@@ -12,6 +12,7 @@ import 'package:butterfly/widgets/remote_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 typedef AssetOpenedCallback = void Function(AppDocumentAsset path);
@@ -296,7 +297,13 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
 
   void _openAsset(AppDocumentAsset asset) {
     if (asset is AppDocumentFile) {
-      Navigator.of(context).pop(asset.location);
+      final remote = _fileSystem.remote;
+      if (remote != null) {
+        GoRouter.of(context).push(
+            '/remote/${Uri.encodeComponent(remote.identifier)}/${Uri.encodeComponent(asset.path)}');
+      } else {
+        GoRouter.of(context).push('/local/${Uri.encodeComponent(asset.path)}');
+      }
     } else {
       _pathController.text = asset.path;
       loadDocuments();
