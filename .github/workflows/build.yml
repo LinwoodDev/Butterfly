@@ -178,7 +178,7 @@ jobs:
             app/linwood-butterfly-linux.AppImage
   build-flatpak:
     name: Build flatpak
-    needs: build-flutter-app
+    needs: build-linux
     runs-on: ubuntu-latest
     container:
       image: bilelmoussaoui/flatpak-github-actions:freedesktop-21.08
