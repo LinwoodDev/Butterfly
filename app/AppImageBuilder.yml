@@ -10,7 +10,7 @@ AppDir:
   app_info:
     id: dev.linwood.butterfly
     name: Linwood Butterfly
-    icon: linwood-butterfly
+    icon: dev.linwood.butterfly
     version: 1.4.0-alpha.3
     exec: butterfly
     exec_args: $@
