@@ -148,10 +148,10 @@ jobs:
       - name: Compress Flutter build
         run: tar -C build/linux/x64/release/bundle -cvf linwood-butterfly-portable.tar.gz .
       - name: Upload app archive for next steps
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: linux-build-portable
-          path: linwood-butterfly-portable.tar.gz
+          path: app/linwood-butterfly-portable.tar.gz
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -202,7 +202,7 @@ jobs:
           bundle: linwood-butterfly-linux.flatpak
           manifest-path: app/flatpak.json
       - name: Upload .flatpak artifact to workflow
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: linux-flatpak
           path: linwood-butterfly-linux.flatpak
