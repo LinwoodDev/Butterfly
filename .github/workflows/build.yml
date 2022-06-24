@@ -146,7 +146,7 @@ jobs:
         run: |
           mv ./*.AppImage* linwood-butterfly-linux.AppImage
       - name: Compress Flutter build
-        run: tar -C build/linux/x64/release/bundle -cvf linwood-butterfly-portable.tar.gz .
+        run: tar -C build/linux/x64/release/bundle -cvf linwood-butterfly-linux-portable.tar.gz .
       - name: Upload app archive for next steps
         uses: actions/upload-artifact@v3
         with:
