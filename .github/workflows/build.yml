@@ -193,9 +193,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: linux-build-portable
-      - name: Prepare app for .flatpak executable
-        run: |
-          tar -C build/linux/x64/release/bundle -cvf linwood-butterfly-linux-portable.tar.gz .
+          path: app
       - name: Build .flatpak
         uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
         with:
