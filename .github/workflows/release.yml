@@ -116,6 +116,16 @@ jobs:
         run: |
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
+      - name: Update version number
+        if: ${{ github.event.inputs.stable != 'true' }}
+        run: |
+          dart pub get -C tools
+          NEXT_BUILD_NUMBER=$(expr ${{ needs.release.outputs.build_number }} + 1)
+          dart run tools/set_version.dart --build-number $NEXT_BUILD_NUMBER --changelog
+
+          git add .
+          git commit -m "Update version number"
+          git push origin main
       - name: Merge develop in main
         if:  ${{ github.event.inputs.stable == 'true' && github.ref == 'refs/heads/develop' }}
         run: |
@@ -124,16 +134,6 @@ jobs:
           git checkout main
           git pull
           git merge origin/develop --strategy-option ours
-          git push origin main
-      - name: Update version number
-        if: ${{ github.event.inputs.stable != 'true' }}
-        run: |
-          dart pub get -C tools
-          NEXT_BUILD_NUMBER=$(expr ${{ needs.release.outputs.build_number }} + 1)
-          dart run tools/set_version.dart --build-number $NEXT_BUILD_NUMBER --no-changelog
-
-          git add .
-          git commit -m "Update version number"
           git push origin main
       - name: Merge main in develop
         run: |
