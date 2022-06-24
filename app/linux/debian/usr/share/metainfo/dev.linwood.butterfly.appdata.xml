@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-	<id>linwood-butterfly</id>
+	<id>dev.linwood.butterfly</id>
 	<name>Linwood Butterfly</name>
+	<developer_name>Linwood</developer_name>
 	<summary>Notes that change the world</summary>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-3.0-only</project_license>
+	<supports>
+	  <control>pointing</control>
+	  <control>keyboard</control>
+	  <control>touch</control>
+	</supports>
 	<recommends>
 		<control>pointing</control>
 		<control>keyboard</control>
@@ -22,13 +28,14 @@
 		</ul>
 	</description>
 	<screenshots>
-		<screenshot>
+		<screenshot type="default">
 			<image type="source">https://raw.githubusercontent.com/LinwoodCloud/butterfly/develop/docs/static/img/main.png</image>
 		</screenshot>
 	</screenshots>
 	<launchable type="desktop-id">linwood-butterfly.desktop</launchable>
 	<releases>
+		<release version="1.0.0" date="2022-02-25" />
 	</releases>
-	<content_rating type="oars-1.0" />
+	<content_rating type="oars-1.1" />
 	<update_contact>contact@linwood.dev</update_contact>
 </component>

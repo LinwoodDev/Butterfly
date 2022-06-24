@@ -1,0 +1,93 @@
+{
+  "app-id": "dev.linwood.butterfly",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "21.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "butterfly",
+  "separate-locales": false,
+  "finish-args": [
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--device=dri",
+    "--socket=pulseaudio",
+    "--share=network"
+  ],
+  "modules": [
+    {
+      "name": "butterfly",
+      "buildsystem": "simple",
+      "only-arches": [
+        "x86_64"
+      ],
+      "build-commands": [
+        "mkdir -p FlutterApp",
+        "tar -xf linwood-butterfly-linux-portable.tar.gz -C FlutterApp",
+        "cp -r FlutterApp /app/",
+        "chmod +x /app/FlutterApp/butterfly",
+        "mkdir -p /app/bin",
+        "ln -s /app/FlutterApp/butterfly /app/bin/butterfly",
+        "mkdir -p /app/share/metainfo",
+        "cp -r dev.linwood.butterfly.appdata.xml /app/share/metainfo/",
+        "mkdir -p /app/share/icons/hicolor/scalable/apps",
+        "cp -r logo.svg /app/share/icons/hicolor/scalable/apps/dev.linwood.butterfly.svg",
+        "mkdir -p /app/share/applications",
+        "cp -r dev.linwood.butterfly.desktop /app/share/applications/",
+        "mkdir -p /app/share/appdata",
+        "cp -r dev.linwood.butterfly.appdata.xml /app/share/appdata/"
+      ],
+      "sources": [
+        {
+          "type": "file",
+          "path": "linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml"
+        },
+        {
+          "type": "file",
+          "path": "linux/debian/usr/share/applications/dev.linwood.butterfly.desktop"
+        },
+        {
+          "type": "file",
+          "path": "images/logo.svg"
+        },
+        {
+          "type": "file",
+          "path": "linwood-butterfly-linux-portable.tar.gz"
+        }
+      ]
+    },
+    {
+        "name": "libjsoncpp",
+        "buildsystem": "meson",
+        "sources": [
+            {
+                "type": "archive",
+                "url": "https://github.com/open-source-parsers/jsoncpp/archive/refs/tags/1.9.5.tar.gz",
+                "sha256": "f409856e5920c18d0c2fb85276e24ee607d2a09b5e7d5f0a371368903c275da2"
+            }
+        ]
+    },
+    {
+      "name": "libsecret",
+      "buildsystem": "meson",
+      "config-opts": [
+        "-Dmanpage=false",
+        "-Dvapi=false",
+        "-Dgtk_doc=false",
+        "-Dintrospection=false"
+      ],
+      "cleanup": [
+        "/bin",
+        "/include",
+        "/lib/pkgconfig",
+        "/share/man"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://download.gnome.org/sources/libsecret/0.20/libsecret-0.20.5.tar.xz",
+          "sha256": "3fb3ce340fcd7db54d87c893e69bfc2b1f6e4d4b279065ffe66dac9f0fd12b4d"
+        }
+      ]
+    }
+  ]
+}

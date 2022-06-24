@@ -145,6 +145,14 @@ jobs:
       - name: Rename AppImage
         run: |
           mv ./*.AppImage* linwood-butterfly-linux.AppImage
+      - name: Prepare app for .flatpak executable
+        run: |
+          tar -C build/linux/x64/release/bundle -cvf linwood-butterfly-linux-portable.tar.gz .
+      - name: Build .flatpak
+        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
+        with:
+          bundle: linwood-butterfly-linux.flatpak
+          manifest-path: app/flatpak.json
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -169,6 +177,13 @@ jobs:
           name: linux-appimage
           path: |
             app/linwood-butterfly-linux.AppImage
+      - name: Archive .flatpak
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-flatpak
+          path: |
+            app/linwood-butterfly-linux.flatpak
+    
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
@@ -230,6 +245,9 @@ jobs:
           name: linux-appimage
       - uses: actions/download-artifact@v3
         with:
+          name: linux-flatpak
+      - uses: actions/download-artifact@v3
+        with:
           name: windows-setup
       - name: 📦 Zip artifacts
         run: |
@@ -256,6 +274,7 @@ jobs:
             linwood-butterfly-linux.zip
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
+            linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
@@ -272,6 +291,7 @@ jobs:
             linwood-butterfly-linux.zip
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
+            linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
@@ -286,6 +306,7 @@ jobs:
             linwood-butterfly-linux.zip
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
+            linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
@@ -338,4 +359,4 @@ jobs:
       - name: 🚀 Deploy to Play Store
         if: ${{ github.ref == 'refs/tags/nightly' }}
         run: bundle exec fastlane beta
-        working-directory: app/android
+        working-directory: app/androidhttps://github.com/LinwoodCloud/Butterfly/blob/develop/app/AppImageBuilder.yml

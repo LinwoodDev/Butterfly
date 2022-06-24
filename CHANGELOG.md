@@ -8,6 +8,7 @@
     * Add remote settings
     * Add storage option to template and open dialog
     * Specify remote in title
+* Add loading indicator to file open dialog
 * Exporting on web now downloads the file
 * Remove cdns on the web
 * Redesign settings with cards
