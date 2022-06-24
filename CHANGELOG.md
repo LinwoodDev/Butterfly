@@ -13,7 +13,7 @@
 * Redesign settings with cards
 * Fix settings rounded corners
 
-## 1.4.0-alpha.0 (2022-06-20)
+## 1.4.0-alpha.1 (2022-06-20)
 
 * Fix invalid namespace on android
 

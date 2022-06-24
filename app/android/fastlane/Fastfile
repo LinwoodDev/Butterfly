@@ -15,23 +15,21 @@
 
 default_platform(:android)
 
-Dir.chdir("../../..") do
-  platform :android do
-    desc "Runs all the tests"
-    lane :test do
-      gradle(task: "test")
-    end
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
 
-    desc "Submit a new Beta Build to Crashlytics Beta"
-    lane :beta do
-      sh "flutter build appbundle -v --release --flavor development"
-      upload_to_play_store(track: 'beta', aab: 'app/build/app/outputs/bundle/developmentRelease/app-development-release.aab', metadata_path: "app/android/fastlane/metadata")
-    end
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+    sh "flutter build appbundle -v --release --flavor development"
+    upload_to_play_store(track: 'beta', aab: '../build/app/outputs/bundle/developmentRelease/app-development-release.aab')
+  end
 
-    desc "Deploy a new version to the Google Play"
-    lane :deploy do
-      sh "flutter build appbundle -v --release --flavor production"
-      upload_to_play_store(aab: 'app/build/app/outputs/bundle/productionRelease/app-production-release.aab', metadata_path: "app/android/fastlane/metadata")
-    end
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    sh "flutter build appbundle -v --release --flavor production"
+    upload_to_play_store(aab: '../build/app/outputs/bundle/productionRelease/app-production-release.aab')
   end
 end
