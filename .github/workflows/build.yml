@@ -145,14 +145,13 @@ jobs:
       - name: Rename AppImage
         run: |
           mv ./*.AppImage* linwood-butterfly-linux.AppImage
-      - name: Prepare app for .flatpak executable
-        run: |
-          tar -C build/linux/x64/release/bundle -cvf linwood-butterfly-linux-portable.tar.gz .
-      - name: Build .flatpak
-        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
+      - name: Compress Flutter build
+        run: tar -C build/linux/x64/release/bundle -cvf linwood-butterfly-portable.tar.gz .
+      - name: Upload app archive for next steps
+        uses: actions/upload-artifact@v2
         with:
-          bundle: linwood-butterfly-linux.flatpak
-          manifest-path: app/flatpak.json
+          name: linux-build-portable
+          path: linwood-butterfly-portable.tar.gz
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -177,13 +176,36 @@ jobs:
           name: linux-appimage
           path: |
             app/linwood-butterfly-linux.AppImage
-      - name: Archive .flatpak
-        uses: actions/upload-artifact@v3
+  build-flatpak:
+    name: Build flatpak
+    needs: build-flutter-app
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:freedesktop-21.08
+      options: --privileged
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v3
+      - name: Download app archive
+        uses: actions/download-artifact@v3
+        with:
+          name: linux-build-portable
+      - name: Prepare app for .flatpak executable
+        run: |
+          tar -C build/linux/x64/release/bundle -cvf linwood-butterfly-linux-portable.tar.gz .
+      - name: Build .flatpak
+        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
+        with:
+          bundle: linwood-butterfly-linux.flatpak
+          manifest-path: app/flatpak.json
+      - name: Upload .flatpak artifact to workflow
+        uses: actions/upload-artifact@v2
         with:
           name: linux-flatpak
-          path: |
-            app/linwood-butterfly-linux.flatpak
-    
+          path: linwood-butterfly-linux.flatpak
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
@@ -214,6 +236,7 @@ jobs:
       - build-apk
       - build-windows
       - build-linux
+      - build-flatpak
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
