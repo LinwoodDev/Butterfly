@@ -91,7 +91,7 @@ jobs:
           git fetch
           git pull origin
           dart pub get -C tools
-          dart run tools/set_version.dart --build-number increment ${{ github.event.inputs.next_version }} --no-changelog
+          dart run tools/set_version.dart --build-number increment ${{ github.event.inputs.next_version }} --changelog
           git add .
           git commit -m "Update Version to ${{ github.event.inputs.next_version }}"
           git push origin
@@ -121,7 +121,7 @@ jobs:
         run: |
           dart pub get -C tools
           NEXT_BUILD_NUMBER=$(expr ${{ needs.release.outputs.build_number }} + 1)
-          dart run tools/set_version.dart --build-number $NEXT_BUILD_NUMBER --changelog
+          dart run tools/set_version.dart --build-number $NEXT_BUILD_NUMBER --no-changelog
 
           git add .
           git commit -m "Update version number"
@@ -173,7 +173,7 @@ jobs:
       - name: Create changelog
         run: |
           dart pub get -C tools
-          dart run tools/set_version.dart --build-number keep --changelog
+          dart run tools/set_version.dart --build-number keep --no-changelog
           git add .
           git commit -m "Create changelog for ${{ env.BUTTERFLY_VERSION }}"
           git push origin
