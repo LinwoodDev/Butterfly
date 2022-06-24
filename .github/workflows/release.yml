@@ -43,7 +43,7 @@ jobs:
         run: |
           BUTTERFLY_VERSION="${{ env.BUTTERFLY_VERSION }}"
           git tag -fa v${{ env.BUTTERFLY_VERSION }} -m "Release ${BUTTERFLY_VERSION}"
-          git push origin v${BUTTERFLY_VERSION}
+          git push origin v${BUTTERFLY_VERSION} -f
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
