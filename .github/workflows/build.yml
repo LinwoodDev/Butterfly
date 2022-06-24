@@ -151,7 +151,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: linux-build-portable
-          path: app/linwood-butterfly-portable.tar.gz
+          path: app/linwood-butterfly-linux-portable.tar.gz
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -193,7 +193,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: linux-build-portable
-          path: app/linwood-butterfly-portable.tar.gz
+          path: app/linwood-butterfly-linux-portable.tar.gz
       - name: Build .flatpak
         uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
         with:
