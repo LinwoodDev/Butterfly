@@ -2,6 +2,17 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.0-alpha.2 (2022-06-24)
+
+* Add remote storage ([#88](https://github.com/LinwoodCloud/Butterfly/issues/88))
+    * Add remote settings
+    * Add storage option to template and open dialog
+    * Specify remote in title
+* Exporting on web now downloads the file
+* Remove cdns on the web
+* Redesign settings with cards
+* Fix settings rounded corners
+
 ## 1.4.0-alpha.0 (2022-06-20)
 
 * Fix invalid namespace on android
