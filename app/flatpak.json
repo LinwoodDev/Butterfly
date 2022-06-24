@@ -39,19 +39,19 @@
       "sources": [
         {
           "type": "file",
-          "path": "linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml"
+          "path": "app/linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml"
         },
         {
           "type": "file",
-          "path": "linux/debian/usr/share/applications/dev.linwood.butterfly.desktop"
+          "path": "app/linux/debian/usr/share/applications/dev.linwood.butterfly.desktop"
         },
         {
           "type": "file",
-          "path": "images/logo.svg"
+          "path": "app/images/logo.svg"
         },
         {
           "type": "file",
-          "path": "linwood-butterfly-linux-portable.tar.gz"
+          "path": "app/linwood-butterfly-linux-portable.tar.gz"
         }
       ]
     },
