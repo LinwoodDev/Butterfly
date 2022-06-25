@@ -13,9 +13,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../api/open_release_notes.dart';
+import 'general.dart';
 import 'remotes.dart';
 
-enum SettingsView { data, behaviors, personalization, remotes }
+enum SettingsView { general, data, behaviors, personalization, remotes }
 
 class SettingsPage extends StatefulWidget {
   final bool isDialog;
@@ -26,7 +27,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  SettingsView _view = SettingsView.data;
+  SettingsView _view = SettingsView.general;
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -58,6 +59,23 @@ class _SettingsPageState extends State<SettingsPage> {
                     controller: _scrollController,
                     shrinkWrap: true,
                     children: [
+                      ListTile(
+                        title: Text(AppLocalizations.of(context)!.general),
+                        leading: const Icon(PhosphorIcons.gearLight),
+                        selected: widget.isDialog && !isMobile
+                            ? _view == SettingsView.general
+                            : false,
+                        onTap: () {
+                          if (isMobile) {
+                            Navigator.of(context).pop();
+                            GoRouter.of(context).go('/settings/general');
+                          } else {
+                            setState(() {
+                              _view = SettingsView.general;
+                            });
+                          }
+                        },
+                      ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.data),
                         leading: const Icon(PhosphorIcons.databaseLight),
@@ -127,77 +145,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 });
                               }
                             }),
-                      const Divider(),
-                      ListTile(
-                          leading: const Icon(PhosphorIcons.articleLight),
-                          title:
-                              Text(AppLocalizations.of(context)!.documentation),
-                          onTap: () => launchUrl(
-                              Uri.https('docs.butterfly.linwood.dev', ''))),
-                      ListTile(
-                          leading: const Icon(PhosphorIcons.flagLight),
-                          title:
-                              Text(AppLocalizations.of(context)!.releaseNotes),
-                          onTap: () => openReleaseNotes()),
-                      ListTile(
-                          leading: const Icon(PhosphorIcons.usersLight),
-                          title: const Text('Discord'),
-                          onTap: () => launchUrl(
-                              Uri.https('go.linwood.dev', 'discord'))),
-                      ListTile(
-                          leading: const Icon(PhosphorIcons.translateLight),
-                          title: const Text('Crowdin'),
-                          onTap: () => launchUrl(Uri.https(
-                              'go.linwood.dev', 'butterfly/crowdin'))),
-                      ListTile(
-                          leading: const Icon(PhosphorIcons.codeLight),
-                          title: Text(AppLocalizations.of(context)!.source),
-                          onTap: () => launchUrl(
-                              Uri.https('go.linwood.dev', 'butterfly/source'))),
-                      ListTile(
-                          leading: const Icon(
-                              PhosphorIcons.arrowCounterClockwiseLight),
-                          title: Text(AppLocalizations.of(context)!.changelog),
-                          onTap: () => launchUrl(Uri.https(
-                              'docs.butterfly.linwood.dev', 'changelog'))),
-                      const Divider(),
-                      ListTile(
-                          leading: const Icon(PhosphorIcons.stackLight),
-                          title: Text(AppLocalizations.of(context)!.license),
-                          onTap: () => launchUrl(Uri.https(
-                              'go.linwood.dev', 'butterfly/license'))),
-                      ListTile(
-                          leading:
-                              const Icon(PhosphorIcons.identificationCardLight),
-                          title: Text(AppLocalizations.of(context)!.imprint),
-                          onTap: () => launchUrl(
-                              Uri.https('go.linwood.dev', 'impress'))),
-                      ListTile(
-                          leading: const Icon(PhosphorIcons.shieldLight),
-                          title:
-                              Text(AppLocalizations.of(context)!.privacypolicy),
-                          onTap: () => launchUrl(Uri.https(
-                              'docs.butterfly.linwood.dev', 'privacypolicy'))),
-                      ListTile(
-                          leading: const Icon(PhosphorIcons.infoLight),
-                          title:
-                              Text(AppLocalizations.of(context)!.information),
-                          onTap: () => PackageInfo.fromPlatform().then((info) =>
-                              showAboutDialog(
-                                  context: context,
-                                  children: [
-                                    ElevatedButton(
-                                        child: Text(
-                                            AppLocalizations.of(context)!
-                                                .copyVersion),
-                                        onPressed: () => Clipboard.setData(
-                                            ClipboardData(text: info.version))),
-                                  ],
-                                  applicationVersion: info.version,
-                                  applicationIcon: Image.asset(
-                                      'images/logo.png',
-                                      height: 50)))),
-                      if (kIsWeb)
+                      if (kIsWeb) ...[
+                        const Divider(),
                         Padding(
                             padding: const EdgeInsets.all(5),
                             child: InkWell(
@@ -221,6 +170,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                       const CircularProgressIndicator()),
                                           semanticsLabel: 'Powered by Vercel')),
                                 )))
+                      ],
                     ]),
               ),
             )
@@ -230,6 +180,9 @@ class _SettingsPageState extends State<SettingsPage> {
           }
           Widget content;
           switch (_view) {
+            case SettingsView.general:
+              content = const GeneralSettingsPage(inView: true);
+              break;
             case SettingsView.data:
               content = const DataSettingsPage(inView: true);
               break;
