@@ -183,9 +183,6 @@ jobs:
     container:
       image: bilelmoussaoui/flatpak-github-actions:freedesktop-21.08
       options: --privileged
-    defaults:
-      run:
-        working-directory: app
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
