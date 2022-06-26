@@ -309,5 +309,14 @@
   "cannotConnectToRemote": "Cannot connect to remote",
   "urlNotValid": "URL not valid",
   "remote": "Remote",
-  "icon": "Icon"
+  "icon": "Icon",
+  "update": "Update",
+  "updateAvailable": "Update available",
+  "stable": "Stable",
+  "nightly": "Nightly",
+  "checkForUpdates": "Check for updates",
+  "usingLatestStable": "You are using the latest stable version",
+  "usingLatestNightly": "You are using the latest nightly version",
+  "currentVersion": "Current version",
+  "updateNow": "Update now"
 }

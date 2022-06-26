@@ -179,7 +179,7 @@ jobs:
   build-flatpak:
     name: Build flatpak
     needs: build-linux
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -204,7 +204,7 @@ jobs:
       - name: Build .flatpak
         working-directory: app
         run: |
-          flatpak-builder --force-clean build-dir flatpak.json -y -v
+          flatpak-builder --disable-rofiles-fuse --install-deps-from=flathub --force-clean --arch=x86_64 --ccache flatpak_app flatpak.json -y -v
           flatpak build-export export build-dir -v
           flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
       - name: Upload .flatpak artifact to workflow
