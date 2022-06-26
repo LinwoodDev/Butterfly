@@ -190,15 +190,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: linux-build-portable
-          path: linwood-butterfly-linux-portable.tar.gz
-      - name: Copy flatpak.json
-        run: |
-          mv app/flatpak.json .
+          path: app/linwood-butterfly-linux-portable.tar.gz
       - name: Build .flatpak
         uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
         with:
           bundle: linwood-butterfly-linux.flatpak
-          manifest-path: flatpak.json
+          manifest-path: app/flatpak.json
       - name: Upload .flatpak artifact to workflow
         uses: actions/upload-artifact@v3
         with:
