@@ -179,10 +179,7 @@ jobs:
   build-flatpak:
     name: Build flatpak
     needs: build-linux
-    runs-on: ubuntu-latest
-    container:
-      image: bilelmoussaoui/flatpak-github-actions:freedesktop-21.08
-      options: --privileged
+    runs-on: ubuntu-22.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -191,6 +188,10 @@ jobs:
         with:
           name: linux-build-portable
           path: app/linwood-butterfly-linux-portable.tar.gz
+      - name: Install flatpak
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder
       - name: Build .flatpak
         working-directory: app
         run: |
