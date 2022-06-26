@@ -192,10 +192,11 @@ jobs:
           name: linux-build-portable
           path: app/linwood-butterfly-linux-portable.tar.gz
       - name: Build .flatpak
-        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
-        with:
-          bundle: linwood-butterfly-linux.flatpak
-          manifest-path: app/flatpak.json
+        working-directory: app
+        run: |
+          flatpak-builder --force-clean build-dir flatpak.json
+          flatpak build-export export build-dir
+          flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly
       - name: Upload .flatpak artifact to workflow
         uses: actions/upload-artifact@v3
         with:

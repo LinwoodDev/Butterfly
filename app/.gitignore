@@ -55,3 +55,5 @@ build-dir
 /icon.svg
 /linwood-butterfly.appdata.xml
 /linwood-butterfly.desktop
+/export/
+/linwood-butterfly-linux.flatpak
