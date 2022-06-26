@@ -5,7 +5,9 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build:meta": "node ./generate_meta.mjs",
+    "build:docs": "docusaurus build",
+    "build": "yarn build:meta && yarn build:docs",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -24,6 +26,7 @@
     "@mdx-js/react": "^1",
     "animate.css": "^4.1.1",
     "clsx": "^1.1.1",
+    "node-fetch": "^3.2.6",
     "prism-react-renderer": "^1.3.3",
     "react": "^17.0.2",
     "react-animation-on-scroll": "^5.1.0",
