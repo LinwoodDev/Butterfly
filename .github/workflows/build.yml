@@ -204,9 +204,9 @@ jobs:
       - name: Build .flatpak
         working-directory: app
         run: |
-          flatpak-builder --force-clean build-dir flatpak.json -y
-          flatpak build-export export build-dir
-          flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly
+          flatpak-builder --force-clean build-dir flatpak.json -y -v
+          flatpak build-export export build-dir -v
+          flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
       - name: Upload .flatpak artifact to workflow
         uses: actions/upload-artifact@v3
         with:
