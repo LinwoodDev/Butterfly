@@ -309,5 +309,14 @@
     "cannotConnectToRemote": "Impossible de se connecter à distance",
     "urlNotValid": "URL non valide",
     "remote": "Distante",
-    "icon": "Icône"
+    "icon": "Icône",
+    "update": "Update",
+    "updateAvailable": "Update available",
+    "stable": "Stable",
+    "nightly": "Nightly",
+    "checkForUpdates": "Check for updates",
+    "usingLatestStable": "You are using the latest stable version",
+    "usingLatestNightly": "You are using the latest nightly version",
+    "currentVersion": "Current version",
+    "updateNow": "Update now"
 }
