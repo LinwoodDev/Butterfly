@@ -196,6 +196,11 @@ jobs:
         run: |
           flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
           flatpak install flathub org.freedesktop.Platform//21.08 org.freedesktop.Sdk//21.08 --user -y
+      - name: Copy nessessary files
+        working-directory: app
+        run: |
+          cp linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml .
+          cp linux/debian/usr/share/applications/dev.linwood.butterfly.desktop .
       - name: Build .flatpak
         working-directory: app
         run: |

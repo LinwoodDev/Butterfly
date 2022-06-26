@@ -39,11 +39,11 @@
       "sources": [
         {
           "type": "file",
-          "path": "linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml"
+          "path": "dev.linwood.butterfly.appdata.xml"
         },
         {
           "type": "file",
-          "path": "linux/debian/usr/share/applications/dev.linwood.butterfly.desktop"
+          "path": "dev.linwood.butterfly.desktop"
         },
         {
           "type": "file",
