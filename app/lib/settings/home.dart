@@ -4,15 +4,12 @@ import 'package:butterfly/settings/personalization.dart';
 import 'package:butterfly/widgets/header.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../api/open_release_notes.dart';
 import 'general.dart';
 import 'remotes.dart';
 

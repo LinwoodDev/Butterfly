@@ -193,7 +193,7 @@ jobs:
           path: linwood-butterfly-linux-portable.tar.gz
       - name: Copy flatpak.json
         run: |
-          cp app/flatpak.json .
+          mv app/flatpak.json .
       - name: Build .flatpak
         uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
         with:
