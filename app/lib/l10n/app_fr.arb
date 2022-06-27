@@ -324,8 +324,8 @@
     "rectangle": "Rectangle",
     "line": "Lignes",
     "cornerRadius": "Rayon du coin",
-    "topLeft": "Top left",
-    "topRight": "Top right",
-    "bottomLeft": "Bottom left",
-    "bottomRight": "Bottom right"
+    "topLeft": "En haut à gauche",
+    "topRight": "En haut à droite",
+    "bottomLeft": "En bas à gauche",
+    "bottomRight": "En bas à droite"
 }
