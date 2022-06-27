@@ -325,6 +325,12 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> addRecentHistory(AssetLocation location) async {
     final history = state.history.toList();
+    if (!location.path.startsWith('/')) {
+      location = AssetLocation(
+        path: '/${location.path}',
+        remote: location.remote,
+      );
+    }
     history.remove(location);
     history.insert(0, location);
     if (history.length > 10) {

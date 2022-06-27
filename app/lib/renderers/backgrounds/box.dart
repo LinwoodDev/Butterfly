@@ -75,7 +75,7 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
       'y': '${rect.top}',
       'width': '${rect.width}',
       'height': '${rect.height}',
-      'fill': '#${element.boxColor.toRadixString(16).substring(2)}'
+      'fill': element.boxColor.toHex(),
     });
     if (element.boxWidth > 0 && element.boxXCount > 0) {
       int xCount = (rect.left /
@@ -93,7 +93,7 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
           'y1': '${rect.top}px',
           'x2': '${x + rect.left}px',
           'y2': '${rect.top + rect.height}px',
-          'stroke': '#${element.boxXColor.toRadixString(16).substring(2)}',
+          'stroke': element.boxXColor.toHex(),
           'stroke-width': '${element.boxXStroke}'
         });
         count++;
@@ -120,7 +120,7 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
           'y1': '${y + rect.top}px',
           'x2': '${rect.left + rect.width}px',
           'y2': '${y + rect.top}px',
-          'stroke': '#${element.boxYColor.toRadixString(16).substring(2)}',
+          'stroke': element.boxYColor.toHex(),
           'stroke-width': '${element.boxYStroke}'
         });
         count++;

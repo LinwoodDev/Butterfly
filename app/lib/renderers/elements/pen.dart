@@ -17,10 +17,8 @@ class PenRenderer extends PathRenderer<PenElement> {
       xml.getElement('svg')?.createElement('path', attributes: {
         'd': 'M${element.x} ${element.y} '
             'L${last.x} ${last.y} ',
-        'fill': property.fill
-            ? '#${property.color.toRadixString(16).substring(2)}'
-            : 'none',
-        'stroke': '#${property.color.toRadixString(16).substring(2)}',
+        'fill': property.fill ? property.color.toHex() : 'none',
+        'stroke': property.color.toHex(),
         'stroke-width': '${width}px',
         'stroke-linecap': 'round',
         'stroke-linejoin': 'round',

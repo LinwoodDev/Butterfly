@@ -6,6 +6,7 @@ import 'dart:ui' show Image;
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/element.dart';
+import 'package:butterfly/visualizer/int.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:xml/xml.dart';
