@@ -327,5 +327,9 @@
     "topLeft": "Arriba izquierda",
     "topRight": "Arriba derecha",
     "bottomLeft": "Bottom izquierdo",
-    "bottomRight": "Botón derecho"
+    "bottomRight": "Botón derecho",
+    "caches": "Caches",
+    "manage": "Manage",
+    "clearCaches": "Clear caches",
+    "createCache": "Create cache"
 }
