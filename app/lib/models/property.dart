@@ -78,7 +78,10 @@ class PathShape with _$PathShape {
       CircleShape;
   const factory PathShape.rectangle(
       {@Default(kColorTransparent) int fillColor,
-      @Default(0) double cornerRadius}) = RectangleShape;
+      @Default(0) double topLeftCornerRadius,
+      @Default(0) double topRightCornerRadius,
+      @Default(0) double bottomLeftCornerRadius,
+      @Default(0) double bottomRightCornerRadius}) = RectangleShape;
   const factory PathShape.line() = LineShape;
 
   factory PathShape.fromJson(Map<String, dynamic> json) =>

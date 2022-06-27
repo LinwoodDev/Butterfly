@@ -323,5 +323,9 @@
   "circle": "Circle",
   "rectangle": "Rectangle",
   "line": "Line",
-  "cornerRadius": "Corner radius"
+  "cornerRadius": "Corner radius",
+  "topLeft": "Top left",
+  "topRight": "Top right",
+  "bottomLeft": "Bottom left",
+  "bottomRight": "Bottom right"
 }

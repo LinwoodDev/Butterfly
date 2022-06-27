@@ -1626,21 +1626,39 @@ mixin _$PathShape {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int fillColor) circle,
-    required TResult Function(int fillColor, double cornerRadius) rectangle,
+    required TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)
+        rectangle,
     required TResult Function() line,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(int fillColor)? circle,
-    TResult Function(int fillColor, double cornerRadius)? rectangle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
     TResult Function()? line,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int fillColor)? circle,
-    TResult Function(int fillColor, double cornerRadius)? rectangle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
     TResult Function()? line,
     required TResult orElse(),
   }) =>
@@ -1760,7 +1778,13 @@ class _$CircleShape extends CircleShape {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int fillColor) circle,
-    required TResult Function(int fillColor, double cornerRadius) rectangle,
+    required TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)
+        rectangle,
     required TResult Function() line,
   }) {
     return circle(fillColor);
@@ -1770,7 +1794,13 @@ class _$CircleShape extends CircleShape {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(int fillColor)? circle,
-    TResult Function(int fillColor, double cornerRadius)? rectangle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
     TResult Function()? line,
   }) {
     return circle?.call(fillColor);
@@ -1780,7 +1810,13 @@ class _$CircleShape extends CircleShape {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int fillColor)? circle,
-    TResult Function(int fillColor, double cornerRadius)? rectangle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
     TResult Function()? line,
     required TResult orElse(),
   }) {
@@ -1848,7 +1884,12 @@ abstract class _$$RectangleShapeCopyWith<$Res> {
   factory _$$RectangleShapeCopyWith(
           _$RectangleShape value, $Res Function(_$RectangleShape) then) =
       __$$RectangleShapeCopyWithImpl<$Res>;
-  $Res call({int fillColor, double cornerRadius});
+  $Res call(
+      {int fillColor,
+      double topLeftCornerRadius,
+      double topRightCornerRadius,
+      double bottomLeftCornerRadius,
+      double bottomRightCornerRadius});
 }
 
 /// @nodoc
@@ -1864,16 +1905,31 @@ class __$$RectangleShapeCopyWithImpl<$Res> extends _$PathShapeCopyWithImpl<$Res>
   @override
   $Res call({
     Object? fillColor = freezed,
-    Object? cornerRadius = freezed,
+    Object? topLeftCornerRadius = freezed,
+    Object? topRightCornerRadius = freezed,
+    Object? bottomLeftCornerRadius = freezed,
+    Object? bottomRightCornerRadius = freezed,
   }) {
     return _then(_$RectangleShape(
       fillColor: fillColor == freezed
           ? _value.fillColor
           : fillColor // ignore: cast_nullable_to_non_nullable
               as int,
-      cornerRadius: cornerRadius == freezed
-          ? _value.cornerRadius
-          : cornerRadius // ignore: cast_nullable_to_non_nullable
+      topLeftCornerRadius: topLeftCornerRadius == freezed
+          ? _value.topLeftCornerRadius
+          : topLeftCornerRadius // ignore: cast_nullable_to_non_nullable
+              as double,
+      topRightCornerRadius: topRightCornerRadius == freezed
+          ? _value.topRightCornerRadius
+          : topRightCornerRadius // ignore: cast_nullable_to_non_nullable
+              as double,
+      bottomLeftCornerRadius: bottomLeftCornerRadius == freezed
+          ? _value.bottomLeftCornerRadius
+          : bottomLeftCornerRadius // ignore: cast_nullable_to_non_nullable
+              as double,
+      bottomRightCornerRadius: bottomRightCornerRadius == freezed
+          ? _value.bottomRightCornerRadius
+          : bottomRightCornerRadius // ignore: cast_nullable_to_non_nullable
               as double,
     ));
   }
@@ -1884,7 +1940,10 @@ class __$$RectangleShapeCopyWithImpl<$Res> extends _$PathShapeCopyWithImpl<$Res>
 class _$RectangleShape extends RectangleShape {
   const _$RectangleShape(
       {this.fillColor = kColorTransparent,
-      this.cornerRadius = 0,
+      this.topLeftCornerRadius = 0,
+      this.topRightCornerRadius = 0,
+      this.bottomLeftCornerRadius = 0,
+      this.bottomRightCornerRadius = 0,
       final String? $type})
       : $type = $type ?? 'rectangle',
         super._();
@@ -1897,14 +1956,23 @@ class _$RectangleShape extends RectangleShape {
   final int fillColor;
   @override
   @JsonKey()
-  final double cornerRadius;
+  final double topLeftCornerRadius;
+  @override
+  @JsonKey()
+  final double topRightCornerRadius;
+  @override
+  @JsonKey()
+  final double bottomLeftCornerRadius;
+  @override
+  @JsonKey()
+  final double bottomRightCornerRadius;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PathShape.rectangle(fillColor: $fillColor, cornerRadius: $cornerRadius)';
+    return 'PathShape.rectangle(fillColor: $fillColor, topLeftCornerRadius: $topLeftCornerRadius, topRightCornerRadius: $topRightCornerRadius, bottomLeftCornerRadius: $bottomLeftCornerRadius, bottomRightCornerRadius: $bottomRightCornerRadius)';
   }
 
   @override
@@ -1914,7 +1982,13 @@ class _$RectangleShape extends RectangleShape {
             other is _$RectangleShape &&
             const DeepCollectionEquality().equals(other.fillColor, fillColor) &&
             const DeepCollectionEquality()
-                .equals(other.cornerRadius, cornerRadius));
+                .equals(other.topLeftCornerRadius, topLeftCornerRadius) &&
+            const DeepCollectionEquality()
+                .equals(other.topRightCornerRadius, topRightCornerRadius) &&
+            const DeepCollectionEquality()
+                .equals(other.bottomLeftCornerRadius, bottomLeftCornerRadius) &&
+            const DeepCollectionEquality().equals(
+                other.bottomRightCornerRadius, bottomRightCornerRadius));
   }
 
   @JsonKey(ignore: true)
@@ -1922,7 +1996,10 @@ class _$RectangleShape extends RectangleShape {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(fillColor),
-      const DeepCollectionEquality().hash(cornerRadius));
+      const DeepCollectionEquality().hash(topLeftCornerRadius),
+      const DeepCollectionEquality().hash(topRightCornerRadius),
+      const DeepCollectionEquality().hash(bottomLeftCornerRadius),
+      const DeepCollectionEquality().hash(bottomRightCornerRadius));
 
   @JsonKey(ignore: true)
   @override
@@ -1933,32 +2010,53 @@ class _$RectangleShape extends RectangleShape {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int fillColor) circle,
-    required TResult Function(int fillColor, double cornerRadius) rectangle,
+    required TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)
+        rectangle,
     required TResult Function() line,
   }) {
-    return rectangle(fillColor, cornerRadius);
+    return rectangle(fillColor, topLeftCornerRadius, topRightCornerRadius,
+        bottomLeftCornerRadius, bottomRightCornerRadius);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(int fillColor)? circle,
-    TResult Function(int fillColor, double cornerRadius)? rectangle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
     TResult Function()? line,
   }) {
-    return rectangle?.call(fillColor, cornerRadius);
+    return rectangle?.call(fillColor, topLeftCornerRadius, topRightCornerRadius,
+        bottomLeftCornerRadius, bottomRightCornerRadius);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int fillColor)? circle,
-    TResult Function(int fillColor, double cornerRadius)? rectangle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
     TResult Function()? line,
     required TResult orElse(),
   }) {
     if (rectangle != null) {
-      return rectangle(fillColor, cornerRadius);
+      return rectangle(fillColor, topLeftCornerRadius, topRightCornerRadius,
+          bottomLeftCornerRadius, bottomRightCornerRadius);
     }
     return orElse();
   }
@@ -2005,14 +2103,21 @@ class _$RectangleShape extends RectangleShape {
 
 abstract class RectangleShape extends PathShape {
   const factory RectangleShape(
-      {final int fillColor, final double cornerRadius}) = _$RectangleShape;
+      {final int fillColor,
+      final double topLeftCornerRadius,
+      final double topRightCornerRadius,
+      final double bottomLeftCornerRadius,
+      final double bottomRightCornerRadius}) = _$RectangleShape;
   const RectangleShape._() : super._();
 
   factory RectangleShape.fromJson(Map<String, dynamic> json) =
       _$RectangleShape.fromJson;
 
   int get fillColor => throw _privateConstructorUsedError;
-  double get cornerRadius => throw _privateConstructorUsedError;
+  double get topLeftCornerRadius => throw _privateConstructorUsedError;
+  double get topRightCornerRadius => throw _privateConstructorUsedError;
+  double get bottomLeftCornerRadius => throw _privateConstructorUsedError;
+  double get bottomRightCornerRadius => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$RectangleShapeCopyWith<_$RectangleShape> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2068,7 +2173,13 @@ class _$LineShape extends LineShape {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int fillColor) circle,
-    required TResult Function(int fillColor, double cornerRadius) rectangle,
+    required TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)
+        rectangle,
     required TResult Function() line,
   }) {
     return line();
@@ -2078,7 +2189,13 @@ class _$LineShape extends LineShape {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(int fillColor)? circle,
-    TResult Function(int fillColor, double cornerRadius)? rectangle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
     TResult Function()? line,
   }) {
     return line?.call();
@@ -2088,7 +2205,13 @@ class _$LineShape extends LineShape {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int fillColor)? circle,
-    TResult Function(int fillColor, double cornerRadius)? rectangle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
     TResult Function()? line,
     required TResult orElse(),
   }) {

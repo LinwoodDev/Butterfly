@@ -36,18 +36,31 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     final innerRect = rect.inflate(element.property.strokeWidth / -2);
     if (shape is RectangleShape) {
       // Percentage-based radius
-      final radius = shape.cornerRadius / 100 * rect.shortestSide;
+      final topLeftCornerRadius =
+          Radius.circular(shape.topLeftCornerRadius / 100 * rect.shortestSide);
+      final topRightCornerRadius =
+          Radius.circular(shape.topRightCornerRadius / 100 * rect.shortestSide);
+      final bottomLeftCornerRadius = Radius.circular(
+          shape.bottomLeftCornerRadius / 100 * rect.shortestSide);
+      final bottomRightCornerRadius = Radius.circular(
+          shape.bottomRightCornerRadius / 100 * rect.shortestSide);
       canvas.drawRRect(
-        RRect.fromRectAndRadius(
+        RRect.fromRectAndCorners(
           innerRect,
-          Radius.circular(radius),
+          topLeft: topLeftCornerRadius,
+          topRight: topRightCornerRadius,
+          bottomLeft: bottomLeftCornerRadius,
+          bottomRight: bottomRightCornerRadius,
         ),
         _buildPaint(color: Color(shape.fillColor), style: PaintingStyle.fill),
       );
       canvas.drawRRect(
-        RRect.fromRectAndRadius(
+        RRect.fromRectAndCorners(
           rect,
-          Radius.circular(radius),
+          topLeft: topLeftCornerRadius,
+          topRight: topRightCornerRadius,
+          bottomLeft: bottomLeftCornerRadius,
+          bottomRight: bottomRightCornerRadius,
         ),
         paint,
       );
@@ -71,30 +84,52 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     ..strokeJoin = StrokeJoin.round;
 
   @override
-  void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
-    if (!this.rect.overlaps(rect)) return;
+  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+    if (!rect.overlaps(rect)) return;
     final shape = element.property.shape;
     if (shape is RectangleShape) {
+      final topLeftRadius = shape.topLeftCornerRadius / 100 * rect.shortestSide;
+      final topRightRadius =
+          shape.topRightCornerRadius / 100 * rect.shortestSide;
+      final bottomLeftRadius =
+          shape.bottomLeftCornerRadius / 100 * rect.shortestSide;
+      final bottomRightRadius =
+          shape.bottomRightCornerRadius / 100 * rect.shortestSide;
+      // Build d path with radius
+      var d = 'M${rect.left + topLeftRadius} ${rect.top} ';
+      // Top right corner
+      d += 'L${rect.right - topRightRadius} ${rect.top} ';
+      d += 'A$topRightRadius $topRightRadius 0 0 1 ';
+      d += '${rect.right} ${rect.top + topRightRadius} ';
+      // Bottom right corner
+      d += 'L${rect.right} ${rect.bottom - bottomRightRadius} ';
+      d += 'A$bottomRightRadius $bottomRightRadius 0 0 1 ';
+      d += '${rect.right - bottomRightRadius} ${rect.bottom} ';
+      // Bottom left corner
+      d += 'L${rect.left + bottomLeftRadius} ${rect.bottom} ';
+      d += 'A$bottomLeftRadius $bottomLeftRadius 0 0 1 ';
+      d += '${rect.left} ${rect.bottom - bottomLeftRadius} ';
+      // Top left corner
+      d += 'L${rect.left} ${rect.top + topLeftRadius} ';
+      d += 'A$topLeftRadius $topLeftRadius 0 0 1 ';
+      d += '${rect.left + topLeftRadius} ${rect.top} ';
+      d += 'Z';
       xml.getElement('svg')?.createElement(
-        'rect',
+        'path',
         attributes: {
-          'x': '${this.rect.left}px',
-          'y': '${this.rect.top}px',
-          'width': '${this.rect.width}px',
-          'height': '${this.rect.height}px',
-          'rx': '${shape.cornerRadius}%',
-          'stroke-width': '${element.property.strokeWidth}px',
-          'stroke': element.property.color.toHexColor(),
+          'd': d,
           'fill': shape.fillColor.toHexColor(),
+          'stroke': element.property.color.toHexColor(),
+          'stroke-width': '${element.property.strokeWidth}px',
         },
       );
     } else if (shape is CircleShape) {
       xml.getElement('svg')?.createElement(
         'circle',
         attributes: {
-          'cx': '${this.rect.center.dx}px',
-          'cy': '${this.rect.center.dy}px',
-          'r': '${this.rect.width / 2}px',
+          'cx': '${rect.center.dx}px',
+          'cy': '${rect.center.dy}px',
+          'r': '${rect.width / 2}px',
           'stroke-width': '${element.property.strokeWidth}px',
           'stroke': element.property.color.toHexColor(),
           'fill': shape.fillColor.toHexColor(),

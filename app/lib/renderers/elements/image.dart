@@ -27,18 +27,18 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
-    if (!this.rect.overlaps(rect)) return;
+  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+    if (!rect.overlaps(rect)) return;
     // Create data url
     final data = element.pixels;
     final encoded = base64Encode(data);
     final dataUrl = 'data:image/png;base64,$encoded';
     // Create image
     xml.getElement('svg')?.createElement('image', attributes: {
-      'x': '${this.rect.left}px',
-      'y': '${this.rect.top}px',
-      'width': '${this.rect.width}px',
-      'height': '${this.rect.height}px',
+      'x': '${rect.left}px',
+      'y': '${rect.top}px',
+      'width': '${rect.width}px',
+      'height': '${rect.height}px',
       'xlink:href': dataUrl,
       'mask': 'url(#eraser-mask)',
     });

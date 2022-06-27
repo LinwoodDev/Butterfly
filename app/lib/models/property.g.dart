@@ -143,14 +143,24 @@ Map<String, dynamic> _$$CircleShapeToJson(_$CircleShape instance) =>
 
 _$RectangleShape _$$RectangleShapeFromJson(Map json) => _$RectangleShape(
       fillColor: json['fillColor'] as int? ?? kColorTransparent,
-      cornerRadius: (json['cornerRadius'] as num?)?.toDouble() ?? 0,
+      topLeftCornerRadius:
+          (json['topLeftCornerRadius'] as num?)?.toDouble() ?? 0,
+      topRightCornerRadius:
+          (json['topRightCornerRadius'] as num?)?.toDouble() ?? 0,
+      bottomLeftCornerRadius:
+          (json['bottomLeftCornerRadius'] as num?)?.toDouble() ?? 0,
+      bottomRightCornerRadius:
+          (json['bottomRightCornerRadius'] as num?)?.toDouble() ?? 0,
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$RectangleShapeToJson(_$RectangleShape instance) =>
     <String, dynamic>{
       'fillColor': instance.fillColor,
-      'cornerRadius': instance.cornerRadius,
+      'topLeftCornerRadius': instance.topLeftCornerRadius,
+      'topRightCornerRadius': instance.topRightCornerRadius,
+      'bottomLeftCornerRadius': instance.bottomLeftCornerRadius,
+      'bottomRightCornerRadius': instance.bottomRightCornerRadius,
       'type': instance.$type,
     };
 

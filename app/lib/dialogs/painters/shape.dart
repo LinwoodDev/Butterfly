@@ -151,28 +151,80 @@ class _CircleShapeView extends StatelessWidget {
   }
 }
 
-class _RectangleShapeView extends StatelessWidget {
+class _RectangleShapeView extends StatefulWidget {
   final RectangleShape shape;
   final ValueChanged<RectangleShape> onChanged;
   const _RectangleShapeView({required this.shape, required this.onChanged});
 
+  @override
+  State<_RectangleShapeView> createState() => _RectangleShapeViewState();
+}
+
+class _RectangleShapeViewState extends State<_RectangleShapeView> {
+  bool cornerOpened = false;
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       ColorField(
         title: Text(AppLocalizations.of(context)!.fill),
         leading: const Icon(PhosphorIcons.paintBucketLight),
-        color: Color(shape.fillColor),
+        color: Color(widget.shape.fillColor),
         defaultColor: Colors.transparent,
-        onChanged: (color) => onChanged(shape.copyWith(fillColor: color.value)),
+        onChanged: (color) =>
+            widget.onChanged(widget.shape.copyWith(fillColor: color.value)),
       ),
-      ExactSlider(
-        defaultValue: 0,
-        min: 0,
-        max: 100,
-        value: shape.cornerRadius,
-        header: Text(AppLocalizations.of(context)!.cornerRadius),
-        onChanged: (value) => onChanged(shape.copyWith(cornerRadius: value)),
+      ExpansionPanelList(
+        expansionCallback: (index, isExpanded) {
+          setState(() {
+            cornerOpened = !isExpanded;
+          });
+        },
+        children: [
+          ExpansionPanel(
+            headerBuilder: (context, isExpanded) => ListTile(
+              title: Text(AppLocalizations.of(context)!.cornerRadius),
+            ),
+            isExpanded: cornerOpened,
+            body: Column(children: [
+              ExactSlider(
+                defaultValue: 0,
+                min: 0,
+                max: 100,
+                value: widget.shape.topLeftCornerRadius,
+                header: Text(AppLocalizations.of(context)!.topLeft),
+                onChanged: (value) => widget.onChanged(
+                    widget.shape.copyWith(topLeftCornerRadius: value)),
+              ),
+              ExactSlider(
+                defaultValue: 0,
+                min: 0,
+                max: 100,
+                value: widget.shape.topRightCornerRadius,
+                header: Text(AppLocalizations.of(context)!.topRight),
+                onChanged: (value) => widget.onChanged(
+                    widget.shape.copyWith(topRightCornerRadius: value)),
+              ),
+              ExactSlider(
+                defaultValue: 0,
+                min: 0,
+                max: 100,
+                value: widget.shape.bottomLeftCornerRadius,
+                header: Text(AppLocalizations.of(context)!.bottomLeft),
+                onChanged: (value) => widget.onChanged(
+                    widget.shape.copyWith(bottomLeftCornerRadius: value)),
+              ),
+              ExactSlider(
+                defaultValue: 0,
+                min: 0,
+                max: 100,
+                value: widget.shape.bottomRightCornerRadius,
+                header: Text(AppLocalizations.of(context)!.bottomRight),
+                onChanged: (value) => widget.onChanged(
+                    widget.shape.copyWith(bottomRightCornerRadius: value)),
+              ),
+            ]),
+          ),
+        ],
       ),
     ]);
   }

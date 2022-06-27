@@ -65,7 +65,7 @@ abstract class Renderer<T> {
       [bool foreground = false]);
   HitCalculator? get hitCalculator =>
       rect == null ? null : DefaultHitCalculator(rect!);
-  void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {}
+  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {}
   factory Renderer.fromInstance(T element) {
     // Elements
     if (element is PadElement) {
