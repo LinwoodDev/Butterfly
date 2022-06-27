@@ -323,5 +323,5 @@
     "circle": "Kreis",
     "rectangle": "Rechteck",
     "line": "Linie",
-    "cornerRadius": "Corner radius"
+    "cornerRadius": "Eckenradius"
 }
