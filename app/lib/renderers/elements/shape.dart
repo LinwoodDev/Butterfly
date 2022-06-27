@@ -33,23 +33,23 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       [bool foreground = false]) {
     final shape = element.property.shape;
     final paint = _buildPaint();
-    final innerRect = rect.inflate(element.property.strokeWidth);
+    final innerRect = rect.inflate(element.property.strokeWidth / -2);
     if (shape is RectangleShape) {
       // Percentage-based radius
       final radius = shape.cornerRadius / 100 * rect.shortestSide;
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          rect,
-          Radius.circular(radius),
-        ),
-        paint,
-      );
       canvas.drawRRect(
         RRect.fromRectAndRadius(
           innerRect,
           Radius.circular(radius),
         ),
         _buildPaint(color: Color(shape.fillColor), style: PaintingStyle.fill),
+      );
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          rect,
+          Radius.circular(radius),
+        ),
+        paint,
       );
     } else if (shape is CircleShape) {
       canvas.drawCircle(rect.center, rect.width / 2, paint);
@@ -74,47 +74,30 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   void buildSvg(XmlDocument xml, AppDocument document, Rect rect) {
     if (!this.rect.overlaps(rect)) return;
     final shape = element.property.shape;
-    final innerRect = rect.inflate(element.property.strokeWidth);
     if (shape is RectangleShape) {
       xml.getElement('svg')?.createElement(
         'rect',
         attributes: {
-          'x': '${rect.top}px',
-          'y': '${rect.left}px',
-          'width': '${rect.width}px',
-          'height': '${rect.height}px',
+          'x': '${this.rect.left}px',
+          'y': '${this.rect.top}px',
+          'width': '${this.rect.width}px',
+          'height': '${this.rect.height}px',
           'rx': '${shape.cornerRadius}%',
           'stroke-width': '${element.property.strokeWidth}px',
-          'stroke': element.property.color.toHex(),
-        },
-      ).createElement(
-        'rect',
-        attributes: {
-          'x': '${innerRect.top}px',
-          'y': '${innerRect.left}px',
-          'width': '${innerRect.width}px',
-          'height': '${innerRect.height}px',
-          'rx': '${shape.cornerRadius}%',
-          'fill': shape.fillColor.toHex(),
+          'stroke': element.property.color.toHexColor(),
+          'fill': shape.fillColor.toHexColor(),
         },
       );
     } else if (shape is CircleShape) {
       xml.getElement('svg')?.createElement(
         'circle',
         attributes: {
-          'cx': '${rect.center.dx}px',
-          'cy': '${rect.center.dy}px',
-          'r': '${rect.width / 2}px',
+          'cx': '${this.rect.center.dx}px',
+          'cy': '${this.rect.center.dy}px',
+          'r': '${this.rect.width / 2}px',
           'stroke-width': '${element.property.strokeWidth}px',
-          'stroke': element.property.color.toHex(),
-        },
-      ).createElement(
-        'circle',
-        attributes: {
-          'cx': '${innerRect.center.dx}px',
-          'cy': '${innerRect.center.dy}px',
-          'r': '${innerRect.width / 2}px',
-          'fill': shape.fillColor.toHex(),
+          'stroke': element.property.color.toHexColor(),
+          'fill': shape.fillColor.toHexColor(),
         },
       );
     } else if (shape is LineShape) {
@@ -126,7 +109,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
           'x2': '${element.secondPosition.dx}px',
           'y2': '${element.secondPosition.dy}px',
           'stroke-width': '${element.property.strokeWidth}px',
-          'stroke': element.property.color.toHex(),
+          'stroke': element.property.color.toHexColor(),
+          'fill': 'none',
         },
       );
     }

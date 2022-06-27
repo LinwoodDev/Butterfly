@@ -107,7 +107,7 @@ class LabelRenderer extends Renderer<LabelElement> {
     if (property.lineThrough) textDecoration += 'line-through ';
     if (property.overline) textDecoration += 'overline ';
     textDecoration +=
-        '${property.decorationStyle.name} ${property.decorationThickness}px ${property.decorationColor.toHex()}';
+        '${property.decorationStyle.name} ${property.decorationThickness}px ${property.decorationColor.toHexColor()}';
     final foreignObject =
         xml.getElement('svg')?.createElement('foreignObject', attributes: {
       'x': '${this.rect.left}px',
@@ -148,7 +148,7 @@ class LabelRenderer extends Renderer<LabelElement> {
           'font-weight: ${property.fontWeight};'
           'font-family: Roboto;'
           'letter-spacing: ${property.letterSpacing}px;'
-          'color: #${property.color.toHex()};'
+          'color: #${property.color.toHexColor()};'
           'text-decoration: $textDecoration;'
           'display: flex;'
           'align-items: $alignItems;'

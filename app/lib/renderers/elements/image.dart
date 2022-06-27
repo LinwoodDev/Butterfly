@@ -35,10 +35,10 @@ class ImageRenderer extends Renderer<ImageElement> {
     final dataUrl = 'data:image/png;base64,$encoded';
     // Create image
     xml.getElement('svg')?.createElement('image', attributes: {
-      'x': '${this.rect.left}',
-      'y': '${this.rect.top}',
-      'width': '${this.rect.width}',
-      'height': '${this.rect.height}',
+      'x': '${this.rect.left}px',
+      'y': '${this.rect.top}px',
+      'width': '${this.rect.width}px',
+      'height': '${this.rect.height}px',
       'xlink:href': dataUrl,
       'mask': 'url(#eraser-mask)',
     });
