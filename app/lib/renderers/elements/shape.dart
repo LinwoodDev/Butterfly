@@ -21,7 +21,11 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   void _updateRect() {
+    final shape = element.property.shape;
     rect = Rect.fromPoints(element.firstPosition, element.secondPosition);
+    if (shape is CircleShape) {
+      rect = Rect.fromCircle(center: rect.center, radius: rect.width / 2);
+    }
   }
 
   @override
