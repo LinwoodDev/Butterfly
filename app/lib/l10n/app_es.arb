@@ -323,5 +323,9 @@
     "circle": "Círculo",
     "rectangle": "Rectángulo",
     "line": "Línea",
-    "cornerRadius": "Radio de esquina"
+    "cornerRadius": "Radio de esquina",
+    "topLeft": "Top left",
+    "topRight": "Top right",
+    "bottomLeft": "Bottom left",
+    "bottomRight": "Bottom right"
 }
