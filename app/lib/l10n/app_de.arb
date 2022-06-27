@@ -324,8 +324,8 @@
     "rectangle": "Rechteck",
     "line": "Linie",
     "cornerRadius": "Eckenradius",
-    "topLeft": "Top left",
-    "topRight": "Top right",
-    "bottomLeft": "Bottom left",
-    "bottomRight": "Bottom right"
+    "topLeft": "Oben links",
+    "topRight": "Oben rechts",
+    "bottomLeft": "Unten links",
+    "bottomRight": "Unten rechts"
 }
