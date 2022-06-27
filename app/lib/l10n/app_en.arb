@@ -327,5 +327,9 @@
   "topLeft": "Top left",
   "topRight": "Top right",
   "bottomLeft": "Bottom left",
-  "bottomRight": "Bottom right"
+  "bottomRight": "Bottom right",
+  "caches": "Caches",
+  "manage": "Manage",
+  "clearCaches": "Clear caches",
+  "createCache": "Create cache"
 }

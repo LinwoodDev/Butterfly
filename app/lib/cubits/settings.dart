@@ -403,4 +403,30 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     emit(state.copyWith(defaultRemote: identifier));
     return save();
   }
+
+  Future<void> addCache(String identifier, String current) {
+    emit(state.copyWith(
+        remotes: List<RemoteStorage>.from(state.remotes).map((e) {
+      if (e.identifier == identifier) {
+        return e.copyWith(
+            cachedDocuments: List<String>.from(e.cachedDocuments)
+              ..add(current));
+      }
+      return e;
+    }).toList()));
+    return save();
+  }
+
+  Future<void> deleteCache(String identifier, String current) {
+    emit(state.copyWith(
+        remotes: List<RemoteStorage>.from(state.remotes).map((e) {
+      if (e.identifier == identifier) {
+        return e.copyWith(
+            cachedDocuments: List<String>.from(e.cachedDocuments)
+              ..remove(current));
+      }
+      return e;
+    }).toList()));
+    return save();
+  }
 }
