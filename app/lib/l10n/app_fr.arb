@@ -323,5 +323,9 @@
     "circle": "Cercle",
     "rectangle": "Rectangle",
     "line": "Lignes",
-    "cornerRadius": "Rayon du coin"
+    "cornerRadius": "Rayon du coin",
+    "topLeft": "Top left",
+    "topRight": "Top right",
+    "bottomLeft": "Bottom left",
+    "bottomRight": "Bottom right"
 }
