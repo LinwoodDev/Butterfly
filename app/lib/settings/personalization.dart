@@ -167,6 +167,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
         builder: (ctx) {
           void changeTheme(ThemeMode themeMode) {
             cubit.changeTheme(themeMode);
+            Navigator.of(context).pop();
           }
 
           return Container(

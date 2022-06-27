@@ -1,0 +1,2 @@
+* Add updater
+* Disable restart of the app after changing the personalization settings

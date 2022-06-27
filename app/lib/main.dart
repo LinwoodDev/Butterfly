@@ -91,8 +91,72 @@ class ButterflyApp extends StatelessWidget {
   final String initialLocation;
   final SharedPreferences prefs;
 
-  const ButterflyApp(
-      {super.key, required this.prefs, this.initialLocation = '/'});
+  ButterflyApp({super.key, required this.prefs, this.initialLocation = '/'})
+      : _router = GoRouter(
+          initialLocation: initialLocation,
+          routes: [
+            GoRoute(
+                name: 'home',
+                path: '/',
+                builder: (context, state) {
+                  return const ProjectPage();
+                },
+                routes: [
+                  GoRoute(
+                    path: 'settings',
+                    builder: (context, state) => const SettingsPage(),
+                    routes: [
+                      GoRoute(
+                        path: 'behaviors',
+                        builder: (context, state) =>
+                            const BehaviorsSettingsPage(),
+                      ),
+                      GoRoute(
+                        path: 'personalization',
+                        builder: (context, state) =>
+                            const PersonalizationSettingsPage(),
+                      ),
+                      GoRoute(
+                        path: 'data',
+                        builder: (context, state) => const DataSettingsPage(),
+                      ),
+                      GoRoute(
+                        path: 'remotes',
+                        builder: (context, state) =>
+                            const RemotesSettingsPage(),
+                      ),
+                    ],
+                  ),
+                ]),
+            GoRoute(
+              name: 'local',
+              path: '/local/:path(.*)',
+              builder: (context, state) {
+                final path = state.params['path'];
+                return ProjectPage(location: AssetLocation.local(path ?? ''));
+              },
+            ),
+            GoRoute(
+              name: 'remote',
+              path: '/remote/:remote/:path(.*)',
+              builder: (context, state) {
+                final remote = state.params['remote'];
+                final path = state.params['path'];
+                return ProjectPage(
+                    location:
+                        AssetLocation(remote: remote ?? '', path: path ?? ''));
+              },
+            ),
+            GoRoute(
+              name: 'embed',
+              path: '/embed',
+              builder: (context, state) {
+                return ProjectPage(
+                    embedding: Embedding.fromQuery(state.queryParams));
+              },
+            )
+          ],
+        );
 
   // This widget is the root of your application.
   @override
@@ -110,6 +174,7 @@ class ButterflyApp extends StatelessWidget {
         builder: (context, state) => MaterialApp.router(
               locale: state.locale,
               title: 'Butterfly',
+              routeInformationProvider: _router.routeInformationProvider,
               routeInformationParser: _router.routeInformationParser,
               routerDelegate: _router.routerDelegate,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -129,68 +194,5 @@ class ButterflyApp extends StatelessWidget {
             ));
   }
 
-  GoRouter get _router => GoRouter(
-        initialLocation: initialLocation,
-        routes: [
-          GoRoute(
-              name: 'home',
-              path: '/',
-              builder: (context, state) {
-                return const ProjectPage();
-              },
-              routes: [
-                GoRoute(
-                  path: 'settings',
-                  builder: (context, state) => const SettingsPage(),
-                  routes: [
-                    GoRoute(
-                      path: 'behaviors',
-                      builder: (context, state) =>
-                          const BehaviorsSettingsPage(),
-                    ),
-                    GoRoute(
-                      path: 'personalization',
-                      builder: (context, state) =>
-                          const PersonalizationSettingsPage(),
-                    ),
-                    GoRoute(
-                      path: 'data',
-                      builder: (context, state) => const DataSettingsPage(),
-                    ),
-                    GoRoute(
-                      path: 'remotes',
-                      builder: (context, state) => const RemotesSettingsPage(),
-                    ),
-                  ],
-                ),
-              ]),
-          GoRoute(
-            name: 'local',
-            path: '/local/:path(.*)',
-            builder: (context, state) {
-              final path = state.params['path'];
-              return ProjectPage(location: AssetLocation.local(path ?? ''));
-            },
-          ),
-          GoRoute(
-            name: 'remote',
-            path: '/remote/:remote/:path(.*)',
-            builder: (context, state) {
-              final remote = state.params['remote'];
-              final path = state.params['path'];
-              return ProjectPage(
-                  location:
-                      AssetLocation(remote: remote ?? '', path: path ?? ''));
-            },
-          ),
-          GoRoute(
-            name: 'embed',
-            path: '/embed',
-            builder: (context, state) {
-              return ProjectPage(
-                  embedding: Embedding.fromQuery(state.queryParams));
-            },
-          )
-        ],
-      );
+  final GoRouter _router;
 }
