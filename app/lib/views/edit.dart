@@ -192,15 +192,23 @@ class EditToolbar extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16)),
                                 itemBuilder: (context) => [
-                                      ...PainterVisualizer.getAllPainters()
-                                          .map((e) {
+                                      ...[
+                                        Painter.pen,
+                                        Painter.pathEraser,
+                                        Painter.label,
+                                        Painter.eraser,
+                                        Painter.layer,
+                                        Painter.area,
+                                        Painter.label
+                                      ].map((e) {
+                                        final painter = e();
                                         return PopupMenuItem<Painter>(
-                                            value: e,
+                                            value: painter,
                                             child: ListTile(
                                               mouseCursor: MouseCursor.defer,
-                                              title: Text(
-                                                  e.getLocalizedName(context)),
-                                              leading: Icon(e.getIcon()),
+                                              title: Text(painter
+                                                  .getLocalizedName(context)),
+                                              leading: Icon(painter.getIcon()),
                                             ));
                                       })
                                     ])

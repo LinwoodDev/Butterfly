@@ -58,8 +58,23 @@ class Property with _$Property {
       {@Default(5) double strokeWidth,
       @Default(10) double strokeMultiplier,
       @Default(kColorBlack) int color,
-      @Default(false) bool fill}) = PenProperty;
+      @Default(false) bool fill,
+      PathShape? shape}) = PenProperty;
 
   factory Property.fromJson(Map<String, dynamic> json) =>
       _$PropertyFromJson(json);
+}
+
+@freezed
+class PathShape with _$PathShape {
+  const PathShape._();
+  const factory PathShape.circle({@Default(kColorTransparent) int fillColor}) =
+      CircleShape;
+  const factory PathShape.rectangle(
+      {@Default(kColorTransparent) int fillColor,
+      @Default(0) double cornerRadius}) = RectangleShape;
+  const factory PathShape.line() = LineShape;
+
+  factory PathShape.fromJson(Map<String, dynamic> json) =>
+      _$PathShapeFromJson(json);
 }

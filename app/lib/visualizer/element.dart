@@ -5,7 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../models/element.dart';
 
 extension ElementVisualizer on PadElement {
-  String getName(BuildContext context) {
+  String getLocalizedName(BuildContext context) {
     if (this is PenElement) {
       return AppLocalizations.of(context)!.pen;
     }

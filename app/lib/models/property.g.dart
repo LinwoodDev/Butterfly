@@ -102,6 +102,9 @@ _$PenProperty _$$PenPropertyFromJson(Map json) => _$PenProperty(
       strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,
       color: json['color'] as int? ?? kColorBlack,
       fill: json['fill'] as bool? ?? false,
+      shape: json['shape'] == null
+          ? null
+          : PathShape.fromJson(Map<String, dynamic>.from(json['shape'] as Map)),
       $type: json['type'] as String?,
     );
 
@@ -111,5 +114,39 @@ Map<String, dynamic> _$$PenPropertyToJson(_$PenProperty instance) =>
       'strokeMultiplier': instance.strokeMultiplier,
       'color': instance.color,
       'fill': instance.fill,
+      'shape': instance.shape?.toJson(),
+      'type': instance.$type,
+    };
+
+_$CircleShape _$$CircleShapeFromJson(Map json) => _$CircleShape(
+      fillColor: json['fillColor'] as int? ?? kColorTransparent,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$CircleShapeToJson(_$CircleShape instance) =>
+    <String, dynamic>{
+      'fillColor': instance.fillColor,
+      'type': instance.$type,
+    };
+
+_$RectangleShape _$$RectangleShapeFromJson(Map json) => _$RectangleShape(
+      fillColor: json['fillColor'] as int? ?? kColorTransparent,
+      cornerRadius: (json['cornerRadius'] as num?)?.toDouble() ?? 0,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$RectangleShapeToJson(_$RectangleShape instance) =>
+    <String, dynamic>{
+      'fillColor': instance.fillColor,
+      'cornerRadius': instance.cornerRadius,
+      'type': instance.$type,
+    };
+
+_$LineShape _$$LineShapeFromJson(Map json) => _$LineShape(
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$LineShapeToJson(_$LineShape instance) =>
+    <String, dynamic>{
       'type': instance.$type,
     };

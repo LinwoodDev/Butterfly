@@ -61,14 +61,4 @@ extension PainterVisualizer on Painter {
     }
     throw UnimplementedError();
   }
-
-  static List<Painter> getAllPainters() => [
-        PenPainter(),
-        PathEraserPainter(),
-        LabelPainter(),
-        EraserPainter(),
-        LayerPainter(),
-        AreaPainter(),
-        LaserPainter()
-      ];
 }

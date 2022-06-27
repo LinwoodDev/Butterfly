@@ -125,6 +125,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
         builder: (context) {
           void changeDesign(String design) {
             cubit.changeDesign(design);
+            Navigator.of(context).pop();
           }
 
           return Container(
