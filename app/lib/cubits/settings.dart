@@ -27,6 +27,7 @@ class RemoteStorage with _$RemoteStorage {
     required String path,
     required String documentsPath,
     required String templatesPath,
+    @Default([]) List<String> cachedDocuments,
     @Uint8ListJsonConverter() required Uint8List icon,
   }) = DavRemoteStorage;
 

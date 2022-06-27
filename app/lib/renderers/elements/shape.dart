@@ -32,21 +32,22 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   FutureOr<void> build(Canvas canvas, Size size, CameraTransform transform,
       [bool foreground = false]) {
     final shape = element.property.shape;
+    final strokeWidth = element.property.strokeWidth;
     final paint = _buildPaint();
-    final innerRect = rect.inflate(element.property.strokeWidth / -2);
+    final drawRect = rect.inflate(-strokeWidth);
     if (shape is RectangleShape) {
       // Percentage-based radius
-      final topLeftCornerRadius =
-          Radius.circular(shape.topLeftCornerRadius / 100 * rect.shortestSide);
-      final topRightCornerRadius =
-          Radius.circular(shape.topRightCornerRadius / 100 * rect.shortestSide);
+      final topLeftCornerRadius = Radius.circular(
+          shape.topLeftCornerRadius / 100 * drawRect.shortestSide);
+      final topRightCornerRadius = Radius.circular(
+          shape.topRightCornerRadius / 100 * drawRect.shortestSide);
       final bottomLeftCornerRadius = Radius.circular(
-          shape.bottomLeftCornerRadius / 100 * rect.shortestSide);
+          shape.bottomLeftCornerRadius / 100 * drawRect.shortestSide);
       final bottomRightCornerRadius = Radius.circular(
-          shape.bottomRightCornerRadius / 100 * rect.shortestSide);
+          shape.bottomRightCornerRadius / 100 * drawRect.shortestSide);
       canvas.drawRRect(
         RRect.fromRectAndCorners(
-          innerRect,
+          drawRect,
           topLeft: topLeftCornerRadius,
           topRight: topRightCornerRadius,
           bottomLeft: bottomLeftCornerRadius,
@@ -54,23 +55,27 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         ),
         _buildPaint(color: Color(shape.fillColor), style: PaintingStyle.fill),
       );
-      canvas.drawRRect(
-        RRect.fromRectAndCorners(
-          rect,
-          topLeft: topLeftCornerRadius,
-          topRight: topRightCornerRadius,
-          bottomLeft: bottomLeftCornerRadius,
-          bottomRight: bottomRightCornerRadius,
-        ),
-        paint,
-      );
+      if (strokeWidth > 0) {
+        canvas.drawRRect(
+          RRect.fromRectAndCorners(
+            drawRect,
+            topLeft: topLeftCornerRadius,
+            topRight: topRightCornerRadius,
+            bottomLeft: bottomLeftCornerRadius,
+            bottomRight: bottomRightCornerRadius,
+          ),
+          paint,
+        );
+      }
     } else if (shape is CircleShape) {
-      canvas.drawCircle(rect.center, rect.width / 2, paint);
       canvas.drawCircle(
-          innerRect.center,
-          innerRect.width / 2,
+          drawRect.center,
+          drawRect.width / 2,
           _buildPaint(
               color: Color(shape.fillColor), style: PaintingStyle.fill));
+      if (strokeWidth > 0) {
+        canvas.drawCircle(drawRect.center, drawRect.width / 2, paint);
+      }
     } else if (shape is LineShape) {
       canvas.drawLine(element.firstPosition, element.secondPosition, paint);
     }
@@ -87,32 +92,35 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     final shape = element.property.shape;
+    final strokeWidth = element.property.strokeWidth;
+    final drawRect = rect.inflate(-strokeWidth);
     if (shape is RectangleShape) {
-      final topLeftRadius = shape.topLeftCornerRadius / 100 * rect.shortestSide;
+      final topLeftRadius =
+          shape.topLeftCornerRadius / 100 * drawRect.shortestSide;
       final topRightRadius =
-          shape.topRightCornerRadius / 100 * rect.shortestSide;
+          shape.topRightCornerRadius / 100 * drawRect.shortestSide;
       final bottomLeftRadius =
-          shape.bottomLeftCornerRadius / 100 * rect.shortestSide;
+          shape.bottomLeftCornerRadius / 100 * drawRect.shortestSide;
       final bottomRightRadius =
-          shape.bottomRightCornerRadius / 100 * rect.shortestSide;
+          shape.bottomRightCornerRadius / 100 * drawRect.shortestSide;
       // Build d path with radius
-      var d = 'M${rect.left + topLeftRadius} ${rect.top} ';
+      var d = 'M${drawRect.left + topLeftRadius} ${drawRect.top} ';
       // Top right corner
-      d += 'L${rect.right - topRightRadius} ${rect.top} ';
+      d += 'L${drawRect.right - topRightRadius} ${drawRect.top} ';
       d += 'A$topRightRadius $topRightRadius 0 0 1 ';
-      d += '${rect.right} ${rect.top + topRightRadius} ';
+      d += '${drawRect.right} ${drawRect.top + topRightRadius} ';
       // Bottom right corner
-      d += 'L${rect.right} ${rect.bottom - bottomRightRadius} ';
+      d += 'L${drawRect.right} ${drawRect.bottom - bottomRightRadius} ';
       d += 'A$bottomRightRadius $bottomRightRadius 0 0 1 ';
-      d += '${rect.right - bottomRightRadius} ${rect.bottom} ';
+      d += '${drawRect.right - bottomRightRadius} ${drawRect.bottom} ';
       // Bottom left corner
-      d += 'L${rect.left + bottomLeftRadius} ${rect.bottom} ';
+      d += 'L${drawRect.left + bottomLeftRadius} ${drawRect.bottom} ';
       d += 'A$bottomLeftRadius $bottomLeftRadius 0 0 1 ';
-      d += '${rect.left} ${rect.bottom - bottomLeftRadius} ';
+      d += '${drawRect.left} ${drawRect.bottom - bottomLeftRadius} ';
       // Top left corner
-      d += 'L${rect.left} ${rect.top + topLeftRadius} ';
+      d += 'L${drawRect.left} ${drawRect.top + topLeftRadius} ';
       d += 'A$topLeftRadius $topLeftRadius 0 0 1 ';
-      d += '${rect.left + topLeftRadius} ${rect.top} ';
+      d += '${drawRect.left + topLeftRadius} ${drawRect.top} ';
       d += 'Z';
       xml.getElement('svg')?.createElement(
         'path',
@@ -127,9 +135,9 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       xml.getElement('svg')?.createElement(
         'circle',
         attributes: {
-          'cx': '${rect.center.dx}px',
-          'cy': '${rect.center.dy}px',
-          'r': '${rect.width / 2}px',
+          'cx': '${drawRect.center.dx}px',
+          'cy': '${drawRect.center.dy}px',
+          'r': '${drawRect.width / 2}px',
           'stroke-width': '${element.property.strokeWidth}px',
           'stroke': element.property.color.toHexColor(),
           'fill': shape.fillColor.toHexColor(),
