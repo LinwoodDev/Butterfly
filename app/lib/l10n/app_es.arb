@@ -324,8 +324,8 @@
     "rectangle": "Rectángulo",
     "line": "Línea",
     "cornerRadius": "Radio de esquina",
-    "topLeft": "Top left",
-    "topRight": "Top right",
-    "bottomLeft": "Bottom left",
-    "bottomRight": "Bottom right"
+    "topLeft": "Arriba izquierda",
+    "topRight": "Arriba derecha",
+    "bottomLeft": "Bottom izquierdo",
+    "bottomRight": "Botón derecho"
 }
