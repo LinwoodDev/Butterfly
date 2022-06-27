@@ -318,5 +318,10 @@
     "usingLatestStable": "You are using the latest stable version",
     "usingLatestNightly": "You are using the latest nightly version",
     "currentVersion": "Current version",
-    "updateNow": "Update now"
+    "updateNow": "Update now",
+    "shape": "Shape",
+    "circle": "Circle",
+    "rectangle": "Rectangle",
+    "line": "Line",
+    "cornerRadius": "Corner radius"
 }
