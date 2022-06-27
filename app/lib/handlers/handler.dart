@@ -33,6 +33,7 @@ part 'laser.dart';
 part 'layer.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
+part 'shape.dart';
 
 abstract class Handler {
   final CurrentIndexCubit cubit;
@@ -90,6 +91,9 @@ abstract class Handler {
         : currentIndexCubit.getPainter(bloc);
     if (painter is PenPainter) {
       return PenHandler(currentIndexCubit);
+    }
+    if (painter is ShapePainter) {
+      return ShapeHandler(currentIndexCubit);
     }
     if (painter is EraserPainter) {
       return EraserHandler(currentIndexCubit);

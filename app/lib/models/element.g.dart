@@ -173,8 +173,10 @@ _$ShapeElement _$$ShapeElementFromJson(Map json) => _$ShapeElement(
       secondPosition: json['secondPosition'] == null
           ? Offset.zero
           : const OffsetJsonConverter().fromJson(json['secondPosition'] as Map),
-      shape:
-          PathShape.fromJson(Map<String, dynamic>.from(json['shape'] as Map)),
+      property: json['property'] == null
+          ? const ShapeProperty(shape: RectangleShape())
+          : ShapeProperty.fromJson(
+              Map<String, dynamic>.from(json['property'] as Map)),
       $type: json['type'] as String?,
     );
 
@@ -185,6 +187,6 @@ Map<String, dynamic> _$$ShapeElementToJson(_$ShapeElement instance) =>
           const OffsetJsonConverter().toJson(instance.firstPosition),
       'secondPosition':
           const OffsetJsonConverter().toJson(instance.secondPosition),
-      'shape': instance.shape.toJson(),
+      'property': instance.property.toJson(),
       'type': instance.$type,
     };

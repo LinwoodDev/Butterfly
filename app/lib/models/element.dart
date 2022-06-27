@@ -82,7 +82,7 @@ class PadElement with _$PadElement {
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset firstPosition,
     @OffsetJsonConverter() @Default(Offset.zero) Offset secondPosition,
-    required PathShape shape,
+    @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
   }) = ShapeElement;
 
   factory PadElement.fromJson(Map<String, dynamic> json) =>

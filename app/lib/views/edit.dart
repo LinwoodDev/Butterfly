@@ -130,6 +130,9 @@ class EditToolbar extends StatelessWidget {
                                                     case 'pen':
                                                       return PenPainterDialog(
                                                           painterIndex: i);
+                                                    case 'shape':
+                                                      return ShapePainterDialog(
+                                                          painterIndex: i);
                                                     case 'eraser':
                                                       return EraserPainterDialog(
                                                           painterIndex: i);
@@ -147,9 +150,6 @@ class EditToolbar extends StatelessWidget {
                                                           painterIndex: i);
                                                     case 'laser':
                                                       return LaserPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'shape':
-                                                      return ShapePainterDialog(
                                                           painterIndex: i);
                                                     default:
                                                       return Container();
@@ -198,13 +198,13 @@ class EditToolbar extends StatelessWidget {
                                 itemBuilder: (context) => [
                                       ...[
                                         Painter.pen,
+                                        Painter.shape,
                                         Painter.pathEraser,
                                         Painter.label,
                                         Painter.eraser,
                                         Painter.layer,
                                         Painter.area,
-                                        Painter.label,
-                                        Painter.shape
+                                        Painter.label
                                       ].map((e) {
                                         final painter = e();
                                         return PopupMenuItem<Painter>(

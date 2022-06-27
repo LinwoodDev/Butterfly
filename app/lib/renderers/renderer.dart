@@ -21,6 +21,7 @@ part 'elements/image.dart';
 part 'elements/label.dart';
 part 'elements/path.dart';
 part 'elements/pen.dart';
+part 'elements/shape.dart';
 
 part 'backgrounds/empty.dart';
 part 'backgrounds/box.dart';
@@ -69,6 +70,9 @@ abstract class Renderer<T> {
     if (element is PadElement) {
       if (element is PenElement) {
         return PenRenderer(element) as Renderer<T>;
+      }
+      if (element is ShapeElement) {
+        return ShapeRenderer(element) as Renderer<T>;
       }
       if (element is EraserElement) {
         return EraserRenderer(element) as Renderer<T>;

@@ -144,6 +144,7 @@ class _CircleShapeView extends StatelessWidget {
         color: Color(shape.fillColor),
         title: Text(AppLocalizations.of(context)!.fill),
         leading: const Icon(PhosphorIcons.paintBucketLight),
+        defaultColor: Colors.transparent,
         onChanged: (color) => onChanged(shape.copyWith(fillColor: color.value)),
       ),
     ]);
@@ -162,6 +163,7 @@ class _RectangleShapeView extends StatelessWidget {
         title: Text(AppLocalizations.of(context)!.fill),
         leading: const Icon(PhosphorIcons.paintBucketLight),
         color: Color(shape.fillColor),
+        defaultColor: Colors.transparent,
         onChanged: (color) => onChanged(shape.copyWith(fillColor: color.value)),
       ),
       ExactSlider(

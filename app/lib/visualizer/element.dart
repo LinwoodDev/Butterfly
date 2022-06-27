@@ -39,7 +39,7 @@ extension ElementVisualizer on PadElement {
       return PhosphorIcons.imageLight;
     }
     if (this is ShapeElement) {
-      final shape = (this as ShapeElement).shape;
+      final shape = (this as ShapeElement).property.shape;
       return shape.getIcon();
     }
     throw UnimplementedError();
