@@ -327,5 +327,9 @@
     "topLeft": "En haut à gauche",
     "topRight": "En haut à droite",
     "bottomLeft": "En bas à gauche",
-    "bottomRight": "En bas à droite"
+    "bottomRight": "En bas à droite",
+    "caches": "Caches",
+    "manage": "Manage",
+    "clearCaches": "Clear caches",
+    "createCache": "Create cache"
 }
