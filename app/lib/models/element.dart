@@ -78,6 +78,13 @@ class PadElement with _$PadElement {
     required int height,
   }) = ImageElement;
 
+  const factory PadElement.shape({
+    @Default('') String layer,
+    @OffsetJsonConverter() @Default(Offset.zero) Offset firstPosition,
+    @OffsetJsonConverter() @Default(Offset.zero) Offset secondPosition,
+    required PathShape shape,
+  }) = ShapeElement;
+
   factory PadElement.fromJson(Map<String, dynamic> json) =>
       _$PadElementFromJson(json);
 }

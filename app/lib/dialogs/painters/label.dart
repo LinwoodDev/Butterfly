@@ -18,7 +18,7 @@ class LabelPainterDialog extends StatelessWidget {
     return GeneralPainterDialog<LabelPainter>(
         index: painterIndex,
         title: AppLocalizations.of(context)!.label,
-        icon: PhosphorIcons.textTLight,
+        iconBuilder: (_, __) => PhosphorIcons.textTLight,
         help: 'label',
         builder: (context, painter, setPainter) => [
               LabelPropertyView(

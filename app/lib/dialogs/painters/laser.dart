@@ -16,7 +16,7 @@ class LaserPainterDialog extends StatelessWidget {
     return GeneralPainterDialog<LaserPainter>(
         index: painterIndex,
         title: AppLocalizations.of(context)!.laser,
-        icon: PhosphorIcons.cursorLight,
+        iconBuilder: (_, __) => PhosphorIcons.cursorLight,
         help: 'laser',
         builder: (context, painter, setPainter) => [
               ExactSlider(

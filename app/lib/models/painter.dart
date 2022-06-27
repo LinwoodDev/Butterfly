@@ -88,6 +88,12 @@ class Painter with _$Painter {
       @Default(10) double strokeMultiplier,
       @Default(kColorRed) int color}) = LaserPainter;
 
+  const factory Painter.shape({
+    @Default('') String name,
+    @Default(false) bool zoomDependent,
+    @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
+  }) = ShapePainter;
+
   factory Painter.fromJson(Map<String, dynamic> json) =>
       _$PainterFromJson(json);
 }

@@ -4,15 +4,17 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension PathShapeVisualizer on PathShape {
-  IconData getIcon() {
+  IconData getIcon({bool filled = false}) {
     if (this is CircleShape) {
-      return PhosphorIcons.circleLight;
+      return filled ? PhosphorIcons.circleFill : PhosphorIcons.circleLight;
     }
     if (this is RectangleShape) {
-      return PhosphorIcons.squareLight;
+      return filled ? PhosphorIcons.squareFill : PhosphorIcons.squareLight;
     }
     if (this is LineShape) {
-      return PhosphorIcons.lineSegmentLight;
+      return filled
+          ? PhosphorIcons.lineSegmentFill
+          : PhosphorIcons.lineSegmentLight;
     }
 
     throw UnimplementedError();

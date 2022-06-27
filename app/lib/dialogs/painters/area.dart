@@ -14,7 +14,7 @@ class AreaPainterDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GeneralPainterDialog<AreaPainter>(
-        icon: PhosphorIcons.squareLight,
+        iconBuilder: (_, __) => PhosphorIcons.monitorLight,
         title: AppLocalizations.of(context)!.area,
         help: 'area',
         index: painterIndex,

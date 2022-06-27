@@ -127,3 +127,21 @@ Map<String, dynamic> _$$LaserPainterToJson(_$LaserPainter instance) =>
       'color': instance.color,
       'type': instance.$type,
     };
+
+_$ShapePainter _$$ShapePainterFromJson(Map json) => _$ShapePainter(
+      name: json['name'] as String? ?? '',
+      zoomDependent: json['zoomDependent'] as bool? ?? false,
+      property: json['property'] == null
+          ? const ShapeProperty(shape: RectangleShape())
+          : ShapeProperty.fromJson(
+              Map<String, dynamic>.from(json['property'] as Map)),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ShapePainterToJson(_$ShapePainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'zoomDependent': instance.zoomDependent,
+      'property': instance.property.toJson(),
+      'type': instance.$type,
+    };

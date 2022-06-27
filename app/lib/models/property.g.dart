@@ -102,9 +102,6 @@ _$PenProperty _$$PenPropertyFromJson(Map json) => _$PenProperty(
       strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,
       color: json['color'] as int? ?? kColorBlack,
       fill: json['fill'] as bool? ?? false,
-      shape: json['shape'] == null
-          ? null
-          : PathShape.fromJson(Map<String, dynamic>.from(json['shape'] as Map)),
       $type: json['type'] as String?,
     );
 
@@ -114,7 +111,22 @@ Map<String, dynamic> _$$PenPropertyToJson(_$PenProperty instance) =>
       'strokeMultiplier': instance.strokeMultiplier,
       'color': instance.color,
       'fill': instance.fill,
-      'shape': instance.shape?.toJson(),
+      'type': instance.$type,
+    };
+
+_$ShapeProperty _$$ShapePropertyFromJson(Map json) => _$ShapeProperty(
+      strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
+      shape:
+          PathShape.fromJson(Map<String, dynamic>.from(json['shape'] as Map)),
+      color: json['color'] as int? ?? kColorBlack,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ShapePropertyToJson(_$ShapeProperty instance) =>
+    <String, dynamic>{
+      'strokeWidth': instance.strokeWidth,
+      'shape': instance.shape.toJson(),
+      'color': instance.color,
       'type': instance.$type,
     };
 

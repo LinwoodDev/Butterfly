@@ -1,2 +1,4 @@
 * Add updater
+* Add shape painter
+* Change area icon
 * Disable restart of the app after changing the personalization settings

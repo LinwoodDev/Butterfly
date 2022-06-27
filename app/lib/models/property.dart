@@ -54,12 +54,18 @@ class Property with _$Property {
       @Default(kColorBlack) int color}) = EraserProperty;
 
   @With<PathProperty>()
-  const factory Property.pen(
-      {@Default(5) double strokeWidth,
-      @Default(10) double strokeMultiplier,
-      @Default(kColorBlack) int color,
-      @Default(false) bool fill,
-      PathShape? shape}) = PenProperty;
+  const factory Property.pen({
+    @Default(5) double strokeWidth,
+    @Default(10) double strokeMultiplier,
+    @Default(kColorBlack) int color,
+    @Default(false) bool fill,
+  }) = PenProperty;
+
+  const factory Property.shape({
+    @Default(5) double strokeWidth,
+    required PathShape shape,
+    @Default(kColorBlack) int color,
+  }) = ShapeProperty;
 
   factory Property.fromJson(Map<String, dynamic> json) =>
       _$PropertyFromJson(json);

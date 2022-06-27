@@ -52,7 +52,7 @@ class BackgroundContextMenu extends StatelessWidget {
                     context, LayersIntent(context));
               }),
           ListTile(
-            leading: const Icon(PhosphorIcons.squareLight),
+            leading: const Icon(PhosphorIcons.monitorLight),
             title: Text(AppLocalizations.of(context)!.areas),
             subtitle: Text(context.getShortcut('A', shiftKey: true)),
             onTap: () {

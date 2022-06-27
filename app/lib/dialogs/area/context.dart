@@ -32,7 +32,7 @@ class AreaContextMenu extends StatelessWidget {
           children: [
             const SizedBox(
               height: 50,
-              child: Center(child: Icon(PhosphorIcons.squareLight, size: 36)),
+              child: Center(child: Icon(PhosphorIcons.monitorLight, size: 36)),
             ),
             ListTile(
               leading: index == state.currentAreaIndex

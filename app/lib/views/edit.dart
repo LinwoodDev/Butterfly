@@ -16,6 +16,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../dialogs/painters/area.dart';
+import '../dialogs/painters/shape.dart';
 
 class EditToolbar extends StatelessWidget {
   final bool isMobile;
@@ -147,6 +148,9 @@ class EditToolbar extends StatelessWidget {
                                                     case 'laser':
                                                       return LaserPainterDialog(
                                                           painterIndex: i);
+                                                    case 'shape':
+                                                      return ShapePainterDialog(
+                                                          painterIndex: i);
                                                     default:
                                                       return Container();
                                                   }
@@ -199,7 +203,8 @@ class EditToolbar extends StatelessWidget {
                                         Painter.eraser,
                                         Painter.layer,
                                         Painter.area,
-                                        Painter.label
+                                        Painter.label,
+                                        Painter.shape
                                       ].map((e) {
                                         final painter = e();
                                         return PopupMenuItem<Painter>(

@@ -164,3 +164,27 @@ Map<String, dynamic> _$$ImageElementToJson(_$ImageElement instance) =>
       'height': instance.height,
       'type': instance.$type,
     };
+
+_$ShapeElement _$$ShapeElementFromJson(Map json) => _$ShapeElement(
+      layer: json['layer'] as String? ?? '',
+      firstPosition: json['firstPosition'] == null
+          ? Offset.zero
+          : const OffsetJsonConverter().fromJson(json['firstPosition'] as Map),
+      secondPosition: json['secondPosition'] == null
+          ? Offset.zero
+          : const OffsetJsonConverter().fromJson(json['secondPosition'] as Map),
+      shape:
+          PathShape.fromJson(Map<String, dynamic>.from(json['shape'] as Map)),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ShapeElementToJson(_$ShapeElement instance) =>
+    <String, dynamic>{
+      'layer': instance.layer,
+      'firstPosition':
+          const OffsetJsonConverter().toJson(instance.firstPosition),
+      'secondPosition':
+          const OffsetJsonConverter().toJson(instance.secondPosition),
+      'shape': instance.shape.toJson(),
+      'type': instance.$type,
+    };

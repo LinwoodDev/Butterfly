@@ -258,7 +258,7 @@ class _GeneralElementDialogHeader extends StatelessWidget {
                 close();
               },
               padding: const EdgeInsets.all(4.0),
-              icon: const Icon(PhosphorIcons.squareLight, size: 32),
+              icon: const Icon(PhosphorIcons.monitorLight, size: 32),
             ),
           IconButton(
             tooltip: AppLocalizations.of(context)!.document,

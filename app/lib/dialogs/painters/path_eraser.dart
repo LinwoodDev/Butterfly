@@ -15,7 +15,7 @@ class PathEraserPainterDialog extends StatelessWidget {
     return GeneralPainterDialog<PathEraserPainter>(
         index: painterIndex,
         title: AppLocalizations.of(context)!.pathEraser,
-        icon: PhosphorIcons.pathLight,
+        iconBuilder: (_, __) => PhosphorIcons.pathLight,
         help: 'path_eraser',
         builder: (context, painter, setPainter) => [
               ExactSlider(
