@@ -145,13 +145,6 @@ jobs:
       - name: Rename AppImage
         run: |
           mv ./*.AppImage* linwood-butterfly-linux.AppImage
-      - name: Compress Flutter build
-        run: tar -C build/linux/x64/release/bundle -cvf linwood-butterfly-linux-portable.tar.gz .
-      - name: Upload app archive for next steps
-        uses: actions/upload-artifact@v3
-        with:
-          name: linux-build-portable
-          path: app/linwood-butterfly-linux-portable.tar.gz
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -178,16 +171,52 @@ jobs:
             app/linwood-butterfly-linux.AppImage
   build-flatpak:
     name: Build flatpak
-    needs: build-linux
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
-      - name: Download app archive
-        uses: actions/download-artifact@v3
+      - name: Get dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip \
+            python3-setuptools \
+            desktop-file-utils \
+            libgdk-pixbuf2.0-dev \
+            fakeroot \
+            strace \
+            fuse \
+            libgtk-3-dev \
+            libx11-dev \
+            pkg-config \
+            cmake \
+            ninja-build \
+            libblkid-dev \
+            liblzma-dev \
+            clang \
+            dpkg-dev \
+            patchelf \
+            alien \
+            libsecret-1-dev \
+            libjsoncpp-dev
+      - uses: subosito/flutter-action@v2
         with:
-          name: linux-build-portable
-          path: app/linwood-butterfly-linux-portable.tar.gz
+          flutter-version: '3.0.3'
+          channel: "stable" # or: 'beta' or 'dev'
+      - name: ✅ Enable platforms
+        run: flutter config --enable-linux-desktop
+      - name: 📦 Get dependencies
+        run: |
+          flutter pub get
+      - name: 🏭 Build
+        run: |
+          flutter clean
+          flutter doctor -v
+          flutter build linux -v --release
+      - name: Compress Flutter build
+        run: tar -C build/linux/x64/release/bundle -cvf linwood-butterfly-linux-portable.tar.gz .
       - name: Install flatpak
         run: |
           sudo apt-get update
@@ -196,22 +225,16 @@ jobs:
         run: |
           flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
           flatpak install flathub org.freedesktop.Platform//21.08 org.freedesktop.Sdk//21.08 --user -y
-      - name: Copy nessessary files
-        working-directory: app
-        run: |
-          cp linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml .
-          cp linux/debian/usr/share/applications/dev.linwood.butterfly.desktop .
       - name: Build .flatpak
-        working-directory: app
         run: |
-          flatpak-builder --disable-rofiles-fuse --install-deps-from=flathub --force-clean --arch=x86_64 --ccache flatpak_app flatpak.json -y -v
+          flatpak-builder --disable-rofiles-fuse --install-deps-from=flathub --force-clean --arch=x86_64 --ccache flatpak_app flatpak.json -y -v --user
           flatpak build-export export build-dir -v
           flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
       - name: Upload .flatpak artifact to workflow
         uses: actions/upload-artifact@v3
         with:
           name: linux-flatpak
-          path: linwood-butterfly-linux.flatpak
+          path: app/linwood-butterfly-linux.flatpak
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
