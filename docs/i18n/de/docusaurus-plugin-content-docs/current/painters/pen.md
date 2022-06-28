@@ -14,3 +14,4 @@ Mit diesem Maler können Sie dieses Papier zeichnen.
 |               Farbe | Schwarz  | Die Farbe, die gezeichnet wird                                                        |
 |        Strichbreite |    5     | Die Breite des Strichs                                                                |
 | Strichmultiplikator |    1     | Wenn Sie einen Stil haben, ist dies der Multiplikator, der dem Druck hinzugefügt wird |
+|        Zoomabhängig |  falsch  | This will change the stroke width based on the zoom level.                            |
