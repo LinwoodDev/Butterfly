@@ -58,7 +58,7 @@ Future<void> main([List<String> args = const []]) async {
           pathSegments: [
             '',
             'local',
-            ...newFile.path.split('/').sublist(1),
+            ...newFile.pathWithoutLeadingSlash.split('/'),
           ],
         ).toString();
       }

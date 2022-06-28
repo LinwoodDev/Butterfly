@@ -52,8 +52,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
     if (_searchController.text.isNotEmpty) {
       documents = documents
           .where((element) =>
-              element.path
-                  .substring(element.path.lastIndexOf('/') + 1)
+              element.pathWithLeadingSlash
+                  .substring(element.pathWithLeadingSlash.lastIndexOf('/') + 1)
                   .toLowerCase()
                   .contains(_searchController.text.toLowerCase()) ||
               (element is AppDocumentFile
@@ -328,12 +328,13 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
       final remote = _fileSystem.remote;
       if (remote != null) {
         GoRouter.of(context).push(
-            '/remote/${Uri.encodeComponent(remote.identifier)}/${Uri.encodeComponent(asset.path)}');
+            '/remote/${Uri.encodeComponent(remote.identifier)}/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}');
       } else {
-        GoRouter.of(context).push('/local/${Uri.encodeComponent(asset.path)}');
+        GoRouter.of(context).push(
+            '/local/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}');
       }
     } else {
-      _pathController.text = asset.path;
+      _pathController.text = asset.pathWithoutLeadingSlash;
       setState(() {});
     }
   }

@@ -30,7 +30,7 @@ class FileSystemListView extends StatelessWidget {
           return ListTile(
             leading: const Icon(PhosphorIcons.fileLight),
             title: Text(document.name),
-            selected: document.path == selectedPath,
+            selected: document.pathWithLeadingSlash == selectedPath,
             subtitle: FileSystemFileRichText(
               file: document,
             ),
@@ -44,7 +44,7 @@ class FileSystemListView extends StatelessWidget {
           );
         } else if (document is AppDocumentDirectory) {
           return ListTile(
-            selected: document.path == selectedPath,
+            selected: document.pathWithLeadingSlash == selectedPath,
             leading: const Icon(PhosphorIcons.folderLight),
             title: Text(document.fileNameWithoutExtension),
             onTap: () => onOpened(document),

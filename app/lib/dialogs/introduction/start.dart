@@ -242,7 +242,8 @@ class _RecentStartView extends StatelessWidget {
                                     pathSegments: [
                                       '',
                                       'local',
-                                      ...recent.path.split('/').sublist(1),
+                                      ...recent.pathWithoutLeadingSlash
+                                          .split('/'),
                                     ],
                                   ).toString());
                                 }),

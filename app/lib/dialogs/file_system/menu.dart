@@ -131,7 +131,7 @@ class FileSystemAssetMenu extends StatelessWidget {
                   // Change path if current document is moved
                   var state = bloc.state;
                   if (state is! DocumentLoadSuccess) return;
-                  if (state.location.path == asset.path) {
+                  if (state.location.path == asset.pathWithLeadingSlash) {
                     bloc.clearHistory();
                     bloc.emit(state.copyWith(
                         location: AssetLocation(
@@ -146,7 +146,7 @@ class FileSystemAssetMenu extends StatelessWidget {
                 title: Text(AppLocalizations.of(context)!.rename),
                 onTap: () {
                   Navigator.of(context).pop();
-                  _showRenameDialog(context, asset.path);
+                  _showRenameDialog(context, asset.pathWithLeadingSlash);
                 }),
           ),
           PopupMenuItem(
@@ -159,7 +159,7 @@ class FileSystemAssetMenu extends StatelessWidget {
                 var success = await showDialog(
                     context: context,
                     builder: (context) => FileSystemAssetDeleteDialog(
-                          path: asset.path,
+                          path: asset.pathWithLeadingSlash,
                           fileSystem: fileSystem,
                         )) as bool?;
                 if (success ?? false) {

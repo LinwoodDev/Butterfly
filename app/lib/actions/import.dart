@@ -43,7 +43,7 @@ class ImportAction extends Action<ImportIntent> {
             document.content.map((e) => Renderer.fromInstance(e)).toList();
         await Future.wait(renderers.map((e) async => await e.setup(document)));
         bloc.emit(DocumentLoadSuccess(document,
-            location: AssetLocation.local(file.path),
+            location: AssetLocation.local(file.pathWithLeadingSlash),
             currentIndexCubit: currentIndexCubit,
             settingsCubit: settingsCubit,
             cameraViewport: CameraViewport.unbaked(background, renderers)));

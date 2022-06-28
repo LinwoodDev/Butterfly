@@ -222,7 +222,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
     final filePath = convertNameToFile('$path$fileName');
     // get unique fileName
     var counter = 1;
-    while (asset.assets.any((a) => a.path == filePath)) {
+    while (asset.assets.any((a) => a.pathWithLeadingSlash == filePath)) {
       fileName = convertNameToFile('${document.name}_${++counter}');
     }
     final content = document.toJson();
