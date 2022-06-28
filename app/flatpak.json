@@ -21,8 +21,6 @@
         "x86_64"
       ],
       "build-commands": [
-        "mkdir -p FlutterApp",
-        "tar -xf linwood-butterfly-linux-portable.tar.gz -C FlutterApp",
         "cp -r FlutterApp /app/",
         "chmod +x /app/FlutterApp/butterfly",
         "mkdir -p /app/bin",
@@ -51,7 +49,8 @@
         },
         {
           "type": "archive",
-          "path": "linwood-butterfly-linux-portable.tar.gz"
+          "path": "linwood-butterfly-linux-portable.tar.gz",
+          "dest": "FlutterApp"
         }
       ]
     },
