@@ -31,6 +31,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   @override
   FutureOr<void> build(Canvas canvas, Size size, CameraTransform transform,
       [bool foreground = false]) {
+    _updateRect();
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;
     final paint = _buildPaint();

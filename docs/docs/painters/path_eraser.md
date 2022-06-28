@@ -1,7 +1,7 @@
 ---
 title: "Path eraser painter"
 sidebar_label: "Path eraser"
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 
