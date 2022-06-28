@@ -145,13 +145,13 @@ jobs:
       - name: Rename AppImage
         run: |
           mv ./*.AppImage* linwood-butterfly-linux.AppImage
-      #- name: Compress Flutter build
-      #  run: tar -C build/linux/x64/release/bundle -cvf linwood-butterfly-linux-portable.tar.gz .
-      #- name: Upload app archive for next steps
-      #  uses: actions/upload-artifact@v3
-      #  with:
-      #    name: linux-build-portable
-      #    path: app/linwood-butterfly-linux-portable.tar.gz
+      - name: Compress Flutter build
+        run: tar -C build/linux/x64/release/bundle -cvf linwood-butterfly-linux-portable.tar.gz .
+      - name: Upload app archive for next steps
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-build-portable
+          path: app/linwood-butterfly-linux-portable.tar.gz
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -176,42 +176,42 @@ jobs:
           name: linux-appimage
           path: |
             app/linwood-butterfly-linux.AppImage
-  #build-flatpak:
-  #  name: Build flatpak
-  #  needs: build-linux
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #    - name: ⬆️ Checkout
-  #      uses: actions/checkout@v3
-  #    - name: Download app archive
-  #      uses: actions/download-artifact@v3
-  #      with:
-  #        name: linux-build-portable
-  #        path: app/linwood-butterfly-linux-portable.tar.gz
-  #    - name: Install flatpak
-  #      run: |
-  #        sudo apt-get update
-  #        sudo apt-get install -y flatpak flatpak-builder
-  #    - name: Install dependencies
-  #      run: |
-  #        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
-  #        flatpak install flathub org.freedesktop.Platform//21.08 org.freedesktop.Sdk//21.08 --user -y
-  #    - name: Copy nessessary files
-  #      working-directory: app
-  #      run: |
-  #        cp linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml .
-  #        cp linux/debian/usr/share/applications/dev.linwood.butterfly.desktop .
-  #    - name: Build .flatpak
-  #      working-directory: app
-  #      run: |
-  #        flatpak-builder --disable-rofiles-fuse --install-deps-from=flathub --force-clean --arch=x86_64 --ccache flatpak_app flatpak.json -y -v
-  #        flatpak build-export export build-dir -v
-  #        flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
-  #    - name: Upload .flatpak artifact to workflow
-  #      uses: actions/upload-artifact@v3
-  #      with:
-  #        name: linux-flatpak
-  #        path: linwood-butterfly-linux.flatpak
+  build-flatpak:
+    name: Build flatpak
+    needs: build-linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v3
+      - name: Download app archive
+        uses: actions/download-artifact@v3
+        with:
+          name: linux-build-portable
+          path: app/linwood-butterfly-linux-portable.tar.gz
+      - name: Install flatpak
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder
+      - name: Install dependencies
+        run: |
+          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
+          flatpak install flathub org.freedesktop.Platform//21.08 org.freedesktop.Sdk//21.08 --user -y
+      - name: Copy nessessary files
+        working-directory: app
+        run: |
+          cp linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml .
+          cp linux/debian/usr/share/applications/dev.linwood.butterfly.desktop .
+      - name: Build .flatpak
+        working-directory: app
+        run: |
+          flatpak-builder --disable-rofiles-fuse --install-deps-from=flathub --force-clean --arch=x86_64 --ccache flatpak_app flatpak.json -y -v
+          flatpak build-export export build-dir -v
+          flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
+      - name: Upload .flatpak artifact to workflow
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-flatpak
+          path: linwood-butterfly-linux.flatpak
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
@@ -272,9 +272,9 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: linux-appimage
-      #- uses: actions/download-artifact@v3
-      #  with:
-      #    name: linux-flatpak
+      - uses: actions/download-artifact@v3
+        with:
+          name: linux-flatpak
       - uses: actions/download-artifact@v3
         with:
           name: windows-setup
@@ -303,7 +303,7 @@ jobs:
             linwood-butterfly-linux.zip
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
-          #  linwood-butterfly-linux.flatpak
+            linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
@@ -320,7 +320,7 @@ jobs:
             linwood-butterfly-linux.zip
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
-          #  linwood-butterfly-linux.flatpak
+            linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
@@ -335,7 +335,7 @@ jobs:
             linwood-butterfly-linux.zip
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
-          #  linwood-butterfly-linux.flatpak
+            linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:

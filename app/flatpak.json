@@ -50,7 +50,7 @@
           "path": "images/logo.svg"
         },
         {
-          "type": "file",
+          "type": "archive",
           "path": "linwood-butterfly-linux-portable.tar.gz"
         }
       ]
