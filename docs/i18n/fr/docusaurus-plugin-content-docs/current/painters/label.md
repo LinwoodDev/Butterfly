@@ -1,7 +1,7 @@
 ---
 title: "Peintre d'étiquette"
 sidebar_label: "Étiquette"
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 
