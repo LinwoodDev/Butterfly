@@ -126,11 +126,11 @@ class ButterflyApp extends StatelessWidget {
                         builder: (context, state) =>
                             const RemotesSettingsPage(),
                         routes: [
-                          GoRoute(
+                          /*GoRoute(
                             path: ':id',
                             builder: (context, state) =>
                                 RemoteSettingsPage(remote: state.params['id']!),
-                          )
+                          )*/
                         ],
                       ),
                     ],
