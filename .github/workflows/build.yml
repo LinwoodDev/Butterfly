@@ -232,7 +232,7 @@ jobs:
       - name: Build .flatpak
         run: |
           flatpak-builder --disable-rofiles-fuse --install-deps-from=flathub --force-clean --arch=x86_64 --ccache flatpak_app flatpak.json -y -v --user
-          flatpak build-export export build-dir -v
+          flatpak build-export export flatpak_app -v
           flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
       - name: Upload .flatpak artifact to workflow
         uses: actions/upload-artifact@v3
@@ -308,7 +308,7 @@ jobs:
       - name: 📦 Zip artifacts
         run: |
           zip -r linwood-butterfly-windows.zip windows-build/*
-          zip -r linwood-butterfly-linux.zip linux-build/*
+          tar -C linux-build -czf linwood-butterfly-linux.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -327,7 +327,7 @@ jobs:
             linwood-butterfly-windows-setup.exe
             linwood-butterfly-windows.zip
             linwood-butterfly-android.apk
-            linwood-butterfly-linux.zip
+            linwood-butterfly-linux.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
             linwood-butterfly-linux.flatpak
@@ -344,7 +344,7 @@ jobs:
             linwood-butterfly-windows-setup.exe
             linwood-butterfly-windows.zip
             linwood-butterfly-android.apk
-            linwood-butterfly-linux.zip
+            linwood-butterfly-linux.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
             linwood-butterfly-linux.flatpak
@@ -359,7 +359,7 @@ jobs:
             linwood-butterfly-windows-setup.exe
             linwood-butterfly-windows.zip
             linwood-butterfly-android.apk
-            linwood-butterfly-linux.zip
+            linwood-butterfly-linux.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
             linwood-butterfly-linux.flatpak
