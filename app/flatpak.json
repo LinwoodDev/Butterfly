@@ -56,7 +56,12 @@
     },
     {
         "name": "libjsoncpp",
-        "buildsystem": "meson",
+        "buildsystem": "cmake",
+        "builddir": true,
+        "config-opts": [
+            "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+            "-DBUILD_SHARED_LIBS=ON"
+        ],
         "sources": [
             {
                 "type": "archive",
@@ -64,6 +69,13 @@
                 "sha256": "f409856e5920c18d0c2fb85276e24ee607d2a09b5e7d5f0a371368903c275da2"
             }
         ]
+    },
+    {
+      "name": "smol-patch",
+      "buildsystem": "simple",
+      "build-commands": [
+        "ln -sf /app/lib/libjsoncpp.so.25 /app/lib/libjsoncpp.so.1"
+      ]
     },
     {
       "name": "libsecret",

@@ -171,7 +171,7 @@ jobs:
             app/linwood-butterfly-linux.AppImage
   build-flatpak:
     name: Build flatpak
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     defaults:
       run:
         working-directory: app
@@ -239,6 +239,11 @@ jobs:
         with:
           name: linux-flatpak
           path: app/linwood-butterfly-linux.flatpak
+      - name: Archive old portable
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-alternative-portable
+          path: app/build/linux/x64/release/bundle
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
@@ -304,11 +309,16 @@ jobs:
           name: linux-flatpak
       - uses: actions/download-artifact@v3
         with:
+          name: linux-alternative-portable
+          path: linux-alternative-portable/
+      - uses: actions/download-artifact@v3
+        with:
           name: windows-setup
       - name: 📦 Zip artifacts
         run: |
           zip -r linwood-butterfly-windows.zip windows-build/*
           tar -C linux-build -czf linwood-butterfly-linux.tar.gz .
+          tar -C linux-alternative-portable -czf linwood-butterfly-linux-alternative.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -328,6 +338,7 @@ jobs:
             linwood-butterfly-windows.zip
             linwood-butterfly-android.apk
             linwood-butterfly-linux.tar.gz
+            linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
             linwood-butterfly-linux.flatpak
@@ -345,6 +356,7 @@ jobs:
             linwood-butterfly-windows.zip
             linwood-butterfly-android.apk
             linwood-butterfly-linux.tar.gz
+            linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
             linwood-butterfly-linux.flatpak
@@ -360,6 +372,7 @@ jobs:
             linwood-butterfly-windows.zip
             linwood-butterfly-android.apk
             linwood-butterfly-linux.tar.gz
+            linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
             linwood-butterfly-linux.flatpak
