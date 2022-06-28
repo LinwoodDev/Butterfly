@@ -1,7 +1,7 @@
 ---
 title: "Pintor de etiquetas"
 sidebar_label: "Etiqueta"
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 
