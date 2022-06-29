@@ -25,14 +25,12 @@
         "chmod +x /app/FlutterApp/butterfly",
         "mkdir -p /app/bin",
         "ln -s /app/FlutterApp/butterfly /app/bin/butterfly",
-        "mkdir -p /app/share/metainfo",
-        "cp -r dev.linwood.butterfly.appdata.xml /app/share/metainfo/",
         "mkdir -p /app/share/icons/hicolor/scalable/apps",
-        "cp -r logo.svg /app/share/icons/hicolor/scalable/apps/dev.linwood.butterfly.svg",
+        "install -Dm644 logo.svg -T /app/share/icons/hicolor/scalable/apps/dev.linwood.butterfly.svg",
         "mkdir -p /app/share/applications",
-        "cp -r dev.linwood.butterfly.desktop /app/share/applications/",
+        "install -Dm644 dev.linwood.butterfly.desktop -t /app/share/applications/",
         "mkdir -p /app/share/appdata",
-        "cp -r dev.linwood.butterfly.appdata.xml /app/share/appdata/"
+        "install -Dm644 dev.linwood.butterfly.appdata.xml -t /app/share/appdata/"
       ],
       "sources": [
         {
