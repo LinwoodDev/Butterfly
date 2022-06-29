@@ -229,11 +229,11 @@ jobs:
       - name: Install dependencies
         run: |
           flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
-          flatpak install flathub org.flatpak.Builder --user -y
+          flatpak install flathub org.flatpak.Builder --user -y --arch=x86_64
       - name: Build .flatpak
         timeout-minutes: 15
         run: |
-          sudo dbus-run-session flatpak run org.flatpak.Builder -v --force-clean --sandbox --delete-build-dirs --user --install-deps-from=flathub --arch x86_64 flatpak_app flatpak.json
+          sudo dbus-run-session flatpak run org.flatpak.Builder -v --force-clean --sandbox --delete-build-dirs --user --install-deps-from=flathub --arch=x86_64 flatpak_app flatpak.json
           flatpak build-export export flatpak_app -v
           flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
       - name: Upload .flatpak artifact to workflow

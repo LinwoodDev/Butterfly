@@ -5,3 +5,5 @@
     * Add line shape
 * Change area icon
 * Disable restart of the app after changing the personalization settings
+* Fix icon size in remote button
+* Change scale to slider in constraints dialog
