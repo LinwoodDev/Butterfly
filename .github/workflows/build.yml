@@ -228,11 +228,9 @@ jobs:
           sudo apt-get install -y flatpak
       - name: Install dependencies
         run: |
-          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --system
-          sudo flatpak install flathub org.freedesktop.Platform//21.08 org.freedesktop.Sdk//21.08 org.flatpak.Builder --system -y
-      - name: Build .flatpak
+          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
         run: |
-          flatpak run org.flatpak.Builder --disable-rofiles-fuse --force-clean --arch=x86_64 --ccache flatpak_app flatpak.json -y -v
+          flatpak run org.flatpak.Builder -v --force-clean --sandbox --delete-build-dirs --user --install-deps-from=flathub --arch x86_64 flatpak_app flatpak.json
           flatpak build-export export flatpak_app -v
           flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
       - name: Upload .flatpak artifact to workflow
