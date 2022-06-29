@@ -1,36 +1,36 @@
 ---
-title: "Shape painter"
+title: "Form-Maler"
 sidebar_label: "Form"
 sidebar_position: 3
 ---
 
 
-Use this painter to draw shapes on the paper. You can draw rectangles, circles, and other shapes.
+Benutze diesen Maler um Formen auf dem Papier zu zeichnen. Sie können Rechtecke, Kreise und andere Formen zeichnen.
 
 ## Konfiguration
 
-|       Objekt | Standard  | Beschreibung                                               |
-| ------------:|:---------:|:---------------------------------------------------------- |
-|        Farbe |  Schwarz  | Die Farbe, die gezeichnet wird                             |
-| Strichbreite |     5     | Die Breite des Strichs                                     |
-| Zoomabhängig |  falsch   | This will change the stroke width based on the zoom level. |
-|         Form | rectangle | The shape that will be drawn                               |
+|       Objekt |  Standard  | Beschreibung                                              |
+| ------------:|:----------:|:--------------------------------------------------------- |
+|        Farbe |  Schwarz   | Die Farbe, die gezeichnet wird                            |
+| Strichbreite |     5      | Die Breite des Strichs                                    |
+| Zoomabhängig |   falsch   | Dies ändert die Pinselbreite basierend auf der Zoomstufe. |
+|         Form | rechteckig | Die Form, die gezeichnet wird                             |
 
-### Shape types
+### Formtypen
 
 #### Rechteck
 
-|      Objekt |  Standard   | Beschreibung                                      |
-| -----------:|:-----------:|:------------------------------------------------- |
-|      Füllen | Transparent | The color that will be drawn inside the rectangle |
-| Eckenradius | 0, 0, 0, 0  | The radius of the corners of the rectangle        |
+|      Objekt |  Standard   | Beschreibung                                           |
+| -----------:|:-----------:|:------------------------------------------------------ |
+|      Füllen | Transparent | Die Farbe, die innerhalb des Rechtecks gezeichnet wird |
+| Eckenradius | 0, 0, 0, 0  | Der Radius der Ecken des Rechtecks                     |
 
 ### Kreis
 
-| Objekt |  Standard   | Beschreibung                                      |
-| ------:|:-----------:|:------------------------------------------------- |
-| Füllen | Transparent | The color that will be drawn inside the rectangle |
+| Objekt |  Standard   | Beschreibung                                           |
+| ------:|:-----------:|:------------------------------------------------------ |
+| Füllen | Transparent | Die Farbe, die innerhalb des Rechtecks gezeichnet wird |
 
 ### Linie
 
-*No configuration available.*
+*Keine Konfiguration verfügbar.*
