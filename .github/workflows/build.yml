@@ -217,9 +217,9 @@ jobs:
           flutter build linux -v --release
       - name: Copy nessessary files
         run: |
-          cp linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml build/linux/x64/release/bundle
-          cp linux/debian/usr/share/applications/dev.linwood.butterfly.desktop build/linux/x64/release/bundle
           cp images/logo.svg build/linux/x64/release/bundle/dev.linwood.butterfly.svg
+          mkdir -p build/linux/x64/release/bundle/usr/share
+          cp -r linux/debian/usr/share build/linux/x64/release/bundle/usr
       - name: Compress Flutter build
         run: tar -C build/linux/x64/release/bundle -czf linwood-butterfly-linux-portable.tar.gz .
       - name: Install flatpak
@@ -231,8 +231,9 @@ jobs:
           flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
           flatpak install flathub org.flatpak.Builder --user -y
       - name: Build .flatpak
+        timeout-minutes: 15
         run: |
-          dbus-run-session flatpak run org.flatpak.Builder -v --force-clean --sandbox --delete-build-dirs --user --install-deps-from=flathub --arch x86_64 flatpak_app flatpak.json
+          sudo dbus-run-session flatpak run org.flatpak.Builder -v --force-clean --sandbox --delete-build-dirs --user --install-deps-from=flathub --arch x86_64 flatpak_app flatpak.json
           flatpak build-export export flatpak_app -v
           flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
       - name: Upload .flatpak artifact to workflow
