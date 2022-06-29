@@ -3,7 +3,7 @@
 	<id>dev.linwood.butterfly</id>
 	<name>Linwood Butterfly</name>
 	<developer_name>Linwood</developer_name>
-	<summary>Notes that change the world</summary>
+	<summary>Powerful, minimalistic, cross-platform, opensource note-taking app</summary>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-3.0-only</project_license>
 	<supports>
@@ -32,7 +32,7 @@
 			<image type="source">https://raw.githubusercontent.com/LinwoodCloud/butterfly/develop/docs/static/img/main.png</image>
 		</screenshot>
 	</screenshots>
-	<launchable type="desktop-id">linwood-butterfly.desktop</launchable>
+	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
 		<release version="1.0.0" date="2022-02-25" />
 	</releases>

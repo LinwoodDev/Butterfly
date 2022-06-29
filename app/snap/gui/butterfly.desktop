@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Linwood Butterfly
-Comment=Change the world.
+Comment=Powerful, minimalistic, cross-platform, opensource note-taking app
 Exec=butterfly
 Icon=${SNAP}/meta/gui/butterfly.png # replace name to your app name
 Terminal=false
