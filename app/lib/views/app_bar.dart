@@ -2,9 +2,6 @@ import 'dart:convert';
 
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/svg_export.dart';
-import 'package:butterfly/api/full_screen_stub.dart'
-    if (dart.library.io) 'package:butterfly/api/full_screen_io.dart'
-    if (dart.library.js) 'package:butterfly/api/full_screen_html.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/edit.dart';
@@ -26,6 +23,7 @@ import '../actions/redo.dart';
 import '../actions/save.dart';
 import '../actions/settings.dart';
 import '../actions/undo.dart';
+import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/transform.dart';
 import '../embed/action.dart';

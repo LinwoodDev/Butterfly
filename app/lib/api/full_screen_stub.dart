@@ -1,4 +1,4 @@
-void setup() {}
+void setupFullScreen() {}
 Future<bool> isFullScreen() async {
   return false;
 }
