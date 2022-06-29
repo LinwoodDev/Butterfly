@@ -21,7 +21,7 @@
 	<url type="bugtracker">https://github.com/LinwoodCloud/Butterfly/issues</url>
 	<url type="help">https://docs.butterfly.linwood.dev/docs/latest/intro</url>
 	<url type="translate">https://translate.linwood.dev/butterfly</url>
-	<url type="vcs-browser">https://github.com/LinwoodCloud/butterfly</url>
+	<url type="vcs-browser">https://github.com/LinwoodCloud/Butterfly.git</url>
 	<url type="contribute">https://github.com/LinwoodCloud/Butterfly/blob/develop/CONTRIBUTING.md</url>
 	<description>
 		<p>Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device. This app works on android, windows, linux and in the web.</p>

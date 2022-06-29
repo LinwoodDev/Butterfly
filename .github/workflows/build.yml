@@ -219,6 +219,7 @@ jobs:
         run: |
           cp linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml build/linux/x64/release/bundle
           cp linux/debian/usr/share/applications/dev.linwood.butterfly.desktop build/linux/x64/release/bundle
+          cp images/logo.svg build/linux/x64/release/bundle/dev.linwood.butterfly.svg
       - name: Compress Flutter build
         run: tar -C build/linux/x64/release/bundle -czf linwood-butterfly-linux-portable.tar.gz .
       - name: Install flatpak
