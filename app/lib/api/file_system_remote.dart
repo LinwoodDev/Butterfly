@@ -226,9 +226,6 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       final current = element.getElement('d:href')?.text;
       return current == fileName || current == '$fileName/';
     }).first;
-    if (path.isEmpty) {
-      await syncChanges(xml);
-    }
     final resourceType = currentElement
         .findElements('d:propstat')
         .first
