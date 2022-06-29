@@ -32,8 +32,9 @@ class AssetLocation with _$AssetLocation {
 @immutable
 abstract class AppDocumentAsset {
   final AssetLocation location;
+  final bool cached;
 
-  const AppDocumentAsset(this.location);
+  const AppDocumentAsset(this.location, {this.cached = false});
 
   String get fileName => location.path.split('/').last;
 

@@ -14,6 +14,39 @@ import '../models/template.dart';
 import 'file_system.dart';
 import 'file_system_io.dart';
 
+enum SyncStatus { localLatest, remoteLatest, synced, conflict, offline }
+
+class SyncFile {
+  final AssetLocation location;
+  final DateTime localLastModified, syncedLastModified;
+  final DateTime? remoteLastModified;
+
+  SyncFile(
+      {required this.location,
+      required this.localLastModified,
+      required this.syncedLastModified,
+      this.remoteLastModified});
+
+  SyncStatus get status {
+    if (remoteLastModified == null) {
+      return SyncStatus.offline;
+    }
+    if (syncedLastModified != remoteLastModified) {
+      if (localLastModified == syncedLastModified) {
+        return SyncStatus.remoteLatest;
+      }
+      return SyncStatus.conflict;
+    }
+    if (localLastModified == syncedLastModified) {
+      return SyncStatus.synced;
+    }
+    if (localLastModified.isAfter(syncedLastModified)) {
+      return SyncStatus.localLatest;
+    }
+    return SyncStatus.remoteLatest;
+  }
+}
+
 abstract class DavRemoteSystem {
   DavRemoteStorage get remote;
 
@@ -47,12 +80,14 @@ abstract class DavRemoteSystem {
     return null;
   }
 
-  Future<void> cacheContent(String path, String content) async {
+  Future<void> cacheContent(String path, String content,
+      [DateTime? modified]) async {
     var absolutePath = await getAbsoluteCachePath(path);
     var file = File(absolutePath);
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
+    if (modified != null) await file.setLastModified(modified);
     await file.writeAsString(content);
   }
 
@@ -63,9 +98,69 @@ abstract class DavRemoteSystem {
       await file.delete();
     }
   }
+
+  Future<void> clearCachedContent() async {
+    var cacheDir = await getRemoteCacheDirectory();
+    var directory = Directory(cacheDir);
+    if (await directory.exists()) {
+      await directory.delete(recursive: true);
+    }
+  }
+
+  Future<Map<String, String>> getCachedFiles() async {
+    var cacheDir = await getRemoteCacheDirectory();
+    var files = <String, String>{};
+    var dir = Directory(cacheDir);
+    var list = await dir.list().toList();
+    for (var file in list) {
+      if (file is File) {
+        var name = p.relative(file.path, from: cacheDir);
+        var content = await file.readAsString();
+        files[name] = content;
+      }
+    }
+    return files;
+  }
+
+  Future<DateTime?> getCachedFileModified(String path) async {
+    var absolutePath = await getAbsoluteCachePath(path);
+    var file = File(absolutePath);
+    if (await file.exists()) {
+      return file.lastModified();
+    }
+    return null;
+  }
+
+  Future<Map<String, DateTime>> getCachedFileModifieds() async {
+    var cacheDir = await getRemoteCacheDirectory();
+    var files = <String, DateTime>{};
+    var dir = Directory(cacheDir);
+    var list = await dir.list().toList();
+    for (final file in list) {
+      final name = p.relative(file.path, from: cacheDir);
+      final modified = await getCachedFileModified(name);
+      if (modified != null) {
+        files[name] = modified;
+      }
+    }
+    return files;
+  }
+
+  Future<List<String>> getModifiedFiles(Map<String, DateTime> modifieds) async {
+    final modifiedCache = await getCachedFileModifieds();
+    final modified = <String>[];
+    for (final file in modifiedCache.keys) {
+      if (modifieds[file] != modifiedCache[file] ||
+          modifieds.containsKey(file)) {
+        modified.add(file);
+      }
+    }
+    return modified;
+  }
 }
 
-class DavRemoteDocumentFileSystem extends DocumentFileSystem {
+class DavRemoteDocumentFileSystem extends DocumentFileSystem
+    with DavRemoteSystem {
   @override
   final DavRemoteStorage remote;
 
@@ -131,6 +226,9 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
       final current = element.getElement('d:href')?.text;
       return current == fileName || current == '$fileName/';
     }).first;
+    if (path.isEmpty) {
+      await syncChanges(xml);
+    }
     final resourceType = currentElement
         .findElements('d:propstat')
         .first
@@ -192,6 +290,18 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
         json.decode(content));
   }
 
+  Future<DateTime?> getRemoteFileModified(String path) async {
+    final response = await _createRequest(path.split('/'), method: 'HEAD');
+    if (response.statusCode != 200) {
+      return null;
+    }
+    final lastModified = response.headers['last-modified'];
+    if (lastModified == null) {
+      return null;
+    }
+    return DateTime.tryParse(lastModified);
+  }
+
   @override
   Future<bool> hasAsset(String path) async {
     final response = await _createRequest(path.split('/'));
@@ -249,9 +359,14 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem {
     return AppDocumentFile(
         AssetLocation(remote: remote.identifier, path: path), content);
   }
+
+  @override
+  Future<String> getRemoteCacheDirectory() async =>
+      p.join(await super.getRemoteCacheDirectory(), 'Documents');
 }
 
-class DavRemoteTemplateFileSystem extends TemplateFileSystem {
+class DavRemoteTemplateFileSystem extends TemplateFileSystem
+    with DavRemoteSystem {
   @override
   final DavRemoteStorage remote;
 
@@ -272,16 +387,20 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem {
 
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
-    var defaults = DocumentTemplate.getDefaults(context);
-    // test if directory exists
-    final response = await _createRequest('', method: 'PROPFIND');
-    if (response.statusCode != 404 && !force) {
+    try {
+      var defaults = DocumentTemplate.getDefaults(context);
+      // test if directory exists
+      final response = await _createRequest('', method: 'PROPFIND');
+      if (response.statusCode != 404 && !force) {
+        return false;
+      }
+      // Create directory if it doesn't exist
+      await _createRequest('', method: 'MKCOL');
+      await Future.wait(defaults.map((e) => updateTemplate(e)));
+      return true;
+    } on SocketException catch (_) {
       return false;
     }
-    // Create directory if it doesn't exist
-    await _createRequest('', method: 'MKCOL');
-    await Future.wait(defaults.map((e) => updateTemplate(e)));
-    return true;
   }
 
   @override
@@ -297,35 +416,54 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem {
     if (name.startsWith('/')) {
       name = name.substring(1);
     }
-    final response = await _createRequest(name);
-    if (response.statusCode != 200) {
+    try {
+      final response = await _createRequest(name);
+      if (response.statusCode != 200) {
+        return null;
+      }
+      final content = await response.stream.bytesToString();
+      cacheContent(name, content);
+      return DocumentTemplate.fromJson(json.decode(content));
+    } catch (e) {
+      return getCachedTemplate(name);
+    }
+  }
+
+  Future<DocumentTemplate?> getCachedTemplate(String name) async {
+    final content = await getCachedContent(name);
+    if (content == null) {
       return null;
     }
-    final content = await response.stream.bytesToString();
     return DocumentTemplate.fromJson(json.decode(content));
   }
 
   @override
   Future<List<DocumentTemplate>> getTemplates() async {
-    final response = await _createRequest('', method: 'PROPFIND');
-    if (response.statusCode == 404) {
-      return [];
+    try {
+      final response = await _createRequest('', method: 'PROPFIND');
+      if (response.statusCode == 404) {
+        return [];
+      }
+      if (response.statusCode != 207) {
+        throw Exception(
+            'Failed to get templates: ${response.statusCode} ${response.reasonPhrase}');
+      }
+      final content = await response.stream.bytesToString();
+      final xml = XmlDocument.parse(content);
+      clearCachedContent();
+      return (await Future.wait(xml
+              .findAllElements('d:href')
+              .where((element) => element.text.endsWith('.bfly'))
+              .map((e) {
+        var path = e.text.substring(remote.buildTemplatesUri().path.length);
+        path = Uri.decodeComponent(path);
+        return getTemplate(path);
+      })))
+          .whereType<DocumentTemplate>()
+          .toList();
+    } on SocketException catch (_) {
+      return await getCachedTemplates();
     }
-    if (response.statusCode != 207) {
-      throw Exception('Failed to get templates: ${response.statusCode}');
-    }
-    final content = await response.stream.bytesToString();
-    final xml = XmlDocument.parse(content);
-    return (await Future.wait(xml
-            .findAllElements('d:href')
-            .where((element) => element.text.endsWith('.bfly'))
-            .map((e) {
-      var path = e.text.substring(remote.buildTemplatesUri().path.length);
-      path = Uri.decodeComponent(path);
-      return getTemplate(path);
-    })))
-        .whereType<DocumentTemplate>()
-        .toList();
   }
 
   @override
@@ -338,4 +476,15 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem {
     return _createRequest('${template.name}.bfly',
         method: 'PUT', body: json.encode(template));
   }
+
+  Future<List<DocumentTemplate>> getCachedTemplates() async {
+    final cachedFiles = await getCachedFiles();
+    return cachedFiles.values
+        .map((value) => DocumentTemplate.fromJson(json.decode(value)))
+        .toList();
+  }
+
+  @override
+  Future<String> getRemoteCacheDirectory() async =>
+      p.join(await super.getRemoteCacheDirectory(), 'Templates');
 }

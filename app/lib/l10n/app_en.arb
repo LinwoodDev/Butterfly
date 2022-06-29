@@ -331,5 +331,6 @@
   "caches": "Caches",
   "manage": "Manage",
   "clearCaches": "Clear caches",
-  "createCache": "Create cache"
+  "createCache": "Create cache",
+  "thirdPartyLicenses": "Third party licenses"
 }
