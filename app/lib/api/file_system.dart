@@ -95,8 +95,7 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
       newAsset = await createDirectory(newName);
       var assets = (asset as AppDocumentDirectory).assets;
       for (var current in assets) {
-        var currentPath = current.path;
-        if (currentPath.startsWith('/')) currentPath = currentPath.substring(1);
+        var currentPath = current.pathWithoutLeadingSlash;
         final newPath = newName + currentPath.substring(path.length);
         await renameAsset(currentPath, newPath);
       }
@@ -125,8 +124,7 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
       var newDirectory = await createDirectory(newPath);
       var assets = (asset as AppDocumentDirectory).assets;
       for (var current in assets) {
-        var currentPath = current.path;
-        if (currentPath.startsWith('/')) currentPath = currentPath.substring(1);
+        var currentPath = current.pathWithoutLeadingSlash;
         final currentNewPath = newPath + currentPath.substring(path.length);
         await duplicateAsset(currentPath, currentNewPath);
       }

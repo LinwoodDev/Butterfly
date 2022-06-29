@@ -84,10 +84,10 @@ class RemotesSettingsPage extends StatelessWidget {
                             leading: remote.icon.isEmpty
                                 ? null
                                 : Image.memory(remote.icon),
-                            onTap: () {
+                            /*onTap: () {
                               GoRouter.of(context).push(
                                   '/settings/remotes/${Uri.encodeComponent(remote.identifier)}');
-                            },
+                            },*/
                             trailing: IconButton(
                               icon: remote.identifier == state.defaultRemote
                                   ? const Icon(PhosphorIcons.cloudFill)

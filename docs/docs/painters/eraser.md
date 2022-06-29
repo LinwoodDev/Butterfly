@@ -1,7 +1,7 @@
 ---
 title: "Eraser painter"
 sidebar_label: "Eraser"
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 

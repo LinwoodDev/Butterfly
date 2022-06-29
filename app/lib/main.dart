@@ -58,7 +58,7 @@ Future<void> main([List<String> args = const []]) async {
           pathSegments: [
             '',
             'local',
-            ...newFile.path.split('/').sublist(1),
+            ...newFile.pathWithoutLeadingSlash.split('/'),
           ],
         ).toString();
       }
@@ -126,11 +126,11 @@ class ButterflyApp extends StatelessWidget {
                         builder: (context, state) =>
                             const RemotesSettingsPage(),
                         routes: [
-                          GoRoute(
+                          /*GoRoute(
                             path: ':id',
                             builder: (context, state) =>
                                 RemoteSettingsPage(remote: state.params['id']!),
-                          )
+                          )*/
                         ],
                       ),
                     ],

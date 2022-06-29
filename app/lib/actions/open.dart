@@ -34,7 +34,7 @@ class OpenAction extends Action<OpenIntent> {
             pathSegments: [
               '',
               'local',
-              ...document.path.split('/').sublist(1),
+              ...document.pathWithoutLeadingSlash.split('/'),
             ],
           ).toString());
         });

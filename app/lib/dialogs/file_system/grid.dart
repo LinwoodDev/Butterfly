@@ -54,7 +54,8 @@ class FileSystemGridView extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Tooltip(
-                                        message: directory.path,
+                                        message:
+                                            directory.pathWithoutLeadingSlash,
                                         child: Text(directory.fileName,
                                             overflow: TextOverflow.ellipsis,
                                             style: Theme.of(context)
@@ -102,19 +103,20 @@ class FileSystemGridView extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: Tooltip(
-                                      message: file.path,
+                                      message: file.pathWithoutLeadingSlash,
                                       child: Text(file.fileNameWithoutExtension,
                                           overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline6
                                               ?.copyWith(
-                                                  color:
-                                                      selectedPath == file.path
-                                                          ? Theme.of(context)
-                                                              .colorScheme
-                                                              .primary
-                                                          : null)),
+                                                  color: selectedPath ==
+                                                          file
+                                                              .pathWithLeadingSlash
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .primary
+                                                      : null)),
                                     ),
                                   ),
                                   FileSystemAssetMenu(

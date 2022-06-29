@@ -49,9 +49,10 @@ app.*.map.json
 AppDir
 appimage-builder-cache
 *.AppImage
-linwood-butterfly-linux-portable.tar.gz
+/linwood-butterfly-linux-portable.tar.gz
 .flatpak-builder
-build-dir
+/build-dir
+/flatpak_app
 /icon.svg
 /linwood-butterfly.appdata.xml
 /linwood-butterfly.desktop

@@ -402,7 +402,8 @@ class _MainPopupMenu extends StatelessWidget {
                                     pathSegments: [
                                       '',
                                       'local',
-                                      ...location.path.split('/').sublist(1),
+                                      ...location.pathWithoutLeadingSlash
+                                          .split('/'),
                                     ],
                                   ).toString());
                                 },

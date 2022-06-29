@@ -27,6 +27,9 @@ class AssetLocation with _$AssetLocation {
   const AssetLocation._();
 
   String get identifier => remote == '' ? path : '$remote@$path';
+  String get pathWithLeadingSlash => path.startsWith('/') ? path : '/$path';
+  String get pathWithoutLeadingSlash =>
+      path.startsWith('/') ? path.substring(1) : path;
 }
 
 @immutable
@@ -43,10 +46,13 @@ abstract class AppDocumentAsset {
   String get fileNameWithoutExtension =>
       fileName.substring(0, fileName.length - fileExtension.length - 1);
 
-  String get path => location.path;
+  String get pathWithLeadingSlash => location.pathWithLeadingSlash;
+  String get pathWithoutLeadingSlash => location.pathWithoutLeadingSlash;
 
-  String get parent =>
-      path.split('/').sublist(0, path.split('/').length - 1).join('/');
+  String get parent => pathWithLeadingSlash
+      .split('/')
+      .sublist(0, pathWithLeadingSlash.split('/').length - 1)
+      .join('/');
 }
 
 @immutable
