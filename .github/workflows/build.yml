@@ -233,7 +233,7 @@ jobs:
           flatpak install org.flatpak.Builder --user -y
       - name: Build .flatpak
         run: |
-          flatpak run org.flatpak.Builder --disable-rofiles-fuse --install-deps-from=flathub --force-clean --arch=x86_64 --ccache flatpak_app flatpak.json -y -v --user
+          flatpak run org.flatpak.Builder --disable-rofiles-fuse --force-clean --arch=x86_64 --ccache flatpak_app flatpak.json -y -v --user
           flatpak build-export export flatpak_app -v
           flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
       - name: Upload .flatpak artifact to workflow
