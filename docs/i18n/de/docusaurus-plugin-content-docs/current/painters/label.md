@@ -1,7 +1,7 @@
 ---
 title: "Label-Maler"
 sidebar_label: "Label"
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 

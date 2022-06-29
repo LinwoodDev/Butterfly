@@ -1,7 +1,7 @@
 ---
 title: "Peintre gomme de chemin"
 sidebar_label: "Effacer le chemin d'accès"
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 

@@ -1,7 +1,7 @@
 ---
 title: "Laser Maler"
 sidebar_label: "Laser"
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 
