@@ -229,6 +229,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
+      - name: Build .flatpak
         run: |
           flatpak run org.flatpak.Builder -v --force-clean --sandbox --delete-build-dirs --user --install-deps-from=flathub --arch x86_64 flatpak_app flatpak.json
           flatpak build-export export flatpak_app -v
