@@ -12,7 +12,7 @@ Future<bool> isFullScreen() async {
   }
 }
 
-void setup() {
+void setupFullScreen() {
   isFullscreen = false;
 }
 

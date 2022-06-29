@@ -5,12 +5,9 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:butterfly/api/full_screen_stub.dart'
-    if (dart.library.io) 'package:butterfly/api/full_screen_io.dart'
-    if (dart.library.js) 'package:butterfly/api/full_screen_html.dart'
-    as full_screen;
 
 import 'api/file_system_io.dart';
+import 'api/full_screen.dart';
 import 'models/converter.dart';
 
 Future<void> setup() async {
@@ -36,7 +33,7 @@ Future<void> setup() async {
     final newPath = await getButterflyDirectory();
     await _moveDirectory(oldPath, newPath);
   }
-  full_screen.setup();
+  setupFullScreen();
 }
 
 Future<void> _moveDirectory(String oldPath, String newPath) async {

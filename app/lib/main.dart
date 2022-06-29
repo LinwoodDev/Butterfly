@@ -7,7 +7,6 @@ import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/home.dart';
-import 'package:butterfly/settings/remote.dart';
 import 'package:butterfly/settings/remotes.dart';
 import 'package:butterfly/theme/manager.dart';
 import 'package:butterfly/views/main.dart';
