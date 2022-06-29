@@ -17,7 +17,12 @@
 		<control>touch</control>
 	</recommends>
 	<developer_name>LinwoodCloud</developer_name>
-	<url type="homepage">https://github.com/LinwoodCloud/butterfly</url>
+	<url type="homepage">https://docs.butterfly.linwood.dev/</url>
+	<url type="bugtracker">https://github.com/LinwoodCloud/Butterfly/issues</url>
+	<url type="help">https://docs.butterfly.linwood.dev/docs/latest/intro</url>
+	<url type="translate">https://translate.linwood.dev/butterfly</url>
+	<url type="vcs-browser">https://github.com/LinwoodCloud/butterfly</url>
+	<url type="contribute">https://github.com/LinwoodCloud/Butterfly/blob/develop/CONTRIBUTING.md</url>
 	<description>
 		<p>Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device. This app works on android, windows, linux and in the web.</p>
 		<p>Features:</p>
@@ -34,7 +39,7 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
-		<release version="1.0.0" date="2022-02-25" />
+		<release version="1.3.2" date="2022-06-10" />
 	</releases>
 	<content_rating type="oars-1.1" />
 	<update_contact>contact@linwood.dev</update_contact>
