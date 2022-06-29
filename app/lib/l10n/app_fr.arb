@@ -329,7 +329,7 @@
     "bottomLeft": "En bas à gauche",
     "bottomRight": "En bas à droite",
     "caches": "Caches",
-    "manage": "Manage",
-    "clearCaches": "Clear caches",
-    "createCache": "Create cache"
+    "manage": "Gérer",
+    "clearCaches": "Vider les caches",
+    "createCache": "Créer une cache"
 }
