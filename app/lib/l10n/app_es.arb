@@ -328,8 +328,8 @@
     "topRight": "Arriba derecha",
     "bottomLeft": "Bottom izquierdo",
     "bottomRight": "Botón derecho",
-    "caches": "Caches",
-    "manage": "Manage",
-    "clearCaches": "Clear caches",
-    "createCache": "Create cache"
+    "caches": "Cachés",
+    "manage": "Gestionar",
+    "clearCaches": "Borrar cachés",
+    "createCache": "Crear caché"
 }
