@@ -1,7 +1,7 @@
 ---
 title: "Pintor láser"
 sidebar_label: "Láser"
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 
