@@ -290,3 +290,25 @@ html[data-theme='dark'] .DocSearch {
 .flex-center {
   justify-content: center;
 }
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  opacity: 0.5;
+}
+
+::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--ifm-background-surface-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ifm-color-primary-darkest);
+}
+
+html {
+  scrollbar-color: var(--ifm-color-primary-darkest) var(--ifm-color-emphasis-200);
+}
