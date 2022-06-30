@@ -174,7 +174,7 @@ _$SvgElement _$$SvgElementFromJson(Map json) => _$SvgElement(
           ? const ScaledElementConstraints(1)
           : ElementConstraints.fromJson(
               Map<String, dynamic>.from(json['constraints'] as Map)),
-      data: json['data'] as String? ?? '',
+      data: json['data'] as String,
       width: (json['width'] as num).toDouble(),
       height: (json['height'] as num).toDouble(),
       $type: json['type'] as String?,

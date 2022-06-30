@@ -82,7 +82,7 @@ class PadElement with _$PadElement {
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
     @Default(ScaledElementConstraints(1)) ElementConstraints? constraints,
-    @Default('') String data,
+    required String data,
     required double width,
     required double height,
   }) = SvgElement;

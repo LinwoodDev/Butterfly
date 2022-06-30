@@ -2379,7 +2379,7 @@ class _$SvgElement implements SvgElement {
       {this.layer = '',
       @OffsetJsonConverter() this.position = Offset.zero,
       this.constraints = const ScaledElementConstraints(1),
-      this.data = '',
+      required this.data,
       required this.width,
       required this.height,
       final String? $type})
@@ -2399,7 +2399,6 @@ class _$SvgElement implements SvgElement {
   @JsonKey()
   final ElementConstraints? constraints;
   @override
-  @JsonKey()
   final String data;
   @override
   final double width;
@@ -2620,7 +2619,7 @@ abstract class SvgElement implements PadElement {
       {final String layer,
       @OffsetJsonConverter() final Offset position,
       final ElementConstraints? constraints,
-      final String data,
+      required final String data,
       required final double width,
       required final double height}) = _$SvgElement;
 

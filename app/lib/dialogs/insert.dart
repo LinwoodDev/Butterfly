@@ -138,6 +138,8 @@ class _InsertDialogState extends State<InsertDialog> {
                 SvgElement(
                   width: width,
                   height: height,
+                  data: contentString,
+                  position: widget.position,
                 ),
               ];
               _submit(elements);
