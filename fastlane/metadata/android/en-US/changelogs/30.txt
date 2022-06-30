@@ -5,6 +5,7 @@
     * Add line shape
 * Change area icon
 * Disable restart of the app after changing the personalization settings
+* Add file extension registry on linux
 * Fix icon size in remote button
 * Fix error if icon is invalid when adding remote
 * Change scale to slider in constraints dialog
