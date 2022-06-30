@@ -147,7 +147,7 @@ class BackgroundDialog extends StatelessWidget {
                                     ColorField(
                                       title: Text(
                                           AppLocalizations.of(context)!.color),
-                                      color: Color((background as BoxBackground)
+                                      value: Color((background as BoxBackground)
                                           .boxColor),
                                       onChanged: (value) => setState(() =>
                                           background = (background
@@ -193,7 +193,7 @@ class BackgroundDialog extends StatelessWidget {
                                                     const EdgeInsets.all(8.0),
                                                 child: Column(children: [
                                                   ColorField(
-                                                    color: Color((background
+                                                    value: Color((background
                                                             as BoxBackground)
                                                         .boxXColor),
                                                     title: Text(
@@ -308,7 +308,7 @@ class BackgroundDialog extends StatelessWidget {
                                                         AppLocalizations.of(
                                                                 context)!
                                                             .color),
-                                                    color: Color((background
+                                                    value: Color((background
                                                             as BoxBackground)
                                                         .boxYColor),
                                                     onChanged: (value) => setState(() =>

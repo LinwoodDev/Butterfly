@@ -127,14 +127,19 @@ Future<void> showContextMenu(
   var completer = Completer<void>();
   final overlayState = Overlay.of(context);
   late OverlayEntry overlayEntry;
-  overlayEntry = OverlayEntry(
+  final navigator = Navigator(
+    onGenerateRoute: (settings) => MaterialPageRoute(
       builder: (context) => ContextMenu(
           position: position,
           close: () {
             overlayEntry.remove();
             completer.complete();
           },
-          builder: builder));
+          builder: builder),
+    ),
+  );
+  overlayEntry =
+      OverlayEntry(maintainState: true, builder: (context) => navigator);
   overlayState?.insert(overlayEntry);
   if (overlayState != null) {
     return completer.future;
