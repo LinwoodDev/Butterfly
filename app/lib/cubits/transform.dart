@@ -28,6 +28,13 @@ class CameraTransform extends Equatable {
   Offset localToGlobal(Offset local) => local / size - position;
   Offset globalToLocal(Offset global) => (global + position) * size;
 
+  Rect get rect => Rect.fromLTWH(
+        position.dx,
+        position.dy,
+        size,
+        size,
+      );
+
   @override
   List<Object?> get props => [position, size];
 }

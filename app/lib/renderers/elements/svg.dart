@@ -8,6 +8,7 @@ class SvgRenderer extends Renderer<SvgElement> {
   @override
   void build(Canvas canvas, Size size, CameraTransform transform,
       [bool foreground = false]) {
+    final rect = this.rect;
     if (svgRoot == null) {
       // Render placeholder
       final paint = Paint()
@@ -16,8 +17,13 @@ class SvgRenderer extends Renderer<SvgElement> {
       canvas.drawRect(rect, paint);
       return;
     }
-    svgRoot?.clipCanvasToViewBox(canvas);
-    svgRoot?.draw(canvas, rect);
+    final size = rect.size;
+    canvas.save();
+    canvas.translate(element.position.dx, element.position.dy);
+    final picture = svgRoot!.toPicture(size: size);
+    canvas.drawPicture(picture);
+    canvas.translate(-element.position.dx, -element.position.dx);
+    canvas.restore();
   }
 
   @override
