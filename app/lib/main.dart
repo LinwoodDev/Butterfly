@@ -1,15 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/models/converter.dart';
-import 'package:butterfly/settings/behaviors.dart';
-import 'package:butterfly/settings/data.dart';
-import 'package:butterfly/settings/home.dart';
-import 'package:butterfly/settings/remotes.dart';
-import 'package:butterfly/theme/manager.dart';
-import 'package:butterfly/views/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,9 +9,19 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'api/file_system.dart';
+import 'cubits/settings.dart';
+import 'models/converter.dart';
+import 'theme/manager.dart';
+import 'views/main.dart';
 import 'embed/embedding.dart';
 import 'models/document.dart';
+import 'settings/general.dart';
 import 'settings/personalization.dart';
+import 'settings/behaviors.dart';
+import 'settings/data.dart';
+import 'settings/home.dart';
+import 'settings/remotes.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 
 const kFileVersion = 5;
@@ -106,6 +107,11 @@ class ButterflyApp extends StatelessWidget {
                     path: 'settings',
                     builder: (context, state) => const SettingsPage(),
                     routes: [
+                      GoRoute(
+                        path: 'general',
+                        builder: (context, state) =>
+                            const GeneralSettingsPage(),
+                      ),
                       GoRoute(
                         path: 'behaviors',
                         builder: (context, state) =>

@@ -6,4 +6,5 @@
 * Change area icon
 * Disable restart of the app after changing the personalization settings
 * Fix icon size in remote button
+* Fix error if icon is invalid when adding remote
 * Change scale to slider in constraints dialog
