@@ -842,6 +842,8 @@ PadElement _$PadElementFromJson(Map<String, dynamic> json) {
       return LabelElement.fromJson(json);
     case 'image':
       return ImageElement.fromJson(json);
+    case 'svg':
+      return SvgElement.fromJson(json);
     case 'shape':
       return ShapeElement.fromJson(json);
 
@@ -879,6 +881,14 @@ mixin _$PadElement {
         image,
     required TResult Function(
             String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)
+        svg,
+    required TResult Function(
+            String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
             ShapeProperty property)
@@ -904,6 +914,14 @@ mixin _$PadElement {
             int width,
             int height)?
         image,
+    TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
@@ -933,6 +951,14 @@ mixin _$PadElement {
         image,
     TResult Function(
             String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
+    TResult Function(
+            String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
             ShapeProperty property)?
@@ -946,6 +972,7 @@ mixin _$PadElement {
     required TResult Function(EraserElement value) eraser,
     required TResult Function(LabelElement value) label,
     required TResult Function(ImageElement value) image,
+    required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
   }) =>
       throw _privateConstructorUsedError;
@@ -955,6 +982,7 @@ mixin _$PadElement {
     TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
   }) =>
       throw _privateConstructorUsedError;
@@ -964,6 +992,7 @@ mixin _$PadElement {
     TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
     required TResult orElse(),
   }) =>
@@ -1132,6 +1161,14 @@ class _$PenElement implements PenElement {
         image,
     required TResult Function(
             String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)
+        svg,
+    required TResult Function(
+            String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
             ShapeProperty property)
@@ -1160,6 +1197,14 @@ class _$PenElement implements PenElement {
             int width,
             int height)?
         image,
+    TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
@@ -1192,6 +1237,14 @@ class _$PenElement implements PenElement {
         image,
     TResult Function(
             String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
+    TResult Function(
+            String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
             ShapeProperty property)?
@@ -1211,6 +1264,7 @@ class _$PenElement implements PenElement {
     required TResult Function(EraserElement value) eraser,
     required TResult Function(LabelElement value) label,
     required TResult Function(ImageElement value) image,
+    required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
   }) {
     return pen(this);
@@ -1223,6 +1277,7 @@ class _$PenElement implements PenElement {
     TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
   }) {
     return pen?.call(this);
@@ -1235,6 +1290,7 @@ class _$PenElement implements PenElement {
     TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
     required TResult orElse(),
   }) {
@@ -1398,6 +1454,14 @@ class _$EraserElement implements EraserElement {
         image,
     required TResult Function(
             String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)
+        svg,
+    required TResult Function(
+            String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
             ShapeProperty property)
@@ -1426,6 +1490,14 @@ class _$EraserElement implements EraserElement {
             int width,
             int height)?
         image,
+    TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
@@ -1458,6 +1530,14 @@ class _$EraserElement implements EraserElement {
         image,
     TResult Function(
             String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
+    TResult Function(
+            String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
             ShapeProperty property)?
@@ -1477,6 +1557,7 @@ class _$EraserElement implements EraserElement {
     required TResult Function(EraserElement value) eraser,
     required TResult Function(LabelElement value) label,
     required TResult Function(ImageElement value) image,
+    required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
   }) {
     return eraser(this);
@@ -1489,6 +1570,7 @@ class _$EraserElement implements EraserElement {
     TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
   }) {
     return eraser?.call(this);
@@ -1501,6 +1583,7 @@ class _$EraserElement implements EraserElement {
     TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
     required TResult orElse(),
   }) {
@@ -1696,6 +1779,14 @@ class _$LabelElement implements LabelElement {
         image,
     required TResult Function(
             String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)
+        svg,
+    required TResult Function(
+            String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
             ShapeProperty property)
@@ -1724,6 +1815,14 @@ class _$LabelElement implements LabelElement {
             int width,
             int height)?
         image,
+    TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
@@ -1756,6 +1855,14 @@ class _$LabelElement implements LabelElement {
         image,
     TResult Function(
             String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
+    TResult Function(
+            String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
             ShapeProperty property)?
@@ -1775,6 +1882,7 @@ class _$LabelElement implements LabelElement {
     required TResult Function(EraserElement value) eraser,
     required TResult Function(LabelElement value) label,
     required TResult Function(ImageElement value) image,
+    required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
   }) {
     return label(this);
@@ -1787,6 +1895,7 @@ class _$LabelElement implements LabelElement {
     TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
   }) {
     return label?.call(this);
@@ -1799,6 +1908,7 @@ class _$LabelElement implements LabelElement {
     TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
     required TResult orElse(),
   }) {
@@ -2013,6 +2123,14 @@ class _$ImageElement implements ImageElement {
         image,
     required TResult Function(
             String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)
+        svg,
+    required TResult Function(
+            String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
             ShapeProperty property)
@@ -2041,6 +2159,14 @@ class _$ImageElement implements ImageElement {
             int width,
             int height)?
         image,
+    TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
@@ -2073,6 +2199,14 @@ class _$ImageElement implements ImageElement {
         image,
     TResult Function(
             String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
+    TResult Function(
+            String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
             ShapeProperty property)?
@@ -2092,6 +2226,7 @@ class _$ImageElement implements ImageElement {
     required TResult Function(EraserElement value) eraser,
     required TResult Function(LabelElement value) label,
     required TResult Function(ImageElement value) image,
+    required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
   }) {
     return image(this);
@@ -2104,6 +2239,7 @@ class _$ImageElement implements ImageElement {
     TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
   }) {
     return image?.call(this);
@@ -2116,6 +2252,7 @@ class _$ImageElement implements ImageElement {
     TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
     required TResult orElse(),
   }) {
@@ -2155,6 +2292,352 @@ abstract class ImageElement implements PadElement {
   @override
   @JsonKey(ignore: true)
   _$$ImageElementCopyWith<_$ImageElement> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SvgElementCopyWith<$Res>
+    implements $PadElementCopyWith<$Res> {
+  factory _$$SvgElementCopyWith(
+          _$SvgElement value, $Res Function(_$SvgElement) then) =
+      __$$SvgElementCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String layer,
+      @OffsetJsonConverter() Offset position,
+      ElementConstraints? constraints,
+      String data,
+      double width,
+      double height});
+
+  $ElementConstraintsCopyWith<$Res>? get constraints;
+}
+
+/// @nodoc
+class __$$SvgElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
+    implements _$$SvgElementCopyWith<$Res> {
+  __$$SvgElementCopyWithImpl(
+      _$SvgElement _value, $Res Function(_$SvgElement) _then)
+      : super(_value, (v) => _then(v as _$SvgElement));
+
+  @override
+  _$SvgElement get _value => super._value as _$SvgElement;
+
+  @override
+  $Res call({
+    Object? layer = freezed,
+    Object? position = freezed,
+    Object? constraints = freezed,
+    Object? data = freezed,
+    Object? width = freezed,
+    Object? height = freezed,
+  }) {
+    return _then(_$SvgElement(
+      layer: layer == freezed
+          ? _value.layer
+          : layer // ignore: cast_nullable_to_non_nullable
+              as String,
+      position: position == freezed
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as Offset,
+      constraints: constraints == freezed
+          ? _value.constraints
+          : constraints // ignore: cast_nullable_to_non_nullable
+              as ElementConstraints?,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as String,
+      width: width == freezed
+          ? _value.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as double,
+      height: height == freezed
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+
+  @override
+  $ElementConstraintsCopyWith<$Res>? get constraints {
+    if (_value.constraints == null) {
+      return null;
+    }
+
+    return $ElementConstraintsCopyWith<$Res>(_value.constraints!, (value) {
+      return _then(_value.copyWith(constraints: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SvgElement implements SvgElement {
+  const _$SvgElement(
+      {this.layer = '',
+      @OffsetJsonConverter() this.position = Offset.zero,
+      this.constraints = const ScaledElementConstraints(1),
+      this.data = '',
+      required this.width,
+      required this.height,
+      final String? $type})
+      : $type = $type ?? 'svg';
+
+  factory _$SvgElement.fromJson(Map<String, dynamic> json) =>
+      _$$SvgElementFromJson(json);
+
+  @override
+  @JsonKey()
+  final String layer;
+  @override
+  @JsonKey()
+  @OffsetJsonConverter()
+  final Offset position;
+  @override
+  @JsonKey()
+  final ElementConstraints? constraints;
+  @override
+  @JsonKey()
+  final String data;
+  @override
+  final double width;
+  @override
+  final double height;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'PadElement.svg(layer: $layer, position: $position, constraints: $constraints, data: $data, width: $width, height: $height)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SvgElement &&
+            const DeepCollectionEquality().equals(other.layer, layer) &&
+            const DeepCollectionEquality().equals(other.position, position) &&
+            const DeepCollectionEquality()
+                .equals(other.constraints, constraints) &&
+            const DeepCollectionEquality().equals(other.data, data) &&
+            const DeepCollectionEquality().equals(other.width, width) &&
+            const DeepCollectionEquality().equals(other.height, height));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(layer),
+      const DeepCollectionEquality().hash(position),
+      const DeepCollectionEquality().hash(constraints),
+      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(width),
+      const DeepCollectionEquality().hash(height));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$SvgElementCopyWith<_$SvgElement> get copyWith =>
+      __$$SvgElementCopyWithImpl<_$SvgElement>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String layer, List<PathPoint> points, PenProperty property)
+        pen,
+    required TResult Function(
+            String layer, List<PathPoint> points, EraserProperty property)
+        eraser,
+    required TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)
+        label,
+    required TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            @Uint8ListJsonConverter() Uint8List pixels,
+            int width,
+            int height)
+        image,
+    required TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)
+        svg,
+    required TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset firstPosition,
+            @OffsetJsonConverter() Offset secondPosition,
+            ShapeProperty property)
+        shape,
+  }) {
+    return svg(layer, position, constraints, data, width, height);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(
+            String layer, List<PathPoint> points, PenProperty property)?
+        pen,
+    TResult Function(
+            String layer, List<PathPoint> points, EraserProperty property)?
+        eraser,
+    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+            String text, LabelProperty property, ElementConstraint constraint)?
+        label,
+    TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            @Uint8ListJsonConverter() Uint8List pixels,
+            int width,
+            int height)?
+        image,
+    TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
+    TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset firstPosition,
+            @OffsetJsonConverter() Offset secondPosition,
+            ShapeProperty property)?
+        shape,
+  }) {
+    return svg?.call(layer, position, constraints, data, width, height);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String layer, List<PathPoint> points, PenProperty property)?
+        pen,
+    TResult Function(
+            String layer, List<PathPoint> points, EraserProperty property)?
+        eraser,
+    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+            String text, LabelProperty property, ElementConstraint constraint)?
+        label,
+    TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            @Uint8ListJsonConverter() Uint8List pixels,
+            int width,
+            int height)?
+        image,
+    TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
+    TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset firstPosition,
+            @OffsetJsonConverter() Offset secondPosition,
+            ShapeProperty property)?
+        shape,
+    required TResult orElse(),
+  }) {
+    if (svg != null) {
+      return svg(layer, position, constraints, data, width, height);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PenElement value) pen,
+    required TResult Function(EraserElement value) eraser,
+    required TResult Function(LabelElement value) label,
+    required TResult Function(ImageElement value) image,
+    required TResult Function(SvgElement value) svg,
+    required TResult Function(ShapeElement value) shape,
+  }) {
+    return svg(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PenElement value)? pen,
+    TResult Function(EraserElement value)? eraser,
+    TResult Function(LabelElement value)? label,
+    TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
+    TResult Function(ShapeElement value)? shape,
+  }) {
+    return svg?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PenElement value)? pen,
+    TResult Function(EraserElement value)? eraser,
+    TResult Function(LabelElement value)? label,
+    TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
+    TResult Function(ShapeElement value)? shape,
+    required TResult orElse(),
+  }) {
+    if (svg != null) {
+      return svg(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SvgElementToJson(this);
+  }
+}
+
+abstract class SvgElement implements PadElement {
+  const factory SvgElement(
+      {final String layer,
+      @OffsetJsonConverter() final Offset position,
+      final ElementConstraints? constraints,
+      final String data,
+      required final double width,
+      required final double height}) = _$SvgElement;
+
+  factory SvgElement.fromJson(Map<String, dynamic> json) =
+      _$SvgElement.fromJson;
+
+  @override
+  String get layer => throw _privateConstructorUsedError;
+  @OffsetJsonConverter()
+  Offset get position => throw _privateConstructorUsedError;
+  ElementConstraints? get constraints => throw _privateConstructorUsedError;
+  String get data => throw _privateConstructorUsedError;
+  double get width => throw _privateConstructorUsedError;
+  double get height => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$SvgElementCopyWith<_$SvgElement> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2300,6 +2783,14 @@ class _$ShapeElement implements ShapeElement {
         image,
     required TResult Function(
             String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)
+        svg,
+    required TResult Function(
+            String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
             ShapeProperty property)
@@ -2328,6 +2819,14 @@ class _$ShapeElement implements ShapeElement {
             int width,
             int height)?
         image,
+    TResult Function(
+            String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
     TResult Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
@@ -2360,6 +2859,14 @@ class _$ShapeElement implements ShapeElement {
         image,
     TResult Function(
             String layer,
+            @OffsetJsonConverter() Offset position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
+    TResult Function(
+            String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
             ShapeProperty property)?
@@ -2379,6 +2886,7 @@ class _$ShapeElement implements ShapeElement {
     required TResult Function(EraserElement value) eraser,
     required TResult Function(LabelElement value) label,
     required TResult Function(ImageElement value) image,
+    required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
   }) {
     return shape(this);
@@ -2391,6 +2899,7 @@ class _$ShapeElement implements ShapeElement {
     TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
   }) {
     return shape?.call(this);
@@ -2403,6 +2912,7 @@ class _$ShapeElement implements ShapeElement {
     TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
     required TResult orElse(),
   }) {

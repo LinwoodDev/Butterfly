@@ -9,23 +9,23 @@ import 'package:butterfly/models/element.dart';
 import 'package:butterfly/visualizer/int.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xml/xml.dart';
 
 import '../api/xml_helper.dart';
-
 import '../cubits/transform.dart';
 import '../models/background.dart';
 import '../models/property.dart';
 
+part 'backgrounds/box.dart';
+part 'backgrounds/empty.dart';
 part 'elements/eraser.dart';
 part 'elements/image.dart';
 part 'elements/label.dart';
 part 'elements/path.dart';
 part 'elements/pen.dart';
 part 'elements/shape.dart';
-
-part 'backgrounds/empty.dart';
-part 'backgrounds/box.dart';
+part 'elements/svg.dart';
 
 class DefaultHitCalculator extends HitCalculator {
   final Rect rect;
@@ -83,6 +83,9 @@ abstract class Renderer<T> {
       }
       if (element is ImageElement) {
         return ImageRenderer(element) as Renderer<T>;
+      }
+      if (element is SvgElement) {
+        return SvgRenderer(element) as Renderer<T>;
       }
     }
 

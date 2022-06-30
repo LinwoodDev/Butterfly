@@ -7,8 +7,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'path_point.dart';
 import 'property.dart';
 
-part 'element.g.dart';
 part 'element.freezed.dart';
+part 'element.g.dart';
 
 @freezed
 class ElementConstraint with _$ElementConstraint {
@@ -77,6 +77,15 @@ class PadElement with _$PadElement {
     required int width,
     required int height,
   }) = ImageElement;
+
+  const factory PadElement.svg({
+    @Default('') String layer,
+    @OffsetJsonConverter() @Default(Offset.zero) Offset position,
+    @Default(ScaledElementConstraints(1)) ElementConstraints? constraints,
+    @Default('') String data,
+    required double width,
+    required double height,
+  }) = SvgElement;
 
   const factory PadElement.shape({
     @Default('') String layer,

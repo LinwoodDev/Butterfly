@@ -165,6 +165,32 @@ Map<String, dynamic> _$$ImageElementToJson(_$ImageElement instance) =>
       'type': instance.$type,
     };
 
+_$SvgElement _$$SvgElementFromJson(Map json) => _$SvgElement(
+      layer: json['layer'] as String? ?? '',
+      position: json['position'] == null
+          ? Offset.zero
+          : const OffsetJsonConverter().fromJson(json['position'] as Map),
+      constraints: json['constraints'] == null
+          ? const ScaledElementConstraints(1)
+          : ElementConstraints.fromJson(
+              Map<String, dynamic>.from(json['constraints'] as Map)),
+      data: json['data'] as String? ?? '',
+      width: (json['width'] as num).toDouble(),
+      height: (json['height'] as num).toDouble(),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$SvgElementToJson(_$SvgElement instance) =>
+    <String, dynamic>{
+      'layer': instance.layer,
+      'position': const OffsetJsonConverter().toJson(instance.position),
+      'constraints': instance.constraints?.toJson(),
+      'data': instance.data,
+      'width': instance.width,
+      'height': instance.height,
+      'type': instance.$type,
+    };
+
 _$ShapeElement _$$ShapeElementFromJson(Map json) => _$ShapeElement(
       layer: json['layer'] as String? ?? '',
       firstPosition: json['firstPosition'] == null

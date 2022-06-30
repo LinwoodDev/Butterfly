@@ -7,6 +7,7 @@
 * Disable restart of the app after changing the personalization settings
 * Add file extension registry on linux
 * Add option to change color in pen context menu
+* Add svg element
 * Fix icon size in remote button
 * Fix error if icon is invalid when adding remote
 * Fix export in image element context menu
