@@ -13,4 +13,5 @@
 * Fix icon size in remote button
 * Fix error if icon is invalid when adding remote
 * Fix export in image element context menu
+* Add check to prevent duplicated remote entries
 * Change scale to slider in constraints dialog

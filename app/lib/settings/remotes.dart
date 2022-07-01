@@ -246,13 +246,18 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   readOnly: _isConnected,
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.url),
+                    labelText: AppLocalizations.of(context)!.url,
+                    icon: const Icon(PhosphorIcons.linkLight),
+                  ),
                 ),
+                const SizedBox(height: 8.0),
                 TextField(
                   controller: _iconController,
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.icon),
+                    labelText: AppLocalizations.of(context)!.icon,
+                    icon: const Icon(PhosphorIcons.imageLight),
+                  ),
                 ),
                 const Divider(
                   height: 32,
@@ -261,7 +266,9 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   TextField(
                     controller: _usernameController,
                     decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context)!.username),
+                      labelText: AppLocalizations.of(context)!.username,
+                      icon: const Icon(PhosphorIcons.userLight),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   TextField(
@@ -281,6 +288,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         onPressed: () =>
                             setState(() => _showPassword = !_showPassword),
                       ),
+                      icon: const Icon(PhosphorIcons.lockLight),
                     ),
                   ),
                 ] else ...[
@@ -312,6 +320,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                             controller: _documentsDirectoryController,
                             label: AppLocalizations.of(context)!
                                 .documentsDirectory,
+                            icon: const Icon(PhosphorIcons.folderLight),
                           ),
                           const SizedBox(height: 8),
                           _DirectoryField(
@@ -363,8 +372,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
 class _DirectoryField extends StatelessWidget {
   final TextEditingController? controller;
   final String? label;
+  final Widget? icon;
   final ValueChanged<String>? onChanged;
-  const _DirectoryField({this.controller, this.label, this.onChanged});
+  const _DirectoryField(
+      {this.controller, this.label, this.onChanged, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -372,6 +383,7 @@ class _DirectoryField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
+        icon: icon,
         /*suffixIcon: IconButton(
             icon: const Icon(PhosphorIcons.folderLight),
             onPressed: () async {}),*/

@@ -385,7 +385,10 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   Future<void> save() => state.save();
 
   Future<void> addRemote(RemoteStorage storage, {required String password}) {
-    emit(state.copyWith(remotes: List.from(state.remotes)..add(storage)));
+    emit(state.copyWith(
+        remotes: List.from(state.remotes)
+          ..removeWhere((element) => element.identifier == storage.identifier)
+          ..add(storage)));
     const FlutterSecureStorage()
         .write(key: 'remotes/${storage.identifier}', value: password);
     return save();
