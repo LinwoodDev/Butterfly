@@ -22,7 +22,7 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
     </li>
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux-x86_64.deb">
-        TB
+        DEB
       </DownloadButton>
     </li>
     <li>
@@ -42,7 +42,7 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
     </li>
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-linux.deb">
-        TB
+        DEB
       </DownloadButton>
     </li>
     <li>
@@ -60,6 +60,6 @@ Lesen Sie mehr über die nächtliche Version von Butterfly [hier](/nightly).
 
 <div className="row margin-bottom--lg padding--sm">
 <a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
-  Flathub
+  Flathu
 </a>
 </div>
