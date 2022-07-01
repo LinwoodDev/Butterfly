@@ -56,3 +56,11 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
 </div>
 
 Read more about the nightly version of Butterfly [here](/nightly).
+
+## Stores
+
+<div className="row margin-bottom--lg padding--sm">
+<a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
+  Flathub
+</a>
+</div>

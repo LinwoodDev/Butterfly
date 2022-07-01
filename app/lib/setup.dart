@@ -28,10 +28,16 @@ Future<void> setup() async {
 
   // Moving to external storage on Android
   if (!kIsWeb && Platform.isAndroid) {
-    var dir = await getApplicationDocumentsDirectory();
-    final oldPath = '${dir.path}/Linwood/Butterfly';
-    final newPath = await getButterflyDirectory();
-    await _moveDirectory(oldPath, newPath);
+    try {
+      var dir = await getApplicationDocumentsDirectory();
+      final oldPath = '${dir.path}/Linwood/Butterfly';
+      final newPath = await getButterflyDirectory();
+      await _moveDirectory(oldPath, newPath);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
   setupFullScreen();
 }
