@@ -23,7 +23,9 @@ class Header extends StatelessWidget {
       child: Row(children: [
         if (leading != null)
           IconTheme(
-              data: Theme.of(context).appBarTheme.iconTheme!, child: leading!),
+              data: Theme.of(context).appBarTheme.iconTheme ??
+                  Theme.of(context).iconTheme,
+              child: leading!),
         const SizedBox(width: 16),
         Expanded(
           child: DefaultTextStyle(

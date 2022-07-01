@@ -1,8 +1,9 @@
 [Desktop Entry]
 Name=Linwood Butterfly
-Comment=Change the world.
-Exec=butterfly
-Icon=dev.linwood.butterfly # replace name to your app name
+Comment=Powerful, minimalistic, cross-platform, opensource note-taking app
+Exec=butterfly %f
+Icon=dev.linwood.butterfly
 Terminal=false
 Type=Application
-Categories=Productivity; #adjust accordingly your snap category
+Categories=Productivity;
+MimeType=application/x-butterfly;

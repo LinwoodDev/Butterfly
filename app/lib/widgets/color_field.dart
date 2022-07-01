@@ -7,32 +7,35 @@ import '../dialogs/color_pick.dart';
 
 class ColorField extends StatelessWidget {
   final bool enabled;
-  final Color color;
+  final Color value;
   final Color? defaultColor;
   final Widget? title;
   final Widget? subtitle;
   final Widget? leading;
   final ValueChanged<Color>? onChanged;
+  final VoidCallback? onOpen;
 
   const ColorField(
       {super.key,
-      this.color = Colors.white,
+      this.value = Colors.white,
       this.defaultColor,
       this.enabled = true,
       this.leading,
       this.title,
       this.subtitle,
+      this.onOpen,
       this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () async {
+        onOpen?.call();
         var nextColor = await showDialog(
             context: context,
             builder: (ctx) => BlocProvider.value(
                   value: context.read<DocumentBloc>(),
-                  child: ColorPickerDialog(defaultColor: color),
+                  child: ColorPickerDialog(defaultColor: value),
                 )) as int?;
         if (nextColor != null) {
           onChanged?.call(Color(nextColor));
@@ -48,7 +51,7 @@ class ColorField extends StatelessWidget {
             width: 30,
             height: 30,
             decoration: BoxDecoration(
-                color: color,
+                color: value,
                 border:
                     Border.all(color: Theme.of(context).primaryColor, width: 2),
                 borderRadius: const BorderRadius.all(Radius.circular(32))),

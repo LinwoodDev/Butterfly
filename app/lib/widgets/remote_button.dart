@@ -43,7 +43,7 @@ class _RemoteButtonState extends State<RemoteButton> {
             ? const Icon(PhosphorIcons.houseLight)
             : _currentRemote!.icon.isEmpty
                 ? const Icon(PhosphorIcons.cloudLight)
-                : Image.memory(_currentRemote!.icon),
+                : Image.memory(_currentRemote!.icon, width: 24),
         onSelected: (remote) {
           setState(() {
             _currentRemote = remote;
@@ -68,7 +68,7 @@ class _RemoteButtonState extends State<RemoteButton> {
               child: Row(
                 children: [
                   if (remote.icon.isNotEmpty) ...[
-                    Image.memory(remote.icon),
+                    Image.memory(remote.icon, width: 24),
                     const SizedBox(width: 8),
                   ],
                   Flexible(

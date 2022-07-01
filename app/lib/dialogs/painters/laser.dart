@@ -37,7 +37,7 @@ class LaserPainterDialog extends StatelessWidget {
                       setPainter(painter.copyWith(strokeMultiplier: value))),
               const SizedBox(height: 10),
               ColorField(
-                color: Color(painter.color),
+                value: Color(painter.color),
                 onChanged: (color) =>
                     setPainter(painter.copyWith(color: color.value)),
                 title: Text(AppLocalizations.of(context)!.color),

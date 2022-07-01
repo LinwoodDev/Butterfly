@@ -2,6 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source":"/docs/latest/:path*",
+      "destination":"/docs/1.3/:path*"
+    },
+    {
       "source": "/docs/1.0.0/:path*",
       "destination": "https://butterfly-docs-6a70yx26s-linwood.vercel.app/docs/1.0/:path*"
     },

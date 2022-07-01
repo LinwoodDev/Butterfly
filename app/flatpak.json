@@ -15,60 +15,20 @@
   ],
   "modules": [
     {
-      "name": "butterfly",
-      "buildsystem": "simple",
-      "only-arches": [
-        "x86_64"
-      ],
-      "build-commands": [
-        "cp -r FlutterApp /app/",
-        "chmod +x /app/FlutterApp/butterfly",
-        "mkdir -p /app/bin",
-        "ln -s /app/FlutterApp/butterfly /app/bin/butterfly",
-        "mkdir -p /app/share/metainfo",
-        "cp -r dev.linwood.butterfly.appdata.xml /app/share/metainfo/",
-        "mkdir -p /app/share/icons/hicolor/scalable/apps",
-        "cp -r logo.svg /app/share/icons/hicolor/scalable/apps/dev.linwood.butterfly.svg",
-        "mkdir -p /app/share/applications",
-        "cp -r dev.linwood.butterfly.desktop /app/share/applications/",
-        "mkdir -p /app/share/appdata",
-        "cp -r dev.linwood.butterfly.appdata.xml /app/share/appdata/"
+      "name": "libjsoncpp",
+      "buildsystem": "cmake",
+      "config-opts": [
+        "-DCMAKE_BUILD_TYPE=release",
+        "-DBUILD_SHARED_LIBS=on"
       ],
       "sources": [
         {
-          "type": "file",
-          "path": "linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml"
-        },
-        {
-          "type": "file",
-          "path": "linux/debian/usr/share/applications/dev.linwood.butterfly.desktop"
-        },
-        {
-          "type": "file",
-          "path": "images/logo.svg"
-        },
-        {
           "type": "archive",
-          "path": "linwood-butterfly-linux-portable.tar.gz",
-          "dest": "FlutterApp"
+          "url": "https://github.com/open-source-parsers/jsoncpp/archive/refs/tags/1.7.5.tar.gz",
+          "sha256": "4338c6cab8af8dee6cdfd54e6218bd0533785f552c6162bb083f8dd28bf8fbbe"
         }
       ]
     },
-    {
-      "name": "libjsoncpp",
-      "buildsystem": "cmake",
-  "config-opts": [
-     "-DCMAKE_BUILD_TYPE=release",
-     "-DBUILD_SHARED_LIBS=on"
-  ],
-      "sources": [
-          {
-              "type": "archive",
-              "url": "https://github.com/open-source-parsers/jsoncpp/archive/refs/tags/1.7.5.tar.gz",
-              "sha256": "4338c6cab8af8dee6cdfd54e6218bd0533785f552c6162bb083f8dd28bf8fbbe"
-          }
-      ]
-  },
     {
       "name": "libsecret",
       "buildsystem": "meson",
@@ -89,6 +49,45 @@
           "type": "archive",
           "url": "https://download.gnome.org/sources/libsecret/0.20/libsecret-0.20.5.tar.xz",
           "sha256": "3fb3ce340fcd7db54d87c893e69bfc2b1f6e4d4b279065ffe66dac9f0fd12b4d"
+        }
+      ]
+    },
+    {
+      "name": "butterfly",
+      "buildsystem": "simple",
+      "only-arches": [
+        "x86_64"
+      ],
+      "build-commands": [
+        "mkdir -p /app",
+        "cp -r FlutterApp /app/",
+        "chmod +x /app/FlutterApp/butterfly",
+        "mkdir -p /app/bin",
+        "ln -s /app/FlutterApp/butterfly /app/bin/butterfly",
+        "mkdir -p /app/share/icons/hicolor/scalable/apps",
+        "install -Dm644 logo.svg -T /app/share/icons/hicolor/scalable/apps/dev.linwood.butterfly.svg",
+        "mkdir -p /app/share/applications",
+        "install -Dm644 dev.linwood.butterfly.desktop -t /app/share/applications/",
+        "mkdir -p /app/share/appdata",
+        "install -Dm644 dev.linwood.butterfly.appdata.xml -t /app/share/appdata/"
+      ],
+      "sources": [
+        {
+          "type": "file",
+          "path": "linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml"
+        },
+        {
+          "type": "file",
+          "path": "linux/debian/usr/share/applications/dev.linwood.butterfly.desktop"
+        },
+        {
+          "type": "file",
+          "path": "images/logo.svg"
+        },
+        {
+          "type": "archive",
+          "path": "linwood-butterfly-linux-portable.tar.gz",
+          "dest": "FlutterApp"
         }
       ]
     }

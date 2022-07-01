@@ -33,7 +33,7 @@ class ShapePainterDialog extends StatelessWidget {
                           painter.property.copyWith(strokeWidth: value)))),
               const SizedBox(height: 50),
               ColorField(
-                color: Color(painter.property.color),
+                value: Color(painter.property.color),
                 onChanged: (color) => setPainter(painter.copyWith(
                     property: painter.property.copyWith(color: color.value))),
                 title: Text(AppLocalizations.of(context)!.color),
@@ -105,7 +105,7 @@ class _ShapeViewState extends State<ShapeView> {
           headerBuilder: (context, expanded) => ListTile(
             title: Text(AppLocalizations.of(context)!.shape),
             trailing: DropdownButton<String>(
-              value: widget.shape.runtimeType.toString(),
+              value: currentShape.runtimeType.toString(),
               items: [
                 PathShape.circle,
                 PathShape.rectangle,
@@ -141,7 +141,7 @@ class _CircleShapeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       ColorField(
-        color: Color(shape.fillColor),
+        value: Color(shape.fillColor),
         title: Text(AppLocalizations.of(context)!.fill),
         leading: const Icon(PhosphorIcons.paintBucketLight),
         defaultColor: Colors.transparent,
@@ -168,7 +168,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
       ColorField(
         title: Text(AppLocalizations.of(context)!.fill),
         leading: const Icon(PhosphorIcons.paintBucketLight),
-        color: Color(widget.shape.fillColor),
+        value: Color(widget.shape.fillColor),
         defaultColor: Colors.transparent,
         onChanged: (color) =>
             widget.onChanged(widget.shape.copyWith(fillColor: color.value)),

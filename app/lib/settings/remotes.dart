@@ -120,53 +120,66 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _directoryController = TextEditingController(),
       _documentsDirectoryController = TextEditingController(),
       _templatesDirectoryController = TextEditingController();
-  bool _isConnected = false, _advanced = false;
+  bool _isConnected = false, _advanced = false, _showPassword = false;
 
   void _connect() async {
-    final loc = AppLocalizations.of(context)!;
-    final url = Uri.tryParse(_urlController.text.trim());
-    if (_urlController.text.isEmpty || url == null) {
-      _showCreatingError(loc.urlNotValid);
-      return;
+    try {
+      final loc = AppLocalizations.of(context)!;
+      final url = Uri.tryParse(_urlController.text.trim());
+      if (_urlController.text.isEmpty || url == null) {
+        _showCreatingError(loc.urlNotValid);
+        return;
+      }
+      var response = await http.get(url, headers: {
+        'Accept': 'application/json',
+        'Authorization':
+            'Basic ${base64Encode(utf8.encode('${_usernameController.text}:${_passwordController.text}'))}',
+      });
+      if (response.statusCode != 200) {
+        _showCreatingError(loc.cannotConnectToRemote);
+        return;
+      }
+      setState(() => _isConnected = true);
+    } catch (e) {
+      _showCreatingError(
+          AppLocalizations.of(context)!.cannotConnectToRemote, e);
     }
-    var response = await http.get(url, headers: {
-      'Accept': 'application/json',
-      'Authorization':
-          'Basic ${base64Encode(utf8.encode('${_usernameController.text}:${_passwordController.text}'))}',
-    });
-    if (response.statusCode != 200) {
-      _showCreatingError(loc.cannotConnectToRemote);
-      return;
-    }
-    setState(() => _isConnected = true);
   }
 
   Future<Uint8List> _getIcon() async {
-    var url = Uri.tryParse(_iconController.text.trim());
-
-    if (!(url?.isAbsolute ?? true)) {
-      url = Uri.tryParse(_urlController.text.trim())
-          ?.resolve(_iconController.text.trim());
-    }
-    if (url == null) {
-      return Uint8List(0);
-    }
-
-    final response = await http.get(url);
-    if (response.statusCode != 200) {
-      return Uint8List(0);
-    }
     try {
-      final image = await decodeImageFromList(response.bodyBytes);
-      final imageBytes = (await image.toByteData(format: ImageByteFormat.png))
-          ?.buffer
-          .asUint8List();
-      if (imageBytes?.isNotEmpty ?? false) {
-        return imageBytes!;
+      var url = Uri.tryParse(_iconController.text.trim());
+
+      if (!(url?.isAbsolute ?? true)) {
+        url = Uri.tryParse(_urlController.text.trim())
+            ?.resolve(_iconController.text.trim());
+      }
+      if (url == null) {
+        return Uint8List(0);
+      }
+
+      final response = await http.get(url);
+      if (response.statusCode != 200) {
+        return Uint8List(0);
+      }
+      try {
+        final image = await decodeImageFromList(response.bodyBytes);
+        final imageBytes = (await image.toByteData(format: ImageByteFormat.png))
+            ?.buffer
+            .asUint8List();
+        if (imageBytes?.isNotEmpty ?? false) {
+          return imageBytes!;
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
       }
     } catch (e) {
       if (kDebugMode) {
         print(e);
+        _showCreatingError(
+            AppLocalizations.of(context)!.cannotConnectToRemote, e);
       }
     }
     return Uint8List(0);
@@ -189,13 +202,22 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     navigator.pop();
   }
 
-  void _showCreatingError(String error) {
+  void _showCreatingError(String error, [dynamic e]) {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
               title:
                   Text(AppLocalizations.of(context)!.errorWhileCreatingRemote),
-              content: Text(error),
+              content: Column(
+                children: [
+                  Text(error),
+                  if (e != null)
+                    Text(
+                      e.toString(),
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                ],
+              ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
@@ -222,13 +244,20 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                 TextField(
                   controller: _urlController,
                   readOnly: _isConnected,
+                  keyboardType: TextInputType.url,
                   decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.url),
+                    labelText: AppLocalizations.of(context)!.url,
+                    icon: const Icon(PhosphorIcons.linkLight),
+                  ),
                 ),
+                const SizedBox(height: 8.0),
                 TextField(
                   controller: _iconController,
+                  keyboardType: TextInputType.url,
                   decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.icon),
+                    labelText: AppLocalizations.of(context)!.icon,
+                    icon: const Icon(PhosphorIcons.imageLight),
+                  ),
                 ),
                 const Divider(
                   height: 32,
@@ -237,14 +266,30 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   TextField(
                     controller: _usernameController,
                     decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context)!.username),
+                      labelText: AppLocalizations.of(context)!.username,
+                      icon: const Icon(PhosphorIcons.userLight),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   TextField(
                     controller: _passwordController,
-                    obscureText: true,
+                    obscureText: !_showPassword,
+                    keyboardType: _showPassword
+                        ? TextInputType.visiblePassword
+                        : TextInputType.text,
                     decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context)!.password),
+                      labelText: AppLocalizations.of(context)!.password,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _showPassword
+                              ? PhosphorIcons.eyeLight
+                              : PhosphorIcons.eyeSlashLight,
+                        ),
+                        onPressed: () =>
+                            setState(() => _showPassword = !_showPassword),
+                      ),
+                      icon: const Icon(PhosphorIcons.lockLight),
+                    ),
                   ),
                 ] else ...[
                   _DirectoryField(
@@ -275,6 +320,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                             controller: _documentsDirectoryController,
                             label: AppLocalizations.of(context)!
                                 .documentsDirectory,
+                            icon: const Icon(PhosphorIcons.folderLight),
                           ),
                           const SizedBox(height: 8),
                           _DirectoryField(
@@ -326,8 +372,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
 class _DirectoryField extends StatelessWidget {
   final TextEditingController? controller;
   final String? label;
+  final Widget? icon;
   final ValueChanged<String>? onChanged;
-  const _DirectoryField({this.controller, this.label, this.onChanged});
+  const _DirectoryField(
+      {this.controller, this.label, this.onChanged, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -335,6 +383,7 @@ class _DirectoryField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
+        icon: icon,
         /*suffixIcon: IconButton(
             icon: const Icon(PhosphorIcons.folderLight),
             onPressed: () async {}),*/

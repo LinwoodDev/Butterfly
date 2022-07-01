@@ -60,6 +60,7 @@ Future<void> main(List<String> args) async {
         File('fastlane/metadata/android/en-US/changelogs/$newBuildNumber.txt');
     var changelog = await changelogFile.readAsString();
     await updateChangelog(version, changelog);
+    await updateAppData(version);
   }
 
   print('Successfully updated!');
@@ -99,6 +100,25 @@ Future<void> updateSnapcraftVersion(String version) async {
   lines.add('');
   await file.writeAsString(lines.join('\r\n'));
   print('Successfully updated snapcraft version to $version');
+}
+
+bool isPreRelease(String version) {
+  return version.contains('-');
+}
+
+Future<void> updateAppData(String version) async {
+  var file = File(
+      'app/linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml');
+  if (isPreRelease(version)) {
+    return;
+  }
+  var currentDate = DateTime.now();
+  var dateString = DateFormat('yyyy-MM-dd').format(currentDate);
+  var line = '\t\t<release version="$version" date="$dateString" />';
+  var lines = List<String>.from(await file.readAsLines());
+  lines.insert(41, line);
+  await file.writeAsString(lines.join('\n'));
+  print('Successfully updated appdata version to $version');
 }
 
 Future<void> updateChangelog(String version, String changelog) async {

@@ -3,7 +3,7 @@ const redirects = require('./redirects.js');
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
     title: 'Linwood Butterfly',
-    tagline: '🎨 Notes that change the world 🎨',
+    tagline: '🎨 Powerful, minimalistic, cross-platform, opensource note-taking app 🎨',
     url: 'https://docs.butterfly.linwood.dev',
     baseUrl: '/',
     onBrokenLinks: 'throw',

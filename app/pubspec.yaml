@@ -1,5 +1,5 @@
 name: butterfly
-description: Change the world.
+description: Powerful, minimalistic, cross-platform, opensource note-taking app
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -11,7 +11,7 @@ description: Change the world.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.4.0-alpha.3+30
+version: 1.4.0-beta.0+31
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -51,6 +51,8 @@ dependencies:
   http: ^0.13.4
   flutter_secure_storage: ^5.0.2
   equatable: ^2.0.3
+  adwaita: ^0.5.2
+  yaru: ^0.3.3
 
 dev_dependencies:
   flutter_native_splash: ^2.2.3+1
@@ -60,7 +62,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  analyzer: ^4.1.0
+  analyzer: ^4.2.0
   freezed: ^2.0.3
   build_runner: ^2.1.11
   json_serializable: ^6.2.0

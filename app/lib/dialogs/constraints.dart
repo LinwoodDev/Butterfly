@@ -1,5 +1,6 @@
 import 'package:butterfly/models/element.dart';
 import 'package:butterfly/widgets/context_menu.dart';
+import 'package:butterfly/widgets/exact_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -174,14 +175,16 @@ class _ScaledConstraintsContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(shrinkWrap: true, children: [
-      TextFormField(
-          decoration: InputDecoration(
-              filled: true, labelText: AppLocalizations.of(context)!.scale),
-          keyboardType: TextInputType.number,
-          onFieldSubmitted: (value) {
-            onChanged(ScaledElementConstraints(double.parse(value)));
-          },
-          initialValue: constraints.scale.toStringAsFixed(2)),
+      ExactSlider(
+        header: Text(AppLocalizations.of(context)!.scale),
+        min: 0,
+        max: 10,
+        defaultValue: 1,
+        value: constraints.scale,
+        onChangeEnd: (value) {
+          onChanged(ScaledElementConstraints(value));
+        },
+      ),
     ]);
   }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-butterfly">
+    <sub-class-of type="application/json"/>
+    <icon name="dev.linwood.butterfly"/>
+    <comment>Butterfly files</comment>
+    <glob pattern="*.bfly"/>
+  </mime-type>
+</mime-info>

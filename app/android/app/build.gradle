@@ -72,6 +72,11 @@ android {
             applicationIdSuffix ""
             manifestPlaceholders = [appName: "Butterfly Nightly"]
         }
+        nightly {
+            dimension "default"
+            applicationIdSuffix ".nightly"
+            manifestPlaceholders = [appName: "Butterfly Nightly"]
+        }
     }
     signingConfigs {
         release {

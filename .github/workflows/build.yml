@@ -17,7 +17,7 @@ jobs:
           distribution: "adopt"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.3'
+          flutter-version: "3.0.3"
           channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |
@@ -50,7 +50,7 @@ jobs:
         uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.3'
+          flutter-version: "3.0.3"
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
@@ -114,7 +114,7 @@ jobs:
             libjsoncpp-dev
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.3'
+          flutter-version: "3.0.3"
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
@@ -203,7 +203,7 @@ jobs:
             libjsoncpp-dev
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.3'
+          flutter-version: "3.0.3"
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
@@ -215,30 +215,32 @@ jobs:
           flutter clean
           flutter doctor -v
           flutter build linux -v --release
-      - name: Compress Flutter build
-        run: tar -C build/linux/x64/release/bundle -czf linwood-butterfly-linux-portable.tar.gz .
-      - name: Install flatpak
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y flatpak flatpak-builder
-      - name: Install dependencies
-        run: |
-          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
-          flatpak install flathub org.freedesktop.Platform//21.08 org.freedesktop.Sdk//21.08 --user -y
       - name: Copy nessessary files
         run: |
-          cp linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml .
-          cp linux/debian/usr/share/applications/dev.linwood.butterfly.desktop .
-      - name: Build .flatpak
-        run: |
-          flatpak-builder --disable-rofiles-fuse --install-deps-from=flathub --force-clean --arch=x86_64 --ccache flatpak_app flatpak.json -y -v --user
-          flatpak build-export export flatpak_app -v
-          flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
-      - name: Upload .flatpak artifact to workflow
-        uses: actions/upload-artifact@v3
-        with:
-          name: linux-flatpak
-          path: app/linwood-butterfly-linux.flatpak
+          cp images/logo.svg build/linux/x64/release/bundle/dev.linwood.butterfly.svg
+          mkdir -p build/linux/x64/release/bundle/usr/share
+          cp -r linux/debian/usr/share build/linux/x64/release/bundle/usr
+      - name: Compress Flutter build
+        run: tar -C build/linux/x64/release/bundle -czf linwood-butterfly-linux-portable.tar.gz .
+      #    - name: Install flatpak
+      #      run: |
+      #        sudo apt-get update
+      #        sudo apt-get install -y flatpak
+      #    - name: Install dependencies
+      #      run: |
+      #        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
+      #        flatpak install flathub org.flatpak.Builder --user -y --arch=x86_64
+      #    - name: Build .flatpak
+      #      timeout-minutes: 15
+      #      run: |
+      #        flatpak run org.flatpak.Builder -v --force-clean --sandbox --delete-build-dirs --user --install-deps-from=flathub --arch=x86_64 flatpak_app flatpak.json --bundle-sources
+      #        flatpak build-export export flatpak_app -v
+      #        flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
+      #    - name: Upload .flatpak artifact to workflow
+      #      uses: actions/upload-artifact@v3
+      #      with:
+      #        name: linux-flatpak
+      #        path: app/linwood-butterfly-linux.flatpak
       - name: Archive old portable
         uses: actions/upload-artifact@v3
         with:
@@ -274,7 +276,6 @@ jobs:
       - build-apk
       - build-windows
       - build-linux
-      - build-flatpak
       #- build-flatpak
     steps:
       - name: ⬆️ Checkout
@@ -305,9 +306,9 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: linux-appimage
-      - uses: actions/download-artifact@v3
-        with:
-          name: linux-flatpak
+      #- uses: actions/download-artifact@v3
+      #  with:
+      #    name: linux-flatpak
       - uses: actions/download-artifact@v3
         with:
           name: linux-alternative-portable
@@ -342,7 +343,7 @@ jobs:
             linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
-            linwood-butterfly-linux.flatpak
+          #  linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
@@ -360,7 +361,7 @@ jobs:
             linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
-            linwood-butterfly-linux.flatpak
+          #  linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
@@ -376,7 +377,7 @@ jobs:
             linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
-            linwood-butterfly-linux.flatpak
+          #  linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
@@ -411,7 +412,7 @@ jobs:
           distribution: "adopt"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.3'
+          flutter-version: "3.0.3"
           channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |
@@ -429,4 +430,4 @@ jobs:
       - name: 🚀 Deploy to Play Store
         if: ${{ github.ref == 'refs/tags/nightly' }}
         run: bundle exec fastlane beta
-        working-directory: app/androidhttps://github.com/LinwoodCloud/Butterfly/blob/develop/app/AppImageBuilder.yml
+        working-directory: app/android

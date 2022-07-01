@@ -22,6 +22,9 @@ extension ElementVisualizer on PadElement {
     if (this is ShapeElement) {
       return AppLocalizations.of(context)!.shape;
     }
+    if (this is SvgElement) {
+      return AppLocalizations.of(context)!.svg;
+    }
     throw UnimplementedError();
   }
 
@@ -41,6 +44,9 @@ extension ElementVisualizer on PadElement {
     if (this is ShapeElement) {
       final shape = (this as ShapeElement).property.shape;
       return shape.getIcon();
+    }
+    if (this is SvgElement) {
+      return PhosphorIcons.sunLight;
     }
     throw UnimplementedError();
   }
