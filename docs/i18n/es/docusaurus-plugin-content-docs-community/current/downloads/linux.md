@@ -60,6 +60,6 @@ Lea más sobre la versión nocturna de la mariposa [aquí](/nightly).
 
 <div className="row margin-bottom--lg padding--sm">
 <a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
-  Flathub
+  Almacén
 </a>
 </div>
