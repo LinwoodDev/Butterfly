@@ -430,4 +430,4 @@ jobs:
       - name: 🚀 Deploy to Play Store
         if: ${{ github.ref == 'refs/tags/nightly' }}
         run: bundle exec fastlane beta
-        working-directory: app/androidhttps://github.com/LinwoodCloud/Butterfly/blob/develop/app/AppImageBuilder.yml
+        working-directory: app/android
