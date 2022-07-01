@@ -5,7 +5,7 @@
 	<developer_name>Linwood</developer_name>
 	<summary>Powerful, minimalistic, cross-platform, opensource note-taking app</summary>
 	<metadata_license>CC0-1.0</metadata_license>
-	<project_license>GPL-3.0-only</project_license>
+	<project_license>AGPL-3.0-only</project_license>
 	<supports>
 	  <control>pointing</control>
 	  <control>keyboard</control>
