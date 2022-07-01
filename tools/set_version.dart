@@ -110,8 +110,7 @@ Future<void> updateAppData(String version) async {
   var file = File(
       'app/linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml');
   if (isPreRelease(version)) {
-    file = File(
-        'app/linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml.prerelease');
+    return;
   }
   var currentDate = DateTime.now();
   var dateString = DateFormat('yyyy-MM-dd').format(currentDate);
