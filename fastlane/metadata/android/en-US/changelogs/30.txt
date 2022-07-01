@@ -4,6 +4,7 @@
     * Add circle shape
     * Add line shape
 * Add yaru and adwaita theme
+* Show better display name for themes
 * Change area icon
 * Disable restart of the app after changing the personalization settings
 * Add file extension registry on linux

@@ -1,5 +1,6 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
+import 'package:butterfly/visualizer/string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,7 +73,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
                       ListTile(
                         leading: const Icon(PhosphorIcons.paletteLight),
                         title: Text(AppLocalizations.of(context)!.design),
-                        subtitle: Text(state.design),
+                        subtitle:
+                            Text(getCurrentDesign(context).toDisplayString()),
                         trailing: _ThemeBox(
                             theme: ThemeManager.getThemeByName(state.design)),
                         onTap: () => _openDesignModal(context),
@@ -116,9 +118,15 @@ class PersonalizationSettingsPage extends StatelessWidget {
         ));
   }
 
+  String getCurrentDesign(BuildContext context) {
+    var design = context.read<SettingsCubit>().state.design;
+    if (design.isEmpty) return 'classic';
+    return design;
+  }
+
   void _openDesignModal(BuildContext context) {
     final cubit = context.read<SettingsCubit>();
-    final currentDesign = cubit.state.design;
+    final currentDesign = getCurrentDesign(context);
 
     showModalBottomSheet(
         context: context,
@@ -146,7 +154,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
                     (e) {
                       final theme = ThemeManager.getThemeByName(e);
                       return ListTile(
-                          title: Text(e),
+                          title: Text(e.toDisplayString()),
                           selected: e == currentDesign,
                           onTap: () => changeDesign(e),
                           leading: _ThemeBox(
