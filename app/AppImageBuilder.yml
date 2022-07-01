@@ -61,7 +61,8 @@ AppDir:
       command: ./AppRun
       use_host_x: true
   runtime: 
-    GDK_BACKEND: x11
+    env:
+      GDK_BACKEND: x11
 AppImage:
   arch: x86_64
   update-information: guess
