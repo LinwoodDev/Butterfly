@@ -51,6 +51,8 @@ dependencies:
   http: ^0.13.4
   flutter_secure_storage: ^5.0.2
   equatable: ^2.0.3
+  adwaita: ^0.5.2
+  yaru: ^0.3.3
 
 dev_dependencies:
   flutter_native_splash: ^2.2.3+1
