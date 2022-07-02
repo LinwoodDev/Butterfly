@@ -17,6 +17,9 @@ _$DavRemoteStorage _$$DavRemoteStorageFromJson(Map json) => _$DavRemoteStorage(
               .toList() ??
           const [],
       icon: const Uint8ListJsonConverter().fromJson(json['icon'] as String),
+      lastSynced: json['lastSynced'] == null
+          ? null
+          : DateTime.parse(json['lastSynced'] as String),
     );
 
 Map<String, dynamic> _$$DavRemoteStorageToJson(_$DavRemoteStorage instance) =>
@@ -28,4 +31,5 @@ Map<String, dynamic> _$$DavRemoteStorageToJson(_$DavRemoteStorage instance) =>
       'templatesPath': instance.templatesPath,
       'cachedDocuments': instance.cachedDocuments,
       'icon': const Uint8ListJsonConverter().toJson(instance.icon),
+      'lastSynced': instance.lastSynced?.toIso8601String(),
     };

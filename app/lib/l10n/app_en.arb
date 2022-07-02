@@ -332,5 +332,28 @@
   "manage": "Manage",
   "clearCaches": "Clear caches",
   "createCache": "Create cache",
-  "thirdPartyLicenses": "Third party licenses"
+  "thirdPartyLicenses": "Third party licenses",
+  "syncing": "Syncing...",
+  "synced": "Synced",
+  "conflict": "Conflict",
+  "keepLocal": "Keep local",
+  "keepRemote": "Keep remote",
+  "keepBoth": "Keep both",
+  "forAll": "For all",
+  "fileConflict": "{file} in {remote} has a conflict",
+  "@fileConflict": {
+    "placeholders": {
+      "file": {
+        "type": "String",
+        "example": "file.txt"
+      },
+      "remote": {
+        "type": "String",
+        "example": "remote"
+      }
+    }
+  },
+  "offline": "Offline",
+  "localLatest": "Local latest",
+  "remoteLatest": "Remote latest"
 }

@@ -16,31 +16,33 @@ import 'file_system_io.dart';
 
 enum SyncStatus { localLatest, remoteLatest, synced, conflict, offline }
 
+@immutable
 class SyncFile {
   final AssetLocation location;
-  final DateTime localLastModified, syncedLastModified;
-  final DateTime? remoteLastModified;
+  final DateTime? localLastModified, syncedLastModified, remoteLastModified;
 
-  SyncFile(
+  const SyncFile(
       {required this.location,
       required this.localLastModified,
       required this.syncedLastModified,
       this.remoteLastModified});
 
   SyncStatus get status {
-    if (remoteLastModified == null) {
+    if (remoteLastModified == null ||
+        localLastModified == null ||
+        syncedLastModified == null) {
       return SyncStatus.offline;
     }
-    if (syncedLastModified != remoteLastModified) {
-      if (localLastModified == syncedLastModified) {
+    if (syncedLastModified!.isBefore(remoteLastModified!)) {
+      if (localLastModified!.isBefore(remoteLastModified!)) {
         return SyncStatus.remoteLatest;
       }
       return SyncStatus.conflict;
     }
-    if (localLastModified == syncedLastModified) {
+    if (localLastModified == remoteLastModified) {
       return SyncStatus.synced;
     }
-    if (localLastModified.isAfter(syncedLastModified)) {
+    if (localLastModified!.isAfter(syncedLastModified!)) {
       return SyncStatus.localLatest;
     }
     return SyncStatus.remoteLatest;
@@ -80,14 +82,13 @@ abstract class DavRemoteSystem {
     return null;
   }
 
-  Future<void> cacheContent(String path, String content,
-      [DateTime? modified]) async {
+  Future<void> cacheContent(String path, String content) async {
     var absolutePath = await getAbsoluteCachePath(path);
     var file = File(absolutePath);
-    if (!(await file.exists())) {
-      await file.create(recursive: true);
+    if (await file.exists()) {
+      await file.delete();
     }
-    if (modified != null) await file.setLastModified(modified);
+    await file.create(recursive: true);
     await file.writeAsString(content);
   }
 
@@ -146,16 +147,40 @@ abstract class DavRemoteSystem {
     return files;
   }
 
-  Future<List<String>> getModifiedFiles(Map<String, DateTime> modifieds) async {
-    final modifiedCache = await getCachedFileModifieds();
-    final modified = <String>[];
-    for (final file in modifiedCache.keys) {
-      if (modifieds[file] != modifiedCache[file] ||
-          modifieds.containsKey(file)) {
-        modified.add(file);
+  Future<DateTime?> getRemoteFileModified(String path) async => null;
+
+  Future<SyncFile> getSyncFile(String path) async {
+    var localLastModified = await getCachedFileModified(path);
+    var remoteLastModified = await getRemoteFileModified(path);
+    var syncedLastModified = remote.lastSynced;
+    return SyncFile(
+        location: AssetLocation(remote: remote.identifier, path: path),
+        localLastModified: localLastModified,
+        remoteLastModified: remoteLastModified,
+        syncedLastModified: syncedLastModified);
+  }
+
+  Future<void> uploadCachedContent(String path) async {}
+
+  Future<List<SyncFile>> getSyncFiles() async {
+    var files = <SyncFile>[];
+    var cacheDir = await getRemoteCacheDirectory();
+    var dir = Directory(cacheDir);
+    var list = await dir.list().toList();
+    for (var file in list) {
+      if (file is File) {
+        var name = p.relative(file.path, from: cacheDir);
+        var localLastModified = await file.lastModified();
+        var remoteLastModified = await getRemoteFileModified(name);
+        var syncedLastModified = remote.lastSynced;
+        files.add(SyncFile(
+            location: AssetLocation(remote: remote.identifier, path: name),
+            localLastModified: localLastModified,
+            remoteLastModified: remoteLastModified,
+            syncedLastModified: syncedLastModified));
       }
     }
-    return modified;
+    return files;
   }
 }
 
@@ -287,6 +312,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
         json.decode(content));
   }
 
+  @override
   Future<DateTime?> getRemoteFileModified(String path) async {
     final response = await _createRequest(path.split('/'), method: 'HEAD');
     if (response.statusCode != 200) {

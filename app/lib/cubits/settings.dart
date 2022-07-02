@@ -29,6 +29,7 @@ class RemoteStorage with _$RemoteStorage {
     required String templatesPath,
     @Default([]) List<String> cachedDocuments,
     @Uint8ListJsonConverter() required Uint8List icon,
+    DateTime? lastSynced,
   }) = DavRemoteStorage;
 
   factory RemoteStorage.fromJson(Map<String, dynamic> json) =>
@@ -427,6 +428,17 @@ class SettingsCubit extends Cubit<ButterflySettings> {
         return e.copyWith(
             cachedDocuments: List<String>.from(e.cachedDocuments)
               ..remove(current));
+      }
+      return e;
+    }).toList()));
+    return save();
+  }
+
+  Future<void> updateLastSynced(String identifier) {
+    emit(state.copyWith(
+        remotes: List<RemoteStorage>.from(state.remotes).map((e) {
+      if (e.identifier == identifier) {
+        return e.copyWith(lastSynced: DateTime.now());
       }
       return e;
     }).toList()));

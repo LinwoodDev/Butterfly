@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:butterfly/services/sync.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,11 +82,15 @@ Future<void> main([List<String> args = const []]) async {
       await windowManager.focus();
     });
   }
-  runApp(MultiRepositoryProvider(providers: [
-    RepositoryProvider(create: (context) => DocumentFileSystem.fromPlatform()),
-    RepositoryProvider(create: (context) => TemplateFileSystem.fromPlatform()),
-    RepositoryProvider(create: (context) => const DocumentJsonConverter()),
-  ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)));
+  runApp(Scaffold(
+    body: MultiRepositoryProvider(providers: [
+      RepositoryProvider(
+          create: (context) => DocumentFileSystem.fromPlatform()),
+      RepositoryProvider(
+          create: (context) => TemplateFileSystem.fromPlatform()),
+      RepositoryProvider(create: (context) => const DocumentJsonConverter()),
+    ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)),
+  ));
 }
 
 class ButterflyApp extends StatelessWidget {
@@ -175,7 +180,13 @@ class ButterflyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => SettingsCubit.fromPrefs(prefs), child: _buildApp());
+      create: (_) => SettingsCubit.fromPrefs(prefs),
+      child: RepositoryProvider(
+        create: (context) =>
+            SyncService(context, context.read<SettingsCubit>()),
+        child: _buildApp(),
+      ),
+    );
   }
 
   Widget _buildApp() {
