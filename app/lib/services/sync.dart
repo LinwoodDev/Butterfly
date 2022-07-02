@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/file_system_remote.dart';
-import 'package:butterfly/dialogs/sync.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/subjects.dart';
 
 import '../cubits/settings.dart';
 
@@ -34,35 +33,46 @@ class SyncService {
   void _onSettingsChanged(ButterflySettings settings) {}
 }
 
+enum SyncStatus {
+  synced,
+  syncing,
+  error,
+}
+
 class RemoteSync {
   final BuildContext context;
   final RemoteStorage remoteStorage;
   final SettingsCubit settingsCubit;
-  final StreamController<List<SyncFile>> _filesController =
-      StreamController<List<SyncFile>>.broadcast();
+  final BehaviorSubject<List<SyncFile>> _filesSubject =
+      BehaviorSubject<List<SyncFile>>();
+  final BehaviorSubject<SyncStatus> _statusSubject =
+      BehaviorSubject<SyncStatus>();
 
-  Stream<List<SyncFile>> get files => _filesController.stream;
+  Stream<List<SyncFile>> get filesStream => _filesSubject.stream;
+  List<SyncFile>? get files => _filesSubject.valueOrNull;
+  Stream<SyncStatus> get statusStream => _statusSubject.stream;
+  SyncStatus? get status => _statusSubject.valueOrNull;
 
   RemoteSync(this.context, this.settingsCubit, this.remoteStorage) {
-    _filesController.onListen = _onListen;
+    _filesSubject.onListen = _onListen;
   }
 
-  Future<void> sync({bool sendNotifications = true}) async {
+  Future<void> sync() async {
+    if (status == SyncStatus.syncing) {
+      return;
+    }
+    _statusSubject.add(SyncStatus.syncing);
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage)
         as DavRemoteSystem;
     var files = await fileSystem.getSyncFiles();
-    if (sendNotifications) {
-      files
-          .where((element) => element.status == SyncStatus.conflict)
-          .forEach((element) => _sendNotifications());
-    }
 
-    _filesController.add(files);
+    _filesSubject.add(files);
+    _statusSubject.add(SyncStatus.synced);
   }
 
-  Future<List<SyncFile>> getSyncFiles([SyncStatus? status]) async {
+  Future<List<SyncFile>> getSyncFiles([FileSyncStatus? status]) async {
     // Get current files from stream or sync
-    var currentFiles = await files.first;
+    var currentFiles = await filesStream.first;
     if (status != null) {
       currentFiles =
           currentFiles.where((file) => file.status == status).toList();
@@ -72,18 +82,5 @@ class RemoteSync {
 
   void _onListen() {
     sync();
-  }
-
-  void _sendNotifications() {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(AppLocalizations.of(context)!.conflict),
-      action: SnackBarAction(
-        label: AppLocalizations.of(context)!.showDetails,
-        onPressed: () => showDialog(
-          context: context,
-          builder: (context) => SyncDialog(remote: remoteStorage.identifier),
-        ),
-      ),
-    ));
   }
 }

@@ -14,7 +14,7 @@ import '../models/template.dart';
 import 'file_system.dart';
 import 'file_system_io.dart';
 
-enum SyncStatus { localLatest, remoteLatest, synced, conflict, offline }
+enum FileSyncStatus { localLatest, remoteLatest, synced, conflict, offline }
 
 @immutable
 class SyncFile {
@@ -27,25 +27,25 @@ class SyncFile {
       required this.syncedLastModified,
       this.remoteLastModified});
 
-  SyncStatus get status {
+  FileSyncStatus get status {
     if (remoteLastModified == null ||
         localLastModified == null ||
         syncedLastModified == null) {
-      return SyncStatus.offline;
+      return FileSyncStatus.offline;
     }
     if (syncedLastModified!.isBefore(remoteLastModified!)) {
       if (localLastModified!.isBefore(remoteLastModified!)) {
-        return SyncStatus.remoteLatest;
+        return FileSyncStatus.remoteLatest;
       }
-      return SyncStatus.conflict;
+      return FileSyncStatus.conflict;
     }
     if (localLastModified == remoteLastModified) {
-      return SyncStatus.synced;
+      return FileSyncStatus.synced;
     }
     if (localLastModified!.isAfter(syncedLastModified!)) {
-      return SyncStatus.localLatest;
+      return FileSyncStatus.localLatest;
     }
-    return SyncStatus.remoteLatest;
+    return FileSyncStatus.remoteLatest;
   }
 }
 

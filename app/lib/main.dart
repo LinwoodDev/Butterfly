@@ -82,15 +82,15 @@ Future<void> main([List<String> args = const []]) async {
       await windowManager.focus();
     });
   }
-  runApp(Scaffold(
-    body: MultiRepositoryProvider(providers: [
+  runApp(
+    MultiRepositoryProvider(providers: [
       RepositoryProvider(
           create: (context) => DocumentFileSystem.fromPlatform()),
       RepositoryProvider(
           create: (context) => TemplateFileSystem.fromPlatform()),
       RepositoryProvider(create: (context) => const DocumentJsonConverter()),
     ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)),
-  ));
+  );
 }
 
 class ButterflyApp extends StatelessWidget {
