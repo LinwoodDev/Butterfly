@@ -17,7 +17,7 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linux.zip">
-        Portable
+        Tragbar
       </DownloadButton>
     </li>
     <li>
@@ -37,7 +37,7 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-linux.zip">
-        Portable
+        Tragbar
       </DownloadButton>
     </li>
     <li>
@@ -55,3 +55,11 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
 </div>
 
 Lesen Sie mehr über die nächtliche Version von Butterfly [hier](/nightly).
+
+## Filialen
+
+<div className="row margin-bottom--lg padding--sm">
+<a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
+  Flathub
+</a>
+</div>
