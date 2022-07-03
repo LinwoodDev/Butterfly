@@ -13,6 +13,7 @@ import 'package:window_manager/window_manager.dart';
 import 'api/file_system.dart';
 import 'cubits/settings.dart';
 import 'models/converter.dart';
+import 'settings/remote.dart';
 import 'theme/manager.dart';
 import 'views/main.dart';
 import 'embed/embedding.dart';
@@ -136,11 +137,11 @@ class ButterflyApp extends StatelessWidget {
                         builder: (context, state) =>
                             const RemotesSettingsPage(),
                         routes: [
-                          /*GoRoute(
+                          GoRoute(
                             path: ':id',
                             builder: (context, state) =>
                                 RemoteSettingsPage(remote: state.params['id']!),
-                          )*/
+                          )
                         ],
                       ),
                     ],

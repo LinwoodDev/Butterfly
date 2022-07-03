@@ -355,5 +355,6 @@
   },
   "offline": "Offline",
   "localLatest": "Local latest",
-  "remoteLatest": "Remote latest"
+  "remoteLatest": "Remote latest",
+  "path": "Path"
 }

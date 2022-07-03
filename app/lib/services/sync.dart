@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/file_system_remote.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 
@@ -23,6 +24,7 @@ class SyncService {
   }
 
   RemoteSync? getSync(String remote) {
+    if (kIsWeb) return null;
     var sync = _syncs
         .firstWhereOrNull((sync) => sync.remoteStorage.identifier == remote);
     sync ??= _createSync(remote);
@@ -30,6 +32,7 @@ class SyncService {
   }
 
   RemoteSync? _createSync(String remote) {
+    if (kIsWeb) return null;
     final storage = settingsCubit.state.getRemote(remote);
     if (storage == null) {
       return null;
@@ -42,22 +45,26 @@ class SyncService {
   }
 
   Future<void> sync() async {
+    if (kIsWeb) return;
     for (final sync in _syncs) {
       await sync.sync();
     }
   }
 
   bool _hasSync(String remote) {
+    if (kIsWeb) return false;
     return _syncs.any((sync) => sync.remoteStorage.identifier == remote);
   }
 
   void _loadSettings(ButterflySettings settings) {
+    if (kIsWeb) return;
     for (final remote in settings.remotes) {
       if (!_hasSync(remote.identifier)) _createSync(remote.identifier);
     }
   }
 
   void _refreshStatus() {
+    if (kIsWeb) return;
     var syncStatus = SyncStatus.synced;
     for (final sync in _syncs) {
       if (sync.status == SyncStatus.error) {

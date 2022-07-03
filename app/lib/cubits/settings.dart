@@ -421,7 +421,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> deleteCache(String identifier, String current) {
+  Future<void> removeCache(String identifier, String current) {
     emit(state.copyWith(
         remotes: List<RemoteStorage>.from(state.remotes).map((e) {
       if (e.identifier == identifier) {
@@ -439,6 +439,17 @@ class SettingsCubit extends Cubit<ButterflySettings> {
         remotes: List<RemoteStorage>.from(state.remotes).map((e) {
       if (e.identifier == identifier) {
         return e.copyWith(lastSynced: DateTime.now());
+      }
+      return e;
+    }).toList()));
+    return save();
+  }
+
+  Future<void> clearCaches(RemoteStorage storage) {
+    emit(state.copyWith(
+        remotes: List<RemoteStorage>.from(state.remotes).map((e) {
+      if (e.identifier == storage.identifier) {
+        return e.copyWith(cachedDocuments: []);
       }
       return e;
     }).toList()));
