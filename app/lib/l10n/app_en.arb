@@ -335,6 +335,7 @@
   "thirdPartyLicenses": "Third party licenses",
   "syncing": "Syncing...",
   "synced": "Synced",
+  "notSynced": "Not synced",
   "conflict": "Conflict",
   "keepLocal": "Keep local",
   "keepRemote": "Keep remote",
@@ -356,5 +357,6 @@
   "offline": "Offline",
   "localLatest": "Local latest",
   "remoteLatest": "Remote latest",
-  "path": "Path"
+  "path": "Path",
+  "folderSynced": "Folder synced"
 }

@@ -94,11 +94,19 @@ class RemoteStorage with _$RemoteStorage {
   TemplateFileSystem get templateFileSystem =>
       TemplateFileSystem.fromPlatform(remote: this);
 
-  bool hasDocumnetCached(String name) {
+  bool hasDocumentCached(String name) {
     if (!name.startsWith('/')) {
       name = '/$name';
     }
-    return cachedDocuments.any((doc) => name.startsWith(doc));
+    return cachedDocuments.any((doc) {
+      if (doc == name) {
+        return true;
+      }
+      if (name.startsWith(doc)) {
+        return !name.substring(doc.length + 1).contains('/');
+      }
+      return false;
+    });
   }
 }
 
