@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-extension FileSyncStatusVisualizer on FileSyncStatus {
+extension FileSyncStatusVisualizer on FileSyncStatus? {
   String getLocalizedName(BuildContext context) {
     switch (this) {
       case FileSyncStatus.localLatest:
@@ -17,6 +17,8 @@ extension FileSyncStatusVisualizer on FileSyncStatus {
         return AppLocalizations.of(context)!.conflict;
       case FileSyncStatus.offline:
         return AppLocalizations.of(context)!.offline;
+      default:
+        return AppLocalizations.of(context)!.loading;
     }
   }
 
@@ -32,11 +34,13 @@ extension FileSyncStatusVisualizer on FileSyncStatus {
         return PhosphorIcons.warningCircleLight;
       case FileSyncStatus.offline:
         return PhosphorIcons.wifiSlashLight;
+      default:
+        return PhosphorIcons.arrowClockwiseLight;
     }
   }
 }
 
-extension SyncStatusVisualizer on SyncStatus {
+extension SyncStatusVisualizer on SyncStatus? {
   String getLocalizedName(BuildContext context) {
     switch (this) {
       case SyncStatus.syncing:
@@ -45,6 +49,8 @@ extension SyncStatusVisualizer on SyncStatus {
         return AppLocalizations.of(context)!.synced;
       case SyncStatus.error:
         return AppLocalizations.of(context)!.error;
+      default:
+        return AppLocalizations.of(context)!.loading;
     }
   }
 
@@ -56,6 +62,8 @@ extension SyncStatusVisualizer on SyncStatus {
         return PhosphorIcons.checkLight;
       case SyncStatus.error:
         return PhosphorIcons.warningLight;
+      default:
+        return PhosphorIcons.arrowClockwiseLight;
     }
   }
 }

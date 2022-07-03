@@ -214,10 +214,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             ),
                           ),
                         ),
-                        if (_fileSystem.remote != null)
-                          SyncButton(
-                            remote: _fileSystem.remote!.identifier,
-                          ),
+                        if (_fileSystem.remote != null) const SyncButton(),
                       ]);
                       return Padding(
                         padding: const EdgeInsets.all(8.0),

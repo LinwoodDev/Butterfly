@@ -12,26 +12,65 @@ class SyncService {
   final BuildContext context;
   final List<RemoteSync> _syncs = [];
   final SettingsCubit settingsCubit;
+  final BehaviorSubject<SyncStatus> _statusSubject =
+      BehaviorSubject<SyncStatus>();
+  Stream<SyncStatus> get statusStream => _statusSubject.stream;
+  SyncStatus? get status => _statusSubject.valueOrNull;
 
   SyncService(this.context, this.settingsCubit) {
-    settingsCubit.stream.listen(_onSettingsChanged);
+    settingsCubit.stream.listen(_loadSettings);
+    _loadSettings(settingsCubit.state);
   }
 
   RemoteSync? getSync(String remote) {
     var sync = _syncs
         .firstWhereOrNull((sync) => sync.remoteStorage.identifier == remote);
-    if (sync == null) {
-      final storage = settingsCubit.state.getRemote(remote);
-      if (storage != null) {
-        sync = RemoteSync(context, settingsCubit, storage);
-        _syncs.add(sync);
-      }
-      sync?.sync();
-    }
+    sync ??= _createSync(remote);
     return sync;
   }
 
-  void _onSettingsChanged(ButterflySettings settings) {}
+  RemoteSync? _createSync(String remote) {
+    final storage = settingsCubit.state.getRemote(remote);
+    if (storage == null) {
+      return null;
+    }
+    final sync = RemoteSync(context, settingsCubit, storage);
+    sync.statusStream.listen((status) => _refreshStatus());
+    _syncs.add(sync);
+    sync.sync();
+    return sync;
+  }
+
+  Future<void> sync() async {
+    for (final sync in _syncs) {
+      await sync.sync();
+    }
+  }
+
+  bool _hasSync(String remote) {
+    return _syncs.any((sync) => sync.remoteStorage.identifier == remote);
+  }
+
+  void _loadSettings(ButterflySettings settings) {
+    for (final remote in settings.remotes) {
+      if (!_hasSync(remote.identifier)) _createSync(remote.identifier);
+    }
+  }
+
+  void _refreshStatus() {
+    var syncStatus = SyncStatus.synced;
+    for (final sync in _syncs) {
+      if (sync.status == SyncStatus.error) {
+        syncStatus = SyncStatus.error;
+        break;
+      } else if (sync.status == SyncStatus.syncing) {
+        syncStatus = SyncStatus.syncing;
+      }
+    }
+    _statusSubject.add(syncStatus);
+  }
+
+  List<RemoteSync> get syncs => List.unmodifiable(_syncs);
 }
 
 enum SyncStatus {

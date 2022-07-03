@@ -184,6 +184,7 @@ class ButterflyApp extends StatelessWidget {
       child: RepositoryProvider(
         create: (context) =>
             SyncService(context, context.read<SettingsCubit>()),
+        lazy: false,
         child: _buildApp(),
       ),
     );

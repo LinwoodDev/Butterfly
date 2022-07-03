@@ -6,27 +6,21 @@ import '../../services/sync.dart';
 import '../sync.dart';
 
 class SyncButton extends StatelessWidget {
-  final String remote;
-  const SyncButton({super.key, required this.remote});
+  const SyncButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final sync = context.read<SyncService>().getSync(remote);
+    final service = context.read<SyncService>();
     return StreamBuilder<SyncStatus>(
-      stream: sync?.statusStream,
+      stream: service.statusStream,
       builder: (context, snapshot) {
         final status = snapshot.data;
-        if (status == null) {
-          return Container();
-        }
         return IconButton(
           icon: Icon(status.getIcon()),
           tooltip: status.getLocalizedName(context),
           onPressed: () => showDialog(
             context: context,
-            builder: (context) => SyncDialog(
-              remote: remote,
-            ),
+            builder: (context) => const SyncDialog(),
           ),
         );
       },
