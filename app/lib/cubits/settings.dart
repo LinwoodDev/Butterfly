@@ -93,6 +93,13 @@ class RemoteStorage with _$RemoteStorage {
 
   TemplateFileSystem get templateFileSystem =>
       TemplateFileSystem.fromPlatform(remote: this);
+
+  bool hasDocumnetCached(String name) {
+    if (!name.startsWith('/')) {
+      name = '/$name';
+    }
+    return cachedDocuments.any((doc) => name.startsWith(doc));
+  }
 }
 
 @freezed
@@ -408,12 +415,20 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> addCache(String identifier, String current) {
+  Future<void> addCache(String identifier, String current) async {
+    if (!current.startsWith('/')) {
+      current = '/$current';
+    }
+    if (current.endsWith('/')) {
+      current = current.substring(0, current.length - 1);
+    }
     emit(state.copyWith(
         remotes: List<RemoteStorage>.from(state.remotes).map((e) {
       if (e.identifier == identifier) {
+        final documents = List<String>.from(e.cachedDocuments);
         return e.copyWith(
-            cachedDocuments: List<String>.from(e.cachedDocuments)
+            cachedDocuments: documents
+              ..removeWhere((element) => element == current)
               ..add(current));
       }
       return e;

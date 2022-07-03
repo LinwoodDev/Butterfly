@@ -3,6 +3,7 @@ import 'package:butterfly/dialogs/painters/shape.dart';
 import 'package:butterfly/models/property.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly/widgets/color_field.dart';
+import 'package:butterfly/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -50,28 +51,47 @@ class ShapeElementDialog extends StatelessWidget {
                   var shape = renderer.element.property.shape;
                   return BlocProvider.value(
                     value: context.read<DocumentBloc>(),
-                    child: AlertDialog(
-                      scrollable: true,
-                      title: Text(AppLocalizations.of(context)!.shape),
-                      content: ConstrainedBox(
-                        constraints: const BoxConstraints(minWidth: 400),
-                        child: ShapeView(
-                          shape: shape,
-                          onChanged: (value) {
-                            shape = value;
-                          },
+                    child: Dialog(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(
+                              minWidth: 400, maxHeight: 600, maxWidth: 600),
+                          child:
+                              Column(mainAxisSize: MainAxisSize.min, children: [
+                            Header(
+                                title:
+                                    Text(AppLocalizations.of(context)!.shape)),
+                            Flexible(
+                              child: SingleChildScrollView(
+                                child: ShapeView(
+                                  shape: shape,
+                                  onChanged: (value) {
+                                    shape = value;
+                                  },
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TextButton(
+                                  child: Text(
+                                      AppLocalizations.of(context)!.cancel),
+                                  onPressed: () => Navigator.of(ctx).pop(),
+                                ),
+                                TextButton(
+                                  child: Text(AppLocalizations.of(context)!.ok),
+                                  onPressed: () => Navigator.of(ctx).pop(shape),
+                                ),
+                              ],
+                            ),
+                          ]),
                         ),
                       ),
-                      actions: [
-                        TextButton(
-                          child: Text(AppLocalizations.of(context)!.cancel),
-                          onPressed: () => Navigator.of(ctx).pop(),
-                        ),
-                        TextButton(
-                          child: Text(AppLocalizations.of(context)!.ok),
-                          onPressed: () => Navigator.of(ctx).pop(shape),
-                        ),
-                      ],
                     ),
                   );
                 },
