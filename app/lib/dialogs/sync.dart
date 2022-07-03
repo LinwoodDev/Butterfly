@@ -19,49 +19,51 @@ class SyncDialog extends StatelessWidget {
     return StreamBuilder<List<SyncFile>>(
       stream: sync?.filesStream,
       builder: (context, snapshot) {
-        String status = AppLocalizations.of(context)!.synced;
-        if (snapshot.hasData) {
-          status = AppLocalizations.of(context)!.syncing;
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          status = AppLocalizations.of(context)!.loading;
-        }
         List<SyncFile> files = snapshot.data ?? [];
         return Dialog(
-            child: Column(
-          children: [
-            Header(
-              title: Text(status),
-              actions: [
-                IconButton(
-                  icon: Icon(
-                      sync?.status?.getIcon() ?? PhosphorIcons.questionLight),
-                  onPressed: () => sync?.sync(),
-                )
-              ],
-            ),
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: files.length,
-                itemBuilder: (context, index) {
-                  final file = files[index];
-                  return Card(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        ListTile(
-                          title: Text(file.location.path),
-                          subtitle: Text(
-                            file.status.getLocalizedName(context),
-                          ),
-                          leading: Icon(file.status.getIcon()),
-                        ),
-                      ],
+          child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Header(
+                    title: Text(sync?.status?.getLocalizedName(context) ??
+                        AppLocalizations.of(context)!.loading),
+                    leading: IconButton(
+                      icon: Icon(sync?.status?.getIcon() ??
+                          PhosphorIcons.questionLight),
+                      onPressed: () => sync?.sync(),
                     ),
-                  );
-                }),
-          ],
-        ));
+                    actions: [
+                      IconButton(
+                        icon: const Icon(PhosphorIcons.xLight),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
+                  ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: files.length,
+                      itemBuilder: (context, index) {
+                        final file = files[index];
+                        return Card(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              ListTile(
+                                title: Text(file.location.path),
+                                subtitle: Text(
+                                  file.status.getLocalizedName(context),
+                                ),
+                                leading: Icon(file.status.getIcon()),
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                ],
+              )),
+        );
       },
     );
   }

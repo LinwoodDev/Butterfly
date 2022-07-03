@@ -118,8 +118,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _passwordController = TextEditingController(),
       _iconController = TextEditingController(text: '/favicon.ico'),
       _directoryController = TextEditingController(),
-      _documentsDirectoryController = TextEditingController(),
-      _templatesDirectoryController = TextEditingController();
+      _documentsDirectoryController = TextEditingController(text: 'Documents'),
+      _templatesDirectoryController = TextEditingController(text: 'Templates');
   bool _isConnected = false, _advanced = false, _showPassword = false;
 
   void _connect() async {
@@ -296,9 +296,14 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     controller: _directoryController,
                     label: AppLocalizations.of(context)!.directory,
                     onChanged: (value) {
-                      _documentsDirectoryController.text = '$value/Documents';
-                      _templatesDirectoryController.text = '$value/Templates';
+                      var prefix = value;
+                      if (prefix.isNotEmpty) {
+                        prefix += '/';
+                      }
+                      _documentsDirectoryController.text = '${prefix}Documents';
+                      _templatesDirectoryController.text = '${prefix}Templates';
                     },
+                    icon: const Icon(PhosphorIcons.folderLight),
                   ),
                   const SizedBox(height: 8),
                   ExpansionPanelList(
@@ -320,13 +325,14 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                             controller: _documentsDirectoryController,
                             label: AppLocalizations.of(context)!
                                 .documentsDirectory,
-                            icon: const Icon(PhosphorIcons.folderLight),
+                            icon: const Icon(PhosphorIcons.fileLight),
                           ),
                           const SizedBox(height: 8),
                           _DirectoryField(
                             controller: _templatesDirectoryController,
                             label: AppLocalizations.of(context)!
                                 .templatesDirectory,
+                            icon: const Icon(PhosphorIcons.fileDottedLight),
                           ),
                         ]),
                       ),

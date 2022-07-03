@@ -21,6 +21,7 @@ class SyncButton extends StatelessWidget {
         }
         return IconButton(
           icon: Icon(status.getIcon()),
+          tooltip: status.getLocalizedName(context),
           onPressed: () => showDialog(
             context: context,
             builder: (context) => SyncDialog(

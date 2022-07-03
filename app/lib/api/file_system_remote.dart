@@ -166,6 +166,9 @@ abstract class DavRemoteSystem {
     var files = <SyncFile>[];
     var cacheDir = await getRemoteCacheDirectory();
     var dir = Directory(cacheDir);
+    if (!await dir.exists()) {
+      await dir.create(recursive: true);
+    }
     var list = await dir.list().toList();
     for (var file in list) {
       if (file is File) {

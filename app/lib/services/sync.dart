@@ -26,6 +26,7 @@ class SyncService {
         sync = RemoteSync(context, settingsCubit, storage);
         _syncs.add(sync);
       }
+      sync?.sync();
     }
     return sync;
   }
