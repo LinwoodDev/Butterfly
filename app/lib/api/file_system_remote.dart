@@ -72,6 +72,9 @@ abstract class DavRemoteSystem {
 
   Future<String> getAbsoluteCachePath(String path) async {
     var cacheDir = await getRemoteCacheDirectory();
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
     return p.join(cacheDir, path);
   }
 
@@ -208,6 +211,10 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
   }
 
   @override
+  Future<String> getRemoteCacheDirectory() async =>
+      p.join(await super.getRemoteCacheDirectory(), 'Documents');
+
+  @override
   Future<AppDocumentDirectory> createDirectory(String name) async {
     var path = name;
     if (path.startsWith('/')) {
@@ -311,11 +318,22 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
 
   @override
   Future<DateTime?> getRemoteFileModified(String path) async {
-    final response = await _createRequest(path.split('/'), method: 'HEAD');
-    if (response.statusCode != 200) {
+    final response = await _createRequest(path.split('/'), method: 'PROPFIND');
+    if (response.statusCode != 207) {
       return null;
     }
-    final lastModified = response.headers['last-modified'];
+    final body = await response.stream.bytesToString();
+    final xml = XmlDocument.parse(body);
+    final lastModified = xml
+        .findAllElements('d:response')
+        .firstOrNull
+        ?.findElements('d:propstat')
+        .firstOrNull
+        ?.findElements('d:prop')
+        .firstOrNull
+        ?.findElements('d:getlastmodified')
+        .firstOrNull
+        ?.text;
     if (lastModified == null) {
       return null;
     }
@@ -381,10 +399,6 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     return AppDocumentFile(
         AssetLocation(remote: remote.identifier, path: path), content);
   }
-
-  @override
-  Future<String> getRemoteCacheDirectory() async =>
-      p.join(await super.getRemoteCacheDirectory(), 'Documents');
 
   List<String> getCachedFilePaths() {
     final files = <String>[];

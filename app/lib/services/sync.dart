@@ -120,7 +120,7 @@ class RemoteSync {
           files.add(file);
           break;
         case FileSyncStatus.remoteLatest:
-          await fileSystem.cache(file.location.remote);
+          await fileSystem.cache(file.location.pathWithLeadingSlash);
           files.add(file);
           break;
         case FileSyncStatus.synced:
