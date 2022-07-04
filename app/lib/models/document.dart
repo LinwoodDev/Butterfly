@@ -61,11 +61,11 @@ class AppDocumentFile extends AppDocumentAsset {
 
   const AppDocumentFile(super.path, this.json);
 
-  int get fileVersion => json['fileVersion'];
+  int get fileVersion => json['fileVersion'] ?? -1;
 
-  String get name => json['name'];
+  String get name => json['name'] ?? fileNameWithoutExtension;
 
-  String get description => json['description'];
+  String get description => json['description'] ?? '';
 
   DateTime? get updatedAt =>
       json['updatedAt'] == null ? null : DateTime.tryParse(json['updatedAt']);

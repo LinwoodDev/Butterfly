@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,10 +29,11 @@ class SyncFile {
       this.remoteLastModified});
 
   FileSyncStatus get status {
-    if (remoteLastModified == null ||
-        localLastModified == null ||
-        syncedLastModified == null) {
+    if (remoteLastModified == null) {
       return FileSyncStatus.offline;
+    }
+    if (localLastModified == null || syncedLastModified == null) {
+      return FileSyncStatus.remoteLatest;
     }
     if (syncedLastModified!.isBefore(remoteLastModified!)) {
       if (localLastModified!.isBefore(remoteLastModified!)) {
@@ -159,8 +161,6 @@ abstract class DavRemoteSystem {
         remoteLastModified: remoteLastModified,
         syncedLastModified: syncedLastModified);
   }
-
-  Future<void> uploadCachedContent(String path) async {}
 
   Future<List<SyncFile>> getSyncFiles() async {
     var files = <SyncFile>[];
@@ -293,14 +293,8 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
           return AppDocumentDirectory(
               AssetLocation(remote: remote.identifier, path: path), const []);
         } else {
-          response = await _createRequest(path.split('/'), method: 'GET');
-          if (response.statusCode != 200) {
-            throw Exception('Failed to get asset: ${response.statusCode}');
-          }
-          content = await response.stream.bytesToString();
           return AppDocumentFile(
-              AssetLocation(remote: remote.identifier, path: path),
-              json.decode(content));
+              AssetLocation(remote: remote.identifier, path: path), const {});
         }
       }).toList());
       return AppDocumentDirectory(
@@ -325,7 +319,9 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     if (lastModified == null) {
       return null;
     }
-    return DateTime.tryParse(lastModified);
+    //  Parse lastModified rfc1123-date to Iso8601
+
+    return HttpDate.parse(lastModified);
   }
 
   @override
@@ -389,6 +385,63 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
   @override
   Future<String> getRemoteCacheDirectory() async =>
       p.join(await super.getRemoteCacheDirectory(), 'Documents');
+
+  List<String> getCachedFilePaths() {
+    final files = <String>[];
+
+    for (final file in remote.cachedDocuments) {
+      final alreadySyncedFile =
+          files.firstWhereOrNull((file) => file.startsWith(file));
+      if (alreadySyncedFile == file) {
+        continue;
+      }
+      if (alreadySyncedFile != null &&
+          alreadySyncedFile.startsWith(file) &&
+          !alreadySyncedFile.substring(file.length + 1).contains('/')) {
+        files.remove(alreadySyncedFile);
+      }
+      files.add(file);
+    }
+    return files;
+  }
+
+  Future<List<SyncFile>> getAllSyncFiles() async {
+    final paths = getCachedFilePaths();
+    final files = <SyncFile>[];
+    for (final path in paths) {
+      final asset = await getAsset(path);
+      if (asset == null) continue;
+      files.add(await getSyncFile(asset.pathWithLeadingSlash));
+      if (asset is AppDocumentDirectory) {
+        for (final file in asset.assets) {
+          files.add(await getSyncFile(file.pathWithLeadingSlash));
+        }
+      }
+    }
+    return files;
+  }
+
+  Future<void> uploadCachedContent(String path) async {
+    final content = await getCachedContent(path);
+    if (content == null) {
+      return;
+    }
+    final document = AppDocument.fromJson(json.decode(content));
+    await updateDocument(path, document);
+  }
+
+  Future<void> cache(String path) async {
+    final asset = await getAsset(path);
+    if (asset is AppDocumentDirectory) {
+      final directory =
+          Directory(p.join(await getRemoteCacheDirectory(), path));
+      if (!(await directory.exists())) {
+        await directory.create(recursive: true);
+      }
+    } else if (asset is AppDocumentFile) {
+      cacheContent(path, json.encode(asset.json));
+    }
+  }
 }
 
 class DavRemoteTemplateFileSystem extends TemplateFileSystem

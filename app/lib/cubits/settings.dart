@@ -424,11 +424,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> addCache(String identifier, String current) async {
-    if (!current.startsWith('/')) {
-      current = '/$current';
-    }
     if (current.endsWith('/')) {
       current = current.substring(0, current.length - 1);
+    }
+    if (!current.startsWith('/')) {
+      current = '/$current';
     }
     emit(state.copyWith(
         remotes: List<RemoteStorage>.from(state.remotes).map((e) {
