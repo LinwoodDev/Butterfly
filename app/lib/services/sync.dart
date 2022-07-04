@@ -136,6 +136,7 @@ class RemoteSync {
       _filesSubject.add(files);
     }
     if (status != SyncStatus.error) {
+      await _updateLastSynced();
       _statusSubject.add(SyncStatus.synced);
     }
     _filesSubject.add(files);
@@ -152,6 +153,10 @@ class RemoteSync {
   }
 
   void _onListen() {
-    sync();
+    if (files == null) sync();
+  }
+
+  Future<void> _updateLastSynced() {
+    return settingsCubit.updateLastSynced(remoteStorage.identifier);
   }
 }

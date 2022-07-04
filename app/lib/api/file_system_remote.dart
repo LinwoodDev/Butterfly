@@ -90,10 +90,9 @@ abstract class DavRemoteSystem {
   Future<void> cacheContent(String path, String content) async {
     var absolutePath = await getAbsoluteCachePath(path);
     var file = File(absolutePath);
-    if (await file.exists()) {
-      await file.delete();
+    if (!(await file.exists())) {
+      await file.create(recursive: true);
     }
-    await file.create(recursive: true);
     await file.writeAsString(content);
   }
 
