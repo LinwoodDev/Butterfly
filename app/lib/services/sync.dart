@@ -112,16 +112,16 @@ class RemoteSync {
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage)
         as DavRemoteDocumentFileSystem;
     var files = <SyncFile>[];
+    final currentFiles = await fileSystem.getAllSyncFiles();
+    _filesSubject.add(currentFiles);
 
-    for (final file in await fileSystem.getAllSyncFiles()) {
+    for (final file in currentFiles) {
       switch (file.status) {
         case FileSyncStatus.localLatest:
           await fileSystem.uploadCachedContent(file.location.remote);
-          files.add(file);
           break;
         case FileSyncStatus.remoteLatest:
           await fileSystem.cache(file.location.pathWithLeadingSlash);
-          files.add(file);
           break;
         case FileSyncStatus.synced:
           break;
@@ -133,6 +133,7 @@ class RemoteSync {
           files.add(file);
           break;
       }
+      _filesSubject.add(files);
     }
     if (status != SyncStatus.error) {
       _statusSubject.add(SyncStatus.synced);

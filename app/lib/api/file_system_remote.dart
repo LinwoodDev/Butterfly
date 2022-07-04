@@ -447,8 +447,12 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
   Future<void> cache(String path) async {
     final asset = await getAsset(path);
     if (asset is AppDocumentDirectory) {
-      final directory =
-          Directory(p.join(await getRemoteCacheDirectory(), path));
+      var filePath = path;
+      if (filePath.startsWith('/')) {
+        filePath = filePath.substring(1);
+      }
+      filePath = p.join(await getRemoteCacheDirectory(), filePath);
+      final directory = Directory(filePath);
       if (!(await directory.exists())) {
         await directory.create(recursive: true);
       }
