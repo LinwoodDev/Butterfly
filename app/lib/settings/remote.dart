@@ -109,7 +109,7 @@ class _RemoteSettingsPageState extends State<RemoteSettingsPage>
             child: Text(AppLocalizations.of(context)!.cancel),
             onPressed: () => Navigator.pop(context),
           ),
-          TextButton(
+          ElevatedButton(
             child: Text(AppLocalizations.of(context)!.create),
             onPressed: () {
               Navigator.pop(context);
@@ -146,6 +146,30 @@ class _GeneralRemoteSettingsView extends StatelessWidget {
                     Text(AppLocalizations.of(context)!.manage,
                         style: Theme.of(context).textTheme.headline5),
                     const SizedBox(height: 16),
+                    BlocBuilder<SettingsCubit, ButterflySettings>(
+                        builder: (context, state) {
+                      final storage = state.getRemote(this.storage.identifier);
+                      return CheckboxListTile(
+                        value: storage?.cachedDocuments.contains('/'),
+                        onChanged: (value) {
+                          if (storage == null) return;
+                          if (storage.cachedDocuments.contains('/')) {
+                            context.read<SettingsCubit>().removeCache(
+                                  storage.identifier,
+                                  '/',
+                                );
+                          } else {
+                            context.read<SettingsCubit>().addCache(
+                                  storage.identifier,
+                                  '/',
+                                );
+                          }
+                        },
+                        title: Text(
+                            AppLocalizations.of(context)!.syncRootDirectory),
+                        secondary: const Icon(PhosphorIcons.folderLight),
+                      );
+                    }),
                     ListTile(
                       title: Text(AppLocalizations.of(context)!.clearCaches),
                       leading: const Icon(PhosphorIcons.fileXLight),

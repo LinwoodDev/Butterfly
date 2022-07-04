@@ -121,7 +121,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _directoryController = TextEditingController(),
       _documentsDirectoryController = TextEditingController(text: 'Documents'),
       _templatesDirectoryController = TextEditingController(text: 'Templates');
-  bool _isConnected = false, _advanced = false, _showPassword = false;
+  bool _isConnected = false,
+      _advanced = false,
+      _showPassword = false,
+      _syncRootDirectory = false;
 
   void _connect() async {
     try {
@@ -191,15 +194,17 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     final settingsCubit = context.read<SettingsCubit>();
     final icon = await _getIcon();
     final remoteStorage = DavRemoteStorage(
-      username: _usernameController.text,
-      url: _urlController.text,
-      path: _directoryController.text,
-      documentsPath: _documentsDirectoryController.text,
-      templatesPath: _templatesDirectoryController.text,
-      icon: icon,
+        username: _usernameController.text,
+        url: _urlController.text,
+        path: _directoryController.text,
+        documentsPath: _documentsDirectoryController.text,
+        templatesPath: _templatesDirectoryController.text,
+        icon: icon,
+        cachedDocuments: [if (_syncRootDirectory) '/']);
+    await settingsCubit.addRemote(
+      remoteStorage,
+      password: _passwordController.text,
     );
-    await settingsCubit.addRemote(remoteStorage,
-        password: _passwordController.text);
     navigator.pop();
   }
 
@@ -293,6 +298,13 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     ),
                   ),
                 ] else ...[
+                  CheckboxListTile(
+                    value: _syncRootDirectory,
+                    onChanged: (value) => setState(
+                        () => _syncRootDirectory = value ?? _syncRootDirectory),
+                    title:
+                        Text(AppLocalizations.of(context)!.syncRootDirectory),
+                  ),
                   _DirectoryField(
                     controller: _directoryController,
                     label: AppLocalizations.of(context)!.directory,

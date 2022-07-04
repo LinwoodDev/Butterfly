@@ -358,5 +358,6 @@
   "localLatest": "Local latest",
   "remoteLatest": "Remote latest",
   "path": "Path",
-  "folderSynced": "Folder synced"
+  "folderSynced": "Folder synced",
+  "syncRootDirectory": "Sync root directory"
 }
