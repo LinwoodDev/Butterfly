@@ -104,6 +104,16 @@ class RemoteSync {
     _filesSubject.onListen = _onListen;
   }
 
+  Future<void> _refreshSyncStatus() async {
+    if (status == SyncStatus.syncing) {
+      return;
+    }
+    final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage)
+        as DavRemoteDocumentFileSystem;
+    final currentFiles = await fileSystem.getAllSyncFiles();
+    _filesSubject.add(currentFiles);
+  }
+
   Future<void> sync() async {
     if (status == SyncStatus.syncing) {
       return;
@@ -120,9 +130,11 @@ class RemoteSync {
         case FileSyncStatus.localLatest:
           await fileSystem
               .uploadCachedContent(file.location.pathWithLeadingSlash);
+          files.add(file);
           break;
         case FileSyncStatus.remoteLatest:
           await fileSystem.cache(file.location.pathWithLeadingSlash);
+          files.add(file);
           break;
         case FileSyncStatus.synced:
           break;
@@ -155,6 +167,7 @@ class RemoteSync {
 
   void _onListen() {
     if (files == null) sync();
+    _refreshSyncStatus();
   }
 
   Future<void> _updateLastSynced() {
