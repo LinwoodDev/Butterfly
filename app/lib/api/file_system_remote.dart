@@ -41,7 +41,7 @@ class SyncFile {
       }
       return FileSyncStatus.conflict;
     }
-    if (localLastModified == remoteLastModified) {
+    if (!localLastModified!.isAfter(syncedLastModified!)) {
       return FileSyncStatus.synced;
     }
     if (localLastModified!.isAfter(syncedLastModified!)) {
@@ -79,6 +79,7 @@ abstract class DavRemoteSystem {
   }
 
   Future<String?> getCachedContent(String path) async {
+    if (!remote.hasDocumentCached(path)) return null;
     var absolutePath = await getAbsoluteCachePath(path);
     var file = File(absolutePath);
     if (await file.exists()) {
@@ -129,9 +130,13 @@ abstract class DavRemoteSystem {
 
   Future<DateTime?> getCachedFileModified(String path) async {
     var absolutePath = await getAbsoluteCachePath(path);
-    var file = File(absolutePath);
+    final file = File(absolutePath);
     if (await file.exists()) {
       return file.lastModified();
+    }
+    final directory = Directory(absolutePath);
+    if (await directory.exists()) {
+      return remote.lastSynced;
     }
     return null;
   }
@@ -157,6 +162,7 @@ abstract class DavRemoteSystem {
     var localLastModified = await getCachedFileModified(path);
     var remoteLastModified = await getRemoteFileModified(path);
     var syncedLastModified = remote.lastSynced;
+
     return SyncFile(
         location: AssetLocation(remote: remote.identifier, path: path),
         localLastModified: localLastModified,
@@ -249,6 +255,13 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
+    final cached = await getCachedContent(path);
+    if (cached != null) {
+      return AppDocumentFile(
+          AssetLocation(remote: remote.identifier, path: path),
+          json.decode(cached));
+    }
+
     var response = await _createRequest(path.split('/'), method: 'PROPFIND');
     if (response.statusCode != 207) {
       return null;
