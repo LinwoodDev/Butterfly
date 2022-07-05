@@ -192,6 +192,10 @@ class ButterflyApp extends StatelessWidget {
   }
 
   Widget _buildApp() {
+    final virtualWindowFrameBuilder =
+        kIsWeb || (!Platform.isWindows && !Platform.isLinux)
+            ? null
+            : VirtualWindowFrameInit();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.theme != current.theme ||
@@ -211,10 +215,10 @@ class ButterflyApp extends StatelessWidget {
                 if (child == null) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if (kIsWeb || (!Platform.isWindows && !Platform.isLinux)) {
+                if (kIsWeb || virtualWindowFrameBuilder == null) {
                   return child;
                 }
-                return DragToResizeArea(resizeEdgeSize: 8, child: child);
+                return virtualWindowFrameBuilder(context, child);
               },
               darkTheme: ThemeManager.getThemeByName(state.design, dark: true),
             ));

@@ -362,7 +362,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
 
   @override
   Future<AppDocumentFile> importDocument(AppDocument document,
-      {String path = '/'}) async {
+      {String path = '/', bool forceSync = false}) async {
     var fileName = document.name;
     if (fileName.endsWith('.bfly')) {
       fileName = fileName.substring(0, fileName.length - 5);
@@ -372,6 +372,13 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     }
     if (path.startsWith('/')) {
       path = path.substring(1);
+    }
+
+    final content = document.toJson();
+    if (!forceSync && remote.hasDocumentCached(path)) {
+      cacheContent(path, json.encode(content));
+      return AppDocumentFile(
+          AssetLocation(remote: remote.identifier, path: path), content);
     }
     final has = await hasAsset(path);
     if (!has) {
@@ -388,7 +395,6 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     while (asset.assets.any((a) => a.pathWithLeadingSlash == filePath)) {
       fileName = convertNameToFile('${document.name}_${++counter}');
     }
-    final content = document.toJson();
     final response = await _createRequest(
         path == '' || path == '/' ? [filePath] : [...path.split('/'), fileName],
         method: 'PUT',
@@ -401,13 +407,19 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
   }
 
   @override
-  Future<AppDocumentFile> updateDocument(
-      String path, AppDocument document) async {
+  Future<AppDocumentFile> updateDocument(String path, AppDocument document,
+      {bool forceSync = false}) async {
     final content = document.toJson();
+    if (!forceSync && remote.hasDocumentCached(path)) {
+      cacheContent(path, json.encode(content));
+      return AppDocumentFile(
+          AssetLocation(remote: remote.identifier, path: path), content);
+    }
     final response = await _createRequest(path.split('/'),
         method: 'PUT', body: json.encode(content));
     if (response.statusCode != 201 && response.statusCode != 204) {
-      throw Exception('Failed to update document: ${response.statusCode}');
+      throw Exception(
+          'Failed to update document: ${response.statusCode} ${response.reasonPhrase}');
     }
     return AppDocumentFile(
         AssetLocation(remote: remote.identifier, path: path), content);
@@ -454,7 +466,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       return;
     }
     final document = AppDocument.fromJson(json.decode(content));
-    await updateDocument(path, document);
+    await updateDocument(path, document, forceSync: true);
   }
 
   Future<void> cache(String path) async {

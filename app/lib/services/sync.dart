@@ -118,7 +118,8 @@ class RemoteSync {
     for (final file in currentFiles) {
       switch (file.status) {
         case FileSyncStatus.localLatest:
-          await fileSystem.uploadCachedContent(file.location.remote);
+          await fileSystem
+              .uploadCachedContent(file.location.pathWithLeadingSlash);
           break;
         case FileSyncStatus.remoteLatest:
           await fileSystem.cache(file.location.pathWithLeadingSlash);
