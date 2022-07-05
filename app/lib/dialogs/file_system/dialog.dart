@@ -336,7 +336,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
             '/local/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}');
       }
     } else {
-      _pathController.text = asset.pathWithoutLeadingSlash;
+      _pathController.text = asset.pathWithLeadingSlash;
       setState(() {});
     }
   }

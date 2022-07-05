@@ -41,10 +41,13 @@ abstract class AppDocumentAsset {
 
   String get fileName => location.path.split('/').last;
 
-  String get fileExtension => fileName.split('.').last;
+  String get fileExtension =>
+      fileName.contains('.') ? fileName.split('.').last : '';
 
-  String get fileNameWithoutExtension =>
-      fileName.substring(0, fileName.length - fileExtension.length - 1);
+  String get fileNameWithoutExtension => fileName.substring(
+      0,
+      fileName.length -
+          (fileName.contains('.') ? fileExtension.length - 1 : 0));
 
   String get pathWithLeadingSlash => location.pathWithLeadingSlash;
   String get pathWithoutLeadingSlash => location.pathWithoutLeadingSlash;

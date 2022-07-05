@@ -382,6 +382,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       throw Exception('Failed to get directory: $path');
     }
     final filePath = convertNameToFile('$path$fileName');
+    fileName = convertNameToFile(fileName);
     // get unique fileName
     var counter = 1;
     while (asset.assets.any((a) => a.pathWithLeadingSlash == filePath)) {
