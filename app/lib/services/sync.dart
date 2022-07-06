@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/file_system_remote.dart';
@@ -124,9 +123,13 @@ class RemoteSync {
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage)
         as DavRemoteDocumentFileSystem;
     var files = <SyncFile>[];
+    _filesSubject.add([]);
     final currentFiles = await fileSystem.getAllSyncFiles();
     _filesSubject.add(currentFiles);
     final now = DateTime.now();
+
+    final hasError =
+        currentFiles.any((file) => file.status == SyncStatus.error);
 
     for (final file in currentFiles) {
       switch (file.status) {
@@ -134,6 +137,7 @@ class RemoteSync {
           await fileSystem
               .uploadCachedContent(file.location.pathWithLeadingSlash);
           final syncedFile = SyncFile(
+            isDirectory: file.isDirectory,
             location: file.location,
             syncedLastModified: now,
             localLastModified: file.localLastModified,
@@ -142,14 +146,17 @@ class RemoteSync {
           files.add(syncedFile);
           break;
         case FileSyncStatus.remoteLatest:
-          await fileSystem.cache(file.location.pathWithLeadingSlash);
-          final syncedFile = SyncFile(
-            location: file.location,
-            syncedLastModified: now,
-            localLastModified: file.remoteLastModified,
-            remoteLastModified: file.remoteLastModified,
-          );
-          files.add(syncedFile);
+          if (!hasError) {
+            await fileSystem.cache(file.location.pathWithLeadingSlash);
+            final syncedFile = SyncFile(
+              isDirectory: file.isDirectory,
+              location: file.location,
+              syncedLastModified: now,
+              localLastModified: file.remoteLastModified,
+              remoteLastModified: file.remoteLastModified,
+            );
+            files.add(syncedFile);
+          }
           break;
         case FileSyncStatus.synced:
           break;
@@ -192,6 +199,7 @@ class RemoteSync {
   Future<void> resolve(String path, FileSyncStatus status) async {
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage)
         as DavRemoteDocumentFileSystem;
+    _filesSubject.add([]);
     switch (status) {
       case FileSyncStatus.localLatest:
         // Upload local file to remote
@@ -199,15 +207,18 @@ class RemoteSync {
       case FileSyncStatus.remoteLatest:
         return fileSystem.cache(path);
       case FileSyncStatus.conflict:
-        final cache = await fileSystem.getCachedContent(path);
-        if (cache == null) return;
         await fileSystem.cache(path);
+        final remoteAsset = await fileSystem.getAsset(path, forceRemote: true);
+        if (remoteAsset is! AppDocumentFile) return;
         final parent = path.substring(0, path.lastIndexOf('/'));
-        final document = AppDocument.fromJson(json.decode(cache));
-        fileSystem.importDocument(document, path: parent, forceSync: true);
+        await fileSystem.importDocument(remoteAsset.load(),
+            path: parent, forceSync: true);
+        await fileSystem.uploadCachedContent(path);
         break;
       default:
         throw Exception('Unknown status $status');
     }
+
+    await sync();
   }
 }

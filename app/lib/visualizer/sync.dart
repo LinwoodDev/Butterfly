@@ -31,7 +31,7 @@ extension FileSyncStatusVisualizer on FileSyncStatus? {
       case FileSyncStatus.synced:
         return PhosphorIcons.checkLight;
       case FileSyncStatus.conflict:
-        return PhosphorIcons.warningCircleLight;
+        return PhosphorIcons.warningLight;
       case FileSyncStatus.offline:
         return PhosphorIcons.wifiSlashLight;
       default:

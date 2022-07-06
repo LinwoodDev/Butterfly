@@ -19,11 +19,13 @@ enum FileSyncStatus { localLatest, remoteLatest, synced, conflict, offline }
 
 @immutable
 class SyncFile {
+  final bool isDirectory;
   final AssetLocation location;
   final DateTime? localLastModified, syncedLastModified, remoteLastModified;
 
   const SyncFile(
-      {required this.location,
+      {required this.isDirectory,
+      required this.location,
       required this.localLastModified,
       required this.syncedLastModified,
       this.remoteLastModified});
@@ -39,7 +41,10 @@ class SyncFile {
       if (localLastModified!.isBefore(remoteLastModified!)) {
         return FileSyncStatus.remoteLatest;
       }
-      return FileSyncStatus.conflict;
+      if (!isDirectory) {
+        return FileSyncStatus.conflict;
+      }
+      return FileSyncStatus.localLatest;
     }
     if (!localLastModified!.isAfter(syncedLastModified!)) {
       return FileSyncStatus.synced;
@@ -162,8 +167,10 @@ abstract class DavRemoteSystem {
     var localLastModified = await getCachedFileModified(path);
     var remoteLastModified = await getRemoteFileModified(path);
     var syncedLastModified = remote.lastSynced;
+    final directory = Directory(await getAbsoluteCachePath(path));
 
     return SyncFile(
+        isDirectory: await directory.exists(),
         location: AssetLocation(remote: remote.identifier, path: path),
         localLastModified: localLastModified,
         remoteLastModified: remoteLastModified,
@@ -185,6 +192,7 @@ abstract class DavRemoteSystem {
         var remoteLastModified = await getRemoteFileModified(name);
         var syncedLastModified = remote.lastSynced;
         files.add(SyncFile(
+            isDirectory: false,
             location: AssetLocation(remote: remote.identifier, path: name),
             localLastModified: localLastModified,
             remoteLastModified: remoteLastModified,
@@ -248,7 +256,8 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
   }
 
   @override
-  Future<AppDocumentAsset?> getAsset(String path) async {
+  Future<AppDocumentAsset?> getAsset(String path,
+      {bool forceRemote = false}) async {
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
     }
@@ -256,7 +265,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       path = path.substring(1);
     }
     final cached = await getCachedContent(path);
-    if (cached != null) {
+    if (cached != null && !forceRemote) {
       return AppDocumentFile(
           AssetLocation(remote: remote.identifier, path: path),
           json.decode(cached));
@@ -388,22 +397,22 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     if (asset is! AppDocumentDirectory) {
       throw Exception('Failed to get directory: $path');
     }
-    final filePath = convertNameToFile('$path$fileName');
     fileName = convertNameToFile(fileName);
     // get unique fileName
     var counter = 1;
-    while (asset.assets.any((a) => a.pathWithLeadingSlash == filePath)) {
+    while (
+        asset.assets.any((a) => a.pathWithLeadingSlash == '$path/$fileName')) {
       fileName = convertNameToFile('${document.name}_${++counter}');
     }
     final response = await _createRequest(
-        path == '' || path == '/' ? [filePath] : [...path.split('/'), fileName],
-        method: 'PUT',
-        body: json.encode(content));
+        [if (path != '/') ...path.split('/'), fileName],
+        method: 'PUT', body: json.encode(content));
     if (response.statusCode != 201) {
-      throw Exception('Failed to import document: ${response.statusCode}');
+      throw Exception(
+          'Failed to import document: ${response.statusCode} ${response.reasonPhrase}');
     }
     return AppDocumentFile(
-        AssetLocation(remote: remote.identifier, path: filePath), content);
+        AssetLocation(remote: remote.identifier, path: fileName), content);
   }
 
   @override
