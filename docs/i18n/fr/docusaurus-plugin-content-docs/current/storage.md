@@ -27,12 +27,12 @@ Pour obtenir l'url webdav, veuillez visiter la documentation:
 
 * [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html)
 
-### Offline sync {#offline}
+### Synchronisation hors ligne {#offline}
 
-This feature allows you to edit your files on remote servers while you are offline. Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
+Cette fonctionnalité vous permet de modifier vos fichiers sur des serveurs distants pendant que vous êtes hors ligne. Ouvrez le menu contextuel sur un fichier ou un dossier et cliquez sur `Synchroniser`. Cela téléchargera le fichier ou le dossier et l'enregistrera localement. Pour synchroniser l'ensemble du répertoire racine, cliquez sur la case à cocher dans la boîte de dialogue de création ou cliquez sur la télécommande dans le paramètre, puis cliquez sur la case à cocher dans la section Gérer .
 
-There are a few limitations:
+Il y a quelques limitations :
 
-* You can only sync the top level of a directory. For example if you have a directory `a/b/test.bfly`, this file will not be synced.
-* You cannot delete a file or folder while you are offline.
-* You cannot add, edit or delete templates while you are offline.
+* Vous ne pouvez synchroniser que le niveau supérieur d'un répertoire. Par exemple, si vous avez un répertoire `a/b/test.bfly`, ce fichier ne sera pas synchronisé.
+* Vous ne pouvez pas supprimer un fichier ou un dossier lorsque vous êtes hors ligne.
+* Vous ne pouvez pas ajouter, modifier ou supprimer des modèles lorsque vous êtes hors ligne.
