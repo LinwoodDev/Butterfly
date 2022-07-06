@@ -197,15 +197,24 @@ class RemoteSync {
   }
 
   Future<void> resolve(String path, FileSyncStatus status) async {
+    if (status == SyncStatus.syncing) {
+      return;
+    }
+    _statusSubject.add(SyncStatus.syncing);
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage)
         as DavRemoteDocumentFileSystem;
-    _filesSubject.add([]);
+    final last = List<SyncFile>.from(files ?? []);
+    last.removeWhere(
+        (element) => element.location.pathWithLeadingSlash == path);
+    _filesSubject.add(last);
     switch (status) {
       case FileSyncStatus.localLatest:
         // Upload local file to remote
-        return fileSystem.uploadCachedContent(path);
+        await fileSystem.uploadCachedContent(path);
+        await fileSystem.deleteCachedContent(path);
+        break;
       case FileSyncStatus.remoteLatest:
-        return fileSystem.cache(path);
+        return fileSystem.deleteCachedContent(path);
       case FileSyncStatus.conflict:
         await fileSystem.cache(path);
         final remoteAsset = await fileSystem.getAsset(path, forceRemote: true);
@@ -216,8 +225,10 @@ class RemoteSync {
         await fileSystem.uploadCachedContent(path);
         break;
       default:
+        _statusSubject.add(SyncStatus.error);
         throw Exception('Unknown status $status');
     }
+    _statusSubject.add(SyncStatus.synced);
 
     await sync();
   }
