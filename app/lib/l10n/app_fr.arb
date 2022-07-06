@@ -292,8 +292,8 @@
     "duration": "Durée",
     "quality": "Qualité",
     "local": "Locale",
-    "addRemote": "Ajouter une télécommande",
-    "remotes": "Télécommandes",
+    "addRemote": "Ajouter à distance",
+    "remotes": "Éléments",
     "noRemotes": "Aucune télécommande",
     "configureRemotes": "Configurer les télécommandes",
     "url": "URL",
@@ -305,7 +305,7 @@
     "directory": "Répertoire",
     "documentsDirectory": "Répertoire des documents",
     "templatesDirectory": "Répertoire des modèles",
-    "errorWhileCreatingRemote": "Erreur lors de la création de la télécommande",
+    "errorWhileCreatingRemote": "Erreur lors de la création à distance",
     "cannotConnectToRemote": "Impossible de se connecter à distance",
     "urlNotValid": "URL non valide",
     "remote": "Distante",
@@ -331,5 +331,33 @@
     "caches": "Caches",
     "manage": "Gérer",
     "clearCaches": "Vider les caches",
-    "createCache": "Créer une cache"
+    "createCache": "Créer une cache",
+    "thirdPartyLicenses": "Licences tierces",
+    "syncing": "Synchronisation en cours...",
+    "synced": "Synchronisé",
+    "notSynced": "Non synchronisé",
+    "conflict": "Conflit",
+    "keepLocal": "Garder en local",
+    "keepRemote": "Garder distante",
+    "keepBoth": "Garder les deux",
+    "forAll": "Pour tous",
+    "fileConflict": "{file} dans {remote} a un conflit",
+    "@fileConflict": {
+        "placeholders": {
+            "file": {
+                "type": "String",
+                "example": "file.txt"
+            },
+            "remote": {
+                "type": "String",
+                "example": "remote"
+            }
+        }
+    },
+    "offline": "Hors ligne",
+    "localLatest": "Dernier jour local",
+    "remoteLatest": "Dernier jour à distance",
+    "path": "Chemin d'accès",
+    "folderSynced": "Dossier synchronisé",
+    "syncRootDirectory": "Synchroniser le répertoire racine"
 }

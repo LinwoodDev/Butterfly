@@ -26,3 +26,13 @@ Para añadir un servidor remoto, ve a la configuración y haz clic en `Remotas`.
 Para obtener la url webdav, por favor visite la documentación:
 
 * [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html)
+
+### Sincronización sin conexión {#offline}
+
+Esta función le permite editar sus archivos en servidores remotos mientras esté fuera de línea. Abra el menú emergente en un archivo o carpeta y haga clic en `Sincronizar`. Esto descargará el archivo o carpeta y lo guardará localmente. Para sincronizar todo el directorio raíz, haga clic en la marca de verificación en el diálogo de crear o haga clic en el control remoto en la configuración y haga clic en la marca de verificación en la sección de administración.
+
+Hay algunas limitaciones:
+
+* Solo puedes sincronizar el nivel superior de un directorio. Por ejemplo, si tienes un directorio `a/b/test.bfly`, este archivo no será sincronizado.
+* No puede eliminar un archivo o carpeta mientras esté desconectado.
+* No puede añadir, editar o eliminar plantillas mientras esté desconectado.

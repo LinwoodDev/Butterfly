@@ -305,7 +305,7 @@
     "directory": "Verzeichnis",
     "documentsDirectory": "Dokumentenverzeichnis",
     "templatesDirectory": "Vorlagenverzeichnis",
-    "errorWhileCreatingRemote": "Fehler beim Erstellen der Fernbedienung",
+    "errorWhileCreatingRemote": "Fehler beim Erstellen des Remote",
     "cannotConnectToRemote": "Kann nicht mit Remote verbinden",
     "urlNotValid": "URL ungültig",
     "remote": "Entfernt",
@@ -331,5 +331,33 @@
     "caches": "Caches",
     "manage": "Verwalten",
     "clearCaches": "Caches löschen",
-    "createCache": "Cache erstellen"
+    "createCache": "Cache erstellen",
+    "thirdPartyLicenses": "Drittlizenzen",
+    "syncing": "Synchronisieren...",
+    "synced": "Synchronisiert",
+    "notSynced": "Nicht synchronisiert",
+    "conflict": "Konflikt",
+    "keepLocal": "Lokal behalten",
+    "keepRemote": "Behalte externe Änderungen",
+    "keepBoth": "Beides behalten",
+    "forAll": "Für alle",
+    "fileConflict": "{file} in {remote} hat einen Konflikt",
+    "@fileConflict": {
+        "placeholders": {
+            "file": {
+                "type": "String",
+                "example": "file.txt"
+            },
+            "remote": {
+                "type": "String",
+                "example": "remote"
+            }
+        }
+    },
+    "offline": "Offline",
+    "localLatest": "Lokale neueste",
+    "remoteLatest": "Remote-neueste",
+    "path": "Pfad",
+    "folderSynced": "Ordner synchronisiert",
+    "syncRootDirectory": "Sync-Stammverzeichnis"
 }

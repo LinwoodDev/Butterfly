@@ -295,7 +295,7 @@
     "addRemote": "Añadir remoto",
     "remotes": "Remotas",
     "noRemotes": "No hay controles",
-    "configureRemotes": "Configurar controles remotos",
+    "configureRemotes": "Configurar remotos",
     "url": "URL",
     "connect": "Conectar",
     "username": "Usuario",
@@ -305,7 +305,7 @@
     "directory": "Directorio",
     "documentsDirectory": "Directorio de documentos",
     "templatesDirectory": "Directorio de plantillas",
-    "errorWhileCreatingRemote": "Error al crear el control remoto",
+    "errorWhileCreatingRemote": "Error al crear el remoto",
     "cannotConnectToRemote": "No se puede conectar al remoto",
     "urlNotValid": "URL no válida",
     "remote": "Remoto",
@@ -331,5 +331,33 @@
     "caches": "Cachés",
     "manage": "Gestionar",
     "clearCaches": "Borrar cachés",
-    "createCache": "Crear caché"
+    "createCache": "Crear caché",
+    "thirdPartyLicenses": "Licencias de terceros",
+    "syncing": "Sincronizando...",
+    "synced": "Sincronizado",
+    "notSynced": "No sincronizado",
+    "conflict": "Conflicto",
+    "keepLocal": "Mantener local",
+    "keepRemote": "Mantener remoto",
+    "keepBoth": "Mantener ambos",
+    "forAll": "Para todos",
+    "fileConflict": "{file} en {remote} tiene un conflicto",
+    "@fileConflict": {
+        "placeholders": {
+            "file": {
+                "type": "String",
+                "example": "file.txt"
+            },
+            "remote": {
+                "type": "String",
+                "example": "remote"
+            }
+        }
+    },
+    "offline": "Desconectado",
+    "localLatest": "Último local",
+    "remoteLatest": "Último remoto",
+    "path": "Ruta",
+    "folderSynced": "Carpeta sincronizada",
+    "syncRootDirectory": "Directorio raíz de sincronización"
 }

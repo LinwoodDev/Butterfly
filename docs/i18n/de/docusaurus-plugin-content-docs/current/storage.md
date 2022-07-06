@@ -26,3 +26,13 @@ Um einen entfernten Server hinzuzufügen, gehen Sie zu den Einstellungen und kli
 Um die webdav URL zu erhalten, besuchen Sie bitte die Dokumentation:
 
 * [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html)
+
+### Offline-Sync {#offline}
+
+Mit dieser Funktion können Sie Ihre Dateien auf entfernten Servern bearbeiten, während Sie offline sind. Öffnen Sie das Popup-Menü in einer Datei oder einem Ordner und klicken Sie auf `Sync`. Dies wird die Datei oder den Ordner herunterladen und lokal speichern. Um das gesamte Stammverzeichnis zu synchronisieren, Klicken Sie auf das Häkchen im Erstellungsdialog oder klicken Sie in der Einstellung auf die Fernbedienung und klicken Sie auf das Häkchen im Bereich Verwalten.
+
+Es gibt ein paar Einschränkungen:
+
+* Sie können nur die obere Ebene eines Verzeichnisses synchronisieren. Wenn Sie beispielsweise ein Verzeichnis `a/b/test.bfly`haben, wird diese Datei nicht synchronisiert.
+* Sie können keine Datei oder einen Ordner löschen, wenn Sie offline sind.
+* Sie können Vorlagen nicht hinzufügen, bearbeiten oder löschen, solange Sie offline sind.
