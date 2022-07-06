@@ -292,8 +292,8 @@
     "duration": "Durée",
     "quality": "Qualité",
     "local": "Locale",
-    "addRemote": "Ajouter une télécommande",
-    "remotes": "Télécommandes",
+    "addRemote": "Ajouter à distance",
+    "remotes": "Éléments",
     "noRemotes": "Aucune télécommande",
     "configureRemotes": "Configurer les télécommandes",
     "url": "URL",
@@ -305,7 +305,7 @@
     "directory": "Répertoire",
     "documentsDirectory": "Répertoire des documents",
     "templatesDirectory": "Répertoire des modèles",
-    "errorWhileCreatingRemote": "Erreur lors de la création de la télécommande",
+    "errorWhileCreatingRemote": "Erreur lors de la création à distance",
     "cannotConnectToRemote": "Impossible de se connecter à distance",
     "urlNotValid": "URL non valide",
     "remote": "Distante",
@@ -332,16 +332,16 @@
     "manage": "Gérer",
     "clearCaches": "Vider les caches",
     "createCache": "Créer une cache",
-    "thirdPartyLicenses": "Third party licenses",
-    "syncing": "Syncing...",
-    "synced": "Synced",
-    "notSynced": "Not synced",
-    "conflict": "Conflict",
-    "keepLocal": "Keep local",
-    "keepRemote": "Keep remote",
-    "keepBoth": "Keep both",
-    "forAll": "For all",
-    "fileConflict": "{file} in {remote} has a conflict",
+    "thirdPartyLicenses": "Licences tierces",
+    "syncing": "Synchronisation en cours...",
+    "synced": "Synchronisé",
+    "notSynced": "Non synchronisé",
+    "conflict": "Conflit",
+    "keepLocal": "Garder en local",
+    "keepRemote": "Garder distante",
+    "keepBoth": "Garder les deux",
+    "forAll": "Pour tous",
+    "fileConflict": "{file} dans {remote} a un conflit",
     "@fileConflict": {
         "placeholders": {
             "file": {
@@ -354,10 +354,10 @@
             }
         }
     },
-    "offline": "Offline",
-    "localLatest": "Local latest",
-    "remoteLatest": "Remote latest",
-    "path": "Path",
-    "folderSynced": "Folder synced",
-    "syncRootDirectory": "Sync root directory"
+    "offline": "Hors ligne",
+    "localLatest": "Dernier jour local",
+    "remoteLatest": "Dernier jour à distance",
+    "path": "Chemin d'accès",
+    "folderSynced": "Dossier synchronisé",
+    "syncRootDirectory": "Synchroniser le répertoire racine"
 }
