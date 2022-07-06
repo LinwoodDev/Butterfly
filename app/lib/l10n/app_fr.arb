@@ -331,5 +331,33 @@
     "caches": "Caches",
     "manage": "Gérer",
     "clearCaches": "Vider les caches",
-    "createCache": "Créer une cache"
+    "createCache": "Créer une cache",
+    "thirdPartyLicenses": "Third party licenses",
+    "syncing": "Syncing...",
+    "synced": "Synced",
+    "notSynced": "Not synced",
+    "conflict": "Conflict",
+    "keepLocal": "Keep local",
+    "keepRemote": "Keep remote",
+    "keepBoth": "Keep both",
+    "forAll": "For all",
+    "fileConflict": "{file} in {remote} has a conflict",
+    "@fileConflict": {
+        "placeholders": {
+            "file": {
+                "type": "String",
+                "example": "file.txt"
+            },
+            "remote": {
+                "type": "String",
+                "example": "remote"
+            }
+        }
+    },
+    "offline": "Offline",
+    "localLatest": "Local latest",
+    "remoteLatest": "Remote latest",
+    "path": "Path",
+    "folderSynced": "Folder synced",
+    "syncRootDirectory": "Sync root directory"
 }
