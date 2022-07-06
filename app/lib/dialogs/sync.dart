@@ -114,10 +114,44 @@ class _RemoteSyncView extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (context, index) {
             final file = files[index];
-            return ListTile(
-              title: Text(file.location.path),
-              subtitle: Text(file.status.getLocalizedName(context)),
-              leading: Icon(file.status.getIcon()),
+            return Card(
+              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                ListTile(
+                  title: Text(file.location.path),
+                  subtitle: Text(file.status.getLocalizedName(context)),
+                  leading: Icon(file.status.getIcon()),
+                ),
+                if (file.status == FileSyncStatus.conflict) ...[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          sync.resolve(file.location.pathWithLeadingSlash,
+                              FileSyncStatus.localLatest);
+                        },
+                        child: Text(AppLocalizations.of(context)!.keepLocal),
+                      ),
+                      const SizedBox(width: 8),
+                      TextButton(
+                        onPressed: () {
+                          sync.resolve(file.location.pathWithLeadingSlash,
+                              FileSyncStatus.remoteLatest);
+                        },
+                        child: Text(AppLocalizations.of(context)!.keepRemote),
+                      ),
+                      const SizedBox(width: 8),
+                      TextButton(
+                        onPressed: () {
+                          sync.resolve(file.location.pathWithLeadingSlash,
+                              FileSyncStatus.conflict);
+                        },
+                        child: Text(AppLocalizations.of(context)!.keepBoth),
+                      ),
+                    ],
+                  ),
+                ]
+              ]),
             );
           },
         );

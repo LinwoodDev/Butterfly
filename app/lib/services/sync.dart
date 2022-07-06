@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/file_system_remote.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 
 import '../cubits/settings.dart';
+import '../models/document.dart';
 
 class SyncService {
   final BuildContext context;
@@ -124,17 +126,30 @@ class RemoteSync {
     var files = <SyncFile>[];
     final currentFiles = await fileSystem.getAllSyncFiles();
     _filesSubject.add(currentFiles);
+    final now = DateTime.now();
 
     for (final file in currentFiles) {
       switch (file.status) {
         case FileSyncStatus.localLatest:
           await fileSystem
               .uploadCachedContent(file.location.pathWithLeadingSlash);
-          files.add(file);
+          final syncedFile = SyncFile(
+            location: file.location,
+            syncedLastModified: now,
+            localLastModified: file.localLastModified,
+            remoteLastModified: file.localLastModified,
+          );
+          files.add(syncedFile);
           break;
         case FileSyncStatus.remoteLatest:
           await fileSystem.cache(file.location.pathWithLeadingSlash);
-          files.add(file);
+          final syncedFile = SyncFile(
+            location: file.location,
+            syncedLastModified: now,
+            localLastModified: file.remoteLastModified,
+            remoteLastModified: file.remoteLastModified,
+          );
+          files.add(syncedFile);
           break;
         case FileSyncStatus.synced:
           break;
@@ -172,5 +187,27 @@ class RemoteSync {
 
   Future<void> _updateLastSynced() {
     return settingsCubit.updateLastSynced(remoteStorage.identifier);
+  }
+
+  Future<void> resolve(String path, FileSyncStatus status) async {
+    final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage)
+        as DavRemoteDocumentFileSystem;
+    switch (status) {
+      case FileSyncStatus.localLatest:
+        // Upload local file to remote
+        return fileSystem.uploadCachedContent(path);
+      case FileSyncStatus.remoteLatest:
+        return fileSystem.cache(path);
+      case FileSyncStatus.conflict:
+        final cache = await fileSystem.getCachedContent(path);
+        if (cache == null) return;
+        await fileSystem.cache(path);
+        final parent = path.substring(0, path.lastIndexOf('/'));
+        final document = AppDocument.fromJson(json.decode(cache));
+        fileSystem.importDocument(document, path: parent, forceSync: true);
+        break;
+      default:
+        throw Exception('Unknown status $status');
+    }
   }
 }
