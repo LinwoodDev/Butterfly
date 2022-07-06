@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:butterfly/services/sync.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:window_manager/window_manager.dart';
 import 'api/file_system.dart';
 import 'cubits/settings.dart';
 import 'models/converter.dart';
+import 'settings/remote.dart';
 import 'theme/manager.dart';
 import 'views/main.dart';
 import 'embed/embedding.dart';
@@ -81,11 +83,15 @@ Future<void> main([List<String> args = const []]) async {
       await windowManager.focus();
     });
   }
-  runApp(MultiRepositoryProvider(providers: [
-    RepositoryProvider(create: (context) => DocumentFileSystem.fromPlatform()),
-    RepositoryProvider(create: (context) => TemplateFileSystem.fromPlatform()),
-    RepositoryProvider(create: (context) => const DocumentJsonConverter()),
-  ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)));
+  runApp(
+    MultiRepositoryProvider(providers: [
+      RepositoryProvider(
+          create: (context) => DocumentFileSystem.fromPlatform()),
+      RepositoryProvider(
+          create: (context) => TemplateFileSystem.fromPlatform()),
+      RepositoryProvider(create: (context) => const DocumentJsonConverter()),
+    ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)),
+  );
 }
 
 class ButterflyApp extends StatelessWidget {
@@ -131,11 +137,11 @@ class ButterflyApp extends StatelessWidget {
                         builder: (context, state) =>
                             const RemotesSettingsPage(),
                         routes: [
-                          /*GoRoute(
+                          GoRoute(
                             path: ':id',
                             builder: (context, state) =>
                                 RemoteSettingsPage(remote: state.params['id']!),
-                          )*/
+                          )
                         ],
                       ),
                     ],
@@ -175,10 +181,21 @@ class ButterflyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => SettingsCubit.fromPrefs(prefs), child: _buildApp());
+      create: (_) => SettingsCubit.fromPrefs(prefs),
+      child: RepositoryProvider(
+        create: (context) =>
+            SyncService(context, context.read<SettingsCubit>()),
+        lazy: false,
+        child: _buildApp(),
+      ),
+    );
   }
 
   Widget _buildApp() {
+    final virtualWindowFrameBuilder =
+        kIsWeb || (!Platform.isWindows && !Platform.isLinux)
+            ? null
+            : VirtualWindowFrameInit();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.theme != current.theme ||
@@ -198,10 +215,10 @@ class ButterflyApp extends StatelessWidget {
                 if (child == null) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if (kIsWeb || (!Platform.isWindows && !Platform.isLinux)) {
+                if (kIsWeb || virtualWindowFrameBuilder == null) {
                   return child;
                 }
-                return DragToResizeArea(resizeEdgeSize: 8, child: child);
+                return virtualWindowFrameBuilder(context, child);
               },
               darkTheme: ThemeManager.getThemeByName(state.design, dark: true),
             ));

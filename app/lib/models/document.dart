@@ -35,15 +35,19 @@ class AssetLocation with _$AssetLocation {
 @immutable
 abstract class AppDocumentAsset {
   final AssetLocation location;
+  final bool cached;
 
-  const AppDocumentAsset(this.location);
+  const AppDocumentAsset(this.location, {this.cached = false});
 
   String get fileName => location.path.split('/').last;
 
-  String get fileExtension => fileName.split('.').last;
+  String get fileExtension =>
+      fileName.contains('.') ? fileName.split('.').last : '';
 
-  String get fileNameWithoutExtension =>
-      fileName.substring(0, fileName.length - fileExtension.length - 1);
+  String get fileNameWithoutExtension => fileName.substring(
+      0,
+      fileName.length -
+          (fileName.contains('.') ? fileExtension.length - 1 : 0));
 
   String get pathWithLeadingSlash => location.pathWithLeadingSlash;
   String get pathWithoutLeadingSlash => location.pathWithoutLeadingSlash;
@@ -60,11 +64,11 @@ class AppDocumentFile extends AppDocumentAsset {
 
   const AppDocumentFile(super.path, this.json);
 
-  int get fileVersion => json['fileVersion'];
+  int get fileVersion => json['fileVersion'] ?? -1;
 
-  String get name => json['name'];
+  String get name => json['name'] ?? fileNameWithoutExtension;
 
-  String get description => json['description'];
+  String get description => json['description'] ?? '';
 
   DateTime? get updatedAt =>
       json['updatedAt'] == null ? null : DateTime.tryParse(json['updatedAt']);

@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -83,10 +84,10 @@ class RemotesSettingsPage extends StatelessWidget {
                             leading: remote.icon.isEmpty
                                 ? null
                                 : Image.memory(remote.icon),
-                            /*onTap: () {
+                            onTap: () {
                               GoRouter.of(context).push(
                                   '/settings/remotes/${Uri.encodeComponent(remote.identifier)}');
-                            },*/
+                            },
                             trailing: IconButton(
                               icon: remote.identifier == state.defaultRemote
                                   ? const Icon(PhosphorIcons.cloudFill)
@@ -118,9 +119,12 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _passwordController = TextEditingController(),
       _iconController = TextEditingController(text: '/favicon.ico'),
       _directoryController = TextEditingController(),
-      _documentsDirectoryController = TextEditingController(),
-      _templatesDirectoryController = TextEditingController();
-  bool _isConnected = false, _advanced = false, _showPassword = false;
+      _documentsDirectoryController = TextEditingController(text: 'Documents'),
+      _templatesDirectoryController = TextEditingController(text: 'Templates');
+  bool _isConnected = false,
+      _advanced = false,
+      _showPassword = false,
+      _syncRootDirectory = false;
 
   void _connect() async {
     try {
@@ -190,15 +194,17 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     final settingsCubit = context.read<SettingsCubit>();
     final icon = await _getIcon();
     final remoteStorage = DavRemoteStorage(
-      username: _usernameController.text,
-      url: _urlController.text,
-      path: _directoryController.text,
-      documentsPath: _documentsDirectoryController.text,
-      templatesPath: _templatesDirectoryController.text,
-      icon: icon,
+        username: _usernameController.text,
+        url: _urlController.text,
+        path: _directoryController.text,
+        documentsPath: _documentsDirectoryController.text,
+        templatesPath: _templatesDirectoryController.text,
+        icon: icon,
+        cachedDocuments: [if (_syncRootDirectory) '/']);
+    await settingsCubit.addRemote(
+      remoteStorage,
+      password: _passwordController.text,
     );
-    await settingsCubit.addRemote(remoteStorage,
-        password: _passwordController.text);
     navigator.pop();
   }
 
@@ -292,13 +298,25 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     ),
                   ),
                 ] else ...[
+                  CheckboxListTile(
+                    value: _syncRootDirectory,
+                    onChanged: (value) => setState(
+                        () => _syncRootDirectory = value ?? _syncRootDirectory),
+                    title:
+                        Text(AppLocalizations.of(context)!.syncRootDirectory),
+                  ),
                   _DirectoryField(
                     controller: _directoryController,
                     label: AppLocalizations.of(context)!.directory,
                     onChanged: (value) {
-                      _documentsDirectoryController.text = '$value/Documents';
-                      _templatesDirectoryController.text = '$value/Templates';
+                      var prefix = value;
+                      if (prefix.isNotEmpty) {
+                        prefix += '/';
+                      }
+                      _documentsDirectoryController.text = '${prefix}Documents';
+                      _templatesDirectoryController.text = '${prefix}Templates';
                     },
+                    icon: const Icon(PhosphorIcons.folderLight),
                   ),
                   const SizedBox(height: 8),
                   ExpansionPanelList(
@@ -320,13 +338,14 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                             controller: _documentsDirectoryController,
                             label: AppLocalizations.of(context)!
                                 .documentsDirectory,
-                            icon: const Icon(PhosphorIcons.folderLight),
+                            icon: const Icon(PhosphorIcons.fileLight),
                           ),
                           const SizedBox(height: 8),
                           _DirectoryField(
                             controller: _templatesDirectoryController,
                             label: AppLocalizations.of(context)!
                                 .templatesDirectory,
+                            icon: const Icon(PhosphorIcons.fileDottedLight),
                           ),
                         ]),
                       ),

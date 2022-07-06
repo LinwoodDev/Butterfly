@@ -21,7 +21,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_svg: ^1.1.1
+  flutter_svg: ^1.1.1+1
   flutter_bloc: ^8.0.1
   image: ^3.2.0
   intl: ^0.17.0
@@ -53,9 +53,10 @@ dependencies:
   equatable: ^2.0.3
   adwaita: ^0.5.2
   yaru: ^0.3.3
+  rxdart: ^0.27.4
 
 dev_dependencies:
-  flutter_native_splash: ^2.2.3+1
+  flutter_native_splash: ^2.2.4
   flutter_launcher_icons: ^0.9.3
   flutter_lints: ^2.0.1
   flutter_test:

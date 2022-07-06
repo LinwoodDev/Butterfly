@@ -612,7 +612,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     }
     emit(nextState);
     AssetLocation? path = current.location;
-    if (!kIsWeb && path.remote == '') {
+    if (current.hasAutosave()) {
       path = await nextState.save();
       var currentState = state;
       if (currentState is! DocumentLoadSuccess) return;

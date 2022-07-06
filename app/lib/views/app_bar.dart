@@ -133,8 +133,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                         ),
                     ]),
               );
-              if ((kIsWeb && (state.embedding?.save ?? true)) ||
-                  state.location.remote != '') {
+              if (!state.hasAutosave()) {
                 title = Row(children: [
                   Expanded(child: title),
                   IconButton(

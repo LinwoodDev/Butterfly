@@ -1,0 +1,1 @@
+* Fixing shape editing dialog for elements

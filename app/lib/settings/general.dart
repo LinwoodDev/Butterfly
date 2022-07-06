@@ -194,7 +194,8 @@ class GeneralSettingsPage extends StatelessWidget {
                         onTap: () => launchUrl(Uri.https(
                             'docs.butterfly.linwood.dev', 'privacypolicy'))),
                     ListTile(
-                      title: Text(AppLocalizations.of(context)!.license),
+                      title: Text(
+                          AppLocalizations.of(context)!.thirdPartyLicenses),
                       leading: const Icon(PhosphorIcons.fileLight),
                       onTap: () => showLicensePage(context: context),
                     )

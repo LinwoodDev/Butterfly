@@ -29,6 +29,7 @@ class RemoteStorage with _$RemoteStorage {
     required String templatesPath,
     @Default([]) List<String> cachedDocuments,
     @Uint8ListJsonConverter() required Uint8List icon,
+    DateTime? lastSynced,
   }) = DavRemoteStorage;
 
   factory RemoteStorage.fromJson(Map<String, dynamic> json) =>
@@ -92,6 +93,21 @@ class RemoteStorage with _$RemoteStorage {
 
   TemplateFileSystem get templateFileSystem =>
       TemplateFileSystem.fromPlatform(remote: this);
+
+  bool hasDocumentCached(String name) {
+    if (!name.startsWith('/')) {
+      name = '/$name';
+    }
+    return cachedDocuments.any((doc) {
+      if (doc == name) {
+        return true;
+      }
+      if (name.startsWith(doc)) {
+        return !name.substring(doc.length + 1).contains('/');
+      }
+      return false;
+    });
+  }
 }
 
 @freezed
@@ -407,12 +423,20 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> addCache(String identifier, String current) {
+  Future<void> addCache(String identifier, String current) async {
+    if (current.endsWith('/')) {
+      current = current.substring(0, current.length - 1);
+    }
+    if (!current.startsWith('/')) {
+      current = '/$current';
+    }
     emit(state.copyWith(
         remotes: List<RemoteStorage>.from(state.remotes).map((e) {
       if (e.identifier == identifier) {
+        final documents = List<String>.from(e.cachedDocuments);
         return e.copyWith(
-            cachedDocuments: List<String>.from(e.cachedDocuments)
+            cachedDocuments: documents
+              ..removeWhere((element) => element == current)
               ..add(current));
       }
       return e;
@@ -420,13 +444,35 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> deleteCache(String identifier, String current) {
+  Future<void> removeCache(String identifier, String current) {
     emit(state.copyWith(
         remotes: List<RemoteStorage>.from(state.remotes).map((e) {
       if (e.identifier == identifier) {
         return e.copyWith(
             cachedDocuments: List<String>.from(e.cachedDocuments)
               ..remove(current));
+      }
+      return e;
+    }).toList()));
+    return save();
+  }
+
+  Future<void> updateLastSynced(String identifier) {
+    emit(state.copyWith(
+        remotes: List<RemoteStorage>.from(state.remotes).map((e) {
+      if (e.identifier == identifier) {
+        return e.copyWith(lastSynced: DateTime.now());
+      }
+      return e;
+    }).toList()));
+    return save();
+  }
+
+  Future<void> clearCaches(RemoteStorage storage) {
+    emit(state.copyWith(
+        remotes: List<RemoteStorage>.from(state.remotes).map((e) {
+      if (e.identifier == storage.identifier) {
+        return e.copyWith(cachedDocuments: []);
       }
       return e;
     }).toList()));

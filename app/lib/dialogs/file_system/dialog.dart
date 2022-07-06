@@ -6,6 +6,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/create.dart';
 import 'package:butterfly/dialogs/file_system/grid.dart';
 import 'package:butterfly/dialogs/file_system/list.dart';
+import 'package:butterfly/dialogs/file_system/sync.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/widgets/header.dart';
 import 'package:butterfly/widgets/remote_button.dart';
@@ -213,6 +214,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             ),
                           ),
                         ),
+                        if (_fileSystem.remote != null) const SyncButton(),
                       ]);
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -334,7 +336,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
             '/local/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}');
       }
     } else {
-      _pathController.text = asset.pathWithoutLeadingSlash;
+      _pathController.text = asset.pathWithLeadingSlash;
       setState(() {});
     }
   }

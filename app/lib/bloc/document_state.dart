@@ -96,6 +96,15 @@ class DocumentLoadSuccess extends DocumentState {
 
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 
+  bool hasAutosave() =>
+      (embedding?.save ?? false) ||
+      (!kIsWeb &&
+          (location.remote.isEmpty ||
+              (settingsCubit.state
+                      .getRemote(location.remote)
+                      ?.hasDocumentCached(location.path) ??
+                  false)));
+
   Future<AssetLocation> save() {
     final storage = getRemoteStorage();
     if (embedding != null) return Future.value(AssetLocation.local(''));
