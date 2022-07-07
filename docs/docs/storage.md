@@ -27,7 +27,7 @@ Add the URL of the remote server and the username and password. After that you c
 
 To get the webdav url, please visit the documentation:
 
-* [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html)
+* [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (it should look like this: `https://nextcloud.example.com/remote.php/dav/files/username/`, replace `username` and `nextcloud.example.com` with the correct values)
 
 ### Offline sync {#offline}
 
