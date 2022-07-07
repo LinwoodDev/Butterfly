@@ -25,7 +25,7 @@ Para añadir un servidor remoto, ve a la configuración y haz clic en `Remotas`.
 
 Para obtener la url webdav, por favor visite la documentación:
 
-* [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html)
+* [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (it should look like this: `https://nextcloud.example.com/remote.php/dav/files/username/`, replace `username` and `nextcloud.example.com` with the correct values)
 
 ### Sincronización sin conexión {#offline}
 
