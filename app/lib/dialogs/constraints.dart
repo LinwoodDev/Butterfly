@@ -8,7 +8,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class ConstraintsContextMenu extends StatefulWidget {
   final ElementConstraints? initialConstraints;
   final bool enableScaled;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
   final ValueChanged<ElementConstraints?> onChanged;
   const ConstraintsContextMenu(
@@ -71,8 +71,8 @@ class _ConstraintsContextMenuState extends State<ConstraintsContextMenu> {
             )),
             IconButton(
                 icon: const Icon(PhosphorIcons.gearLight),
-                onPressed: () {
-                  widget.close();
+                onPressed: () async {
+                  await widget.close();
 
                   showDialog(
                     context: context,
@@ -239,7 +239,7 @@ class _DynamicConstraintsContent extends StatelessWidget {
 
 class ConstraintContextMenu extends StatefulWidget {
   final ElementConstraint initialConstraint;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final ValueChanged<ElementConstraint> onChanged;
   const ConstraintContextMenu({
     super.key,

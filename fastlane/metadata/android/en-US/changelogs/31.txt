@@ -5,3 +5,4 @@
     * Add sync background service 
 * Switch license to AGPL
 * Fixing shape editing dialog for elements
+* Fix opening nested context menus

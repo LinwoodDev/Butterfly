@@ -23,7 +23,7 @@ typedef ElementWidgetsBuilder<T extends PadElement> = List<Widget> Function(
 
 class GeneralElementDialog<T extends PadElement> extends StatefulWidget {
   final int index;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
   final ElementWidgetsBuilder<T>? builder;
 
@@ -214,7 +214,7 @@ class _GeneralElementDialogState<T extends PadElement>
 class _GeneralElementDialogHeader extends StatelessWidget {
   final Renderer<PadElement> renderer;
   final Offset position;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   const _GeneralElementDialogHeader(
       {required this.renderer,
       this.position = Offset.zero,
@@ -241,6 +241,7 @@ class _GeneralElementDialogHeader extends StatelessWidget {
             IconButton(
               tooltip: renderer.area!.name,
               onPressed: () {
+                close();
                 showContextMenu(
                     context: context,
                     position: position,
@@ -255,7 +256,6 @@ class _GeneralElementDialogHeader extends StatelessWidget {
                               close: close,
                               position: position,
                             )));
-                close();
               },
               padding: const EdgeInsets.all(4.0),
               icon: const Icon(PhosphorIcons.monitorLight, size: 32),
@@ -268,6 +268,7 @@ class _GeneralElementDialogHeader extends StatelessWidget {
               var bloc = context.read<DocumentBloc>();
               var transformCubit = context.read<TransformCubit>();
               var actor = context.findAncestorWidgetOfExactType<Actions>();
+              await close();
               showContextMenu(
                   context: context,
                   position: position,
@@ -284,7 +285,6 @@ class _GeneralElementDialogHeader extends StatelessWidget {
                               position: position,
                             )),
                       ));
-              close();
             },
           ),
         ]),

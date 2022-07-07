@@ -4,12 +4,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 typedef ContextMenuBuilder = Widget Function(
-    BuildContext context, VoidCallback close);
+    BuildContext context, ContextCloseFunction close);
+typedef ContextCloseFunction = Future<void> Function();
 
 class ContextMenu extends StatefulWidget {
   final Offset position;
   final ContextMenuBuilder builder;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final double maxWidth, maxHeight;
 
   const ContextMenu(
@@ -50,11 +51,11 @@ class _ContextMenuState extends State<ContextMenu>
     super.dispose();
   }
 
-  void _close() {
+  Future<void> _close() async {
     if (!mounted) return;
-    _controller.reverse().then<void>((_) {
+    await _controller.reverse().then<void>((_) async {
       if (!mounted) return;
-      widget.close();
+      await widget.close();
     });
   }
 
@@ -70,7 +71,6 @@ class _ContextMenuState extends State<ContextMenu>
       final maxHeight = min(height, widget.maxHeight);
       final xOffset = x + maxWidth > width ? width - maxWidth : x;
       final yOffset = y + maxHeight > height ? height - maxHeight : y;
-      var current = widget.builder(context, _close);
       return Stack(
         children: [
           Positioned.fill(
@@ -101,10 +101,11 @@ class _ContextMenuState extends State<ContextMenu>
                         ).animate(_animation),
                         transformHitTests: false,
                         child: Material(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: current),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: widget.builder(context, _close),
+                        ),
                       ),
                     ),
                   ],
@@ -127,19 +128,16 @@ Future<void> showContextMenu(
   var completer = Completer<void>();
   final overlayState = Overlay.of(context);
   late OverlayEntry overlayEntry;
-  final navigator = Navigator(
-    onGenerateRoute: (settings) => MaterialPageRoute(
+  overlayEntry = OverlayEntry(
+      maintainState: true,
+      opaque: false,
       builder: (context) => ContextMenu(
           position: position,
-          close: () {
+          close: () async {
             overlayEntry.remove();
             completer.complete();
           },
-          builder: builder),
-    ),
-  );
-  overlayEntry =
-      OverlayEntry(maintainState: true, builder: (context) => navigator);
+          builder: builder));
   overlayState?.insert(overlayEntry);
   if (overlayState != null) {
     return completer.future;

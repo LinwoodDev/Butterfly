@@ -6,6 +6,7 @@ import '../../bloc/document_bloc.dart';
 import '../../models/element.dart';
 import '../../renderers/renderer.dart';
 import '../../visualizer/element.dart';
+import '../../widgets/context_menu.dart';
 import 'general.dart';
 import 'image.dart';
 import 'label.dart';
@@ -14,7 +15,7 @@ import 'shape.dart';
 
 class ElementsDialog extends StatefulWidget {
   final List<Renderer<PadElement>> elements;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
   final ValueChanged<Renderer<PadElement>>? onChanged;
   const ElementsDialog(

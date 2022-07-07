@@ -10,10 +10,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../bloc/document_bloc.dart';
 import '../../models/element.dart';
+import '../../widgets/context_menu.dart';
 
 class ShapeElementDialog extends StatelessWidget {
   final int index;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
 
   const ShapeElementDialog(

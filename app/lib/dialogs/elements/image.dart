@@ -14,7 +14,7 @@ import '../constraints.dart';
 
 class ImageElementDialog extends StatelessWidget {
   final int index;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
 
   const ImageElementDialog(
@@ -46,8 +46,8 @@ class ImageElementDialog extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.constraints),
             leading: const Icon(PhosphorIcons.selectionLight),
             subtitle: Text(constraints),
-            onTap: () {
-              close();
+            onTap: () async {
+              await close();
               showContextMenu(
                   context: context,
                   position: position,

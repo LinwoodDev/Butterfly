@@ -12,9 +12,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../actions/areas.dart';
 import '../../actions/color_palette.dart';
 import '../../cubits/transform.dart';
+import '../../widgets/context_menu.dart';
 
 class BackgroundContextMenu extends StatelessWidget {
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
   const BackgroundContextMenu(
       {super.key, required this.close, required this.position});

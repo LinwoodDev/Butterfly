@@ -1,5 +1,6 @@
 import 'package:butterfly/dialogs/elements/general.dart';
 import 'package:butterfly/widgets/color_field.dart';
+import 'package:butterfly/widgets/context_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -7,7 +8,7 @@ import '../../models/element.dart';
 
 class PenElementDialog extends StatelessWidget {
   final int index;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
 
   const PenElementDialog(
