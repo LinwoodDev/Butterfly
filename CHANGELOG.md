@@ -2,6 +2,17 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.0-beta.0 (2022-07-08)
+
+* Add offline sync
+    * Add remote page to control all cached paths
+    * Add sync button and dialog to file system dialog to see the status
+    * Add sync button controller to all remote assets in file system dialog
+    * Add sync background service 
+* Switch license to AGPL
+* Fixing shape editing dialog for elements
+* Fix opening nested context menus
+
 ## 1.4.0-alpha.3 (2022-07-01)
 
 * Add updater
