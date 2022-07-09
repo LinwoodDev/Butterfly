@@ -58,6 +58,7 @@ class EditToolbar extends StatelessWidget {
 
               return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                 builder: (context, currentIndex) => Material(
+                  color: Colors.transparent,
                   child: Align(
                     alignment:
                         isMobile ? Alignment.center : Alignment.centerRight,

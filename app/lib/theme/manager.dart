@@ -1,15 +1,17 @@
 import 'package:adwaita/adwaita.dart';
-import 'package:butterfly/theme/themes.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:yaru/yaru.dart';
 
+import 'classic.dart';
+
 class ThemeManager {
-  static List<String> getThemes() => List<String>.from(kCustomSchemes.keys)
-    ..addAll(['adwaita'])
-    ..addAll(getYaruThemes())
-    ..addAll(FlexScheme.values.map((e) => e.name))
-    ..remove('custom');
+  static List<String> getThemes() => [
+        'classic',
+        'adwaita',
+        ...getYaruThemes(),
+        ...FlexScheme.values.map((e) => e.name)
+      ]..remove('custom');
   static ThemeData getThemeByName(String name, {bool dark = false}) {
     FlexSchemeColor? colorScheme;
     if (name.isEmpty) name = 'classic';
@@ -20,9 +22,8 @@ class ThemeManager {
     if (yaruTheme != null) {
       return yaruTheme;
     }
-    if (kCustomSchemes.containsKey(name)) {
-      colorScheme =
-          dark ? kCustomSchemes[name]!.dark : kCustomSchemes[name]!.light;
+    if (name == 'classic') {
+      return getClassicTheme(dark: dark);
     }
     if (colorScheme == null) {
       try {
