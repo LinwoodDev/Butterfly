@@ -13,6 +13,8 @@
 
 /* You can override the default Infima variables here. */
 :root {
+  --ifm-link-hover-decoration: none;
+  --ifm-link-hover-color: var(--ifm-color-emphasis-900);
   --ifm-color-primary: #f2b138;
   --ifm-color-primary-dark: #f0a61c;
   --ifm-color-primary-darker: #eea010;
@@ -70,7 +72,6 @@ img {
 }
 .navbar__link:hover {
   background: var(--ifm-color-emphasis-300);
-  color: var(--ifm-color-emphasis-900);
 }
 .navbar__link--active {
   font-weight: bold;
