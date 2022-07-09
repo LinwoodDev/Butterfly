@@ -436,22 +436,22 @@ abstract class DavRemoteStorage extends RemoteStorage {
       _$DavRemoteStorage.fromJson;
 
   @override
-  String get username => throw _privateConstructorUsedError;
+  String get username;
   @override
-  String get url => throw _privateConstructorUsedError;
+  String get url;
   @override
-  String get path => throw _privateConstructorUsedError;
+  String get path;
   @override
-  String get documentsPath => throw _privateConstructorUsedError;
+  String get documentsPath;
   @override
-  String get templatesPath => throw _privateConstructorUsedError;
+  String get templatesPath;
   @override
-  List<String> get cachedDocuments => throw _privateConstructorUsedError;
+  List<String> get cachedDocuments;
   @override
   @Uint8ListJsonConverter()
-  Uint8List get icon => throw _privateConstructorUsedError;
+  Uint8List get icon;
   @override
-  DateTime? get lastSynced => throw _privateConstructorUsedError;
+  DateTime? get lastSynced;
   @override
   @JsonKey(ignore: true)
   _$$DavRemoteStorageCopyWith<_$DavRemoteStorage> get copyWith =>
@@ -468,7 +468,8 @@ mixin _$ButterflySettings {
   double get mouseSensitivity => throw _privateConstructorUsedError;
   double get penSensitivity => throw _privateConstructorUsedError;
   double get selectSensitivity => throw _privateConstructorUsedError;
-  InputType get inputType => throw _privateConstructorUsedError;
+  bool get penOnlyInput => throw _privateConstructorUsedError;
+  bool get inputGestures => throw _privateConstructorUsedError;
   String get design => throw _privateConstructorUsedError;
   List<AssetLocation> get history => throw _privateConstructorUsedError;
   bool get startEnabled => throw _privateConstructorUsedError;
@@ -496,7 +497,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       double mouseSensitivity,
       double penSensitivity,
       double selectSensitivity,
-      InputType inputType,
+      bool penOnlyInput,
+      bool inputGestures,
       String design,
       List<AssetLocation> history,
       bool startEnabled,
@@ -525,7 +527,8 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? mouseSensitivity = freezed,
     Object? penSensitivity = freezed,
     Object? selectSensitivity = freezed,
-    Object? inputType = freezed,
+    Object? penOnlyInput = freezed,
+    Object? inputGestures = freezed,
     Object? design = freezed,
     Object? history = freezed,
     Object? startEnabled = freezed,
@@ -567,10 +570,14 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _value.selectSensitivity
           : selectSensitivity // ignore: cast_nullable_to_non_nullable
               as double,
-      inputType: inputType == freezed
-          ? _value.inputType
-          : inputType // ignore: cast_nullable_to_non_nullable
-              as InputType,
+      penOnlyInput: penOnlyInput == freezed
+          ? _value.penOnlyInput
+          : penOnlyInput // ignore: cast_nullable_to_non_nullable
+              as bool,
+      inputGestures: inputGestures == freezed
+          ? _value.inputGestures
+          : inputGestures // ignore: cast_nullable_to_non_nullable
+              as bool,
       design: design == freezed
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
@@ -619,7 +626,8 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       double mouseSensitivity,
       double penSensitivity,
       double selectSensitivity,
-      InputType inputType,
+      bool penOnlyInput,
+      bool inputGestures,
       String design,
       List<AssetLocation> history,
       bool startEnabled,
@@ -650,7 +658,8 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? mouseSensitivity = freezed,
     Object? penSensitivity = freezed,
     Object? selectSensitivity = freezed,
-    Object? inputType = freezed,
+    Object? penOnlyInput = freezed,
+    Object? inputGestures = freezed,
     Object? design = freezed,
     Object? history = freezed,
     Object? startEnabled = freezed,
@@ -692,10 +701,14 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.selectSensitivity
           : selectSensitivity // ignore: cast_nullable_to_non_nullable
               as double,
-      inputType: inputType == freezed
-          ? _value.inputType
-          : inputType // ignore: cast_nullable_to_non_nullable
-              as InputType,
+      penOnlyInput: penOnlyInput == freezed
+          ? _value.penOnlyInput
+          : penOnlyInput // ignore: cast_nullable_to_non_nullable
+              as bool,
+      inputGestures: inputGestures == freezed
+          ? _value.inputGestures
+          : inputGestures // ignore: cast_nullable_to_non_nullable
+              as bool,
       design: design == freezed
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
@@ -740,7 +753,8 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.mouseSensitivity = 1,
       this.penSensitivity = 1,
       this.selectSensitivity = 5,
-      this.inputType = InputType.multiDraw,
+      this.penOnlyInput = false,
+      this.inputGestures = true,
       this.design = '',
       final List<AssetLocation> history = const [],
       this.startEnabled = true,
@@ -778,7 +792,10 @@ class _$_ButterflySettings extends _ButterflySettings {
   final double selectSensitivity;
   @override
   @JsonKey()
-  final InputType inputType;
+  final bool penOnlyInput;
+  @override
+  @JsonKey()
+  final bool inputGestures;
   @override
   @JsonKey()
   final String design;
@@ -812,7 +829,7 @@ class _$_ButterflySettings extends _ButterflySettings {
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, inputType: $inputType, design: $design, history: $history, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote)';
   }
 
   @override
@@ -834,7 +851,10 @@ class _$_ButterflySettings extends _ButterflySettings {
                 .equals(other.penSensitivity, penSensitivity) &&
             const DeepCollectionEquality()
                 .equals(other.selectSensitivity, selectSensitivity) &&
-            const DeepCollectionEquality().equals(other.inputType, inputType) &&
+            const DeepCollectionEquality()
+                .equals(other.penOnlyInput, penOnlyInput) &&
+            const DeepCollectionEquality()
+                .equals(other.inputGestures, inputGestures) &&
             const DeepCollectionEquality().equals(other.design, design) &&
             const DeepCollectionEquality().equals(other._history, _history) &&
             const DeepCollectionEquality()
@@ -859,7 +879,8 @@ class _$_ButterflySettings extends _ButterflySettings {
       const DeepCollectionEquality().hash(mouseSensitivity),
       const DeepCollectionEquality().hash(penSensitivity),
       const DeepCollectionEquality().hash(selectSensitivity),
-      const DeepCollectionEquality().hash(inputType),
+      const DeepCollectionEquality().hash(penOnlyInput),
+      const DeepCollectionEquality().hash(inputGestures),
       const DeepCollectionEquality().hash(design),
       const DeepCollectionEquality().hash(_history),
       const DeepCollectionEquality().hash(startEnabled),
@@ -885,7 +906,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final double mouseSensitivity,
       final double penSensitivity,
       final double selectSensitivity,
-      final InputType inputType,
+      final bool penOnlyInput,
+      final bool inputGestures,
       final String design,
       final List<AssetLocation> history,
       final bool startEnabled,
@@ -896,37 +918,39 @@ abstract class _ButterflySettings extends ButterflySettings {
   const _ButterflySettings._() : super._();
 
   @override
-  ThemeMode get theme => throw _privateConstructorUsedError;
+  ThemeMode get theme;
   @override
-  String get localeTag => throw _privateConstructorUsedError;
+  String get localeTag;
   @override
-  String get documentPath => throw _privateConstructorUsedError;
+  String get documentPath;
   @override
-  String get dateFormat => throw _privateConstructorUsedError;
+  String get dateFormat;
   @override
-  double get touchSensitivity => throw _privateConstructorUsedError;
+  double get touchSensitivity;
   @override
-  double get mouseSensitivity => throw _privateConstructorUsedError;
+  double get mouseSensitivity;
   @override
-  double get penSensitivity => throw _privateConstructorUsedError;
+  double get penSensitivity;
   @override
-  double get selectSensitivity => throw _privateConstructorUsedError;
+  double get selectSensitivity;
   @override
-  InputType get inputType => throw _privateConstructorUsedError;
+  bool get penOnlyInput;
   @override
-  String get design => throw _privateConstructorUsedError;
+  bool get inputGestures;
   @override
-  List<AssetLocation> get history => throw _privateConstructorUsedError;
+  String get design;
   @override
-  bool get startEnabled => throw _privateConstructorUsedError;
+  List<AssetLocation> get history;
   @override
-  bool get colorEnabled => throw _privateConstructorUsedError;
+  bool get startEnabled;
   @override
-  String? get lastVersion => throw _privateConstructorUsedError;
+  bool get colorEnabled;
   @override
-  List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
+  String? get lastVersion;
   @override
-  String get defaultRemote => throw _privateConstructorUsedError;
+  List<RemoteStorage> get remotes;
+  @override
+  String get defaultRemote;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>

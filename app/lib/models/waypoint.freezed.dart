@@ -182,12 +182,12 @@ abstract class _Waypoint implements Waypoint {
   factory _Waypoint.fromJson(Map<String, dynamic> json) = _$_Waypoint.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
   @OffsetJsonConverter()
-  Offset get position => throw _privateConstructorUsedError;
+  Offset get position;
   @override
-  double? get scale => throw _privateConstructorUsedError;
+  double? get scale;
   @override
   @JsonKey(ignore: true)
   _$$_WaypointCopyWith<_$_Waypoint> get copyWith =>

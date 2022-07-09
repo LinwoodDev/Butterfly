@@ -301,7 +301,7 @@ packages:
       name: flex_color_scheme
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.1"
+    version: "5.1.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -527,14 +527,14 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.0"
+    version: "4.6.0"
   json_serializable:
     dependency: "direct dev"
     description:
       name: json_serializable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.2.0"
+    version: "6.3.0"
   lint:
     dependency: transitive
     description:

@@ -55,6 +55,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
           toolbarHeight: _height,
           leading: _MainPopupMenu(
             viewportKey: viewportKey,
+            hideUndoRedo: isMobile,
           ),
           title: BlocBuilder<DocumentBloc, DocumentState>(
               buildWhen: (previous, current) {
@@ -171,6 +172,22 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
             return SizedBox(height: _height, child: title);
           }),
           actions: [
+            if (!isMobile) ...[
+              IconButton(
+                icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
+                tooltip: AppLocalizations.of(context)!.undo,
+                onPressed: () {
+                  Actions.maybeInvoke<UndoIntent>(context, UndoIntent(context));
+                },
+              ),
+              IconButton(
+                icon: const Icon(PhosphorIcons.arrowClockwiseLight),
+                tooltip: AppLocalizations.of(context)!.redo,
+                onPressed: () {
+                  Actions.maybeInvoke<RedoIntent>(context, RedoIntent(context));
+                },
+              ),
+            ],
             if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
           ],
         );
@@ -186,8 +203,9 @@ class _MainPopupMenu extends StatelessWidget {
   final TextEditingController _scaleController =
       TextEditingController(text: '100');
   final GlobalKey viewportKey;
+  final bool hideUndoRedo;
 
-  _MainPopupMenu({required this.viewportKey});
+  _MainPopupMenu({required this.viewportKey, this.hideUndoRedo = false});
 
   @override
   Widget build(BuildContext context) {
@@ -203,34 +221,36 @@ class _MainPopupMenu extends StatelessWidget {
         iconSize: 36,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         itemBuilder: (context) => <PopupMenuEntry>[
-          PopupMenuItem(
-            enabled: false,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: IconTheme(
-              data: Theme.of(context).iconTheme,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
-                    tooltip: AppLocalizations.of(context)!.undo,
-                    onPressed: () {
-                      Actions.maybeInvoke<UndoIntent>(
-                          context, UndoIntent(context));
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                    tooltip: AppLocalizations.of(context)!.redo,
-                    onPressed: () {
-                      Actions.maybeInvoke<RedoIntent>(
-                          context, RedoIntent(context));
-                    },
-                  ),
-                ],
+          if (!hideUndoRedo)
+            PopupMenuItem(
+              enabled: false,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: IconTheme(
+                data: Theme.of(context).iconTheme,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon:
+                          const Icon(PhosphorIcons.arrowCounterClockwiseLight),
+                      tooltip: AppLocalizations.of(context)!.undo,
+                      onPressed: () {
+                        Actions.maybeInvoke<UndoIntent>(
+                            context, UndoIntent(context));
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(PhosphorIcons.arrowClockwiseLight),
+                      tooltip: AppLocalizations.of(context)!.redo,
+                      onPressed: () {
+                        Actions.maybeInvoke<RedoIntent>(
+                            context, RedoIntent(context));
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
           PopupMenuItem(
               enabled: false,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

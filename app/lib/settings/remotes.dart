@@ -60,48 +60,46 @@ class RemotesSettingsPage extends StatelessWidget {
                 child: Text(AppLocalizations.of(context)!.webNotSupported));
           }
           return BlocBuilder<SettingsCubit, ButterflySettings>(
-              buildWhen: (previous, current) =>
-                  previous.inputType == current.inputType,
               builder: (context, state) {
-                if (state.remotes.isEmpty) {
-                  return Center(
-                    child: Text(AppLocalizations.of(context)!.noRemotes),
-                  );
-                }
-                return Material(
-                  child: ListView.builder(
-                      itemCount: state.remotes.length,
-                      itemBuilder: (context, index) {
-                        final remote = state.remotes[index];
-                        return Dismissible(
-                          key: Key(remote.identifier),
-                          onDismissed: (details) {
+            if (state.remotes.isEmpty) {
+              return Center(
+                child: Text(AppLocalizations.of(context)!.noRemotes),
+              );
+            }
+            return Material(
+              child: ListView.builder(
+                  itemCount: state.remotes.length,
+                  itemBuilder: (context, index) {
+                    final remote = state.remotes[index];
+                    return Dismissible(
+                      key: Key(remote.identifier),
+                      onDismissed: (details) {
+                        BlocProvider.of<SettingsCubit>(context)
+                            .deleteRemote(remote.identifier);
+                      },
+                      child: ListTile(
+                        title: Text(remote.identifier),
+                        leading: remote.icon.isEmpty
+                            ? null
+                            : Image.memory(remote.icon),
+                        onTap: () {
+                          GoRouter.of(context).push(
+                              '/settings/remotes/${Uri.encodeComponent(remote.identifier)}');
+                        },
+                        trailing: IconButton(
+                          icon: remote.identifier == state.defaultRemote
+                              ? const Icon(PhosphorIcons.cloudFill)
+                              : const Icon(PhosphorIcons.cloudLight),
+                          onPressed: () {
                             BlocProvider.of<SettingsCubit>(context)
-                                .deleteRemote(remote.identifier);
+                                .setDefaultRemote(remote.identifier);
                           },
-                          child: ListTile(
-                            title: Text(remote.identifier),
-                            leading: remote.icon.isEmpty
-                                ? null
-                                : Image.memory(remote.icon),
-                            onTap: () {
-                              GoRouter.of(context).push(
-                                  '/settings/remotes/${Uri.encodeComponent(remote.identifier)}');
-                            },
-                            trailing: IconButton(
-                              icon: remote.identifier == state.defaultRemote
-                                  ? const Icon(PhosphorIcons.cloudFill)
-                                  : const Icon(PhosphorIcons.cloudLight),
-                              onPressed: () {
-                                BlocProvider.of<SettingsCubit>(context)
-                                    .setDefaultRemote(remote.identifier);
-                              },
-                            ),
-                          ),
-                        );
-                      }),
-                );
-              });
+                        ),
+                      ),
+                    );
+                  }),
+            );
+          });
         }));
   }
 }

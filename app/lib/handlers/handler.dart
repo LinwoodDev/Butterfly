@@ -8,7 +8,6 @@ import 'package:butterfly/dialogs/elements/elements.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/renderers/area.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

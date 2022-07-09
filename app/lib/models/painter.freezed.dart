@@ -410,8 +410,8 @@ abstract class LabelPainter implements Painter {
       _$LabelPainter.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
-  LabelProperty get property => throw _privateConstructorUsedError;
+  String get name;
+  LabelProperty get property;
   @override
   @JsonKey(ignore: true)
   _$$LabelPainterCopyWith<_$LabelPainter> get copyWith =>
@@ -661,9 +661,9 @@ abstract class PenPainter implements Painter {
       _$PenPainter.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
-  bool get zoomDependent => throw _privateConstructorUsedError;
-  PenProperty get property => throw _privateConstructorUsedError;
+  String get name;
+  bool get zoomDependent;
+  PenProperty get property;
   @override
   @JsonKey(ignore: true)
   _$$PenPainterCopyWith<_$PenPainter> get copyWith =>
@@ -900,8 +900,8 @@ abstract class EraserPainter implements Painter {
       _$EraserPainter.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
-  EraserProperty get property => throw _privateConstructorUsedError;
+  String get name;
+  EraserProperty get property;
   @override
   @JsonKey(ignore: true)
   _$$EraserPainterCopyWith<_$EraserPainter> get copyWith =>
@@ -1172,10 +1172,10 @@ abstract class PathEraserPainter implements Painter {
       _$PathEraserPainter.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
-  double get strokeWidth => throw _privateConstructorUsedError;
-  bool get includeEraser => throw _privateConstructorUsedError;
-  bool get deleteWholeStroke => throw _privateConstructorUsedError;
+  String get name;
+  double get strokeWidth;
+  bool get includeEraser;
+  bool get deleteWholeStroke;
   @override
   @JsonKey(ignore: true)
   _$$PathEraserPainterCopyWith<_$PathEraserPainter> get copyWith =>
@@ -1439,10 +1439,10 @@ abstract class LayerPainter implements Painter {
       _$LayerPainter.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
-  double get strokeWidth => throw _privateConstructorUsedError;
-  String get layer => throw _privateConstructorUsedError;
-  bool get includeEraser => throw _privateConstructorUsedError;
+  String get name;
+  double get strokeWidth;
+  String get layer;
+  bool get includeEraser;
   @override
   @JsonKey(ignore: true)
   _$$LayerPainterCopyWith<_$LayerPainter> get copyWith =>
@@ -1713,10 +1713,10 @@ abstract class AreaPainter implements Painter {
       _$AreaPainter.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
-  double get constrainedWidth => throw _privateConstructorUsedError;
-  double get constrainedHeight => throw _privateConstructorUsedError;
-  double get constrainedAspectRatio => throw _privateConstructorUsedError;
+  String get name;
+  double get constrainedWidth;
+  double get constrainedHeight;
+  double get constrainedAspectRatio;
   @override
   @JsonKey(ignore: true)
   _$$AreaPainterCopyWith<_$AreaPainter> get copyWith =>
@@ -1996,11 +1996,11 @@ abstract class LaserPainter implements Painter {
       _$LaserPainter.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
-  double get duration => throw _privateConstructorUsedError;
-  double get strokeWidth => throw _privateConstructorUsedError;
-  double get strokeMultiplier => throw _privateConstructorUsedError;
-  int get color => throw _privateConstructorUsedError;
+  String get name;
+  double get duration;
+  double get strokeWidth;
+  double get strokeMultiplier;
+  int get color;
   @override
   @JsonKey(ignore: true)
   _$$LaserPainterCopyWith<_$LaserPainter> get copyWith =>
@@ -2250,9 +2250,9 @@ abstract class ShapePainter implements Painter {
       _$ShapePainter.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
-  bool get zoomDependent => throw _privateConstructorUsedError;
-  ShapeProperty get property => throw _privateConstructorUsedError;
+  String get name;
+  bool get zoomDependent;
+  ShapeProperty get property;
   @override
   @JsonKey(ignore: true)
   _$$ShapePainterCopyWith<_$ShapePainter> get copyWith =>

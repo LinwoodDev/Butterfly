@@ -378,7 +378,7 @@ abstract class HandProperty implements Property {
   factory HandProperty.fromJson(Map<String, dynamic> json) =
       _$HandProperty.fromJson;
 
-  bool get includeEraser => throw _privateConstructorUsedError;
+  bool get includeEraser;
   @JsonKey(ignore: true)
   _$$HandPropertyCopyWith<_$HandProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -807,20 +807,19 @@ abstract class LabelProperty implements Property {
   factory LabelProperty.fromJson(Map<String, dynamic> json) =
       _$LabelProperty.fromJson;
 
-  double get size => throw _privateConstructorUsedError;
-  int get color => throw _privateConstructorUsedError;
-  int get fontWeight => throw _privateConstructorUsedError;
-  bool get lineThrough => throw _privateConstructorUsedError;
-  bool get underline => throw _privateConstructorUsedError;
-  bool get overline => throw _privateConstructorUsedError;
-  bool get italic => throw _privateConstructorUsedError;
-  double get letterSpacing => throw _privateConstructorUsedError;
-  int get decorationColor => throw _privateConstructorUsedError;
-  TextDecorationStyle get decorationStyle => throw _privateConstructorUsedError;
-  double get decorationThickness => throw _privateConstructorUsedError;
-  HorizontalAlignment get horizontalAlignment =>
-      throw _privateConstructorUsedError;
-  VerticalAlignment get verticalAlignment => throw _privateConstructorUsedError;
+  double get size;
+  int get color;
+  int get fontWeight;
+  bool get lineThrough;
+  bool get underline;
+  bool get overline;
+  bool get italic;
+  double get letterSpacing;
+  int get decorationColor;
+  TextDecorationStyle get decorationStyle;
+  double get decorationThickness;
+  HorizontalAlignment get horizontalAlignment;
+  VerticalAlignment get verticalAlignment;
   @JsonKey(ignore: true)
   _$$LabelPropertyCopyWith<_$LabelProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1071,9 +1070,9 @@ abstract class EraserProperty implements Property, PathProperty {
   factory EraserProperty.fromJson(Map<String, dynamic> json) =
       _$EraserProperty.fromJson;
 
-  double get strokeWidth => throw _privateConstructorUsedError;
-  double get strokeMultiplier => throw _privateConstructorUsedError;
-  int get color => throw _privateConstructorUsedError;
+  double get strokeWidth;
+  double get strokeMultiplier;
+  int get color;
   @JsonKey(ignore: true)
   _$$EraserPropertyCopyWith<_$EraserProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1337,10 +1336,10 @@ abstract class PenProperty implements Property, PathProperty {
   factory PenProperty.fromJson(Map<String, dynamic> json) =
       _$PenProperty.fromJson;
 
-  double get strokeWidth => throw _privateConstructorUsedError;
-  double get strokeMultiplier => throw _privateConstructorUsedError;
-  int get color => throw _privateConstructorUsedError;
-  bool get fill => throw _privateConstructorUsedError;
+  double get strokeWidth;
+  double get strokeMultiplier;
+  int get color;
+  bool get fill;
   @JsonKey(ignore: true)
   _$$PenPropertyCopyWith<_$PenProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1598,9 +1597,9 @@ abstract class ShapeProperty implements Property {
   factory ShapeProperty.fromJson(Map<String, dynamic> json) =
       _$ShapeProperty.fromJson;
 
-  double get strokeWidth => throw _privateConstructorUsedError;
-  PathShape get shape => throw _privateConstructorUsedError;
-  int get color => throw _privateConstructorUsedError;
+  double get strokeWidth;
+  PathShape get shape;
+  int get color;
   @JsonKey(ignore: true)
   _$$ShapePropertyCopyWith<_$ShapeProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1873,7 +1872,7 @@ abstract class CircleShape extends PathShape {
   factory CircleShape.fromJson(Map<String, dynamic> json) =
       _$CircleShape.fromJson;
 
-  int get fillColor => throw _privateConstructorUsedError;
+  int get fillColor;
   @JsonKey(ignore: true)
   _$$CircleShapeCopyWith<_$CircleShape> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2113,11 +2112,11 @@ abstract class RectangleShape extends PathShape {
   factory RectangleShape.fromJson(Map<String, dynamic> json) =
       _$RectangleShape.fromJson;
 
-  int get fillColor => throw _privateConstructorUsedError;
-  double get topLeftCornerRadius => throw _privateConstructorUsedError;
-  double get topRightCornerRadius => throw _privateConstructorUsedError;
-  double get bottomLeftCornerRadius => throw _privateConstructorUsedError;
-  double get bottomRightCornerRadius => throw _privateConstructorUsedError;
+  int get fillColor;
+  double get topLeftCornerRadius;
+  double get topRightCornerRadius;
+  double get bottomLeftCornerRadius;
+  double get bottomRightCornerRadius;
   @JsonKey(ignore: true)
   _$$RectangleShapeCopyWith<_$RectangleShape> get copyWith =>
       throw _privateConstructorUsedError;

@@ -179,11 +179,11 @@ abstract class _ElementConstraint implements ElementConstraint {
       _$_ElementConstraint.fromJson;
 
   @override
-  double get size => throw _privateConstructorUsedError;
+  double get size;
   @override
-  double get length => throw _privateConstructorUsedError;
+  double get length;
   @override
-  bool get includeArea => throw _privateConstructorUsedError;
+  bool get includeArea;
   @override
   @JsonKey(ignore: true)
   _$$_ElementConstraintCopyWith<_$_ElementConstraint> get copyWith =>
@@ -437,7 +437,7 @@ abstract class ScaledElementConstraints implements ElementConstraints {
   factory ScaledElementConstraints.fromJson(Map<String, dynamic> json) =
       _$ScaledElementConstraints.fromJson;
 
-  double get scale => throw _privateConstructorUsedError;
+  double get scale;
   @JsonKey(ignore: true)
   _$$ScaledElementConstraintsCopyWith<_$ScaledElementConstraints>
       get copyWith => throw _privateConstructorUsedError;
@@ -613,8 +613,8 @@ abstract class FixedElementConstraints implements ElementConstraints {
   factory FixedElementConstraints.fromJson(Map<String, dynamic> json) =
       _$FixedElementConstraints.fromJson;
 
-  double get height => throw _privateConstructorUsedError;
-  double get width => throw _privateConstructorUsedError;
+  double get height;
+  double get width;
   @JsonKey(ignore: true)
   _$$FixedElementConstraintsCopyWith<_$FixedElementConstraints> get copyWith =>
       throw _privateConstructorUsedError;
@@ -823,10 +823,10 @@ abstract class DynamicElementConstraints implements ElementConstraints {
   factory DynamicElementConstraints.fromJson(Map<String, dynamic> json) =
       _$DynamicElementConstraints.fromJson;
 
-  double get height => throw _privateConstructorUsedError;
-  double get width => throw _privateConstructorUsedError;
-  double get aspectRatio => throw _privateConstructorUsedError;
-  bool get includeArea => throw _privateConstructorUsedError;
+  double get height;
+  double get width;
+  double get aspectRatio;
+  bool get includeArea;
   @JsonKey(ignore: true)
   _$$DynamicElementConstraintsCopyWith<_$DynamicElementConstraints>
       get copyWith => throw _privateConstructorUsedError;
@@ -1316,9 +1316,9 @@ abstract class PenElement implements PadElement, PathElement {
       _$PenElement.fromJson;
 
   @override
-  String get layer => throw _privateConstructorUsedError;
-  List<PathPoint> get points => throw _privateConstructorUsedError;
-  PenProperty get property => throw _privateConstructorUsedError;
+  String get layer;
+  List<PathPoint> get points;
+  PenProperty get property;
   @override
   @JsonKey(ignore: true)
   _$$PenElementCopyWith<_$PenElement> get copyWith =>
@@ -1609,9 +1609,9 @@ abstract class EraserElement implements PadElement, PathElement {
       _$EraserElement.fromJson;
 
   @override
-  String get layer => throw _privateConstructorUsedError;
-  List<PathPoint> get points => throw _privateConstructorUsedError;
-  EraserProperty get property => throw _privateConstructorUsedError;
+  String get layer;
+  List<PathPoint> get points;
+  EraserProperty get property;
   @override
   @JsonKey(ignore: true)
   _$$EraserElementCopyWith<_$EraserElement> get copyWith =>
@@ -1936,12 +1936,12 @@ abstract class LabelElement implements PadElement {
       _$LabelElement.fromJson;
 
   @override
-  String get layer => throw _privateConstructorUsedError;
+  String get layer;
   @OffsetJsonConverter()
-  Offset get position => throw _privateConstructorUsedError;
-  String get text => throw _privateConstructorUsedError;
-  LabelProperty get property => throw _privateConstructorUsedError;
-  ElementConstraint get constraint => throw _privateConstructorUsedError;
+  Offset get position;
+  String get text;
+  LabelProperty get property;
+  ElementConstraint get constraint;
   @override
   @JsonKey(ignore: true)
   _$$LabelElementCopyWith<_$LabelElement> get copyWith =>
@@ -2281,14 +2281,14 @@ abstract class ImageElement implements PadElement {
       _$ImageElement.fromJson;
 
   @override
-  String get layer => throw _privateConstructorUsedError;
+  String get layer;
   @OffsetJsonConverter()
-  Offset get position => throw _privateConstructorUsedError;
-  ElementConstraints? get constraints => throw _privateConstructorUsedError;
+  Offset get position;
+  ElementConstraints? get constraints;
   @Uint8ListJsonConverter()
-  Uint8List get pixels => throw _privateConstructorUsedError;
-  int get width => throw _privateConstructorUsedError;
-  int get height => throw _privateConstructorUsedError;
+  Uint8List get pixels;
+  int get width;
+  int get height;
   @override
   @JsonKey(ignore: true)
   _$$ImageElementCopyWith<_$ImageElement> get copyWith =>
@@ -2627,13 +2627,13 @@ abstract class SvgElement implements PadElement {
       _$SvgElement.fromJson;
 
   @override
-  String get layer => throw _privateConstructorUsedError;
+  String get layer;
   @OffsetJsonConverter()
-  Offset get position => throw _privateConstructorUsedError;
-  ElementConstraints? get constraints => throw _privateConstructorUsedError;
-  String get data => throw _privateConstructorUsedError;
-  double get width => throw _privateConstructorUsedError;
-  double get height => throw _privateConstructorUsedError;
+  Offset get position;
+  ElementConstraints? get constraints;
+  String get data;
+  double get width;
+  double get height;
   @override
   @JsonKey(ignore: true)
   _$$SvgElementCopyWith<_$SvgElement> get copyWith =>
@@ -2938,12 +2938,12 @@ abstract class ShapeElement implements PadElement {
       _$ShapeElement.fromJson;
 
   @override
-  String get layer => throw _privateConstructorUsedError;
+  String get layer;
   @OffsetJsonConverter()
-  Offset get firstPosition => throw _privateConstructorUsedError;
+  Offset get firstPosition;
   @OffsetJsonConverter()
-  Offset get secondPosition => throw _privateConstructorUsedError;
-  ShapeProperty get property => throw _privateConstructorUsedError;
+  Offset get secondPosition;
+  ShapeProperty get property;
   @override
   @JsonKey(ignore: true)
   _$$ShapeElementCopyWith<_$ShapeElement> get copyWith =>

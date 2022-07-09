@@ -169,11 +169,11 @@ abstract class _PathPoint extends PathPoint {
       _$_PathPoint.fromJson;
 
   @override
-  double get x => throw _privateConstructorUsedError;
+  double get x;
   @override
-  double get y => throw _privateConstructorUsedError;
+  double get y;
   @override
-  double get pressure => throw _privateConstructorUsedError;
+  double get pressure;
   @override
   @JsonKey(ignore: true)
   _$$_PathPointCopyWith<_$_PathPoint> get copyWith =>

@@ -5,10 +5,8 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -122,7 +120,8 @@ class ButterflySettings with _$ButterflySettings {
       @Default(1) double mouseSensitivity,
       @Default(1) double penSensitivity,
       @Default(5) double selectSensitivity,
-      @Default(InputType.multiDraw) InputType inputType,
+      @Default(false) bool penOnlyInput,
+      @Default(true) bool inputGestures,
       @Default('') String design,
       @Default([]) List<AssetLocation> history,
       @Default(true) bool startEnabled,
@@ -138,9 +137,8 @@ class ButterflySettings with _$ButterflySettings {
         const [];
     return ButterflySettings(
       localeTag: prefs.getString('locale') ?? '',
-      inputType: prefs.containsKey('input_type')
-          ? InputType.values.byName(prefs.getString('input_type')!)
-          : InputType.multiDraw,
+      penOnlyInput: prefs.getBool('pen_only_input') ?? false,
+      inputGestures: prefs.getBool('input_gestures') ?? true,
       documentPath: prefs.getString('document_path') ?? '',
       theme: prefs.containsKey('theme_mode')
           ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
@@ -178,7 +176,8 @@ class ButterflySettings with _$ButterflySettings {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('theme_mode', theme.name);
     await prefs.setString('locale', localeTag);
-    await prefs.setString('input_type', inputType.name);
+    await prefs.setBool('input_pen_only', penOnlyInput);
+    await prefs.setBool('move_with_two_fingers', inputGestures);
     await prefs.setString('date_format', dateFormat);
     await prefs.setString('document_path', documentPath);
     await prefs.setDouble('touch_sensitivity', touchSensitivity);
@@ -217,29 +216,6 @@ class ButterflySettings with _$ButterflySettings {
 
   TemplateFileSystem getDefaultTemplateFileSystem() =>
       TemplateFileSystem.fromPlatform(remote: getDefaultRemote());
-}
-
-enum InputType { multiDraw, moveFirst, moveLast, onlyStylus }
-
-extension InputTypeExtension on InputType {
-  String toLocalizedString(BuildContext context) {
-    switch (this) {
-      case InputType.multiDraw:
-        return AppLocalizations.of(context)!.multiDraw;
-      case InputType.moveFirst:
-        return AppLocalizations.of(context)!.moveFirst;
-      case InputType.moveLast:
-        return AppLocalizations.of(context)!.moveLast;
-      case InputType.onlyStylus:
-        return AppLocalizations.of(context)!.onlyStylus;
-    }
-  }
-
-  bool canCreate(int pointer, int? first, PointerDeviceKind kind) =>
-      this == InputType.onlyStylus && kind == PointerDeviceKind.stylus ||
-      this == InputType.moveFirst && (pointer != first || first != null) ||
-      this == InputType.moveLast && (pointer == first || first == null) ||
-      this == InputType.multiDraw;
 }
 
 class SettingsCubit extends Cubit<ButterflySettings> {
@@ -290,13 +266,18 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> changeInput(InputType inputType) {
-    emit(state.copyWith(inputType: inputType));
+  Future<void> changepenOnlyInput(bool penOnlyInput) {
+    emit(state.copyWith(penOnlyInput: penOnlyInput));
     return save();
   }
 
-  Future<void> resetInput() {
-    emit(state.copyWith(inputType: InputType.multiDraw));
+  Future<void> resetpenOnlyInput() {
+    emit(state.copyWith(penOnlyInput: false));
+    return save();
+  }
+
+  Future<void> changeinputGestures(bool inputGestures) {
+    emit(state.copyWith(inputGestures: inputGestures));
     return save();
   }
 

@@ -122,12 +122,7 @@
   "shiftKey": "Shift",
   "altKey": "Alt",
   "copyVersion": "Copy version",
-  "input": "Input",
-  "multiInput": "Multi input",
-  "multiDraw": "Draw with multiple inputs",
-  "moveFirst": "Move with the first input",
-  "moveLast": "Move with the last inputs",
-  "onlyStylus": "Restrict input to stylus",
+  "input": "Input", 
   "behaviors": "Behaviors",
   "documentDirectory": "Document directory",
   "defaultPath": "Default path",
@@ -359,5 +354,7 @@
   "remoteLatest": "Remote latest",
   "path": "Path",
   "folderSynced": "Folder synced",
-  "syncRootDirectory": "Sync root directory"
+  "syncRootDirectory": "Sync root directory",
+  "penOnlyInput": "Pen only input",
+  "inputGestures": "Input gestures"
 }

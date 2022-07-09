@@ -598,17 +598,17 @@ abstract class BoxBackground implements Background {
   factory BoxBackground.fromJson(Map<String, dynamic> json) =
       _$BoxBackground.fromJson;
 
-  double get boxWidth => throw _privateConstructorUsedError;
-  double get boxHeight => throw _privateConstructorUsedError;
-  int get boxXCount => throw _privateConstructorUsedError;
-  int get boxYCount => throw _privateConstructorUsedError;
-  double get boxXSpace => throw _privateConstructorUsedError;
-  double get boxYSpace => throw _privateConstructorUsedError;
-  int get boxXColor => throw _privateConstructorUsedError;
-  int get boxYColor => throw _privateConstructorUsedError;
-  int get boxColor => throw _privateConstructorUsedError;
-  double get boxXStroke => throw _privateConstructorUsedError;
-  double get boxYStroke => throw _privateConstructorUsedError;
+  double get boxWidth;
+  double get boxHeight;
+  int get boxXCount;
+  int get boxYCount;
+  double get boxXSpace;
+  double get boxYSpace;
+  int get boxXColor;
+  int get boxYColor;
+  int get boxColor;
+  double get boxXStroke;
+  double get boxYStroke;
   @JsonKey(ignore: true)
   _$$BoxBackgroundCopyWith<_$BoxBackground> get copyWith =>
       throw _privateConstructorUsedError;

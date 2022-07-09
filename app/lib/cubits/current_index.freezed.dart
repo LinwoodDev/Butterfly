@@ -194,13 +194,13 @@ abstract class _CurrentIndex implements CurrentIndex {
       final List<Rect> selections]) = _$_CurrentIndex;
 
   @override
-  int get index => throw _privateConstructorUsedError;
+  int get index;
   @override
-  Handler? get handler => throw _privateConstructorUsedError;
+  Handler? get handler;
   @override
-  List<Renderer> get foregrounds => throw _privateConstructorUsedError;
+  List<Renderer> get foregrounds;
   @override
-  List<Rect> get selections => throw _privateConstructorUsedError;
+  List<Rect> get selections;
   @override
   @JsonKey(ignore: true)
   _$$_CurrentIndexCopyWith<_$_CurrentIndex> get copyWith =>

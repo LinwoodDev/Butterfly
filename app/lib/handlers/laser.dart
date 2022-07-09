@@ -105,8 +105,9 @@ class LaserHandler extends Handler {
     final state = bloc.state as DocumentLoadSuccess;
     final painter = cubit.fetchPainter<LaserPainter>(bloc);
     if (painter == null) return;
-    final inputType = context.read<SettingsCubit>().state.inputType;
-    if (!inputType.canCreate(pointer, elements.keys.firstOrNull, kind)) {
+    final settings = context.read<SettingsCubit>().state;
+    final penOnlyInput = settings.penOnlyInput;
+    if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }
     final element = elements[pointer] ??

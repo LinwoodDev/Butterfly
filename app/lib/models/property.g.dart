@@ -52,12 +52,13 @@ Map<String, dynamic> _$$LabelPropertyToJson(_$LabelProperty instance) =>
       'italic': instance.italic,
       'letterSpacing': instance.letterSpacing,
       'decorationColor': instance.decorationColor,
-      'decorationStyle': _$TextDecorationStyleEnumMap[instance.decorationStyle],
+      'decorationStyle':
+          _$TextDecorationStyleEnumMap[instance.decorationStyle]!,
       'decorationThickness': instance.decorationThickness,
       'horizontalAlignment':
-          _$HorizontalAlignmentEnumMap[instance.horizontalAlignment],
+          _$HorizontalAlignmentEnumMap[instance.horizontalAlignment]!,
       'verticalAlignment':
-          _$VerticalAlignmentEnumMap[instance.verticalAlignment],
+          _$VerticalAlignmentEnumMap[instance.verticalAlignment]!,
       'type': instance.$type,
     };
 

@@ -161,9 +161,9 @@ abstract class _ColorPalette implements ColorPalette {
       _$_ColorPalette.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  List<int> get colors => throw _privateConstructorUsedError;
+  List<int> get colors;
   @override
   @JsonKey(ignore: true)
   _$$_ColorPaletteCopyWith<_$_ColorPalette> get copyWith =>

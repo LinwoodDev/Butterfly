@@ -158,9 +158,9 @@ abstract class _AssetLocation extends AssetLocation {
       _$_AssetLocation.fromJson;
 
   @override
-  String get remote => throw _privateConstructorUsedError;
+  String get remote;
   @override
-  String get path => throw _privateConstructorUsedError;
+  String get path;
   @override
   @JsonKey(ignore: true)
   _$$_AssetLocationCopyWith<_$_AssetLocation> get copyWith =>
@@ -544,27 +544,27 @@ abstract class _AppDocument extends AppDocument {
       _$_AppDocument.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
   @override
-  List<PadElement> get content => throw _privateConstructorUsedError;
+  List<PadElement> get content;
   @override
-  Background get background => throw _privateConstructorUsedError;
+  Background get background;
   @override
-  List<ColorPalette> get palettes => throw _privateConstructorUsedError;
+  List<ColorPalette> get palettes;
   @override
-  List<Waypoint> get waypoints => throw _privateConstructorUsedError;
+  List<Waypoint> get waypoints;
   @override
-  List<Area> get areas => throw _privateConstructorUsedError;
+  List<Area> get areas;
   @override
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get createdAt;
   @override
-  HandProperty get handProperty => throw _privateConstructorUsedError;
+  HandProperty get handProperty;
   @override
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt;
   @override
-  List<Painter> get painters => throw _privateConstructorUsedError;
+  List<Painter> get painters;
   @override
   @JsonKey(ignore: true)
   _$$_AppDocumentCopyWith<_$_AppDocument> get copyWith =>

@@ -197,14 +197,14 @@ abstract class _Area extends Area {
   factory _Area.fromJson(Map<String, dynamic> json) = _$_Area.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  double get width => throw _privateConstructorUsedError;
+  double get width;
   @override
-  double get height => throw _privateConstructorUsedError;
+  double get height;
   @override
   @OffsetJsonConverter()
-  ui.Offset get position => throw _privateConstructorUsedError;
+  ui.Offset get position;
   @override
   @JsonKey(ignore: true)
   _$$_AreaCopyWith<_$_Area> get copyWith => throw _privateConstructorUsedError;
