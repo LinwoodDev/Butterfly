@@ -123,11 +123,6 @@
     "altKey": "Alt",
     "copyVersion": "Copiar versión",
     "input": "Input",
-    "multiInput": "Entrada múltiple",
-    "multiDraw": "Dibujar con múltiples entradas",
-    "moveFirst": "Mover con la primera entrada",
-    "moveLast": "Mover con las últimas entradas",
-    "onlyStylus": "Restringir el valor de entrada",
     "behaviors": "Comportamientos",
     "documentDirectory": "Directorio de documentos",
     "defaultPath": "Ruta por defecto",
@@ -359,5 +354,7 @@
     "remoteLatest": "Último remoto",
     "path": "Ruta",
     "folderSynced": "Carpeta sincronizada",
-    "syncRootDirectory": "Directorio raíz de sincronización"
+    "syncRootDirectory": "Directorio raíz de sincronización",
+    "penOnlyInput": "Pen only input",
+    "inputGestures": "Input gestures"
 }
