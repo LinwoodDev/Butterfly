@@ -1,9 +1,9 @@
 ---
-title: Incorpora
+title: Incorpora in pagina web
 sidebar_label: Introduzione
 ---
 
-Incorporare è un modo semplice per includere l'applicazione nel tuo sito web. Aggiungi il seguente codice al tuo sito web:
+L'incorporazione è un modo semplice per includere l'applicazione nel tuo sito web. Aggiungi il seguente codice al tuo sito web:
 
 ```html
 <iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
@@ -14,7 +14,7 @@ Incorporare è un modo semplice per includere l'applicazione nel tuo sito web. A
 | Opzione  | Tipo                  | Predefinito | Descrizione                                                                        |
 | -------- | --------------------- | ----------- | ---------------------------------------------------------------------------------- |
 | save     | Boolean (true, false) | true        | Abilita il salvataggio. Se disabilitato, verrà mostrato solo un pulsante di uscita |
-| editable | Boolean (true, false) | true        | Abilita modifica. Se disabilitato, il documento sarà in sola lettura               |
+| editable | Boolean (true, false) | true        | Abilita le modifiche. Se disabilitato, il documento sarà in sola lettura           |
 
 ## Eventi
 
@@ -31,7 +31,7 @@ embedElement.addEventListener('message', (data) => {
 
 ### save
 
-> L'evento `save` viene emesso quando l'utente fa clic sul pulsante Salva.
+> L'evento `save` si verifica quando l'utente fa clic sul pulsante Salva.
 
 Parametri:
 
@@ -39,7 +39,7 @@ Parametri:
 
 ### exit
 
-> L'evento `exit` viene emesso quando l'utente fa clic sul pulsante di uscita.
+> L'evento `exit` si verifica quando l'utente fa clic sul pulsante di uscita.
 
 Parametri:
 
@@ -47,7 +47,7 @@ Parametri:
 
 ### change
 
-> L'evento `change` viene emesso quando l'utente cambia il documento.
+> L'evento `change` si verifica quando l'utente cambia il documento.
 
 Parametri:
 
@@ -55,7 +55,7 @@ Parametri:
 
 ## Metodi
 
-Esempio di uso:
+Esempi su come usarlo:
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
@@ -71,7 +71,7 @@ embedElement.addEventListener('message', (data) => {
 
 > Il metodo `getData` restituisce i dati del documento.
 
-Nessun parametro. Restituisce: `Stringa`
+Nessun parametro. Restituisce: `String`
 
 ### setData
 
@@ -83,25 +83,25 @@ Parametri:
 
 ### render
 
-> Il metodo `render` rende il documento a un'immagine png.
+> Il metodo `render` renderizza il documento in un'immagine png.
 
 Parametri:
 
 * `width` (Type `Number`): La larghezza dell'immagine.
-* `altezza` (tipo `Numero`): L'altezza dell'immagine.
+* `height` (Type `Number`): L'altezza dell'immagine.
 * `scale` (Type `Number`): La scala dell'immagine.
-* `renderBackground` (Type `Boolean`): Se VERO, lo sfondo sarà renderizzato.
+* `renderBackground` (Type `Boolean`): Se vero, lo sfondo sarà renderizzato.
 
-Restituisce: `Stringa` (Immagine codificata Base64)
+Restituisce: `String` (Immagine codificata Base64)
 
 ### renderSVG
 
-> Il metodo `renderSVG` rende il documento a un'immagine svg.
+> Il metodo `renderSVG` renderizza il documento in un'immagine svg.
 
 Parametri:
 
 * `width` (Type `Number`): La larghezza dell'immagine.
-* `altezza` (tipo `Numero`): L'altezza dell'immagine.
-* `renderBackground` (Type `Boolean`): Se VERO, lo sfondo sarà renderizzato.
+* `height` (Type `Number`): L'altezza dell'immagine.
+* `renderBackground` (Type `Boolean`): Se vero, lo sfondo sarà renderizzato.
 
-Restituisce: `Stringa` (SVG)
+Restituisce: `String` (SVG)
