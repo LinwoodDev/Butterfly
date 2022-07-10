@@ -31,12 +31,12 @@ Queste risorse sono concesse sotto la licenza [CC-BY-4.0](https://github.com/Lin
 ## Colori
 
 * Primario: `#f2b138`
-* Primario scuro: `#f0a61c`
-* Primario più scuro: `#eea010`
-* Darkest primario: `#c4840d`
-* Luce primaria: `#f4bc54`
-* Accendino primario: `#f5c162`
-* Luce primaria: `#f7d28c`
+* Primario scuro 1: `#f0a61c`
+* Primario scuro 2: `#eea010`
+* Primario scuro 3: `#c4840d`
+* Primario chiaro 1: `#f4bc54`
+* Primario chiaro 2: `#f5c162`
+* Primario chiaro 3: `#f7d28c`
 * Accento: `#00469E`
 
 ## Caratteri
