@@ -355,6 +355,6 @@
     "path": "Chemin d'accès",
     "folderSynced": "Dossier synchronisé",
     "syncRootDirectory": "Synchroniser le répertoire racine",
-    "penOnlyInput": "Pen only input",
+    "penOnlyInput": "Seules les entrées du stylet",
     "inputGestures": "Input gestures"
 }
