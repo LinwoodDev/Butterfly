@@ -1,8 +1,8 @@
 ---
-title: Branding
+title: Marchio
 ---
 
-Questi attivi sono concessi in licenza ai sensi del [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Queste risorse sono concesse sotto la licenza [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -10,7 +10,7 @@ Questi attivi sono concessi in licenza ai sensi del [CC-BY-4.0](https://github.c
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Logo Notturno
+## Logo Nightly
 
 ![Logo](/img/nightly.svg)
 
@@ -31,8 +31,8 @@ Questi attivi sono concessi in licenza ai sensi del [CC-BY-4.0](https://github.c
 ## Colori
 
 * Primario: `#f2b138`
-* Oscurità primaria: `#f0a61c`
-* Scuro primario: `#eea010`
+* Primario scuro: `#f0a61c`
+* Primario più scuro: `#eea010`
 * Darkest primario: `#c4840d`
 * Luce primaria: `#f4bc54`
 * Accendino primario: `#f5c162`
