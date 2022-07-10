@@ -22,6 +22,7 @@ enum _MouseState { normal, inverse, scale }
 class _MainViewViewportState extends State<MainViewViewport> {
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
+  List<int> pointers = [];
   _MouseState _mouseState = _MouseState.normal;
 
   @override
@@ -110,7 +111,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
               if (openView) openView = details.scale == 1;
               final transformCubit = context.read<TransformCubit>();
               final currentIndex = context.read<CurrentIndexCubit>();
-              if (currentIndex.fetchHandler<HandHandler>() == null) return;
+              final settings = context.read<SettingsCubit>().state;
+              if (currentIndex.fetchHandler<HandHandler>() == null &&
+                  !settings.inputGestures) return;
               var current = details.scale;
               current = current - size;
               current += 1;
@@ -127,7 +130,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
             },
             onScaleEnd: (details) {
               final currentIndex = context.read<CurrentIndexCubit>();
-              if (currentIndex.fetchHandler<HandHandler>() == null) return;
+              final settings = context.read<SettingsCubit>().state;
+              if (currentIndex.fetchHandler<HandHandler>() == null &&
+                  !settings.inputGestures) return;
               _delayBake();
             },
             onScaleStart: (details) {
@@ -162,11 +167,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   }
                 },
                 onPointerDown: (PointerDownEvent event) {
+                  pointers.add(event.pointer);
                   cubit
                       .getHandler()
                       .onPointerDown(constraints.biggest, context, event);
                 },
                 onPointerUp: (PointerUpEvent event) async {
+                  pointers.remove(event.pointer);
                   cubit
                       .getHandler()
                       .onPointerUp(constraints.biggest, context, event);
@@ -178,6 +185,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       .onPointerHover(constraints.biggest, context, event);
                 },
                 onPointerMove: (PointerMoveEvent event) async {
+                  if (pointers.length > 1 &&
+                      event.kind != PointerDeviceKind.stylus) {
+                    return;
+                  }
                   cubit
                       .getHandler()
                       .onPointerMove(constraints.biggest, context, event);

@@ -8,7 +8,8 @@ const kClassicPrimaryLight = Color(0xFFf4bc54);
 const kClassicPrimaryLighter = Color(0xFFf5c162);
 const kClassicPrimaryLightest = Color(0xFFf7d28c);
 const kClassicLight = Color(0xFFe3e3e3);
-const kClassicDark = Color(0xFF000000);
+const kClassicDarker = Color(0xFF000000);
+const kClassicDark = Color(0xFF242526);
 //const kClassicSecondaryColor = Color(0xFF00469E);
 //const kClassicSecondaryVariantColor = Color(0xFF00206f);
 
@@ -26,7 +27,7 @@ ThemeData getClassicTheme({bool dark = false}) => ThemeData(
     ),
     dialogBackgroundColor: kClassicDark,
     splashFactory: NoSplash.splashFactory,
-    canvasColor: kClassicDark,
+    canvasColor: kClassicDarker,
     outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith(

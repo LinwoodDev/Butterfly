@@ -3,6 +3,7 @@ part of 'handler.dart';
 class PenHandler extends Handler {
   Map<int, PenElement> elements = {};
   List<PenElement> submittedElements = [];
+  Map<int, Offset> lastPosition = {};
 
   PenHandler(super.cubit);
 
@@ -24,6 +25,7 @@ class PenHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     var element = elements.remove(index);
     if (element == null) return;
+    lastPosition.remove(index);
     submittedElements.add(element);
     if (elements.isEmpty) {
       final current = List<PadElement>.from(submittedElements);
@@ -46,6 +48,8 @@ class PenHandler extends Handler {
     if (painter == null) return;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
+    if (lastPosition[pointer] == localPosition) return;
+    lastPosition[pointer] = localPosition;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }
@@ -59,13 +63,16 @@ class PenHandler extends Handler {
           property: painter.property
               .copyWith(strokeWidth: painter.property.strokeWidth / zoom),
         );
-
     elements[pointer] = element.copyWith(
         points: List<PathPoint>.from(element.points)
           ..add(PathPoint.fromOffset(transform.localToGlobal(localPosition),
               (createNew ? 0 : pressure) / zoom)));
     if (refresh) cubit.refresh(bloc);
   }
+
+  @override
+  void onTapDown(
+      Size viewportSize, BuildContext context, TapDownDetails details) {}
 
   @override
   void onPointerDown(

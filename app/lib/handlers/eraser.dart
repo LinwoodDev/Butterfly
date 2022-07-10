@@ -3,6 +3,7 @@ part of 'handler.dart';
 class EraserHandler extends Handler {
   Map<int, EraserElement> elements = {};
   List<EraserElement> submittedElements = [];
+  Map<int, Offset> lastPosition = {};
 
   EraserHandler(super.cubit);
 
@@ -24,6 +25,7 @@ class EraserHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     var element = elements.remove(index);
     if (element == null) return;
+    lastPosition.remove(index);
     submittedElements.add(element);
     if (elements.isEmpty) {
       final current = List<PadElement>.from(submittedElements);
@@ -46,10 +48,12 @@ class EraserHandler extends Handler {
     if (painter == null) return;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
+    if (lastPosition[pointer] == localPosition) return;
+    lastPosition[pointer] = localPosition;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }
-    final createNew = elements.containsKey(pointer);
+    final createNew = !elements.containsKey(pointer);
 
     final element = elements[pointer] ??
         EraserElement(
@@ -57,13 +61,16 @@ class EraserHandler extends Handler {
           property: painter.property
               .copyWith(strokeWidth: painter.property.strokeWidth),
         );
-
     elements[pointer] = element.copyWith(
         points: List<PathPoint>.from(element.points)
           ..add(PathPoint.fromOffset(transform.localToGlobal(localPosition),
               (createNew ? 0 : pressure))));
     if (refresh) cubit.refresh(bloc);
   }
+
+  @override
+  void onTapDown(
+      Size viewportSize, BuildContext context, TapDownDetails details) {}
 
   @override
   void onPointerDown(
@@ -77,4 +84,15 @@ class EraserHandler extends Handler {
           Size viewportSize, BuildContext context, PointerMoveEvent event) =>
       addPoint(context, event.pointer, event.localPosition, event.pressure,
           event.kind);
+
+  @override
+  int? getColor(DocumentBloc bloc) =>
+      getPainter<EraserPainter>(bloc)?.property.color;
+
+  @override
+  EraserPainter? setColor(DocumentBloc bloc, int color) {
+    final painter = getPainter<EraserPainter>(bloc);
+    if (painter == null) return null;
+    return painter.copyWith(property: painter.property.copyWith(color: color));
+  }
 }

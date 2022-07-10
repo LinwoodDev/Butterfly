@@ -3,6 +3,7 @@ name: Flutter build
 on: [push, release]
 jobs:
   build-apk:
+    concurrency: ci-${{ github.ref }}
     defaults:
       run:
         working-directory: app

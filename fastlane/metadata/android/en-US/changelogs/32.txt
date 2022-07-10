@@ -1,1 +1,2 @@
 * Improve default theme to match with the documentation
+* Add check to prevent adding duplicated locations to paths
