@@ -355,6 +355,6 @@
     "path": "Pfad",
     "folderSynced": "Ordner synchronisiert",
     "syncRootDirectory": "Sync-Stammverzeichnis",
-    "penOnlyInput": "Pen only input",
+    "penOnlyInput": "Nur-Pen-Eingabe",
     "inputGestures": "Input gestures"
 }
