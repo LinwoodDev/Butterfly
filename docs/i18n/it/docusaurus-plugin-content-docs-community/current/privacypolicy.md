@@ -1,21 +1,21 @@
 ---
-title: "Politica Sulla Privacy"
+title: "Condizioni privacy"
 slug: /privacypolicy
 ---
 
-Questa è l'informativa sulla privacy dell'app. Per piacere, la legga attentamente. Clicca [qui](https://go.linwood.dev/privacypolicy) per leggere la privacy policy del sito.
+Questa è l'informativa sulla privacy dell'app. Si prega di leggere attentamente. Clicca [qui](https://go.linwood.dev/privacypolicy) per leggere la privacy policy del sito.
 
-CodeDoctor ha costruito l'app Butterfly come app Open Source. Questo SERVIZIO è fornito da CodeDoctor senza costi ed è destinato all'uso come è.
+CodeDoctor ha costruito l'app Butterfly come app Open Source. Questo SERVIZIO è fornito da CodeDoctor senza costi ed è destinato all'uso così com'è.
 
-Questa pagina è utilizzata per informare i visitatori sulle mie politiche con la collezione, uso e divulgazione dei Dati Personali se qualcuno ha deciso di utilizzare il mio Servizio.
+Questa pagina è utilizzata per informare i visitatori riguardo alle mie politiche con la collezione, uso e divulgazione dei Dati Personali se qualcuno decidesse di utilizzare il mio Servizio.
 
-Se scegliete di utilizzare il mio servizio, accettate la raccolta e l'uso di informazioni in relazione a questa politica. I Dati Personali che raccolgo vengono utilizzati per fornire e migliorare il Servizio . Non userò o condividerò le tue informazioni con nessuno se non come descritto nella presente Informativa sulla privacy.
+Se scegliete di utilizzare il mio servizio, accettate la raccolta e l'uso di informazioni in relazione a questa politica. I Dati Personali che raccolgo vengono utilizzati per fornire e migliorare il Servizio. Non userò o condividerò le tue informazioni con nessuno se non come descritto nella presente Informativa sulla privacy.
 
 I termini utilizzati nella presente Informativa sulla privacy hanno lo stesso significato dei nostri Termini e Condizioni, che è accessibile a Butterfly se non diversamente definito nella presente Informativa sulla privacy.
 
 **Raccolta e utilizzo delle informazioni**
 
-Per una migliore esperienza, durante l'utilizzo del nostro Servizio, posso richiederti di fornirci alcune informazioni personali identificabili. Le informazioni che richiedo verranno conservate sul tuo dispositivo e non vengono raccolte da me in alcun modo.
+Per una migliore esperienza, durante l'utilizzo del nostro Servizio, posso richiedere di fornirci alcune informazioni personali identificabili. Le informazioni che richiedo verranno conservate sul tuo dispositivo e non vengono raccolte da me in alcun modo.
 
 L'app utilizza servizi di terze parti che potrebbero raccogliere informazioni utilizzate per identificarti.
 
@@ -34,7 +34,7 @@ Questo Servizio non utilizza questi “cookie” esplicitamente. Tuttavia, l'app
 Posso impiegare società e individui terzi per i seguenti motivi:
 
 * Per facilitare il nostro Servizio;
-* Fornire il Servizio per nostro conto;
+* Fornire il Servizio da parte nostra;
 * Per eseguire servizi connessi al servizio; o
 * Per aiutarci ad analizzare come viene utilizzato il nostro Servizio.
 
@@ -52,7 +52,7 @@ Questo servizio può contenere collegamenti ad altri siti. Se clicchi su un link
 
 Potrei aggiornare di tanto in tanto la nostra Informativa sulla privacy. Pertanto, si consiglia di rivedere questa pagina periodicamente per eventuali modifiche. Ti informerò di eventuali modifiche pubblicando la nuova Informativa sulla privacy su questa pagina .
 
-Questa politica è efficace a partire dal 2021-02-07
+Questa politica è in vigore a partire dal 2021-02-07
 
 **Contattaci**
 
