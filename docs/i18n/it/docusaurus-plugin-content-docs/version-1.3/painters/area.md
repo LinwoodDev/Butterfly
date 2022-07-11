@@ -1,5 +1,5 @@
 ---
-sidebar_label: "Zona"
+sidebar_label: "Area"
 title: "Pittore di area"
 ---
 
@@ -17,7 +17,7 @@ L'area pittore consente di creare, modificare e rimuovere aree.
 
 |           Proprietà | Predefinito | Descrizione                                                                                                                                                           |
 | -------------------:|:-----------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|               Width |      0      | La larghezza fissa dell'area. Se impostato a 0, la larghezza verrà calcolata automaticamente.                                                                         |
+|           Larghezza |      0      | La larghezza fissa dell'area. Se impostato a 0, la larghezza verrà calcolata automaticamente.                                                                         |
 |             Altezza |      0      | L'altezza fissa dell'area. Se impostata a 0, l'altezza verrà calcolata automaticamente.                                                                               |
 | Rapporto dimensioni |      0      | Il rapporto di aspetto fisso dell'area. Se impostato a 0, le proporzioni saranno calcolate automaticamente. Un rapporto di aspetto è definito come larghezza/altezza. |
 
