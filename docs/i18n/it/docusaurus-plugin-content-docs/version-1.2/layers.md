@@ -1,5 +1,5 @@
 ---
-title: "Livelli"
+title: "Layers"
 ---
 
 I livelli sono un'opzione per raggruppare gli elementi insieme. Fare clic sull'elemento per vedere e cambiare il livello. Usa il [layer painter](painters/layer.md) per cambiare i livelli di più elementi.
