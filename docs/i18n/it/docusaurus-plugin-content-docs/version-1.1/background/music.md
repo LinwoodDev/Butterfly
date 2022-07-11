@@ -4,7 +4,7 @@ title: "Carta musicale"
 
 |   Proprietà | Valore |
 | -----------:|:------ |
-|       Width | 200    |
+|   Larghezza | 200    |
 |     Altezza | 5      |
 | Conteggio X | 1      |
 | Conteggio Y | 5      |
