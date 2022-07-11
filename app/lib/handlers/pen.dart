@@ -88,6 +88,7 @@ class PenHandler extends Handler {
       Size viewportSize, BuildContext context, PointerDownEvent event) {
     if (cubit.state.moveEnabled) {
       elements.clear();
+      cubit.refresh(context.read<DocumentBloc>());
       return;
     }
     addPoint(

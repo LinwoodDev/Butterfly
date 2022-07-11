@@ -186,6 +186,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                 onPointerMove: (PointerMoveEvent event) async {
                   if (cubit.state.pointers.length > 1 &&
                       event.kind != PointerDeviceKind.stylus) {
+                    if (event.pointer == cubit.state.pointers.first) {
+                      final transformCubit = context.read<TransformCubit>();
+                      transformCubit
+                          .move(event.delta / transformCubit.state.size);
+                    }
                     return;
                   }
                   cubit
