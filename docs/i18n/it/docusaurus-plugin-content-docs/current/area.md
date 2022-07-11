@@ -1,11 +1,11 @@
 ---
-title: "Zona"
+title: "Area"
 sidebar_position: 2
 ---
 
 ## Introduzione
 
-![Zona](area.png)
+![Area](area.png)
 
 Le aree sono un modo per limitare le dimensioni della tela. È possibile creare aree utilizzando il pittore [area](painters/area.md). Se si fa clic sullo sfondo è possibile aprire la finestra di dialogo elenco area utilizzando il menu di scelta rapida.
 
