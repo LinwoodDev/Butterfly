@@ -265,6 +265,19 @@ html[data-theme='dark'] .DocSearch {
   height: 1.5rem;
   margin-right: 0.5rem;
 }
+/* Hover */
+.icon-button:hover svg {
+  fill: var(--ifm-link-hover-color);
+  stroke: var(--ifm-link-hover-color);
+}
+
+.button {
+  --ifm-link-hover-color: var(--ifm-button-color);
+  border-radius: 0.75rem;
+}
+.button:hover {
+  outline: var(--ifm-color-primary-darkest) solid 4px;
+}
 
 :where(.icon-button--windows) {
   --ifm-button-background-color: #0078D6;
