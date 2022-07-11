@@ -1,5 +1,5 @@
 ---
-title: "Livelli"
+title: "Layers"
 sidebar_position: 2
 ---
 
