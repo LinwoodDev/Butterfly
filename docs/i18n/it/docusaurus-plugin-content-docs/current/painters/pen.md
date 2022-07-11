@@ -9,9 +9,9 @@ Con questo pittore puoi disegnare su questa carta.
 
 ## Configurazione
 
-|                     Proprietà | Predefinito | Descrizione                                                                    |
-| -----------------------------:|:-----------:|:------------------------------------------------------------------------------ |
-|                        Colore |    Nero     | Il colore che verrà disegnato                                                  |
-|              Larghezza tratto |      5      | La larghezza del tratto                                                        |
-|         Moltiplicatore tratto |      1      | Se hai uno stilo, questo è il moltiplicatore che verrà aggiunto alla pressione |
-| Dipendente dall'ingrandimento |    falso    | Questo cambierà la larghezza del tratto in base al livello di zoom.            |
+|             Proprietà | Predefinito | Descrizione                                                                    |
+| ---------------------:|:-----------:|:------------------------------------------------------------------------------ |
+|                Colore |    Nero     | Il colore che verrà disegnato                                                  |
+|      Larghezza tratto |      5      | La larghezza del tratto                                                        |
+| Moltiplicatore tratto |      1      | Se hai uno stilo, questo è il moltiplicatore che verrà aggiunto alla pressione |
+| Dipendente dallo zoom |    falso    | Questo cambierà la larghezza del tratto in base al livello di zoom.            |
