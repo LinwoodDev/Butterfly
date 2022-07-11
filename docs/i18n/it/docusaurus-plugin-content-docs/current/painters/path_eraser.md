@@ -1,6 +1,6 @@
 ---
 title: "Percorso pittore gomma"
-sidebar_label: "Gomma percorso"
+sidebar_label: "Cancella tratto"
 sidebar_position: 5
 ---
 
