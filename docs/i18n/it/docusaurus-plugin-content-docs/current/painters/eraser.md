@@ -1,6 +1,6 @@
 ---
 title: "Disegnatore di gomma"
-sidebar_label: "Eraser"
+sidebar_label: "Gomma"
 sidebar_position: 4
 ---
 
