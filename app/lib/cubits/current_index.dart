@@ -1,4 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,13 +12,20 @@ part 'current_index.freezed.dart';
 
 @freezed
 class CurrentIndex with _$CurrentIndex {
-  const factory CurrentIndex(int index, Handler? handler,
+  const CurrentIndex._();
+  const factory CurrentIndex(
+      int index, Handler? handler, SettingsCubit settingsCubit,
       [@Default([]) List<Renderer> foregrounds,
-      @Default([]) List<Rect> selections]) = _CurrentIndex;
+      @Default([]) List<Rect> selections,
+      @Default([]) List<int> pointers]) = _CurrentIndex;
+
+  bool get moveEnabled =>
+      settingsCubit.state.inputGestures && pointers.length > 1;
 }
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
-  CurrentIndexCubit() : super(const CurrentIndex(-1, null)) {
+  CurrentIndexCubit(SettingsCubit settingsCubit)
+      : super(CurrentIndex(-1, null, settingsCubit)) {
     reset();
   }
 
@@ -25,14 +33,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     var current = state.handler;
     if (current == null) {
       current = HandHandler(this);
-      emit(CurrentIndex(-1, current));
+      emit(CurrentIndex(-1, current, state.settingsCubit));
       return current;
     }
     return current;
   }
 
   void changeHandler(int index, Handler handler) =>
-      emit(CurrentIndex(index, handler));
+      emit(CurrentIndex(index, handler, state.settingsCubit));
   Handler? changePainter(DocumentBloc bloc, int index) {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
@@ -42,6 +50,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(CurrentIndex(
         index,
         handler,
+        state.settingsCubit,
         handler.createForegrounds(document, currentArea),
         handler.createSelections(document, currentArea)));
     return handler;
@@ -86,10 +95,18 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void reset() {
-    emit(CurrentIndex(-1, HandHandler(this)));
+    emit(CurrentIndex(-1, HandHandler(this), state.settingsCubit));
   }
 
   void changeIndex(int i) {
-    emit(CurrentIndex(i, state.handler));
+    emit(CurrentIndex(i, state.handler, state.settingsCubit));
+  }
+
+  void addPointer(int pointer) {
+    emit(state.copyWith(pointers: state.pointers.toList()..add(pointer)));
+  }
+
+  void removePointer(int pointer) {
+    emit(state.copyWith(pointers: state.pointers.toList()..remove(pointer)));
   }
 }

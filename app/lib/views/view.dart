@@ -22,7 +22,6 @@ enum _MouseState { normal, inverse, scale }
 class _MainViewViewportState extends State<MainViewViewport> {
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
-  List<int> pointers = [];
   _MouseState _mouseState = _MouseState.normal;
 
   @override
@@ -167,13 +166,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   }
                 },
                 onPointerDown: (PointerDownEvent event) {
-                  pointers.add(event.pointer);
+                  cubit.addPointer(event.pointer);
                   cubit
                       .getHandler()
                       .onPointerDown(constraints.biggest, context, event);
                 },
                 onPointerUp: (PointerUpEvent event) async {
-                  pointers.remove(event.pointer);
+                  cubit.removePointer(event.pointer);
                   cubit
                       .getHandler()
                       .onPointerUp(constraints.biggest, context, event);
@@ -185,7 +184,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       .onPointerHover(constraints.biggest, context, event);
                 },
                 onPointerMove: (PointerMoveEvent event) async {
-                  if (pointers.length > 1 &&
+                  if (cubit.state.pointers.length > 1 &&
                       event.kind != PointerDeviceKind.stylus) {
                     return;
                   }

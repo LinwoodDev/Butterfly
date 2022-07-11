@@ -230,7 +230,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Text(
-                    AppLocalizations.of(context)!.theme,
+                    AppLocalizations.of(context)!.locale,
                     style: Theme.of(context).textTheme.headline5,
                     textAlign: TextAlign.center,
                   ),

@@ -140,6 +140,9 @@ class HandHandler extends Handler {
       Size viewportSize, BuildContext context, PointerDownEvent event) {
     openView = true;
     _firstPointer ??= event.pointer;
+    if (cubit.state.moveEnabled) {
+      openView = false;
+    }
   }
 
   @override
@@ -149,6 +152,9 @@ class HandHandler extends Handler {
     final transform = context.read<TransformCubit>().state;
     if (openView) {
       openView = (event.delta / transform.size) == Offset.zero;
+    }
+    if (cubit.state.moveEnabled) {
+      openView = false;
     }
     if (movingElement != null) {
       currentMovePosition = transform.localToGlobal(event.localPosition);

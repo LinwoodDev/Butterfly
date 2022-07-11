@@ -55,7 +55,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
           toolbarHeight: _height,
           leading: _MainPopupMenu(
             viewportKey: viewportKey,
-            hideUndoRedo: isMobile,
+            hideUndoRedo: !isMobile,
           ),
           title: BlocBuilder<DocumentBloc, DocumentState>(
               buildWhen: (previous, current) {

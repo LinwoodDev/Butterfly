@@ -18,8 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CurrentIndex {
   int get index => throw _privateConstructorUsedError;
   Handler? get handler => throw _privateConstructorUsedError;
+  SettingsCubit get settingsCubit => throw _privateConstructorUsedError;
   List<Renderer> get foregrounds => throw _privateConstructorUsedError;
   List<Rect> get selections => throw _privateConstructorUsedError;
+  List<int> get pointers => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CurrentIndexCopyWith<CurrentIndex> get copyWith =>
@@ -34,8 +36,10 @@ abstract class $CurrentIndexCopyWith<$Res> {
   $Res call(
       {int index,
       Handler? handler,
+      SettingsCubit settingsCubit,
       List<Renderer> foregrounds,
-      List<Rect> selections});
+      List<Rect> selections,
+      List<int> pointers});
 }
 
 /// @nodoc
@@ -50,8 +54,10 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
   $Res call({
     Object? index = freezed,
     Object? handler = freezed,
+    Object? settingsCubit = freezed,
     Object? foregrounds = freezed,
     Object? selections = freezed,
+    Object? pointers = freezed,
   }) {
     return _then(_value.copyWith(
       index: index == freezed
@@ -62,6 +68,10 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
               as Handler?,
+      settingsCubit: settingsCubit == freezed
+          ? _value.settingsCubit
+          : settingsCubit // ignore: cast_nullable_to_non_nullable
+              as SettingsCubit,
       foregrounds: foregrounds == freezed
           ? _value.foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
@@ -70,6 +80,10 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           ? _value.selections
           : selections // ignore: cast_nullable_to_non_nullable
               as List<Rect>,
+      pointers: pointers == freezed
+          ? _value.pointers
+          : pointers // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
@@ -84,8 +98,10 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
   $Res call(
       {int index,
       Handler? handler,
+      SettingsCubit settingsCubit,
       List<Renderer> foregrounds,
-      List<Rect> selections});
+      List<Rect> selections,
+      List<int> pointers});
 }
 
 /// @nodoc
@@ -103,8 +119,10 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
   $Res call({
     Object? index = freezed,
     Object? handler = freezed,
+    Object? settingsCubit = freezed,
     Object? foregrounds = freezed,
     Object? selections = freezed,
+    Object? pointers = freezed,
   }) {
     return _then(_$_CurrentIndex(
       index == freezed
@@ -115,6 +133,10 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
               as Handler?,
+      settingsCubit == freezed
+          ? _value.settingsCubit
+          : settingsCubit // ignore: cast_nullable_to_non_nullable
+              as SettingsCubit,
       foregrounds == freezed
           ? _value._foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
@@ -123,23 +145,32 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
           ? _value._selections
           : selections // ignore: cast_nullable_to_non_nullable
               as List<Rect>,
+      pointers == freezed
+          ? _value._pointers
+          : pointers // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_CurrentIndex implements _CurrentIndex {
-  const _$_CurrentIndex(this.index, this.handler,
+class _$_CurrentIndex extends _CurrentIndex {
+  const _$_CurrentIndex(this.index, this.handler, this.settingsCubit,
       [final List<Renderer> foregrounds = const [],
-      final List<Rect> selections = const []])
+      final List<Rect> selections = const [],
+      final List<int> pointers = const []])
       : _foregrounds = foregrounds,
-        _selections = selections;
+        _selections = selections,
+        _pointers = pointers,
+        super._();
 
   @override
   final int index;
   @override
   final Handler? handler;
+  @override
+  final SettingsCubit settingsCubit;
   final List<Renderer> _foregrounds;
   @override
   @JsonKey()
@@ -156,9 +187,17 @@ class _$_CurrentIndex implements _CurrentIndex {
     return EqualUnmodifiableListView(_selections);
   }
 
+  final List<int> _pointers;
+  @override
+  @JsonKey()
+  List<int> get pointers {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_pointers);
+  }
+
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, foregrounds: $foregrounds, selections: $selections)';
+    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, foregrounds: $foregrounds, selections: $selections, pointers: $pointers)';
   }
 
   @override
@@ -169,9 +208,12 @@ class _$_CurrentIndex implements _CurrentIndex {
             const DeepCollectionEquality().equals(other.index, index) &&
             const DeepCollectionEquality().equals(other.handler, handler) &&
             const DeepCollectionEquality()
+                .equals(other.settingsCubit, settingsCubit) &&
+            const DeepCollectionEquality()
                 .equals(other._foregrounds, _foregrounds) &&
             const DeepCollectionEquality()
-                .equals(other._selections, _selections));
+                .equals(other._selections, _selections) &&
+            const DeepCollectionEquality().equals(other._pointers, _pointers));
   }
 
   @override
@@ -179,8 +221,10 @@ class _$_CurrentIndex implements _CurrentIndex {
       runtimeType,
       const DeepCollectionEquality().hash(index),
       const DeepCollectionEquality().hash(handler),
+      const DeepCollectionEquality().hash(settingsCubit),
       const DeepCollectionEquality().hash(_foregrounds),
-      const DeepCollectionEquality().hash(_selections));
+      const DeepCollectionEquality().hash(_selections),
+      const DeepCollectionEquality().hash(_pointers));
 
   @JsonKey(ignore: true)
   @override
@@ -188,19 +232,26 @@ class _$_CurrentIndex implements _CurrentIndex {
       __$$_CurrentIndexCopyWithImpl<_$_CurrentIndex>(this, _$identity);
 }
 
-abstract class _CurrentIndex implements CurrentIndex {
+abstract class _CurrentIndex extends CurrentIndex {
   const factory _CurrentIndex(final int index, final Handler? handler,
+      final SettingsCubit settingsCubit,
       [final List<Renderer> foregrounds,
-      final List<Rect> selections]) = _$_CurrentIndex;
+      final List<Rect> selections,
+      final List<int> pointers]) = _$_CurrentIndex;
+  const _CurrentIndex._() : super._();
 
   @override
   int get index;
   @override
   Handler? get handler;
   @override
+  SettingsCubit get settingsCubit;
+  @override
   List<Renderer> get foregrounds;
   @override
   List<Rect> get selections;
+  @override
+  List<int> get pointers;
   @override
   @JsonKey(ignore: true)
   _$$_CurrentIndexCopyWith<_$_CurrentIndex> get copyWith =>

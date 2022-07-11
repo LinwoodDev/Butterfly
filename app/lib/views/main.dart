@@ -84,8 +84,8 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   Future<void> load() async {
-    _currentIndexCubit = CurrentIndexCubit();
     final settingsCubit = context.read<SettingsCubit>();
+    _currentIndexCubit = CurrentIndexCubit(settingsCubit);
     if (widget.embedding != null) {
       setState(() {
         _bloc = DocumentBloc(

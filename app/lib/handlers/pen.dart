@@ -9,15 +9,22 @@ class PenHandler extends Handler {
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
-    return elements.values.map((e) => PenRenderer(e)).toList()
+    return elements.values
+        .map((e) {
+          if (e.points.length > 1) return PenRenderer(e);
+          return null;
+        })
+        .whereType<Renderer>()
+        .toList()
       ..addAll(submittedElements.map((e) => PenRenderer(e)));
   }
 
   @override
   void onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) {
-    addPoint(context, event.pointer, event.localPosition, event.pressure,
-        event.kind, false);
+    addPoint(
+        context, event.pointer, event.localPosition, event.pressure, event.kind,
+        refresh: false);
     submitElement(viewportSize, context, event.pointer);
   }
 
@@ -40,7 +47,7 @@ class PenHandler extends Handler {
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
       double pressure, PointerDeviceKind kind,
-      [bool refresh = true]) {
+      {bool refresh = true, bool shouldCreate = false}) {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
@@ -56,6 +63,8 @@ class PenHandler extends Handler {
     double zoom = painter.zoomDependent ? transform.size : 1;
 
     final createNew = !elements.containsKey(pointer);
+
+    if (createNew && !shouldCreate) return;
 
     final element = elements[pointer] ??
         PenElement(
@@ -77,15 +86,25 @@ class PenHandler extends Handler {
   @override
   void onPointerDown(
       Size viewportSize, BuildContext context, PointerDownEvent event) {
-    addPoint(context, event.pointer, event.localPosition, event.pressure,
-        event.kind);
+    if (cubit.state.moveEnabled) {
+      elements.clear();
+      return;
+    }
+    addPoint(
+        context, event.pointer, event.localPosition, event.pressure, event.kind,
+        shouldCreate: true);
   }
 
   @override
   void onPointerMove(
-          Size viewportSize, BuildContext context, PointerMoveEvent event) =>
-      addPoint(context, event.pointer, event.localPosition, event.pressure,
-          event.kind);
+      Size viewportSize, BuildContext context, PointerMoveEvent event) {
+    if (cubit.state.moveEnabled) {
+      elements.clear();
+      return;
+    }
+    addPoint(context, event.pointer, event.localPosition, event.pressure,
+        event.kind);
+  }
 
   @override
   int? getColor(DocumentBloc bloc) =>

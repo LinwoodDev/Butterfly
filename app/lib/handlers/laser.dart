@@ -71,7 +71,13 @@ class LaserHandler extends Handler {
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
-    return elements.values.map((e) => PenRenderer(e)).toList()
+    return elements.values
+        .map((e) {
+          if (e.points.length > 1) return PenRenderer(e);
+          return null;
+        })
+        .whereType<Renderer>()
+        .toList()
       ..addAll(submittedElements.map((e) => PenRenderer(e)));
   }
 
@@ -93,13 +99,9 @@ class LaserHandler extends Handler {
     cubit.refresh(bloc);
   }
 
-  void addPoint(
-    BuildContext context,
-    int pointer,
-    Offset localPosition,
-    double pressure,
-    PointerDeviceKind kind,
-  ) {
+  void addPoint(BuildContext context, int pointer, Offset localPosition,
+      double pressure, PointerDeviceKind kind,
+      {bool forceCreate = false}) {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
@@ -108,6 +110,9 @@ class LaserHandler extends Handler {
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
+      return;
+    }
+    if (!elements.containsKey(pointer) && !forceCreate) {
       return;
     }
     final element = elements[pointer] ??
@@ -130,6 +135,10 @@ class LaserHandler extends Handler {
   @override
   void onPointerDown(
       Size viewportSize, BuildContext context, PointerDownEvent event) {
+    if (cubit.state.moveEnabled) {
+      elements.clear();
+      return;
+    }
     if (kSecondaryMouseButton == event.buttons) {
       _moving = true;
       return;
