@@ -4,7 +4,7 @@ title: "Carta regolamentata"
 
 |   Proprietà | Valore |
 | -----------:|:------ |
-|       Width | 0      |
+|   Larghezza | 0      |
 |     Altezza | 25     |
 | Conteggio X | 0      |
 | Conteggio Y | 1      |
