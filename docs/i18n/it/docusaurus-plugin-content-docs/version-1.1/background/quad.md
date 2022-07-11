@@ -4,7 +4,7 @@ title: "Quad paper"
 
 |   Proprietà | Valore |
 | -----------:|:------ |
-|       Width | 15     |
+|   Larghezza | 15     |
 |     Altezza | 15     |
 | Conteggio X | 1      |
 | Conteggio Y | 1      |
