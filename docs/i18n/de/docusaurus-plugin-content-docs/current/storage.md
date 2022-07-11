@@ -25,7 +25,7 @@ Um einen entfernten Server hinzuzufügen, gehen Sie zu den Einstellungen und kli
 
 Um die webdav URL zu erhalten, besuchen Sie bitte die Dokumentation:
 
-* [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html)
+* [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (es sollte so aussehen: `https://nextcloud.example.com/remote.php/dav/files/username/`, ersetze `Benutzername` und `nextcloud.example.com` mit den korrekten Werten)
 
 ### Offline-Sync {#offline}
 

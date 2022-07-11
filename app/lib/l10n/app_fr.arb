@@ -51,6 +51,7 @@
     "french": "Français",
     "german": "Allemand",
     "spanish": "Espagnol",
+    "italian": "Italien",
     "defaultLocale": "Langue par défaut",
     "information": "Information",
     "license": "Licence",
@@ -123,11 +124,6 @@
     "altKey": "Alt",
     "copyVersion": "Copier la version",
     "input": "Input",
-    "multiInput": "Multi entrées",
-    "multiDraw": "Dessiner avec plusieurs entrées",
-    "moveFirst": "Déplacer avec la première entrée",
-    "moveLast": "Déplacer avec les dernières entrées",
-    "onlyStylus": "Restreindre l'entrée au stylet",
     "behaviors": "Comportements",
     "documentDirectory": "Répertoire des documents",
     "defaultPath": "Chemin par défaut",
@@ -359,5 +355,7 @@
     "remoteLatest": "Dernier jour à distance",
     "path": "Chemin d'accès",
     "folderSynced": "Dossier synchronisé",
-    "syncRootDirectory": "Synchroniser le répertoire racine"
+    "syncRootDirectory": "Synchroniser le répertoire racine",
+    "penOnlyInput": "Seules les entrées du stylet",
+    "inputGestures": "Input gestures"
 }
