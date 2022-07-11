@@ -51,6 +51,7 @@
     "french": "Französisch",
     "german": "Deutsch",
     "spanish": "Spanisch",
+    "italian": "Italienisch",
     "defaultLocale": "Standardsprache",
     "information": "Informationen",
     "license": "Lizenz",
@@ -123,11 +124,6 @@
     "altKey": "Alt",
     "copyVersion": "Version kopieren",
     "input": "Input",
-    "multiInput": "Multi Eingabe",
-    "multiDraw": "Mit mehreren Eingaben zeichnen",
-    "moveFirst": "Mit der ersten Eingabe verschieben",
-    "moveLast": "Mit den letzten Eingaben verschieben",
-    "onlyStylus": "Eingaben auf Stift beschränken",
     "behaviors": "Verhalten",
     "documentDirectory": "Dokumentenverzeichnis",
     "defaultPath": "Standardpfad",
@@ -359,5 +355,7 @@
     "remoteLatest": "Remote-neueste",
     "path": "Pfad",
     "folderSynced": "Ordner synchronisiert",
-    "syncRootDirectory": "Sync-Stammverzeichnis"
+    "syncRootDirectory": "Sync-Stammverzeichnis",
+    "penOnlyInput": "Nur-Pen-Eingabe",
+    "inputGestures": "Input gestures"
 }
