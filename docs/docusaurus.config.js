@@ -63,6 +63,10 @@ module.exports = {
                     position: 'left',
                     items: [
                         {
+                            label: 'Matrix',
+                            href: 'https://linwood.dev/matrix',
+                        },
+                        {
                             label: 'Discord',
                             href: 'https://discord.linwood.dev',
                         },

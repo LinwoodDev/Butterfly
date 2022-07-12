@@ -1,3 +1,4 @@
+* Add matrix invite link
 * Rework multi input system
     * Add input gesture support (move with two fingers [#206](https://github.com/LinwoodCloud/Butterfly/issues/206))
 * Add italian localizatiion

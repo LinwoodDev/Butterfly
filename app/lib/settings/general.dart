@@ -147,6 +147,11 @@ class GeneralSettingsPage extends StatelessWidget {
                         onTap: () => openReleaseNotes()),
                     ListTile(
                         leading: const Icon(PhosphorIcons.usersLight),
+                        title: const Text('Matrix'),
+                        onTap: () =>
+                            launchUrl(Uri.https('go.linwood.dev', 'matrix'))),
+                    ListTile(
+                        leading: const Icon(PhosphorIcons.usersLight),
                         title: const Text('Discord'),
                         onTap: () =>
                             launchUrl(Uri.https('go.linwood.dev', 'discord'))),

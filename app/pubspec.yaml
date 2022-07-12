@@ -67,7 +67,7 @@ dev_dependencies:
   freezed: ^2.0.4
   build_runner: ^2.1.11
   json_serializable: ^6.3.1
-  espresso: ^0.2.0+2
+  espresso: ^0.2.0+3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -4,7 +4,7 @@ There are many ways to contribute to this project.
 Thanks to everyone who has contributed!
 If you have any questions, please contact me at <contact@linwood.dev>.
 
-There is a discord server for this project [here](https://discord.linwood.dev).
+There is a matrix server for this project [here](https://linwood.dev/matrix) and a discord server [here](https://discord.linwood.dev).
 
 Please follow the [Code of Conduct](https://docs.butterfly.linwood.dev/code-of-conduct).
 
