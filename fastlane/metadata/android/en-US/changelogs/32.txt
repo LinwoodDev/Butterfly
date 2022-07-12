@@ -2,5 +2,6 @@
 * Rework multi input system
     * Add input gesture support (move with two fingers [#206](https://github.com/LinwoodCloud/Butterfly/issues/206))
 * Add italian localizatiion
+* Fix lag when opening/closing the color view
 * Improve default theme to match with the documentation
 * Add check to prevent adding duplicated locations to paths

@@ -327,10 +327,19 @@ class _ProjectPageState extends State<ProjectPage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.stretch,
                                         children: [
-                                          const ColorView(),
                                           Expanded(
                                               key: _viewportKey,
-                                              child: const MainViewViewport()),
+                                              child: Stack(
+                                                children: [
+                                                  const MainViewViewport(),
+                                                  Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: const [
+                                                        ColorView(),
+                                                      ]),
+                                                ],
+                                              )),
                                           if (isMobile)
                                             Align(
                                                 alignment: Alignment.center,

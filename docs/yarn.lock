@@ -5117,7 +5117,7 @@ __metadata:
     animate.css: ^4.1.1
     clsx: ^1.2.1
     markdownlint-cli2: ^0.4.0
-    node-fetch: ^3.2.6
+    node-fetch: ^3.2.7
     prism-react-renderer: ^1.3.5
     react: ^18.2.0
     react-animation-on-scroll: ^5.1.0
@@ -9249,14 +9249,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^3.2.6":
-  version: 3.2.6
-  resolution: "node-fetch@npm:3.2.6"
+"node-fetch@npm:^3.2.7":
+  version: 3.2.7
+  resolution: "node-fetch@npm:3.2.7"
   dependencies:
     data-uri-to-buffer: ^4.0.0
     fetch-blob: ^3.1.4
     formdata-polyfill: ^4.0.10
-  checksum: ece307ace3a3ff28638ccb0fa0545bb5c0cfd673a9d06fc314d937a73ae6a55917d5bacd7f080f9a9f1449ca20a5c01b1281d0e616acb20315e5ac315971da46
+  checksum: 834210e704341558b78bb13d71e593ce2a3a6485a1bf357ae27c7fc1be581e388dee5aa1214e05da53e2a4aace7101a46d3298772666ede11ed049f782788e6c
   languageName: node
   linkType: hard
 
