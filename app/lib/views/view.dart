@@ -184,7 +184,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       .onPointerHover(constraints.biggest, context, event);
                 },
                 onPointerMove: (PointerMoveEvent event) async {
-                  if (cubit.state.pointers.length > 1 &&
+                  if (cubit.state.moveEnabled &&
                       event.kind != PointerDeviceKind.stylus) {
                     if (event.pointer == cubit.state.pointers.first) {
                       final transformCubit = context.read<TransformCubit>();

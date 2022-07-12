@@ -85,7 +85,7 @@ class EraserHandler extends Handler {
   @override
   void onPointerDown(
       Size viewportSize, BuildContext context, PointerDownEvent event) {
-    if (cubit.state.moveEnabled) {
+    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
       return;
     }
@@ -97,10 +97,6 @@ class EraserHandler extends Handler {
   @override
   void onPointerMove(
       Size viewportSize, BuildContext context, PointerMoveEvent event) {
-    if (cubit.state.moveEnabled) {
-      elements.clear();
-      return;
-    }
     addPoint(context, event.pointer, event.localPosition, event.pressure,
         event.kind);
   }

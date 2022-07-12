@@ -140,7 +140,7 @@ class HandHandler extends Handler {
       Size viewportSize, BuildContext context, PointerDownEvent event) {
     openView = true;
     _firstPointer ??= event.pointer;
-    if (cubit.state.moveEnabled) {
+    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       openView = false;
     }
   }
@@ -153,7 +153,7 @@ class HandHandler extends Handler {
     if (openView) {
       openView = (event.delta / transform.size) == Offset.zero;
     }
-    if (cubit.state.moveEnabled) {
+    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       openView = false;
     }
     if (movingElement != null) {

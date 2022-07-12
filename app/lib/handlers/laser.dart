@@ -135,7 +135,7 @@ class LaserHandler extends Handler {
   @override
   void onPointerDown(
       Size viewportSize, BuildContext context, PointerDownEvent event) {
-    if (cubit.state.moveEnabled) {
+    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
       return;
     }
