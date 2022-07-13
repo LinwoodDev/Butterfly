@@ -100,15 +100,4 @@ class EraserHandler extends Handler {
     addPoint(context, event.pointer, event.localPosition, event.pressure,
         event.kind);
   }
-
-  @override
-  int? getColor(DocumentBloc bloc) =>
-      getPainter<EraserPainter>(bloc)?.property.color;
-
-  @override
-  EraserPainter? setColor(DocumentBloc bloc, int color) {
-    final painter = getPainter<EraserPainter>(bloc);
-    if (painter == null) return null;
-    return painter.copyWith(property: painter.property.copyWith(color: color));
-  }
 }

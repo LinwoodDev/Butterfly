@@ -51,7 +51,7 @@ class Property with _$Property {
   const factory Property.eraser(
       {@Default(5) double strokeWidth,
       @Default(10) double strokeMultiplier,
-      @Default(kColorBlack) int color}) = EraserProperty;
+      }) = EraserProperty;
 
   @With<PathProperty>()
   const factory Property.pen({

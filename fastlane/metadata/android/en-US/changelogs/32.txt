@@ -5,3 +5,4 @@
 * Fix lag when opening/closing the color view
 * Improve default theme to match with the documentation
 * Add check to prevent adding duplicated locations to paths
+* Remove unused color property in eraser painter
