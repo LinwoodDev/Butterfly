@@ -77,7 +77,8 @@ class LabelRenderer extends Renderer<LabelElement> {
   }
 
   @override
-  FutureOr<void> build(Canvas canvas, Size size, CameraTransform transform,
+  FutureOr<void> build(
+      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]) {
     final tp = _createPainter();
     tp.layout(maxWidth: rect.width);

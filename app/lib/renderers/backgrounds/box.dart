@@ -4,7 +4,8 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
   BoxBackgroundRenderer(super.element);
 
   @override
-  void build(Canvas canvas, Size size, CameraTransform transform,
+  void build(
+      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]) {
     canvas.drawColor(Color(element.boxColor), BlendMode.srcOver);
     if (element.boxWidth > 0 && element.boxXCount > 0) {

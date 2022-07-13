@@ -6,7 +6,8 @@ class ImageRenderer extends Renderer<ImageElement> {
   ImageRenderer(super.element, [this.image]);
 
   @override
-  void build(Canvas canvas, Size size, CameraTransform transform,
+  void build(
+      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]) {
     if (image == null) {
       // Render placeholder

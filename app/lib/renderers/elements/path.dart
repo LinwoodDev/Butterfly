@@ -6,7 +6,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
 
   PathRenderer(super.element, [this.rect = Rect.zero]);
 
-  Paint buildPaint([bool foreground = false]);
+  Paint buildPaint([AppDocument? document, bool foreground = false]);
 
   @override
   FutureOr<void> setup(AppDocument document) {
@@ -29,12 +29,13 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   }
 
   @override
-  void build(Canvas canvas, Size size, CameraTransform transform,
+  void build(
+      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]) {
     final current = element as PathElement;
     final points = current.points;
     final property = current.property;
-    final paint = buildPaint(foreground);
+    final paint = buildPaint(document, foreground);
     if (points.isNotEmpty) {
       if (paint.style == PaintingStyle.fill) {
         final path = Path();

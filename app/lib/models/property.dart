@@ -48,10 +48,10 @@ class Property with _$Property {
           VerticalAlignment verticalAlignment}) = LabelProperty;
 
   @With<PathProperty>()
-  const factory Property.eraser(
-      {@Default(5) double strokeWidth,
-      @Default(10) double strokeMultiplier,
-      }) = EraserProperty;
+  const factory Property.eraser({
+    @Default(5) double strokeWidth,
+    @Default(10) double strokeMultiplier,
+  }) = EraserProperty;
 
   @With<PathProperty>()
   const factory Property.pen({

@@ -6,7 +6,8 @@ class SvgRenderer extends Renderer<SvgElement> {
   SvgRenderer(super.element, [this.svgRoot]);
 
   @override
-  void build(Canvas canvas, Size size, CameraTransform transform,
+  void build(
+      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]) {
     final rect = this.rect;
     if (svgRoot == null) {

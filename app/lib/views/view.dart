@@ -206,6 +206,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           size: Size.infinite,
                           foregroundPainter: ForegroundPainter(
                             currentIndex.foregrounds,
+                            state.document,
                             transform,
                             currentIndex.selections,
                           ),

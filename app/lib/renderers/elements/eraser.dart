@@ -4,10 +4,12 @@ class EraserRenderer extends PathRenderer<EraserElement> {
   EraserRenderer(super.element, [super.rect]);
 
   @override
-  Paint buildPaint([bool foreground = false]) {
+  Paint buildPaint([AppDocument? document, bool foreground = false]) {
     return Paint()
       ..style = PaintingStyle.stroke
-      ..color = Colors.white
+      ..color =
+          document?.background.mapOrNull(box: (box) => Color(box.boxColor)) ??
+              Colors.white
       ..strokeCap = StrokeCap.round
       ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear;
   }
