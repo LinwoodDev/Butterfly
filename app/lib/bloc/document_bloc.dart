@@ -40,12 +40,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       Renderer<Background> background,
       List<Renderer<PadElement>> renderer,
       [Embedding? embedding])
-      : super(DocumentLoadSuccess(initial,
-            location: location,
-            settingsCubit: settingsCubit,
-            currentIndexCubit: currentIndexCubit,
-            embedding: embedding,
-            cameraViewport: CameraViewport.unbaked(background, renderer))) {
+      : super(DocumentLoadSuccess(
+          initial,
+          location: location,
+          settingsCubit: settingsCubit,
+          currentIndexCubit: currentIndexCubit,
+          embedding: embedding,
+        )) {
     _init();
   }
 

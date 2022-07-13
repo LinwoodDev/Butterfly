@@ -10,7 +10,7 @@ import 'element.dart';
 @immutable
 class CameraViewport extends Equatable {
   final ui.Image? image;
-  final Renderer<Background> background;
+  final Renderer<Background>? background;
   final List<Renderer<PadElement>> bakedElements;
   final List<Renderer<PadElement>> unbakedElements;
   final int? width, height;
@@ -18,8 +18,8 @@ class CameraViewport extends Equatable {
   final double scale;
   final double x, y;
 
-  const CameraViewport.unbaked(this.background,
-      [this.unbakedElements = const []])
+  const CameraViewport.unbaked(
+      [this.background, this.unbakedElements = const []])
       : image = null,
         scale = 1,
         width = null,
@@ -29,8 +29,9 @@ class CameraViewport extends Equatable {
         x = 0,
         y = 0;
 
-  const CameraViewport.baked(this.background,
-      {required this.image,
+  const CameraViewport.baked(
+      {this.background,
+      required this.image,
       required this.width,
       required this.height,
       required this.pixelRatio,

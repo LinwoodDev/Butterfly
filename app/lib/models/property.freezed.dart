@@ -53,8 +53,7 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)
@@ -81,8 +80,7 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
@@ -107,8 +105,7 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
@@ -252,8 +249,7 @@ class _$HandProperty implements HandProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)
@@ -283,8 +279,7 @@ class _$HandProperty implements HandProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
@@ -312,8 +307,7 @@ class _$HandProperty implements HandProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
@@ -629,8 +623,7 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)
@@ -673,8 +666,7 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
@@ -715,8 +707,7 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
@@ -830,7 +821,7 @@ abstract class _$$EraserPropertyCopyWith<$Res> {
   factory _$$EraserPropertyCopyWith(
           _$EraserProperty value, $Res Function(_$EraserProperty) then) =
       __$$EraserPropertyCopyWithImpl<$Res>;
-  $Res call({double strokeWidth, double strokeMultiplier, int color});
+  $Res call({double strokeWidth, double strokeMultiplier});
 }
 
 /// @nodoc
@@ -847,7 +838,6 @@ class __$$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
   $Res call({
     Object? strokeWidth = freezed,
     Object? strokeMultiplier = freezed,
-    Object? color = freezed,
   }) {
     return _then(_$EraserProperty(
       strokeWidth: strokeWidth == freezed
@@ -858,10 +848,6 @@ class __$$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
           ? _value.strokeMultiplier
           : strokeMultiplier // ignore: cast_nullable_to_non_nullable
               as double,
-      color: color == freezed
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -870,10 +856,7 @@ class __$$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
 @JsonSerializable()
 class _$EraserProperty with PathProperty implements EraserProperty {
   const _$EraserProperty(
-      {this.strokeWidth = 5,
-      this.strokeMultiplier = 10,
-      this.color = kColorBlack,
-      final String? $type})
+      {this.strokeWidth = 5, this.strokeMultiplier = 10, final String? $type})
       : $type = $type ?? 'eraser';
 
   factory _$EraserProperty.fromJson(Map<String, dynamic> json) =>
@@ -885,16 +868,13 @@ class _$EraserProperty with PathProperty implements EraserProperty {
   @override
   @JsonKey()
   final double strokeMultiplier;
-  @override
-  @JsonKey()
-  final int color;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Property.eraser(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier, color: $color)';
+    return 'Property.eraser(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier)';
   }
 
   @override
@@ -905,8 +885,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             const DeepCollectionEquality()
                 .equals(other.strokeWidth, strokeWidth) &&
             const DeepCollectionEquality()
-                .equals(other.strokeMultiplier, strokeMultiplier) &&
-            const DeepCollectionEquality().equals(other.color, color));
+                .equals(other.strokeMultiplier, strokeMultiplier));
   }
 
   @JsonKey(ignore: true)
@@ -914,8 +893,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(strokeWidth),
-      const DeepCollectionEquality().hash(strokeMultiplier),
-      const DeepCollectionEquality().hash(color));
+      const DeepCollectionEquality().hash(strokeMultiplier));
 
   @JsonKey(ignore: true)
   @override
@@ -941,8 +919,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)
@@ -950,7 +927,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
   }) {
-    return eraser(strokeWidth, strokeMultiplier, color);
+    return eraser(strokeWidth, strokeMultiplier);
   }
 
   @override
@@ -972,14 +949,13 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
-    return eraser?.call(strokeWidth, strokeMultiplier, color);
+    return eraser?.call(strokeWidth, strokeMultiplier);
   }
 
   @override
@@ -1001,8 +977,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
@@ -1010,7 +985,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
     required TResult orElse(),
   }) {
     if (eraser != null) {
-      return eraser(strokeWidth, strokeMultiplier, color);
+      return eraser(strokeWidth, strokeMultiplier);
     }
     return orElse();
   }
@@ -1064,15 +1039,13 @@ class _$EraserProperty with PathProperty implements EraserProperty {
 abstract class EraserProperty implements Property, PathProperty {
   const factory EraserProperty(
       {final double strokeWidth,
-      final double strokeMultiplier,
-      final int color}) = _$EraserProperty;
+      final double strokeMultiplier}) = _$EraserProperty;
 
   factory EraserProperty.fromJson(Map<String, dynamic> json) =
       _$EraserProperty.fromJson;
 
   double get strokeWidth;
   double get strokeMultiplier;
-  int get color;
   @JsonKey(ignore: true)
   _$$EraserPropertyCopyWith<_$EraserProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1206,8 +1179,7 @@ class _$PenProperty with PathProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)
@@ -1237,8 +1209,7 @@ class _$PenProperty with PathProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
@@ -1266,8 +1237,7 @@ class _$PenProperty with PathProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
@@ -1468,8 +1438,7 @@ class _$ShapeProperty implements ShapeProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)
@@ -1499,8 +1468,7 @@ class _$ShapeProperty implements ShapeProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
@@ -1528,8 +1496,7 @@ class _$ShapeProperty implements ShapeProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,

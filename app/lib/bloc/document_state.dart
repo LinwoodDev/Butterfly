@@ -21,9 +21,7 @@ class DocumentLoadSuccess extends DocumentState {
   final String currentLayer;
   final int currentAreaIndex;
   final List<String> invisibleLayers;
-  final CameraViewport cameraViewport;
   final SettingsCubit settingsCubit;
-  final CurrentIndexCubit currentIndexCubit;
   final Embedding? embedding;
   final bool saved;
 
@@ -32,23 +30,14 @@ class DocumentLoadSuccess extends DocumentState {
       this.storageType = StorageType.local,
       this.saved = true,
       required this.settingsCubit,
-      required this.currentIndexCubit,
-      CameraViewport? cameraViewport,
       this.currentAreaIndex = -1,
       this.currentLayer = '',
       this.embedding,
-      this.invisibleLayers = const []})
-      : cameraViewport = cameraViewport ??
-            CameraViewport.unbaked(
-                Renderer.fromInstance(document.background)..setup(document),
-                document.content
-                    .map((e) => Renderer.fromInstance(e)..setup(document))
-                    .toList());
+      this.invisibleLayers = const []});
 
   @override
   List<Object?> get props => [
         invisibleLayers,
-        cameraViewport,
         document,
         location,
         currentLayer,
@@ -58,10 +47,6 @@ class DocumentLoadSuccess extends DocumentState {
         saved
       ];
 
-  List<Renderer<PadElement>> get renderers =>
-      List.from(cameraViewport.bakedElements)
-        ..addAll(cameraViewport.unbakedElements);
-
   Area? get currentArea {
     if (currentAreaIndex < 0 || currentAreaIndex >= document.areas.length) {
       return null;
@@ -69,25 +54,21 @@ class DocumentLoadSuccess extends DocumentState {
     return document.areas[currentAreaIndex];
   }
 
-  Renderer? getRenderer(PadElement element) =>
-      renderers.firstWhereOrNull((renderer) => renderer.element == element);
-
-  DocumentLoadSuccess copyWith(
-          {AppDocument? document,
-          bool? editMode,
-          AssetLocation? location,
-          String? currentLayer,
-          int? currentAreaIndex,
-          bool? saved,
-          List<String>? invisibleLayers,
-          CameraViewport? cameraViewport}) =>
+  DocumentLoadSuccess copyWith({
+    AppDocument? document,
+    bool? editMode,
+    AssetLocation? location,
+    String? currentLayer,
+    int? currentAreaIndex,
+    bool? saved,
+    List<String>? invisibleLayers,
+  }) =>
       DocumentLoadSuccess(
         document ?? this.document,
         location: location ?? this.location,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
         currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
-        cameraViewport: cameraViewport ?? this.cameraViewport,
         saved: saved ?? this.saved,
         settingsCubit: settingsCubit,
         embedding: embedding,
@@ -123,61 +104,6 @@ class DocumentLoadSuccess extends DocumentState {
   RemoteStorage? getRemoteStorage() => location.remote.isEmpty
       ? null
       : settingsCubit.state.getRemote(location.remote);
-
-  Future<ByteData?> render(
-      {required int width,
-      required int height,
-      double x = 0,
-      double y = 0,
-      double scale = 1,
-      bool renderBackground = true}) async {
-    var recorder = ui.PictureRecorder();
-    var canvas = Canvas(recorder);
-    var painter = ViewPainter(document,
-        renderBackground: renderBackground,
-        cameraViewport: cameraViewport.withUnbaked(renderers),
-        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), scale));
-    painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
-    var picture = recorder.endRecording();
-    var image = await picture.toImage(width, height);
-    return await image.toByteData(format: ui.ImageByteFormat.png);
-  }
-
-  XmlDocument renderSVG(
-      {required int width,
-      required int height,
-      double x = 0,
-      double y = 0,
-      bool renderBackground = true}) {
-    final document = XmlDocument();
-    final svg = document.createElement('svg', attributes: {
-      'xmlns': 'http://www.w3.org/2000/svg',
-      'xmlns:xlink': 'http://www.w3.org/1999/xlink',
-      'version': '1.1',
-      'width': '${width}px',
-      'height': '${height}px',
-      'viewBox': '$x $y $width $height',
-    });
-    svg
-        .createElement('defs')
-        .createElement('mask', id: 'eraser-mask')
-        .createElement('rect', attributes: {
-      'x': '${x}px',
-      'y': '${y}px',
-      'width': '${width}px',
-      'height': '${height}px',
-      'fill': 'white',
-    });
-
-    final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
-    if (renderBackground) {
-      cameraViewport.background.buildSvg(document, this.document, rect);
-    }
-    for (var e in renderers) {
-      e.buildSvg(document, this.document, rect);
-    }
-    return document;
-  }
 }
 
 class DocumentLoadFailure extends DocumentState {}
