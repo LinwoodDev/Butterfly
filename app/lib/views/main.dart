@@ -99,9 +99,9 @@ class _ProjectPageState extends State<ProjectPage> {
             BoxBackgroundRenderer(const BoxBackground()),
             [],
             widget.embedding);
+        _bloc?.load();
         widget.embedding?.handler.register(_bloc!);
       });
-      await _bloc?.load();
       return;
     }
     RemoteStorage? remote;

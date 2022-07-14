@@ -175,6 +175,7 @@ class _CreateStartViewState extends State<_CreateStartView> {
                                                 ''),
                                     currentIndexCubit: currentIndexCubit,
                                     settingsCubit: settingsCubit));
+                                await bloc.load();
                               });
                         },
                       );
