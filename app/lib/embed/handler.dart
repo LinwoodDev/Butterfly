@@ -56,7 +56,8 @@ class EmbedHandler {
           scale = map['scale'] ?? 1;
           renderBackground = map['renderBackground'] ?? true;
         }
-        final data = await state.render(
+        final data = await state.currentIndexCubit.render(
+          state.document,
           width: width,
           height: height,
           x: x,
@@ -90,8 +91,9 @@ class EmbedHandler {
         }
         sendEmbedMessage(
           'renderSVG',
-          state
+          state.currentIndexCubit
               .renderSVG(
+                state.document,
                 width: width,
                 height: height,
                 x: x,

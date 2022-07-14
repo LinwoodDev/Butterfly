@@ -1,30 +1,21 @@
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-import 'dart:ui';
-
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/api/xml_helper.dart';
-import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/background.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/models/palette.dart';
-import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/models/waypoint.dart';
-import 'package:butterfly/view_painter.dart';
-import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:replay_bloc/replay_bloc.dart';
-import 'package:xml/xml.dart';
 
 import '../cubits/settings.dart';
 import '../embed/embedding.dart';
 import '../models/area.dart';
 import '../models/element.dart';
 import '../models/property.dart';
+import '../models/viewport.dart';
 import '../renderers/renderer.dart';
 
 part 'document_event.dart';
@@ -84,7 +75,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
-        var renderers = current.currentIndexCubit.renderers;
+        var renderers = current.renderers;
         renderers = List<Renderer<PadElement>>.from(renderers);
         event.replacedElements.forEach((index, element) {
           final current = element.map((e) => Renderer.fromInstance(e));
@@ -110,7 +101,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         if (!(current.embedding?.editable ?? true)) return;
         final renderers = <Renderer<PadElement>>[];
         Renderer<PadElement>? oldRenderer, newRenderer;
-        for (var renderer in current.currentIndexCubit.renderers) {
+        for (var renderer in current.renderers) {
           if (renderer.element == event.old) {
             newRenderer = Renderer.fromInstance(event.updated);
             await newRenderer.setup(current.document);
@@ -122,20 +113,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         final index = current.document.content.indexOf(event.old);
         if (index < 0) return;
+        final document = current.document;
         return _saveDocument(
                 emit,
                 current.copyWith(
-                    document: current.document.copyWith(
-                        content: List.from(current.document.content)
-                          ..[index] = event.updated),
-                    cameraViewport: current.cameraViewport.unbake(renderers)),
+                  document: document.copyWith(
+                      content: List.from(document.content)
+                        ..[index] = event.updated),
+                ),
                 null)
             .then((value) async {
+          current.currentIndexCubit.unbake(unbakedElements: renderers);
           if (oldRenderer == null || newRenderer == null) return;
           if (await current.currentIndexCubit
               .getHandler()
               .onRendererUpdated(current.document, oldRenderer, newRenderer)) {
-            current.currentIndexCubit.refresh(this);
+            refresh();
           }
         });
       }
@@ -147,21 +140,23 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         if (event.elements.isEmpty ||
             !current.document.content
                 .any((element) => event.elements.contains(element))) return;
-        return _saveDocument(
+        final document = current.document;
+        final renderers = current.renderers;
+        await _saveDocument(
             emit,
             current.copyWith(
-                cameraViewport: current.cameraViewport.unbake(
-                  current.renderers
-                      .where((element) => !event.elements.contains(
-                            element.element,
-                          ))
-                      .toList(),
-                ),
-                document: current.document.copyWith(
-                    content: List.from(current.document.content)
+                document: document.copyWith(
+                    content: List.from(document.content)
                       ..removeWhere(
                           (element) => event.elements.contains(element)))),
             null);
+        current.currentIndexCubit.unbake(
+          unbakedElements: renderers
+              .where((element) => !event.elements.contains(
+                    element.element,
+                  ))
+              .toList(),
+        );
       }
     });
     on<DocumentDescriptorChanged>((event, emit) async {
@@ -273,14 +268,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final Renderer<Background> background =
             Renderer.fromInstance(event.background);
         await background.setup(current.document);
-        return _saveDocument(
+        await _saveDocument(
             emit,
             current.copyWith(
-                cameraViewport:
-                    current.cameraViewport.withBackground(background),
                 document: current.document.copyWith(
-                  background: event.background,
-                )));
+              background: event.background,
+            )));
+        current.currentIndexCubit.unbake(background: background);
       }
     });
     on<WaypointCreated>((event, emit) async {
@@ -330,12 +324,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final renderer = content.map((e) => Renderer.fromInstance(e)).toList();
         await Future.wait(
             renderer.map((e) async => await e.setup(current.document)));
-        return _saveDocument(
+        await _saveDocument(
             emit,
             current.copyWith(
-                cameraViewport: current.cameraViewport.unbake(renderer),
                 document: current.document.copyWith(content: content)),
             null);
+        current.currentIndexCubit.unbake(unbakedElements: renderer);
       }
     });
 
@@ -360,12 +354,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             content.add(element);
           }
         }
-        return _saveDocument(
+        await _saveDocument(
             emit,
             current.copyWith(
-                cameraViewport: current.cameraViewport.unbake(renderers),
                 document: current.document.copyWith(content: content)),
             null);
+        current.currentIndexCubit.unbake(unbakedElements: renderers);
       }
     });
 
@@ -425,84 +419,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final renderer = content.map((e) => Renderer.fromInstance(e)).toList();
         await Future.wait(
             renderer.map((e) async => await e.setup(current.document)));
-        return _saveDocument(
+        await _saveDocument(
             emit,
             current.copyWith(
               document: current.document.copyWith(
                 content: content,
               ),
-              cameraViewport: current.cameraViewport.unbake(renderer),
             ),
             null);
-      }
-    });
-    on<ImageBaked>((event, emit) async {
-      var current = state;
-      if (current is! DocumentLoadSuccess) return;
-      final size = event.viewportSize ?? current.cameraViewport.toSize();
-      final pixelRatio = event.pixelRatio ?? current.cameraViewport.pixelRatio;
-      if (size.height <= 0 || size.width <= 0) {
-        return;
-      }
-
-      var renderers = current.cameraViewport.unbakedElements;
-      final recorder = ui.PictureRecorder();
-      final canvas = ui.Canvas(recorder);
-      var last = current.cameraViewport;
-      final reset = last.width != size.width.ceil() ||
-          last.height != size.height.ceil() ||
-          last.x != event.cameraTransform.position.dx ||
-          last.y != event.cameraTransform.position.dy ||
-          last.scale != event.cameraTransform.size;
-      if (renderers.isEmpty && !reset) return;
-      if (reset) {
-        renderers = current.renderers;
-      }
-      canvas.scale(pixelRatio);
-
-      // Wait one frame
-      await Future.delayed(const Duration(milliseconds: 1));
-
-      ViewPainter(
-        current.document,
-        transform: event.cameraTransform,
-        cameraViewport: reset ? current.cameraViewport.unbake(renderers) : last,
-        renderBackground: false,
-        renderBaked: !reset,
-      ).paint(canvas, size);
-
-      var picture = recorder.endRecording();
-
-      var newImage = await picture.toImage(
-          (size.width * pixelRatio).ceil(), (size.height * pixelRatio).ceil());
-
-      current = state as DocumentLoadSuccess;
-      var currentRenderers = current.cameraViewport.unbakedElements;
-      if (reset) {
-        currentRenderers = current.renderers;
-      } else {
-        renderers.addAll(current.cameraViewport.bakedElements);
-      }
-      currentRenderers = currentRenderers
-          .whereNot((element) => renderers.contains(element))
-          .toList();
-      emit(current.copyWith(
-          cameraViewport: current.cameraViewport.bake(
-              height: size.height.ceil(),
-              width: size.width.ceil(),
-              pixelRatio: pixelRatio,
-              scale: event.cameraTransform.size,
-              x: event.cameraTransform.position.dx,
-              y: event.cameraTransform.position.dy,
-              image: newImage,
-              bakedElements: renderers,
-              unbakedElements: currentRenderers)));
-    }, transformer: restartable());
-    on<ImageUnbaked>((event, emit) {
-      final current = state;
-      if (current is DocumentLoadSuccess) {
-        emit(current.copyWith(
-            cameraViewport: current.cameraViewport.unbake(current.renderers)));
+        current.currentIndexCubit.unbake(unbakedElements: renderer);
       }
     });
     on<TemplateCreated>((event, emit) {
@@ -588,7 +513,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   Future<void> _saveDocument(
       Emitter<DocumentState> emit, DocumentLoadSuccess current,
       [List<Renderer<PadElement>>? unbakedElements = const []]) async {
-    var elements = current.cameraViewport.unbakedElements;
+    final cameraViewport = current.cameraViewport;
+    var elements = cameraViewport.unbakedElements;
     if (unbakedElements != null) {
       for (var renderer in unbakedElements) {
         await renderer.setup(current.document);
@@ -597,13 +523,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ..addAll(unbakedElements);
     }
     var nextState = current.copyWith(
-        saved: false,
-        document: current.document.copyWith(updatedAt: DateTime.now()),
-        cameraViewport: unbakedElements == null
-            ? current.cameraViewport.unbake(
-                List<Renderer<PadElement>>.from(elements)
-                  ..addAll(current.cameraViewport.bakedElements))
-            : current.cameraViewport.withUnbaked(elements));
+      saved: false,
+      document: current.document.copyWith(updatedAt: DateTime.now()),
+    );
+    if (unbakedElements == null) {
+      current.currentIndexCubit.unbake(
+          unbakedElements: List<Renderer<PadElement>>.from(elements)
+            ..addAll(cameraViewport.bakedElements));
+    } else {
+      current.currentIndexCubit.withUnbaked(elements);
+    }
     if (current.embedding != null) {
       emit(nextState);
       return;
@@ -621,23 +550,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     }
   }
 
-  @override
-  bool shouldReplay(DocumentState state) {
-    // Disable replay for state where baked
-    final statement = state is DocumentLoadSuccess &&
-        state.cameraViewport.unbakedElements.isNotEmpty;
-    return statement;
-  }
-
   void _repaint(Emitter<DocumentState> emit) {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
-    emit(current.copyWith(cameraViewport: current.cameraViewport.unbake()));
+    current.currentIndexCubit.unbake();
   }
 
   void refresh() {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
     current.currentIndexCubit.refresh(current.document);
+  }
+
+  Future<void> bake({Size? viewportSize, double? pixelRatio}) async {
+    final current = state;
+    if (current is! DocumentLoadSuccess) return;
+    return current.bake(viewportSize: viewportSize, pixelRatio: pixelRatio);
   }
 }

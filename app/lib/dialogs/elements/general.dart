@@ -52,7 +52,8 @@ class _GeneralElementDialogState<T extends PadElement>
       if (widget.index < 0 || widget.index >= state.document.content.length) {
         return Container();
       }
-      final current = state.getRenderer(state.document.content[widget.index]);
+      final current = state.currentIndexCubit
+          .getRenderer(state.document.content[widget.index]);
       if (current is! Renderer<T>) return Container();
       renderer = current;
       final children = widget.builder == null

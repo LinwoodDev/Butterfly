@@ -50,7 +50,7 @@ class _ColorViewState extends State<ColorView> {
                 } else {
                   final painter = currentIndex.handler;
                   final bloc = context.read<DocumentBloc>();
-                  final color = painter?.getColor(bloc);
+                  final color = painter.getColor(bloc);
                   if (color == null) {
                     _setOpened(false);
                   } else {
@@ -102,7 +102,7 @@ class _ColorViewState extends State<ColorView> {
                                         defaultColor: Color(color))) as int?;
                                 if (nextColor != null) {
                                   final newPainter =
-                                      painter?.setColor(bloc, nextColor);
+                                      painter.setColor(bloc, nextColor);
                                   if (newPainter == null) return;
                                   bloc.add(PainterChanged(
                                       newPainter, currentIndex.index));

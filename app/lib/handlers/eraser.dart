@@ -28,7 +28,8 @@ class EraserHandler extends Handler {
     submitElement(viewportSize, context, event.pointer);
   }
 
-  void submitElement(Size viewportSize, BuildContext context, int index) {
+  Future<void> submitElement(
+      Size viewportSize, BuildContext context, int index) async {
     final bloc = context.read<DocumentBloc>();
     var element = elements.remove(index);
     if (element == null) return;
@@ -36,13 +37,12 @@ class EraserHandler extends Handler {
     submittedElements.add(element);
     if (elements.isEmpty) {
       final current = List<PadElement>.from(submittedElements);
-      bloc
-        ..add(ElementsCreated(current))
-        ..add(
-            ImageBaked(cameraTransform: context.read<TransformCubit>().state));
+      bloc.add(ElementsCreated(current));
+      await bloc.bake();
+
       submittedElements.clear();
     }
-    cubit.refresh(bloc);
+    bloc.refresh();
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
@@ -51,8 +51,6 @@ class EraserHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
-    final painter = cubit.fetchPainter<EraserPainter>(bloc);
-    if (painter == null) return;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     if (lastPosition[pointer] == localPosition) return;
@@ -68,14 +66,14 @@ class EraserHandler extends Handler {
     final element = elements[pointer] ??
         EraserElement(
           layer: state.currentLayer,
-          property: painter.property
-              .copyWith(strokeWidth: painter.property.strokeWidth),
+          property:
+              data.property.copyWith(strokeWidth: data.property.strokeWidth),
         );
     elements[pointer] = element.copyWith(
         points: List<PathPoint>.from(element.points)
           ..add(PathPoint.fromOffset(transform.localToGlobal(localPosition),
               (createNew ? 0 : pressure))));
-    if (refresh) cubit.refresh(bloc);
+    if (refresh) bloc.refresh();
   }
 
   @override
@@ -85,6 +83,7 @@ class EraserHandler extends Handler {
   @override
   void onPointerDown(
       Size viewportSize, BuildContext context, PointerDownEvent event) {
+    final cubit = context.read<CurrentIndexCubit>();
     if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
       return;

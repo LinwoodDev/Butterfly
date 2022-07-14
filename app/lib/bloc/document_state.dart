@@ -26,7 +26,7 @@ class DocumentLoadSuccess extends DocumentState {
   final Embedding? embedding;
   final bool saved;
 
-  DocumentLoadSuccess(this.document,
+  const DocumentLoadSuccess(this.document,
       {required this.location,
       this.storageType = StorageType.local,
       this.saved = true,
@@ -57,14 +57,18 @@ class DocumentLoadSuccess extends DocumentState {
     return document.areas[currentAreaIndex];
   }
 
+  CameraViewport get cameraViewport => currentIndexCubit.state.cameraViewport;
+
+  List<Renderer<PadElement>> get renderers => currentIndexCubit.renderers;
+
   Future<void> load() async {
-    final document = document;
     final background = Renderer.fromInstance(document.background);
     await background.setup(document);
     final renderers =
         document.content.map((e) => Renderer.fromInstance(e)).toList();
     await Future.wait(renderers.map((e) async => await e.setup(document)));
-    currentIndexCubit.unbaked(background, renderers);
+    currentIndexCubit.unbake(
+        background: background, unbakedElements: renderers);
   }
 
   DocumentLoadSuccess copyWith({
@@ -117,6 +121,13 @@ class DocumentLoadSuccess extends DocumentState {
   RemoteStorage? getRemoteStorage() => location.remote.isEmpty
       ? null
       : settingsCubit.state.getRemote(location.remote);
+
+  Future<void> bake({
+    Size? viewportSize,
+    double? pixelRatio,
+  }) =>
+      currentIndexCubit.bake(document,
+          viewportSize: viewportSize, pixelRatio: pixelRatio);
 }
 
 class DocumentLoadFailure extends DocumentState {}

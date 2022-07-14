@@ -29,10 +29,8 @@ class ShapeHandler extends Handler {
     submittedElements.add(element);
     if (elements.isEmpty) {
       final current = List<PadElement>.from(submittedElements);
-      bloc
-        ..add(ElementsCreated(current))
-        ..add(
-            ImageBaked(cameraTransform: context.read<TransformCubit>().state));
+      bloc.add(ElementsCreated(current));
+      bloc.bake();
       submittedElements.clear();
     }
     bloc.refresh();
@@ -44,30 +42,28 @@ class ShapeHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
-    final painter = cubit.fetchPainter<ShapePainter>(bloc);
     final globalPosition = transform.localToGlobal(localPosition);
-    if (painter == null) return;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }
-    double zoom = painter.zoomDependent ? transform.size : 1;
+    double zoom = data.zoomDependent ? transform.size : 1;
 
     final element = elements[pointer] ??
         ShapeElement(
           layer: state.currentLayer,
           firstPosition: globalPosition,
           secondPosition: globalPosition,
-          property: painter.property.copyWith(
-            strokeWidth: painter.property.strokeWidth / zoom,
+          property: data.property.copyWith(
+            strokeWidth: data.property.strokeWidth / zoom,
           ),
         );
 
     elements[pointer] = element.copyWith(
       secondPosition: globalPosition,
     );
-    if (refresh) cubit.refresh(bloc);
+    if (refresh) bloc.refresh();
   }
 
   @override
@@ -84,13 +80,9 @@ class ShapeHandler extends Handler {
           event.kind);
 
   @override
-  int? getColor(DocumentBloc bloc) =>
-      getPainter<ShapePainter>(bloc)?.property.color;
+  int? getColor(DocumentBloc bloc) => data.property.color;
 
   @override
-  ShapePainter? setColor(DocumentBloc bloc, int color) {
-    final painter = getPainter<ShapePainter>(bloc);
-    if (painter == null) return null;
-    return painter.copyWith(property: painter.property.copyWith(color: color));
-  }
+  ShapePainter? setColor(DocumentBloc bloc, int color) =>
+      data.copyWith(property: data.property.copyWith(color: color));
 }

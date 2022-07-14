@@ -51,11 +51,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
   Widget build(BuildContext context) {
     return SizedBox.expand(
         child: ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
-      void _bake([CameraTransform? transform]) {
-        context.read<DocumentBloc>().add(ImageBaked(
+      void _bake() {
+        context.read<DocumentBloc>().bake(
             viewportSize: constraints.biggest,
-            cameraTransform: transform ?? context.read<TransformCubit>().state,
-            pixelRatio: MediaQuery.of(context).devicePixelRatio));
+            pixelRatio: MediaQuery.of(context).devicePixelRatio);
       }
 
       void _delayBake() {

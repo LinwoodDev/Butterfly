@@ -54,8 +54,6 @@ class EditToolbar extends StatelessWidget {
                             value: bloc, child: const HandDialog()));
               }
 
-              final bloc = context.read<DocumentBloc>();
-
               return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                 builder: (context, currentIndex) => Material(
                   color: Colors.transparent,
@@ -71,7 +69,7 @@ class EditToolbar extends StatelessWidget {
                             tooltip: AppLocalizations.of(context)!.hand,
                             selected: context
                                     .read<CurrentIndexCubit>()
-                                    .getPainter(bloc) ==
+                                    .getPainter(state.document) ==
                                 null,
                             icon: const Icon(PhosphorIcons.handLight),
                             selectedIcon: const Icon(PhosphorIcons.handFill),
@@ -79,7 +77,7 @@ class EditToolbar extends StatelessWidget {
                             onPressed: () {
                               if (context
                                       .read<CurrentIndexCubit>()
-                                      .getPainter(bloc) ==
+                                      .getPainter(state.document) ==
                                   null) {
                                 openHandDialog();
                               } else {
@@ -169,12 +167,11 @@ class EditToolbar extends StatelessWidget {
                                               Icon(e.getIcon(filled: true)),
                                           icon: Icon(e.getIcon(filled: false)),
                                           onPressed: () {
-                                            final bloc =
-                                                context.read<DocumentBloc>();
                                             if (!selected) {
                                               context
                                                   .read<CurrentIndexCubit>()
-                                                  .changePainter(bloc, i);
+                                                  .changePainter(state.document,
+                                                      state.currentArea, i);
                                             } else {
                                               openDialog();
                                             }

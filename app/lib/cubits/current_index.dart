@@ -6,7 +6,6 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/property.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -47,27 +46,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     AppDocument document,
     SettingsCubit settingsCubit,
     TransformCubit transformCubit,
-  ) : super(CurrentIndex(-1, HandHandler(this, -1, document.handProperty),
-            settingsCubit, transformCubit)) {
+  ) : super(CurrentIndex(-1, HandHandler(document.handProperty), settingsCubit,
+            transformCubit)) {
     reset();
   }
 
-  Handler getHandler(AppDocument document) {
-    var current = state.handler;
-    if (current == null) {
-      current = HandHandler(this);
-      emit(state.copyWith(index: -1, handler: current));
-      return current;
-    }
-    return current;
+  Handler getHandler() {
+    return state.handler;
   }
 
   void changeHandler(int index, Handler handler) =>
       emit(state.copyWith(index: index, handler: handler));
-  Handler? changePainter(int index, Painter painter) {
-    final document = blocState.document;
-    final currentArea = blocState.currentArea;
-    final handler = Handler.fromPainter(this, painter, index);
+  Handler? changePainter(AppDocument document, Area? currentArea, int index) {
+    final painter = document.painters[index];
+    final handler = Handler.fromPainter(painter);
     emit(state.copyWith(
         index: index,
         handler: handler,
@@ -93,10 +85,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Painter? getPainter() {
-    final blocState = state.bloc.state;
-    if (blocState is! DocumentLoadSuccess) return null;
-    final document = blocState.document;
+  Painter? getPainter(AppDocument document) {
     var index = state.index;
     if (document.painters.isEmpty ||
         index < 0 ||
@@ -106,8 +95,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return document.painters[index];
   }
 
-  T? fetchPainter<T extends Painter>() {
-    final painter = getPainter();
+  T? fetchPainter<T extends Painter>(AppDocument document) {
+    final painter = getPainter(document);
     if (painter is T) return painter;
     return null;
   }
@@ -166,7 +155,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ViewPainter(
       document,
       transform: state.transformCubit.state,
-      cameraViewport: reset ? current.cameraViewport.unbake(renderers) : last,
+      cameraViewport: reset
+          ? current.cameraViewport.unbake(unbakedElements: renderers)
+          : last,
       renderBackground: false,
       renderBaked: !reset,
     ).paint(canvas, size);
@@ -198,7 +189,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             unbakedElements: currentRenderers)));
   }
 
-  Future<ByteData?> render(
+  Future<ByteData?> render(AppDocument document,
       {required int width,
       required int height,
       double x = 0,
@@ -207,9 +198,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       bool renderBackground = true}) async {
     var recorder = ui.PictureRecorder();
     var canvas = Canvas(recorder);
-    final blocState = state.bloc.state;
-    if (blocState is! DocumentLoadSuccess) return null;
-    var painter = ViewPainter(blocState.document,
+    var painter = ViewPainter(document,
         renderBackground: renderBackground,
         cameraViewport: state.cameraViewport.withUnbaked(renderers),
         transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), scale));
@@ -219,16 +208,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
-  XmlDocument renderSVG(
+  XmlDocument renderSVG(AppDocument document,
       {required int width,
       required int height,
       double x = 0,
       double y = 0,
       bool renderBackground = true}) {
-    final document = XmlDocument();
-    final blocState = state.bloc.state;
-    if (blocState is! DocumentLoadSuccess) return document;
-    final svg = document.createElement('svg', attributes: {
+    final xml = XmlDocument();
+    final svg = xml.createElement('svg', attributes: {
       'xmlns': 'http://www.w3.org/2000/svg',
       'xmlns:xlink': 'http://www.w3.org/1999/xlink',
       'version': '1.1',
@@ -249,20 +236,24 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
     if (renderBackground) {
-      state.cameraViewport.background
-          ?.buildSvg(document, blocState.document, rect);
+      state.cameraViewport.background?.buildSvg(xml, document, rect);
     }
     for (var e in renderers) {
-      e.buildSvg(document, blocState.document, rect);
+      e.buildSvg(xml, document, rect);
     }
-    return document;
+    return xml;
   }
 
-  void unbaked(
+  void unbake(
       {Renderer<Background>? background,
       List<Renderer<PadElement>>? unbakedElements}) {
     emit(state.copyWith(
         cameraViewport: state.cameraViewport
             .unbake(unbakedElements: unbakedElements, background: background)));
+  }
+
+  void withUnbaked(List<Renderer<PadElement>> unbakedElements) {
+    emit(state.copyWith(
+        cameraViewport: state.cameraViewport.withUnbaked(unbakedElements)));
   }
 }

@@ -7,16 +7,11 @@ class LabelHandler extends Handler {
   Future<void> onTapUp(
       Size viewportSize, BuildContext context, TapUpDetails details) async {
     final bloc = context.read<DocumentBloc>();
-    final transform = context.read<TransformCubit>().state;
     final pixelRatio = MediaQuery.of(context).devicePixelRatio;
     final newElement = await openDialog(context, details.localPosition);
     if (newElement != null) {
-      bloc
-        ..add(ElementsCreated([newElement]))
-        ..add(ImageBaked(
-            viewportSize: viewportSize,
-            cameraTransform: transform,
-            pixelRatio: pixelRatio));
+      bloc.add(ElementsCreated([newElement]));
+      bloc.bake(viewportSize: viewportSize, pixelRatio: pixelRatio);
     }
   }
 
@@ -37,13 +32,9 @@ class LabelHandler extends Handler {
   }
 
   @override
-  int? getColor(DocumentBloc bloc) =>
-      getPainter<PenPainter>(bloc)?.property.color;
+  int? getColor(DocumentBloc bloc) => data.property.color;
 
   @override
-  PenPainter? setColor(DocumentBloc bloc, int color) {
-    final painter = getPainter<PenPainter>(bloc);
-    if (painter == null) return null;
-    return painter.copyWith(property: painter.property.copyWith(color: color));
-  }
+  PenPainter? setColor(DocumentBloc bloc, int color) =>
+      data.copyWith(property: data.property.copyWith(color: color));
 }

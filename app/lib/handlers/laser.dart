@@ -7,36 +7,34 @@ class LaserHandler extends Handler {
   Timer? _timer;
 
   LaserHandler(super.data);
-  Duration _getDuration(LaserPainter painter) =>
-      Duration(milliseconds: (painter.duration * 1000).round());
+  Duration _getDuration() =>
+      Duration(milliseconds: (data.duration * 1000).round());
 
   void _startTimer(DocumentBloc bloc) {
     _lastChanged = DateTime.now();
     _timer?.cancel();
-    final painter = cubit.fetchPainter<LaserPainter>(bloc);
-    if (painter == null) return;
     _timer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
       final DateTime now = DateTime.now();
       // Test if the last change was more than [duration] seconds ago
       final difference = now.difference(_lastChanged!);
-      if (difference > _getDuration(painter)) {
+      if (difference > _getDuration()) {
         _lastChanged = null;
         submittedElements = [];
         elements = {};
-        _stopTimer(bloc);
+        _stopTimer();
       }
       // Fade out the elements
-      _updateColors(painter);
-      cubit.refresh(bloc);
+      _updateColors();
+      bloc.refresh();
     });
   }
 
-  void _updateColors(LaserPainter painter) {
+  void _updateColors() {
     final difference = _lastChanged == null
         ? Duration.zero
         : DateTime.now().difference(_lastChanged!);
-    final duration = _getDuration(painter);
-    var color = Color(painter.color);
+    final duration = _getDuration();
+    var color = Color(data.color);
     final painterOpacity = color.opacity;
     submittedElements = submittedElements.map((element) {
       var color = Color(element.property.color);
@@ -61,12 +59,10 @@ class LaserHandler extends Handler {
     });
   }
 
-  void _stopTimer(DocumentBloc bloc) {
+  void _stopTimer() {
     _timer?.cancel();
     _timer = null;
-    final painter = cubit.fetchPainter<LaserPainter>(bloc);
-    if (painter == null) return;
-    _updateColors(painter);
+    _updateColors();
   }
 
   @override
@@ -96,7 +92,7 @@ class LaserHandler extends Handler {
     var element = elements.remove(event.pointer);
     if (element == null) return;
     submittedElements.add(element);
-    cubit.refresh(bloc);
+    bloc.refresh();
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
@@ -105,8 +101,6 @@ class LaserHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
-    final painter = cubit.fetchPainter<LaserPainter>(bloc);
-    if (painter == null) return;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
@@ -119,22 +113,23 @@ class LaserHandler extends Handler {
         PenElement(
           layer: state.currentLayer,
           property: PenProperty(
-              strokeWidth: painter.strokeWidth,
-              strokeMultiplier: painter.strokeMultiplier,
-              color: painter.color),
+              strokeWidth: data.strokeWidth,
+              strokeMultiplier: data.strokeMultiplier,
+              color: data.color),
         );
 
     elements[pointer] = element.copyWith(
         points: List<PathPoint>.from(element.points)
           ..add(PathPoint.fromOffset(
               transform.localToGlobal(localPosition), pressure)));
-    cubit.refresh(bloc);
+    bloc.refresh();
     _startTimer(bloc);
   }
 
   @override
   void onPointerDown(
       Size viewportSize, BuildContext context, PointerDownEvent event) {
+    final cubit = context.read<CurrentIndexCubit>();
     if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
       return;
@@ -160,12 +155,10 @@ class LaserHandler extends Handler {
   }
 
   @override
-  int? getColor(DocumentBloc bloc) => getPainter<LaserPainter>(bloc)?.color;
+  int? getColor(DocumentBloc bloc) => data.color;
 
   @override
   LaserPainter? setColor(DocumentBloc bloc, int color) {
-    final painter = getPainter<LaserPainter>(bloc);
-    if (painter == null) return null;
-    return painter.copyWith(color: color);
+    return data.copyWith(color: color);
   }
 }

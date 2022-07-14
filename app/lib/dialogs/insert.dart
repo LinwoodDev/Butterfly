@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/camera.dart';
 import 'package:butterfly/dialogs/pages.dart';
 import 'package:butterfly/models/element.dart';
@@ -31,15 +30,8 @@ class InsertDialog extends StatefulWidget {
 class _InsertDialogState extends State<InsertDialog> {
   void _submit(List<PadElement> elements) {
     var bloc = context.read<DocumentBloc>();
-    var state = bloc.state;
-    var transform = context.read<TransformCubit>().state;
-    if (state is! DocumentLoadSuccess) return;
-    var bakedViewport = state.cameraViewport;
     bloc.add(ElementsCreated(elements));
-    bloc.add(ImageBaked(
-        viewportSize: bakedViewport.toSize(),
-        cameraTransform: transform,
-        pixelRatio: MediaQuery.of(context).devicePixelRatio));
+    bloc.bake();
     Navigator.of(context).pop();
   }
 

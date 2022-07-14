@@ -94,7 +94,7 @@ class ViewPainter extends CustomPainter {
       canvas.clipRect(areaRect.inflate(5));
     }
     if (renderBackground) {
-      cameraViewport.background.build(canvas, size, document, transform);
+      cameraViewport.background?.build(canvas, size, document, transform);
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {
