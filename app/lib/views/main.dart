@@ -101,6 +101,7 @@ class _ProjectPageState extends State<ProjectPage> {
             widget.embedding);
         widget.embedding?.handler.register(_bloc!);
       });
+      await _bloc?.load();
       return;
     }
     RemoteStorage? remote;
@@ -141,6 +142,7 @@ class _ProjectPageState extends State<ProjectPage> {
       final background = Renderer.fromInstance(document!.background);
       await background.setup(document!);
       setState(() {
+        _transformCubit = TransformCubit();
         _currentIndexCubit =
             CurrentIndexCubit(document!, settingsCubit, _transformCubit!);
         _bloc = DocumentBloc(
@@ -151,7 +153,7 @@ class _ProjectPageState extends State<ProjectPage> {
                 AssetLocation(path: '', remote: remote?.identifier ?? ''),
             background,
             renderers);
-        _transformCubit = TransformCubit();
+        _bloc?.load();
       });
     }
     _showIntroduction(documentOpened);

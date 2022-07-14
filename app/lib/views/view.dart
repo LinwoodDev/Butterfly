@@ -210,7 +210,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             currentIndex.selections,
                           ),
                           painter: ViewPainter(state.document,
-                              cameraViewport: state.cameraViewport,
+                              cameraViewport: currentIndex.cameraViewport,
                               transform: transform,
                               invisibleLayers: state.invisibleLayers,
                               currentArea: state.currentArea),

@@ -68,7 +68,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return handler;
   }
 
-  void updatePainter(Painter painter) {}
+  void updatePainter(AppDocument document, Area? currentArea, Painter painter) {
+    final handler = Handler.fromPainter(painter);
+    emit(state.copyWith(
+        index: state.index,
+        handler: handler,
+        foregrounds: handler.createForegrounds(document, currentArea),
+        selections: handler.createSelections(document, currentArea)));
+  }
 
   T? fetchHandler<T extends Handler>() {
     final handler = getHandler();

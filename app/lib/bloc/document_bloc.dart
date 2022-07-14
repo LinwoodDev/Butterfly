@@ -199,12 +199,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
-        return _saveDocument(
+        await _saveDocument(
             emit,
             current.copyWith(
                 document: current.document.copyWith(
                     painters: List.from(current.document.painters)
                       ..[event.index] = event.painter)));
+        current.currentIndexCubit.updatePainter(
+            current.document, current.currentArea, event.painter);
       }
     });
     on<PainterRemoved>((event, emit) async {
@@ -566,5 +568,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
     return current.bake(viewportSize: viewportSize, pixelRatio: pixelRatio);
+  }
+
+  Future<void> load() async {
+    final current = state;
+    if (current is! DocumentLoadSuccess) return;
+    return current.load();
   }
 }
