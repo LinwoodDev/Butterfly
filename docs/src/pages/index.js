@@ -27,68 +27,87 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero shadow--lw', styles.heroBanner)}>
       <div className="container">
-        <Svg data-aos="fade-down" height="15em" width="15em" alt="Logo" />
-        <h1 data-aos="fade-up" className="hero__title">
-          {siteConfig.title}
-        </h1>
-        <p data-aos="fade-up" className="hero__subtitle">
-          {siteConfig.tagline}
-        </p>
-        <div className={styles.indexCtas}>
-          <AnimationOnScroll animateIn="animate__fadeInLeft">
-            <Link data-aos="fade-right"
-              className="button button--secondary button--lg"
-              to="/docs/1.1/intro">
-              <Translate description="homepage getting started button">
-                Getting started
-              </Translate>
-            </Link>
-          </AnimationOnScroll>
-          <AnimationOnScroll animateIn="animate__fadeInUp">
-            {platform === 'Windows' &&
-              <Link
-                className="button button--success button--lg"
-                to="/downloads/windows">
-                <Translate description="homepage windows button">
-                  Download for Windows
-                </Translate>
-              </Link>
-            }
-            {platform === 'Linux' &&
-              <Link
-                className="button button--success button--lg"
-                to="/downloads/linux">
-                <Translate description="homepage linux button">
-                  Download for Linux
-                </Translate>
-              </Link>
-            }
-            {platform === 'Android' &&
-              <Link
-                className="button button--success button--lg"
-                to="/downloads/android">
-                <Translate description="homepage android button">
-                  Download for Android
-                </Translate>
-              </Link>
-            }
-            <Link
-              className="button button--warning button--lg"
-              to="https://butterfly.linwood.dev">
-              <Translate description="homepage web button">
-                Open the web app
-              </Translate>
-            </Link>
-          </AnimationOnScroll>
-          <AnimationOnScroll animateIn="animate__fadeInRight">
-            <Link
-              className="button button--info button--lg"
-              to="/downloads">
-              <Translate description="homepage downloads button">
-                Downloads
-              </Translate>
-            </Link>
-          </AnimationOnScroll>
+        <div className="row">
+          <div class={clsx("col col--6", styles.center)}>
+            <h1 data-aos="fade-up" className="hero__title">
+              {siteConfig.title}
+            </h1>
+            <p data-aos="fade-up" className="hero__subtitle">
+              {siteConfig.tagline}
+            </p>
+            <div className={styles.indexCtas}>
+              <AnimationOnScroll animateIn="animate__fadeInLeft">
+                <Link data-aos="fade-right"
+                  className={clsx("button button--lg button--secondary", styles.button)}
+                  to="/docs/1.1/intro">
+                  <Translate description="homepage getting started button">
+                    Getting started
+                  </Translate>
+                </Link>
+              </AnimationOnScroll>
+              <AnimationOnScroll animateIn="animate__fadeInUp">
+                <div class="dropdown dropdown--hoverable">
+                  <button class={clsx("button button--primary button--lg", styles.button)}>Download</button>
+                  <ul class="dropdown__menu">
+                    <li>
+                      {platform === 'Windows' &&
+                        <Link
+                          className="dropdown__link"
+                          to="/downloads/windows">
+                          <Translate description="homepage windows button">
+                            Download for Windows
+                          </Translate>
+                        </Link>
+                      }
+                      {platform === 'Linux' &&
+                        <Link
+                          className="dropdown__link"
+                          to="/downloads/linux">
+                          <Translate description="homepage linux button">
+                            Download for Linux
+                          </Translate>
+                        </Link>
+                      }
+                      {platform === 'Android' &&
+                        <Link
+                          className="dropdown__link"
+                          to="/downloads/android">
+                          <Translate description="homepage android button">
+                            Download for Android
+                          </Translate>
+                        </Link>
+                      }
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown__link"
+                        to="https://butterfly.linwood.dev">
+                        <Translate description="homepage web button">
+                          Open the web app
+                        </Translate>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown__link"
+                        to="/downloads">
+                        <Translate description="homepage downloads button">
+                          Downloads
+                        </Translate>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </AnimationOnScroll>
+            </div>
+          </div>
+          <div className={clsx("col col--6", styles.center)}>
+            <img data-aos="fade-up"
+              src={require('../../static/img/main.png').default}
+              className={styles.screenshot}
+              alt="Screenshot"
+            />
+          </div>
         </div>
       </div>
     </header>
@@ -104,11 +123,6 @@ export default function Home() {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
-        <img data-aos="fade-up"
-          src={require('../../static/img/main.png').default}
-          className={styles.screenshot}
-          alt="Screenshot"
-        />
       </main>
     </Layout>
   );

@@ -6,7 +6,6 @@
 
 .heroBanner {
   padding: 4rem 0;
-  text-align: center;
   position: relative;
   overflow: hidden;
 }
@@ -26,11 +25,6 @@
 .indexCtas {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-}
-
-.indexCtas a {
-  margin: 10px 8px;
 }
 
 .screenshot {
@@ -39,4 +33,13 @@
   margin: 5em auto;
   text-align: center;
   display: block;
+}
+
+.button {
+  margin: 10px 8px;
+}
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
