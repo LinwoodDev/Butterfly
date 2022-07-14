@@ -34,10 +34,10 @@ part 'path_eraser.dart';
 part 'pen.dart';
 part 'shape.dart';
 
-abstract class Handler {
-  final CurrentIndexCubit cubit;
+abstract class Handler<T> {
+  final T data;
 
-  const Handler(this.cubit);
+  const Handler(this.data);
 
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
       [];
@@ -78,45 +78,38 @@ abstract class Handler {
 
   Painter? setColor(DocumentBloc bloc, int color) => null;
 
-  factory Handler.fromBloc(
-      CurrentIndexCubit currentIndexCubit, DocumentBloc bloc,
-      [int? index]) {
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) {
-      throw Exception('Invalid document state');
-    }
-    final painter = index != null
-        ? state.document.painters[index]
-        : currentIndexCubit.getPainter(bloc);
-    if (painter is PenPainter) {
-      return PenHandler(currentIndexCubit);
-    }
-    if (painter is ShapePainter) {
-      return ShapeHandler(currentIndexCubit);
-    }
-    if (painter is EraserPainter) {
-      return EraserHandler(currentIndexCubit);
-    }
-    if (painter is LabelPainter) {
-      return LabelHandler(currentIndexCubit);
-    }
-    if (painter is AreaPainter) {
-      return AreaHandler(currentIndexCubit);
-    }
-    if (painter is PathEraserPainter) {
-      return PathEraserHandler(currentIndexCubit);
-    }
-    if (painter is LayerPainter) {
-      return LayerHandler(currentIndexCubit);
-    }
-    if (painter is LaserPainter) {
-      return LaserHandler(currentIndexCubit);
-    }
-    return HandHandler(currentIndexCubit);
+  static Handler fromDocument(AppDocument document, int index) {
+    final painter = document.painters[index];
+    return Handler.fromPainter(painter);
   }
 
-  T? getPainter<T extends Painter>(DocumentBloc bloc) =>
-      cubit.fetchPainter<T>(bloc);
+  static Handler fromPainter(Painter painter) {
+    if (painter is PenPainter) {
+      return PenHandler(painter);
+    }
+    if (painter is ShapePainter) {
+      return ShapeHandler(painter);
+    }
+    if (painter is EraserPainter) {
+      return EraserHandler(painter);
+    }
+    if (painter is LabelPainter) {
+      return LabelHandler(painter);
+    }
+    if (painter is AreaPainter) {
+      return AreaHandler(painter);
+    }
+    if (painter is PathEraserPainter) {
+      return PathEraserHandler(painter);
+    }
+    if (painter is LayerPainter) {
+      return LayerHandler(painter);
+    }
+    if (painter is LaserPainter) {
+      return LaserHandler(painter);
+    }
+    return HandHandler(painter);
+  }
 }
 
 typedef HitRequest = bool Function(Offset position, [double radius]);

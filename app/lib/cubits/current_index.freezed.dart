@@ -17,11 +17,13 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CurrentIndex {
   int get index => throw _privateConstructorUsedError;
-  Handler? get handler => throw _privateConstructorUsedError;
+  Handler<dynamic> get handler => throw _privateConstructorUsedError;
   SettingsCubit get settingsCubit => throw _privateConstructorUsedError;
+  TransformCubit get transformCubit => throw _privateConstructorUsedError;
   List<Renderer> get foregrounds => throw _privateConstructorUsedError;
   List<Rect> get selections => throw _privateConstructorUsedError;
   List<int> get pointers => throw _privateConstructorUsedError;
+  CameraViewport get cameraViewport => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CurrentIndexCopyWith<CurrentIndex> get copyWith =>
@@ -35,11 +37,13 @@ abstract class $CurrentIndexCopyWith<$Res> {
       _$CurrentIndexCopyWithImpl<$Res>;
   $Res call(
       {int index,
-      Handler? handler,
+      Handler<dynamic> handler,
       SettingsCubit settingsCubit,
+      TransformCubit transformCubit,
       List<Renderer> foregrounds,
       List<Rect> selections,
-      List<int> pointers});
+      List<int> pointers,
+      CameraViewport cameraViewport});
 }
 
 /// @nodoc
@@ -55,9 +59,11 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
     Object? index = freezed,
     Object? handler = freezed,
     Object? settingsCubit = freezed,
+    Object? transformCubit = freezed,
     Object? foregrounds = freezed,
     Object? selections = freezed,
     Object? pointers = freezed,
+    Object? cameraViewport = freezed,
   }) {
     return _then(_value.copyWith(
       index: index == freezed
@@ -67,11 +73,15 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
       handler: handler == freezed
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
-              as Handler?,
+              as Handler<dynamic>,
       settingsCubit: settingsCubit == freezed
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
               as SettingsCubit,
+      transformCubit: transformCubit == freezed
+          ? _value.transformCubit
+          : transformCubit // ignore: cast_nullable_to_non_nullable
+              as TransformCubit,
       foregrounds: foregrounds == freezed
           ? _value.foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
@@ -84,6 +94,10 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           ? _value.pointers
           : pointers // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      cameraViewport: cameraViewport == freezed
+          ? _value.cameraViewport
+          : cameraViewport // ignore: cast_nullable_to_non_nullable
+              as CameraViewport,
     ));
   }
 }
@@ -97,11 +111,13 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
   @override
   $Res call(
       {int index,
-      Handler? handler,
+      Handler<dynamic> handler,
       SettingsCubit settingsCubit,
+      TransformCubit transformCubit,
       List<Renderer> foregrounds,
       List<Rect> selections,
-      List<int> pointers});
+      List<int> pointers,
+      CameraViewport cameraViewport});
 }
 
 /// @nodoc
@@ -120,9 +136,11 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
     Object? index = freezed,
     Object? handler = freezed,
     Object? settingsCubit = freezed,
+    Object? transformCubit = freezed,
     Object? foregrounds = freezed,
     Object? selections = freezed,
     Object? pointers = freezed,
+    Object? cameraViewport = freezed,
   }) {
     return _then(_$_CurrentIndex(
       index == freezed
@@ -132,23 +150,31 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
       handler == freezed
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
-              as Handler?,
+              as Handler<dynamic>,
       settingsCubit == freezed
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
               as SettingsCubit,
-      foregrounds == freezed
+      transformCubit == freezed
+          ? _value.transformCubit
+          : transformCubit // ignore: cast_nullable_to_non_nullable
+              as TransformCubit,
+      foregrounds: foregrounds == freezed
           ? _value._foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>,
-      selections == freezed
+      selections: selections == freezed
           ? _value._selections
           : selections // ignore: cast_nullable_to_non_nullable
               as List<Rect>,
-      pointers == freezed
+      pointers: pointers == freezed
           ? _value._pointers
           : pointers // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      cameraViewport: cameraViewport == freezed
+          ? _value.cameraViewport
+          : cameraViewport // ignore: cast_nullable_to_non_nullable
+              as CameraViewport,
     ));
   }
 }
@@ -156,10 +182,12 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CurrentIndex extends _CurrentIndex {
-  const _$_CurrentIndex(this.index, this.handler, this.settingsCubit,
-      [final List<Renderer> foregrounds = const [],
+  const _$_CurrentIndex(
+      this.index, this.handler, this.settingsCubit, this.transformCubit,
+      {final List<Renderer> foregrounds = const [],
       final List<Rect> selections = const [],
-      final List<int> pointers = const []])
+      final List<int> pointers = const [],
+      this.cameraViewport = const CameraViewport.unbaked()})
       : _foregrounds = foregrounds,
         _selections = selections,
         _pointers = pointers,
@@ -168,9 +196,11 @@ class _$_CurrentIndex extends _CurrentIndex {
   @override
   final int index;
   @override
-  final Handler? handler;
+  final Handler<dynamic> handler;
   @override
   final SettingsCubit settingsCubit;
+  @override
+  final TransformCubit transformCubit;
   final List<Renderer> _foregrounds;
   @override
   @JsonKey()
@@ -196,8 +226,12 @@ class _$_CurrentIndex extends _CurrentIndex {
   }
 
   @override
+  @JsonKey()
+  final CameraViewport cameraViewport;
+
+  @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, foregrounds: $foregrounds, selections: $selections, pointers: $pointers)';
+    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, foregrounds: $foregrounds, selections: $selections, pointers: $pointers, cameraViewport: $cameraViewport)';
   }
 
   @override
@@ -210,10 +244,14 @@ class _$_CurrentIndex extends _CurrentIndex {
             const DeepCollectionEquality()
                 .equals(other.settingsCubit, settingsCubit) &&
             const DeepCollectionEquality()
+                .equals(other.transformCubit, transformCubit) &&
+            const DeepCollectionEquality()
                 .equals(other._foregrounds, _foregrounds) &&
             const DeepCollectionEquality()
                 .equals(other._selections, _selections) &&
-            const DeepCollectionEquality().equals(other._pointers, _pointers));
+            const DeepCollectionEquality().equals(other._pointers, _pointers) &&
+            const DeepCollectionEquality()
+                .equals(other.cameraViewport, cameraViewport));
   }
 
   @override
@@ -222,9 +260,11 @@ class _$_CurrentIndex extends _CurrentIndex {
       const DeepCollectionEquality().hash(index),
       const DeepCollectionEquality().hash(handler),
       const DeepCollectionEquality().hash(settingsCubit),
+      const DeepCollectionEquality().hash(transformCubit),
       const DeepCollectionEquality().hash(_foregrounds),
       const DeepCollectionEquality().hash(_selections),
-      const DeepCollectionEquality().hash(_pointers));
+      const DeepCollectionEquality().hash(_pointers),
+      const DeepCollectionEquality().hash(cameraViewport));
 
   @JsonKey(ignore: true)
   @override
@@ -233,25 +273,30 @@ class _$_CurrentIndex extends _CurrentIndex {
 }
 
 abstract class _CurrentIndex extends CurrentIndex {
-  const factory _CurrentIndex(final int index, final Handler? handler,
-      final SettingsCubit settingsCubit,
-      [final List<Renderer> foregrounds,
+  const factory _CurrentIndex(final int index, final Handler<dynamic> handler,
+      final SettingsCubit settingsCubit, final TransformCubit transformCubit,
+      {final List<Renderer> foregrounds,
       final List<Rect> selections,
-      final List<int> pointers]) = _$_CurrentIndex;
+      final List<int> pointers,
+      final CameraViewport cameraViewport}) = _$_CurrentIndex;
   const _CurrentIndex._() : super._();
 
   @override
   int get index;
   @override
-  Handler? get handler;
+  Handler<dynamic> get handler;
   @override
   SettingsCubit get settingsCubit;
+  @override
+  TransformCubit get transformCubit;
   @override
   List<Renderer> get foregrounds;
   @override
   List<Rect> get selections;
   @override
   List<int> get pointers;
+  @override
+  CameraViewport get cameraViewport;
   @override
   @JsonKey(ignore: true)
   _$$_CurrentIndexCopyWith<_$_CurrentIndex> get copyWith =>

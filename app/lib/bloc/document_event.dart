@@ -208,25 +208,6 @@ class ElementsLayerChanged extends DocumentEvent {
   List<Object?> get props => [layer, elements];
 }
 
-class ImageUnbaked extends DocumentEvent {
-  const ImageUnbaked();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class ImageBaked extends DocumentEvent {
-  final ui.Size? viewportSize;
-  final CameraTransform cameraTransform;
-  final double? pixelRatio;
-
-  const ImageBaked(
-      {this.viewportSize, required this.cameraTransform, this.pixelRatio});
-
-  @override
-  List<Object?> get props => [viewportSize, pixelRatio];
-}
-
 class TemplateCreated extends DocumentEvent {
   final bool deleteDocument;
 

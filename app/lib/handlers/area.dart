@@ -3,7 +3,7 @@ part of 'handler.dart';
 class AreaHandler extends Handler {
   Rect? currentRect;
 
-  AreaHandler(super.cubit);
+  AreaHandler(super.data);
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
@@ -54,7 +54,7 @@ class AreaHandler extends Handler {
       currentRect = null;
       return;
     }
-    cubit.refresh(bloc);
+    bloc.refresh();
   }
 
   @override
@@ -69,7 +69,7 @@ class AreaHandler extends Handler {
         position.dx - currentRect!.left, position.dy - currentRect!.top);
     if (state.document.getAreaByRect(nextRect) == null) {
       currentRect = nextRect;
-      cubit.refresh(bloc);
+      bloc.refresh();
     }
   }
 
@@ -110,7 +110,7 @@ class AreaHandler extends Handler {
     final position = transform.localToGlobal(event.localPosition);
     if (state.document.getAreaByRect(currentRect!) != null) {
       currentRect = null;
-      cubit.refresh(bloc);
+      bloc.refresh();
       return;
     }
     final nextRect = Rect.fromLTWH(currentRect!.left, currentRect!.top,
@@ -121,7 +121,7 @@ class AreaHandler extends Handler {
     final name = await _showAreaLabelDialog(context);
     if (name == null) {
       currentRect = null;
-      cubit.refresh(bloc);
+      bloc.refresh();
       return;
     }
 
@@ -130,7 +130,7 @@ class AreaHandler extends Handler {
         width: currentRect!.width,
         height: currentRect!.height,
         position: currentRect!.topLeft)));
-    cubit.refresh(bloc);
+    bloc.refresh();
     currentRect = null;
   }
 }

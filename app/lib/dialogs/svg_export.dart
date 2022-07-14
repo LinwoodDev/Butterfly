@@ -91,7 +91,8 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
     );
     var painter = ViewPainter(current.document,
         renderBackground: _renderBackground,
-        cameraViewport: current.cameraViewport.unbake(current.renderers),
+        cameraViewport:
+            current.cameraViewport.unbake(unbakedElements: current.renderers),
         transform: CameraTransform(-currentPosition, 1));
     painter.paint(canvas, currentSize);
     var picture = recorder.endRecording();
@@ -112,7 +113,8 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
       width.abs().toDouble(),
       height.abs().toDouble(),
     );
-    final data = state.renderSVG(
+    final data = state.currentIndexCubit.renderSVG(
+      state.document,
       width: currentSize.width.toInt(),
       height: currentSize.height.toInt(),
       x: currentPosition.dx,

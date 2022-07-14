@@ -85,18 +85,21 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Future<void> load() async {
     final settingsCubit = context.read<SettingsCubit>();
-    _currentIndexCubit = CurrentIndexCubit(settingsCubit);
     if (widget.embedding != null) {
+      final document = AppDocument(createdAt: DateTime.now(), name: '');
       setState(() {
+        _transformCubit = TransformCubit();
+        _currentIndexCubit =
+            CurrentIndexCubit(document, settingsCubit, _transformCubit!);
         _bloc = DocumentBloc(
-            settingsCubit,
             _currentIndexCubit,
-            AppDocument(createdAt: DateTime.now(), name: ''),
+            settingsCubit,
+            document,
             widget.location ?? const AssetLocation(path: ''),
             BoxBackgroundRenderer(const BoxBackground()),
             [],
             widget.embedding);
-        _transformCubit = TransformCubit();
+        _bloc?.load();
         widget.embedding?.handler.register(_bloc!);
       });
       return;
@@ -139,15 +142,18 @@ class _ProjectPageState extends State<ProjectPage> {
       final background = Renderer.fromInstance(document!.background);
       await background.setup(document!);
       setState(() {
+        _transformCubit = TransformCubit();
+        _currentIndexCubit =
+            CurrentIndexCubit(document!, settingsCubit, _transformCubit!);
         _bloc = DocumentBloc(
-            settingsCubit,
             _currentIndexCubit,
+            settingsCubit,
             document!,
             widget.location ??
                 AssetLocation(path: '', remote: remote?.identifier ?? ''),
             background,
             renderers);
-        _transformCubit = TransformCubit();
+        _bloc?.load();
       });
     }
     _showIntroduction(documentOpened);

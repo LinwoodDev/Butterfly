@@ -1,30 +1,23 @@
 part of 'handler.dart';
 
 class LabelHandler extends Handler {
-  LabelHandler(super.cubit);
+  LabelHandler(super.data);
 
   @override
   Future<void> onTapUp(
       Size viewportSize, BuildContext context, TapUpDetails details) async {
     final bloc = context.read<DocumentBloc>();
-    final transform = context.read<TransformCubit>().state;
     final pixelRatio = MediaQuery.of(context).devicePixelRatio;
     final newElement = await openDialog(context, details.localPosition);
     if (newElement != null) {
-      bloc
-        ..add(ElementsCreated([newElement]))
-        ..add(ImageBaked(
-            viewportSize: viewportSize,
-            cameraTransform: transform,
-            pixelRatio: pixelRatio));
+      bloc.add(ElementsCreated([newElement]));
+      bloc.bake(viewportSize: viewportSize, pixelRatio: pixelRatio);
     }
   }
 
   Future<LabelElement?> openDialog(
       BuildContext context, Offset localPosition) async {
     final bloc = context.read<DocumentBloc>();
-    final painter = cubit.fetchPainter<LabelPainter>(bloc);
-    if (painter == null) return null;
     final transform = context.read<TransformCubit>().state;
     return await showDialog(
         context: context,
@@ -32,20 +25,16 @@ class LabelHandler extends Handler {
             value: bloc,
             child: EditLabelElementDialog(
               element: LabelElement(
-                property: painter.property,
+                property: data.property,
                 position: transform.localToGlobal(localPosition),
               ),
             )));
   }
 
   @override
-  int? getColor(DocumentBloc bloc) =>
-      getPainter<PenPainter>(bloc)?.property.color;
+  int? getColor(DocumentBloc bloc) => data.property.color;
 
   @override
-  PenPainter? setColor(DocumentBloc bloc, int color) {
-    final painter = getPainter<PenPainter>(bloc);
-    if (painter == null) return null;
-    return painter.copyWith(property: painter.property.copyWith(color: color));
-  }
+  PenPainter? setColor(DocumentBloc bloc, int color) =>
+      data.copyWith(property: data.property.copyWith(color: color));
 }

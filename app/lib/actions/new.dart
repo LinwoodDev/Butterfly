@@ -72,11 +72,15 @@ class NewAction extends Action<NewIntent> {
 
     bloc.clearHistory();
     transformCubit.reset();
-    bloc.emit(DocumentLoadSuccess(document,
-        location: remote == null
-            ? AssetLocation.local('')
-            : AssetLocation(remote: remote.identifier, path: ''),
-        settingsCubit: settingsCubit,
-        currentIndexCubit: currentIndexCubit));
+    final state = DocumentLoadSuccess(
+      document,
+      currentIndexCubit: currentIndexCubit,
+      location: remote == null
+          ? AssetLocation.local('')
+          : AssetLocation(remote: remote.identifier, path: ''),
+      settingsCubit: settingsCubit,
+    );
+    await state.load();
+    bloc.emit(state);
   }
 }

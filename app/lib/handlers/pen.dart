@@ -1,11 +1,11 @@
 part of 'handler.dart';
 
-class PenHandler extends Handler {
+class PenHandler extends Handler<PenPainter> {
   Map<int, PenElement> elements = {};
   List<PenElement> submittedElements = [];
   Map<int, Offset> lastPosition = {};
 
-  PenHandler(super.cubit);
+  PenHandler(super.data);
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
@@ -28,7 +28,8 @@ class PenHandler extends Handler {
     submitElement(viewportSize, context, event.pointer);
   }
 
-  void submitElement(Size viewportSize, BuildContext context, int index) {
+  Future<void> submitElement(
+      Size viewportSize, BuildContext context, int index) async {
     final bloc = context.read<DocumentBloc>();
     var element = elements.remove(index);
     if (element == null) return;
@@ -36,13 +37,11 @@ class PenHandler extends Handler {
     submittedElements.add(element);
     if (elements.isEmpty) {
       final current = List<PadElement>.from(submittedElements);
-      bloc
-        ..add(ElementsCreated(current))
-        ..add(
-            ImageBaked(cameraTransform: context.read<TransformCubit>().state));
+      bloc.add(ElementsCreated(current));
+      await bloc.bake();
       submittedElements.clear();
     }
-    cubit.refresh(bloc);
+    bloc.refresh();
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
@@ -51,8 +50,6 @@ class PenHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
-    final painter = cubit.fetchPainter<PenPainter>(bloc);
-    if (painter == null) return;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     if (lastPosition[pointer] == localPosition) return;
@@ -60,7 +57,7 @@ class PenHandler extends Handler {
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }
-    double zoom = painter.zoomDependent ? transform.size : 1;
+    double zoom = data.zoomDependent ? transform.size : 1;
 
     final createNew = !elements.containsKey(pointer);
 
@@ -69,14 +66,14 @@ class PenHandler extends Handler {
     final element = elements[pointer] ??
         PenElement(
           layer: state.currentLayer,
-          property: painter.property
-              .copyWith(strokeWidth: painter.property.strokeWidth / zoom),
+          property: data.property
+              .copyWith(strokeWidth: data.property.strokeWidth / zoom),
         );
     elements[pointer] = element.copyWith(
         points: List<PathPoint>.from(element.points)
           ..add(PathPoint.fromOffset(transform.localToGlobal(localPosition),
               (createNew ? 0 : pressure) / zoom)));
-    if (refresh) cubit.refresh(bloc);
+    if (refresh) bloc.refresh();
   }
 
   @override
@@ -86,9 +83,10 @@ class PenHandler extends Handler {
   @override
   void onPointerDown(
       Size viewportSize, BuildContext context, PointerDownEvent event) {
+    final cubit = context.read<CurrentIndexCubit>();
     if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
-      cubit.refresh(context.read<DocumentBloc>());
+      context.read<DocumentBloc>().refresh();
       return;
     }
     addPoint(
@@ -104,13 +102,9 @@ class PenHandler extends Handler {
   }
 
   @override
-  int? getColor(DocumentBloc bloc) =>
-      getPainter<PenPainter>(bloc)?.property.color;
+  int? getColor(DocumentBloc bloc) => data.property.color;
 
   @override
-  PenPainter? setColor(DocumentBloc bloc, int color) {
-    final painter = getPainter<PenPainter>(bloc);
-    if (painter == null) return null;
-    return painter.copyWith(property: painter.property.copyWith(color: color));
-  }
+  PenPainter? setColor(DocumentBloc bloc, int color) =>
+      data.copyWith(property: data.property.copyWith(color: color));
 }
