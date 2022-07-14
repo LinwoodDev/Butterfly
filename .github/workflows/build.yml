@@ -18,7 +18,7 @@ jobs:
           distribution: "adopt"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.0.4"
+          flutter-version: "3.0.5"
           channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |
@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.0.4"
+          flutter-version: "3.0.5"
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
@@ -115,7 +115,7 @@ jobs:
             libjsoncpp-dev
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.0.4"
+          flutter-version: "3.0.5"
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
@@ -204,7 +204,7 @@ jobs:
             libjsoncpp-dev
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.0.4"
+          flutter-version: "3.0.5"
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
@@ -413,7 +413,7 @@ jobs:
           distribution: "adopt"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.0.4"
+          flutter-version: "3.0.5"
           channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |
