@@ -52,145 +52,162 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
       builder: (context, constraints) {
         final isMobile = MediaQuery.of(context).size.width < 800;
         return AppBar(
-          toolbarHeight: _height,
-          leading: _MainPopupMenu(
-            viewportKey: viewportKey,
-            hideUndoRedo: !isMobile,
-          ),
-          title: BlocBuilder<DocumentBloc, DocumentState>(
-              buildWhen: (previous, current) {
-            if (current is! DocumentLoadSuccess ||
-                previous is! DocumentLoadSuccess) return true;
-            return _nameController.text != current.document.name ||
-                previous.location != current.location ||
-                (current.currentArea != previous.currentArea &&
-                    _areaController.text != current.currentArea?.name) ||
-                previous.saved != current.saved;
-          }, builder: (ctx, state) {
-            Widget title;
-            if (state is DocumentLoadSuccess) {
-              if (_nameController.text != state.document.name) {
-                _nameController.text = state.document.name;
-              }
-              var area = state.currentArea;
-              if (_nameController.text != area?.name) {
-                _areaController.text = area?.name ?? '';
-              }
-              title = StatefulBuilder(
-                builder: (context, setState) => Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Focus(
-                        onFocusChange: (hasFocus) {
-                          if (hasFocus) {
-                            // Add cursor to end of text
-                            if (area == null) {
-                              _nameController.selection =
-                                  TextSelection.fromPosition(TextPosition(
-                                      affinity: TextAffinity.downstream,
-                                      offset: _nameController.text.length));
-                            } else {
-                              _areaController.selection =
-                                  TextSelection.fromPosition(TextPosition(
-                                      affinity: TextAffinity.downstream,
-                                      offset: _areaController.text.length));
-                            }
-                          }
-                        },
-                        child: TextField(
-                          controller:
-                              area == null ? _nameController : _areaController,
-                          textAlign: TextAlign.center,
-                          style: area == null
-                              ? Theme.of(context).textTheme.headline6
-                              : Theme.of(context).textTheme.headline4,
-                          onChanged: (value) {
-                            if (area == null) {
-                              bloc.add(DocumentDescriptorChanged(name: value));
-                            } else {
-                              bloc.add(AreaChanged(
-                                state.currentAreaIndex,
-                                area.copyWith(name: value),
-                              ));
+            toolbarHeight: _height,
+            leading: _MainPopupMenu(
+              viewportKey: viewportKey,
+              hideUndoRedo: !isMobile,
+            ),
+            title: BlocBuilder<DocumentBloc, DocumentState>(
+                buildWhen: (previous, current) {
+              if (current is! DocumentLoadSuccess ||
+                  previous is! DocumentLoadSuccess) return true;
+              return _nameController.text != current.document.name ||
+                  previous.location != current.location ||
+                  (current.currentArea != previous.currentArea &&
+                      _areaController.text != current.currentArea?.name) ||
+                  previous.saved != current.saved;
+            }, builder: (ctx, state) {
+              Widget title;
+              if (state is DocumentLoadSuccess) {
+                if (_nameController.text != state.document.name) {
+                  _nameController.text = state.document.name;
+                }
+                var area = state.currentArea;
+                if (_nameController.text != area?.name) {
+                  _areaController.text = area?.name ?? '';
+                }
+                title = StatefulBuilder(
+                  builder: (context, setState) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Focus(
+                          onFocusChange: (hasFocus) {
+                            if (hasFocus) {
+                              // Add cursor to end of text
+                              if (area == null) {
+                                _nameController.selection =
+                                    TextSelection.fromPosition(TextPosition(
+                                        affinity: TextAffinity.downstream,
+                                        offset: _nameController.text.length));
+                              } else {
+                                _areaController.selection =
+                                    TextSelection.fromPosition(TextPosition(
+                                        affinity: TextAffinity.downstream,
+                                        offset: _areaController.text.length));
+                              }
                             }
                           },
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.zero,
-                            hintText: AppLocalizations.of(context)!.untitled,
-                            hintStyle: area == null
+                          child: TextField(
+                            controller: area == null
+                                ? _nameController
+                                : _areaController,
+                            textAlign: TextAlign.center,
+                            style: area == null
                                 ? Theme.of(context).textTheme.headline6
                                 : Theme.of(context).textTheme.headline4,
-                            border: InputBorder.none,
+                            onChanged: (value) {
+                              if (area == null) {
+                                bloc.add(
+                                    DocumentDescriptorChanged(name: value));
+                              } else {
+                                bloc.add(AreaChanged(
+                                  state.currentAreaIndex,
+                                  area.copyWith(name: value),
+                                ));
+                              }
+                            },
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.zero,
+                              hintText: AppLocalizations.of(context)!.untitled,
+                              hintStyle: area == null
+                                  ? Theme.of(context).textTheme.headline6
+                                  : Theme.of(context).textTheme.headline4,
+                              border: InputBorder.none,
+                            ),
                           ),
                         ),
-                      ),
-                      if (state.location.path != '' && area == null)
-                        Text(
-                          state.location.identifier,
-                          style: Theme.of(ctx).textTheme.caption,
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                    ]),
-              );
-              if (!state.hasAutosave()) {
-                title = Row(children: [
-                  Expanded(child: title),
-                  IconButton(
-                    icon: state.saved
-                        ? const Icon(PhosphorIcons.floppyDiskFill)
-                        : const Icon(PhosphorIcons.floppyDiskLight),
-                    tooltip: AppLocalizations.of(context)!.save,
-                    onPressed: () {
-                      Actions.maybeInvoke<SaveIntent>(
-                          context, SaveIntent(context));
-                    },
-                  ),
-                  const SizedBox(width: 8),
-                ]);
+                        if (state.location.path != '' && area == null)
+                          Text(
+                            state.location.identifier,
+                            style: Theme.of(ctx).textTheme.caption,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                      ]),
+                );
+                if (!state.hasAutosave()) {
+                  title = Row(children: [
+                    Expanded(child: title),
+                    IconButton(
+                      icon: state.saved
+                          ? const Icon(PhosphorIcons.floppyDiskFill)
+                          : const Icon(PhosphorIcons.floppyDiskLight),
+                      tooltip: AppLocalizations.of(context)!.save,
+                      onPressed: () {
+                        Actions.maybeInvoke<SaveIntent>(
+                            context, SaveIntent(context));
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                  ]);
+                }
+              } else {
+                title = Text(AppLocalizations.of(ctx)!.loading);
               }
-            } else {
-              title = Text(AppLocalizations.of(ctx)!.loading);
-            }
-            title = Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(child: title),
-                if (!isMobile)
-                  Flexible(
-                      child: EditToolbar(
-                    isMobile: false,
-                  )),
-              ],
-            );
-            if (isWindow()) {
-              title = DragToMoveArea(
-                child: title,
+              title = Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(child: title),
+                  if (!isMobile)
+                    Flexible(
+                        child: EditToolbar(
+                      isMobile: false,
+                    )),
+                ],
               );
-            }
-            return SizedBox(height: _height, child: title);
-          }),
-          actions: [
-            if (!isMobile) ...[
-              IconButton(
-                icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
-                tooltip: AppLocalizations.of(context)!.undo,
-                onPressed: () {
-                  Actions.maybeInvoke<UndoIntent>(context, UndoIntent(context));
-                },
-              ),
-              IconButton(
-                icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                tooltip: AppLocalizations.of(context)!.redo,
-                onPressed: () {
-                  Actions.maybeInvoke<RedoIntent>(context, RedoIntent(context));
-                },
-              ),
-            ],
-            if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
-          ],
-        );
+              if (isWindow()) {
+                title = DragToMoveArea(
+                  child: title,
+                );
+              }
+              return SizedBox(height: _height, child: title);
+            }),
+            actions: [
+              BlocBuilder<DocumentBloc, DocumentState>(
+                builder: (context, state) => Row(
+                  children: [
+                    if (!isMobile) ...[
+                      IconButton(
+                        icon: const Icon(
+                            PhosphorIcons.arrowCounterClockwiseLight),
+                        tooltip: AppLocalizations.of(context)!.undo,
+                        onPressed: !bloc.canUndo
+                            ? null
+                            : () {
+                                Actions.maybeInvoke<UndoIntent>(
+                                    context, UndoIntent(context));
+                              },
+                      ),
+                      IconButton(
+                        icon: const Icon(PhosphorIcons.arrowClockwiseLight),
+                        tooltip: AppLocalizations.of(context)!.redo,
+                        onPressed: !bloc.canRedo
+                            ? null
+                            : () {
+                                Actions.maybeInvoke<RedoIntent>(
+                                    context, RedoIntent(context));
+                              },
+                      ),
+                    ],
+                    if (isWindow()) ...[
+                      const VerticalDivider(),
+                      const WindowButtons()
+                    ]
+                  ],
+                ),
+              )
+            ]);
       },
     ));
   }
@@ -234,18 +251,22 @@ class _MainPopupMenu extends StatelessWidget {
                       icon:
                           const Icon(PhosphorIcons.arrowCounterClockwiseLight),
                       tooltip: AppLocalizations.of(context)!.undo,
-                      onPressed: () {
-                        Actions.maybeInvoke<UndoIntent>(
-                            context, UndoIntent(context));
-                      },
+                      onPressed: !bloc.canUndo
+                          ? null
+                          : () {
+                              Actions.maybeInvoke<UndoIntent>(
+                                  context, UndoIntent(context));
+                            },
                     ),
                     IconButton(
                       icon: const Icon(PhosphorIcons.arrowClockwiseLight),
                       tooltip: AppLocalizations.of(context)!.redo,
-                      onPressed: () {
-                        Actions.maybeInvoke<RedoIntent>(
-                            context, RedoIntent(context));
-                      },
+                      onPressed: !bloc.canRedo
+                          ? null
+                          : () {
+                              Actions.maybeInvoke<RedoIntent>(
+                                  context, RedoIntent(context));
+                            },
                     ),
                   ],
                 ),
