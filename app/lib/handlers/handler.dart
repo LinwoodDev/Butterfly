@@ -34,10 +34,10 @@ part 'path_eraser.dart';
 part 'pen.dart';
 part 'shape.dart';
 
-abstract class Handler {
-  final CurrentIndexCubit cubit;
+abstract class Handler<T> {
+  final T data;
 
-  const Handler(this.cubit);
+  const Handler(this.data);
 
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
       [];
@@ -88,31 +88,34 @@ abstract class Handler {
     final painter = index != null
         ? state.document.painters[index]
         : currentIndexCubit.getPainter(bloc);
+  }
+  factory Handler.fromPainter(
+      CurrentIndexCubit currentIndexCubit, Painter painter) {
     if (painter is PenPainter) {
-      return PenHandler(currentIndexCubit);
+      return PenHandler(currentIndexCubit, painter);
     }
     if (painter is ShapePainter) {
-      return ShapeHandler(currentIndexCubit);
+      return ShapeHandler(currentIndexCubit, painter);
     }
     if (painter is EraserPainter) {
-      return EraserHandler(currentIndexCubit);
+      return EraserHandler(currentIndexCubit, painter);
     }
     if (painter is LabelPainter) {
-      return LabelHandler(currentIndexCubit);
+      return LabelHandler(currentIndexCubit, painter);
     }
     if (painter is AreaPainter) {
-      return AreaHandler(currentIndexCubit);
+      return AreaHandler(currentIndexCubit, painter);
     }
     if (painter is PathEraserPainter) {
-      return PathEraserHandler(currentIndexCubit);
+      return PathEraserHandler(currentIndexCubit, painter);
     }
     if (painter is LayerPainter) {
-      return LayerHandler(currentIndexCubit);
+      return LayerHandler(currentIndexCubit, painter);
     }
     if (painter is LaserPainter) {
-      return LaserHandler(currentIndexCubit);
+      return LaserHandler(currentIndexCubit, painter);
     }
-    return HandHandler(currentIndexCubit);
+    return HandHandler(currentIndexCubit, painter);
   }
 
   T? getPainter<T extends Painter>(DocumentBloc bloc) =>

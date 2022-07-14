@@ -22,6 +22,7 @@ class DocumentLoadSuccess extends DocumentState {
   final int currentAreaIndex;
   final List<String> invisibleLayers;
   final SettingsCubit settingsCubit;
+  final CurrentIndexCubit currentIndexCubit;
   final Embedding? embedding;
   final bool saved;
 
@@ -30,6 +31,7 @@ class DocumentLoadSuccess extends DocumentState {
       this.storageType = StorageType.local,
       this.saved = true,
       required this.settingsCubit,
+      required this.currentIndexCubit,
       this.currentAreaIndex = -1,
       this.currentLayer = '',
       this.embedding,
@@ -43,6 +45,7 @@ class DocumentLoadSuccess extends DocumentState {
         currentLayer,
         currentAreaIndex,
         settingsCubit,
+        currentIndexCubit,
         embedding,
         saved
       ];
@@ -52,6 +55,16 @@ class DocumentLoadSuccess extends DocumentState {
       return null;
     }
     return document.areas[currentAreaIndex];
+  }
+
+  Future<void> load() async {
+    final document = document;
+    final background = Renderer.fromInstance(document.background);
+    await background.setup(document);
+    final renderers =
+        document.content.map((e) => Renderer.fromInstance(e)).toList();
+    await Future.wait(renderers.map((e) async => await e.setup(document)));
+    currentIndexCubit.unbaked(background, renderers);
   }
 
   DocumentLoadSuccess copyWith({

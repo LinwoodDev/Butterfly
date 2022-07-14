@@ -5,7 +5,7 @@ class PenHandler extends Handler {
   List<PenElement> submittedElements = [];
   Map<int, Offset> lastPosition = {};
 
-  PenHandler(super.cubit);
+  PenHandler(super.data);
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {

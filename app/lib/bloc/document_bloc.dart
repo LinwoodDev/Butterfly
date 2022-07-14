@@ -33,8 +33,8 @@ part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(
-      SettingsCubit settingsCubit,
       CurrentIndexCubit currentIndexCubit,
+      SettingsCubit settingsCubit,
       AppDocument initial,
       AssetLocation location,
       Renderer<Background> background,
@@ -42,9 +42,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       [Embedding? embedding])
       : super(DocumentLoadSuccess(
           initial,
+          currentIndexCubit: currentIndexCubit,
           location: location,
           settingsCubit: settingsCubit,
-          currentIndexCubit: currentIndexCubit,
           embedding: embedding,
         )) {
     _init();
@@ -54,15 +54,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentUpdated>((event, emit) async {
       final current = state;
       if (current is DocumentLoadSuccess) {
-        final renderers = event.document.content
-            .map((e) => Renderer.fromInstance(e))
-            .toList();
-        final background = Renderer.fromInstance(event.document.background);
         _saveDocument(
             emit,
             current.copyWith(
-                document: event.document,
-                cameraViewport: CameraViewport.unbaked(background, renderers)),
+              document: event.document,
+            ),
             null);
         clearHistory();
       }
@@ -88,7 +84,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
-        var renderers = List<Renderer<PadElement>>.from(current.renderers);
+        var renderers = current.currentIndexCubit.renderers;
+        renderers = List<Renderer<PadElement>>.from(renderers);
         event.replacedElements.forEach((index, element) {
           final current = element.map((e) => Renderer.fromInstance(e));
           if (index == null) {
@@ -113,7 +110,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         if (!(current.embedding?.editable ?? true)) return;
         final renderers = <Renderer<PadElement>>[];
         Renderer<PadElement>? oldRenderer, newRenderer;
-        for (var renderer in current.renderers) {
+        for (var renderer in current.currentIndexCubit.renderers) {
           if (renderer.element == event.old) {
             newRenderer = Renderer.fromInstance(event.updated);
             await newRenderer.setup(current.document);
@@ -636,5 +633,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
     emit(current.copyWith(cameraViewport: current.cameraViewport.unbake()));
+  }
+
+  void refresh() {
+    final current = state;
+    if (current is! DocumentLoadSuccess) return;
+    current.currentIndexCubit.refresh(current.document);
   }
 }

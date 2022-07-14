@@ -4,7 +4,7 @@ class ShapeHandler extends Handler {
   Map<int, ShapeElement> elements = {};
   List<ShapeElement> submittedElements = [];
 
-  ShapeHandler(super.cubit);
+  ShapeHandler(super.data);
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
@@ -35,7 +35,7 @@ class ShapeHandler extends Handler {
             ImageBaked(cameraTransform: context.read<TransformCubit>().state));
       submittedElements.clear();
     }
-    cubit.refresh(bloc);
+    bloc.refresh();
   }
 
   void addShape(BuildContext context, int pointer, Offset localPosition,

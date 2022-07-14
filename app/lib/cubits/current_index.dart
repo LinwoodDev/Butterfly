@@ -6,6 +6,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/property.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:xml/xml.dart';
 
 import '../handlers/handler.dart';
+import '../models/area.dart';
+import '../models/background.dart';
 import '../models/element.dart';
 import '../models/painter.dart';
 import '../models/viewport.dart';
@@ -26,14 +29,13 @@ class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
   const factory CurrentIndex(
     int index,
-    Handler? handler,
-    DocumentBloc bloc,
+    Handler handler,
     SettingsCubit settingsCubit,
     TransformCubit transformCubit, {
     @Default([]) List<Renderer> foregrounds,
     @Default([]) List<Rect> selections,
     @Default([]) List<int> pointers,
-    @Default([]) CameraViewport cameraViewport,
+    @Default(CameraViewport.unbaked()) CameraViewport cameraViewport,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -41,13 +43,16 @@ class CurrentIndex with _$CurrentIndex {
 }
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
-  CurrentIndexCubit(DocumentBloc bloc, SettingsCubit settingsCubit,
-      TransformCubit transformCubit)
-      : super(CurrentIndex(-1, null, bloc, settingsCubit, transformCubit)) {
+  CurrentIndexCubit(
+    AppDocument document,
+    SettingsCubit settingsCubit,
+    TransformCubit transformCubit,
+  ) : super(CurrentIndex(-1, HandHandler(this, -1, document.handProperty),
+            settingsCubit, transformCubit)) {
     reset();
   }
 
-  Handler getHandler() {
+  Handler getHandler(AppDocument document) {
     var current = state.handler;
     if (current == null) {
       current = HandHandler(this);
@@ -59,12 +64,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void changeHandler(int index, Handler handler) =>
       emit(state.copyWith(index: index, handler: handler));
-  Handler? changePainter(int index) {
-    final blocState = state.bloc.state;
-    if (blocState is! DocumentLoadSuccess) return null;
+  Handler? changePainter(int index, Painter painter) {
     final document = blocState.document;
     final currentArea = blocState.currentArea;
-    final handler = Handler.fromBloc(this, state.bloc, index);
+    final handler = Handler.fromPainter(this, painter, index);
     emit(state.copyWith(
         index: index,
         handler: handler,
@@ -73,22 +76,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return handler;
   }
 
+  void updatePainter(Painter painter) {}
+
   T? fetchHandler<T extends Handler>() {
     final handler = getHandler();
     if (handler is T) return handler;
     return null;
   }
 
-  void refresh() {
-    final blocState = state.bloc.state;
-    if (blocState is! DocumentLoadSuccess) return;
-    final document = blocState.document;
+  void refresh(AppDocument document, [Area? currentArea]) {
     final handler = state.handler;
-    final currentArea = blocState.currentArea;
     if (!isClosed) {
       emit(state.copyWith(
-          foregrounds: handler?.createForegrounds(document, currentArea) ?? [],
-          selections: handler?.createSelections(document, currentArea) ?? []));
+          foregrounds: handler.createForegrounds(document, currentArea),
+          selections: handler.createSelections(document, currentArea)));
     }
   }
 
@@ -255,5 +256,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       e.buildSvg(document, blocState.document, rect);
     }
     return document;
+  }
+
+  void unbaked(
+      {Renderer<Background>? background,
+      List<Renderer<PadElement>>? unbakedElements}) {
+    emit(state.copyWith(
+        cameraViewport: state.cameraViewport
+            .unbake(unbakedElements: unbakedElements, background: background)));
   }
 }

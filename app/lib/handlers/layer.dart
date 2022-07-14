@@ -1,7 +1,7 @@
 part of 'handler.dart';
 
 class LayerHandler extends Handler {
-  LayerHandler(super.cubit);
+  LayerHandler(super.data);
 
   @override
   Future<void> onPointerMove(

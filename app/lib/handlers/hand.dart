@@ -1,11 +1,11 @@
 part of 'handler.dart';
 
-class HandHandler extends Handler {
+class HandHandler<HandProperty> extends Handler {
   Renderer<PadElement>? movingElement;
   Renderer<PadElement>? selected;
   Offset? currentMovePosition;
 
-  HandHandler(super.cubit);
+  HandHandler(super.data);
 
   @override
   Future<bool> onRendererUpdated(

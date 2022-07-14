@@ -17,8 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CurrentIndex {
   int get index => throw _privateConstructorUsedError;
-  Handler? get handler => throw _privateConstructorUsedError;
-  DocumentBloc get bloc => throw _privateConstructorUsedError;
+  Handler<dynamic> get handler => throw _privateConstructorUsedError;
   SettingsCubit get settingsCubit => throw _privateConstructorUsedError;
   TransformCubit get transformCubit => throw _privateConstructorUsedError;
   List<Renderer> get foregrounds => throw _privateConstructorUsedError;
@@ -38,8 +37,7 @@ abstract class $CurrentIndexCopyWith<$Res> {
       _$CurrentIndexCopyWithImpl<$Res>;
   $Res call(
       {int index,
-      Handler? handler,
-      DocumentBloc bloc,
+      Handler<dynamic> handler,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
       List<Renderer> foregrounds,
@@ -60,7 +58,6 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
   $Res call({
     Object? index = freezed,
     Object? handler = freezed,
-    Object? bloc = freezed,
     Object? settingsCubit = freezed,
     Object? transformCubit = freezed,
     Object? foregrounds = freezed,
@@ -76,11 +73,7 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
       handler: handler == freezed
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
-              as Handler?,
-      bloc: bloc == freezed
-          ? _value.bloc
-          : bloc // ignore: cast_nullable_to_non_nullable
-              as DocumentBloc,
+              as Handler<dynamic>,
       settingsCubit: settingsCubit == freezed
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
@@ -118,8 +111,7 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
   @override
   $Res call(
       {int index,
-      Handler? handler,
-      DocumentBloc bloc,
+      Handler<dynamic> handler,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
       List<Renderer> foregrounds,
@@ -143,7 +135,6 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
   $Res call({
     Object? index = freezed,
     Object? handler = freezed,
-    Object? bloc = freezed,
     Object? settingsCubit = freezed,
     Object? transformCubit = freezed,
     Object? foregrounds = freezed,
@@ -159,11 +150,7 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
       handler == freezed
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
-              as Handler?,
-      bloc == freezed
-          ? _value.bloc
-          : bloc // ignore: cast_nullable_to_non_nullable
-              as DocumentBloc,
+              as Handler<dynamic>,
       settingsCubit == freezed
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
@@ -195,12 +182,12 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CurrentIndex extends _CurrentIndex {
-  const _$_CurrentIndex(this.index, this.handler, this.bloc, this.settingsCubit,
-      this.transformCubit,
+  const _$_CurrentIndex(
+      this.index, this.handler, this.settingsCubit, this.transformCubit,
       {final List<Renderer> foregrounds = const [],
       final List<Rect> selections = const [],
       final List<int> pointers = const [],
-      this.cameraViewport = const []})
+      this.cameraViewport = const CameraViewport.unbaked()})
       : _foregrounds = foregrounds,
         _selections = selections,
         _pointers = pointers,
@@ -209,9 +196,7 @@ class _$_CurrentIndex extends _CurrentIndex {
   @override
   final int index;
   @override
-  final Handler? handler;
-  @override
-  final DocumentBloc bloc;
+  final Handler<dynamic> handler;
   @override
   final SettingsCubit settingsCubit;
   @override
@@ -246,7 +231,7 @@ class _$_CurrentIndex extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, bloc: $bloc, settingsCubit: $settingsCubit, transformCubit: $transformCubit, foregrounds: $foregrounds, selections: $selections, pointers: $pointers, cameraViewport: $cameraViewport)';
+    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, foregrounds: $foregrounds, selections: $selections, pointers: $pointers, cameraViewport: $cameraViewport)';
   }
 
   @override
@@ -256,7 +241,6 @@ class _$_CurrentIndex extends _CurrentIndex {
             other is _$_CurrentIndex &&
             const DeepCollectionEquality().equals(other.index, index) &&
             const DeepCollectionEquality().equals(other.handler, handler) &&
-            const DeepCollectionEquality().equals(other.bloc, bloc) &&
             const DeepCollectionEquality()
                 .equals(other.settingsCubit, settingsCubit) &&
             const DeepCollectionEquality()
@@ -275,7 +259,6 @@ class _$_CurrentIndex extends _CurrentIndex {
       runtimeType,
       const DeepCollectionEquality().hash(index),
       const DeepCollectionEquality().hash(handler),
-      const DeepCollectionEquality().hash(bloc),
       const DeepCollectionEquality().hash(settingsCubit),
       const DeepCollectionEquality().hash(transformCubit),
       const DeepCollectionEquality().hash(_foregrounds),
@@ -290,12 +273,8 @@ class _$_CurrentIndex extends _CurrentIndex {
 }
 
 abstract class _CurrentIndex extends CurrentIndex {
-  const factory _CurrentIndex(
-      final int index,
-      final Handler? handler,
-      final DocumentBloc bloc,
-      final SettingsCubit settingsCubit,
-      final TransformCubit transformCubit,
+  const factory _CurrentIndex(final int index, final Handler<dynamic> handler,
+      final SettingsCubit settingsCubit, final TransformCubit transformCubit,
       {final List<Renderer> foregrounds,
       final List<Rect> selections,
       final List<int> pointers,
@@ -305,9 +284,7 @@ abstract class _CurrentIndex extends CurrentIndex {
   @override
   int get index;
   @override
-  Handler? get handler;
-  @override
-  DocumentBloc get bloc;
+  Handler<dynamic> get handler;
   @override
   SettingsCubit get settingsCubit;
   @override

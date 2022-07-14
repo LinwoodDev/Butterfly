@@ -5,7 +5,7 @@ class EraserHandler extends Handler {
   List<EraserElement> submittedElements = [];
   Map<int, Offset> lastPosition = {};
 
-  EraserHandler(super.cubit);
+  EraserHandler(super.data);
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {

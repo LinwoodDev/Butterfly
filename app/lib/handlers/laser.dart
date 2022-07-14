@@ -6,7 +6,7 @@ class LaserHandler extends Handler {
   DateTime? _lastChanged;
   Timer? _timer;
 
-  LaserHandler(super.cubit);
+  LaserHandler(super.data);
   Duration _getDuration(LaserPainter painter) =>
       Duration(milliseconds: (painter.duration * 1000).round());
 

@@ -1,7 +1,7 @@
 part of 'handler.dart';
 
 class PathEraserHandler extends Handler {
-  PathEraserHandler(super.cubit);
+  PathEraserHandler(super.data);
 
   @override
   Future<void> onPointerMove(

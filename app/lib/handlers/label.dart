@@ -1,7 +1,7 @@
 part of 'handler.dart';
 
 class LabelHandler extends Handler {
-  LabelHandler(super.cubit);
+  LabelHandler(super.data);
 
   @override
   Future<void> onTapUp(
@@ -23,8 +23,6 @@ class LabelHandler extends Handler {
   Future<LabelElement?> openDialog(
       BuildContext context, Offset localPosition) async {
     final bloc = context.read<DocumentBloc>();
-    final painter = cubit.fetchPainter<LabelPainter>(bloc);
-    if (painter == null) return null;
     final transform = context.read<TransformCubit>().state;
     return await showDialog(
         context: context,
@@ -32,7 +30,7 @@ class LabelHandler extends Handler {
             value: bloc,
             child: EditLabelElementDialog(
               element: LabelElement(
-                property: painter.property,
+                property: data.property,
                 position: transform.localToGlobal(localPosition),
               ),
             )));
