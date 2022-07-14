@@ -14,6 +14,9 @@ class RedoAction extends Action<RedoIntent> {
 
   @override
   void invoke(RedoIntent intent) {
-    intent.context.read<DocumentBloc>().redo();
+    final bloc = intent.context.read<DocumentBloc>();
+    bloc.redo();
+    bloc.load();
+    bloc.bake();
   }
 }
