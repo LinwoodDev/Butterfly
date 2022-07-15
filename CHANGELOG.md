@@ -2,6 +2,22 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.0-beta.1 (2022-07-15)
+
+* Add matrix invite link
+* Rework multi input system
+    * Add input gesture support (move with two fingers [#206](https://github.com/LinwoodCloud/Butterfly/issues/206))
+* Rework bake system
+    * Fix undo/redo lag
+    * Fix that you need to click multiple times to undo something
+    * Disable buttons if you cannot undo/redo
+* Add italian localizatiion
+* Fix lag when opening/closing the color view
+* Improve default theme to match with the documentation
+* Change color of eraser to background color
+* Add check to prevent adding duplicated locations to paths
+* Remove unused color property in eraser painter
+
 ## 1.4.0-beta.0 (2022-07-08)
 
 * Add offline sync
