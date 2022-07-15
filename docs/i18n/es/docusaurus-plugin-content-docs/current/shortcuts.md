@@ -29,3 +29,8 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `L`: Diálogo de capas abiertas
 * `Ctrl` + `S`: Guardar
 * `Alt` + `S`: Cambiar ruta
+
+## Stylus
+
+* `Primary button`: Change to hand tool
+* `Secondary button`: Change to second painter
