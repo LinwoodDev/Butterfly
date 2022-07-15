@@ -47,7 +47,7 @@ function HomepageHeader() {
               </AnimationOnScroll>
               <AnimationOnScroll animateIn="animate__fadeInUp">
                 <div class="dropdown dropdown--hoverable">
-                  <button class={clsx("button button--primary button--lg", styles.button)}>Download</button>
+                  <a href="/downloads" class={clsx("button button--primary button--lg", styles.button)}>Download</a>
                   <ul class="dropdown__menu">
                     <li>
                       {platform === 'Windows' &&

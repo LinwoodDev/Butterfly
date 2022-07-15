@@ -64,6 +64,7 @@ img {
   transition: background 0.2s ease-in-out;
   display: flex;
   align-items: center;
+  --ifm-navbar-link-hover-color: var(--ifm-color-emphasis-900);
 }
 @media (max-width: 996px) {
   .navbar__link {
