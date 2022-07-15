@@ -170,7 +170,9 @@ class _$_Waypoint with DiagnosticableTreeMixin implements _Waypoint {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_WaypointToJson(this);
+    return _$$_WaypointToJson(
+      this,
+    );
   }
 }
 

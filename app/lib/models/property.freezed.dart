@@ -362,7 +362,9 @@ class _$HandProperty implements HandProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$HandPropertyToJson(this);
+    return _$$HandPropertyToJson(
+      this,
+    );
   }
 }
 
@@ -775,7 +777,9 @@ class _$LabelProperty implements LabelProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LabelPropertyToJson(this);
+    return _$$LabelPropertyToJson(
+      this,
+    );
   }
 }
 
@@ -1032,7 +1036,9 @@ class _$EraserProperty with PathProperty implements EraserProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EraserPropertyToJson(this);
+    return _$$EraserPropertyToJson(
+      this,
+    );
   }
 }
 
@@ -1292,7 +1298,9 @@ class _$PenProperty with PathProperty implements PenProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PenPropertyToJson(this);
+    return _$$PenPropertyToJson(
+      this,
+    );
   }
 }
 
@@ -1551,7 +1559,9 @@ class _$ShapeProperty implements ShapeProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ShapePropertyToJson(this);
+    return _$$ShapePropertyToJson(
+      this,
+    );
   }
 }
 
@@ -1828,7 +1838,9 @@ class _$CircleShape extends CircleShape {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CircleShapeToJson(this);
+    return _$$CircleShapeToJson(
+      this,
+    );
   }
 }
 
@@ -2063,7 +2075,9 @@ class _$RectangleShape extends RectangleShape {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$RectangleShapeToJson(this);
+    return _$$RectangleShapeToJson(
+      this,
+    );
   }
 }
 
@@ -2223,7 +2237,9 @@ class _$LineShape extends LineShape {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LineShapeToJson(this);
+    return _$$LineShapeToJson(
+      this,
+    );
   }
 }
 

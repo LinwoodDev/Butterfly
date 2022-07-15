@@ -156,7 +156,9 @@ class _$_PathPoint extends _PathPoint {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PathPointToJson(this);
+    return _$$_PathPointToJson(
+      this,
+    );
   }
 }
 

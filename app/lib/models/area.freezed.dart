@@ -182,7 +182,9 @@ class _$_Area extends _Area {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AreaToJson(this);
+    return _$$_AreaToJson(
+      this,
+    );
   }
 }
 

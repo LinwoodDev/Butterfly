@@ -67,10 +67,9 @@ class EditToolbar extends StatelessWidget {
                         children: [
                           OptionButton(
                             tooltip: AppLocalizations.of(context)!.hand,
-                            selected: context
-                                    .read<CurrentIndexCubit>()
-                                    .getPainter(state.document) ==
-                                null,
+                            selected:
+                                context.read<CurrentIndexCubit>().getIndex() <
+                                    0,
                             icon: const Icon(PhosphorIcons.handLight),
                             selectedIcon: const Icon(PhosphorIcons.handFill),
                             onLongPressed: openHandDialog,
@@ -96,7 +95,10 @@ class EditToolbar extends StatelessWidget {
                                 itemBuilder: (context, i) {
                                   var e = painters[i];
                                   final type = e.toJson()['type'];
-                                  final selected = i == currentIndex.index;
+                                  final selected = i ==
+                                      context
+                                          .read<CurrentIndexCubit>()
+                                          .getIndex();
                                   String tooltip = e.name.trim();
                                   if (tooltip.isEmpty) {
                                     tooltip = e.getLocalizedName(context);

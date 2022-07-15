@@ -416,7 +416,9 @@ class _$DavRemoteStorage extends DavRemoteStorage {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DavRemoteStorageToJson(this);
+    return _$$DavRemoteStorageToJson(
+      this,
+    );
   }
 }
 

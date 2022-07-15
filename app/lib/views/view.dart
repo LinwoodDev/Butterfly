@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../view_painter.dart';
 
+const kSecondaryStylusButton = 0x20;
+
 class MainViewViewport extends StatefulWidget {
   const MainViewViewport({super.key});
 
@@ -166,6 +168,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
                 },
                 onPointerDown: (PointerDownEvent event) {
                   cubit.addPointer(event.pointer);
+                  final document = state.document;
+                  final currentArea = state.currentArea;
+                  print(event.buttons.toString() +
+                      '\t' +
+                      kPrimaryStylusButton.toString());
+                  if (event.buttons == kPrimaryStylusButton) {
+                    cubit.changeTemporaryHandlerHand(document, currentArea);
+                  } else if (event.buttons == kSecondaryStylusButton) {
+                    cubit.changeTemporaryHandlerSecondary(
+                        document, currentArea);
+                  }
                   cubit
                       .getHandler()
                       .onPointerDown(constraints.biggest, context, event);
@@ -175,6 +188,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   cubit
                       .getHandler()
                       .onPointerUp(constraints.biggest, context, event);
+                  cubit.resetTemporaryHandler();
                 },
                 behavior: HitTestBehavior.translucent,
                 onPointerHover: (event) {

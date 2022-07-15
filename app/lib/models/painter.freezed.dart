@@ -398,7 +398,9 @@ class _$LabelPainter implements LabelPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LabelPainterToJson(this);
+    return _$$LabelPainterToJson(
+      this,
+    );
   }
 }
 
@@ -647,7 +649,9 @@ class _$PenPainter implements PenPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PenPainterToJson(this);
+    return _$$PenPainterToJson(
+      this,
+    );
   }
 }
 
@@ -888,7 +892,9 @@ class _$EraserPainter implements EraserPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EraserPainterToJson(this);
+    return _$$EraserPainterToJson(
+      this,
+    );
   }
 }
 
@@ -1157,7 +1163,9 @@ class _$PathEraserPainter implements PathEraserPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PathEraserPainterToJson(this);
+    return _$$PathEraserPainterToJson(
+      this,
+    );
   }
 }
 
@@ -1424,7 +1432,9 @@ class _$LayerPainter implements LayerPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LayerPainterToJson(this);
+    return _$$LayerPainterToJson(
+      this,
+    );
   }
 }
 
@@ -1698,7 +1708,9 @@ class _$AreaPainter implements AreaPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AreaPainterToJson(this);
+    return _$$AreaPainterToJson(
+      this,
+    );
   }
 }
 
@@ -1980,7 +1992,9 @@ class _$LaserPainter implements LaserPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LaserPainterToJson(this);
+    return _$$LaserPainterToJson(
+      this,
+    );
   }
 }
 
@@ -2236,7 +2250,9 @@ class _$ShapePainter implements ShapePainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ShapePainterToJson(this);
+    return _$$ShapePainterToJson(
+      this,
+    );
   }
 }
 
