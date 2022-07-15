@@ -30,3 +30,8 @@ Some of them are written below the buttons.
 * `Ctrl` + `L`: Open layers dialog
 * `Ctrl` + `S`: Save
 * `Alt` + `S`: Change path
+
+## Stylus
+
+* `Primary button`: Change to hand tool
+* `Secondary button`: Change to second painter

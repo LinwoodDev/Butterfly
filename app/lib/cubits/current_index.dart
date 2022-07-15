@@ -154,7 +154,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   Handler? changeTemporaryHandlerSecondary(
       AppDocument document, Area? currentArea) {
-    print("SECONDARY");
     int index = 1;
     if (document.painters.length == 1) {
       index = 0;

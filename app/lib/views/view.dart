@@ -170,9 +170,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   cubit.addPointer(event.pointer);
                   final document = state.document;
                   final currentArea = state.currentArea;
-                  print(event.buttons.toString() +
-                      '\t' +
-                      kPrimaryStylusButton.toString());
                   if (event.buttons == kPrimaryStylusButton) {
                     cubit.changeTemporaryHandlerHand(document, currentArea);
                   } else if (event.buttons == kSecondaryStylusButton) {
