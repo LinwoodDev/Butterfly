@@ -29,3 +29,8 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `L`: Ebenendialog öffnen
 * `Strg` + `S`: Speichern
 * `Alt` + `S`: Pfad ändern
+
+## Stylus
+
+* `Primary button`: Change to hand tool
+* `Secondary button`: Change to second painter
