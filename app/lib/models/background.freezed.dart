@@ -267,7 +267,9 @@ class _$EmptyBackground implements EmptyBackground {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EmptyBackgroundToJson(this);
+    return _$$EmptyBackgroundToJson(
+      this,
+    );
   }
 }
 
@@ -577,7 +579,9 @@ class _$BoxBackground implements BoxBackground {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BoxBackgroundToJson(this);
+    return _$$BoxBackgroundToJson(
+      this,
+    );
   }
 }
 

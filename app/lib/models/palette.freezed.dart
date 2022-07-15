@@ -149,7 +149,9 @@ class _$_ColorPalette implements _ColorPalette {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ColorPaletteToJson(this);
+    return _$$_ColorPaletteToJson(
+      this,
+    );
   }
 }
 

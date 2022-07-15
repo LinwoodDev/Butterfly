@@ -145,7 +145,9 @@ class _$_AssetLocation extends _AssetLocation {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AssetLocationToJson(this);
+    return _$$_AssetLocationToJson(
+      this,
+    );
   }
 }
 
@@ -521,7 +523,9 @@ class _$_AppDocument extends _AppDocument {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AppDocumentToJson(this);
+    return _$$_AppDocumentToJson(
+      this,
+    );
   }
 }
 

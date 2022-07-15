@@ -165,7 +165,9 @@ class _$_ElementConstraint implements _ElementConstraint {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ElementConstraintToJson(this);
+    return _$$_ElementConstraintToJson(
+      this,
+    );
   }
 }
 
@@ -426,7 +428,9 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ScaledElementConstraintsToJson(this);
+    return _$$ScaledElementConstraintsToJson(
+      this,
+    );
   }
 }
 
@@ -602,7 +606,9 @@ class _$FixedElementConstraints implements FixedElementConstraints {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FixedElementConstraintsToJson(this);
+    return _$$FixedElementConstraintsToJson(
+      this,
+    );
   }
 }
 
@@ -809,7 +815,9 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DynamicElementConstraintsToJson(this);
+    return _$$DynamicElementConstraintsToJson(
+      this,
+    );
   }
 }
 
@@ -1302,7 +1310,9 @@ class _$PenElement implements PenElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PenElementToJson(this);
+    return _$$PenElementToJson(
+      this,
+    );
   }
 }
 
@@ -1595,7 +1605,9 @@ class _$EraserElement implements EraserElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EraserElementToJson(this);
+    return _$$EraserElementToJson(
+      this,
+    );
   }
 }
 
@@ -1920,7 +1932,9 @@ class _$LabelElement implements LabelElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LabelElementToJson(this);
+    return _$$LabelElementToJson(
+      this,
+    );
   }
 }
 
@@ -2264,7 +2278,9 @@ class _$ImageElement implements ImageElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ImageElementToJson(this);
+    return _$$ImageElementToJson(
+      this,
+    );
   }
 }
 
@@ -2610,7 +2626,9 @@ class _$SvgElement implements SvgElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SvgElementToJson(this);
+    return _$$SvgElementToJson(
+      this,
+    );
   }
 }
 
@@ -2923,7 +2941,9 @@ class _$ShapeElement implements ShapeElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ShapeElementToJson(this);
+    return _$$ShapeElementToJson(
+      this,
+    );
   }
 }
 

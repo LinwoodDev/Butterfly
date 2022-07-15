@@ -161,7 +161,9 @@ class _$_DocumentTemplate extends _DocumentTemplate {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DocumentTemplateToJson(this);
+    return _$$_DocumentTemplateToJson(
+      this,
+    );
   }
 }
 

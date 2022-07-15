@@ -31,6 +31,8 @@ class CurrentIndex with _$CurrentIndex {
     Handler handler,
     SettingsCubit settingsCubit,
     TransformCubit transformCubit, {
+    int? temporaryIndex,
+    Handler? temporaryHandler,
     @Default([]) List<Renderer> foregrounds,
     @Default([]) List<Rect> selections,
     @Default([]) List<int> pointers,
@@ -51,8 +53,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     reset();
   }
 
-  Handler getHandler() {
-    return state.handler;
+  Handler getHandler({bool disableTemporary = false}) {
+    if (disableTemporary) {
+      return state.handler;
+    } else {
+      return state.temporaryHandler ?? state.handler;
+    }
   }
 
   void changeHandler(int index, Handler handler) =>
@@ -77,8 +83,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         selections: handler.createSelections(document, currentArea)));
   }
 
-  T? fetchHandler<T extends Handler>() {
-    final handler = getHandler();
+  T? fetchHandler<T extends Handler>({bool disableTemporary = false}) {
+    final handler = getHandler(disableTemporary: disableTemporary);
     if (handler is T) return handler;
     return null;
   }
@@ -122,6 +128,62 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void removePointer(int pointer) {
     emit(state.copyWith(pointers: state.pointers.toList()..remove(pointer)));
+  }
+
+  Handler? changeTemporaryHandler(
+      AppDocument document, Area? currentArea, int index) {
+    final painter = document.painters[index];
+    final handler = Handler.fromPainter(painter);
+    emit(state.copyWith(
+        temporaryIndex: index,
+        temporaryHandler: handler,
+        foregrounds: handler.createForegrounds(document, currentArea),
+        selections: handler.createSelections(document, currentArea)));
+    return handler;
+  }
+
+  Handler? changeTemporaryHandlerHand(AppDocument document, Area? currentArea) {
+    final handler = HandHandler(document.handProperty);
+    emit(state.copyWith(
+        temporaryIndex: -1,
+        temporaryHandler: handler,
+        foregrounds: handler.createForegrounds(document, currentArea),
+        selections: handler.createSelections(document, currentArea)));
+    return handler;
+  }
+
+  Handler? changeTemporaryHandlerSecondary(
+      AppDocument document, Area? currentArea) {
+    print("SECONDARY");
+    int index = 1;
+    if (document.painters.length == 1) {
+      index = 0;
+    } else if (document.painters.isEmpty) {
+      return null;
+    }
+    final painter = document.painters[index];
+    final handler = Handler.fromPainter(painter);
+    emit(state.copyWith(
+        temporaryIndex: index,
+        temporaryHandler: handler,
+        foregrounds: handler.createForegrounds(document, currentArea),
+        selections: handler.createSelections(document, currentArea)));
+    return handler;
+  }
+
+  void resetTemporaryHandler() {
+    if (state.temporaryIndex == null && state.temporaryHandler == null) {
+      return;
+    }
+    emit(state.copyWith(temporaryIndex: null, temporaryHandler: null));
+  }
+
+  int getIndex({bool disableTemporary = false}) {
+    if (disableTemporary) {
+      return state.index;
+    } else {
+      return state.temporaryIndex ?? state.index;
+    }
   }
 
   List<Renderer<PadElement>> get renderers =>
