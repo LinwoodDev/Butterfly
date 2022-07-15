@@ -29,3 +29,8 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `L`: Apri la finestra dei livelli
 * `Ctrl` + `S`: Salva
 * `Alt` + `S`: Cambia percorso
+
+## Stylus
+
+* `Primary button`: Change to hand tool
+* `Secondary button`: Change to second painter
