@@ -32,5 +32,5 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 
 ## Stylus
 
-* `Primary button`: Change to hand tool
-* `Secondary button`: Change to second painter
+* `Primärer Button`: Zum Handwerkzeug wechseln
+* `Sekundärer Knopf`: Zum zweiten Maler wechseln
