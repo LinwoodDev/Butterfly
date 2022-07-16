@@ -130,9 +130,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
             },
             onScaleEnd: (details) {
               final currentIndex = context.read<CurrentIndexCubit>();
-              final settings = context.read<SettingsCubit>().state;
               if (currentIndex.fetchHandler<HandHandler>() == null &&
-                  !settings.inputGestures) return;
+                  !cubit.state.moveEnabled) return;
               _delayBake();
             },
             onScaleStart: (details) {

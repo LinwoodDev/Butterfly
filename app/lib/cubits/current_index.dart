@@ -2,7 +2,6 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/api/xml_helper.dart';
-import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
@@ -194,18 +193,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   Future<void> bake(AppDocument document,
       {Size? viewportSize, double? pixelRatio}) async {
-    var current = state;
-    if (current is! DocumentLoadSuccess) return;
-    final size = viewportSize ?? current.cameraViewport.toSize();
-    final ratio = pixelRatio ?? current.cameraViewport.pixelRatio;
+    final cameraViewport = state.cameraViewport;
+    final size = viewportSize ?? cameraViewport.toSize();
+    final ratio = pixelRatio ?? cameraViewport.pixelRatio;
     if (size.height <= 0 || size.width <= 0) {
       return;
     }
 
-    var renderers = current.cameraViewport.unbakedElements;
+    var renderers = cameraViewport.unbakedElements;
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
-    var last = current.cameraViewport;
+    var last = state.cameraViewport;
     final reset = last.width != size.width.ceil() ||
         last.height != size.height.ceil() ||
         last.x != state.transformCubit.state.position.dx ||
@@ -213,7 +211,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         last.scale != state.transformCubit.state.size;
     if (renderers.isEmpty && !reset) return;
     if (reset) {
-      renderers = renderers;
+      renderers = this.renderers;
     }
     canvas.scale(ratio);
 
@@ -223,9 +221,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ViewPainter(
       document,
       transform: state.transformCubit.state,
-      cameraViewport: reset
-          ? current.cameraViewport.unbake(unbakedElements: renderers)
-          : last,
+      cameraViewport:
+          reset ? cameraViewport.unbake(unbakedElements: renderers) : last,
       renderBackground: false,
       renderBaked: !reset,
     ).paint(canvas, size);
@@ -235,17 +232,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     var newImage = await picture.toImage(
         (size.width * ratio).ceil(), (size.height * ratio).ceil());
 
-    var currentRenderers = current.cameraViewport.unbakedElements;
+    var currentRenderers = state.cameraViewport.unbakedElements;
     if (reset) {
       currentRenderers = renderers;
     } else {
-      renderers.addAll(current.cameraViewport.bakedElements);
+      renderers.addAll(state.cameraViewport.bakedElements);
     }
     currentRenderers = currentRenderers
         .whereNot((element) => renderers.contains(element))
         .toList();
-    emit(current.copyWith(
-        cameraViewport: current.cameraViewport.bake(
+    emit(state.copyWith(
+        cameraViewport: cameraViewport.bake(
             height: size.height.ceil(),
             width: size.width.ceil(),
             pixelRatio: ratio,
