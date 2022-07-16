@@ -1,2 +1,3 @@
 * Add stylus button input
+* Add hex input to color dialog
 * Fix bake issues

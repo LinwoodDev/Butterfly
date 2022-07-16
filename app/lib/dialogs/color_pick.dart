@@ -5,6 +5,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/visualizer/int.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -526,10 +527,12 @@ class CustomColorPicker extends StatefulWidget {
 
 class _CustomColorPickerState extends State<CustomColorPicker> {
   late Color color;
+  late final TextEditingController _hexController;
 
   @override
   void initState() {
     color = widget.defaultColor;
+    _hexController = TextEditingController(text: color.value.toHexColor());
     super.initState();
   }
 
@@ -541,6 +544,9 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
 
   @override
   Widget build(BuildContext context) {
+    if (_getColorValueFromHexString(_hexController.text) != color.value) {
+      _hexController.text = color.value.toHexColor();
+    }
     return Dialog(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxHeight: 500, maxWidth: 1000),
@@ -598,12 +604,54 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
     );
   }
 
-  Widget _buildPreview() => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-            constraints: const BoxConstraints(maxHeight: 200, maxWidth: 200),
-            color: color),
+  Widget _buildPreview() => Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+                constraints:
+                    const BoxConstraints(maxHeight: 200, maxWidth: 200),
+                color: color),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            child: TextField(
+              controller: _hexController,
+              decoration: const InputDecoration(filled: true),
+              onSubmitted: (value) {
+                final valueNumber = _getColorValueFromHexString(value);
+                if (valueNumber == null) return;
+                setState(() {
+                  color = Color(valueNumber);
+                });
+              },
+            ),
+          ),
+        ],
       );
+
+  int? _getColorValueFromHexString(String value) {
+    value = value.trim();
+    if (value.startsWith('#')) value = value.substring(1);
+    if (value.length == 3) {
+      value = 'f$value';
+    } else if (value.length == 6) {
+      value = 'ff$value';
+    }
+    if (value.length == 4) {
+      value = value[0] +
+          value[0] +
+          value[1] +
+          value[1] +
+          value[2] +
+          value[2] +
+          value[3] +
+          value[3];
+    }
+    value = value.trim();
+    return int.tryParse(value, radix: 16);
+  }
 
   Widget _buildProperties() => Column(children: [
         ExactSlider(
