@@ -184,7 +184,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   cubit
                       .getHandler()
                       .onPointerUp(constraints.biggest, context, event);
-                  cubit.resetTemporaryHandler();
+                  cubit.resetTemporaryHandler(
+                      state.document, state.currentArea);
                 },
                 behavior: HitTestBehavior.translucent,
                 onPointerHover: (event) {
@@ -214,10 +215,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         CustomPaint(
                           size: Size.infinite,
                           foregroundPainter: ForegroundPainter(
-                            currentIndex.foregrounds,
+                            cubit.foregrounds,
                             state.document,
                             transform,
-                            currentIndex.selections,
+                            cubit.selections,
                           ),
                           painter: ViewPainter(state.document,
                               cameraViewport: currentIndex.cameraViewport,

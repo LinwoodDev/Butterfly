@@ -431,8 +431,14 @@ class _MainPopupMenu extends StatelessWidget {
                                 onTap: () {
                                   Navigator.of(context).pop();
                                   if (location.remote != '') {
-                                    GoRouter.of(context).push(
-                                        '/remote/${Uri.encodeComponent(location.remote)}/${Uri.encodeComponent(location.path)}');
+                                    GoRouter.of(context)
+                                        .push(Uri(pathSegments: [
+                                      '',
+                                      'remote',
+                                      Uri.encodeComponent(location.remote),
+                                      ...location.pathWithoutLeadingSlash
+                                          .split('/'),
+                                    ]).toString());
                                     return;
                                   }
                                   GoRouter.of(context).push(Uri(

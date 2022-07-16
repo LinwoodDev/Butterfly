@@ -34,6 +34,8 @@ class CurrentIndex with _$CurrentIndex {
     Handler? temporaryHandler,
     @Default([]) List<Renderer> foregrounds,
     @Default([]) List<Rect> selections,
+    List<Renderer>? temporaryForegrounds,
+    List<Rect>? temporarySelections,
     @Default([]) List<int> pointers,
     @Default(CameraViewport.unbaked()) CameraViewport cameraViewport,
   }) = _CurrentIndex;
@@ -163,16 +165,25 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
         temporaryIndex: index,
         temporaryHandler: handler,
-        foregrounds: handler.createForegrounds(document, currentArea),
-        selections: handler.createSelections(document, currentArea)));
+        temporaryForegrounds: handler.createForegrounds(document, currentArea),
+        temporarySelections: handler.createSelections(document, currentArea)));
     return handler;
   }
 
-  void resetTemporaryHandler() {
+  List<Renderer> get foregrounds =>
+      state.temporaryForegrounds ?? state.foregrounds;
+  List<Rect> get selections => state.temporarySelections ?? state.selections;
+
+  void resetTemporaryHandler(AppDocument document, Area? currentArea) {
     if (state.temporaryIndex == null && state.temporaryHandler == null) {
       return;
     }
-    emit(state.copyWith(temporaryIndex: null, temporaryHandler: null));
+    emit(state.copyWith(
+      temporaryIndex: null,
+      temporaryHandler: null,
+      temporaryForegrounds: null,
+      temporarySelections: null,
+    ));
   }
 
   int getIndex({bool disableTemporary = false}) {
@@ -233,7 +244,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     var currentRenderers = state.cameraViewport.unbakedElements;
     if (reset) {
-      currentRenderers = renderers;
+      currentRenderers = this.renderers;
     } else {
       renderers.addAll(state.cameraViewport.bakedElements);
     }

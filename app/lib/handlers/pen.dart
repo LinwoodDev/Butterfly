@@ -39,9 +39,9 @@ class PenHandler extends Handler<PenPainter> {
       final current = List<PadElement>.from(submittedElements);
       bloc.add(ElementsCreated(current));
       await bloc.bake();
+      bloc.refresh();
       submittedElements.clear();
     }
-    bloc.refresh();
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
@@ -89,6 +89,7 @@ class PenHandler extends Handler<PenPainter> {
       context.read<DocumentBloc>().refresh();
       return;
     }
+    elements.remove(event.pointer);
     addPoint(
         context, event.pointer, event.localPosition, event.pressure, event.kind,
         shouldCreate: true);

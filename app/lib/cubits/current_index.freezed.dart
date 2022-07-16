@@ -24,6 +24,9 @@ mixin _$CurrentIndex {
   Handler<dynamic>? get temporaryHandler => throw _privateConstructorUsedError;
   List<Renderer> get foregrounds => throw _privateConstructorUsedError;
   List<Rect> get selections => throw _privateConstructorUsedError;
+  List<Renderer>? get temporaryForegrounds =>
+      throw _privateConstructorUsedError;
+  List<Rect>? get temporarySelections => throw _privateConstructorUsedError;
   List<int> get pointers => throw _privateConstructorUsedError;
   CameraViewport get cameraViewport => throw _privateConstructorUsedError;
 
@@ -46,6 +49,8 @@ abstract class $CurrentIndexCopyWith<$Res> {
       Handler<dynamic>? temporaryHandler,
       List<Renderer> foregrounds,
       List<Rect> selections,
+      List<Renderer>? temporaryForegrounds,
+      List<Rect>? temporarySelections,
       List<int> pointers,
       CameraViewport cameraViewport});
 }
@@ -68,6 +73,8 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
     Object? temporaryHandler = freezed,
     Object? foregrounds = freezed,
     Object? selections = freezed,
+    Object? temporaryForegrounds = freezed,
+    Object? temporarySelections = freezed,
     Object? pointers = freezed,
     Object? cameraViewport = freezed,
   }) {
@@ -104,6 +111,14 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           ? _value.selections
           : selections // ignore: cast_nullable_to_non_nullable
               as List<Rect>,
+      temporaryForegrounds: temporaryForegrounds == freezed
+          ? _value.temporaryForegrounds
+          : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
+              as List<Renderer>?,
+      temporarySelections: temporarySelections == freezed
+          ? _value.temporarySelections
+          : temporarySelections // ignore: cast_nullable_to_non_nullable
+              as List<Rect>?,
       pointers: pointers == freezed
           ? _value.pointers
           : pointers // ignore: cast_nullable_to_non_nullable
@@ -132,6 +147,8 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
       Handler<dynamic>? temporaryHandler,
       List<Renderer> foregrounds,
       List<Rect> selections,
+      List<Renderer>? temporaryForegrounds,
+      List<Rect>? temporarySelections,
       List<int> pointers,
       CameraViewport cameraViewport});
 }
@@ -157,6 +174,8 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
     Object? temporaryHandler = freezed,
     Object? foregrounds = freezed,
     Object? selections = freezed,
+    Object? temporaryForegrounds = freezed,
+    Object? temporarySelections = freezed,
     Object? pointers = freezed,
     Object? cameraViewport = freezed,
   }) {
@@ -193,6 +212,14 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
           ? _value._selections
           : selections // ignore: cast_nullable_to_non_nullable
               as List<Rect>,
+      temporaryForegrounds: temporaryForegrounds == freezed
+          ? _value._temporaryForegrounds
+          : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
+              as List<Renderer>?,
+      temporarySelections: temporarySelections == freezed
+          ? _value._temporarySelections
+          : temporarySelections // ignore: cast_nullable_to_non_nullable
+              as List<Rect>?,
       pointers: pointers == freezed
           ? _value._pointers
           : pointers // ignore: cast_nullable_to_non_nullable
@@ -214,10 +241,14 @@ class _$_CurrentIndex extends _CurrentIndex {
       this.temporaryHandler,
       final List<Renderer> foregrounds = const [],
       final List<Rect> selections = const [],
+      final List<Renderer>? temporaryForegrounds,
+      final List<Rect>? temporarySelections,
       final List<int> pointers = const [],
       this.cameraViewport = const CameraViewport.unbaked()})
       : _foregrounds = foregrounds,
         _selections = selections,
+        _temporaryForegrounds = temporaryForegrounds,
+        _temporarySelections = temporarySelections,
         _pointers = pointers,
         super._();
 
@@ -249,6 +280,24 @@ class _$_CurrentIndex extends _CurrentIndex {
     return EqualUnmodifiableListView(_selections);
   }
 
+  final List<Renderer>? _temporaryForegrounds;
+  @override
+  List<Renderer>? get temporaryForegrounds {
+    final value = _temporaryForegrounds;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Rect>? _temporarySelections;
+  @override
+  List<Rect>? get temporarySelections {
+    final value = _temporarySelections;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<int> _pointers;
   @override
   @JsonKey()
@@ -263,7 +312,7 @@ class _$_CurrentIndex extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryIndex: $temporaryIndex, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selections: $selections, pointers: $pointers, cameraViewport: $cameraViewport)';
+    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryIndex: $temporaryIndex, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selections: $selections, temporaryForegrounds: $temporaryForegrounds, temporarySelections: $temporarySelections, pointers: $pointers, cameraViewport: $cameraViewport)';
   }
 
   @override
@@ -285,6 +334,10 @@ class _$_CurrentIndex extends _CurrentIndex {
                 .equals(other._foregrounds, _foregrounds) &&
             const DeepCollectionEquality()
                 .equals(other._selections, _selections) &&
+            const DeepCollectionEquality()
+                .equals(other._temporaryForegrounds, _temporaryForegrounds) &&
+            const DeepCollectionEquality()
+                .equals(other._temporarySelections, _temporarySelections) &&
             const DeepCollectionEquality().equals(other._pointers, _pointers) &&
             const DeepCollectionEquality()
                 .equals(other.cameraViewport, cameraViewport));
@@ -301,6 +354,8 @@ class _$_CurrentIndex extends _CurrentIndex {
       const DeepCollectionEquality().hash(temporaryHandler),
       const DeepCollectionEquality().hash(_foregrounds),
       const DeepCollectionEquality().hash(_selections),
+      const DeepCollectionEquality().hash(_temporaryForegrounds),
+      const DeepCollectionEquality().hash(_temporarySelections),
       const DeepCollectionEquality().hash(_pointers),
       const DeepCollectionEquality().hash(cameraViewport));
 
@@ -317,6 +372,8 @@ abstract class _CurrentIndex extends CurrentIndex {
       final Handler<dynamic>? temporaryHandler,
       final List<Renderer> foregrounds,
       final List<Rect> selections,
+      final List<Renderer>? temporaryForegrounds,
+      final List<Rect>? temporarySelections,
       final List<int> pointers,
       final CameraViewport cameraViewport}) = _$_CurrentIndex;
   const _CurrentIndex._() : super._();
@@ -337,6 +394,10 @@ abstract class _CurrentIndex extends CurrentIndex {
   List<Renderer> get foregrounds;
   @override
   List<Rect> get selections;
+  @override
+  List<Renderer>? get temporaryForegrounds;
+  @override
+  List<Rect>? get temporarySelections;
   @override
   List<int> get pointers;
   @override
