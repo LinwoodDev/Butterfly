@@ -11,8 +11,8 @@ part 'painter.g.dart';
 part 'painter.freezed.dart';
 
 const double _kSquareRatio = 1.0;
-const double _kAPortraitRatio = sqrt2;
-const double _kLandscapeRatio = 1 / sqrt2;
+const double _kAPortraitRatio = 1 / sqrt2;
+const double _kLandscapeRatio = sqrt2;
 
 enum AspectRatioPreset {
   square,
