@@ -6,12 +6,12 @@ jobs:
   publish:
     runs-on: windows-latest
     steps:
-      - if: github.event_name == 'released'
+      - if: github.event.action == 'released'
         uses: vedantmgoyal2009/winget-releaser@latest
         with:
           identifier: LinwoodCloud.Butterfly
           token: ${{ secrets.CI_PAT }}
-      - if: github.event_name == 'prereleased'
+      - if: github.event.action == 'prereleased'
         uses: vedantmgoyal2009/winget-releaser@latest
         with:
           identifier: LinwoodCloud.Butterfly.Nightly
