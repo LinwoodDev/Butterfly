@@ -32,5 +32,5 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 
 ## Stylus
 
-* `Primary button`: Change to hand tool
-* `Secondary button`: Change to second painter
+* `Botón primario`: Cambiar a herramienta de mano
+* `Botón secundario`: Cambiar a segundo pintor
