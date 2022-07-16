@@ -1,4 +1,6 @@
 * Add stylus button input
 * Add hex input to color dialog
+* Add constraints to shape painter
 * Fix bake issues
 * Fix wrong properties when resetting back to hand painter
+* Fix ignored properties in area painter

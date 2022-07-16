@@ -14,31 +14,31 @@ const double _kSquareRatio = 1.0;
 const double _kAPortraitRatio = sqrt2;
 const double _kLandscapeRatio = 1 / sqrt2;
 
-enum AreaRatioPreset {
+enum AspectRatioPreset {
   square,
   portrait,
   landscape,
 }
 
-extension AreaRatioPresetExtension on AreaRatioPreset {
+extension RatioPresetExtension on AspectRatioPreset {
   double get ratio {
     switch (this) {
-      case AreaRatioPreset.square:
+      case AspectRatioPreset.square:
         return _kSquareRatio;
-      case AreaRatioPreset.portrait:
+      case AspectRatioPreset.portrait:
         return _kAPortraitRatio;
-      case AreaRatioPreset.landscape:
+      case AspectRatioPreset.landscape:
         return _kLandscapeRatio;
     }
   }
 
   String getLocalizedName(BuildContext context) {
     switch (this) {
-      case AreaRatioPreset.square:
+      case AspectRatioPreset.square:
         return AppLocalizations.of(context)!.square;
-      case AreaRatioPreset.portrait:
+      case AspectRatioPreset.portrait:
         return AppLocalizations.of(context)!.pagePortrait;
-      case AreaRatioPreset.landscape:
+      case AspectRatioPreset.landscape:
         return AppLocalizations.of(context)!.pageLandscape;
     }
   }
@@ -91,6 +91,9 @@ class Painter with _$Painter {
   const factory Painter.shape({
     @Default('') String name,
     @Default(false) bool zoomDependent,
+    @Default(0) double constrainedWidth,
+    @Default(0) double constrainedHeight,
+    @Default(0) double constrainedAspectRatio,
     @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
   }) = ShapePainter;
 

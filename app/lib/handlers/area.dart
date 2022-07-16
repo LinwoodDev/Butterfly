@@ -63,14 +63,10 @@ class AreaHandler extends Handler<AreaPainter> {
     if (currentRect == null) return;
     final transform = context.read<TransformCubit>().state;
     final bloc = context.read<DocumentBloc>();
-    final state = bloc.state as DocumentLoadSuccess;
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
     final position = transform.localToGlobal(event.localPosition);
-    final nextRect = Rect.fromLTWH(currentRect!.left, currentRect!.top,
-        position.dx - currentRect!.left, position.dy - currentRect!.top);
-    if (state.document.getAreaByRect(nextRect) == null) {
-      currentRect = nextRect;
-      bloc.refresh();
-    }
+    _setRect(state.document, position);
   }
 
   Future<String?> _showAreaLabelDialog(BuildContext context) {
@@ -100,6 +96,49 @@ class AreaHandler extends Handler<AreaPainter> {
             ));
   }
 
+  void _setRect(AppDocument document, Offset nextPosition) {
+    currentRect ??= Rect.fromLTWH(nextPosition.dx, nextPosition.dy, 0, 0);
+    double width = 0, height = 0;
+    final nextWidth = nextPosition.dx - currentRect!.left;
+    final nextHeight = nextPosition.dy - currentRect!.top;
+    if (data.constrainedHeight != 0 && data.constrainedWidth != 0) {
+      width = data.constrainedWidth;
+      height = data.constrainedHeight;
+    }
+    if (data.constrainedAspectRatio != 0) {
+      if (data.constrainedHeight != 0) {
+        height = data.constrainedHeight;
+        width = data.constrainedAspectRatio * height;
+      } else if (data.constrainedWidth != 0) {
+        width = data.constrainedWidth;
+        height = width / data.constrainedAspectRatio;
+      } else {
+        final smallest = nextHeight > nextWidth ? nextWidth : nextHeight;
+        width = data.constrainedAspectRatio * smallest;
+        height = smallest / data.constrainedAspectRatio;
+      }
+    } else {
+      if (data.constrainedHeight != 0) {
+        height = data.constrainedHeight;
+        width = nextWidth;
+      } else if (data.constrainedWidth != 0) {
+        width = data.constrainedWidth;
+        height = nextHeight;
+      } else {
+        width = nextWidth;
+        height = nextHeight;
+      }
+    }
+    final nextRect = Rect.fromLTWH(
+        width < 0 ? currentRect!.left + width : currentRect!.left,
+        height < 0 ? currentRect!.top + height : currentRect!.top,
+        width.abs(),
+        height.abs());
+    if (document.getAreaByRect(nextRect) != null) {
+      currentRect = nextRect;
+    }
+  }
+
   @override
   Future<void> onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) async {
@@ -113,11 +152,7 @@ class AreaHandler extends Handler<AreaPainter> {
       bloc.refresh();
       return;
     }
-    final nextRect = Rect.fromLTWH(currentRect!.left, currentRect!.top,
-        position.dx - currentRect!.left, position.dy - currentRect!.top);
-    if (state.document.getAreaByRect(nextRect) != null) {
-      currentRect = nextRect;
-    }
+    _setRect(state.document, position);
     final name = await _showAreaLabelDialog(context);
     if (name == null) {
       currentRect = null;

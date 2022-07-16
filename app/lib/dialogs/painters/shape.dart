@@ -23,6 +23,50 @@ class ShapePainterDialog extends StatelessWidget {
         help: 'shape',
         builder: (context, painter, setPainter) => [
               ExactSlider(
+                  header: Text(AppLocalizations.of(context)!.width),
+                  value: painter.constrainedWidth,
+                  min: 0,
+                  max: 500,
+                  defaultValue: 0,
+                  onChanged: (value) =>
+                      setPainter(painter.copyWith(constrainedWidth: value))),
+              ExactSlider(
+                  header: Text(AppLocalizations.of(context)!.height),
+                  value: painter.constrainedHeight,
+                  min: 0,
+                  max: 500,
+                  defaultValue: 0,
+                  onChanged: (value) =>
+                      setPainter(painter.copyWith(constrainedHeight: value))),
+              ExactSlider(
+                  header: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          AppLocalizations.of(context)!.aspectRatio,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      PopupMenuButton<AspectRatioPreset>(
+                        itemBuilder: (context) => AspectRatioPreset.values
+                            .map((e) => PopupMenuItem(
+                                  value: e,
+                                  child: Text(e.getLocalizedName(context)),
+                                ))
+                            .toList(),
+                        onSelected: (preset) => setPainter(painter.copyWith(
+                            constrainedAspectRatio: preset.ratio)),
+                        tooltip: AppLocalizations.of(context)!.presets,
+                      )
+                    ],
+                  ),
+                  value: painter.constrainedAspectRatio,
+                  min: 0,
+                  max: 10,
+                  defaultValue: 0,
+                  onChanged: (value) => setPainter(painter =
+                      painter.copyWith(constrainedAspectRatio: value))),
+              ExactSlider(
                   header: Text(AppLocalizations.of(context)!.strokeWidth),
                   value: painter.property.strokeWidth,
                   min: 0,

@@ -44,8 +44,8 @@ class AreaPainterDialog extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      PopupMenuButton<AreaRatioPreset>(
-                        itemBuilder: (context) => AreaRatioPreset.values
+                      PopupMenuButton<AspectRatioPreset>(
+                        itemBuilder: (context) => AspectRatioPreset.values
                             .map((e) => PopupMenuItem(
                                   value: e,
                                   child: Text(e.getLocalizedName(context)),

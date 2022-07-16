@@ -62,7 +62,12 @@ mixin _$Painter {
             double strokeMultiplier, int color)
         laser,
     required TResult Function(
-            String name, bool zoomDependent, ShapeProperty property)
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
         shape,
   }) =>
       throw _privateConstructorUsedError;
@@ -84,7 +89,13 @@ mixin _$Painter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
   }) =>
       throw _privateConstructorUsedError;
@@ -106,7 +117,13 @@ mixin _$Painter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
     required TResult orElse(),
   }) =>
@@ -287,7 +304,12 @@ class _$LabelPainter implements LabelPainter {
             double strokeMultiplier, int color)
         laser,
     required TResult Function(
-            String name, bool zoomDependent, ShapeProperty property)
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
         shape,
   }) {
     return label(name, property);
@@ -312,7 +334,13 @@ class _$LabelPainter implements LabelPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
   }) {
     return label?.call(name, property);
@@ -337,7 +365,13 @@ class _$LabelPainter implements LabelPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
     required TResult orElse(),
   }) {
@@ -538,7 +572,12 @@ class _$PenPainter implements PenPainter {
             double strokeMultiplier, int color)
         laser,
     required TResult Function(
-            String name, bool zoomDependent, ShapeProperty property)
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
         shape,
   }) {
     return pen(name, zoomDependent, property);
@@ -563,7 +602,13 @@ class _$PenPainter implements PenPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
   }) {
     return pen?.call(name, zoomDependent, property);
@@ -588,7 +633,13 @@ class _$PenPainter implements PenPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
     required TResult orElse(),
   }) {
@@ -781,7 +832,12 @@ class _$EraserPainter implements EraserPainter {
             double strokeMultiplier, int color)
         laser,
     required TResult Function(
-            String name, bool zoomDependent, ShapeProperty property)
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
         shape,
   }) {
     return eraser(name, property);
@@ -806,7 +862,13 @@ class _$EraserPainter implements EraserPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
   }) {
     return eraser?.call(name, property);
@@ -831,7 +893,13 @@ class _$EraserPainter implements EraserPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
     required TResult orElse(),
   }) {
@@ -1051,7 +1119,12 @@ class _$PathEraserPainter implements PathEraserPainter {
             double strokeMultiplier, int color)
         laser,
     required TResult Function(
-            String name, bool zoomDependent, ShapeProperty property)
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
         shape,
   }) {
     return pathEraser(name, strokeWidth, includeEraser, deleteWholeStroke);
@@ -1076,7 +1149,13 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
   }) {
     return pathEraser?.call(
@@ -1102,7 +1181,13 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
     required TResult orElse(),
   }) {
@@ -1321,7 +1406,12 @@ class _$LayerPainter implements LayerPainter {
             double strokeMultiplier, int color)
         laser,
     required TResult Function(
-            String name, bool zoomDependent, ShapeProperty property)
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
         shape,
   }) {
     return layer(name, strokeWidth, this.layer, includeEraser);
@@ -1346,7 +1436,13 @@ class _$LayerPainter implements LayerPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
   }) {
     return layer?.call(name, strokeWidth, this.layer, includeEraser);
@@ -1371,7 +1467,13 @@ class _$LayerPainter implements LayerPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
     required TResult orElse(),
   }) {
@@ -1594,7 +1696,12 @@ class _$AreaPainter implements AreaPainter {
             double strokeMultiplier, int color)
         laser,
     required TResult Function(
-            String name, bool zoomDependent, ShapeProperty property)
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
         shape,
   }) {
     return area(
@@ -1620,7 +1727,13 @@ class _$AreaPainter implements AreaPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
   }) {
     return area?.call(
@@ -1646,7 +1759,13 @@ class _$AreaPainter implements AreaPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
     required TResult orElse(),
   }) {
@@ -1881,7 +2000,12 @@ class _$LaserPainter implements LaserPainter {
             double strokeMultiplier, int color)
         laser,
     required TResult Function(
-            String name, bool zoomDependent, ShapeProperty property)
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
         shape,
   }) {
     return laser(name, duration, strokeWidth, strokeMultiplier, color);
@@ -1906,7 +2030,13 @@ class _$LaserPainter implements LaserPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
   }) {
     return laser?.call(name, duration, strokeWidth, strokeMultiplier, color);
@@ -1931,7 +2061,13 @@ class _$LaserPainter implements LaserPainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
     required TResult orElse(),
   }) {
@@ -2027,7 +2163,13 @@ abstract class _$$ShapePainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
           _$ShapePainter value, $Res Function(_$ShapePainter) then) =
       __$$ShapePainterCopyWithImpl<$Res>;
   @override
-  $Res call({String name, bool zoomDependent, ShapeProperty property});
+  $Res call(
+      {String name,
+      bool zoomDependent,
+      double constrainedWidth,
+      double constrainedHeight,
+      double constrainedAspectRatio,
+      ShapeProperty property});
 }
 
 /// @nodoc
@@ -2044,6 +2186,9 @@ class __$$ShapePainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? zoomDependent = freezed,
+    Object? constrainedWidth = freezed,
+    Object? constrainedHeight = freezed,
+    Object? constrainedAspectRatio = freezed,
     Object? property = freezed,
   }) {
     return _then(_$ShapePainter(
@@ -2055,6 +2200,18 @@ class __$$ShapePainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
           ? _value.zoomDependent
           : zoomDependent // ignore: cast_nullable_to_non_nullable
               as bool,
+      constrainedWidth: constrainedWidth == freezed
+          ? _value.constrainedWidth
+          : constrainedWidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      constrainedHeight: constrainedHeight == freezed
+          ? _value.constrainedHeight
+          : constrainedHeight // ignore: cast_nullable_to_non_nullable
+              as double,
+      constrainedAspectRatio: constrainedAspectRatio == freezed
+          ? _value.constrainedAspectRatio
+          : constrainedAspectRatio // ignore: cast_nullable_to_non_nullable
+              as double,
       property: property == freezed
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
@@ -2069,6 +2226,9 @@ class _$ShapePainter implements ShapePainter {
   const _$ShapePainter(
       {this.name = '',
       this.zoomDependent = false,
+      this.constrainedWidth = 0,
+      this.constrainedHeight = 0,
+      this.constrainedAspectRatio = 0,
       this.property = const ShapeProperty(shape: RectangleShape()),
       final String? $type})
       : $type = $type ?? 'shape';
@@ -2084,6 +2244,15 @@ class _$ShapePainter implements ShapePainter {
   final bool zoomDependent;
   @override
   @JsonKey()
+  final double constrainedWidth;
+  @override
+  @JsonKey()
+  final double constrainedHeight;
+  @override
+  @JsonKey()
+  final double constrainedAspectRatio;
+  @override
+  @JsonKey()
   final ShapeProperty property;
 
   @JsonKey(name: 'type')
@@ -2091,7 +2260,7 @@ class _$ShapePainter implements ShapePainter {
 
   @override
   String toString() {
-    return 'Painter.shape(name: $name, zoomDependent: $zoomDependent, property: $property)';
+    return 'Painter.shape(name: $name, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, property: $property)';
   }
 
   @override
@@ -2102,6 +2271,12 @@ class _$ShapePainter implements ShapePainter {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.zoomDependent, zoomDependent) &&
+            const DeepCollectionEquality()
+                .equals(other.constrainedWidth, constrainedWidth) &&
+            const DeepCollectionEquality()
+                .equals(other.constrainedHeight, constrainedHeight) &&
+            const DeepCollectionEquality()
+                .equals(other.constrainedAspectRatio, constrainedAspectRatio) &&
             const DeepCollectionEquality().equals(other.property, property));
   }
 
@@ -2111,6 +2286,9 @@ class _$ShapePainter implements ShapePainter {
       runtimeType,
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(zoomDependent),
+      const DeepCollectionEquality().hash(constrainedWidth),
+      const DeepCollectionEquality().hash(constrainedHeight),
+      const DeepCollectionEquality().hash(constrainedAspectRatio),
       const DeepCollectionEquality().hash(property));
 
   @JsonKey(ignore: true)
@@ -2139,10 +2317,16 @@ class _$ShapePainter implements ShapePainter {
             double strokeMultiplier, int color)
         laser,
     required TResult Function(
-            String name, bool zoomDependent, ShapeProperty property)
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
         shape,
   }) {
-    return shape(name, zoomDependent, property);
+    return shape(name, zoomDependent, constrainedWidth, constrainedHeight,
+        constrainedAspectRatio, property);
   }
 
   @override
@@ -2164,10 +2348,17 @@ class _$ShapePainter implements ShapePainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
   }) {
-    return shape?.call(name, zoomDependent, property);
+    return shape?.call(name, zoomDependent, constrainedWidth, constrainedHeight,
+        constrainedAspectRatio, property);
   }
 
   @override
@@ -2189,12 +2380,19 @@ class _$ShapePainter implements ShapePainter {
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(String name, bool zoomDependent, ShapeProperty property)?
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
         shape,
     required TResult orElse(),
   }) {
     if (shape != null) {
-      return shape(name, zoomDependent, property);
+      return shape(name, zoomDependent, constrainedWidth, constrainedHeight,
+          constrainedAspectRatio, property);
     }
     return orElse();
   }
@@ -2260,6 +2458,9 @@ abstract class ShapePainter implements Painter {
   const factory ShapePainter(
       {final String name,
       final bool zoomDependent,
+      final double constrainedWidth,
+      final double constrainedHeight,
+      final double constrainedAspectRatio,
       final ShapeProperty property}) = _$ShapePainter;
 
   factory ShapePainter.fromJson(Map<String, dynamic> json) =
@@ -2268,6 +2469,9 @@ abstract class ShapePainter implements Painter {
   @override
   String get name;
   bool get zoomDependent;
+  double get constrainedWidth;
+  double get constrainedHeight;
+  double get constrainedAspectRatio;
   ShapeProperty get property;
   @override
   @JsonKey(ignore: true)

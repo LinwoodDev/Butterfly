@@ -131,6 +131,10 @@ Map<String, dynamic> _$$LaserPainterToJson(_$LaserPainter instance) =>
 _$ShapePainter _$$ShapePainterFromJson(Map json) => _$ShapePainter(
       name: json['name'] as String? ?? '',
       zoomDependent: json['zoomDependent'] as bool? ?? false,
+      constrainedWidth: (json['constrainedWidth'] as num?)?.toDouble() ?? 0,
+      constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
+      constrainedAspectRatio:
+          (json['constrainedAspectRatio'] as num?)?.toDouble() ?? 0,
       property: json['property'] == null
           ? const ShapeProperty(shape: RectangleShape())
           : ShapeProperty.fromJson(
@@ -142,6 +146,9 @@ Map<String, dynamic> _$$ShapePainterToJson(_$ShapePainter instance) =>
     <String, dynamic>{
       'name': instance.name,
       'zoomDependent': instance.zoomDependent,
+      'constrainedWidth': instance.constrainedWidth,
+      'constrainedHeight': instance.constrainedHeight,
+      'constrainedAspectRatio': instance.constrainedAspectRatio,
       'property': instance.property.toJson(),
       'type': instance.$type,
     };
