@@ -33,4 +33,4 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 ## Stylus
 
 * `Primary button`: Change to hand tool
-* `Secondary button`: Change to second painter
+* `Pulsante secondario`: Cambia al secondo pittore
