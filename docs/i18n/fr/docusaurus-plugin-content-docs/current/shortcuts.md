@@ -32,5 +32,5 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 
 ## Stylus
 
-* `Primary button`: Change to hand tool
-* `Secondary button`: Change to second painter
+* `Bouton primaire`: Passer à l'outil main
+* `Bouton secondaire`: Passer au second peintre
