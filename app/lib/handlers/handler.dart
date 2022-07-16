@@ -76,7 +76,7 @@ abstract class Handler<T> {
 
   int? getColor(DocumentBloc bloc) => null;
 
-  Painter? setColor(DocumentBloc bloc, int color) => null;
+  T? setColor(DocumentBloc bloc, int color) => null;
 
   static Handler fromDocument(AppDocument document, int index) {
     final painter = document.painters[index];
@@ -108,7 +108,7 @@ abstract class Handler<T> {
     if (painter is LaserPainter) {
       return LaserHandler(painter);
     }
-    return HandHandler(painter);
+    return HandHandler(const HandProperty());
   }
 }
 

@@ -1,3 +1,4 @@
 * Add stylus button input
 * Add hex input to color dialog
 * Fix bake issues
+* Fix wrong properties when resetting back to hand painter

@@ -48,9 +48,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     SettingsCubit settingsCubit,
     TransformCubit transformCubit,
   ) : super(CurrentIndex(-1, HandHandler(document.handProperty), settingsCubit,
-            transformCubit)) {
-    reset();
-  }
+            transformCubit));
 
   Handler getHandler({bool disableTemporary = false}) {
     if (disableTemporary) {
@@ -113,8 +111,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return null;
   }
 
-  void reset() {
-    emit(state.copyWith(index: -1, handler: HandHandler(this)));
+  void reset(AppDocument document) {
+    emit(
+        state.copyWith(index: -1, handler: HandHandler(document.handProperty)));
   }
 
   void changeIndex(int i) {

@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class EraserHandler extends Handler {
+class EraserHandler extends Handler<EraserPainter> {
   Map<int, EraserElement> elements = {};
   List<EraserElement> submittedElements = [];
   Map<int, Offset> lastPosition = {};

@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class HandHandler<HandProperty> extends Handler {
+class HandHandler extends Handler<HandProperty> {
   Renderer<PadElement>? movingElement;
   Renderer<PadElement>? selected;
   Offset? currentMovePosition;

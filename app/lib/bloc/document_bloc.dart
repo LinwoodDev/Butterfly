@@ -223,7 +223,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             .then((value) {
           final currentIndex = current.currentIndexCubit.state;
           if (currentIndex.index == event.index) {
-            cubit.reset();
+            cubit.reset(current.document);
           } else if (currentIndex.index > event.index) {
             cubit.changeIndex(currentIndex.index - 1);
           } else {

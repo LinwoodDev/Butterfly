@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class LabelHandler extends Handler {
+class LabelHandler extends Handler<LabelPainter> {
   LabelHandler(super.data);
 
   @override
@@ -35,6 +35,6 @@ class LabelHandler extends Handler {
   int? getColor(DocumentBloc bloc) => data.property.color;
 
   @override
-  PenPainter? setColor(DocumentBloc bloc, int color) =>
+  LabelPainter? setColor(DocumentBloc bloc, int color) =>
       data.copyWith(property: data.property.copyWith(color: color));
 }

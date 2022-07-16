@@ -166,7 +166,7 @@ class _CreateStartViewState extends State<_CreateStartView> {
 
                                 bloc.clearHistory();
                                 transformCubit.reset();
-                                currentIndexCubit.reset();
+                                currentIndexCubit.reset(document);
                                 bloc.emit(DocumentLoadSuccess(document,
                                     location: AssetLocation(
                                         path: '',

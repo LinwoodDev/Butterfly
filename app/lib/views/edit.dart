@@ -80,7 +80,9 @@ class EditToolbar extends StatelessWidget {
                                   null) {
                                 openHandDialog();
                               } else {
-                                context.read<CurrentIndexCubit>().reset();
+                                context
+                                    .read<CurrentIndexCubit>()
+                                    .reset(state.document);
                               }
                             },
                           ),

@@ -51,7 +51,7 @@ class AreaContextMenu extends StatelessWidget {
                 } else {
                   bloc.add(CurrentAreaChanged(index));
                 }
-                context.read<CurrentIndexCubit>().reset();
+                context.read<CurrentIndexCubit>().reset(state.document);
               },
             ),
             ListTile(
