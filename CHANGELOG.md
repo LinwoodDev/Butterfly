@@ -2,6 +2,16 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.0-rc.0 (2022-07-17)
+
+* Add stylus button input
+* Add hex input to color dialog
+* Add constraints to shape painter
+* Move save state in current index cubit to allow undo/redo
+* Fix bake issues
+* Fix wrong properties when resetting back to hand painter
+* Fix ignored properties in area painter
+
 ## 1.4.0-beta.1 (2022-07-15)
 
 * Add matrix invite link
