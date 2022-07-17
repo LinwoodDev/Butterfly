@@ -16,7 +16,6 @@ class DocumentLoadInProgress extends DocumentState {}
 
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
-  final AssetLocation location;
   final StorageType storageType;
   final String currentLayer;
   final int currentAreaIndex;
@@ -24,18 +23,21 @@ class DocumentLoadSuccess extends DocumentState {
   final SettingsCubit settingsCubit;
   final CurrentIndexCubit currentIndexCubit;
   final Embedding? embedding;
-  final bool saved;
 
-  const DocumentLoadSuccess(this.document,
-      {required this.location,
+  DocumentLoadSuccess(this.document,
+      {AssetLocation? location,
       this.storageType = StorageType.local,
-      this.saved = true,
+      bool saved = true,
       required this.settingsCubit,
       required this.currentIndexCubit,
       this.currentAreaIndex = -1,
       this.currentLayer = '',
       this.embedding,
-      this.invisibleLayers = const []});
+      this.invisibleLayers = const []}) {
+    if (location != null) {
+      currentIndexCubit.setSaveState(location: location, saved: saved);
+    }
+  }
 
   @override
   List<Object?> get props => [
@@ -61,6 +63,9 @@ class DocumentLoadSuccess extends DocumentState {
 
   List<Renderer<PadElement>> get renderers => currentIndexCubit.renderers;
 
+  AssetLocation get location => currentIndexCubit.state.location;
+  bool get saved => currentIndexCubit.state.saved;
+
   Future<void> load() async {
     final background = Renderer.fromInstance(document.background);
     await background.setup(document);
@@ -74,22 +79,19 @@ class DocumentLoadSuccess extends DocumentState {
   DocumentLoadSuccess copyWith({
     AppDocument? document,
     bool? editMode,
-    AssetLocation? location,
     String? currentLayer,
     int? currentAreaIndex,
-    bool? saved,
     List<String>? invisibleLayers,
   }) =>
       DocumentLoadSuccess(
         document ?? this.document,
-        location: location ?? this.location,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
         currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
-        saved: saved ?? this.saved,
         settingsCubit: settingsCubit,
         embedding: embedding,
         currentIndexCubit: currentIndexCubit,
+        location: location,
       );
 
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);

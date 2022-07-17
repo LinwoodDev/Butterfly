@@ -440,18 +440,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           .createTemplate(current.document);
 
       if (event.deleteDocument) {
-        emit(current.copyWith(
+        current.currentIndexCubit.setSaveState(
             location:
-                AssetLocation(remote: remote?.identifier ?? '', path: '')));
+                AssetLocation(remote: remote?.identifier ?? '', path: ''));
       }
     });
     on<DocumentPathChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      emit(current.copyWith(
+      current.currentIndexCubit.setSaveState(
           location: AssetLocation(
-              remote: current.location.remote, path: event.location)));
+              remote: current.location.remote, path: event.location));
     });
     on<AreaCreated>((event, emit) async {
       final current = state;
@@ -507,8 +507,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      emit(current.copyWith(saved: true, location: event.location));
-      if (current.location.path == '') clearHistory();
+      current.currentIndexCubit
+          .setSaveState(saved: true, location: event.location);
     });
   }
 
@@ -524,10 +524,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       elements = List<Renderer<PadElement>>.from(elements)
         ..addAll(unbakedElements);
     }
-    var nextState = current.copyWith(
-      saved: false,
-      document: current.document.copyWith(updatedAt: DateTime.now()),
-    );
+    emit(current);
+
     if (unbakedElements == null) {
       current.currentIndexCubit.unbake(
           unbakedElements: List<Renderer<PadElement>>.from(elements)
@@ -535,18 +533,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     } else {
       current.currentIndexCubit.withUnbaked(elements);
     }
+
     if (current.embedding != null) {
-      emit(nextState);
+      current.currentIndexCubit.setSaveState(saved: true);
       return;
     }
-    emit(nextState);
     AssetLocation? path = current.location;
     if (current.hasAutosave()) {
-      path = await nextState.save();
+      path = await current.save();
       var currentState = state;
       if (currentState is! DocumentLoadSuccess) return;
       if (currentState.location.path == '' && state is DocumentLoadSuccess) {
-        emit(currentState.copyWith(location: path, saved: true));
+        current.currentIndexCubit.setSaveState(saved: true, location: path);
         clearHistory();
       }
     }

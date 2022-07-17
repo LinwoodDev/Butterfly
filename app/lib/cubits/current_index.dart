@@ -38,6 +38,8 @@ class CurrentIndex with _$CurrentIndex {
     List<Rect>? temporarySelections,
     @Default([]) List<int> pointers,
     @Default(CameraViewport.unbaked()) CameraViewport cameraViewport,
+    @Default(AssetLocation(path: '')) AssetLocation location,
+    @Default(false) bool saved,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -330,5 +332,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void withUnbaked(List<Renderer<PadElement>> unbakedElements) {
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.withUnbaked(unbakedElements)));
+  }
+
+  void setSaveState({AssetLocation? location, bool? saved}) {
+    emit(state.copyWith(
+        location: location ?? state.location, saved: saved ?? state.saved));
   }
 }
