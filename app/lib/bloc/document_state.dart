@@ -48,8 +48,7 @@ class DocumentLoadSuccess extends DocumentState {
         currentAreaIndex,
         settingsCubit,
         currentIndexCubit,
-        embedding,
-        saved
+        embedding
       ];
 
   Area? get currentArea {

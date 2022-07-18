@@ -26,7 +26,8 @@ class AssetLocation with _$AssetLocation {
 
   const AssetLocation._();
 
-  String get identifier => remote == '' ? path : '$remote@$path';
+  String get identifier =>
+      remote == '' ? pathWithLeadingSlash : '$remote@$pathWithLeadingSlash';
   String get pathWithLeadingSlash => path.startsWith('/') ? path : '/$path';
   String get pathWithoutLeadingSlash =>
       path.startsWith('/') ? path.substring(1) : path;

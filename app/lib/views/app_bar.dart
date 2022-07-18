@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:flutter/foundation.dart';
@@ -57,122 +58,153 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
               viewportKey: viewportKey,
               hideUndoRedo: !isMobile,
             ),
-            title: BlocBuilder<DocumentBloc, DocumentState>(
-                buildWhen: (previous, current) {
-              if (current is! DocumentLoadSuccess ||
-                  previous is! DocumentLoadSuccess) return true;
-              return _nameController.text != current.document.name ||
-                  previous.location != current.location ||
-                  (current.currentArea != previous.currentArea &&
-                      _areaController.text != current.currentArea?.name) ||
-                  previous.saved != current.saved;
-            }, builder: (ctx, state) {
-              Widget title;
-              if (state is DocumentLoadSuccess) {
-                if (_nameController.text != state.document.name) {
-                  _nameController.text = state.document.name;
-                }
-                var area = state.currentArea;
-                if (_nameController.text != area?.name) {
-                  _areaController.text = area?.name ?? '';
-                }
-                title = StatefulBuilder(
-                  builder: (context, setState) => Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Focus(
-                          onFocusChange: (hasFocus) {
-                            if (hasFocus) {
-                              // Add cursor to end of text
-                              if (area == null) {
-                                _nameController.selection =
-                                    TextSelection.fromPosition(TextPosition(
-                                        affinity: TextAffinity.downstream,
-                                        offset: _nameController.text.length));
-                              } else {
-                                _areaController.selection =
-                                    TextSelection.fromPosition(TextPosition(
-                                        affinity: TextAffinity.downstream,
-                                        offset: _areaController.text.length));
-                              }
-                            }
-                          },
-                          child: TextField(
-                            controller: area == null
-                                ? _nameController
-                                : _areaController,
-                            textAlign: TextAlign.center,
-                            style: area == null
-                                ? Theme.of(context).textTheme.headline6
-                                : Theme.of(context).textTheme.headline4,
-                            onChanged: (value) {
-                              if (area == null) {
-                                bloc.add(
-                                    DocumentDescriptorChanged(name: value));
-                              } else {
-                                bloc.add(AreaChanged(
-                                  state.currentAreaIndex,
-                                  area.copyWith(name: value),
-                                ));
-                              }
-                            },
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.zero,
-                              hintText: AppLocalizations.of(context)!.untitled,
-                              hintStyle: area == null
-                                  ? Theme.of(context).textTheme.headline6
-                                  : Theme.of(context).textTheme.headline4,
-                              border: InputBorder.none,
+            title: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                builder: (context, currentIndex) => Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: BlocBuilder<DocumentBloc, DocumentState>(
+                                buildWhen: (previous, current) {
+                                  if (previous is! DocumentLoadSuccess &&
+                                      current is DocumentLoadSuccess) {
+                                    return true;
+                                  }
+                                  if (previous is! DocumentLoadSuccess ||
+                                      current is! DocumentLoadSuccess) {
+                                    return true;
+                                  }
+                                  return previous.currentAreaIndex !=
+                                      current.currentAreaIndex;
+                                },
+                                builder: (context, state) => StatefulBuilder(
+                                        builder: (context, setState) {
+                                      final area = state is DocumentLoadSuccess
+                                          ? state.currentArea
+                                          : null;
+                                      final areaIndex =
+                                          state is DocumentLoadSuccess
+                                              ? state.currentAreaIndex
+                                              : null;
+                                      Widget title = Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Focus(
+                                              onFocusChange: (hasFocus) {
+                                                if (hasFocus) {
+                                                  // Add cursor to end of text
+                                                  if (area == null) {
+                                                    _nameController.selection =
+                                                        TextSelection.fromPosition(
+                                                            TextPosition(
+                                                                affinity:
+                                                                    TextAffinity
+                                                                        .downstream,
+                                                                offset:
+                                                                    _nameController
+                                                                        .text
+                                                                        .length));
+                                                  } else {
+                                                    _areaController.selection =
+                                                        TextSelection.fromPosition(
+                                                            TextPosition(
+                                                                affinity:
+                                                                    TextAffinity
+                                                                        .downstream,
+                                                                offset:
+                                                                    _areaController
+                                                                        .text
+                                                                        .length));
+                                                  }
+                                                }
+                                              },
+                                              child: TextField(
+                                                controller: area == null
+                                                    ? _nameController
+                                                    : _areaController,
+                                                textAlign: TextAlign.center,
+                                                style: area == null
+                                                    ? Theme.of(context)
+                                                        .textTheme
+                                                        .headline6
+                                                    : Theme.of(context)
+                                                        .textTheme
+                                                        .headline4,
+                                                onChanged: (value) {
+                                                  if (area == null ||
+                                                      areaIndex == null) {
+                                                    bloc.add(
+                                                        DocumentDescriptorChanged(
+                                                            name: value));
+                                                  } else {
+                                                    bloc.add(AreaChanged(
+                                                      areaIndex,
+                                                      area.copyWith(
+                                                          name: value),
+                                                    ));
+                                                  }
+                                                },
+                                                decoration: InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
+                                                  hintText: AppLocalizations.of(
+                                                          context)!
+                                                      .untitled,
+                                                  hintStyle: area == null
+                                                      ? Theme.of(context)
+                                                          .textTheme
+                                                          .headline6
+                                                      : Theme.of(context)
+                                                          .textTheme
+                                                          .headline4,
+                                                  border: InputBorder.none,
+                                                ),
+                                              ),
+                                            ),
+                                            if (currentIndex.location.path !=
+                                                    '' &&
+                                                area == null)
+                                              Text(
+                                                currentIndex
+                                                    .location.identifier,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption,
+                                                textAlign: TextAlign.center,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                          ]);
+                                      if (isWindow()) {
+                                        title = DragToMoveArea(
+                                          child: title,
+                                        );
+                                      }
+                                      return SizedBox(
+                                          height: _height, child: title);
+                                    })),
+                          ),
+                          Row(children: [
+                            IconButton(
+                              icon: currentIndex.saved
+                                  ? const Icon(PhosphorIcons.floppyDiskFill)
+                                  : const Icon(PhosphorIcons.floppyDiskLight),
+                              tooltip: AppLocalizations.of(context)!.save,
+                              onPressed: () {
+                                Actions.maybeInvoke<SaveIntent>(
+                                    context, SaveIntent(context));
+                              },
                             ),
-                          ),
-                        ),
-                        if (state.location.path != '' && area == null)
-                          Text(
-                            state.location.identifier,
-                            style: Theme.of(ctx).textTheme.caption,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                      ]),
-                );
-                if (!state.hasAutosave()) {
-                  title = Row(children: [
-                    Expanded(child: title),
-                    IconButton(
-                      icon: state.saved
-                          ? const Icon(PhosphorIcons.floppyDiskFill)
-                          : const Icon(PhosphorIcons.floppyDiskLight),
-                      tooltip: AppLocalizations.of(context)!.save,
-                      onPressed: () {
-                        Actions.maybeInvoke<SaveIntent>(
-                            context, SaveIntent(context));
-                      },
-                    ),
-                    const SizedBox(width: 8),
-                  ]);
-                }
-              } else {
-                title = Text(AppLocalizations.of(ctx)!.loading);
-              }
-              title = Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(child: title),
-                  if (!isMobile)
-                    Flexible(
-                        child: EditToolbar(
-                      isMobile: false,
-                    )),
-                ],
-              );
-              if (isWindow()) {
-                title = DragToMoveArea(
-                  child: title,
-                );
-              }
-              return SizedBox(height: _height, child: title);
-            }),
+                            const SizedBox(width: 8),
+                          ]),
+                          if (!isMobile)
+                            Flexible(
+                                child: EditToolbar(
+                              isMobile: false,
+                            )),
+                        ])),
             actions: [
               BlocBuilder<DocumentBloc, DocumentState>(
                 builder: (context, state) => Row(
