@@ -1,1 +1,3 @@
 * Fix save indicator
+* Fix error when fetching version
+* Fix save button

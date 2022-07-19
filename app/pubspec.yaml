@@ -56,7 +56,7 @@ dependencies:
   rxdart: ^0.27.5
 
 dev_dependencies:
-  flutter_native_splash: ^2.2.4
+  flutter_native_splash: ^2.2.5
   flutter_launcher_icons: ^0.9.3
   flutter_lints: ^2.0.1
   flutter_test:

@@ -542,12 +542,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     AssetLocation? path = current.location;
     if (current.hasAutosave()) {
       path = await current.save();
-      var currentState = state;
-      if (currentState is! DocumentLoadSuccess) return;
-      if (currentState.location.path == '' && state is DocumentLoadSuccess) {
-        current.currentIndexCubit.setSaveState(saved: true, location: path);
-        clearHistory();
-      }
+      current.currentIndexCubit.setSaveState(saved: true, location: path);
     }
   }
 

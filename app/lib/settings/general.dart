@@ -20,8 +20,8 @@ class Meta {
       required this.nightlyVersion,
       required this.currentVersion});
   Meta.fromJson(Map<String, dynamic> json)
-      : stableVersion = json['version']['stable'],
-        nightlyVersion = json['version']['nightly'],
+      : stableVersion = json['version']['stable'] ?? '?',
+        nightlyVersion = json['version']['nightly'] ?? '?',
         currentVersion = json['currentVersion'];
 }
 
@@ -30,13 +30,21 @@ class GeneralSettingsPage extends StatelessWidget {
   const GeneralSettingsPage({super.key, this.inView = false});
 
   Future<Meta> _fetchMeta() async {
-    final response = await http
-        .get(Uri.parse('https://docs.butterfly.linwood.dev/meta.json'));
     final packageInfo = await PackageInfo.fromPlatform();
     final currentVersion = packageInfo.version;
+    String responseBody = '{}';
+    try {
+      final response = await http
+          .get(Uri.parse('https://docs.butterfly.linwood.dev/meta.json'));
+      responseBody = response.body;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
 
     return Meta.fromJson(
-        {...json.decode(response.body), 'currentVersion': currentVersion});
+        {...json.decode(responseBody), 'currentVersion': currentVersion});
   }
 
   @override
