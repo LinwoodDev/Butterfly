@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:xml/xml.dart';
 
+import '../embed/embedding.dart';
 import '../handlers/handler.dart';
 import '../models/area.dart';
 import '../models/background.dart';
@@ -39,6 +40,7 @@ class CurrentIndex with _$CurrentIndex {
     @Default([]) List<int> pointers,
     @Default(CameraViewport.unbaked()) CameraViewport cameraViewport,
     @Default(AssetLocation(path: '')) AssetLocation location,
+    Embedding? embedding,
     @Default(false) bool saved,
   }) = _CurrentIndex;
 
@@ -47,12 +49,10 @@ class CurrentIndex with _$CurrentIndex {
 }
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
-  CurrentIndexCubit(
-    AppDocument document,
-    SettingsCubit settingsCubit,
-    TransformCubit transformCubit,
-  ) : super(CurrentIndex(-1, HandHandler(document.handProperty), settingsCubit,
-            transformCubit));
+  CurrentIndexCubit(AppDocument document, SettingsCubit settingsCubit,
+      TransformCubit transformCubit, Embedding? embedding)
+      : super(CurrentIndex(-1, HandHandler(document.handProperty),
+            settingsCubit, transformCubit));
 
   Handler getHandler({bool disableTemporary = false}) {
     if (disableTemporary) {

@@ -22,7 +22,6 @@ class DocumentLoadSuccess extends DocumentState {
   final List<String> invisibleLayers;
   final SettingsCubit settingsCubit;
   final CurrentIndexCubit currentIndexCubit;
-  final Embedding? embedding;
 
   DocumentLoadSuccess(this.document,
       {AssetLocation? location,
@@ -32,7 +31,6 @@ class DocumentLoadSuccess extends DocumentState {
       required this.currentIndexCubit,
       this.currentAreaIndex = -1,
       this.currentLayer = '',
-      this.embedding,
       this.invisibleLayers = const []}) {
     if (location != null) {
       currentIndexCubit.setSaveState(location: location, saved: saved);
@@ -43,12 +41,10 @@ class DocumentLoadSuccess extends DocumentState {
   List<Object?> get props => [
         invisibleLayers,
         document,
-        location,
         currentLayer,
         currentAreaIndex,
         settingsCubit,
         currentIndexCubit,
-        embedding
       ];
 
   Area? get currentArea {
@@ -75,6 +71,8 @@ class DocumentLoadSuccess extends DocumentState {
         background: background, unbakedElements: renderers);
   }
 
+  Embedding? get embedding => currentIndexCubit.state.embedding;
+
   DocumentLoadSuccess copyWith({
     AppDocument? document,
     bool? editMode,
@@ -88,7 +86,6 @@ class DocumentLoadSuccess extends DocumentState {
         currentLayer: currentLayer ?? this.currentLayer,
         currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
         settingsCubit: settingsCubit,
-        embedding: embedding,
         currentIndexCubit: currentIndexCubit,
         location: location,
       );

@@ -24,19 +24,17 @@ part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(
-      CurrentIndexCubit currentIndexCubit,
-      SettingsCubit settingsCubit,
-      AppDocument initial,
-      AssetLocation location,
-      Renderer<Background> background,
-      List<Renderer<PadElement>> renderer,
-      [Embedding? embedding])
-      : super(DocumentLoadSuccess(
+    CurrentIndexCubit currentIndexCubit,
+    SettingsCubit settingsCubit,
+    AppDocument initial,
+    AssetLocation location,
+    Renderer<Background> background,
+    List<Renderer<PadElement>> renderer,
+  ) : super(DocumentLoadSuccess(
           initial,
           currentIndexCubit: currentIndexCubit,
           location: location,
           settingsCubit: settingsCubit,
-          embedding: embedding,
         )) {
     _init();
   }

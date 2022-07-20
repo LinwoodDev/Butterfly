@@ -30,6 +30,7 @@ mixin _$CurrentIndex {
   List<int> get pointers => throw _privateConstructorUsedError;
   CameraViewport get cameraViewport => throw _privateConstructorUsedError;
   AssetLocation get location => throw _privateConstructorUsedError;
+  Embedding? get embedding => throw _privateConstructorUsedError;
   bool get saved => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -56,6 +57,7 @@ abstract class $CurrentIndexCopyWith<$Res> {
       List<int> pointers,
       CameraViewport cameraViewport,
       AssetLocation location,
+      Embedding? embedding,
       bool saved});
 
   $AssetLocationCopyWith<$Res> get location;
@@ -84,6 +86,7 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
     Object? pointers = freezed,
     Object? cameraViewport = freezed,
     Object? location = freezed,
+    Object? embedding = freezed,
     Object? saved = freezed,
   }) {
     return _then(_value.copyWith(
@@ -139,6 +142,10 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as AssetLocation,
+      embedding: embedding == freezed
+          ? _value.embedding
+          : embedding // ignore: cast_nullable_to_non_nullable
+              as Embedding?,
       saved: saved == freezed
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
@@ -175,6 +182,7 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
       List<int> pointers,
       CameraViewport cameraViewport,
       AssetLocation location,
+      Embedding? embedding,
       bool saved});
 
   @override
@@ -207,6 +215,7 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
     Object? pointers = freezed,
     Object? cameraViewport = freezed,
     Object? location = freezed,
+    Object? embedding = freezed,
     Object? saved = freezed,
   }) {
     return _then(_$_CurrentIndex(
@@ -262,6 +271,10 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as AssetLocation,
+      embedding: embedding == freezed
+          ? _value.embedding
+          : embedding // ignore: cast_nullable_to_non_nullable
+              as Embedding?,
       saved: saved == freezed
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
@@ -284,6 +297,7 @@ class _$_CurrentIndex extends _CurrentIndex {
       final List<int> pointers = const [],
       this.cameraViewport = const CameraViewport.unbaked(),
       this.location = const AssetLocation(path: ''),
+      this.embedding,
       this.saved = false})
       : _foregrounds = foregrounds,
         _selections = selections,
@@ -353,12 +367,14 @@ class _$_CurrentIndex extends _CurrentIndex {
   @JsonKey()
   final AssetLocation location;
   @override
+  final Embedding? embedding;
+  @override
   @JsonKey()
   final bool saved;
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryIndex: $temporaryIndex, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selections: $selections, temporaryForegrounds: $temporaryForegrounds, temporarySelections: $temporarySelections, pointers: $pointers, cameraViewport: $cameraViewport, location: $location, saved: $saved)';
+    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryIndex: $temporaryIndex, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selections: $selections, temporaryForegrounds: $temporaryForegrounds, temporarySelections: $temporarySelections, pointers: $pointers, cameraViewport: $cameraViewport, location: $location, embedding: $embedding, saved: $saved)';
   }
 
   @override
@@ -388,6 +404,7 @@ class _$_CurrentIndex extends _CurrentIndex {
             const DeepCollectionEquality()
                 .equals(other.cameraViewport, cameraViewport) &&
             const DeepCollectionEquality().equals(other.location, location) &&
+            const DeepCollectionEquality().equals(other.embedding, embedding) &&
             const DeepCollectionEquality().equals(other.saved, saved));
   }
 
@@ -407,6 +424,7 @@ class _$_CurrentIndex extends _CurrentIndex {
       const DeepCollectionEquality().hash(_pointers),
       const DeepCollectionEquality().hash(cameraViewport),
       const DeepCollectionEquality().hash(location),
+      const DeepCollectionEquality().hash(embedding),
       const DeepCollectionEquality().hash(saved));
 
   @JsonKey(ignore: true)
@@ -427,6 +445,7 @@ abstract class _CurrentIndex extends CurrentIndex {
       final List<int> pointers,
       final CameraViewport cameraViewport,
       final AssetLocation location,
+      final Embedding? embedding,
       final bool saved}) = _$_CurrentIndex;
   const _CurrentIndex._() : super._();
 
@@ -456,6 +475,8 @@ abstract class _CurrentIndex extends CurrentIndex {
   CameraViewport get cameraViewport;
   @override
   AssetLocation get location;
+  @override
+  Embedding? get embedding;
   @override
   bool get saved;
   @override
