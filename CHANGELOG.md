@@ -2,6 +2,15 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.0-rc.1 (2022-07-20)
+
+* Fix save indicator
+* Fix error when fetching version
+* Fix save button
+* Fix drag to move area
+* Fix invalid parse of remote path
+* Fix bake issues
+
 ## 1.4.0-rc.0 (2022-07-17)
 
 * Add stylus button input
