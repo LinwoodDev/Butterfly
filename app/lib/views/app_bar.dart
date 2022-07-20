@@ -59,9 +59,9 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
               hideUndoRedo: !isMobile,
             ),
             title: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                builder: (context, currentIndex) => BlocBuilder<DocumentBloc,
-                        DocumentState>(
-                    buildWhen: (previous, current) {
+                builder: (context, currentIndex) =>
+                    BlocBuilder<DocumentBloc, DocumentState>(
+                        buildWhen: (previous, current) {
                       if (previous is! DocumentLoadSuccess &&
                           current is DocumentLoadSuccess) {
                         return true;
@@ -73,130 +73,123 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                       return previous.currentAreaIndex !=
                               current.currentAreaIndex ||
                           previous.hasAutosave() != current.hasAutosave();
-                    },
-                    builder: (context, state) => Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(child:
-                                  StatefulBuilder(builder: (context, setState) {
-                                final area = state is DocumentLoadSuccess
-                                    ? state.currentArea
-                                    : null;
-                                final areaIndex = state is DocumentLoadSuccess
-                                    ? state.currentAreaIndex
-                                    : null;
-                                Widget title = Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Focus(
-                                        onFocusChange: (hasFocus) {
-                                          if (hasFocus) {
-                                            // Add cursor to end of text
-                                            if (area == null) {
-                                              _nameController.selection =
-                                                  TextSelection.fromPosition(
-                                                      TextPosition(
-                                                          affinity: TextAffinity
-                                                              .downstream,
-                                                          offset:
-                                                              _nameController
-                                                                  .text
-                                                                  .length));
-                                            } else {
-                                              _areaController.selection =
-                                                  TextSelection.fromPosition(
-                                                      TextPosition(
-                                                          affinity: TextAffinity
-                                                              .downstream,
-                                                          offset:
-                                                              _areaController
-                                                                  .text
-                                                                  .length));
-                                            }
+                    }, builder: (context, state) {
+                      final title = Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(child:
+                                StatefulBuilder(builder: (context, setState) {
+                              final area = state is DocumentLoadSuccess
+                                  ? state.currentArea
+                                  : null;
+                              final areaIndex = state is DocumentLoadSuccess
+                                  ? state.currentAreaIndex
+                                  : null;
+                              Widget title = Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Focus(
+                                      onFocusChange: (hasFocus) {
+                                        if (hasFocus) {
+                                          // Add cursor to end of text
+                                          if (area == null) {
+                                            _nameController.selection =
+                                                TextSelection.fromPosition(
+                                                    TextPosition(
+                                                        affinity: TextAffinity
+                                                            .downstream,
+                                                        offset: _nameController
+                                                            .text.length));
+                                          } else {
+                                            _areaController.selection =
+                                                TextSelection.fromPosition(
+                                                    TextPosition(
+                                                        affinity: TextAffinity
+                                                            .downstream,
+                                                        offset: _areaController
+                                                            .text.length));
+                                          }
+                                        }
+                                      },
+                                      child: TextField(
+                                        controller: area == null
+                                            ? _nameController
+                                            : _areaController,
+                                        textAlign: TextAlign.center,
+                                        style: area == null
+                                            ? Theme.of(context)
+                                                .textTheme
+                                                .headline6
+                                            : Theme.of(context)
+                                                .textTheme
+                                                .headline4,
+                                        onChanged: (value) {
+                                          if (area == null ||
+                                              areaIndex == null) {
+                                            bloc.add(DocumentDescriptorChanged(
+                                                name: value));
+                                          } else {
+                                            bloc.add(AreaChanged(
+                                              areaIndex,
+                                              area.copyWith(name: value),
+                                            ));
                                           }
                                         },
-                                        child: TextField(
-                                          controller: area == null
-                                              ? _nameController
-                                              : _areaController,
-                                          textAlign: TextAlign.center,
-                                          style: area == null
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.zero,
+                                          hintText:
+                                              AppLocalizations.of(context)!
+                                                  .untitled,
+                                          hintStyle: area == null
                                               ? Theme.of(context)
                                                   .textTheme
                                                   .headline6
                                               : Theme.of(context)
                                                   .textTheme
                                                   .headline4,
-                                          onChanged: (value) {
-                                            if (area == null ||
-                                                areaIndex == null) {
-                                              bloc.add(
-                                                  DocumentDescriptorChanged(
-                                                      name: value));
-                                            } else {
-                                              bloc.add(AreaChanged(
-                                                areaIndex,
-                                                area.copyWith(name: value),
-                                              ));
-                                            }
-                                          },
-                                          decoration: InputDecoration(
-                                            contentPadding: EdgeInsets.zero,
-                                            hintText:
-                                                AppLocalizations.of(context)!
-                                                    .untitled,
-                                            hintStyle: area == null
-                                                ? Theme.of(context)
-                                                    .textTheme
-                                                    .headline6
-                                                : Theme.of(context)
-                                                    .textTheme
-                                                    .headline4,
-                                            border: InputBorder.none,
-                                          ),
+                                          border: InputBorder.none,
                                         ),
                                       ),
-                                      if (currentIndex.location.path != '' &&
-                                          area == null)
-                                        Text(
-                                          currentIndex.location.identifier,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .caption,
-                                          textAlign: TextAlign.center,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                    ]);
-                                if (isWindow()) {
-                                  title = DragToMoveArea(
-                                    child: title,
-                                  );
-                                }
-                                return SizedBox(height: _height, child: title);
-                              })),
-                              if (state is DocumentLoadSuccess &&
-                                  !state.hasAutosave())
-                                IconButton(
-                                  icon: currentIndex.saved
-                                      ? const Icon(PhosphorIcons.floppyDiskFill)
-                                      : const Icon(
-                                          PhosphorIcons.floppyDiskLight),
-                                  tooltip: AppLocalizations.of(context)!.save,
-                                  onPressed: () {
-                                    Actions.maybeInvoke<SaveIntent>(
-                                        context, SaveIntent(context));
-                                  },
-                                ),
-                              const SizedBox(width: 8),
-                              if (!isMobile)
-                                Flexible(
-                                    child: EditToolbar(
-                                  isMobile: false,
-                                )),
-                            ]))),
+                                    ),
+                                    if (currentIndex.location.path != '' &&
+                                        area == null)
+                                      Text(
+                                        currentIndex.location.identifier,
+                                        style:
+                                            Theme.of(context).textTheme.caption,
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                  ]);
+                              return title;
+                            })),
+                            if (state is DocumentLoadSuccess &&
+                                !state.hasAutosave())
+                              IconButton(
+                                icon: currentIndex.saved
+                                    ? const Icon(PhosphorIcons.floppyDiskFill)
+                                    : const Icon(PhosphorIcons.floppyDiskLight),
+                                tooltip: AppLocalizations.of(context)!.save,
+                                onPressed: () {
+                                  Actions.maybeInvoke<SaveIntent>(
+                                      context, SaveIntent(context));
+                                },
+                              ),
+                            const SizedBox(width: 8),
+                            if (!isMobile)
+                              Flexible(
+                                  child: EditToolbar(
+                                isMobile: false,
+                              )),
+                          ]);
+                      if (!kIsWeb && isWindow()) {
+                        return DragToMoveArea(child: title);
+                      }
+                      return title;
+                    })),
             actions: [
               BlocBuilder<DocumentBloc, DocumentState>(
                 builder: (context, state) => Row(

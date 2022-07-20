@@ -1,3 +1,4 @@
 * Fix save indicator
 * Fix error when fetching version
 * Fix save button
+* Fix drag to move area
