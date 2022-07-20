@@ -159,11 +159,11 @@ class ButterflyApp extends StatelessWidget {
               name: 'remote',
               path: '/remote/:remote/:path(.*)',
               builder: (context, state) {
-                final remote = state.params['remote'];
+                final remote =
+                    Uri.decodeComponent(state.params['remote'] ?? '');
                 final path = state.params['path'];
                 return ProjectPage(
-                    location:
-                        AssetLocation(remote: remote ?? '', path: path ?? ''));
+                    location: AssetLocation(remote: remote, path: path ?? ''));
               },
             ),
             GoRoute(

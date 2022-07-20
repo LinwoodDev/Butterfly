@@ -374,6 +374,8 @@ class _MainPopupMenu extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
                                     filled: true,
+                                    floatingLabelAlignment:
+                                        FloatingLabelAlignment.center,
                                     labelText:
                                         AppLocalizations.of(context)!.zoom),
                               ),
@@ -448,14 +450,17 @@ class _MainPopupMenu extends StatelessWidget {
                                 onTap: () {
                                   Navigator.of(context).pop();
                                   if (location.remote != '') {
-                                    GoRouter.of(context)
-                                        .push(Uri(pathSegments: [
+                                    final uri = Uri(pathSegments: [
                                       '',
                                       'remote',
                                       Uri.encodeComponent(location.remote),
                                       ...location.pathWithoutLeadingSlash
-                                          .split('/'),
-                                    ]).toString());
+                                          .split('/')
+                                          .map((e) => Uri.encodeComponent(e)),
+                                    ]).toString();
+                                    print(uri);
+
+                                    GoRouter.of(context).push(uri);
                                     return;
                                   }
                                   GoRouter.of(context).push(Uri(
