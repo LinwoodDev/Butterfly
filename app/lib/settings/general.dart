@@ -20,8 +20,8 @@ class Meta {
       required this.nightlyVersion,
       required this.currentVersion});
   Meta.fromJson(Map<String, dynamic> json)
-      : stableVersion = json['version']['stable'] ?? '?',
-        nightlyVersion = json['version']['nightly'] ?? '?',
+      : stableVersion = json['version']?['stable'] ?? '?',
+        nightlyVersion = json['version']?['nightly'] ?? '?',
         currentVersion = json['currentVersion'];
 }
 
@@ -91,7 +91,10 @@ class GeneralSettingsPage extends StatelessWidget {
                           final nightlyVersion = meta.nightlyVersion;
                           final isStable = currentVersion == stableVersion;
                           final isNightly = currentVersion == nightlyVersion;
-                          final isUpdateAvailable = !isStable && !isNightly;
+                          final isError = meta.nightlyVersion == '?' ||
+                              meta.stableVersion == '?';
+                          final isUpdateAvailable =
+                              !isError && !isStable && !isNightly;
                           return Column(children: [
                             ListTile(
                               title: Text(AppLocalizations.of(context)!.stable),
@@ -117,6 +120,11 @@ class GeneralSettingsPage extends StatelessWidget {
                               ListTile(
                                 title: Text(AppLocalizations.of(context)!
                                     .usingLatestNightly),
+                              ),
+                            if (isError)
+                              ListTile(
+                                title:
+                                    Text(AppLocalizations.of(context)!.error),
                               ),
                             if (isUpdateAvailable)
                               ListTile(
