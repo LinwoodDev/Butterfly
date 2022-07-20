@@ -116,8 +116,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void reset(AppDocument document) {
-    emit(
-        state.copyWith(index: -1, handler: HandHandler(document.handProperty)));
+    emit(state.copyWith(
+      index: -1,
+      handler: HandHandler(document.handProperty),
+      foregrounds: [],
+      selections: [],
+      temporaryIndex: null,
+      temporaryHandler: null,
+      temporaryForegrounds: null,
+      temporarySelections: null,
+    ));
   }
 
   void changeIndex(int i) {

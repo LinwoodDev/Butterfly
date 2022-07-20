@@ -3,3 +3,4 @@
 * Fix save button
 * Fix drag to move area
 * Fix invalid parse of remote path
+* Fix bake issues

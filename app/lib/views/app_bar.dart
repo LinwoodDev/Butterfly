@@ -458,7 +458,6 @@ class _MainPopupMenu extends StatelessWidget {
                                           .split('/')
                                           .map((e) => Uri.encodeComponent(e)),
                                     ]).toString();
-                                    print(uri);
 
                                     GoRouter.of(context).push(uri);
                                     return;
@@ -468,7 +467,8 @@ class _MainPopupMenu extends StatelessWidget {
                                       '',
                                       'local',
                                       ...location.pathWithoutLeadingSlash
-                                          .split('/'),
+                                          .split('/')
+                                          .map((e) => Uri.encodeComponent(e)),
                                     ],
                                   ).toString());
                                 },

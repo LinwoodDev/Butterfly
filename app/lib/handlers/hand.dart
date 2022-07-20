@@ -3,6 +3,7 @@ part of 'handler.dart';
 class HandHandler extends Handler<HandProperty> {
   Renderer<PadElement>? movingElement;
   Renderer<PadElement>? selected;
+  bool _hasMoved = false;
   Offset? currentMovePosition;
 
   HandHandler(super.data);
@@ -133,6 +134,10 @@ class HandHandler extends Handler<HandProperty> {
         bloc.refresh();
       }
     }
+    if (_hasMoved) {
+      _hasMoved = false;
+      bloc.bake();
+    }
   }
 
   @override
@@ -165,6 +170,7 @@ class HandHandler extends Handler<HandProperty> {
     }
     if (_firstPointer == event.pointer) {
       context.read<TransformCubit>().move(event.localDelta / transform.size);
+      _hasMoved = true;
     }
   }
 
