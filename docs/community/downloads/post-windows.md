@@ -2,7 +2,7 @@
 title: Thank you for downloading
 hide_title: true
 hide_table_of_contents: true
-slug: "/downloads/thank-you"
+slug: "/downloads/post-windows"
 ---
 
 <div className="text-center margin-top--xl">
@@ -18,5 +18,18 @@ slug: "/downloads/thank-you"
 </a>
 
 </div>
+
+## Windows SmartScreen
+
+
+Windows warns users when installing software without a certificate.
+
+![Smart screen](/img/smart-screen.png).
+
+To install the app, you need to click on "More info".
+
+![Smart screen more info](/img/smart-screen-more-info.png).
+
+Then, click on "Run anyway".
 
 </div>
