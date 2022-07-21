@@ -1,0 +1,12 @@
+---
+title: Intégrer une aire de jeu
+sidebar_label: Terrain de jeux
+---
+
+Lisez la documentation [](intro) pour apprendre comment utiliser la fonctionnalité d'insertion.
+
+```mdx-code-block
+import EmbedPlayground from "@site/src/components/EmbedPlayground.js"
+
+<EmbedPlayground />
+```
