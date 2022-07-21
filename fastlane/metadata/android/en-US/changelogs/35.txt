@@ -1,0 +1,2 @@
+* Add portuguese (Brazil) localization
+* Fix file import on remote

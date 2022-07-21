@@ -1,12 +1,13 @@
-commit_message: "[ci skip]"
+commit_message: '[ci skip]'
 files:
   - source: /app/lib/l10n/app_en.arb
-    translation: /app/lib/l10n/app_%two_letters_code%.arb
+    translation: /app/lib/l10n/app_%osx_locale%.arb
   - source: /docs/i18n/en/**/*
     translation: /docs/i18n/%two_letters_code%/**/%original_file_name%
   - source: /docs/docs/**/*
     translation: /docs/i18n/%two_letters_code%/docusaurus-plugin-content-docs/current/**/%original_file_name%
   - source: /docs/community/**/*
+    ignore_settings: 1
     ignore:
       - CHANGELOG.md
       - versions.md

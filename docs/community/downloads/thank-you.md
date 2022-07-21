@@ -13,7 +13,7 @@ slug: "/downloads/thank-you"
 <a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
   Contribute to the project
 </a>
-<a className="button button--outline button--info button--lg margin--sm" href="https://discord.linwood.dev">
+<a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
   Join the community
 </a>
 

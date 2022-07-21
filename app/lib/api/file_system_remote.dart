@@ -96,6 +96,8 @@ abstract class DavRemoteSystem {
   Future<void> cacheContent(String path, String content) async {
     var absolutePath = await getAbsoluteCachePath(path);
     var file = File(absolutePath);
+    final directory = Directory(absolutePath);
+    if (await directory.exists()) return;
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
@@ -379,16 +381,11 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     if (!path.endsWith('/') && path != '/') {
       path = '$path/';
     }
-    if (path.startsWith('/')) {
+    if (path.startsWith('/') && path != '/') {
       path = path.substring(1);
     }
 
     final content = document.toJson();
-    if (!forceSync && remote.hasDocumentCached(path)) {
-      cacheContent(path, json.encode(content));
-      return AppDocumentFile(
-          AssetLocation(remote: remote.identifier, path: path), content);
-    }
     final has = await hasAsset(path);
     if (!has) {
       await createDirectory(path);
@@ -404,6 +401,12 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
         asset.assets.any((a) => a.pathWithLeadingSlash == '$path/$fileName')) {
       fileName = convertNameToFile('${document.name}_${++counter}');
     }
+    if (!forceSync && remote.hasDocumentCached(path)) {
+      cacheContent(path + fileName, json.encode(content));
+      return AppDocumentFile(
+          AssetLocation(remote: remote.identifier, path: path + fileName),
+          content);
+    }
     final response = await _createRequest(
         [if (path != '/') ...path.split('/'), fileName],
         method: 'PUT', body: json.encode(content));
@@ -412,7 +415,8 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
           'Failed to import document: ${response.statusCode} ${response.reasonPhrase}');
     }
     return AppDocumentFile(
-        AssetLocation(remote: remote.identifier, path: fileName), content);
+        AssetLocation(remote: remote.identifier, path: path + fileName),
+        content);
   }
 
   @override
