@@ -170,7 +170,15 @@ class ButterflySettings with _$ButterflySettings {
     );
   }
 
-  Locale? get locale => localeTag.isEmpty ? null : Locale(localeTag);
+  Locale? get locale {
+    if (localeTag.isEmpty) {
+      return null;
+    }
+    if (localeTag.contains('-')) {
+      return Locale(localeTag.split('-')[0], localeTag.split('-')[1]);
+    }
+    return Locale(localeTag);
+  }
 
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
@@ -237,7 +245,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> changeLocale(Locale? locale) {
-    emit(state.copyWith(localeTag: locale?.toString() ?? ''));
+    emit(state.copyWith(localeTag: locale?.toLanguageTag() ?? ''));
     return save();
   }
 

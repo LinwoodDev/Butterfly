@@ -9,6 +9,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../theme/manager.dart';
 
+const kIgnoredLanguages = ['pt'];
+
 class PersonalizationSettingsPage extends StatelessWidget {
   final bool inView;
   const PersonalizationSettingsPage({super.key, this.inView = false});
@@ -27,7 +29,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
   }
 
   String _getLocaleName(BuildContext context, String? locale) {
-    switch (locale) {
+    switch (locale ?? '') {
       case 'fr':
         return AppLocalizations.of(context)!.french;
       case 'de':
@@ -38,10 +40,12 @@ class PersonalizationSettingsPage extends StatelessWidget {
         return AppLocalizations.of(context)!.spanish;
       case 'it':
         return AppLocalizations.of(context)!.italian;
-      case 'pt_BR':
+      case 'pt-BR':
         return AppLocalizations.of(context)!.portugueseBrazil;
-      default:
+      case '':
         return AppLocalizations.of(context)!.defaultLocale;
+      default:
+        return locale ?? '';
     }
   }
 
@@ -244,9 +248,11 @@ class PersonalizationSettingsPage extends StatelessWidget {
                     selected: currentLocale.isEmpty,
                     onTap: () => changeLocale(null)),
                 ...locales
+                    .where((element) =>
+                        !kIgnoredLanguages.contains(element.toLanguageTag()))
                     .map((e) => ListTile(
-                        title: Text(_getLocaleName(context, e.languageCode)),
-                        selected: currentLocale == e.languageCode,
+                        title: Text(_getLocaleName(context, e.toLanguageTag())),
+                        selected: currentLocale == e.toLanguageTag(),
                         onTap: () => changeLocale(e)))
                     .toList(),
                 const SizedBox(height: 32),
