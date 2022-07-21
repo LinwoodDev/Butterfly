@@ -143,6 +143,11 @@ jobs:
           chmod +x appimage-builder-x86_64.AppImage
           sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
           appimage-builder --recipe AppImageBuilder.yml --skip-test
+      - name: Copy nessessary files
+        run: |
+          cp images/logo.svg build/linux/x64/release/bundle/dev.linwood.butterfly.svg
+          mkdir -p build/linux/x64/release/bundle/usr/share
+          cp -r linux/debian/usr/share build/linux/x64/release/bundle/usr
       - name: Rename AppImage
         run: |
           mv ./*.AppImage* linwood-butterfly-linux.AppImage
