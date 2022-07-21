@@ -11,10 +11,10 @@ slug: "/downloads/thank-you"
 
 <div className="row margin-bottom--lg padding--sm flex-center">
 <a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  Contribuez au projet
+  Contribute to the project
 </a>
-<a className="button button--outline button--info button--lg margin--sm" href="https://discord.linwood.dev">
-  Rejoignez la communauté
+<a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
+  Join the community
 </a>
 
 </div>
