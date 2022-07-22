@@ -11,10 +11,10 @@ slug: "/downloads/post-windows"
 
 <div className="row margin-bottom--lg padding--sm flex-center">
 <a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  Contribute to the project
+  Contribuisci al progetto
 </a>
 <a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Join the community
+  Unisciti alla community
 </a>
 
 </div>
@@ -22,14 +22,14 @@ slug: "/downloads/post-windows"
 ## Windows SmartScreen
 
 
-Windows warns users when installing software without a certificate.
+Windows avvisa gli utenti durante l'installazione di software senza certificato.
 
 ![Smart screen](/img/smart-screen.png).
 
-To install the app, you need to click on "More info".
+Per installare l'app, è necessario fare clic su "Maggiori informazioni".
 
 ![Smart screen more info](/img/smart-screen-more-info.png).
 
-Then, click on "Run anyway".
+Quindi, clicca su "Esegui comunque".
 
 </div>

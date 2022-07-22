@@ -1,9 +1,9 @@
 ---
-title: Embed playground
-sidebar_label: Playground
+title: Incrustar parque
+sidebar_label: Campo de juego
 ---
 
-Read the [docs](intro) to learn how to use the embedding feature.
+Lee la [documentación](intro) para aprender cómo usar la función de incrustación.
 
 ```mdx-code-block
 import EmbedPlayground from "@site/src/components/EmbedPlayground.js"

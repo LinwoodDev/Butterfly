@@ -1,9 +1,9 @@
 ---
-title: Embed playground
-sidebar_label: Playground
+title: Embutir playground
+sidebar_label: Parquinho
 ---
 
-Read the [docs](intro) to learn how to use the embedding feature.
+Leia a documentação [](intro) para aprender como usar o recurso de incorporação.
 
 ```mdx-code-block
 import EmbedPlayground from "@site/src/components/EmbedPlayground.js"
