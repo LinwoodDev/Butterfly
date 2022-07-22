@@ -6,7 +6,7 @@ sidebar_label: Spielplatz
 Lesen Sie die [-Dokumentation](intro) , um zu erfahren, wie Sie die Einbettungsfunktion nutzen.
 
 ```mdx-code-block
-Importiere EmbedPlayground von "@site/src/components/EmbedPlayground.js"
+import EmbedPlayground from "@site/src/components/EmbedPlayground.js"
 
 <EmbedPlayground />
 ```
