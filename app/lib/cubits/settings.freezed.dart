@@ -479,6 +479,7 @@ mixin _$ButterflySettings {
   String? get lastVersion => throw _privateConstructorUsedError;
   List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
   String get defaultRemote => throw _privateConstructorUsedError;
+  bool get nativeWindowTitleBar => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -507,7 +508,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       bool colorEnabled,
       String? lastVersion,
       List<RemoteStorage> remotes,
-      String defaultRemote});
+      String defaultRemote,
+      bool nativeWindowTitleBar});
 }
 
 /// @nodoc
@@ -538,6 +540,7 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? lastVersion = freezed,
     Object? remotes = freezed,
     Object? defaultRemote = freezed,
+    Object? nativeWindowTitleBar = freezed,
   }) {
     return _then(_value.copyWith(
       theme: theme == freezed
@@ -608,6 +611,10 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _value.defaultRemote
           : defaultRemote // ignore: cast_nullable_to_non_nullable
               as String,
+      nativeWindowTitleBar: nativeWindowTitleBar == freezed
+          ? _value.nativeWindowTitleBar
+          : nativeWindowTitleBar // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -636,7 +643,8 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       bool colorEnabled,
       String? lastVersion,
       List<RemoteStorage> remotes,
-      String defaultRemote});
+      String defaultRemote,
+      bool nativeWindowTitleBar});
 }
 
 /// @nodoc
@@ -669,6 +677,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? lastVersion = freezed,
     Object? remotes = freezed,
     Object? defaultRemote = freezed,
+    Object? nativeWindowTitleBar = freezed,
   }) {
     return _then(_$_ButterflySettings(
       theme: theme == freezed
@@ -739,6 +748,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.defaultRemote
           : defaultRemote // ignore: cast_nullable_to_non_nullable
               as String,
+      nativeWindowTitleBar: nativeWindowTitleBar == freezed
+          ? _value.nativeWindowTitleBar
+          : nativeWindowTitleBar // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -763,7 +776,8 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.colorEnabled = true,
       this.lastVersion,
       final List<RemoteStorage> remotes = const [],
-      this.defaultRemote = ''})
+      this.defaultRemote = '',
+      this.nativeWindowTitleBar = false})
       : _history = history,
         _remotes = remotes,
         super._();
@@ -828,10 +842,13 @@ class _$_ButterflySettings extends _ButterflySettings {
   @override
   @JsonKey()
   final String defaultRemote;
+  @override
+  @JsonKey()
+  final bool nativeWindowTitleBar;
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar)';
   }
 
   @override
@@ -867,7 +884,9 @@ class _$_ButterflySettings extends _ButterflySettings {
                 .equals(other.lastVersion, lastVersion) &&
             const DeepCollectionEquality().equals(other._remotes, _remotes) &&
             const DeepCollectionEquality()
-                .equals(other.defaultRemote, defaultRemote));
+                .equals(other.defaultRemote, defaultRemote) &&
+            const DeepCollectionEquality()
+                .equals(other.nativeWindowTitleBar, nativeWindowTitleBar));
   }
 
   @override
@@ -889,7 +908,8 @@ class _$_ButterflySettings extends _ButterflySettings {
       const DeepCollectionEquality().hash(colorEnabled),
       const DeepCollectionEquality().hash(lastVersion),
       const DeepCollectionEquality().hash(_remotes),
-      const DeepCollectionEquality().hash(defaultRemote));
+      const DeepCollectionEquality().hash(defaultRemote),
+      const DeepCollectionEquality().hash(nativeWindowTitleBar));
 
   @JsonKey(ignore: true)
   @override
@@ -916,7 +936,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool colorEnabled,
       final String? lastVersion,
       final List<RemoteStorage> remotes,
-      final String defaultRemote}) = _$_ButterflySettings;
+      final String defaultRemote,
+      final bool nativeWindowTitleBar}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
@@ -953,6 +974,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   List<RemoteStorage> get remotes;
   @override
   String get defaultRemote;
+  @override
+  bool get nativeWindowTitleBar;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>

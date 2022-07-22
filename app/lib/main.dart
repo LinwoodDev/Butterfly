@@ -188,11 +188,20 @@ class ButterflyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => SettingsCubit.fromPrefs(prefs),
-      child: RepositoryProvider(
-        create: (context) =>
-            SyncService(context, context.read<SettingsCubit>()),
-        lazy: false,
-        child: _buildApp(),
+      child: BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
+        builder: (context, settings) {
+          windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
+              ? TitleBarStyle.normal
+              : TitleBarStyle.hidden);
+          return RepositoryProvider(
+            create: (context) =>
+                SyncService(context, context.read<SettingsCubit>()),
+            lazy: false,
+            child: _buildApp(),
+          );
+        },
       ),
     );
   }

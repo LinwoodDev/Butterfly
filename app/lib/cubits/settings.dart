@@ -128,7 +128,8 @@ class ButterflySettings with _$ButterflySettings {
       @Default(true) bool colorEnabled,
       String? lastVersion,
       @Default([]) List<RemoteStorage> remotes,
-      @Default('') String defaultRemote}) = _ButterflySettings;
+      @Default('') String defaultRemote,
+      @Default(false) bool nativeWindowTitleBar}) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final remotes = prefs.getStringList('remotes')?.map((e) {
@@ -167,6 +168,7 @@ class ButterflySettings with _$ButterflySettings {
       colorEnabled: prefs.getBool('color_enabled') ?? true,
       remotes: remotes,
       defaultRemote: prefs.getString('default_remote') ?? '',
+      nativeWindowTitleBar: prefs.getBool('native_window_title_bar') ?? false,
     );
   }
 
@@ -205,6 +207,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setStringList(
         'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
     await prefs.setString('default_remote', defaultRemote);
+    await prefs.setBool('native_window_title_bar', nativeWindowTitleBar);
   }
 
   RemoteStorage? getRemote(String identifier) {
@@ -467,4 +470,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     }).toList()));
     return save();
   }
+
+  Future<void> changeNativeWindowTitleBar(bool value) {
+    emit(state.copyWith(nativeWindowTitleBar: value));
+    return save();
+  }
+
+  Future<void> resetNativeWindowTitleBar() => changeNativeWindowTitleBar(false);
 }
