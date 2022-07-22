@@ -52,7 +52,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   CurrentIndexCubit(AppDocument document, SettingsCubit settingsCubit,
       TransformCubit transformCubit, Embedding? embedding)
       : super(CurrentIndex(-1, HandHandler(document.handProperty),
-            settingsCubit, transformCubit));
+            settingsCubit, transformCubit,
+            embedding: embedding));
 
   Handler getHandler({bool disableTemporary = false}) {
     if (disableTemporary) {
