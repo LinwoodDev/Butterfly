@@ -6,7 +6,7 @@ sidebar_label: Terrain de jeux
 Lisez la documentation [](intro) pour apprendre comment utiliser la fonctionnalité d'insertion.
 
 ```mdx-code-block
-importer EmbedPlayground depuis "@site/src/components/EmbedPlayground.js"
+import EmbedPlayground from "@site/src/components/EmbedPlayground.js"
 
 <EmbedPlayground />
 ```
