@@ -42,11 +42,11 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     var bloc = context.read<DocumentBloc>();
     return GestureDetector(onSecondaryTap: () {
-      if (isWindow()) {
+      if (!kIsWeb && isWindow()) {
         windowManager.popUpWindowMenu();
       }
     }, onLongPress: () {
-      if (isWindow()) {
+      if (!kIsWeb && isWindow()) {
         windowManager.popUpWindowMenu();
       }
     }, child: LayoutBuilder(
@@ -185,44 +185,57 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                 isMobile: false,
                               )),
                           ]);
-                      if (!kIsWeb && isWindow()) {
+                      if (!kIsWeb &&
+                          isWindow() &&
+                          !context
+                              .read<SettingsCubit>()
+                              .state
+                              .nativeWindowTitleBar) {
                         return DragToMoveArea(child: title);
                       }
                       return title;
                     })),
             actions: [
               BlocBuilder<DocumentBloc, DocumentState>(
-                builder: (context, state) => Row(
-                  children: [
-                    if (!isMobile) ...[
-                      IconButton(
-                        icon: const Icon(
-                            PhosphorIcons.arrowCounterClockwiseLight),
-                        tooltip: AppLocalizations.of(context)!.undo,
-                        onPressed: !bloc.canUndo
-                            ? null
-                            : () {
-                                Actions.maybeInvoke<UndoIntent>(
-                                    context, UndoIntent(context));
-                              },
-                      ),
-                      IconButton(
-                        icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                        tooltip: AppLocalizations.of(context)!.redo,
-                        onPressed: !bloc.canRedo
-                            ? null
-                            : () {
-                                Actions.maybeInvoke<RedoIntent>(
-                                    context, RedoIntent(context));
-                              },
-                      ),
-                    ],
-                    if (isWindow()) ...[
-                      const VerticalDivider(),
-                      const WindowButtons()
-                    ]
-                  ],
-                ),
+                builder: (context, state) =>
+                    BlocBuilder<SettingsCubit, ButterflySettings>(
+                        buildWhen: (previous, current) =>
+                            previous.nativeWindowTitleBar !=
+                            current.nativeWindowTitleBar,
+                        builder: (context, settings) => Row(
+                              children: [
+                                if (!isMobile) ...[
+                                  IconButton(
+                                    icon: const Icon(PhosphorIcons
+                                        .arrowCounterClockwiseLight),
+                                    tooltip: AppLocalizations.of(context)!.undo,
+                                    onPressed: !bloc.canUndo
+                                        ? null
+                                        : () {
+                                            Actions.maybeInvoke<UndoIntent>(
+                                                context, UndoIntent(context));
+                                          },
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(
+                                        PhosphorIcons.arrowClockwiseLight),
+                                    tooltip: AppLocalizations.of(context)!.redo,
+                                    onPressed: !bloc.canRedo
+                                        ? null
+                                        : () {
+                                            Actions.maybeInvoke<RedoIntent>(
+                                                context, RedoIntent(context));
+                                          },
+                                  ),
+                                ],
+                                if (isWindow() &&
+                                    kIsWeb &&
+                                    !settings.nativeWindowTitleBar) ...[
+                                  const VerticalDivider(),
+                                  const WindowButtons()
+                                ]
+                              ],
+                            )),
               )
             ]);
       },

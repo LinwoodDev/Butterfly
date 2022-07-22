@@ -192,9 +192,11 @@ class ButterflyApp extends StatelessWidget {
         buildWhen: (previous, current) =>
             previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
         builder: (context, settings) {
-          windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
-              ? TitleBarStyle.normal
-              : TitleBarStyle.hidden);
+          if (!kIsWeb && isWindow()) {
+            windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
+                ? TitleBarStyle.normal
+                : TitleBarStyle.hidden);
+          }
           return RepositoryProvider(
             create: (context) =>
                 SyncService(context, context.read<SettingsCubit>()),
@@ -207,10 +209,6 @@ class ButterflyApp extends StatelessWidget {
   }
 
   Widget _buildApp() {
-    final virtualWindowFrameBuilder =
-        kIsWeb || (!Platform.isWindows && !Platform.isLinux)
-            ? null
-            : VirtualWindowFrameInit();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.theme != current.theme ||
@@ -230,10 +228,7 @@ class ButterflyApp extends StatelessWidget {
                 if (child == null) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if (kIsWeb || virtualWindowFrameBuilder == null) {
-                  return child;
-                }
-                return virtualWindowFrameBuilder(context, child);
+                return child;
               },
               darkTheme: ThemeManager.getThemeByName(state.design, dark: true),
             ));

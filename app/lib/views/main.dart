@@ -426,7 +426,8 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
   @override
   @override
   Widget build(BuildContext context) {
-    if (isWindow()) {
+    if (isWindow() &&
+        !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
       return LayoutBuilder(
         builder: (context, constraints) => Padding(
           padding: const EdgeInsets.all(8.0),
