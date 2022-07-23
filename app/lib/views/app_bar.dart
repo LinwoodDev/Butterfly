@@ -197,45 +197,37 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                     })),
             actions: [
               BlocBuilder<DocumentBloc, DocumentState>(
-                builder: (context, state) =>
-                    BlocBuilder<SettingsCubit, ButterflySettings>(
-                        buildWhen: (previous, current) =>
-                            previous.nativeWindowTitleBar !=
-                            current.nativeWindowTitleBar,
-                        builder: (context, settings) => Row(
-                              children: [
-                                if (!isMobile) ...[
-                                  IconButton(
-                                    icon: const Icon(PhosphorIcons
-                                        .arrowCounterClockwiseLight),
-                                    tooltip: AppLocalizations.of(context)!.undo,
-                                    onPressed: !bloc.canUndo
-                                        ? null
-                                        : () {
-                                            Actions.maybeInvoke<UndoIntent>(
-                                                context, UndoIntent(context));
-                                          },
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(
-                                        PhosphorIcons.arrowClockwiseLight),
-                                    tooltip: AppLocalizations.of(context)!.redo,
-                                    onPressed: !bloc.canRedo
-                                        ? null
-                                        : () {
-                                            Actions.maybeInvoke<RedoIntent>(
-                                                context, RedoIntent(context));
-                                          },
-                                  ),
-                                ],
-                                if (isWindow() &&
-                                    kIsWeb &&
-                                    !settings.nativeWindowTitleBar) ...[
-                                  const VerticalDivider(),
-                                  const WindowButtons()
-                                ]
-                              ],
-                            )),
+                builder: (context, state) => Row(
+                  children: [
+                    if (!isMobile) ...[
+                      IconButton(
+                        icon: const Icon(
+                            PhosphorIcons.arrowCounterClockwiseLight),
+                        tooltip: AppLocalizations.of(context)!.undo,
+                        onPressed: !bloc.canUndo
+                            ? null
+                            : () {
+                                Actions.maybeInvoke<UndoIntent>(
+                                    context, UndoIntent(context));
+                              },
+                      ),
+                      IconButton(
+                        icon: const Icon(PhosphorIcons.arrowClockwiseLight),
+                        tooltip: AppLocalizations.of(context)!.redo,
+                        onPressed: !bloc.canRedo
+                            ? null
+                            : () {
+                                Actions.maybeInvoke<RedoIntent>(
+                                    context, RedoIntent(context));
+                              },
+                      ),
+                    ],
+                    if (!kIsWeb && isWindow()) ...[
+                      const VerticalDivider(),
+                      const WindowButtons()
+                    ]
+                  ],
+                ),
               )
             ]);
       },
