@@ -63,6 +63,7 @@ class GeneralSettingsPage extends StatelessWidget {
           ],
         ),
         body: ListView(children: [
+                    if (!kIsWeb)...[
           Card(
             margin: const EdgeInsets.all(8),
             child: Padding(
@@ -75,7 +76,6 @@ class GeneralSettingsPage extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     const SizedBox(height: 16),
-                    if (!kIsWeb)
                       FutureBuilder<Meta>(
                           future: _fetchMeta(),
                           builder: (context, snapshot) {
@@ -146,6 +146,7 @@ class GeneralSettingsPage extends StatelessWidget {
                   ]),
             ),
           ),
+        ],
           Card(
             margin: const EdgeInsets.all(8),
             child: Padding(
