@@ -75,72 +75,74 @@ class GeneralSettingsPage extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     const SizedBox(height: 16),
-                    FutureBuilder<Meta>(
-                        future: _fetchMeta(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          }
-                          if (!snapshot.hasData) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                          final meta = snapshot.data!;
-                          final currentVersion = meta.currentVersion;
-                          final stableVersion = meta.stableVersion;
-                          final nightlyVersion = meta.nightlyVersion;
-                          final isStable = currentVersion == stableVersion;
-                          final isNightly = currentVersion == nightlyVersion;
-                          final isError = meta.nightlyVersion == '?' ||
-                              meta.stableVersion == '?';
-                          final isUpdateAvailable =
-                              !isError && !isStable && !isNightly;
-                          return Column(children: [
-                            ListTile(
-                              title: Text(AppLocalizations.of(context)!.stable),
-                              subtitle: Text(stableVersion),
-                            ),
-                            ListTile(
-                              title:
-                                  Text(AppLocalizations.of(context)!.nightly),
-                              subtitle: Text(nightlyVersion),
-                            ),
-                            ListTile(
-                              title: Text(
-                                  AppLocalizations.of(context)!.currentVersion),
-                              subtitle: Text(currentVersion),
-                            ),
-                            const Divider(),
-                            if (isStable)
-                              ListTile(
-                                title: Text(AppLocalizations.of(context)!
-                                    .usingLatestStable),
-                              ),
-                            if (isNightly)
-                              ListTile(
-                                title: Text(AppLocalizations.of(context)!
-                                    .usingLatestNightly),
-                              ),
-                            if (isError)
+                    if (!kIsWeb)
+                      FutureBuilder<Meta>(
+                          future: _fetchMeta(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            }
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
+                            final meta = snapshot.data!;
+                            final currentVersion = meta.currentVersion;
+                            final stableVersion = meta.stableVersion;
+                            final nightlyVersion = meta.nightlyVersion;
+                            final isStable = currentVersion == stableVersion;
+                            final isNightly = currentVersion == nightlyVersion;
+                            final isError = meta.nightlyVersion == '?' ||
+                                meta.stableVersion == '?';
+                            final isUpdateAvailable =
+                                !isError && !isStable && !isNightly;
+                            return Column(children: [
                               ListTile(
                                 title:
-                                    Text(AppLocalizations.of(context)!.error),
+                                    Text(AppLocalizations.of(context)!.stable),
+                                subtitle: Text(stableVersion),
                               ),
-                            if (isUpdateAvailable)
+                              ListTile(
+                                title:
+                                    Text(AppLocalizations.of(context)!.nightly),
+                                subtitle: Text(nightlyVersion),
+                              ),
                               ListTile(
                                 title: Text(AppLocalizations.of(context)!
-                                    .updateAvailable),
-                                subtitle: Text(
-                                    AppLocalizations.of(context)!.updateNow),
-                                leading:
-                                    const Icon(PhosphorIcons.arrowRightLight),
-                                onTap: () async {
-                                  await launchUrl(Uri.parse(
-                                      'https://docs.butterfly.linwood.dev/downloads'));
-                                },
+                                    .currentVersion),
+                                subtitle: Text(currentVersion),
                               ),
-                          ]);
-                        }),
+                              const Divider(),
+                              if (isStable)
+                                ListTile(
+                                  title: Text(AppLocalizations.of(context)!
+                                      .usingLatestStable),
+                                ),
+                              if (isNightly)
+                                ListTile(
+                                  title: Text(AppLocalizations.of(context)!
+                                      .usingLatestNightly),
+                                ),
+                              if (isError)
+                                ListTile(
+                                  title:
+                                      Text(AppLocalizations.of(context)!.error),
+                                ),
+                              if (isUpdateAvailable)
+                                ListTile(
+                                  title: Text(AppLocalizations.of(context)!
+                                      .updateAvailable),
+                                  subtitle: Text(
+                                      AppLocalizations.of(context)!.updateNow),
+                                  leading:
+                                      const Icon(PhosphorIcons.arrowRightLight),
+                                  onTap: () async {
+                                    await launchUrl(Uri.parse(
+                                        'https://docs.butterfly.linwood.dev/downloads'));
+                                  },
+                                ),
+                            ]);
+                          }),
                   ]),
             ),
           ),
