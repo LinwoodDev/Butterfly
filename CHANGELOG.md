@@ -2,6 +2,15 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.0-rc.2 (2022-07-23)
+
+* Add portuguese (Brazil) localization
+* Disable updater on web
+* Fix file import on remote
+* Fix classic light theme
+* Fix embedding mode
+* Fix error when opening same file
+
 ## 1.4.0-rc.1 (2022-07-20)
 
 * Fix save indicator
