@@ -449,6 +449,10 @@ class _MainPopupMenu extends StatelessWidget {
                           .map((location) => PopupMenuItem(
                                 onTap: () {
                                   Navigator.of(context).pop();
+                                  final lastLocation = state.location;
+                                  if (lastLocation == location) {
+                                    return;
+                                  }
                                   if (location.remote != '') {
                                     final uri = Uri(pathSegments: [
                                       '',

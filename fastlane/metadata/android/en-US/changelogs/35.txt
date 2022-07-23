@@ -2,3 +2,4 @@
 * Fix file import on remote
 * Fix classic light theme
 * Fix embedding mode
+* Fix error when opening same file

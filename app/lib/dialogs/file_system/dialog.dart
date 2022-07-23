@@ -252,9 +252,9 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                               return BlocBuilder<DocumentBloc, DocumentState>(
                                   bloc: widget.bloc,
                                   builder: (context, state) {
-                                    var selectedPath = '';
+                                    AssetLocation? selectedPath;
                                     if (state is DocumentLoadSuccess) {
-                                      selectedPath = state.location.path;
+                                      selectedPath = state.location;
                                     }
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -328,6 +328,10 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
   void _openAsset(AppDocumentAsset asset) {
     if (asset is AppDocumentFile) {
       final remote = _fileSystem.remote;
+      final state = widget.bloc.state;
+      AssetLocation? lastLocation;
+      if (state is DocumentLoadSuccess) lastLocation = state.location;
+      if (lastLocation == asset.location) return;
       if (remote != null) {
         GoRouter.of(context).push(
             '/remote/${Uri.encodeComponent(remote.identifier)}/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}');

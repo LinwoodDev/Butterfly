@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FileSystemListView extends StatelessWidget {
-  final String selectedPath;
+  final AssetLocation? selectedPath;
   final List<AppDocumentAsset> assets;
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
@@ -30,7 +30,7 @@ class FileSystemListView extends StatelessWidget {
           return ListTile(
             leading: const Icon(PhosphorIcons.fileLight),
             title: Text(document.name),
-            selected: document.pathWithLeadingSlash == selectedPath,
+            selected: document.location == selectedPath,
             subtitle: FileSystemFileRichText(
               file: document,
             ),
@@ -44,7 +44,7 @@ class FileSystemListView extends StatelessWidget {
           );
         } else if (document is AppDocumentDirectory) {
           return ListTile(
-            selected: document.pathWithLeadingSlash == selectedPath,
+            selected: document.location == selectedPath,
             leading: const Icon(PhosphorIcons.folderLight),
             title: Text(document.fileNameWithoutExtension),
             onTap: () => onOpened(document),

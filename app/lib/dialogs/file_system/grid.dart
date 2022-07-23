@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FileSystemGridView extends StatelessWidget {
-  final String selectedPath;
+  final AssetLocation? selectedPath;
   final List<AppDocumentAsset> assets;
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
@@ -111,8 +111,7 @@ class FileSystemGridView extends StatelessWidget {
                                               .headline6
                                               ?.copyWith(
                                                   color: selectedPath ==
-                                                          file
-                                                              .pathWithLeadingSlash
+                                                          file.location
                                                       ? Theme.of(context)
                                                           .colorScheme
                                                           .primary

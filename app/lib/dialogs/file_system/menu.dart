@@ -17,7 +17,7 @@ class FileSystemAssetMenu extends StatelessWidget {
   final VoidCallback onRefreshed;
   final AppDocumentAsset asset;
   final DocumentFileSystem fileSystem;
-  final String selectedPath;
+  final AssetLocation? selectedPath;
 
   const FileSystemAssetMenu(
       {super.key,
@@ -59,7 +59,8 @@ class FileSystemAssetMenu extends StatelessWidget {
                   child: Text(AppLocalizations.of(context)!.rename),
                   onPressed: () async {
                     Navigator.of(context).pop();
-                    if (nameController.text != selectedPath) {
+                    if (nameController.text !=
+                        selectedPath?.pathWithLeadingSlash) {
                       var document = await fileSystem.renameAsset(
                           path, '$parent/${nameController.text}.bfly');
                       var state = bloc.state;
