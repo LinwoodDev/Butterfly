@@ -42,11 +42,11 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     var bloc = context.read<DocumentBloc>();
     return GestureDetector(onSecondaryTap: () {
-      if (isWindow()) {
+      if (!kIsWeb && isWindow()) {
         windowManager.popUpWindowMenu();
       }
     }, onLongPress: () {
-      if (isWindow()) {
+      if (!kIsWeb && isWindow()) {
         windowManager.popUpWindowMenu();
       }
     }, child: LayoutBuilder(
@@ -185,7 +185,12 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                 isMobile: false,
                               )),
                           ]);
-                      if (!kIsWeb && isWindow()) {
+                      if (!kIsWeb &&
+                          isWindow() &&
+                          !context
+                              .read<SettingsCubit>()
+                              .state
+                              .nativeWindowTitleBar) {
                         return DragToMoveArea(child: title);
                       }
                       return title;
@@ -217,7 +222,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                               },
                       ),
                     ],
-                    if (isWindow()) ...[
+                    if (!kIsWeb && isWindow()) ...[
                       const VerticalDivider(),
                       const WindowButtons()
                     ]

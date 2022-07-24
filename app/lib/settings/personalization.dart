@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly/visualizer/string.dart';
@@ -103,6 +105,16 @@ class PersonalizationSettingsPage extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
+                        CheckboxListTile(
+                          value: state.nativeWindowTitleBar,
+                          title: Text(AppLocalizations.of(context)!
+                              .nativeWindowTitleBar),
+                          secondary: const Icon(PhosphorIcons.appWindowLight),
+                          onChanged: (value) => context
+                              .read<SettingsCubit>()
+                              .changeNativeWindowTitleBar(value ?? false),
+                        ),
                       CheckboxListTile(
                         secondary: const Icon(PhosphorIcons.squaresFourLight),
                         title: Text(AppLocalizations.of(context)!.start),
