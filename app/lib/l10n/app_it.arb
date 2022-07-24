@@ -52,6 +52,7 @@
     "german": "Tedesco",
     "spanish": "Spagnolo",
     "italian": "Italiano",
+    "portugueseBrazil": "Portoghese (Brasile)",
     "defaultLocale": "Lingua predefinita",
     "information": "Informazioni",
     "license": "Licenza",
@@ -357,5 +358,6 @@
     "folderSynced": "Cartella sincronizzata",
     "syncRootDirectory": "Sincronizza directory root",
     "penOnlyInput": "Input solo penna",
-    "inputGestures": "Gestures di input"
+    "inputGestures": "Gestures di input",
+    "nativeWindowTitleBar": "Native window title bar"
 }
