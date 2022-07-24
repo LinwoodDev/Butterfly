@@ -358,5 +358,6 @@
     "folderSynced": "Dossier synchronisé",
     "syncRootDirectory": "Synchroniser le répertoire racine",
     "penOnlyInput": "Seules les entrées du stylet",
-    "inputGestures": "Input gestures"
+    "inputGestures": "Input gestures",
+    "nativeWindowTitleBar": "Native window title bar"
 }
