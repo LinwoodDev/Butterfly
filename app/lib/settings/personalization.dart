@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:butterfly/main.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly/visualizer/string.dart';
@@ -10,8 +11,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../theme/manager.dart';
-
-const kIgnoredLanguages = ['pt'];
 
 class PersonalizationSettingsPage extends StatelessWidget {
   final bool inView;
@@ -234,7 +233,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
   void _openLocaleModal(BuildContext context) {
     final cubit = context.read<SettingsCubit>();
     var currentLocale = cubit.state.localeTag;
-    var locales = AppLocalizations.supportedLocales;
+    var locales = getLocales();
     showModalBottomSheet<String>(
         context: context,
         builder: (context) {
@@ -260,8 +259,6 @@ class PersonalizationSettingsPage extends StatelessWidget {
                     selected: currentLocale.isEmpty,
                     onTap: () => changeLocale(null)),
                 ...locales
-                    .where((element) =>
-                        !kIgnoredLanguages.contains(element.toLanguageTag()))
                     .map((e) => ListTile(
                         title: Text(_getLocaleName(context, e.toLanguageTag())),
                         selected: currentLocale == e.toLanguageTag(),

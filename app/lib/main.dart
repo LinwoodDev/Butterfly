@@ -94,6 +94,13 @@ Future<void> main([List<String> args = const []]) async {
   );
 }
 
+const kUnsupportedLanguages = ['pt'];
+
+List<Locale> getLocales() =>
+    List<Locale>.from(AppLocalizations.supportedLocales)
+        .where((l) => !kUnsupportedLanguages.contains(l.toString()))
+        .toList();
+
 class ButterflyApp extends StatelessWidget {
   final String initialLocation;
   final SharedPreferences prefs;
@@ -221,7 +228,7 @@ class ButterflyApp extends StatelessWidget {
               routeInformationParser: _router.routeInformationParser,
               routerDelegate: _router.routerDelegate,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: AppLocalizations.supportedLocales,
+              supportedLocales: getLocales(),
               theme: ThemeManager.getThemeByName(state.design),
               themeMode: state.theme,
               builder: (context, child) {

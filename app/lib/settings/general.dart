@@ -63,19 +63,19 @@ class GeneralSettingsPage extends StatelessWidget {
           ],
         ),
         body: ListView(children: [
-                    if (!kIsWeb)...[
-          Card(
-            margin: const EdgeInsets.all(8),
-            child: Padding(
-              padding: const EdgeInsets.all(32),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.update,
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                    const SizedBox(height: 16),
+          if (!kIsWeb) ...[
+            Card(
+              margin: const EdgeInsets.all(8),
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.update,
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                      const SizedBox(height: 16),
                       FutureBuilder<Meta>(
                           future: _fetchMeta(),
                           builder: (context, snapshot) {
@@ -143,10 +143,10 @@ class GeneralSettingsPage extends StatelessWidget {
                                 ),
                             ]);
                           }),
-                  ]),
+                    ]),
+              ),
             ),
-          ),
-        ],
+          ],
           Card(
             margin: const EdgeInsets.all(8),
             child: Padding(
