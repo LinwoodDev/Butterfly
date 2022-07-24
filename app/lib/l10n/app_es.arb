@@ -358,5 +358,6 @@
     "folderSynced": "Carpeta sincronizada",
     "syncRootDirectory": "Directorio raíz de sincronización",
     "penOnlyInput": "Entrada de Pen sólo",
-    "inputGestures": "Input gestures"
+    "inputGestures": "Input gestures",
+    "nativeWindowTitleBar": "Native window title bar"
 }
