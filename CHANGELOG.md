@@ -2,6 +2,11 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.0-rc.3 (2022-07-25)
+
+* Add native window title bar support
+* Fix supported locales
+
 ## 1.4.0-rc.2 (2022-07-23)
 
 * Add portuguese (Brazil) localization
