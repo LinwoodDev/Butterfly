@@ -28,13 +28,13 @@ dependencies:
   path_provider: ^2.0.11
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.5
-  file_picker: ^4.6.1
+  file_picker: ^5.0.0
   phosphor_flutter: ^1.4.0
   replay_bloc: ^0.2.1
   share_plus: ^4.0.10
   package_info_plus: ^1.4.3
   idb_shim: ^2.0.1+1
-  go_router: ^4.2.1
+  go_router: ^4.2.0
   xml: ^6.0.1
   collection: ^1.16.0
   bloc_concurrency: ^0.2.0
@@ -45,16 +45,15 @@ dependencies:
   freezed_annotation: ^2.1.0
   json_annotation: ^4.6.0
   path: ^1.8.1
-  printing: ^5.9.1
+  printing: ^5.9.2
   js: ^0.6.4
-  pdf: ^3.8.1
+  pdf: ^3.8.2
   http: ^0.13.4
   flutter_secure_storage: ^5.0.2
   equatable: ^2.0.3
   adwaita: ^0.5.2
   yaru: ^0.3.3
   rxdart: ^0.27.5
-dependency_overrides: 
   ffi: ^2.0.1
 dev_dependencies:
   flutter_native_splash: ^2.2.6
@@ -64,7 +63,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  analyzer: ^4.3.0
+  analyzer: ^4.3.1
   freezed: ^2.1.0+1
   build_runner: ^2.2.0
   json_serializable: ^6.3.1
