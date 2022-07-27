@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "1.4.0",
+    "description": "The label for version 1.4"
+  },
+  "sidebar.sidebar.category.Tools": {
+    "message": "Herramientas",
+    "description": "The label for category Tools in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.Painters": {
+    "message": "Pintores",
+    "description": "The label for category Painters in sidebar sidebar"
+  }
+}
