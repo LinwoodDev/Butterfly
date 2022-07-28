@@ -11,7 +11,7 @@ Embedding is a simple way to include the app in your website. Add the following 
 
 ## Options
 
-| Option   | Type                  | Default | Description                                                 |
+| Option   | Type                  | Default | Tanım                                                       |
 | -------- | --------------------- | ------- | ----------------------------------------------------------- |
 | save     | Boolean (true, false) | true    | Enable save. If disabled, only an exit button will be shown |
 | editable | Boolean (true, false) | true    | Enable editing. If disabled, the document will be read-only |
