@@ -1,5 +1,5 @@
 ---
-title: "Background"
+title: "Arkaplan"
 sidebar_label: "Introduction"
 ---
 
