@@ -309,7 +309,7 @@
     "icon": "Simge",
     "update": "Güncelleme",
     "updateAvailable": "Güncelleme mevcut",
-    "stable": "Stable",
+    "stable": "Kararlı",
     "nightly": "Nightly",
     "checkForUpdates": "Güncellemeleri denetle",
     "usingLatestStable": "En son sürümü kullanıyorsunuz",
