@@ -1,5 +1,5 @@
 ---
-title: "Layers"
+title: "Katmanlar"
 sidebar_position: 2
 ---
 
