@@ -1,6 +1,6 @@
 ---
-title: "Hand"
-sidebar_label: "Hand"
+title: "El"
+sidebar_label: "El"
 ---
 
 This is a special tool to move the camera.
