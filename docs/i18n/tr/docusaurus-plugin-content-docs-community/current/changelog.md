@@ -1,7 +1,7 @@
 ---
-title: Changelog
+title: Değişiklik günlüğü
 hide_title: true
-sidebar_label: Changelog
+sidebar_label: Değişiklik günlüğü
 ---
 
 ```mdx-code-block
