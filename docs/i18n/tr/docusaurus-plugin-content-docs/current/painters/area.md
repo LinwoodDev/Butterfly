@@ -17,8 +17,8 @@ The area painter allows you to create, edit and remove areas.
 
 |     Property | Default | Description                                                                                                                                      |
 | ------------:|:-------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
-|        Width |    0    | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
-|       Height |    0    | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
+|     Genişlik |    0    | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
+|    Yükseklik |    0    | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
 | Aspect ratio |    0    | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
 
 There are three aspect ratio presets:
