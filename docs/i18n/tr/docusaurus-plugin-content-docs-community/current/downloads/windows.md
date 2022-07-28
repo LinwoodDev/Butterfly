@@ -7,13 +7,13 @@ sidebar_position: 2
 import DownloadButton from '@site/src/components/DownloadButton.js';
 ```
 
-![Kararlı sürüm](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Kararlı sürüm](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly (Kod tabanından) sürümü](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Minimum sistem gereksinimleri
 
-* Windows 10 or higher.
+* Windows 10 veya üstü.
 
-## Binaryler
+## Depolar
 
 <div className="row margin-bottom--lg padding--sm">
 <div className="dropdown dropdown--hoverable margin--sm">
@@ -21,12 +21,12 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/Butterfly-Setup.exe">
-        Setup
+        Kurulum
       </DownloadButton>
     </li>
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/windows.zip">
-        Portable
+        Taşınabilir (Portable)
       </DownloadButton>
     </li>
   </ul>
@@ -36,12 +36,12 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-windows-setup.exe">
-        Setup
+        Kurulum
       </DownloadButton>
     </li>
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-windows.zip">
-        Portable
+        Taşınabilir (Portable)
       </DownloadButton>
     </li>
   </ul>
@@ -50,19 +50,19 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
 
 Butterfly'ın nightly sürümü hakkında daha fazla bilgiyi [buradan](/nightly) okuyun.
 
-## Install using winget
+## Winget kullanarak yükleyin
 
 ```powershell
 winget install LinwoodCloud.Butterfly
 ```
 
-To upgrade the winget package, run:
+Winget paketini yükseltmek için şunu çalıştırın:
 
 ```powershell
 winget upgrade LinwoodCloud.Butterfly
 ```
 
-To uninstall the winget package, run:
+Winget paketini kaldırmak için şunu çalıştırın:
 
 ```powershell
 winget uninstall LinwoodCloud.Butterfly
@@ -74,13 +74,13 @@ winget uninstall LinwoodCloud.Butterfly
 winget install LinwoodCloud.Butterfly.Nightly
 ```
 
-To upgrade the winget package, run:
+Winget paketini yükseltmek için şunu çalıştırın:
 
 ```powershell
 winget upgrade LinwoodCloud.Butterfly.Nightly
 ```
 
-To uninstall the winget package, run:
+Winget paketini kaldırmak için şunu çalıştırın:
 
 ```powershell
 winget uninstall LinwoodCloud.Butterfly.Nightly
