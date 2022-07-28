@@ -31,7 +31,7 @@ Or you want to [build your own](/build-your-own)
 
 ## Useful links
 
-- [Changelog](changelog)
+- [Değişiklik günlüğü](changelog)
 - [Older releases](https://github.com/LinwoodCloud/butterfly/releases)
 - [Latest release](https://github.com/LinwoodCloud/butterfly/releases/latest)
 - [Support](https://discord.linwood.dev)
