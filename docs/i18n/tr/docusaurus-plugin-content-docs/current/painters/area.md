@@ -1,5 +1,5 @@
 ---
-sidebar_label: "Area"
+sidebar_label: "Alan"
 title: "Area painter"
 ---
 
@@ -15,11 +15,11 @@ The area painter allows you to create, edit and remove areas.
 
 ## Configuration
 
-|     Property | Default | Description                                                                                                                                      |
+|     Property | Default | Tanım                                                                                                                                            |
 | ------------:|:-------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
 |     Genişlik |    0    | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
 |    Yükseklik |    0    | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
-| Aspect ratio |    0    | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+| En boy oranı |    0    | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
 
 There are three aspect ratio presets:
 
