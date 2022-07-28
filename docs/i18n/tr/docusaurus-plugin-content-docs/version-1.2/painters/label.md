@@ -8,6 +8,6 @@ With this painter you can add text to the paper.
 
 ## Configuration
 
-| Property | Default | Description          |
+| Property | Default | Tanım                |
 | --------:|:-------:|:-------------------- |
 |    Boyut |   12    | The size of the text |
