@@ -18,7 +18,7 @@ A special thanks goes to:
 
 All other licenses can you found in the settings.
 
-## Useful links
+## Faydalı bağlantılar
 
 * [GitHub](https://github.com/LinwoodCloud/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
