@@ -9,15 +9,15 @@ Use this painter to draw shapes on the paper. You can draw rectangles, circles, 
 
 ## Configuration
 
-|       Property |  Default  | Description                                                                                                                                      |
-| --------------:|:---------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
-|          Color |   Black   | The color that will be drawn                                                                                                                     |
-|   Stroke width |     5     | The width of the stroke                                                                                                                          |
-| Zoom dependent |   false   | This will change the stroke width based on the zoom level.                                                                                       |
-|          Shape | rectangle | The shape that will be drawn                                                                                                                     |
-|          Width |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
-|         Height |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
-|   Aspect ratio |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|         Property |  Default  | Description                                                                                                                                      |
+| ----------------:|:---------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
+|            Color |   Black   | The color that will be drawn                                                                                                                     |
+| Kontur genişliği |     5     | The width of the stroke                                                                                                                          |
+|   Zoom dependent |   false   | This will change the stroke width based on the zoom level.                                                                                       |
+|            Shape | rectangle | The shape that will be drawn                                                                                                                     |
+|         Genişlik |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
+|        Yükseklik |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
+|     Aspect ratio |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
 
 ### Shape types
 
