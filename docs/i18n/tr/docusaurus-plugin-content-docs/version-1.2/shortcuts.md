@@ -4,7 +4,7 @@ title: Shortcuts
 
 There are a few shortcuts that you can use in the editor. Some of them are written below the buttons.
 
-## General
+## Genel
 
 * `Ctrl` + `N`: New file
 * `Ctrl` + `Shift` + `N`: New file from template
