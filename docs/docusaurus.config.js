@@ -13,7 +13,7 @@ module.exports = {
     projectName: 'butterfly', // Usually your repo name.
     i18n: {
         defaultLocale: 'en',
-        locales: ['en', 'de', 'fr', 'es', 'it', 'pt-br'],
+        locales: ['en', 'de', 'fr', 'es', 'it', 'pt-br', 'tr'],
     },
     themeConfig: {
         colorMode: {
