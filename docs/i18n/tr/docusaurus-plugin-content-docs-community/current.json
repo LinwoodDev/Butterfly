@@ -1,0 +1,18 @@
+{
+  "version.label": {
+    "message": "Sonraki",
+    "description": "The label for version current"
+  },
+  "sidebar.sidebar.link.Discord": {
+    "message": "Discord",
+    "description": "The label for link Discord in sidebar sidebar, linking to https://discord.linwood.dev"
+  },
+  "sidebar.sidebar.link.GitHub": {
+    "message": "GitHub",
+    "description": "The label for link GitHub in sidebar sidebar, linking to https://github.com/LinwoodCloud/Butterfly"
+  },
+  "sidebar.sidebar.category.Embedding": {
+    "message": "Embedding",
+    "description": "The label for category Embedding in sidebar sidebar"
+  }
+}
