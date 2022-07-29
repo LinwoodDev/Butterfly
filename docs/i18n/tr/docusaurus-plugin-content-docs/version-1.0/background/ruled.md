@@ -2,7 +2,7 @@
 title: "Ruled paper"
 ---
 
-|  Property | Value |
+|   Özellik | Value |
 | ---------:|:----- |
 |  Genişlik | 0     |
 | Yükseklik | 25    |
