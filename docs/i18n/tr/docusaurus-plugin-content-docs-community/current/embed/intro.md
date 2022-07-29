@@ -1,24 +1,24 @@
 ---
-title: Embed
-sidebar_label: Intro
+title: Gömme
+sidebar_label: Başlangıç
 ---
 
-Embedding is a simple way to include the app in your website. Add the following code to your website:
+Gömme işlemi, uygulamayı web sitenize dahil etmenin basit bir yoludur. Aşağıdaki kodu web sitenize ekleyin:
 
 ```html
 <iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
-## Options
+## Şeçenekler
 
-| Option   | Type                  | Default | Tanım                                                       |
-| -------- | --------------------- | ------- | ----------------------------------------------------------- |
-| save     | Boolean (true, false) | true    | Enable save. If disabled, only an exit button will be shown |
-| editable | Boolean (true, false) | true    | Enable editing. If disabled, the document will be read-only |
+| Seçenek  | Tür                   | Default | Tanım                                                                                        |
+| -------- | --------------------- | ------- | -------------------------------------------------------------------------------------------- |
+| save     | Boolean (true, false) | true    | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir |
+| editable | Boolean (true, false) | true    | Düzenlemeyi etkinleştir. Eğer devre dışı bırakılırsa, belge salt okunur olur                 |
 
-## Events
+## Etkinlikler
 
-Examples how to use it:
+Nasıl kullanılacağına dair örnekler:
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
@@ -31,9 +31,9 @@ embedElement.addEventListener('message', (data) => {
 
 ### save
 
-> The `save` event is emitted when the user clicks the save button.
+> Kullanıcı kaydet düğmesini tıkladığında `save` olayı yayınlanır.
 
-Parameters:
+Parametreler:
 
 * `data` (Type `String`): The data of the document.
 
@@ -41,7 +41,7 @@ Parameters:
 
 > The `exit` event is emitted when the user clicks the exit button.
 
-Parameters:
+Parametreler:
 
 * `data` (Type `String`): The data of the document.
 
@@ -49,7 +49,7 @@ Parameters:
 
 > The `change` event is emitted when the user changes the document.
 
-Parameters:
+Parametreler:
 
 * `data` (Type `String`): The data of the document.
 
@@ -77,7 +77,7 @@ No parameters. Returns: `String`
 
 > The `setData` method sets the data of the document.
 
-Parameters:
+Parametreler:
 
 * `data` (Type `String`): The data of the document.
 
@@ -85,7 +85,7 @@ Parameters:
 
 > The `render` method renders the document to a png image.
 
-Parameters:
+Parametreler:
 
 * `width` (Type `Number`): The width of the image.
 * `height` (Type `Number`): The height of the image.
@@ -98,7 +98,7 @@ Returns: `String` (Base64 encoded image)
 
 > The `renderSVG` method renders the document to a svg image.
 
-Parameters:
+Parametreler:
 
 * `width` (Type `Number`): The width of the image.
 * `height` (Type `Number`): The height of the image.
