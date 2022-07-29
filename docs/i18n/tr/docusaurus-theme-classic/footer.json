@@ -1,14 +1,14 @@
 {
   "link.title.Community": {
-    "message": "Community",
+    "message": "Topluluk",
     "description": "The title of the footer links column with title=Community in the footer"
   },
   "link.title.Source code": {
-    "message": "Source code",
+    "message": "Kaynak kodu",
     "description": "The title of the footer links column with title=Source code in the footer"
   },
   "link.title.Legal": {
-    "message": "Legal",
+    "message": "Yasal",
     "description": "The title of the footer links column with title=Legal in the footer"
   },
   "link.item.label.Discord": {
@@ -20,15 +20,15 @@
     "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodCloud"
   },
   "link.item.label.Contribution guide": {
-    "message": "Contribution guide",
+    "message": "Katkıda bulunma kılavuzu",
     "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md"
   },
   "link.item.label.App": {
-    "message": "App",
+    "message": "Uygulama",
     "description": "The label of footer link with label=App linking to https://github.com/LinwoodCloud/butterfly/tree/develop/app"
   },
   "link.item.label.Docs": {
-    "message": "Docs",
+    "message": "Belgeler",
     "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodCloud/butterfly/tree/develop/docs"
   },
   "link.item.label.Imprint": {
@@ -40,11 +40,11 @@
     "description": "The footer copyright"
   },
   "link.item.label.Privacy Policy of the app": {
-    "message": "Privacy Policy of the app",
+    "message": "Uygulamanın Gizlilik Politikası",
     "description": "The label of footer link with label=Privacy Policy of the app linking to /privacypolicy"
   },
   "link.item.label.Privacy Policy of the website": {
-    "message": "Privacy Policy of the website",
+    "message": "Web sayfasının Gizlilik Politikası",
     "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
   }
 }
