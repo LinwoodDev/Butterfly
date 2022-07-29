@@ -1,16 +1,16 @@
 ---
-title: "Pen painter"
+title: "Kalem aracı"
 sidebar_label: "Kalem"
 sidebar_position: 2
 ---
 
 
-With this painter you can draw on this paper.
+Bu araç ile bu kağıda çizim yapabilirsiniz.
 
-## Configuration
+## Yapılandırma
 
-|          Özellik | Varsayılan | Tanım                                                                            |
-| ----------------:|:----------:|:-------------------------------------------------------------------------------- |
-|             Renk |   Black    | The color that will be drawn                                                     |
-| Kontur genişliği |     5      | The width of the stroke                                                          |
-|   Kontur çarpanı |     1      | If you have a stylus, this is the multiplier which will be added to the pressure |
+|          Özellik | Varsayılan | Tanım                                                                |
+| ----------------:|:----------:|:-------------------------------------------------------------------- |
+|             Renk |   Siyah    | Çizilecek renk                                                       |
+| Kontur genişliği |     5      | Kontur genişliği                                                     |
+|   Kontur çarpanı |     1      | Bu, bir kaleminiz olması durumunda, basınca eklenecek olan çarpandır |
