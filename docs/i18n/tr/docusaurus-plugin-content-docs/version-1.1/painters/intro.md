@@ -1,6 +1,6 @@
 ---
-title: "Painters"
-sidebar_label: "Introduction"
+title: "Araçlar"
+sidebar_label: "Giriş"
 sidebar_position: 1
 ---
 
