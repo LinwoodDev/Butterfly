@@ -1,9 +1,9 @@
 ---
 sidebar_label: "Alan"
-title: "Alan boyacısı"
+title: "Alan oluşturma aracı"
 ---
 
-Alan boyacısı, alanlar oluşturmanıza, düzenlemenize ve kaldırmanıza olanak tanır.
+Alan oluşturma aracı, alanlar oluşturmanıza, düzenlemenize ve kaldırmanıza olanak tanır.
 
 ## Eylemler
 
@@ -13,7 +13,7 @@ Alan boyacısı, alanlar oluşturmanıza, düzenlemenize ve kaldırmanıza olana
 |     Ortaya tıkla      |    İki parmak    |       Tuvali taşı       |
 |      Sağa tıkla       |   Uzun dokunma   |      Alanı düzenle      |
 
-## Configuration
+## Yapılandırma
 
 |      Özellik | Varsayılan | Tanım                                                                                                                                                          |
 | ------------:|:----------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
