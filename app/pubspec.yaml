@@ -39,7 +39,7 @@ dependencies:
   collection: ^1.16.0
   bloc_concurrency: ^0.2.0
   camera: ^0.10.0
-  camera_windows: ^0.1.0+4
+  camera_windows: ^0.1.0+5
   window_manager: ^0.2.5
   flex_color_scheme: ^5.1.0
   freezed_annotation: ^2.1.0

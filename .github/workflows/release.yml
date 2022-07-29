@@ -22,9 +22,13 @@ jobs:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.CI_PAT }}
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.5'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta' or 'dev'
       - name: Setup git
         id: setup
@@ -70,9 +74,13 @@ jobs:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.CI_PAT }}
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.5'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta' or 'dev'
       - name: Setup git
         id: setup
@@ -108,9 +116,13 @@ jobs:
           fetch-depth: 0
           ref: main
           token: ${{ secrets.CI_PAT }}
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.5'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta' or 'dev'
       - name: Setup git
         id: setup
@@ -156,9 +168,13 @@ jobs:
           fetch-depth: 0
           ref: develop
           token: ${{ secrets.CI_PAT }}
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.5'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta' or 'dev'
       - name: Setup git
         id: setup
@@ -214,9 +230,13 @@ jobs:
         run: |
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.5'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta' or 'dev'
       - name: Set next version
         run: |
