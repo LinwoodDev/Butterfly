@@ -1,5 +1,5 @@
 ---
-title: "Tools"
+title: "Aletler"
 sidebar_label: "Giriş"
 sidebar_position: 0
 ---
