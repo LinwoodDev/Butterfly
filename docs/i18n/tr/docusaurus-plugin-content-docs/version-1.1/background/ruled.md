@@ -1,14 +1,14 @@
 ---
-title: "Ruled paper"
+title: "Çizgili kağıt"
 ---
 
-|   Özellik | Value |
+|   Özellik | Değer |
 | ---------:|:----- |
 |  Genişlik | 0     |
 | Yükseklik | 25    |
-|   Count X | 0     |
-|   Count Y | 1     |
-|   Space X | 0     |
-|   Space Y | 0     |
+|    Sayı X | 0     |
+|    Sayı Y | 1     |
+|  Boşluk X | 0     |
+|  Boşluk Y | 0     |
 
-See [the introduction](intro) for more information.
+Daha fazla bilgi için [giriş](intro) bölümüne bakın.
