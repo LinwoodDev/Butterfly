@@ -1,14 +1,14 @@
 ---
-title: "Music paper"
+title: "Müzik kağıdı"
 ---
 
-|   Özellik | Value |
+|   Özellik | Değer |
 | ---------:|:----- |
 |  Genişlik | 200   |
 | Yükseklik | 5     |
-|   Count X | 1     |
-|   Count Y | 5     |
-|   Space X | 10    |
-|   Space Y | 60    |
+|    Sayı X | 1     |
+|    Sayı Y | 5     |
+|  Boşluk X | 10    |
+|  Boşluk Y | 60    |
 
-See [the introduction](intro) for more information.
+Daha fazla bilgi için [giriş](intro) bölümüne bakın.
