@@ -4,8 +4,8 @@ sidebar_label: "Introduction"
 sidebar_position: 0
 ---
 
-Tools can change the camera or select objects.
+Araçlar kamerayı değiştirebilir veya nesneleri seçebilir.
 
-Use the sidebar to learn more about the tools.
+Araçlar hakkında daha fazla bilgi edinmek için kenar çubuğunu kullanın.
 
-If you click on a selected tool you can configure it.
+Seçili bir araca tıklarsanız, onu yapılandırabilirsiniz.
