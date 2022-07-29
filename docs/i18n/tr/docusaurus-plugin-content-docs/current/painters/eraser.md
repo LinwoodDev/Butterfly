@@ -1,5 +1,5 @@
 ---
-title: "Eraser painter"
+title: "Silgi boyacısı"
 sidebar_label: "Silgi"
 sidebar_position: 4
 ---
@@ -15,7 +15,7 @@ With this painter you can erase the elements on the paper.
 
 ## Configuration
 
-|         Property | Default | Tanım                                                                            |
-| ----------------:|:-------:|:-------------------------------------------------------------------------------- |
-| Kontur genişliği |    5    | The width of the stroke                                                          |
-|   Kontur çarpanı |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
+|          Özellik | Varsayılan | Tanım                                                                            |
+| ----------------:|:----------:|:-------------------------------------------------------------------------------- |
+| Kontur genişliği |     5      | The width of the stroke                                                          |
+|   Kontur çarpanı |     1      | If you have a stylus, this is the multiplier which will be added to the pressure |
