@@ -2,6 +2,13 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.0 (2022-07-26)
+
+Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
+
+<details>
+ <summary>1.4 Nightly Changelog</summary>
+
 ## 1.4.0-rc.3 (2022-07-25)
 
 * Add native window title bar support
@@ -106,6 +113,8 @@
 * Add spanish translation
 * Add quality slider to pdf ([#184](https://github.com/LinwoodCloud/Butterfly/issues/184))
 * Add copy to change document path ([#180](https://github.com/LinwoodCloud/Butterfly/issues/180))
+
+</details>
 
 ## 1.3.2 (2022-06-10)
 
