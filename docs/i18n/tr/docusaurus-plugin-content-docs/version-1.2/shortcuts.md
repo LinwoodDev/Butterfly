@@ -1,28 +1,28 @@
 ---
-title: Shortcuts
+title: Kısayollar
 ---
 
-There are a few shortcuts that you can use in the editor. Some of them are written below the buttons.
+Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmelerin altında yazılmıştır.
 
 ## Genel
 
-* `Ctrl` + `N`: New file
-* `Ctrl` + `Shift` + `N`: New file from template
-* `Ctrl` + `O`: Open file
-* `Ctrl` + `I`: Import file
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `N`: Yeni dosya
+* `Ctrl` + `Shift` + `N`: Şablondan yeni dosya
+* `Ctrl` + `O`: Dosya aç
+* `Ctrl` + `I`: Dosyayı içe aktar
+* `Ctrl` + `E`: Dosyayı dışa aktar
+* `Ctrl` + `Shift` + `E`: Resim olarak dışa aktar
+* `Ctrl` + `Alt` + `E`: SVG olarak dışa aktar
+* `Ctrl` + `Alt` + `S`: Ayarları aç
 
-## Project
+## Proje
 
-* `Ctrl` + `Z`: Undo
-* `Ctrl` + `Y`: Redo
-* `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Shift` + `S`: Open project settings
-* `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Change path
+* `Ctrl` + `Z`: Geri al
+* `Ctrl` + `Y`: Yinele
+* `Ctrl` + `Alt` + `N`: İletişim kutusu ekle'yi aç
+* `Ctrl` + `Alt` + `Shift` + `S`: Proje ayarlarını aç
+* `Ctrl` + `Shift` + `P`: Yer imleri iletişim kutusunu aç
+* `Ctrl` + `P`: Renk paleti iletişim kutusunu aç
+* `Ctrl` + `B`: Arkaplan iletişim kutusunu aç
+* `Ctrl` + `L`: Katmanlar iletişim kutusunu aç
+* `Ctrl` + `S`: Yolu değiştir
