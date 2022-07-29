@@ -6,6 +6,6 @@ sidebar_position: 3
 
 With this painter you can add image to your paper. Click on a position and select an image.
 
-## Configuration
+## Yapılandırma
 
 Currently nothing to configure
