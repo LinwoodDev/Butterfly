@@ -1,24 +1,24 @@
 ---
-title: Embed
-sidebar_label: Intro
+title: Gömme
+sidebar_label: Başlangıç
 ---
 
-Embedding is a simple way to include the app in your website. Add the following code to your website:
+Gömme işlemi, uygulamayı web sitenize dahil etmenin basit bir yoludur. Aşağıdaki kodu web sitenize ekleyin:
 
 ```html
 <iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
-## Options
+## Şeçenekler
 
-| Option   | Type                  | Default | Tanım                                                       |
-| -------- | --------------------- | ------- | ----------------------------------------------------------- |
-| save     | Boolean (true, false) | true    | Enable save. If disabled, only an exit button will be shown |
-| editable | Boolean (true, false) | true    | Enable editing. If disabled, the document will be read-only |
+| Seçenek  | Tür                   | Varsayılan | Tanım                                                                                        |
+| -------- | --------------------- | ---------- | -------------------------------------------------------------------------------------------- |
+| save     | Boolean (true, false) | true       | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir |
+| editable | Boolean (true, false) | true       | Düzenlemeyi etkinleştir. Eğer devre dışı bırakılırsa, belge salt okunur olur                 |
 
-## Events
+## Etkinlikler
 
-Examples how to use it:
+Nasıl kullanılacağına dair örnekler:
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
@@ -31,31 +31,31 @@ embedElement.addEventListener('message', (data) => {
 
 ### save
 
-> The `save` event is emitted when the user clicks the save button.
+> Kullanıcı kaydet düğmesini tıkladığında `save` olayı yayınlanır.
 
-Parameters:
+Parametreler:
 
-* `data` (Type `String`): The data of the document.
+* `data` (Type`String`): Belgenin verileri.
 
 ### exit
 
-> The `exit` event is emitted when the user clicks the exit button.
+> Kullanıcı çıkış düğmesini tıkladığında `exit` olayı yayınlanır.
 
-Parameters:
+Parametreler:
 
-* `data` (Type `String`): The data of the document.
+* `data` (Type`String`): Belgenin verileri.
 
 ### change
 
-> The `change` event is emitted when the user changes the document.
+> Kullanıcı belgeyi değiştirdiğinde `change` olayı yayınlanır.
 
-Parameters:
+Parametreler:
 
-* `data` (Type `String`): The data of the document.
+* `data` (Type`String`): Belgenin verileri.
 
-## Methods
+## Yöntemler
 
-Example how to use it:
+Nasıl kullanılacağına dair örnekler:
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
@@ -69,39 +69,39 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> `getData` yöntemi, belgenin verilerini döndürür.
 
-No parameters. Returns: `String`
+Parametre yok. Dönüş: `String`
 
 ### setData
 
-> The `setData` method sets the data of the document.
+> `setData` yöntemi, belgenin verilerini ayarlar.
 
-Parameters:
+Parametreler:
 
-* `data` (Type `String`): The data of the document.
+* `data` (Type`String`): Belgenin verileri.
 
 ### render
 
-> The `render` method renders the document to a png image.
+> `render` yöntemi, belgeyi bir png görüntüsüne dönüştürür.
 
-Parameters:
+Parametreler:
 
-* `width` (Type `Number`): The width of the image.
-* `height` (Type `Number`): The height of the image.
-* `scale` (Type `Number`): The scale of the image.
-* `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+* `width` (Type `Number`): Görselin genişliği.
+* `height` (Type `Number`): Görselin yüksekliği.
+* `scale` (Type `Number`): Görselin ölçeği.
+* `renderBackground` (Type `Boolean`): Eğer doğruysa, arka plan oluşturulacaktır.
 
-Returns: `String` (Base64 encoded image)
+Dönüş: `String` (Base64 ile kodlanmış görsel)
 
 ### renderSVG
 
-> The `renderSVG` method renders the document to a svg image.
+> `renderSVG` yöntemi, belgeyi bir svg görüntüsüne dönüştürür.
 
-Parameters:
+Parametreler:
 
-* `width` (Type `Number`): The width of the image.
-* `height` (Type `Number`): The height of the image.
-* `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+* `width` (Type `Number`): Görselin genişliği.
+* `height` (Type `Number`): Görselin yüksekliği.
+* `renderBackground` (Type `Boolean`): Eğer doğruysa, arka plan oluşturulacaktır.
 
-Returns: `String` (SVG)
+Dönüş: `String` (SVG)

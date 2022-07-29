@@ -1,20 +1,20 @@
 ---
-title: "Painters"
-slug: /painters
-sidebar_label: "Introduction"
+title: "Araçlar"
+slug: araçlar
+sidebar_label: "Giriş"
 sidebar_position: 1
 ---
 
 
-Painters can edit the paper.
+Araçlar kağıdı düzenleyebilir.
 
-Use the sidebar to learn more about the painters.
+Araçlar hakkında daha fazla bilgi edinmek için kenar çubuğunu kullanın.
 
-Create a new painter by clicking on the plus icon. Change the painter order by dragging and change the painter by clicking. If you click on a selected painter you can configure it.
+Artı simgesine tıklayarak yeni bir araç oluşturun. Sürükleyerek araçların sırasını, tıklayarak ise araçları değiştirin. Seçili bir araca tıklarsanız, onu yapılandırabilirsiniz.
 
-The name of the painter will be displayed as tooltip on hover on the painter.
+Aracın adı, aracın üzerine gelindiğinde araç ipucu olarak görüntülenecektir.
 
-## Available painters
+## Kullanılabilir araçlar
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

@@ -4,15 +4,15 @@
     "description": "The label for version 1.0"
   },
   "sidebar.sidebar.category.Backgrounds": {
-    "message": "Backgrounds",
+    "message": "Arkaplanlar",
     "description": "The label for category Backgrounds in sidebar sidebar"
   },
   "sidebar.sidebar.category.Painters": {
-    "message": "Painters",
+    "message": "Araçlar",
     "description": "The label for category Painters in sidebar sidebar"
   },
   "sidebar.sidebar.category.Tools": {
-    "message": "Tools",
+    "message": "Aletler",
     "description": "The label for category Tools in sidebar sidebar"
   }
 }

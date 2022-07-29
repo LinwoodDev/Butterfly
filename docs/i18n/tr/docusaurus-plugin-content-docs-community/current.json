@@ -12,7 +12,7 @@
     "description": "The label for link GitHub in sidebar sidebar, linking to https://github.com/LinwoodCloud/Butterfly"
   },
   "sidebar.sidebar.category.Embedding": {
-    "message": "Embedding",
+    "message": "Gömülüyor",
     "description": "The label for category Embedding in sidebar sidebar"
   }
 }

@@ -1,17 +1,17 @@
 ---
-title: "Laser painter"
+title: "Lazer aracı"
 sidebar_label: "Lazer"
 sidebar_position: 3
 ---
 
 
-With this painter you can draw on this paper temporarily. After a while, the drawing fades away. Add a new drawing to the paper to make it cancel.
+Bu araç ile bu kağıda geçici olarak çizim yapabilirsiniz. Bir süre sonra çizim kaybolur. İptal etmek için kağıda yeni bir çizim ekleyin.
 
-## Configuration
+## Yapılandırma
 
-|         Property | Default | Tanım                                                                            |
-| ----------------:|:-------:|:-------------------------------------------------------------------------------- |
-|             Renk |  Black  | The color that will be drawn                                                     |
-| Kontur genişliği |    5    | The width of the stroke                                                          |
-|   Kontur çarpanı |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
-|             Süre |    5    | The duration in seconds that the drawing will be visible                         |
+|          Özellik | Varsayılan | Tanım                                                                |
+| ----------------:|:----------:|:-------------------------------------------------------------------- |
+|             Renk |   Siyah    | Çizilecek renk                                                       |
+| Kontur genişliği |     5      | Kontur genişliği                                                     |
+|   Kontur çarpanı |     1      | Bu, bir kaleminiz olması durumunda, basınca eklenecek olan çarpandır |
+|             Süre |     5      | Çizimin görüneceği süre (saniye cinsinden)                           |

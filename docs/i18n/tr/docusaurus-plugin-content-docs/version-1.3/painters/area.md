@@ -1,28 +1,28 @@
 ---
 sidebar_label: "Alan"
-title: "Area painter"
+title: "Alan oluşturma aracı"
 ---
 
-The area painter allows you to create, edit and remove areas.
+Alan oluşturma aracı, alanlar oluşturmanıza, düzenlemenize ve kaldırmanıza olanak tanır.
 
-## Actions
+## Eylemler
 
-|        Mouse        |    Touch     |      Action       |
-|:-------------------:|:------------:|:-----------------:|
-| Left click and drag | Tap and drag | Create a new area |
-|    Middle click     | Two fingers  |    Move canvas    |
-|     Right click     |   Long tap   |     Edit area     |
+|         Fare          |     Dokunma      |          Eylem          |
+|:---------------------:|:----------------:|:-----------------------:|
+| Sola tıkla ve sürükle | Dokun ve sürükle | Yeni bir alan oluşturma |
+|     Ortaya tıkla      |    İki parmak    |       Tuvali taşı       |
+|      Sağa tıkla       |   Uzun dokunma   |      Alanı düzenle      |
 
-## Configuration
+## Yapılandırma
 
-|     Property | Default | Tanım                                                                                                                                            |
-| ------------:|:-------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
-|     Genişlik |    0    | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
-|    Yükseklik |    0    | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
-| En boy oranı |    0    | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|      Özellik | Varsayılan | Tanım                                                                                                                                                          |
+| ------------:|:----------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     Genişlik |     0      | Alan genişliğini sabitleme. Eğer 0 olarak ayarlanırsa genişlik otomatik olarak hesaplanacaktır.                                                                |
+|    Yükseklik |     0      | Alan yüksekliğini sabitleme. Eğer 0 olarak ayarlanırsa yükseklik otomatik olarak hesaplanacaktır.                                                              |
+| En boy oranı |     0      | Alanın en boy oranını sabitleme. Eğer 0 olarak ayarlanırsa en boy oranı otomatik olarak hesaplanacaktır. En boy oranı, genişlik / yükseklik olarak tanımlanır. |
 
-There are three aspect ratio presets:
+Üç farklı en boy oranı ön ayarı vardır:
 
-* Square (1:1)
-* Page portrait (sqrt(2)) - This is the default aspect ratio of an A4 page in portrait mode.
-* Page landscape (1/sqrt(2)) - This is the default aspect ratio of an A4 page in landscape mode.
+* Kare (1:1)
+* Dikey Sayfa (sqrt(2)) - Bu, portre durumundaki bir A4 sayfasının varsayılan en boy oranıdır.
+* Yatay Sayfa (sqrt(2)) - Bu, yatay durumdaki bir A4 sayfasının varsayılan en boy oranıdır.

@@ -5,12 +5,12 @@ slug: "/nightly"
 
 :::warning
 
-Do not use the nightly version of Butterfly for production.
+Butterfly'ın nightly versiyonunu gündelik notlarınızda kullanmayın.
 
 :::
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+Nightly derlemeleri, size en son sürümü test etme, en yeni özellikleri görme ve geri bildirimde bulunma seçeneği sunmak için tasarlanmıştır.
 
-## Get the builds
+## Derlemeleri alın
 
-Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
+Platformunuzun indirme sayfalarına gidin. Tüm nightly derlemeleri, ayrıca github'da ön sürüm olarak yayınlanır.

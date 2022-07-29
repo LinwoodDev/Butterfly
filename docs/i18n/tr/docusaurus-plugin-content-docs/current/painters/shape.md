@@ -1,39 +1,39 @@
 ---
-title: "Shape painter"
+title: "Şekil aracı"
 sidebar_label: "Şekil"
 sidebar_position: 3
 ---
 
 
-Use this painter to draw shapes on the paper. You can draw rectangles, circles, and other shapes.
+Kağıda şekiller çizmek için bu aracı kullanın. Dikdörtgenler, daireler ya da başka şekiller çizebilirsiniz.
 
-## Configuration
+## Yapılandırma
 
-|              Property |  Default  | Tanım                                                                                                                                            |
-| ---------------------:|:---------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
-|                  Renk |   Black   | The color that will be drawn                                                                                                                     |
-|      Kontur genişliği |     5     | The width of the stroke                                                                                                                          |
-| Bağımlı yakınlaştırma |   false   | This will change the stroke width based on the zoom level.                                                                                       |
-|                 Şekil | rectangle | The shape that will be drawn                                                                                                                     |
-|              Genişlik |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
-|             Yükseklik |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
-|          En boy oranı |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|               Özellik | Varsayılan | Tanım                                                                                                                                                          |
+| ---------------------:|:----------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|                  Renk |   Siyah    | Çizilecek renk                                                                                                                                                 |
+|      Kontur genişliği |     5      | Kontur genişliği                                                                                                                                               |
+| Bağımlı yakınlaştırma |   false    | Bu, yakınlaştırma düzeyine bağlı olarak kontur genişliğini değiştirecektir.                                                                                    |
+|                 Şekil | dikdörtgen | Çizilecek şekil                                                                                                                                                |
+|              Genişlik |     0      | Alan genişliğini sabitleme. Eğer 0 olarak ayarlanırsa genişlik otomatik olarak hesaplanacaktır.                                                                |
+|             Yükseklik |     0      | Alan yüksekliğini sabitleme. Eğer 0 olarak ayarlanırsa yükseklik otomatik olarak hesaplanacaktır.                                                              |
+|          En boy oranı |     0      | Alanın en boy oranını sabitleme. Eğer 0 olarak ayarlanırsa en boy oranı otomatik olarak hesaplanacaktır. En boy oranı, genişlik / yükseklik olarak tanımlanır. |
 
-### Shape types
+### Şekil türleri
 
 #### Dikdörtgen
 
-|          Property |   Default   | Tanım                                             |
-| -----------------:|:-----------:|:------------------------------------------------- |
-|             Dolgu | Transparent | The color that will be drawn inside the rectangle |
-| Köşe yuvarlaklığı | 0, 0, 0, 0  | The radius of the corners of the rectangle        |
+|           Özellik | Varsayılan | Tanım                             |
+| -----------------:|:----------:|:--------------------------------- |
+|             Dolgu |   Şeffaf   | Dikdörtgenin içine çizilecek renk |
+| Köşe yuvarlaklığı | 0, 0, 0, 0 | Dikdörtgenin köşelerinin yarıçapı |
 
 ### Daire
 
-| Property |   Default   | Tanım                                             |
-| --------:|:-----------:|:------------------------------------------------- |
-|    Dolgu | Transparent | The color that will be drawn inside the rectangle |
+| Özellik | Varsayılan | Tanım                             |
+| -------:|:----------:|:--------------------------------- |
+|   Dolgu |   Şeffaf   | Dikdörtgenin içine çizilecek renk |
 
 ### Çizgi
 
-*No configuration available.*
+*Geçerli bir yapılandırma yok.*

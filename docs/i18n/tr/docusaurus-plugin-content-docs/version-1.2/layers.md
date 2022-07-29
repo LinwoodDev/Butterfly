@@ -2,10 +2,10 @@
 title: "Katmanlar"
 ---
 
-Layers are an option to group elements together. Click on the element to see and change the layer. Use the [layer painter](painters/layer.md) to change the layers of multiple elements.
+Katmanlar, öğeleri birlikte gruplamak için bir seçenektir. Katmanı görmek ve değiştirmek için öğeye tıklayın. Birden çok öğenin katmanlarını değiştirmek için [katman aracı](painters/layer.md)nı kullanın.
 
-## The layers dialog
+## Katmanlar iletişim kutusu
 
-Open the layer dialog by clicking on an empty canvas and clicking on "Layers".
+Boş bir tuvale tıklayıp "Katmanlar"a tıklayarak katman iletişim kutusunu açabilirsiniz.
 
-Here you can see all the layers in the project. Remove a layer by clicking on the trash icon or moving to the left or right. Change the visibility of a layer by clicking on the eye icon.
+Burada projedeki tüm katmanları görebilirsiniz. Çöp kutusu simgesine tıklayarak veya sola / sağa hareket ederek bir katmanı silebilirsiniz. Göz simgesine tıklayarak bir katmanın görünürlüğünü değiştirebilirsiniz.

@@ -1,8 +1,8 @@
 ---
-title: Branding
+title: Markalaştırma
 ---
 
-These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Bu varlıklar, [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE) kapsamında lisanslanmıştır.
 
 ## Logo
 
@@ -16,9 +16,9 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodCloud/
 
 [SVG](/img/nightly.svg) [PNG](/img/nightly.png)
 
-## Banner
+## Başlık resmi
 
-![Banner](/img/banner.svg)
+![Başlık resmi](/img/banner.svg)
 
 [SVG](/img/banner.svg) [PNG](/img/banner.png)
 
@@ -28,17 +28,17 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodCloud/
 
 [SVG](/img/docs.svg) [PNG](/img/docs.png)
 
-## Colors
+## Renkler
 
-* Primary: `#f2b138`
-* Primary Dark: `#f0a61c`
-* Primary Darker: `#eea010`
-* Primary Darkest: `#c4840d`
-* Primary Light: `#f4bc54`
-* Primary Lighter: `#f5c162`
-* Primary Lightest: `#f7d28c`
-* Accent: `#00469E`
+* Birincil: `#f2b138`
+* Birincil Koyu: `#f0a61c`
+* Birincil Daha Koyu: `#eea010`
+* Birincil En Koyu: `#c4840d`
+* Birincil Aydınlık: `#f4bc54`
+* Birincil daha aydınlık: `#f5c162`
+* Birincil en aydınlık: `#f7d28c`
+* Vurgu: `#00469E`
 
-## Fonts
+## Yazı tipleri
 
 * `Roboto`

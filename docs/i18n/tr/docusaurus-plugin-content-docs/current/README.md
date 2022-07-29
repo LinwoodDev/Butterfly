@@ -1,28 +1,28 @@
 ---
-title: Introduction
+title: Giriş
 id: intro
 slug: /intro
 sidebar_position: 1
 ---
 
 
-![Banner](/img/banner.png)
+![Başlık resmi](/img/banner.png)
 
 ---
 
-> Welcome to Butterfly, the opensource note app. Use the sidebar to navigate through the wiki.
+> Butterfly, açık kaynaklı not uygulaması'na hoş geldiniz. Wiki'de gezinmek için kenar çubuğunu kullanın.
 
 ## Başlarken
 
-Visit [the downloads](/downloads) to download the app for your platform. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+Platformunuz için uygulamayı indirmek için [indir](/downloads)i ziyaret edin. Platformunuzu bulamıyorsanız [web sürümü](https://butterfly.linwood.dev)nü kullanın.
 
-## Main view
+## Ana Görünüm
 
-![Main view](main.png)
+![Ana Görünüm](main.png)
 
-With the top left button you can go back to the document list. The document name will be displayed on the right of it. Undo, redo and file options are in the top right corner.
+Sol üst düğme ile belge listesine geri dönebilirsiniz. Belgenin adı sağında görüntülenecektir. Geri al, yinele ve dosya seçenekleri sağ üst köşededir.
 
-Below it, you can find the toolbar. Left, you can switch between view and edit mode. Right to it, there you find the zoom options. In the top right corner there are the tool options.
+Bunun altında araç çubuğunu bulabilirsiniz. Solda, görüntüleme ve düzenleme modu arasında geçiş yapabilirsiniz. Tam da burada yakınlaştırma seçeneklerini bulacaksınız. Sağ üst köşede araç seçenekleri vardır.
 
-- The view toolbar options are background, export and save.
-- The edit toolbar options are the painters. You can find [here](background) more.
+- Görünüm araç çubuğu seçenekleri; arka plan, dışa aktarma ve kaydetmedir.
+- Düzenleme araç çubuğu seçenekleri araçlardır. [Burada](background)n daha fazlasını bulabilirsiniz.

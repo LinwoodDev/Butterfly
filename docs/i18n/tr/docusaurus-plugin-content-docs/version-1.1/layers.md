@@ -2,6 +2,6 @@
 title: "Katmanlar"
 ---
 
-Layers are an option to group elements together. Click on the element to see and change the layer. Use the [layer painter](painters/layer.md) to change the layers of multiple elements.
+Katmanlar, öğeleri birlikte gruplamak için bir seçenektir. Katmanı görmek ve değiştirmek için öğeye tıklayın. Birden çok öğenin katmanlarını değiştirmek için [katman aracı](painters/layer.md)nı kullanın.
 
-If you click on the background, you can control which layers are visible.
+Arka plana tıklarsanız, hangi katmanların görünür olabileceğini kontrol edebilirsiniz.

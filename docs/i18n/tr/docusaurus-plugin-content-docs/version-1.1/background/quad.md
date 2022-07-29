@@ -1,14 +1,14 @@
 ---
-title: "Quad paper"
+title: "Kareli kağıt"
 ---
 
-|  Property | Value |
+|   Özellik | Değer |
 | ---------:|:----- |
 |  Genişlik | 15    |
 | Yükseklik | 15    |
-|   Count X | 1     |
-|   Count Y | 1     |
-|   Space X | 0     |
-|   Space Y | 0     |
+|    Sayı X | 1     |
+|    Sayı Y | 1     |
+|  Boşluk X | 0     |
+|  Boşluk Y | 0     |
 
-See [the introduction](intro) for more information.
+Daha fazla bilgi için [giriş](intro) bölümüne bakın.

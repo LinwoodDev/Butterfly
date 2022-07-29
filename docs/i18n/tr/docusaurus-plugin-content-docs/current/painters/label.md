@@ -1,14 +1,14 @@
 ---
-title: "Label painter"
+title: "Etiket aracı"
 sidebar_label: "Etiket"
 sidebar_position: 6
 ---
 
 
-With this painter you can add text to the paper.
+Bu araç ile kağıda metin ekleyebilirsiniz.
 
-## Configuration
+## Yapılandırma
 
-| Property | Default | Tanım                |
-| --------:|:-------:|:-------------------- |
-|    Boyut |   12    | The size of the text |
+| Özellik | Varsayılan | Tanım        |
+| -------:|:----------:|:------------ |
+|   Boyut |     12     | Metin boyutu |

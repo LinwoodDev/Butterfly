@@ -1,22 +1,22 @@
 ---
 id: "community"
 slug: "/community"
-sidebar_label: "Home"
+sidebar_label: "Ana sayfa"
 sidebar_position: 0
-title: "Community"
+title: "Topluluk"
 ---
 
-Welcome to the community section.
+Topluluk bölümüne hoş geldiniz.
 
-## Acknowledgements
+## Teşekkürler
 
-A special thanks goes to:
+Özel teşekkürler:
 
-* <https://github.com/flutter/flutter> for providing this useful crossplatform ui framework
-* <https://github.com/leanflutter/window_manager> for all this useful desktop window features
-* <https://github.com/facebook/docusaurus> for an easy-to-use static react documentation framework
+* Bu kullanışlı çapraz platform kullanıcı arabirimi çerçevesini sağladıkları için <https://github.com/flutter/flutter>  'a,
+* Kullanışlı masaüstü penceresi özellikleri için <https://github.com/leanflutter/window_manager> 'a,
+* Kullanımı kolay, statik tepki belge çerçevesi için <https://github.com/facebook/docusaurus>  'a teşekkürler
 
-All other licenses can you found in the settings.
+Diğer tüm lisansları ayarlar bölümünde bulabilirsiniz.
 
 ## Faydalı bağlantılar
 

@@ -1,11 +1,11 @@
 ---
-title: "Image painter"
+title: "Şekil aracı"
 sidebar_label: "Görsel"
 sidebar_position: 3
 ---
 
-With this painter you can add image to your paper. Click on a position and select an image.
+Bu araç ile kağıdınıza görsel ekleyebilirsiniz. Bir konuma tıklayın ve görselinizi seçin.
 
-## Configuration
+## Yapılandırma
 
-Currently, nothing to configure
+Şu anda yapılandırılacak bir şey yok

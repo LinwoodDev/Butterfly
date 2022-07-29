@@ -2,11 +2,11 @@
 title: Katman
 ---
 
-With this tool you can change the layer of multiple objects. Read more about layers [here](../layers.md). When you click on an object, the layer of the object will be changed to the layer set in the configuration. Leaving the layer field empty will set the layer to the default layer.
+Bu araçla birden çok ögenin katmanını değiştirebilirsiniz. Katmanlar hakkında daha fazla bilgiye [buradan](../layers.md) ulaşabilirsiniz. Bir ögeye tıkladığınızda, ögenin katmanı konfigürasyondaki katman kümesine dönüştürülür. Katman alanını boş bırakmak, katmanı varsayılan katmana ayarlar.
 
-## Configuration
+## Yapılandırma
 
-|       Property | Default | Tanım                                                                   |
-| --------------:|:-------:|:----------------------------------------------------------------------- |
-|         Katman |         | Elements will change to this layer if clicking on them                  |
-| Include eraser |  false  | This setting controls if you can click on the eraser layer and edit it. |
+|          Özellik | Varsayılan | Tanım                                                                                      |
+| ----------------:|:----------:|:------------------------------------------------------------------------------------------ |
+|           Katman |            | Ögeler, üzerlerine tıklandığında bu katmana değişecektir                                   |
+| Silgiyi dahil et |   false    | Bu ayar, silgi katmanına tıklandığındaö onu düzenleyip düzenleyemeyeceğinizi kontrol eder. |

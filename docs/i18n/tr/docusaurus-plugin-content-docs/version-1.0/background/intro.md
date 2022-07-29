@@ -1,13 +1,13 @@
 ---
 title: "Arkaplan"
-sidebar_label: "Introduction"
+sidebar_label: "Giriş"
 ---
 
 
-You can customize the background of the paper. Click on the background icon in the view tool to add it.
+Kağıdın arka planını özelleştirebilirsiniz. Eklemek için görünüm aracındaki arka plan simgesine tıklayın.
 
-## Configuration
+## Yapılandırma
 
-Width and height are the general settings of the box. Space and count are important if you want to add a complex structure.
+Genişlik ve yükseklik kutunun genel ayarlarıdır. Karmaşık bir yapı eklemek istiyorsanız boşluk ve sayı önemlidir.
 
-Additionally you can customize the color of the background.
+Ek olarak, arka planın rengini özelleştirebilirsiniz.

@@ -3,10 +3,10 @@ title: "Arkaplan"
 sidebar_label: "Arkaplan"
 ---
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+Kağıdın arka planını özelleştirebilirsiniz. Eklemek için iletişim kutusundaki arka plan simgesine tıklayın. 8 farklı arka plan şablonu mevcuttur.
 
-## Configuration
+## Yapılandırma
 
-Width and height are the general settings of the box.
+Genişlik ve yükseklik kutunun genel ayarlarıdır.
 
-Additionally, you can customize the color of the background.
+Ek olarak, arka planın rengini özelleştirebilirsiniz.
