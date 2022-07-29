@@ -1,9 +1,9 @@
 ---
-title: Embed playground
-sidebar_label: Playground
+title: Gömülü çalışma alanı
+sidebar_label: Çalışma Alanı
 ---
 
-Read the [docs](intro) to learn how to use the embedding feature.
+Yerleştirme özelliğinin nasıl kullanılacağını öğrenmek için [belgeleri](intro) okuyun.
 
 ```mdx-code-block
 import EmbedPlayground from "@site/src/components/EmbedPlayground.js"
