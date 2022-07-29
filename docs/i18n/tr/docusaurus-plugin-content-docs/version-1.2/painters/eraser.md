@@ -1,20 +1,20 @@
 ---
-title: "Eraser painter"
+title: "Silgi aracı"
 sidebar_label: "Silgi"
 sidebar_position: 3
 ---
 
-:::warning It is not recommended to use the eraser.
+:::tehlike Silgi kullanılması önerilmez.
 
-Please use the [path eraser](path_eraser) if it is possible.
+Eğer mümkünse, lütfen [yol silici](path_eraser)yi kullanın.
 
 :::
 
-With this painter you can erase the elements on the paper.
+Bu araç ile kağıt üzerindeki ögeleri silebilirsiniz.
 
-## Configuration
+## Yapılandırma
 
-|          Özellik | Varsayılan | Tanım                                                                            |
-| ----------------:|:----------:|:-------------------------------------------------------------------------------- |
-| Kontur genişliği |     5      | The width of the stroke                                                          |
-|   Kontur çarpanı |     1      | If you have a stylus, this is the multiplier which will be added to the pressure |
+|          Özellik | Varsayılan | Tanım                                                                |
+| ----------------:|:----------:|:-------------------------------------------------------------------- |
+| Kontur genişliği |     5      | Kontur genişliği                                                     |
+|   Kontur çarpanı |     1      | Bu, bir kaleminiz olması durumunda, basınca eklenecek olan çarpandır |
