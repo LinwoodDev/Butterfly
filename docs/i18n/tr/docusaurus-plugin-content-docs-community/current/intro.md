@@ -3,7 +3,7 @@ id: "community"
 slug: "/community"
 sidebar_label: "Ana sayfa"
 sidebar_position: 0
-title: "Community"
+title: "Topluluk"
 ---
 
 Topluluk bölümüne hoş geldiniz.
