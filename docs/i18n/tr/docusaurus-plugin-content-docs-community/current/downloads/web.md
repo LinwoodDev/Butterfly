@@ -1,5 +1,5 @@
 ---
-title: "Web"
+title: "Ağ"
 sidebar_position: 5
 ---
 
