@@ -3,10 +3,10 @@ title: "El"
 sidebar_label: "El"
 ---
 
-This is a special tool to move the camera.
+Bu, kamerayı hareket ettirmek için özel bir araçtır.
 
-## Configuration
+## Yapılandırma
 
-|        Özellik | Varsayılan | Tanım                                                                   |
-| --------------:|:----------:|:----------------------------------------------------------------------- |
-| Include eraser |   false    | This setting controls if you can click on the eraser layer and edit it. |
+|          Özellik | Varsayılan | Tanım                                                                                      |
+| ----------------:|:----------:|:------------------------------------------------------------------------------------------ |
+| Silgiyi dahil et |   false    | Bu ayar, silgi katmanına tıklandığındaö onu düzenleyip düzenleyemeyeceğinizi kontrol eder. |
