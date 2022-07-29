@@ -16,9 +16,9 @@ Bu varlıklar, [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develo
 
 [SVG](/img/nightly.svg) [PNG](/img/nightly.png)
 
-## Banner
+## Başlık resmi
 
-![Banner](/img/banner.svg)
+![Başlık resmi](/img/banner.svg)
 
 [SVG](/img/banner.svg) [PNG](/img/banner.png)
 
