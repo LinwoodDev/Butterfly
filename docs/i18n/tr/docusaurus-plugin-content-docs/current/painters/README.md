@@ -1,7 +1,7 @@
 ---
-title: "Painters"
+title: "Araçlar"
 slug: araçlar
-sidebar_label: "Introduction"
+sidebar_label: "Giriş"
 sidebar_position: 1
 ---
 
