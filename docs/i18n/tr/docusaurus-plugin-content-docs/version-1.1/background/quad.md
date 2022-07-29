@@ -2,7 +2,7 @@
 title: "Quad paper"
 ---
 
-|  Property | Value |
+|   Özellik | Value |
 | ---------:|:----- |
 |  Genişlik | 15    |
 | Yükseklik | 15    |
