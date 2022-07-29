@@ -35,27 +35,27 @@ embedElement.addEventListener('message', (data) => {
 
 Parametreler:
 
-* `data` (Type `String`): The data of the document.
+* `data` (Type`String`): Belgenin verileri.
 
 ### exit
 
-> The `exit` event is emitted when the user clicks the exit button.
+> Kullanıcı çıkış düğmesini tıkladığında `exit` olayı yayınlanır.
 
 Parametreler:
 
-* `data` (Type `String`): The data of the document.
+* `data` (Type`String`): Belgenin verileri.
 
 ### change
 
-> The `change` event is emitted when the user changes the document.
+> Kullanıcı belgeyi değiştirdiğinde `change` olayı yayınlanır.
 
 Parametreler:
 
-* `data` (Type `String`): The data of the document.
+* `data` (Type`String`): Belgenin verileri.
 
-## Methods
+## Yöntemler
 
-Example how to use it:
+Nasıl kullanılacağına dair örnekler:
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
@@ -69,39 +69,39 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> `getData` yöntemi, belgenin verilerini döndürür.
 
-No parameters. Returns: `String`
+Parametre yok. Dönüş: `String`
 
 ### setData
 
-> The `setData` method sets the data of the document.
+> `setData` yöntemi, belgenin verilerini ayarlar.
 
 Parametreler:
 
-* `data` (Type `String`): The data of the document.
+* `data` (Type`String`): Belgenin verileri.
 
 ### render
 
-> The `render` method renders the document to a png image.
+> `render` yöntemi, belgeyi bir png görüntüsüne dönüştürür.
 
 Parametreler:
 
-* `width` (Type `Number`): The width of the image.
-* `height` (Type `Number`): The height of the image.
-* `scale` (Type `Number`): The scale of the image.
-* `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+* `width` (Type `Number`): Görselin genişliği.
+* `height` (Type `Number`): Görselin yüksekliği.
+* `scale` (Type `Number`): Görselin ölçeği.
+* `renderBackground` (Type `Boolean`): Eğer doğruysa, arka plan oluşturulacaktır.
 
-Returns: `String` (Base64 encoded image)
+Dönüş: `String` (Base64 ile kodlanmış görsel)
 
 ### renderSVG
 
-> The `renderSVG` method renders the document to a svg image.
+> `renderSVG` yöntemi, belgeyi bir svg görüntüsüne dönüştürür.
 
 Parametreler:
 
-* `width` (Type `Number`): The width of the image.
-* `height` (Type `Number`): The height of the image.
-* `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+* `width` (Type `Number`): Görselin genişliği.
+* `height` (Type `Number`): Görselin yüksekliği.
+* `renderBackground` (Type `Boolean`): Eğer doğruysa, arka plan oluşturulacaktır.
 
-Returns: `String` (SVG)
+Dönüş: `String` (SVG)
