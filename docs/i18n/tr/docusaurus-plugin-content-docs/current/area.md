@@ -3,7 +3,7 @@ title: "Alan"
 sidebar_position: 2
 ---
 
-## Introduction
+## Giriş
 
 ![Alan](area.png)
 
