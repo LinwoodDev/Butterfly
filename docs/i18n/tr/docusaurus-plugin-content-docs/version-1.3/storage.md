@@ -1,12 +1,12 @@
 ---
-title: "Storage"
+title: "Depolama"
 sidebar_position: 2
 ---
 
-## Web
+## Ağ
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Uygulama verileri tarayıcınızda saklanır. Yerel bir depoda saklanır. Tarayıcınızda geliştirici araçlarını açın, verileri göreceksiniz.
 
-## Native platforms
+## Yerel Platformlar
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+Varsayılan olarak uygulama verileriö belgeler klasörünüzdeki "Linwood/Butterfly" adlı bir alt klasöre kaydeder. Bu klasör, ilk veri kaydınızda oluşturulur. Bu klasör ayarlardan değiştirilebilir.
