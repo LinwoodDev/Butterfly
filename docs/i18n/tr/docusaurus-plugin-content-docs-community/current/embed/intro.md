@@ -11,10 +11,10 @@ Gömme işlemi, uygulamayı web sitenize dahil etmenin basit bir yoludur. Aşağ
 
 ## Şeçenekler
 
-| Seçenek  | Tür                   | Default | Tanım                                                                                        |
-| -------- | --------------------- | ------- | -------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false) | true    | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir |
-| editable | Boolean (true, false) | true    | Düzenlemeyi etkinleştir. Eğer devre dışı bırakılırsa, belge salt okunur olur                 |
+| Seçenek  | Tür                   | Varsayılan | Tanım                                                                                        |
+| -------- | --------------------- | ---------- | -------------------------------------------------------------------------------------------- |
+| save     | Boolean (true, false) | true       | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir |
+| editable | Boolean (true, false) | true       | Düzenlemeyi etkinleştir. Eğer devre dışı bırakılırsa, belge salt okunur olur                 |
 
 ## Etkinlikler
 
