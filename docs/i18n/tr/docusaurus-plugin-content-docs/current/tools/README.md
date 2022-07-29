@@ -1,7 +1,7 @@
 ---
 slug: /tools
-title: "Tools"
-sidebar_label: "Introduction"
+title: "Aletler"
+sidebar_label: "Giriş"
 sidebar_position: 0
 ---
 
