@@ -1,8 +1,8 @@
 ---
-title: Migrating
+title: Göç etmek
 ---
 
-This guide will show you how to migrate to the latest version.
+Bu kılavuz size en son sürüme nasıl geçiş yapacağınızı gösterecektir.
 
 ## 1.0.0-beta.0
 
