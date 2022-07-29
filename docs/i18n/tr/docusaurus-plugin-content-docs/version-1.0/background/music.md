@@ -2,7 +2,7 @@
 title: "Music paper"
 ---
 
-|  Property | Value |
+|   Özellik | Value |
 | ---------:|:----- |
 |  Genişlik | 200   |
 | Yükseklik | 5     |
