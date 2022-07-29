@@ -1,16 +1,16 @@
 ---
-title: "Path eraser painter"
+title: "Yol silici aracı"
 sidebar_label: "Yol silici"
 sidebar_position: 5
 ---
 
 
-With this painter you can delete the whole path on the paper.
+Bu araç ile kağıt üzerindeki tüm yolu silebilirsiniz.
 
-## Configuration
+## Yapılandırma
 
-|          Özellik | Varsayılan | Tanım                                                                                                           |
-| ----------------:|:----------:|:--------------------------------------------------------------------------------------------------------------- |
-| Kontur genişliği |     5      | The width of the stroke                                                                                         |
-|   Kontur çarpanı |     1      | If you have a stylus, this is the multiplier which will be added to the pressure                                |
-|   Include eraser |   false    | This setting controls if you can remove the path of the eraser. The path under the removed eraser will be shown |
+|          Özellik | Varsayılan | Tanım                                                                                                              |
+| ----------------:|:----------:|:------------------------------------------------------------------------------------------------------------------ |
+| Kontur genişliği |     5      | Kontur genişliği                                                                                                   |
+|   Kontur çarpanı |     1      | Bu, bir kaleminiz olması durumunda, basınca eklenecek olan çarpandır                                               |
+| Silgiyi dahil et |   false    | Bu ayar, silginin yolunu kaldırıp kaldıramayacağınızı kontrol eder. Kaldırılan silginin altındaki yol görüntülenir |
