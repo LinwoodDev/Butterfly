@@ -29,12 +29,12 @@ You can draw rectangles, circles, and other shapes.
 |          Fill | Transparent | The color that will be drawn inside the rectangle |
 | Corner radius | 0, 0, 0, 0  | The radius of the corners of the rectangle        |
 
-### Circle
+#### Circle
 
 | Property |   Default   | Description                                       |
 | -------: | :---------: | :------------------------------------------------ |
 |     Fill | Transparent | The color that will be drawn inside the rectangle |
 
-### Line
+#### Line
 
 *No configuration available.*

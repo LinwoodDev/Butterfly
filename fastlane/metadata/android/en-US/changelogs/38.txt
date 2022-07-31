@@ -1,0 +1,1 @@
+* Fix performance on large documents when trying to open a context menu of an element
