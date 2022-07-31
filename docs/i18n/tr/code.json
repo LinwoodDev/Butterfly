@@ -280,7 +280,7 @@
     "description": "The ARIA label for the link to full blog posts from excerpts"
   },
   "theme.docs.DocCard.categoryDescription": {
-    "message": "{count} öğe",
+    "message": "{count} öge",
     "description": "The default description for a category card in the generated index about how many items this category includes"
   },
   "theme.colorToggle.ariaLabel": {
