@@ -54,18 +54,16 @@ class SvgRenderer extends Renderer<SvgElement> {
   @override
   Rect get rect {
     final constraints = element.constraints;
+    final size = svgRoot?.viewport.size ?? Size.zero;
     if (constraints is ScaledElementConstraints) {
       final scale = constraints.scale <= 0 ? 1 : constraints.scale;
-      return Rect.fromLTWH(
-          element.position.dx,
-          element.position.dy,
-          (element.width * scale).toDouble(),
-          (element.height * scale).toDouble());
+      return Rect.fromLTWH(element.position.dx, element.position.dy,
+          (size.width * scale).toDouble(), (size.height * scale).toDouble());
     } else if (constraints is FixedElementConstraints) {
       var height = constraints.height;
       var width = constraints.width;
-      if (height <= 0) height = element.height.toDouble();
-      if (width <= 0) width = element.width.toDouble();
+      if (height <= 0) height = size.height.toDouble();
+      if (width <= 0) width = size.width.toDouble();
       return Rect.fromLTWH(
           element.position.dx, element.position.dy, width, height);
     } else if (constraints is DynamicElementConstraints) {
@@ -82,16 +80,16 @@ class SvgRenderer extends Renderer<SvgElement> {
         final right = element.position.dx + element.width;
         width = min(rightArea, right) - element.position.dx;
         final bottomArea = areaRect?.bottom ?? 0;
-        final bottom = element.position.dy + element.height;
+        final bottom = element.position.dy + size.height;
         height = min(bottomArea, bottom) - element.position.dy;
       }
-      if (height <= 0) height = element.height.toDouble();
-      if (width <= 0) width = element.width.toDouble();
+      if (height <= 0) height = size.height.toDouble();
+      if (width <= 0) width = size.width.toDouble();
       return Rect.fromLTWH(
           element.position.dx, element.position.dy, width, height);
     } else {
       return Rect.fromLTWH(element.position.dx, element.position.dy,
-          element.width.toDouble(), element.height.toDouble());
+          size.width.toDouble(), size.height.toDouble());
     }
   }
 
