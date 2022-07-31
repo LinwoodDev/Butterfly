@@ -28,12 +28,12 @@ Usa este pintor para dibujar formas sobre el papel. Puedes dibujar rectángulos,
 |         Rellenar | Transparente | El color que se dibujará dentro del rectángulo |
 | Radio de esquina |  0, 0, 0, 0  | El radio de las esquinas del rectángulo        |
 
-### Círculo
+#### Círculo
 
 | Propiedad | Por defecto  | Descripción                                    |
 | ---------:|:------------:|:---------------------------------------------- |
 |  Rellenar | Transparente | El color que se dibujará dentro del rectángulo |
 
-### Línea
+#### Línea
 
 *No hay configuración disponible.*
