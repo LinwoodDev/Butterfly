@@ -1,9 +1,9 @@
 ---
-title: Gömme
+title: Yerleştirme
 sidebar_label: Başlangıç
 ---
 
-Gömme işlemi, uygulamayı web sitenize dahil etmenin basit bir yoludur. Aşağıdaki kodu web sitenize ekleyin:
+Yerleştirme işlemi, uygulamayı web sitenize dahil etmenin basit bir yoludur. Aşağıdaki kodu web sitenize ekleyin:
 
 ```html
 <iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
