@@ -233,12 +233,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         last.y != transform.position.dy ||
         last.scale != transform.size;
     if (renderers.isEmpty && !reset) return;
-    var visibleRenderers = renderers;
+    List<Renderer<PadElement>> visibleElements;
     if (reset) {
       renderers = this.renderers;
-      visibleRenderers = renderers
+      visibleElements = renderers
           .where((renderer) => renderer.rect?.overlaps(rect) ?? false)
           .toList();
+    } else {
+      visibleElements = List.from(cameraViewport.visibleElements)
+        ..addAll(renderers);
     }
     canvas.scale(ratio);
 
@@ -249,7 +252,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       document,
       transform: state.transformCubit.state,
       cameraViewport: reset
-          ? cameraViewport.unbake(unbakedElements: visibleRenderers)
+          ? cameraViewport.unbake(unbakedElements: visibleElements)
           : last,
       renderBackground: false,
       renderBaked: !reset,
@@ -280,7 +283,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             image: newImage,
             bakedElements: renderers,
             unbakedElements: currentRenderers,
-            visibleElements: visibleRenderers)));
+            visibleElements: visibleElements)));
   }
 
   Future<ByteData?> render(AppDocument document,
