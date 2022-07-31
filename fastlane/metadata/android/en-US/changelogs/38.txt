@@ -1,4 +1,5 @@
 * Add option to change data directory location on android
 * Add turkish translation (thanks to ilker besken)
+* Fix native window title bar issues
 * Fix performance on large documents when trying to open a context menu of an element
 * Fix render time on large documents
