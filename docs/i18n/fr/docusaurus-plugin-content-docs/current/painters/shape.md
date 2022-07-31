@@ -28,12 +28,12 @@ Utilisez ce peintre pour dessiner des formes sur le papier. Tu peux dessiner des
 |       Remplir | Transparence | La couleur qui sera dessinée à l'intérieur du rectangle |
 | Rayon du coin |  0, 0, 0, 0  | Le rayon des coins du rectangle                         |
 
-### Cercle
+#### Cercle
 
 | Propriété |  Par défaut  | Libellé                                                 |
 | ---------:|:------------:|:------------------------------------------------------- |
 |   Remplir | Transparence | La couleur qui sera dessinée à l'intérieur du rectangle |
 
-### Lignes
+#### Lignes
 
 *Aucune configuration disponible.*
