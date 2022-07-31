@@ -73,14 +73,21 @@ class CameraViewport extends Equatable {
           x: x,
           y: y);
 
-  CameraViewport unbake(
-          {Renderer<Background>? background,
-          List<Renderer<PadElement>>? unbakedElements}) =>
+  CameraViewport unbake({
+    Renderer<Background>? background,
+    List<Renderer<PadElement>>? unbakedElements,
+    List<Renderer<PadElement>>? visibleElements,
+  }) =>
       CameraViewport.unbaked(
           background ?? this.background,
           unbakedElements ??
               (List<Renderer<PadElement>>.from(this.unbakedElements)
-                ..addAll(bakedElements)));
+                ..addAll(bakedElements)),
+          visibleElements ??
+              (List<Renderer<PadElement>>.from(this.visibleElements)
+                ..addAll(unbakedElements ??
+                    (List<Renderer<PadElement>>.from(this.unbakedElements)
+                      ..addAll(bakedElements)))));
 
   CameraViewport bake({
     required ui.Image image,

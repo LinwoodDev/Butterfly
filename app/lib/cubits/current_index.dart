@@ -221,8 +221,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return;
     }
     final transform = state.transformCubit.state;
-    final rect = Rect.fromLTWH(
-        transform.position.dx, transform.position.dy, size.width, size.height);
+    final rect = Rect.fromLTWH(-transform.position.dx, -transform.position.dy,
+        size.width / transform.size, size.height / transform.size);
     var renderers = cameraViewport.unbakedElements;
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
@@ -237,7 +237,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (reset) {
       renderers = this.renderers;
       visibleElements = renderers
-          .where((renderer) => renderer.rect?.overlaps(rect) ?? false)
+          .where((renderer) => renderer.rect?.overlaps(rect) ?? true)
           .toList();
     } else {
       visibleElements = List.from(cameraViewport.visibleElements)
@@ -252,7 +252,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       document,
       transform: state.transformCubit.state,
       cameraViewport: reset
-          ? cameraViewport.unbake(unbakedElements: visibleElements)
+          ? cameraViewport.unbake(
+              unbakedElements: visibleElements,
+              visibleElements: visibleElements)
           : last,
       renderBackground: false,
       renderBaked: !reset,
