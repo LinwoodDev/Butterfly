@@ -25,4 +25,4 @@ Sol üst düğme ile belge listesine geri dönebilirsiniz. Belgenin adı sağın
 Bunun altında araç çubuğunu bulabilirsiniz. Solda, görüntüleme ve düzenleme modu arasında geçiş yapabilirsiniz. Tam da burada yakınlaştırma seçeneklerini bulacaksınız. Sağ üst köşede araç seçenekleri vardır.
 
 - Görünüm araç çubuğu seçenekleri; arka plan, dışa aktarma ve kaydetmedir.
-- Düzenleme araç çubuğu seçenekleri araçlardır. [Burada](background)n daha fazlasını bulabilirsiniz.
+- Düzenleme araç çubuğu seçenekleri araçlardır. [Buradan](background) daha fazlasını bulabilirsiniz.
