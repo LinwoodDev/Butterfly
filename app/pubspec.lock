@@ -287,7 +287,7 @@ packages:
       name: file_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "5.0.1"
   fixnum:
     dependency: transitive
     description:
@@ -344,7 +344,7 @@ packages:
       name: flutter_native_splash
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.6"
+    version: "2.2.7"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:

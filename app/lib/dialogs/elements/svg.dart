@@ -12,12 +12,12 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../models/element.dart';
 import '../constraints.dart';
 
-class ImageElementDialog extends StatelessWidget {
+class SvgElementDialog extends StatelessWidget {
   final int index;
   final ContextCloseFunction close;
   final Offset position;
 
-  const ImageElementDialog(
+  const SvgElementDialog(
       {super.key,
       required this.index,
       required this.close,
@@ -25,7 +25,7 @@ class ImageElementDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GeneralElementDialog<ImageElement>(
+    return GeneralElementDialog<SvgElement>(
       close: close,
       index: index,
       position: position,
@@ -68,14 +68,15 @@ class ImageElementDialog extends StatelessWidget {
             onTap: () async {
               final localization = AppLocalizations.of(context)!;
               await close();
-              final data = element.pixels;
+              final data = element.data;
               if (!kIsWeb &&
                   (Platform.isWindows ||
                       Platform.isLinux ||
                       Platform.isMacOS)) {
                 var path = await FilePicker.platform.saveFile(
-                  type: FileType.image,
-                  fileName: 'export.png',
+                  type: FileType.custom,
+                  allowedExtensions: ['svg'],
+                  fileName: 'export.svg',
                   dialogTitle: localization.export,
                 );
                 if (path != null) {
@@ -83,10 +84,10 @@ class ImageElementDialog extends StatelessWidget {
                   if (!(await file.exists())) {
                     file.create(recursive: true);
                   }
-                  await file.writeAsBytes(data.buffer.asUint8List());
+                  await file.writeAsString(data);
                 }
               } else {
-                openImage(data.buffer.asUint8List());
+                openImage(data.codeUnits);
               }
             },
           ),

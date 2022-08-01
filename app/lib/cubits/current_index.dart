@@ -213,7 +213,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       renderers.firstWhereOrNull((renderer) => renderer.element == element);
 
   Future<void> bake(AppDocument document,
-      {Size? viewportSize, double? pixelRatio}) async {
+      {Size? viewportSize, double? pixelRatio, bool reset = false}) async {
     final cameraViewport = state.cameraViewport;
     final size = viewportSize ?? cameraViewport.toSize();
     final ratio = pixelRatio ?? cameraViewport.pixelRatio;
@@ -227,7 +227,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final last = state.cameraViewport;
-    final reset = last.width != size.width.ceil() ||
+    reset = reset ||
+        last.width != size.width.ceil() ||
         last.height != size.height.ceil() ||
         last.x != transform.position.dx ||
         last.y != transform.position.dy ||

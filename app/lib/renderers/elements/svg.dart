@@ -54,7 +54,8 @@ class SvgRenderer extends Renderer<SvgElement> {
   @override
   Rect get rect {
     final constraints = element.constraints;
-    final size = svgRoot?.viewport.size ?? Size.zero;
+    final size =
+        svgRoot?.viewport.viewBox ?? Size(element.width, element.height);
     if (constraints is ScaledElementConstraints) {
       final scale = constraints.scale <= 0 ? 1 : constraints.scale;
       return Rect.fromLTWH(element.position.dx, element.position.dy,
@@ -94,6 +95,9 @@ class SvgRenderer extends Renderer<SvgElement> {
   }
 
   @override
-  SvgElement move(Offset position) => element.copyWith(
-      position: position - Offset(rect.width / 2, rect.height / 2));
+  SvgElement move(Offset position) {
+    final rect = this.rect;
+    return element.copyWith(
+        position: position - Offset(rect.width / 2, rect.height / 2));
+  }
 }

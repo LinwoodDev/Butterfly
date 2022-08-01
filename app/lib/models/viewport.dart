@@ -84,10 +84,9 @@ class CameraViewport extends Equatable {
               (List<Renderer<PadElement>>.from(this.unbakedElements)
                 ..addAll(bakedElements)),
           visibleElements ??
-              (List<Renderer<PadElement>>.from(this.visibleElements)
-                ..addAll(unbakedElements ??
-                    (List<Renderer<PadElement>>.from(this.unbakedElements)
-                      ..addAll(bakedElements)))));
+              unbakedElements ??
+              (List<Renderer<PadElement>>.from(this.unbakedElements)
+                ..addAll(bakedElements)));
 
   CameraViewport bake({
     required ui.Image image,

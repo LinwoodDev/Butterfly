@@ -110,25 +110,24 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           }
         }
         final index = current.document.content.indexOf(event.old);
-        if (index < 0) return;
-        final document = current.document;
-        return _saveDocument(
-                emit,
-                current.copyWith(
-                  document: document.copyWith(
-                      content: List.from(document.content)
-                        ..[index] = event.updated),
-                ),
-                null)
-            .then((value) async {
-          current.currentIndexCubit.unbake(unbakedElements: renderers);
-          if (oldRenderer == null || newRenderer == null) return;
-          if (await current.currentIndexCubit
-              .getHandler()
-              .onRendererUpdated(current.document, oldRenderer, newRenderer)) {
-            refresh();
-          }
-        });
+        current.currentIndexCubit.unbake(unbakedElements: renderers);
+        if (oldRenderer == null || newRenderer == null) return;
+        if (await current.currentIndexCubit
+            .getHandler()
+            .onRendererUpdated(current.document, oldRenderer, newRenderer)) {
+          refresh();
+        }
+        if (index >= 0) {
+          final document = current.document;
+          await _saveDocument(
+              emit,
+              current.copyWith(
+                document: document.copyWith(
+                    content: List.from(document.content)
+                      ..[index] = event.updated),
+              ),
+              null);
+        }
       }
     });
     on<ElementsRemoved>((event, emit) async {
@@ -556,10 +555,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     current.currentIndexCubit.refresh(current.document);
   }
 
-  Future<void> bake({Size? viewportSize, double? pixelRatio}) async {
+  Future<void> bake(
+      {Size? viewportSize, double? pixelRatio, bool reset = false}) async {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
-    return current.bake(viewportSize: viewportSize, pixelRatio: pixelRatio);
+    return current.bake(
+        viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
   }
 
   Future<void> load() async {

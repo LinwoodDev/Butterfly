@@ -65,7 +65,7 @@ class ViewPainter extends CustomPainter {
   final CameraTransform transform;
   final List<String> invisibleLayers;
 
-  ViewPainter(
+  const ViewPainter(
     this.document, {
     this.currentArea,
     this.invisibleLayers = const [],
@@ -124,9 +124,11 @@ class ViewPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(ViewPainter oldDelegate) =>
-      document != oldDelegate.document ||
-      renderBackground != oldDelegate.renderBackground ||
-      transform != oldDelegate.transform ||
-      cameraViewport != oldDelegate.cameraViewport;
+  bool shouldRepaint(ViewPainter oldDelegate) {
+    final shouldRepaint = document != oldDelegate.document ||
+        renderBackground != oldDelegate.renderBackground ||
+        transform != oldDelegate.transform ||
+        cameraViewport != oldDelegate.cameraViewport;
+    return shouldRepaint;
+  }
 }

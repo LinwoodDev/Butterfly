@@ -1,5 +1,8 @@
 * Add option to change data directory location on android
 * Add turkish translation (thanks to ilker besken)
+* Add constraint and export option to svg element context menu
+* Fix missing svg move indicator
+* Fix exporting of image elements
 * Fix svg renderer rect
 * Fix native window title bar issues
 * Fix performance on large documents when trying to open a context menu of an element

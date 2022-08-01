@@ -124,8 +124,10 @@ class _InsertDialogState extends State<InsertDialog> {
             try {
               var document = await parser.parse(contentString,
                   warningsAsErrors: true, key: contentString);
-              final height = document.viewport.height,
+              var height = document.viewport.height,
                   width = document.viewport.width;
+              if (!height.isFinite) height = 0;
+              if (!width.isFinite) width = 0;
               var elements = [
                 SvgElement(
                   width: width,
@@ -136,12 +138,14 @@ class _InsertDialogState extends State<InsertDialog> {
               ];
               _submit(elements);
             } catch (e, stackTrace) {
-              showDialog(
-                  context: context,
-                  builder: (context) => ErrorDialog(
-                        error: e,
-                        stackTrace: stackTrace,
-                      ));
+              if (mounted) {
+                showDialog(
+                    context: context,
+                    builder: (context) => ErrorDialog(
+                          error: e,
+                          stackTrace: stackTrace,
+                        ));
+              }
             }
           },
         ),

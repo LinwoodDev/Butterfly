@@ -120,12 +120,10 @@ class DocumentLoadSuccess extends DocumentState {
       ? null
       : settingsCubit.state.getRemote(location.remote);
 
-  Future<void> bake({
-    Size? viewportSize,
-    double? pixelRatio,
-  }) =>
+  Future<void> bake(
+          {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
       currentIndexCubit.bake(document,
-          viewportSize: viewportSize, pixelRatio: pixelRatio);
+          viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
 }
 
 class DocumentLoadFailure extends DocumentState {}

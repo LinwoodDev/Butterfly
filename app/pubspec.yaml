@@ -28,7 +28,7 @@ dependencies:
   path_provider: ^2.0.11
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.5
-  file_picker: ^5.0.0
+  file_picker: ^5.0.1
   phosphor_flutter: ^1.4.0
   replay_bloc: ^0.2.1
   share_plus: ^4.0.10
@@ -56,7 +56,7 @@ dependencies:
   rxdart: ^0.27.5
   ffi: ^2.0.1
 dev_dependencies:
-  flutter_native_splash: ^2.2.6
+  flutter_native_splash: ^2.2.7
   flutter_launcher_icons: ^0.9.3
   flutter_lints: ^2.0.1
   flutter_test:
