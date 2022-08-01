@@ -46,13 +46,21 @@ If you need help, don't hesitate to ask questions. You can reach me on discord o
 
 ## Comparison
 
-| Name                             | ⚡ Butterfly ⚡ | OneNote                                             |
-|----------------------------------|---------------|-----------------------------------------------------|
-| Add texts, draw, erase           | ✅             | ✅                                                   |
-| Organizing your ideas in folders | ✅             | ✅                                                   |
-| Web version                      | ✅             | ✅                                                   |
+| Name                             | ⚡ Butterfly ⚡ | OneNote                                            |
+| -------------------------------- | ------------- | -------------------------------------------------- |
+| Add texts, draw, erase           | ✅             | ✅                                                  |
+| Organizing your ideas in folders | ✅             | ✅                                                  |
+| Web version                      | ✅             | ✅                                                  |
+| Synchronization                  | ✅             | ✅                                                  |
 | Free                             | ✅             | ⚠️ (Basic version is free)                          |
 | Offline support                  | ✅             | ⚠️ (Only supports offline mode in the windows app)  |
 | Image export                     | ✅             | ⚠️ (Only supports printing)                         |
 | Infinite drawing board           | ✅             | ⚠️ (Only supports moving in the positive direction) |
-| Cross platform                   | ✅             | ❌                                                   |
+| Cross platform                   | ✅             | ❌                                                  |
+| Local                            | ✅             | ❌                                                  |
+| Opensource                       | ✅             | ❌                                                  |
+
+## License
+
+The code is open source and licensed under the [AGPL-3.0](./LICENSE) license.
+All images in `app/images/` except `powered-by-vercel.svg` and all images in `docs/` are licensed under the [CC-BY-4.0](./BRANDING_LICENSE) license.
