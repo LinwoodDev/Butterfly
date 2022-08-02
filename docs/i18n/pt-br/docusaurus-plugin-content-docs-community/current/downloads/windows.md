@@ -20,12 +20,12 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
   <button className="button button--outline button--info button--lg">Estável</button>
   <ul className="dropdown__menu">
     <li>
-      <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/Butterfly-Setup.exe">
+      <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-windows-setup.exe">
         Configuração
       </DownloadButton>
     </li>
     <li>
-      <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/windows.zip">
+      <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-windows.zip">
         Portátil
       </DownloadButton>
     </li>
