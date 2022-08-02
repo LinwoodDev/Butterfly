@@ -124,8 +124,8 @@ class _InsertDialogState extends State<InsertDialog> {
             try {
               var document = await parser.parse(contentString,
                   warningsAsErrors: true, key: contentString);
-              var height = document.viewport.height,
-                  width = document.viewport.width;
+              final size = document.viewport.viewBox;
+              var height = size.height, width = size.width;
               if (!height.isFinite) height = 0;
               if (!width.isFinite) width = 0;
               var elements = [
