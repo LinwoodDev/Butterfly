@@ -295,6 +295,7 @@ jobs:
   #          build/windows/runner/Release/**
   deploy:
     runs-on: ubuntu-22.04
+    if: github.event_name == 'push'
     needs:
       - build-apk
       - build-windows
