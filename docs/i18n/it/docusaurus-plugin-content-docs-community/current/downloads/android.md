@@ -16,7 +16,7 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
 ## Binari
 
 <div className="row margin-bottom--lg padding--sm">
-<DownloadButton className="button button--outline button--info button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/app-release.apk">
+<DownloadButton className="button button--outline button--info button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-android.apk">
   Stabile
 </DownloadButton>
 <DownloadButton className="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-android.apk">
