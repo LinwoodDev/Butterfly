@@ -7,3 +7,4 @@
 * Fix native window title bar issues
 * Fix performance on large documents when trying to open a context menu of an element
 * Fix render time on large documents
+* Fix slider do not update after changing outside of the slider

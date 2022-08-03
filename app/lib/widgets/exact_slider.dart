@@ -55,9 +55,9 @@ class _ExactSliderState extends State<ExactSlider> {
   void didUpdateWidget(covariant ExactSlider oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value) {
-      _controller.text = _value.toStringAsFixed(widget.fractionDigits);
       setState(() {
         _value = widget.value ?? widget.defaultValue;
+        _controller.text = _value.toStringAsFixed(widget.fractionDigits);
       });
     }
   }

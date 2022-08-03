@@ -34,12 +34,12 @@ dependencies:
   share_plus: ^4.0.10
   package_info_plus: ^1.4.3
   idb_shim: ^2.0.1+1
-  go_router: ^4.2.4
+  go_router: ^4.2.5
   xml: ^6.0.1
   collection: ^1.16.0
   bloc_concurrency: ^0.2.0
   camera: ^0.10.0
-  camera_windows: ^0.1.0+5
+  camera_windows: ^0.2.0
   window_manager: ^0.2.5
   flex_color_scheme: ^5.1.0
   freezed_annotation: ^2.1.0

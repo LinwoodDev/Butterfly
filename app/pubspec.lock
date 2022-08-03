@@ -168,7 +168,7 @@ packages:
       name: camera_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0+5"
+    version: "0.2.0"
   characters:
     dependency: transitive
     description:
@@ -450,7 +450,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.4"
+    version: "4.2.5"
   graphs:
     dependency: transitive
     description:
