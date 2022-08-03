@@ -366,14 +366,20 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
-        return _saveDocument(
+        final renderers = current.renderers
+            .where((e) => e.element.layer != event.name)
+            .toList();
+        await _saveDocument(
             emit,
             current.copyWith(
-                document: current.document.copyWith(
-                    content: List<PadElement>.from(current.document.content)
-                        .where((e) => e.layer != event.name)
-                        .toList())),
+              document: current.document.copyWith(
+                content: List<PadElement>.from(current.document.content)
+                    .where((e) => e.layer != event.name)
+                    .toList(),
+              ),
+            ),
             null);
+        current.currentIndexCubit.unbake(unbakedElements: renderers);
       }
     });
 
