@@ -14,21 +14,49 @@ import 'waypoint.dart';
 part 'document.g.dart';
 part 'document.freezed.dart';
 
+@freezed
+class AssetLocation with _$AssetLocation {
+  const factory AssetLocation(
+      {@Default('') String remote, required String path}) = _AssetLocation;
+
+  factory AssetLocation.local(String path) => AssetLocation(path: path);
+
+  factory AssetLocation.fromJson(Map<String, dynamic> json) =>
+      _$AssetLocationFromJson(json);
+
+  const AssetLocation._();
+
+  String get identifier =>
+      remote == '' ? pathWithLeadingSlash : '$remote@$pathWithLeadingSlash';
+  String get pathWithLeadingSlash => path.startsWith('/') ? path : '/$path';
+  String get pathWithoutLeadingSlash =>
+      path.startsWith('/') ? path.substring(1) : path;
+}
+
 @immutable
 abstract class AppDocumentAsset {
-  final String path;
+  final AssetLocation location;
+  final bool cached;
 
-  const AppDocumentAsset(this.path);
+  const AppDocumentAsset(this.location, {this.cached = false});
 
-  String get fileName => path.split('/').last;
+  String get fileName => location.path.split('/').last;
 
-  String get fileExtension => fileName.split('.').last;
+  String get fileExtension =>
+      fileName.contains('.') ? fileName.split('.').last : '';
 
-  String get fileNameWithoutExtension =>
-      fileName.substring(0, fileName.length - fileExtension.length - 1);
+  String get fileNameWithoutExtension => fileName.substring(
+      0,
+      fileName.length -
+          (fileName.contains('.') ? fileExtension.length - 1 : 0));
 
-  String get parent =>
-      path.split('/').sublist(0, path.split('/').length - 1).join('/');
+  String get pathWithLeadingSlash => location.pathWithLeadingSlash;
+  String get pathWithoutLeadingSlash => location.pathWithoutLeadingSlash;
+
+  String get parent => pathWithLeadingSlash
+      .split('/')
+      .sublist(0, pathWithLeadingSlash.split('/').length - 1)
+      .join('/');
 }
 
 @immutable
@@ -37,11 +65,11 @@ class AppDocumentFile extends AppDocumentAsset {
 
   const AppDocumentFile(super.path, this.json);
 
-  int get fileVersion => json['fileVersion'];
+  int get fileVersion => json['fileVersion'] ?? -1;
 
-  String get name => json['name'];
+  String get name => json['name'] ?? fileNameWithoutExtension;
 
-  String get description => json['description'];
+  String get description => json['description'] ?? '';
 
   DateTime? get updatedAt =>
       json['updatedAt'] == null ? null : DateTime.tryParse(json['updatedAt']);

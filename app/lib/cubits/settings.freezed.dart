@@ -14,6 +14,452 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+RemoteStorage _$RemoteStorageFromJson(Map<String, dynamic> json) {
+  return DavRemoteStorage.fromJson(json);
+}
+
+/// @nodoc
+mixin _$RemoteStorage {
+  String get username => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
+  String get path => throw _privateConstructorUsedError;
+  String get documentsPath => throw _privateConstructorUsedError;
+  String get templatesPath => throw _privateConstructorUsedError;
+  List<String> get cachedDocuments => throw _privateConstructorUsedError;
+  @Uint8ListJsonConverter()
+  Uint8List get icon => throw _privateConstructorUsedError;
+  DateTime? get lastSynced => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String username,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            List<String> cachedDocuments,
+            @Uint8ListJsonConverter() Uint8List icon,
+            DateTime? lastSynced)
+        dav,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(
+            String username,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            List<String> cachedDocuments,
+            @Uint8ListJsonConverter() Uint8List icon,
+            DateTime? lastSynced)?
+        dav,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String username,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            List<String> cachedDocuments,
+            @Uint8ListJsonConverter() Uint8List icon,
+            DateTime? lastSynced)?
+        dav,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DavRemoteStorage value) dav,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DavRemoteStorage value)? dav,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DavRemoteStorage value)? dav,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RemoteStorageCopyWith<RemoteStorage> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RemoteStorageCopyWith<$Res> {
+  factory $RemoteStorageCopyWith(
+          RemoteStorage value, $Res Function(RemoteStorage) then) =
+      _$RemoteStorageCopyWithImpl<$Res>;
+  $Res call(
+      {String username,
+      String url,
+      String path,
+      String documentsPath,
+      String templatesPath,
+      List<String> cachedDocuments,
+      @Uint8ListJsonConverter() Uint8List icon,
+      DateTime? lastSynced});
+}
+
+/// @nodoc
+class _$RemoteStorageCopyWithImpl<$Res>
+    implements $RemoteStorageCopyWith<$Res> {
+  _$RemoteStorageCopyWithImpl(this._value, this._then);
+
+  final RemoteStorage _value;
+  // ignore: unused_field
+  final $Res Function(RemoteStorage) _then;
+
+  @override
+  $Res call({
+    Object? username = freezed,
+    Object? url = freezed,
+    Object? path = freezed,
+    Object? documentsPath = freezed,
+    Object? templatesPath = freezed,
+    Object? cachedDocuments = freezed,
+    Object? icon = freezed,
+    Object? lastSynced = freezed,
+  }) {
+    return _then(_value.copyWith(
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+      documentsPath: documentsPath == freezed
+          ? _value.documentsPath
+          : documentsPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      templatesPath: templatesPath == freezed
+          ? _value.templatesPath
+          : templatesPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      cachedDocuments: cachedDocuments == freezed
+          ? _value.cachedDocuments
+          : cachedDocuments // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
+      lastSynced: lastSynced == freezed
+          ? _value.lastSynced
+          : lastSynced // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$DavRemoteStorageCopyWith<$Res>
+    implements $RemoteStorageCopyWith<$Res> {
+  factory _$$DavRemoteStorageCopyWith(
+          _$DavRemoteStorage value, $Res Function(_$DavRemoteStorage) then) =
+      __$$DavRemoteStorageCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String username,
+      String url,
+      String path,
+      String documentsPath,
+      String templatesPath,
+      List<String> cachedDocuments,
+      @Uint8ListJsonConverter() Uint8List icon,
+      DateTime? lastSynced});
+}
+
+/// @nodoc
+class __$$DavRemoteStorageCopyWithImpl<$Res>
+    extends _$RemoteStorageCopyWithImpl<$Res>
+    implements _$$DavRemoteStorageCopyWith<$Res> {
+  __$$DavRemoteStorageCopyWithImpl(
+      _$DavRemoteStorage _value, $Res Function(_$DavRemoteStorage) _then)
+      : super(_value, (v) => _then(v as _$DavRemoteStorage));
+
+  @override
+  _$DavRemoteStorage get _value => super._value as _$DavRemoteStorage;
+
+  @override
+  $Res call({
+    Object? username = freezed,
+    Object? url = freezed,
+    Object? path = freezed,
+    Object? documentsPath = freezed,
+    Object? templatesPath = freezed,
+    Object? cachedDocuments = freezed,
+    Object? icon = freezed,
+    Object? lastSynced = freezed,
+  }) {
+    return _then(_$DavRemoteStorage(
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+      documentsPath: documentsPath == freezed
+          ? _value.documentsPath
+          : documentsPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      templatesPath: templatesPath == freezed
+          ? _value.templatesPath
+          : templatesPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      cachedDocuments: cachedDocuments == freezed
+          ? _value._cachedDocuments
+          : cachedDocuments // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
+      lastSynced: lastSynced == freezed
+          ? _value.lastSynced
+          : lastSynced // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$DavRemoteStorage extends DavRemoteStorage {
+  const _$DavRemoteStorage(
+      {required this.username,
+      required this.url,
+      required this.path,
+      required this.documentsPath,
+      required this.templatesPath,
+      final List<String> cachedDocuments = const [],
+      @Uint8ListJsonConverter() required this.icon,
+      this.lastSynced})
+      : _cachedDocuments = cachedDocuments,
+        super._();
+
+  factory _$DavRemoteStorage.fromJson(Map<String, dynamic> json) =>
+      _$$DavRemoteStorageFromJson(json);
+
+  @override
+  final String username;
+  @override
+  final String url;
+  @override
+  final String path;
+  @override
+  final String documentsPath;
+  @override
+  final String templatesPath;
+  final List<String> _cachedDocuments;
+  @override
+  @JsonKey()
+  List<String> get cachedDocuments {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_cachedDocuments);
+  }
+
+  @override
+  @Uint8ListJsonConverter()
+  final Uint8List icon;
+  @override
+  final DateTime? lastSynced;
+
+  @override
+  String toString() {
+    return 'RemoteStorage.dav(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, cachedDocuments: $cachedDocuments, icon: $icon, lastSynced: $lastSynced)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DavRemoteStorage &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.url, url) &&
+            const DeepCollectionEquality().equals(other.path, path) &&
+            const DeepCollectionEquality()
+                .equals(other.documentsPath, documentsPath) &&
+            const DeepCollectionEquality()
+                .equals(other.templatesPath, templatesPath) &&
+            const DeepCollectionEquality()
+                .equals(other._cachedDocuments, _cachedDocuments) &&
+            const DeepCollectionEquality().equals(other.icon, icon) &&
+            const DeepCollectionEquality()
+                .equals(other.lastSynced, lastSynced));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(url),
+      const DeepCollectionEquality().hash(path),
+      const DeepCollectionEquality().hash(documentsPath),
+      const DeepCollectionEquality().hash(templatesPath),
+      const DeepCollectionEquality().hash(_cachedDocuments),
+      const DeepCollectionEquality().hash(icon),
+      const DeepCollectionEquality().hash(lastSynced));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$DavRemoteStorageCopyWith<_$DavRemoteStorage> get copyWith =>
+      __$$DavRemoteStorageCopyWithImpl<_$DavRemoteStorage>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String username,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            List<String> cachedDocuments,
+            @Uint8ListJsonConverter() Uint8List icon,
+            DateTime? lastSynced)
+        dav,
+  }) {
+    return dav(username, url, path, documentsPath, templatesPath,
+        cachedDocuments, icon, lastSynced);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(
+            String username,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            List<String> cachedDocuments,
+            @Uint8ListJsonConverter() Uint8List icon,
+            DateTime? lastSynced)?
+        dav,
+  }) {
+    return dav?.call(username, url, path, documentsPath, templatesPath,
+        cachedDocuments, icon, lastSynced);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String username,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            List<String> cachedDocuments,
+            @Uint8ListJsonConverter() Uint8List icon,
+            DateTime? lastSynced)?
+        dav,
+    required TResult orElse(),
+  }) {
+    if (dav != null) {
+      return dav(username, url, path, documentsPath, templatesPath,
+          cachedDocuments, icon, lastSynced);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DavRemoteStorage value) dav,
+  }) {
+    return dav(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DavRemoteStorage value)? dav,
+  }) {
+    return dav?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DavRemoteStorage value)? dav,
+    required TResult orElse(),
+  }) {
+    if (dav != null) {
+      return dav(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DavRemoteStorageToJson(
+      this,
+    );
+  }
+}
+
+abstract class DavRemoteStorage extends RemoteStorage {
+  const factory DavRemoteStorage(
+      {required final String username,
+      required final String url,
+      required final String path,
+      required final String documentsPath,
+      required final String templatesPath,
+      final List<String> cachedDocuments,
+      @Uint8ListJsonConverter() required final Uint8List icon,
+      final DateTime? lastSynced}) = _$DavRemoteStorage;
+  const DavRemoteStorage._() : super._();
+
+  factory DavRemoteStorage.fromJson(Map<String, dynamic> json) =
+      _$DavRemoteStorage.fromJson;
+
+  @override
+  String get username;
+  @override
+  String get url;
+  @override
+  String get path;
+  @override
+  String get documentsPath;
+  @override
+  String get templatesPath;
+  @override
+  List<String> get cachedDocuments;
+  @override
+  @Uint8ListJsonConverter()
+  Uint8List get icon;
+  @override
+  DateTime? get lastSynced;
+  @override
+  @JsonKey(ignore: true)
+  _$$DavRemoteStorageCopyWith<_$DavRemoteStorage> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 /// @nodoc
 mixin _$ButterflySettings {
   ThemeMode get theme => throw _privateConstructorUsedError;
@@ -24,12 +470,16 @@ mixin _$ButterflySettings {
   double get mouseSensitivity => throw _privateConstructorUsedError;
   double get penSensitivity => throw _privateConstructorUsedError;
   double get selectSensitivity => throw _privateConstructorUsedError;
-  InputType get inputType => throw _privateConstructorUsedError;
+  bool get penOnlyInput => throw _privateConstructorUsedError;
+  bool get inputGestures => throw _privateConstructorUsedError;
   String get design => throw _privateConstructorUsedError;
-  List<String> get recentHistory => throw _privateConstructorUsedError;
+  List<AssetLocation> get history => throw _privateConstructorUsedError;
   bool get startEnabled => throw _privateConstructorUsedError;
   bool get colorEnabled => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
+  List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
+  String get defaultRemote => throw _privateConstructorUsedError;
+  bool get nativeWindowTitleBar => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -50,12 +500,16 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       double mouseSensitivity,
       double penSensitivity,
       double selectSensitivity,
-      InputType inputType,
+      bool penOnlyInput,
+      bool inputGestures,
       String design,
-      List<String> recentHistory,
+      List<AssetLocation> history,
       bool startEnabled,
       bool colorEnabled,
-      String? lastVersion});
+      String? lastVersion,
+      List<RemoteStorage> remotes,
+      String defaultRemote,
+      bool nativeWindowTitleBar});
 }
 
 /// @nodoc
@@ -77,12 +531,16 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? mouseSensitivity = freezed,
     Object? penSensitivity = freezed,
     Object? selectSensitivity = freezed,
-    Object? inputType = freezed,
+    Object? penOnlyInput = freezed,
+    Object? inputGestures = freezed,
     Object? design = freezed,
-    Object? recentHistory = freezed,
+    Object? history = freezed,
     Object? startEnabled = freezed,
     Object? colorEnabled = freezed,
     Object? lastVersion = freezed,
+    Object? remotes = freezed,
+    Object? defaultRemote = freezed,
+    Object? nativeWindowTitleBar = freezed,
   }) {
     return _then(_value.copyWith(
       theme: theme == freezed
@@ -117,18 +575,22 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _value.selectSensitivity
           : selectSensitivity // ignore: cast_nullable_to_non_nullable
               as double,
-      inputType: inputType == freezed
-          ? _value.inputType
-          : inputType // ignore: cast_nullable_to_non_nullable
-              as InputType,
+      penOnlyInput: penOnlyInput == freezed
+          ? _value.penOnlyInput
+          : penOnlyInput // ignore: cast_nullable_to_non_nullable
+              as bool,
+      inputGestures: inputGestures == freezed
+          ? _value.inputGestures
+          : inputGestures // ignore: cast_nullable_to_non_nullable
+              as bool,
       design: design == freezed
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
               as String,
-      recentHistory: recentHistory == freezed
-          ? _value.recentHistory
-          : recentHistory // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      history: history == freezed
+          ? _value.history
+          : history // ignore: cast_nullable_to_non_nullable
+              as List<AssetLocation>,
       startEnabled: startEnabled == freezed
           ? _value.startEnabled
           : startEnabled // ignore: cast_nullable_to_non_nullable
@@ -141,6 +603,18 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
               as String?,
+      remotes: remotes == freezed
+          ? _value.remotes
+          : remotes // ignore: cast_nullable_to_non_nullable
+              as List<RemoteStorage>,
+      defaultRemote: defaultRemote == freezed
+          ? _value.defaultRemote
+          : defaultRemote // ignore: cast_nullable_to_non_nullable
+              as String,
+      nativeWindowTitleBar: nativeWindowTitleBar == freezed
+          ? _value.nativeWindowTitleBar
+          : nativeWindowTitleBar // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -161,12 +635,16 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       double mouseSensitivity,
       double penSensitivity,
       double selectSensitivity,
-      InputType inputType,
+      bool penOnlyInput,
+      bool inputGestures,
       String design,
-      List<String> recentHistory,
+      List<AssetLocation> history,
       bool startEnabled,
       bool colorEnabled,
-      String? lastVersion});
+      String? lastVersion,
+      List<RemoteStorage> remotes,
+      String defaultRemote,
+      bool nativeWindowTitleBar});
 }
 
 /// @nodoc
@@ -190,12 +668,16 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? mouseSensitivity = freezed,
     Object? penSensitivity = freezed,
     Object? selectSensitivity = freezed,
-    Object? inputType = freezed,
+    Object? penOnlyInput = freezed,
+    Object? inputGestures = freezed,
     Object? design = freezed,
-    Object? recentHistory = freezed,
+    Object? history = freezed,
     Object? startEnabled = freezed,
     Object? colorEnabled = freezed,
     Object? lastVersion = freezed,
+    Object? remotes = freezed,
+    Object? defaultRemote = freezed,
+    Object? nativeWindowTitleBar = freezed,
   }) {
     return _then(_$_ButterflySettings(
       theme: theme == freezed
@@ -230,18 +712,22 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.selectSensitivity
           : selectSensitivity // ignore: cast_nullable_to_non_nullable
               as double,
-      inputType: inputType == freezed
-          ? _value.inputType
-          : inputType // ignore: cast_nullable_to_non_nullable
-              as InputType,
+      penOnlyInput: penOnlyInput == freezed
+          ? _value.penOnlyInput
+          : penOnlyInput // ignore: cast_nullable_to_non_nullable
+              as bool,
+      inputGestures: inputGestures == freezed
+          ? _value.inputGestures
+          : inputGestures // ignore: cast_nullable_to_non_nullable
+              as bool,
       design: design == freezed
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
               as String,
-      recentHistory: recentHistory == freezed
-          ? _value._recentHistory
-          : recentHistory // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      history: history == freezed
+          ? _value._history
+          : history // ignore: cast_nullable_to_non_nullable
+              as List<AssetLocation>,
       startEnabled: startEnabled == freezed
           ? _value.startEnabled
           : startEnabled // ignore: cast_nullable_to_non_nullable
@@ -254,6 +740,18 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
               as String?,
+      remotes: remotes == freezed
+          ? _value._remotes
+          : remotes // ignore: cast_nullable_to_non_nullable
+              as List<RemoteStorage>,
+      defaultRemote: defaultRemote == freezed
+          ? _value.defaultRemote
+          : defaultRemote // ignore: cast_nullable_to_non_nullable
+              as String,
+      nativeWindowTitleBar: nativeWindowTitleBar == freezed
+          ? _value.nativeWindowTitleBar
+          : nativeWindowTitleBar // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -270,13 +768,18 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.mouseSensitivity = 1,
       this.penSensitivity = 1,
       this.selectSensitivity = 5,
-      this.inputType = InputType.multiDraw,
+      this.penOnlyInput = false,
+      this.inputGestures = true,
       this.design = '',
-      final List<String> recentHistory = const [],
+      final List<AssetLocation> history = const [],
       this.startEnabled = true,
       this.colorEnabled = true,
-      this.lastVersion})
-      : _recentHistory = recentHistory,
+      this.lastVersion,
+      final List<RemoteStorage> remotes = const [],
+      this.defaultRemote = '',
+      this.nativeWindowTitleBar = false})
+      : _history = history,
+        _remotes = remotes,
         super._();
 
   @override
@@ -305,16 +808,19 @@ class _$_ButterflySettings extends _ButterflySettings {
   final double selectSensitivity;
   @override
   @JsonKey()
-  final InputType inputType;
+  final bool penOnlyInput;
+  @override
+  @JsonKey()
+  final bool inputGestures;
   @override
   @JsonKey()
   final String design;
-  final List<String> _recentHistory;
+  final List<AssetLocation> _history;
   @override
   @JsonKey()
-  List<String> get recentHistory {
+  List<AssetLocation> get history {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_recentHistory);
+    return EqualUnmodifiableListView(_history);
   }
 
   @override
@@ -325,10 +831,24 @@ class _$_ButterflySettings extends _ButterflySettings {
   final bool colorEnabled;
   @override
   final String? lastVersion;
+  final List<RemoteStorage> _remotes;
+  @override
+  @JsonKey()
+  List<RemoteStorage> get remotes {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_remotes);
+  }
+
+  @override
+  @JsonKey()
+  final String defaultRemote;
+  @override
+  @JsonKey()
+  final bool nativeWindowTitleBar;
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, inputType: $inputType, design: $design, recentHistory: $recentHistory, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar)';
   }
 
   @override
@@ -350,16 +870,23 @@ class _$_ButterflySettings extends _ButterflySettings {
                 .equals(other.penSensitivity, penSensitivity) &&
             const DeepCollectionEquality()
                 .equals(other.selectSensitivity, selectSensitivity) &&
-            const DeepCollectionEquality().equals(other.inputType, inputType) &&
-            const DeepCollectionEquality().equals(other.design, design) &&
             const DeepCollectionEquality()
-                .equals(other._recentHistory, _recentHistory) &&
+                .equals(other.penOnlyInput, penOnlyInput) &&
+            const DeepCollectionEquality()
+                .equals(other.inputGestures, inputGestures) &&
+            const DeepCollectionEquality().equals(other.design, design) &&
+            const DeepCollectionEquality().equals(other._history, _history) &&
             const DeepCollectionEquality()
                 .equals(other.startEnabled, startEnabled) &&
             const DeepCollectionEquality()
                 .equals(other.colorEnabled, colorEnabled) &&
             const DeepCollectionEquality()
-                .equals(other.lastVersion, lastVersion));
+                .equals(other.lastVersion, lastVersion) &&
+            const DeepCollectionEquality().equals(other._remotes, _remotes) &&
+            const DeepCollectionEquality()
+                .equals(other.defaultRemote, defaultRemote) &&
+            const DeepCollectionEquality()
+                .equals(other.nativeWindowTitleBar, nativeWindowTitleBar));
   }
 
   @override
@@ -373,12 +900,16 @@ class _$_ButterflySettings extends _ButterflySettings {
       const DeepCollectionEquality().hash(mouseSensitivity),
       const DeepCollectionEquality().hash(penSensitivity),
       const DeepCollectionEquality().hash(selectSensitivity),
-      const DeepCollectionEquality().hash(inputType),
+      const DeepCollectionEquality().hash(penOnlyInput),
+      const DeepCollectionEquality().hash(inputGestures),
       const DeepCollectionEquality().hash(design),
-      const DeepCollectionEquality().hash(_recentHistory),
+      const DeepCollectionEquality().hash(_history),
       const DeepCollectionEquality().hash(startEnabled),
       const DeepCollectionEquality().hash(colorEnabled),
-      const DeepCollectionEquality().hash(lastVersion));
+      const DeepCollectionEquality().hash(lastVersion),
+      const DeepCollectionEquality().hash(_remotes),
+      const DeepCollectionEquality().hash(defaultRemote),
+      const DeepCollectionEquality().hash(nativeWindowTitleBar));
 
   @JsonKey(ignore: true)
   @override
@@ -397,42 +928,54 @@ abstract class _ButterflySettings extends ButterflySettings {
       final double mouseSensitivity,
       final double penSensitivity,
       final double selectSensitivity,
-      final InputType inputType,
+      final bool penOnlyInput,
+      final bool inputGestures,
       final String design,
-      final List<String> recentHistory,
+      final List<AssetLocation> history,
       final bool startEnabled,
       final bool colorEnabled,
-      final String? lastVersion}) = _$_ButterflySettings;
+      final String? lastVersion,
+      final List<RemoteStorage> remotes,
+      final String defaultRemote,
+      final bool nativeWindowTitleBar}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
-  ThemeMode get theme => throw _privateConstructorUsedError;
+  ThemeMode get theme;
   @override
-  String get localeTag => throw _privateConstructorUsedError;
+  String get localeTag;
   @override
-  String get documentPath => throw _privateConstructorUsedError;
+  String get documentPath;
   @override
-  String get dateFormat => throw _privateConstructorUsedError;
+  String get dateFormat;
   @override
-  double get touchSensitivity => throw _privateConstructorUsedError;
+  double get touchSensitivity;
   @override
-  double get mouseSensitivity => throw _privateConstructorUsedError;
+  double get mouseSensitivity;
   @override
-  double get penSensitivity => throw _privateConstructorUsedError;
+  double get penSensitivity;
   @override
-  double get selectSensitivity => throw _privateConstructorUsedError;
+  double get selectSensitivity;
   @override
-  InputType get inputType => throw _privateConstructorUsedError;
+  bool get penOnlyInput;
   @override
-  String get design => throw _privateConstructorUsedError;
+  bool get inputGestures;
   @override
-  List<String> get recentHistory => throw _privateConstructorUsedError;
+  String get design;
   @override
-  bool get startEnabled => throw _privateConstructorUsedError;
+  List<AssetLocation> get history;
   @override
-  bool get colorEnabled => throw _privateConstructorUsedError;
+  bool get startEnabled;
   @override
-  String? get lastVersion => throw _privateConstructorUsedError;
+  bool get colorEnabled;
+  @override
+  String? get lastVersion;
+  @override
+  List<RemoteStorage> get remotes;
+  @override
+  String get defaultRemote;
+  @override
+  bool get nativeWindowTitleBar;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>

@@ -24,6 +24,8 @@ Property _$PropertyFromJson(Map<String, dynamic> json) {
       return EraserProperty.fromJson(json);
     case 'pen':
       return PenProperty.fromJson(json);
+    case 'shape':
+      return ShapeProperty.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -51,12 +53,13 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)
         pen,
+    required TResult Function(double strokeWidth, PathShape shape, int color)
+        shape,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -77,11 +80,11 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
+    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -102,11 +105,11 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
+    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -116,6 +119,7 @@ mixin _$Property {
     required TResult Function(LabelProperty value) label,
     required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
+    required TResult Function(ShapeProperty value) shape,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -124,6 +128,7 @@ mixin _$Property {
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
+    TResult Function(ShapeProperty value)? shape,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -132,6 +137,7 @@ mixin _$Property {
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
+    TResult Function(ShapeProperty value)? shape,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -243,12 +249,13 @@ class _$HandProperty implements HandProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)
         pen,
+    required TResult Function(double strokeWidth, PathShape shape, int color)
+        shape,
   }) {
     return hand(includeEraser);
   }
@@ -272,11 +279,11 @@ class _$HandProperty implements HandProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
+    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
     return hand?.call(includeEraser);
   }
@@ -300,11 +307,11 @@ class _$HandProperty implements HandProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
+    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -320,6 +327,7 @@ class _$HandProperty implements HandProperty {
     required TResult Function(LabelProperty value) label,
     required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
+    required TResult Function(ShapeProperty value) shape,
   }) {
     return hand(this);
   }
@@ -331,6 +339,7 @@ class _$HandProperty implements HandProperty {
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
+    TResult Function(ShapeProperty value)? shape,
   }) {
     return hand?.call(this);
   }
@@ -342,6 +351,7 @@ class _$HandProperty implements HandProperty {
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
+    TResult Function(ShapeProperty value)? shape,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -352,7 +362,9 @@ class _$HandProperty implements HandProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$HandPropertyToJson(this);
+    return _$$HandPropertyToJson(
+      this,
+    );
   }
 }
 
@@ -362,7 +374,7 @@ abstract class HandProperty implements Property {
   factory HandProperty.fromJson(Map<String, dynamic> json) =
       _$HandProperty.fromJson;
 
-  bool get includeEraser => throw _privateConstructorUsedError;
+  bool get includeEraser;
   @JsonKey(ignore: true)
   _$$HandPropertyCopyWith<_$HandProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -613,12 +625,13 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)
         pen,
+    required TResult Function(double strokeWidth, PathShape shape, int color)
+        shape,
   }) {
     return label(
         size,
@@ -655,11 +668,11 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
+    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
     return label?.call(
         size,
@@ -696,11 +709,11 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
+    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -729,6 +742,7 @@ class _$LabelProperty implements LabelProperty {
     required TResult Function(LabelProperty value) label,
     required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
+    required TResult Function(ShapeProperty value) shape,
   }) {
     return label(this);
   }
@@ -740,6 +754,7 @@ class _$LabelProperty implements LabelProperty {
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
+    TResult Function(ShapeProperty value)? shape,
   }) {
     return label?.call(this);
   }
@@ -751,6 +766,7 @@ class _$LabelProperty implements LabelProperty {
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
+    TResult Function(ShapeProperty value)? shape,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -761,7 +777,9 @@ class _$LabelProperty implements LabelProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LabelPropertyToJson(this);
+    return _$$LabelPropertyToJson(
+      this,
+    );
   }
 }
 
@@ -784,20 +802,19 @@ abstract class LabelProperty implements Property {
   factory LabelProperty.fromJson(Map<String, dynamic> json) =
       _$LabelProperty.fromJson;
 
-  double get size => throw _privateConstructorUsedError;
-  int get color => throw _privateConstructorUsedError;
-  int get fontWeight => throw _privateConstructorUsedError;
-  bool get lineThrough => throw _privateConstructorUsedError;
-  bool get underline => throw _privateConstructorUsedError;
-  bool get overline => throw _privateConstructorUsedError;
-  bool get italic => throw _privateConstructorUsedError;
-  double get letterSpacing => throw _privateConstructorUsedError;
-  int get decorationColor => throw _privateConstructorUsedError;
-  TextDecorationStyle get decorationStyle => throw _privateConstructorUsedError;
-  double get decorationThickness => throw _privateConstructorUsedError;
-  HorizontalAlignment get horizontalAlignment =>
-      throw _privateConstructorUsedError;
-  VerticalAlignment get verticalAlignment => throw _privateConstructorUsedError;
+  double get size;
+  int get color;
+  int get fontWeight;
+  bool get lineThrough;
+  bool get underline;
+  bool get overline;
+  bool get italic;
+  double get letterSpacing;
+  int get decorationColor;
+  TextDecorationStyle get decorationStyle;
+  double get decorationThickness;
+  HorizontalAlignment get horizontalAlignment;
+  VerticalAlignment get verticalAlignment;
   @JsonKey(ignore: true)
   _$$LabelPropertyCopyWith<_$LabelProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -808,7 +825,7 @@ abstract class _$$EraserPropertyCopyWith<$Res> {
   factory _$$EraserPropertyCopyWith(
           _$EraserProperty value, $Res Function(_$EraserProperty) then) =
       __$$EraserPropertyCopyWithImpl<$Res>;
-  $Res call({double strokeWidth, double strokeMultiplier, int color});
+  $Res call({double strokeWidth, double strokeMultiplier});
 }
 
 /// @nodoc
@@ -825,7 +842,6 @@ class __$$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
   $Res call({
     Object? strokeWidth = freezed,
     Object? strokeMultiplier = freezed,
-    Object? color = freezed,
   }) {
     return _then(_$EraserProperty(
       strokeWidth: strokeWidth == freezed
@@ -836,10 +852,6 @@ class __$$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
           ? _value.strokeMultiplier
           : strokeMultiplier // ignore: cast_nullable_to_non_nullable
               as double,
-      color: color == freezed
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -848,10 +860,7 @@ class __$$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
 @JsonSerializable()
 class _$EraserProperty with PathProperty implements EraserProperty {
   const _$EraserProperty(
-      {this.strokeWidth = 5,
-      this.strokeMultiplier = 10,
-      this.color = kColorBlack,
-      final String? $type})
+      {this.strokeWidth = 5, this.strokeMultiplier = 10, final String? $type})
       : $type = $type ?? 'eraser';
 
   factory _$EraserProperty.fromJson(Map<String, dynamic> json) =>
@@ -863,16 +872,13 @@ class _$EraserProperty with PathProperty implements EraserProperty {
   @override
   @JsonKey()
   final double strokeMultiplier;
-  @override
-  @JsonKey()
-  final int color;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Property.eraser(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier, color: $color)';
+    return 'Property.eraser(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier)';
   }
 
   @override
@@ -883,8 +889,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             const DeepCollectionEquality()
                 .equals(other.strokeWidth, strokeWidth) &&
             const DeepCollectionEquality()
-                .equals(other.strokeMultiplier, strokeMultiplier) &&
-            const DeepCollectionEquality().equals(other.color, color));
+                .equals(other.strokeMultiplier, strokeMultiplier));
   }
 
   @JsonKey(ignore: true)
@@ -892,8 +897,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(strokeWidth),
-      const DeepCollectionEquality().hash(strokeMultiplier),
-      const DeepCollectionEquality().hash(color));
+      const DeepCollectionEquality().hash(strokeMultiplier));
 
   @JsonKey(ignore: true)
   @override
@@ -919,14 +923,15 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)
         pen,
+    required TResult Function(double strokeWidth, PathShape shape, int color)
+        shape,
   }) {
-    return eraser(strokeWidth, strokeMultiplier, color);
+    return eraser(strokeWidth, strokeMultiplier);
   }
 
   @override
@@ -948,13 +953,13 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
+    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
-    return eraser?.call(strokeWidth, strokeMultiplier, color);
+    return eraser?.call(strokeWidth, strokeMultiplier);
   }
 
   @override
@@ -976,15 +981,15 @@ class _$EraserProperty with PathProperty implements EraserProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
+    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
   }) {
     if (eraser != null) {
-      return eraser(strokeWidth, strokeMultiplier, color);
+      return eraser(strokeWidth, strokeMultiplier);
     }
     return orElse();
   }
@@ -996,6 +1001,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
     required TResult Function(LabelProperty value) label,
     required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
+    required TResult Function(ShapeProperty value) shape,
   }) {
     return eraser(this);
   }
@@ -1007,6 +1013,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
+    TResult Function(ShapeProperty value)? shape,
   }) {
     return eraser?.call(this);
   }
@@ -1018,6 +1025,7 @@ class _$EraserProperty with PathProperty implements EraserProperty {
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
+    TResult Function(ShapeProperty value)? shape,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -1028,22 +1036,22 @@ class _$EraserProperty with PathProperty implements EraserProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EraserPropertyToJson(this);
+    return _$$EraserPropertyToJson(
+      this,
+    );
   }
 }
 
 abstract class EraserProperty implements Property, PathProperty {
   const factory EraserProperty(
       {final double strokeWidth,
-      final double strokeMultiplier,
-      final int color}) = _$EraserProperty;
+      final double strokeMultiplier}) = _$EraserProperty;
 
   factory EraserProperty.fromJson(Map<String, dynamic> json) =
       _$EraserProperty.fromJson;
 
-  double get strokeWidth => throw _privateConstructorUsedError;
-  double get strokeMultiplier => throw _privateConstructorUsedError;
-  int get color => throw _privateConstructorUsedError;
+  double get strokeWidth;
+  double get strokeMultiplier;
   @JsonKey(ignore: true)
   _$$EraserPropertyCopyWith<_$EraserProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1177,12 +1185,13 @@ class _$PenProperty with PathProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)
         pen,
+    required TResult Function(double strokeWidth, PathShape shape, int color)
+        shape,
   }) {
     return pen(strokeWidth, strokeMultiplier, color, fill);
   }
@@ -1206,11 +1215,11 @@ class _$PenProperty with PathProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
+    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
     return pen?.call(strokeWidth, strokeMultiplier, color, fill);
   }
@@ -1234,11 +1243,11 @@ class _$PenProperty with PathProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color)?
-        eraser,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
             double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
+    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -1254,6 +1263,7 @@ class _$PenProperty with PathProperty implements PenProperty {
     required TResult Function(LabelProperty value) label,
     required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
+    required TResult Function(ShapeProperty value) shape,
   }) {
     return pen(this);
   }
@@ -1265,6 +1275,7 @@ class _$PenProperty with PathProperty implements PenProperty {
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
+    TResult Function(ShapeProperty value)? shape,
   }) {
     return pen?.call(this);
   }
@@ -1276,6 +1287,7 @@ class _$PenProperty with PathProperty implements PenProperty {
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
+    TResult Function(ShapeProperty value)? shape,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -1286,7 +1298,9 @@ class _$PenProperty with PathProperty implements PenProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PenPropertyToJson(this);
+    return _$$PenPropertyToJson(
+      this,
+    );
   }
 }
 
@@ -1300,11 +1314,938 @@ abstract class PenProperty implements Property, PathProperty {
   factory PenProperty.fromJson(Map<String, dynamic> json) =
       _$PenProperty.fromJson;
 
-  double get strokeWidth => throw _privateConstructorUsedError;
-  double get strokeMultiplier => throw _privateConstructorUsedError;
-  int get color => throw _privateConstructorUsedError;
-  bool get fill => throw _privateConstructorUsedError;
+  double get strokeWidth;
+  double get strokeMultiplier;
+  int get color;
+  bool get fill;
   @JsonKey(ignore: true)
   _$$PenPropertyCopyWith<_$PenProperty> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ShapePropertyCopyWith<$Res> {
+  factory _$$ShapePropertyCopyWith(
+          _$ShapeProperty value, $Res Function(_$ShapeProperty) then) =
+      __$$ShapePropertyCopyWithImpl<$Res>;
+  $Res call({double strokeWidth, PathShape shape, int color});
+
+  $PathShapeCopyWith<$Res> get shape;
+}
+
+/// @nodoc
+class __$$ShapePropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
+    implements _$$ShapePropertyCopyWith<$Res> {
+  __$$ShapePropertyCopyWithImpl(
+      _$ShapeProperty _value, $Res Function(_$ShapeProperty) _then)
+      : super(_value, (v) => _then(v as _$ShapeProperty));
+
+  @override
+  _$ShapeProperty get _value => super._value as _$ShapeProperty;
+
+  @override
+  $Res call({
+    Object? strokeWidth = freezed,
+    Object? shape = freezed,
+    Object? color = freezed,
+  }) {
+    return _then(_$ShapeProperty(
+      strokeWidth: strokeWidth == freezed
+          ? _value.strokeWidth
+          : strokeWidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      shape: shape == freezed
+          ? _value.shape
+          : shape // ignore: cast_nullable_to_non_nullable
+              as PathShape,
+      color: color == freezed
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+
+  @override
+  $PathShapeCopyWith<$Res> get shape {
+    return $PathShapeCopyWith<$Res>(_value.shape, (value) {
+      return _then(_value.copyWith(shape: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ShapeProperty implements ShapeProperty {
+  const _$ShapeProperty(
+      {this.strokeWidth = 5,
+      required this.shape,
+      this.color = kColorBlack,
+      final String? $type})
+      : $type = $type ?? 'shape';
+
+  factory _$ShapeProperty.fromJson(Map<String, dynamic> json) =>
+      _$$ShapePropertyFromJson(json);
+
+  @override
+  @JsonKey()
+  final double strokeWidth;
+  @override
+  final PathShape shape;
+  @override
+  @JsonKey()
+  final int color;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Property.shape(strokeWidth: $strokeWidth, shape: $shape, color: $color)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ShapeProperty &&
+            const DeepCollectionEquality()
+                .equals(other.strokeWidth, strokeWidth) &&
+            const DeepCollectionEquality().equals(other.shape, shape) &&
+            const DeepCollectionEquality().equals(other.color, color));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(strokeWidth),
+      const DeepCollectionEquality().hash(shape),
+      const DeepCollectionEquality().hash(color));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$ShapePropertyCopyWith<_$ShapeProperty> get copyWith =>
+      __$$ShapePropertyCopyWithImpl<_$ShapeProperty>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool includeEraser) hand,
+    required TResult Function(
+            double size,
+            int color,
+            int fontWeight,
+            bool lineThrough,
+            bool underline,
+            bool overline,
+            bool italic,
+            double letterSpacing,
+            int decorationColor,
+            TextDecorationStyle decorationStyle,
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)
+        label,
+    required TResult Function(double strokeWidth, double strokeMultiplier)
+        eraser,
+    required TResult Function(
+            double strokeWidth, double strokeMultiplier, int color, bool fill)
+        pen,
+    required TResult Function(double strokeWidth, PathShape shape, int color)
+        shape,
+  }) {
+    return shape(strokeWidth, this.shape, color);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool includeEraser)? hand,
+    TResult Function(
+            double size,
+            int color,
+            int fontWeight,
+            bool lineThrough,
+            bool underline,
+            bool overline,
+            bool italic,
+            double letterSpacing,
+            int decorationColor,
+            TextDecorationStyle decorationStyle,
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)?
+        label,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
+    TResult Function(
+            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+        pen,
+    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
+  }) {
+    return shape?.call(strokeWidth, this.shape, color);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool includeEraser)? hand,
+    TResult Function(
+            double size,
+            int color,
+            int fontWeight,
+            bool lineThrough,
+            bool underline,
+            bool overline,
+            bool italic,
+            double letterSpacing,
+            int decorationColor,
+            TextDecorationStyle decorationStyle,
+            double decorationThickness,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)?
+        label,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
+    TResult Function(
+            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+        pen,
+    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
+    required TResult orElse(),
+  }) {
+    if (shape != null) {
+      return shape(strokeWidth, this.shape, color);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(HandProperty value) hand,
+    required TResult Function(LabelProperty value) label,
+    required TResult Function(EraserProperty value) eraser,
+    required TResult Function(PenProperty value) pen,
+    required TResult Function(ShapeProperty value) shape,
+  }) {
+    return shape(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(HandProperty value)? hand,
+    TResult Function(LabelProperty value)? label,
+    TResult Function(EraserProperty value)? eraser,
+    TResult Function(PenProperty value)? pen,
+    TResult Function(ShapeProperty value)? shape,
+  }) {
+    return shape?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(HandProperty value)? hand,
+    TResult Function(LabelProperty value)? label,
+    TResult Function(EraserProperty value)? eraser,
+    TResult Function(PenProperty value)? pen,
+    TResult Function(ShapeProperty value)? shape,
+    required TResult orElse(),
+  }) {
+    if (shape != null) {
+      return shape(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ShapePropertyToJson(
+      this,
+    );
+  }
+}
+
+abstract class ShapeProperty implements Property {
+  const factory ShapeProperty(
+      {final double strokeWidth,
+      required final PathShape shape,
+      final int color}) = _$ShapeProperty;
+
+  factory ShapeProperty.fromJson(Map<String, dynamic> json) =
+      _$ShapeProperty.fromJson;
+
+  double get strokeWidth;
+  PathShape get shape;
+  int get color;
+  @JsonKey(ignore: true)
+  _$$ShapePropertyCopyWith<_$ShapeProperty> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PathShape _$PathShapeFromJson(Map<String, dynamic> json) {
+  switch (json['type']) {
+    case 'circle':
+      return CircleShape.fromJson(json);
+    case 'rectangle':
+      return RectangleShape.fromJson(json);
+    case 'line':
+      return LineShape.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(
+          json, 'type', 'PathShape', 'Invalid union type "${json['type']}"!');
+  }
+}
+
+/// @nodoc
+mixin _$PathShape {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int fillColor) circle,
+    required TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)
+        rectangle,
+    required TResult Function() line,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(int fillColor)? circle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
+    TResult Function()? line,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int fillColor)? circle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
+    TResult Function()? line,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CircleShape value) circle,
+    required TResult Function(RectangleShape value) rectangle,
+    required TResult Function(LineShape value) line,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CircleShape value)? circle,
+    TResult Function(RectangleShape value)? rectangle,
+    TResult Function(LineShape value)? line,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CircleShape value)? circle,
+    TResult Function(RectangleShape value)? rectangle,
+    TResult Function(LineShape value)? line,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PathShapeCopyWith<$Res> {
+  factory $PathShapeCopyWith(PathShape value, $Res Function(PathShape) then) =
+      _$PathShapeCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PathShapeCopyWithImpl<$Res> implements $PathShapeCopyWith<$Res> {
+  _$PathShapeCopyWithImpl(this._value, this._then);
+
+  final PathShape _value;
+  // ignore: unused_field
+  final $Res Function(PathShape) _then;
+}
+
+/// @nodoc
+abstract class _$$CircleShapeCopyWith<$Res> {
+  factory _$$CircleShapeCopyWith(
+          _$CircleShape value, $Res Function(_$CircleShape) then) =
+      __$$CircleShapeCopyWithImpl<$Res>;
+  $Res call({int fillColor});
+}
+
+/// @nodoc
+class __$$CircleShapeCopyWithImpl<$Res> extends _$PathShapeCopyWithImpl<$Res>
+    implements _$$CircleShapeCopyWith<$Res> {
+  __$$CircleShapeCopyWithImpl(
+      _$CircleShape _value, $Res Function(_$CircleShape) _then)
+      : super(_value, (v) => _then(v as _$CircleShape));
+
+  @override
+  _$CircleShape get _value => super._value as _$CircleShape;
+
+  @override
+  $Res call({
+    Object? fillColor = freezed,
+  }) {
+    return _then(_$CircleShape(
+      fillColor: fillColor == freezed
+          ? _value.fillColor
+          : fillColor // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CircleShape extends CircleShape {
+  const _$CircleShape({this.fillColor = kColorTransparent, final String? $type})
+      : $type = $type ?? 'circle',
+        super._();
+
+  factory _$CircleShape.fromJson(Map<String, dynamic> json) =>
+      _$$CircleShapeFromJson(json);
+
+  @override
+  @JsonKey()
+  final int fillColor;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'PathShape.circle(fillColor: $fillColor)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CircleShape &&
+            const DeepCollectionEquality().equals(other.fillColor, fillColor));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(fillColor));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$CircleShapeCopyWith<_$CircleShape> get copyWith =>
+      __$$CircleShapeCopyWithImpl<_$CircleShape>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int fillColor) circle,
+    required TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)
+        rectangle,
+    required TResult Function() line,
+  }) {
+    return circle(fillColor);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(int fillColor)? circle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
+    TResult Function()? line,
+  }) {
+    return circle?.call(fillColor);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int fillColor)? circle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
+    TResult Function()? line,
+    required TResult orElse(),
+  }) {
+    if (circle != null) {
+      return circle(fillColor);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CircleShape value) circle,
+    required TResult Function(RectangleShape value) rectangle,
+    required TResult Function(LineShape value) line,
+  }) {
+    return circle(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CircleShape value)? circle,
+    TResult Function(RectangleShape value)? rectangle,
+    TResult Function(LineShape value)? line,
+  }) {
+    return circle?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CircleShape value)? circle,
+    TResult Function(RectangleShape value)? rectangle,
+    TResult Function(LineShape value)? line,
+    required TResult orElse(),
+  }) {
+    if (circle != null) {
+      return circle(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CircleShapeToJson(
+      this,
+    );
+  }
+}
+
+abstract class CircleShape extends PathShape {
+  const factory CircleShape({final int fillColor}) = _$CircleShape;
+  const CircleShape._() : super._();
+
+  factory CircleShape.fromJson(Map<String, dynamic> json) =
+      _$CircleShape.fromJson;
+
+  int get fillColor;
+  @JsonKey(ignore: true)
+  _$$CircleShapeCopyWith<_$CircleShape> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RectangleShapeCopyWith<$Res> {
+  factory _$$RectangleShapeCopyWith(
+          _$RectangleShape value, $Res Function(_$RectangleShape) then) =
+      __$$RectangleShapeCopyWithImpl<$Res>;
+  $Res call(
+      {int fillColor,
+      double topLeftCornerRadius,
+      double topRightCornerRadius,
+      double bottomLeftCornerRadius,
+      double bottomRightCornerRadius});
+}
+
+/// @nodoc
+class __$$RectangleShapeCopyWithImpl<$Res> extends _$PathShapeCopyWithImpl<$Res>
+    implements _$$RectangleShapeCopyWith<$Res> {
+  __$$RectangleShapeCopyWithImpl(
+      _$RectangleShape _value, $Res Function(_$RectangleShape) _then)
+      : super(_value, (v) => _then(v as _$RectangleShape));
+
+  @override
+  _$RectangleShape get _value => super._value as _$RectangleShape;
+
+  @override
+  $Res call({
+    Object? fillColor = freezed,
+    Object? topLeftCornerRadius = freezed,
+    Object? topRightCornerRadius = freezed,
+    Object? bottomLeftCornerRadius = freezed,
+    Object? bottomRightCornerRadius = freezed,
+  }) {
+    return _then(_$RectangleShape(
+      fillColor: fillColor == freezed
+          ? _value.fillColor
+          : fillColor // ignore: cast_nullable_to_non_nullable
+              as int,
+      topLeftCornerRadius: topLeftCornerRadius == freezed
+          ? _value.topLeftCornerRadius
+          : topLeftCornerRadius // ignore: cast_nullable_to_non_nullable
+              as double,
+      topRightCornerRadius: topRightCornerRadius == freezed
+          ? _value.topRightCornerRadius
+          : topRightCornerRadius // ignore: cast_nullable_to_non_nullable
+              as double,
+      bottomLeftCornerRadius: bottomLeftCornerRadius == freezed
+          ? _value.bottomLeftCornerRadius
+          : bottomLeftCornerRadius // ignore: cast_nullable_to_non_nullable
+              as double,
+      bottomRightCornerRadius: bottomRightCornerRadius == freezed
+          ? _value.bottomRightCornerRadius
+          : bottomRightCornerRadius // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$RectangleShape extends RectangleShape {
+  const _$RectangleShape(
+      {this.fillColor = kColorTransparent,
+      this.topLeftCornerRadius = 0,
+      this.topRightCornerRadius = 0,
+      this.bottomLeftCornerRadius = 0,
+      this.bottomRightCornerRadius = 0,
+      final String? $type})
+      : $type = $type ?? 'rectangle',
+        super._();
+
+  factory _$RectangleShape.fromJson(Map<String, dynamic> json) =>
+      _$$RectangleShapeFromJson(json);
+
+  @override
+  @JsonKey()
+  final int fillColor;
+  @override
+  @JsonKey()
+  final double topLeftCornerRadius;
+  @override
+  @JsonKey()
+  final double topRightCornerRadius;
+  @override
+  @JsonKey()
+  final double bottomLeftCornerRadius;
+  @override
+  @JsonKey()
+  final double bottomRightCornerRadius;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'PathShape.rectangle(fillColor: $fillColor, topLeftCornerRadius: $topLeftCornerRadius, topRightCornerRadius: $topRightCornerRadius, bottomLeftCornerRadius: $bottomLeftCornerRadius, bottomRightCornerRadius: $bottomRightCornerRadius)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RectangleShape &&
+            const DeepCollectionEquality().equals(other.fillColor, fillColor) &&
+            const DeepCollectionEquality()
+                .equals(other.topLeftCornerRadius, topLeftCornerRadius) &&
+            const DeepCollectionEquality()
+                .equals(other.topRightCornerRadius, topRightCornerRadius) &&
+            const DeepCollectionEquality()
+                .equals(other.bottomLeftCornerRadius, bottomLeftCornerRadius) &&
+            const DeepCollectionEquality().equals(
+                other.bottomRightCornerRadius, bottomRightCornerRadius));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(fillColor),
+      const DeepCollectionEquality().hash(topLeftCornerRadius),
+      const DeepCollectionEquality().hash(topRightCornerRadius),
+      const DeepCollectionEquality().hash(bottomLeftCornerRadius),
+      const DeepCollectionEquality().hash(bottomRightCornerRadius));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$RectangleShapeCopyWith<_$RectangleShape> get copyWith =>
+      __$$RectangleShapeCopyWithImpl<_$RectangleShape>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int fillColor) circle,
+    required TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)
+        rectangle,
+    required TResult Function() line,
+  }) {
+    return rectangle(fillColor, topLeftCornerRadius, topRightCornerRadius,
+        bottomLeftCornerRadius, bottomRightCornerRadius);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(int fillColor)? circle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
+    TResult Function()? line,
+  }) {
+    return rectangle?.call(fillColor, topLeftCornerRadius, topRightCornerRadius,
+        bottomLeftCornerRadius, bottomRightCornerRadius);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int fillColor)? circle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
+    TResult Function()? line,
+    required TResult orElse(),
+  }) {
+    if (rectangle != null) {
+      return rectangle(fillColor, topLeftCornerRadius, topRightCornerRadius,
+          bottomLeftCornerRadius, bottomRightCornerRadius);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CircleShape value) circle,
+    required TResult Function(RectangleShape value) rectangle,
+    required TResult Function(LineShape value) line,
+  }) {
+    return rectangle(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CircleShape value)? circle,
+    TResult Function(RectangleShape value)? rectangle,
+    TResult Function(LineShape value)? line,
+  }) {
+    return rectangle?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CircleShape value)? circle,
+    TResult Function(RectangleShape value)? rectangle,
+    TResult Function(LineShape value)? line,
+    required TResult orElse(),
+  }) {
+    if (rectangle != null) {
+      return rectangle(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$RectangleShapeToJson(
+      this,
+    );
+  }
+}
+
+abstract class RectangleShape extends PathShape {
+  const factory RectangleShape(
+      {final int fillColor,
+      final double topLeftCornerRadius,
+      final double topRightCornerRadius,
+      final double bottomLeftCornerRadius,
+      final double bottomRightCornerRadius}) = _$RectangleShape;
+  const RectangleShape._() : super._();
+
+  factory RectangleShape.fromJson(Map<String, dynamic> json) =
+      _$RectangleShape.fromJson;
+
+  int get fillColor;
+  double get topLeftCornerRadius;
+  double get topRightCornerRadius;
+  double get bottomLeftCornerRadius;
+  double get bottomRightCornerRadius;
+  @JsonKey(ignore: true)
+  _$$RectangleShapeCopyWith<_$RectangleShape> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LineShapeCopyWith<$Res> {
+  factory _$$LineShapeCopyWith(
+          _$LineShape value, $Res Function(_$LineShape) then) =
+      __$$LineShapeCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LineShapeCopyWithImpl<$Res> extends _$PathShapeCopyWithImpl<$Res>
+    implements _$$LineShapeCopyWith<$Res> {
+  __$$LineShapeCopyWithImpl(
+      _$LineShape _value, $Res Function(_$LineShape) _then)
+      : super(_value, (v) => _then(v as _$LineShape));
+
+  @override
+  _$LineShape get _value => super._value as _$LineShape;
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LineShape extends LineShape {
+  const _$LineShape({final String? $type})
+      : $type = $type ?? 'line',
+        super._();
+
+  factory _$LineShape.fromJson(Map<String, dynamic> json) =>
+      _$$LineShapeFromJson(json);
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'PathShape.line()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LineShape);
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int fillColor) circle,
+    required TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)
+        rectangle,
+    required TResult Function() line,
+  }) {
+    return line();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(int fillColor)? circle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
+    TResult Function()? line,
+  }) {
+    return line?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int fillColor)? circle,
+    TResult Function(
+            int fillColor,
+            double topLeftCornerRadius,
+            double topRightCornerRadius,
+            double bottomLeftCornerRadius,
+            double bottomRightCornerRadius)?
+        rectangle,
+    TResult Function()? line,
+    required TResult orElse(),
+  }) {
+    if (line != null) {
+      return line();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CircleShape value) circle,
+    required TResult Function(RectangleShape value) rectangle,
+    required TResult Function(LineShape value) line,
+  }) {
+    return line(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CircleShape value)? circle,
+    TResult Function(RectangleShape value)? rectangle,
+    TResult Function(LineShape value)? line,
+  }) {
+    return line?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CircleShape value)? circle,
+    TResult Function(RectangleShape value)? rectangle,
+    TResult Function(LineShape value)? line,
+    required TResult orElse(),
+  }) {
+    if (line != null) {
+      return line(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LineShapeToJson(
+      this,
+    );
+  }
+}
+
+abstract class LineShape extends PathShape {
+  const factory LineShape() = _$LineShape;
+  const LineShape._() : super._();
+
+  factory LineShape.fromJson(Map<String, dynamic> json) = _$LineShape.fromJson;
 }

@@ -51,10 +51,10 @@ bool isWindow() =>
     !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
 
 class ProjectPage extends StatefulWidget {
-  final String? path;
+  final AssetLocation? location;
   final Embedding? embedding;
 
-  const ProjectPage({super.key, this.path, this.embedding});
+  const ProjectPage({super.key, this.location, this.embedding});
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
@@ -75,7 +75,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   void didUpdateWidget(ProjectPage oldWidget) {
-    if (oldWidget.path != widget.path) {
+    if (oldWidget.location != widget.location) {
       _bloc?.close();
       _bloc = null;
       load();
@@ -84,34 +84,41 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   Future<void> load() async {
-    _currentIndexCubit = CurrentIndexCubit();
     final settingsCubit = context.read<SettingsCubit>();
     if (widget.embedding != null) {
+      final document = AppDocument(createdAt: DateTime.now(), name: '');
       setState(() {
-        _bloc = DocumentBloc(
-            settingsCubit,
-            _currentIndexCubit,
-            AppDocument(createdAt: DateTime.now(), name: ''),
-            widget.path,
-            BoxBackgroundRenderer(const BoxBackground()),
-            [],
-            widget.embedding);
         _transformCubit = TransformCubit();
+        _currentIndexCubit = CurrentIndexCubit(
+            document, settingsCubit, _transformCubit!, widget.embedding);
+        _bloc = DocumentBloc(
+          _currentIndexCubit,
+          settingsCubit,
+          document,
+          widget.location ?? const AssetLocation(path: ''),
+          BoxBackgroundRenderer(const BoxBackground()),
+          [],
+        );
+        _bloc?.load();
         widget.embedding?.handler.register(_bloc!);
       });
       return;
     }
-    final fileSystem = DocumentFileSystem.fromPlatform();
+    RemoteStorage? remote;
+    remote = widget.location != null
+        ? settingsCubit.state.getRemote(widget.location!.remote)
+        : settingsCubit.state.getDefaultRemote();
+    final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
     final prefs = await SharedPreferences.getInstance();
     var documentOpened = false;
     AppDocument? document;
-    if (widget.path != null) {
+    if (widget.location != null) {
       documentOpened = true;
-      await fileSystem.getAsset(widget.path!).then(
+      await fileSystem.getAsset(widget.location!.path).then(
           (value) => document = value is AppDocumentFile ? value.load() : null);
     }
     if (document == null && prefs.containsKey('default_template')) {
-      var template = await TemplateFileSystem.fromPlatform()
+      var template = await TemplateFileSystem.fromPlatform(remote: remote)
           .getTemplate(prefs.getString('default_template')!);
       if (template != null && mounted) {
         document = template.document.copyWith(
@@ -135,9 +142,18 @@ class _ProjectPageState extends State<ProjectPage> {
       final background = Renderer.fromInstance(document!.background);
       await background.setup(document!);
       setState(() {
-        _bloc = DocumentBloc(settingsCubit, _currentIndexCubit, document!,
-            widget.path, background, renderers);
         _transformCubit = TransformCubit();
+        _currentIndexCubit =
+            CurrentIndexCubit(document!, settingsCubit, _transformCubit!, null);
+        _bloc = DocumentBloc(
+            _currentIndexCubit,
+            settingsCubit,
+            document!,
+            widget.location ??
+                AssetLocation(path: '', remote: remote?.identifier ?? ''),
+            background,
+            renderers);
+        _bloc?.load();
       });
     }
     _showIntroduction(documentOpened);
@@ -317,10 +333,19 @@ class _ProjectPageState extends State<ProjectPage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.stretch,
                                         children: [
-                                          const ColorView(),
                                           Expanded(
                                               key: _viewportKey,
-                                              child: const MainViewViewport()),
+                                              child: Stack(
+                                                children: [
+                                                  const MainViewViewport(),
+                                                  Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: const [
+                                                        ColorView(),
+                                                      ]),
+                                                ],
+                                              )),
                                           if (isMobile)
                                             Align(
                                                 alignment: Alignment.center,
@@ -401,73 +426,78 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
   @override
   @override
   Widget build(BuildContext context) {
-    if (isWindow()) {
-      return LayoutBuilder(
-        builder: (context, constraints) => Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              if (!fullScreen)
-                IconButton(
-                  icon: Icon(alwaysOnTop
-                      ? PhosphorIcons.pushPinFill
-                      : PhosphorIcons.pushPinLight),
-                  tooltip: alwaysOnTop
-                      ? AppLocalizations.of(context)!.exitAlwaysOnTop
-                      : AppLocalizations.of(context)!.alwaysOnTop,
-                  onPressed: () async {
-                    await windowManager.setAlwaysOnTop(!alwaysOnTop);
-                    setState(() => alwaysOnTop = !alwaysOnTop);
-                  },
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
+        builder: (context, settings) {
+          if (!kIsWeb && isWindow() && !settings.nativeWindowTitleBar) {
+            return LayoutBuilder(
+              builder: (context, constraints) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (!fullScreen)
+                      IconButton(
+                        icon: Icon(alwaysOnTop
+                            ? PhosphorIcons.pushPinFill
+                            : PhosphorIcons.pushPinLight),
+                        tooltip: alwaysOnTop
+                            ? AppLocalizations.of(context)!.exitAlwaysOnTop
+                            : AppLocalizations.of(context)!.alwaysOnTop,
+                        onPressed: () async {
+                          await windowManager.setAlwaysOnTop(!alwaysOnTop);
+                          setState(() => alwaysOnTop = !alwaysOnTop);
+                        },
+                      ),
+                    IconButton(
+                      icon: Icon(fullScreen
+                          ? PhosphorIcons.arrowsInLight
+                          : PhosphorIcons.arrowsOutLight),
+                      tooltip: fullScreen
+                          ? AppLocalizations.of(context)!.exitFullScreen
+                          : AppLocalizations.of(context)!.enterFullScreen,
+                      onPressed: () async {
+                        setState(() => fullScreen = !fullScreen);
+                        await windowManager.setFullScreen(fullScreen);
+                      },
+                    ),
+                    if (!fullScreen) ...[
+                      const VerticalDivider(),
+                      IconButton(
+                        icon: const Icon(PhosphorIcons.minusLight),
+                        tooltip: AppLocalizations.of(context)!.minimize,
+                        iconSize: 16,
+                        splashRadius: 20,
+                        onPressed: () => windowManager.minimize(),
+                      ),
+                      IconButton(
+                        icon: Icon(PhosphorIcons.squareLight,
+                            size: maximized ? 14 : 20),
+                        tooltip: maximized
+                            ? AppLocalizations.of(context)!.restore
+                            : AppLocalizations.of(context)!.maximize,
+                        iconSize: 16,
+                        splashRadius: 20,
+                        onPressed: () async => await windowManager.isMaximized()
+                            ? windowManager.unmaximize()
+                            : windowManager.maximize(),
+                      ),
+                      IconButton(
+                        icon: const Icon(PhosphorIcons.xLight),
+                        tooltip: AppLocalizations.of(context)!.close,
+                        hoverColor: Colors.red,
+                        iconSize: 16,
+                        splashRadius: 20,
+                        onPressed: () => windowManager.close(),
+                      )
+                    ]
+                  ],
                 ),
-              IconButton(
-                icon: Icon(fullScreen
-                    ? PhosphorIcons.arrowsInLight
-                    : PhosphorIcons.arrowsOutLight),
-                tooltip: fullScreen
-                    ? AppLocalizations.of(context)!.exitFullScreen
-                    : AppLocalizations.of(context)!.enterFullScreen,
-                onPressed: () async {
-                  setState(() => fullScreen = !fullScreen);
-                  await windowManager.setFullScreen(fullScreen);
-                },
               ),
-              if (!fullScreen) ...[
-                const VerticalDivider(),
-                IconButton(
-                  icon: const Icon(PhosphorIcons.minusLight),
-                  tooltip: AppLocalizations.of(context)!.minimize,
-                  iconSize: 16,
-                  splashRadius: 20,
-                  onPressed: () => windowManager.minimize(),
-                ),
-                IconButton(
-                  icon: Icon(PhosphorIcons.squareLight,
-                      size: maximized ? 14 : 20),
-                  tooltip: maximized
-                      ? AppLocalizations.of(context)!.restore
-                      : AppLocalizations.of(context)!.maximize,
-                  iconSize: 16,
-                  splashRadius: 20,
-                  onPressed: () async => await windowManager.isMaximized()
-                      ? windowManager.unmaximize()
-                      : windowManager.maximize(),
-                ),
-                IconButton(
-                  icon: const Icon(PhosphorIcons.xLight),
-                  tooltip: AppLocalizations.of(context)!.close,
-                  hoverColor: Colors.red,
-                  iconSize: 16,
-                  splashRadius: 20,
-                  onPressed: () => windowManager.close(),
-                )
-              ]
-            ],
-          ),
-        ),
-      );
-    }
-    return Container();
+            );
+          }
+          return Container();
+        });
   }
 }

@@ -57,6 +57,26 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    flavorDimensions "default"
+    productFlavors { 
+        production {
+            dimension "default"
+            applicationIdSuffix ""
+            manifestPlaceholders = [appName: "Butterfly"]
+        }
+        development {
+            dimension "default"
+            applicationIdSuffix ""
+            manifestPlaceholders = [appName: "Butterfly Nightly"]
+        }
+        nightly {
+            dimension "default"
+            applicationIdSuffix ".nightly"
+            manifestPlaceholders = [appName: "Butterfly Nightly"]
+        }
     }
     signingConfigs {
         release {
@@ -83,6 +103,11 @@ flutter {
 }
 
 dependencies {
+    testImplementation 'junit:junit:5.8.2'
+    testImplementation "com.google.truth:truth:1.0"
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    api 'androidx.test:core:1.3.0'
     androidTestImplementation 'tools.fastlane:screengrab:2.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

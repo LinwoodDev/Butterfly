@@ -9,12 +9,14 @@ import 'cubits/transform.dart';
 import 'models/area.dart';
 
 class ForegroundPainter extends CustomPainter {
+  final AppDocument document;
   final List<Renderer> renderers;
   final CameraTransform transform;
   final List<Rect> selection;
 
   ForegroundPainter(
-    this.renderers, [
+    this.renderers,
+    this.document, [
     this.transform = const CameraTransform(),
     this.selection = const [],
   ]);
@@ -24,7 +26,7 @@ class ForegroundPainter extends CustomPainter {
     canvas.scale(transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var element in renderers) {
-      element.build(canvas, size, transform, true);
+      element.build(canvas, size, document, transform, true);
     }
     for (var rect in selection) {
       /*
@@ -63,7 +65,7 @@ class ViewPainter extends CustomPainter {
   final CameraTransform transform;
   final List<String> invisibleLayers;
 
-  ViewPainter(
+  const ViewPainter(
     this.document, {
     this.currentArea,
     this.invisibleLayers = const [],
@@ -92,7 +94,7 @@ class ViewPainter extends CustomPainter {
       canvas.clipRect(areaRect.inflate(5));
     }
     if (renderBackground) {
-      cameraViewport.background.build(canvas, size, transform);
+      cameraViewport.background?.build(canvas, size, document, transform);
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {
@@ -115,16 +117,18 @@ class ViewPainter extends CustomPainter {
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var renderer in cameraViewport.unbakedElements) {
       if (!invisibleLayers.contains(renderer.element.layer)) {
-        renderer.build(canvas, size, transform, false);
+        renderer.build(canvas, size, document, transform, false);
       }
     }
     canvas.restore();
   }
 
   @override
-  bool shouldRepaint(ViewPainter oldDelegate) =>
-      document != oldDelegate.document ||
-      renderBackground != oldDelegate.renderBackground ||
-      transform != oldDelegate.transform ||
-      cameraViewport != oldDelegate.cameraViewport;
+  bool shouldRepaint(ViewPainter oldDelegate) {
+    final shouldRepaint = document != oldDelegate.document ||
+        renderBackground != oldDelegate.renderBackground ||
+        transform != oldDelegate.transform ||
+        cameraViewport != oldDelegate.cameraViewport;
+    return shouldRepaint;
+  }
 }

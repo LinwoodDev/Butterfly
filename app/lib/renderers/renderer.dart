@@ -6,25 +6,27 @@ import 'dart:ui' show Image;
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/element.dart';
+import 'package:butterfly/visualizer/int.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xml/xml.dart';
-import 'package:pdf/widgets.dart' as pw;
+//import 'package:pdf/widgets.dart' as pw;
 
 import '../api/xml_helper.dart';
-
 import '../cubits/transform.dart';
 import '../models/background.dart';
 import '../models/property.dart';
 
+part 'backgrounds/box.dart';
+part 'backgrounds/empty.dart';
 part 'elements/eraser.dart';
 part 'elements/image.dart';
 part 'elements/label.dart';
 part 'elements/path.dart';
 part 'elements/pen.dart';
-
-part 'backgrounds/empty.dart';
-part 'backgrounds/box.dart';
+part 'elements/shape.dart';
+part 'elements/svg.dart';
 
 class DefaultHitCalculator extends HitCalculator {
   final Rect rect;
@@ -60,19 +62,20 @@ abstract class Renderer<T> {
   }
 
   Rect? get rect => null;
-  void build(Canvas canvas, Size size, CameraTransform transform,
+  void build(
+      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]);
   HitCalculator? get hitCalculator =>
       rect == null ? null : DefaultHitCalculator(rect!);
-  void buildSVG(XmlDocument xml, AppDocument document, Rect rect) {}
-  pw.Widget? buildPDF(pw.Context context, AppDocument document, Area area) =>
-      null;
-
+  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {}
   factory Renderer.fromInstance(T element) {
     // Elements
     if (element is PadElement) {
       if (element is PenElement) {
         return PenRenderer(element) as Renderer<T>;
+      }
+      if (element is ShapeElement) {
+        return ShapeRenderer(element) as Renderer<T>;
       }
       if (element is EraserElement) {
         return EraserRenderer(element) as Renderer<T>;
@@ -82,6 +85,9 @@ abstract class Renderer<T> {
       }
       if (element is ImageElement) {
         return ImageRenderer(element) as Renderer<T>;
+      }
+      if (element is SvgElement) {
+        return SvgRenderer(element) as Renderer<T>;
       }
     }
 

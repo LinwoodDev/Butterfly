@@ -2,14 +2,18 @@ import 'dart:async';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/create.dart';
 import 'package:butterfly/dialogs/file_system/grid.dart';
 import 'package:butterfly/dialogs/file_system/list.dart';
+import 'package:butterfly/dialogs/file_system/sync.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/widgets/header.dart';
+import 'package:butterfly/widgets/remote_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 typedef AssetOpenedCallback = void Function(AppDocumentAsset path);
@@ -24,7 +28,6 @@ class FileSystemDialog extends StatefulWidget {
 }
 
 class _FileSystemDialogState extends State<FileSystemDialog> {
-  List<AppDocumentAsset> _documents = [];
   bool gridView = true;
   late DocumentFileSystem _fileSystem;
   final TextEditingController _pathController =
@@ -33,12 +36,12 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
 
   @override
   void initState() {
-    _fileSystem = DocumentFileSystem.fromPlatform();
-    loadDocuments();
+    _fileSystem =
+        context.read<SettingsCubit>().state.getDefaultDocumentFileSystem();
     super.initState();
   }
 
-  Future<void> loadDocuments() async {
+  Future<List<AppDocumentAsset>> _loadDocuments() async {
     var documents = await _fileSystem
         .getAsset(_pathController.text)
         .then<List<AppDocumentAsset>>((value) => (value is AppDocumentDirectory
@@ -50,8 +53,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
     if (_searchController.text.isNotEmpty) {
       documents = documents
           .where((element) =>
-              element.path
-                  .substring(element.path.lastIndexOf('/') + 1)
+              element.pathWithLeadingSlash
+                  .substring(element.pathWithLeadingSlash.lastIndexOf('/') + 1)
                   .toLowerCase()
                   .contains(_searchController.text.toLowerCase()) ||
               (element is AppDocumentFile
@@ -61,9 +64,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   : false))
           .toList();
     }
-    if (mounted) {
-      setState(() => _documents = documents);
-    }
+    return documents;
   }
 
   @override
@@ -83,7 +84,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   ),
                   actions: [
                     IconButton(
-                      onPressed: () => loadDocuments(),
+                      onPressed: () => setState(() {}),
                       icon: const Icon(PhosphorIcons.arrowClockwiseLight),
                     ),
                     IconButton(
@@ -145,12 +146,15 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       var isMobile = constraints.maxWidth < 600;
                       var pathInput = Row(
                         children: [
-                          IconButton(
-                              icon: const Icon(PhosphorIcons.houseLight),
-                              onPressed: () {
-                                _pathController.text = '/';
-                                loadDocuments();
-                              }),
+                          RemoteButton(
+                            currentRemote: _fileSystem.remote?.identifier ?? '',
+                            onChanged: (value) {
+                              _pathController.text = '/';
+                              _fileSystem = DocumentFileSystem.fromPlatform(
+                                  remote: value);
+                              setState(() {});
+                            },
+                          ),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -181,29 +185,37 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                   if (_pathController.text.isEmpty) {
                                     _pathController.text = '/';
                                   }
-                                  loadDocuments();
+                                  setState(() {});
                                 }
                               }
                             },
                           ),
                         ],
                       );
-                      var searchInput = Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        child: TextField(
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: const InputDecoration(
-                            filled: true,
-                            prefixIcon:
-                                Icon(PhosphorIcons.magnifyingGlassLight),
+                      var searchInput = Row(children: [
+                        Flexible(
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(minWidth: 300),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              child: TextField(
+                                textAlignVertical: TextAlignVertical.center,
+                                decoration: const InputDecoration(
+                                  filled: true,
+                                  prefixIcon:
+                                      Icon(PhosphorIcons.magnifyingGlassLight),
+                                ),
+                                onChanged: (value) {
+                                  setState(() {});
+                                },
+                                controller: _searchController,
+                              ),
+                            ),
                           ),
-                          onChanged: (value) {
-                            loadDocuments();
-                          },
-                          controller: _searchController,
                         ),
-                      );
+                        if (_fileSystem.remote != null) const SyncButton(),
+                      ]);
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: isMobile
@@ -234,26 +246,60 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                     }),
                     const Divider(),
                     Flexible(
-                        child: BlocBuilder<DocumentBloc, DocumentState>(
-                            bloc: widget.bloc,
-                            builder: (context, state) {
-                              var selectedPath = '';
-                              if (state is DocumentLoadSuccess) {
-                                selectedPath = state.path ?? '';
-                              }
-                              return gridView
-                                  ? FileSystemGridView(
-                                      selectedPath: selectedPath,
-                                      assets: _documents,
-                                      onOpened: _openAsset,
-                                      onRefreshed: loadDocuments,
-                                    )
-                                  : FileSystemListView(
-                                      selectedPath: selectedPath,
-                                      assets: _documents,
-                                      onOpened: _openAsset,
-                                      onRefreshed: loadDocuments,
-                                    );
+                        child: FutureBuilder<List<AppDocumentAsset>>(
+                            future: _loadDocuments(),
+                            builder: (context, snapshot) {
+                              return BlocBuilder<DocumentBloc, DocumentState>(
+                                  bloc: widget.bloc,
+                                  builder: (context, state) {
+                                    AssetLocation? selectedPath;
+                                    if (state is DocumentLoadSuccess) {
+                                      selectedPath = state.location;
+                                    }
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const Align(
+                                        alignment: Alignment.center,
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
+                                    if (snapshot.hasError) {
+                                      return ListView(children: [
+                                        Text(
+                                          AppLocalizations.of(context)!.error,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
+                                        ),
+                                        Text(
+                                          snapshot.error.toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
+                                        ),
+                                      ]);
+                                    }
+                                    final assets = snapshot.data ?? [];
+                                    void onRefreshed() {
+                                      setState(() {});
+                                    }
+
+                                    return gridView
+                                        ? FileSystemGridView(
+                                            selectedPath: selectedPath,
+                                            assets: assets,
+                                            fileSystem: _fileSystem,
+                                            onOpened: _openAsset,
+                                            onRefreshed: onRefreshed,
+                                          )
+                                        : FileSystemListView(
+                                            selectedPath: selectedPath,
+                                            assets: assets,
+                                            fileSystem: _fileSystem,
+                                            onOpened: _openAsset,
+                                            onRefreshed: onRefreshed,
+                                          );
+                                  });
                             })),
                   ],
                 ),
@@ -271,21 +317,31 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
       path = '';
     }
     var success = await showDialog(
-            context: context,
-            builder: (context) =>
-                FileSystemAssetCreateDialog(isFolder: isFolder, path: path))
-        as bool?;
+        context: context,
+        builder: (context) => FileSystemAssetCreateDialog(
+            isFolder: isFolder, path: path, fileSystem: _fileSystem)) as bool?;
     if (success ?? false) {
-      loadDocuments();
+      setState(() {});
     }
   }
 
   void _openAsset(AppDocumentAsset asset) {
     if (asset is AppDocumentFile) {
-      Navigator.of(context).pop(asset.path);
+      final remote = _fileSystem.remote;
+      final state = widget.bloc.state;
+      AssetLocation? lastLocation;
+      if (state is DocumentLoadSuccess) lastLocation = state.location;
+      if (lastLocation == asset.location) return;
+      if (remote != null) {
+        GoRouter.of(context).push(
+            '/remote/${Uri.encodeComponent(remote.identifier)}/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}');
+      } else {
+        GoRouter.of(context).push(
+            '/local/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}');
+      }
     } else {
-      _pathController.text = asset.path;
-      loadDocuments();
+      _pathController.text = asset.pathWithLeadingSlash;
+      setState(() {});
     }
   }
 }

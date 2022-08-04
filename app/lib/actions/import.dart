@@ -3,14 +3,13 @@ import 'dart:convert';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import.dart';
-import 'package:butterfly/models/viewport.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubits/current_index.dart';
 import '../cubits/settings.dart';
 import '../models/converter.dart';
-import '../renderers/renderer.dart';
+import '../models/document.dart';
 
 class ImportIntent extends Intent {
   final BuildContext context;
@@ -30,21 +29,20 @@ class ImportAction extends Action<ImportIntent> {
             builder: (context) => const ImportDialog(), context: intent.context)
         .then((content) {
       if (content == null) return;
-      var document = const DocumentJsonConverter()
-          .fromJson(Map<String, dynamic>.from(jsonDecode(content)));
-      DocumentFileSystem.fromPlatform()
+      var document =
+          const DocumentJsonConverter().fromJson(Map.from(jsonDecode(content)));
+      DocumentFileSystem.fromPlatform(
+              remote: settingsCubit.state.getDefaultRemote())
           .importDocument(document)
           .then((file) async {
-        final background = Renderer.fromInstance(document.background);
-        await background.setup(document);
-        final renderers =
-            document.content.map((e) => Renderer.fromInstance(e)).toList();
-        await Future.wait(renderers.map((e) async => await e.setup(document)));
-        bloc.emit(DocumentLoadSuccess(document,
-            path: file.path,
-            currentIndexCubit: currentIndexCubit,
-            settingsCubit: settingsCubit,
-            cameraViewport: CameraViewport.unbaked(background, renderers)));
+        final state = DocumentLoadSuccess(
+          document,
+          currentIndexCubit: currentIndexCubit,
+          location: AssetLocation.local(file.pathWithLeadingSlash),
+          settingsCubit: settingsCubit,
+        );
+        await state.load();
+        bloc.emit(state);
       });
     });
   }

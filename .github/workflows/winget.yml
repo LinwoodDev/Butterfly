@@ -1,18 +1,20 @@
 name: Publish to WinGet
 on:
-  release:
-    types: [released]
+  workflow_run:
+    workflows: ["Flutter build"]
+    types:
+      - completed
 jobs:
   publish:
     runs-on: windows-latest
     steps:
-      - if: ${{ !contains(github.event.release.tag_name, 'beta') && !contains(github.event.release.tag_name, 'alpha') && !contains(github.event.release.tag_name, 'rc') }}
-        uses: vedantmgoyal2009/vedantmgoyal2009/winget-pkgs-automation/releaser-action@v1.0.0
+      - if: github.ref == 'refs/tags/nightly'
+        uses: vedantmgoyal2009/winget-releaser@latest
         with:
           identifier: LinwoodCloud.Butterfly
           token: ${{ secrets.CI_PAT }}
-      - if: ${{ contains(github.event.release.tag_name, 'beta') || contains(github.event.release.tag_name, 'alpha') || contains(github.event.release.tag_name, 'rc') }}
-        uses: vedantmgoyal2009/vedantmgoyal2009/winget-pkgs-automation/releaser-action@v1.0.0
+      - if: github.ref == 'refs/tags/stable'
+        uses: vedantmgoyal2009/winget-releaser@latest
         with:
           identifier: LinwoodCloud.Butterfly.Nightly
           version-regex: '(?<=v).*'

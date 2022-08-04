@@ -1,3 +1,4 @@
+import 'package:butterfly/visualizer/property.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -5,7 +6,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../models/element.dart';
 
 extension ElementVisualizer on PadElement {
-  String getName(BuildContext context) {
+  String getLocalizedName(BuildContext context) {
     if (this is PenElement) {
       return AppLocalizations.of(context)!.pen;
     }
@@ -17,6 +18,12 @@ extension ElementVisualizer on PadElement {
     }
     if (this is ImageElement) {
       return AppLocalizations.of(context)!.image;
+    }
+    if (this is ShapeElement) {
+      return AppLocalizations.of(context)!.shape;
+    }
+    if (this is SvgElement) {
+      return AppLocalizations.of(context)!.svg;
     }
     throw UnimplementedError();
   }
@@ -33,6 +40,13 @@ extension ElementVisualizer on PadElement {
     }
     if (this is ImageElement) {
       return PhosphorIcons.imageLight;
+    }
+    if (this is ShapeElement) {
+      final shape = (this as ShapeElement).property.shape;
+      return shape.getIcon();
+    }
+    if (this is SvgElement) {
+      return PhosphorIcons.sunLight;
     }
     throw UnimplementedError();
   }

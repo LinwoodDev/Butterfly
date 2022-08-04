@@ -161,7 +161,9 @@ class _$_DocumentTemplate extends _DocumentTemplate {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DocumentTemplateToJson(this);
+    return _$$_DocumentTemplateToJson(
+      this,
+    );
   }
 }
 
@@ -176,9 +178,9 @@ abstract class _DocumentTemplate extends DocumentTemplate {
 
   @override
   @DocumentJsonConverter()
-  AppDocument get document => throw _privateConstructorUsedError;
+  AppDocument get document;
   @override
-  String get folder => throw _privateConstructorUsedError;
+  String get folder;
   @override
   @JsonKey(ignore: true)
   _$$_DocumentTemplateCopyWith<_$_DocumentTemplate> get copyWith =>

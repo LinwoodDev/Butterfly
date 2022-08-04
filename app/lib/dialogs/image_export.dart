@@ -84,13 +84,23 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
     var recorder = ui.PictureRecorder();
     var canvas = Canvas(recorder);
     var current = context.read<DocumentBloc>().state as DocumentLoadSuccess;
+    final currentPosition = Offset(
+      width < 0 ? x + width : x,
+      height < 0 ? y + height : y,
+    );
+    final currentSize = Size(
+      width.abs().toDouble(),
+      height.abs().toDouble(),
+    );
     var painter = ViewPainter(current.document,
         renderBackground: _renderBackground,
-        cameraViewport: current.cameraViewport.unbake(current.renderers),
-        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), scale));
-    painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
+        cameraViewport:
+            current.cameraViewport.unbake(unbakedElements: current.renderers),
+        transform: CameraTransform(-currentPosition, scale));
+    painter.paint(canvas, currentSize);
     var picture = recorder.endRecording();
-    var image = await picture.toImage(width, height);
+    var image = await picture.toImage(
+        currentSize.width.toInt(), currentSize.height.toInt());
     return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 

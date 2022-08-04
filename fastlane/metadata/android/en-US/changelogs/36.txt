@@ -1,0 +1,2 @@
+* Add native window title bar support
+* Fix supported locales

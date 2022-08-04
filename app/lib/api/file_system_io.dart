@@ -12,7 +12,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'file_system.dart';
 
 Future<String> getButterflyDirectory() async {
+  var prefs = await SharedPreferences.getInstance();
   String? path;
+  if (prefs.containsKey('document_path')) {
+    path = prefs.getString('document_path');
+  }
+  if (path == '') {
+    path = null;
+  }
+  if (path != null) {
+    return path;
+  }
   if (Platform.isAndroid) path = (await getExternalStorageDirectory())?.path;
   path ??= (await getApplicationDocumentsDirectory()).path;
   path += '/Linwood/Butterfly';
@@ -37,7 +47,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
     file = await file.create(recursive: true);
     await file.writeAsString(json.encode(document.toJson()));
     return AppDocumentFile(
-        path == '/' ? '/$name' : '$path/$name', document.toJson());
+        AssetLocation.local(path == '/' ? '/$name' : '$path/$name'),
+        document.toJson());
   }
 
   @override
@@ -66,7 +77,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (await file.exists()) {
       var json = await file.readAsString();
       try {
-        return AppDocumentFile(path, jsonDecode(json));
+        return AppDocumentFile(AssetLocation.local(path), jsonDecode(json));
       } catch (e) {
         return null;
       }
@@ -96,7 +107,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
           : (a as AppDocumentFile).name.compareTo(
               b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
 
-      return AppDocumentDirectory(path, assets);
+      return AppDocumentDirectory(AssetLocation.local(path), assets);
     }
     return null;
   }
@@ -115,20 +126,12 @@ class IODocumentFileSystem extends DocumentFileSystem {
     }
     await file.writeAsString(jsonEncode(document.toJson()));
 
-    return AppDocumentFile(path, document.toJson());
+    return AppDocumentFile(AssetLocation.local(path), document.toJson());
   }
 
   @override
   FutureOr<String> getDirectory() async {
-    var prefs = await SharedPreferences.getInstance();
-    String? path;
-    if (prefs.containsKey('document_path')) {
-      path = prefs.getString('document_path');
-    }
-    if (path == '') {
-      path = null;
-    }
-    path ??= await getButterflyDirectory();
+    var path = await getButterflyDirectory();
     // Convert \ to /
     path = path.replaceAll('\\', '/');
     path += '/Documents';
@@ -154,7 +157,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
         assets.add(asset);
       }
     }
-    return AppDocumentDirectory(name, assets);
+    return AppDocumentDirectory(AssetLocation.local(name), assets);
   }
 }
 

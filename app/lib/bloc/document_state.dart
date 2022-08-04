@@ -1,5 +1,10 @@
 part of 'document_bloc.dart';
 
+enum StorageType {
+  local,
+  cloud,
+}
+
 abstract class DocumentState extends Equatable {
   const DocumentState();
 
@@ -11,49 +16,36 @@ class DocumentLoadInProgress extends DocumentState {}
 
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
-  final String? path;
+  final StorageType storageType;
   final String currentLayer;
   final int currentAreaIndex;
   final List<String> invisibleLayers;
-  final CameraViewport cameraViewport;
   final SettingsCubit settingsCubit;
   final CurrentIndexCubit currentIndexCubit;
-  final Embedding? embedding;
-  final bool saved;
 
   DocumentLoadSuccess(this.document,
-      {this.path,
-      this.saved = true,
+      {AssetLocation? location,
+      this.storageType = StorageType.local,
+      bool saved = true,
       required this.settingsCubit,
       required this.currentIndexCubit,
-      CameraViewport? cameraViewport,
       this.currentAreaIndex = -1,
       this.currentLayer = '',
-      this.embedding,
-      this.invisibleLayers = const []})
-      : cameraViewport = cameraViewport ??
-            CameraViewport.unbaked(
-                Renderer.fromInstance(document.background)..setup(document),
-                document.content
-                    .map((e) => Renderer.fromInstance(e)..setup(document))
-                    .toList());
+      this.invisibleLayers = const []}) {
+    if (location != null) {
+      currentIndexCubit.setSaveState(location: location, saved: saved);
+    }
+  }
 
   @override
   List<Object?> get props => [
         invisibleLayers,
-        cameraViewport,
         document,
-        path,
         currentLayer,
         currentAreaIndex,
         settingsCubit,
-        embedding,
-        saved
+        currentIndexCubit,
       ];
-
-  List<Renderer<PadElement>> get renderers =>
-      List.from(cameraViewport.bakedElements)
-        ..addAll(cameraViewport.unbakedElements);
 
   Area? get currentArea {
     if (currentAreaIndex < 0 || currentAreaIndex >= document.areas.length) {
@@ -62,136 +54,76 @@ class DocumentLoadSuccess extends DocumentState {
     return document.areas[currentAreaIndex];
   }
 
-  Renderer? getRenderer(PadElement element) =>
-      renderers.firstWhereOrNull((renderer) => renderer.element == element);
+  CameraViewport get cameraViewport => currentIndexCubit.state.cameraViewport;
 
-  DocumentLoadSuccess copyWith(
-          {AppDocument? document,
-          bool? editMode,
-          String? path,
-          String? currentLayer,
-          int? currentAreaIndex,
-          bool removePath = false,
-          bool? saved,
-          List<String>? invisibleLayers,
-          CameraViewport? cameraViewport}) =>
+  List<Renderer<PadElement>> get renderers => currentIndexCubit.renderers;
+
+  AssetLocation get location => currentIndexCubit.state.location;
+  bool get saved => currentIndexCubit.state.saved;
+
+  Future<void> load() async {
+    final background = Renderer.fromInstance(document.background);
+    await background.setup(document);
+    final renderers =
+        document.content.map((e) => Renderer.fromInstance(e)).toList();
+    await Future.wait(renderers.map((e) async => await e.setup(document)));
+    currentIndexCubit.unbake(
+        background: background, unbakedElements: renderers);
+  }
+
+  Embedding? get embedding => currentIndexCubit.state.embedding;
+
+  DocumentLoadSuccess copyWith({
+    AppDocument? document,
+    bool? editMode,
+    String? currentLayer,
+    int? currentAreaIndex,
+    List<String>? invisibleLayers,
+  }) =>
       DocumentLoadSuccess(
         document ?? this.document,
-        path: removePath ? null : path ?? this.path,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
         currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
-        cameraViewport: cameraViewport ?? this.cameraViewport,
-        saved: saved ?? this.saved,
         settingsCubit: settingsCubit,
-        embedding: embedding,
         currentIndexCubit: currentIndexCubit,
+        location: location,
       );
 
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 
-  Future<String> save() {
-    if (embedding != null) return Future.value('');
-    if (path == null) {
-      return DocumentFileSystem.fromPlatform()
+  bool hasAutosave() =>
+      (embedding?.save ?? false) ||
+      (!kIsWeb &&
+          (location.remote.isEmpty ||
+              (settingsCubit.state
+                      .getRemote(location.remote)
+                      ?.hasDocumentCached(location.path) ??
+                  false)));
+
+  Future<AssetLocation> save() {
+    final storage = getRemoteStorage();
+    if (embedding != null) return Future.value(AssetLocation.local(''));
+    if (location.path == '') {
+      return DocumentFileSystem.fromPlatform(remote: storage)
           .importDocument(document)
-          .then((value) => value.path)
+          .then((value) => value.location)
         ..then(settingsCubit.addRecentHistory);
     }
-    return DocumentFileSystem.fromPlatform()
-        .updateDocument(path!, document)
-        .then((value) => value.path)
+    return DocumentFileSystem.fromPlatform(remote: storage)
+        .updateDocument(location.path, document)
+        .then((value) => value.location)
       ..then(settingsCubit.addRecentHistory);
   }
 
-  Future<ByteData?> render(
-      {required int width,
-      required int height,
-      double x = 0,
-      double y = 0,
-      double scale = 1,
-      bool renderBackground = true}) async {
-    var recorder = ui.PictureRecorder();
-    var canvas = Canvas(recorder);
-    var painter = ViewPainter(document,
-        renderBackground: renderBackground,
-        cameraViewport: cameraViewport.withUnbaked(renderers),
-        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), scale));
-    painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
-    var picture = recorder.endRecording();
-    var image = await picture.toImage(width, height);
-    return await image.toByteData(format: ui.ImageByteFormat.png);
-  }
+  RemoteStorage? getRemoteStorage() => location.remote.isEmpty
+      ? null
+      : settingsCubit.state.getRemote(location.remote);
 
-  XmlDocument renderSVG(
-      {required int width,
-      required int height,
-      double x = 0,
-      double y = 0,
-      bool renderBackground = true}) {
-    final document = XmlDocument();
-    final svg = document.createElement('svg', attributes: {
-      'xmlns': 'http://www.w3.org/2000/svg',
-      'xmlns:xlink': 'http://www.w3.org/1999/xlink',
-      'version': '1.1',
-      'width': '${width}px',
-      'height': '${height}px',
-      'viewBox': '$x $y $width $height',
-    });
-    svg
-        .createElement('defs')
-        .createElement('mask', id: 'eraser-mask')
-        .createElement('rect', attributes: {
-      'x': '${x}px',
-      'y': '${y}px',
-      'width': '${width}px',
-      'height': '${height}px',
-      'fill': 'white',
-    });
-
-    final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
-    if (renderBackground) {
-      cameraViewport.background.buildSVG(document, this.document, rect);
-    }
-    for (var e in renderers) {
-      e.buildSVG(document, this.document, rect);
-    }
-    return document;
-  }
-
-  pw.Document renderPDF(
-      {required List<String> areas, bool renderBackground = true}) {
-    final document = pw.Document();
-    for (final areaName in areas) {
-      final area = this.document.getAreaByName(areaName);
-      if (area == null) {
-        continue;
-      }
-      final pageFormat = PdfPageFormat(area.width, area.height);
-      document.addPage(pw.Page(
-          pageFormat: pageFormat,
-          build: (context) {
-            List<pw.Widget> elements = [];
-
-            if (renderBackground) {
-              final background = cameraViewport.background
-                  .buildPDF(context, this.document, area);
-              if (background != null) {
-                elements.add(background);
-              }
-            }
-
-            for (final e in renderers) {
-              final element = e.buildPDF(context, this.document, area);
-              if (element != null) {
-                elements.add(element);
-              }
-            }
-            return pw.Stack(children: elements);
-          }));
-    }
-    return document;
-  }
+  Future<void> bake(
+          {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
+      currentIndexCubit.bake(document,
+          viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
 }
 
 class DocumentLoadFailure extends DocumentState {}

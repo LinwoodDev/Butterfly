@@ -3,7 +3,7 @@ const redirects = require('./redirects.js');
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
     title: 'Linwood Butterfly',
-    tagline: '🎨 Notes that change the world 🎨',
+    tagline: '🎨 Powerful, minimalistic, cross-platform, opensource note-taking app 🎨',
     url: 'https://docs.butterfly.linwood.dev',
     baseUrl: '/',
     onBrokenLinks: 'throw',
@@ -13,7 +13,7 @@ module.exports = {
     projectName: 'butterfly', // Usually your repo name.
     i18n: {
         defaultLocale: 'en',
-        locales: ['en', 'de', 'fr', 'es'],
+        locales: ['en', 'de', 'fr', 'es', 'it', 'pt-br', 'tr'],
     },
     themeConfig: {
         colorMode: {
@@ -62,6 +62,10 @@ module.exports = {
                     label: 'More',
                     position: 'left',
                     items: [
+                        {
+                            label: 'Matrix',
+                            href: 'https://linwood.dev/matrix',
+                        },
                         {
                             label: 'Discord',
                             href: 'https://discord.linwood.dev',
@@ -180,10 +184,14 @@ module.exports = {
                     versions: {
                         "current": {
                             label: "Nightly",
+                            path: "1.5",
+                        },
+                        "1.4": {
+                            label: "1.4.0",
                             path: "1.4",
                         },
                         "1.3": {
-                            label: "1.3.1",
+                            label: "1.3.2",
                             path: "1.3",
                         },
                         "1.2": {

@@ -1,18 +1,22 @@
-import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/dialogs/elements/general.dart';
-import 'package:butterfly/dialogs/elements/label.dart';
-import 'package:butterfly/models/element.dart';
-import 'package:butterfly/visualizer/element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../bloc/document_bloc.dart';
+import '../../models/element.dart';
 import '../../renderers/renderer.dart';
+import '../../visualizer/element.dart';
+import '../../widgets/context_menu.dart';
+import 'general.dart';
 import 'image.dart';
+import 'label.dart';
+import 'pen.dart';
+import 'shape.dart';
+import 'svg.dart';
 
 class ElementsDialog extends StatefulWidget {
   final List<Renderer<PadElement>> elements;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
   final ValueChanged<Renderer<PadElement>>? onChanged;
   const ElementsDialog(
@@ -28,6 +32,7 @@ class ElementsDialog extends StatefulWidget {
 
 class _ElementsDialogState extends State<ElementsDialog> {
   int _selectedElement = 0;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +54,15 @@ class _ElementsDialogState extends State<ElementsDialog> {
       } else if (element is ImageElement) {
         content = ImageElementDialog(
             index: index, close: widget.close, position: widget.position);
+      } else if (element is SvgElement) {
+        content = SvgElementDialog(
+            index: index, close: widget.close, position: widget.position);
+      } else if (element is PenElement) {
+        content = PenElementDialog(
+            index: index, close: widget.close, position: widget.position);
+      } else if (element is ShapeElement) {
+        content = ShapeElementDialog(
+            index: index, close: widget.close, position: widget.position);
       } else if (element != null) {
         content = GeneralElementDialog(
             position: widget.position, index: index, close: widget.close);
@@ -60,6 +74,7 @@ class _ElementsDialogState extends State<ElementsDialog> {
           width: 50,
           child: ListView.builder(
             itemCount: widget.elements.length,
+            controller: _scrollController,
             itemBuilder: (context, index) => InkWell(
               onTap: () {
                 widget.onChanged?.call(widget.elements[index]);

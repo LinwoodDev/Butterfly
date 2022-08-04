@@ -6,6 +6,17 @@ part of 'document.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$_AssetLocation _$$_AssetLocationFromJson(Map json) => _$_AssetLocation(
+      remote: json['remote'] as String? ?? '',
+      path: json['path'] as String,
+    );
+
+Map<String, dynamic> _$$_AssetLocationToJson(_$_AssetLocation instance) =>
+    <String, dynamic>{
+      'remote': instance.remote,
+      'path': instance.path,
+    };
+
 _$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
       name: json['name'] as String,
       description: json['description'] as String? ?? '',

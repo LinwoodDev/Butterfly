@@ -1,15 +1,20 @@
 import 'dart:async';
-
-import 'package:butterfly/api/file_system_io.dart';
-import 'package:butterfly/api/file_system_web.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/template.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:path/path.dart' as path;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'file_system_io.dart';
+import 'file_system_html.dart';
+import 'file_system_remote.dart';
 
 abstract class GeneralFileSystem {
+  RemoteStorage? get remote => null;
+
   String convertNameToFile(String name) {
     return '${name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_')}.bfly';
   }
@@ -37,6 +42,23 @@ abstract class GeneralFileSystem {
 abstract class DocumentFileSystem extends GeneralFileSystem {
   Future<AppDocumentDirectory> getRootDirectory() {
     return getAsset('').then((value) => value as AppDocumentDirectory);
+  }
+
+  @override
+  FutureOr<String> getDirectory() async {
+    var prefs = await SharedPreferences.getInstance();
+    String? path;
+    if (prefs.containsKey('document_path')) {
+      path = prefs.getString('document_path');
+    }
+    if (path == '') {
+      path = null;
+    }
+    path ??= await getButterflyDirectory();
+    // Convert \ to /
+    path = path.replaceAll('\\', '/');
+    path += '/Templates';
+    return path;
   }
 
   Future<AppDocumentAsset?> getAsset(String path);
@@ -73,8 +95,7 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
       newAsset = await createDirectory(newName);
       var assets = (asset as AppDocumentDirectory).assets;
       for (var current in assets) {
-        var currentPath = current.path;
-        if (currentPath.startsWith('/')) currentPath = currentPath.substring(1);
+        var currentPath = current.pathWithoutLeadingSlash;
         final newPath = newName + currentPath.substring(path.length);
         await renameAsset(currentPath, newPath);
       }
@@ -83,10 +104,13 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     return newAsset;
   }
 
-  static DocumentFileSystem fromPlatform() {
+  static DocumentFileSystem fromPlatform({final RemoteStorage? remote}) {
     if (kIsWeb) {
       return WebDocumentFileSystem();
     } else {
+      if (remote is DavRemoteStorage) {
+        return DavRemoteDocumentFileSystem(remote);
+      }
       return IODocumentFileSystem();
     }
   }
@@ -100,8 +124,7 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
       var newDirectory = await createDirectory(newPath);
       var assets = (asset as AppDocumentDirectory).assets;
       for (var current in assets) {
-        var currentPath = current.path;
-        if (currentPath.startsWith('/')) currentPath = currentPath.substring(1);
+        var currentPath = current.pathWithoutLeadingSlash;
         final currentNewPath = newPath + currentPath.substring(path.length);
         await duplicateAsset(currentPath, currentNewPath);
       }
@@ -153,10 +176,13 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     return newTemplate;
   }
 
-  static TemplateFileSystem fromPlatform() {
+  static TemplateFileSystem fromPlatform({RemoteStorage? remote}) {
     if (kIsWeb) {
       return WebTemplateFileSystem();
     } else {
+      if (remote is DavRemoteStorage) {
+        return DavRemoteTemplateFileSystem(remote);
+      }
       return IOTemplateFileSystem();
     }
   }

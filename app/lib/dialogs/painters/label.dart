@@ -18,7 +18,7 @@ class LabelPainterDialog extends StatelessWidget {
     return GeneralPainterDialog<LabelPainter>(
         index: painterIndex,
         title: AppLocalizations.of(context)!.label,
-        icon: PhosphorIcons.textTLight,
+        iconBuilder: (_, __) => PhosphorIcons.textTLight,
         help: 'label',
         builder: (context, painter, setPainter) => [
               LabelPropertyView(
@@ -207,7 +207,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                                 value ?? _value.decorationStyle)))),
                 ColorField(
                     title: Text(AppLocalizations.of(context)!.color),
-                    color: Color(_value.decorationColor),
+                    value: Color(_value.decorationColor),
                     onChanged: (value) =>
                         change(_value.copyWith(decorationColor: value.value))),
                 Padding(
@@ -227,7 +227,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
       const SizedBox(height: 32),
       ColorField(
           title: Text(AppLocalizations.of(context)!.color),
-          color: Color(_value.color),
+          value: Color(_value.color),
           onChanged: (value) => change(_value.copyWith(color: value.value))),
     ]);
   }

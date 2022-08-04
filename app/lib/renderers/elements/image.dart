@@ -6,7 +6,8 @@ class ImageRenderer extends Renderer<ImageElement> {
   ImageRenderer(super.element, [this.image]);
 
   @override
-  void build(Canvas canvas, Size size, CameraTransform transform,
+  void build(
+      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]) {
     if (image == null) {
       // Render placeholder
@@ -27,18 +28,18 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  void buildSVG(XmlDocument xml, AppDocument document, Rect rect) {
-    if (!this.rect.overlaps(rect)) return;
+  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+    if (!rect.overlaps(rect)) return;
     // Create data url
     final data = element.pixels;
     final encoded = base64Encode(data);
     final dataUrl = 'data:image/png;base64,$encoded';
     // Create image
     xml.getElement('svg')?.createElement('image', attributes: {
-      'x': '${this.rect.left}',
-      'y': '${this.rect.top}',
-      'width': '${this.rect.width}',
-      'height': '${this.rect.height}',
+      'x': '${rect.left}px',
+      'y': '${rect.top}px',
+      'width': '${rect.width}px',
+      'height': '${rect.height}px',
       'xlink:href': dataUrl,
       'mask': 'url(#eraser-mask)',
     });

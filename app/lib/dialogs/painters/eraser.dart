@@ -15,7 +15,7 @@ class EraserPainterDialog extends StatelessWidget {
     return GeneralPainterDialog<EraserPainter>(
         index: painterIndex,
         title: AppLocalizations.of(context)!.eraser,
-        icon: PhosphorIcons.eraserLight,
+        iconBuilder: (_, __) => PhosphorIcons.eraserLight,
         help: 'eraser',
         builder: (context, painter, setPainter) => [
               ExactSlider(

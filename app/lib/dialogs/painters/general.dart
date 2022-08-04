@@ -11,14 +11,14 @@ typedef PainterWidgetsBuilder<T extends Painter> = List<Widget> Function(
     BuildContext context, T painter, PainterChangedCallback<T> onChanged);
 
 class GeneralPainterDialog<T extends Painter> extends StatefulWidget {
-  final IconData icon;
+  final IconData Function(BuildContext context, T painter) iconBuilder;
   final String title;
   final String help;
   final int index;
   final PainterWidgetsBuilder<T> builder;
   const GeneralPainterDialog(
       {super.key,
-      required this.icon,
+      required this.iconBuilder,
       required this.title,
       required this.help,
       required this.index,
@@ -52,7 +52,7 @@ class _GeneralPainterDialogState<T extends Painter>
           children: [
             Header(
               title: Text(widget.title),
-              leading: Icon(widget.icon),
+              leading: Icon(widget.iconBuilder(context, painter)),
               help: ['painters', widget.help],
             ),
             Flexible(
@@ -66,21 +66,26 @@ class _GeneralPainterDialogState<T extends Painter>
                     Flexible(
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(minHeight: 200),
-                        child: Builder(builder: (context) {
-                          return ListView(shrinkWrap: true, children: [
-                            TextFormField(
-                                decoration: InputDecoration(
-                                    filled: true,
-                                    labelText:
-                                        AppLocalizations.of(context)!.name),
-                                initialValue: painter.name,
-                                onChanged: (value) => setState(() => painter =
-                                    painter.copyWith(name: value) as T)),
-                            const SizedBox(height: 8),
-                            ...widget.builder(context, painter,
-                                (current) => setState(() => painter = current))
-                          ]);
-                        }),
+                        child: Material(
+                          child: Builder(builder: (context) {
+                            return ListView(shrinkWrap: true, children: [
+                              TextFormField(
+                                  decoration: InputDecoration(
+                                      filled: true,
+                                      labelText:
+                                          AppLocalizations.of(context)!.name),
+                                  initialValue: painter.name,
+                                  onChanged: (value) => setState(() => painter =
+                                      painter.copyWith(name: value) as T)),
+                              const SizedBox(height: 8),
+                              ...widget.builder(
+                                  context,
+                                  painter,
+                                  (current) =>
+                                      setState(() => painter = current))
+                            ]);
+                          }),
+                        ),
                       ),
                     ),
                     const Divider(),

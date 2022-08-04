@@ -4,7 +4,8 @@ extension XmlHelper on XmlNode {
   XmlElement createElement(String name,
       {String? id,
       String? className,
-      Map<String, String> attributes = const {}}) {
+      Map<String, String> attributes = const {},
+      List<XmlNode> children = const []}) {
     final element = XmlElement(XmlName(name));
     if (id != null) {
       element.attributes.add(XmlAttribute(XmlName('id'), id));

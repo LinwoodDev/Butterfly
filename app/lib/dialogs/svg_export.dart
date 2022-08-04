@@ -81,13 +81,23 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
     var recorder = ui.PictureRecorder();
     var canvas = Canvas(recorder);
     var current = context.read<DocumentBloc>().state as DocumentLoadSuccess;
+    final currentPosition = Offset(
+      width < 0 ? x + width : x,
+      height < 0 ? y + height : y,
+    );
+    final currentSize = Size(
+      width.abs().toDouble(),
+      height.abs().toDouble(),
+    );
     var painter = ViewPainter(current.document,
         renderBackground: _renderBackground,
-        cameraViewport: current.cameraViewport.unbake(current.renderers),
-        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble())));
-    painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
+        cameraViewport:
+            current.cameraViewport.unbake(unbakedElements: current.renderers),
+        transform: CameraTransform(-currentPosition, 1));
+    painter.paint(canvas, currentSize);
     var picture = recorder.endRecording();
-    var image = await picture.toImage(width, height);
+    var image = await picture.toImage(
+        currentSize.width.toInt(), currentSize.height.toInt());
     return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
@@ -95,11 +105,20 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final data = state.renderSVG(
-      width: width,
-      height: height,
-      x: x,
-      y: y,
+    final currentPosition = Offset(
+      width < 0 ? x + width : x,
+      height < 0 ? y + height : y,
+    );
+    final currentSize = Size(
+      width.abs().toDouble(),
+      height.abs().toDouble(),
+    );
+    final data = state.currentIndexCubit.renderSVG(
+      state.document,
+      width: currentSize.width.toInt(),
+      height: currentSize.height.toInt(),
+      x: currentPosition.dx,
+      y: currentPosition.dy,
       renderBackground: _renderBackground,
     );
     if (!mounted) return;

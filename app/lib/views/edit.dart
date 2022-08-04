@@ -16,6 +16,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../dialogs/painters/area.dart';
+import '../dialogs/painters/shape.dart';
 
 class EditToolbar extends StatelessWidget {
   final bool isMobile;
@@ -53,10 +54,9 @@ class EditToolbar extends StatelessWidget {
                             value: bloc, child: const HandDialog()));
               }
 
-              final bloc = context.read<DocumentBloc>();
-
               return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                 builder: (context, currentIndex) => Material(
+                  color: Colors.transparent,
                   child: Align(
                     alignment:
                         isMobile ? Alignment.center : Alignment.centerRight,
@@ -67,21 +67,22 @@ class EditToolbar extends StatelessWidget {
                         children: [
                           OptionButton(
                             tooltip: AppLocalizations.of(context)!.hand,
-                            selected: context
-                                    .read<CurrentIndexCubit>()
-                                    .getPainter(bloc) ==
-                                null,
+                            selected:
+                                context.read<CurrentIndexCubit>().getIndex() <
+                                    0,
                             icon: const Icon(PhosphorIcons.handLight),
                             selectedIcon: const Icon(PhosphorIcons.handFill),
                             onLongPressed: openHandDialog,
                             onPressed: () {
                               if (context
                                       .read<CurrentIndexCubit>()
-                                      .getPainter(bloc) ==
+                                      .getPainter(state.document) ==
                                   null) {
                                 openHandDialog();
                               } else {
-                                context.read<CurrentIndexCubit>().reset();
+                                context
+                                    .read<CurrentIndexCubit>()
+                                    .reset(state.document);
                               }
                             },
                           ),
@@ -96,10 +97,13 @@ class EditToolbar extends StatelessWidget {
                                 itemBuilder: (context, i) {
                                   var e = painters[i];
                                   final type = e.toJson()['type'];
-                                  final selected = i == currentIndex.index;
+                                  final selected = i ==
+                                      context
+                                          .read<CurrentIndexCubit>()
+                                          .getIndex();
                                   String tooltip = e.name.trim();
                                   if (tooltip.isEmpty) {
-                                    tooltip = e.getLocalizedString(context);
+                                    tooltip = e.getLocalizedName(context);
                                   }
                                   void openDialog() {
                                     var bloc = context.read<DocumentBloc>();
@@ -128,6 +132,9 @@ class EditToolbar extends StatelessWidget {
                                                   switch (type) {
                                                     case 'pen':
                                                       return PenPainterDialog(
+                                                          painterIndex: i);
+                                                    case 'shape':
+                                                      return ShapePainterDialog(
                                                           painterIndex: i);
                                                     case 'eraser':
                                                       return EraserPainterDialog(
@@ -164,12 +171,11 @@ class EditToolbar extends StatelessWidget {
                                               Icon(e.getIcon(filled: true)),
                                           icon: Icon(e.getIcon(filled: false)),
                                           onPressed: () {
-                                            final bloc =
-                                                context.read<DocumentBloc>();
                                             if (!selected) {
                                               context
                                                   .read<CurrentIndexCubit>()
-                                                  .changePainter(bloc, i);
+                                                  .changePainter(state.document,
+                                                      state.currentArea, i);
                                             } else {
                                               openDialog();
                                             }
@@ -192,15 +198,24 @@ class EditToolbar extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16)),
                                 itemBuilder: (context) => [
-                                      ...PainterVisualizer.getAllPainters()
-                                          .map((e) {
+                                      ...[
+                                        Painter.pen,
+                                        Painter.shape,
+                                        Painter.pathEraser,
+                                        Painter.label,
+                                        Painter.eraser,
+                                        Painter.layer,
+                                        Painter.area,
+                                        Painter.label
+                                      ].map((e) {
+                                        final painter = e();
                                         return PopupMenuItem<Painter>(
-                                            value: e,
+                                            value: painter,
                                             child: ListTile(
                                               mouseCursor: MouseCursor.defer,
-                                              title: Text(e
-                                                  .getLocalizedString(context)),
-                                              leading: Icon(e.getIcon()),
+                                              title: Text(painter
+                                                  .getLocalizedName(context)),
+                                              leading: Icon(painter.getIcon()),
                                             ));
                                       })
                                     ])

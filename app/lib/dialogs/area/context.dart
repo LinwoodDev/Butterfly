@@ -7,10 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../widgets/context_menu.dart';
 import '../image_export.dart';
 
 class AreaContextMenu extends StatelessWidget {
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
   final Area area;
 
@@ -32,7 +33,7 @@ class AreaContextMenu extends StatelessWidget {
           children: [
             const SizedBox(
               height: 50,
-              child: Center(child: Icon(PhosphorIcons.squareLight, size: 36)),
+              child: Center(child: Icon(PhosphorIcons.monitorLight, size: 36)),
             ),
             ListTile(
               leading: index == state.currentAreaIndex
@@ -50,7 +51,7 @@ class AreaContextMenu extends StatelessWidget {
                 } else {
                   bloc.add(CurrentAreaChanged(index));
                 }
-                context.read<CurrentIndexCubit>().reset();
+                context.read<CurrentIndexCubit>().reset(state.document);
               },
             ),
             ListTile(

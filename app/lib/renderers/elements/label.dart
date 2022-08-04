@@ -77,7 +77,8 @@ class LabelRenderer extends Renderer<LabelElement> {
   }
 
   @override
-  FutureOr<void> build(Canvas canvas, Size size, CameraTransform transform,
+  FutureOr<void> build(
+      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]) {
     final tp = _createPainter();
     tp.layout(maxWidth: rect.width);
@@ -99,21 +100,21 @@ class LabelRenderer extends Renderer<LabelElement> {
   }
 
   @override
-  void buildSVG(XmlDocument xml, AppDocument document, Rect rect) {
-    if (!this.rect.overlaps(rect)) return;
+  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+    if (!rect.overlaps(rect)) return;
     final property = element.property;
     String textDecoration = '';
     if (property.underline) textDecoration += 'underline ';
     if (property.lineThrough) textDecoration += 'line-through ';
     if (property.overline) textDecoration += 'overline ';
     textDecoration +=
-        '${property.decorationStyle.name} ${property.decorationThickness}px ${property.decorationColor.toRadixString(16).substring(2)}';
+        '${property.decorationStyle.name} ${property.decorationThickness}px ${property.decorationColor.toHexColor()}';
     final foreignObject =
         xml.getElement('svg')?.createElement('foreignObject', attributes: {
-      'x': '${this.rect.left}px',
-      'y': '${this.rect.top}px',
-      'width': '${this.rect.width}px',
-      'height': '${min(this.rect.height, rect.bottom)}px',
+      'x': '${rect.left}px',
+      'y': '${rect.top}px',
+      'width': '${rect.width}px',
+      'height': '${min(rect.height, rect.bottom)}px',
     });
     String alignItems = 'center';
     switch (element.property.verticalAlignment) {
@@ -148,13 +149,13 @@ class LabelRenderer extends Renderer<LabelElement> {
           'font-weight: ${property.fontWeight};'
           'font-family: Roboto;'
           'letter-spacing: ${property.letterSpacing}px;'
-          'color: #${property.color.toRadixString(16).substring(2)};'
+          'color: #${property.color.toHexColor()};'
           'text-decoration: $textDecoration;'
           'display: flex;'
           'align-items: $alignItems;'
           'justify-content: $alignContent;'
-          'height: ${this.rect.height}px;'
-          'width: ${this.rect.width}px;',
+          'height: ${rect.height}px;'
+          'width: ${rect.width}px;',
       'xmlns': 'http://www.w3.org/1999/xhtml',
     });
     div?.innerText = element.text;

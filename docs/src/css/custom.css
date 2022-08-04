@@ -7,12 +7,93 @@
 
 /* Import Montserrat font from file */
 @font-face {
-  font-family: 'Raleway';
-  src: url('/Raleway.ttf') format('truetype');
+  font-family: 'Roboto';
+  font-weight: 100;
+  font-style: normal;
+  src: url('/fonts/Roboto-Thin.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 100;
+  font-style: italic;
+  src: url('/fonts/Roboto-ThinItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-style: normal;
+  src: url('/fonts/Roboto-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-style: italic;
+  src: url('/fonts/Roboto-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-style: normal;
+  src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-style: italic;
+  src: url('/fonts/Roboto-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-style: normal;
+  src: url('/fonts/Roboto-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-style: italic;
+  src: url('/fonts/Roboto-MediumItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 700;
+  font-style: normal;
+  src: url('/fonts/Roboto-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 700;
+  font-style: italic;
+  src: url('/fonts/Roboto-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 900;
+  font-style: normal;
+  src: url('/fonts/Roboto-Black.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 900;
+  font-style: italic;
+  src: url('/fonts/Roboto-BlackItalic.ttf') format('truetype');
 }
 
 /* You can override the default Infima variables here. */
 :root {
+  --ifm-link-hover-decoration: none;
+  --ifm-link-hover-color: var(--ifm-color-emphasis-900);
   --ifm-color-primary: #f2b138;
   --ifm-color-primary-dark: #f0a61c;
   --ifm-color-primary-darker: #eea010;
@@ -21,7 +102,7 @@
   --ifm-color-primary-lighter: #f5c162;
   --ifm-color-primary-lightest: #f7d28c;
   --ifm-code-font-size: 95%;
-  --ifm-font-family-base: 'Raleway', sans-serif;
+  --ifm-font-family-base: 'Roboto', sans-serif;
   --ifm-menu-color-background-active: var(--ifm-color-primary-darkest);
   --ifm-menu-link-padding-vertical: 0.75rem;
   --ifm-menu-color-active: var(--ifm-color-gray-100);
@@ -29,6 +110,7 @@
   --custom-border-radius-md: 12px;
   --ifm-code-border-radius: var(--custom-border-radius);
   --ifm-button-border-radius: var(--custom-border-radius);
+  --ifm-font-weight-bold: 500;
   scroll-behavior: smooth;
 }
 
@@ -62,6 +144,7 @@ img {
   transition: background 0.2s ease-in-out;
   display: flex;
   align-items: center;
+  --ifm-navbar-link-hover-color: var(--ifm-color-emphasis-900);
 }
 @media (max-width: 996px) {
   .navbar__link {
@@ -70,7 +153,6 @@ img {
 }
 .navbar__link:hover {
   background: var(--ifm-color-emphasis-300);
-  color: var(--ifm-color-emphasis-900);
 }
 .navbar__link--active {
   font-weight: bold;
@@ -264,6 +346,19 @@ html[data-theme='dark'] .DocSearch {
   height: 1.5rem;
   margin-right: 0.5rem;
 }
+/* Hover */
+.icon-button:hover svg {
+  fill: var(--ifm-link-hover-color);
+  stroke: var(--ifm-link-hover-color);
+}
+
+.button {
+  --ifm-link-hover-color: var(--ifm-button-color);
+  border-radius: 0.75rem;
+}
+.button:hover {
+  outline: var(--ifm-color-primary-darkest) solid 4px;
+}
 
 :where(.icon-button--windows) {
   --ifm-button-background-color: #0078D6;
@@ -281,4 +376,34 @@ html[data-theme='dark'] .DocSearch {
 :where(.icon-button--pwa) {
   --ifm-button-background-color: #5A0FC8;
   --ifm-button-border-color: #5A0FC8;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex-center {
+  justify-content: center;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  opacity: 0.5;
+}
+
+::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--ifm-background-surface-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ifm-color-primary-darkest);
+}
+
+html {
+  scrollbar-color: var(--ifm-color-primary-darkest) var(--ifm-color-emphasis-200);
 }

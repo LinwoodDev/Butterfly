@@ -1,3 +1,4 @@
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/dialogs/file_system/dialog.dart';
 import 'package:butterfly/dialogs/file_system/menu.dart';
 import 'package:butterfly/models/document.dart';
@@ -5,16 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FileSystemGridView extends StatelessWidget {
-  final String selectedPath;
+  final AssetLocation? selectedPath;
   final List<AppDocumentAsset> assets;
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
+  final DocumentFileSystem fileSystem;
   const FileSystemGridView(
       {super.key,
       required this.assets,
       required this.selectedPath,
       required this.onOpened,
-      required this.onRefreshed});
+      required this.onRefreshed,
+      required this.fileSystem});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,8 @@ class FileSystemGridView extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Tooltip(
-                                        message: directory.path,
+                                        message:
+                                            directory.pathWithoutLeadingSlash,
                                         child: Text(directory.fileName,
                                             overflow: TextOverflow.ellipsis,
                                             style: Theme.of(context)
@@ -60,10 +64,12 @@ class FileSystemGridView extends StatelessWidget {
                                       ),
                                     ),
                                     FileSystemAssetMenu(
-                                        selectedPath: selectedPath,
-                                        asset: directory,
-                                        onOpened: onOpened,
-                                        onRefreshed: onRefreshed)
+                                      selectedPath: selectedPath,
+                                      asset: directory,
+                                      onOpened: onOpened,
+                                      onRefreshed: onRefreshed,
+                                      fileSystem: fileSystem,
+                                    )
                                   ]),
                                 ],
                               )))));
@@ -97,22 +103,23 @@ class FileSystemGridView extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: Tooltip(
-                                      message: file.path,
+                                      message: file.pathWithoutLeadingSlash,
                                       child: Text(file.fileNameWithoutExtension,
                                           overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline6
                                               ?.copyWith(
-                                                  color:
-                                                      selectedPath == file.path
-                                                          ? Theme.of(context)
-                                                              .colorScheme
-                                                              .primary
-                                                          : null)),
+                                                  color: selectedPath ==
+                                                          file.location
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .primary
+                                                      : null)),
                                     ),
                                   ),
                                   FileSystemAssetMenu(
+                                      fileSystem: fileSystem,
                                       selectedPath: selectedPath,
                                       asset: file,
                                       onOpened: onOpened,

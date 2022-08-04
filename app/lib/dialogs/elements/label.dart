@@ -13,7 +13,7 @@ import '../painters/label.dart';
 
 class LabelElementDialog extends StatelessWidget {
   final int index;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
 
   const LabelElementDialog(
@@ -49,7 +49,7 @@ class LabelElementDialog extends StatelessWidget {
           title: Text(AppLocalizations.of(context)!.constraints),
           leading: const Icon(PhosphorIcons.selectionLight),
           onTap: () async {
-            close();
+            await close();
             showContextMenu(
                 context: context,
                 position: position,

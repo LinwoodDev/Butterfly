@@ -57,11 +57,11 @@ class DocumentDescriptorChanged extends DocumentEvent {
 }
 
 class DocumentPathChanged extends DocumentEvent {
-  final String? path;
+  final String location;
 
-  const DocumentPathChanged(this.path);
+  const DocumentPathChanged(this.location);
   @override
-  List<Object?> get props => [path];
+  List<Object?> get props => [location];
 }
 
 class DocumentPaletteChanged extends DocumentEvent {
@@ -73,9 +73,11 @@ class DocumentPaletteChanged extends DocumentEvent {
 }
 
 class DocumentSaved extends DocumentEvent {
-  final String? path;
+  final AssetLocation? location;
 
-  const DocumentSaved([this.path]);
+  const DocumentSaved([this.location]);
+  @override
+  List<Object?> get props => [location];
 }
 
 class PainterCreated extends DocumentEvent {
@@ -204,25 +206,6 @@ class ElementsLayerChanged extends DocumentEvent {
 
   @override
   List<Object?> get props => [layer, elements];
-}
-
-class ImageUnbaked extends DocumentEvent {
-  const ImageUnbaked();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class ImageBaked extends DocumentEvent {
-  final ui.Size? viewportSize;
-  final CameraTransform cameraTransform;
-  final double? pixelRatio;
-
-  const ImageBaked(
-      {this.viewportSize, required this.cameraTransform, this.pixelRatio});
-
-  @override
-  List<Object?> get props => [viewportSize, pixelRatio];
 }
 
 class TemplateCreated extends DocumentEvent {

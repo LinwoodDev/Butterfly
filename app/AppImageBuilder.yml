@@ -10,8 +10,8 @@ AppDir:
   app_info:
     id: dev.linwood.butterfly
     name: Linwood Butterfly
-    icon: linwood-butterfly
-    version: 1.4.0-alpha.0
+    icon: dev.linwood.butterfly
+    version: 1.4.1
     exec: butterfly
     exec_args: $@
   apt:
@@ -24,6 +24,8 @@ AppDir:
     - sourceline: deb http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse
     include:
     - libgtk-3-0
+    - libsecret-1-dev
+    - libjsoncpp-dev
     exclude:
     - humanity-icon-theme
     - hicolor-icon-theme
@@ -58,6 +60,9 @@ AppDir:
       image: appimagecrafters/tests-env:ubuntu-xenial
       command: ./AppRun
       use_host_x: true
+  runtime: 
+    env:
+      GDK_BACKEND: x11
 AppImage:
   arch: x86_64
   update-information: guess

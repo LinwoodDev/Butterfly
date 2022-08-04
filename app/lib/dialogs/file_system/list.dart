@@ -1,3 +1,4 @@
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/dialogs/file_system/dialog.dart';
 import 'package:butterfly/dialogs/file_system/menu.dart';
 import 'package:butterfly/dialogs/file_system/rich_text.dart';
@@ -6,16 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FileSystemListView extends StatelessWidget {
-  final String selectedPath;
+  final AssetLocation? selectedPath;
   final List<AppDocumentAsset> assets;
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
+  final DocumentFileSystem fileSystem;
   const FileSystemListView(
       {super.key,
       required this.assets,
       required this.selectedPath,
       required this.onOpened,
-      required this.onRefreshed});
+      required this.onRefreshed,
+      required this.fileSystem});
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +30,13 @@ class FileSystemListView extends StatelessWidget {
           return ListTile(
             leading: const Icon(PhosphorIcons.fileLight),
             title: Text(document.name),
-            selected: document.path == selectedPath,
+            selected: document.location == selectedPath,
             subtitle: FileSystemFileRichText(
               file: document,
             ),
             onTap: () => onOpened(document),
             trailing: FileSystemAssetMenu(
+                fileSystem: fileSystem,
                 asset: document,
                 selectedPath: selectedPath,
                 onOpened: onOpened,
@@ -40,11 +44,12 @@ class FileSystemListView extends StatelessWidget {
           );
         } else if (document is AppDocumentDirectory) {
           return ListTile(
-            selected: document.path == selectedPath,
+            selected: document.location == selectedPath,
             leading: const Icon(PhosphorIcons.folderLight),
             title: Text(document.fileNameWithoutExtension),
             onTap: () => onOpened(document),
             trailing: FileSystemAssetMenu(
+              fileSystem: fileSystem,
               asset: document,
               selectedPath: selectedPath,
               onOpened: onOpened,

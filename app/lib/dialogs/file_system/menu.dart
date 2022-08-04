@@ -1,7 +1,9 @@
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/delete.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -14,17 +16,18 @@ class FileSystemAssetMenu extends StatelessWidget {
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
   final AppDocumentAsset asset;
-  final String selectedPath;
+  final DocumentFileSystem fileSystem;
+  final AssetLocation? selectedPath;
 
   const FileSystemAssetMenu(
       {super.key,
       required this.selectedPath,
       required this.asset,
       required this.onOpened,
+      required this.fileSystem,
       required this.onRefreshed});
 
   void _showRenameDialog(BuildContext context, String path) {
-    final fileSystem = DocumentFileSystem.fromPlatform();
     final fileName = path.split('/').last;
     final parent = path.substring(0, path.length - fileName.length - 1);
     final nameController = TextEditingController(
@@ -56,14 +59,16 @@ class FileSystemAssetMenu extends StatelessWidget {
                   child: Text(AppLocalizations.of(context)!.rename),
                   onPressed: () async {
                     Navigator.of(context).pop();
-                    if (nameController.text != selectedPath) {
+                    if (nameController.text !=
+                        selectedPath?.pathWithLeadingSlash) {
                       var document = await fileSystem.renameAsset(
                           path, '$parent/${nameController.text}.bfly');
                       var state = bloc.state;
                       if (state is! DocumentLoadSuccess) return;
-                      if (document != null && state.path == path) {
-                        bloc.clearHistory();
-                        bloc.emit(state.copyWith(path: path));
+                      if (document != null && state.location.path == path) {
+                        state.currentIndexCubit.setSaveState(
+                            location: AssetLocation(
+                                remote: state.location.remote, path: path));
                       }
                       onRefreshed();
                     }
@@ -75,6 +80,18 @@ class FileSystemAssetMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool? hasSynced;
+    final settingsCubit = context.read<SettingsCubit>();
+    final settings = settingsCubit.state;
+    final remote = fileSystem.remote;
+    if (!kIsWeb && remote != null) {
+      final storage = settings.getRemote(remote.identifier);
+      hasSynced = storage?.cachedDocuments.contains(asset.pathWithLeadingSlash);
+      if (!(hasSynced ?? false) &&
+          (storage?.hasDocumentCached(asset.pathWithLeadingSlash) ?? false)) {
+        hasSynced = null;
+      }
+    }
     return IconTheme.merge(
       data: Theme.of(context).iconTheme,
       child: PopupMenuButton(
@@ -90,6 +107,33 @@ class FileSystemAssetMenu extends StatelessWidget {
               },
             ),
           ),
+          if (!kIsWeb && remote != null)
+            PopupMenuItem(
+              padding: EdgeInsets.zero,
+              child: ListTile(
+                title: Text(hasSynced == null
+                    ? AppLocalizations.of(context)!.folderSynced
+                    : hasSynced
+                        ? AppLocalizations.of(context)!.synced
+                        : AppLocalizations.of(context)!.notSynced),
+                leading: hasSynced == null
+                    ? const Icon(PhosphorIcons.cloudBold)
+                    : hasSynced
+                        ? const Icon(PhosphorIcons.cloudFill)
+                        : const Icon(PhosphorIcons.cloudLight),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  if (hasSynced == true) {
+                    settingsCubit.removeCache(
+                        remote.identifier, asset.pathWithLeadingSlash);
+                  } else {
+                    settingsCubit.addCache(
+                        remote.identifier, asset.pathWithLeadingSlash);
+                  }
+                  onRefreshed();
+                },
+              ),
+            ),
           PopupMenuItem(
             padding: EdgeInsets.zero,
             child: ListTile(
@@ -100,7 +144,9 @@ class FileSystemAssetMenu extends StatelessWidget {
                   var newPath = await showDialog(
                     context: context,
                     builder: (context) => FileSystemAssetMoveDialog(
-                        asset: asset, moveMode: MoveMode.duplicate),
+                        fileSystem: fileSystem,
+                        asset: asset,
+                        moveMode: MoveMode.duplicate),
                   ) as String?;
                   if (newPath == null) return;
                   onRefreshed();
@@ -117,16 +163,19 @@ class FileSystemAssetMenu extends StatelessWidget {
                   final newPath = await showDialog(
                     context: context,
                     builder: (context) => FileSystemAssetMoveDialog(
-                        asset: asset, moveMode: MoveMode.move),
+                        fileSystem: fileSystem,
+                        asset: asset,
+                        moveMode: MoveMode.move),
                   ) as String?;
                   if (newPath == null) return;
                   onRefreshed();
                   // Change path if current document is moved
                   var state = bloc.state;
                   if (state is! DocumentLoadSuccess) return;
-                  if (state.path == asset.path) {
-                    bloc.clearHistory();
-                    bloc.emit(state.copyWith(path: newPath));
+                  if (state.location.path == asset.pathWithLeadingSlash) {
+                    state.currentIndexCubit.setSaveState(
+                        location: AssetLocation(
+                            remote: state.location.remote, path: newPath));
                   }
                 }),
           ),
@@ -137,7 +186,7 @@ class FileSystemAssetMenu extends StatelessWidget {
                 title: Text(AppLocalizations.of(context)!.rename),
                 onTap: () {
                   Navigator.of(context).pop();
-                  _showRenameDialog(context, asset.path);
+                  _showRenameDialog(context, asset.pathWithLeadingSlash);
                 }),
           ),
           PopupMenuItem(
@@ -149,8 +198,10 @@ class FileSystemAssetMenu extends StatelessWidget {
                 Navigator.of(context).pop();
                 var success = await showDialog(
                     context: context,
-                    builder: (context) =>
-                        FileSystemAssetDeleteDialog(path: asset.path)) as bool?;
+                    builder: (context) => FileSystemAssetDeleteDialog(
+                          path: asset.pathWithLeadingSlash,
+                          fileSystem: fileSystem,
+                        )) as bool?;
                 if (success ?? false) {
                   onRefreshed();
                 }

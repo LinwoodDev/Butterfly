@@ -9,8 +9,7 @@ class ExactSlider extends StatefulWidget {
   final Widget? header;
   final double defaultValue, min, max;
   final double? value;
-  final OnValueChanged onChanged;
-  final OnValueChanged? onChangeEnd;
+  final OnValueChanged? onChanged, onChangeEnd;
   final Color? color;
 
   const ExactSlider(
@@ -24,7 +23,7 @@ class ExactSlider extends StatefulWidget {
       this.value,
       this.header,
       this.onChangeEnd,
-      required this.onChanged});
+      this.onChanged});
 
   @override
   _ExactSliderState createState() => _ExactSliderState();
@@ -43,12 +42,12 @@ class _ExactSliderState extends State<ExactSlider> {
 
   void _changeValue(double value) {
     if (_value != value) {
-      _controller.text = _value.toStringAsFixed(widget.fractionDigits);
+      _controller.text = value.toStringAsFixed(widget.fractionDigits);
       setState(() {
         _value = value;
       });
     }
-    widget.onChanged(value);
+    widget.onChanged?.call(value);
   }
 
   @override
@@ -56,9 +55,9 @@ class _ExactSliderState extends State<ExactSlider> {
   void didUpdateWidget(covariant ExactSlider oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value) {
-      _controller.text = _value.toStringAsFixed(widget.fractionDigits);
       setState(() {
         _value = widget.value ?? widget.defaultValue;
+        _controller.text = _value.toStringAsFixed(widget.fractionDigits);
       });
     }
   }
@@ -100,7 +99,10 @@ class _ExactSliderState extends State<ExactSlider> {
                     },
                   );
                   final resetButton = IconButton(
-                      onPressed: () => _changeValue(widget.defaultValue),
+                      onPressed: () {
+                        _changeValue(widget.defaultValue);
+                        widget.onChangeEnd?.call(widget.defaultValue);
+                      },
                       icon:
                           const Icon(PhosphorIcons.clockCounterClockwiseLight));
                   final width = constraints.maxWidth;

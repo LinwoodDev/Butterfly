@@ -4,7 +4,8 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
   BoxBackgroundRenderer(super.element);
 
   @override
-  void build(Canvas canvas, Size size, CameraTransform transform,
+  void build(
+      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]) {
     canvas.drawColor(Color(element.boxColor), BlendMode.srcOver);
     if (element.boxWidth > 0 && element.boxXCount > 0) {
@@ -66,34 +67,34 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
   }
 
   @override
-  void buildSVG(XmlDocument xml, AppDocument document, Rect rect) {
+  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
     var g =
         xml.getOrCreateElement('svg').createElement('g', id: 'box-background');
 
     g.createElement('rect', attributes: {
-      'x': '${rect.left}',
-      'y': '${rect.top}',
-      'width': '${rect.width}',
-      'height': '${rect.height}',
-      'fill': '#${element.boxColor.toRadixString(16).substring(2)}'
+      'x': '${viewportRect.left}px',
+      'y': '${viewportRect.top}px',
+      'width': '${viewportRect.width}px',
+      'height': '${viewportRect.height}px',
+      'fill': element.boxColor.toHexColor(),
     });
     if (element.boxWidth > 0 && element.boxXCount > 0) {
-      int xCount = (rect.left /
+      int xCount = (viewportRect.left /
                   (element.boxWidth * element.boxXCount + element.boxXSpace))
               .floor() +
           1;
       double x =
           -xCount * (element.boxWidth * element.boxXCount + element.boxXSpace) +
-              rect.left;
+              viewportRect.left;
 
       int count = 0;
-      while (x < rect.width) {
+      while (x < viewportRect.width) {
         g.createElement('line', attributes: {
-          'x1': '${x + rect.left}px',
-          'y1': '${rect.top}px',
-          'x2': '${x + rect.left}px',
-          'y2': '${rect.top + rect.height}px',
-          'stroke': '#${element.boxXColor.toRadixString(16).substring(2)}',
+          'x1': '${x + viewportRect.left}px',
+          'y1': '${viewportRect.top}px',
+          'x2': '${x + viewportRect.left}px',
+          'y2': '${viewportRect.top + viewportRect.height}px',
+          'stroke': element.boxXColor.toHexColor(),
           'stroke-width': '${element.boxXStroke}'
         });
         count++;
@@ -105,22 +106,22 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
       }
     }
     if (element.boxHeight > 0 && element.boxYCount > 0) {
-      int yCount = (rect.top /
+      int yCount = (viewportRect.top /
                   (element.boxHeight * element.boxYCount + element.boxYSpace))
               .floor() +
           1;
       double y = -yCount *
               (element.boxHeight * element.boxYCount + element.boxYSpace) +
-          rect.top;
+          viewportRect.top;
 
       int count = 0;
-      while (y < rect.height) {
+      while (y < viewportRect.height) {
         g.createElement('line', attributes: {
-          'x1': '${rect.left}px',
-          'y1': '${y + rect.top}px',
-          'x2': '${rect.left + rect.width}px',
-          'y2': '${y + rect.top}px',
-          'stroke': '#${element.boxYColor.toRadixString(16).substring(2)}',
+          'x1': '${viewportRect.left}px',
+          'y1': '${y + viewportRect.top}px',
+          'x2': '${viewportRect.left + viewportRect.width}px',
+          'y2': '${y + viewportRect.top}px',
+          'stroke': element.boxYColor.toHexColor(),
           'stroke-width': '${element.boxYStroke}'
         });
         count++;

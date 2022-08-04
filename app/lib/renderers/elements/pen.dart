@@ -4,8 +4,8 @@ class PenRenderer extends PathRenderer<PenElement> {
   PenRenderer(super.element, [super.rect = Rect.zero]);
 
   @override
-  void buildSVG(XmlDocument xml, AppDocument document, Rect rect) {
-    if (!this.rect.overlaps(rect)) return;
+  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+    if (!rect.overlaps(rect)) return;
     final points = element.points;
     final property = element.property;
     if (points.isEmpty) return;
@@ -17,10 +17,8 @@ class PenRenderer extends PathRenderer<PenElement> {
       xml.getElement('svg')?.createElement('path', attributes: {
         'd': 'M${element.x} ${element.y} '
             'L${last.x} ${last.y} ',
-        'fill': property.fill
-            ? '#${property.color.toRadixString(16).substring(2)}'
-            : 'none',
-        'stroke': '#${property.color.toRadixString(16).substring(2)}',
+        'fill': property.fill ? property.color.toHexColor() : 'none',
+        'stroke': property.color.toHexColor(),
         'stroke-width': '${width}px',
         'stroke-linecap': 'round',
         'stroke-linejoin': 'round',
@@ -30,7 +28,7 @@ class PenRenderer extends PathRenderer<PenElement> {
   }
 
   @override
-  Paint buildPaint([bool foreground = false]) => Paint()
+  Paint buildPaint([AppDocument? document, bool foreground = false]) => Paint()
     ..color = Color(element.property.color)
     ..style = element.property.fill ? PaintingStyle.fill : PaintingStyle.stroke
     ..strokeCap = StrokeCap.round;

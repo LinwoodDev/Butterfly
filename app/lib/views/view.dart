@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../view_painter.dart';
 
+const kSecondaryStylusButton = 0x20;
+
 class MainViewViewport extends StatefulWidget {
   const MainViewViewport({super.key});
 
@@ -51,11 +53,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
   Widget build(BuildContext context) {
     return SizedBox.expand(
         child: ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
-      void _bake([CameraTransform? transform]) {
-        context.read<DocumentBloc>().add(ImageBaked(
+      void _bake() {
+        context.read<DocumentBloc>().bake(
             viewportSize: constraints.biggest,
-            cameraTransform: transform ?? context.read<TransformCubit>().state,
-            pixelRatio: MediaQuery.of(context).devicePixelRatio));
+            pixelRatio: MediaQuery.of(context).devicePixelRatio);
       }
 
       void _delayBake() {
@@ -110,7 +111,9 @@ class _MainViewViewportState extends State<MainViewViewport> {
               if (openView) openView = details.scale == 1;
               final transformCubit = context.read<TransformCubit>();
               final currentIndex = context.read<CurrentIndexCubit>();
-              if (currentIndex.fetchHandler<HandHandler>() == null) return;
+              final settings = context.read<SettingsCubit>().state;
+              if (currentIndex.fetchHandler<HandHandler>() == null &&
+                  !settings.inputGestures) return;
               var current = details.scale;
               current = current - size;
               current += 1;
@@ -127,7 +130,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
             },
             onScaleEnd: (details) {
               final currentIndex = context.read<CurrentIndexCubit>();
-              if (currentIndex.fetchHandler<HandHandler>() == null) return;
+              if (currentIndex.fetchHandler<HandHandler>() == null &&
+                  !cubit.state.moveEnabled) return;
               _delayBake();
             },
             onScaleStart: (details) {
@@ -162,14 +166,26 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   }
                 },
                 onPointerDown: (PointerDownEvent event) {
+                  cubit.addPointer(event.pointer);
+                  final document = state.document;
+                  final currentArea = state.currentArea;
+                  if (event.buttons == kPrimaryStylusButton) {
+                    cubit.changeTemporaryHandlerHand(document, currentArea);
+                  } else if (event.buttons == kSecondaryStylusButton) {
+                    cubit.changeTemporaryHandlerSecondary(
+                        document, currentArea);
+                  }
                   cubit
                       .getHandler()
                       .onPointerDown(constraints.biggest, context, event);
                 },
                 onPointerUp: (PointerUpEvent event) async {
+                  cubit.removePointer(event.pointer);
                   cubit
                       .getHandler()
                       .onPointerUp(constraints.biggest, context, event);
+                  cubit.resetTemporaryHandler(
+                      state.document, state.currentArea);
                 },
                 behavior: HitTestBehavior.translucent,
                 onPointerHover: (event) {
@@ -178,6 +194,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       .onPointerHover(constraints.biggest, context, event);
                 },
                 onPointerMove: (PointerMoveEvent event) async {
+                  if (cubit.state.moveEnabled &&
+                      event.kind != PointerDeviceKind.stylus) {
+                    if (event.pointer == cubit.state.pointers.first) {
+                      final transformCubit = context.read<TransformCubit>();
+                      transformCubit
+                          .move(event.delta / transformCubit.state.size);
+                    }
+                    return;
+                  }
                   cubit
                       .getHandler()
                       .onPointerMove(constraints.biggest, context, event);
@@ -190,12 +215,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
                         CustomPaint(
                           size: Size.infinite,
                           foregroundPainter: ForegroundPainter(
-                            currentIndex.foregrounds,
+                            cubit.foregrounds,
+                            state.document,
                             transform,
-                            currentIndex.selections,
+                            cubit.selections,
                           ),
                           painter: ViewPainter(state.document,
-                              cameraViewport: state.cameraViewport,
+                              cameraViewport: currentIndex.cameraViewport,
                               transform: transform,
                               invisibleLayers: state.invisibleLayers,
                               currentArea: state.currentArea),

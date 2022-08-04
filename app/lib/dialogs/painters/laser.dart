@@ -16,7 +16,7 @@ class LaserPainterDialog extends StatelessWidget {
     return GeneralPainterDialog<LaserPainter>(
         index: painterIndex,
         title: AppLocalizations.of(context)!.laser,
-        icon: PhosphorIcons.cursorLight,
+        iconBuilder: (_, __) => PhosphorIcons.cursorLight,
         help: 'laser',
         builder: (context, painter, setPainter) => [
               ExactSlider(
@@ -37,7 +37,7 @@ class LaserPainterDialog extends StatelessWidget {
                       setPainter(painter.copyWith(strokeMultiplier: value))),
               const SizedBox(height: 10),
               ColorField(
-                color: Color(painter.color),
+                value: Color(painter.color),
                 onChanged: (color) =>
                     setPainter(painter.copyWith(color: color.value)),
                 title: Text(AppLocalizations.of(context)!.color),

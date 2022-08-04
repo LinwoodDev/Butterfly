@@ -8,7 +8,6 @@ import 'package:butterfly/dialogs/elements/elements.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/renderers/area.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -33,11 +32,12 @@ part 'laser.dart';
 part 'layer.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
+part 'shape.dart';
 
-abstract class Handler {
-  final CurrentIndexCubit cubit;
+abstract class Handler<T> {
+  final T data;
 
-  const Handler(this.cubit);
+  const Handler(this.data);
 
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
       [];
@@ -76,44 +76,40 @@ abstract class Handler {
 
   int? getColor(DocumentBloc bloc) => null;
 
-  Painter? setColor(DocumentBloc bloc, int color) => null;
+  T? setColor(DocumentBloc bloc, int color) => null;
 
-  factory Handler.fromBloc(
-      CurrentIndexCubit currentIndexCubit, DocumentBloc bloc,
-      [int? index]) {
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) {
-      throw Exception('Invalid document state');
-    }
-    final painter = index != null
-        ? state.document.painters[index]
-        : currentIndexCubit.getPainter(bloc);
-    if (painter is PenPainter) {
-      return PenHandler(currentIndexCubit);
-    }
-    if (painter is EraserPainter) {
-      return EraserHandler(currentIndexCubit);
-    }
-    if (painter is LabelPainter) {
-      return LabelHandler(currentIndexCubit);
-    }
-    if (painter is AreaPainter) {
-      return AreaHandler(currentIndexCubit);
-    }
-    if (painter is PathEraserPainter) {
-      return PathEraserHandler(currentIndexCubit);
-    }
-    if (painter is LayerPainter) {
-      return LayerHandler(currentIndexCubit);
-    }
-    if (painter is LaserPainter) {
-      return LaserHandler(currentIndexCubit);
-    }
-    return HandHandler(currentIndexCubit);
+  static Handler fromDocument(AppDocument document, int index) {
+    final painter = document.painters[index];
+    return Handler.fromPainter(painter);
   }
 
-  T? getPainter<T extends Painter>(DocumentBloc bloc) =>
-      cubit.fetchPainter<T>(bloc);
+  static Handler fromPainter(Painter painter) {
+    if (painter is PenPainter) {
+      return PenHandler(painter);
+    }
+    if (painter is ShapePainter) {
+      return ShapeHandler(painter);
+    }
+    if (painter is EraserPainter) {
+      return EraserHandler(painter);
+    }
+    if (painter is LabelPainter) {
+      return LabelHandler(painter);
+    }
+    if (painter is AreaPainter) {
+      return AreaHandler(painter);
+    }
+    if (painter is PathEraserPainter) {
+      return PathEraserHandler(painter);
+    }
+    if (painter is LayerPainter) {
+      return LayerHandler(painter);
+    }
+    if (painter is LaserPainter) {
+      return LaserHandler(painter);
+    }
+    return HandHandler(const HandProperty());
+  }
 }
 
 typedef HitRequest = bool Function(Offset position, [double radius]);
@@ -148,7 +144,7 @@ Future<Set<Renderer<PadElement>>> rayCast(
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return {};
   final globalPosition = transform.localToGlobal(localPosition);
-  final renderers = state.renderers;
+  final renderers = state.cameraViewport.visibleElements;
   return compute(
           _executeRayCast,
           _RayCastParams(

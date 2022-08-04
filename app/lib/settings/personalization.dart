@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:butterfly/main.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
+import 'package:butterfly/visualizer/string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +30,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
   }
 
   String _getLocaleName(BuildContext context, String? locale) {
-    switch (locale) {
+    switch (locale ?? '') {
       case 'fr':
         return AppLocalizations.of(context)!.french;
       case 'de':
@@ -35,8 +39,16 @@ class PersonalizationSettingsPage extends StatelessWidget {
         return AppLocalizations.of(context)!.english;
       case 'es':
         return AppLocalizations.of(context)!.spanish;
-      default:
+      case 'it':
+        return AppLocalizations.of(context)!.italian;
+      case 'pt-BR':
+        return AppLocalizations.of(context)!.portugueseBrazil;
+      case 'tr':
+        return AppLocalizations.of(context)!.turkish;
+      case '':
         return AppLocalizations.of(context)!.defaultLocale;
+      default:
+        return locale ?? '';
     }
   }
 
@@ -57,72 +69,122 @@ class PersonalizationSettingsPage extends StatelessWidget {
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(
           builder: (context, state) => ListView(children: [
-            ListTile(
-                leading: const Icon(PhosphorIcons.eyeLight),
-                title: Text(AppLocalizations.of(context)!.theme),
-                subtitle: Text(_getThemeName(context, state.theme)),
-                onTap: () => _openThemeModal(context)),
-            ListTile(
-              leading: const Icon(PhosphorIcons.paletteLight),
-              title: Text(AppLocalizations.of(context)!.design),
-              subtitle: Text(state.design),
-              onTap: () => _openDesignModal(context),
+            Card(
+              margin: const EdgeInsets.all(8),
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ListTile(
+                          leading: const Icon(PhosphorIcons.eyeLight),
+                          title: Text(AppLocalizations.of(context)!.theme),
+                          subtitle: Text(_getThemeName(context, state.theme)),
+                          onTap: () => _openThemeModal(context)),
+                      ListTile(
+                        leading: const Icon(PhosphorIcons.paletteLight),
+                        title: Text(AppLocalizations.of(context)!.design),
+                        subtitle:
+                            Text(getCurrentDesign(context).toDisplayString()),
+                        trailing: _ThemeBox(
+                            theme: ThemeManager.getThemeByName(state.design)),
+                        onTap: () => _openDesignModal(context),
+                      ),
+                      ListTile(
+                          leading: const Icon(PhosphorIcons.translateLight),
+                          title: Text(AppLocalizations.of(context)!.locale),
+                          subtitle:
+                              Text(_getLocaleName(context, state.localeTag)),
+                          onTap: () => _openLocaleModal(context)),
+                    ]),
+              ),
             ),
-            ListTile(
-                leading: const Icon(PhosphorIcons.translateLight),
-                title: Text(AppLocalizations.of(context)!.locale),
-                subtitle: Text(_getLocaleName(context, state.localeTag)),
-                onTap: () => _openLocaleModal(context)),
-            const Divider(),
-            CheckboxListTile(
-              secondary: const Icon(PhosphorIcons.squaresFourLight),
-              title: Text(AppLocalizations.of(context)!.start),
-              value: state.startEnabled,
-              onChanged: (value) => context
-                  .read<SettingsCubit>()
-                  .changeStartEnabled(value ?? true),
+            Card(
+              margin: const EdgeInsets.all(8),
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
+                        CheckboxListTile(
+                          value: state.nativeWindowTitleBar,
+                          title: Text(AppLocalizations.of(context)!
+                              .nativeWindowTitleBar),
+                          secondary: const Icon(PhosphorIcons.appWindowLight),
+                          onChanged: (value) => context
+                              .read<SettingsCubit>()
+                              .changeNativeWindowTitleBar(value ?? false),
+                        ),
+                      CheckboxListTile(
+                        secondary: const Icon(PhosphorIcons.squaresFourLight),
+                        title: Text(AppLocalizations.of(context)!.start),
+                        value: state.startEnabled,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeStartEnabled(value ?? true),
+                      ),
+                      CheckboxListTile(
+                        secondary: const Icon(PhosphorIcons.paletteLight),
+                        title: Text(AppLocalizations.of(context)!.color),
+                        value: state.colorEnabled,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeColorEnabled(value ?? true),
+                      ),
+                    ]),
+              ),
             ),
-            CheckboxListTile(
-              secondary: const Icon(PhosphorIcons.paletteLight),
-              title: Text(AppLocalizations.of(context)!.color),
-              value: state.colorEnabled,
-              onChanged: (value) => context
-                  .read<SettingsCubit>()
-                  .changeColorEnabled(value ?? true),
-            )
           ]),
         ));
   }
 
+  String getCurrentDesign(BuildContext context) {
+    var design = context.read<SettingsCubit>().state.design;
+    if (design.isEmpty) return 'classic';
+    return design;
+  }
+
   void _openDesignModal(BuildContext context) {
     final cubit = context.read<SettingsCubit>();
-    final currentDesign = cubit.state.design;
+    final currentDesign = getCurrentDesign(context);
 
     showModalBottomSheet(
         context: context,
         builder: (context) {
           void changeDesign(String design) {
             cubit.changeDesign(design);
+            Navigator.of(context).pop();
           }
 
           return Container(
               margin: const EdgeInsets.only(bottom: 20),
-              child: ListView(shrinkWrap: true, children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: Text(
-                    AppLocalizations.of(context)!.theme,
-                    style: Theme.of(context).textTheme.headline5,
-                    textAlign: TextAlign.center,
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 20),
+                    child: Text(
+                      AppLocalizations.of(context)!.theme,
+                      style: Theme.of(context).textTheme.headline5,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                ...ThemeManager.getThemes().map((e) => ListTile(
-                      title: Text(e),
-                      selected: e == currentDesign,
-                      onTap: () => changeDesign(e),
-                    ))
-              ]));
+                  ...ThemeManager.getThemes().map(
+                    (e) {
+                      final theme = ThemeManager.getThemeByName(e);
+                      return ListTile(
+                          title: Text(e.toDisplayString()),
+                          selected: e == currentDesign,
+                          onTap: () => changeDesign(e),
+                          leading: _ThemeBox(
+                            theme: theme,
+                          ));
+                    },
+                  ),
+                ],
+              ));
         });
   }
 
@@ -135,6 +197,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
         builder: (ctx) {
           void changeTheme(ThemeMode themeMode) {
             cubit.changeTheme(themeMode);
+            Navigator.of(context).pop();
           }
 
           return Container(
@@ -172,7 +235,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
   void _openLocaleModal(BuildContext context) {
     final cubit = context.read<SettingsCubit>();
     var currentLocale = cubit.state.localeTag;
-    var locales = AppLocalizations.supportedLocales;
+    var locales = getLocales();
     showModalBottomSheet<String>(
         context: context,
         builder: (context) {
@@ -188,7 +251,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Text(
-                    AppLocalizations.of(context)!.theme,
+                    AppLocalizations.of(context)!.locale,
                     style: Theme.of(context).textTheme.headline5,
                     textAlign: TextAlign.center,
                   ),
@@ -199,12 +262,72 @@ class PersonalizationSettingsPage extends StatelessWidget {
                     onTap: () => changeLocale(null)),
                 ...locales
                     .map((e) => ListTile(
-                        title: Text(_getLocaleName(context, e.languageCode)),
-                        selected: currentLocale == e.languageCode,
+                        title: Text(_getLocaleName(context, e.toLanguageTag())),
+                        selected: currentLocale == e.toLanguageTag(),
                         onTap: () => changeLocale(e)))
                     .toList(),
                 const SizedBox(height: 32),
               ]));
         });
+  }
+}
+
+class _ThemeBox extends StatelessWidget {
+  final ThemeData theme;
+  static const double size = 12;
+  const _ThemeBox({required this.theme});
+
+  @override
+  Widget build(BuildContext context) {
+    // 2x2 grid of colors
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(mainAxisSize: MainAxisSize.min, children: [
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(size),
+              ),
+            ),
+          ),
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.secondary,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(size),
+              ),
+            ),
+          ),
+        ]),
+        Row(mainAxisSize: MainAxisSize.min, children: [
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primaryContainer,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(size),
+              ),
+            ),
+          ),
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.tertiary,
+              borderRadius: const BorderRadius.only(
+                bottomRight: Radius.circular(size),
+              ),
+            ),
+          ),
+        ]),
+      ],
+    );
   }
 }

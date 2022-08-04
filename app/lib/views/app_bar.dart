@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/svg_export.dart';
-import 'package:butterfly/api/full_screen_stub.dart'
-    if (dart.library.io) 'package:butterfly/api/full_screen_io.dart'
-    if (dart.library.js) 'package:butterfly/api/full_screen_html.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:flutter/foundation.dart';
@@ -26,6 +24,7 @@ import '../actions/redo.dart';
 import '../actions/save.dart';
 import '../actions/settings.dart';
 import '../actions/undo.dart';
+import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/transform.dart';
 import '../embed/action.dart';
@@ -43,139 +42,194 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     var bloc = context.read<DocumentBloc>();
     return GestureDetector(onSecondaryTap: () {
-      if (isWindow()) {
+      if (!kIsWeb && isWindow()) {
         windowManager.popUpWindowMenu();
       }
     }, onLongPress: () {
-      if (isWindow()) {
+      if (!kIsWeb && isWindow()) {
         windowManager.popUpWindowMenu();
       }
     }, child: LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = MediaQuery.of(context).size.width < 800;
         return AppBar(
-          toolbarHeight: _height,
-          leading: _MainPopupMenu(
-            viewportKey: viewportKey,
-          ),
-          title: BlocBuilder<DocumentBloc, DocumentState>(
-              buildWhen: (previous, current) {
-            if (current is! DocumentLoadSuccess ||
-                previous is! DocumentLoadSuccess) return true;
-            return _nameController.text != current.document.name ||
-                previous.path != current.path ||
-                (current.currentArea != previous.currentArea &&
-                    _areaController.text != current.currentArea?.name) ||
-                previous.saved != current.saved;
-          }, builder: (ctx, state) {
-            Widget title;
-            if (state is DocumentLoadSuccess) {
-              if (_nameController.text != state.document.name) {
-                _nameController.text = state.document.name;
-              }
-              var area = state.currentArea;
-              if (_nameController.text != area?.name) {
-                _areaController.text = area?.name ?? '';
-              }
-              title = StatefulBuilder(
-                builder: (context, setState) => Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Focus(
-                        onFocusChange: (hasFocus) {
-                          if (hasFocus) {
-                            // Add cursor to end of text
-                            if (area == null) {
-                              _nameController.selection =
-                                  TextSelection.fromPosition(TextPosition(
-                                      affinity: TextAffinity.downstream,
-                                      offset: _nameController.text.length));
-                            } else {
-                              _areaController.selection =
-                                  TextSelection.fromPosition(TextPosition(
-                                      affinity: TextAffinity.downstream,
-                                      offset: _areaController.text.length));
-                            }
-                          }
-                        },
-                        child: TextField(
-                          controller:
-                              area == null ? _nameController : _areaController,
-                          textAlign: TextAlign.center,
-                          style: area == null
-                              ? Theme.of(context).textTheme.headline6
-                              : Theme.of(context).textTheme.headline4,
-                          onChanged: (value) {
-                            if (area == null) {
-                              bloc.add(DocumentDescriptorChanged(name: value));
-                            } else {
-                              bloc.add(AreaChanged(
-                                state.currentAreaIndex,
-                                area.copyWith(name: value),
-                              ));
-                            }
-                          },
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.zero,
-                            hintText: AppLocalizations.of(context)!.untitled,
-                            hintStyle: area == null
-                                ? Theme.of(context).textTheme.headline6
-                                : Theme.of(context).textTheme.headline4,
-                            border: InputBorder.none,
-                          ),
-                        ),
+            toolbarHeight: _height,
+            leading: _MainPopupMenu(
+              viewportKey: viewportKey,
+              hideUndoRedo: !isMobile,
+            ),
+            title: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                builder: (context, currentIndex) =>
+                    BlocBuilder<DocumentBloc, DocumentState>(
+                        buildWhen: (previous, current) {
+                      if (previous is! DocumentLoadSuccess &&
+                          current is DocumentLoadSuccess) {
+                        return true;
+                      }
+                      if (previous is! DocumentLoadSuccess ||
+                          current is! DocumentLoadSuccess) {
+                        return true;
+                      }
+                      return previous.currentAreaIndex !=
+                              current.currentAreaIndex ||
+                          previous.hasAutosave() != current.hasAutosave();
+                    }, builder: (context, state) {
+                      final title = Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(child:
+                                StatefulBuilder(builder: (context, setState) {
+                              final area = state is DocumentLoadSuccess
+                                  ? state.currentArea
+                                  : null;
+                              final areaIndex = state is DocumentLoadSuccess
+                                  ? state.currentAreaIndex
+                                  : null;
+                              Widget title = Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Focus(
+                                      onFocusChange: (hasFocus) {
+                                        if (hasFocus) {
+                                          // Add cursor to end of text
+                                          if (area == null) {
+                                            _nameController.selection =
+                                                TextSelection.fromPosition(
+                                                    TextPosition(
+                                                        affinity: TextAffinity
+                                                            .downstream,
+                                                        offset: _nameController
+                                                            .text.length));
+                                          } else {
+                                            _areaController.selection =
+                                                TextSelection.fromPosition(
+                                                    TextPosition(
+                                                        affinity: TextAffinity
+                                                            .downstream,
+                                                        offset: _areaController
+                                                            .text.length));
+                                          }
+                                        }
+                                      },
+                                      child: TextField(
+                                        controller: area == null
+                                            ? _nameController
+                                            : _areaController,
+                                        textAlign: TextAlign.center,
+                                        style: area == null
+                                            ? Theme.of(context)
+                                                .textTheme
+                                                .headline6
+                                            : Theme.of(context)
+                                                .textTheme
+                                                .headline4,
+                                        onChanged: (value) {
+                                          if (area == null ||
+                                              areaIndex == null) {
+                                            bloc.add(DocumentDescriptorChanged(
+                                                name: value));
+                                          } else {
+                                            bloc.add(AreaChanged(
+                                              areaIndex,
+                                              area.copyWith(name: value),
+                                            ));
+                                          }
+                                        },
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.zero,
+                                          hintText:
+                                              AppLocalizations.of(context)!
+                                                  .untitled,
+                                          hintStyle: area == null
+                                              ? Theme.of(context)
+                                                  .textTheme
+                                                  .headline6
+                                              : Theme.of(context)
+                                                  .textTheme
+                                                  .headline4,
+                                          border: InputBorder.none,
+                                        ),
+                                      ),
+                                    ),
+                                    if (currentIndex.location.path != '' &&
+                                        area == null)
+                                      Text(
+                                        currentIndex.location.identifier,
+                                        style:
+                                            Theme.of(context).textTheme.caption,
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                  ]);
+                              return title;
+                            })),
+                            if (state is DocumentLoadSuccess &&
+                                !state.hasAutosave())
+                              IconButton(
+                                icon: currentIndex.saved
+                                    ? const Icon(PhosphorIcons.floppyDiskFill)
+                                    : const Icon(PhosphorIcons.floppyDiskLight),
+                                tooltip: AppLocalizations.of(context)!.save,
+                                onPressed: () {
+                                  Actions.maybeInvoke<SaveIntent>(
+                                      context, SaveIntent(context));
+                                },
+                              ),
+                            const SizedBox(width: 8),
+                            if (!isMobile)
+                              Flexible(
+                                  child: EditToolbar(
+                                isMobile: false,
+                              )),
+                          ]);
+                      if (!kIsWeb &&
+                          isWindow() &&
+                          !context
+                              .read<SettingsCubit>()
+                              .state
+                              .nativeWindowTitleBar) {
+                        return DragToMoveArea(child: title);
+                      }
+                      return title;
+                    })),
+            actions: [
+              BlocBuilder<DocumentBloc, DocumentState>(
+                builder: (context, state) => Row(
+                  children: [
+                    if (!isMobile) ...[
+                      IconButton(
+                        icon: const Icon(
+                            PhosphorIcons.arrowCounterClockwiseLight),
+                        tooltip: AppLocalizations.of(context)!.undo,
+                        onPressed: !bloc.canUndo
+                            ? null
+                            : () {
+                                Actions.maybeInvoke<UndoIntent>(
+                                    context, UndoIntent(context));
+                              },
                       ),
-                      if (state.path != null && area == null)
-                        Text(
-                          state.path!,
-                          style: Theme.of(ctx).textTheme.caption,
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                    ]),
-              );
-              if (kIsWeb && (state.embedding?.save ?? true)) {
-                title = Row(children: [
-                  Expanded(child: title),
-                  IconButton(
-                    icon: state.saved
-                        ? const Icon(PhosphorIcons.floppyDiskFill)
-                        : const Icon(PhosphorIcons.floppyDiskLight),
-                    tooltip: AppLocalizations.of(context)!.save,
-                    onPressed: () {
-                      Actions.maybeInvoke<SaveIntent>(
-                          context, SaveIntent(context));
-                    },
-                  ),
-                  const SizedBox(width: 8),
-                ]);
-              }
-            } else {
-              title = Text(AppLocalizations.of(ctx)!.loading);
-            }
-            title = Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(child: title),
-                if (!isMobile)
-                  Flexible(
-                      child: EditToolbar(
-                    isMobile: false,
-                  )),
-              ],
-            );
-            if (isWindow()) {
-              title = DragToMoveArea(
-                child: title,
-              );
-            }
-            return SizedBox(height: _height, child: title);
-          }),
-          actions: [
-            if (isWindow()) ...[const VerticalDivider(), const WindowButtons()]
-          ],
-        );
+                      IconButton(
+                        icon: const Icon(PhosphorIcons.arrowClockwiseLight),
+                        tooltip: AppLocalizations.of(context)!.redo,
+                        onPressed: !bloc.canRedo
+                            ? null
+                            : () {
+                                Actions.maybeInvoke<RedoIntent>(
+                                    context, RedoIntent(context));
+                              },
+                      ),
+                    ],
+                    if (!kIsWeb && isWindow()) ...[
+                      const VerticalDivider(),
+                      const WindowButtons()
+                    ]
+                  ],
+                ),
+              )
+            ]);
       },
     ));
   }
@@ -188,8 +242,9 @@ class _MainPopupMenu extends StatelessWidget {
   final TextEditingController _scaleController =
       TextEditingController(text: '100');
   final GlobalKey viewportKey;
+  final bool hideUndoRedo;
 
-  _MainPopupMenu({required this.viewportKey});
+  _MainPopupMenu({required this.viewportKey, this.hideUndoRedo = false});
 
   @override
   Widget build(BuildContext context) {
@@ -205,34 +260,40 @@ class _MainPopupMenu extends StatelessWidget {
         iconSize: 36,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         itemBuilder: (context) => <PopupMenuEntry>[
-          PopupMenuItem(
-            enabled: false,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: IconTheme(
-              data: Theme.of(context).iconTheme,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
-                    tooltip: AppLocalizations.of(context)!.undo,
-                    onPressed: () {
-                      Actions.maybeInvoke<UndoIntent>(
-                          context, UndoIntent(context));
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                    tooltip: AppLocalizations.of(context)!.redo,
-                    onPressed: () {
-                      Actions.maybeInvoke<RedoIntent>(
-                          context, RedoIntent(context));
-                    },
-                  ),
-                ],
+          if (!hideUndoRedo)
+            PopupMenuItem(
+              enabled: false,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: IconTheme(
+                data: Theme.of(context).iconTheme,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon:
+                          const Icon(PhosphorIcons.arrowCounterClockwiseLight),
+                      tooltip: AppLocalizations.of(context)!.undo,
+                      onPressed: !bloc.canUndo
+                          ? null
+                          : () {
+                              Actions.maybeInvoke<UndoIntent>(
+                                  context, UndoIntent(context));
+                            },
+                    ),
+                    IconButton(
+                      icon: const Icon(PhosphorIcons.arrowClockwiseLight),
+                      tooltip: AppLocalizations.of(context)!.redo,
+                      onPressed: !bloc.canRedo
+                          ? null
+                          : () {
+                              Actions.maybeInvoke<RedoIntent>(
+                                  context, RedoIntent(context));
+                            },
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
           PopupMenuItem(
               enabled: false,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -247,11 +308,10 @@ class _MainPopupMenu extends StatelessWidget {
                       void bake() {
                         var size = viewportKey.currentContext?.size;
                         if (size != null) {
-                          bloc.add(ImageBaked(
+                          bloc.bake(
                               viewportSize: size,
-                              cameraTransform: transform,
                               pixelRatio:
-                                  MediaQuery.of(context).devicePixelRatio));
+                                  MediaQuery.of(context).devicePixelRatio);
                         }
                       }
 
@@ -319,6 +379,8 @@ class _MainPopupMenu extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
                                     filled: true,
+                                    floatingLabelAlignment:
+                                        FloatingLabelAlignment.center,
                                     labelText:
                                         AppLocalizations.of(context)!.zoom),
                               ),
@@ -328,7 +390,7 @@ class _MainPopupMenu extends StatelessWidget {
                       );
                     }),
               )),
-          if (state.path != null && state.embedding == null) ...[
+          if (state.location.path != '' && state.embedding == null) ...[
             PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(
@@ -388,16 +450,38 @@ class _MainPopupMenu extends StatelessWidget {
                       ...context
                           .read<SettingsCubit>()
                           .state
-                          .recentHistory
-                          .map((path) => PopupMenuItem(
+                          .history
+                          .map((location) => PopupMenuItem(
                                 onTap: () {
                                   Navigator.of(context).pop();
-                                  GoRouter.of(context)
-                                      .pushNamed('home', queryParams: {
-                                    'path': path,
-                                  });
+                                  final lastLocation = state.location;
+                                  if (lastLocation == location) {
+                                    return;
+                                  }
+                                  if (location.remote != '') {
+                                    final uri = Uri(pathSegments: [
+                                      '',
+                                      'remote',
+                                      Uri.encodeComponent(location.remote),
+                                      ...location.pathWithoutLeadingSlash
+                                          .split('/')
+                                          .map((e) => Uri.encodeComponent(e)),
+                                    ]).toString();
+
+                                    GoRouter.of(context).push(uri);
+                                    return;
+                                  }
+                                  GoRouter.of(context).push(Uri(
+                                    pathSegments: [
+                                      '',
+                                      'local',
+                                      ...location.pathWithoutLeadingSlash
+                                          .split('/')
+                                          .map((e) => Uri.encodeComponent(e)),
+                                    ],
+                                  ).toString());
                                 },
-                                child: Text(path),
+                                child: Text(location.identifier),
                               )),
                     ],
                   ),

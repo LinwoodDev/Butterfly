@@ -4,11 +4,14 @@ import 'package:butterfly/models/area.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:flutter/material.dart';
 
+import '../models/document.dart';
+
 class AreaRenderer extends Renderer<Area> {
   AreaRenderer(super.element);
 
   @override
-  void build(Canvas canvas, Size size, CameraTransform transform,
+  void build(Canvas canvas, Size size, AppDocument? document,
+      CameraTransform transform,
       [bool foreground = false]) {
     var paint = Paint()
       ..style = PaintingStyle.stroke

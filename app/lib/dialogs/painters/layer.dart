@@ -15,7 +15,7 @@ class LayerPainterDialog extends StatelessWidget {
     return GeneralPainterDialog<LayerPainter>(
         index: painterIndex,
         title: AppLocalizations.of(context)!.layer,
-        icon: PhosphorIcons.squaresFourLight,
+        iconBuilder: (_, __) => PhosphorIcons.squaresFourLight,
         help: 'layer',
         builder: (context, painter, setPainter) => [
               TextFormField(

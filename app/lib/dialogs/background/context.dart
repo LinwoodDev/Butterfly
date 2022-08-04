@@ -12,9 +12,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../actions/areas.dart';
 import '../../actions/color_palette.dart';
 import '../../cubits/transform.dart';
+import '../../widgets/context_menu.dart';
 
 class BackgroundContextMenu extends StatelessWidget {
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
   const BackgroundContextMenu(
       {super.key, required this.close, required this.position});
@@ -52,7 +53,7 @@ class BackgroundContextMenu extends StatelessWidget {
                     context, LayersIntent(context));
               }),
           ListTile(
-            leading: const Icon(PhosphorIcons.squareLight),
+            leading: const Icon(PhosphorIcons.monitorLight),
             title: Text(AppLocalizations.of(context)!.areas),
             subtitle: Text(context.getShortcut('A', shiftKey: true)),
             onTap: () {

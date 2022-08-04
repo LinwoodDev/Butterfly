@@ -1,5 +1,6 @@
 import 'package:butterfly/models/element.dart';
 import 'package:butterfly/widgets/context_menu.dart';
+import 'package:butterfly/widgets/exact_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -7,7 +8,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class ConstraintsContextMenu extends StatefulWidget {
   final ElementConstraints? initialConstraints;
   final bool enableScaled;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
   final ValueChanged<ElementConstraints?> onChanged;
   const ConstraintsContextMenu(
@@ -70,8 +71,8 @@ class _ConstraintsContextMenuState extends State<ConstraintsContextMenu> {
             )),
             IconButton(
                 icon: const Icon(PhosphorIcons.gearLight),
-                onPressed: () {
-                  widget.close();
+                onPressed: () async {
+                  await widget.close();
 
                   showDialog(
                     context: context,
@@ -174,14 +175,16 @@ class _ScaledConstraintsContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(shrinkWrap: true, children: [
-      TextFormField(
-          decoration: InputDecoration(
-              filled: true, labelText: AppLocalizations.of(context)!.scale),
-          keyboardType: TextInputType.number,
-          onFieldSubmitted: (value) {
-            onChanged(ScaledElementConstraints(double.parse(value)));
-          },
-          initialValue: constraints.scale.toStringAsFixed(2)),
+      ExactSlider(
+        header: Text(AppLocalizations.of(context)!.scale),
+        min: 0,
+        max: 10,
+        defaultValue: 1,
+        value: constraints.scale,
+        onChangeEnd: (value) {
+          onChanged(ScaledElementConstraints(value));
+        },
+      ),
     ]);
   }
 }
@@ -236,7 +239,7 @@ class _DynamicConstraintsContent extends StatelessWidget {
 
 class ConstraintContextMenu extends StatefulWidget {
   final ElementConstraint initialConstraint;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final ValueChanged<ElementConstraint> onChanged;
   const ConstraintContextMenu({
     super.key,

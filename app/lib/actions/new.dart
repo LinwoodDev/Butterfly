@@ -36,6 +36,7 @@ class NewAction extends Action<NewIntent> {
         createdAt: DateTime.now(),
         palettes: ColorPalette.getMaterialPalette(intent.context));
     final prefs = await SharedPreferences.getInstance();
+    final remote = settings.getDefaultRemote();
     if (intent.fromTemplate) {
       var state = bloc.state;
       if (state is DocumentLoadSuccess) document = state.document;
@@ -59,7 +60,7 @@ class NewAction extends Action<NewIntent> {
         createdAt: DateTime.now(),
       );
     } else if (prefs.containsKey('default_template')) {
-      var template = await TemplateFileSystem.fromPlatform()
+      var template = await TemplateFileSystem.fromPlatform(remote: remote)
           .getTemplate(prefs.getString('default_template')!);
       if (template != null) {
         document = template.document.copyWith(
@@ -71,7 +72,16 @@ class NewAction extends Action<NewIntent> {
 
     bloc.clearHistory();
     transformCubit.reset();
-    bloc.emit(DocumentLoadSuccess(document,
-        settingsCubit: settingsCubit, currentIndexCubit: currentIndexCubit));
+    currentIndexCubit.reset(document);
+    final state = DocumentLoadSuccess(
+      document,
+      currentIndexCubit: currentIndexCubit,
+      location: remote == null
+          ? AssetLocation.local('')
+          : AssetLocation(remote: remote.identifier, path: ''),
+      settingsCubit: settingsCubit,
+    );
+    await state.load();
+    bloc.emit(state);
   }
 }

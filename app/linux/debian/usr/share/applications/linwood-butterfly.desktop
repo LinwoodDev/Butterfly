@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Linwood Butterfly
-Comment=Change the world.
-Exec=butterfly
-Icon=${SNAP}/meta/gui/butterfly.png # replace name to your app name
-Terminal=false
-Type=Application
-Categories=Productivity; #adjust accordingly your snap category

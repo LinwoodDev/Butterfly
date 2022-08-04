@@ -17,7 +17,7 @@ class PenPainterDialog extends StatelessWidget {
     return GeneralPainterDialog<PenPainter>(
         index: painterIndex,
         title: AppLocalizations.of(context)!.pen,
-        icon: PhosphorIcons.penLight,
+        iconBuilder: (_, __) => PhosphorIcons.penLight,
         help: 'pen',
         builder: (context, painter, setPainter) => [
               ExactSlider(
@@ -40,7 +40,7 @@ class PenPainterDialog extends StatelessWidget {
                           painter.property.copyWith(strokeMultiplier: value)))),
               const SizedBox(height: 50),
               ColorField(
-                color: Color(painter.property.color),
+                value: Color(painter.property.color),
                 onChanged: (color) => setPainter(painter.copyWith(
                     property: painter.property.copyWith(color: color.value))),
                 title: Text(AppLocalizations.of(context)!.color),

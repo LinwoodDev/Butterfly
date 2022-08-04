@@ -164,3 +164,55 @@ Map<String, dynamic> _$$ImageElementToJson(_$ImageElement instance) =>
       'height': instance.height,
       'type': instance.$type,
     };
+
+_$SvgElement _$$SvgElementFromJson(Map json) => _$SvgElement(
+      layer: json['layer'] as String? ?? '',
+      position: json['position'] == null
+          ? Offset.zero
+          : const OffsetJsonConverter().fromJson(json['position'] as Map),
+      constraints: json['constraints'] == null
+          ? const ScaledElementConstraints(1)
+          : ElementConstraints.fromJson(
+              Map<String, dynamic>.from(json['constraints'] as Map)),
+      data: json['data'] as String,
+      width: (json['width'] as num).toDouble(),
+      height: (json['height'] as num).toDouble(),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$SvgElementToJson(_$SvgElement instance) =>
+    <String, dynamic>{
+      'layer': instance.layer,
+      'position': const OffsetJsonConverter().toJson(instance.position),
+      'constraints': instance.constraints?.toJson(),
+      'data': instance.data,
+      'width': instance.width,
+      'height': instance.height,
+      'type': instance.$type,
+    };
+
+_$ShapeElement _$$ShapeElementFromJson(Map json) => _$ShapeElement(
+      layer: json['layer'] as String? ?? '',
+      firstPosition: json['firstPosition'] == null
+          ? Offset.zero
+          : const OffsetJsonConverter().fromJson(json['firstPosition'] as Map),
+      secondPosition: json['secondPosition'] == null
+          ? Offset.zero
+          : const OffsetJsonConverter().fromJson(json['secondPosition'] as Map),
+      property: json['property'] == null
+          ? const ShapeProperty(shape: RectangleShape())
+          : ShapeProperty.fromJson(
+              Map<String, dynamic>.from(json['property'] as Map)),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ShapeElementToJson(_$ShapeElement instance) =>
+    <String, dynamic>{
+      'layer': instance.layer,
+      'firstPosition':
+          const OffsetJsonConverter().toJson(instance.firstPosition),
+      'secondPosition':
+          const OffsetJsonConverter().toJson(instance.secondPosition),
+      'property': instance.property.toJson(),
+      'type': instance.$type,
+    };

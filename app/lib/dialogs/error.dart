@@ -15,6 +15,7 @@ class _ErrorDialogState extends State<ErrorDialog> {
     return AlertDialog(
       title: Text(widget.error.toString()),
       content: Text(widget.stackTrace.toString()),
+      scrollable: true,
       actions: [
         TextButton(
           child: Text(MaterialLocalizations.of(context).okButtonLabel),

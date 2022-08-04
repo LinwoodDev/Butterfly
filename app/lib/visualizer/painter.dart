@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:butterfly/visualizer/property.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -7,9 +8,12 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../models/painter.dart';
 
 extension PainterVisualizer on Painter {
-  String getLocalizedString(BuildContext context) {
+  String getLocalizedName(BuildContext context) {
     if (this is PenPainter) {
       return AppLocalizations.of(context)!.pen;
+    }
+    if (this is ShapePainter) {
+      return AppLocalizations.of(context)!.shape;
     }
     if (this is LabelPainter) {
       return AppLocalizations.of(context)!.label;
@@ -39,6 +43,10 @@ extension PainterVisualizer on Painter {
     if (this is PenPainter) {
       return filled ? PhosphorIcons.penFill : PhosphorIcons.penLight;
     }
+    if (this is ShapePainter) {
+      final shape = (this as ShapePainter).property.shape;
+      return shape.getIcon(filled: filled);
+    }
     if (this is LabelPainter) {
       return filled ? PhosphorIcons.textTFill : PhosphorIcons.textTLight;
     }
@@ -49,7 +57,7 @@ extension PainterVisualizer on Painter {
       return filled ? PhosphorIcons.eraserFill : PhosphorIcons.eraserLight;
     }
     if (this is AreaPainter) {
-      return filled ? PhosphorIcons.squareFill : PhosphorIcons.squareLight;
+      return filled ? PhosphorIcons.monitorFill : PhosphorIcons.monitorLight;
     }
     if (this is LayerPainter) {
       return filled
@@ -61,14 +69,4 @@ extension PainterVisualizer on Painter {
     }
     throw UnimplementedError();
   }
-
-  static List<Painter> getAllPainters() => [
-        PenPainter(),
-        PathEraserPainter(),
-        LabelPainter(),
-        EraserPainter(),
-        LayerPainter(),
-        AreaPainter(),
-        LaserPainter()
-      ];
 }

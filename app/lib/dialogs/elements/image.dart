@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:butterfly/api/open_image.dart';
 import 'package:butterfly/dialogs/elements/general.dart';
 import 'package:butterfly/widgets/context_menu.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -10,7 +14,7 @@ import '../constraints.dart';
 
 class ImageElementDialog extends StatelessWidget {
   final int index;
-  final VoidCallback close;
+  final ContextCloseFunction close;
   final Offset position;
 
   const ImageElementDialog(
@@ -42,8 +46,8 @@ class ImageElementDialog extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.constraints),
             leading: const Icon(PhosphorIcons.selectionLight),
             subtitle: Text(constraints),
-            onTap: () {
-              close();
+            onTap: () async {
+              await close();
               showContextMenu(
                   context: context,
                   position: position,
@@ -61,8 +65,29 @@ class ImageElementDialog extends StatelessWidget {
           ListTile(
             title: Text(AppLocalizations.of(context)!.export),
             leading: const Icon(PhosphorIcons.exportLight),
-            onTap: () {
-              openImage(element.pixels);
+            onTap: () async {
+              final localization = AppLocalizations.of(context)!;
+              await close();
+              final data = element.pixels;
+              if (!kIsWeb &&
+                  (Platform.isWindows ||
+                      Platform.isLinux ||
+                      Platform.isMacOS)) {
+                var path = await FilePicker.platform.saveFile(
+                  type: FileType.image,
+                  fileName: 'export.png',
+                  dialogTitle: localization.export,
+                );
+                if (path != null) {
+                  var file = File(path);
+                  if (!(await file.exists())) {
+                    file.create(recursive: true);
+                  }
+                  await file.writeAsBytes(data.buffer.asUint8List());
+                }
+              } else {
+                openImage(data.buffer.asUint8List());
+              }
             },
           ),
         ];

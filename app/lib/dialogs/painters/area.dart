@@ -14,7 +14,7 @@ class AreaPainterDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GeneralPainterDialog<AreaPainter>(
-        icon: PhosphorIcons.squareLight,
+        iconBuilder: (_, __) => PhosphorIcons.monitorLight,
         title: AppLocalizations.of(context)!.area,
         help: 'area',
         index: painterIndex,
@@ -44,11 +44,11 @@ class AreaPainterDialog extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      PopupMenuButton<AreaRatioPreset>(
-                        itemBuilder: (context) => AreaRatioPreset.values
+                      PopupMenuButton<AspectRatioPreset>(
+                        itemBuilder: (context) => AspectRatioPreset.values
                             .map((e) => PopupMenuItem(
                                   value: e,
-                                  child: Text(e.getLocalized(context)),
+                                  child: Text(e.getLocalizedName(context)),
                                 ))
                             .toList(),
                         onSelected: (preset) => setPainter(painter.copyWith(

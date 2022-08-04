@@ -1,0 +1,50 @@
+{
+  "title": {
+    "message": "Butterfly",
+    "description": "The title in the navbar"
+  },
+  "item.label.Tutorial": {
+    "message": "Tutorial",
+    "description": "Navbar item with label Tutorial"
+  },
+  "item.label.Downloads": {
+    "message": "Download",
+    "description": "Navbar item with label Downloads"
+  },
+  "item.label.Community": {
+    "message": "Community",
+    "description": "Navbar item with label Community"
+  },
+  "item.label.Blog": {
+    "message": "Blog",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.More": {
+    "message": "Altro",
+    "description": "Navbar item with label More"
+  },
+  "item.label.Discord": {
+    "message": "Discord",
+    "description": "Navbar item with label Discord"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.Crowdin": {
+    "message": "Crowdin",
+    "description": "Navbar item with label Crowdin"
+  },
+  "item.label.Twitter": {
+    "message": "Twitter",
+    "description": "Navbar item with label Twitter"
+  },
+  "item.label.License": {
+    "message": "Licenza",
+    "description": "Navbar item with label License"
+  },
+  "item.label.Matrix": {
+    "message": "Matrice",
+    "description": "Navbar item with label Matrix"
+  }
+}

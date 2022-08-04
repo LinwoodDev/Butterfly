@@ -1,14 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/models/converter.dart';
-import 'package:butterfly/settings/behaviors.dart';
-import 'package:butterfly/settings/data.dart';
-import 'package:butterfly/settings/home.dart';
-import 'package:butterfly/theme/manager.dart';
-import 'package:butterfly/views/main.dart';
+import 'package:butterfly/services/sync.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,9 +10,21 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'api/file_system.dart';
+import 'cubits/settings.dart';
 import 'embed/embedding.dart';
+import 'models/converter.dart';
+import 'models/document.dart';
+import 'settings/behaviors.dart';
+import 'settings/data.dart';
+import 'settings/general.dart';
+import 'settings/home.dart';
 import 'settings/personalization.dart';
+import 'settings/remote.dart';
+import 'settings/remotes.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
+import 'theme/manager.dart';
+import 'views/main.dart';
 
 const kFileVersion = 5;
 Future<void> main([List<String> args = const []]) async {
@@ -38,17 +43,26 @@ Future<void> main([List<String> args = const []]) async {
       // Test if file is in directory
       if (file.path.startsWith(directory.path)) {
         // Relative path
-        initialLocation = Uri(path: '/', queryParameters: {
-          'path': file.path.replaceFirst(directory.path, '')
-        }).toString();
+        initialLocation = Uri(
+          pathSegments: [
+            '',
+            'local',
+            ...file.path.replaceFirst(directory.path, '').split('/').sublist(1),
+          ],
+        ).toString();
       } else {
         var data = await file.readAsString();
         var json = Map<String, dynamic>.from(jsonDecode(data));
         var document = const DocumentJsonConverter().fromJson(json);
         var newFile =
             await DocumentFileSystem.fromPlatform().importDocument(document);
-        initialLocation =
-            Uri(path: '/', queryParameters: {'path': newFile.path}).toString();
+        initialLocation = Uri(
+          pathSegments: [
+            '',
+            'local',
+            ...newFile.pathWithoutLeadingSlash.split('/'),
+          ],
+        ).toString();
       }
     }
   }
@@ -58,7 +72,6 @@ Future<void> main([List<String> args = const []]) async {
     const kWindowOptions = WindowOptions(
       minimumSize: Size(410, 300),
       title: 'Butterfly',
-      titleBarStyle: TitleBarStyle.hidden,
     );
 
     // Use it only after calling `hiddenWindowAtLaunch`
@@ -69,25 +82,136 @@ Future<void> main([List<String> args = const []]) async {
       await windowManager.focus();
     });
   }
-  runApp(MultiRepositoryProvider(providers: [
-    RepositoryProvider(create: (context) => DocumentFileSystem.fromPlatform()),
-    RepositoryProvider(create: (context) => TemplateFileSystem.fromPlatform()),
-    RepositoryProvider(create: (context) => const DocumentJsonConverter()),
-  ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)));
+  runApp(
+    MultiRepositoryProvider(providers: [
+      RepositoryProvider(
+          create: (context) => DocumentFileSystem.fromPlatform()),
+      RepositoryProvider(
+          create: (context) => TemplateFileSystem.fromPlatform()),
+      RepositoryProvider(create: (context) => const DocumentJsonConverter()),
+    ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)),
+  );
 }
+
+const kUnsupportedLanguages = ['pt'];
+
+List<Locale> getLocales() =>
+    List<Locale>.from(AppLocalizations.supportedLocales)
+        .where((l) => !kUnsupportedLanguages.contains(l.toString()))
+        .toList();
 
 class ButterflyApp extends StatelessWidget {
   final String initialLocation;
   final SharedPreferences prefs;
-  final GlobalKey _appKey = GlobalKey();
 
-  ButterflyApp({super.key, required this.prefs, this.initialLocation = '/'});
+  ButterflyApp({super.key, required this.prefs, this.initialLocation = '/'})
+      : _router = GoRouter(
+          initialLocation: initialLocation,
+          routes: [
+            GoRoute(
+                name: 'home',
+                path: '/',
+                builder: (context, state) {
+                  return const ProjectPage();
+                },
+                routes: [
+                  GoRoute(
+                    path: 'settings',
+                    builder: (context, state) => const SettingsPage(),
+                    routes: [
+                      GoRoute(
+                        path: 'general',
+                        builder: (context, state) =>
+                            const GeneralSettingsPage(),
+                      ),
+                      GoRoute(
+                        path: 'behaviors',
+                        builder: (context, state) =>
+                            const BehaviorsSettingsPage(),
+                      ),
+                      GoRoute(
+                        path: 'personalization',
+                        builder: (context, state) =>
+                            const PersonalizationSettingsPage(),
+                      ),
+                      GoRoute(
+                        path: 'data',
+                        builder: (context, state) => const DataSettingsPage(),
+                      ),
+                      GoRoute(
+                        path: 'remotes',
+                        builder: (context, state) =>
+                            const RemotesSettingsPage(),
+                        routes: [
+                          GoRoute(
+                            path: ':id',
+                            builder: (context, state) =>
+                                RemoteSettingsPage(remote: state.params['id']!),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ]),
+            GoRoute(
+              name: 'local',
+              path: '/local/:path(.*)',
+              builder: (context, state) {
+                final path = state.params['path']
+                    ?.split('/')
+                    .map((e) => Uri.decodeComponent(e))
+                    .join('/');
+                return ProjectPage(location: AssetLocation.local(path ?? ''));
+              },
+            ),
+            GoRoute(
+              name: 'remote',
+              path: '/remote/:remote/:path(.*)',
+              builder: (context, state) {
+                final remote =
+                    Uri.decodeComponent(state.params['remote'] ?? '');
+                final path = state.params['path']
+                    ?.split('/')
+                    .map((e) => Uri.decodeComponent(e))
+                    .join('/');
+                return ProjectPage(
+                    location: AssetLocation(remote: remote, path: path ?? ''));
+              },
+            ),
+            GoRoute(
+              name: 'embed',
+              path: '/embed',
+              builder: (context, state) {
+                return ProjectPage(
+                    embedding: Embedding.fromQuery(state.queryParams));
+              },
+            )
+          ],
+        );
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => SettingsCubit.fromPrefs(prefs), child: _buildApp());
+      create: (_) => SettingsCubit.fromPrefs(prefs),
+      child: BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
+        builder: (context, settings) {
+          if (!kIsWeb && isWindow()) {
+            windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
+                ? TitleBarStyle.normal
+                : TitleBarStyle.hidden);
+          }
+          return RepositoryProvider(
+            create: (context) =>
+                SyncService(context, context.read<SettingsCubit>()),
+            lazy: false,
+            child: _buildApp(),
+          );
+        },
+      ),
+    );
   }
 
   Widget _buildApp() {
@@ -96,69 +220,25 @@ class ButterflyApp extends StatelessWidget {
             previous.theme != current.theme ||
             previous.localeTag != current.localeTag ||
             previous.design != current.design,
-        builder: (context, state) {
-          return MaterialApp.router(
-            key: _appKey,
-            locale: state.locale,
-            title: 'Butterfly',
-            routeInformationParser: router.routeInformationParser,
-            routerDelegate: router.routerDelegate,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            theme: ThemeManager.getThemeByName(state.design),
-            themeMode: state.theme,
-            builder: (context, child) {
-              final content = child ?? Container();
-              if (kIsWeb || (!Platform.isWindows && !Platform.isLinux)) {
-                return content;
-              }
-              return DragToResizeArea(resizeEdgeSize: 8, child: content);
-            },
-            darkTheme: ThemeManager.getThemeByName(state.design, dark: true),
-          );
-        });
+        builder: (context, state) => MaterialApp.router(
+              locale: state.locale,
+              title: 'Butterfly',
+              routeInformationProvider: _router.routeInformationProvider,
+              routeInformationParser: _router.routeInformationParser,
+              routerDelegate: _router.routerDelegate,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: getLocales(),
+              theme: ThemeManager.getThemeByName(state.design),
+              themeMode: state.theme,
+              builder: (context, child) {
+                if (child == null) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                return child;
+              },
+              darkTheme: ThemeManager.getThemeByName(state.design, dark: true),
+            ));
   }
 
-  GoRouter get router => GoRouter(
-        initialLocation: initialLocation,
-        routes: [
-          GoRoute(
-              name: 'home',
-              path: '/',
-              builder: (context, state) {
-                final path = state.queryParams['path']; // may be null
-                return ProjectPage(path: path);
-              },
-              routes: [
-                GoRoute(
-                  path: 'settings',
-                  builder: (context, state) => const SettingsPage(),
-                  routes: [
-                    GoRoute(
-                      path: 'behaviors',
-                      builder: (context, state) =>
-                          const BehaviorsSettingsPage(),
-                    ),
-                    GoRoute(
-                      path: 'personalization',
-                      builder: (context, state) =>
-                          const PersonalizationSettingsPage(),
-                    ),
-                    GoRoute(
-                      path: 'data',
-                      builder: (context, state) => const DataSettingsPage(),
-                    ),
-                  ],
-                ),
-              ]),
-          GoRoute(
-            name: 'embed',
-            path: '/embed',
-            builder: (context, state) {
-              return ProjectPage(
-                  embedding: Embedding.fromQuery(state.queryParams));
-            },
-          )
-        ],
-      );
+  final GoRouter _router;
 }
