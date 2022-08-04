@@ -49,7 +49,7 @@ dependencies:
   js: ^0.6.4
   pdf: ^3.8.2
   http: ^0.13.5
-  flutter_secure_storage: ^5.0.2
+  flutter_secure_storage: ^5.1.0
   equatable: ^2.0.3
   adwaita: ^0.5.2
   yaru: ^0.3.3
@@ -81,9 +81,36 @@ flutter:
   fonts:
     - family: Roboto
       fonts:
+        - asset: fonts/Roboto-Thin.ttf
+          weight: 100
+        - asset: fonts/Roboto-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: fonts/Roboto-Light.ttf
+          weight: 300
+        - asset: fonts/Roboto-LightItalic.ttf
+          weight: 300
+          style: italic
         - asset: fonts/Roboto-Regular.ttf
+          weight: 400
+        - asset: fonts/Roboto-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: fonts/Roboto-MediumItalic.ttf
+          weight: 500
+          style: italic
         - asset: fonts/Roboto-Bold.ttf
           weight: 700
+        - asset: fonts/Roboto-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: fonts/Roboto-Black.ttf
+          weight: 900
+        - asset: fonts/Roboto-BlackItalic.ttf
+          weight: 900
+          style: italic
   assets:
     - images/
     - templates/
