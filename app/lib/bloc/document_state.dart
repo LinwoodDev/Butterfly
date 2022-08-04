@@ -26,14 +26,13 @@ class DocumentLoadSuccess extends DocumentState {
   DocumentLoadSuccess(this.document,
       {AssetLocation? location,
       this.storageType = StorageType.local,
-      bool saved = true,
       required this.settingsCubit,
       required this.currentIndexCubit,
       this.currentAreaIndex = -1,
       this.currentLayer = '',
       this.invisibleLayers = const []}) {
     if (location != null) {
-      currentIndexCubit.setSaveState(location: location, saved: saved);
+      currentIndexCubit.setSaveState(location: location);
     }
   }
 
@@ -62,6 +61,7 @@ class DocumentLoadSuccess extends DocumentState {
   bool get saved => currentIndexCubit.state.saved;
 
   Future<void> load() async {
+    currentIndexCubit.setSaveState(saved: true);
     final background = Renderer.fromInstance(document.background);
     await background.setup(document);
     final renderers =
@@ -93,7 +93,7 @@ class DocumentLoadSuccess extends DocumentState {
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 
   bool hasAutosave() =>
-      (embedding?.save ?? false) ||
+      !(embedding?.save ?? true) ||
       (!kIsWeb &&
           (location.remote.isEmpty ||
               (settingsCubit.state

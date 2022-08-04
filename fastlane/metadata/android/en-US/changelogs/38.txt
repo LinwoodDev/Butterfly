@@ -9,3 +9,4 @@
 * Fix render time on large documents
 * Fix slider do not update after changing outside of the slider
 * Fix unintential behavior when deleting all elements in a layer
+* Fix save button in embed mode
