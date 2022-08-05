@@ -15,7 +15,7 @@ Intégrer est un moyen simple d'inclure l'application dans votre site Web. Ajout
 | -------- | ------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | save     | Boolean (true, false)                            | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                                                                                   |
 | editable | Boolean (true, false)                            | true       | Activer l'édition. Si désactivé, le document sera en lecture seule                                                                                           |
-| Langue   | Chaîne de caractères (..., système, utilisateur) | système    | Langue du document. Si le système, la langue sera détectée à partir du navigateur. Si l'utilisateur, la langue sera définie à la préférence des utilisateurs |
+| language | Chaîne de caractères (..., système, utilisateur) | système    | Langue du document. Si le système, la langue sera détectée à partir du navigateur. Si l'utilisateur, la langue sera définie à la préférence des utilisateurs |
 
 ## Évènements
 
