@@ -2,6 +2,22 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.1 (2022-08-05)
+
+* Add option to change data directory location on android
+* Add turkish translation (thanks to ilker besken)
+* Add constraint and export option to svg element context menu
+* Add support for setting locale in embed mode
+* Fix missing svg move indicator
+* Fix exporting of image elements
+* Fix svg renderer rect
+* Fix native window title bar issues
+* Fix performance on large documents when trying to open a context menu of an element
+* Fix render time on large documents
+* Fix slider do not update after changing outside of the slider
+* Fix unintential behavior when deleting all elements in a layer
+* Fix save button in embed mode
+
 ## 1.4.0 (2022-07-26)
 
 Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
