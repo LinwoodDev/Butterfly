@@ -1,6 +1,7 @@
 * Add option to change data directory location on android
 * Add turkish translation (thanks to ilker besken)
 * Add constraint and export option to svg element context menu
+* Add support for setting locale in embed mode
 * Fix missing svg move indicator
 * Fix exporting of image elements
 * Fix svg renderer rect
