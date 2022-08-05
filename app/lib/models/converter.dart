@@ -51,7 +51,8 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
 
   @override
   Map<String, dynamic> toJson(AppDocument object) {
-    return {'fileVersion': kFileVersion}..addAll(object.toJson());
+    return {'fileVersion': kFileVersion, 'type': 'document'}
+      ..addAll(object.toJson());
   }
 }
 

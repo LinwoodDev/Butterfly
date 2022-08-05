@@ -2,6 +2,8 @@ import 'package:butterfly/models/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'text.dart';
+
 part 'property.g.dart';
 part 'property.freezed.dart';
 
@@ -9,10 +11,6 @@ abstract class PathProperty {
   double get strokeWidth;
   double get strokeMultiplier;
 }
-
-enum HorizontalAlignment { left, center, right, justify }
-
-enum VerticalAlignment { top, center, bottom }
 
 @freezed
 class Property with _$Property {

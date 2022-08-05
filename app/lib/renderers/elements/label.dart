@@ -6,15 +6,15 @@ class LabelRenderer extends Renderer<LabelElement> {
 
   LabelRenderer(super.element, [this.rect = Rect.zero]);
 
-  TextAlign _convertAlignment(HorizontalAlignment alignment) {
+  TextAlign _convertAlignment(text.HorizontalAlignment alignment) {
     switch (alignment) {
-      case HorizontalAlignment.left:
+      case text.HorizontalAlignment.left:
         return TextAlign.left;
-      case HorizontalAlignment.right:
+      case text.HorizontalAlignment.right:
         return TextAlign.right;
-      case HorizontalAlignment.center:
+      case text.HorizontalAlignment.center:
         return TextAlign.center;
-      case HorizontalAlignment.justify:
+      case text.HorizontalAlignment.justify:
         return TextAlign.justify;
     }
   }
@@ -86,13 +86,13 @@ class LabelRenderer extends Renderer<LabelElement> {
     // Change vertical alignment
     final align = element.property.verticalAlignment;
     switch (align) {
-      case VerticalAlignment.top:
+      case text.VerticalAlignment.top:
         current = current.translate(0, 0);
         break;
-      case VerticalAlignment.bottom:
+      case text.VerticalAlignment.bottom:
         current = current.translate(0, rect.height - tp.height);
         break;
-      case VerticalAlignment.center:
+      case text.VerticalAlignment.center:
         current = current.translate(0, (rect.height - tp.height) / 2);
         break;
     }
@@ -118,28 +118,28 @@ class LabelRenderer extends Renderer<LabelElement> {
     });
     String alignItems = 'center';
     switch (element.property.verticalAlignment) {
-      case VerticalAlignment.top:
+      case text.VerticalAlignment.top:
         alignItems = 'flex-start';
         break;
-      case VerticalAlignment.bottom:
+      case text.VerticalAlignment.bottom:
         alignItems = 'flex-end';
         break;
-      case VerticalAlignment.center:
+      case text.VerticalAlignment.center:
         alignItems = 'center';
         break;
     }
     String alignContent = 'center';
     switch (element.property.horizontalAlignment) {
-      case HorizontalAlignment.left:
+      case text.HorizontalAlignment.left:
         alignContent = 'flex-start';
         break;
-      case HorizontalAlignment.right:
+      case text.HorizontalAlignment.right:
         alignContent = 'flex-end';
         break;
-      case HorizontalAlignment.center:
+      case text.HorizontalAlignment.center:
         alignContent = 'center';
         break;
-      case HorizontalAlignment.justify:
+      case text.HorizontalAlignment.justify:
         alignContent = 'space-between';
         break;
     }

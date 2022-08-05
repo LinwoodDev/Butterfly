@@ -5,6 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/painter.dart';
 import '../../models/property.dart';
+import '../../models/text.dart';
 import '../../widgets/color_field.dart';
 import '../../widgets/exact_slider.dart';
 

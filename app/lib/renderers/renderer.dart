@@ -16,6 +16,7 @@ import '../api/xml_helper.dart';
 import '../cubits/transform.dart';
 import '../models/background.dart';
 import '../models/property.dart';
+import '../models/text.dart' as text;
 
 part 'backgrounds/box.dart';
 part 'backgrounds/empty.dart';
