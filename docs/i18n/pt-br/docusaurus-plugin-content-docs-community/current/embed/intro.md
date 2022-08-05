@@ -15,7 +15,7 @@ Embutir é uma maneira simples de incluir o aplicativo em seu site. Adicione o s
 | ----------- | ------------------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | save        | Boolean (true, false)          | true    | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado                                                                   |
 | editable    | Boolean (true, false)          | true    | Habilitar edição. Se desativado, o documento será somente leitura                                                                              |
-| Idioma      | String (..., sistema, usuário) | Sistema | Idioma do documento. Se o sistema, o idioma será detectado do navegador. Se o usuário, o idioma será ajustado para as preferências de usuários |
+| language    | String (..., sistema, usuário) | Sistema | Idioma do documento. Se o sistema, o idioma será detectado do navegador. Se o usuário, o idioma será ajustado para as preferências de usuários |
 
 ## Eventos
 
