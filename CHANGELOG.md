@@ -6,6 +6,10 @@
 
 Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 
+## 1.4.0 (2022-08-05)
+
+Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
+
 ## 1.4.0-rc.3 (2022-07-25)
 
 * Add native window title bar support
