@@ -11,11 +11,11 @@ L'incorporazione è un modo semplice per includere l'applicazione nel tuo sito w
 
 ## Opzioni
 
-| Opzione  | Tipo                       | Predefinito | Descrizione                                                                                                                                 |
-| -------- | -------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)      | true        | Abilita il salvataggio. Se disabilitato, verrà mostrato solo un pulsante di uscita                                                          |
-| editable | Boolean (true, false)      | true        | Abilita le modifiche. Se disabilitato, il documento sarà in sola lettura                                                                    |
-| language | String (..., system, user) | system      | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
+| Opzione  | Tipo                           | Predefinito | Descrizione                                                                                                                           |
+| -------- | ------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| save     | Boolean (true, false)          | true        | Abilita il salvataggio. Se disabilitato, verrà mostrato solo un pulsante di uscita                                                    |
+| editable | Boolean (true, false)          | true        | Abilita le modifiche. Se disabilitato, il documento sarà in sola lettura                                                              |
+| lingua   | Stringa (..., sistema, utente) | sistema     | Lingua del documento. Se il sistema, la lingua verrà rilevata dal browser. Se l'utente, la lingua imposterà la preferenza dell'utente |
 
 ## Eventi
 
