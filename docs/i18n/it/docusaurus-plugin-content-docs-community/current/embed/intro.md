@@ -15,7 +15,7 @@ L'incorporazione è un modo semplice per includere l'applicazione nel tuo sito w
 | -------- | ------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | save     | Boolean (true, false)          | true        | Abilita il salvataggio. Se disabilitato, verrà mostrato solo un pulsante di uscita                                                    |
 | editable | Boolean (true, false)          | true        | Abilita le modifiche. Se disabilitato, il documento sarà in sola lettura                                                              |
-| lingua   | Stringa (..., sistema, utente) | sistema     | Lingua del documento. Se il sistema, la lingua verrà rilevata dal browser. Se l'utente, la lingua imposterà la preferenza dell'utente |
+| language | Stringa (..., sistema, utente) | sistema     | Lingua del documento. Se il sistema, la lingua verrà rilevata dal browser. Se l'utente, la lingua imposterà la preferenza dell'utente |
 
 ## Eventi
 
