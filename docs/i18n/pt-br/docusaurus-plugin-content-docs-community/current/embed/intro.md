@@ -11,10 +11,11 @@ Embutir é uma maneira simples de incluir o aplicativo em seu site. Adicione o s
 
 ## Opções
 
-| Alternativa | tipo                  | Padrão | Descrição:                                                                   |
-| ----------- | --------------------- | ------ | ---------------------------------------------------------------------------- |
-| save        | Boolean (true, false) | true   | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado |
-| editable    | Boolean (true, false) | true   | Habilitar edição. Se desativado, o documento será somente leitura            |
+| Alternativa | tipo                       | Padrão | Descrição:                                                                                                                                  |
+| ----------- | -------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| save        | Boolean (true, false)      | true   | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado                                                                |
+| editable    | Boolean (true, false)      | true   | Habilitar edição. Se desativado, o documento será somente leitura                                                                           |
+| language    | String (..., system, user) | system | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
 
 ## Eventos
 
