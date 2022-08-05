@@ -11,10 +11,11 @@ Incrustar es una forma sencilla de incluir la aplicación en tu sitio web. Añad
 
 ## Opciones
 
-| Opción   | Tipo                  | Por defecto | Descripción                                                                  |
-| -------- | --------------------- | ----------- | ---------------------------------------------------------------------------- |
-| save     | Boolean (true, false) | true        | Activar guardar. Si está desactivado, sólo se mostrará un botón de salida    |
-| editable | Boolean (true, false) | true        | Activar la edición. Si está deshabilitado, el documento será de sólo lectura |
+| Opción   | Tipo                           | Por defecto | Descripción                                                                                                                                             |
+| -------- | ------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| save     | Boolean (true, false)          | true        | Activar guardar. Si está desactivado, sólo se mostrará un botón de salida                                                                               |
+| editable | Boolean (true, false)          | true        | Activar la edición. Si está deshabilitado, el documento será de sólo lectura                                                                            |
+| language | Cadena (..., sistema, usuario) | system      | Idioma del documento. Si el sistema, el idioma se detectará desde el navegador. Si el usuario, el idioma se ajustará a las preferencias de los usuarios |
 
 ## Eventos
 
