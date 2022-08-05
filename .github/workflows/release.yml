@@ -48,51 +48,6 @@ jobs:
           BUTTERFLY_VERSION="${{ env.BUTTERFLY_VERSION }}"
           git tag -fa v${{ env.BUTTERFLY_VERSION }} -m "Release ${BUTTERFLY_VERSION}"
           git push origin v${BUTTERFLY_VERSION} -f
-      - name: Create release
-        uses: softprops/action-gh-release@v1
-        with:
-          prerelease: ${{ github.event.inputs.stable != 'true' }}
-          tag_name: v${{ env.BUTTERFLY_VERSION }}
-          name: v${{ env.BUTTERFLY_VERSION }}
-          token: ${{ secrets.CI_PAT }}
-          body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
-      - name: Retag stable
-        if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
-        run: |
-          git tag -fa stable -m "Find all stable releases here"
-          git push origin stable -f
-      - name: Retag nightly
-        if: ${{ github.event.inputs.stable != 'true' && github.ref == 'refs/heads/develop' }}
-        run: |
-          git tag -fa nightly -m "Find all nightly releases here"
-          git push origin nightly -f
-  update-changelog:
-    runs-on: ubuntu-22.04
-    needs:
-      - release
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.CI_PAT }}
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
-      - name: Setup git
-        id: setup
-        run: |
-          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
-          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
-          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
-          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
-          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
-          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
-          git config --global user.email "ci@linwood.dev"
-          git config --global user.name "Linwood CI"
       - name: Update changelog (main)
         run: |
           git fetch
@@ -111,6 +66,27 @@ jobs:
           git add .
           git commit -m "Add changelog of v${{ github.event.inputs.next_version }}"
           git push origin develop
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: ${{ github.event.inputs.stable != 'true' }}
+          tag_name: v${{ env.BUTTERFLY_VERSION }}
+          name: v${{ env.BUTTERFLY_VERSION }}
+          token: ${{ secrets.CI_PAT }}
+          body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
+      - name: Retag stable
+        if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
+        run: |
+          git tag -fa stable -m "Find all stable releases here"
+          git push origin stable -f
+      - name: Retag nightly
+        if: ${{ github.event.inputs.stable != 'true' && github.ref == 'refs/heads/develop' }}
+        run: |
+          git tag -fa nightly -m "Find all nightly releases here"
+          git push origin nightly -f
   update-version:
     runs-on: ubuntu-22.04
     needs:
