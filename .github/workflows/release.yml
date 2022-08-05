@@ -14,8 +14,50 @@ on:
         required: false
 
 jobs:
+  update-changelog:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        branch:
+          - develop
+          - main
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+          ref: ${{ matrix.branch }}
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable" # or: 'beta' or 'dev'
+      - name: Setup git
+        id: setup
+        run: |
+          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
+          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
+          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - name: Update changelog
+        run: |
+          git fetch
+          git pull origin ${{ matrix.branch }}
+          dart pub get -C tools
+          dart run tools/set_version.dart --build-number keep ${{ env.BUTTERFLY_VERSION }} --changelog
+          git add .
+          git commit -m "Add changelog of v${{ github.event.inputs.next_version }}"
+          git push origin ${{ matrix.branch }}
   release:
     runs-on: ubuntu-22.04
+    needs:
+      - update-changelog
     outputs:
       build_number: ${{ steps.setup.outputs.build_number }}
     steps:
@@ -90,6 +132,7 @@ jobs:
   update-version:
     runs-on: ubuntu-22.04
     needs:
+      - update-changelog
       - release
     steps:
       - uses: actions/checkout@v3
@@ -115,7 +158,7 @@ jobs:
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Set next version
-        if:  ${{ github.event.inputs.stable != 'true' || github.ref != 'refs/heads/develop' }}
+        if: ${{ github.event.inputs.stable != 'true' || github.ref != 'refs/heads/develop' }}
         run: |
           git fetch
           git pull origin
@@ -129,6 +172,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs:
       - release
+      - update-changelog
       - update-version
     steps:
       - uses: actions/checkout@v3
@@ -160,7 +204,7 @@ jobs:
           git commit -m "Update version number"
           git push origin main
       - name: Merge develop in main
-        if:  ${{ github.event.inputs.stable == 'true' && github.ref == 'refs/heads/develop' }}
+        if: ${{ github.event.inputs.stable == 'true' && github.ref == 'refs/heads/develop' }}
         run: |
           git fetch
           git pull
@@ -181,6 +225,7 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
       - release
+      - update-changelog
       - update-version
     steps:
       - uses: actions/checkout@v3
@@ -234,9 +279,10 @@ jobs:
           git push origin develop
   set-next-version:
     runs-on: ubuntu-22.04
-    if:  ${{ github.event.inputs.stable == 'true' && github.ref == 'refs/heads/develop' }}
+    if: ${{ github.event.inputs.stable == 'true' && github.ref == 'refs/heads/develop' }}
     needs:
       - release
+      - update-changelog
       - update-version
       - update-main
     steps:
