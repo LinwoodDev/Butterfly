@@ -1,7 +1,7 @@
 ---
-title: Davranış Kodu
+title: Davranış kuralları
 hide_title: true
-sidebar_label: Davranış Kodu
+sidebar_label: Davranış kuralları
 ---
 
 ```mdx-code-block

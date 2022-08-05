@@ -1,6 +1,5 @@
 ---
 title: "Kendiniz Geliştirin"
-slug: "/build-your-own"
 sidebar_position: 1
 ---
 
