@@ -11,10 +11,11 @@ Intégrer est un moyen simple d'inclure l'application dans votre site Web. Ajout
 
 ## Options
 
-| Option   | Type de texte         | Par défaut | Libellé                                                                    |
-| -------- | --------------------- | ---------- | -------------------------------------------------------------------------- |
-| save     | Boolean (true, false) | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché |
-| editable | Boolean (true, false) | true       | Activer l'édition. Si désactivé, le document sera en lecture seule         |
+| Option   | Type de texte              | Par défaut | Libellé                                                                                                                                     |
+| -------- | -------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| save     | Boolean (true, false)      | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                                                                  |
+| editable | Boolean (true, false)      | true       | Activer l'édition. Si désactivé, le document sera en lecture seule                                                                          |
+| language | String (..., system, user) | system     | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
 
 ## Évènements
 
