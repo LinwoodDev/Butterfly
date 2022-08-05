@@ -48,6 +48,18 @@ class AbstractProperty with _$AbstractProperty {
 }
 
 @freezed
+class AreaProperty with _$AreaProperty {
+  const factory AreaProperty.defined({
+    @Default(AbstractProperty.undefined()) AbstractProperty abstractProperty,
+    @Default(VerticalAlignment.top) VerticalAlignment verticalAlignment,
+  }) = DefinedAreaProperty;
+  const factory AreaProperty.named(String name) = NamedAreaProperty;
+  const factory AreaProperty.undefined() = UndefinedAreaProperty;
+  factory AreaProperty.fromJson(Map<String, dynamic> json) =>
+      _$AreaPropertyFromJson(json);
+}
+
+@freezed
 class TextSpan with _$TextSpan {
   const factory TextSpan({
     @Default('') String text,
@@ -67,4 +79,25 @@ class TextAbstract with _$TextAbstract {
 
   factory TextAbstract.fromJson(Map<String, dynamic> json) =>
       _$TextAbstractFromJson(json);
+}
+
+@freezed
+class TextArea with _$TextArea {
+  const factory TextArea({
+    @Default(AreaProperty.undefined()) AreaProperty areaProperty,
+    @Default([]) List<TextAbstract> textAbstracts,
+  }) = _TextArea;
+  factory TextArea.fromJson(Map<String, dynamic> json) =>
+      _$TextAreaFromJson(json);
+}
+
+@freezed
+class TextPropertyCollection with _$TextPropertyCollection {
+  const factory TextPropertyCollection({
+    @Default('') String name,
+    @Default([]) Map<String, DefinedSpanProperty> spanProperties,
+    @Default([]) Map<String, DefinedAbstractProperty> abstractProperties,
+  }) = _TextPropertyCollection;
+  factory TextPropertyCollection.fromJson(Map<String, dynamic> json) =>
+      _$TextPropertyCollectionFromJson(json);
 }

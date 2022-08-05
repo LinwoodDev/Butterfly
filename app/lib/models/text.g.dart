@@ -125,6 +125,56 @@ Map<String, dynamic> _$$UndefinedAbstractPropertyToJson(
       'type': instance.$type,
     };
 
+_$DefinedAreaProperty _$$DefinedAreaPropertyFromJson(Map json) =>
+    _$DefinedAreaProperty(
+      abstractProperty: json['abstractProperty'] == null
+          ? const AbstractProperty.undefined()
+          : AbstractProperty.fromJson(
+              Map<String, dynamic>.from(json['abstractProperty'] as Map)),
+      verticalAlignment: $enumDecodeNullable(
+              _$VerticalAlignmentEnumMap, json['verticalAlignment']) ??
+          VerticalAlignment.top,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$DefinedAreaPropertyToJson(
+        _$DefinedAreaProperty instance) =>
+    <String, dynamic>{
+      'abstractProperty': instance.abstractProperty.toJson(),
+      'verticalAlignment':
+          _$VerticalAlignmentEnumMap[instance.verticalAlignment]!,
+      'type': instance.$type,
+    };
+
+const _$VerticalAlignmentEnumMap = {
+  VerticalAlignment.top: 'top',
+  VerticalAlignment.center: 'center',
+  VerticalAlignment.bottom: 'bottom',
+};
+
+_$NamedAreaProperty _$$NamedAreaPropertyFromJson(Map json) =>
+    _$NamedAreaProperty(
+      json['name'] as String,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$NamedAreaPropertyToJson(_$NamedAreaProperty instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': instance.$type,
+    };
+
+_$UndefinedAreaProperty _$$UndefinedAreaPropertyFromJson(Map json) =>
+    _$UndefinedAreaProperty(
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$UndefinedAreaPropertyToJson(
+        _$UndefinedAreaProperty instance) =>
+    <String, dynamic>{
+      'type': instance.$type,
+    };
+
 _$_TextSpan _$$_TextSpanFromJson(Map json) => _$_TextSpan(
       text: json['text'] as String? ?? '',
       property: json['property'] == null
@@ -156,4 +206,51 @@ Map<String, dynamic> _$$_AbstractPropertyToJson(_$_AbstractProperty instance) =>
     <String, dynamic>{
       'textProperty': instance.textProperty.toJson(),
       'textSpans': instance.textSpans.map((e) => e.toJson()).toList(),
+    };
+
+_$_TextArea _$$_TextAreaFromJson(Map json) => _$_TextArea(
+      areaProperty: json['areaProperty'] == null
+          ? const AreaProperty.undefined()
+          : AreaProperty.fromJson(
+              Map<String, dynamic>.from(json['areaProperty'] as Map)),
+      textAbstracts: (json['textAbstracts'] as List<dynamic>?)
+              ?.map((e) =>
+                  TextAbstract.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$$_TextAreaToJson(_$_TextArea instance) =>
+    <String, dynamic>{
+      'areaProperty': instance.areaProperty.toJson(),
+      'textAbstracts': instance.textAbstracts.map((e) => e.toJson()).toList(),
+    };
+
+_$_TextPropertyCollection _$$_TextPropertyCollectionFromJson(Map json) =>
+    _$_TextPropertyCollection(
+      name: json['name'] as String? ?? '',
+      spanProperties: (json['spanProperties'] as Map?)?.map(
+            (k, e) => MapEntry(
+                k as String,
+                DefinedSpanProperty.fromJson(
+                    Map<String, dynamic>.from(e as Map))),
+          ) ??
+          const [],
+      abstractProperties: (json['abstractProperties'] as Map?)?.map(
+            (k, e) => MapEntry(
+                k as String,
+                DefinedAbstractProperty.fromJson(
+                    Map<String, dynamic>.from(e as Map))),
+          ) ??
+          const [],
+    );
+
+Map<String, dynamic> _$$_TextPropertyCollectionToJson(
+        _$_TextPropertyCollection instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'spanProperties':
+          instance.spanProperties.map((k, e) => MapEntry(k, e.toJson())),
+      'abstractProperties':
+          instance.abstractProperties.map((k, e) => MapEntry(k, e.toJson())),
     };
