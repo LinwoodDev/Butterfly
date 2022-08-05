@@ -11,10 +11,11 @@ Einbetten ist eine einfache Möglichkeit, die App in Ihre Website einzubinden. F
 
 ## Optionen
 
-| Option   | Typ                   | Standard | Beschreibung                                                                  |
-| -------- | --------------------- | -------- | ----------------------------------------------------------------------------- |
-| save     | Boolean (true, false) | true     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt |
-| editable | Boolean (true, false) | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt   |
+| Option   | Typ                            | Standard | Beschreibung                                                                                                                                   |
+| -------- | ------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| save     | Boolean (true, false)          | true     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt                                                                  |
+| editable | Boolean (true, false)          | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt                                                                    |
+| language | String (..., System, Benutzer) | system   | Sprache des Dokuments. Wenn System wird die Sprache vom Browser erkannt. Wenn Benutzer, wird die Sprache auf die Benutzereinstellungen gesetzt |
 
 ## Ereignisse
 

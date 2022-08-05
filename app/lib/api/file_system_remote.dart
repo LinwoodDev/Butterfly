@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xml/xml.dart';
 import 'package:path/path.dart' as p;
 
@@ -60,15 +59,7 @@ abstract class DavRemoteSystem {
   DavRemoteStorage get remote;
 
   Future<String> getRemoteCacheDirectory() async {
-    var prefs = await SharedPreferences.getInstance();
-    String? path;
-    if (prefs.containsKey('document_path')) {
-      path = prefs.getString('document_path');
-    }
-    if (path == '') {
-      path = null;
-    }
-    path ??= await getButterflyDirectory();
+    var path = await getButterflyDirectory();
     // Convert \ to /
     path = path.replaceAll('\\', '/');
     path = p.join(path, 'Remotes', remote.identifier);

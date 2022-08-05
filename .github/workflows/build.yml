@@ -16,9 +16,13 @@ jobs:
         with:
           java-version: "11"
           distribution: "adopt"
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.0.5"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |
@@ -49,9 +53,14 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
+      - name: Get flutter version
+        shell: bash
+        run: |
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.0.5"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
@@ -113,9 +122,13 @@ jobs:
             alien \
             libsecret-1-dev \
             libjsoncpp-dev
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.0.5"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
@@ -207,9 +220,13 @@ jobs:
             alien \
             libsecret-1-dev \
             libjsoncpp-dev
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.0.5"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
@@ -278,6 +295,7 @@ jobs:
   #          build/windows/runner/Release/**
   deploy:
     runs-on: ubuntu-22.04
+    if: github.event_name == 'push'
     needs:
       - build-apk
       - build-windows
@@ -416,9 +434,13 @@ jobs:
         with:
           java-version: "11"
           distribution: "adopt"
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.0.5"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |

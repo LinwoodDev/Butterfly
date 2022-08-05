@@ -85,12 +85,20 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Future<void> load() async {
     final settingsCubit = context.read<SettingsCubit>();
-    if (widget.embedding != null) {
+    final embedding = widget.embedding;
+    if (embedding != null) {
       final document = AppDocument(createdAt: DateTime.now(), name: '');
+      var language = embedding.language;
+      if (language == 'system') {
+        language = '';
+      }
+      if (language != 'user') {
+        settingsCubit.changeLocaleTemporarily(language);
+      }
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(
-            document, settingsCubit, _transformCubit!, widget.embedding);
+            document, settingsCubit, _transformCubit!, embedding);
         _bloc = DocumentBloc(
           _currentIndexCubit,
           settingsCubit,
@@ -100,7 +108,7 @@ class _ProjectPageState extends State<ProjectPage> {
           [],
         );
         _bloc?.load();
-        widget.embedding?.handler.register(_bloc!);
+        embedding.handler.register(_bloc!);
       });
       return;
     }

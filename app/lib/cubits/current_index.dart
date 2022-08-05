@@ -213,26 +213,36 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       renderers.firstWhereOrNull((renderer) => renderer.element == element);
 
   Future<void> bake(AppDocument document,
-      {Size? viewportSize, double? pixelRatio}) async {
+      {Size? viewportSize, double? pixelRatio, bool reset = false}) async {
     final cameraViewport = state.cameraViewport;
     final size = viewportSize ?? cameraViewport.toSize();
     final ratio = pixelRatio ?? cameraViewport.pixelRatio;
     if (size.height <= 0 || size.width <= 0) {
       return;
     }
-
+    final transform = state.transformCubit.state;
+    final rect = Rect.fromLTWH(-transform.position.dx, -transform.position.dy,
+        size.width / transform.size, size.height / transform.size);
     var renderers = cameraViewport.unbakedElements;
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
-    var last = state.cameraViewport;
-    final reset = last.width != size.width.ceil() ||
+    final last = state.cameraViewport;
+    reset = reset ||
+        last.width != size.width.ceil() ||
         last.height != size.height.ceil() ||
-        last.x != state.transformCubit.state.position.dx ||
-        last.y != state.transformCubit.state.position.dy ||
-        last.scale != state.transformCubit.state.size;
+        last.x != transform.position.dx ||
+        last.y != transform.position.dy ||
+        last.scale != transform.size;
     if (renderers.isEmpty && !reset) return;
+    List<Renderer<PadElement>> visibleElements;
     if (reset) {
       renderers = this.renderers;
+      visibleElements = renderers
+          .where((renderer) => renderer.rect?.overlaps(rect) ?? true)
+          .toList();
+    } else {
+      visibleElements = List.from(cameraViewport.visibleElements)
+        ..addAll(renderers);
     }
     canvas.scale(ratio);
 
@@ -242,8 +252,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ViewPainter(
       document,
       transform: state.transformCubit.state,
-      cameraViewport:
-          reset ? cameraViewport.unbake(unbakedElements: renderers) : last,
+      cameraViewport: reset
+          ? cameraViewport.unbake(
+              unbakedElements: visibleElements,
+              visibleElements: visibleElements)
+          : last,
       renderBackground: false,
       renderBaked: !reset,
     ).paint(canvas, size);
@@ -272,7 +285,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             y: state.transformCubit.state.position.dy,
             image: newImage,
             bakedElements: renderers,
-            unbakedElements: currentRenderers)));
+            unbakedElements: currentRenderers,
+            visibleElements: visibleElements)));
   }
 
   Future<ByteData?> render(AppDocument document,

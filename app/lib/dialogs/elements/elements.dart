@@ -12,6 +12,7 @@ import 'image.dart';
 import 'label.dart';
 import 'pen.dart';
 import 'shape.dart';
+import 'svg.dart';
 
 class ElementsDialog extends StatefulWidget {
   final List<Renderer<PadElement>> elements;
@@ -52,6 +53,9 @@ class _ElementsDialogState extends State<ElementsDialog> {
             index: index, close: widget.close, position: widget.position);
       } else if (element is ImageElement) {
         content = ImageElementDialog(
+            index: index, close: widget.close, position: widget.position);
+      } else if (element is SvgElement) {
+        content = SvgElementDialog(
             index: index, close: widget.close, position: widget.position);
       } else if (element is PenElement) {
         content = PenElementDialog(

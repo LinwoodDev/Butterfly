@@ -25,14 +25,16 @@ Future<void> setup() async {
         .map((element) => DocumentFileSystem.fromPlatform()
             .updateDocument(element.name, element)));
   }
-
   // Moving to external storage on Android
-  if (!kIsWeb && Platform.isAndroid) {
+  if (!kIsWeb &&
+      Platform.isAndroid &&
+      !prefs.containsKey('android_storage_application')) {
     try {
       var dir = await getApplicationDocumentsDirectory();
       final oldPath = '${dir.path}/Linwood/Butterfly';
       final newPath = await getButterflyDirectory();
       await _moveDirectory(oldPath, newPath);
+      prefs.setBool('android_storage_application', true);
     } catch (e) {
       if (kDebugMode) {
         print(e);

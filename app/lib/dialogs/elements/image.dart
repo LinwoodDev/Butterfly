@@ -67,7 +67,7 @@ class ImageElementDialog extends StatelessWidget {
             leading: const Icon(PhosphorIcons.exportLight),
             onTap: () async {
               final localization = AppLocalizations.of(context)!;
-              Navigator.of(context).pop();
+              await close();
               final data = element.pixels;
               if (!kIsWeb &&
                   (Platform.isWindows ||

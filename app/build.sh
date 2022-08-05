@@ -1,1 +1,2 @@
-if [ "$BUTTERFLY_NIGHTLY" = "true" ]; then cp -r web_nightly/** web; fi && if cd flutter; then git pull && cd ..; else git clone https://github.com/flutter/flutter.git -b stable; fi && flutter/bin/flutter config --enable-web && flutter/bin/flutter build web --release --web-renderer canvaskit --dart-define=FLUTTER_WEB_USE_SKIA=true
+FLUTTER_VERSION=$(cat FLUTTER_VERSION)
+if [ "$BUTTERFLY_NIGHTLY" = "true" ]; then cp -r web_nightly/** web; fi && if cd flutter; then git pull && cd ..; else git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION; fi && flutter/bin/flutter config --enable-web && flutter/bin/flutter build web --release --web-renderer canvaskit --dart-define=FLUTTER_WEB_USE_SKIA=true

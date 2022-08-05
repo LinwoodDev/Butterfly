@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:file_picker/file_picker.dart';
@@ -39,7 +37,7 @@ class DataSettingsPage extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
+                        if (!kIsWeb)
                           ListTile(
                             title: Text(AppLocalizations.of(context)!
                                 .documentDirectory),

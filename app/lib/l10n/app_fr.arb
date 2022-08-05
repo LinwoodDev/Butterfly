@@ -52,6 +52,7 @@
     "german": "Allemand",
     "spanish": "Espagnol",
     "italian": "Italien",
+    "turkish": "Turc",
     "portugueseBrazil": "Portugais (Brésil)",
     "defaultLocale": "Langue par défaut",
     "information": "Information",
@@ -359,5 +360,5 @@
     "syncRootDirectory": "Synchroniser le répertoire racine",
     "penOnlyInput": "Seules les entrées du stylet",
     "inputGestures": "Input gestures",
-    "nativeWindowTitleBar": "Native window title bar"
+    "nativeWindowTitleBar": "Barre de titre de la fenêtre native"
 }

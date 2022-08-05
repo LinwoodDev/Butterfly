@@ -12,10 +12,33 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 
 ## 1.4.0-rc.3 (2022-07-25)
 
+* Add option to change data directory location on android
+* Add turkish translation (thanks to ilker besken)
+* Add constraint and export option to svg element context menu
+* Add support for setting locale in embed mode
+* Fix missing svg move indicator
+* Fix exporting of image elements
+* Fix svg renderer rect
+* Fix native window title bar issues
+* Fix performance on large documents when trying to open a context menu of an element
+* Fix render time on large documents
+* Fix slider do not update after changing outside of the slider
+* Fix unintential behavior when deleting all elements in a layer
+* Fix save button in embed mode
+
+## 1.4.0 (2022-07-26)
+
+Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
+
+<details>
+ <summary>1.4 Nightly Changelog</summary>
+
+### 1.4.0-rc.3 (2022-07-25)
+
 * Add native window title bar support
 * Fix supported locales
 
-## 1.4.0-rc.2 (2022-07-23)
+### 1.4.0-rc.2 (2022-07-23)
 
 * Add portuguese (Brazil) localization
 * Disable updater on web
@@ -24,7 +47,7 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 * Fix embedding mode
 * Fix error when opening same file
 
-## 1.4.0-rc.1 (2022-07-20)
+### 1.4.0-rc.1 (2022-07-20)
 
 * Fix save indicator
 * Fix error when fetching version
@@ -33,7 +56,7 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 * Fix invalid parse of remote path
 * Fix bake issues
 
-## 1.4.0-rc.0 (2022-07-17)
+### 1.4.0-rc.0 (2022-07-17)
 
 * Add stylus button input
 * Add hex input to color dialog
@@ -43,7 +66,7 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 * Fix wrong properties when resetting back to hand painter
 * Fix ignored properties in area painter
 
-## 1.4.0-beta.1 (2022-07-15)
+### 1.4.0-beta.1 (2022-07-15)
 
 * Add matrix invite link
 * Rework multi input system
@@ -59,7 +82,7 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 * Add check to prevent adding duplicated locations to paths
 * Remove unused color property in eraser painter
 
-## 1.4.0-beta.0 (2022-07-08)
+### 1.4.0-beta.0 (2022-07-08)
 
 * Add offline sync
     * Add remote page to control all cached paths
@@ -70,7 +93,7 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 * Fixing shape editing dialog for elements
 * Fix opening nested context menus
 
-## 1.4.0-alpha.3 (2022-07-01)
+### 1.4.0-alpha.3 (2022-07-01)
 
 * Add updater
 * Add shape painter
@@ -90,7 +113,7 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 * Add check to prevent duplicated remote entries
 * Change scale to slider in constraints dialog
 
-## 1.4.0-alpha.2 (2022-06-24)
+### 1.4.0-alpha.2 (2022-06-24)
 
 * Add remote storage ([#88](https://github.com/LinwoodCloud/Butterfly/issues/88))
     * Add remote settings
@@ -102,11 +125,11 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 * Redesign settings with cards
 * Fix settings rounded corners
 
-## 1.4.0-alpha.1 (2022-06-20)
+### 1.4.0-alpha.1 (2022-06-20)
 
 * Fix invalid namespace on android
 
-## 1.4.0-alpha.0 (2022-06-17)
+### 1.4.0-alpha.0 (2022-06-17)
 
 * Add laser painter to paint strokes temporarily
 * Add duplicate to change document path
@@ -114,6 +137,8 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 * Add spanish translation
 * Add quality slider to pdf ([#184](https://github.com/LinwoodCloud/Butterfly/issues/184))
 * Add copy to change document path ([#180](https://github.com/LinwoodCloud/Butterfly/issues/180))
+
+</details>
 
 ## 1.3.2 (2022-06-10)
 

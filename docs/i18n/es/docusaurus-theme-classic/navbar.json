@@ -42,5 +42,9 @@
   "item.label.License": {
     "message": "Licencia",
     "description": "Navbar item with label License"
+  },
+  "item.label.Matrix": {
+    "message": "Matriz",
+    "description": "Navbar item with label Matrix"
   }
 }

@@ -16,17 +16,17 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
   <button className="button button--outline button--info button--lg">Estable</button>
   <ul className="dropdown__menu">
     <li>
-      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linux.zip">
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux.zip">
         Portable
       </DownloadButton>
     </li>
     <li>
-      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux-x86_64.deb">
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux.deb">
         DEB
       </DownloadButton>
     </li>
     <li>
-      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/Linwood-Butterfly-linux-x86_64.AppImage">
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux.AppImage">
         AppImage
       </DownloadButton>
     </li>

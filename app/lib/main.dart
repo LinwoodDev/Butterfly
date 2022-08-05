@@ -12,19 +12,19 @@ import 'package:window_manager/window_manager.dart';
 
 import 'api/file_system.dart';
 import 'cubits/settings.dart';
-import 'models/converter.dart';
-import 'settings/remote.dart';
-import 'theme/manager.dart';
-import 'views/main.dart';
 import 'embed/embedding.dart';
+import 'models/converter.dart';
 import 'models/document.dart';
-import 'settings/general.dart';
-import 'settings/personalization.dart';
 import 'settings/behaviors.dart';
 import 'settings/data.dart';
+import 'settings/general.dart';
 import 'settings/home.dart';
+import 'settings/personalization.dart';
+import 'settings/remote.dart';
 import 'settings/remotes.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
+import 'theme/manager.dart';
+import 'views/main.dart';
 
 const kFileVersion = 5;
 Future<void> main([List<String> args = const []]) async {
@@ -72,7 +72,6 @@ Future<void> main([List<String> args = const []]) async {
     const kWindowOptions = WindowOptions(
       minimumSize: Size(410, 300),
       title: 'Butterfly',
-      titleBarStyle: TitleBarStyle.hidden,
     );
 
     // Use it only after calling `hiddenWindowAtLaunch`

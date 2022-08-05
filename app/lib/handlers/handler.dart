@@ -144,7 +144,7 @@ Future<Set<Renderer<PadElement>>> rayCast(
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return {};
   final globalPosition = transform.localToGlobal(localPosition);
-  final renderers = state.renderers;
+  final renderers = state.cameraViewport.visibleElements;
   return compute(
           _executeRayCast,
           _RayCastParams(

@@ -257,6 +257,10 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
+  void changeLocaleTemporarily(String locale) {
+    emit(state.copyWith(localeTag: locale));
+  }
+
   Future<void> changeDocumentPath(String documentPath) {
     emit(state.copyWith(documentPath: documentPath));
     return save();
