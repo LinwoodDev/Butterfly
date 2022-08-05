@@ -90,7 +90,6 @@ jobs:
   update-version:
     runs-on: ubuntu-22.04
     needs:
-      - update-changelog
       - release
     steps:
       - uses: actions/checkout@v3
@@ -130,7 +129,6 @@ jobs:
     runs-on: ubuntu-22.04
     needs:
       - release
-      - update-changelog
       - update-version
     steps:
       - uses: actions/checkout@v3
@@ -183,7 +181,6 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
       - release
-      - update-changelog
       - update-version
     steps:
       - uses: actions/checkout@v3
@@ -240,7 +237,6 @@ jobs:
     if:  ${{ github.event.inputs.stable == 'true' && github.ref == 'refs/heads/develop' }}
     needs:
       - release
-      - update-changelog
       - update-version
       - update-main
     steps:
