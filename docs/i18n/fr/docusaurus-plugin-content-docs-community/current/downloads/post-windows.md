@@ -26,10 +26,10 @@ Windows avertit les utilisateurs lors de l'installation d'un logiciel sans certi
 
 ![Écran intelligent](/img/smart-screen.png)
 
-To install the app, you need to click on "More info".
+Pour installer l'application, vous devez cliquer sur "Plus d'infos".
 
-![Plus d'infos](/img/smart-screen-more-info.png)
+![Plus d'informations sur l'écran intelligent](/img/smart-screen-more-info.png)
 
-Then, click on "Run anyway".
+Ensuite, cliquez sur "Exécuter quand même".
 
 </div>
