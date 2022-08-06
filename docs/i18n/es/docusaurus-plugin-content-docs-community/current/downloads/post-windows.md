@@ -26,10 +26,10 @@ Windows advierte a los usuarios al instalar software sin un certificado.
 
 ![Pantalla inteligente](/img/smart-screen.png)
 
-To install the app, you need to click on "More info".
+Para instalar la aplicación, debes hacer clic en "Más información".
 
 ![Pantalla inteligente más info](/img/smart-screen-more-info.png)
 
-Then, click on "Run anyway".
+Luego, haga clic en "Ejecutar de todos modos".
 
 </div>
