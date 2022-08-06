@@ -24,7 +24,7 @@ slug: "/downloads/post-windows"
 
 o Windows avisa os usuários quando instalam programas sem um certificado.
 
-![Smart screen](/img/smart-screen.png)
+![Tela inteligente](/img/smart-screen.png)
 
 To install the app, you need to click on "More info".
 

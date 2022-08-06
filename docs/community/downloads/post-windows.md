@@ -24,11 +24,11 @@ slug: "/downloads/post-windows"
 
 Windows warns users when installing software without a certificate.
 
-![Smart screen](/img/smart-screen.png).
+![Smart screen](/img/smart-screen.png)
 
 To install the app, you need to click on "More info".
 
-![Smart screen more info](/img/smart-screen-more-info.png).
+![Smart screen more info](/img/smart-screen-more-info.png)
 
 Then, click on "Run anyway".
 

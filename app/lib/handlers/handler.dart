@@ -18,9 +18,11 @@ import '../cubits/current_index.dart';
 import '../dialogs/background/context.dart';
 import '../dialogs/elements/label.dart';
 import '../models/area.dart';
+import '../models/cursor.dart';
 import '../models/document.dart';
 import '../models/path_point.dart';
 import '../models/property.dart';
+import '../renderers/cursors/eraser.dart';
 import '../renderers/renderer.dart';
 import '../widgets/context_menu.dart';
 

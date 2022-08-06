@@ -24,11 +24,11 @@ slug: "/downloads/post-windows"
 
 Windows avertit les utilisateurs lors de l'installation d'un logiciel sans certificat.
 
-![Smart screen](/img/smart-screen.png)
+![Écran intelligent](/img/smart-screen.png)
 
 To install the app, you need to click on "More info".
 
-![Smart screen more info](/img/smart-screen-more-info.png)
+![Plus d'infos](/img/smart-screen-more-info.png)
 
 Then, click on "Run anyway".
 

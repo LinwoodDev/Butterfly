@@ -21,7 +21,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_svg: ^1.1.2
+  flutter_svg: ^1.1.3
   flutter_bloc: ^8.0.1
   image: ^3.2.0
   intl: ^0.17.0
@@ -30,7 +30,7 @@ dependencies:
   url_launcher: ^6.1.5
   file_picker: ^5.0.1
   phosphor_flutter: ^1.4.0
-  replay_bloc: ^0.2.1
+  replay_bloc: ^0.2.2
   share_plus: ^4.0.10
   package_info_plus: ^1.4.3
   idb_shim: ^2.0.1+1
@@ -63,7 +63,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  analyzer: ^4.3.1
+  analyzer: ^4.4.0
   freezed: ^2.1.0+1
   build_runner: ^2.2.0
   json_serializable: ^6.3.1
