@@ -24,12 +24,12 @@ slug: "/downloads/post-windows"
 
 Windows warnt Benutzer bei der Installation von Software ohne Zertifikat.
 
-![Smart screen](/img/smart-screen.png).
+![Smart screen](/img/smart-screen.png)
 
-Um die App zu installieren, müssen Sie auf "Weitere Informationen" klicken.
+To install the app, you need to click on "More info".
 
-![Smart screen more info](/img/smart-screen more-info.png).
+![Smart screen more info](/img/smart-screen-more-info.png)
 
-Dann klicken Sie auf "Trotzdem ausführen".
+Then, click on "Run anyway".
 
 </div>
