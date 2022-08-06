@@ -26,10 +26,10 @@ Windows, sertifika olmadan yazılım yüklerken kullanıcıları uyarır.
 
 ![Smart screen](/img/smart-screen.png)
 
-To install the app, you need to click on "More info".
+Uygulamayı yüklemek için "Daha fazla bilgi"ye tıklamanız gerekir.
 
 ![Smart screen daha fazla bilgi](/img/smart-screen-more-info.png)
 
-Then, click on "Run anyway".
+Ardından, "Yine de çalıştır" ı tıklayın.
 
 </div>
