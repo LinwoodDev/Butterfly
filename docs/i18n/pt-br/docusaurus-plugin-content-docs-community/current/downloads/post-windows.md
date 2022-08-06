@@ -26,10 +26,10 @@ o Windows avisa os usuários quando instalam programas sem um certificado.
 
 ![Tela inteligente](/img/smart-screen.png)
 
-To install the app, you need to click on "More info".
+Para instalar o aplicativo, você precisa clicar em "Mais informações".
 
 ![Smart screen more info](/img/smart-screen-more-info.png)
 
-Then, click on "Run anyway".
+Então, clique em "Run anyway".
 
 </div>
