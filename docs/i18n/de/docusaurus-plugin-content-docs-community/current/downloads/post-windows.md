@@ -26,10 +26,10 @@ Windows warnt Benutzer bei der Installation von Software ohne Zertifikat.
 
 ![Smart screen](/img/smart-screen.png)
 
-To install the app, you need to click on "More info".
+Um die App zu installieren, musst du auf "Mehr Info" klicken.
 
-![Smart screen more info](/img/smart-screen more-info.png)
+![Smart screen more info](/img/smart-screen-more-info.png)
 
-Then, click on "Run anyway".
+Dann klicke auf "Trotzdem ausführen".
 
 </div>
