@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/file_system_remote.dart';
 import 'package:collection/collection.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
@@ -41,7 +42,7 @@ class SyncService {
     final sync = RemoteSync(context, settingsCubit, storage);
     sync.statusStream.listen((status) => _refreshStatus());
     _syncs.add(sync);
-    sync.sync();
+    sync.autoSync();
     return sync;
   }
 
@@ -113,6 +114,18 @@ class RemoteSync {
         as DavRemoteDocumentFileSystem;
     final currentFiles = await fileSystem.getAllSyncFiles();
     _filesSubject.add(currentFiles);
+  }
+
+  Future<void> autoSync() async {
+    final syncMode = settingsCubit.state.syncMode;
+    if (syncMode == SyncMode.manual) {
+      return;
+    }
+    if (syncMode == SyncMode.noMobile &&
+        await Connectivity().checkConnectivity() != ConnectivityResult.mobile) {
+      return;
+    }
+    await sync();
   }
 
   Future<void> sync() async {

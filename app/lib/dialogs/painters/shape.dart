@@ -150,11 +150,8 @@ class _ShapeViewState extends State<ShapeView> {
             title: Text(AppLocalizations.of(context)!.shape),
             trailing: DropdownButton<String>(
               value: currentShape.runtimeType.toString(),
-              items: [
-                PathShape.circle,
-                PathShape.rectangle,
-                PathShape.line,
-              ].map((e) {
+              items: [PathShape.circle, PathShape.rectangle, PathShape.line]
+                  .map((e) {
                 var shape = e();
                 return DropdownMenuItem<String>(
                   value: shape.runtimeType.toString(),

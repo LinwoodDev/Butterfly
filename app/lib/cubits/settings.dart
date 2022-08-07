@@ -108,6 +108,8 @@ class RemoteStorage with _$RemoteStorage {
   }
 }
 
+enum SyncMode { always, noMobile, manual }
+
 @freezed
 class ButterflySettings with _$ButterflySettings {
   const ButterflySettings._();
@@ -129,7 +131,8 @@ class ButterflySettings with _$ButterflySettings {
       String? lastVersion,
       @Default([]) List<RemoteStorage> remotes,
       @Default('') String defaultRemote,
-      @Default(false) bool nativeWindowTitleBar}) = _ButterflySettings;
+      @Default(false) bool nativeWindowTitleBar,
+      @Default(SyncMode.noMobile) SyncMode syncMode}) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final remotes = prefs.getStringList('remotes')?.map((e) {
@@ -169,6 +172,8 @@ class ButterflySettings with _$ButterflySettings {
       remotes: remotes,
       defaultRemote: prefs.getString('default_remote') ?? '',
       nativeWindowTitleBar: prefs.getBool('native_window_title_bar') ?? false,
+      syncMode:
+          SyncMode.values.byName(prefs.getString('sync_mode') ?? 'noMobile'),
     );
   }
 
@@ -481,4 +486,9 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> resetNativeWindowTitleBar() => changeNativeWindowTitleBar(false);
+
+  Future<void> changeSyncMode(SyncMode syncMode) {
+    emit(state.copyWith(syncMode: syncMode));
+    return save();
+  }
 }

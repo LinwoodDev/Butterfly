@@ -1,0 +1,9 @@
+* Add sync modes
+* Add cursor for eraser
+* Add oval feature for circle shape
+* Improve creation of shape and area when going in negative
+* Fix area painter
+    * Add name validation
+    * Fix size validationa
+* Fix undo/redo
+* Remove duplicated label element in plus popup menu
