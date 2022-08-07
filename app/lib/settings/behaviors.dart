@@ -1,5 +1,6 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
+import 'package:butterfly/visualizer/sync.dart';
 import 'package:butterfly/widgets/exact_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,27 @@ class BehaviorsSettingsPage extends StatelessWidget {
             builder: (context, state) {
           return ListView(
             children: [
+              if (!kIsWeb)
+                Card(
+                    margin: const EdgeInsets.all(8),
+                    child: Padding(
+                      padding: const EdgeInsets.all(32),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(AppLocalizations.of(context)!.connection,
+                                style: Theme.of(context).textTheme.headline5),
+                            const SizedBox(height: 16),
+                            ListTile(
+                              title:
+                                  Text(AppLocalizations.of(context)!.syncMode),
+                              leading: Icon(state.syncMode.getIcon()),
+                              subtitle: Text(
+                                  state.syncMode.getLocalizedName(context)),
+                              onTap: () => _openSyncModeModal(context),
+                            ),
+                          ]),
+                    )),
               Card(
                   margin: const EdgeInsets.all(8),
                   child: Padding(
@@ -143,4 +165,37 @@ class BehaviorsSettingsPage extends StatelessWidget {
           );
         }));
   }
+
+  Future<void> _openSyncModeModal(BuildContext context) => showModalBottomSheet(
+      context: context,
+      builder: (ctx) {
+        final settingsCubit = context.read<SettingsCubit>();
+        void changeSyncMode(SyncMode syncMode) {
+          settingsCubit.changeSyncMode(syncMode);
+          Navigator.of(context).pop();
+        }
+
+        return Container(
+            margin: const EdgeInsets.only(bottom: 20),
+            child: ListView(shrinkWrap: true, children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                child: Text(
+                  AppLocalizations.of(context)!.syncMode,
+                  style: Theme.of(context).textTheme.headline5,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              ...SyncMode.values.map((syncMode) {
+                return ListTile(
+                  title: Text(syncMode.getLocalizedName(context)),
+                  leading: Icon(syncMode.getIcon()),
+                  selected: syncMode == settingsCubit.state.syncMode,
+                  onTap: () => changeSyncMode(syncMode),
+                );
+              }),
+              const SizedBox(height: 32),
+            ]));
+      });
 }

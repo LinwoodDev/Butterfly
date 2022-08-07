@@ -12,15 +12,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../api/rect_helper.dart';
 import '../cubits/current_index.dart';
+import '../dialogs/area/label.dart';
 import '../dialogs/background/context.dart';
 import '../dialogs/elements/label.dart';
 import '../models/area.dart';
+import '../models/cursor.dart';
 import '../models/document.dart';
 import '../models/path_point.dart';
 import '../models/property.dart';
+import '../renderers/cursors/eraser.dart';
 import '../renderers/renderer.dart';
 import '../widgets/context_menu.dart';
 

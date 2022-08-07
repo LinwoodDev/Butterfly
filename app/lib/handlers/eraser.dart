@@ -9,14 +9,17 @@ class EraserHandler extends Handler<EraserPainter> {
 
   @override
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
-    return elements.values
-        .map((e) {
-          if (e.points.length > 1) return EraserRenderer(e);
-          return null;
-        })
-        .whereType<Renderer>()
-        .toList()
-      ..addAll(submittedElements.map((e) => EraserRenderer(e)));
+    return [
+      ...elements.values
+          .map((e) {
+            if (e.points.length > 1) return EraserRenderer(e);
+            return null;
+          })
+          .whereType<Renderer>()
+          .toList()
+        ..addAll(submittedElements.map((e) => EraserRenderer(e))),
+      ...lastPosition.values.map((e) => EraserCursor(PainterCursor(data, e)))
+    ];
   }
 
   @override
@@ -37,10 +40,9 @@ class EraserHandler extends Handler<EraserPainter> {
     submittedElements.add(element);
     if (elements.isEmpty) {
       final current = List<PadElement>.from(submittedElements);
+      submittedElements.clear();
       bloc.add(ElementsCreated(current));
       await bloc.bake();
-
-      submittedElements.clear();
     }
     bloc.refresh();
   }
@@ -53,7 +55,7 @@ class EraserHandler extends Handler<EraserPainter> {
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
-    if (lastPosition[pointer] == localPosition) return;
+    if (lastPosition[pointer] == localPosition && !forceCreate) return;
     lastPosition[pointer] = localPosition;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
@@ -98,5 +100,12 @@ class EraserHandler extends Handler<EraserPainter> {
       Size viewportSize, BuildContext context, PointerMoveEvent event) {
     addPoint(context, event.pointer, event.localPosition, event.pressure,
         event.kind);
+  }
+
+  @override
+  void onPointerHover(
+      Size viewportSize, BuildContext context, PointerHoverEvent event) {
+    lastPosition[event.pointer] = event.localPosition;
+    context.read<DocumentBloc>().refresh();
   }
 }

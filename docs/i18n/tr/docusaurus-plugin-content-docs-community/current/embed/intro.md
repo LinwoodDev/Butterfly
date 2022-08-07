@@ -1,9 +1,9 @@
 ---
-title: Gömme
+title: Yerleştirme
 sidebar_label: Başlangıç
 ---
 
-Gömme işlemi, uygulamayı web sitenize dahil etmenin basit bir yoludur. Aşağıdaki kodu web sitenize ekleyin:
+Yerleştirme işlemi, uygulamayı web sitenize dahil etmenin basit bir yoludur. Aşağıdaki kodu web sitenize ekleyin:
 
 ```html
 <iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
@@ -11,10 +11,11 @@ Gömme işlemi, uygulamayı web sitenize dahil etmenin basit bir yoludur. Aşağ
 
 ## Şeçenekler
 
-| Seçenek  | Tür                   | Varsayılan | Tanım                                                                                        |
-| -------- | --------------------- | ---------- | -------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false) | true       | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir |
-| editable | Boolean (true, false) | true       | Düzenlemeyi etkinleştir. Eğer devre dışı bırakılırsa, belge salt okunur olur                 |
+| Seçenek  | Tür                        | Varsayılan | Tanım                                                                                                                                       |
+| -------- | -------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| save     | Boolean (true, false)      | true       | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir                                                |
+| editable | Boolean (true, false)      | true       | Düzenlemeyi etkinleştir. Eğer devre dışı bırakılırsa, belge salt okunur olur                                                                |
+| language | String (..., system, user) | system     | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
 
 ## Etkinlikler
 

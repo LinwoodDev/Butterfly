@@ -28,12 +28,12 @@ Usa questo pittore per disegnare forme sulla carta. È possibile disegnare retta
 |           Riempi | Trasparente | Il colore che verrà disegnato all'interno del rettangolo |
 | Raggio del bordo | 0, 0, 0, 0  | Il raggio degli angoli del rettangolo                    |
 
-### Cerchio
+#### Cerchio
 
 | Proprietà | Predefinito | Descrizione                                              |
 | ---------:|:-----------:|:-------------------------------------------------------- |
 |    Riempi | Trasparente | Il colore che verrà disegnato all'interno del rettangolo |
 
-### Linea
+#### Linea
 
 *Nessuna configurazione disponibile.*

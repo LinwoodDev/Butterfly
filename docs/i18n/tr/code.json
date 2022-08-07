@@ -8,7 +8,7 @@
     "description": "Features cross-platform description"
   },
   "Simple and intuitive": {
-    "message": "Basit ve sezgisel",
+    "message": "Basit ve sezgiseldir",
     "description": "Features simple title"
   },
   "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
@@ -24,7 +24,7 @@
     "description": "Features customizable description"
   },
   "Your data will be saved locally": {
-    "message": "Verileriniz yerel olarak kaydedilecek",
+    "message": "Verileriniz yerel olarak kaydedilir",
     "description": "Features local title"
   },
   "Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.": {
@@ -280,7 +280,7 @@
     "description": "The ARIA label for the link to full blog posts from excerpts"
   },
   "theme.docs.DocCard.categoryDescription": {
-    "message": "{count} öğe",
+    "message": "{count} öge",
     "description": "The default description for a category card in the generated index about how many items this category includes"
   },
   "theme.colorToggle.ariaLabel": {
@@ -430,7 +430,7 @@
     "description": "The text explain that the search is making by Algolia"
   },
   "theme.SearchModal.noResultsScreen.noResultsText": {
-    "message": "için sonuç yok",
+    "message": "Sonuç bulunamadı",
     "description": "The text explains that there are no results for the following search"
   },
   "theme.SearchModal.noResultsScreen.suggestedQueryText": {

@@ -8,11 +8,11 @@ class Embedding {
   Embedding(
       {this.save = true,
       this.editable = true,
-      this.language = 'user',
+      this.language = '',
       this.theme = 'user'});
   Embedding.fromQuery(Map<String, String> query)
       : save = query['save'] != 'false',
         editable = query['editable'] != 'false',
         language = query['language'] ?? 'user',
-        theme = query['theme'] ?? 'user';
+        theme = query['theme'] ?? '';
 }

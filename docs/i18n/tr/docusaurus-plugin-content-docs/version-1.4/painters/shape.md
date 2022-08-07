@@ -28,12 +28,12 @@ Kağıda şekiller çizmek için bu aracı kullanın. Dikdörtgenler, daireler y
 |             Dolgu |   Şeffaf   | Dikdörtgenin içine çizilecek renk |
 | Köşe yuvarlaklığı | 0, 0, 0, 0 | Dikdörtgenin köşelerinin yarıçapı |
 
-### Daire
+#### Daire
 
 | Özellik | Varsayılan | Tanım                             |
 | -------:|:----------:|:--------------------------------- |
 |   Dolgu |   Şeffaf   | Dikdörtgenin içine çizilecek renk |
 
-### Çizgi
+#### Çizgi
 
 *Geçerli bir yapılandırma yok.*

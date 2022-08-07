@@ -205,8 +205,7 @@ class EditToolbar extends StatelessWidget {
                                         Painter.label,
                                         Painter.eraser,
                                         Painter.layer,
-                                        Painter.area,
-                                        Painter.label
+                                        Painter.area
                                       ].map((e) {
                                         final painter = e();
                                         return PopupMenuItem<Painter>(

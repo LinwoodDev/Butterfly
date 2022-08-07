@@ -28,12 +28,12 @@ Benutze diesen Maler um Formen auf dem Papier zu zeichnen. Sie können Rechtecke
 |      Füllen | Transparent | Die Farbe, die innerhalb des Rechtecks gezeichnet wird |
 | Eckenradius | 0, 0, 0, 0  | Der Radius der Ecken des Rechtecks                     |
 
-### Kreis
+#### Kreis
 
 | Objekt |  Standard   | Beschreibung                                           |
 | ------:|:-----------:|:------------------------------------------------------ |
 | Füllen | Transparent | Die Farbe, die innerhalb des Rechtecks gezeichnet wird |
 
-### Linie
+#### Linie
 
 *Keine Konfiguration verfügbar.*

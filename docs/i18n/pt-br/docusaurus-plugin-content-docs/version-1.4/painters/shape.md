@@ -28,12 +28,12 @@ Use este pintor para desenhar formas no papel. Você pode desenhar retângulos, 
 |     Preencher | Transparente | A cor que será desenhada dentro do retângulo |
 | Corner radius |  0, 0, 0, 0  | O raio dos cantos do retângulo               |
 
-### Círculo
+#### Círculo
 
 | Propriedade |    Padrão    | Descrição:                                   |
 | -----------:|:------------:|:-------------------------------------------- |
 |   Preencher | Transparente | A cor que será desenhada dentro do retângulo |
 
-### Linha
+#### Linha
 
 *Nenhuma configuração disponível.*

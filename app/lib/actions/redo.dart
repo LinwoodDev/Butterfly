@@ -13,10 +13,10 @@ class RedoAction extends Action<RedoIntent> {
   RedoAction();
 
   @override
-  void invoke(RedoIntent intent) {
+  Future<void> invoke(RedoIntent intent) async {
     final bloc = intent.context.read<DocumentBloc>();
     bloc.redo();
-    bloc.load();
+    await bloc.load();
     bloc.bake();
   }
 }
