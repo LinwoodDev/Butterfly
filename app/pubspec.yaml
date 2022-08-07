@@ -55,6 +55,7 @@ dependencies:
   yaru: ^0.3.3
   rxdart: ^0.27.5
   ffi: ^2.0.1
+  connectivity_plus: ^2.3.6
 dev_dependencies:
   flutter_native_splash: ^2.2.7
   flutter_launcher_icons: ^0.10.0
