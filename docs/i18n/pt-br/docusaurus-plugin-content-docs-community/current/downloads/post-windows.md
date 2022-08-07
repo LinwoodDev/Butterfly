@@ -30,6 +30,6 @@ Para instalar o aplicativo, você precisa clicar em "Mais informações".
 
 ![Smart screen more info](/img/smart-screen-more-info.png)
 
-Então, clique em "Executar mesmo assim".
+Então, clique em "Run anyway".
 
 </div>

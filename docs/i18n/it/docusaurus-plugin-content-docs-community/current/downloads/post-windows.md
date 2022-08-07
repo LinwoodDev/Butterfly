@@ -26,10 +26,10 @@ Windows avvisa gli utenti durante l'installazione di software senza certificato.
 
 ![Smart screen](/img/smart-screen.png)
 
-Per installare l'app, è necessario fare clic su "Maggiori informazioni".
+Per installare l'applicazione, è necessario cliccare su "Maggiori informazioni".
 
 ![Smart screen more info](/img/smart-screen-more-info.png)
 
-Quindi, clicca su "Esegui comunque".
+Poi, clicca su "Esegui comunque".
 
 </div>
