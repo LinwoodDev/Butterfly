@@ -379,9 +379,8 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
             child: BlocBuilder<DocumentBloc, DocumentState>(
                 builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: state.document.exportPresets
+              return Column(mainAxisSize: MainAxisSize.min, children: [
+                ...state.document.exportPresets
                     .where((element) => element.name.contains(_searchQuery))
                     .map((e) {
                   return Dismissible(
@@ -397,7 +396,13 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                     ),
                   );
                 }).toList(),
-              );
+                if (widget.areas == null)
+                  ListTile(
+                    title: Text(AppLocalizations.of(context)!.newContent),
+                    onTap: () =>
+                        Navigator.of(context).pop(const ExportPreset()),
+                  )
+              ]);
             }),
           ),
           Padding(
