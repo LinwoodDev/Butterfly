@@ -360,5 +360,10 @@
     "syncRootDirectory": "Sync-Stammverzeichnis",
     "penOnlyInput": "Nur-Pen-Eingabe",
     "inputGestures": "Input gestures",
-    "nativeWindowTitleBar": "Native Fenstertitelleiste"
+    "nativeWindowTitleBar": "Native Fenstertitelleiste",
+    "syncMode": "Sync mode",
+    "connection": "Connection",
+    "always": "Always",
+    "noMobile": "No mobile",
+    "manual": "Manual"
 }
