@@ -40,10 +40,9 @@ class EraserHandler extends Handler<EraserPainter> {
     submittedElements.add(element);
     if (elements.isEmpty) {
       final current = List<PadElement>.from(submittedElements);
+      submittedElements.clear();
       bloc.add(ElementsCreated(current));
       await bloc.bake();
-
-      submittedElements.clear();
     }
     bloc.refresh();
   }

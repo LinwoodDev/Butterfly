@@ -3,3 +3,4 @@
 * Fix area painter
     * Add name validation
     * Fix size validationa
+* Fix undo/redo
