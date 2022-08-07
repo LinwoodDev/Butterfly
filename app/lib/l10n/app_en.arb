@@ -289,6 +289,7 @@
   "laser": "Laser",
   "duration": "Duration",
   "quality": "Quality",
+  "exportPdf": "Export PDF",
   "local": "Local",
   "addRemote": "Add remote",
   "remotes": "Remotes",
@@ -365,5 +366,6 @@
   "connection": "Connection",
   "always": "Always",
   "noMobile": "No mobile",
-  "manual": "Manual"
+  "manual": "Manual",
+  "search": "Search"
 }

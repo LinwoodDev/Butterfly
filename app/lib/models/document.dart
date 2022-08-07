@@ -1,9 +1,10 @@
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/background.dart';
 import 'package:butterfly/models/converter.dart';
+import 'package:butterfly/models/export.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:collection/collection.dart';
 
 import 'element.dart';
 import 'painter.dart';
@@ -11,8 +12,8 @@ import 'palette.dart';
 import 'property.dart';
 import 'waypoint.dart';
 
-part 'document.g.dart';
 part 'document.freezed.dart';
+part 'document.g.dart';
 
 @freezed
 class AssetLocation with _$AssetLocation {
@@ -28,7 +29,9 @@ class AssetLocation with _$AssetLocation {
 
   String get identifier =>
       remote == '' ? pathWithLeadingSlash : '$remote@$pathWithLeadingSlash';
+
   String get pathWithLeadingSlash => path.startsWith('/') ? path : '/$path';
+
   String get pathWithoutLeadingSlash =>
       path.startsWith('/') ? path.substring(1) : path;
 }
@@ -51,6 +54,7 @@ abstract class AppDocumentAsset {
           (fileName.contains('.') ? fileExtension.length - 1 : 0));
 
   String get pathWithLeadingSlash => location.pathWithLeadingSlash;
+
   String get pathWithoutLeadingSlash => location.pathWithoutLeadingSlash;
 
   String get parent => pathWithLeadingSlash
@@ -89,6 +93,7 @@ class AppDocumentDirectory extends AppDocumentAsset {
 
   @override
   String get fileNameWithoutExtension => fileName;
+
   @override
   String get fileExtension => '';
 }
@@ -96,6 +101,7 @@ class AppDocumentDirectory extends AppDocumentAsset {
 @freezed
 class AppDocument with _$AppDocument {
   const AppDocument._();
+
   const factory AppDocument(
       {required String name,
       @Default('')
@@ -110,6 +116,8 @@ class AppDocument with _$AppDocument {
           List<Waypoint> waypoints,
       @Default([])
           List<Area> areas,
+      @Default([])
+          List<ExportPreset> exportPresets,
       required DateTime createdAt,
       @Default(HandProperty())
           HandProperty handProperty,
@@ -146,5 +154,9 @@ class AppDocument with _$AppDocument {
 
   ColorPalette? getPalette(String name) {
     return palettes.firstWhereOrNull((e) => e.name == name);
+  }
+
+  ExportPreset? getExportPreset(String name) {
+    return exportPresets.firstWhereOrNull((e) => e.name == name);
   }
 }

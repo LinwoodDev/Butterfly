@@ -43,6 +43,11 @@ _$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
               ?.map((e) => Area.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
+      exportPresets: (json['exportPresets'] as List<dynamic>?)
+              ?.map((e) =>
+                  ExportPreset.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const [],
       createdAt: DateTime.parse(json['createdAt'] as String),
       handProperty: json['handProperty'] == null
           ? const HandProperty()
@@ -67,6 +72,7 @@ Map<String, dynamic> _$$_AppDocumentToJson(_$_AppDocument instance) =>
       'palettes': instance.palettes.map((e) => e.toJson()).toList(),
       'waypoints': instance.waypoints.map((e) => e.toJson()).toList(),
       'areas': instance.areas.map((e) => e.toJson()).toList(),
+      'exportPresets': instance.exportPresets.map((e) => e.toJson()).toList(),
       'createdAt': instance.createdAt.toIso8601String(),
       'handProperty': instance.handProperty.toJson(),
       'updatedAt': instance.updatedAt?.toIso8601String(),

@@ -253,3 +253,32 @@ class CurrentAreaChanged extends DocumentEvent {
   @override
   List<Object?> get props => [area];
 }
+
+class ExportPresetCreated extends DocumentEvent {
+  final String name;
+  final List<AreaPreset> areas;
+
+  ExportPresetCreated(this.name, this.areas);
+
+  @override
+  List<Object?> get props => [name, areas];
+}
+
+class ExportPresetUpdated extends DocumentEvent {
+  final String name;
+  final List<AreaPreset> areas;
+
+  ExportPresetUpdated(this.name, this.areas);
+
+  @override
+  List<Object?> get props => [name, areas];
+}
+
+class ExportPresetRemoved extends DocumentEvent {
+  final String name;
+
+  ExportPresetRemoved(this.name);
+
+  @override
+  List<Object?> get props => [name];
+}

@@ -9,6 +9,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../widgets/context_menu.dart';
 import '../image_export.dart';
+import '../pdf_export.dart';
 
 class AreaContextMenu extends StatelessWidget {
   final ContextCloseFunction close;
@@ -150,6 +151,17 @@ class AreaContextMenu extends StatelessWidget {
                                       x: area.position.dx,
                                       y: area.position.dy,
                                     )),
+                                context: context);
+                          },
+                        ),
+                        ListTile(
+                          title: Text(AppLocalizations.of(context)!.pdf),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            showDialog(
+                                builder: (context) => BlocProvider.value(
+                                    value: bloc,
+                                    child: PdfExportDialog(areas: [area.name])),
                                 context: context);
                           },
                         )

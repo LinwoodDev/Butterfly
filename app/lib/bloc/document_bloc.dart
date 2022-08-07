@@ -1,6 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/models/background.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/models/background.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/models/palette.dart';
@@ -14,12 +14,12 @@ import '../cubits/settings.dart';
 import '../embed/embedding.dart';
 import '../models/area.dart';
 import '../models/element.dart';
+import '../models/export.dart';
 import '../models/property.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';
 
 part 'document_event.dart';
-
 part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
@@ -499,6 +499,40 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           }
         }
       }
+    });
+    on<ExportPresetCreated>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (current.document.getExportPreset(event.name) != null) return;
+      final preset = ExportPreset(name: event.name, areas: event.areas);
+      var currentDocument = current.document;
+      currentDocument = currentDocument.copyWith(
+          exportPresets: List<ExportPreset>.from(currentDocument.exportPresets)
+            ..add(preset));
+      _saveDocument(emit, current.copyWith(document: currentDocument));
+    });
+    on<ExportPresetUpdated>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      var currentDocument = current.document;
+      final presets = currentDocument.exportPresets.map((e) {
+        if (e.name == event.name) {
+          return e.copyWith(areas: event.areas);
+        }
+        return e;
+      }).toList();
+      currentDocument = currentDocument.copyWith(exportPresets: presets);
+      _saveDocument(emit, current.copyWith(document: currentDocument));
+    });
+    on<ExportPresetRemoved>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      var currentDocument = current.document;
+      currentDocument = currentDocument.copyWith(
+          exportPresets: currentDocument.exportPresets
+              .where((element) => element.name != event.name)
+              .toList());
+      _saveDocument(emit, current.copyWith(document: currentDocument));
     });
     on<CurrentAreaChanged>((event, emit) {
       final current = state;

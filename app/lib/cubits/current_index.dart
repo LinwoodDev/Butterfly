@@ -5,11 +5,14 @@ import 'package:butterfly/api/xml_helper.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/export.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:xml/xml.dart';
 
 import '../embed/embedding.dart';
@@ -360,5 +363,39 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void setSaveState({AssetLocation? location, bool? saved}) {
     emit(state.copyWith(
         location: location ?? state.location, saved: saved ?? state.saved));
+  }
+
+  Future<pw.Document> renderPDF(
+    AppDocument appDocument, {
+    required List<AreaPreset> areas,
+    bool renderBackground = true,
+  }) async {
+    final document = pw.Document();
+    for (final preset in areas) {
+      final areaName = preset.name;
+      final quality = preset.quality;
+      final area = appDocument.getAreaByName(areaName);
+      if (area == null) {
+        continue;
+      }
+      final pageFormat = PdfPageFormat(area.width, area.height);
+      final width = area.width * quality;
+      final height = area.height * quality;
+      final scale = quality;
+      final image = await render(appDocument,
+          width: width.ceil(),
+          height: height.ceil(),
+          x: area.position.dx,
+          y: area.position.dy,
+          scale: scale,
+          renderBackground: renderBackground);
+      if (image == null) continue;
+      document.addPage(pw.Page(
+          pageFormat: pageFormat,
+          build: (context) {
+            return pw.Image(pw.MemoryImage(image.buffer.asUint8List()));
+          }));
+    }
+    return document;
   }
 }

@@ -12,6 +12,7 @@ import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/open.dart';
+import 'package:butterfly/actions/pdf_export.dart';
 import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/save.dart';
@@ -39,10 +40,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../models/background.dart';
 import 'view.dart';
@@ -287,6 +288,11 @@ class _ProjectPageState extends State<ProjectPage> {
                   LogicalKeySet(
                       LogicalKeyboardKey.control,
                       LogicalKeyboardKey.alt,
+                      LogicalKeyboardKey.shift,
+                      LogicalKeyboardKey.keyE): PdfExportIntent(context),
+                  LogicalKeySet(
+                      LogicalKeyboardKey.control,
+                      LogicalKeyboardKey.alt,
                       LogicalKeyboardKey.keyE): SvgExportIntent(context),
                   LogicalKeySet(
                       LogicalKeyboardKey.control,
@@ -309,6 +315,7 @@ class _ProjectPageState extends State<ProjectPage> {
                     ImportIntent: ImportAction(),
                     SvgExportIntent: SvgExportAction(),
                     ImageExportIntent: ImageExportAction(),
+                    PdfExportIntent: PdfExportAction(),
                     ExportIntent: ExportAction(),
                     EditModeIntent: EditModeAction(),
                     SettingsIntent: SettingsAction(),

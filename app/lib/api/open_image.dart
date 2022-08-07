@@ -10,3 +10,7 @@ void openImage(List<int> bytes) {
 void openSvg(String svg) {
   open_image.openSvg(svg);
 }
+
+void openPdf(List<int> bytes) {
+  open_image.openPdf(bytes);
+}
