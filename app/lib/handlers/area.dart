@@ -112,7 +112,7 @@ class AreaHandler extends Handler<AreaPainter> {
     }
     final nextRect =
         Rect.fromLTWH(currentRect!.left, currentRect!.top, width, height);
-    if (document.getAreaByRect(nextRect) == null) {
+    if (document.getAreaByRect(nextRect.normalized()) == null) {
       currentRect = nextRect;
     }
   }
@@ -125,8 +125,12 @@ class AreaHandler extends Handler<AreaPainter> {
     final state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
     _setRect(state.document, position);
     currentRect = currentRect?.normalized();
-    if (currentRect?.size.isEmpty ?? true) return;
     final bloc = context.read<DocumentBloc>();
+    if (currentRect?.size.isEmpty ?? true) {
+      currentRect = null;
+      bloc.refresh();
+      return;
+    }
     if (state.document.getAreaByRect(currentRect!) != null) {
       currentRect = null;
       bloc.refresh();
