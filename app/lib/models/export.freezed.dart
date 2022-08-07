@@ -21,7 +21,7 @@ ExportPreset _$ExportPresetFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ExportPreset {
   String get name => throw _privateConstructorUsedError;
-  List<String> get areas => throw _privateConstructorUsedError;
+  List<AreaPreset> get areas => throw _privateConstructorUsedError;
   double get quality => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $ExportPresetCopyWith<$Res> {
   factory $ExportPresetCopyWith(
           ExportPreset value, $Res Function(ExportPreset) then) =
       _$ExportPresetCopyWithImpl<$Res>;
-  $Res call({String name, List<String> areas, double quality});
+  $Res call({String name, List<AreaPreset> areas, double quality});
 }
 
 /// @nodoc
@@ -60,7 +60,7 @@ class _$ExportPresetCopyWithImpl<$Res> implements $ExportPresetCopyWith<$Res> {
       areas: areas == freezed
           ? _value.areas
           : areas // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<AreaPreset>,
       quality: quality == freezed
           ? _value.quality
           : quality // ignore: cast_nullable_to_non_nullable
@@ -76,7 +76,7 @@ abstract class _$$_ExportPresetCopyWith<$Res>
           _$_ExportPreset value, $Res Function(_$_ExportPreset) then) =
       __$$_ExportPresetCopyWithImpl<$Res>;
   @override
-  $Res call({String name, List<String> areas, double quality});
+  $Res call({String name, List<AreaPreset> areas, double quality});
 }
 
 /// @nodoc
@@ -104,7 +104,7 @@ class __$$_ExportPresetCopyWithImpl<$Res>
       areas: areas == freezed
           ? _value._areas
           : areas // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<AreaPreset>,
       quality: quality == freezed
           ? _value.quality
           : quality // ignore: cast_nullable_to_non_nullable
@@ -117,7 +117,9 @@ class __$$_ExportPresetCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ExportPreset implements _ExportPreset {
   const _$_ExportPreset(
-      {this.name = '', final List<String> areas = const [], this.quality = 1})
+      {this.name = '',
+      final List<AreaPreset> areas = const [],
+      this.quality = 1})
       : _areas = areas;
 
   factory _$_ExportPreset.fromJson(Map<String, dynamic> json) =>
@@ -126,10 +128,10 @@ class _$_ExportPreset implements _ExportPreset {
   @override
   @JsonKey()
   final String name;
-  final List<String> _areas;
+  final List<AreaPreset> _areas;
   @override
   @JsonKey()
-  List<String> get areas {
+  List<AreaPreset> get areas {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_areas);
   }
@@ -177,7 +179,7 @@ class _$_ExportPreset implements _ExportPreset {
 abstract class _ExportPreset implements ExportPreset {
   const factory _ExportPreset(
       {final String name,
-      final List<String> areas,
+      final List<AreaPreset> areas,
       final double quality}) = _$_ExportPreset;
 
   factory _ExportPreset.fromJson(Map<String, dynamic> json) =
@@ -186,11 +188,164 @@ abstract class _ExportPreset implements ExportPreset {
   @override
   String get name;
   @override
-  List<String> get areas;
+  List<AreaPreset> get areas;
   @override
   double get quality;
   @override
   @JsonKey(ignore: true)
   _$$_ExportPresetCopyWith<_$_ExportPreset> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+AreaPreset _$AreaPresetFromJson(Map<String, dynamic> json) {
+  return _AreaPreset.fromJson(json);
+}
+
+/// @nodoc
+mixin _$AreaPreset {
+  String get name => throw _privateConstructorUsedError;
+  double get quality => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $AreaPresetCopyWith<AreaPreset> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AreaPresetCopyWith<$Res> {
+  factory $AreaPresetCopyWith(
+          AreaPreset value, $Res Function(AreaPreset) then) =
+      _$AreaPresetCopyWithImpl<$Res>;
+  $Res call({String name, double quality});
+}
+
+/// @nodoc
+class _$AreaPresetCopyWithImpl<$Res> implements $AreaPresetCopyWith<$Res> {
+  _$AreaPresetCopyWithImpl(this._value, this._then);
+
+  final AreaPreset _value;
+  // ignore: unused_field
+  final $Res Function(AreaPreset) _then;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? quality = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      quality: quality == freezed
+          ? _value.quality
+          : quality // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_AreaPresetCopyWith<$Res>
+    implements $AreaPresetCopyWith<$Res> {
+  factory _$$_AreaPresetCopyWith(
+          _$_AreaPreset value, $Res Function(_$_AreaPreset) then) =
+      __$$_AreaPresetCopyWithImpl<$Res>;
+  @override
+  $Res call({String name, double quality});
+}
+
+/// @nodoc
+class __$$_AreaPresetCopyWithImpl<$Res> extends _$AreaPresetCopyWithImpl<$Res>
+    implements _$$_AreaPresetCopyWith<$Res> {
+  __$$_AreaPresetCopyWithImpl(
+      _$_AreaPreset _value, $Res Function(_$_AreaPreset) _then)
+      : super(_value, (v) => _then(v as _$_AreaPreset));
+
+  @override
+  _$_AreaPreset get _value => super._value as _$_AreaPreset;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? quality = freezed,
+  }) {
+    return _then(_$_AreaPreset(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      quality: quality == freezed
+          ? _value.quality
+          : quality // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_AreaPreset implements _AreaPreset {
+  const _$_AreaPreset({this.name = '', this.quality = 1});
+
+  factory _$_AreaPreset.fromJson(Map<String, dynamic> json) =>
+      _$$_AreaPresetFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final double quality;
+
+  @override
+  String toString() {
+    return 'AreaPreset(name: $name, quality: $quality)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_AreaPreset &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.quality, quality));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(quality));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_AreaPresetCopyWith<_$_AreaPreset> get copyWith =>
+      __$$_AreaPresetCopyWithImpl<_$_AreaPreset>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_AreaPresetToJson(
+      this,
+    );
+  }
+}
+
+abstract class _AreaPreset implements AreaPreset {
+  const factory _AreaPreset({final String name, final double quality}) =
+      _$_AreaPreset;
+
+  factory _AreaPreset.fromJson(Map<String, dynamic> json) =
+      _$_AreaPreset.fromJson;
+
+  @override
+  String get name;
+  @override
+  double get quality;
+  @override
+  @JsonKey(ignore: true)
+  _$$_AreaPresetCopyWith<_$_AreaPreset> get copyWith =>
       throw _privateConstructorUsedError;
 }

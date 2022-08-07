@@ -2,7 +2,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:butterfly/models/area.dart';
+import 'package:butterfly/models/export.dart';
 import 'package:butterfly/widgets/header.dart';
+import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/open_image.dart';
 import '../bloc/document_bloc.dart';
+import '../widgets/exact_slider.dart';
 
 class PdfExportDialog extends StatefulWidget {
   final List<String> areas;
@@ -26,13 +29,13 @@ class PdfExportDialog extends StatefulWidget {
 }
 
 class _PdfExportDialogState extends State<PdfExportDialog> {
-  final List<String> areas = [];
+  final List<AreaPreset> areas = [];
   int quality = 1;
 
   @override
   void initState() {
     super.initState();
-    areas.addAll(widget.areas);
+    areas.addAll(widget.areas.map((e) => AreaPreset(name: e)));
   }
 
   @override
@@ -46,13 +49,27 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
             return const Center(child: CircularProgressIndicator());
           }
           final currentIndex = state.currentIndexCubit;
-          final areaObjects = areas
-              .map((e) => state.document.getAreaByName(e))
-              .whereType<Area>();
           return Column(mainAxisSize: MainAxisSize.min, children: [
             Header(
               title: Text(AppLocalizations.of(context)!.exportPdf),
               actions: [
+                IconButton(
+                  icon: const Icon(PhosphorIcons.listLight),
+                  tooltip: AppLocalizations.of(context)!.presets,
+                  onPressed: () async {
+                    final preset = await showDialog<ExportPreset>(
+                        context: context,
+                        builder: (ctx) => BlocProvider.value(
+                            value: context.read<DocumentBloc>(),
+                            child: _ExportPresetsDialog(areas: areas)));
+                    if (preset != null) {
+                      setState(() {
+                        areas.clear();
+                        areas.addAll(preset.areas);
+                      });
+                    }
+                  },
+                ),
                 IconButton(
                   onPressed: () async {
                     final area = await showDialog<String>(
@@ -64,7 +81,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                     );
                     if (area != null) {
                       setState(() {
-                        areas.add(area);
+                        areas.add(AreaPreset(name: area));
                       });
                     }
                   },
@@ -82,21 +99,32 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                     child: Wrap(
                       alignment: WrapAlignment.center,
                       crossAxisAlignment: WrapCrossAlignment.center,
-                      children: areaObjects.map((e) {
+                      children: areas.mapIndexed((i, e) {
+                        final area = state.document.getAreaByName(e.name);
+                        if (area == null) {
+                          return Container();
+                        }
                         return FutureBuilder<ByteData?>(
                           future: currentIndex.render(state.document,
-                              width: e.width.ceil(),
-                              height: e.height.ceil(),
-                              x: e.position.dx,
-                              y: e.position.dy),
+                              width: area.width.ceil(),
+                              height: area.height.ceil(),
+                              x: area.position.dx,
+                              y: area.position.dy),
                           builder: (context, snapshot) => _AreaPreview(
-                              area: e,
-                              onRemove: () {
-                                setState(() {
-                                  areas.remove(e.name);
-                                });
-                              },
-                              image: snapshot.data?.buffer.asUint8List()),
+                            area: area,
+                            quality: e.quality,
+                            onRemove: () {
+                              setState(() {
+                                areas.removeAt(i);
+                              });
+                            },
+                            onQualityChanged: (value) {
+                              setState(() {
+                                areas[i] = e.copyWith(quality: value);
+                              });
+                            },
+                            image: snapshot.data?.buffer.asUint8List(),
+                          ),
                         );
                       }).toList(),
                     ),
@@ -156,27 +184,42 @@ class _AreaPreview extends StatelessWidget {
   final Area area;
   final Uint8List? image;
   final VoidCallback onRemove;
+  final double quality;
+  final ValueChanged<double> onQualityChanged;
 
-  const _AreaPreview({required this.area, this.image, required this.onRemove});
+  const _AreaPreview(
+      {required this.area,
+      this.image,
+      required this.onRemove,
+      required this.quality,
+      required this.onQualityChanged});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8),
-        child: Column(children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100),
-            child: image == null
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 200),
+          child: Column(children: [
+            image == null
                 ? const CircularProgressIndicator()
                 : Image.memory(image!),
-          ),
-          const SizedBox(height: 8),
-          Text(area.name),
-          OutlinedButton(
-              onPressed: onRemove,
-              child: Text(AppLocalizations.of(context)!.remove)),
-        ]),
+            const SizedBox(height: 8),
+            Text(area.name),
+            const SizedBox(height: 8),
+            ExactSlider(
+              value: quality,
+              min: 1,
+              max: 100,
+              onChanged: onQualityChanged,
+              label: AppLocalizations.of(context)!.quality,
+            ),
+            OutlinedButton(
+                onPressed: onRemove,
+                child: Text(AppLocalizations.of(context)!.remove)),
+          ]),
+        ),
       ),
     );
   }
@@ -227,6 +270,131 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
                 );
               }).toList(),
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextButton(
+              child: Text(AppLocalizations.of(context)!.cancel),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ),
+        ]),
+      ),
+    );
+  }
+}
+
+class _ExportPresetsDialog extends StatefulWidget {
+  final List<AreaPreset> areas;
+
+  const _ExportPresetsDialog({required this.areas});
+
+  @override
+  State<_ExportPresetsDialog> createState() => _ExportPresetsDialogState();
+}
+
+class _ExportPresetsDialogState extends State<_ExportPresetsDialog> {
+  String _searchQuery = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxHeight: 500, maxWidth: 300),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          Header(title: Text(AppLocalizations.of(context)!.presets), actions: [
+            IconButton(
+              onPressed: () {
+                final nameController = TextEditingController();
+                final formKey = GlobalKey<FormState>();
+                showDialog(
+                  builder: (ctx) => Form(
+                    key: formKey,
+                    child: AlertDialog(
+                      title: Text(AppLocalizations.of(ctx)!.enterName),
+                      content: TextFormField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(ctx)!.name,
+                        ),
+                        validator: (value) {
+                          if (value?.isEmpty ?? true) {
+                            return AppLocalizations.of(context)!.shouldNotEmpty;
+                          }
+                          final state = context.read<DocumentBloc>().state;
+                          if (state is! DocumentLoadSuccess) {
+                            return AppLocalizations.of(context)!.error;
+                          }
+                          if (state.document.getExportPreset(value!) != null) {
+                            return AppLocalizations.of(context)!.alreadyExists;
+                          }
+                          return null;
+                        },
+                      ),
+                      actions: [
+                        TextButton(
+                          child: Text(AppLocalizations.of(ctx)!.cancel),
+                          onPressed: () => Navigator.of(ctx).pop(),
+                        ),
+                        ElevatedButton(
+                          child: Text(AppLocalizations.of(ctx)!.create),
+                          onPressed: () {
+                            if (formKey.currentState?.validate() ?? false) {
+                              Navigator.of(ctx).pop();
+                              context.read<DocumentBloc>().add(
+                                  ExportPresetCreated(
+                                      nameController.text, widget.areas));
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                  context: context,
+                );
+              },
+              icon: const Icon(PhosphorIcons.plusLight),
+              tooltip: AppLocalizations.of(context)!.create,
+            )
+          ]),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.search,
+                filled: true,
+              ),
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value;
+                });
+              },
+            ),
+          ),
+          Flexible(
+            child: BlocBuilder<DocumentBloc, DocumentState>(
+                builder: (context, state) {
+              if (state is! DocumentLoadSuccess) return Container();
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: state.document.exportPresets
+                    .where((element) => element.name.contains(_searchQuery))
+                    .map((e) {
+                  return Dismissible(
+                    key: ObjectKey(e.name),
+                    onDismissed: (direction) {
+                      context
+                          .read<DocumentBloc>()
+                          .add(ExportPresetRemoved(e.name));
+                    },
+                    child: ListTile(
+                      title: Text(e.name),
+                      onTap: () => Navigator.of(context).pop(e),
+                    ),
+                  );
+                }).toList(),
+              );
+            }),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

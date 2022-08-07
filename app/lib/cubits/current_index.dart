@@ -5,6 +5,7 @@ import 'package:butterfly/api/xml_helper.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/export.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -364,12 +365,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         location: location ?? state.location, saved: saved ?? state.saved));
   }
 
-  Future<pw.Document> renderPDF(AppDocument appDocument,
-      {required List<String> areas,
-      bool renderBackground = true,
-      double quality = 1}) async {
+  Future<pw.Document> renderPDF(
+    AppDocument appDocument, {
+    required List<AreaPreset> areas,
+    bool renderBackground = true,
+  }) async {
     final document = pw.Document();
-    for (final areaName in areas) {
+    for (final preset in areas) {
+      final areaName = preset.name;
+      final quality = preset.quality;
       final area = appDocument.getAreaByName(areaName);
       if (area == null) {
         continue;

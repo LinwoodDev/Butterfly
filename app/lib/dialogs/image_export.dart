@@ -21,7 +21,6 @@ class ImageExportDialog extends StatefulWidget {
   final double x, y;
   final int width, height;
   final double scale;
-  final bool pdf;
 
   const ImageExportDialog(
       {super.key,
@@ -29,8 +28,7 @@ class ImageExportDialog extends StatefulWidget {
       this.y = 0,
       this.width = 1000,
       this.height = 1000,
-      this.scale = 1,
-      this.pdf = false});
+      this.scale = 1});
 
   @override
   State<ImageExportDialog> createState() => _ImageExportDialogState();
@@ -114,17 +112,10 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
           constraints: const BoxConstraints(maxHeight: 500, maxWidth: 1000),
           child: Column(
             children: [
-              if (!widget.pdf) ...[
-                Header(
-                  title: Text(AppLocalizations.of(context)!.export),
-                  leading: const Icon(PhosphorIcons.exportLight),
-                )
-              ] else ...[
-                Header(
-                  title: Text(AppLocalizations.of(context)!.export),
-                  leading: const Icon(PhosphorIcons.exportLight),
-                ),
-              ],
+              Header(
+                title: Text(AppLocalizations.of(context)!.export),
+                leading: const Icon(PhosphorIcons.exportLight),
+              ),
               Flexible(
                 child: Padding(
                   padding:

@@ -155,4 +155,8 @@ class AppDocument with _$AppDocument {
   ColorPalette? getPalette(String name) {
     return palettes.firstWhereOrNull((e) => e.name == name);
   }
+
+  ExportPreset? getExportPreset(String name) {
+    return exportPresets.firstWhereOrNull((e) => e.name == name);
+  }
 }
