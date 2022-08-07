@@ -21,11 +21,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   void _updateRect() {
-    final shape = element.property.shape;
     rect = Rect.fromPoints(element.firstPosition, element.secondPosition);
-    if (shape is CircleShape) {
-      rect = Rect.fromCircle(center: rect.center, radius: rect.width / 2);
-    }
   }
 
   @override
@@ -70,13 +66,12 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         );
       }
     } else if (shape is CircleShape) {
-      canvas.drawCircle(
-          drawRect.center,
-          drawRect.width / 2,
+      canvas.drawOval(
+          drawRect,
           _buildPaint(
               color: Color(shape.fillColor), style: PaintingStyle.fill));
       if (strokeWidth > 0) {
-        canvas.drawCircle(drawRect.center, drawRect.width / 2, paint);
+        canvas.drawOval(drawRect, paint);
       }
     } else if (shape is LineShape) {
       canvas.drawLine(element.firstPosition, element.secondPosition, paint);
@@ -135,14 +130,15 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       );
     } else if (shape is CircleShape) {
       xml.getElement('svg')?.createElement(
-        'circle',
+        'ellipse',
         attributes: {
-          'cx': '${drawRect.center.dx}px',
-          'cy': '${drawRect.center.dy}px',
-          'r': '${drawRect.width / 2}px',
-          'stroke-width': '${element.property.strokeWidth}px',
-          'stroke': element.property.color.toHexColor(),
+          'cx': '${drawRect.center.dx}',
+          'cy': '${drawRect.center.dy}',
+          'rx': '${drawRect.width / 2}',
+          'ry': '${drawRect.height / 2}',
           'fill': shape.fillColor.toHexColor(),
+          'stroke': element.property.color.toHexColor(),
+          'stroke-width': '${element.property.strokeWidth}px',
         },
       );
     } else if (shape is LineShape) {

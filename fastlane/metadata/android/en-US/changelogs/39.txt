@@ -1,4 +1,5 @@
 * Add cursor for eraser
+* Add oval feature for circle shape
 * Fix area painter
     * Add name validation
-    * Fix size validation
+    * Fix size validationa
