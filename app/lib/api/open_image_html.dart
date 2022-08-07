@@ -21,3 +21,13 @@ void openSvg(String data) {
   a.download = 'butterfly.svg';
   a.click();
 }
+
+void openPdf(List<int> bytes) {
+  final a = document.createElement('a') as AnchorElement;
+  // Create data URL
+  final blob = Blob([bytes], 'application/pdf');
+  final url = Url.createObjectUrl(blob);
+  a.href = url;
+  a.download = 'butterfly.pdf';
+  a.click();
+}

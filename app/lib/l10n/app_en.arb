@@ -366,5 +366,6 @@
   "connection": "Connection",
   "always": "Always",
   "noMobile": "No mobile",
-  "manual": "Manual"
+  "manual": "Manual",
+  "search": "Search"
 }

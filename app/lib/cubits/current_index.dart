@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pdf/pdf.dart';
-import 'package:xml/xml.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:xml/xml.dart';
 
 import '../embed/embedding.dart';
 import '../handlers/handler.dart';
@@ -364,8 +364,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         location: location ?? state.location, saved: saved ?? state.saved));
   }
 
-  pw.Document renderPDF(AppDocument appDocument,
-      {required List<String> areas, bool renderBackground = true}) {
+  Future<pw.Document> renderPDF(AppDocument appDocument,
+      {required List<String> areas,
+      bool renderBackground = true,
+      double quality = 1}) async {
     final document = pw.Document();
     for (final areaName in areas) {
       final area = appDocument.getAreaByName(areaName);
@@ -373,26 +375,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         continue;
       }
       final pageFormat = PdfPageFormat(area.width, area.height);
+      final width = area.width * quality;
+      final height = area.height * quality;
+      final scale = quality;
+      final image = await render(appDocument,
+          width: width.ceil(),
+          height: height.ceil(),
+          x: area.position.dx,
+          y: area.position.dy,
+          scale: scale,
+          renderBackground: renderBackground);
+      if (image == null) continue;
       document.addPage(pw.Page(
           pageFormat: pageFormat,
           build: (context) {
-            List<pw.Widget> elements = [];
-
-            if (renderBackground) {
-              /*final background = state.cameraViewport.background
-                  .buildPDF(context, this.appDocument, area);
-              if (background != null) {
-                elements.add(background);
-              }*/
-            }
-
-            /*for (final e in renderers) {
-              final element = e.buildPDF(context, this.document, area);
-              if (element != null) {
-                elements.add(element);
-              }
-            }*/
-            return pw.Stack(children: elements);
+            return pw.Image(pw.MemoryImage(image.buffer.asUint8List()));
           }));
     }
     return document;

@@ -182,6 +182,7 @@ mixin _$AppDocument {
   List<ColorPalette> get palettes => throw _privateConstructorUsedError;
   List<Waypoint> get waypoints => throw _privateConstructorUsedError;
   List<Area> get areas => throw _privateConstructorUsedError;
+  List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   HandProperty get handProperty => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
@@ -206,6 +207,7 @@ abstract class $AppDocumentCopyWith<$Res> {
       List<ColorPalette> palettes,
       List<Waypoint> waypoints,
       List<Area> areas,
+      List<ExportPreset> exportPresets,
       DateTime createdAt,
       HandProperty handProperty,
       DateTime? updatedAt,
@@ -231,6 +233,7 @@ class _$AppDocumentCopyWithImpl<$Res> implements $AppDocumentCopyWith<$Res> {
     Object? palettes = freezed,
     Object? waypoints = freezed,
     Object? areas = freezed,
+    Object? exportPresets = freezed,
     Object? createdAt = freezed,
     Object? handProperty = freezed,
     Object? updatedAt = freezed,
@@ -265,6 +268,10 @@ class _$AppDocumentCopyWithImpl<$Res> implements $AppDocumentCopyWith<$Res> {
           ? _value.areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>,
+      exportPresets: exportPresets == freezed
+          ? _value.exportPresets
+          : exportPresets // ignore: cast_nullable_to_non_nullable
+              as List<ExportPreset>,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -307,6 +314,7 @@ abstract class _$$_AppDocumentCopyWith<$Res>
       List<ColorPalette> palettes,
       List<Waypoint> waypoints,
       List<Area> areas,
+      List<ExportPreset> exportPresets,
       DateTime createdAt,
       HandProperty handProperty,
       DateTime? updatedAt,
@@ -335,6 +343,7 @@ class __$$_AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
     Object? palettes = freezed,
     Object? waypoints = freezed,
     Object? areas = freezed,
+    Object? exportPresets = freezed,
     Object? createdAt = freezed,
     Object? handProperty = freezed,
     Object? updatedAt = freezed,
@@ -369,6 +378,10 @@ class __$$_AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
           ? _value._areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>,
+      exportPresets: exportPresets == freezed
+          ? _value._exportPresets
+          : exportPresets // ignore: cast_nullable_to_non_nullable
+              as List<ExportPreset>,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -400,6 +413,7 @@ class _$_AppDocument extends _AppDocument {
       final List<ColorPalette> palettes = const [],
       final List<Waypoint> waypoints = const [],
       final List<Area> areas = const [],
+      final List<ExportPreset> exportPresets = const [],
       required this.createdAt,
       this.handProperty = const HandProperty(),
       this.updatedAt,
@@ -412,6 +426,7 @@ class _$_AppDocument extends _AppDocument {
         _palettes = palettes,
         _waypoints = waypoints,
         _areas = areas,
+        _exportPresets = exportPresets,
         _painters = painters,
         super._();
 
@@ -458,6 +473,14 @@ class _$_AppDocument extends _AppDocument {
     return EqualUnmodifiableListView(_areas);
   }
 
+  final List<ExportPreset> _exportPresets;
+  @override
+  @JsonKey()
+  List<ExportPreset> get exportPresets {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_exportPresets);
+  }
+
   @override
   final DateTime createdAt;
   @override
@@ -475,7 +498,7 @@ class _$_AppDocument extends _AppDocument {
 
   @override
   String toString() {
-    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, palettes: $palettes, waypoints: $waypoints, areas: $areas, createdAt: $createdAt, handProperty: $handProperty, updatedAt: $updatedAt, painters: $painters)';
+    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, palettes: $palettes, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, createdAt: $createdAt, handProperty: $handProperty, updatedAt: $updatedAt, painters: $painters)';
   }
 
   @override
@@ -493,6 +516,8 @@ class _$_AppDocument extends _AppDocument {
             const DeepCollectionEquality()
                 .equals(other._waypoints, _waypoints) &&
             const DeepCollectionEquality().equals(other._areas, _areas) &&
+            const DeepCollectionEquality()
+                .equals(other._exportPresets, _exportPresets) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality()
                 .equals(other.handProperty, handProperty) &&
@@ -511,6 +536,7 @@ class _$_AppDocument extends _AppDocument {
       const DeepCollectionEquality().hash(_palettes),
       const DeepCollectionEquality().hash(_waypoints),
       const DeepCollectionEquality().hash(_areas),
+      const DeepCollectionEquality().hash(_exportPresets),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(handProperty),
       const DeepCollectionEquality().hash(updatedAt),
@@ -538,6 +564,7 @@ abstract class _AppDocument extends AppDocument {
       final List<ColorPalette> palettes,
       final List<Waypoint> waypoints,
       final List<Area> areas,
+      final List<ExportPreset> exportPresets,
       required final DateTime createdAt,
       final HandProperty handProperty,
       final DateTime? updatedAt,
@@ -561,6 +588,8 @@ abstract class _AppDocument extends AppDocument {
   List<Waypoint> get waypoints;
   @override
   List<Area> get areas;
+  @override
+  List<ExportPreset> get exportPresets;
   @override
   DateTime get createdAt;
   @override
