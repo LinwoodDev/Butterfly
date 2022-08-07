@@ -207,11 +207,11 @@ class _AreaPreview extends StatelessWidget {
                 : Image.memory(image!),
             const SizedBox(height: 8),
             Text(area.name),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
             ExactSlider(
               value: quality,
               min: 1,
-              max: 100,
+              max: 10,
               onChanged: onQualityChanged,
               label: AppLocalizations.of(context)!.quality,
             ),
@@ -287,7 +287,7 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
 class ExportPresetsDialog extends StatefulWidget {
   final List<AreaPreset>? areas;
 
-  const ExportPresetsDialog({this.areas});
+  const ExportPresetsDialog({this.areas, super.key});
 
   @override
   State<ExportPresetsDialog> createState() => _ExportPresetsDialogState();
