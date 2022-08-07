@@ -19,6 +19,7 @@ import '../actions/image_export.dart';
 import '../actions/import.dart';
 import '../actions/new.dart';
 import '../actions/open.dart';
+import '../actions/pdf_export.dart';
 import '../actions/project.dart';
 import '../actions/redo.dart';
 import '../actions/save.dart';
@@ -562,6 +563,21 @@ class _MainPopupMenu extends StatelessWidget {
                                     Navigator.of(context).pop();
                                     Actions.maybeInvoke<ImageExportIntent>(
                                         context, ImageExportIntent(context));
+                                  })),
+                          PopupMenuItem(
+                              padding: EdgeInsets.zero,
+                              child: ListTile(
+                                  leading:
+                                      const Icon(PhosphorIcons.filePdfLight),
+                                  title:
+                                      Text(AppLocalizations.of(context)!.pdf),
+                                  subtitle: Text(context.getShortcut('E',
+                                      shiftKey: true, altKey: true)),
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                    Actions.maybeInvoke<PdfExportIntent>(
+                                        context, PdfExportIntent(context));
                                   })),
                         ],
                     tooltip: '',
