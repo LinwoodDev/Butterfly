@@ -58,14 +58,31 @@ class ShapeHandler extends Handler {
         height = nextHeight;
       }
     }
-    final nextRect = Rect.fromLTWH(
-        width < 0 ? currentRect.left + width : currentRect.left,
-        height < 0 ? currentRect.top + height : currentRect.top,
-        width.abs(),
-        height.abs());
+    final secondPosition =
+        Offset(currentRect.left + width, currentRect.top + height);
+
     elements[index] = element.copyWith(
-      firstPosition: nextRect.topLeft,
-      secondPosition: nextRect.bottomRight,
+        firstPosition: element.firstPosition, secondPosition: secondPosition);
+  }
+
+  ShapeElement _normalizeElement(ShapeElement element) {
+    var firstX = element.firstPosition.dx;
+    var firstY = element.firstPosition.dy;
+    var secondX = element.secondPosition.dx;
+    var secondY = element.secondPosition.dy;
+    if (firstX > secondX) {
+      final temp = firstX;
+      firstX = secondX;
+      secondX = temp;
+    }
+    if (firstY > secondY) {
+      final temp = firstY;
+      firstY = secondY;
+      secondY = temp;
+    }
+    return element.copyWith(
+      firstPosition: Offset(firstX, firstY),
+      secondPosition: Offset(secondX, secondY),
     );
   }
 
@@ -73,7 +90,7 @@ class ShapeHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     var element = elements.remove(index);
     if (element == null) return;
-    submittedElements.add(element);
+    submittedElements.add(_normalizeElement(element));
     if (elements.isEmpty) {
       final current = List<PadElement>.from(submittedElements);
       bloc.add(ElementsCreated(current));

@@ -110,11 +110,8 @@ class AreaHandler extends Handler<AreaPainter> {
         height = nextHeight;
       }
     }
-    final nextRect = Rect.fromLTWH(
-        width < 0 ? currentRect!.left + width : currentRect!.left,
-        height < 0 ? currentRect!.top + height : currentRect!.top,
-        width.abs(),
-        height.abs());
+    final nextRect =
+        Rect.fromLTWH(currentRect!.left, currentRect!.top, width, height);
     if (document.getAreaByRect(nextRect) == null) {
       currentRect = nextRect;
     }
@@ -123,17 +120,18 @@ class AreaHandler extends Handler<AreaPainter> {
   @override
   Future<void> onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) async {
+    final transform = context.read<TransformCubit>().state;
+    final position = transform.localToGlobal(event.localPosition);
+    final state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
+    _setRect(state.document, position);
+    currentRect = currentRect?.normalized();
     if (currentRect?.size.isEmpty ?? true) return;
     final bloc = context.read<DocumentBloc>();
-    final transform = context.read<TransformCubit>().state;
-    final state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
-    final position = transform.localToGlobal(event.localPosition);
     if (state.document.getAreaByRect(currentRect!) != null) {
       currentRect = null;
       bloc.refresh();
       return;
     }
-    _setRect(state.document, position);
     final name = await _showAreaLabelDialog(context);
     if (name == null) {
       currentRect = null;
