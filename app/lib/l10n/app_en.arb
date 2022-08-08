@@ -367,5 +367,6 @@
   "always": "Always",
   "noMobile": "No mobile",
   "manual": "Manual",
-  "search": "Search"
+  "search": "Search",
+  "property": "Property"
 }
