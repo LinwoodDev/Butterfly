@@ -360,5 +360,10 @@
     "syncRootDirectory": "Kök dizini eşitle",
     "penOnlyInput": "Sadece kalem girişi",
     "inputGestures": "Giriş hareketleri",
-    "nativeWindowTitleBar": "Yerel pencere başlık çubuğu"
+    "nativeWindowTitleBar": "Yerel pencere başlık çubuğu",
+    "syncMode": "Sync mode",
+    "connection": "Connection",
+    "always": "Always",
+    "noMobile": "No mobile",
+    "manual": "Manual"
 }
