@@ -57,6 +57,10 @@ class _PropertyViewState extends State<PropertyView> {
                       Header(
                         title: Text(AppLocalizations.of(context)!.property),
                         actions: [
+                          IconButton(
+                              icon: const Icon(PhosphorIcons.trashLight),
+                              onPressed: () {}),
+                          const SizedBox(height: 16, child: VerticalDivider()),
                           if (!isMobile)
                             IconButton(
                               tooltip: pinned

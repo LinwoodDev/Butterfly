@@ -12,4 +12,6 @@ abstract class Selection<T> {
   Selection(this.selected);
 
   List<Widget> buildProperties(BuildContext context);
+  bool get showDeleteButton => false;
+  void onDelete(BuildContext context);
 }
