@@ -345,36 +345,44 @@ class _ProjectPageState extends State<ProjectPage> {
                                       builder: (context, constraints) {
                                     final isMobile =
                                         MediaQuery.of(context).size.width < 800;
-                                    return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          Expanded(
-                                              key: _viewportKey,
-                                              child: Stack(
-                                                children: [
-                                                  const MainViewViewport(),
-                                                  Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: const [
-                                                        ColorView(),
-                                                        Expanded(
-                                                            child:
-                                                                PropertyView())
-                                                      ]),
-                                                ],
-                                              )),
-                                          if (isMobile)
-                                            Align(
-                                                alignment: Alignment.center,
-                                                child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: EditToolbar(
-                                                        isMobile: isMobile))),
-                                        ]);
+                                    final isLandscape =
+                                        MediaQuery.of(context).size.height <
+                                            400;
+                                    return Stack(
+                                      children: [
+                                        Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            children: [
+                                              Expanded(
+                                                  key: _viewportKey,
+                                                  child: Stack(
+                                                    children: [
+                                                      const MainViewViewport(),
+                                                      Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: const [
+                                                            ColorView(),
+                                                          ]),
+                                                      if (!isLandscape)
+                                                        const PropertyView(),
+                                                    ],
+                                                  )),
+                                              if (isMobile)
+                                                Align(
+                                                    alignment: Alignment.center,
+                                                    child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: EditToolbar(
+                                                            isMobile:
+                                                                isMobile))),
+                                            ]),
+                                        if (isLandscape) const PropertyView()
+                                      ],
+                                    );
                                   })),
                             ));
                       }),

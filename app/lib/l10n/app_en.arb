@@ -368,5 +368,7 @@
   "noMobile": "No mobile",
   "manual": "Manual",
   "search": "Search",
-  "property": "Property"
+  "property": "Property",
+  "pin": "Pin",
+  "unpin": "Unpin"
 }

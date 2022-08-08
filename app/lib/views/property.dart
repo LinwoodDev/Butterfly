@@ -14,28 +14,28 @@ class PropertyView extends StatefulWidget {
 
 class _PropertyViewState extends State<PropertyView> {
   bool pinned = false;
-  bool opened = true;
   double size = 500;
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: LayoutBuilder(builder: (context, constraints) {
-        final isMobile = MediaQuery.of(context).size.width < size;
-        return Container(
-          padding: EdgeInsets.only(top: 10, bottom: 10, left: isMobile ? 0 : 8),
-          constraints: BoxConstraints(maxWidth: size),
-          child: Material(
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(20),
-                    bottomLeft: const Radius.circular(20),
-                    bottomRight: Radius.circular(isMobile ? 20 : 0),
-                    topRight: Radius.circular(isMobile ? 20 : 0))),
-            child: Row(
-              children: [
+    return LayoutBuilder(builder: (context, constraints) {
+      final isMobile = MediaQuery.of(context).size.width < size;
+      return Stack(children: [
+        GestureDetector(
+          behavior:
+              pinned ? HitTestBehavior.translucent : HitTestBehavior.opaque,
+          onTap: () => _closeView,
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            constraints: BoxConstraints(maxWidth: size, maxHeight: 500),
+            child: Material(
+              elevation: 6,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Row(children: [
                 if (!isMobile)
                   MouseRegion(
                     cursor: SystemMouseCursors.resizeLeftRight,
@@ -45,33 +45,39 @@ class _PropertyViewState extends State<PropertyView> {
                         final delta = details.delta.dx;
                         setState(() {
                           size -= delta;
-                          size = size.clamp(250, 500);
+                          size = size.clamp(300, 500);
                         });
                       },
                     ),
                   ),
-                Flexible(
+                Expanded(
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Header(
                         title: Text(AppLocalizations.of(context)!.property),
                         actions: [
                           if (!isMobile)
                             IconButton(
+                              tooltip: pinned
+                                  ? AppLocalizations.of(context)!.unpin
+                                  : AppLocalizations.of(context)!.pin,
                               icon: pinned
                                   ? const Icon(PhosphorIcons.mapPinFill)
                                   : const Icon(PhosphorIcons.mapPinLight),
                               onPressed: () => setState(() => pinned = !pinned),
                             ),
                           IconButton(
+                            tooltip: AppLocalizations.of(context)!.close,
                             icon: const Icon(PhosphorIcons.xLight),
-                            onPressed: () {},
+                            onPressed: _closeView,
                           ),
                         ],
                       ),
                       Flexible(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
                           child: ListView(shrinkWrap: true, children: [
                             TextFormField(
                               decoration: InputDecoration(
@@ -94,17 +100,33 @@ class _PropertyViewState extends State<PropertyView> {
                               max: 70,
                               defaultValue: 5,
                             ),
+                            ExactSlider(
+                              header: Text(AppLocalizations.of(context)!
+                                  .strokeMultiplier),
+                              min: 0,
+                              max: 70,
+                              defaultValue: 5,
+                            ),
+                            ExactSlider(
+                              header: Text(AppLocalizations.of(context)!
+                                  .strokeMultiplier),
+                              min: 0,
+                              max: 70,
+                              defaultValue: 5,
+                            ),
                           ]),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ],
+              ]),
             ),
           ),
-        );
-      }),
-    );
+        ),
+      ]);
+    });
   }
+
+  void _closeView() {}
 }
