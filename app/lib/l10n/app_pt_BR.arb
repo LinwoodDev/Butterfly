@@ -289,6 +289,7 @@
     "laser": "Laser",
     "duration": "Duração",
     "quality": "Qualidade",
+    "exportPdf": "Exportar PDF",
     "local": "Localização",
     "addRemote": "Adicionar controle",
     "remotes": "Remotos",
@@ -360,5 +361,11 @@
     "syncRootDirectory": "Sincronizar diretório raiz",
     "penOnlyInput": "Pen apenas entrada",
     "inputGestures": "Input gestures",
-    "nativeWindowTitleBar": "Barra de título da janela nativa"
+    "nativeWindowTitleBar": "Barra de título da janela nativa",
+    "syncMode": "Modo de sincronização",
+    "connection": "Ligação",
+    "always": "sempre",
+    "noMobile": "Sem celular",
+    "manual": "Manualmente",
+    "search": "Pesquisa"
 }
