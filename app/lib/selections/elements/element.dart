@@ -1,7 +1,11 @@
 part of '../selection.dart';
 
-class ElementSelection<T extends PadElement> extends Selection<T> {
+class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   ElementSelection(super.selected);
+
+  factory ElementSelection.from(Renderer<T> selected) {
+    return ElementSelection([selected]);
+  }
 
   @override
   List<Widget> buildProperties(BuildContext context) {
@@ -9,17 +13,47 @@ class ElementSelection<T extends PadElement> extends Selection<T> {
   }
 
   @override
-  void update(BuildContext context, List<T> selected) {
-    final updatedElements = Map<T, T>.fromIterables(this.selected, selected);
+  void update(BuildContext context, List<Renderer<T>> selected) {
+    final updatedElements =
+        Map<T, T>.fromIterables(elements, selected.map((e) => e.element));
     context.read<DocumentBloc>().add(ElementsChanged(updatedElements));
     super.update(context, selected);
   }
 
+  List<T> get elements => selected.map((e) => e.element).toList();
+
   @override
   bool get showDeleteButton => true;
 
+  Future<void> updateElements(BuildContext context, List<T> elements) async {
+    final state = context.read<DocumentBloc>().state;
+    if (state is! DocumentLoadSuccess) return;
+    final document = state.document;
+    final renderers = await Future.wait(elements.map((e) async {
+      final renderer = Renderer.fromInstance(e);
+      await renderer.setup(document);
+      return renderer;
+    }).toList());
+    // ignore: use_build_context_synchronously
+    update(context, renderers);
+  }
+
+  @override
+  List<Rect> get rects =>
+      selected.map((e) => e.rect).whereType<Rect>().toList();
+
   @override
   void onDelete(BuildContext context) {
-    context.read<DocumentBloc>().add(ElementsRemoved(selected));
+    context
+        .read<DocumentBloc>()
+        .add(ElementsRemoved(selected.map((e) => e.element).toList()));
+  }
+
+  @override
+  Selection? insert(dynamic element) {
+    if (element is Renderer<PadElement>) {
+      super.insert(element);
+    }
+    return Selection.from(element);
   }
 }

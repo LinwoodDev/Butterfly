@@ -45,8 +45,6 @@ abstract class Handler<T> {
   List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
       [];
 
-  List<Rect> createSelections(AppDocument document, [Area? currentArea]) => [];
-
   Future<bool> onRendererUpdated(
           AppDocument appDocument, Renderer old, Renderer updated) async =>
       false;

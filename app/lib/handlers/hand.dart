@@ -33,7 +33,6 @@ class HandHandler extends Handler<HandProperty> {
     return [];
   }
 
-  @override
   List<Rect> createSelections(AppDocument document, [Area? currentArea]) {
     final rect = selected?.rect;
     return rect == null ? [] : [rect];

@@ -22,7 +22,6 @@ ExportPreset _$ExportPresetFromJson(Map<String, dynamic> json) {
 mixin _$ExportPreset {
   String get name => throw _privateConstructorUsedError;
   List<AreaPreset> get areas => throw _privateConstructorUsedError;
-  double get quality => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +34,7 @@ abstract class $ExportPresetCopyWith<$Res> {
   factory $ExportPresetCopyWith(
           ExportPreset value, $Res Function(ExportPreset) then) =
       _$ExportPresetCopyWithImpl<$Res>;
-  $Res call({String name, List<AreaPreset> areas, double quality});
+  $Res call({String name, List<AreaPreset> areas});
 }
 
 /// @nodoc
@@ -50,7 +49,6 @@ class _$ExportPresetCopyWithImpl<$Res> implements $ExportPresetCopyWith<$Res> {
   $Res call({
     Object? name = freezed,
     Object? areas = freezed,
-    Object? quality = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -61,10 +59,6 @@ class _$ExportPresetCopyWithImpl<$Res> implements $ExportPresetCopyWith<$Res> {
           ? _value.areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<AreaPreset>,
-      quality: quality == freezed
-          ? _value.quality
-          : quality // ignore: cast_nullable_to_non_nullable
-              as double,
     ));
   }
 }
@@ -76,7 +70,7 @@ abstract class _$$_ExportPresetCopyWith<$Res>
           _$_ExportPreset value, $Res Function(_$_ExportPreset) then) =
       __$$_ExportPresetCopyWithImpl<$Res>;
   @override
-  $Res call({String name, List<AreaPreset> areas, double quality});
+  $Res call({String name, List<AreaPreset> areas});
 }
 
 /// @nodoc
@@ -94,7 +88,6 @@ class __$$_ExportPresetCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? areas = freezed,
-    Object? quality = freezed,
   }) {
     return _then(_$_ExportPreset(
       name: name == freezed
@@ -105,10 +98,6 @@ class __$$_ExportPresetCopyWithImpl<$Res>
           ? _value._areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<AreaPreset>,
-      quality: quality == freezed
-          ? _value.quality
-          : quality // ignore: cast_nullable_to_non_nullable
-              as double,
     ));
   }
 }
@@ -117,9 +106,7 @@ class __$$_ExportPresetCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ExportPreset implements _ExportPreset {
   const _$_ExportPreset(
-      {this.name = '',
-      final List<AreaPreset> areas = const [],
-      this.quality = 1})
+      {this.name = '', final List<AreaPreset> areas = const []})
       : _areas = areas;
 
   factory _$_ExportPreset.fromJson(Map<String, dynamic> json) =>
@@ -137,12 +124,8 @@ class _$_ExportPreset implements _ExportPreset {
   }
 
   @override
-  @JsonKey()
-  final double quality;
-
-  @override
   String toString() {
-    return 'ExportPreset(name: $name, areas: $areas, quality: $quality)';
+    return 'ExportPreset(name: $name, areas: $areas)';
   }
 
   @override
@@ -151,8 +134,7 @@ class _$_ExportPreset implements _ExportPreset {
         (other.runtimeType == runtimeType &&
             other is _$_ExportPreset &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other._areas, _areas) &&
-            const DeepCollectionEquality().equals(other.quality, quality));
+            const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
   @JsonKey(ignore: true)
@@ -160,8 +142,7 @@ class _$_ExportPreset implements _ExportPreset {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(_areas),
-      const DeepCollectionEquality().hash(quality));
+      const DeepCollectionEquality().hash(_areas));
 
   @JsonKey(ignore: true)
   @override
@@ -178,9 +159,7 @@ class _$_ExportPreset implements _ExportPreset {
 
 abstract class _ExportPreset implements ExportPreset {
   const factory _ExportPreset(
-      {final String name,
-      final List<AreaPreset> areas,
-      final double quality}) = _$_ExportPreset;
+      {final String name, final List<AreaPreset> areas}) = _$_ExportPreset;
 
   factory _ExportPreset.fromJson(Map<String, dynamic> json) =
       _$_ExportPreset.fromJson;
@@ -189,8 +168,6 @@ abstract class _ExportPreset implements ExportPreset {
   String get name;
   @override
   List<AreaPreset> get areas;
-  @override
-  double get quality;
   @override
   @JsonKey(ignore: true)
   _$$_ExportPresetCopyWith<_$_ExportPreset> get copyWith =>

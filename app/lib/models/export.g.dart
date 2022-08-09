@@ -13,14 +13,12 @@ _$_ExportPreset _$$_ExportPresetFromJson(Map json) => _$_ExportPreset(
                   AreaPreset.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
-      quality: (json['quality'] as num?)?.toDouble() ?? 1,
     );
 
 Map<String, dynamic> _$$_ExportPresetToJson(_$_ExportPreset instance) =>
     <String, dynamic>{
       'name': instance.name,
       'areas': instance.areas.map((e) => e.toJson()).toList(),
-      'quality': instance.quality,
     };
 
 _$_AreaPreset _$$_AreaPresetFromJson(Map json) => _$_AreaPreset(

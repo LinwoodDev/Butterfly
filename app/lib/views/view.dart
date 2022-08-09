@@ -218,7 +218,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             cubit.foregrounds,
                             state.document,
                             transform,
-                            cubit.selections,
+                            cubit.state.selection?.rects ?? [],
                           ),
                           painter: ViewPainter(state.document,
                               cameraViewport: currentIndex.cameraViewport,

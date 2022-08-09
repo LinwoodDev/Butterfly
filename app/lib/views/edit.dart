@@ -1,12 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/hand.dart';
-import 'package:butterfly/dialogs/painters/eraser.dart';
-import 'package:butterfly/dialogs/painters/label.dart';
-import 'package:butterfly/dialogs/painters/laser.dart';
-import 'package:butterfly/dialogs/painters/layer.dart';
-import 'package:butterfly/dialogs/painters/path_eraser.dart';
-import 'package:butterfly/dialogs/painters/pen.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/widgets/option_button.dart';
@@ -14,9 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../dialogs/painters/area.dart';
-import '../dialogs/painters/shape.dart';
 
 class EditToolbar extends StatelessWidget {
   final bool isMobile;
@@ -105,67 +96,15 @@ class EditToolbar extends StatelessWidget {
                                   if (tooltip.isEmpty) {
                                     tooltip = e.getLocalizedName(context);
                                   }
-                                  void openDialog() {
-                                    var bloc = context.read<DocumentBloc>();
-                                    showGeneralDialog(
-                                        context: context,
-                                        transitionBuilder:
-                                            (context, a1, a2, widget) {
-                                          // Slide transition
-                                          return SlideTransition(
-                                            position: Tween<Offset>(
-                                                    begin: const Offset(0, -1),
-                                                    end: Offset.zero)
-                                                .animate(a1),
-                                            child: widget,
-                                          );
-                                        },
-                                        barrierDismissible: true,
-                                        barrierLabel:
-                                            AppLocalizations.of(context)!.close,
-                                        pageBuilder: (context, animation,
-                                                secondaryAnimation) =>
-                                            BlocProvider.value(
-                                                value: bloc,
-                                                child:
-                                                    Builder(builder: (context) {
-                                                  switch (type) {
-                                                    case 'pen':
-                                                      return PenPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'shape':
-                                                      return ShapePainterDialog(
-                                                          painterIndex: i);
-                                                    case 'eraser':
-                                                      return EraserPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'pathEraser':
-                                                      return PathEraserPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'label':
-                                                      return LabelPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'layer':
-                                                      return LayerPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'area':
-                                                      return AreaPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'laser':
-                                                      return LaserPainterDialog(
-                                                          painterIndex: i);
-                                                    default:
-                                                      return Container();
-                                                  }
-                                                })));
-                                  }
 
                                   Widget toolWidget = Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 4.0),
                                       child: OptionButton(
                                           tooltip: tooltip,
-                                          onLongPressed: openDialog,
+                                          onLongPressed: () => context
+                                              .read<CurrentIndexCubit>()
+                                              .insertSelection(e),
                                           selected: selected,
                                           selectedIcon:
                                               Icon(e.getIcon(filled: true)),
@@ -177,7 +116,9 @@ class EditToolbar extends StatelessWidget {
                                                   .changePainter(state.document,
                                                       state.currentArea, i);
                                             } else {
-                                              openDialog();
+                                              context
+                                                  .read<CurrentIndexCubit>()
+                                                  .changeSelection(e);
                                             }
                                           }));
                                   return ReorderableDragStartListener(
