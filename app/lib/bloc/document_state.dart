@@ -124,6 +124,8 @@ class DocumentLoadSuccess extends DocumentState {
           {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
       currentIndexCubit.bake(document,
           viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
+
+  Painter get painter => currentIndexCubit.state.handler.data;
 }
 
 class DocumentLoadFailure extends DocumentState {}

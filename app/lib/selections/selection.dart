@@ -1,4 +1,6 @@
+import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/element.dart';
 import '../models/painter.dart';
@@ -12,6 +14,13 @@ abstract class Selection<T> {
   Selection(this.selected);
 
   List<Widget> buildProperties(BuildContext context);
+
+  @mustCallSuper
+  void update(BuildContext context, List<T> selected) {
+    this.selected.clear();
+    this.selected.addAll(selected);
+  }
+
   bool get showDeleteButton => false;
-  void onDelete(BuildContext context);
+  void onDelete(BuildContext context) {}
 }

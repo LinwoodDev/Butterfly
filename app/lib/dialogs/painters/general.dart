@@ -31,7 +31,7 @@ class GeneralPainterDialog<T extends Painter> extends StatefulWidget {
 
 class _GeneralPainterDialogState<T extends Painter>
     extends State<GeneralPainterDialog<T>> {
-  late T painter;
+  late T old, painter;
 
   @override
   void initState() {
@@ -39,6 +39,7 @@ class _GeneralPainterDialogState<T extends Painter>
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     painter = state.document.painters[widget.index] as T;
+    old = painter;
     super.initState();
   }
 
@@ -101,7 +102,7 @@ class _GeneralPainterDialogState<T extends Painter>
                             Navigator.of(context).pop();
                             context
                                 .read<DocumentBloc>()
-                                .add(PainterRemoved(widget.index));
+                                .add(PaintersRemoved([old]));
                           },
                         ),
                         Wrap(children: [
@@ -114,7 +115,7 @@ class _GeneralPainterDialogState<T extends Painter>
                             onPressed: () {
                               context
                                   .read<DocumentBloc>()
-                                  .add(PainterChanged(painter, widget.index));
+                                  .add(PaintersChanged({old: painter}));
                               Navigator.of(context).pop();
                             },
                           ),

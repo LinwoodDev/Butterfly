@@ -61,8 +61,8 @@ class _GeneralElementDialogState<T extends PadElement>
           : widget.builder!(
               context,
               renderer,
-              (current) => bloc.add(ElementChanged(
-                  state.document.content[widget.index], current)));
+              (current) => bloc.add(ElementsChanged(
+                  {state.document.content[widget.index]: current})));
       return Column(mainAxisSize: MainAxisSize.min, children: [
         _GeneralElementDialogHeader(
             close: widget.close, renderer: renderer, position: widget.position),
@@ -105,10 +105,10 @@ class _GeneralElementDialogState<T extends PadElement>
                                           ..add(textEditingValue.text);
                                       },
                                       onSelected: (value) {
-                                        bloc.add(ElementChanged(
-                                            renderer.element,
-                                            renderer.element
-                                                .copyWith(layer: value)));
+                                        bloc.add(ElementsChanged({
+                                          renderer.element: renderer.element
+                                              .copyWith(layer: value)
+                                        }));
                                         Navigator.of(context).pop();
                                       },
                                       fieldViewBuilder: (BuildContext context,
@@ -165,9 +165,9 @@ class _GeneralElementDialogState<T extends PadElement>
                       title: Text(renderer.element.layer),
                       trailing: IconButton(
                         icon: const Icon(PhosphorIcons.trashLight),
-                        onPressed: () => bloc.add(ElementChanged(
-                            renderer.element,
-                            renderer.element.copyWith(layer: ''))),
+                        onPressed: () => bloc.add(ElementsChanged({
+                          renderer.element: renderer.element.copyWith(layer: '')
+                        })),
                       ),
                       onTap: () {
                         widget.close();

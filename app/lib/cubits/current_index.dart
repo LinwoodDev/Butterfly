@@ -398,4 +398,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     return document;
   }
+
+  void updateIndex(AppDocument document) {
+    final index = document.painters.indexOf(state.handler.data);
+    if (index < 0) {
+      reset(document);
+      return;
+    }
+    if (index == state.index) {
+      return;
+    }
+    changeIndex(index);
+  }
 }
