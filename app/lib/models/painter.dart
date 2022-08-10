@@ -44,51 +44,51 @@ extension RatioPresetExtension on AspectRatioPreset {
   }
 }
 
-@freezed
+@Freezed(equal: false)
 class Painter with _$Painter {
-  const factory Painter.label({
+  factory Painter.label({
     @Default('') String name,
     @Default(LabelProperty()) LabelProperty property,
   }) = LabelPainter;
 
-  const factory Painter.pen({
+  factory Painter.pen({
     @Default('') String name,
     @Default(false) bool zoomDependent,
     @Default(PenProperty()) PenProperty property,
   }) = PenPainter;
 
-  const factory Painter.eraser({
+  factory Painter.eraser({
     @Default('') String name,
     @Default(EraserProperty()) EraserProperty property,
   }) = EraserPainter;
 
-  const factory Painter.pathEraser(
+  factory Painter.pathEraser(
       {@Default('') String name,
       @Default(5) double strokeWidth,
       @Default(false) bool includeEraser,
       @Default(false) bool deleteWholeStroke}) = PathEraserPainter;
 
-  const factory Painter.layer(
+  factory Painter.layer(
       {@Default('') String name,
       @Default(5) double strokeWidth,
       @Default('') String layer,
       @Default(false) bool includeEraser}) = LayerPainter;
 
-  const factory Painter.area({
+  factory Painter.area({
     @Default('') String name,
     @Default(0) double constrainedWidth,
     @Default(0) double constrainedHeight,
     @Default(0) double constrainedAspectRatio,
   }) = AreaPainter;
 
-  const factory Painter.laser(
+  factory Painter.laser(
       {@Default('') String name,
       @Default(5) double duration,
       @Default(5) double strokeWidth,
       @Default(10) double strokeMultiplier,
       @Default(kColorRed) int color}) = LaserPainter;
 
-  const factory Painter.shape({
+  factory Painter.shape({
     @Default('') String name,
     @Default(false) bool zoomDependent,
     @Default(0) double constrainedWidth,

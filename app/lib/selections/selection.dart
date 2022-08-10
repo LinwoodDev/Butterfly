@@ -41,10 +41,9 @@ abstract class Selection<T> {
 
   bool get showDeleteButton => false;
   void onDelete(BuildContext context) {}
-  Selection? insert(dynamic element) {
+  Selection insert(dynamic element) {
     if (element is T) {
-      selected.add(element);
-      return null;
+      return Selection.from([...selected, element]);
     }
     return Selection.from(element);
   }

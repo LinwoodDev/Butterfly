@@ -36,10 +36,10 @@ class DocumentTemplate with _$DocumentTemplate {
                 name: AppLocalizations.of(context)!.plainDark,
                 createdAt: DateTime.now(),
                 painters: [
-                  const PenPainter(property: PenProperty(color: kColorWhite)),
-                  const PathEraserPainter(),
-                  const LabelPainter(
-                      property: LabelProperty(color: kColorWhite)),
+                  PenPainter(property: const PenProperty(color: kColorWhite)),
+                  PathEraserPainter(),
+                  LabelPainter(
+                      property: const LabelProperty(color: kColorWhite)),
                 ],
                 palettes: ColorPalette.getMaterialPalette(context),
                 background: BackgroundTemplate.plainDark.create()))

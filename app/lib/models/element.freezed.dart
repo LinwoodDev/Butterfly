@@ -1120,24 +1120,6 @@ class _$PenElement implements PenElement {
     return 'PadElement.pen(layer: $layer, points: $points, property: $property)';
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PenElement &&
-            const DeepCollectionEquality().equals(other.layer, layer) &&
-            const DeepCollectionEquality().equals(other._points, _points) &&
-            const DeepCollectionEquality().equals(other.property, property));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(layer),
-      const DeepCollectionEquality().hash(_points),
-      const DeepCollectionEquality().hash(property));
-
   @JsonKey(ignore: true)
   @override
   _$$PenElementCopyWith<_$PenElement> get copyWith =>
@@ -1414,24 +1396,6 @@ class _$EraserElement implements EraserElement {
   String toString() {
     return 'PadElement.eraser(layer: $layer, points: $points, property: $property)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$EraserElement &&
-            const DeepCollectionEquality().equals(other.layer, layer) &&
-            const DeepCollectionEquality().equals(other._points, _points) &&
-            const DeepCollectionEquality().equals(other.property, property));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(layer),
-      const DeepCollectionEquality().hash(_points),
-      const DeepCollectionEquality().hash(property));
 
   @JsonKey(ignore: true)
   @override
@@ -1736,29 +1700,6 @@ class _$LabelElement implements LabelElement {
   String toString() {
     return 'PadElement.label(layer: $layer, position: $position, text: $text, property: $property, constraint: $constraint)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LabelElement &&
-            const DeepCollectionEquality().equals(other.layer, layer) &&
-            const DeepCollectionEquality().equals(other.position, position) &&
-            const DeepCollectionEquality().equals(other.text, text) &&
-            const DeepCollectionEquality().equals(other.property, property) &&
-            const DeepCollectionEquality()
-                .equals(other.constraint, constraint));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(layer),
-      const DeepCollectionEquality().hash(position),
-      const DeepCollectionEquality().hash(text),
-      const DeepCollectionEquality().hash(property),
-      const DeepCollectionEquality().hash(constraint));
 
   @JsonKey(ignore: true)
   @override
@@ -2080,31 +2021,6 @@ class _$ImageElement implements ImageElement {
   String toString() {
     return 'PadElement.image(layer: $layer, position: $position, constraints: $constraints, pixels: $pixels, width: $width, height: $height)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ImageElement &&
-            const DeepCollectionEquality().equals(other.layer, layer) &&
-            const DeepCollectionEquality().equals(other.position, position) &&
-            const DeepCollectionEquality()
-                .equals(other.constraints, constraints) &&
-            const DeepCollectionEquality().equals(other.pixels, pixels) &&
-            const DeepCollectionEquality().equals(other.width, width) &&
-            const DeepCollectionEquality().equals(other.height, height));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(layer),
-      const DeepCollectionEquality().hash(position),
-      const DeepCollectionEquality().hash(constraints),
-      const DeepCollectionEquality().hash(pixels),
-      const DeepCollectionEquality().hash(width),
-      const DeepCollectionEquality().hash(height));
 
   @JsonKey(ignore: true)
   @override
@@ -2429,31 +2345,6 @@ class _$SvgElement implements SvgElement {
     return 'PadElement.svg(layer: $layer, position: $position, constraints: $constraints, data: $data, width: $width, height: $height)';
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SvgElement &&
-            const DeepCollectionEquality().equals(other.layer, layer) &&
-            const DeepCollectionEquality().equals(other.position, position) &&
-            const DeepCollectionEquality()
-                .equals(other.constraints, constraints) &&
-            const DeepCollectionEquality().equals(other.data, data) &&
-            const DeepCollectionEquality().equals(other.width, width) &&
-            const DeepCollectionEquality().equals(other.height, height));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(layer),
-      const DeepCollectionEquality().hash(position),
-      const DeepCollectionEquality().hash(constraints),
-      const DeepCollectionEquality().hash(data),
-      const DeepCollectionEquality().hash(width),
-      const DeepCollectionEquality().hash(height));
-
   @JsonKey(ignore: true)
   @override
   _$$SvgElementCopyWith<_$SvgElement> get copyWith =>
@@ -2746,28 +2637,6 @@ class _$ShapeElement implements ShapeElement {
   String toString() {
     return 'PadElement.shape(layer: $layer, firstPosition: $firstPosition, secondPosition: $secondPosition, property: $property)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ShapeElement &&
-            const DeepCollectionEquality().equals(other.layer, layer) &&
-            const DeepCollectionEquality()
-                .equals(other.firstPosition, firstPosition) &&
-            const DeepCollectionEquality()
-                .equals(other.secondPosition, secondPosition) &&
-            const DeepCollectionEquality().equals(other.property, property));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(layer),
-      const DeepCollectionEquality().hash(firstPosition),
-      const DeepCollectionEquality().hash(secondPosition),
-      const DeepCollectionEquality().hash(property));
 
   @JsonKey(ignore: true)
   @override

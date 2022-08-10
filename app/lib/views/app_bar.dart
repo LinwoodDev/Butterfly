@@ -181,7 +181,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                               ),
                             const SizedBox(width: 8),
                             if (!isMobile)
-                              Flexible(
+                              const Flexible(
                                   child: EditToolbar(
                                 isMobile: false,
                               )),

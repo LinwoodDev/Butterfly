@@ -50,9 +50,9 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   }
 
   @override
-  Selection? insert(dynamic element) {
+  Selection insert(dynamic element) {
     if (element is Renderer<PadElement>) {
-      super.insert(element);
+      return ElementSelection<PadElement>.from(element) as Selection<T>;
     }
     return Selection.from(element);
   }

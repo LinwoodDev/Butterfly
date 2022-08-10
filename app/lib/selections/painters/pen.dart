@@ -52,9 +52,9 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
   }
 
   @override
-  Selection? insert(dynamic element) {
-    if (element is Painter && element is! PenPainter) {
-      return PainterSelection([...selected, element]);
+  Selection insert(dynamic element) {
+    if (element is PenPainter) {
+      return PenPainterSelection([...selected, element]);
     }
     return super.insert(element);
   }

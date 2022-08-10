@@ -40,4 +40,12 @@ class PainterSelection<T extends Painter> extends Selection<T> {
   void onDelete(BuildContext context) {
     context.read<DocumentBloc>().add(PaintersRemoved(selected));
   }
+
+  @override
+  Selection insert(element) {
+    if (element is Painter) {
+      return PainterSelection([...selected, element]);
+    }
+    return super.insert(element);
+  }
 }

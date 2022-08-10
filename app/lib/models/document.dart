@@ -104,30 +104,17 @@ class AppDocument with _$AppDocument {
 
   const factory AppDocument(
       {required String name,
-      @Default('')
-          String description,
-      @Default([])
-          List<PadElement> content,
-      @Default(Background.empty())
-          Background background,
-      @Default([])
-          List<ColorPalette> palettes,
-      @Default([])
-          List<Waypoint> waypoints,
-      @Default([])
-          List<Area> areas,
-      @Default([])
-          List<ExportPreset> exportPresets,
+      @Default('') String description,
+      @Default([]) List<PadElement> content,
+      @Default(Background.empty()) Background background,
+      @Default([]) List<ColorPalette> palettes,
+      @Default([]) List<Waypoint> waypoints,
+      @Default([]) List<Area> areas,
+      @Default([]) List<ExportPreset> exportPresets,
       required DateTime createdAt,
-      @Default(HandProperty())
-          HandProperty handProperty,
+      @Default(HandProperty()) HandProperty handProperty,
       DateTime? updatedAt,
-      @Default([
-        PenPainter(),
-        PathEraserPainter(),
-        LabelPainter(),
-      ])
-          List<Painter> painters}) = _AppDocument;
+      @Default([]) List<Painter> painters}) = _AppDocument;
 
   factory AppDocument.fromJson(Map<String, dynamic> json) =>
       _$AppDocumentFromJson(json);

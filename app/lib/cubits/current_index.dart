@@ -422,4 +422,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void changeSelection(dynamic selected) {
     emit(state.copyWith(selection: Selection.from(selected)));
   }
+
+  void resetSelection() {
+    emit(state.copyWith(selection: null));
+  }
 }

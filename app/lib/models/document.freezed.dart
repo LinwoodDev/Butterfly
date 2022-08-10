@@ -417,11 +417,7 @@ class _$_AppDocument extends _AppDocument {
       required this.createdAt,
       this.handProperty = const HandProperty(),
       this.updatedAt,
-      final List<Painter> painters = const [
-        PenPainter(),
-        PathEraserPainter(),
-        LabelPainter()
-      ]})
+      final List<Painter> painters = const []})
       : _content = content,
         _palettes = palettes,
         _waypoints = waypoints,

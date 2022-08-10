@@ -5,15 +5,47 @@ import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/widgets/option_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class EditToolbar extends StatelessWidget {
+class EditToolbar extends StatefulWidget {
   final bool isMobile;
+
+  const EditToolbar({super.key, required this.isMobile});
+
+  @override
+  State<EditToolbar> createState() => _EditToolbarState();
+}
+
+enum _MouseState { normal, multi }
+
+class _EditToolbarState extends State<EditToolbar> {
   final ScrollController _scrollController = ScrollController();
 
-  EditToolbar({super.key, required this.isMobile});
+  _MouseState _mouseState = _MouseState.normal;
+
+  @override
+  void initState() {
+    super.initState();
+
+    RawKeyboard.instance.addListener(_handleKey);
+  }
+
+  @override
+  void dispose() {
+    RawKeyboard.instance.removeListener(_handleKey);
+    super.dispose();
+  }
+
+  void _handleKey(RawKeyEvent event) {
+    if (event.data.isControlPressed) {
+      _mouseState = _MouseState.multi;
+    } else {
+      _mouseState = _MouseState.normal;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +81,9 @@ class EditToolbar extends StatelessWidget {
                 builder: (context, currentIndex) => Material(
                   color: Colors.transparent,
                   child: Align(
-                    alignment:
-                        isMobile ? Alignment.center : Alignment.centerRight,
+                    alignment: widget.isMobile
+                        ? Alignment.center
+                        : Alignment.centerRight,
                     child: ListView(
                         controller: _scrollController,
                         scrollDirection: Axis.horizontal,
@@ -87,11 +120,15 @@ class EditToolbar extends StatelessWidget {
                                 itemCount: painters.length,
                                 itemBuilder: (context, i) {
                                   var e = painters[i];
-                                  final type = e.toJson()['type'];
                                   final selected = i ==
                                       context
                                           .read<CurrentIndexCubit>()
                                           .getIndex();
+                                  final highlighted = currentIndex
+                                          .selection?.selected
+                                          .any((element) =>
+                                              element.hashCode == e.hashCode) ??
+                                      false;
                                   String tooltip = e.name.trim();
                                   if (tooltip.isEmpty) {
                                     tooltip = e.getLocalizedName(context);
@@ -106,6 +143,7 @@ class EditToolbar extends StatelessWidget {
                                               .read<CurrentIndexCubit>()
                                               .insertSelection(e),
                                           selected: selected,
+                                          highlighted: highlighted,
                                           selectedIcon:
                                               Icon(e.getIcon(filled: true)),
                                           icon: Icon(e.getIcon(filled: false)),
@@ -115,6 +153,9 @@ class EditToolbar extends StatelessWidget {
                                                   .read<CurrentIndexCubit>()
                                                   .changePainter(state.document,
                                                       state.currentArea, i);
+                                              context
+                                                  .read<CurrentIndexCubit>()
+                                                  .resetSelection();
                                             } else {
                                               context
                                                   .read<CurrentIndexCubit>()
@@ -122,7 +163,7 @@ class EditToolbar extends StatelessWidget {
                                             }
                                           }));
                                   return ReorderableDragStartListener(
-                                      key: ObjectKey(e),
+                                      key: ObjectKey(i),
                                       index: i,
                                       child: toolWidget);
                                 },

@@ -45,8 +45,7 @@ abstract class PathElement {
   PathProperty get property;
 }
 
-@freezed
-@immutable
+@Freezed(equal: false)
 class PadElement with _$PadElement {
   @Implements<PathElement>()
   const factory PadElement.pen(
