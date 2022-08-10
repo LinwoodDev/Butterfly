@@ -370,5 +370,7 @@
   "search": "Search",
   "property": "Property",
   "pin": "Pin",
-  "unpin": "Unpin"
+  "unpin": "Unpin",
+  "element": "Element",
+  "painter": "Painter"
 }

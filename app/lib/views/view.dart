@@ -25,6 +25,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
   _MouseState _mouseState = _MouseState.normal;
+  bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
 
   @override
   void initState() {
@@ -47,6 +48,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
     } else {
       _mouseState = _MouseState.normal;
     }
+
+    _isShiftPressed = event.data.isShiftPressed;
+    _isAltPressed = event.data.isAltPressed;
+    _isCtrlPressed = event.data.isControlPressed;
   }
 
   @override
@@ -92,19 +97,22 @@ class _MainViewViewportState extends State<MainViewViewport> {
         var openView = false;
         final CurrentIndexCubit cubit = context.read<CurrentIndexCubit>();
 
+        EventContext getEventContext() => EventContext(
+            context,
+            constraints.biggest,
+            _isShiftPressed,
+            _isAltPressed,
+            _isCtrlPressed);
+
         return GestureDetector(
             onTapUp: (details) {
-              cubit.getHandler().onTapUp(constraints.biggest, context, details);
+              cubit.getHandler().onTapUp(details, getEventContext());
             },
             onTapDown: (details) {
-              cubit
-                  .getHandler()
-                  .onTapDown(constraints.biggest, context, details);
+              cubit.getHandler().onTapDown(details, getEventContext());
             },
             onSecondaryTapUp: (details) {
-              cubit
-                  .getHandler()
-                  .onSecondaryTapUp(constraints.biggest, context, details);
+              cubit.getHandler().onSecondaryTapUp(details, getEventContext());
             },
             onScaleUpdate: (details) {
               if (details.scale == 1) return;
@@ -124,9 +132,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
               size = details.scale;
             },
             onLongPressEnd: (details) {
-              cubit
-                  .getHandler()
-                  .onLongPressEnd(constraints.biggest, context, details);
+              cubit.getHandler().onLongPressEnd(details, getEventContext());
             },
             onScaleEnd: (details) {
               final currentIndex = context.read<CurrentIndexCubit>();
@@ -175,23 +181,17 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     cubit.changeTemporaryHandlerSecondary(
                         document, currentArea);
                   }
-                  cubit
-                      .getHandler()
-                      .onPointerDown(constraints.biggest, context, event);
+                  cubit.getHandler().onPointerDown(event, getEventContext());
                 },
                 onPointerUp: (PointerUpEvent event) async {
                   cubit.removePointer(event.pointer);
-                  cubit
-                      .getHandler()
-                      .onPointerUp(constraints.biggest, context, event);
+                  cubit.getHandler().onPointerUp(event, getEventContext());
                   cubit.resetTemporaryHandler(
                       state.document, state.currentArea);
                 },
                 behavior: HitTestBehavior.translucent,
                 onPointerHover: (event) {
-                  cubit
-                      .getHandler()
-                      .onPointerHover(constraints.biggest, context, event);
+                  cubit.getHandler().onPointerHover(event, getEventContext());
                 },
                 onPointerMove: (PointerMoveEvent event) async {
                   if (cubit.state.moveEnabled &&
@@ -203,9 +203,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                     }
                     return;
                   }
-                  cubit
-                      .getHandler()
-                      .onPointerMove(constraints.biggest, context, event);
+                  cubit.getHandler().onPointerMove(event, getEventContext());
                 },
                 child: BlocBuilder<TransformCubit, CameraTransform>(
                   builder: (context, transform) {

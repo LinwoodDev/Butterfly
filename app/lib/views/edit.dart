@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../selections/selection.dart';
+
 class EditToolbar extends StatefulWidget {
   final bool isMobile;
 
@@ -94,6 +96,9 @@ class _EditToolbarState extends State<EditToolbar> {
                             selected:
                                 context.read<CurrentIndexCubit>().getIndex() <
                                     0,
+                            highlighted: currentIndex.selection?.selected
+                                    .contains(kHand) ??
+                                false,
                             icon: const Icon(PhosphorIcons.handLight),
                             selectedIcon: const Icon(PhosphorIcons.handFill),
                             onLongPressed: openHandDialog,
@@ -102,7 +107,9 @@ class _EditToolbarState extends State<EditToolbar> {
                                       .read<CurrentIndexCubit>()
                                       .getPainter(state.document) ==
                                   null) {
-                                openHandDialog();
+                                context
+                                    .read<CurrentIndexCubit>()
+                                    .changeSelection(kHand);
                               } else {
                                 context
                                     .read<CurrentIndexCubit>()
@@ -148,7 +155,12 @@ class _EditToolbarState extends State<EditToolbar> {
                                               Icon(e.getIcon(filled: true)),
                                           icon: Icon(e.getIcon(filled: false)),
                                           onPressed: () {
-                                            if (!selected) {
+                                            if (_mouseState ==
+                                                _MouseState.multi) {
+                                              context
+                                                  .read<CurrentIndexCubit>()
+                                                  .insertSelection(e);
+                                            } else if (!selected) {
                                               context
                                                   .read<CurrentIndexCubit>()
                                                   .changePainter(state.document,

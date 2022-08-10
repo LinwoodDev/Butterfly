@@ -62,37 +62,35 @@ class HandHandler extends Handler<HandProperty> {
   int? _firstPointer;
 
   @override
-  Future<void> onPointerUp(
-      Size viewportSize, BuildContext context, PointerUpEvent event) async {
-    final transform = context.read<TransformCubit>().state;
+  Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
+    final transform = context.getCameraTransform();
     _firstPointer = null;
     if (movingElement != null) {
-      submitMove(context,
+      submitMove(context.buildContext,
           movingElement?.move(transform.localToGlobal(event.localPosition)));
       return;
     }
-    final bloc = context.read<DocumentBloc>();
-    final state = bloc.state as DocumentLoadSuccess;
+    final state = context.getState();
+    if (state == null) return;
     final hand = state.document.handProperty;
     if (openView) {
-      final settings = context.read<SettingsCubit>().state;
+      final settings = context.getSettings();
       final radius = settings.selectSensitivity / transform.size;
-      final hits = await rayCast(
-          context, event.localPosition, radius, hand.includeEraser);
+      final hits = await rayCast(context.buildContext, event.localPosition,
+          radius, hand.includeEraser);
       if (selected != null) return;
       if (hits.isEmpty || !(state.embedding?.editable ?? true)) {
         showContextMenu(
-            context: context,
+            context: context.buildContext,
             position: event.position,
             builder: (ctx, close) => MultiBlocProvider(
                   providers: [
-                    BlocProvider.value(value: context.read<DocumentBloc>()),
-                    BlocProvider.value(value: context.read<TransformCubit>()),
-                    BlocProvider.value(
-                        value: context.read<CurrentIndexCubit>()),
+                    BlocProvider.value(value: context.getDocumentBloc()),
+                    BlocProvider.value(value: context.getTransformCubit()),
+                    BlocProvider.value(value: context.getCurrentIndexCubit()),
                   ],
                   child: Actions(
-                      actions: context
+                      actions: context.buildContext
                               .findAncestorWidgetOfExactType<Actions>()
                               ?.actions ??
                           {},
@@ -101,20 +99,20 @@ class HandHandler extends Handler<HandProperty> {
                 ));
       } else {
         selected = hits.first;
-        bloc.refresh();
+        context.refresh();
         // ignore: use_build_context_synchronously
         await showContextMenu(
-            context: context,
+            context: context.buildContext,
             position: event.position,
             builder: (_, close) {
               return MultiBlocProvider(
                 providers: [
-                  BlocProvider.value(value: bloc),
-                  BlocProvider.value(value: context.read<TransformCubit>()),
-                  BlocProvider.value(value: context.read<CurrentIndexCubit>()),
+                  BlocProvider.value(value: context.getDocumentBloc()),
+                  BlocProvider.value(value: context.getTransformCubit()),
+                  BlocProvider.value(value: context.getCurrentIndexCubit()),
                 ],
                 child: Actions(
-                  actions: context
+                  actions: context.buildContext
                           .findAncestorWidgetOfExactType<Actions>()
                           ?.actions ??
                       {},
@@ -123,66 +121,59 @@ class HandHandler extends Handler<HandProperty> {
                       elements: hits.toList(),
                       onChanged: (element) {
                         selected = element;
-                        bloc.refresh();
+                        context.refresh();
                       },
                       position: event.position),
                 ),
               );
             });
         selected = null;
-        bloc.refresh();
+        context.refresh();
       }
     }
     if (_hasMoved) {
       _hasMoved = false;
-      bloc.bake();
+      context.bake();
     }
   }
 
   @override
-  void onPointerDown(
-      Size viewportSize, BuildContext context, PointerDownEvent event) {
-    final cubit = context.read<CurrentIndexCubit>();
+  void onPointerDown(PointerDownEvent event, EventContext context) {
+    final index = context.getCurrentIndex();
     openView = true;
     _firstPointer ??= event.pointer;
-    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+    if (index.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       openView = false;
     }
   }
 
   @override
-  void onPointerMove(
-      Size viewportSize, BuildContext context, PointerMoveEvent event) {
-    final cubit = context.read<CurrentIndexCubit>();
-    final bloc = context.read<DocumentBloc>();
-    final transform = context.read<TransformCubit>().state;
+  void onPointerMove(PointerMoveEvent event, EventContext context) {
+    final index = context.getCurrentIndex();
+    final transform = context.getCameraTransform();
     if (openView) {
       openView = (event.delta / transform.size) == Offset.zero;
     }
-    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+    if (index.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       openView = false;
     }
     if (movingElement != null) {
       currentMovePosition = transform.localToGlobal(event.localPosition);
-      bloc.refresh();
+      context.refresh();
       return;
     }
     if (_firstPointer == event.pointer) {
-      context.read<TransformCubit>().move(event.localDelta / transform.size);
+      context.getTransformCubit().move(event.localDelta / transform.size);
       _hasMoved = true;
     }
   }
 
   @override
-  void onPointerHover(
-      Size viewportSize, BuildContext context, PointerHoverEvent event) {
-    final bloc = context.read<DocumentBloc>();
+  void onPointerHover(PointerHoverEvent event, EventContext context) {
     if (movingElement != null) {
-      currentMovePosition = context
-          .read<TransformCubit>()
-          .state
-          .localToGlobal(event.localPosition);
-      bloc.refresh();
+      currentMovePosition =
+          context.getCameraTransform().localToGlobal(event.localPosition);
+      context.refresh();
     }
   }
 }

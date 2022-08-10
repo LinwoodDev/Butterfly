@@ -4,23 +4,23 @@ class LabelHandler extends Handler<LabelPainter> {
   LabelHandler(super.data);
 
   @override
-  Future<void> onTapUp(
-      Size viewportSize, BuildContext context, TapUpDetails details) async {
-    final bloc = context.read<DocumentBloc>();
-    final pixelRatio = MediaQuery.of(context).devicePixelRatio;
+  Future<void> onTapUp(TapUpDetails details, EventContext context) async {
+    final pixelRatio = context.devicePixelRatio;
     final newElement = await openDialog(context, details.localPosition);
     if (newElement != null) {
-      bloc.add(ElementsCreated([newElement]));
-      bloc.bake(viewportSize: viewportSize, pixelRatio: pixelRatio);
+      context.addDocumentEvent(ElementsCreated([newElement]));
+      context
+          .getDocumentBloc()
+          .bake(viewportSize: context.viewportSize, pixelRatio: pixelRatio);
     }
   }
 
   Future<LabelElement?> openDialog(
-      BuildContext context, Offset localPosition) async {
-    final bloc = context.read<DocumentBloc>();
-    final transform = context.read<TransformCubit>().state;
+      EventContext context, Offset localPosition) async {
+    final bloc = context.getDocumentBloc();
+    final transform = context.getCameraTransform();
     return await showDialog(
-        context: context,
+        context: context.buildContext,
         builder: (_) => BlocProvider.value(
             value: bloc,
             child: EditLabelElementDialog(

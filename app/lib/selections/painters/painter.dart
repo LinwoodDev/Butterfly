@@ -48,4 +48,8 @@ class PainterSelection<T extends Painter> extends Selection<T> {
     }
     return super.insert(element);
   }
+
+  @override
+  String getLocalizedName(BuildContext context) =>
+      AppLocalizations.of(context)!.painter;
 }

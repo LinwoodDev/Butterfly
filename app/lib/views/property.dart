@@ -62,11 +62,17 @@ class _PropertyViewState extends State<PropertyView> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Header(
-                          title: Text(AppLocalizations.of(context)!.property),
+                          title: Text(selection.getLocalizedName(context)),
                           actions: [
-                            IconButton(
-                                icon: const Icon(PhosphorIcons.trashLight),
-                                onPressed: () {}),
+                            if (selection.showDeleteButton)
+                              IconButton(
+                                  icon: const Icon(PhosphorIcons.trashLight),
+                                  onPressed: () {
+                                    selection.onDelete(context);
+                                    context
+                                        .read<CurrentIndexCubit>()
+                                        .resetSelection();
+                                  }),
                             const SizedBox(
                                 height: 16, child: VerticalDivider()),
                             if (!isMobile)
@@ -108,5 +114,7 @@ class _PropertyViewState extends State<PropertyView> {
     });
   }
 
-  void _closeView() {}
+  void _closeView() {
+    context.read<CurrentIndexCubit>().resetSelection();
+  }
 }

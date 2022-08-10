@@ -56,4 +56,8 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
     }
     return Selection.from(element);
   }
+
+  @override
+  String getLocalizedName(BuildContext context) =>
+      AppLocalizations.of(context)!.element;
 }

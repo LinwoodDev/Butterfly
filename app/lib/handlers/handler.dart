@@ -37,6 +37,49 @@ part 'path_eraser.dart';
 part 'pen.dart';
 part 'shape.dart';
 
+@immutable
+class EventContext {
+  final BuildContext buildContext;
+  final Size viewportSize;
+  final bool isShiftPressed, isAltPressed, isCtrlPressed;
+
+  const EventContext(this.buildContext, this.viewportSize, this.isShiftPressed,
+      this.isAltPressed, this.isCtrlPressed);
+
+  DocumentBloc getDocumentBloc() => BlocProvider.of<DocumentBloc>(buildContext);
+  DocumentLoadSuccess? getState() {
+    final state = getDocumentBloc().state;
+    if (state is! DocumentLoadSuccess) {
+      return null;
+    }
+    return state;
+  }
+
+  void addDocumentEvent(DocumentEvent event) => getDocumentBloc().add(event);
+  double get devicePixelRatio => MediaQuery.of(buildContext).devicePixelRatio;
+
+  TransformCubit getTransformCubit() =>
+      BlocProvider.of<TransformCubit>(buildContext);
+
+  CameraTransform getCameraTransform() => getTransformCubit().state;
+
+  CurrentIndexCubit getCurrentIndexCubit() =>
+      BlocProvider.of<CurrentIndexCubit>(buildContext);
+
+  CurrentIndex getCurrentIndex() => getCurrentIndexCubit().state;
+
+  void refresh() => getDocumentBloc().refresh();
+
+  SettingsCubit getSettingsCubit() =>
+      BlocProvider.of<SettingsCubit>(buildContext);
+  ButterflySettings getSettings() => getSettingsCubit().state;
+
+  Future<void> bake(
+          {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
+      getDocumentBloc().bake(
+          pixelRatio: pixelRatio, viewportSize: viewportSize, reset: reset);
+}
+
 abstract class Handler<T> {
   final T data;
 
@@ -49,31 +92,23 @@ abstract class Handler<T> {
           AppDocument appDocument, Renderer old, Renderer updated) async =>
       false;
 
-  void onTapUp(Size viewportSize, BuildContext context, TapUpDetails details) {}
+  void onTapUp(TapUpDetails details, EventContext context) {}
 
-  void onTapDown(
-      Size viewportSize, BuildContext context, TapDownDetails details) {}
+  void onTapDown(TapDownDetails details, EventContext context) {}
 
-  void onSecondaryTapUp(
-      Size viewportSize, BuildContext context, TapUpDetails details) {}
+  void onSecondaryTapUp(TapUpDetails details, EventContext context) {}
 
-  void onSecondaryTapDown(
-      Size viewportSize, BuildContext context, TapDownDetails details) {}
+  void onSecondaryTapDown(TapDownDetails details, EventContext context) {}
 
-  void onPointerDown(
-      Size viewportSize, BuildContext context, PointerDownEvent event) {}
+  void onPointerDown(PointerDownEvent event, EventContext context) {}
 
-  void onPointerMove(
-      Size viewportSize, BuildContext context, PointerMoveEvent event) {}
+  void onPointerMove(PointerMoveEvent event, EventContext context) {}
 
-  void onPointerUp(
-      Size viewportSize, BuildContext context, PointerUpEvent event) {}
+  void onPointerUp(PointerUpEvent event, EventContext context) {}
 
-  void onPointerHover(
-      Size viewportSize, BuildContext context, PointerHoverEvent event) {}
+  void onPointerHover(PointerHoverEvent event, EventContext context) {}
 
-  void onLongPressEnd(
-      Size viewportSize, BuildContext context, LongPressEndDetails details) {}
+  void onLongPressEnd(LongPressEndDetails event, EventContext context) {}
 
   int? getColor(DocumentBloc bloc) => null;
 

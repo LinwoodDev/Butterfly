@@ -58,4 +58,8 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
     }
     return super.insert(element);
   }
+
+  @override
+  String getLocalizedName(BuildContext context) =>
+      AppLocalizations.of(context)!.pen;
 }

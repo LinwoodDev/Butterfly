@@ -20,12 +20,11 @@ class PenHandler extends Handler<PenPainter> {
   }
 
   @override
-  void onPointerUp(
-      Size viewportSize, BuildContext context, PointerUpEvent event) {
-    addPoint(
-        context, event.pointer, event.localPosition, event.pressure, event.kind,
+  void onPointerUp(PointerUpEvent event, EventContext context) {
+    addPoint(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind,
         refresh: false);
-    submitElement(viewportSize, context, event.pointer);
+    submitElement(context.viewportSize, context.buildContext, event.pointer);
   }
 
   Future<void> submitElement(
@@ -77,29 +76,26 @@ class PenHandler extends Handler<PenPainter> {
   }
 
   @override
-  void onTapDown(
-      Size viewportSize, BuildContext context, TapDownDetails details) {}
+  void onTapDown(TapDownDetails details, EventContext context) {}
 
   @override
-  void onPointerDown(
-      Size viewportSize, BuildContext context, PointerDownEvent event) {
-    final cubit = context.read<CurrentIndexCubit>();
-    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+  void onPointerDown(PointerDownEvent event, EventContext context) {
+    final currentIndex = context.getCurrentIndex();
+    if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
-      context.read<DocumentBloc>().refresh();
+      context.refresh();
       return;
     }
     elements.remove(event.pointer);
-    addPoint(
-        context, event.pointer, event.localPosition, event.pressure, event.kind,
+    addPoint(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind,
         shouldCreate: true);
   }
 
   @override
-  void onPointerMove(
-      Size viewportSize, BuildContext context, PointerMoveEvent event) {
-    addPoint(context, event.pointer, event.localPosition, event.pressure,
-        event.kind);
+  void onPointerMove(PointerMoveEvent event, EventContext context) {
+    addPoint(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind);
   }
 
   @override

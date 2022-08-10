@@ -23,17 +23,14 @@ class EraserHandler extends Handler<EraserPainter> {
   }
 
   @override
-  void onPointerUp(
-      Size viewportSize, BuildContext context, PointerUpEvent event) {
+  void onPointerUp(PointerUpEvent event, EventContext context) {
     addPoint(
         context, event.pointer, event.localPosition, event.pressure, event.kind,
         refresh: false);
-    submitElement(viewportSize, context, event.pointer);
+    submitElement(context, event.pointer);
   }
 
-  Future<void> submitElement(
-      Size viewportSize, BuildContext context, int index) async {
-    final bloc = context.read<DocumentBloc>();
+  Future<void> submitElement(EventContext context, int index) async {
     var element = elements.remove(index);
     if (element == null) return;
     lastPosition.remove(index);
@@ -41,19 +38,19 @@ class EraserHandler extends Handler<EraserPainter> {
     if (elements.isEmpty) {
       final current = List<PadElement>.from(submittedElements);
       submittedElements.clear();
-      bloc.add(ElementsCreated(current));
-      await bloc.bake();
+      context.addDocumentEvent(ElementsCreated(current));
+      await context.bake();
     }
-    bloc.refresh();
+    context.refresh();
   }
 
-  void addPoint(BuildContext context, int pointer, Offset localPosition,
+  void addPoint(EventContext context, int pointer, Offset localPosition,
       double pressure, PointerDeviceKind kind,
       {bool refresh = true, bool forceCreate = false}) {
-    final bloc = context.read<DocumentBloc>();
-    final transform = context.read<TransformCubit>().state;
-    final state = bloc.state as DocumentLoadSuccess;
-    final settings = context.read<SettingsCubit>().state;
+    final transform = context.getCameraTransform();
+    final state = context.getState();
+    if (state == null) return;
+    final settings = context.getSettings();
     final penOnlyInput = settings.penOnlyInput;
     if (lastPosition[pointer] == localPosition && !forceCreate) return;
     lastPosition[pointer] = localPosition;
@@ -75,18 +72,16 @@ class EraserHandler extends Handler<EraserPainter> {
         points: List<PathPoint>.from(element.points)
           ..add(PathPoint.fromOffset(transform.localToGlobal(localPosition),
               (createNew ? 0 : pressure))));
-    if (refresh) bloc.refresh();
+    if (refresh) context.refresh();
   }
 
   @override
-  void onTapDown(
-      Size viewportSize, BuildContext context, TapDownDetails details) {}
+  void onTapDown(TapDownDetails details, EventContext context) {}
 
   @override
-  void onPointerDown(
-      Size viewportSize, BuildContext context, PointerDownEvent event) {
-    final cubit = context.read<CurrentIndexCubit>();
-    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+  void onPointerDown(PointerDownEvent event, EventContext context) {
+    final cubit = context.getCurrentIndex();
+    if (cubit.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
       return;
     }
@@ -96,16 +91,14 @@ class EraserHandler extends Handler<EraserPainter> {
   }
 
   @override
-  void onPointerMove(
-      Size viewportSize, BuildContext context, PointerMoveEvent event) {
+  void onPointerMove(PointerMoveEvent event, EventContext context) {
     addPoint(context, event.pointer, event.localPosition, event.pressure,
         event.kind);
   }
 
   @override
-  void onPointerHover(
-      Size viewportSize, BuildContext context, PointerHoverEvent event) {
+  void onPointerHover(PointerHoverEvent event, EventContext context) {
     lastPosition[event.pointer] = event.localPosition;
-    context.read<DocumentBloc>().refresh();
+    context.refresh();
   }
 }
