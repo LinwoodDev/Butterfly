@@ -29,6 +29,9 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
   @override
   IconData getIcon({bool filled = false}) =>
       filled ? PhosphorIcons.textTFill : PhosphorIcons.textTLight;
+
+  @override
+  List<String> get help => ['painters', 'label'];
 }
 
 typedef LabelPropertyCallback = void Function(LabelProperty);

@@ -66,4 +66,6 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
   @override
   IconData getIcon({bool filled = false}) =>
       filled ? PhosphorIcons.penFill : PhosphorIcons.penLight;
+  @override
+  List<String> get help => ['painters', 'pen'];
 }

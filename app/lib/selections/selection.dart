@@ -1,5 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/models/property.dart';
+import 'package:butterfly/visualizer/property.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,8 +15,13 @@ import '../widgets/exact_slider.dart';
 part 'elements/element.dart';
 
 part 'painters/painter.dart';
-part 'painters/pen.dart';
+part 'painters/area.dart';
+part 'painters/eraser.dart';
 part 'painters/label.dart';
+part 'painters/layer.dart';
+part 'painters/path_eraser.dart';
+part 'painters/pen.dart';
+part 'painters/shape.dart';
 
 part 'hand.dart';
 
@@ -58,4 +64,6 @@ abstract class Selection<T> {
     }
     return Selection.from(element);
   }
+
+  List<String> get help => <String>[];
 }

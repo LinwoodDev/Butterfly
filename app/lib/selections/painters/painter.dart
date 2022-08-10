@@ -4,11 +4,26 @@ class PainterSelection<T extends Painter> extends Selection<T> {
   PainterSelection(super.selected);
 
   factory PainterSelection.from(T selected) {
-    if (selected is PenPainter) {
-      return PenPainterSelection([selected]) as PainterSelection<T>;
+    if (selected is AreaPainter) {
+      return AreaPainterSelection([selected]) as PainterSelection<T>;
+    }
+    if (selected is EraserPainter) {
+      return EraserPainterSelection([selected]) as PainterSelection<T>;
     }
     if (selected is LabelPainter) {
       return LabelPainterSelection([selected]) as PainterSelection<T>;
+    }
+    if (selected is LayerPainter) {
+      return LayerPainterSelection([selected]) as PainterSelection<T>;
+    }
+    if (selected is PathEraserPainter) {
+      return PathEraserPainterSelection([selected]) as PainterSelection<T>;
+    }
+    if (selected is PenPainter) {
+      return PenPainterSelection([selected]) as PainterSelection<T>;
+    }
+    if (selected is ShapePainter) {
+      return ShapePainterSelection([selected]) as PainterSelection<T>;
     }
     return PainterSelection([selected]);
   }

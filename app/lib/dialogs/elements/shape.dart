@@ -1,5 +1,4 @@
 import 'package:butterfly/dialogs/elements/general.dart';
-import 'package:butterfly/dialogs/painters/shape.dart';
 import 'package:butterfly/models/property.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly/widgets/color_field.dart';
@@ -10,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../bloc/document_bloc.dart';
 import '../../models/element.dart';
+import '../../selections/selection.dart';
 import '../../widgets/context_menu.dart';
 
 class ShapeElementDialog extends StatelessWidget {

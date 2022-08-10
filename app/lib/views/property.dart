@@ -1,3 +1,4 @@
+import 'package:butterfly/api/open_help.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +28,7 @@ class _PropertyViewState extends State<PropertyView> {
         if (selection == null) {
           return Container();
         }
+        final help = selection.help;
         return Stack(children: [
           Listener(
             behavior:
@@ -54,7 +56,7 @@ class _PropertyViewState extends State<PropertyView> {
                           final delta = details.delta.dx;
                           setState(() {
                             size -= delta;
-                            size = size.clamp(300, 500);
+                            size = size.clamp(400, 600);
                           });
                         },
                       ),
@@ -77,6 +79,13 @@ class _PropertyViewState extends State<PropertyView> {
                                         .read<CurrentIndexCubit>()
                                         .resetSelection();
                                   }),
+                            if (help.isNotEmpty)
+                              IconButton(
+                                tooltip: AppLocalizations.of(context)!.help,
+                                icon: const Icon(
+                                    PhosphorIcons.circleWavyQuestionLight),
+                                onPressed: () => openHelp(help),
+                              ),
                             const SizedBox(
                                 height: 16, child: VerticalDivider()),
                             if (!isMobile)
