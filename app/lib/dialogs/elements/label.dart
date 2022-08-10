@@ -7,9 +7,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/element.dart';
+import '../../selections/selection.dart';
 import '../../widgets/context_menu.dart';
 import '../constraints.dart';
-import '../painters/label.dart';
 
 class LabelElementDialog extends StatelessWidget {
   final int index;

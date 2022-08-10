@@ -62,4 +62,8 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
   @override
   String getLocalizedName(BuildContext context) =>
       AppLocalizations.of(context)!.pen;
+
+  @override
+  IconData getIcon({bool filled = false}) =>
+      filled ? PhosphorIcons.penFill : PhosphorIcons.penLight;
 }

@@ -28,10 +28,12 @@ class _PropertyViewState extends State<PropertyView> {
           return Container();
         }
         return Stack(children: [
-          GestureDetector(
+          Listener(
             behavior:
                 pinned ? HitTestBehavior.translucent : HitTestBehavior.opaque,
-            onTap: () => _closeView,
+            onPointerUp: (details) {
+              if (!pinned) _closeView();
+            },
           ),
           Align(
             alignment: Alignment.bottomRight,
@@ -63,6 +65,8 @@ class _PropertyViewState extends State<PropertyView> {
                       children: [
                         Header(
                           title: Text(selection.getLocalizedName(context)),
+                          leading: Icon(selection.getIcon(
+                              filled: selection.selected.length > 1)),
                           actions: [
                             if (selection.showDeleteButton)
                               IconButton(

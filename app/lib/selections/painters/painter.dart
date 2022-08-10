@@ -7,6 +7,9 @@ class PainterSelection<T extends Painter> extends Selection<T> {
     if (selected is PenPainter) {
       return PenPainterSelection([selected]) as PainterSelection<T>;
     }
+    if (selected is LabelPainter) {
+      return LabelPainterSelection([selected]) as PainterSelection<T>;
+    }
     return PainterSelection([selected]);
   }
 
@@ -52,4 +55,8 @@ class PainterSelection<T extends Painter> extends Selection<T> {
   @override
   String getLocalizedName(BuildContext context) =>
       AppLocalizations.of(context)!.painter;
+
+  @override
+  IconData getIcon({bool filled = false}) =>
+      filled ? PhosphorIcons.paintRollerFill : PhosphorIcons.paintRollerLight;
 }
