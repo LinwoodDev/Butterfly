@@ -1,6 +1,6 @@
 name: Flutter build
 
-on: [push, release]
+on: [push, release, pull_request]
 jobs:
   build-apk:
     concurrency: ci-${{ github.ref }}
