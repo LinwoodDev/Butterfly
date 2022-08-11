@@ -38,3 +38,62 @@ class LabelHandler extends Handler<LabelPainter> {
   LabelPainter? setColor(DocumentBloc bloc, int color) =>
       data.copyWith(property: data.property.copyWith(color: color));
 }
+
+class EditLabelElementDialog extends StatelessWidget {
+  final LabelElement element;
+  final TextEditingController _textController = TextEditingController();
+  EditLabelElementDialog({super.key, this.element = const LabelElement()});
+
+  @override
+  Widget build(BuildContext context) {
+    var property = element.property;
+    _textController.text = element.text;
+    void submit() => Navigator.of(context)
+        .pop(element.copyWith(text: _textController.text, property: property));
+    return Dialog(
+        child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 500, maxHeight: 500),
+      child: Column(
+        children: [
+          Header(
+            leading: const Icon(PhosphorIcons.textTLight),
+            title: Text(AppLocalizations.of(context)!.enterText),
+          ),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                Expanded(
+                    child: ListView(shrinkWrap: true, children: [
+                  TextField(
+                    controller: _textController,
+                    autofocus: true,
+                    keyboardType: TextInputType.multiline,
+                    minLines: 3,
+                    maxLines: 5,
+                    decoration: const InputDecoration(filled: true),
+                    onSubmitted: (value) => submit(),
+                  ),
+                  LabelPropertyView(
+                    initialValue: property,
+                    onChanged: (value) => property = value,
+                  ),
+                ])),
+                const Divider(),
+                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  TextButton(
+                    child: Text(AppLocalizations.of(context)!.cancel),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  ElevatedButton(
+                      onPressed: submit,
+                      child: Text(AppLocalizations.of(context)!.ok))
+                ])
+              ]),
+            ),
+          ),
+        ],
+      ),
+    ));
+  }
+}

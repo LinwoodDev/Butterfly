@@ -54,7 +54,12 @@ class ElementsDialog extends StatelessWidget {
               title: Text(AppLocalizations.of(context)!.delete),
               leading: const Icon(PhosphorIcons.trashLight)),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              close();
+              final cubit = context.read<CurrentIndexCubit>();
+              cubit.changeSelection(renderers.first);
+              renderers.sublist(1).forEach((r) => cubit.insertSelection(r));
+            },
             title: Text(AppLocalizations.of(context)!.properties),
             leading: const Icon(PhosphorIcons.fadersLight),
           ),

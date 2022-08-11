@@ -4,6 +4,30 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   ElementSelection(super.selected);
 
   factory ElementSelection.from(Renderer<T> selected) {
+    if (selected is Renderer<ImageElement>) {
+      return ImageElementSelection([selected as Renderer<ImageElement>])
+          as ElementSelection<T>;
+    }
+    if (selected is Renderer<ImageElement>) {
+      return ImageElementSelection([selected as Renderer<ImageElement>])
+          as ElementSelection<T>;
+    }
+    if (selected is Renderer<LabelElement>) {
+      return LabelElementSelection([selected as Renderer<LabelElement>])
+          as ElementSelection<T>;
+    }
+    if (selected is Renderer<PenElement>) {
+      return PenElementSelection([selected as Renderer<PenElement>])
+          as ElementSelection<T>;
+    }
+    if (selected is Renderer<ShapeElement>) {
+      return ShapeElementSelection([selected as Renderer<ShapeElement>])
+          as ElementSelection<T>;
+    }
+    if (selected is Renderer<SvgElement>) {
+      return SvgElementSelection([selected as Renderer<SvgElement>])
+          as ElementSelection<T>;
+    }
     return ElementSelection([selected]);
   }
 

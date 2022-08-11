@@ -51,3 +51,18 @@ extension ElementVisualizer on PadElement {
     throw UnimplementedError();
   }
 }
+
+extension ElementConstraintsVisualizer on ElementConstraints? {
+  String getLocalizedName(BuildContext context) {
+    if (this is FixedElementConstraints) {
+      return AppLocalizations.of(context)!.fixed;
+    }
+    if (this is ScaledElementConstraints) {
+      return AppLocalizations.of(context)!.scaled;
+    }
+    if (this is DynamicElementConstraints) {
+      return AppLocalizations.of(context)!.dynamic;
+    }
+    return AppLocalizations.of(context)!.none;
+  }
+}

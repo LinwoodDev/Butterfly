@@ -1,30 +1,28 @@
 import 'package:butterfly/models/element.dart';
-import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly/widgets/exact_slider.dart';
+import 'package:butterfly/visualizer/element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class ConstraintsContextMenu extends StatefulWidget {
+class ConstraintsView extends StatefulWidget {
   final ElementConstraints? initialConstraints;
   final bool enableScaled;
-  final ContextCloseFunction close;
-  final Offset position;
   final ValueChanged<ElementConstraints?> onChanged;
-  const ConstraintsContextMenu(
-      {super.key,
-      this.enableScaled = true,
-      this.initialConstraints,
-      required this.close,
-      required this.onChanged,
-      required this.position});
+  const ConstraintsView({
+    super.key,
+    this.enableScaled = true,
+    this.initialConstraints,
+    required this.onChanged,
+  });
 
   @override
-  State<ConstraintsContextMenu> createState() => _ConstraintsContextMenuState();
+  State<ConstraintsView> createState() => _ConstraintsViewState();
 }
 
-class _ConstraintsContextMenuState extends State<ConstraintsContextMenu> {
+class _ConstraintsViewState extends State<ConstraintsView> {
   late ElementConstraints? constraints;
+  bool opened = false;
 
   @override
   void initState() {
@@ -42,96 +40,57 @@ class _ConstraintsContextMenuState extends State<ConstraintsContextMenu> {
   @override
   Widget build(BuildContext context) {
     Widget? content;
-    String currentType = AppLocalizations.of(context)!.none;
     if (constraints is FixedElementConstraints) {
       content = _FixedConstraintsContent(
           constraints: constraints as FixedElementConstraints,
           onChanged: _onChanged);
-      currentType = AppLocalizations.of(context)!.fixedConstraints;
     } else if (constraints is ScaledElementConstraints) {
       content = _ScaledConstraintsContent(
           constraints: constraints as ScaledElementConstraints,
           onChanged: _onChanged);
-      currentType = AppLocalizations.of(context)!.scaledConstraints;
     } else if (constraints is DynamicElementConstraints) {
       content = _DynamicConstraintsContent(
           constraints: constraints as DynamicElementConstraints,
           onChanged: _onChanged);
-      currentType = AppLocalizations.of(context)!.dynamicConstraints;
     }
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Row(
-          children: [
-            Expanded(
-                child: Text(
-              currentType,
-              style: Theme.of(context).textTheme.headline6,
-            )),
-            IconButton(
-                icon: const Icon(PhosphorIcons.gearLight),
-                onPressed: () async {
-                  await widget.close();
-
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      void openNewConstraint(ElementConstraints? constraints) {
-                        Navigator.pop(context);
-                        widget.onChanged(constraints);
-                        showContextMenu(
-                          context: context,
-                          position: widget.position,
-                          builder: (context, close) => ConstraintsContextMenu(
-                            close: close,
-                            onChanged: widget.onChanged,
-                            enableScaled: widget.enableScaled,
-                            initialConstraints: constraints,
-                            position: widget.position,
-                          ),
-                        );
-                      }
-
-                      return AlertDialog(
-                        title: Text(AppLocalizations.of(context)!.constraints),
-                        content: Column(children: [
-                          ListTile(
-                            title: Text(
-                                AppLocalizations.of(context)!.fixedConstraints),
-                            onTap: () => openNewConstraint(
-                                const FixedElementConstraints(0, 0)),
-                          ),
-                          if (widget.enableScaled)
-                            ListTile(
-                              title: Text(AppLocalizations.of(context)!
-                                  .scaledConstraints),
-                              onTap: () => openNewConstraint(
-                                  const ScaledElementConstraints(1)),
-                            ),
-                          ListTile(
-                            title: Text(AppLocalizations.of(context)!
-                                .dynamicConstraints),
-                            onTap: () => openNewConstraint(
-                                const DynamicElementConstraints()),
-                          ),
-                          ListTile(
-                            title: Text(AppLocalizations.of(context)!.none),
-                            onTap: () => openNewConstraint(null),
-                          ),
-                        ]),
-                        scrollable: true,
-                      );
-                    },
-                  );
+    return ExpansionPanelList(
+      expansionCallback: (panelIndex, isExpanded) => setState(() {
+        opened = !isExpanded;
+      }),
+      children: [
+        ExpansionPanel(
+          isExpanded: opened,
+          headerBuilder: (context, isExpanded) => Wrap(
+            children: [
+              ListTile(
+                title: Text(AppLocalizations.of(context)!.constraints),
+                leading: const Icon(PhosphorIcons.selectionLight),
+                onTap: () => setState(() {
+                  opened = !isExpanded;
                 }),
-          ],
+                trailing: DropdownButton<String>(
+                  items: [
+                    ...[
+                      const FixedElementConstraints(0, 0),
+                      const ScaledElementConstraints(1),
+                      const DynamicElementConstraints()
+                    ].map((e) => DropdownMenuItem(
+                        value: e.runtimeType.toString(),
+                        child: Text(
+                          e.getLocalizedName(context),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        )))
+                  ],
+                  value: constraints?.runtimeType.toString(),
+                  onChanged: (value) {},
+                ),
+              ),
+            ],
+          ),
+          body: content ?? Container(),
         ),
-        if (content != null) ...[
-          const Divider(),
-          Flexible(child: content),
-        ]
-      ]),
+      ],
     );
   }
 }
@@ -237,22 +196,20 @@ class _DynamicConstraintsContent extends StatelessWidget {
   }
 }
 
-class ConstraintContextMenu extends StatefulWidget {
+class ConstraintView extends StatefulWidget {
   final ElementConstraint initialConstraint;
-  final ContextCloseFunction close;
   final ValueChanged<ElementConstraint> onChanged;
-  const ConstraintContextMenu({
+  const ConstraintView({
     super.key,
     required this.initialConstraint,
-    required this.close,
     required this.onChanged,
   });
 
   @override
-  State<ConstraintContextMenu> createState() => _ConstraintContextMenuState();
+  State<ConstraintView> createState() => _ConstraintViewState();
 }
 
-class _ConstraintContextMenuState extends State<ConstraintContextMenu> {
+class _ConstraintViewState extends State<ConstraintView> {
   late ElementConstraint constraint;
 
   @override
