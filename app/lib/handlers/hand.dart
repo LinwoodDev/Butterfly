@@ -1,9 +1,30 @@
 part of 'handler.dart';
 
+class HandSelectionRenderer extends Renderer<Rect> {
+  final Color color;
+  HandSelectionRenderer(super.element, this.color);
+
+  @override
+  void build(
+      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+      [bool foreground = false]) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..isAntiAlias = true
+      ..filterQuality = FilterQuality.high
+      ..colorFilter =
+          ColorFilter.mode(Colors.grey.withOpacity(0.5), BlendMode.srcATop);
+    canvas.drawRect(element, paint);
+  }
+}
+
 class HandHandler extends Handler<HandProperty> {
   Renderer<PadElement>? movingElement;
-  Renderer<PadElement>? selected;
-  bool _hasMoved = false;
+  List<Renderer<PadElement>> selected = [];
   Offset? currentMovePosition;
 
   HandHandler(super.data);
@@ -13,29 +34,47 @@ class HandHandler extends Handler<HandProperty> {
       AppDocument appDocument, Renderer old, Renderer updated) async {
     if (old.element == movingElement && updated is Renderer<PadElement>) {
       movingElement = updated;
-    } else if (old == selected && updated is Renderer<PadElement>) {
-      selected = updated;
+    } else if (old is Renderer<PadElement> &&
+        selected.contains(old) &&
+        updated is Renderer<PadElement>) {
+      selected[selected.indexOf(old)] = updated;
     } else {
       return false;
     }
     return true;
   }
 
+  Rect? getSelectionRect() {
+    Rect? rect;
+    for (final element in selected) {
+      final current = element.rect;
+      if (current != null) {
+        rect = rect?.expandToInclude(current) ?? current;
+      }
+    }
+    return rect;
+  }
+
   @override
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
+  List<Renderer> createForegrounds(
+      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      [Area? currentArea]) {
+    final foregrounds = <Renderer>[];
+    final color = ThemeManager.getThemeByName(
+            currentIndexCubit.state.settingsCubit.state.design)
+        .primaryColor;
     if (movingElement != null) {
       final currentElement = currentMovePosition == null
           ? movingElement!.element
           : movingElement!.move(currentMovePosition!);
       final renderer = Renderer.fromInstance(currentElement);
-      return [renderer];
+      foregrounds.add(renderer);
     }
-    return [];
-  }
-
-  List<Rect> createSelections(AppDocument document, [Area? currentArea]) {
-    final rect = selected?.rect;
-    return rect == null ? [] : [rect];
+    final selectionRect = getSelectionRect();
+    if (selectionRect != null) {
+      foregrounds.add(HandSelectionRenderer(selectionRect, color));
+    }
+    return foregrounds;
   }
 
   void move(BuildContext context, Renderer<PadElement> next,
@@ -58,122 +97,77 @@ class HandHandler extends Handler<HandProperty> {
     bloc.refresh();
   }
 
-  bool openView = true;
-  int? _firstPointer;
-
   @override
-  Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
+  void onTapUp(TapUpDetails details, EventContext context) async {
     final transform = context.getCameraTransform();
-    _firstPointer = null;
-    if (movingElement != null) {
-      submitMove(context.buildContext,
-          movingElement?.move(transform.localToGlobal(event.localPosition)));
-      return;
-    }
-    final state = context.getState();
-    if (state == null) return;
-    final hand = state.document.handProperty;
-    if (openView) {
-      final settings = context.getSettings();
-      final radius = settings.selectSensitivity / transform.size;
-      final hits = await rayCast(context.buildContext, event.localPosition,
-          radius, hand.includeEraser);
-      if (selected != null) return;
-      if (hits.isEmpty || !(state.embedding?.editable ?? true)) {
-        showContextMenu(
-            context: context.buildContext,
-            position: event.position,
-            builder: (ctx, close) => MultiBlocProvider(
-                  providers: [
-                    BlocProvider.value(value: context.getDocumentBloc()),
-                    BlocProvider.value(value: context.getTransformCubit()),
-                    BlocProvider.value(value: context.getCurrentIndexCubit()),
-                  ],
-                  child: Actions(
-                      actions: context.buildContext
-                              .findAncestorWidgetOfExactType<Actions>()
-                              ?.actions ??
-                          {},
-                      child: BackgroundContextMenu(
-                          position: event.position, close: close)),
-                ));
-      } else {
-        selected = hits.first;
-        context.refresh();
-        // ignore: use_build_context_synchronously
-        await showContextMenu(
-            context: context.buildContext,
-            position: event.position,
-            builder: (_, close) {
-              return MultiBlocProvider(
-                providers: [
-                  BlocProvider.value(value: context.getDocumentBloc()),
-                  BlocProvider.value(value: context.getTransformCubit()),
-                  BlocProvider.value(value: context.getCurrentIndexCubit()),
-                ],
-                child: Actions(
-                  actions: context.buildContext
-                          .findAncestorWidgetOfExactType<Actions>()
-                          ?.actions ??
-                      {},
-                  child: ElementsDialog(
-                      close: close,
-                      elements: hits.toList(),
-                      onChanged: (element) {
-                        selected = element;
-                        context.refresh();
-                      },
-                      position: event.position),
-                ),
-              );
-            });
-        selected = null;
+    final settings = context.getSettings();
+    final radius = settings.selectSensitivity / transform.size;
+    final hits =
+        await rayCast(context.buildContext, details.localPosition, radius);
+    if (hits.isEmpty) {
+      if (!context.isCtrlPressed) {
+        selected.clear();
         context.refresh();
       }
-    }
-    if (_hasMoved) {
-      _hasMoved = false;
-      context.bake();
-    }
-  }
-
-  @override
-  void onPointerDown(PointerDownEvent event, EventContext context) {
-    final index = context.getCurrentIndex();
-    openView = true;
-    _firstPointer ??= event.pointer;
-    if (index.moveEnabled && event.kind != PointerDeviceKind.stylus) {
-      openView = false;
-    }
-  }
-
-  @override
-  void onPointerMove(PointerMoveEvent event, EventContext context) {
-    final index = context.getCurrentIndex();
-    final transform = context.getCameraTransform();
-    if (openView) {
-      openView = (event.delta / transform.size) == Offset.zero;
-    }
-    if (index.moveEnabled && event.kind != PointerDeviceKind.stylus) {
-      openView = false;
-    }
-    if (movingElement != null) {
-      currentMovePosition = transform.localToGlobal(event.localPosition);
-      context.refresh();
       return;
     }
-    if (_firstPointer == event.pointer) {
-      context.getTransformCubit().move(event.localDelta / transform.size);
-      _hasMoved = true;
+    final hit = hits.first;
+    if (context.isCtrlPressed) {
+      if (selected.contains(hit)) {
+        selected.remove(hit);
+      } else {
+        selected.add(hit);
+      }
+    } else {
+      selected.clear();
+      selected.add(hit);
     }
+    context.refresh();
   }
 
   @override
-  void onPointerHover(PointerHoverEvent event, EventContext context) {
-    if (movingElement != null) {
-      currentMovePosition =
-          context.getCameraTransform().localToGlobal(event.localPosition);
-      context.refresh();
+  void onSecondaryTapUp(TapUpDetails details, EventContext context) async {
+    final providers = context.getProviders();
+    final hits =
+        await rayCast(context.buildContext, details.localPosition, 0.0);
+    final hit = hits.firstOrNull;
+    final rect = hit?.rect;
+    if ((hit == null ||
+            rect == null ||
+            !(getSelectionRect()?.overlaps(rect) ?? false)) &&
+        !context.isCtrlPressed) {
+      selected.clear();
+      if (hit != null) selected.add(hit);
     }
+    context.refresh();
+    if (selected.isEmpty) {
+      await showContextMenu(
+        context: context.buildContext,
+        position: details.localPosition,
+        builder: (ctx, close) => MultiBlocProvider(
+          providers: providers,
+          child: BackgroundContextMenu(
+            close: close,
+            position: details.localPosition,
+          ),
+        ),
+      );
+      return;
+    }
+    await showContextMenu(
+        context: context.buildContext,
+        position: details.localPosition,
+        builder: (ctx, close) => MultiBlocProvider(
+            providers: context.getProviders(),
+            child: ElementsDialog(renderers: selected)));
+    selected.clear();
+    context.refresh();
+  }
+
+  @override
+  void onScaleUpdate(ScaleUpdateDetails event, EventContext context) {
+    context
+        .getTransformCubit()
+        .move(event.focalPointDelta / context.getCameraTransform().size);
   }
 }

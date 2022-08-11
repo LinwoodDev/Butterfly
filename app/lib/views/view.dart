@@ -115,6 +115,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
               cubit.getHandler().onSecondaryTapUp(details, getEventContext());
             },
             onScaleUpdate: (details) {
+              cubit.getHandler().onScaleUpdate(details, getEventContext());
               if (details.scale == 1) return;
               if (openView) openView = details.scale == 1;
               final transformCubit = context.read<TransformCubit>();
@@ -135,12 +136,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
               cubit.getHandler().onLongPressEnd(details, getEventContext());
             },
             onScaleEnd: (details) {
+              cubit.getHandler().onScaleEnd(details, getEventContext());
               final currentIndex = context.read<CurrentIndexCubit>();
               if (currentIndex.fetchHandler<HandHandler>() == null &&
                   !cubit.state.moveEnabled) return;
               _delayBake();
             },
             onScaleStart: (details) {
+              cubit.getHandler().onScaleStart(details, getEventContext());
               size = 1;
             },
             child: Listener(

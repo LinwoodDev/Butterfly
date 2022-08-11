@@ -4,10 +4,13 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/area/context.dart';
-import 'package:butterfly/dialogs/elements/elements.dart';
+import 'package:butterfly/dialogs/background/context.dart';
+import 'package:butterfly/dialogs/elements.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/renderers/area.dart';
+import 'package:butterfly/theme/manager.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +19,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../api/rect_helper.dart';
 import '../cubits/current_index.dart';
 import '../dialogs/area/label.dart';
-import '../dialogs/background/context.dart';
 import '../dialogs/elements/label.dart';
 import '../models/area.dart';
 import '../models/cursor.dart';
@@ -78,6 +80,13 @@ class EventContext {
           {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
       getDocumentBloc().bake(
           pixelRatio: pixelRatio, viewportSize: viewportSize, reset: reset);
+
+  List<BlocProvider> getProviders() => [
+        BlocProvider<DocumentBloc>.value(value: getDocumentBloc()),
+        BlocProvider<TransformCubit>.value(value: getTransformCubit()),
+        BlocProvider<CurrentIndexCubit>.value(value: getCurrentIndexCubit()),
+        BlocProvider<SettingsCubit>.value(value: getSettingsCubit())
+      ];
 }
 
 abstract class Handler<T> {
@@ -85,7 +94,9 @@ abstract class Handler<T> {
 
   const Handler(this.data);
 
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
+  List<Renderer> createForegrounds(
+          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          [Area? currentArea]) =>
       [];
 
   Future<bool> onRendererUpdated(
@@ -109,6 +120,12 @@ abstract class Handler<T> {
   void onPointerHover(PointerHoverEvent event, EventContext context) {}
 
   void onLongPressEnd(LongPressEndDetails event, EventContext context) {}
+
+  void onScaleStart(ScaleStartDetails event, EventContext context) {}
+
+  void onScaleUpdate(ScaleUpdateDetails event, EventContext context) {}
+
+  void onScaleEnd(ScaleEndDetails event, EventContext context) {}
 
   int? getColor(DocumentBloc bloc) => null;
 
