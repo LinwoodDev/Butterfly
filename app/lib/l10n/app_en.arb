@@ -233,7 +233,7 @@
   "constraints": "Constraints",
   "scaled": "Scaled",
   "fixed": "Fixed",
-  "dynamic": "Dynamic",
+  "dynamicContent": "Dynamic",
   "none": "None",
   "includeArea": "Include area",
   "verticalAlignment": "Vertical alignment",

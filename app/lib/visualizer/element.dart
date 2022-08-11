@@ -61,7 +61,7 @@ extension ElementConstraintsVisualizer on ElementConstraints? {
       return AppLocalizations.of(context)!.scaled;
     }
     if (this is DynamicElementConstraints) {
-      return AppLocalizations.of(context)!.dynamic;
+      return AppLocalizations.of(context)!.dynamicContent;
     }
     return AppLocalizations.of(context)!.none;
   }
