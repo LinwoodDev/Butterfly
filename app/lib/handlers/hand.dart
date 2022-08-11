@@ -164,9 +164,12 @@ class HandHandler extends Handler<HandProperty> {
         position: details.localPosition,
         builder: (ctx, close) => MultiBlocProvider(
           providers: providers,
-          child: BackgroundContextMenu(
-            close: close,
-            position: details.localPosition,
+          child: Actions(
+            actions: context.getActions(),
+            child: BackgroundContextMenu(
+              close: close,
+              position: details.localPosition,
+            ),
           ),
         ),
       );
@@ -211,14 +214,13 @@ class HandHandler extends Handler<HandProperty> {
     if (movingElements.isNotEmpty) {
       currentMovePosition =
           context.getCameraTransform().localToGlobal(event.localPosition) -
-              (movingElements.first.rect?.center ?? Offset.zero) *
-                  context.getCameraTransform().size;
+              (movingElements.first.rect?.center ?? Offset.zero);
       context.refresh();
     }
   }
 
   @override
-  void onScaleEnd(ScaleEndDetails details, EventContext context) {
+  void onPointerUp(PointerUpEvent event, EventContext context) {
     if (movingElements.isNotEmpty) {
       submitMove(context.buildContext);
     }

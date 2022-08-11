@@ -90,6 +90,9 @@ class EventContext {
         BlocProvider<CurrentIndexCubit>.value(value: getCurrentIndexCubit()),
         BlocProvider<SettingsCubit>.value(value: getSettingsCubit())
       ];
+
+  Map<Type, Action<Intent>> getActions() =>
+      buildContext.findAncestorWidgetOfExactType<Actions>()?.actions ?? {};
 }
 
 abstract class Handler<T> {
