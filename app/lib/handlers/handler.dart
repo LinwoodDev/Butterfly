@@ -119,13 +119,13 @@ abstract class Handler<T> {
 
   void onPointerHover(PointerHoverEvent event, EventContext context) {}
 
-  void onLongPressEnd(LongPressEndDetails event, EventContext context) {}
+  void onLongPressEnd(LongPressEndDetails details, EventContext context) {}
 
-  void onScaleStart(ScaleStartDetails event, EventContext context) {}
+  void onScaleStart(ScaleStartDetails details, EventContext context) {}
 
-  void onScaleUpdate(ScaleUpdateDetails event, EventContext context) {}
+  void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {}
 
-  void onScaleEnd(ScaleEndDetails event, EventContext context) {}
+  void onScaleEnd(ScaleEndDetails details, EventContext context) {}
 
   int? getColor(DocumentBloc bloc) => null;
 

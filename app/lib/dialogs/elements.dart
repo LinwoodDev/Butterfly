@@ -42,7 +42,7 @@ class ElementsDialog extends StatelessWidget {
               context
                   .read<CurrentIndexCubit>()
                   .fetchHandler<HandHandler>()
-                  ?.move(context, renderers, false);
+                  ?.move(context, renderers, true);
             },
           ),
           ListTile(

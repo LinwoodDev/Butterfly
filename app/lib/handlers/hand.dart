@@ -70,7 +70,7 @@ class HandHandler extends Handler<HandProperty> {
       final currentElements = movingElements
           .map((e) => currentMovePosition == null
               ? e.element
-              : e.move((e.rect?.topLeft ?? Offset.zero) + currentMovePosition!))
+              : e.move(currentMovePosition!, true))
           .toList();
       final renderers =
           currentElements.map((e) => Renderer.fromInstance(e)).toList();
@@ -87,6 +87,8 @@ class HandHandler extends Handler<HandProperty> {
       [bool duplicate = false]) {
     submitMove(context);
     movingElements = next;
+    selected = [];
+    currentMovePosition = null;
     if (!duplicate) {
       final bloc = context.read<DocumentBloc>();
       bloc.add(ElementsRemoved(next.map((e) => e.element).toList()));
@@ -94,12 +96,13 @@ class HandHandler extends Handler<HandProperty> {
     }
   }
 
-  void submitMove(BuildContext context,
-      [List<PadElement> elements = const []]) {
-    if (movingElements.isEmpty && elements.isEmpty) return;
-    final current = elements.isNotEmpty
-        ? elements
-        : movingElements.map((e) => e.element).toList();
+  void submitMove(BuildContext context) {
+    if (movingElements.isEmpty) return;
+    final current = movingElements
+        .map((e) =>
+            e.move(currentMovePosition ?? Offset.zero, true) ?? e.element)
+        .toList();
+    currentMovePosition = null;
     movingElements = [];
     final bloc = context.read<DocumentBloc>();
     bloc.add(ElementsCreated(current));
@@ -108,6 +111,9 @@ class HandHandler extends Handler<HandProperty> {
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) async {
+    if (movingElements.isNotEmpty) {
+      return;
+    }
     final transform = context.getCameraTransform();
     final settings = context.getSettings();
     final radius = settings.selectSensitivity / transform.size;
@@ -177,20 +183,42 @@ class HandHandler extends Handler<HandProperty> {
   }
 
   @override
-  void onScaleUpdate(ScaleUpdateDetails event, EventContext context) {
+  void onScaleStart(ScaleStartDetails details, EventContext context) {
+    if (movingElements.isNotEmpty) {
+      currentMovePosition =
+          context.getCameraTransform().localToGlobal(details.localFocalPoint) -
+              (movingElements.first.rect?.center ?? Offset.zero) *
+                  context.getCameraTransform().size;
+    }
+  }
+
+  @override
+  void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     if (movingElements.isNotEmpty) {
       var current = currentMovePosition ?? Offset.zero;
-      current += event.focalPointDelta;
+      current += details.focalPointDelta / context.getCameraTransform().size;
       currentMovePosition = current;
+      context.refresh();
       return;
     }
     context
         .getTransformCubit()
-        .move(event.focalPointDelta / context.getCameraTransform().size);
+        .move(details.focalPointDelta / context.getCameraTransform().size);
   }
 
   @override
-  void onScaleEnd(ScaleEndDetails event, EventContext context) {
+  void onPointerHover(PointerHoverEvent event, EventContext context) {
+    if (movingElements.isNotEmpty) {
+      currentMovePosition =
+          context.getCameraTransform().localToGlobal(event.localPosition) -
+              (movingElements.first.rect?.center ?? Offset.zero) *
+                  context.getCameraTransform().size;
+      context.refresh();
+    }
+  }
+
+  @override
+  void onScaleEnd(ScaleEndDetails details, EventContext context) {
     if (movingElements.isNotEmpty) {
       submitMove(context.buildContext);
     }

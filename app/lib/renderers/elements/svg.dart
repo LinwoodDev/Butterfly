@@ -95,7 +95,10 @@ class SvgRenderer extends Renderer<SvgElement> {
   }
 
   @override
-  SvgElement move(Offset position) {
+  SvgElement move(Offset position, [bool relative = false]) {
+    if (relative) {
+      return element.copyWith(position: element.position + position);
+    }
     final rect = this.rect;
     final size = svgRoot?.viewport.viewBox;
     return element.copyWith(

@@ -104,5 +104,5 @@ abstract class Renderer<T> {
     throw Exception('Invalid instance type');
   }
 
-  T? move(Offset position) => null;
+  T? move(Offset position, [bool relative = false]) => null;
 }
