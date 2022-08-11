@@ -1,5 +1,3 @@
-import 'dart:ui' as ui;
-
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -9,6 +7,7 @@ import 'cubits/transform.dart';
 import 'models/area.dart';
 
 class ForegroundPainter extends CustomPainter {
+  final Color selectionColor;
   final AppDocument document;
   final List<Renderer> renderers;
   final CameraTransform transform;
@@ -16,7 +15,8 @@ class ForegroundPainter extends CustomPainter {
 
   ForegroundPainter(
     this.renderers,
-    this.document, [
+    this.document,
+    this.selectionColor, [
     this.transform = const CameraTransform(),
     this.selection = const [],
   ]);
@@ -41,11 +41,7 @@ class ForegroundPainter extends CustomPainter {
               rect.inflate(5 / transform.size), const Radius.circular(5)),
           Paint()
             ..style = PaintingStyle.stroke
-            ..shader = ui.Gradient.linear(
-              rect.topLeft,
-              rect.bottomRight,
-              [Colors.red, Colors.yellow],
-            )
+            ..color = selectionColor
             ..strokeWidth = 5 / transform.size);
     }
   }

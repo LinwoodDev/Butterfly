@@ -1,6 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
-import 'package:butterfly/dialogs/hand.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/widgets/option_button.dart';
@@ -59,25 +58,6 @@ class _EditToolbarState extends State<EditToolbar> {
             builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
               var painters = state.document.painters;
-              void openHandDialog() {
-                var bloc = context.read<DocumentBloc>();
-                showGeneralDialog(
-                    context: context,
-                    transitionBuilder: (context, a1, a2, widget) {
-                      // Slide transition
-                      return SlideTransition(
-                        position: Tween<Offset>(
-                                begin: const Offset(0, -1), end: Offset.zero)
-                            .animate(a1),
-                        child: widget,
-                      );
-                    },
-                    barrierDismissible: true,
-                    barrierLabel: AppLocalizations.of(context)!.close,
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        BlocProvider.value(
-                            value: bloc, child: const HandDialog()));
-              }
 
               return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                 builder: (context, currentIndex) => Material(
@@ -101,8 +81,13 @@ class _EditToolbarState extends State<EditToolbar> {
                                 false,
                             icon: const Icon(PhosphorIcons.handLight),
                             selectedIcon: const Icon(PhosphorIcons.handFill),
-                            onLongPressed: openHandDialog,
+                            onLongPressed: () => context
+                                .read<CurrentIndexCubit>()
+                                .changeSelection(kHand),
                             onPressed: () {
+                              context
+                                  .read<CurrentIndexCubit>()
+                                  .resetSelection();
                               if (context
                                       .read<CurrentIndexCubit>()
                                       .getPainter(state.document) ==
@@ -148,7 +133,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                           tooltip: tooltip,
                                           onLongPressed: () => context
                                               .read<CurrentIndexCubit>()
-                                              .insertSelection(e),
+                                              .insertSelection(e, true),
                                           selected: selected,
                                           highlighted: highlighted,
                                           selectedIcon:
@@ -159,19 +144,19 @@ class _EditToolbarState extends State<EditToolbar> {
                                                 _MouseState.multi) {
                                               context
                                                   .read<CurrentIndexCubit>()
-                                                  .insertSelection(e);
+                                                  .insertSelection(e, true);
                                             } else if (!selected) {
+                                              context
+                                                  .read<CurrentIndexCubit>()
+                                                  .resetSelection();
                                               context
                                                   .read<CurrentIndexCubit>()
                                                   .changePainter(state.document,
                                                       state.currentArea, i);
-                                              context
-                                                  .read<CurrentIndexCubit>()
-                                                  .resetSelection();
                                             } else {
                                               context
                                                   .read<CurrentIndexCubit>()
-                                                  .changeSelection(e);
+                                                  .changeSelection(e, true);
                                             }
                                           }));
                                   return ReorderableDragStartListener(

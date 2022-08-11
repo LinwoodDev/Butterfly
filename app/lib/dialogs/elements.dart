@@ -1,20 +1,21 @@
+import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../renderers/renderer.dart';
+import '../bloc/document_bloc.dart';
 
-class ElementsDialog extends StatefulWidget {
+class ElementsDialog extends StatelessWidget {
+  final VoidCallback close;
   final List<Renderer<PadElement>> renderers;
 
-  const ElementsDialog({super.key, required this.renderers});
+  const ElementsDialog(
+      {super.key, required this.close, required this.renderers});
 
-  @override
-  State<ElementsDialog> createState() => _ElementsDialogState();
-}
-
-class _ElementsDialogState extends State<ElementsDialog> {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisSize: MainAxisSize.min, children: [
@@ -25,15 +26,31 @@ class _ElementsDialogState extends State<ElementsDialog> {
           ListTile(
             title: Text(AppLocalizations.of(context)!.move),
             leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
-            onTap: () {},
+            onTap: () {
+              close();
+              context
+                  .read<CurrentIndexCubit>()
+                  .fetchHandler<HandHandler>()
+                  ?.move(context, renderers, false);
+            },
           ),
           ListTile(
             title: Text(AppLocalizations.of(context)!.duplicate),
             leading: const Icon(PhosphorIcons.copyLight),
-            onTap: () {},
+            onTap: () {
+              close();
+              context
+                  .read<CurrentIndexCubit>()
+                  .fetchHandler<HandHandler>()
+                  ?.move(context, renderers, false);
+            },
           ),
           ListTile(
-              onTap: () {},
+              onTap: () {
+                close();
+                context.read<DocumentBloc>().add(
+                    ElementsRemoved(renderers.map((r) => r.element).toList()));
+              },
               title: Text(AppLocalizations.of(context)!.delete),
               leading: const Icon(PhosphorIcons.trashLight)),
           ListTile(

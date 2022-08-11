@@ -183,7 +183,7 @@ class _GeneralElementDialogState<T extends PadElement>
                 leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
                 onTap: () {
                   // Remove the element from the document
-                  cubit.fetchHandler<HandHandler>()?.move(context, renderer);
+                  cubit.fetchHandler<HandHandler>()?.move(context, [renderer]);
                   widget.close();
                 },
               ),
@@ -193,7 +193,7 @@ class _GeneralElementDialogState<T extends PadElement>
                 onTap: () {
                   cubit
                       .fetchHandler<HandHandler>()
-                      ?.move(context, renderer, true);
+                      ?.move(context, [renderer], true);
                   widget.close();
                 },
               ),

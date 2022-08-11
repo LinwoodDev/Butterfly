@@ -23,7 +23,7 @@ class HandSelectionRenderer extends Renderer<Rect> {
 }
 
 class HandHandler extends Handler<HandProperty> {
-  Renderer<PadElement>? movingElement;
+  List<Renderer<PadElement>> movingElements = [];
   List<Renderer<PadElement>> selected = [];
   Offset? currentMovePosition;
 
@@ -32,12 +32,15 @@ class HandHandler extends Handler<HandProperty> {
   @override
   Future<bool> onRendererUpdated(
       AppDocument appDocument, Renderer old, Renderer updated) async {
-    if (old.element == movingElement && updated is Renderer<PadElement>) {
-      movingElement = updated;
+    if (movingElements.contains(old.element) &&
+        updated is Renderer<PadElement>) {
+      movingElements.remove(old.element);
+      movingElements.add(updated);
     } else if (old is Renderer<PadElement> &&
         selected.contains(old) &&
         updated is Renderer<PadElement>) {
-      selected[selected.indexOf(old)] = updated;
+      selected.remove(old);
+      selected.add(updated);
     } else {
       return false;
     }
@@ -63,12 +66,15 @@ class HandHandler extends Handler<HandProperty> {
     final color = ThemeManager.getThemeByName(
             currentIndexCubit.state.settingsCubit.state.design)
         .primaryColor;
-    if (movingElement != null) {
-      final currentElement = currentMovePosition == null
-          ? movingElement!.element
-          : movingElement!.move(currentMovePosition!);
-      final renderer = Renderer.fromInstance(currentElement);
-      foregrounds.add(renderer);
+    if (movingElements.isNotEmpty) {
+      final currentElements = movingElements
+          .map((e) => currentMovePosition == null
+              ? e.element
+              : e.move((e.rect?.topLeft ?? Offset.zero) + currentMovePosition!))
+          .toList();
+      final renderers =
+          currentElements.map((e) => Renderer.fromInstance(e)).toList();
+      foregrounds.addAll(renderers);
     }
     final selectionRect = getSelectionRect();
     if (selectionRect != null) {
@@ -77,23 +83,26 @@ class HandHandler extends Handler<HandProperty> {
     return foregrounds;
   }
 
-  void move(BuildContext context, Renderer<PadElement> next,
+  void move(BuildContext context, List<Renderer<PadElement>> next,
       [bool duplicate = false]) {
     submitMove(context);
-    movingElement = next;
+    movingElements = next;
     if (!duplicate) {
       final bloc = context.read<DocumentBloc>();
-      bloc.add(ElementsRemoved([next.element]));
+      bloc.add(ElementsRemoved(next.map((e) => e.element).toList()));
       bloc.refresh();
     }
   }
 
-  void submitMove(BuildContext context, [PadElement? element]) {
-    if (movingElement == null && element == null) return;
-    final current = (element ?? movingElement?.element)!;
-    movingElement = null;
+  void submitMove(BuildContext context,
+      [List<PadElement> elements = const []]) {
+    if (movingElements.isEmpty && elements.isEmpty) return;
+    final current = elements.isNotEmpty
+        ? elements
+        : movingElements.map((e) => e.element).toList();
+    movingElements = [];
     final bloc = context.read<DocumentBloc>();
-    bloc.add(ElementsCreated([current]));
+    bloc.add(ElementsCreated(current));
     bloc.refresh();
   }
 
@@ -127,6 +136,9 @@ class HandHandler extends Handler<HandProperty> {
 
   @override
   void onSecondaryTapUp(TapUpDetails details, EventContext context) async {
+    if (movingElements.isNotEmpty) {
+      return;
+    }
     final providers = context.getProviders();
     final hits =
         await rayCast(context.buildContext, details.localPosition, 0.0);
@@ -159,15 +171,28 @@ class HandHandler extends Handler<HandProperty> {
         position: details.localPosition,
         builder: (ctx, close) => MultiBlocProvider(
             providers: context.getProviders(),
-            child: ElementsDialog(renderers: selected)));
+            child: ElementsDialog(close: close, renderers: selected)));
     selected.clear();
     context.refresh();
   }
 
   @override
   void onScaleUpdate(ScaleUpdateDetails event, EventContext context) {
+    if (movingElements.isNotEmpty) {
+      var current = currentMovePosition ?? Offset.zero;
+      current += event.focalPointDelta;
+      currentMovePosition = current;
+      return;
+    }
     context
         .getTransformCubit()
         .move(event.focalPointDelta / context.getCameraTransform().size);
+  }
+
+  @override
+  void onScaleEnd(ScaleEndDetails event, EventContext context) {
+    if (movingElements.isNotEmpty) {
+      submitMove(context.buildContext);
+    }
   }
 }

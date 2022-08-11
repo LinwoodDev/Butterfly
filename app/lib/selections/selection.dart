@@ -66,4 +66,9 @@ abstract class Selection<T> {
   }
 
   List<String> get help => <String>[];
+
+  Selection remove(T selected) {
+    this.selected.remove(selected);
+    return this;
+  }
 }
