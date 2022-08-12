@@ -2,6 +2,19 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.2 (2022-08-12)
+
+* Add sync modes
+* Add cursor for eraser
+* Add oval feature for circle shape
+* Improve creation of shape and area when going in negative
+* Fix area painter
+    * Add name validation
+    * Fix size validationa
+* Fix undo/redo
+* Change text fields to filled in remote create dialog
+* Remove duplicated label element in plus popup menu
+
 ## 1.4.1 (2022-08-05)
 
 * Add option to change data directory location on android
