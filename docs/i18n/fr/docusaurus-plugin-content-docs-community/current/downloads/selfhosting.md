@@ -5,11 +5,11 @@ sidebar_position: 5
 
 ![Version de la version stable](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Version de la sortie nocturne](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-It is very easy to host your own butterfly web server.
+Il est très facile d'héberger votre propre serveur web papillon.
 
-## Simple server
+## Serveur simple
 
-Install flutter and build the app using:
+Installez flotter et construisez l'application en utilisant :
 
 ```bash
 cd app
@@ -17,9 +17,9 @@ flutter pub get
 flutter build web
 ```
 
-All the files are in the `app/build/web` directory.
+Tous les fichiers se trouvent dans le répertoire `app/build/web`.
 
 ## Docker
 
-Clone the repository and build the `Dockerfile` using: `docker build -t linwood-butterfly`. Start the server using: `docker run -p 8080:8080 -d linwood-butterfly`.
+Clonez le dépôt et construisez le `Dockerfile` en utilisant : `docker build -t linwood-butterfly`. Démarrez le serveur en utilisant : `docker run -p 8080:8080 -d linwood-butterfly`.
 
