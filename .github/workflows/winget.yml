@@ -1,19 +1,19 @@
 name: Publish to WinGet
 on:
-  workflow_run:
-    workflows: ["Release"]
-    types:
-      - completed
+  push:
+    branches:
+      - "stable"
+      - "nightly"
 jobs:
   publish:
     runs-on: windows-latest
     steps:
-      - if: github.ref == 'refs/tags/nightly'
+      - if: github.ref == 'refs/tags/stable'
         uses: vedantmgoyal2009/winget-releaser@latest
         with:
           identifier: LinwoodCloud.Butterfly
           token: ${{ secrets.CI_PAT }}
-      - if: github.ref == 'refs/tags/stable'
+      - if: github.ref == 'refs/tags/nightly'
         uses: vedantmgoyal2009/winget-releaser@latest
         with:
           identifier: LinwoodCloud.Butterfly.Nightly
