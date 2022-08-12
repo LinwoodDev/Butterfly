@@ -8,7 +8,7 @@ sidebar_position: 5
 
 :::warning
 
-Coming soon...
+Em breve...
 
 :::
 
