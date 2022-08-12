@@ -6,4 +6,5 @@
     * Add name validation
     * Fix size validationa
 * Fix undo/redo
+* Change text fields to filled in remote create dialog
 * Remove duplicated label element in plus popup menu

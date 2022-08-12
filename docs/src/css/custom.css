@@ -341,7 +341,7 @@ html[data-theme='dark'] .DocSearch {
 }
 .icon-button svg {
   fill: var(--ifm-button-color);
-  stroke: var(--ifm-button-color);
+  stroke: var(--ifm-button-color) 1em;
   width: 1.5rem;
   height: 1.5rem;
   margin-right: 0.5rem;
@@ -354,7 +354,7 @@ html[data-theme='dark'] .DocSearch {
 
 .grid-button:hover svg {
   fill: var(--ifm-link-hover-color);
-  stroke: var(--ifm-link-hover-color);
+  stroke: var(--ifm-link-hover-color) 1em;
 }
 
 .button {
@@ -381,6 +381,10 @@ html[data-theme='dark'] .DocSearch {
 :where(.button--pwa) {
   --ifm-button-background-color: #5A0FC8;
   --ifm-button-border-color: #5A0FC8;
+}
+:where(.button--macos) {
+  --ifm-button-background-color: #000000;
+  --ifm-button-border-color: #000000;
 }
 
 .text-center {
@@ -446,6 +450,6 @@ html {
 }
 .grid-button svg {
   fill: var(--ifm-button-color);
-  stroke: var(--ifm-button-color);
+  stroke: var(--ifm-button-color) 1em;
   width: 5em;
 }

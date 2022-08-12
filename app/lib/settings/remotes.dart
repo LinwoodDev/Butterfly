@@ -251,6 +251,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.url,
+                    filled: true,
                     icon: const Icon(PhosphorIcons.linkLight),
                   ),
                 ),
@@ -260,6 +261,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.icon,
+                    filled: true,
                     icon: const Icon(PhosphorIcons.imageLight),
                   ),
                 ),
@@ -271,6 +273,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     controller: _usernameController,
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.username,
+                      filled: true,
                       icon: const Icon(PhosphorIcons.userLight),
                     ),
                   ),
@@ -283,6 +286,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         : TextInputType.text,
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.password,
+                      filled: true,
                       suffixIcon: IconButton(
                         icon: Icon(
                           _showPassword
@@ -401,6 +405,7 @@ class _DirectoryField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         icon: icon,
+        filled: true,
         /*suffixIcon: IconButton(
             icon: const Icon(PhosphorIcons.folderLight),
             onPressed: () async {}),*/

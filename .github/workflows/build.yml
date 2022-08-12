@@ -1,6 +1,6 @@
 name: Flutter build
 
-on: [push, release]
+on: [push, release, pull_request]
 jobs:
   build-apk:
     concurrency: ci-${{ github.ref }}
@@ -269,30 +269,38 @@ jobs:
         with:
           name: linux-alternative-portable
           path: app/build/linux/x64/release/bundle
-  #build-macos:
-  #  runs-on: macos-latest
-  #  steps:
-  #    - name: ⬆️ Checkout
-  #      uses: actions/checkout@v3
-  #    - uses: subosito/flutter-action@v2
-  #      with:
-  #        channel: "dev" # or: 'stable' or 'dev'
-  #    - name: ✅ Enable platforms
-  #      run: flutter config --enable-macos-desktop
-  #    - name: 📦 Get dependencies
-  #      run: |
-  #        flutter pub get
-  #    - name: 🏭 Build
-  #      run: |
-  #        flutter clean
-  #        flutter doctor -v
-  #        flutter build macos -v
-  #    - name: Archive
-  #      uses: actions/upload-artifact@v3
-  #      with:
-  #        name: macos-build
-  #        path: |
-  #          build/windows/runner/Release/**
+  build-macos:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v3
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable" # or: 'beta' or 'dev'
+      - name: ✅ Enable platforms
+        run: flutter config --enable-macos-desktop
+      - name: 📦 Get dependencies
+        run: |
+          flutter pub get
+      - name: 🏭 Build
+        run: |
+          flutter clean
+          flutter doctor -v
+          flutter build macos -v
+      - name: Archive
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-build
+          path: |
+            app/build/macos/Build/Products/Release/butterfly.app
   deploy:
     runs-on: ubuntu-22.04
     if: github.event_name == 'push'
@@ -300,7 +308,8 @@ jobs:
       - build-apk
       - build-windows
       - build-linux
-      #- build-flatpak
+      - build-flatpak
+      - build-macos
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -340,11 +349,16 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: windows-setup
+      - uses: actions/download-artifact@v3
+        with:
+          name: macos-build
+          path: macos-build/
       - name: 📦 Zip artifacts
         run: |
           zip -r linwood-butterfly-windows.zip windows-build/*
           tar -C linux-build -czf linwood-butterfly-linux.tar.gz .
           tar -C linux-alternative-portable -czf linwood-butterfly-linux-alternative.tar.gz .
+          tar -C macos-build -czf linwood-butterfly-macos.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -367,6 +381,7 @@ jobs:
             linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
+            linwood-butterfly-macos.tar.gz
           #  linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -385,6 +400,7 @@ jobs:
             linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
+            linwood-butterfly-macos.tar.gz
           #  linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -401,6 +417,7 @@ jobs:
             linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
+            linwood-butterfly-macos.tar.gz
           #  linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
