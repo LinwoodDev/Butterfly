@@ -52,7 +52,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           git checkout develop
-          git merge origin/main --strategy-option ours
+          git merge main --strategy-option ours
           git push origin develop
 
   release:
