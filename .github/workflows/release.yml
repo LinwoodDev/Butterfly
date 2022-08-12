@@ -16,16 +16,10 @@ on:
 jobs:
   update-changelog:
     runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        branch:
-          - develop
-          - main
     steps:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.CI_PAT }}
-          ref: ${{ matrix.branch }}
       - name: Get flutter version
         run: |
           FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
@@ -48,12 +42,19 @@ jobs:
       - name: Update changelog
         run: |
           git fetch
-          git pull origin ${{ matrix.branch }}
+          git pull origin develop
           dart pub get -C tools
           dart run tools/set_version.dart --build-number keep ${{ env.BUTTERFLY_VERSION }} --changelog
           git add .
           git commit -m "Add changelog of v${{ env.BUTTERFLY_VERSION }}"
-          git push origin ${{ matrix.branch }}
+          git push origin develop
+      - name: Merge in develop
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          git checkout develop
+          git merge main
+          git push origin develop
+
   release:
     runs-on: ubuntu-22.04
     needs:
