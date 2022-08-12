@@ -52,7 +52,7 @@ jobs:
       - name: Merge in develop
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
-          git fetch --unshallow
+          git fetch
           git checkout develop
           git pull origin develop
           git merge main --strategy-option ours
