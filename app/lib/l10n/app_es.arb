@@ -231,9 +231,9 @@
     },
     "releaseNotes": "Notas de lanzamiento",
     "constraints": "Restricciones",
-    "scaledConstraints": "Restricciones escaladas",
-    "fixedConstraints": "Restricciones fijas",
-    "dynamicConstraints": "Restricciones dinámicas",
+    "scaled": "Escalado",
+    "fixed": "Fijado",
+    "dynamicContent": "Dinámica",
     "none": "Ninguna",
     "includeArea": "Incluye área",
     "verticalAlignment": "Alineación vertical",
@@ -367,5 +367,11 @@
     "always": "Siempre",
     "noMobile": "Sin móvil",
     "manual": "Manual",
-    "search": "Buscar"
+    "search": "Buscar",
+    "properties": "Propiedades",
+    "pin": "Fijar",
+    "unpin": "Unpin",
+    "element": "Elemento",
+    "painter": "Pintor",
+    "position": "Posición"
 }

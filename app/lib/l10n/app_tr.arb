@@ -231,9 +231,9 @@
     },
     "releaseNotes": "Sürüm bilgileri",
     "constraints": "Kısıtlamalar",
-    "scaledConstraints": "Ölçeklendirilmiş kısıtlamalar",
-    "fixedConstraints": "Düzeltilmiş kısıtlamalar",
-    "dynamicConstraints": "Dinamik kısıtlamalar",
+    "scaled": "Scaled",
+    "fixed": "Fixed",
+    "dynamicContent": "Dynamic",
     "none": "Yok",
     "includeArea": "Dahili alan",
     "verticalAlignment": "Dikey hizalama",
@@ -367,5 +367,11 @@
     "always": "Always",
     "noMobile": "No mobile",
     "manual": "Manual",
-    "search": "Ara"
+    "search": "Ara",
+    "properties": "Properties",
+    "pin": "Pin",
+    "unpin": "Unpin",
+    "element": "Element",
+    "painter": "Painter",
+    "position": "Position"
 }

@@ -231,9 +231,9 @@
     },
     "releaseNotes": "Versionshinweise",
     "constraints": "Einschränkungen",
-    "scaledConstraints": "Skalierte Einschränkungen",
-    "fixedConstraints": "Feste Beziehungen",
-    "dynamicConstraints": "Dynamische Beziehungen",
+    "scaled": "Skaliert",
+    "fixed": "Feste",
+    "dynamicContent": "Dynamisch",
     "none": "Keine",
     "includeArea": "Bereich einbeziehen",
     "verticalAlignment": "Vertikale Ausrichtung",
@@ -367,5 +367,11 @@
     "always": "Immer",
     "noMobile": "Kein Handy",
     "manual": "Manuell",
-    "search": "Suchen"
+    "search": "Suchen",
+    "properties": "Eigenschaften",
+    "pin": "Pin",
+    "unpin": "Unpin",
+    "element": "Element",
+    "painter": "Maler",
+    "position": "Position"
 }
