@@ -33,17 +33,19 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final position = selected.length > 1 ? null : selected.first.rect?.topLeft;
+    final multi = selected.length > 1;
+    final position = multi ? null : selected.first.rect?.center;
     return [
       ...super.buildProperties(context),
       OffsetPropertyView(
         value: position,
         title: Text(AppLocalizations.of(context)!.position),
+        clearValue: selected.length > 1,
         onChanged: (value) {
           updateElements(
               context,
               selected
-                  .map((e) => e.move(value, selected.length > 1))
+                  .map((e) => e.move(value, multi))
                   .whereType<T>()
                   .toList());
         },
@@ -91,7 +93,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   @override
   Selection insert(dynamic element) {
     if (element is Renderer<PadElement>) {
-      return ElementSelection<PadElement>.from(element) as Selection<T>;
+      return ElementSelection([...selected, element]);
     }
     return Selection.from(element);
   }
@@ -108,10 +110,19 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
 class OffsetPropertyView extends StatelessWidget {
   final Widget title;
   final Offset? value;
+  final bool clearValue;
   final Function(Offset) onChanged;
+  final TextEditingController _xController;
+  final TextEditingController _yController;
 
-  const OffsetPropertyView(
-      {super.key, required this.title, this.value, required this.onChanged});
+  OffsetPropertyView(
+      {super.key,
+      required this.title,
+      this.clearValue = false,
+      this.value,
+      required this.onChanged})
+      : _xController = TextEditingController(text: value?.dx.toString() ?? ''),
+        _yController = TextEditingController(text: value?.dy.toString() ?? '');
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +134,7 @@ class OffsetPropertyView extends StatelessWidget {
       final controls = Row(mainAxisAlignment: MainAxisAlignment.end, children: [
         Expanded(
           child: TextFormField(
-            initialValue: value?.dx.toString(),
+            controller: _xController,
             decoration: const InputDecoration(
               labelText: 'X',
               alignLabelWithHint: true,
@@ -134,13 +145,17 @@ class OffsetPropertyView extends StatelessWidget {
               if (value.isEmpty) return;
               final dx = double.tryParse(value);
               if (dx == null) return;
+              if (clearValue) {
+                _xController.text = '';
+                _yController.text = '';
+              }
               onChanged(Offset(dx, this.value?.dy ?? 0));
             },
           ),
         ),
         Expanded(
           child: TextFormField(
-            initialValue: value?.dy.toString(),
+            controller: _yController,
             decoration: const InputDecoration(
               labelText: 'Y',
               alignLabelWithHint: true,
@@ -151,6 +166,10 @@ class OffsetPropertyView extends StatelessWidget {
               if (value.isEmpty) return;
               final dy = double.tryParse(value);
               if (dy == null) return;
+              if (clearValue) {
+                _xController.text = '';
+                _yController.text = '';
+              }
               onChanged(Offset(this.value?.dx ?? 0, dy));
             },
           ),
