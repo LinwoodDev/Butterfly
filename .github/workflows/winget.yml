@@ -1,7 +1,7 @@
 name: Publish to WinGet
 on:
   workflow_run:
-    workflows: ["Flutter build"]
+    workflows: ["Release"]
     types:
       - completed
 jobs:
