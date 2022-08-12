@@ -4,7 +4,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class OptionButton extends StatelessWidget {
   final Icon icon, selectedIcon;
   final VoidCallback onPressed, onLongPressed;
-  final bool selected;
+  final bool selected, highlighted;
   final String tooltip;
 
   const OptionButton(
@@ -14,7 +14,8 @@ class OptionButton extends StatelessWidget {
       required this.selectedIcon,
       required this.onPressed,
       required this.onLongPressed,
-      this.selected = false});
+      this.selected = false,
+      this.highlighted = false});
   @override
   Widget build(BuildContext context) {
     return Tooltip(
@@ -26,24 +27,36 @@ class OptionButton extends StatelessWidget {
         onLongPress: onLongPressed,
         child: AspectRatio(
           aspectRatio: 1,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
-            child: IconTheme(
-                data: Theme.of(context).iconTheme.copyWith(
-                    size: 28,
-                    color: selected
-                        ? Theme.of(context).colorScheme.primary
-                        : null),
-                child: Column(
-                  children: [
-                    selected ? selectedIcon : icon,
-                    if (selected)
-                      const Icon(
-                        PhosphorIcons.caretDown,
-                        size: 12,
-                      )
-                  ],
-                )),
+          child: Container(
+            decoration: highlighted
+                ? BoxDecoration(
+                    // Border
+                    border: Border.all(
+                      color: Theme.of(context).primaryColor,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  )
+                : null,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+              child: IconTheme(
+                  data: Theme.of(context).iconTheme.copyWith(
+                      size: 28,
+                      color: selected
+                          ? Theme.of(context).colorScheme.primary
+                          : null),
+                  child: Column(
+                    children: [
+                      selected ? selectedIcon : icon,
+                      if (selected)
+                        const Icon(
+                          PhosphorIcons.caretDown,
+                          size: 12,
+                        ),
+                    ],
+                  )),
+            ),
           ),
         ),
       ),

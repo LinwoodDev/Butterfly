@@ -231,9 +231,9 @@
   },
   "releaseNotes": "Release notes",
   "constraints": "Constraints",
-  "scaledConstraints": "Scaled constraints",
-  "fixedConstraints": "Fixed constraints",
-  "dynamicConstraints": "Dynamic constraints",
+  "scaled": "Scaled",
+  "fixed": "Fixed",
+  "dynamicContent": "Dynamic",
   "none": "None",
   "includeArea": "Include area",
   "verticalAlignment": "Vertical alignment",
@@ -367,5 +367,11 @@
   "always": "Always",
   "noMobile": "No mobile",
   "manual": "Manual",
-  "search": "Search"
+  "search": "Search",
+  "properties": "Properties",
+  "pin": "Pin",
+  "unpin": "Unpin",
+  "element": "Element",
+  "painter": "Painter",
+  "position": "Position"
 }

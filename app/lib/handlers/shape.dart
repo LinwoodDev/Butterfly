@@ -7,7 +7,9 @@ class ShapeHandler extends Handler {
   ShapeHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
+  List<Renderer> createForegrounds(
+      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      [Area? currentArea]) {
     return elements.values
         .map((e) => ShapeRenderer(e)..setup(document))
         .toList()
@@ -15,11 +17,10 @@ class ShapeHandler extends Handler {
   }
 
   @override
-  void onPointerUp(
-      Size viewportSize, BuildContext context, PointerUpEvent event) {
-    addShape(context, event.pointer, event.localPosition, event.pressure,
-        event.kind, false);
-    submitElement(viewportSize, context, event.pointer);
+  void onPointerUp(PointerUpEvent event, EventContext context) {
+    addShape(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind, false);
+    submitElement(context.viewportSize, context.buildContext, event.pointer);
   }
 
   void _setRect(Offset nextPosition, int index) {
@@ -129,17 +130,18 @@ class ShapeHandler extends Handler {
   }
 
   @override
-  void onPointerDown(
-      Size viewportSize, BuildContext context, PointerDownEvent event) {
-    addShape(context, event.pointer, event.localPosition, event.pressure,
-        event.kind);
+  void onPointerDown(PointerDownEvent event, EventContext context) {
+    addShape(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind);
   }
 
   @override
-  void onPointerMove(
-          Size viewportSize, BuildContext context, PointerMoveEvent event) =>
-      addShape(context, event.pointer, event.localPosition, event.pressure,
-          event.kind);
+  void onPointerMove(PointerMoveEvent event, EventContext context) => addShape(
+      context.buildContext,
+      event.pointer,
+      event.localPosition,
+      event.pressure,
+      event.kind);
 
   @override
   int? getColor(DocumentBloc bloc) => data.property.color;

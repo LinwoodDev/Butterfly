@@ -1,32 +1,37 @@
-import 'package:butterfly/dialogs/painters/general.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+part of '../selection.dart';
 
-import '../../models/painter.dart';
-import '../../models/property.dart';
-import '../../widgets/color_field.dart';
-import '../../widgets/exact_slider.dart';
-
-class LabelPainterDialog extends StatelessWidget {
-  final int painterIndex;
-
-  const LabelPainterDialog({super.key, required this.painterIndex});
+class LabelPainterSelection extends PainterSelection<LabelPainter> {
+  LabelPainterSelection(super.selected);
 
   @override
-  Widget build(BuildContext context) {
-    return GeneralPainterDialog<LabelPainter>(
-        index: painterIndex,
-        title: AppLocalizations.of(context)!.label,
-        iconBuilder: (_, __) => PhosphorIcons.textTLight,
-        help: 'label',
-        builder: (context, painter, setPainter) => [
-              LabelPropertyView(
-                  initialValue: painter.property,
-                  onChanged: (property) =>
-                      setPainter(painter.copyWith(property: property))),
-            ]);
+  List<Widget> buildProperties(BuildContext context) {
+    final property = selected.first.property;
+    void updateProperty(LabelProperty property) => update(
+        context, selected.map((e) => e.copyWith(property: property)).toList());
+    return [
+      ...super.buildProperties(context),
+      LabelPropertyView(initialValue: property, onChanged: updateProperty),
+    ];
   }
+
+  @override
+  Selection insert(dynamic element) {
+    if (element is LabelPainter) {
+      return LabelPainterSelection([...selected, element]);
+    }
+    return super.insert(element);
+  }
+
+  @override
+  String getLocalizedName(BuildContext context) =>
+      AppLocalizations.of(context)!.label;
+
+  @override
+  IconData getIcon({bool filled = false}) =>
+      filled ? PhosphorIcons.textTFill : PhosphorIcons.textTLight;
+
+  @override
+  List<String> get help => ['painters', 'label'];
 }
 
 typedef LabelPropertyCallback = void Function(LabelProperty);

@@ -22,6 +22,7 @@ import '../models/background.dart';
 import '../models/element.dart';
 import '../models/painter.dart';
 import '../models/viewport.dart';
+import '../selections/selection.dart';
 import '../view_painter.dart';
 
 part 'current_index.freezed.dart';
@@ -37,9 +38,8 @@ class CurrentIndex with _$CurrentIndex {
     int? temporaryIndex,
     Handler? temporaryHandler,
     @Default([]) List<Renderer> foregrounds,
-    @Default([]) List<Rect> selections,
+    Selection? selection,
     List<Renderer>? temporaryForegrounds,
-    List<Rect>? temporarySelections,
     @Default([]) List<int> pointers,
     @Default(CameraViewport.unbaked()) CameraViewport cameraViewport,
     @Default(AssetLocation(path: '')) AssetLocation location,
@@ -72,20 +72,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final painter = document.painters[index];
     final handler = Handler.fromPainter(painter);
     emit(state.copyWith(
-        index: index,
-        handler: handler,
-        foregrounds: handler.createForegrounds(document, currentArea),
-        selections: handler.createSelections(document, currentArea)));
+      index: index,
+      handler: handler,
+      foregrounds: handler.createForegrounds(this, document, currentArea),
+    ));
     return handler;
   }
 
   void updatePainter(AppDocument document, Area? currentArea, Painter painter) {
     final handler = Handler.fromPainter(painter);
     emit(state.copyWith(
-        index: state.index,
-        handler: handler,
-        foregrounds: handler.createForegrounds(document, currentArea),
-        selections: handler.createSelections(document, currentArea)));
+      index: state.index,
+      handler: handler,
+      foregrounds: handler.createForegrounds(this, document, currentArea),
+    ));
   }
 
   T? fetchHandler<T extends Handler>({bool disableTemporary = false}) {
@@ -98,8 +98,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final handler = state.handler;
     if (!isClosed) {
       emit(state.copyWith(
-          foregrounds: handler.createForegrounds(document, currentArea),
-          selections: handler.createSelections(document, currentArea)));
+        foregrounds: handler.createForegrounds(this, document, currentArea),
+      ));
     }
   }
 
@@ -124,11 +124,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       index: -1,
       handler: HandHandler(document.handProperty),
       foregrounds: [],
-      selections: [],
       temporaryIndex: null,
       temporaryHandler: null,
       temporaryForegrounds: null,
-      temporarySelections: null,
     ));
   }
 
@@ -149,20 +147,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final painter = document.painters[index];
     final handler = Handler.fromPainter(painter);
     emit(state.copyWith(
-        temporaryIndex: index,
-        temporaryHandler: handler,
-        foregrounds: handler.createForegrounds(document, currentArea),
-        selections: handler.createSelections(document, currentArea)));
+      temporaryIndex: index,
+      temporaryHandler: handler,
+      foregrounds: handler.createForegrounds(this, document, currentArea),
+    ));
     return handler;
   }
 
   Handler? changeTemporaryHandlerHand(AppDocument document, Area? currentArea) {
     final handler = HandHandler(document.handProperty);
     emit(state.copyWith(
-        temporaryIndex: -1,
-        temporaryHandler: handler,
-        foregrounds: handler.createForegrounds(document, currentArea),
-        selections: handler.createSelections(document, currentArea)));
+      temporaryIndex: -1,
+      temporaryHandler: handler,
+      foregrounds: handler.createForegrounds(this, document, currentArea),
+    ));
     return handler;
   }
 
@@ -177,16 +175,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final painter = document.painters[index];
     final handler = Handler.fromPainter(painter);
     emit(state.copyWith(
-        temporaryIndex: index,
-        temporaryHandler: handler,
-        temporaryForegrounds: handler.createForegrounds(document, currentArea),
-        temporarySelections: handler.createSelections(document, currentArea)));
+      temporaryIndex: index,
+      temporaryHandler: handler,
+      temporaryForegrounds:
+          handler.createForegrounds(this, document, currentArea),
+    ));
     return handler;
   }
 
   List<Renderer> get foregrounds =>
       state.temporaryForegrounds ?? state.foregrounds;
-  List<Rect> get selections => state.temporarySelections ?? state.selections;
 
   void resetTemporaryHandler(AppDocument document, Area? currentArea) {
     if (state.temporaryIndex == null && state.temporaryHandler == null) {
@@ -196,7 +194,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryIndex: null,
       temporaryHandler: null,
       temporaryForegrounds: null,
-      temporarySelections: null,
     ));
   }
 
@@ -397,5 +394,44 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           }));
     }
     return document;
+  }
+
+  void updateIndex(AppDocument document) {
+    final index = document.painters.indexOf(state.handler.data);
+    if (index < 0) {
+      reset(document);
+      return;
+    }
+    if (index == state.index) {
+      return;
+    }
+    changeIndex(index);
+  }
+
+  void insertSelection(dynamic selected, [bool toggle = true]) {
+    final selection = state.selection;
+    if (selection == null) {
+      emit(state.copyWith(selection: Selection.from(selected)));
+      return;
+    }
+    Selection next;
+    if (selection.selected.contains(selected) && toggle) {
+      next = selection.remove(selected);
+    } else {
+      next = selection.insert(selected);
+    }
+    emit(state.copyWith(selection: next));
+  }
+
+  void changeSelection(dynamic selected, [bool toggle = true]) {
+    emit(state.copyWith(
+        selection:
+            (toggle && (state.selection?.selected.contains(selected) ?? false))
+                ? null
+                : Selection.from(selected)));
+  }
+
+  void resetSelection() {
+    emit(state.copyWith(selection: null));
   }
 }

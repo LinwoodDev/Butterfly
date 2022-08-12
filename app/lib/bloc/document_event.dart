@@ -31,13 +31,12 @@ class ElementsReplaced extends DocumentEvent {
   List<Object?> get props => [replacedElements];
 }
 
-class ElementChanged extends DocumentEvent {
-  final PadElement old;
-  final PadElement updated;
-  const ElementChanged(this.old, this.updated);
+class ElementsChanged extends DocumentEvent {
+  final Map<PadElement, PadElement> changedElements;
+  const ElementsChanged(this.changedElements);
 
   @override
-  List<Object?> get props => [old, updated];
+  List<Object?> get props => [changedElements];
 }
 
 class ElementsRemoved extends DocumentEvent {
@@ -89,23 +88,22 @@ class PainterCreated extends DocumentEvent {
   List<Object?> get props => [painter];
 }
 
-class PainterChanged extends DocumentEvent {
-  final Painter painter;
-  final int index;
+class PaintersChanged extends DocumentEvent {
+  final Map<Painter, Painter> updatedPainters;
 
-  const PainterChanged(this.painter, this.index);
+  const PaintersChanged(this.updatedPainters);
 
   @override
-  List<Object?> get props => [painter, index];
+  List<Object?> get props => [updatedPainters];
 }
 
-class PainterRemoved extends DocumentEvent {
-  final int index;
+class PaintersRemoved extends DocumentEvent {
+  final List<Painter> painters;
 
-  const PainterRemoved(this.index);
+  const PaintersRemoved(this.painters);
 
   @override
-  List<Object?> get props => [index];
+  List<Object?> get props => [painters];
 }
 
 class PainterReordered extends DocumentEvent {

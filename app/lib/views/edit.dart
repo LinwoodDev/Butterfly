@@ -1,28 +1,52 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
-import 'package:butterfly/dialogs/hand.dart';
-import 'package:butterfly/dialogs/painters/eraser.dart';
-import 'package:butterfly/dialogs/painters/label.dart';
-import 'package:butterfly/dialogs/painters/laser.dart';
-import 'package:butterfly/dialogs/painters/layer.dart';
-import 'package:butterfly/dialogs/painters/path_eraser.dart';
-import 'package:butterfly/dialogs/painters/pen.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/widgets/option_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../dialogs/painters/area.dart';
-import '../dialogs/painters/shape.dart';
+import '../selections/selection.dart';
 
-class EditToolbar extends StatelessWidget {
+class EditToolbar extends StatefulWidget {
   final bool isMobile;
+
+  const EditToolbar({super.key, required this.isMobile});
+
+  @override
+  State<EditToolbar> createState() => _EditToolbarState();
+}
+
+enum _MouseState { normal, multi }
+
+class _EditToolbarState extends State<EditToolbar> {
   final ScrollController _scrollController = ScrollController();
 
-  EditToolbar({super.key, required this.isMobile});
+  _MouseState _mouseState = _MouseState.normal;
+
+  @override
+  void initState() {
+    super.initState();
+
+    RawKeyboard.instance.addListener(_handleKey);
+  }
+
+  @override
+  void dispose() {
+    RawKeyboard.instance.removeListener(_handleKey);
+    super.dispose();
+  }
+
+  void _handleKey(RawKeyEvent event) {
+    if (event.data.isControlPressed) {
+      _mouseState = _MouseState.multi;
+    } else {
+      _mouseState = _MouseState.normal;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,32 +58,14 @@ class EditToolbar extends StatelessWidget {
             builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
               var painters = state.document.painters;
-              void openHandDialog() {
-                var bloc = context.read<DocumentBloc>();
-                showGeneralDialog(
-                    context: context,
-                    transitionBuilder: (context, a1, a2, widget) {
-                      // Slide transition
-                      return SlideTransition(
-                        position: Tween<Offset>(
-                                begin: const Offset(0, -1), end: Offset.zero)
-                            .animate(a1),
-                        child: widget,
-                      );
-                    },
-                    barrierDismissible: true,
-                    barrierLabel: AppLocalizations.of(context)!.close,
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        BlocProvider.value(
-                            value: bloc, child: const HandDialog()));
-              }
 
               return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                 builder: (context, currentIndex) => Material(
                   color: Colors.transparent,
                   child: Align(
-                    alignment:
-                        isMobile ? Alignment.center : Alignment.centerRight,
+                    alignment: widget.isMobile
+                        ? Alignment.center
+                        : Alignment.centerRight,
                     child: ListView(
                         controller: _scrollController,
                         scrollDirection: Axis.horizontal,
@@ -70,15 +76,25 @@ class EditToolbar extends StatelessWidget {
                             selected:
                                 context.read<CurrentIndexCubit>().getIndex() <
                                     0,
+                            highlighted: currentIndex.selection?.selected
+                                    .contains(kHand) ??
+                                false,
                             icon: const Icon(PhosphorIcons.handLight),
                             selectedIcon: const Icon(PhosphorIcons.handFill),
-                            onLongPressed: openHandDialog,
+                            onLongPressed: () => context
+                                .read<CurrentIndexCubit>()
+                                .changeSelection(kHand),
                             onPressed: () {
+                              context
+                                  .read<CurrentIndexCubit>()
+                                  .resetSelection();
                               if (context
                                       .read<CurrentIndexCubit>()
                                       .getPainter(state.document) ==
                                   null) {
-                                openHandDialog();
+                                context
+                                    .read<CurrentIndexCubit>()
+                                    .changeSelection(kHand);
                               } else {
                                 context
                                     .read<CurrentIndexCubit>()
@@ -96,68 +112,18 @@ class EditToolbar extends StatelessWidget {
                                 itemCount: painters.length,
                                 itemBuilder: (context, i) {
                                   var e = painters[i];
-                                  final type = e.toJson()['type'];
                                   final selected = i ==
                                       context
                                           .read<CurrentIndexCubit>()
                                           .getIndex();
+                                  final highlighted = currentIndex
+                                          .selection?.selected
+                                          .any((element) =>
+                                              element.hashCode == e.hashCode) ??
+                                      false;
                                   String tooltip = e.name.trim();
                                   if (tooltip.isEmpty) {
                                     tooltip = e.getLocalizedName(context);
-                                  }
-                                  void openDialog() {
-                                    var bloc = context.read<DocumentBloc>();
-                                    showGeneralDialog(
-                                        context: context,
-                                        transitionBuilder:
-                                            (context, a1, a2, widget) {
-                                          // Slide transition
-                                          return SlideTransition(
-                                            position: Tween<Offset>(
-                                                    begin: const Offset(0, -1),
-                                                    end: Offset.zero)
-                                                .animate(a1),
-                                            child: widget,
-                                          );
-                                        },
-                                        barrierDismissible: true,
-                                        barrierLabel:
-                                            AppLocalizations.of(context)!.close,
-                                        pageBuilder: (context, animation,
-                                                secondaryAnimation) =>
-                                            BlocProvider.value(
-                                                value: bloc,
-                                                child:
-                                                    Builder(builder: (context) {
-                                                  switch (type) {
-                                                    case 'pen':
-                                                      return PenPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'shape':
-                                                      return ShapePainterDialog(
-                                                          painterIndex: i);
-                                                    case 'eraser':
-                                                      return EraserPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'pathEraser':
-                                                      return PathEraserPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'label':
-                                                      return LabelPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'layer':
-                                                      return LayerPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'area':
-                                                      return AreaPainterDialog(
-                                                          painterIndex: i);
-                                                    case 'laser':
-                                                      return LaserPainterDialog(
-                                                          painterIndex: i);
-                                                    default:
-                                                      return Container();
-                                                  }
-                                                })));
                                   }
 
                                   Widget toolWidget = Padding(
@@ -165,23 +131,36 @@ class EditToolbar extends StatelessWidget {
                                           horizontal: 4.0),
                                       child: OptionButton(
                                           tooltip: tooltip,
-                                          onLongPressed: openDialog,
+                                          onLongPressed: () => context
+                                              .read<CurrentIndexCubit>()
+                                              .insertSelection(e, true),
                                           selected: selected,
+                                          highlighted: highlighted,
                                           selectedIcon:
                                               Icon(e.getIcon(filled: true)),
                                           icon: Icon(e.getIcon(filled: false)),
                                           onPressed: () {
-                                            if (!selected) {
+                                            if (_mouseState ==
+                                                _MouseState.multi) {
+                                              context
+                                                  .read<CurrentIndexCubit>()
+                                                  .insertSelection(e, true);
+                                            } else if (!selected) {
+                                              context
+                                                  .read<CurrentIndexCubit>()
+                                                  .resetSelection();
                                               context
                                                   .read<CurrentIndexCubit>()
                                                   .changePainter(state.document,
                                                       state.currentArea, i);
                                             } else {
-                                              openDialog();
+                                              context
+                                                  .read<CurrentIndexCubit>()
+                                                  .changeSelection(e, true);
                                             }
                                           }));
                                   return ReorderableDragStartListener(
-                                      key: ObjectKey(e),
+                                      key: ObjectKey(i),
                                       index: i,
                                       child: toolWidget);
                                 },

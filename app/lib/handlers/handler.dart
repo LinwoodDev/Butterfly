@@ -4,20 +4,23 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/area/context.dart';
-import 'package:butterfly/dialogs/elements/elements.dart';
+import 'package:butterfly/dialogs/background/context.dart';
+import 'package:butterfly/dialogs/elements.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/renderers/area.dart';
+import 'package:butterfly/theme/manager.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../api/rect_helper.dart';
 import '../cubits/current_index.dart';
 import '../dialogs/area/label.dart';
-import '../dialogs/background/context.dart';
-import '../dialogs/elements/label.dart';
 import '../models/area.dart';
 import '../models/cursor.dart';
 import '../models/document.dart';
@@ -25,7 +28,9 @@ import '../models/path_point.dart';
 import '../models/property.dart';
 import '../renderers/cursors/eraser.dart';
 import '../renderers/renderer.dart';
+import '../selections/selection.dart';
 import '../widgets/context_menu.dart';
+import '../widgets/header.dart';
 
 part 'area.dart';
 part 'eraser.dart';
@@ -37,45 +42,96 @@ part 'path_eraser.dart';
 part 'pen.dart';
 part 'shape.dart';
 
+@immutable
+class EventContext {
+  final BuildContext buildContext;
+  final Size viewportSize;
+  final bool isShiftPressed, isAltPressed, isCtrlPressed;
+
+  const EventContext(this.buildContext, this.viewportSize, this.isShiftPressed,
+      this.isAltPressed, this.isCtrlPressed);
+
+  DocumentBloc getDocumentBloc() => BlocProvider.of<DocumentBloc>(buildContext);
+  DocumentLoadSuccess? getState() {
+    final state = getDocumentBloc().state;
+    if (state is! DocumentLoadSuccess) {
+      return null;
+    }
+    return state;
+  }
+
+  void addDocumentEvent(DocumentEvent event) => getDocumentBloc().add(event);
+  double get devicePixelRatio => MediaQuery.of(buildContext).devicePixelRatio;
+
+  TransformCubit getTransformCubit() =>
+      BlocProvider.of<TransformCubit>(buildContext);
+
+  CameraTransform getCameraTransform() => getTransformCubit().state;
+
+  CurrentIndexCubit getCurrentIndexCubit() =>
+      BlocProvider.of<CurrentIndexCubit>(buildContext);
+
+  CurrentIndex getCurrentIndex() => getCurrentIndexCubit().state;
+
+  void refresh() => getDocumentBloc().refresh();
+
+  SettingsCubit getSettingsCubit() =>
+      BlocProvider.of<SettingsCubit>(buildContext);
+  ButterflySettings getSettings() => getSettingsCubit().state;
+
+  Future<void> bake(
+          {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
+      getDocumentBloc().bake(
+          pixelRatio: pixelRatio, viewportSize: viewportSize, reset: reset);
+
+  List<BlocProvider> getProviders() => [
+        BlocProvider<DocumentBloc>.value(value: getDocumentBloc()),
+        BlocProvider<TransformCubit>.value(value: getTransformCubit()),
+        BlocProvider<CurrentIndexCubit>.value(value: getCurrentIndexCubit()),
+        BlocProvider<SettingsCubit>.value(value: getSettingsCubit())
+      ];
+
+  Map<Type, Action<Intent>> getActions() =>
+      buildContext.findAncestorWidgetOfExactType<Actions>()?.actions ?? {};
+}
+
 abstract class Handler<T> {
   final T data;
 
   const Handler(this.data);
 
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
+  List<Renderer> createForegrounds(
+          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          [Area? currentArea]) =>
       [];
-
-  List<Rect> createSelections(AppDocument document, [Area? currentArea]) => [];
 
   Future<bool> onRendererUpdated(
           AppDocument appDocument, Renderer old, Renderer updated) async =>
       false;
 
-  void onTapUp(Size viewportSize, BuildContext context, TapUpDetails details) {}
+  void onTapUp(TapUpDetails details, EventContext context) {}
 
-  void onTapDown(
-      Size viewportSize, BuildContext context, TapDownDetails details) {}
+  void onTapDown(TapDownDetails details, EventContext context) {}
 
-  void onSecondaryTapUp(
-      Size viewportSize, BuildContext context, TapUpDetails details) {}
+  void onSecondaryTapUp(TapUpDetails details, EventContext context) {}
 
-  void onSecondaryTapDown(
-      Size viewportSize, BuildContext context, TapDownDetails details) {}
+  void onSecondaryTapDown(TapDownDetails details, EventContext context) {}
 
-  void onPointerDown(
-      Size viewportSize, BuildContext context, PointerDownEvent event) {}
+  void onPointerDown(PointerDownEvent event, EventContext context) {}
 
-  void onPointerMove(
-      Size viewportSize, BuildContext context, PointerMoveEvent event) {}
+  void onPointerMove(PointerMoveEvent event, EventContext context) {}
 
-  void onPointerUp(
-      Size viewportSize, BuildContext context, PointerUpEvent event) {}
+  void onPointerUp(PointerUpEvent event, EventContext context) {}
 
-  void onPointerHover(
-      Size viewportSize, BuildContext context, PointerHoverEvent event) {}
+  void onPointerHover(PointerHoverEvent event, EventContext context) {}
 
-  void onLongPressEnd(
-      Size viewportSize, BuildContext context, LongPressEndDetails details) {}
+  void onLongPressEnd(LongPressEndDetails details, EventContext context) {}
+
+  void onScaleStart(ScaleStartDetails details, EventContext context) {}
+
+  void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {}
+
+  void onScaleEnd(ScaleEndDetails details, EventContext context) {}
 
   int? getColor(DocumentBloc bloc) => null;
 

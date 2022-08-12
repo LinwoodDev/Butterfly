@@ -238,7 +238,7 @@ class __$$LabelPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$LabelPainter implements LabelPainter {
-  const _$LabelPainter(
+  _$LabelPainter(
       {this.name = '',
       this.property = const LabelProperty(),
       final String? $type})
@@ -261,22 +261,6 @@ class _$LabelPainter implements LabelPainter {
   String toString() {
     return 'Painter.label(name: $name, property: $property)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LabelPainter &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.property, property));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(property));
 
   @JsonKey(ignore: true)
   @override
@@ -439,8 +423,8 @@ class _$LabelPainter implements LabelPainter {
 }
 
 abstract class LabelPainter implements Painter {
-  const factory LabelPainter(
-      {final String name, final LabelProperty property}) = _$LabelPainter;
+  factory LabelPainter({final String name, final LabelProperty property}) =
+      _$LabelPainter;
 
   factory LabelPainter.fromJson(Map<String, dynamic> json) =
       _$LabelPainter.fromJson;
@@ -499,7 +483,7 @@ class __$$PenPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PenPainter implements PenPainter {
-  const _$PenPainter(
+  _$PenPainter(
       {this.name = '',
       this.zoomDependent = false,
       this.property = const PenProperty(),
@@ -526,25 +510,6 @@ class _$PenPainter implements PenPainter {
   String toString() {
     return 'Painter.pen(name: $name, zoomDependent: $zoomDependent, property: $property)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PenPainter &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.zoomDependent, zoomDependent) &&
-            const DeepCollectionEquality().equals(other.property, property));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(zoomDependent),
-      const DeepCollectionEquality().hash(property));
 
   @JsonKey(ignore: true)
   @override
@@ -707,7 +672,7 @@ class _$PenPainter implements PenPainter {
 }
 
 abstract class PenPainter implements Painter {
-  const factory PenPainter(
+  factory PenPainter(
       {final String name,
       final bool zoomDependent,
       final PenProperty property}) = _$PenPainter;
@@ -766,7 +731,7 @@ class __$$EraserPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$EraserPainter implements EraserPainter {
-  const _$EraserPainter(
+  _$EraserPainter(
       {this.name = '',
       this.property = const EraserProperty(),
       final String? $type})
@@ -789,22 +754,6 @@ class _$EraserPainter implements EraserPainter {
   String toString() {
     return 'Painter.eraser(name: $name, property: $property)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$EraserPainter &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.property, property));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(property));
 
   @JsonKey(ignore: true)
   @override
@@ -967,8 +916,8 @@ class _$EraserPainter implements EraserPainter {
 }
 
 abstract class EraserPainter implements Painter {
-  const factory EraserPainter(
-      {final String name, final EraserProperty property}) = _$EraserPainter;
+  factory EraserPainter({final String name, final EraserProperty property}) =
+      _$EraserPainter;
 
   factory EraserPainter.fromJson(Map<String, dynamic> json) =
       _$EraserPainter.fromJson;
@@ -1038,7 +987,7 @@ class __$$PathEraserPainterCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PathEraserPainter implements PathEraserPainter {
-  const _$PathEraserPainter(
+  _$PathEraserPainter(
       {this.name = '',
       this.strokeWidth = 5,
       this.includeEraser = false,
@@ -1069,29 +1018,6 @@ class _$PathEraserPainter implements PathEraserPainter {
   String toString() {
     return 'Painter.pathEraser(name: $name, strokeWidth: $strokeWidth, includeEraser: $includeEraser, deleteWholeStroke: $deleteWholeStroke)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PathEraserPainter &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.strokeWidth, strokeWidth) &&
-            const DeepCollectionEquality()
-                .equals(other.includeEraser, includeEraser) &&
-            const DeepCollectionEquality()
-                .equals(other.deleteWholeStroke, deleteWholeStroke));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(strokeWidth),
-      const DeepCollectionEquality().hash(includeEraser),
-      const DeepCollectionEquality().hash(deleteWholeStroke));
 
   @JsonKey(ignore: true)
   @override
@@ -1255,7 +1181,7 @@ class _$PathEraserPainter implements PathEraserPainter {
 }
 
 abstract class PathEraserPainter implements Painter {
-  const factory PathEraserPainter(
+  factory PathEraserPainter(
       {final String name,
       final double strokeWidth,
       final bool includeEraser,
@@ -1326,7 +1252,7 @@ class __$$LayerPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$LayerPainter implements LayerPainter {
-  const _$LayerPainter(
+  _$LayerPainter(
       {this.name = '',
       this.strokeWidth = 5,
       this.layer = '',
@@ -1357,28 +1283,6 @@ class _$LayerPainter implements LayerPainter {
   String toString() {
     return 'Painter.layer(name: $name, strokeWidth: $strokeWidth, layer: $layer, includeEraser: $includeEraser)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LayerPainter &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.strokeWidth, strokeWidth) &&
-            const DeepCollectionEquality().equals(other.layer, layer) &&
-            const DeepCollectionEquality()
-                .equals(other.includeEraser, includeEraser));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(strokeWidth),
-      const DeepCollectionEquality().hash(layer),
-      const DeepCollectionEquality().hash(includeEraser));
 
   @JsonKey(ignore: true)
   @override
@@ -1541,7 +1445,7 @@ class _$LayerPainter implements LayerPainter {
 }
 
 abstract class LayerPainter implements Painter {
-  const factory LayerPainter(
+  factory LayerPainter(
       {final String name,
       final double strokeWidth,
       final String layer,
@@ -1615,7 +1519,7 @@ class __$$AreaPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AreaPainter implements AreaPainter {
-  const _$AreaPainter(
+  _$AreaPainter(
       {this.name = '',
       this.constrainedWidth = 0,
       this.constrainedHeight = 0,
@@ -1646,29 +1550,6 @@ class _$AreaPainter implements AreaPainter {
   String toString() {
     return 'Painter.area(name: $name, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AreaPainter &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.constrainedWidth, constrainedWidth) &&
-            const DeepCollectionEquality()
-                .equals(other.constrainedHeight, constrainedHeight) &&
-            const DeepCollectionEquality()
-                .equals(other.constrainedAspectRatio, constrainedAspectRatio));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(constrainedWidth),
-      const DeepCollectionEquality().hash(constrainedHeight),
-      const DeepCollectionEquality().hash(constrainedAspectRatio));
 
   @JsonKey(ignore: true)
   @override
@@ -1834,7 +1715,7 @@ class _$AreaPainter implements AreaPainter {
 }
 
 abstract class AreaPainter implements Painter {
-  const factory AreaPainter(
+  factory AreaPainter(
       {final String name,
       final double constrainedWidth,
       final double constrainedHeight,
@@ -1914,7 +1795,7 @@ class __$$LaserPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$LaserPainter implements LaserPainter {
-  const _$LaserPainter(
+  _$LaserPainter(
       {this.name = '',
       this.duration = 5,
       this.strokeWidth = 5,
@@ -1949,30 +1830,6 @@ class _$LaserPainter implements LaserPainter {
   String toString() {
     return 'Painter.laser(name: $name, duration: $duration, strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier, color: $color)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LaserPainter &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.duration, duration) &&
-            const DeepCollectionEquality()
-                .equals(other.strokeWidth, strokeWidth) &&
-            const DeepCollectionEquality()
-                .equals(other.strokeMultiplier, strokeMultiplier) &&
-            const DeepCollectionEquality().equals(other.color, color));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(duration),
-      const DeepCollectionEquality().hash(strokeWidth),
-      const DeepCollectionEquality().hash(strokeMultiplier),
-      const DeepCollectionEquality().hash(color));
 
   @JsonKey(ignore: true)
   @override
@@ -2135,7 +1992,7 @@ class _$LaserPainter implements LaserPainter {
 }
 
 abstract class LaserPainter implements Painter {
-  const factory LaserPainter(
+  factory LaserPainter(
       {final String name,
       final double duration,
       final double strokeWidth,
@@ -2223,7 +2080,7 @@ class __$$ShapePainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ShapePainter implements ShapePainter {
-  const _$ShapePainter(
+  _$ShapePainter(
       {this.name = '',
       this.zoomDependent = false,
       this.constrainedWidth = 0,
@@ -2262,34 +2119,6 @@ class _$ShapePainter implements ShapePainter {
   String toString() {
     return 'Painter.shape(name: $name, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, property: $property)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ShapePainter &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.zoomDependent, zoomDependent) &&
-            const DeepCollectionEquality()
-                .equals(other.constrainedWidth, constrainedWidth) &&
-            const DeepCollectionEquality()
-                .equals(other.constrainedHeight, constrainedHeight) &&
-            const DeepCollectionEquality()
-                .equals(other.constrainedAspectRatio, constrainedAspectRatio) &&
-            const DeepCollectionEquality().equals(other.property, property));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(zoomDependent),
-      const DeepCollectionEquality().hash(constrainedWidth),
-      const DeepCollectionEquality().hash(constrainedHeight),
-      const DeepCollectionEquality().hash(constrainedAspectRatio),
-      const DeepCollectionEquality().hash(property));
 
   @JsonKey(ignore: true)
   @override
@@ -2455,7 +2284,7 @@ class _$ShapePainter implements ShapePainter {
 }
 
 abstract class ShapePainter implements Painter {
-  const factory ShapePainter(
+  factory ShapePainter(
       {final String name,
       final bool zoomDependent,
       final double constrainedWidth,

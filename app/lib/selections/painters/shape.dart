@@ -1,99 +1,130 @@
-import 'package:butterfly/dialogs/painters/general.dart';
-import 'package:butterfly/models/painter.dart';
-import 'package:butterfly/models/property.dart';
-import 'package:butterfly/visualizer/property.dart';
-import 'package:butterfly/widgets/color_field.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+part of '../selection.dart';
 
-import '../../widgets/exact_slider.dart';
-
-class ShapePainterDialog extends StatelessWidget {
-  final int painterIndex;
-
-  const ShapePainterDialog({super.key, required this.painterIndex});
+class ShapePainterSelection extends PainterSelection<ShapePainter> {
+  ShapePainterSelection(super.selected);
 
   @override
-  Widget build(BuildContext context) {
-    return GeneralPainterDialog<ShapePainter>(
-        index: painterIndex,
-        title: AppLocalizations.of(context)!.shape,
-        iconBuilder: (_, painter) => painter.property.shape.getIcon(),
-        help: 'shape',
-        builder: (context, painter, setPainter) => [
-              ExactSlider(
-                  header: Text(AppLocalizations.of(context)!.width),
-                  value: painter.constrainedWidth,
-                  min: 0,
-                  max: 500,
-                  defaultValue: 0,
-                  onChanged: (value) =>
-                      setPainter(painter.copyWith(constrainedWidth: value))),
-              ExactSlider(
-                  header: Text(AppLocalizations.of(context)!.height),
-                  value: painter.constrainedHeight,
-                  min: 0,
-                  max: 500,
-                  defaultValue: 0,
-                  onChanged: (value) =>
-                      setPainter(painter.copyWith(constrainedHeight: value))),
-              ExactSlider(
-                  header: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          AppLocalizations.of(context)!.aspectRatio,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      PopupMenuButton<AspectRatioPreset>(
-                        itemBuilder: (context) => AspectRatioPreset.values
-                            .map((e) => PopupMenuItem(
-                                  value: e,
-                                  child: Text(e.getLocalizedName(context)),
-                                ))
-                            .toList(),
-                        onSelected: (preset) => setPainter(painter.copyWith(
-                            constrainedAspectRatio: preset.ratio)),
-                        tooltip: AppLocalizations.of(context)!.presets,
-                      )
-                    ],
-                  ),
-                  value: painter.constrainedAspectRatio,
-                  min: 0,
-                  max: 10,
-                  defaultValue: 0,
-                  onChanged: (value) => setPainter(painter =
-                      painter.copyWith(constrainedAspectRatio: value))),
-              ExactSlider(
-                  header: Text(AppLocalizations.of(context)!.strokeWidth),
-                  value: painter.property.strokeWidth,
-                  min: 0,
-                  max: 70,
-                  defaultValue: 5,
-                  onChanged: (value) => setPainter(painter.copyWith(
-                      property:
-                          painter.property.copyWith(strokeWidth: value)))),
-              const SizedBox(height: 50),
-              ColorField(
-                value: Color(painter.property.color),
-                onChanged: (color) => setPainter(painter.copyWith(
-                    property: painter.property.copyWith(color: color.value))),
-                title: Text(AppLocalizations.of(context)!.color),
+  List<Widget> buildProperties(BuildContext context) {
+    final painter = selected.first;
+    final property = painter.property;
+    void updateProperty(ShapeProperty property) => update(
+        context, selected.map((e) => e.copyWith(property: property)).toList());
+    return [
+      ...super.buildProperties(context),
+      ExactSlider(
+          header: Text(AppLocalizations.of(context)!.width),
+          value: painter.constrainedWidth,
+          min: 0,
+          max: 500,
+          defaultValue: 0,
+          onChanged: (value) => update(
+              context,
+              selected
+                  .map((e) => e.copyWith(constrainedWidth: value))
+                  .toList())),
+      ExactSlider(
+          header: Text(AppLocalizations.of(context)!.height),
+          value: painter.constrainedHeight,
+          min: 0,
+          max: 500,
+          defaultValue: 0,
+          onChanged: (value) => update(
+              context,
+              selected
+                  .map((e) => e.copyWith(constrainedHeight: value))
+                  .toList())),
+      ExactSlider(
+          header: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  AppLocalizations.of(context)!.aspectRatio,
+                  textAlign: TextAlign.center,
+                ),
               ),
-              ShapeView(
-                  shape: painter.property.shape,
-                  onChanged: (shape) => setPainter(painter.copyWith(
-                      property: painter.property.copyWith(shape: shape)))),
-              const SizedBox(height: 15),
-              CheckboxListTile(
-                  value: painter.zoomDependent,
-                  title: Text(AppLocalizations.of(context)!.zoomDependent),
-                  onChanged: (value) => setPainter(painter.copyWith(
-                      zoomDependent: value ?? painter.zoomDependent))),
-            ]);
+              PopupMenuButton<AspectRatioPreset>(
+                itemBuilder: (context) => AspectRatioPreset.values
+                    .map((e) => PopupMenuItem(
+                          value: e,
+                          child: Text(e.getLocalizedName(context)),
+                        ))
+                    .toList(),
+                onSelected: (preset) => update(
+                    context,
+                    selected
+                        .map((e) =>
+                            e.copyWith(constrainedAspectRatio: preset.ratio))
+                        .toList()),
+                tooltip: AppLocalizations.of(context)!.presets,
+              )
+            ],
+          ),
+          value: painter.constrainedAspectRatio,
+          min: 0,
+          max: 10,
+          defaultValue: 0,
+          onChanged: (value) => update(
+              context,
+              selected
+                  .map((e) => e.copyWith(constrainedAspectRatio: value))
+                  .toList())),
+      ExactSlider(
+          header: Text(AppLocalizations.of(context)!.strokeWidth),
+          value: painter.property.strokeWidth,
+          min: 0,
+          max: 70,
+          defaultValue: 5,
+          onChanged: (value) => update(
+              context,
+              selected
+                  .map((e) => e.copyWith(
+                      property: e.property.copyWith(strokeWidth: value)))
+                  .toList())),
+      const SizedBox(height: 50),
+      ColorField(
+        value: Color(painter.property.color),
+        onChanged: (color) => update(
+            context,
+            selected
+                .map((e) => e.copyWith(
+                    property: e.property.copyWith(color: color.value)))
+                .toList()),
+        title: Text(AppLocalizations.of(context)!.color),
+      ),
+      ShapeView(
+          shape: property.shape,
+          onChanged: (shape) =>
+              updateProperty(property.copyWith(shape: shape))),
+      const SizedBox(height: 15),
+      CheckboxListTile(
+          value: painter.zoomDependent,
+          title: Text(AppLocalizations.of(context)!.zoomDependent),
+          onChanged: (value) => update(
+              context,
+              selected
+                  .map((e) =>
+                      e.copyWith(zoomDependent: value ?? painter.zoomDependent))
+                  .toList())),
+    ];
   }
+
+  @override
+  Selection insert(dynamic element) {
+    if (element is ShapePainter) {
+      return ShapePainterSelection([...selected, element]);
+    }
+    return super.insert(element);
+  }
+
+  @override
+  String getLocalizedName(BuildContext context) =>
+      AppLocalizations.of(context)!.shape;
+
+  @override
+  IconData getIcon({bool filled = false}) =>
+      selected.first.property.shape.getIcon(filled: filled);
+  @override
+  List<String> get help => ['painters', 'shape'];
 }
 
 class ShapeView extends StatefulWidget {
@@ -107,7 +138,7 @@ class ShapeView extends StatefulWidget {
 
 class _ShapeViewState extends State<ShapeView> {
   late PathShape currentShape;
-  bool opened = false;
+  bool oShapeed = false;
 
   @override
   void initState() {
@@ -140,12 +171,12 @@ class _ShapeViewState extends State<ShapeView> {
     return ExpansionPanelList(
       expansionCallback: (index, isExpanded) {
         setState(() {
-          opened = !isExpanded;
+          oShapeed = !isExpanded;
         });
       },
       children: [
         ExpansionPanel(
-          isExpanded: opened,
+          isExpanded: oShapeed,
           headerBuilder: (context, expanded) => ListTile(
             title: Text(AppLocalizations.of(context)!.shape),
             trailing: DropdownButton<String>(
@@ -202,7 +233,7 @@ class _RectangleShapeView extends StatefulWidget {
 }
 
 class _RectangleShapeViewState extends State<_RectangleShapeView> {
-  bool cornerOpened = false;
+  bool cornerOShapeed = false;
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -217,7 +248,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
       ExpansionPanelList(
         expansionCallback: (index, isExpanded) {
           setState(() {
-            cornerOpened = !isExpanded;
+            cornerOShapeed = !isExpanded;
           });
         },
         children: [
@@ -225,7 +256,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
             headerBuilder: (context, isExpanded) => ListTile(
               title: Text(AppLocalizations.of(context)!.cornerRadius),
             ),
-            isExpanded: cornerOpened,
+            isExpanded: cornerOShapeed,
             body: Column(children: [
               ExactSlider(
                 defaultValue: 0,

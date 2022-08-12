@@ -60,7 +60,7 @@ _$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
               ?.map(
                   (e) => Painter.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
-          const [PenPainter(), PathEraserPainter(), LabelPainter()],
+          const [],
     );
 
 Map<String, dynamic> _$$_AppDocumentToJson(_$_AppDocument instance) =>

@@ -1,9 +1,30 @@
 part of 'handler.dart';
 
+class HandSelectionRenderer extends Renderer<Rect> {
+  final Color color;
+  HandSelectionRenderer(super.element, this.color);
+
+  @override
+  void build(
+      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+      [bool foreground = false]) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..isAntiAlias = true
+      ..filterQuality = FilterQuality.high
+      ..colorFilter =
+          ColorFilter.mode(Colors.grey.withOpacity(0.5), BlendMode.srcATop);
+    canvas.drawRect(element, paint);
+  }
+}
+
 class HandHandler extends Handler<HandProperty> {
-  Renderer<PadElement>? movingElement;
-  Renderer<PadElement>? selected;
-  bool _hasMoved = false;
+  List<Renderer<PadElement>> movingElements = [];
+  List<Renderer<PadElement>> selected = [];
   Offset? currentMovePosition;
 
   HandHandler(super.data);
@@ -11,179 +32,197 @@ class HandHandler extends Handler<HandProperty> {
   @override
   Future<bool> onRendererUpdated(
       AppDocument appDocument, Renderer old, Renderer updated) async {
-    if (old.element == movingElement && updated is Renderer<PadElement>) {
-      movingElement = updated;
-    } else if (old == selected && updated is Renderer<PadElement>) {
-      selected = updated;
+    if (movingElements.contains(old.element) &&
+        updated is Renderer<PadElement>) {
+      movingElements.remove(old.element);
+      movingElements.add(updated);
+    } else if (old is Renderer<PadElement> &&
+        selected.contains(old) &&
+        updated is Renderer<PadElement>) {
+      selected.remove(old);
+      selected.add(updated);
     } else {
       return false;
     }
     return true;
   }
 
-  @override
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
-    if (movingElement != null) {
-      final currentElement = currentMovePosition == null
-          ? movingElement!.element
-          : movingElement!.move(currentMovePosition!);
-      final renderer = Renderer.fromInstance(currentElement);
-      return [renderer];
+  Rect? getSelectionRect() {
+    Rect? rect;
+    for (final element in selected) {
+      final current = element.rect;
+      if (current != null) {
+        rect = rect?.expandToInclude(current) ?? current;
+      }
     }
-    return [];
+    return rect;
   }
 
   @override
-  List<Rect> createSelections(AppDocument document, [Area? currentArea]) {
-    final rect = selected?.rect;
-    return rect == null ? [] : [rect];
+  List<Renderer> createForegrounds(
+      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      [Area? currentArea]) {
+    final foregrounds = <Renderer>[];
+    final color = ThemeManager.getThemeByName(
+            currentIndexCubit.state.settingsCubit.state.design)
+        .primaryColor;
+    if (movingElements.isNotEmpty) {
+      final currentElements = movingElements
+          .map((e) => currentMovePosition == null
+              ? e.element
+              : e.move(currentMovePosition!, true))
+          .toList();
+      final renderers =
+          currentElements.map((e) => Renderer.fromInstance(e)).toList();
+      foregrounds.addAll(renderers);
+    }
+    final selectionRect = getSelectionRect();
+    if (selectionRect != null) {
+      foregrounds.add(HandSelectionRenderer(selectionRect, color));
+    }
+    return foregrounds;
   }
 
-  void move(BuildContext context, Renderer<PadElement> next,
+  void move(BuildContext context, List<Renderer<PadElement>> next,
       [bool duplicate = false]) {
     submitMove(context);
-    movingElement = next;
+    movingElements = next;
+    selected = [];
+    currentMovePosition = null;
     if (!duplicate) {
       final bloc = context.read<DocumentBloc>();
-      bloc.add(ElementsRemoved([next.element]));
+      bloc.add(ElementsRemoved(next.map((e) => e.element).toList()));
       bloc.refresh();
     }
   }
 
-  void submitMove(BuildContext context, [PadElement? element]) {
-    if (movingElement == null && element == null) return;
-    final current = (element ?? movingElement?.element)!;
-    movingElement = null;
+  void submitMove(BuildContext context) {
+    if (movingElements.isEmpty) return;
+    final current = movingElements
+        .map((e) =>
+            e.move(currentMovePosition ?? Offset.zero, true) ?? e.element)
+        .toList();
+    currentMovePosition = null;
+    movingElements = [];
     final bloc = context.read<DocumentBloc>();
-    bloc.add(ElementsCreated([current]));
+    bloc.add(ElementsCreated(current));
     bloc.refresh();
   }
 
-  bool openView = true;
-  int? _firstPointer;
-
   @override
-  Future<void> onPointerUp(
-      Size viewportSize, BuildContext context, PointerUpEvent event) async {
-    final transform = context.read<TransformCubit>().state;
-    _firstPointer = null;
-    if (movingElement != null) {
-      submitMove(context,
-          movingElement?.move(transform.localToGlobal(event.localPosition)));
+  void onTapUp(TapUpDetails details, EventContext context) async {
+    if (movingElements.isNotEmpty) {
       return;
     }
-    final bloc = context.read<DocumentBloc>();
-    final state = bloc.state as DocumentLoadSuccess;
-    final hand = state.document.handProperty;
-    if (openView) {
-      final settings = context.read<SettingsCubit>().state;
-      final radius = settings.selectSensitivity / transform.size;
-      final hits = await rayCast(
-          context, event.localPosition, radius, hand.includeEraser);
-      if (selected != null) return;
-      if (hits.isEmpty || !(state.embedding?.editable ?? true)) {
-        showContextMenu(
-            context: context,
-            position: event.position,
-            builder: (ctx, close) => MultiBlocProvider(
-                  providers: [
-                    BlocProvider.value(value: context.read<DocumentBloc>()),
-                    BlocProvider.value(value: context.read<TransformCubit>()),
-                    BlocProvider.value(
-                        value: context.read<CurrentIndexCubit>()),
-                  ],
-                  child: Actions(
-                      actions: context
-                              .findAncestorWidgetOfExactType<Actions>()
-                              ?.actions ??
-                          {},
-                      child: BackgroundContextMenu(
-                          position: event.position, close: close)),
-                ));
-      } else {
-        selected = hits.first;
-        bloc.refresh();
-        // ignore: use_build_context_synchronously
-        await showContextMenu(
-            context: context,
-            position: event.position,
-            builder: (_, close) {
-              return MultiBlocProvider(
-                providers: [
-                  BlocProvider.value(value: bloc),
-                  BlocProvider.value(value: context.read<TransformCubit>()),
-                  BlocProvider.value(value: context.read<CurrentIndexCubit>()),
-                ],
-                child: Actions(
-                  actions: context
-                          .findAncestorWidgetOfExactType<Actions>()
-                          ?.actions ??
-                      {},
-                  child: ElementsDialog(
-                      close: close,
-                      elements: hits.toList(),
-                      onChanged: (element) {
-                        selected = element;
-                        bloc.refresh();
-                      },
-                      position: event.position),
-                ),
-              );
-            });
-        selected = null;
-        bloc.refresh();
+    final transform = context.getCameraTransform();
+    final settings = context.getSettings();
+    final radius = settings.selectSensitivity / transform.size;
+    final hits =
+        await rayCast(context.buildContext, details.localPosition, radius);
+    if (hits.isEmpty) {
+      if (!context.isCtrlPressed) {
+        selected.clear();
+        context.refresh();
       }
-    }
-    if (_hasMoved) {
-      _hasMoved = false;
-      bloc.bake();
-    }
-  }
-
-  @override
-  void onPointerDown(
-      Size viewportSize, BuildContext context, PointerDownEvent event) {
-    final cubit = context.read<CurrentIndexCubit>();
-    openView = true;
-    _firstPointer ??= event.pointer;
-    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
-      openView = false;
-    }
-  }
-
-  @override
-  void onPointerMove(
-      Size viewportSize, BuildContext context, PointerMoveEvent event) {
-    final cubit = context.read<CurrentIndexCubit>();
-    final bloc = context.read<DocumentBloc>();
-    final transform = context.read<TransformCubit>().state;
-    if (openView) {
-      openView = (event.delta / transform.size) == Offset.zero;
-    }
-    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
-      openView = false;
-    }
-    if (movingElement != null) {
-      currentMovePosition = transform.localToGlobal(event.localPosition);
-      bloc.refresh();
       return;
     }
-    if (_firstPointer == event.pointer) {
-      context.read<TransformCubit>().move(event.localDelta / transform.size);
-      _hasMoved = true;
+    final hit = hits.first;
+    if (context.isCtrlPressed) {
+      if (selected.contains(hit)) {
+        selected.remove(hit);
+      } else {
+        selected.add(hit);
+      }
+    } else {
+      selected.clear();
+      selected.add(hit);
+    }
+    context.refresh();
+  }
+
+  @override
+  void onSecondaryTapUp(TapUpDetails details, EventContext context) async {
+    if (movingElements.isNotEmpty) {
+      return;
+    }
+    final providers = context.getProviders();
+    final hits =
+        await rayCast(context.buildContext, details.localPosition, 0.0);
+    final hit = hits.firstOrNull;
+    final rect = hit?.rect;
+    if ((hit == null ||
+            rect == null ||
+            !(getSelectionRect()?.overlaps(rect) ?? false)) &&
+        !context.isCtrlPressed) {
+      selected.clear();
+      if (hit != null) selected.add(hit);
+    }
+    context.refresh();
+    if (selected.isEmpty) {
+      await showContextMenu(
+        context: context.buildContext,
+        position: details.localPosition,
+        builder: (ctx, close) => MultiBlocProvider(
+          providers: providers,
+          child: Actions(
+            actions: context.getActions(),
+            child: BackgroundContextMenu(
+              close: close,
+              position: details.localPosition,
+            ),
+          ),
+        ),
+      );
+      return;
+    }
+    await showContextMenu(
+        context: context.buildContext,
+        position: details.localPosition,
+        builder: (ctx, close) => MultiBlocProvider(
+            providers: context.getProviders(),
+            child: ElementsDialog(close: close, renderers: selected)));
+    selected.clear();
+    context.refresh();
+  }
+
+  @override
+  void onScaleStart(ScaleStartDetails details, EventContext context) {
+    if (movingElements.isNotEmpty) {
+      currentMovePosition =
+          context.getCameraTransform().localToGlobal(details.localFocalPoint) -
+              (movingElements.first.rect?.center ?? Offset.zero) *
+                  context.getCameraTransform().size;
     }
   }
 
   @override
-  void onPointerHover(
-      Size viewportSize, BuildContext context, PointerHoverEvent event) {
-    final bloc = context.read<DocumentBloc>();
-    if (movingElement != null) {
-      currentMovePosition = context
-          .read<TransformCubit>()
-          .state
-          .localToGlobal(event.localPosition);
-      bloc.refresh();
+  void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
+    if (movingElements.isNotEmpty) {
+      var current = currentMovePosition ?? Offset.zero;
+      current += details.focalPointDelta / context.getCameraTransform().size;
+      currentMovePosition = current;
+      context.refresh();
+      return;
+    }
+    context
+        .getTransformCubit()
+        .move(details.focalPointDelta / context.getCameraTransform().size);
+  }
+
+  @override
+  void onPointerHover(PointerHoverEvent event, EventContext context) {
+    if (movingElements.isNotEmpty) {
+      currentMovePosition =
+          context.getCameraTransform().localToGlobal(event.localPosition) -
+              (movingElements.first.rect?.center ?? Offset.zero);
+      context.refresh();
+    }
+  }
+
+  @override
+  void onPointerUp(PointerUpEvent event, EventContext context) {
+    if (movingElements.isNotEmpty) {
+      submitMove(context.buildContext);
     }
   }
 }

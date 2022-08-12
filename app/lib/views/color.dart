@@ -48,9 +48,9 @@ class _ColorViewState extends State<ColorView> {
                 } else if (state is! DocumentLoadSuccess) {
                   _setOpened(false);
                 } else {
-                  final painter = currentIndex.handler;
+                  final handler = currentIndex.handler;
                   final bloc = context.read<DocumentBloc>();
-                  final color = painter.getColor(bloc);
+                  final color = handler.getColor(bloc);
                   if (color == null) {
                     _setOpened(false);
                   } else {
@@ -87,7 +87,7 @@ class _ColorViewState extends State<ColorView> {
                                     painterIndex: currentIndex.index,
                                     color: color,
                                     current: current,
-                                    handler: painter);
+                                    handler: handler);
                               }),
                         )),
                         Row(
@@ -102,10 +102,10 @@ class _ColorViewState extends State<ColorView> {
                                         defaultColor: Color(color))) as int?;
                                 if (nextColor != null) {
                                   final newPainter =
-                                      painter.setColor(bloc, nextColor);
+                                      handler.setColor(bloc, nextColor);
                                   if (newPainter == null) return;
-                                  bloc.add(PainterChanged(
-                                      newPainter, currentIndex.index));
+                                  bloc.add(PaintersChanged(
+                                      {handler.data: newPainter}));
                                 }
                               },
                             ),
@@ -176,7 +176,7 @@ class _ColorButton extends StatelessWidget {
           if (newPainter == null) return;
           context
               .read<DocumentBloc>()
-              .add(PainterChanged(newPainter, painterIndex));
+              .add(PaintersChanged({handler?.data: newPainter}));
         },
         borderRadius: BorderRadius.circular(12),
         child: AspectRatio(

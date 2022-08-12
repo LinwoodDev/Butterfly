@@ -66,7 +66,9 @@ class LaserHandler extends Handler {
   }
 
   @override
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
+  List<Renderer> createForegrounds(
+      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      [Area? currentArea]) {
     return elements.values
         .map((e) {
           if (e.points.length > 1) return PenRenderer(e);
@@ -80,19 +82,17 @@ class LaserHandler extends Handler {
   bool _moving = false;
 
   @override
-  void onPointerUp(
-      Size viewportSize, BuildContext context, PointerUpEvent event) {
+  void onPointerUp(PointerUpEvent event, EventContext context) {
     if (_moving) {
       _moving = false;
       return;
     }
-    final bloc = context.read<DocumentBloc>();
-    addPoint(context, event.pointer, event.localPosition, event.pressure,
-        event.kind);
+    addPoint(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind);
     var element = elements.remove(event.pointer);
     if (element == null) return;
     submittedElements.add(element);
-    bloc.refresh();
+    context.refresh();
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
@@ -127,10 +127,9 @@ class LaserHandler extends Handler {
   }
 
   @override
-  void onPointerDown(
-      Size viewportSize, BuildContext context, PointerDownEvent event) {
-    final cubit = context.read<CurrentIndexCubit>();
-    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+  void onPointerDown(PointerDownEvent event, EventContext context) {
+    final currentIndex = context.getCurrentIndex();
+    if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
       return;
     }
@@ -138,20 +137,19 @@ class LaserHandler extends Handler {
       _moving = true;
       return;
     }
-    addPoint(context, event.pointer, event.localPosition, event.pressure,
-        event.kind);
+    addPoint(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind);
   }
 
   @override
-  void onPointerMove(
-      Size viewportSize, BuildContext context, PointerMoveEvent event) {
+  void onPointerMove(PointerMoveEvent event, EventContext context) {
     if (kSecondaryMouseButton == event.buttons) {
-      final transform = context.read<TransformCubit>().state;
-      context.read<TransformCubit>().move(event.localDelta / transform.size);
+      final transform = context.getCameraTransform();
+      context.getTransformCubit().move(event.localDelta / transform.size);
       return;
     }
-    addPoint(context, event.pointer, event.localPosition, event.pressure,
-        event.kind);
+    addPoint(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind);
   }
 
   @override
