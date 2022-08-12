@@ -48,6 +48,8 @@ Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 Name: "desktopicon"; Description: "Create a Desktop shortcut"
 Name: "startmenu"; Description: "Create a Start Menu entry"         
 Name: "bfly"; Description: "Add Butterfly file association"
+Name: "pdf"; Description: "Add PDF file association"
+Name: "img"; Description: "Add Image file association"
 
 
 [Files]
@@ -63,6 +65,20 @@ Root: HKCR; Subkey: "{#MyAppName}-File"; ValueType: string; ValueName: ""; Value
 Root: HKCR; Subkey: "{#MyAppName}-File\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"
 Root: HKCR; Subkey: "{#MyAppName}-File\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 
+Root: HKCR; Subkey: ".pdf\OpenWithProgids"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-PDF"; Tasks: pdf; Flags: uninsdeletevalue
+Root: HKCR; Subkey: "{#MyAppName}-PDF"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-PDF"; Tasks: pdf; Flags: uninsdeletekey
+Root: HKCR; Subkey: "{#MyAppName}-PDF\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"
+Root: HKCR; Subkey: "{#MyAppName}-PDF\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
+
+Root: HKCR; Subkey: ".jpg\OpenWithProgids"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-IMG"; Tasks: img; Flags: uninsdeletevalue
+Root: HKCR; Subkey: ".jpeg\OpenWithProgids"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-IMG"; Tasks: img; Flags: uninsdeletevalue
+Root: HKCR; Subkey: ".png\OpenWithProgids"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-IMG"; Tasks: img; Flags: uninsdeletevalue
+Root: HKCR; Subkey: ".gif\OpenWithProgids"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-IMG"; Tasks: img; Flags: uninsdeletevalue
+Root: HKCR; Subkey: ".bmp\OpenWithProgids"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-IMG"; Tasks: img; Flags: uninsdeletevalue
+Root: HKCR; Subkey: ".ico\OpenWithProgids"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-IMG"; Tasks: img; Flags: uninsdeletevalue
+Root: HKCR; Subkey: "{#MyAppName}-IMG"; ValueType: string; ValueName: ""; ValueData: "Open in {#MyAppName}"; Tasks: img; Flags: uninsdeletekey
+Root: HKCR; Subkey: "{#MyAppName}-IMG\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"
+Root: HKCR; Subkey: "{#MyAppName}-IMG\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 
 [Icons]
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"

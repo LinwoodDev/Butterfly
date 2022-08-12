@@ -10,6 +10,7 @@ import 'package:butterfly/dialogs/file_system/sync.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/widgets/header.dart';
 import 'package:butterfly/widgets/remote_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -28,7 +29,7 @@ class FileSystemDialog extends StatefulWidget {
 }
 
 class _FileSystemDialogState extends State<FileSystemDialog> {
-  bool gridView = true;
+  bool _gridView = true, _notes = false;
   late DocumentFileSystem _fileSystem;
   final TextEditingController _pathController =
       TextEditingController(text: '/');
@@ -88,10 +89,11 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       icon: const Icon(PhosphorIcons.arrowClockwiseLight),
                     ),
                     IconButton(
-                        icon: Icon(gridView
+                        icon: Icon(_gridView
                             ? PhosphorIcons.listLight
                             : PhosphorIcons.gridFourLight),
-                        onPressed: () => setState(() => gridView = !gridView)),
+                        onPressed: () =>
+                            setState(() => _gridView = !_gridView)),
                     IconButton(
                       tooltip: AppLocalizations.of(context)!.create,
                       icon: const Icon(PhosphorIcons.plusLight),
@@ -193,6 +195,13 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                         ],
                       );
                       var searchInput = Row(children: [
+                        if (!kIsWeb)
+                          IconButton(
+                            onPressed: () => setState(() => _notes = !_notes),
+                            icon: _notes
+                                ? const Icon(PhosphorIcons.noteFill)
+                                : const Icon(PhosphorIcons.noteLight),
+                          ),
                         Flexible(
                           child: ConstrainedBox(
                             constraints: const BoxConstraints(minWidth: 300),
@@ -279,12 +288,30 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                         ),
                                       ]);
                                     }
-                                    final assets = snapshot.data ?? [];
+                                    var assets = snapshot.data ?? [];
+                                    if (_notes) {
+                                      assets = assets.where((asset) {
+                                        if (asset is! AppDocumentFile) {
+                                          return true;
+                                        }
+                                        return asset.fileType ==
+                                            AssetFileType.note;
+                                      }).toList();
+                                    }
+                                    if (!kIsWeb) {
+                                      assets = assets.where((asset) {
+                                        if (asset is! AppDocumentFile) {
+                                          return true;
+                                        }
+                                        return asset.fileType !=
+                                            AssetFileType.unknown;
+                                      }).toList();
+                                    }
                                     void onRefreshed() {
                                       setState(() {});
                                     }
 
-                                    return gridView
+                                    return _gridView
                                         ? FileSystemGridView(
                                             selectedPath: selectedPath,
                                             assets: assets,

@@ -15,12 +15,15 @@ import 'waypoint.dart';
 part 'document.freezed.dart';
 part 'document.g.dart';
 
+enum AssetFileType { note, image, pdf, unknown }
+
 @freezed
 class AssetLocation with _$AssetLocation {
   const factory AssetLocation(
       {@Default('') String remote, required String path}) = _AssetLocation;
 
   factory AssetLocation.local(String path) => AssetLocation(path: path);
+  factory AssetLocation.native(String path) => AssetLocation(path: path);
 
   factory AssetLocation.fromJson(Map<String, dynamic> json) =>
       _$AssetLocationFromJson(json);
@@ -34,6 +37,24 @@ class AssetLocation with _$AssetLocation {
 
   String get pathWithoutLeadingSlash =>
       path.startsWith('/') ? path.substring(1) : path;
+
+  AssetFileType get fileType {
+    final ext = path.split('.').last;
+    switch (ext) {
+      case 'png':
+      case 'jpg':
+      case 'jpeg':
+      case 'gif':
+        return AssetFileType.image;
+      case 'pdf':
+        return AssetFileType.pdf;
+      case 'bfly':
+      case '':
+        return AssetFileType.note;
+      default:
+        return AssetFileType.unknown;
+    }
+  }
 }
 
 @immutable
@@ -83,6 +104,8 @@ class AppDocumentFile extends AppDocumentAsset {
 
   AppDocument load() =>
       const DocumentJsonConverter().fromJson(Map<String, dynamic>.from(json));
+
+  AssetFileType get fileType => location.fileType;
 }
 
 @immutable

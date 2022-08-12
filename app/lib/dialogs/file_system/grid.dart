@@ -2,6 +2,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/dialogs/file_system/dialog.dart';
 import 'package:butterfly/dialogs/file_system/menu.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/visualizer/asset.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -94,10 +95,10 @@ class FileSystemGridView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Row(children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(right: 8.0),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
                                     child: Icon(
-                                      PhosphorIcons.fileLight,
+                                      file.fileType.getIcon(),
                                       size: 32,
                                     ),
                                   ),

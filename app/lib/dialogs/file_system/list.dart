@@ -3,6 +3,7 @@ import 'package:butterfly/dialogs/file_system/dialog.dart';
 import 'package:butterfly/dialogs/file_system/menu.dart';
 import 'package:butterfly/dialogs/file_system/rich_text.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/visualizer/asset.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -28,7 +29,7 @@ class FileSystemListView extends StatelessWidget {
         var document = assets[index];
         if (document is AppDocumentFile) {
           return ListTile(
-            leading: const Icon(PhosphorIcons.fileLight),
+            leading: Icon(document.fileType.getIcon()),
             title: Text(document.name),
             selected: document.location == selectedPath,
             subtitle: FileSystemFileRichText(
