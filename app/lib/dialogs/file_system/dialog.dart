@@ -303,8 +303,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                         if (asset is! AppDocumentFile) {
                                           return true;
                                         }
-                                        return asset.fileType !=
-                                            AssetFileType.unknown;
+                                        return asset.fileType != null;
                                       }).toList();
                                     }
                                     void onRefreshed() {

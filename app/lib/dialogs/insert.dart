@@ -1,23 +1,14 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ui' as ui;
 
-import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/camera.dart';
-import 'package:butterfly/dialogs/pages.dart';
-import 'package:butterfly/models/element.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_svg/parser.dart';
-import 'package:pdf/pdf.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:printing/printing.dart';
-
-import 'error.dart';
 
 class InsertDialog extends StatefulWidget {
   final Offset position;

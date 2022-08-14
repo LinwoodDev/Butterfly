@@ -4,7 +4,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../models/document.dart';
 
-extension AssetFileTypeVisualizer on AssetFileType {
+extension AssetFileTypeVisualizer on AssetFileType? {
   String getLocalizedName(BuildContext context) {
     switch (this) {
       case AssetFileType.note:

@@ -31,6 +31,7 @@ Butterfly is a note app where your ideas come first. You can paint, add texts, a
 
 * **⚡ Simple and intuitive** Every tool is in the right place. Open the app and start drawing. Change your tools by clicking on it.
 * **🎨 Customizable** Change everything to your needs. Choose your custom color, create a palette, and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
+* **📝 Imporable/Exportable** Import and export your ideas and notes as a PDF, an image or as SVG.
 * **💻 Your data will be saved locally**. Everything will be saved locally on your computer. Export the notes as images or as json files which can be opened on a different device.
 
 ## I need your help

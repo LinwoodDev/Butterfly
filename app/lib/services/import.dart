@@ -29,8 +29,9 @@ class ImportService {
     if (!location.absolute || location.remote.isNotEmpty) return;
     final bytes =
         await DocumentFileSystem.fromPlatform().loadAbsolute(location.path);
-    if (bytes == null) return;
-    await import(location.fileType, location.fileName, bytes);
+    final fileType = location.fileType;
+    if (bytes == null || fileType == null) return;
+    await import(fileType, location.fileName, bytes);
   }
 
   DocumentBloc get bloc => context.read<DocumentBloc>();

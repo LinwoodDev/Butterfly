@@ -15,7 +15,7 @@ import 'waypoint.dart';
 part 'document.freezed.dart';
 part 'document.g.dart';
 
-enum AssetFileType { note, image, pdf, svg, unknown }
+enum AssetFileType { note, image, pdf, svg }
 
 @freezed
 class AssetLocation with _$AssetLocation {
@@ -41,7 +41,7 @@ class AssetLocation with _$AssetLocation {
   String get pathWithoutLeadingSlash =>
       path.startsWith('/') ? path.substring(1) : path;
 
-  AssetFileType get fileType {
+  AssetFileType? get fileType {
     final ext = path.split('.').last;
     switch (ext) {
       case 'png':
@@ -60,7 +60,7 @@ class AssetLocation with _$AssetLocation {
       case '':
         return AssetFileType.note;
       default:
-        return AssetFileType.unknown;
+        return null;
     }
   }
 
@@ -115,7 +115,7 @@ class AppDocumentFile extends AppDocumentAsset {
   AppDocument load() =>
       const DocumentJsonConverter().fromJson(Map<String, dynamic>.from(json));
 
-  AssetFileType get fileType => location.fileType;
+  AssetFileType? get fileType => location.fileType;
 }
 
 @immutable
