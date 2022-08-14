@@ -4,6 +4,9 @@ on:
     tags:
       - "stable"
       - "nightly"
+    branches:
+      - "main"
+      - "develop"
 jobs:
   publish:
     runs-on: windows-latest

@@ -9,12 +9,14 @@ part of 'document.dart';
 _$_AssetLocation _$$_AssetLocationFromJson(Map json) => _$_AssetLocation(
       remote: json['remote'] as String? ?? '',
       path: json['path'] as String,
+      absolute: json['absolute'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_AssetLocationToJson(_$_AssetLocation instance) =>
     <String, dynamic>{
       'remote': instance.remote,
       'path': instance.path,
+      'absolute': instance.absolute,
     };
 
 _$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(

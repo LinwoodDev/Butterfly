@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
@@ -138,6 +139,8 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     if (path != newPath) await deleteAsset(path);
     return asset;
   }
+
+  Future<Uint8List?> loadAbsolute(String path) => Future.value(null);
 }
 
 abstract class TemplateFileSystem extends GeneralFileSystem {

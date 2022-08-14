@@ -15,12 +15,18 @@ import 'waypoint.dart';
 part 'document.freezed.dart';
 part 'document.g.dart';
 
+enum AssetFileType { note, image, pdf, svg }
+
 @freezed
 class AssetLocation with _$AssetLocation {
-  const factory AssetLocation(
-      {@Default('') String remote, required String path}) = _AssetLocation;
+  const factory AssetLocation({
+    @Default('') String remote,
+    required String path,
+    @Default(false) bool absolute,
+  }) = _AssetLocation;
 
-  factory AssetLocation.local(String path) => AssetLocation(path: path);
+  factory AssetLocation.local(String path, [bool absolute = false]) =>
+      AssetLocation(path: path, absolute: absolute);
 
   factory AssetLocation.fromJson(Map<String, dynamic> json) =>
       _$AssetLocationFromJson(json);
@@ -34,6 +40,31 @@ class AssetLocation with _$AssetLocation {
 
   String get pathWithoutLeadingSlash =>
       path.startsWith('/') ? path.substring(1) : path;
+
+  AssetFileType? get fileType {
+    final ext = path.split('.').last;
+    switch (ext) {
+      case 'png':
+      case 'jpg':
+      case 'jpeg':
+      case 'gif':
+      case 'bmp':
+      case 'ico':
+        return AssetFileType.image;
+      case 'pdf':
+        return AssetFileType.pdf;
+      case 'svg':
+        return AssetFileType.svg;
+      case 'bfly':
+      case 'json':
+      case '':
+        return AssetFileType.note;
+      default:
+        return null;
+    }
+  }
+
+  String get fileName => path.split('/').last.split('.').first;
 }
 
 @immutable
@@ -83,6 +114,8 @@ class AppDocumentFile extends AppDocumentAsset {
 
   AppDocument load() =>
       const DocumentJsonConverter().fromJson(Map<String, dynamic>.from(json));
+
+  AssetFileType? get fileType => location.fileType;
 }
 
 @immutable
