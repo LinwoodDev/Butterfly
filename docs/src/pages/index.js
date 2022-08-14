@@ -39,7 +39,7 @@ function HomepageHeader() {
               <AnimationOnScroll animateIn="animate__fadeInLeft">
                 <Link data-aos="fade-right"
                   className={clsx("button button--lg button--secondary", styles.button)}
-                  to="/docs/1.1/intro">
+                  to="/docs/1.4/intro">
                   <Translate description="homepage getting started button">
                     Getting started
                   </Translate>
