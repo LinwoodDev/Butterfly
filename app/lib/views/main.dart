@@ -33,6 +33,7 @@ import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/color.dart';
 import 'package:butterfly/views/edit.dart';
@@ -124,8 +125,10 @@ class _ProjectPageState extends State<ProjectPage> {
     AppDocument? document;
     if (widget.location != null) {
       documentOpened = true;
-      await fileSystem.getAsset(widget.location!.path).then(
-          (value) => document = value is AppDocumentFile ? value.load() : null);
+      if (!widget.location!.absolute) {
+        await fileSystem.getAsset(widget.location!.path).then((value) =>
+            document = value is AppDocumentFile ? value.load() : null);
+      }
     }
     if (document == null && prefs.containsKey('default_template')) {
       var template = await TemplateFileSystem.fromPlatform(remote: remote)
@@ -166,7 +169,9 @@ class _ProjectPageState extends State<ProjectPage> {
         _bloc?.load();
       });
     }
-    _showIntroduction(documentOpened);
+    if (!(widget.location?.absolute ?? false)) {
+      _showIntroduction(documentOpened);
+    }
   }
 
   Future<void> _showIntroduction([bool documentOpened = false]) async {
@@ -227,169 +232,174 @@ class _ProjectPageState extends State<ProjectPage> {
       },
       child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (_) => _bloc!),
-            BlocProvider(create: (_) => _transformCubit!),
-            BlocProvider(create: (_) => _currentIndexCubit),
+            BlocProvider.value(value: _bloc!),
+            BlocProvider.value(value: _transformCubit!),
+            BlocProvider.value(value: _currentIndexCubit),
           ],
-          child: Builder(builder: (context) {
-            return Shortcuts(
-              shortcuts: {
-                LogicalKeySet(
-                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
-                    UndoIntent(context),
-                LogicalKeySet(
-                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
-                    RedoIntent(context),
-                LogicalKeySet(
-                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
-                    NewIntent(context, fromTemplate: false),
-                LogicalKeySet(LogicalKeyboardKey.control,
-                        LogicalKeyboardKey.shift, LogicalKeyboardKey.keyN):
-                    NewIntent(context, fromTemplate: true),
-                LogicalKeySet(LogicalKeyboardKey.tab): EditModeIntent(context),
-                LogicalKeySet(
-                    LogicalKeyboardKey.control,
-                    LogicalKeyboardKey.shift,
-                    LogicalKeyboardKey.keyP): WaypointsIntent(context),
-                LogicalKeySet(
-                    LogicalKeyboardKey.control,
-                    LogicalKeyboardKey.alt,
-                    LogicalKeyboardKey.shift,
-                    LogicalKeyboardKey.keyS): ProjectIntent(context),
-                LogicalKeySet(
-                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
-                    ColorPaletteIntent(context),
-                LogicalKeySet(
-                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyB):
-                    BackgroundIntent(context),
-                LogicalKeySet(
-                    LogicalKeyboardKey.control,
-                    LogicalKeyboardKey.shift,
-                    LogicalKeyboardKey.keyA): AreasIntent(context),
-                LogicalKeySet(
-                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
-                    LayersIntent(context),
-                LogicalKeySet(LogicalKeyboardKey.control,
-                        LogicalKeyboardKey.alt, LogicalKeyboardKey.keyN):
-                    InsertIntent(context, Offset.zero),
-                if (widget.embedding == null) ...{
+          child: RepositoryProvider(
+            lazy: false,
+            create: (context) => ImportService(context),
+            child: Builder(builder: (context) {
+              return Shortcuts(
+                shortcuts: {
                   LogicalKeySet(
-                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
-                      OpenIntent(context),
+                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
+                      UndoIntent(context),
                   LogicalKeySet(
-                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
-                      ImportIntent(context),
+                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
+                      RedoIntent(context),
                   LogicalKeySet(
-                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
-                      ExportIntent(context),
+                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
+                      NewIntent(context, fromTemplate: false),
+                  LogicalKeySet(LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.shift, LogicalKeyboardKey.keyN):
+                      NewIntent(context, fromTemplate: true),
+                  LogicalKeySet(LogicalKeyboardKey.tab):
+                      EditModeIntent(context),
                   LogicalKeySet(
                       LogicalKeyboardKey.control,
                       LogicalKeyboardKey.shift,
-                      LogicalKeyboardKey.keyE): ImageExportIntent(context),
+                      LogicalKeyboardKey.keyP): WaypointsIntent(context),
                   LogicalKeySet(
                       LogicalKeyboardKey.control,
                       LogicalKeyboardKey.alt,
                       LogicalKeyboardKey.shift,
-                      LogicalKeyboardKey.keyE): PdfExportIntent(context),
+                      LogicalKeyboardKey.keyS): ProjectIntent(context),
+                  LogicalKeySet(
+                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
+                      ColorPaletteIntent(context),
+                  LogicalKeySet(
+                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyB):
+                      BackgroundIntent(context),
                   LogicalKeySet(
                       LogicalKeyboardKey.control,
-                      LogicalKeyboardKey.alt,
-                      LogicalKeyboardKey.keyE): SvgExportIntent(context),
+                      LogicalKeyboardKey.shift,
+                      LogicalKeyboardKey.keyA): AreasIntent(context),
                   LogicalKeySet(
-                      LogicalKeyboardKey.control,
-                      LogicalKeyboardKey.alt,
-                      LogicalKeyboardKey.keyS): SettingsIntent(context),
-                  LogicalKeySet(
-                          LogicalKeyboardKey.alt, LogicalKeyboardKey.keyS):
-                      ChangePathIntent(context),
-                  LogicalKeySet(
-                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
-                      SaveIntent(context),
-                },
-              },
-              child: Actions(
-                  actions: <Type, Action<Intent>>{
-                    UndoIntent: UndoAction(),
-                    RedoIntent: RedoAction(),
-                    NewIntent: NewAction(),
-                    OpenIntent: OpenAction(),
-                    ImportIntent: ImportAction(),
-                    SvgExportIntent: SvgExportAction(),
-                    ImageExportIntent: ImageExportAction(),
-                    PdfExportIntent: PdfExportAction(),
-                    ExportIntent: ExportAction(),
-                    EditModeIntent: EditModeAction(),
-                    SettingsIntent: SettingsAction(),
-                    ProjectIntent: ProjectAction(),
-                    WaypointsIntent: WaypointsAction(),
-                    AreasIntent: AreasAction(),
-                    ColorPaletteIntent: ColorPaletteAction(),
-                    BackgroundIntent: BackgroundAction(),
-                    LayersIntent: LayersAction(),
-                    InsertIntent: InsertAction(),
-                    ChangePathIntent: ChangePathAction(),
-                    SaveIntent: SaveAction(),
+                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
+                      LayersIntent(context),
+                  LogicalKeySet(LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.alt, LogicalKeyboardKey.keyN):
+                      InsertIntent(context, Offset.zero),
+                  if (widget.embedding == null) ...{
+                    LogicalKeySet(LogicalKeyboardKey.control,
+                        LogicalKeyboardKey.keyO): OpenIntent(context),
+                    LogicalKeySet(LogicalKeyboardKey.control,
+                        LogicalKeyboardKey.keyI): ImportIntent(context),
+                    LogicalKeySet(LogicalKeyboardKey.control,
+                        LogicalKeyboardKey.keyE): ExportIntent(context),
+                    LogicalKeySet(
+                        LogicalKeyboardKey.control,
+                        LogicalKeyboardKey.shift,
+                        LogicalKeyboardKey.keyE): ImageExportIntent(context),
+                    LogicalKeySet(
+                        LogicalKeyboardKey.control,
+                        LogicalKeyboardKey.alt,
+                        LogicalKeyboardKey.shift,
+                        LogicalKeyboardKey.keyE): PdfExportIntent(context),
+                    LogicalKeySet(
+                        LogicalKeyboardKey.control,
+                        LogicalKeyboardKey.alt,
+                        LogicalKeyboardKey.keyE): SvgExportIntent(context),
+                    LogicalKeySet(
+                        LogicalKeyboardKey.control,
+                        LogicalKeyboardKey.alt,
+                        LogicalKeyboardKey.keyS): SettingsIntent(context),
+                    LogicalKeySet(
+                            LogicalKeyboardKey.alt, LogicalKeyboardKey.keyS):
+                        ChangePathIntent(context),
+                    LogicalKeySet(LogicalKeyboardKey.control,
+                        LogicalKeyboardKey.keyS): SaveIntent(context),
                   },
-                  child: SafeArea(
-                    child: ClipRect(
-                      child: Builder(builder: (context) {
-                        PreferredSizeWidget appBar = PadAppBar(
-                          viewportKey: _viewportKey,
-                        );
-                        return Focus(
-                            autofocus: true,
-                            child: FocusScope(
-                              child: Scaffold(
-                                  appBar: appBar,
-                                  body: LayoutBuilder(
-                                      builder: (context, constraints) {
-                                    final isMobile =
-                                        MediaQuery.of(context).size.width < 800;
-                                    final isLandscape =
-                                        MediaQuery.of(context).size.height <
-                                            400;
-                                    const property = PropertyView();
-                                    return Stack(
-                                      children: [
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            children: [
-                                              Expanded(
-                                                  key: _viewportKey,
-                                                  child: Stack(
-                                                    children: [
-                                                      const MainViewViewport(),
-                                                      Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: const [
-                                                            ColorView(),
-                                                          ]),
-                                                      if (!isLandscape) property
-                                                    ],
-                                                  )),
-                                              if (isMobile)
-                                                Align(
-                                                    alignment: Alignment.center,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: EditToolbar(
-                                                            isMobile:
-                                                                isMobile))),
-                                            ]),
-                                        if (isLandscape) property
-                                      ],
-                                    );
-                                  })),
-                            ));
-                      }),
-                    ),
-                  )),
-            );
-          })),
+                },
+                child: Actions(
+                    actions: <Type, Action<Intent>>{
+                      UndoIntent: UndoAction(),
+                      RedoIntent: RedoAction(),
+                      NewIntent: NewAction(),
+                      OpenIntent: OpenAction(),
+                      ImportIntent: ImportAction(),
+                      SvgExportIntent: SvgExportAction(),
+                      ImageExportIntent: ImageExportAction(),
+                      PdfExportIntent: PdfExportAction(),
+                      ExportIntent: ExportAction(),
+                      EditModeIntent: EditModeAction(),
+                      SettingsIntent: SettingsAction(),
+                      ProjectIntent: ProjectAction(),
+                      WaypointsIntent: WaypointsAction(),
+                      AreasIntent: AreasAction(),
+                      ColorPaletteIntent: ColorPaletteAction(),
+                      BackgroundIntent: BackgroundAction(),
+                      LayersIntent: LayersAction(),
+                      InsertIntent: InsertAction(),
+                      ChangePathIntent: ChangePathAction(),
+                      SaveIntent: SaveAction(),
+                    },
+                    child: SafeArea(
+                      child: ClipRect(
+                        child: Builder(builder: (context) {
+                          PreferredSizeWidget appBar = PadAppBar(
+                            viewportKey: _viewportKey,
+                          );
+                          return Focus(
+                              autofocus: true,
+                              child: FocusScope(
+                                child: Scaffold(
+                                    appBar: appBar,
+                                    body: LayoutBuilder(
+                                        builder: (context, constraints) {
+                                      final isMobile =
+                                          MediaQuery.of(context).size.width <
+                                              800;
+                                      final isLandscape =
+                                          MediaQuery.of(context).size.height <
+                                              400;
+                                      const property = PropertyView();
+                                      return Stack(
+                                        children: [
+                                          Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.stretch,
+                                              children: [
+                                                Expanded(
+                                                    key: _viewportKey,
+                                                    child: Stack(
+                                                      children: [
+                                                        const MainViewViewport(),
+                                                        Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: const [
+                                                              ColorView(),
+                                                            ]),
+                                                        if (!isLandscape)
+                                                          property
+                                                      ],
+                                                    )),
+                                                if (isMobile)
+                                                  Align(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: EditToolbar(
+                                                              isMobile:
+                                                                  isMobile))),
+                                              ]),
+                                          if (isLandscape) property
+                                        ],
+                                      );
+                                    })),
+                              ));
+                        }),
+                      ),
+                    )),
+              );
+            }),
+          )),
     );
   }
 }

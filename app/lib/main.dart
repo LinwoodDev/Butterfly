@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:butterfly/services/sync.dart';
@@ -51,18 +50,12 @@ Future<void> main([List<String> args = const []]) async {
           ],
         ).toString();
       } else {
-        var data = await file.readAsString();
-        var json = Map<String, dynamic>.from(jsonDecode(data));
-        var document = const DocumentJsonConverter().fromJson(json);
-        var newFile =
-            await DocumentFileSystem.fromPlatform().importDocument(document);
-        initialLocation = Uri(
-          pathSegments: [
-            '',
-            'local',
-            ...newFile.pathWithoutLeadingSlash.split('/'),
-          ],
-        ).toString();
+        initialLocation = Uri(pathSegments: [
+          '',
+          'native',
+        ], queryParameters: {
+          'path': file.path,
+        }).toString();
       }
     }
   }
@@ -102,9 +95,14 @@ List<Locale> getLocales() =>
 
 class ButterflyApp extends StatelessWidget {
   final String initialLocation;
+  final String importedLocation;
   final SharedPreferences prefs;
 
-  ButterflyApp({super.key, required this.prefs, this.initialLocation = '/'})
+  ButterflyApp(
+      {super.key,
+      required this.prefs,
+      this.initialLocation = '/',
+      this.importedLocation = ''})
       : _router = GoRouter(
           initialLocation: initialLocation,
           routes: [
@@ -176,6 +174,20 @@ class ButterflyApp extends StatelessWidget {
                     .join('/');
                 return ProjectPage(
                     location: AssetLocation(remote: remote, path: path ?? ''));
+              },
+            ),
+            GoRoute(
+              path: '/native',
+              builder: (context, state) {
+                final path = state.queryParams['path'] ?? '';
+                return ProjectPage(location: AssetLocation.local(path, true));
+              },
+            ),
+            GoRoute(
+              path: '/native/:path(.*)',
+              builder: (context, state) {
+                final path = state.params['path'] ?? '';
+                return ProjectPage(location: AssetLocation.local(path, true));
               },
             ),
             GoRoute(

@@ -15,15 +15,18 @@ import 'waypoint.dart';
 part 'document.freezed.dart';
 part 'document.g.dart';
 
-enum AssetFileType { note, image, pdf, unknown }
+enum AssetFileType { note, image, pdf, svg, unknown }
 
 @freezed
 class AssetLocation with _$AssetLocation {
-  const factory AssetLocation(
-      {@Default('') String remote, required String path}) = _AssetLocation;
+  const factory AssetLocation({
+    @Default('') String remote,
+    required String path,
+    @Default(false) bool absolute,
+  }) = _AssetLocation;
 
-  factory AssetLocation.local(String path) => AssetLocation(path: path);
-  factory AssetLocation.native(String path) => AssetLocation(path: path);
+  factory AssetLocation.local(String path, [bool absolute = false]) =>
+      AssetLocation(path: path, absolute: absolute);
 
   factory AssetLocation.fromJson(Map<String, dynamic> json) =>
       _$AssetLocationFromJson(json);
@@ -48,13 +51,18 @@ class AssetLocation with _$AssetLocation {
         return AssetFileType.image;
       case 'pdf':
         return AssetFileType.pdf;
+      case 'svg':
+        return AssetFileType.svg;
       case 'bfly':
+      case 'json':
       case '':
         return AssetFileType.note;
       default:
         return AssetFileType.unknown;
     }
   }
+
+  String get fileName => path.split('/').last.split('.').first;
 }
 
 @immutable

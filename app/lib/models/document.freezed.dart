@@ -22,6 +22,7 @@ AssetLocation _$AssetLocationFromJson(Map<String, dynamic> json) {
 mixin _$AssetLocation {
   String get remote => throw _privateConstructorUsedError;
   String get path => throw _privateConstructorUsedError;
+  bool get absolute => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $AssetLocationCopyWith<$Res> {
   factory $AssetLocationCopyWith(
           AssetLocation value, $Res Function(AssetLocation) then) =
       _$AssetLocationCopyWithImpl<$Res>;
-  $Res call({String remote, String path});
+  $Res call({String remote, String path, bool absolute});
 }
 
 /// @nodoc
@@ -50,6 +51,7 @@ class _$AssetLocationCopyWithImpl<$Res>
   $Res call({
     Object? remote = freezed,
     Object? path = freezed,
+    Object? absolute = freezed,
   }) {
     return _then(_value.copyWith(
       remote: remote == freezed
@@ -60,6 +62,10 @@ class _$AssetLocationCopyWithImpl<$Res>
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
+      absolute: absolute == freezed
+          ? _value.absolute
+          : absolute // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -71,7 +77,7 @@ abstract class _$$_AssetLocationCopyWith<$Res>
           _$_AssetLocation value, $Res Function(_$_AssetLocation) then) =
       __$$_AssetLocationCopyWithImpl<$Res>;
   @override
-  $Res call({String remote, String path});
+  $Res call({String remote, String path, bool absolute});
 }
 
 /// @nodoc
@@ -89,6 +95,7 @@ class __$$_AssetLocationCopyWithImpl<$Res>
   $Res call({
     Object? remote = freezed,
     Object? path = freezed,
+    Object? absolute = freezed,
   }) {
     return _then(_$_AssetLocation(
       remote: remote == freezed
@@ -99,6 +106,10 @@ class __$$_AssetLocationCopyWithImpl<$Res>
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
+      absolute: absolute == freezed
+          ? _value.absolute
+          : absolute // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -106,7 +117,9 @@ class __$$_AssetLocationCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AssetLocation extends _AssetLocation {
-  const _$_AssetLocation({this.remote = '', required this.path}) : super._();
+  const _$_AssetLocation(
+      {this.remote = '', required this.path, this.absolute = false})
+      : super._();
 
   factory _$_AssetLocation.fromJson(Map<String, dynamic> json) =>
       _$$_AssetLocationFromJson(json);
@@ -116,10 +129,13 @@ class _$_AssetLocation extends _AssetLocation {
   final String remote;
   @override
   final String path;
+  @override
+  @JsonKey()
+  final bool absolute;
 
   @override
   String toString() {
-    return 'AssetLocation(remote: $remote, path: $path)';
+    return 'AssetLocation(remote: $remote, path: $path, absolute: $absolute)';
   }
 
   @override
@@ -128,7 +144,8 @@ class _$_AssetLocation extends _AssetLocation {
         (other.runtimeType == runtimeType &&
             other is _$_AssetLocation &&
             const DeepCollectionEquality().equals(other.remote, remote) &&
-            const DeepCollectionEquality().equals(other.path, path));
+            const DeepCollectionEquality().equals(other.path, path) &&
+            const DeepCollectionEquality().equals(other.absolute, absolute));
   }
 
   @JsonKey(ignore: true)
@@ -136,7 +153,8 @@ class _$_AssetLocation extends _AssetLocation {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(remote),
-      const DeepCollectionEquality().hash(path));
+      const DeepCollectionEquality().hash(path),
+      const DeepCollectionEquality().hash(absolute));
 
   @JsonKey(ignore: true)
   @override
@@ -153,7 +171,9 @@ class _$_AssetLocation extends _AssetLocation {
 
 abstract class _AssetLocation extends AssetLocation {
   const factory _AssetLocation(
-      {final String remote, required final String path}) = _$_AssetLocation;
+      {final String remote,
+      required final String path,
+      final bool absolute}) = _$_AssetLocation;
   const _AssetLocation._() : super._();
 
   factory _AssetLocation.fromJson(Map<String, dynamic> json) =
@@ -163,6 +183,8 @@ abstract class _AssetLocation extends AssetLocation {
   String get remote;
   @override
   String get path;
+  @override
+  bool get absolute;
   @override
   @JsonKey(ignore: true)
   _$$_AssetLocationCopyWith<_$_AssetLocation> get copyWith =>

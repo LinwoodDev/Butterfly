@@ -58,7 +58,7 @@ class DocumentLoadSuccess extends DocumentState {
   List<Renderer<PadElement>> get renderers => currentIndexCubit.renderers;
 
   AssetLocation get location => currentIndexCubit.state.location;
-  bool get saved => currentIndexCubit.state.saved;
+  bool get saved => !location.absolute && currentIndexCubit.state.saved;
 
   Future<void> load() async {
     currentIndexCubit.setSaveState(saved: true);
@@ -95,6 +95,7 @@ class DocumentLoadSuccess extends DocumentState {
   bool hasAutosave() =>
       !(embedding?.save ?? true) ||
       (!kIsWeb &&
+          !location.absolute &&
           (location.remote.isEmpty ||
               (settingsCubit.state
                       .getRemote(location.remote)
@@ -104,7 +105,7 @@ class DocumentLoadSuccess extends DocumentState {
   Future<AssetLocation> save() {
     final storage = getRemoteStorage();
     if (embedding != null) return Future.value(AssetLocation.local(''));
-    if (location.path == '') {
+    if (location.path == '' || location.absolute) {
       return DocumentFileSystem.fromPlatform(remote: storage)
           .importDocument(document)
           .then((value) => value.location)

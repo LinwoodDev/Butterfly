@@ -6,6 +6,7 @@ import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/edit.dart';
+import 'package:butterfly/visualizer/asset.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,6 +79,9 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                       final title = Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            if (state is DocumentLoadSuccess)
+                              if (state.location.absolute)
+                                Icon(state.location.fileType.getIcon()),
                             Expanded(child:
                                 StatefulBuilder(builder: (context, setState) {
                               final area = state is DocumentLoadSuccess
@@ -159,8 +163,15 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                         area == null)
                                       Text(
                                         currentIndex.location.identifier,
-                                        style:
-                                            Theme.of(context).textTheme.caption,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .caption
+                                            ?.copyWith(
+                                              decoration:
+                                                  currentIndex.location.absolute
+                                                      ? TextDecoration.underline
+                                                      : TextDecoration.none,
+                                            ),
                                         textAlign: TextAlign.center,
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -170,7 +181,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                             if (state is DocumentLoadSuccess &&
                                 !state.hasAutosave())
                               IconButton(
-                                icon: currentIndex.saved
+                                icon: state.saved
                                     ? const Icon(PhosphorIcons.floppyDiskFill)
                                     : const Icon(PhosphorIcons.floppyDiskLight),
                                 tooltip: AppLocalizations.of(context)!.save,

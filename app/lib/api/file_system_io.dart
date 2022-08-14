@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
@@ -158,6 +159,15 @@ class IODocumentFileSystem extends DocumentFileSystem {
       }
     }
     return AppDocumentDirectory(AssetLocation.local(name), assets);
+  }
+
+  @override
+  Future<Uint8List?> loadAbsolute(String path) async {
+    var file = File(path);
+    if (await file.exists()) {
+      return await file.readAsBytes();
+    }
+    return null;
   }
 }
 
