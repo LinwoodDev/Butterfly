@@ -373,5 +373,6 @@
     "unpin": "Unpin",
     "element": "Element",
     "painter": "Painter",
-    "position": "Position"
+    "position": "Position",
+    "note": "Note"
 }
