@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>butterfly</id>
+    <name>Butterfly</name>
+    <summary>Powerful, minimalistic, cross-platform, opensource note-taking app</summary>
+    <description><![CDATA[Integrates Butterfly with Nextcloud]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author mail="contact@linwood.dev" homepage="https://linwood.dev">Linwood</author>
+    <namespace>Butterfly</namespace>
+    <types>
+        <filesystem/>
+    </types>
+    <category>office</category>
+    <bugs>https://github.com/LinwoodCloud/Butterfly/issues</bugs>
+    <dependencies>
+        <nextcloud min-version="15" max-version="24"/>
+    </dependencies>
+    <settings>
+        <admin>OCA\Butterfly\AdminSettings</admin>
+    </settings>
+    <navigations>
+        <navigation>
+            <name>Butterfly</name>
+            <route>butterfly.page.index</route>
+        </navigation>
+    </navigations>
+</info>

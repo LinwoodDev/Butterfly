@@ -1,0 +1,14 @@
+{
+    "description": "Powerful, minimalistic, cross-platform, opensource note-taking app",
+    "type": "project",
+    "license": "AGPL",
+    "authors": [
+        {
+            "name": "Linwood"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}

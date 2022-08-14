@@ -1,0 +1,64 @@
+sudo: false
+dist: trusty
+language: php
+php:
+    - 5.6
+    - 7
+    - 7.1
+env:
+    global:
+        - CORE_BRANCH=stable15
+    matrix:
+        - DB=pgsql
+
+matrix:
+    allow_failures:
+        - env: DB=pgsql CORE_BRANCH=master
+    include:
+        - php: 5.6
+          env: DB=sqlite
+        - php: 5.6
+          env: DB=mysql
+        - php: 5.6
+          env: DB=pgsql CORE_BRANCH=master
+    fast_finish: true
+
+
+before_install:
+    # enable a display for running JavaScript tests
+    - export DISPLAY=:99.0
+    - sh -e /etc/init.d/xvfb start
+    - nvm install 8
+    - npm install -g npm@latest
+    - make
+    - make appstore
+    # install core
+    - cd ../
+    - git clone https://github.com/nextcloud/server.git --recursive --depth 1 -b $CORE_BRANCH nextcloud
+    - mv "$TRAVIS_BUILD_DIR" nextcloud/apps/butterfly
+
+before_script:
+    - if [[ "$DB" == 'pgsql' ]]; then createuser -U travis -s oc_autotest; fi
+    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e 'create database oc_autotest;'; fi
+    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY '';"; fi
+    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost';"; fi
+    - cd nextcloud
+    - mkdir data
+    - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass=''
+    - ./occ app:enable butterfly
+    - php -S localhost:8080 &
+    - cd apps/butterfly
+
+script:
+    - make test
+
+after_failure:
+    - cat ../../data/nextcloud.log
+
+addons:
+    firefox: 'latest'
+    mariadb: '10.1'
+
+services:
+  - postgresql
+  - mariadb
