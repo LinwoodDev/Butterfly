@@ -48,6 +48,8 @@ class AssetLocation with _$AssetLocation {
       case 'jpg':
       case 'jpeg':
       case 'gif':
+      case 'bmp':
+      case 'ico':
         return AssetFileType.image;
       case 'pdf':
         return AssetFileType.pdf;

@@ -23,7 +23,6 @@ class ImportService {
   }
 
   Future<void> _load() async {
-    print('Importing');
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     final location = state.location;
@@ -36,22 +35,22 @@ class ImportService {
 
   DocumentBloc get bloc => context.read<DocumentBloc>();
 
-  Future<void> import(AssetFileType type, String name, Uint8List bytes) {
+  Future<void> import(AssetFileType type, String name, Uint8List bytes) async {
     switch (type) {
       case AssetFileType.note:
-        return importNote(name, bytes);
+        return importNote(bytes);
       case AssetFileType.image:
-        return importImage(name, bytes);
+        return importImage(bytes);
       case AssetFileType.svg:
-        return importSvg(name, bytes);
+        return importSvg(bytes);
       case AssetFileType.pdf:
-        return importPdf(name, bytes);
+        return importPdf(bytes);
       default:
         return Future.value();
     }
   }
 
-  Future<void> importNote(String name, Uint8List bytes) async {
+  void importNote(Uint8List bytes) async {
     final doc = AppDocument.fromJson(
       json.decode(
         String.fromCharCodes(bytes),
@@ -60,7 +59,7 @@ class ImportService {
     bloc.add(DocumentUpdated(doc));
   }
 
-  Future<void> importImage(String name, Uint8List bytes) async {
+  Future<void> importImage(Uint8List bytes) async {
     var codec = await ui.instantiateImageCodec(bytes);
     var frame = await codec.getNextFrame();
     var image = frame.image.clone();
@@ -78,7 +77,7 @@ class ImportService {
     ]);
   }
 
-  Future<void> importSvg(String name, Uint8List bytes) async {
+  Future<void> importSvg(Uint8List bytes) async {
     var contentString = String.fromCharCodes(bytes);
     final SvgParser parser = SvgParser();
     try {
@@ -106,7 +105,7 @@ class ImportService {
     }
   }
 
-  Future<void> importPdf(String name, Uint8List bytes) async {
+  Future<void> importPdf(Uint8List bytes) async {
     final elements = <Uint8List>[];
     await for (var page in Printing.raster(bytes)) {
       final png = await page.toPng();
