@@ -152,3 +152,14 @@ Map<String, dynamic> _$$ShapePainterToJson(_$ShapePainter instance) =>
       'property': instance.property.toJson(),
       'type': instance.$type,
     };
+
+_$StampPainter _$$StampPainterFromJson(Map json) => _$StampPainter(
+      name: json['name'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$StampPainterToJson(_$StampPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': instance.$type,
+    };

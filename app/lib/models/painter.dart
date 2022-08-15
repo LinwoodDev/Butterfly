@@ -97,6 +97,10 @@ class Painter with _$Painter {
     @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
   }) = ShapePainter;
 
+  factory Painter.stamp({
+    @Default('') String name,
+  }) = StampPainter;
+
   factory Painter.fromJson(Map<String, dynamic> json) =>
       _$PainterFromJson(json);
 }
