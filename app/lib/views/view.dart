@@ -149,8 +149,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
             onDoubleTapDown: (details) {
               cubit.getHandler().onDoubleTapDown(details, getEventContext());
             },
-            onDoubleTapCancel: () => print('onDoubleTapCancel'),
-            onDoubleTap: () => print('double tap'),
             onLongPressDown: (details) {
               cubit.getHandler().onLongPressDown(details, getEventContext());
             },

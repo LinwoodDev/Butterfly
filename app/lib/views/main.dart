@@ -130,21 +130,24 @@ class _ProjectPageState extends State<ProjectPage> {
             document = value is AppDocumentFile ? value.load() : null);
       }
     }
+    if (!mounted) return;
+    final name = (widget.location?.absolute ?? false)
+        ? widget.location!.fileName
+        : await formatCurrentDateTime(
+            context.read<SettingsCubit>().state.locale);
     if (document == null && prefs.containsKey('default_template')) {
       var template = await TemplateFileSystem.fromPlatform(remote: remote)
           .getTemplate(prefs.getString('default_template')!);
       if (template != null && mounted) {
         document = template.document.copyWith(
-          name: await formatCurrentDateTime(
-              context.read<SettingsCubit>().state.locale),
+          name: name,
           createdAt: DateTime.now(),
         );
       }
     }
     if (mounted) {
       document ??= AppDocument(
-          name: await formatCurrentDateTime(
-              context.read<SettingsCubit>().state.locale),
+          name: name,
           createdAt: DateTime.now(),
           palettes: ColorPalette.getMaterialPalette(context));
     }

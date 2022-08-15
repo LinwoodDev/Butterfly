@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open_image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -157,13 +158,20 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                             onPressed: () async {
                               final localization =
                                   AppLocalizations.of(context)!;
+                              final state = context.read<DocumentBloc>().state;
                               Navigator.of(context).pop();
+                              if (state is! DocumentLoadSuccess) {
+                                return;
+                              }
                               final data = await generateImage();
                               if (data == null) {
                                 return;
                               }
-
-                              if (!kIsWeb &&
+                              final location = state.location;
+                              if (location.absolute) {
+                                DocumentFileSystem.fromPlatform().saveAbsolute(
+                                    location.path, data.buffer.asUint8List());
+                              } else if (!kIsWeb &&
                                   (Platform.isWindows ||
                                       Platform.isLinux ||
                                       Platform.isMacOS)) {

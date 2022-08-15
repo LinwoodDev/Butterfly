@@ -5,6 +5,7 @@ import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:flutter/foundation.dart';
@@ -79,9 +80,6 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                       final title = Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            if (state is DocumentLoadSuccess)
-                              if (state.location.absolute)
-                                Icon(state.location.fileType.getIcon()),
                             Expanded(child:
                                 StatefulBuilder(builder: (context, setState) {
                               final area = state is DocumentLoadSuccess
@@ -90,6 +88,11 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                               final areaIndex = state is DocumentLoadSuccess
                                   ? state.currentAreaIndex
                                   : null;
+                              _nameController.text =
+                                  state is DocumentLoadSuccess
+                                      ? state.document.name
+                                      : '';
+                              _areaController.text = area?.name ?? '';
                               Widget title = Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment:
@@ -178,18 +181,28 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                   ]);
                               return title;
                             })),
-                            if (state is DocumentLoadSuccess &&
-                                !state.hasAutosave())
-                              IconButton(
-                                icon: state.saved
-                                    ? const Icon(PhosphorIcons.floppyDiskFill)
-                                    : const Icon(PhosphorIcons.floppyDiskLight),
-                                tooltip: AppLocalizations.of(context)!.save,
-                                onPressed: () {
-                                  Actions.maybeInvoke<SaveIntent>(
-                                      context, SaveIntent(context));
-                                },
-                              ),
+                            if (state is DocumentLoadSuccess) ...[
+                              if (!state.hasAutosave())
+                                IconButton(
+                                  icon: state.saved
+                                      ? const Icon(PhosphorIcons.floppyDiskFill)
+                                      : const Icon(
+                                          PhosphorIcons.floppyDiskLight),
+                                  tooltip: AppLocalizations.of(context)!.save,
+                                  onPressed: () {
+                                    Actions.maybeInvoke<SaveIntent>(
+                                        context, SaveIntent(context));
+                                  },
+                                ),
+                              if (state.location.absolute)
+                                IconButton(
+                                    icon:
+                                        Icon(state.location.fileType.getIcon()),
+                                    tooltip:
+                                        AppLocalizations.of(context)!.export,
+                                    onPressed: () =>
+                                        context.read<ImportService>().export())
+                            ],
                             const SizedBox(width: 8),
                             if (!isMobile)
                               const Flexible(

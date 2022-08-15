@@ -141,6 +141,8 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
   }
 
   Future<Uint8List?> loadAbsolute(String path) => Future.value(null);
+
+  Future<void> saveAbsolute(String path, Uint8List bytes) => Future.value();
 }
 
 abstract class TemplateFileSystem extends GeneralFileSystem {

@@ -466,14 +466,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           location: AssetLocation(
               remote: current.location.remote, path: event.location));
     });
-    on<AreaCreated>((event, emit) async {
+    on<AreasCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       final currentDocument = current.document.copyWith(
-          areas: List<Area>.from(current.document.areas)..add(event.area));
+          areas: List<Area>.from(current.document.areas)..addAll(event.areas));
       _saveDocument(emit, current.copyWith(document: currentDocument));
       for (var element in current.renderers) {
-        if (await element.onAreaUpdate(currentDocument, event.area)) {
+        final needRepaint = await Future.wait(event.areas.map<Future<bool>>(
+            (area) async => await element.onAreaUpdate(currentDocument, area)));
+        if (needRepaint.any((element) => element)) {
           _repaint(emit);
         }
       }

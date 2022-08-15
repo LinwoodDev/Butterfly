@@ -4,15 +4,21 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/parser.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../dialogs/error.dart';
+import '../dialogs/image_export.dart';
 import '../dialogs/pages.dart';
+import '../dialogs/pdf_export.dart';
+import '../dialogs/svg_export.dart';
 import '../models/document.dart';
 
 class ImportService {
@@ -45,7 +51,7 @@ class ImportService {
       case AssetFileType.svg:
         return importSvg(bytes);
       case AssetFileType.pdf:
-        return importPdf(bytes);
+        return importPdf(bytes, Offset.zero, true);
       default:
         return Future.value();
     }
@@ -109,8 +115,9 @@ class ImportService {
   }
 
   Future<void> importPdf(Uint8List bytes,
-      [Offset position = Offset.zero]) async {
+      [Offset position = Offset.zero, bool createAreas = false]) async {
     final elements = <Uint8List>[];
+    final localizations = AppLocalizations.of(context)!;
     await for (var page in Printing.raster(bytes)) {
       final png = await page.toPng();
       elements.add(png);
@@ -119,6 +126,7 @@ class ImportService {
         context: context, builder: (context) => PagesDialog(pages: elements));
     if (callback == null) return;
     final selectedElements = <ImageElement>[];
+    final areas = <Area>[];
     var y = position.dx;
     await for (var page in Printing.raster(bytes,
         pages: callback.pages, dpi: PdfPageFormat.inch * callback.quality)) {
@@ -130,9 +138,67 @@ class ImportService {
           pixels: png,
           constraints: ElementConstraints.scaled(scale),
           position: Offset(position.dx, y)));
+      if (createAreas) {
+        areas.add(Area(
+          height: page.height.toDouble(),
+          width: page.width.toDouble(),
+          position: Offset(position.dx, y),
+          name: localizations.pageIndex(areas.length + 1),
+        ));
+      }
       y += page.height;
     }
     _submit(selectedElements);
+    if (createAreas) {
+      bloc.add(AreasCreated(areas));
+    }
+  }
+
+  Future<void> export() async {
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final location = state.location;
+    final fileType = location.fileType;
+    final viewport = context.read<CurrentIndexCubit>().state.cameraViewport;
+    switch (fileType) {
+      case AssetFileType.note:
+        final data = json.encode(state.document.toJson());
+        final bytes = Uint8List.fromList(data.codeUnits);
+        DocumentFileSystem.fromPlatform().saveAbsolute(location.path, bytes);
+        break;
+      case AssetFileType.image:
+        return showDialog(
+            context: context,
+            builder: (context) => BlocProvider.value(
+                value: bloc,
+                child: ImageExportDialog(
+                  height: viewport.height ?? 1000,
+                  width: viewport.width ?? 1000,
+                  scale: viewport.scale,
+                  x: viewport.x,
+                  y: viewport.y,
+                )));
+      case AssetFileType.pdf:
+        return showDialog(
+            context: context,
+            builder: (context) => BlocProvider.value(
+                value: bloc,
+                child: PdfExportDialog(
+                    areas: state.document.getAreaNames().toList())));
+      case AssetFileType.svg:
+        return showDialog(
+            context: context,
+            builder: (context) => BlocProvider.value(
+                value: bloc,
+                child: SvgExportDialog(
+                    width: ((viewport.width ?? 1000) / viewport.scale).round(),
+                    height:
+                        ((viewport.height ?? 1000) / viewport.scale).round(),
+                    x: viewport.x,
+                    y: viewport.y)));
+      default:
+        return;
+    }
   }
 
   void _submit(List<PadElement> elements) =>

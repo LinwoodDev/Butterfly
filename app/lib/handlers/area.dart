@@ -146,11 +146,13 @@ class AreaHandler extends Handler<AreaPainter> {
       return;
     }
 
-    context.addDocumentEvent(AreaCreated(Area(
-        name: name,
-        width: currentRect!.width,
-        height: currentRect!.height,
-        position: currentRect!.topLeft)));
+    context.addDocumentEvent(AreasCreated([
+      Area(
+          name: name,
+          width: currentRect!.width,
+          height: currentRect!.height,
+          position: currentRect!.topLeft)
+    ]));
     context.refresh();
     currentRect = null;
   }
