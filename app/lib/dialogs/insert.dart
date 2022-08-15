@@ -98,6 +98,24 @@ class InsertDialog extends StatelessWidget {
               }
               importService.importSvg(content, position);
             }),
+        ListTile(
+            title: Text(AppLocalizations.of(context)!.document),
+            leading: const Icon(PhosphorIcons.fileTextLight),
+            onTap: () async {
+              Navigator.of(context).pop();
+              final files = await FilePicker.platform.pickFiles(
+                  type: FileType.custom,
+                  allowedExtensions: ['bfly', 'json'],
+                  allowMultiple: false,
+                  withData: true);
+              if (files?.files.isEmpty ?? true) return;
+              var e = files!.files.first;
+              var content = e.bytes ?? Uint8List(0);
+              if (!kIsWeb) {
+                content = await File(e.path ?? '').readAsBytes();
+              }
+              importService.importNote(content, position, false);
+            }),
       ]),
       actions: [
         TextButton(
