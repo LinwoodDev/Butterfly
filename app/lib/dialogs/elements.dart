@@ -77,29 +77,35 @@ class ElementsDialog extends StatelessWidget {
               final bloc = context.read<DocumentBloc>();
               final transformCubit = context.read<TransformCubit>();
               final importService = context.read<ImportService>();
+              final actions =
+                  context.findAncestorWidgetOfExactType<Actions>()?.actions ??
+                      {};
               close();
               showContextMenu(
                   context: context,
                   position: position,
-                  builder: (ctx, close) => MultiBlocProvider(
-                          providers: [
-                            BlocProvider<CurrentIndexCubit>.value(
-                              value: currentIndexCubit,
-                            ),
-                            BlocProvider<DocumentBloc>.value(
-                              value: bloc,
-                            ),
-                            BlocProvider<TransformCubit>.value(
-                              value: transformCubit,
-                            ),
-                          ],
-                          child: RepositoryProvider.value(
-                            value: importService,
-                            child: BackgroundContextMenu(
-                              close: close,
-                              position: position,
-                            ),
-                          )));
+                  builder: (ctx, close) => Actions(
+                        actions: actions,
+                        child: MultiBlocProvider(
+                            providers: [
+                              BlocProvider<CurrentIndexCubit>.value(
+                                value: currentIndexCubit,
+                              ),
+                              BlocProvider<DocumentBloc>.value(
+                                value: bloc,
+                              ),
+                              BlocProvider<TransformCubit>.value(
+                                value: transformCubit,
+                              ),
+                            ],
+                            child: RepositoryProvider.value(
+                              value: importService,
+                              child: BackgroundContextMenu(
+                                close: close,
+                                position: position,
+                              ),
+                            )),
+                      ));
             },
             title: Text(AppLocalizations.of(context)!.document),
             leading: const Icon(PhosphorIcons.fileTextLight),

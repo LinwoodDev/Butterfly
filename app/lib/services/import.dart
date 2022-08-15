@@ -132,26 +132,28 @@ class ImportService {
         pages: callback.pages, dpi: PdfPageFormat.inch * callback.quality)) {
       final png = await page.toPng();
       final scale = 1 / callback.quality;
+      final height = page.height;
+      final width = page.width;
       selectedElements.add(ImageElement(
-          height: page.height,
-          width: page.width,
+          height: height,
+          width: width,
           pixels: png,
           constraints: ElementConstraints.scaled(scale),
           position: Offset(position.dx, y)));
       if (createAreas) {
         areas.add(Area(
-          height: page.height.toDouble(),
-          width: page.width.toDouble(),
+          height: height * scale,
+          width: width * scale,
           position: Offset(position.dx, y),
           name: localizations.pageIndex(areas.length + 1),
         ));
       }
       y += page.height;
     }
-    _submit(selectedElements);
     if (createAreas) {
       bloc.add(AreasCreated(areas));
     }
+    _submit(selectedElements);
   }
 
   Future<void> export() async {

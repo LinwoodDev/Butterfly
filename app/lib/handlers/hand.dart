@@ -204,8 +204,11 @@ class HandHandler extends Handler<HandProperty> {
             providers: context.getProviders(),
             child: RepositoryProvider.value(
               value: context.getImportService(),
-              child: ElementsDialog(
-                  close: close, position: localPosition, renderers: selected),
+              child: Actions(
+                actions: context.getActions(),
+                child: ElementsDialog(
+                    close: close, position: localPosition, renderers: selected),
+              ),
             )));
     selected.clear();
     context.refresh();
