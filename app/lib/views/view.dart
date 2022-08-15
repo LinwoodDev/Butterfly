@@ -146,6 +146,14 @@ class _MainViewViewportState extends State<MainViewViewport> {
               cubit.getHandler().onScaleStart(details, getEventContext());
               size = 1;
             },
+            onDoubleTapDown: (details) {
+              cubit.getHandler().onDoubleTapDown(details, getEventContext());
+            },
+            onDoubleTapCancel: () => print('onDoubleTapCancel'),
+            onDoubleTap: () => print('double tap'),
+            onLongPressDown: (details) {
+              cubit.getHandler().onLongPressDown(details, getEventContext());
+            },
             child: Listener(
                 onPointerSignal: (pointerSignal) {
                   if (pointerSignal is PointerScrollEvent) {

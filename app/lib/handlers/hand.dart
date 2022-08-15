@@ -111,14 +111,24 @@ class HandHandler extends Handler<HandProperty> {
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) async {
+    _onSelectionAdd(context, details.globalPosition, false);
+  }
+
+  @override
+  void onLongPressDown(
+      LongPressDownDetails details, EventContext eventContext) {
+    _onSelectionAdd(eventContext, details.globalPosition, true);
+  }
+
+  Future<void> _onSelectionAdd(EventContext context, Offset localPosition,
+      [bool forceAdd = false]) async {
     if (movingElements.isNotEmpty) {
       return;
     }
     final transform = context.getCameraTransform();
     final settings = context.getSettings();
     final radius = settings.selectSensitivity / transform.size;
-    final hits =
-        await rayCast(context.buildContext, details.localPosition, radius);
+    final hits = await rayCast(context.buildContext, localPosition, radius);
     if (hits.isEmpty) {
       if (!context.isCtrlPressed) {
         selected.clear();
@@ -142,12 +152,21 @@ class HandHandler extends Handler<HandProperty> {
 
   @override
   void onSecondaryTapUp(TapUpDetails details, EventContext context) async {
+    _onSelectionContext(context, details.localPosition);
+  }
+
+  @override
+  void onDoubleTapDown(TapDownDetails details, EventContext eventContext) {
+    _onSelectionContext(eventContext, details.localPosition);
+  }
+
+  Future<void> _onSelectionContext(
+      EventContext context, Offset localPosition) async {
     if (movingElements.isNotEmpty) {
       return;
     }
     final providers = context.getProviders();
-    final hits =
-        await rayCast(context.buildContext, details.localPosition, 0.0);
+    final hits = await rayCast(context.buildContext, localPosition, 0.0);
     final hit = hits.firstOrNull;
     final rect = hit?.rect;
     if ((hit == null ||
@@ -161,7 +180,7 @@ class HandHandler extends Handler<HandProperty> {
     if (selected.isEmpty) {
       await showContextMenu(
         context: context.buildContext,
-        position: details.localPosition,
+        position: localPosition,
         builder: (ctx, close) => MultiBlocProvider(
           providers: providers,
           child: Actions(
@@ -170,7 +189,7 @@ class HandHandler extends Handler<HandProperty> {
               value: context.getImportService(),
               child: BackgroundContextMenu(
                 close: close,
-                position: details.localPosition,
+                position: localPosition,
               ),
             ),
           ),
@@ -180,15 +199,13 @@ class HandHandler extends Handler<HandProperty> {
     }
     await showContextMenu(
         context: context.buildContext,
-        position: details.localPosition,
+        position: localPosition,
         builder: (ctx, close) => MultiBlocProvider(
             providers: context.getProviders(),
             child: RepositoryProvider.value(
               value: context.getImportService(),
               child: ElementsDialog(
-                  close: close,
-                  position: details.localPosition,
-                  renderers: selected),
+                  close: close, position: localPosition, renderers: selected),
             )));
     selected.clear();
     context.refresh();

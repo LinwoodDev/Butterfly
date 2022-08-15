@@ -136,6 +136,11 @@ abstract class Handler<T> {
 
   void onScaleEnd(ScaleEndDetails details, EventContext context) {}
 
+  void onDoubleTapDown(TapDownDetails details, EventContext eventContext) {}
+
+  void onLongPressDown(
+      LongPressDownDetails details, EventContext eventContext) {}
+
   int? getColor(DocumentBloc bloc) => null;
 
   T? setColor(DocumentBloc bloc, int color) => null;
