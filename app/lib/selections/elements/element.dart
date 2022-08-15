@@ -138,6 +138,8 @@ class OffsetPropertyView extends StatelessWidget {
             decoration: const InputDecoration(
               labelText: 'X',
               alignLabelWithHint: true,
+              floatingLabelAlignment: FloatingLabelAlignment.center,
+              filled: true,
             ),
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
@@ -153,12 +155,15 @@ class OffsetPropertyView extends StatelessWidget {
             },
           ),
         ),
+        const SizedBox(width: 8),
         Expanded(
           child: TextFormField(
             controller: _yController,
             decoration: const InputDecoration(
               labelText: 'Y',
               alignLabelWithHint: true,
+              floatingLabelAlignment: FloatingLabelAlignment.center,
+              filled: true,
             ),
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,

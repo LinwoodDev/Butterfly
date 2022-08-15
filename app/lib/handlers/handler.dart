@@ -29,6 +29,7 @@ import '../models/property.dart';
 import '../renderers/cursors/eraser.dart';
 import '../renderers/renderer.dart';
 import '../selections/selection.dart';
+import '../services/import.dart';
 import '../widgets/context_menu.dart';
 import '../widgets/header.dart';
 
@@ -93,6 +94,8 @@ class EventContext {
 
   Map<Type, Action<Intent>> getActions() =>
       buildContext.findAncestorWidgetOfExactType<Actions>()?.actions ?? {};
+
+  ImportService getImportService() => buildContext.read<ImportService>();
 }
 
 abstract class Handler<T> {

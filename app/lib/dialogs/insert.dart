@@ -10,16 +10,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class InsertDialog extends StatefulWidget {
+class InsertDialog extends StatelessWidget {
   final Offset position;
 
   const InsertDialog({super.key, required this.position});
 
-  @override
-  _InsertDialogState createState() => _InsertDialogState();
-}
-
-class _InsertDialogState extends State<InsertDialog> {
   @override
   Widget build(BuildContext context) {
     final importService = context.read<ImportService>();
@@ -39,6 +34,7 @@ class _InsertDialogState extends State<InsertDialog> {
           title: Text(AppLocalizations.of(context)!.image),
           leading: const Icon(PhosphorIcons.imageLight),
           onTap: () async {
+            Navigator.of(context).pop();
             var files = await FilePicker.platform.pickFiles(
                 type: FileType.image, allowMultiple: false, withData: true);
             if (files?.files.isEmpty ?? true) return;
@@ -47,7 +43,7 @@ class _InsertDialogState extends State<InsertDialog> {
             if (!kIsWeb) {
               content = await File(e.path ?? '').readAsBytes();
             }
-            importService.importImage(content);
+            importService.importImage(content, position);
           },
         ),
         if (kIsWeb ||
@@ -58,16 +54,18 @@ class _InsertDialogState extends State<InsertDialog> {
               title: Text(AppLocalizations.of(context)!.camera),
               leading: const Icon(PhosphorIcons.cameraLight),
               onTap: () async {
+                Navigator.of(context).pop();
                 var content = await Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const CameraDialog()),
                 ) as Uint8List?;
                 if (content == null) return;
-                importService.importImage(content);
+                importService.importImage(content, position);
               }),
         ListTile(
           title: Text(AppLocalizations.of(context)!.svg),
           leading: const Icon(PhosphorIcons.sunLight),
           onTap: () async {
+            Navigator.of(context).pop();
             var files = await FilePicker.platform.pickFiles(
                 type: FileType.custom,
                 allowedExtensions: ['svg'],
@@ -79,13 +77,14 @@ class _InsertDialogState extends State<InsertDialog> {
             if (!kIsWeb) {
               content = await File(e.path ?? '').readAsBytes();
             }
-            importService.importSvg(content);
+            importService.importSvg(content, position);
           },
         ),
         ListTile(
             title: Text(AppLocalizations.of(context)!.pdf),
             leading: const Icon(PhosphorIcons.filePdfLight),
             onTap: () async {
+              Navigator.of(context).pop();
               final files = await FilePicker.platform.pickFiles(
                   type: FileType.custom,
                   allowedExtensions: ['pdf'],
@@ -97,7 +96,7 @@ class _InsertDialogState extends State<InsertDialog> {
               if (!kIsWeb) {
                 content = await File(e.path ?? '').readAsBytes();
               }
-              importService.importSvg(content);
+              importService.importSvg(content, position);
             }),
       ]),
       actions: [

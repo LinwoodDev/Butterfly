@@ -60,7 +60,8 @@ class ImportService {
     bloc.add(DocumentUpdated(doc));
   }
 
-  Future<void> importImage(Uint8List bytes) async {
+  Future<void> importImage(Uint8List bytes,
+      [Offset position = Offset.zero]) async {
     var codec = await ui.instantiateImageCodec(bytes);
     var frame = await codec.getNextFrame();
     var image = frame.image.clone();
@@ -74,11 +75,12 @@ class ImportService {
           width: image.width,
           layer: state.currentLayer,
           pixels: newBytes?.buffer.asUint8List() ?? Uint8List(0),
-          position: Offset.zero)
+          position: position)
     ]);
   }
 
-  Future<void> importSvg(Uint8List bytes) async {
+  Future<void> importSvg(Uint8List bytes,
+      [Offset position = Offset.zero]) async {
     var contentString = String.fromCharCodes(bytes);
     final SvgParser parser = SvgParser();
     try {
@@ -93,7 +95,7 @@ class ImportService {
           width: width,
           height: height,
           data: contentString,
-          position: Offset.zero,
+          position: position,
         ),
       ]);
     } catch (e, stackTrace) {
@@ -106,7 +108,8 @@ class ImportService {
     }
   }
 
-  Future<void> importPdf(Uint8List bytes) async {
+  Future<void> importPdf(Uint8List bytes,
+      [Offset position = Offset.zero]) async {
     final elements = <Uint8List>[];
     await for (var page in Printing.raster(bytes)) {
       final png = await page.toPng();
@@ -116,7 +119,7 @@ class ImportService {
         context: context, builder: (context) => PagesDialog(pages: elements));
     if (callback == null) return;
     final selectedElements = <ImageElement>[];
-    var y = 0.0;
+    var y = position.dx;
     await for (var page in Printing.raster(bytes,
         pages: callback.pages, dpi: PdfPageFormat.inch * callback.quality)) {
       final png = await page.toPng();
@@ -126,7 +129,7 @@ class ImportService {
           width: page.width,
           pixels: png,
           constraints: ElementConstraints.scaled(scale),
-          position: Offset(0, y)));
+          position: Offset(position.dx, y)));
       y += page.height;
     }
     _submit(selectedElements);

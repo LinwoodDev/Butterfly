@@ -166,9 +166,12 @@ class HandHandler extends Handler<HandProperty> {
           providers: providers,
           child: Actions(
             actions: context.getActions(),
-            child: BackgroundContextMenu(
-              close: close,
-              position: details.localPosition,
+            child: RepositoryProvider.value(
+              value: context.getImportService(),
+              child: BackgroundContextMenu(
+                close: close,
+                position: details.localPosition,
+              ),
             ),
           ),
         ),
@@ -180,7 +183,13 @@ class HandHandler extends Handler<HandProperty> {
         position: details.localPosition,
         builder: (ctx, close) => MultiBlocProvider(
             providers: context.getProviders(),
-            child: ElementsDialog(close: close, renderers: selected)));
+            child: RepositoryProvider.value(
+              value: context.getImportService(),
+              child: ElementsDialog(
+                  close: close,
+                  position: details.localPosition,
+                  renderers: selected),
+            )));
     selected.clear();
     context.refresh();
   }
