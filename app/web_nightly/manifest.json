@@ -8,6 +8,67 @@
   "description":"🎨 Notes that change the world 🎨",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
+  "file_handlers": [
+    { 
+      "action": "/native?type=pdf",
+      "accept": {
+        "application/pdf": [".pdf"]
+      },
+      "icons": [
+        {
+          "src": "ios/256.png",
+          "sizes": "256x256",
+          "type": "image/png"
+        }
+      ],
+      "launch_type": "single-client"
+    },
+    {
+      "action": "/native?type=note",
+      "accept": {
+        "application/json": [".json"],
+        "application/dev.linwood.butterfly": [".bfly"]
+      },
+      "icons": [
+        {
+          "src": "ios/256.png",
+          "sizes": "256x256",
+          "type": "image/png"
+        }
+      ],
+      "launch_type": "single-client"
+    },
+    {
+      "action": "/native?type=image",
+      "accept": {
+        "image/png": [".png"],
+        "image/jpeg": [".jpg", ".jpeg"],
+        "image/gif": [".gif"]
+      },
+      "icons": [
+        {
+          "src": "ios/256.png",
+          "sizes": "256x256",
+          "type": "image/png"
+        }
+      ],
+      "launch_type": "single-client"
+    },
+    {
+      "action": "/native?type=svg",
+      "accept": {
+        "image/svg+xml": [".svg"]
+      },
+      "icons": [
+        {
+          "src": "ios/256.png",
+          "sizes": "256x256",
+          "type": "image/png"
+        }
+      ],
+      "launch_type": "single-client"
+    }
+  ],
   "icons": [
     {
       "src": "windows11/SmallTile.scale-100.png",

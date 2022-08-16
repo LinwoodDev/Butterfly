@@ -1,4 +1,8 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:async';
+import 'dart:html' as html;
+import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
@@ -6,9 +10,40 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:idb_shim/idb.dart';
 import 'package:idb_shim/idb_browser.dart';
+import 'package:js/js.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'file_system.dart';
+
+@JS()
+@staticInterop
+class FileHandlingWindow {}
+
+extension FileHandlingWindowExtension on FileHandlingWindow {
+  external LaunchQueue get launchQueue;
+}
+
+@JS()
+class LaunchQueue {
+  external void setConsumer(void Function(LaunchParams) f);
+}
+
+@JS()
+class LaunchParams {
+  @JS('files')
+  external List get files;
+}
+
+@JS()
+class FileHandle {
+  external Future<html.Blob> getFile();
+}
+
+@JS()
+external void loadFiles(LaunchParams params);
+
+@JS('loadFiles')
+external set _loadFiles(void Function(LaunchParams) f);
 
 Database? _db;
 Future<Database> _getDatabase() async {
@@ -206,6 +241,46 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     }
     await txn.completed;
     return AppDocumentDirectory(AssetLocation.local(name), const []);
+  }
+
+  @override
+  Future<Uint8List?> loadAbsolute(String path) async {
+    try {
+      final fileWindow = html.window as FileHandlingWindow;
+      final completer = Completer<Uint8List?>();
+      void _complete(LaunchParams launchParams) async {
+        final files = launchParams.files.cast<FileHandle>();
+        if (files.isEmpty) {
+          completer.complete(null);
+          return;
+        }
+        final file = await files.first.getFile();
+        final reader = html.FileReader();
+        reader.onLoadEnd.listen((event) {
+          final data = reader.result as Uint8List?;
+          completer.complete(data);
+        });
+        reader.readAsArrayBuffer(file);
+      }
+
+      _loadFiles = allowInterop(_complete);
+
+      fileWindow.launchQueue.setConsumer(loadFiles);
+      return completer.future;
+    } on NoSuchMethodError {
+      return null;
+    }
+  }
+
+  @override
+  Future<void> saveAbsolute(String path, Uint8List bytes) async {
+    final a = html.document.createElement('a') as html.AnchorElement;
+    // Create data URL
+    final blob = html.Blob([bytes], 'text/plain');
+    final url = html.Url.createObjectUrl(blob);
+    a.href = url;
+    a.download = path;
+    a.click();
   }
 }
 

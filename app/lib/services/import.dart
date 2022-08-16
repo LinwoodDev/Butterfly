@@ -24,18 +24,19 @@ import '../models/document.dart';
 class ImportService {
   final BuildContext context;
 
-  ImportService(this.context) {
-    _load();
+  ImportService(this.context, [String type = '']) {
+    _load(type);
   }
 
-  Future<void> _load() async {
+  Future<void> _load([String type = '']) async {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     final location = state.location;
     if (!location.absolute || location.remote.isNotEmpty) return;
     final bytes =
         await DocumentFileSystem.fromPlatform().loadAbsolute(location.path);
-    final fileType = location.fileType;
+    final fileType =
+        type.isNotEmpty ? AssetFileType.values.byName(type) : location.fileType;
     if (bytes == null || fileType == null) return;
     await import(fileType, location.fileName, bytes);
   }
