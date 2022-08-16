@@ -165,7 +165,15 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                     if (currentIndex.location.path != '' &&
                                         area == null)
                                       Text(
-                                        currentIndex.location.identifier,
+                                        ((currentIndex.location.absolute &&
+                                                    currentIndex
+                                                        .location.path.isEmpty)
+                                                ? currentIndex.location.fileType
+                                                    ?.getLocalizedName(context)
+                                                : currentIndex
+                                                    .location.identifier) ??
+                                            AppLocalizations.of(context)!
+                                                .document,
                                         style: Theme.of(context)
                                             .textTheme
                                             .caption

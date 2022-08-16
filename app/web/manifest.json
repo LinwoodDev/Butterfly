@@ -10,7 +10,7 @@
   "prefer_related_applications": false,
   "file_handlers": [
     { 
-      "action": "/native?type=pdf",
+      "action": "/native?type=pdf&name=document.pdf",
       "accept": {
         "application/pdf": [".pdf"]
       },
@@ -24,7 +24,7 @@
       "launch_type": "single-client"
     },
     {
-      "action": "/native?type=note",
+      "action": "/native?type=note&name=document.bfly",
       "accept": {
         "application/json": [".json"],
         "application/dev.linwood.butterfly": [".bfly"]
@@ -39,7 +39,7 @@
       "launch_type": "single-client"
     },
     {
-      "action": "/native?type=image",
+      "action": "/native?type=image&name=document.png",
       "accept": {
         "image/png": [".png"],
         "image/jpeg": [".jpg", ".jpeg"],
@@ -55,7 +55,7 @@
       "launch_type": "single-client"
     },
     {
-      "action": "/native?type=svg",
+      "action": "/native?type=svg&name=document.svg",
       "accept": {
         "image/svg+xml": [".svg"]
       },

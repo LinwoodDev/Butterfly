@@ -267,7 +267,11 @@ class WebDocumentFileSystem extends DocumentFileSystem {
 
       fileWindow.launchQueue.setConsumer(loadFiles);
       return completer.future;
-    } on NoSuchMethodError {
+    } on NoSuchMethodError catch (e) {
+      if (kDebugMode) {
+        print('File handling feature not supported: $e');
+      }
+
       return null;
     }
   }

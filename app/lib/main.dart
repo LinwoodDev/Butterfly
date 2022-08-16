@@ -179,8 +179,8 @@ class ButterflyApp extends StatelessWidget {
             GoRoute(
               path: '/native',
               builder: (context, state) {
-                final path = state.queryParams['path'] ?? '';
                 final type = state.queryParams['type'] ?? '';
+                final path = state.queryParams['path'] ?? '';
                 return ProjectPage(
                     location: AssetLocation.local(path, true), type: type);
               },
