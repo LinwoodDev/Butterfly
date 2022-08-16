@@ -25,7 +25,7 @@ extension FileHandlingWindowExtension on FileHandlingWindow {
 
 @JS()
 class LaunchQueue {
-  external void setConsumer(void Function(LaunchParams) f);
+  external void setConsumer(Function f);
 }
 
 @JS()
