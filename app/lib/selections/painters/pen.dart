@@ -16,7 +16,7 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
           min: 0,
           max: 70,
           defaultValue: 5,
-          onChanged: (value) =>
+          onChangeEnd: (value) =>
               updateProperty(property.copyWith(strokeWidth: value))),
       ExactSlider(
           header: Text(AppLocalizations.of(context)!.strokeMultiplier),
@@ -24,7 +24,7 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
           min: 0,
           max: 70,
           defaultValue: 5,
-          onChanged: (value) =>
+          onChangeEnd: (value) =>
               updateProperty(property.copyWith(strokeMultiplier: value))),
       const SizedBox(height: 50),
       ColorField(
