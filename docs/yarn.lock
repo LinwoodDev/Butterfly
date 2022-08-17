@@ -5109,7 +5109,7 @@ __metadata:
     "@mdx-js/react": ^1
     animate.css: ^4.1.1
     clsx: ^1.2.1
-    markdownlint-cli2: ^0.5.0
+    markdownlint-cli2: ^0.5.1
     node-fetch: ^3.2.10
     prism-react-renderer: ^1.3.5
     react: ^18.2.0
@@ -8778,12 +8778,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint-cli2@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "markdownlint-cli2@npm:0.5.0"
+"markdownlint-cli2@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "markdownlint-cli2@npm:0.5.1"
   dependencies:
     globby: 13.1.2
-    markdownlint: 0.26.1
+    markdownlint: 0.26.2
     markdownlint-cli2-formatter-default: 0.0.3
     micromatch: 4.0.5
     strip-json-comments: 5.0.0
@@ -8792,16 +8792,16 @@ __metadata:
     markdownlint-cli2: markdownlint-cli2.js
     markdownlint-cli2-config: markdownlint-cli2-config.js
     markdownlint-cli2-fix: markdownlint-cli2-fix.js
-  checksum: 5ed68faa528def96366635dd0a90a91f8cd623d476eee7d794c952702339a44857fe4dbe4a69bdbc5cd314d2a43fbcaa9867f0eeaf8a2a9c4c5eafb119a5d08d
+  checksum: de6c822af4f259d318ba0b72335d5f225fc898e95ce6eb7f9d42dc53fe8cfbb27dd7b923fca4846791d17663a09d3b385b41bac9444ce10c6405d89e24d8c59e
   languageName: node
   linkType: hard
 
-"markdownlint@npm:0.26.1":
-  version: 0.26.1
-  resolution: "markdownlint@npm:0.26.1"
+"markdownlint@npm:0.26.2":
+  version: 0.26.2
+  resolution: "markdownlint@npm:0.26.2"
   dependencies:
     markdown-it: 13.0.1
-  checksum: 0a971abc92086fe7f9a598d2ac288a048e0c340fa5543ab4962ad7614f923fdf0e278d54fa487ea4d36a4fd1429e20b6592ce7f0ad00e95fe823970238cc3049
+  checksum: 9e20401410b5701bdaf2306a7856c8fd89c4c004b4b00568fb0f67f51a08952621e5cd260c50f947563794c971e45aac3c80f711781d921a19708c4c7ccc278c
   languageName: node
   linkType: hard
 
