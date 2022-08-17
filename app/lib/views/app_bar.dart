@@ -85,6 +85,11 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                               final areaIndex = state is DocumentLoadSuccess
                                   ? state.currentAreaIndex
                                   : null;
+                              _nameController.text =
+                                  state is DocumentLoadSuccess
+                                      ? state.document.name
+                                      : '';
+                              _areaController.text = area?.name ?? '';
                               Widget title = Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment:

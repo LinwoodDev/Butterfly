@@ -49,7 +49,7 @@ packages:
       name: barcode
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.1"
+    version: "2.2.2"
   bloc:
     dependency: transitive
     description:
@@ -362,7 +362,7 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.0.1"
+    version: "8.1.1"
   flutter_driver:
     dependency: "direct dev"
     description: flutter
@@ -407,7 +407,7 @@ packages:
       name: flutter_secure_storage
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.1.0"
+    version: "6.0.0"
   flutter_secure_storage_linux:
     dependency: transitive
     description:
