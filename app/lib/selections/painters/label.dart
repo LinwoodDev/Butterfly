@@ -75,7 +75,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
           defaultValue: 12,
           min: 6,
           max: 512,
-          onChanged: (value) =>
+          onChangeEnd: (value) =>
               change(_value.copyWith(size: value), value != _value.size)),
       ExactSlider(
           header: Text(AppLocalizations.of(context)!.spacing),
@@ -83,7 +83,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
           defaultValue: 0,
           min: 0,
           max: 20,
-          onChanged: (value) => change(_value.copyWith(letterSpacing: value),
+          onChangeEnd: (value) => change(_value.copyWith(letterSpacing: value),
               value != _value.letterSpacing)),
       ToggleButtons(
           isSelected: [
@@ -223,7 +223,7 @@ class _LabelPropertyViewState extends State<LabelPropertyView> {
                       value: _value.decorationThickness,
                       min: 0.1,
                       max: 4,
-                      onChanged: (value) =>
+                      onChangeEnd: (value) =>
                           change(_value.copyWith(decorationThickness: value))),
                 ),
               ]))

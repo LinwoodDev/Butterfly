@@ -23,24 +23,25 @@ class HandSelectionRenderer extends Renderer<Rect> {
 }
 
 class HandHandler extends Handler<HandProperty> {
-  List<Renderer<PadElement>> movingElements = [];
-  List<Renderer<PadElement>> selected = [];
-  Offset? currentMovePosition;
+  List<Renderer<PadElement>> _movingElements = [];
+  List<Renderer<PadElement>> _selected = [];
+  Offset? _currentMovePosition;
+  Offset _contextMenuOffset = Offset.zero;
 
   HandHandler(super.data);
 
   @override
   Future<bool> onRendererUpdated(
       AppDocument appDocument, Renderer old, Renderer updated) async {
-    if (movingElements.contains(old.element) &&
+    if (_movingElements.contains(old.element) &&
         updated is Renderer<PadElement>) {
-      movingElements.remove(old.element);
-      movingElements.add(updated);
+      _movingElements.remove(old.element);
+      _movingElements.add(updated);
     } else if (old is Renderer<PadElement> &&
-        selected.contains(old) &&
+        _selected.contains(old) &&
         updated is Renderer<PadElement>) {
-      selected.remove(old);
-      selected.add(updated);
+      _selected.remove(old);
+      _selected.add(updated);
     } else {
       return false;
     }
@@ -49,7 +50,7 @@ class HandHandler extends Handler<HandProperty> {
 
   Rect? getSelectionRect() {
     Rect? rect;
-    for (final element in selected) {
+    for (final element in _selected) {
       final current = element.rect;
       if (current != null) {
         rect = rect?.expandToInclude(current) ?? current;
@@ -66,11 +67,11 @@ class HandHandler extends Handler<HandProperty> {
     final color = ThemeManager.getThemeByName(
             currentIndexCubit.state.settingsCubit.state.design)
         .primaryColor;
-    if (movingElements.isNotEmpty) {
-      final currentElements = movingElements
-          .map((e) => currentMovePosition == null
+    if (_movingElements.isNotEmpty) {
+      final currentElements = _movingElements
+          .map((e) => _currentMovePosition == null
               ? e.element
-              : e.move(currentMovePosition!, true))
+              : e.move(_currentMovePosition!, true))
           .toList();
       final renderers =
           currentElements.map((e) => Renderer.fromInstance(e)).toList();
@@ -86,9 +87,9 @@ class HandHandler extends Handler<HandProperty> {
   void move(BuildContext context, List<Renderer<PadElement>> next,
       [bool duplicate = false]) {
     submitMove(context);
-    movingElements = next;
-    selected = [];
-    currentMovePosition = null;
+    _movingElements = next;
+    _selected = [];
+    _currentMovePosition = null;
     if (!duplicate) {
       final bloc = context.read<DocumentBloc>();
       bloc.add(ElementsRemoved(next.map((e) => e.element).toList()));
@@ -97,13 +98,13 @@ class HandHandler extends Handler<HandProperty> {
   }
 
   void submitMove(BuildContext context) {
-    if (movingElements.isEmpty) return;
-    final current = movingElements
+    if (_movingElements.isEmpty) return;
+    final current = _movingElements
         .map((e) =>
-            e.move(currentMovePosition ?? Offset.zero, true) ?? e.element)
+            e.move(_currentMovePosition ?? Offset.zero, true) ?? e.element)
         .toList();
-    currentMovePosition = null;
-    movingElements = [];
+    _currentMovePosition = null;
+    _movingElements = [];
     final bloc = context.read<DocumentBloc>();
     bloc.add(ElementsCreated(current));
     bloc.refresh();
@@ -122,7 +123,7 @@ class HandHandler extends Handler<HandProperty> {
 
   Future<void> _onSelectionAdd(EventContext context, Offset localPosition,
       [bool forceAdd = false]) async {
-    if (movingElements.isNotEmpty) {
+    if (_movingElements.isNotEmpty) {
       return;
     }
     final transform = context.getCameraTransform();
@@ -131,21 +132,21 @@ class HandHandler extends Handler<HandProperty> {
     final hits = await rayCast(context.buildContext, localPosition, radius);
     if (hits.isEmpty) {
       if (!context.isCtrlPressed) {
-        selected.clear();
+        _selected.clear();
         context.refresh();
       }
       return;
     }
     final hit = hits.first;
     if (context.isCtrlPressed) {
-      if (selected.contains(hit)) {
-        selected.remove(hit);
+      if (_selected.contains(hit)) {
+        _selected.remove(hit);
       } else {
-        selected.add(hit);
+        _selected.add(hit);
       }
     } else {
-      selected.clear();
-      selected.add(hit);
+      _selected.clear();
+      _selected.add(hit);
     }
     context.refresh();
   }
@@ -157,12 +158,17 @@ class HandHandler extends Handler<HandProperty> {
 
   @override
   void onDoubleTapDown(TapDownDetails details, EventContext eventContext) {
-    _onSelectionContext(eventContext, details.localPosition);
+    _contextMenuOffset = details.localPosition;
+  }
+
+  @override
+  void onDoubleTap(EventContext eventContext) {
+    _onSelectionContext(eventContext, _contextMenuOffset);
   }
 
   Future<void> _onSelectionContext(
       EventContext context, Offset localPosition) async {
-    if (movingElements.isNotEmpty) {
+    if (_movingElements.isNotEmpty) {
       return;
     }
     final providers = context.getProviders();
@@ -173,11 +179,11 @@ class HandHandler extends Handler<HandProperty> {
             rect == null ||
             !(getSelectionRect()?.overlaps(rect) ?? false)) &&
         !context.isCtrlPressed) {
-      selected.clear();
-      if (hit != null) selected.add(hit);
+      _selected.clear();
+      if (hit != null) _selected.add(hit);
     }
     context.refresh();
-    if (selected.isEmpty) {
+    if (_selected.isEmpty) {
       await showContextMenu(
         context: context.buildContext,
         position: localPosition,
@@ -207,29 +213,31 @@ class HandHandler extends Handler<HandProperty> {
               child: Actions(
                 actions: context.getActions(),
                 child: ElementsDialog(
-                    close: close, position: localPosition, renderers: selected),
+                    close: close,
+                    position: localPosition,
+                    renderers: _selected),
               ),
             )));
-    selected.clear();
+    _selected.clear();
     context.refresh();
   }
 
   @override
   void onScaleStart(ScaleStartDetails details, EventContext context) {
-    if (movingElements.isNotEmpty) {
-      currentMovePosition =
+    if (_movingElements.isNotEmpty) {
+      _currentMovePosition =
           context.getCameraTransform().localToGlobal(details.localFocalPoint) -
-              (movingElements.first.rect?.center ?? Offset.zero) *
+              (_movingElements.first.rect?.center ?? Offset.zero) *
                   context.getCameraTransform().size;
     }
   }
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
-    if (movingElements.isNotEmpty) {
-      var current = currentMovePosition ?? Offset.zero;
+    if (_movingElements.isNotEmpty) {
+      var current = _currentMovePosition ?? Offset.zero;
       current += details.focalPointDelta / context.getCameraTransform().size;
-      currentMovePosition = current;
+      _currentMovePosition = current;
       context.refresh();
       return;
     }
@@ -240,17 +248,17 @@ class HandHandler extends Handler<HandProperty> {
 
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
-    if (movingElements.isNotEmpty) {
-      currentMovePosition =
+    if (_movingElements.isNotEmpty) {
+      _currentMovePosition =
           context.getCameraTransform().localToGlobal(event.localPosition) -
-              (movingElements.first.rect?.center ?? Offset.zero);
+              (_movingElements.first.rect?.center ?? Offset.zero);
       context.refresh();
     }
   }
 
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
-    if (movingElements.isNotEmpty) {
+    if (_movingElements.isNotEmpty) {
       submitMove(context.buildContext);
     }
   }

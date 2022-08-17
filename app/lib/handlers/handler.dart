@@ -138,6 +138,8 @@ abstract class Handler<T> {
 
   void onDoubleTapDown(TapDownDetails details, EventContext eventContext) {}
 
+  void onDoubleTap(EventContext eventContext) {}
+
   void onLongPressDown(
       LongPressDownDetails details, EventContext eventContext) {}
 

@@ -17,7 +17,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
           min: 0,
           max: 500,
           defaultValue: 0,
-          onChanged: (value) => update(
+          onChangeEnd: (value) => update(
               context,
               selected
                   .map((e) => e.copyWith(constrainedWidth: value))
@@ -28,7 +28,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
           min: 0,
           max: 500,
           defaultValue: 0,
-          onChanged: (value) => update(
+          onChangeEnd: (value) => update(
               context,
               selected
                   .map((e) => e.copyWith(constrainedHeight: value))
@@ -63,7 +63,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
           min: 0,
           max: 10,
           defaultValue: 0,
-          onChanged: (value) => update(
+          onChangeEnd: (value) => update(
               context,
               selected
                   .map((e) => e.copyWith(constrainedAspectRatio: value))
@@ -74,7 +74,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
           min: 0,
           max: 70,
           defaultValue: 5,
-          onChanged: (value) => update(
+          onChangeEnd: (value) => update(
               context,
               selected
                   .map((e) => e.copyWith(
@@ -264,7 +264,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
                 max: 100,
                 value: widget.shape.topLeftCornerRadius,
                 header: Text(AppLocalizations.of(context)!.topLeft),
-                onChanged: (value) => widget.onChanged(
+                onChangeEnd: (value) => widget.onChanged(
                     widget.shape.copyWith(topLeftCornerRadius: value)),
               ),
               ExactSlider(
@@ -273,7 +273,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
                 max: 100,
                 value: widget.shape.topRightCornerRadius,
                 header: Text(AppLocalizations.of(context)!.topRight),
-                onChanged: (value) => widget.onChanged(
+                onChangeEnd: (value) => widget.onChanged(
                     widget.shape.copyWith(topRightCornerRadius: value)),
               ),
               ExactSlider(
@@ -282,7 +282,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
                 max: 100,
                 value: widget.shape.bottomLeftCornerRadius,
                 header: Text(AppLocalizations.of(context)!.bottomLeft),
-                onChanged: (value) => widget.onChanged(
+                onChangeEnd: (value) => widget.onChanged(
                     widget.shape.copyWith(bottomLeftCornerRadius: value)),
               ),
               ExactSlider(
@@ -291,7 +291,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
                 max: 100,
                 value: widget.shape.bottomRightCornerRadius,
                 header: Text(AppLocalizations.of(context)!.bottomRight),
-                onChanged: (value) => widget.onChanged(
+                onChangeEnd: (value) => widget.onChanged(
                     widget.shape.copyWith(bottomRightCornerRadius: value)),
               ),
             ]),

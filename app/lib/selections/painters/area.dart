@@ -14,7 +14,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
           min: 0,
           max: 500,
           defaultValue: 0,
-          onChanged: (value) => update(
+          onChangeEnd: (value) => update(
               context,
               selected
                   .map((e) => e.copyWith(constrainedWidth: value))
@@ -25,7 +25,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
           min: 0,
           max: 500,
           defaultValue: 0,
-          onChanged: (value) => update(
+          onChangeEnd: (value) => update(
               context,
               selected
                   .map((e) => e.copyWith(constrainedHeight: value))
@@ -60,7 +60,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
           min: 0,
           max: 10,
           defaultValue: 0,
-          onChanged: (value) => update(
+          onChangeEnd: (value) => update(
               context,
               selected
                   .map((e) => e.copyWith(constrainedAspectRatio: value))

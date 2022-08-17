@@ -261,7 +261,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
             max: 10,
             value: scale,
             defaultValue: 1,
-            onChanged: (value) {
+            onChangeEnd: (value) {
               scale = value;
               _regeneratePreviewImage();
             }),
