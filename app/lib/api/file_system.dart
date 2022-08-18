@@ -139,7 +139,8 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     return asset;
   }
 
-  Future<void> moveAbsolute(String oldPath, String newPath) => Future.value();
+  Future<bool> moveAbsolute(String oldPath, String newPath) =>
+      Future.value(false);
 }
 
 abstract class TemplateFileSystem extends GeneralFileSystem {

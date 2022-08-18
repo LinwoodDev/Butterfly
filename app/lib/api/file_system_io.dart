@@ -161,7 +161,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<void> moveAbsolute(String oldPath, String newPath) async {
+  Future<bool> moveAbsolute(String oldPath, String newPath) async {
     if (oldPath.isEmpty) {
       oldPath = await getButterflyDirectory();
     }
@@ -169,7 +169,10 @@ class IODocumentFileSystem extends DocumentFileSystem {
       newPath = await getButterflyDirectory();
     }
     if (oldPath == newPath) {
-      return;
+      return false;
+    }
+    if (Platform.isAndroid) {
+      return false;
     }
     var oldDirectory = Directory(oldPath);
     if (await oldDirectory.exists()) {
@@ -187,6 +190,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
         }
       }
     }
+    return true;
   }
 }
 

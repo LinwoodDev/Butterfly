@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:file_picker/file_picker.dart';
@@ -9,20 +11,25 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/file_system.dart';
 
-class DataSettingsPage extends StatelessWidget {
+class DataSettingsPage extends StatefulWidget {
   final bool inView;
   const DataSettingsPage({super.key, this.inView = false});
 
   @override
+  State<DataSettingsPage> createState() => _DataSettingsPageState();
+}
+
+class _DataSettingsPageState extends State<DataSettingsPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: inView ? Colors.transparent : null,
+        backgroundColor: widget.inView ? Colors.transparent : null,
         appBar: AppBar(
-          automaticallyImplyLeading: !inView,
-          backgroundColor: inView ? Colors.transparent : null,
+          automaticallyImplyLeading: !widget.inView,
+          backgroundColor: widget.inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context)!.data),
           actions: [
-            if (!inView && !kIsWeb && isWindow()) ...[
+            if (!widget.inView && !kIsWeb && isWindow()) ...[
               const VerticalDivider(),
               const WindowButtons()
             ]
@@ -39,7 +46,7 @@ class DataSettingsPage extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        if (!kIsWeb)
+                        if (!kIsWeb || !Platform.isAndroid)
                           ListTile(
                             title: Text(AppLocalizations.of(context)!
                                 .documentDirectory),
@@ -121,7 +128,10 @@ class DataSettingsPage extends StatelessWidget {
 
   Future<void> _changePath(SettingsCubit settingsCubit, String newPath) async {
     final oldPath = settingsCubit.state.documentPath;
-    DocumentFileSystem.fromPlatform().moveAbsolute(oldPath, newPath);
+    if (!(await DocumentFileSystem.fromPlatform()
+        .moveAbsolute(oldPath, newPath))) {
+      return;
+    }
     settingsCubit.changeDocumentPath(newPath);
   }
 }
