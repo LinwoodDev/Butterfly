@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../api/file_system.dart';
+
 class DataSettingsPage extends StatelessWidget {
   final bool inView;
   const DataSettingsPage({super.key, this.inView = false});
@@ -48,18 +50,17 @@ class DataSettingsPage extends StatelessWidget {
                             onTap: () async {
                               final settingsCubit =
                                   context.read<SettingsCubit>();
-                              var selectedDir =
+                              final selectedDir =
                                   await FilePicker.platform.getDirectoryPath();
                               if (selectedDir != null) {
-                                settingsCubit.changeDocumentPath(selectedDir);
+                                _changePath(settingsCubit, selectedDir);
                               }
                             },
                             trailing: state.documentPath.isNotEmpty
                                 ? IconButton(
                                     icon: const Icon(PhosphorIcons.trashLight),
-                                    onPressed: () => context
-                                        .read<SettingsCubit>()
-                                        .resetDocumentPath(),
+                                    onPressed: () => _changePath(
+                                        context.read<SettingsCubit>(), ''),
                                   )
                                 : null,
                           ),
@@ -116,5 +117,11 @@ class DataSettingsPage extends StatelessWidget {
             ],
           );
         }));
+  }
+
+  Future<void> _changePath(SettingsCubit settingsCubit, String newPath) async {
+    final oldPath = settingsCubit.state.documentPath;
+    DocumentFileSystem.fromPlatform().moveAbsolute(oldPath, newPath);
+    settingsCubit.changeDocumentPath(newPath);
   }
 }

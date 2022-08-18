@@ -1,1 +1,2 @@
+* Move directory on document path change ([#254](https://github.com/LinwoodCloud/Butterfly/issues/254) and [#255](https://github.com/LinwoodCloud/Butterfly/issues/255))
 * Fix app bar title
