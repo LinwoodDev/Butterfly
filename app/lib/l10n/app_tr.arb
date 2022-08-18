@@ -104,16 +104,16 @@
     "backup": "Yedekle",
     "createdInNewerVersion": "{fileName} adındaki dosya daha yeni bir sürümde ({fileVersion}) adıyla yeniden oluşturuldu. Bu dosyazı ne yapmak istersiniz?",
     "@createdInNewerVersion": {
-        "placeholders": {
-            "fileName": {
-                "type": "String",
-                "example": "Document"
-            },
-            "fileVersion": {
-                "type": "int",
-                "example": "5"
-            }
+      "placeholders": {
+        "fileName": {
+          "type": "String",
+          "example": "Document"
+        },
+        "fileVersion": {
+          "type": "int",
+          "example": "5"
         }
+      }
     },
     "shouldNotEmpty": "Bu değer boş bırakılamaz",
     "waypoints": "Ara noktalar",
@@ -132,23 +132,23 @@
     "dateFormat": "Tarih biçimi",
     "updatedAt": "Güncellenme tarihi: {dateTime}",
     "@updatedAt": {
-        "placeholders": {
-            "dateTime": {
-                "type": "DateTime",
-                "isCustomDateFormat": "true",
-                "format": "yy-MM-dd H:mm"
-            }
+      "placeholders": {
+        "dateTime": {
+          "type": "DateTime",
+          "isCustomDateFormat": "true",
+          "format": "yy-MM-dd H:mm"
         }
+      }
     },
     "createdAt": "Oluşturulma tarihi: {dateTime}",
     "@createdAt": {
-        "placeholders": {
-            "dateTime": {
-                "type": "DateTime",
-                "isCustomDateFormat": "true",
-                "format": "yy-MM-dd H:mm"
-            }
+      "placeholders": {
+        "dateTime": {
+          "type": "DateTime",
+          "isCustomDateFormat": "true",
+          "format": "yy-MM-dd H:mm"
         }
+      }
     },
     "rename": "Yeniden adlandır",
     "duplicate": "Çoğalt",
@@ -221,13 +221,13 @@
     "welcomeContent": "Butterfly, fikirlerinizin ön planda tutulduğu bir not uygulamasıdır. Her cihazda kolayca boyayabilir, metin ekleyebilir ve dışa aktarabilirsiniz. Bu uygulama Android, Windows, Linux ve web'de çalışabilmektedir.",
     "updated": "Uygulama {version} sürümüne güncellendi",
     "@updated": {
-        "placeholders": {
-            "version": {
-                "type": "String",
-                "example": "1.0.0"
-            }
-        },
-        "description": "This message is shown when the app is updated"
+      "placeholders": {
+        "version": {
+          "type": "String",
+          "example": "1.0.0"
+        }
+      },
+      "description": "This message is shown when the app is updated"
     },
     "releaseNotes": "Sürüm bilgileri",
     "constraints": "Kısıtlamalar",
@@ -254,21 +254,21 @@
     "noRecentFiles": "Son kullanılan dosya yok",
     "countPages": "{count,plural, =0{No pages} =1{1 page} other{{count} pages}}",
     "@countPages": {
-        "placeholders": {
-            "count": {
-                "type": "int",
-                "example": "1"
-            }
+      "placeholders": {
+        "count": {
+          "type": "int",
+          "example": "1"
         }
+      }
     },
     "pageIndex": "Sayfa {index}",
     "@pageIndex": {
-        "placeholders": {
-            "index": {
-                "type": "int",
-                "example": "1"
-            }
+      "placeholders": {
+        "index": {
+          "type": "int",
+          "example": "1"
         }
+      }
     },
     "exit": "Çıkış",
     "noElements": "Öge yok",
@@ -341,16 +341,16 @@
     "forAll": "Tümü için",
     "fileConflict": "{remote} içinde {file} çakışması var",
     "@fileConflict": {
-        "placeholders": {
-            "file": {
-                "type": "String",
-                "example": "file.txt"
-            },
-            "remote": {
-                "type": "String",
-                "example": "remote"
-            }
+      "placeholders": {
+        "file": {
+          "type": "String",
+          "example": "file.txt"
+        },
+        "remote": {
+          "type": "String",
+          "example": "remote"
         }
+      }
     },
     "offline": "Çevrimdışı",
     "localLatest": "En son dizin",
@@ -361,9 +361,9 @@
     "penOnlyInput": "Sadece kalem girişi",
     "inputGestures": "Giriş hareketleri",
     "nativeWindowTitleBar": "Yerel pencere başlık çubuğu",
-    "syncMode": "Sync mode",
-    "connection": "Connection",
-    "always": "Always",
+    "syncMode": "Eşitleme kipi",
+    "connection": "Bağlantı",
+    "always": "Her zaman",
     "noMobile": "No mobile",
     "manual": "Manual"
-}
+  }
