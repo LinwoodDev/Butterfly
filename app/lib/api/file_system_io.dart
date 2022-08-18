@@ -162,6 +162,15 @@ class IODocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<void> moveAbsolute(String oldPath, String newPath) async {
+    if (oldPath.isEmpty) {
+      oldPath = await getButterflyDirectory();
+    }
+    if (newPath.isEmpty) {
+      newPath = await getButterflyDirectory();
+    }
+    if (oldPath == newPath) {
+      return;
+    }
     var oldDirectory = Directory(oldPath);
     if (await oldDirectory.exists()) {
       var files = await oldDirectory.list().toList();
