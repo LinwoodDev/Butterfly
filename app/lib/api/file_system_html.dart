@@ -25,7 +25,7 @@ extension FileHandlingWindowExtension on FileHandlingWindow {
 
 @JS()
 class LaunchQueue {
-  external void setConsumer(Function f);
+  external void setConsumer(void Function(LaunchParams) f);
 }
 
 @JS()
@@ -38,12 +38,6 @@ class LaunchParams {
 class FileHandle {
   external Future<html.Blob> getFile();
 }
-
-@JS()
-external void loadFiles(LaunchParams params);
-
-@JS('loadFiles')
-external set _loadFiles(void Function(LaunchParams) f);
 
 Database? _db;
 Future<Database> _getDatabase() async {
@@ -263,9 +257,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         reader.readAsArrayBuffer(file);
       }
 
-      _loadFiles = allowInterop(_complete);
-
-      fileWindow.launchQueue.setConsumer(loadFiles);
+      fileWindow.launchQueue.setConsumer(allowInterop(_complete));
       return completer.future;
     } on NoSuchMethodError catch (e) {
       if (kDebugMode) {
