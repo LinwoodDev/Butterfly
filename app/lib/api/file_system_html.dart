@@ -35,8 +35,13 @@ class LaunchParams {
 }
 
 @JS()
-class FileHandle {
-  external Future<html.Blob> getFile();
+class FileSystemHandle {
+  external Future getFile();
+}
+
+@JS()
+class FileWithRead {
+  external Future text();
 }
 
 Database? _db;
@@ -243,18 +248,13 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       final fileWindow = html.window as FileHandlingWindow;
       final completer = Completer<Uint8List?>();
       void _complete(LaunchParams launchParams) async {
-        final files = launchParams.files.cast<FileHandle>();
+        final files = launchParams.files.cast<FileSystemHandle>();
         if (files.isEmpty) {
           completer.complete(null);
           return;
         }
-        final file = await files.first.getFile();
-        final reader = html.FileReader();
-        reader.onLoadEnd.listen((event) {
-          final data = reader.result as Uint8List?;
-          completer.complete(data);
-        });
-        reader.readAsArrayBuffer(file);
+        final file = await files.first.getFile() as FileWithRead;
+        completer.complete(await file.text());
       }
 
       fileWindow.launchQueue.setConsumer(allowInterop(_complete));
