@@ -1,3 +1,4 @@
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/models/background.dart';
@@ -68,7 +69,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                   content: (List.from(current.document.content)
                     ..addAll(event.elements)))),
           renderers);
-    });
+    }, transformer: sequential());
     on<ElementsReplaced>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
@@ -92,8 +93,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             ),
             null);
       }
-    });
-    on<ElementsChanged>((event, emit) async {
+    }, transformer: sequential());
+    on<ElementChanged>((event, emit) async {
       final current = state;
       if (current is DocumentLoadSuccess) {
         if (!(current.embedding?.editable ?? true)) return;
@@ -134,7 +135,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             ),
             null);
       }
-    });
+    }, transformer: sequential());
     on<ElementsRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
@@ -144,6 +145,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 .any((element) => event.elements.contains(element))) return;
         final document = current.document;
         final renderers = current.renderers;
+        current.currentIndexCubit.unbake(
+          unbakedElements: renderers
+              .where((element) => !event.elements.contains(
+                    element.element,
+                  ))
+              .toList(),
+        );
         await _saveDocument(
             emit,
             current.copyWith(
@@ -152,15 +160,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                       ..removeWhere(
                           (element) => event.elements.contains(element)))),
             null);
-        current.currentIndexCubit.unbake(
-          unbakedElements: renderers
-              .where((element) => !event.elements.contains(
-                    element.element,
-                  ))
-              .toList(),
-        );
       }
-    });
+    }, transformer: sequential());
     on<DocumentDescriptorChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
