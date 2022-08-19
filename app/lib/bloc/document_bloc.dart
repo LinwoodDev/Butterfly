@@ -94,7 +94,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             null);
       }
     }, transformer: sequential());
-    on<ElementChanged>((event, emit) async {
+    on<ElementsChanged>((event, emit) async {
       final current = state;
       if (current is DocumentLoadSuccess) {
         if (!(current.embedding?.editable ?? true)) return;
