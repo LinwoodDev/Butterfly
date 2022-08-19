@@ -27,6 +27,14 @@ jobs:
       - name: 📦 Get dependencies
         run: |
           flutter pub get
+      - name: Import files
+        env:
+          KEY_JKS: ${{ secrets.KEY_JKS }}
+          KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
+        run: |
+          cd android
+          echo "$KEY_PROPERTIES" | base64 --decode > key.properties
+          echo "$KEY_JKS" | base64 --decode > key.jks
       #- run: flutter test
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' }}
