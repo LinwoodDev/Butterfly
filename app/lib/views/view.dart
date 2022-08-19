@@ -200,6 +200,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       final transformCubit = context.read<TransformCubit>();
                       transformCubit
                           .move(event.delta / transformCubit.state.size);
+                      _delayBake();
                     }
                     return;
                   }
