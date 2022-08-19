@@ -3,7 +3,7 @@ part of 'handler.dart';
 class EraserHandler extends Handler<EraserPainter> {
   Map<int, EraserElement> elements = {};
   List<EraserElement> submittedElements = [];
-  Map<int, Offset> lastPosition = {};
+  Map<int, Offset> lastPositions = {};
 
   EraserHandler(super.data);
 
@@ -18,7 +18,7 @@ class EraserHandler extends Handler<EraserPainter> {
           .whereType<Renderer>()
           .toList()
         ..addAll(submittedElements.map((e) => EraserRenderer(e))),
-      ...lastPosition.values.map((e) => EraserCursor(PainterCursor(data, e)))
+      ...lastPositions.values.map((e) => EraserCursor(PainterCursor(data, e)))
     ];
   }
 
@@ -34,9 +34,9 @@ class EraserHandler extends Handler<EraserPainter> {
   Future<void> submitElement(
       Size viewportSize, BuildContext context, int index) async {
     final bloc = context.read<DocumentBloc>();
+    lastPositions.remove(index);
     var element = elements.remove(index);
     if (element == null) return;
-    lastPosition.remove(index);
     submittedElements.add(element);
     if (elements.isEmpty) {
       final current = List<PadElement>.from(submittedElements);
@@ -55,8 +55,8 @@ class EraserHandler extends Handler<EraserPainter> {
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
-    if (lastPosition[pointer] == localPosition && !forceCreate) return;
-    lastPosition[pointer] = localPosition;
+    if (lastPositions[pointer] == localPosition && !forceCreate) return;
+    lastPositions[pointer] = localPosition;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }
@@ -105,7 +105,13 @@ class EraserHandler extends Handler<EraserPainter> {
   @override
   void onPointerHover(
       Size viewportSize, BuildContext context, PointerHoverEvent event) {
-    lastPosition[event.pointer] = event.localPosition;
+    lastPositions[event.pointer] = event.localPosition;
     context.read<DocumentBloc>().refresh();
+  }
+
+  @override
+  void onPointerGestureMove(
+      Size viewportSize, BuildContext context, PointerMoveEvent event) {
+    lastPositions.remove(event.pointer);
   }
 }

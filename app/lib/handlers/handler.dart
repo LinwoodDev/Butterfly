@@ -68,6 +68,9 @@ abstract class Handler<T> {
   void onPointerMove(
       Size viewportSize, BuildContext context, PointerMoveEvent event) {}
 
+  void onPointerGestureMove(
+      Size viewportSize, BuildContext context, PointerMoveEvent event) {}
+
   void onPointerUp(
       Size viewportSize, BuildContext context, PointerUpEvent event) {}
 

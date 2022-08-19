@@ -202,6 +202,8 @@ class _MainViewViewportState extends State<MainViewViewport> {
                           .move(event.delta / transformCubit.state.size);
                       _delayBake();
                     }
+                    cubit.getHandler().onPointerGestureMove(
+                        constraints.biggest, context, event);
                     return;
                   }
                   cubit
