@@ -256,7 +256,9 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         final reader = html.FileReader();
         html.window.console.log('Loaded file: $file');
         reader.onLoad.listen((_) {
-          completer.complete(reader.result as Uint8List);
+          html.window.console.log('Loaded file: ${reader.result}');
+          final result = reader.result as ByteBuffer;
+          completer.complete(Uint8List.view(result));
         });
         reader.onError.listen((_) {
           final error = reader.error;
