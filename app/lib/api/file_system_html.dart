@@ -255,8 +255,9 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         final file = await promiseToFuture(_fs!.getFile());
         final reader = html.FileReader();
         reader.onLoad.listen((_) {
-          final result = reader.result as List<int>;
-          completer.complete(Uint8List.fromList(result));
+          final result = reader.result;
+          html.window.console.log(result);
+          completer.complete(result as Uint8List);
         });
         reader.onError.listen((_) {
           final error = reader.error;
