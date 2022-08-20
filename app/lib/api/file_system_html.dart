@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:html' as html;
+import 'dart:js_util';
 import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
@@ -36,12 +37,7 @@ class LaunchParams {
 
 @JS()
 class FileSystemHandle {
-  external Future getFile();
-}
-
-@JS()
-class FileWithRead {
-  external Future text();
+  external Object getFile();
 }
 
 Database? _db;
@@ -256,7 +252,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
           return;
         }
         _fs = files.first;
-        final file = await _fs?.getFile();
+        final file = await promiseToFuture(_fs!.getFile());
         final reader = html.FileReader();
         html.window.console.log('Loaded file: $file');
         reader.onLoad.listen((_) {
