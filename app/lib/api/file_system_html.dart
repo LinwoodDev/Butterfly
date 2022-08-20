@@ -256,11 +256,8 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         final reader = html.FileReader();
         reader.onLoad.listen((_) {
           try {
-            final result = reader.result;
-            html.window.console.log(result);
-            html.window.console.log(result.runtimeType);
-            html.window.console.log(result is Uint8List);
-            completer.complete(result as Uint8List?);
+            final result = reader.result as Uint8List;
+            completer.complete(Uint8List.fromList(result));
           } catch (e) {
             completer.completeError(e);
           }
