@@ -254,11 +254,9 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         _fs = files.first;
         final file = await promiseToFuture(_fs!.getFile());
         final reader = html.FileReader();
-        html.window.console.log('Loaded file: $file');
         reader.onLoad.listen((_) {
-          html.window.console.log('Loaded file: ${reader.result}');
-          final result = reader.result as ByteBuffer;
-          completer.complete(Uint8List.view(result));
+          final result = reader.result as List<int>;
+          completer.complete(Uint8List.fromList(result));
         });
         reader.onError.listen((_) {
           final error = reader.error;
