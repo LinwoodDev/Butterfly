@@ -256,15 +256,19 @@ class WebDocumentFileSystem extends DocumentFileSystem {
           return;
         }
         _fs = files.first;
-        final file = await _fs?.getFile() as html.File;
+        final file = await _fs?.getFile();
         final reader = html.FileReader();
-        html.window.console.log('Loaded ${file.name} bytes');
+        html.window.console.log('Loaded file: $file');
         reader.onLoad.listen((_) {
           completer.complete(reader.result as Uint8List);
         });
         reader.onError.listen((_) {
           final error = reader.error;
-          if (error != null) completer.completeError(error);
+          if (error != null) {
+            completer.completeError(error);
+          } else {
+            completer.complete(null);
+          }
         });
         reader.readAsArrayBuffer(file);
       }
