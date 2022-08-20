@@ -257,10 +257,12 @@ class WebDocumentFileSystem extends DocumentFileSystem {
           return;
         }
         _fs = files.first;
-        final file = await _fs?.getFile() as FileWithRead?;
-        final data = await file?.text() as String;
-        final bytes = Uint8List.fromList(utf8.encode(data));
-        completer.complete(bytes);
+        final file = await _fs?.getFile() as html.File;
+        final reader = html.FileReader();
+        reader.onLoad.listen((_) {
+          completer.complete(reader.result as Uint8List);
+        });
+        reader.readAsArrayBuffer(file);
       }
 
       fileWindow.launchQueue.setConsumer(allowInterop(_complete));
