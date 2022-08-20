@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:typed_data';
 
@@ -259,8 +258,13 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         _fs = files.first;
         final file = await _fs?.getFile() as html.File;
         final reader = html.FileReader();
+        html.window.console.log('Loaded ${file.name} bytes');
         reader.onLoad.listen((_) {
           completer.complete(reader.result as Uint8List);
+        });
+        reader.onError.listen((_) {
+          final error = reader.error;
+          if (error != null) completer.completeError(error);
         });
         reader.readAsArrayBuffer(file);
       }
