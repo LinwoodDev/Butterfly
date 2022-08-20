@@ -99,13 +99,12 @@ class EraserHandler extends Handler<EraserPainter> {
 
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
-    lastPosition[event.pointer] = event.localPosition;
+    lastPositions[event.pointer] = event.localPosition;
     context.refresh();
   }
 
   @override
-  void onPointerGestureMove(
-      Size viewportSize, BuildContext context, PointerMoveEvent event) {
+  void onPointerGestureMove(PointerMoveEvent event, EventContext context) {
     lastPositions.remove(event.pointer);
   }
 }
