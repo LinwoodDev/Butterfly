@@ -40,7 +40,7 @@ dependencies:
   bloc_concurrency: ^0.2.0
   camera: ^0.10.0+1
   camera_windows: ^0.2.1+1
-  window_manager: ^0.2.5
+  window_manager: ^0.2.6
   flex_color_scheme: ^5.1.0
   freezed_annotation: ^2.1.0
   json_annotation: ^4.6.0
