@@ -28,6 +28,7 @@ jobs:
         run: |
           flutter pub get
       - name: Import files
+        if: ${{ github.event_name != 'pull_request' }}
         env:
           KEY_JKS: ${{ secrets.KEY_JKS }}
           KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}

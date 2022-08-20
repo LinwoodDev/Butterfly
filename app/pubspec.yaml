@@ -40,7 +40,7 @@ dependencies:
   bloc_concurrency: ^0.2.0
   camera: ^0.10.0+1
   camera_windows: ^0.2.1+1
-  window_manager: ^0.2.5
+  window_manager: ^0.2.6
   flex_color_scheme: ^5.1.0
   freezed_annotation: ^2.1.0
   json_annotation: ^4.6.0
@@ -50,7 +50,7 @@ dependencies:
   pdf: ^3.8.2
   http: ^0.13.5
   flutter_secure_storage: ^6.0.0
-  equatable: ^2.0.4
+  equatable: ^2.0.5
   adwaita: ^0.5.2
   yaru: ^0.3.3
   rxdart: ^0.27.5
