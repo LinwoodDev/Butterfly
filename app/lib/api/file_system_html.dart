@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:typed_data';
 
@@ -242,6 +243,8 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     return AppDocumentDirectory(AssetLocation.local(name), const []);
   }
 
+  FileSystemHandle? _fs;
+
   @override
   Future<Uint8List?> loadAbsolute(String path) async {
     try {
@@ -253,8 +256,11 @@ class WebDocumentFileSystem extends DocumentFileSystem {
           completer.complete(null);
           return;
         }
-        final file = await files.first.getFile() as FileWithRead;
-        completer.complete(await file.text());
+        _fs = files.first;
+        final file = await _fs?.getFile() as FileWithRead?;
+        final data = await file?.text() as String;
+        final bytes = Uint8List.fromList(utf8.encode(data));
+        completer.complete(bytes);
       }
 
       fileWindow.launchQueue.setConsumer(allowInterop(_complete));
