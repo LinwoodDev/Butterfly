@@ -63,8 +63,9 @@ class _PropertyViewState extends State<PropertyView>
         return StatefulBuilder(builder: (context, setState) {
           return Stack(children: [
             Listener(
-              behavior:
-                  pinned ? HitTestBehavior.translucent : HitTestBehavior.opaque,
+              behavior: pinned || state.selection == null
+                  ? HitTestBehavior.translucent
+                  : HitTestBehavior.opaque,
               onPointerUp: (details) {
                 if (!pinned) _closeView();
               },

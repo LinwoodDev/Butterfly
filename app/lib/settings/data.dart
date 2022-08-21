@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:file_picker/file_picker.dart';
@@ -46,7 +44,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        if (!kIsWeb || !Platform.isAndroid)
+                        if (!kIsWeb)
                           ListTile(
                             title: Text(AppLocalizations.of(context)!
                                 .documentDirectory),
