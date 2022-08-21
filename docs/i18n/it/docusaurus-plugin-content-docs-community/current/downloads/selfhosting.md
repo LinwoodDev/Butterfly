@@ -21,5 +21,5 @@ Tutti i file sono nella directory `app/build/web`.
 
 ## Docker
 
-Clone the repository and build the `Dockerfile` using: `docker build -t linwood-butterfly`. Avvia il server utilizzando: `docker run -p 8080:8080 -d linwood-butterfly`.
+Clona il repository e compila il `Dockerfile` usando: `docker build -t linwood-butterfly`. Avvia il server utilizzando: `docker run -p 8080:8080 -d linwood-butterfly`.
 
