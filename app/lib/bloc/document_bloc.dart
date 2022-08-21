@@ -481,15 +481,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
       }
     });
-    on<AreaRemoved>((event, emit) async {
+    on<AreasRemoved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      final areas = List<Area>.from(current.document.areas);
-      final area = areas.removeAt(event.index);
+      final areas = List<Area>.from(current.document.areas)
+        ..removeWhere((e) => event.areas.contains(e.name));
       final currentDocument = current.document.copyWith(areas: areas);
       for (var element in current.renderers) {
-        if (element.area == area &&
+        if (areas.contains(element.area) &&
             await element.onAreaUpdate(currentDocument, null)) {
           _repaint(emit);
         }
@@ -500,13 +500,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      final areas = List<Area>.from(current.document.areas);
-      final area = areas[event.index];
-      final currentDocument =
-          current.document.copyWith(areas: areas..[event.index] = event.area);
+      final areas = current.document.areas.map((e) {
+        if (e.name == event.area.name) {
+          return event.area;
+        }
+        return e;
+      }).toList();
+      final currentDocument = current.document.copyWith(areas: areas);
       emit(current.copyWith(document: currentDocument));
       for (var element in current.renderers) {
-        if (element.area == area) {
+        if (element.area?.name == event.name) {
           if (await element.onAreaUpdate(currentDocument, event.area)) {
             _repaint(emit);
           }
@@ -551,7 +554,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      emit(current.copyWith(currentAreaIndex: event.area));
+      emit(current.copyWith(currentAreaName: event.area));
     });
     on<DocumentSaved>((event, emit) async {
       final current = state;

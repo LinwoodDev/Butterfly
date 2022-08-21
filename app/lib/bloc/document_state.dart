@@ -18,7 +18,7 @@ class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final StorageType storageType;
   final String currentLayer;
-  final int currentAreaIndex;
+  final String currentAreaName;
   final List<String> invisibleLayers;
   final SettingsCubit settingsCubit;
   final CurrentIndexCubit currentIndexCubit;
@@ -28,7 +28,7 @@ class DocumentLoadSuccess extends DocumentState {
       this.storageType = StorageType.local,
       required this.settingsCubit,
       required this.currentIndexCubit,
-      this.currentAreaIndex = -1,
+      this.currentAreaName = '',
       this.currentLayer = '',
       this.invisibleLayers = const []}) {
     if (location != null) {
@@ -41,16 +41,13 @@ class DocumentLoadSuccess extends DocumentState {
         invisibleLayers,
         document,
         currentLayer,
-        currentAreaIndex,
+        currentAreaName,
         settingsCubit,
         currentIndexCubit,
       ];
 
   Area? get currentArea {
-    if (currentAreaIndex < 0 || currentAreaIndex >= document.areas.length) {
-      return null;
-    }
-    return document.areas[currentAreaIndex];
+    return document.getAreaByName(currentAreaName);
   }
 
   CameraViewport get cameraViewport => currentIndexCubit.state.cameraViewport;
@@ -77,14 +74,14 @@ class DocumentLoadSuccess extends DocumentState {
     AppDocument? document,
     bool? editMode,
     String? currentLayer,
-    int? currentAreaIndex,
+    String? currentAreaName,
     List<String>? invisibleLayers,
   }) =>
       DocumentLoadSuccess(
         document ?? this.document,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
-        currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
+        currentAreaName: currentAreaName ?? this.currentAreaName,
         settingsCubit: settingsCubit,
         currentIndexCubit: currentIndexCubit,
         location: location,

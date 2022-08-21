@@ -44,3 +44,17 @@ lib
 * The `views` directory stores all the views that are used in the main page. For example the appbar, the toolbar or the main view.
 * The `visualizer` directory stores all converters between the models and the ui.
 * The `widgets` directory stores all general widget that is not specific to the app. For example the `OptionButton` widget.
+
+## Rebuilding assets
+
+To rebuild the icon use:
+
+```bash
+flutter pub run flutter_launcher_icons:main -f flutter_launcher_icons-production.yaml
+```
+
+To rebuild the splash screen use:
+
+```bash
+flutter pub run flutter_native_splash:create --path flutter_native_splash-production.yaml
+```

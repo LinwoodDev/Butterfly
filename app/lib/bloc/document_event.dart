@@ -224,29 +224,29 @@ class AreasCreated extends DocumentEvent {
   List<Object?> get props => [areas];
 }
 
-class AreaRemoved extends DocumentEvent {
-  final int index;
+class AreasRemoved extends DocumentEvent {
+  final List<String> areas;
 
-  const AreaRemoved(this.index);
+  const AreasRemoved(this.areas);
 
   @override
-  List<Object?> get props => [index];
+  List<Object?> get props => [areas];
 }
 
 class AreaChanged extends DocumentEvent {
   final Area area;
-  final int index;
-  const AreaChanged(this.index, this.area);
+  final String name;
+  const AreaChanged(this.name, this.area);
 
   @override
-  List<Object?> get props => [area, index];
+  List<Object?> get props => [area, name];
 }
 
 class CurrentAreaChanged extends DocumentEvent {
-  final int area;
+  final String area;
 
   const CurrentAreaChanged(this.area);
-  const CurrentAreaChanged.exit() : area = -1;
+  const CurrentAreaChanged.exit() : area = '';
 
   @override
   List<Object?> get props => [area];
