@@ -23,7 +23,7 @@ packages:
     source: hosted
     version: "4.6.0"
   archive:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: archive
       url: "https://pub.dartlang.org"

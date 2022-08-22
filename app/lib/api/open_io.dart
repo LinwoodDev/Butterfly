@@ -41,3 +41,16 @@ void openPdf(List<int> bytes) {
     }
   });
 }
+
+void openZip(List<int> bytes) {
+  getButterflyDirectory().then((dir) {
+    var file = File('$dir/Temp/export.zip');
+    file.create(recursive: true);
+    file.writeAsBytesSync(bytes);
+    if (Platform.isAndroid || Platform.isIOS) {
+      Share.shareFiles([file.path]);
+    } else {
+      launchUrl(Uri.file(file.path));
+    }
+  });
+}

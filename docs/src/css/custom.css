@@ -124,6 +124,9 @@ img {
 .menu__list-item-collapsible {
   --ifm-menu-color-active: var(--ifm-color-emphasis-900);
 }
+.menu__list-item-collapsible--active {
+  --ifm-menu-color-active: var(--ifm-color-emphasis-100);
+}
 .footer {
   --ifm-footer-background-color:var(--ifm-color-emphasis-900);
   --ifm-footer-link-color: var(--ifm-color-emphasis-700);

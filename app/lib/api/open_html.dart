@@ -31,3 +31,13 @@ void openPdf(List<int> bytes) {
   a.download = 'butterfly.pdf';
   a.click();
 }
+
+void openZip(List<int> bytes) {
+  final a = document.createElement('a') as AnchorElement;
+  // Create data URL
+  final blob = Blob([bytes], 'application/zip');
+  final url = Url.createObjectUrl(blob);
+  a.href = url;
+  a.download = 'butterfly.zip';
+  a.click();
+}

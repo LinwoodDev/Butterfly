@@ -1,3 +1,4 @@
+import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:file_picker/file_picker.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/file_system.dart';
+import '../api/open.dart';
 
 class DataSettingsPage extends StatefulWidget {
   final bool inView;
@@ -113,6 +115,22 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             );
                             if (newFormat != null) {
                               settingsCubit.changeDateFormat(newFormat);
+                            }
+                          },
+                        ),
+                        ListTile(
+                          title: Text(AppLocalizations.of(context)!.export),
+                          leading: const Icon(PhosphorIcons.exportLight),
+                          onTap: () async {
+                            final fileSystem =
+                                DocumentFileSystem.fromPlatform();
+                            final directory =
+                                await fileSystem.getRootDirectory();
+                            final archive = exportDirectory(directory);
+                            final encoder = ZipEncoder();
+                            final bytes = encoder.encode(archive);
+                            if (bytes != null) {
+                              openZip(bytes);
                             }
                           },
                         ),

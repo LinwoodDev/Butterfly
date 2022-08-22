@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
+import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
@@ -194,4 +195,25 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
       return IOTemplateFileSystem();
     }
   }
+}
+
+Archive exportDirectory(AppDocumentDirectory directory) {
+  final archive = Archive();
+  void addToArchive(AppDocumentAsset asset) {
+    if (asset is AppDocumentFile) {
+      final data = asset.data;
+      final content = data.codeUnits;
+      final size = content.length;
+      final file = ArchiveFile(asset.pathWithoutLeadingSlash, size, content);
+      archive.addFile(file);
+    } else if (asset is AppDocumentDirectory) {
+      var assets = asset.assets;
+      for (var current in assets) {
+        addToArchive(current);
+      }
+    }
+  }
+
+  addToArchive(directory);
+  return archive;
 }
