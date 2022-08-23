@@ -28,7 +28,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
       - name: Setup git
         id: setup
         run: |
@@ -75,7 +74,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
       - name: Setup git
         id: setup
         shell: bash
@@ -132,7 +130,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
       - name: Setup git
         id: setup
         run: |
@@ -200,7 +197,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
       - name: Bump version
         run: |
           git fetch

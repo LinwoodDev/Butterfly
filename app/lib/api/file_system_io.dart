@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';

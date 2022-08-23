@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:html' as html;
 import 'dart:js_util';
-import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
