@@ -786,7 +786,7 @@ packages:
       name: pdf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.8.2"
+    version: "3.8.3"
   petitparser:
     dependency: transitive
     description:

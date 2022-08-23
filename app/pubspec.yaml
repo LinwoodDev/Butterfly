@@ -47,7 +47,7 @@ dependencies:
   path: ^1.8.1
   printing: ^5.9.2
   js: ^0.6.4
-  pdf: ^3.8.2
+  pdf: ^3.8.3
   http: ^0.13.5
   flutter_secure_storage: ^6.0.0
   equatable: ^2.0.5
