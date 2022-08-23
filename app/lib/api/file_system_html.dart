@@ -244,7 +244,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     try {
       final fileWindow = html.window as FileHandlingWindow;
       final completer = Completer<Uint8List?>();
-      void _complete(LaunchParams launchParams) async {
+      void complete(LaunchParams launchParams) async {
         final files = launchParams.files.cast<FileSystemHandle>();
         if (files.isEmpty) {
           completer.complete(null);
@@ -272,7 +272,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         reader.readAsArrayBuffer(file);
       }
 
-      fileWindow.launchQueue.setConsumer(allowInterop(_complete));
+      fileWindow.launchQueue.setConsumer(allowInterop(complete));
       return completer.future;
     } on NoSuchMethodError catch (e) {
       if (kDebugMode) {
