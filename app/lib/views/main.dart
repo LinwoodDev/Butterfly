@@ -57,8 +57,10 @@ class ProjectPage extends StatefulWidget {
   final AssetLocation? location;
   final Embedding? embedding;
   final String type;
+  final Object? data;
 
-  const ProjectPage({super.key, this.location, this.embedding, this.type = ''});
+  const ProjectPage(
+      {super.key, this.location, this.embedding, this.type = '', this.data});
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
@@ -242,7 +244,8 @@ class _ProjectPageState extends State<ProjectPage> {
           ],
           child: RepositoryProvider(
             lazy: false,
-            create: (context) => ImportService(context, widget.type),
+            create: (context) =>
+                ImportService(context, widget.type, widget.data),
             child: Builder(builder: (context) {
               return Shortcuts(
                 shortcuts: {

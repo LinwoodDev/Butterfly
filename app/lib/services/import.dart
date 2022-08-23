@@ -19,22 +19,30 @@ import '../dialogs/image_export.dart';
 import '../dialogs/pages.dart';
 import '../dialogs/pdf_export.dart';
 import '../dialogs/svg_export.dart';
+import '../models/converter.dart';
 import '../models/document.dart';
 
 class ImportService {
   final BuildContext context;
 
-  ImportService(this.context, [String type = '']) {
-    _load(type);
+  ImportService(this.context, [String type = '', Object? data]) {
+    _load(type, data);
   }
 
-  Future<void> _load([String type = '']) async {
+  Future<void> _load([String type = '', Object? data]) async {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     final location = state.location;
     if (!location.absolute || location.remote.isNotEmpty) return;
-    final bytes =
-        await DocumentFileSystem.fromPlatform().loadAbsolute(location.path);
+    Uint8List? bytes;
+    if (data is Uint8List) {
+      bytes = data;
+    } else if (data is String) {
+      bytes = Uint8List.fromList(utf8.encode(data));
+    } else {
+      bytes =
+          await DocumentFileSystem.fromPlatform().loadAbsolute(location.path);
+    }
     final fileType =
         type.isNotEmpty ? AssetFileType.values.byName(type) : location.fileType;
     // ignore: avoid_print
@@ -60,8 +68,8 @@ class ImportService {
     }
   }
 
-  void importNote(Uint8List bytes) async {
-    final doc = AppDocument.fromJson(
+  void importNote(Uint8List bytes) {
+    final doc = const DocumentJsonConverter().fromJson(
       json.decode(
         String.fromCharCodes(bytes),
       ),

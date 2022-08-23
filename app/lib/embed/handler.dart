@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 
-import '../models/document.dart';
+import '../models/converter.dart';
 import 'action.dart';
 
 class EmbedHandler {
@@ -30,8 +30,9 @@ class EmbedHandler {
         } else {
           throw Exception('Invalid message type');
         }
-        final document = AppDocument.fromJson(map);
+        final document = const DocumentJsonConverter().fromJson(map);
         bloc.add(DocumentUpdated(document));
+        await bloc.load();
       }
     });
     renderListener ??= onEmbedMessage('render', (message) async {

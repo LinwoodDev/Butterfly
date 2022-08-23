@@ -9,6 +9,7 @@ import 'package:xml/xml.dart';
 import 'package:path/path.dart' as p;
 
 import '../cubits/settings.dart';
+import '../models/converter.dart';
 import '../models/document.dart';
 import '../models/template.dart';
 import 'file_system.dart';
@@ -469,7 +470,8 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     if (content == null) {
       return;
     }
-    final document = AppDocument.fromJson(json.decode(content));
+    final document =
+        const DocumentJsonConverter().fromJson(json.decode(content));
     await updateDocument(path, document, forceSync: true);
   }
 
