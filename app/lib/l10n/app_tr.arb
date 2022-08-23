@@ -116,7 +116,7 @@
     }
   },
   "shouldNotEmpty": "Bu değer boş bırakılamaz",
-  "waypoints": "Ara noktalar",
+  "waypoints": "Yer İşaretleri",
   "origin": "Kaynak",
   "import": "İçe aktar",
   "newContent": "Yeni",
@@ -365,14 +365,14 @@
   "syncMode": "Eşitleme kipi",
   "connection": "Bağlantı",
   "always": "Her zaman",
-  "noMobile": "No mobile",
-  "manual": "Manual",
+  "noMobile": "Mobil olmayan",
+  "manual": "Kullanım kılavuzu",
   "search": "Ara",
   "properties": "Özellikler",
-  "pin": "Pin",
-  "unpin": "Unpin",
+  "pin": "Sabitle",
+  "unpin": "Sabitlemeyi kaldır",
   "element": "Öge",
-  "painter": "Painter",
+  "painter": "Araç",
   "position": "Konum",
   "note": "Not"
 }
