@@ -173,7 +173,8 @@ class ImportService {
     final viewport = context.read<CurrentIndexCubit>().state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
-        final data = json.encode(state.document.toJson());
+        final data =
+            json.encode(const DocumentJsonConverter().toJson(state.document));
         final bytes = Uint8List.fromList(data.codeUnits);
         DocumentFileSystem.fromPlatform().saveAbsolute(location.path, bytes);
         break;

@@ -5,6 +5,7 @@ import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
@@ -666,7 +667,9 @@ class _MainPopupMenu extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).pop();
                       sendEmbedMessage(
-                          'exit', json.encode(state.document.toJson()));
+                          'exit',
+                          json.encode(const DocumentJsonConverter()
+                              .toJson(state.document)));
                     })),
         ],
       );

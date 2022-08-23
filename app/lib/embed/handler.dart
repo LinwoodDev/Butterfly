@@ -16,7 +16,8 @@ class EmbedHandler {
     getDataListener ??= onEmbedMessage('getData', (message) async {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
-        sendEmbedMessage('getData', json.encode(state.document.toJson()));
+        sendEmbedMessage('getData',
+            json.encode(const DocumentJsonConverter().toJson(state.document)));
       }
     });
     setDataListener ??= onEmbedMessage('setData', (message) async {

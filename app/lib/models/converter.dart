@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/template.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -51,7 +52,29 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
 
   @override
   Map<String, dynamic> toJson(AppDocument object) {
-    return {'fileVersion': kFileVersion}..addAll(object.toJson());
+    return {
+      ...object.toJson(),
+      'fileVersion': kFileVersion,
+      'type': 'document',
+    };
+  }
+}
+
+class TemplateJsonConverter extends JsonConverter<DocumentTemplate, Map> {
+  const TemplateJsonConverter();
+
+  @override
+  DocumentTemplate fromJson(Map json) {
+    return DocumentTemplate.fromJson(Map<String, dynamic>.from(json));
+  }
+
+  @override
+  Map<String, dynamic> toJson(DocumentTemplate object) {
+    return {
+      ...object.toJson(),
+      'fileVersion': kFileVersion,
+      'type': 'template',
+    };
   }
 }
 

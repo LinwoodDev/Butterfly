@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/converter.dart';
 import 'file_system.dart';
 
 Future<String> getButterflyDirectory() async {
@@ -45,10 +46,12 @@ class IODocumentFileSystem extends DocumentFileSystem {
     }
     var file = File('${await getDirectory()}$path/$name');
     file = await file.create(recursive: true);
-    await file.writeAsString(json.encode(document.toJson()));
+    final data = const DocumentJsonConverter().toJson(document);
+    await file.writeAsString(json.encode(data));
     return AppDocumentFile(
-        AssetLocation.local(path == '/' ? '/$name' : '$path/$name'),
-        document.toJson());
+      AssetLocation.local(path == '/' ? '/$name' : '$path/$name'),
+      data,
+    );
   }
 
   @override
@@ -124,9 +127,10 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
-    await file.writeAsString(jsonEncode(document.toJson()));
+    final data = const DocumentJsonConverter().toJson(document);
+    await file.writeAsString(jsonEncode(data));
 
-    return AppDocumentFile(AssetLocation.local(path), document.toJson());
+    return AppDocumentFile(AssetLocation.local(path), data);
   }
 
   @override
@@ -229,19 +233,21 @@ class IOTemplateFileSystem extends TemplateFileSystem {
     var file = File(await getAbsolutePath('${escapeName(name)}.bfly'));
     if (await file.exists()) {
       var json = await file.readAsString();
-      return DocumentTemplate.fromJson(
-          Map<String, dynamic>.from(jsonDecode(json)));
+      return const TemplateJsonConverter()
+          .fromJson(Map<String, dynamic>.from(jsonDecode(json)));
     }
     return null;
   }
 
   @override
   Future<void> updateTemplate(DocumentTemplate template) async {
-    var file = File(await getAbsolutePath('${escapeName(template.name)}.bfly'));
+    final file =
+        File(await getAbsolutePath('${escapeName(template.name)}.bfly'));
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
-    await file.writeAsString(jsonEncode(template.toJson()));
+    final data = const TemplateJsonConverter().toJson(template);
+    await file.writeAsString(jsonEncode(data));
   }
 
   @override
@@ -281,7 +287,7 @@ class IOTemplateFileSystem extends TemplateFileSystem {
       if (file is! File) continue;
       try {
         var json = await file.readAsString();
-        templates.add(DocumentTemplate.fromJson(jsonDecode(json)));
+        templates.add(const TemplateJsonConverter().fromJson(jsonDecode(json)));
       } catch (e) {
         if (kDebugMode) {
           print(e);

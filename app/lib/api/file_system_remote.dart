@@ -377,7 +377,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       path = path.substring(1);
     }
 
-    final content = document.toJson();
+    final content = const DocumentJsonConverter().toJson(document);
     final has = await hasAsset(path);
     if (!has) {
       await createDirectory(path);
@@ -414,7 +414,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
   @override
   Future<AppDocumentFile> updateDocument(String path, AppDocument document,
       {bool forceSync = false}) async {
-    final content = document.toJson();
+    final content = const DocumentJsonConverter().toJson(document);
     if (!forceSync && remote.hasDocumentCached(path)) {
       cacheContent(path, json.encode(content));
       return AppDocumentFile(
@@ -551,7 +551,7 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
       }
       final content = await response.stream.bytesToString();
       cacheContent(name, content);
-      return DocumentTemplate.fromJson(json.decode(content));
+      return const TemplateJsonConverter().fromJson(json.decode(content));
     } catch (e) {
       return getCachedTemplate(name);
     }
@@ -562,7 +562,7 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
     if (content == null) {
       return null;
     }
-    return DocumentTemplate.fromJson(json.decode(content));
+    return const TemplateJsonConverter().fromJson(json.decode(content));
   }
 
   @override
@@ -608,7 +608,8 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
   Future<List<DocumentTemplate>> getCachedTemplates() async {
     final cachedFiles = await getCachedFiles();
     return cachedFiles.values
-        .map((value) => DocumentTemplate.fromJson(json.decode(value)))
+        .map((value) =>
+            const TemplateJsonConverter().fromJson(json.decode(value)))
         .toList();
   }
 

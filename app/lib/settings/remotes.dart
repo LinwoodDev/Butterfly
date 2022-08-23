@@ -66,6 +66,7 @@ class RemotesSettingsPage extends StatelessWidget {
               );
             }
             return Material(
+              color: Colors.transparent,
               child: ListView.builder(
                   itemCount: state.remotes.length,
                   itemBuilder: (context, index) {

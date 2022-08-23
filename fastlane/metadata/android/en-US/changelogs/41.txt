@@ -7,3 +7,4 @@
 * Add export button to data settings
 * Add option to import files from file on pwa
 * Fix image import bug
+* Use json converters to load/save json (fixes missing type and version info)

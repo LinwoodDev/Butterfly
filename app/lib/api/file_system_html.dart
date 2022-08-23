@@ -13,6 +13,7 @@ import 'package:idb_shim/idb_browser.dart';
 import 'package:js/js.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/converter.dart';
 import 'file_system.dart';
 
 @JS()
@@ -86,7 +87,8 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       filePath = '$path/${convertNameToFile(document.name)}_$counter';
       counter++;
     }
-    var doc = Map<String, dynamic>.from(document.toJson());
+    var doc = Map<String, dynamic>.from(
+        const DocumentJsonConverter().toJson(document));
     doc['type'] = 'file';
     final db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
@@ -205,7 +207,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
-    var doc = document.toJson();
+    var doc = const DocumentJsonConverter().toJson(document);
     doc['type'] = 'file';
     await store.put(doc, path);
     await txn.completed;
@@ -317,7 +319,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
     }
     var map = Map<String, dynamic>.from(data as Map);
     await txn.completed;
-    return DocumentTemplate.fromJson(map);
+    return const TemplateJsonConverter().fromJson(map);
   }
 
   @override
@@ -325,7 +327,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
     var db = await _getDatabase();
     var txn = db.transaction('templates', 'readwrite');
     var store = txn.objectStore('templates');
-    var doc = template.toJson();
+    var doc = const TemplateJsonConverter().toJson(template);
     await store.put(doc, template.name);
   }
 
@@ -363,8 +365,8 @@ class WebTemplateFileSystem extends TemplateFileSystem {
     await cursor.forEach((cursor) {
       try {
         var map = cursor.value as Map;
-        templates
-            .add(DocumentTemplate.fromJson(Map<String, dynamic>.from(map)));
+        templates.add(const TemplateJsonConverter()
+            .fromJson(Map<String, dynamic>.from(map)));
       } catch (e) {
         if (kDebugMode) {
           print(e);
