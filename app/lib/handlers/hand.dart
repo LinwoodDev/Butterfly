@@ -27,6 +27,7 @@ class HandHandler extends Handler<HandProperty> {
   List<Renderer<PadElement>> _selected = [];
   Offset? _currentMovePosition;
   Offset _contextMenuOffset = Offset.zero;
+  Rect? _freeSelection;
 
   HandHandler(super.data);
 
@@ -80,6 +81,9 @@ class HandHandler extends Handler<HandProperty> {
     final selectionRect = getSelectionRect();
     if (selectionRect != null) {
       foregrounds.add(HandSelectionRenderer(selectionRect, color));
+    }
+    if (_freeSelection != null) {
+      foregrounds.add(HandSelectionRenderer(_freeSelection!, color));
     }
     return foregrounds;
   }
@@ -234,6 +238,16 @@ class HandHandler extends Handler<HandProperty> {
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
+    final currentIndex = context.getCurrentIndex();
+    if (currentIndex.buttons != kSecondaryButton && details.pointerCount == 1) {
+      final globalPos =
+          context.getCameraTransform().localToGlobal(details.localFocalPoint);
+      final topLeft = _freeSelection?.topLeft ?? globalPos;
+      _freeSelection =
+          Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy);
+      context.refresh();
+      return;
+    }
     if (_movingElements.isNotEmpty) {
       var current = _currentMovePosition ?? Offset.zero;
       current += details.focalPointDelta / context.getCameraTransform().size;
@@ -244,6 +258,19 @@ class HandHandler extends Handler<HandProperty> {
     context
         .getTransformCubit()
         .move(details.focalPointDelta / context.getCameraTransform().size);
+  }
+
+  @override
+  void onScaleEnd(ScaleEndDetails details, EventContext context) async {
+    final freeSelection = _freeSelection;
+    if (freeSelection != null) {
+      _freeSelection = null;
+      _selected.clear();
+      final hits = await rayCastRect(
+          context.buildContext, freeSelection, data.includeEraser);
+      _selected.addAll(hits);
+      context.refresh();
+    }
   }
 
   @override

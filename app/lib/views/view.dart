@@ -185,6 +185,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                 },
                 onPointerDown: (PointerDownEvent event) {
                   cubit.addPointer(event.pointer);
+                  cubit.setButtons(event.buttons);
                   final document = state.document;
                   final currentArea = state.currentArea;
                   if (event.buttons == kPrimaryStylusButton) {
@@ -197,6 +198,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                 },
                 onPointerUp: (PointerUpEvent event) async {
                   cubit.removePointer(event.pointer);
+                  cubit.removeButtons();
                   cubit.getHandler().onPointerUp(event, getEventContext());
                   cubit.resetTemporaryHandler(
                       state.document, state.currentArea);

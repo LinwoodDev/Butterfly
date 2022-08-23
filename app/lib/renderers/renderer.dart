@@ -34,12 +34,11 @@ class DefaultHitCalculator extends HitCalculator {
   DefaultHitCalculator(this.rect);
 
   @override
-  bool hit(Offset position, [double radius = 1]) =>
-      rect.inflate(radius).contains(position);
+  bool hit(Rect rect) => this.rect.overlaps(rect);
 }
 
 abstract class HitCalculator {
-  bool hit(Offset position, [double radius = 1]);
+  bool hit(Rect rect);
 }
 
 abstract class Renderer<T> {
