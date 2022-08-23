@@ -257,8 +257,6 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         reader.onLoad.listen((_) {
           try {
             final result = reader.result as Uint8List;
-            // ignore: avoid_print
-            print('Loaded ${result.length} bytes');
             completer.complete(Uint8List.fromList(result));
           } catch (e) {
             completer.completeError(e);

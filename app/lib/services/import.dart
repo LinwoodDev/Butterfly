@@ -45,8 +45,6 @@ class ImportService {
     }
     final fileType =
         type.isNotEmpty ? AssetFileType.values.byName(type) : location.fileType;
-    // ignore: avoid_print
-    print('ImportService._load: $fileType: $bytes');
     if (bytes == null || fileType == null) return;
     await import(fileType, location.fileName, bytes);
   }
