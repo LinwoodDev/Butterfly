@@ -73,8 +73,8 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                           current is! DocumentLoadSuccess) {
                         return true;
                       }
-                      return previous.currentAreaIndex !=
-                              current.currentAreaIndex ||
+                      return previous.currentAreaName !=
+                              current.currentAreaName ||
                           previous.hasAutosave() != current.hasAutosave();
                     }, builder: (context, state) {
                       final title = Row(
@@ -85,8 +85,8 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                               final area = state is DocumentLoadSuccess
                                   ? state.currentArea
                                   : null;
-                              final areaIndex = state is DocumentLoadSuccess
-                                  ? state.currentAreaIndex
+                              final areaName = state is DocumentLoadSuccess
+                                  ? state.currentAreaName
                                   : null;
                               _nameController.text =
                                   state is DocumentLoadSuccess
@@ -136,12 +136,12 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                                 .headline4,
                                         onChanged: (value) {
                                           if (area == null ||
-                                              areaIndex == null) {
+                                              areaName == null) {
                                             bloc.add(DocumentDescriptorChanged(
                                                 name: value));
                                           } else {
                                             bloc.add(AreaChanged(
-                                              areaIndex,
+                                              areaName,
                                               area.copyWith(name: value),
                                             ));
                                           }
@@ -165,7 +165,15 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                     if (currentIndex.location.path != '' &&
                                         area == null)
                                       Text(
-                                        currentIndex.location.identifier,
+                                        ((currentIndex.location.absolute &&
+                                                    currentIndex
+                                                        .location.path.isEmpty)
+                                                ? currentIndex.location.fileType
+                                                    ?.getLocalizedName(context)
+                                                : currentIndex
+                                                    .location.identifier) ??
+                                            AppLocalizations.of(context)!
+                                                .document,
                                         style: Theme.of(context)
                                             .textTheme
                                             .caption

@@ -78,104 +78,106 @@ class AreasDialog extends StatelessWidget {
                                                 .exitArea)),
                                     const Divider(),
                                   ],
-                                  ...List.generate(
-                                      areas.length,
-                                      (index) => Dismissible(
-                                            key: ObjectKey(areas[index]),
-                                            background:
-                                                Container(color: Colors.red),
-                                            onDismissed: (direction) {
-                                              context
-                                                  .read<DocumentBloc>()
-                                                  .add(AreaRemoved(index));
-                                            },
-                                            child: ListTile(
-                                                onTap: () {
-                                                  context
-                                                      .read<DocumentBloc>()
-                                                      .add(CurrentAreaChanged(
-                                                          index));
-                                                  Navigator.of(context).pop();
-                                                },
-                                                selected: index ==
-                                                    state.currentAreaIndex,
-                                                trailing: IconTheme(
-                                                  data: Theme.of(context)
-                                                      .iconTheme,
-                                                  child: PopupMenuButton(
-                                                    itemBuilder: (context) => [
-                                                      PopupMenuItem(
-                                                          value: 0,
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          child: ListTile(
-                                                              leading: const Icon(
-                                                                  PhosphorIcons
-                                                                      .textTLight),
-                                                              title: Text(
-                                                                  AppLocalizations.of(
-                                                                          context)!
-                                                                      .rename),
-                                                              onTap: () {
-                                                                final TextEditingController
-                                                                    nameController =
-                                                                    TextEditingController(
-                                                                        text: areas[index]
-                                                                            .name);
-                                                                var bloc =
-                                                                    context.read<
-                                                                        DocumentBloc>();
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                var formKey =
-                                                                    GlobalKey<
-                                                                        FormState>();
-                                                                showDialog(
-                                                                    context:
-                                                                        context,
-                                                                    builder:
-                                                                        (context) =>
-                                                                            Form(
-                                                                              key: formKey,
-                                                                              child: AlertDialog(
-                                                                                title: Text(AppLocalizations.of(context)!.rename),
-                                                                                content: TextFormField(
-                                                                                  validator: (value) {
-                                                                                    if (value?.isEmpty ?? true) {
-                                                                                      return AppLocalizations.of(context)!.shouldNotEmpty;
-                                                                                    }
-                                                                                    if (state.document.getAreaByName(value!) != null) {
-                                                                                      return AppLocalizations.of(context)!.alreadyExists;
-                                                                                    }
-                                                                                    return null;
-                                                                                  },
-                                                                                  decoration: const InputDecoration(filled: true),
-                                                                                  controller: nameController,
-                                                                                  autofocus: true,
-                                                                                ),
-                                                                                actions: [
-                                                                                  TextButton(
-                                                                                    child: Text(AppLocalizations.of(context)!.cancel),
-                                                                                    onPressed: () => Navigator.of(context).pop(),
-                                                                                  ),
-                                                                                  ElevatedButton(
-                                                                                    child: Text(AppLocalizations.of(context)!.ok),
-                                                                                    onPressed: () {
-                                                                                      if (!(formKey.currentState?.validate() ?? false)) return;
-                                                                                      Navigator.of(context).pop();
-                                                                                      bloc.add(AreaChanged(index, areas[index].copyWith(name: nameController.text)));
-                                                                                    },
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ));
-                                                              })),
-                                                    ],
-                                                  ),
-                                                ),
-                                                title: Text(areas[index].name)),
-                                          ))
+                                  ...List.generate(areas.length, (index) {
+                                    final area = areas[index];
+                                    return Dismissible(
+                                      key: ObjectKey(area),
+                                      background: Container(color: Colors.red),
+                                      onDismissed: (direction) {
+                                        context
+                                            .read<DocumentBloc>()
+                                            .add(AreasRemoved([area.name]));
+                                      },
+                                      child: ListTile(
+                                          onTap: () {
+                                            context.read<DocumentBloc>().add(
+                                                CurrentAreaChanged(area.name));
+                                            Navigator.of(context).pop();
+                                          },
+                                          selected: area.name ==
+                                              state.currentAreaName,
+                                          trailing: IconTheme(
+                                            data: Theme.of(context).iconTheme,
+                                            child: PopupMenuButton(
+                                              itemBuilder: (context) => [
+                                                PopupMenuItem(
+                                                    value: 0,
+                                                    padding: EdgeInsets.zero,
+                                                    child: ListTile(
+                                                        leading: const Icon(
+                                                            PhosphorIcons
+                                                                .textTLight),
+                                                        title: Text(
+                                                            AppLocalizations.of(
+                                                                    context)!
+                                                                .rename),
+                                                        onTap: () {
+                                                          final TextEditingController
+                                                              nameController =
+                                                              TextEditingController(
+                                                                  text: areas[
+                                                                          index]
+                                                                      .name);
+                                                          var bloc = context.read<
+                                                              DocumentBloc>();
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                          var formKey =
+                                                              GlobalKey<
+                                                                  FormState>();
+                                                          showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (context) =>
+                                                                      Form(
+                                                                        key:
+                                                                            formKey,
+                                                                        child:
+                                                                            AlertDialog(
+                                                                          title:
+                                                                              Text(AppLocalizations.of(context)!.rename),
+                                                                          content:
+                                                                              TextFormField(
+                                                                            validator:
+                                                                                (value) {
+                                                                              if (value?.isEmpty ?? true) {
+                                                                                return AppLocalizations.of(context)!.shouldNotEmpty;
+                                                                              }
+                                                                              if (state.document.getAreaByName(value!) != null) {
+                                                                                return AppLocalizations.of(context)!.alreadyExists;
+                                                                              }
+                                                                              return null;
+                                                                            },
+                                                                            decoration:
+                                                                                const InputDecoration(filled: true),
+                                                                            controller:
+                                                                                nameController,
+                                                                            autofocus:
+                                                                                true,
+                                                                          ),
+                                                                          actions: [
+                                                                            TextButton(
+                                                                              child: Text(AppLocalizations.of(context)!.cancel),
+                                                                              onPressed: () => Navigator.of(context).pop(),
+                                                                            ),
+                                                                            ElevatedButton(
+                                                                              child: Text(AppLocalizations.of(context)!.ok),
+                                                                              onPressed: () {
+                                                                                if (!(formKey.currentState?.validate() ?? false)) return;
+                                                                                Navigator.of(context).pop();
+                                                                                bloc.add(AreaChanged(area.name, areas[index].copyWith(name: nameController.text)));
+                                                                              },
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ));
+                                                        })),
+                                              ],
+                                            ),
+                                          ),
+                                          title: Text(areas[index].name)),
+                                    );
+                                  })
                                 ]);
                               }),
                         ),

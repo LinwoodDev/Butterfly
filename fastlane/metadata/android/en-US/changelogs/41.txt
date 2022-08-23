@@ -1,0 +1,9 @@
+* Add macos support (Thanks to batuhand)
+* Add pdf export support
+    * Add export presets
+* Add mutli selection option
+* Add property view
+* Add native file opener for pdf, image and notes
+* Add export button to data settings
+* Add option to import files from file on pwa
+* Fix image import bug

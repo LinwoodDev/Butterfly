@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
@@ -159,6 +158,39 @@ class IODocumentFileSystem extends DocumentFileSystem {
       }
     }
     return AppDocumentDirectory(AssetLocation.local(name), assets);
+  }
+
+  @override
+  Future<bool> moveAbsolute(String oldPath, String newPath) async {
+    if (oldPath.isEmpty) {
+      oldPath = await getButterflyDirectory();
+    }
+    if (newPath.isEmpty) {
+      newPath = await getButterflyDirectory();
+    }
+    if (oldPath == newPath) {
+      return false;
+    }
+    if (Platform.isAndroid) {
+      return false;
+    }
+    var oldDirectory = Directory(oldPath);
+    if (await oldDirectory.exists()) {
+      var files = await oldDirectory.list().toList();
+      for (final file in files) {
+        if (file is File) {
+          var newFile = File('$newPath/${file.path.split('/').last}');
+          final content = await file.readAsBytes();
+          await newFile.create(recursive: true);
+          await newFile.writeAsBytes(content);
+          await file.delete();
+        } else if (file is Directory) {
+          await moveAbsolute(
+              file.path, '$newPath/${file.path.split('/').last}');
+        }
+      }
+    }
+    return true;
   }
 
   @override

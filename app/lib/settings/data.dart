@@ -1,3 +1,4 @@
+import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:file_picker/file_picker.dart';
@@ -7,20 +8,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class DataSettingsPage extends StatelessWidget {
+import '../api/file_system.dart';
+import '../api/open.dart';
+
+class DataSettingsPage extends StatefulWidget {
   final bool inView;
   const DataSettingsPage({super.key, this.inView = false});
 
   @override
+  State<DataSettingsPage> createState() => _DataSettingsPageState();
+}
+
+class _DataSettingsPageState extends State<DataSettingsPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: inView ? Colors.transparent : null,
+        backgroundColor: widget.inView ? Colors.transparent : null,
         appBar: AppBar(
-          automaticallyImplyLeading: !inView,
-          backgroundColor: inView ? Colors.transparent : null,
+          automaticallyImplyLeading: !widget.inView,
+          backgroundColor: widget.inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context)!.data),
           actions: [
-            if (!inView && !kIsWeb && isWindow()) ...[
+            if (!widget.inView && !kIsWeb && isWindow()) ...[
               const VerticalDivider(),
               const WindowButtons()
             ]
@@ -48,18 +57,17 @@ class DataSettingsPage extends StatelessWidget {
                             onTap: () async {
                               final settingsCubit =
                                   context.read<SettingsCubit>();
-                              var selectedDir =
+                              final selectedDir =
                                   await FilePicker.platform.getDirectoryPath();
                               if (selectedDir != null) {
-                                settingsCubit.changeDocumentPath(selectedDir);
+                                _changePath(settingsCubit, selectedDir);
                               }
                             },
                             trailing: state.documentPath.isNotEmpty
                                 ? IconButton(
                                     icon: const Icon(PhosphorIcons.trashLight),
-                                    onPressed: () => context
-                                        .read<SettingsCubit>()
-                                        .resetDocumentPath(),
+                                    onPressed: () => _changePath(
+                                        context.read<SettingsCubit>(), ''),
                                   )
                                 : null,
                           ),
@@ -110,11 +118,36 @@ class DataSettingsPage extends StatelessWidget {
                             }
                           },
                         ),
+                        ListTile(
+                          title: Text(AppLocalizations.of(context)!.export),
+                          leading: const Icon(PhosphorIcons.exportLight),
+                          onTap: () async {
+                            final fileSystem =
+                                DocumentFileSystem.fromPlatform();
+                            final directory =
+                                await fileSystem.getRootDirectory();
+                            final archive = exportDirectory(directory);
+                            final encoder = ZipEncoder();
+                            final bytes = encoder.encode(archive);
+                            if (bytes != null) {
+                              openZip(bytes);
+                            }
+                          },
+                        ),
                       ]),
                 ),
               ),
             ],
           );
         }));
+  }
+
+  Future<void> _changePath(SettingsCubit settingsCubit, String newPath) async {
+    final oldPath = settingsCubit.state.documentPath;
+    if (!(await DocumentFileSystem.fromPlatform()
+        .moveAbsolute(oldPath, newPath))) {
+      return;
+    }
+    settingsCubit.changeDocumentPath(newPath);
   }
 }

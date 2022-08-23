@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/background.dart';
 import 'package:butterfly/models/converter.dart';
@@ -114,6 +116,8 @@ class AppDocumentFile extends AppDocumentAsset {
 
   AppDocument load() =>
       const DocumentJsonConverter().fromJson(Map<String, dynamic>.from(json));
+
+  String get data => jsonEncode(json);
 
   AssetFileType? get fileType => location.fileType;
 }

@@ -28,7 +28,6 @@ class AreaContextMenu extends StatelessWidget {
       builder: (context, state) {
         var bloc = context.read<DocumentBloc>();
         if (state is! DocumentLoadSuccess) return Container();
-        var index = state.document.areas.indexOf(area);
         return ListView(
           shrinkWrap: true,
           children: [
@@ -37,20 +36,20 @@ class AreaContextMenu extends StatelessWidget {
               child: Center(child: Icon(PhosphorIcons.monitorLight, size: 36)),
             ),
             ListTile(
-              leading: index == state.currentAreaIndex
+              leading: area.name == state.currentAreaName
                   ? const Icon(PhosphorIcons.signInLight)
                   : const Icon(PhosphorIcons.signOutLight),
               title: Text(
-                index == state.currentAreaIndex
+                area.name == state.currentAreaName
                     ? AppLocalizations.of(context)!.exitArea
                     : AppLocalizations.of(context)!.enterArea,
               ),
               onTap: () {
                 close();
-                if (index == state.currentAreaIndex) {
+                if (area.name == state.currentAreaName) {
                   bloc.add(const CurrentAreaChanged.exit());
                 } else {
-                  bloc.add(CurrentAreaChanged(index));
+                  bloc.add(CurrentAreaChanged(area.name));
                 }
                 context.read<CurrentIndexCubit>().reset(state.document);
               },
@@ -94,7 +93,7 @@ class AreaContextMenu extends StatelessWidget {
                             Navigator.pop(context);
                             bloc.add(
                               AreaChanged(
-                                index,
+                                area.name,
                                 area.copyWith(name: nameController.text),
                               ),
                             );
@@ -185,7 +184,7 @@ class AreaContextMenu extends StatelessWidget {
                 var bloc = context.read<DocumentBloc>();
                 var state = bloc.state;
                 if (state is! DocumentLoadSuccess) return;
-                bloc.add(AreaRemoved(index));
+                bloc.add(AreasRemoved([area.name]));
               },
             )
           ],

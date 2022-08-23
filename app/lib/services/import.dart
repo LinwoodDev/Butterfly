@@ -20,23 +20,32 @@ import '../dialogs/image_export.dart';
 import '../dialogs/pages.dart';
 import '../dialogs/pdf_export.dart';
 import '../dialogs/svg_export.dart';
+import '../models/converter.dart';
 import '../models/document.dart';
 
 class ImportService {
   final BuildContext context;
 
-  ImportService(this.context) {
-    _load();
+  ImportService(this.context, [String type = '', Object? data]) {
+    _load(type, data);
   }
 
-  Future<void> _load() async {
+  Future<void> _load([String type = '', Object? data]) async {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     final location = state.location;
     if (!location.absolute || location.remote.isNotEmpty) return;
-    final bytes =
-        await DocumentFileSystem.fromPlatform().loadAbsolute(location.path);
-    final fileType = location.fileType;
+    Uint8List? bytes;
+    if (data is Uint8List) {
+      bytes = data;
+    } else if (data is String) {
+      bytes = Uint8List.fromList(utf8.encode(data));
+    } else {
+      bytes =
+          await DocumentFileSystem.fromPlatform().loadAbsolute(location.path);
+    }
+    final fileType =
+        type.isNotEmpty ? AssetFileType.values.byName(type) : location.fileType;
     if (bytes == null || fileType == null) return;
     await import(fileType, location.fileName, bytes);
   }
@@ -59,8 +68,8 @@ class ImportService {
   }
 
   void importNote(Uint8List bytes,
-      [Offset position = Offset.zero, bool meta = true]) async {
-    final doc = AppDocument.fromJson(
+      [Offset position = Offset.zero, bool meta = true]) {
+    final doc = const DocumentJsonConverter().fromJson(
       json.decode(
         String.fromCharCodes(bytes),
       ),

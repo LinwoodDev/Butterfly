@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:typed_data';
+import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
@@ -10,7 +10,8 @@ import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'file_system_io.dart';
-import 'file_system_html.dart';
+import 'file_system_html_stub.dart'
+    if (dart.library.js) 'file_system_html.dart';
 import 'file_system_remote.dart';
 
 abstract class GeneralFileSystem {
@@ -140,6 +141,9 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     return asset;
   }
 
+  Future<bool> moveAbsolute(String oldPath, String newPath) =>
+      Future.value(false);
+
   Future<Uint8List?> loadAbsolute(String path) => Future.value(null);
 
   Future<void> saveAbsolute(String path, Uint8List bytes) => Future.value();
@@ -191,4 +195,25 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
       return IOTemplateFileSystem();
     }
   }
+}
+
+Archive exportDirectory(AppDocumentDirectory directory) {
+  final archive = Archive();
+  void addToArchive(AppDocumentAsset asset) {
+    if (asset is AppDocumentFile) {
+      final data = asset.data;
+      final content = data.codeUnits;
+      final size = content.length;
+      final file = ArchiveFile(asset.pathWithoutLeadingSlash, size, content);
+      archive.addFile(file);
+    } else if (asset is AppDocumentDirectory) {
+      var assets = asset.assets;
+      for (var current in assets) {
+        addToArchive(current);
+      }
+    }
+  }
+
+  addToArchive(directory);
+  return archive;
 }

@@ -15,7 +15,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'stable' # or: 'stable' or 'dev'
+          channel: 'any'
       - uses: actions/checkout@v3
       - name: Print Dart SDK version
         run: |

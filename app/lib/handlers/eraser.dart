@@ -3,7 +3,7 @@ part of 'handler.dart';
 class EraserHandler extends Handler<EraserPainter> {
   Map<int, EraserElement> elements = {};
   List<EraserElement> submittedElements = [];
-  Map<int, Offset> lastPosition = {};
+  Map<int, Offset> lastPositions = {};
 
   EraserHandler(super.data);
 
@@ -20,7 +20,7 @@ class EraserHandler extends Handler<EraserPainter> {
           .whereType<Renderer>()
           .toList()
         ..addAll(submittedElements.map((e) => EraserRenderer(e))),
-      ...lastPosition.values.map((e) => EraserCursor(PainterCursor(data, e)))
+      ...lastPositions.values.map((e) => EraserCursor(PainterCursor(data, e)))
     ];
   }
 
@@ -33,9 +33,9 @@ class EraserHandler extends Handler<EraserPainter> {
   }
 
   Future<void> submitElement(EventContext context, int index) async {
+    lastPositions.remove(index);
     var element = elements.remove(index);
     if (element == null) return;
-    lastPosition.remove(index);
     submittedElements.add(element);
     if (elements.isEmpty) {
       final current = List<PadElement>.from(submittedElements);
@@ -54,8 +54,8 @@ class EraserHandler extends Handler<EraserPainter> {
     if (state == null) return;
     final settings = context.getSettings();
     final penOnlyInput = settings.penOnlyInput;
-    if (lastPosition[pointer] == localPosition && !forceCreate) return;
-    lastPosition[pointer] = localPosition;
+    if (lastPositions[pointer] == localPosition && !forceCreate) return;
+    lastPositions[pointer] = localPosition;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }
@@ -100,7 +100,12 @@ class EraserHandler extends Handler<EraserPainter> {
 
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
-    lastPosition[event.pointer] = event.localPosition;
+    lastPositions[event.pointer] = event.localPosition;
     context.refresh();
+  }
+
+  @override
+  void onPointerGestureMove(PointerMoveEvent event, EventContext context) {
+    lastPositions.remove(event.pointer);
   }
 }

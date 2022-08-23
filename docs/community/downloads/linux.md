@@ -17,7 +17,7 @@ import DownloadButton from '@site/src/components/DownloadButton.js';
   <button className="button button--outline button--info button--lg">Stable</button>
   <ul className="dropdown__menu">
     <li>
-      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux.zip">
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux.tar.gz">
         Portable
       </DownloadButton>
     </li>

@@ -23,10 +23,19 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
+          channel: 'any'
       - name: 📦 Get dependencies
         run: |
           flutter pub get
+      - name: Import files
+        if: ${{ github.event_name != 'pull_request' }}
+        env:
+          KEY_JKS: ${{ secrets.KEY_JKS }}
+          KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
+        run: |
+          cd android
+          echo "$KEY_PROPERTIES" | base64 --decode > key.properties
+          echo "$KEY_JKS" | base64 --decode > key.jks
       #- run: flutter test
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' }}
@@ -61,7 +70,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
+          channel: 'any'
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
@@ -129,7 +138,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
+          channel: 'any'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
@@ -227,7 +236,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
+          channel: 'any'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
@@ -284,7 +293,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
+          channel: 'any'
       - name: ✅ Enable platforms
         run: flutter config --enable-macos-desktop
       - name: 📦 Get dependencies
@@ -458,7 +467,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
+          channel: 'any'
       - name: 📦 Get dependencies
         run: |
           flutter pub get

@@ -13,15 +13,23 @@ import '../views/main.dart';
 
 @immutable
 class Meta {
-  final String stableVersion, nightlyVersion, currentVersion;
+  final String stableVersion,
+      nightlyVersion,
+      developVersion,
+      mainVersion,
+      currentVersion;
 
   const Meta(
       {required this.stableVersion,
       required this.nightlyVersion,
+      required this.developVersion,
+      required this.mainVersion,
       required this.currentVersion});
   Meta.fromJson(Map<String, dynamic> json)
       : stableVersion = json['version']?['stable'] ?? '?',
         nightlyVersion = json['version']?['nightly'] ?? '?',
+        developVersion = json['version']?['develop'] ?? '?',
+        mainVersion = json['version']?['main'] ?? '?',
         currentVersion = json['currentVersion'];
 }
 
@@ -90,12 +98,19 @@ class GeneralSettingsPage extends StatelessWidget {
                             final currentVersion = meta.currentVersion;
                             final stableVersion = meta.stableVersion;
                             final nightlyVersion = meta.nightlyVersion;
+                            final developVersion = meta.developVersion;
+                            final mainVersion = meta.mainVersion;
                             final isStable = currentVersion == stableVersion;
                             final isNightly = currentVersion == nightlyVersion;
+                            final isDevelop = currentVersion == developVersion;
+                            final isMain = currentVersion == mainVersion;
                             final isError = meta.nightlyVersion == '?' ||
                                 meta.stableVersion == '?';
-                            final isUpdateAvailable =
-                                !isError && !isStable && !isNightly;
+                            final isUpdateAvailable = !isError &&
+                                !isStable &&
+                                !isNightly &&
+                                !isDevelop &&
+                                !isMain;
                             return Column(children: [
                               ListTile(
                                 title:

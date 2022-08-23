@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:butterfly/dialogs/camera.dart';
 import 'package:butterfly/services/import.dart';

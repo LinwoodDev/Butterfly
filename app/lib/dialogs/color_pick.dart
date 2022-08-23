@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:butterfly/api/open_help.dart';
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import.dart';
 import 'package:butterfly/main.dart';

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/export.dart';
@@ -12,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../api/open_image.dart';
+import '../api/open.dart';
 import '../bloc/document_bloc.dart';
 import '../widgets/exact_slider.dart';
 
