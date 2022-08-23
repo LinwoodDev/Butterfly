@@ -11,7 +11,8 @@ import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'file_system_io.dart';
-import 'file_system_html.dart';
+import 'file_system_html_stub.dart'
+    if (dart.library.js) 'file_system_html.dart';
 import 'file_system_remote.dart';
 
 abstract class GeneralFileSystem {

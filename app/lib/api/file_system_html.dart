@@ -1,4 +1,9 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:async';
+import 'dart:html' as html;
+import 'dart:js_util';
+import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
@@ -6,9 +11,34 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:idb_shim/idb.dart';
 import 'package:idb_shim/idb_browser.dart';
+import 'package:js/js.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'file_system.dart';
+
+@JS()
+@staticInterop
+class FileHandlingWindow {}
+
+extension FileHandlingWindowExtension on FileHandlingWindow {
+  external LaunchQueue get launchQueue;
+}
+
+@JS()
+class LaunchQueue {
+  external void setConsumer(void Function(LaunchParams) f);
+}
+
+@JS()
+class LaunchParams {
+  @JS('files')
+  external List get files;
+}
+
+@JS()
+class FileSystemHandle {
+  external Object getFile();
+}
 
 Database? _db;
 Future<Database> _getDatabase() async {
@@ -206,6 +236,63 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     }
     await txn.completed;
     return AppDocumentDirectory(AssetLocation.local(name), const []);
+  }
+
+  FileSystemHandle? _fs;
+
+  @override
+  Future<Uint8List?> loadAbsolute(String path) async {
+    try {
+      final fileWindow = html.window as FileHandlingWindow;
+      final completer = Completer<Uint8List?>();
+      void _complete(LaunchParams launchParams) async {
+        final files = launchParams.files.cast<FileSystemHandle>();
+        if (files.isEmpty) {
+          completer.complete(null);
+          return;
+        }
+        _fs = files.first;
+        final file = await promiseToFuture(_fs!.getFile());
+        final reader = html.FileReader();
+        reader.onLoad.listen((_) {
+          try {
+            final result = reader.result as Uint8List;
+            completer.complete(Uint8List.fromList(result));
+          } catch (e) {
+            completer.completeError(e);
+          }
+        });
+        reader.onError.listen((_) {
+          final error = reader.error;
+          if (error != null) {
+            completer.completeError(error);
+          } else {
+            completer.complete(null);
+          }
+        });
+        reader.readAsArrayBuffer(file);
+      }
+
+      fileWindow.launchQueue.setConsumer(allowInterop(_complete));
+      return completer.future;
+    } on NoSuchMethodError catch (e) {
+      if (kDebugMode) {
+        print('File handling feature not supported: $e');
+      }
+
+      return null;
+    }
+  }
+
+  @override
+  Future<void> saveAbsolute(String path, Uint8List bytes) async {
+    final a = html.document.createElement('a') as html.AnchorElement;
+    // Create data URL
+    final blob = html.Blob([bytes], 'text/plain');
+    final url = html.Url.createObjectUrl(blob);
+    a.href = url;
+    a.download = path;
+    a.click();
   }
 }
 
