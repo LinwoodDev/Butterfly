@@ -33,6 +33,7 @@ class EraserHandler extends Handler<EraserPainter> {
   }
 
   Future<void> submitElement(EventContext context, int index) async {
+    lastPositions.remove(index);
     var element = elements.remove(index);
     if (element == null) return;
     submittedElements.add(element);
