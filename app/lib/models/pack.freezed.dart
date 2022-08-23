@@ -22,6 +22,10 @@ ButterflyPack _$ButterflyPackFromJson(Map<String, dynamic> json) {
 mixin _$ButterflyPack {
   String get name => throw _privateConstructorUsedError;
   List<ButterflyComponent> get components => throw _privateConstructorUsedError;
+  @DateTimeJsonConverter()
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  @DateTimeJsonConverter()
+  DateTime get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +38,11 @@ abstract class $ButterflyPackCopyWith<$Res> {
   factory $ButterflyPackCopyWith(
           ButterflyPack value, $Res Function(ButterflyPack) then) =
       _$ButterflyPackCopyWithImpl<$Res>;
-  $Res call({String name, List<ButterflyComponent> components});
+  $Res call(
+      {String name,
+      List<ButterflyComponent> components,
+      @DateTimeJsonConverter() DateTime createdAt,
+      @DateTimeJsonConverter() DateTime updatedAt});
 }
 
 /// @nodoc
@@ -50,6 +58,8 @@ class _$ButterflyPackCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? components = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -60,6 +70,14 @@ class _$ButterflyPackCopyWithImpl<$Res>
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
               as List<ButterflyComponent>,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -71,7 +89,11 @@ abstract class _$$_ButterflyPackCopyWith<$Res>
           _$_ButterflyPack value, $Res Function(_$_ButterflyPack) then) =
       __$$_ButterflyPackCopyWithImpl<$Res>;
   @override
-  $Res call({String name, List<ButterflyComponent> components});
+  $Res call(
+      {String name,
+      List<ButterflyComponent> components,
+      @DateTimeJsonConverter() DateTime createdAt,
+      @DateTimeJsonConverter() DateTime updatedAt});
 }
 
 /// @nodoc
@@ -89,6 +111,8 @@ class __$$_ButterflyPackCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? components = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$_ButterflyPack(
       name: name == freezed
@@ -99,6 +123,14 @@ class __$$_ButterflyPackCopyWithImpl<$Res>
           ? _value._components
           : components // ignore: cast_nullable_to_non_nullable
               as List<ButterflyComponent>,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -108,7 +140,9 @@ class __$$_ButterflyPackCopyWithImpl<$Res>
 class _$_ButterflyPack implements _ButterflyPack {
   const _$_ButterflyPack(
       {this.name = '',
-      final List<ButterflyComponent> components = const <ButterflyComponent>[]})
+      final List<ButterflyComponent> components = const <ButterflyComponent>[],
+      @DateTimeJsonConverter() required this.createdAt,
+      @DateTimeJsonConverter() required this.updatedAt})
       : _components = components;
 
   factory _$_ButterflyPack.fromJson(Map<String, dynamic> json) =>
@@ -126,8 +160,15 @@ class _$_ButterflyPack implements _ButterflyPack {
   }
 
   @override
+  @DateTimeJsonConverter()
+  final DateTime createdAt;
+  @override
+  @DateTimeJsonConverter()
+  final DateTime updatedAt;
+
+  @override
   String toString() {
-    return 'ButterflyPack(name: $name, components: $components)';
+    return 'ButterflyPack(name: $name, components: $components, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -137,7 +178,9 @@ class _$_ButterflyPack implements _ButterflyPack {
             other is _$_ButterflyPack &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
-                .equals(other._components, _components));
+                .equals(other._components, _components) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
 
   @JsonKey(ignore: true)
@@ -145,7 +188,9 @@ class _$_ButterflyPack implements _ButterflyPack {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(_components));
+      const DeepCollectionEquality().hash(_components),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt));
 
   @JsonKey(ignore: true)
   @override
@@ -162,8 +207,11 @@ class _$_ButterflyPack implements _ButterflyPack {
 
 abstract class _ButterflyPack implements ButterflyPack {
   const factory _ButterflyPack(
-      {final String name,
-      final List<ButterflyComponent> components}) = _$_ButterflyPack;
+          {final String name,
+          final List<ButterflyComponent> components,
+          @DateTimeJsonConverter() required final DateTime createdAt,
+          @DateTimeJsonConverter() required final DateTime updatedAt}) =
+      _$_ButterflyPack;
 
   factory _ButterflyPack.fromJson(Map<String, dynamic> json) =
       _$_ButterflyPack.fromJson;
@@ -172,6 +220,12 @@ abstract class _ButterflyPack implements ButterflyPack {
   String get name;
   @override
   List<ButterflyComponent> get components;
+  @override
+  @DateTimeJsonConverter()
+  DateTime get createdAt;
+  @override
+  @DateTimeJsonConverter()
+  DateTime get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflyPackCopyWith<_$_ButterflyPack> get copyWith =>

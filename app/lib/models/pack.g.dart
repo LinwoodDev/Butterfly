@@ -13,12 +13,18 @@ _$_ButterflyPack _$$_ButterflyPackFromJson(Map json) => _$_ButterflyPack(
                   Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const <ButterflyComponent>[],
+      createdAt:
+          const DateTimeJsonConverter().fromJson(json['createdAt'] as int),
+      updatedAt:
+          const DateTimeJsonConverter().fromJson(json['updatedAt'] as int),
     );
 
 Map<String, dynamic> _$$_ButterflyPackToJson(_$_ButterflyPack instance) =>
     <String, dynamic>{
       'name': instance.name,
       'components': instance.components.map((e) => e.toJson()).toList(),
+      'createdAt': const DateTimeJsonConverter().toJson(instance.createdAt),
+      'updatedAt': const DateTimeJsonConverter().toJson(instance.updatedAt),
     };
 
 _$_ButterflyComponent _$$_ButterflyComponentFromJson(Map json) =>

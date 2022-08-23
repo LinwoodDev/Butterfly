@@ -1,3 +1,4 @@
+import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -9,6 +10,8 @@ class ButterflyPack with _$ButterflyPack {
   const factory ButterflyPack({
     @Default('') String name,
     @Default(<ButterflyComponent>[]) List<ButterflyComponent> components,
+    @DateTimeJsonConverter() required DateTime createdAt,
+    @DateTimeJsonConverter() required DateTime updatedAt,
   }) = _ButterflyPack;
 
   factory ButterflyPack.fromJson(Map<String, dynamic> json) =>

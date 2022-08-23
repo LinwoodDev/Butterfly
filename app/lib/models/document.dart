@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'element.dart';
+import 'pack.dart';
 import 'painter.dart';
 import 'palette.dart';
 import 'property.dart';
@@ -148,6 +149,7 @@ class AppDocument with _$AppDocument {
       @Default([]) List<Waypoint> waypoints,
       @Default([]) List<Area> areas,
       @Default([]) List<ExportPreset> exportPresets,
+      @Default([]) List<ButterflyPack> packs,
       required DateTime createdAt,
       @Default(HandProperty()) HandProperty handProperty,
       DateTime? updatedAt,

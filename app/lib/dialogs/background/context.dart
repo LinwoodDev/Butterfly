@@ -11,6 +11,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../actions/areas.dart';
 import '../../actions/color_palette.dart';
+import '../../actions/packs.dart';
 import '../../cubits/transform.dart';
 import '../../widgets/context_menu.dart';
 
@@ -78,6 +79,14 @@ class BackgroundContextMenu extends StatelessWidget {
                 close();
                 Actions.maybeInvoke<WaypointsIntent>(
                     context, WaypointsIntent(context));
+              }),
+          ListTile(
+              leading: const Icon(PhosphorIcons.packageLight),
+              title: Text(AppLocalizations.of(context)!.packs),
+              subtitle: Text(context.getShortcut('P', altKey: true)),
+              onTap: () {
+                close();
+                Actions.maybeInvoke<PacksIntent>(context, PacksIntent(context));
               }),
           if (state.embedding?.editable ?? true)
             ListTile(

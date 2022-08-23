@@ -12,6 +12,7 @@ import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/open.dart';
+import 'package:butterfly/actions/packs.dart';
 import 'package:butterfly/actions/pdf_export.dart';
 import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
@@ -317,6 +318,10 @@ class _ProjectPageState extends State<ProjectPage> {
                         ChangePathIntent(context),
                     LogicalKeySet(LogicalKeyboardKey.control,
                         LogicalKeyboardKey.keyS): SaveIntent(context),
+                    LogicalKeySet(
+                        LogicalKeyboardKey.control,
+                        LogicalKeyboardKey.alt,
+                        LogicalKeyboardKey.keyP): PacksIntent(context),
                   },
                 },
                 child: Actions(
@@ -341,6 +346,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       InsertIntent: InsertAction(),
                       ChangePathIntent: ChangePathAction(),
                       SaveIntent: SaveAction(),
+                      PacksIntent: PacksAction(),
                     },
                     child: SafeArea(
                       child: ClipRect(

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:butterfly/main.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/foundation.dart';
@@ -241,7 +242,11 @@ class IOTemplateFileSystem extends TemplateFileSystem {
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
-    await file.writeAsString(jsonEncode(template.toJson()));
+    await file.writeAsString(jsonEncode({
+      ...template.toJson(),
+      'type': 'template',
+      'fileVersion': kFileVersion,
+    }));
   }
 
   @override
