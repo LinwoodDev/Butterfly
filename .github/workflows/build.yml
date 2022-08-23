@@ -23,6 +23,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
       - name: 📦 Get dependencies
         run: |
           flutter pub get
@@ -69,6 +70,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
@@ -136,6 +138,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
@@ -233,6 +236,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
@@ -289,6 +293,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
       - name: ✅ Enable platforms
         run: flutter config --enable-macos-desktop
       - name: 📦 Get dependencies
@@ -462,6 +467,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
       - name: 📦 Get dependencies
         run: |
           flutter pub get
