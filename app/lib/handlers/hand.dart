@@ -187,6 +187,7 @@ class HandHandler extends Handler<HandProperty> {
       if (hit != null) _selected.add(hit);
     }
     context.refresh();
+    final actions = context.getActions();
     if (_selected.isEmpty) {
       await showContextMenu(
         context: context.buildContext,
@@ -194,7 +195,7 @@ class HandHandler extends Handler<HandProperty> {
         builder: (ctx, close) => MultiBlocProvider(
           providers: providers,
           child: Actions(
-            actions: context.getActions(),
+            actions: actions,
             child: RepositoryProvider.value(
               value: context.getImportService(),
               child: BackgroundContextMenu(
