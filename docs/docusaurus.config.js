@@ -187,7 +187,7 @@ module.exports = {
                             path: "1.5",
                         },
                         "1.4": {
-                            label: "1.4.2",
+                            label: "1.4.3",
                             path: "1.4",
                         },
                         "1.3": {
