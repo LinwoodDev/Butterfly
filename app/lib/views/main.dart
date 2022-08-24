@@ -72,6 +72,28 @@ class _ProjectPageState extends State<ProjectPage> {
   late CurrentIndexCubit _currentIndexCubit;
   TransformCubit? _transformCubit;
   final GlobalKey _viewportKey = GlobalKey();
+  final actions = <Type, Action<Intent>>{
+    UndoIntent: UndoAction(),
+    RedoIntent: RedoAction(),
+    NewIntent: NewAction(),
+    OpenIntent: OpenAction(),
+    ImportIntent: ImportAction(),
+    SvgExportIntent: SvgExportAction(),
+    ImageExportIntent: ImageExportAction(),
+    PdfExportIntent: PdfExportAction(),
+    ExportIntent: ExportAction(),
+    EditModeIntent: EditModeAction(),
+    SettingsIntent: SettingsAction(),
+    ProjectIntent: ProjectAction(),
+    WaypointsIntent: WaypointsAction(),
+    AreasIntent: AreasAction(),
+    ColorPaletteIntent: ColorPaletteAction(),
+    BackgroundIntent: BackgroundAction(),
+    LayersIntent: LayersAction(),
+    InsertIntent: InsertAction(),
+    ChangePathIntent: ChangePathAction(),
+    SaveIntent: SaveAction(),
+  };
 
   @override
   void initState() {
@@ -320,90 +342,64 @@ class _ProjectPageState extends State<ProjectPage> {
                   },
                 },
                 child: Actions(
-                    actions: <Type, Action<Intent>>{
-                      UndoIntent: UndoAction(),
-                      RedoIntent: RedoAction(),
-                      NewIntent: NewAction(),
-                      OpenIntent: OpenAction(),
-                      ImportIntent: ImportAction(),
-                      SvgExportIntent: SvgExportAction(),
-                      ImageExportIntent: ImageExportAction(),
-                      PdfExportIntent: PdfExportAction(),
-                      ExportIntent: ExportAction(),
-                      EditModeIntent: EditModeAction(),
-                      SettingsIntent: SettingsAction(),
-                      ProjectIntent: ProjectAction(),
-                      WaypointsIntent: WaypointsAction(),
-                      AreasIntent: AreasAction(),
-                      ColorPaletteIntent: ColorPaletteAction(),
-                      BackgroundIntent: BackgroundAction(),
-                      LayersIntent: LayersAction(),
-                      InsertIntent: InsertAction(),
-                      ChangePathIntent: ChangePathAction(),
-                      SaveIntent: SaveAction(),
-                    },
-                    child: SafeArea(
-                      child: ClipRect(
-                        child: Builder(builder: (context) {
-                          PreferredSizeWidget appBar = PadAppBar(
+                  actions: actions,
+                  child: SafeArea(
+                    child: ClipRect(
+                      child: Focus(
+                        autofocus: true,
+                        child: FocusScope(
+                            child: Scaffold(
+                          appBar: PadAppBar(
                             viewportKey: _viewportKey,
-                          );
-                          return Focus(
-                              autofocus: true,
-                              child: FocusScope(
-                                child: Scaffold(
-                                    appBar: appBar,
-                                    body: LayoutBuilder(
-                                        builder: (context, constraints) {
-                                      final isMobile =
-                                          MediaQuery.of(context).size.width <
-                                              800;
-                                      final isLandscape =
-                                          MediaQuery.of(context).size.height <
-                                              400;
-                                      const property = PropertyView();
-                                      return Stack(
+                          ),
+                          body: Actions(
+                              actions: actions,
+                              child: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                final isMobile =
+                                    MediaQuery.of(context).size.width < 800;
+                                final isLandscape =
+                                    MediaQuery.of(context).size.height < 400;
+                                const property = PropertyView();
+                                return Stack(
+                                  children: [
+                                    Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
                                         children: [
-                                          Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              children: [
-                                                Expanded(
-                                                    key: _viewportKey,
-                                                    child: Stack(
-                                                      children: [
-                                                        const MainViewViewport(),
-                                                        Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: const [
-                                                              ColorView(),
-                                                            ]),
-                                                        if (!isLandscape)
-                                                          property
-                                                      ],
-                                                    )),
-                                                if (isMobile)
-                                                  Align(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: EditToolbar(
-                                                              isMobile:
-                                                                  isMobile))),
-                                              ]),
-                                          if (isLandscape) property
-                                        ],
-                                      );
-                                    })),
-                              ));
-                        }),
+                                          Expanded(
+                                              key: _viewportKey,
+                                              child: Stack(
+                                                children: [
+                                                  const MainViewViewport(),
+                                                  Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: const [
+                                                        ColorView(),
+                                                      ]),
+                                                  if (!isLandscape) property
+                                                ],
+                                              )),
+                                          if (isMobile)
+                                            Align(
+                                                alignment: Alignment.center,
+                                                child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: EditToolbar(
+                                                        isMobile: isMobile))),
+                                        ]),
+                                    if (isLandscape) property
+                                  ],
+                                );
+                              })),
+                        )),
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               );
             }),
           )),

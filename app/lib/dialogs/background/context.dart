@@ -36,11 +36,11 @@ class BackgroundContextMenu extends StatelessWidget {
               subtitle: Text(context.getShortcut('N', altKey: true)),
               onTap: () {
                 var transformCubit = context.read<TransformCubit>();
-                close();
-                Actions.maybeInvoke<InsertIntent>(
+                Actions.invoke<InsertIntent>(
                     context,
                     InsertIntent(
                         context, transformCubit.state.localToGlobal(position)));
+                close();
               },
             ),
           ListTile(

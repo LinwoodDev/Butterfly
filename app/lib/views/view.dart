@@ -97,12 +97,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
         var openView = false;
         final CurrentIndexCubit cubit = context.read<CurrentIndexCubit>();
 
-        EventContext getEventContext() => EventContext(
-            context,
-            constraints.biggest,
-            _isShiftPressed,
-            _isAltPressed,
-            _isCtrlPressed);
+        EventContext getEventContext() {
+          return EventContext(context, constraints.biggest, _isShiftPressed,
+              _isAltPressed, _isCtrlPressed);
+        }
 
         return GestureDetector(
             onTapUp: (details) {
