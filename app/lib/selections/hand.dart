@@ -34,4 +34,7 @@ class HandSelection extends Selection<Hand> {
   @override
   IconData getIcon({bool filled = false}) =>
       filled ? PhosphorIcons.handFill : PhosphorIcons.handLight;
+
+  @override
+  List<String> get help => ['painters', 'hand'];
 }
