@@ -116,13 +116,12 @@ class HandHandler extends Handler<HandProperty> {
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) async {
-    _onSelectionAdd(context, details.globalPosition, false);
+    _onSelectionAdd(context, details.localPosition, false);
   }
 
   @override
-  void onLongPressDown(
-      LongPressDownDetails details, EventContext eventContext) {
-    _onSelectionAdd(eventContext, details.globalPosition, true);
+  void onLongPressEnd(LongPressEndDetails details, EventContext context) {
+    _onSelectionAdd(context, details.localPosition, true);
   }
 
   Future<void> _onSelectionAdd(EventContext context, Offset localPosition,
@@ -142,7 +141,7 @@ class HandHandler extends Handler<HandProperty> {
       return;
     }
     final hit = hits.first;
-    if (context.isCtrlPressed) {
+    if (context.isCtrlPressed || forceAdd) {
       if (_selected.contains(hit)) {
         _selected.remove(hit);
       } else {
@@ -263,10 +262,12 @@ class HandHandler extends Handler<HandProperty> {
 
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
-    final freeSelection = _freeSelection;
-    if (freeSelection != null) {
+    final freeSelection = _freeSelection?.normalized();
+    if (freeSelection != null && !freeSelection.isEmpty) {
       _freeSelection = null;
-      _selected.clear();
+      if (!context.isCtrlPressed) {
+        _selected.clear();
+      }
       final hits = await rayCastRect(
           context.buildContext, freeSelection, data.includeEraser);
       _selected.addAll(hits);
