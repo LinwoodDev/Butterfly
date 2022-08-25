@@ -1,35 +1,35 @@
 ---
 id: "faq"
 slug: "/faq"
-title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+title: "Preguntas frecuentes
+sidebar_label: "Preguntas frecuentes"
 ---
 
-Here are some frequently asked questions.
+He aquí algunas preguntas frecuentes.
 
 ## Web
 
-### How do I install the web version?
+### ¿Cómo instalo la versión web?
 
-You can install the web version by clicking on the install button in the title bar.
-After that you can use this app offline.
+Puede instalar la versión web haciendo clic en el botón instalar en la barra de título.
+Después puedes usar esta aplicación sin conexión.
 
-### Cannot insert images in web
+### No se pueden insertar imágenes en la web
 
 > [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
 
-Currently decoding images does not work with canvaskit.
-Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!
+Actualmente las imágenes de decodificación no funcionan con canvaskit.
+¡Por favor vota [este problema](https://github.com/flutter/flutter/issues/102683) si quieres esta opción!
 
 ## Desktop
 
-### Stylus input are not recognized
+### La entrada de Stylus no es reconocida
 
 > [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
 
-I'm using the input provided by the flutter framework.
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+Estoy usando la entrada proporcionada por el framework de flujos.
+Ya hay problemas para rastrearlo:
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) y [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
-These issues are a bit older. The web version should work fine for now.
+Estas cuestiones son un poco más antiguas. La versión web debería funcionar bien por ahora.
