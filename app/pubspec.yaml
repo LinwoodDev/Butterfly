@@ -57,6 +57,7 @@ dependencies:
   ffi: ^2.0.1
   connectivity_plus: ^2.3.6+1
   archive: ^3.3.0
+  animations: ^2.0.3
 dev_dependencies:
   flutter_native_splash: ^2.2.8
   flutter_launcher_icons: ^0.10.0

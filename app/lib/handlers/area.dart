@@ -32,7 +32,7 @@ class AreaHandler extends Handler<AreaPainter> {
       showContextMenu(
         position: event.position,
         context: context.buildContext,
-        builder: (context, close) => MultiBlocProvider(
+        builder: (context) => MultiBlocProvider(
             providers: [
               BlocProvider<DocumentBloc>.value(
                 value: bloc,
@@ -42,7 +42,6 @@ class AreaHandler extends Handler<AreaPainter> {
               ),
             ],
             child: AreaContextMenu(
-              close: close,
               position: event.localPosition,
               area: (state?.currentArea ?? area)!,
             )),

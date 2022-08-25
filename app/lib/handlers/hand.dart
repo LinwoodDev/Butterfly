@@ -188,14 +188,13 @@ class HandHandler extends Handler<HandProperty> {
       await showContextMenu(
         context: context.buildContext,
         position: localPosition,
-        builder: (ctx, close) => MultiBlocProvider(
+        builder: (ctx) => MultiBlocProvider(
           providers: providers,
           child: Actions(
             actions: actions,
             child: RepositoryProvider.value(
               value: context.getImportService(),
               child: BackgroundContextMenu(
-                close: close,
                 position: localPosition,
               ),
             ),
@@ -207,16 +206,14 @@ class HandHandler extends Handler<HandProperty> {
     await showContextMenu(
         context: context.buildContext,
         position: localPosition,
-        builder: (ctx, close) => MultiBlocProvider(
+        builder: (ctx) => MultiBlocProvider(
             providers: context.getProviders(),
             child: RepositoryProvider.value(
               value: context.getImportService(),
               child: Actions(
                 actions: context.getActions(),
                 child: ElementsDialog(
-                    close: close,
-                    position: localPosition,
-                    renderers: _selected),
+                    position: localPosition, renderers: _selected),
               ),
             )));
     _selected.clear();
