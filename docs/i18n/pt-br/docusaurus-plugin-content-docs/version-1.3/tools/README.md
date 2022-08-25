@@ -1,5 +1,5 @@
 ---
-slug: /Ferramentas
+slug: /tools
 title: "Ferramentas"
 sidebar_label: "Introdução"
 sidebar_position: 0
