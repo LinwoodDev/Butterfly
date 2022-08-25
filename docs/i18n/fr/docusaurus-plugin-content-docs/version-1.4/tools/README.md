@@ -1,5 +1,5 @@
 ---
-slug: /outils/
+slug: /tools
 title: "Outils"
 sidebar_label: "Introduction"
 sidebar_position: 0
