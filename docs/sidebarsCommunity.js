@@ -25,6 +25,7 @@ module.exports = {
         'embed/playground',
       ]
     },
+    'faq',
     'versions',
     'nightly',
     'privacypolicy',
