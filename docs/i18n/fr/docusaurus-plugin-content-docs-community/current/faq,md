@@ -1,35 +1,35 @@
 ---
 id: "faq"
 slug: "/faq"
-title: "Frequently Asked Questions"
+title: "Foire aux Questions"
 sidebar_label: "FAQ"
 ---
 
-Here are some frequently asked questions.
+Voici quelques questions fréquemment posées.
 
 ## Web
 
-### How do I install the web version?
+### Comment installer la version web ?
 
-You can install the web version by clicking on the install button in the title bar.
-After that you can use this app offline.
+Vous pouvez installer la version web en cliquant sur le bouton d'installation dans la barre de titre.
+Après cela, vous pouvez utiliser cette application hors ligne.
 
-### Cannot insert images in web
+### Impossible d'insérer des images sur le web
 
 > [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
 
-Currently decoding images does not work with canvaskit.
-Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!
+Actuellement, le décodage des images ne fonctionne pas avec canvaskit.
+Veuillez voter pour [ce problème](https://github.com/flutter/flutter/issues/102683) si vous voulez cette option !
 
 ## Desktop
 
-### Stylus input are not recognized
+### L'entrée de Stylus n'est pas reconnue
 
 > [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
 
-I'm using the input provided by the flutter framework.
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+J'utilise l'entrée fournie par le cadre flutter.
+Il y a déjà des problèmes à suivre:
+Windows : [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) et [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
-These issues are a bit older. The web version should work fine for now.
+Ces questions sont un peu plus anciennes. La version web devrait fonctionner correctement pour le moment.
