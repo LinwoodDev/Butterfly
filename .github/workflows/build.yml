@@ -34,8 +34,8 @@ jobs:
           KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
         run: |
           cd android
-          echo "$KEY_PROPERTIES" | base64 --decode > key.properties
-          echo "$KEY_JKS" | base64 --decode > key.jks
+          if [[ -n "$KEY_PROPERTIES" ]] ; then echo "$KEY_PROPERTIES" | base64 --decode > key.properties  ; fi
+          if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
       #- run: flutter test
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' }}
@@ -432,7 +432,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
     runs-on: ubuntu-22.04
-    if: startsWith(github.ref, 'refs/tags/')
+    if: startsWith(github.ref, 'refs/tags/') && secrets.PLAY_STORE_CREDENTIALS != ''
     defaults:
       run:
         working-directory: app
@@ -452,8 +452,8 @@ jobs:
           PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
         run: |
           cd android
-          echo "$KEY_PROPERTIES" | base64 --decode > key.properties
-          echo "$KEY_JKS" | base64 --decode > key.jks
+          if [[ -n "$KEY_PROPERTIES" ]] ; then echo "$KEY_PROPERTIES" | base64 --decode > key.properties  ; fi
+          if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
           echo "$PLAY_STORE_CREDENTIALS" | base64 --decode > play-store-credentials.json
       - name: 🔧 Setup java
         uses: actions/setup-java@v3
