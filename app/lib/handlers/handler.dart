@@ -155,6 +155,9 @@ abstract class Handler<T> {
   }
 
   static Handler fromPainter(Painter painter) {
+    if (painter is HandPainter) {
+      return HandHandler(painter);
+    }
     if (painter is PenPainter) {
       return PenHandler(painter);
     }
@@ -179,7 +182,7 @@ abstract class Handler<T> {
     if (painter is LaserPainter) {
       return LaserHandler(painter);
     }
-    return HandHandler(const HandProperty());
+    throw Exception('Unknown painter type: ${painter.runtimeType}');
   }
 }
 

@@ -123,7 +123,7 @@ class DocumentLoadSuccess extends DocumentState {
       currentIndexCubit.bake(document,
           viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
 
-  Painter get painter => currentIndexCubit.state.handler.data;
+  Painter get painter => currentIndexCubit.state.handler?.data;
 }
 
 class DocumentLoadFailure extends DocumentState {}

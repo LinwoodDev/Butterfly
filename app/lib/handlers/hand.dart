@@ -22,7 +22,7 @@ class HandSelectionRenderer extends Renderer<Rect> {
   }
 }
 
-class HandHandler extends Handler<HandProperty> {
+class HandHandler extends Handler<HandPainter> {
   List<Renderer<PadElement>> _movingElements = [];
   List<Renderer<PadElement>> _selected = [];
   Offset? _currentMovePosition;

@@ -9,8 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../selections/selection.dart';
-
 class EditToolbar extends StatefulWidget {
   final bool isMobile;
 
@@ -71,37 +69,37 @@ class _EditToolbarState extends State<EditToolbar> {
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         children: [
-                          OptionButton(
-                            tooltip: AppLocalizations.of(context)!.hand,
-                            selected:
-                                context.read<CurrentIndexCubit>().getIndex() <
-                                    0,
-                            highlighted: currentIndex.selection?.selected
-                                    .contains(kHand) ??
-                                false,
-                            icon: const Icon(PhosphorIcons.handLight),
-                            selectedIcon: const Icon(PhosphorIcons.handFill),
-                            onLongPressed: () => context
-                                .read<CurrentIndexCubit>()
-                                .changeSelection(kHand),
-                            onPressed: () {
-                              context
-                                  .read<CurrentIndexCubit>()
-                                  .resetSelection();
-                              if (context
-                                      .read<CurrentIndexCubit>()
-                                      .getPainter(state.document) ==
-                                  null) {
-                                context
-                                    .read<CurrentIndexCubit>()
-                                    .changeSelection(kHand);
-                              } else {
-                                context
-                                    .read<CurrentIndexCubit>()
-                                    .reset(state.document);
-                              }
-                            },
-                          ),
+                          // OptionButton(
+                          //   tooltip: AppLocalizations.of(context)!.hand,
+                          //   selected:
+                          //       context.read<CurrentIndexCubit>().getIndex() <
+                          //           0,
+                          //   highlighted: currentIndex.selection?.selected
+                          //           .contains(kHand) ??
+                          //       false,
+                          //   icon: const Icon(PhosphorIcons.handLight),
+                          //   selectedIcon: const Icon(PhosphorIcons.handFill),
+                          //   onLongPressed: () => context
+                          //       .read<CurrentIndexCubit>()
+                          //       .changeSelection(kHand),
+                          //   onPressed: () {
+                          //     context
+                          //         .read<CurrentIndexCubit>()
+                          //         .resetSelection();
+                          //     if (context
+                          //             .read<CurrentIndexCubit>()
+                          //             .getPainter(state.document) ==
+                          //         null) {
+                          //       context
+                          //           .read<CurrentIndexCubit>()
+                          //           .changeSelection(kHand);
+                          //     } else {
+                          //       context
+                          //           .read<CurrentIndexCubit>()
+                          //           .reset(state.document);
+                          //     }
+                          //   },
+                          // ),
                           if (state.embedding?.editable ?? true) ...[
                             const VerticalDivider(),
                             ReorderableListView.builder(
@@ -195,13 +193,19 @@ class _EditToolbarState extends State<EditToolbar> {
                                         }
                                         final painter = e();
                                         return PopupMenuItem<Painter>(
-                                            value: painter,
-                                            child: ListTile(
-                                              mouseCursor: MouseCursor.defer,
-                                              title: Text(painter
-                                                  .getLocalizedName(context)),
-                                              leading: Icon(painter.getIcon()),
-                                            ));
+                                          value: painter,
+                                          child: ListTile(
+                                            mouseCursor: MouseCursor.defer,
+                                            title: Text(painter
+                                                .getLocalizedName(context)),
+                                            leading: Icon(painter.getIcon()),
+                                            trailing: IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                  PhosphorIcons.pushPinLight),
+                                            ),
+                                          ),
+                                        );
                                       })
                                     ])
                           ]

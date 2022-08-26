@@ -43,6 +43,14 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
         json['background'] = Map<String, dynamic>.from(json['background'] ?? {})
           ..['type'] = 'box';
       }
+      if (fileVersion < 6) {
+        json['painters'] = [
+          {'type': 'hand', ...json['handProperty']},
+          {'type': 'undo'},
+          {'type': 'redo'},
+          ...json['painters']
+        ];
+      }
     }
     if (json['background']?['type'] == null) {
       json['background'] = {'type': 'empty'};

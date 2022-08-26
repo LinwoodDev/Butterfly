@@ -16,8 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CurrentIndex {
-  int get index => throw _privateConstructorUsedError;
-  Handler<dynamic> get handler => throw _privateConstructorUsedError;
+  int? get index => throw _privateConstructorUsedError;
+  Handler<dynamic>? get handler => throw _privateConstructorUsedError;
   SettingsCubit get settingsCubit => throw _privateConstructorUsedError;
   TransformCubit get transformCubit => throw _privateConstructorUsedError;
   int? get temporaryIndex => throw _privateConstructorUsedError;
@@ -44,8 +44,8 @@ abstract class $CurrentIndexCopyWith<$Res> {
           CurrentIndex value, $Res Function(CurrentIndex) then) =
       _$CurrentIndexCopyWithImpl<$Res>;
   $Res call(
-      {int index,
-      Handler<dynamic> handler,
+      {int? index,
+      Handler<dynamic>? handler,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
       int? temporaryIndex,
@@ -93,11 +93,11 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
       index: index == freezed
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       handler: handler == freezed
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
-              as Handler<dynamic>,
+              as Handler<dynamic>?,
       settingsCubit: settingsCubit == freezed
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
@@ -169,8 +169,8 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
       __$$_CurrentIndexCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int index,
-      Handler<dynamic> handler,
+      {int? index,
+      Handler<dynamic>? handler,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
       int? temporaryIndex,
@@ -222,11 +222,11 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
       index == freezed
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       handler == freezed
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
-              as Handler<dynamic>,
+              as Handler<dynamic>?,
       settingsCubit == freezed
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
@@ -305,9 +305,9 @@ class _$_CurrentIndex extends _CurrentIndex {
         super._();
 
   @override
-  final int index;
+  final int? index;
   @override
-  final Handler<dynamic> handler;
+  final Handler<dynamic>? handler;
   @override
   final SettingsCubit settingsCubit;
   @override
@@ -417,7 +417,7 @@ class _$_CurrentIndex extends _CurrentIndex {
 }
 
 abstract class _CurrentIndex extends CurrentIndex {
-  const factory _CurrentIndex(final int index, final Handler<dynamic> handler,
+  const factory _CurrentIndex(final int? index, final Handler<dynamic>? handler,
       final SettingsCubit settingsCubit, final TransformCubit transformCubit,
       {final int? temporaryIndex,
       final Handler<dynamic>? temporaryHandler,
@@ -433,9 +433,9 @@ abstract class _CurrentIndex extends CurrentIndex {
   const _CurrentIndex._() : super._();
 
   @override
-  int get index;
+  int? get index;
   @override
-  Handler<dynamic> get handler;
+  Handler<dynamic>? get handler;
   @override
   SettingsCubit get settingsCubit;
   @override

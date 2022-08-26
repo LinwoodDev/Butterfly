@@ -11,7 +11,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'element.dart';
 import 'painter.dart';
 import 'palette.dart';
-import 'property.dart';
 import 'waypoint.dart';
 
 part 'document.freezed.dart';
@@ -149,7 +148,6 @@ class AppDocument with _$AppDocument {
       @Default([]) List<Area> areas,
       @Default([]) List<ExportPreset> exportPresets,
       required DateTime createdAt,
-      @Default(HandProperty()) HandProperty handProperty,
       DateTime? updatedAt,
       @Default([]) List<Painter> painters}) = _AppDocument;
 

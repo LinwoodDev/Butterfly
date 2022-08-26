@@ -31,8 +31,8 @@ part 'current_index.freezed.dart';
 class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
   const factory CurrentIndex(
-    int index,
-    Handler handler,
+    int? index,
+    Handler? handler,
     SettingsCubit settingsCubit,
     TransformCubit transformCubit, {
     int? temporaryIndex,
@@ -55,11 +55,12 @@ class CurrentIndex with _$CurrentIndex {
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
   CurrentIndexCubit(AppDocument document, SettingsCubit settingsCubit,
       TransformCubit transformCubit, Embedding? embedding)
-      : super(CurrentIndex(-1, HandHandler(document.handProperty),
-            settingsCubit, transformCubit,
-            embedding: embedding));
+      : super(CurrentIndex(null, null, settingsCubit, transformCubit,
+            embedding: embedding)) {
+    changePainter(document, null, 0);
+  }
 
-  Handler getHandler({bool disableTemporary = false}) {
+  Handler? getHandler({bool disableTemporary = false}) {
     if (disableTemporary) {
       return state.handler;
     } else {
@@ -99,13 +100,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final handler = state.handler;
     if (!isClosed) {
       emit(state.copyWith(
-        foregrounds: handler.createForegrounds(this, document, currentArea),
+        foregrounds:
+            handler?.createForegrounds(this, document, currentArea) ?? [],
       ));
     }
   }
 
   Painter? getPainter(AppDocument document) {
     var index = state.index;
+    if (index == null) {
+      return null;
+    }
     if (document.painters.isEmpty ||
         index < 0 ||
         index >= document.painters.length) {
@@ -122,8 +127,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void reset(AppDocument document) {
     emit(state.copyWith(
-      index: -1,
-      handler: HandHandler(document.handProperty),
+      index: null,
+      handler: null,
       foregrounds: [],
       temporaryIndex: null,
       temporaryHandler: null,
@@ -149,16 +154,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final handler = Handler.fromPainter(painter);
     emit(state.copyWith(
       temporaryIndex: index,
-      temporaryHandler: handler,
-      foregrounds: handler.createForegrounds(this, document, currentArea),
-    ));
-    return handler;
-  }
-
-  Handler? changeTemporaryHandlerHand(AppDocument document, Area? currentArea) {
-    final handler = HandHandler(document.handProperty);
-    emit(state.copyWith(
-      temporaryIndex: -1,
       temporaryHandler: handler,
       foregrounds: handler.createForegrounds(this, document, currentArea),
     ));
@@ -198,7 +193,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ));
   }
 
-  int getIndex({bool disableTemporary = false}) {
+  int? getIndex({bool disableTemporary = false}) {
     if (disableTemporary) {
       return state.index;
     } else {
@@ -398,7 +393,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void updateIndex(AppDocument document) {
-    final index = document.painters.indexOf(state.handler.data);
+    final index = document.painters.indexOf(state.handler?.data);
     if (index < 0) {
       reset(document);
       return;

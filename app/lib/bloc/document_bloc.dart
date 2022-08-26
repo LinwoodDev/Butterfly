@@ -16,7 +16,6 @@ import '../embed/embedding.dart';
 import '../models/area.dart';
 import '../models/element.dart';
 import '../models/export.dart';
-import '../models/property.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';
 
@@ -111,9 +110,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         current.currentIndexCubit.unbake(unbakedElements: renderers);
         if (oldRenderer == null || newRenderer == null) return;
-        if (await current.currentIndexCubit
-            .getHandler()
-            .onRendererUpdated(current.document, oldRenderer, newRenderer)) {
+        if ((await current.currentIndexCubit.getHandler()?.onRendererUpdated(
+                current.document, oldRenderer, newRenderer)) ??
+            false) {
           refresh();
         }
         final document = current.document;
@@ -213,8 +212,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 return e;
               }
             }).toList())));
-        final updatedCurrent =
-            event.updatedPainters[current.currentIndexCubit.state.handler.data];
+        final updatedCurrent = event
+            .updatedPainters[current.currentIndexCubit.state.handler?.data];
         if (updatedCurrent != null) {
           current.currentIndexCubit.updatePainter(
               current.document, current.currentArea, updatedCurrent);
@@ -252,16 +251,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         painters.insert(newIndex, item);
         final cubit = current.currentIndexCubit;
         var nextCurrentIndex = cubit.state.index;
-        if (nextCurrentIndex == oldIndex) {
-          nextCurrentIndex = newIndex;
-        } else if (nextCurrentIndex > oldIndex &&
-            nextCurrentIndex <= newIndex) {
-          nextCurrentIndex -= 1;
-        } else if (nextCurrentIndex < oldIndex &&
-            nextCurrentIndex >= newIndex) {
-          nextCurrentIndex += 1;
+        if (nextCurrentIndex != null) {
+          if (nextCurrentIndex == oldIndex) {
+            nextCurrentIndex = newIndex;
+          } else if (nextCurrentIndex > oldIndex &&
+              nextCurrentIndex <= newIndex) {
+            nextCurrentIndex -= 1;
+          } else if (nextCurrentIndex < oldIndex &&
+              nextCurrentIndex >= newIndex) {
+            nextCurrentIndex += 1;
+          }
+          cubit.changeIndex(nextCurrentIndex);
         }
-        cubit.changeIndex(nextCurrentIndex);
         return _saveDocument(
             emit,
             current.copyWith(
@@ -307,17 +308,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 document: current.document.copyWith(
                     waypoints: List<Waypoint>.from(current.document.waypoints)
                       ..removeAt(event.index))));
-      }
-    });
-    on<HandPropertyChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        return _saveDocument(
-            emit,
-            current.copyWith(
-                document:
-                    current.document.copyWith(handProperty: event.property)));
       }
     });
 
