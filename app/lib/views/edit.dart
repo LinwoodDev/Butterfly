@@ -169,15 +169,19 @@ class _EditToolbarState extends State<EditToolbar> {
                                   ..add(PainterReordered(oldIndex, newIndex))),
                             const VerticalDivider(),
                             PopupMenuButton<Painter>(
-                                tooltip: AppLocalizations.of(context)!.create,
+                                tooltip: AppLocalizations.of(context)!.more,
                                 onSelected: (value) => context
                                     .read<DocumentBloc>()
                                     .add(PainterCreated(value)),
-                                icon: const Icon(PhosphorIcons.plusLight),
+                                icon: const Icon(PhosphorIcons.listLight),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16)),
                                 itemBuilder: (context) => [
                                       ...[
+                                        Painter.hand,
+                                        Painter.undo,
+                                        Painter.redo,
+                                        null,
                                         Painter.pen,
                                         Painter.shape,
                                         Painter.pathEraser,
@@ -186,6 +190,9 @@ class _EditToolbarState extends State<EditToolbar> {
                                         Painter.layer,
                                         Painter.area
                                       ].map((e) {
+                                        if (e == null) {
+                                          return const PopupMenuDivider();
+                                        }
                                         final painter = e();
                                         return PopupMenuItem<Painter>(
                                             value: painter,

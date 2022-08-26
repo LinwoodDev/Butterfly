@@ -24,10 +24,8 @@ import '../actions/new.dart';
 import '../actions/open.dart';
 import '../actions/pdf_export.dart';
 import '../actions/project.dart';
-import '../actions/redo.dart';
 import '../actions/save.dart';
 import '../actions/settings.dart';
-import '../actions/undo.dart';
 import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/transform.dart';
@@ -60,7 +58,6 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
             toolbarHeight: _height,
             leading: _MainPopupMenu(
               viewportKey: viewportKey,
-              hideUndoRedo: !isMobile,
             ),
             title: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                 builder: (context, currentIndex) =>
@@ -233,29 +230,6 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
               BlocBuilder<DocumentBloc, DocumentState>(
                 builder: (context, state) => Row(
                   children: [
-                    if (!isMobile) ...[
-                      IconButton(
-                        icon: const Icon(
-                            PhosphorIcons.arrowCounterClockwiseLight),
-                        tooltip: AppLocalizations.of(context)!.undo,
-                        onPressed: !bloc.canUndo
-                            ? null
-                            : () {
-                                Actions.maybeInvoke<UndoIntent>(
-                                    context, UndoIntent(context));
-                              },
-                      ),
-                      IconButton(
-                        icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                        tooltip: AppLocalizations.of(context)!.redo,
-                        onPressed: !bloc.canRedo
-                            ? null
-                            : () {
-                                Actions.maybeInvoke<RedoIntent>(
-                                    context, RedoIntent(context));
-                              },
-                      ),
-                    ],
                     if (!kIsWeb && isWindow()) ...[
                       const VerticalDivider(),
                       const WindowButtons()
@@ -276,9 +250,8 @@ class _MainPopupMenu extends StatelessWidget {
   final TextEditingController _scaleController =
       TextEditingController(text: '100');
   final GlobalKey viewportKey;
-  final bool hideUndoRedo;
 
-  _MainPopupMenu({required this.viewportKey, this.hideUndoRedo = false});
+  _MainPopupMenu({required this.viewportKey});
 
   @override
   Widget build(BuildContext context) {
@@ -294,40 +267,6 @@ class _MainPopupMenu extends StatelessWidget {
         iconSize: 36,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         itemBuilder: (context) => <PopupMenuEntry>[
-          if (!hideUndoRedo)
-            PopupMenuItem(
-              enabled: false,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: IconTheme(
-                data: Theme.of(context).iconTheme,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon:
-                          const Icon(PhosphorIcons.arrowCounterClockwiseLight),
-                      tooltip: AppLocalizations.of(context)!.undo,
-                      onPressed: !bloc.canUndo
-                          ? null
-                          : () {
-                              Actions.maybeInvoke<UndoIntent>(
-                                  context, UndoIntent(context));
-                            },
-                    ),
-                    IconButton(
-                      icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                      tooltip: AppLocalizations.of(context)!.redo,
-                      onPressed: !bloc.canRedo
-                          ? null
-                          : () {
-                              Actions.maybeInvoke<RedoIntent>(
-                                  context, RedoIntent(context));
-                            },
-                    ),
-                  ],
-                ),
-              ),
-            ),
           PopupMenuItem(
               enabled: false,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

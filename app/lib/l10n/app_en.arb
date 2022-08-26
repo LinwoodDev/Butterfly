@@ -374,5 +374,6 @@
   "element": "Element",
   "painter": "Painter",
   "position": "Position",
-  "note": "Note"
+  "note": "Note",
+  "more": "More"
 }
