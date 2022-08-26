@@ -115,7 +115,7 @@ class __$$_WaypointCopyWithImpl<$Res> extends _$WaypointCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Waypoint with DiagnosticableTreeMixin implements _Waypoint {
+class _$_Waypoint implements _Waypoint {
   const _$_Waypoint(this.name, @OffsetJsonConverter() this.position,
       [this.scale]);
 
@@ -131,18 +131,8 @@ class _$_Waypoint with DiagnosticableTreeMixin implements _Waypoint {
   final double? scale;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Waypoint(name: $name, position: $position, scale: $scale)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Waypoint'))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('position', position))
-      ..add(DiagnosticsProperty('scale', scale));
   }
 
   @override

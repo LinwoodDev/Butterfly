@@ -41,6 +41,7 @@ class CurrentIndex with _$CurrentIndex {
     Selection? selection,
     List<Renderer>? temporaryForegrounds,
     @Default([]) List<int> pointers,
+    int? buttons,
     @Default(CameraViewport.unbaked()) CameraViewport cameraViewport,
     @Default(AssetLocation(path: '')) AssetLocation location,
     Embedding? embedding,
@@ -433,5 +434,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void resetSelection() {
     emit(state.copyWith(selection: null));
+  }
+
+  void setButtons(int buttons) {
+    emit(state.copyWith(buttons: buttons));
+  }
+
+  void removeButtons() {
+    emit(state.copyWith(buttons: null));
   }
 }
