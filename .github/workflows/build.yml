@@ -432,10 +432,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
     runs-on: ubuntu-22.04
-    if:  ${ (startsWith(github.ref, 'refs/tags/')) && (secrets.PLAY_STORE_CREDENTIALS != '') }
+    if:  ${{ startsWith(github.ref, 'refs/tags/') }}
     defaults:
       run:
         working-directory: app
+    env:
+      PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -450,6 +452,7 @@ jobs:
           KEY_JKS: ${{ secrets.KEY_JKS }}
           KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
           PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
+        if: ${{ env.PLAY_STORE_CREDENTIALS != '' }}
         run: |
           cd android
           if [[ -n "$KEY_PROPERTIES" ]] ; then echo "$KEY_PROPERTIES" | base64 --decode > key.properties  ; fi
@@ -478,10 +481,14 @@ jobs:
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store
-        if: ${{ github.ref == 'refs/tags/stable' }}
+        if: ${{ github.ref == 'refs/tags/stable' && env.PLAY_STORE_CREDENTIALS != '' }}
+        env:
+          PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
         run: bundle exec fastlane deploy
         working-directory: app/android
       - name: 🚀 Deploy to Play Store
-        if: ${{ github.ref == 'refs/tags/nightly' }}
+        if: ${{ github.ref == 'refs/tags/nightly' && env.PLAY_STORE_CREDENTIALS != '' }}
+        env:
+          PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
         run: bundle exec fastlane beta
         working-directory: app/android
