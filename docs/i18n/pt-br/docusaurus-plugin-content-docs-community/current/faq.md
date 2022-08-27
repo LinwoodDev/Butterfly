@@ -1,5 +1,5 @@
 ---
-id: "FAQ"
+id: "faq"
 slug: "/faq"
 title: "Perguntas Frequentes"
 sidebar_label: "Perguntas Frequentes"
