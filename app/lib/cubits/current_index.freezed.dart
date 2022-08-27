@@ -20,7 +20,6 @@ mixin _$CurrentIndex {
   Handler<dynamic>? get handler => throw _privateConstructorUsedError;
   SettingsCubit get settingsCubit => throw _privateConstructorUsedError;
   TransformCubit get transformCubit => throw _privateConstructorUsedError;
-  int? get temporaryIndex => throw _privateConstructorUsedError;
   Handler<dynamic>? get temporaryHandler => throw _privateConstructorUsedError;
   List<Renderer> get foregrounds => throw _privateConstructorUsedError;
   Selection<dynamic>? get selection => throw _privateConstructorUsedError;
@@ -48,7 +47,6 @@ abstract class $CurrentIndexCopyWith<$Res> {
       Handler<dynamic>? handler,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
-      int? temporaryIndex,
       Handler<dynamic>? temporaryHandler,
       List<Renderer> foregrounds,
       Selection<dynamic>? selection,
@@ -77,7 +75,6 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
     Object? handler = freezed,
     Object? settingsCubit = freezed,
     Object? transformCubit = freezed,
-    Object? temporaryIndex = freezed,
     Object? temporaryHandler = freezed,
     Object? foregrounds = freezed,
     Object? selection = freezed,
@@ -106,10 +103,6 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           ? _value.transformCubit
           : transformCubit // ignore: cast_nullable_to_non_nullable
               as TransformCubit,
-      temporaryIndex: temporaryIndex == freezed
-          ? _value.temporaryIndex
-          : temporaryIndex // ignore: cast_nullable_to_non_nullable
-              as int?,
       temporaryHandler: temporaryHandler == freezed
           ? _value.temporaryHandler
           : temporaryHandler // ignore: cast_nullable_to_non_nullable
@@ -173,7 +166,6 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
       Handler<dynamic>? handler,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
-      int? temporaryIndex,
       Handler<dynamic>? temporaryHandler,
       List<Renderer> foregrounds,
       Selection<dynamic>? selection,
@@ -206,7 +198,6 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
     Object? handler = freezed,
     Object? settingsCubit = freezed,
     Object? transformCubit = freezed,
-    Object? temporaryIndex = freezed,
     Object? temporaryHandler = freezed,
     Object? foregrounds = freezed,
     Object? selection = freezed,
@@ -235,10 +226,6 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
           ? _value.transformCubit
           : transformCubit // ignore: cast_nullable_to_non_nullable
               as TransformCubit,
-      temporaryIndex: temporaryIndex == freezed
-          ? _value.temporaryIndex
-          : temporaryIndex // ignore: cast_nullable_to_non_nullable
-              as int?,
       temporaryHandler: temporaryHandler == freezed
           ? _value.temporaryHandler
           : temporaryHandler // ignore: cast_nullable_to_non_nullable
@@ -288,8 +275,7 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
 class _$_CurrentIndex extends _CurrentIndex {
   const _$_CurrentIndex(
       this.index, this.handler, this.settingsCubit, this.transformCubit,
-      {this.temporaryIndex,
-      this.temporaryHandler,
+      {this.temporaryHandler,
       final List<Renderer> foregrounds = const [],
       this.selection,
       final List<Renderer>? temporaryForegrounds,
@@ -312,8 +298,6 @@ class _$_CurrentIndex extends _CurrentIndex {
   final SettingsCubit settingsCubit;
   @override
   final TransformCubit transformCubit;
-  @override
-  final int? temporaryIndex;
   @override
   final Handler<dynamic>? temporaryHandler;
   final List<Renderer> _foregrounds;
@@ -359,7 +343,7 @@ class _$_CurrentIndex extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryIndex: $temporaryIndex, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, temporaryForegrounds: $temporaryForegrounds, pointers: $pointers, buttons: $buttons, cameraViewport: $cameraViewport, location: $location, embedding: $embedding, saved: $saved)';
+    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, temporaryForegrounds: $temporaryForegrounds, pointers: $pointers, buttons: $buttons, cameraViewport: $cameraViewport, location: $location, embedding: $embedding, saved: $saved)';
   }
 
   @override
@@ -373,8 +357,6 @@ class _$_CurrentIndex extends _CurrentIndex {
                 .equals(other.settingsCubit, settingsCubit) &&
             const DeepCollectionEquality()
                 .equals(other.transformCubit, transformCubit) &&
-            const DeepCollectionEquality()
-                .equals(other.temporaryIndex, temporaryIndex) &&
             const DeepCollectionEquality()
                 .equals(other.temporaryHandler, temporaryHandler) &&
             const DeepCollectionEquality()
@@ -398,7 +380,6 @@ class _$_CurrentIndex extends _CurrentIndex {
       const DeepCollectionEquality().hash(handler),
       const DeepCollectionEquality().hash(settingsCubit),
       const DeepCollectionEquality().hash(transformCubit),
-      const DeepCollectionEquality().hash(temporaryIndex),
       const DeepCollectionEquality().hash(temporaryHandler),
       const DeepCollectionEquality().hash(_foregrounds),
       const DeepCollectionEquality().hash(selection),
@@ -419,8 +400,7 @@ class _$_CurrentIndex extends _CurrentIndex {
 abstract class _CurrentIndex extends CurrentIndex {
   const factory _CurrentIndex(final int? index, final Handler<dynamic>? handler,
       final SettingsCubit settingsCubit, final TransformCubit transformCubit,
-      {final int? temporaryIndex,
-      final Handler<dynamic>? temporaryHandler,
+      {final Handler<dynamic>? temporaryHandler,
       final List<Renderer> foregrounds,
       final Selection<dynamic>? selection,
       final List<Renderer>? temporaryForegrounds,
@@ -440,8 +420,6 @@ abstract class _CurrentIndex extends CurrentIndex {
   SettingsCubit get settingsCubit;
   @override
   TransformCubit get transformCubit;
-  @override
-  int? get temporaryIndex;
   @override
   Handler<dynamic>? get temporaryHandler;
   @override

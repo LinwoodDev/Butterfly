@@ -184,13 +184,11 @@ class _MainViewViewportState extends State<MainViewViewport> {
                 onPointerDown: (PointerDownEvent event) {
                   cubit.addPointer(event.pointer);
                   cubit.setButtons(event.buttons);
-                  final document = state.document;
-                  final currentArea = state.currentArea;
+                  final bloc = context.read<DocumentBloc>();
                   if (event.buttons == kPrimaryStylusButton) {
-                    cubit.changePainter(document, currentArea, 0);
+                    cubit.changePainter(bloc, 0);
                   } else if (event.buttons == kSecondaryStylusButton) {
-                    cubit.changeTemporaryHandlerSecondary(
-                        document, currentArea);
+                    cubit.changeTemporaryHandlerIndex(bloc, 1);
                   }
                   cubit.getHandler()?.onPointerDown(event, getEventContext());
                 },

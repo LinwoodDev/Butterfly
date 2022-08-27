@@ -609,6 +609,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   Future<void> load() async {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
-    return current.load();
+    final currentIndexCubit = current.currentIndexCubit;
+    final document = current.document;
+    currentIndexCubit.setSaveState(saved: true);
+    final background = Renderer.fromInstance(document.background);
+    await background.setup(document);
+    final renderers =
+        document.content.map((e) => Renderer.fromInstance(e)).toList();
+    await Future.wait(renderers.map((e) async => await e.setup(document)));
+    currentIndexCubit.unbake(
+        background: background, unbakedElements: renderers);
+    currentIndexCubit.changePainter(this, 0);
   }
 }

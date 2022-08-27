@@ -69,8 +69,8 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
-  late CurrentIndexCubit _currentIndexCubit;
   TransformCubit? _transformCubit;
+  CurrentIndexCubit? _currentIndexCubit;
   final GlobalKey _viewportKey = GlobalKey();
   final actions = <Type, Action<Intent>>{
     UndoIntent: UndoAction(),
@@ -125,10 +125,10 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit = CurrentIndexCubit(
-            document, settingsCubit, _transformCubit!, embedding);
+        _currentIndexCubit =
+            CurrentIndexCubit(settingsCubit, _transformCubit!, embedding);
         _bloc = DocumentBloc(
-          _currentIndexCubit,
+          _currentIndexCubit!,
           settingsCubit,
           document,
           widget.location ?? const AssetLocation(path: ''),
@@ -185,9 +185,9 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit =
-            CurrentIndexCubit(document!, settingsCubit, _transformCubit!, null);
+            CurrentIndexCubit(settingsCubit, _transformCubit!, null);
         _bloc = DocumentBloc(
-            _currentIndexCubit,
+            _currentIndexCubit!,
             settingsCubit,
             document!,
             widget.location ??
@@ -233,7 +233,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   value: settingsCubit,
                 ),
                 BlocProvider<CurrentIndexCubit>.value(
-                  value: _currentIndexCubit,
+                  value: _currentIndexCubit!,
                 ),
               ], child: const StartIntroductionDialog()));
     }
@@ -262,7 +262,7 @@ class _ProjectPageState extends State<ProjectPage> {
           providers: [
             BlocProvider.value(value: _bloc!),
             BlocProvider.value(value: _transformCubit!),
-            BlocProvider.value(value: _currentIndexCubit),
+            BlocProvider.value(value: _currentIndexCubit!),
           ],
           child: RepositoryProvider(
             lazy: false,

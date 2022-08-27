@@ -41,7 +41,9 @@ part 'laser.dart';
 part 'layer.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
+part 'redo.dart';
 part 'shape.dart';
+part 'undo.dart';
 
 @immutable
 class EventContext {
@@ -102,6 +104,9 @@ abstract class Handler<T> {
   final T data;
 
   const Handler(this.data);
+
+  bool onSelected(DocumentBloc bloc, CurrentIndexCubit currentIndexCubit) =>
+      true;
 
   List<Renderer> createForegrounds(
           CurrentIndexCubit currentIndexCubit, AppDocument document,
@@ -181,6 +186,12 @@ abstract class Handler<T> {
     }
     if (painter is LaserPainter) {
       return LaserHandler(painter);
+    }
+    if (painter is RedoPainter) {
+      return RedoHandler(painter);
+    }
+    if (painter is UndoPainter) {
+      return UndoHandler(painter);
     }
     throw Exception('Unknown painter type: ${painter.runtimeType}');
   }

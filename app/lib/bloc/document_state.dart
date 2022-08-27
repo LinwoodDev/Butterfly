@@ -57,17 +57,6 @@ class DocumentLoadSuccess extends DocumentState {
   AssetLocation get location => currentIndexCubit.state.location;
   bool get saved => !location.absolute && currentIndexCubit.state.saved;
 
-  Future<void> load() async {
-    currentIndexCubit.setSaveState(saved: true);
-    final background = Renderer.fromInstance(document.background);
-    await background.setup(document);
-    final renderers =
-        document.content.map((e) => Renderer.fromInstance(e)).toList();
-    await Future.wait(renderers.map((e) async => await e.setup(document)));
-    currentIndexCubit.unbake(
-        background: background, unbakedElements: renderers);
-  }
-
   Embedding? get embedding => currentIndexCubit.state.embedding;
 
   DocumentLoadSuccess copyWith({

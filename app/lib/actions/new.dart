@@ -81,7 +81,7 @@ class NewAction extends Action<NewIntent> {
           : AssetLocation(remote: remote.identifier, path: ''),
       settingsCubit: settingsCubit,
     );
-    await state.load();
+    await bloc.load();
     bloc.emit(state);
   }
 }

@@ -110,10 +110,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                 itemCount: painters.length,
                                 itemBuilder: (context, i) {
                                   var e = painters[i];
-                                  final selected = i ==
-                                      context
-                                          .read<CurrentIndexCubit>()
-                                          .getIndex();
+                                  final selected = i == currentIndex.index;
                                   final highlighted = currentIndex
                                           .selection?.selected
                                           .any((element) =>
@@ -149,8 +146,10 @@ class _EditToolbarState extends State<EditToolbar> {
                                                   .resetSelection();
                                               context
                                                   .read<CurrentIndexCubit>()
-                                                  .changePainter(state.document,
-                                                      state.currentArea, i);
+                                                  .changePainter(
+                                                      context
+                                                          .read<DocumentBloc>(),
+                                                      i);
                                             } else {
                                               context
                                                   .read<CurrentIndexCubit>()
@@ -168,9 +167,12 @@ class _EditToolbarState extends State<EditToolbar> {
                             const VerticalDivider(),
                             PopupMenuButton<Painter>(
                                 tooltip: AppLocalizations.of(context)!.more,
-                                onSelected: (value) => context
-                                    .read<DocumentBloc>()
-                                    .add(PainterCreated(value)),
+                                onSelected: (value) {
+                                  context
+                                      .read<CurrentIndexCubit>()
+                                      .changeTemporaryHandler(
+                                          context.read<DocumentBloc>(), value);
+                                },
                                 icon: const Icon(PhosphorIcons.listLight),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16)),
@@ -200,7 +202,12 @@ class _EditToolbarState extends State<EditToolbar> {
                                                 .getLocalizedName(context)),
                                             leading: Icon(painter.getIcon()),
                                             trailing: IconButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                context
+                                                    .read<DocumentBloc>()
+                                                    .add(PainterCreated(
+                                                        painter));
+                                              },
                                               icon: const Icon(
                                                   PhosphorIcons.pushPinLight),
                                             ),
