@@ -4,7 +4,7 @@ class Hand {
   const Hand();
 }
 
-class HandSelection extends Selection<HandPainter> {
+class HandSelection extends PainterSelection<HandPainter> {
   HandSelection(super.selected);
 
   @override

@@ -97,20 +97,14 @@ class _EditToolbarState extends State<EditToolbar> {
                                       .read<CurrentIndexCubit>()
                                       .changeSelection(tempData),
                                   onPressed: () {
-                                    context
-                                        .read<CurrentIndexCubit>()
-                                        .resetSelection();
-                                    if (context
-                                            .read<CurrentIndexCubit>()
-                                            .getPainter(state.document) ==
-                                        null) {
+                                    if (_mouseState == _MouseState.multi) {
                                       context
                                           .read<CurrentIndexCubit>()
-                                          .changeSelection(tempData);
+                                          .insertSelection(tempData, true);
                                     } else {
                                       context
                                           .read<CurrentIndexCubit>()
-                                          .reset(state.document);
+                                          .changeSelection(tempData, true);
                                     }
                                   },
                                 ),

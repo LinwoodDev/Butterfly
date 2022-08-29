@@ -81,6 +81,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         handler: handler,
         foregrounds:
             handler.createForegrounds(this, document, blocState.currentArea),
+        temporaryForegrounds: null,
+        temporaryHandler: null,
       ));
     }
     return handler;
@@ -102,11 +104,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void refresh(AppDocument document, [Area? currentArea]) {
-    final handler = state.handler;
     if (!isClosed) {
       emit(state.copyWith(
+        temporaryForegrounds: state.temporaryHandler
+            ?.createForegrounds(this, document, currentArea),
         foregrounds:
-            handler?.createForegrounds(this, document, currentArea) ?? [],
+            state.handler?.createForegrounds(this, document, currentArea) ?? [],
       ));
     }
   }

@@ -196,8 +196,6 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   cubit.removePointer(event.pointer);
                   cubit.removeButtons();
                   cubit.getHandler()?.onPointerUp(event, getEventContext());
-                  cubit.resetTemporaryHandler(
-                      state.document, state.currentArea);
                 },
                 behavior: HitTestBehavior.translucent,
                 onPointerHover: (event) {
