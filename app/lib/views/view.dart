@@ -25,7 +25,10 @@ class _MainViewViewportState extends State<MainViewViewport> {
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
   _MouseState _mouseState = _MouseState.normal;
-  bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
+  bool _isShiftPressed = false,
+      _isAltPressed = false,
+      _isCtrlPressed = false,
+      _tempKeyTool = false;
 
   @override
   void initState() {
@@ -186,11 +189,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
                   cubit.setButtons(event.buttons);
                   final bloc = context.read<DocumentBloc>();
                   final handler = cubit.getHandler();
-                  if (handler?.canChange(event, getEventContext()) ?? false) {
-                    if (event.buttons == kPrimaryStylusButton) {
-                      cubit.changePainter(bloc, 0);
-                    } else if (event.buttons == kSecondaryStylusButton) {
+                  if (handler?.canChange(event, getEventContext()) ?? true) {
+                    if (event.kind == PointerDeviceKind.stylus &&
+                        event.buttons == kPrimaryStylusButton) {
+                      cubit.changeTemporaryHandlerIndex(bloc, 0);
+                      _tempKeyTool = true;
+                    } else if (event.buttons == kSecondaryStylusButton ||
+                        event.buttons == kSecondaryButton) {
                       cubit.changeTemporaryHandlerIndex(bloc, 1);
+                      _tempKeyTool = true;
                     }
                   }
                   handler?.onPointerDown(event, getEventContext());
@@ -198,6 +205,12 @@ class _MainViewViewportState extends State<MainViewViewport> {
                 onPointerUp: (PointerUpEvent event) async {
                   cubit.removePointer(event.pointer);
                   cubit.removeButtons();
+                  if (_tempKeyTool) {
+                    cubit.resetTemporaryHandler(
+                        state.document, state.currentArea);
+                    cubit.refresh(state.document);
+                    _tempKeyTool = false;
+                  }
                   cubit.getHandler()?.onPointerUp(event, getEventContext());
                 },
                 behavior: HitTestBehavior.translucent,
