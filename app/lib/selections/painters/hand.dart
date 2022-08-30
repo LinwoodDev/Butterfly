@@ -1,9 +1,5 @@
 part of '../selection.dart';
 
-class Hand {
-  const Hand();
-}
-
 class HandSelection extends PainterSelection<HandPainter> {
   HandSelection(super.selected);
 
