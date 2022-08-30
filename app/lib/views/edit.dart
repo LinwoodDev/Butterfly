@@ -150,7 +150,8 @@ class _EditToolbarState extends State<EditToolbar> {
                                                 context
                                                     .read<CurrentIndexCubit>()
                                                     .insertSelection(e, true);
-                                              } else if (!selected) {
+                                              } else if (!selected ||
+                                                  temp != null) {
                                                 context
                                                     .read<CurrentIndexCubit>()
                                                     .resetSelection();
