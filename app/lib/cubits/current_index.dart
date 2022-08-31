@@ -428,4 +428,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void removeButtons() {
     emit(state.copyWith(buttons: null));
   }
+
+  void resetInput() {
+    emit(state.copyWith(buttons: null, pointers: []));
+  }
 }
