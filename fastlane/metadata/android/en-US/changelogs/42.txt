@@ -6,3 +6,4 @@
 * Remove hand, undo, redo buttons from general gui
 * Improve UI and UX problems ([#280](https://github.com/LinwoodCloud/Butterfly/issues/280))
   * Reset pointer on app hide
+  * Add default behavior to not ask for area name

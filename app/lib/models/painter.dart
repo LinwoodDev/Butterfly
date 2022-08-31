@@ -75,31 +75,35 @@ class Painter with _$Painter {
     @Default(EraserProperty()) EraserProperty property,
   }) = EraserPainter;
 
-  factory Painter.pathEraser(
-      {@Default('') String name,
-      @Default(5) double strokeWidth,
-      @Default(false) bool includeEraser,
-      @Default(false) bool deleteWholeStroke}) = PathEraserPainter;
+  factory Painter.pathEraser({
+    @Default('') String name,
+    @Default(5) double strokeWidth,
+    @Default(false) bool includeEraser,
+    @Default(false) bool deleteWholeStroke,
+  }) = PathEraserPainter;
 
-  factory Painter.layer(
-      {@Default('') String name,
-      @Default(5) double strokeWidth,
-      @Default('') String layer,
-      @Default(false) bool includeEraser}) = LayerPainter;
+  factory Painter.layer({
+    @Default('') String name,
+    @Default(5) double strokeWidth,
+    @Default('') String layer,
+    @Default(false) bool includeEraser,
+  }) = LayerPainter;
 
   factory Painter.area({
     @Default('') String name,
     @Default(0) double constrainedWidth,
     @Default(0) double constrainedHeight,
     @Default(0) double constrainedAspectRatio,
+    @Default(false) bool askForName,
   }) = AreaPainter;
 
-  factory Painter.laser(
-      {@Default('') String name,
-      @Default(5) double duration,
-      @Default(5) double strokeWidth,
-      @Default(10) double strokeMultiplier,
-      @Default(kColorRed) int color}) = LaserPainter;
+  factory Painter.laser({
+    @Default('') String name,
+    @Default(5) double duration,
+    @Default(5) double strokeWidth,
+    @Default(10) double strokeMultiplier,
+    @Default(kColorRed) int color,
+  }) = LaserPainter;
 
   factory Painter.shape({
     @Default('') String name,

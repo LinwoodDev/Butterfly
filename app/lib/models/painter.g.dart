@@ -132,6 +132,7 @@ _$AreaPainter _$$AreaPainterFromJson(Map json) => _$AreaPainter(
       constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
       constrainedAspectRatio:
           (json['constrainedAspectRatio'] as num?)?.toDouble() ?? 0,
+      askForName: json['askForName'] as bool? ?? false,
       $type: json['type'] as String?,
     );
 
@@ -141,6 +142,7 @@ Map<String, dynamic> _$$AreaPainterToJson(_$AreaPainter instance) =>
       'constrainedWidth': instance.constrainedWidth,
       'constrainedHeight': instance.constrainedHeight,
       'constrainedAspectRatio': instance.constrainedAspectRatio,
+      'askForName': instance.askForName,
       'type': instance.$type,
     };
 

@@ -65,6 +65,15 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
               selected
                   .map((e) => e.copyWith(constrainedAspectRatio: value))
                   .toList())),
+      CheckboxListTile(
+        title: Text(AppLocalizations.of(context)!.askForName),
+        value: painter.askForName,
+        onChanged: (value) => update(
+            context,
+            selected
+                .map((e) => e.copyWith(askForName: value ?? false))
+                .toList()),
+      ),
     ];
   }
 

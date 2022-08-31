@@ -64,8 +64,12 @@ mixin _$Painter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -95,8 +99,12 @@ mixin _$Painter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -126,8 +134,12 @@ mixin _$Painter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -306,8 +318,12 @@ class _$HandPainter implements HandPainter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -340,8 +356,12 @@ class _$HandPainter implements HandPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -374,8 +394,12 @@ class _$HandPainter implements HandPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -553,8 +577,12 @@ class _$UndoPainter implements UndoPainter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -587,8 +615,12 @@ class _$UndoPainter implements UndoPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -621,8 +653,12 @@ class _$UndoPainter implements UndoPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -798,8 +834,12 @@ class _$RedoPainter implements RedoPainter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -832,8 +872,12 @@ class _$RedoPainter implements RedoPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -866,8 +910,12 @@ class _$RedoPainter implements RedoPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -1054,8 +1102,12 @@ class _$LabelPainter implements LabelPainter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -1088,8 +1140,12 @@ class _$LabelPainter implements LabelPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -1122,8 +1178,12 @@ class _$LabelPainter implements LabelPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -1321,8 +1381,12 @@ class _$PenPainter implements PenPainter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -1355,8 +1419,12 @@ class _$PenPainter implements PenPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -1389,8 +1457,12 @@ class _$PenPainter implements PenPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -1583,8 +1655,12 @@ class _$EraserPainter implements EraserPainter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -1617,8 +1693,12 @@ class _$EraserPainter implements EraserPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -1651,8 +1731,12 @@ class _$EraserPainter implements EraserPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -1865,8 +1949,12 @@ class _$PathEraserPainter implements PathEraserPainter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -1899,8 +1987,12 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -1934,8 +2026,12 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -2148,8 +2244,12 @@ class _$LayerPainter implements LayerPainter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -2182,8 +2282,12 @@ class _$LayerPainter implements LayerPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -2216,8 +2320,12 @@ class _$LayerPainter implements LayerPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -2335,7 +2443,8 @@ abstract class _$$AreaPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
       {String name,
       double constrainedWidth,
       double constrainedHeight,
-      double constrainedAspectRatio});
+      double constrainedAspectRatio,
+      bool askForName});
 }
 
 /// @nodoc
@@ -2354,6 +2463,7 @@ class __$$AreaPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
     Object? constrainedWidth = freezed,
     Object? constrainedHeight = freezed,
     Object? constrainedAspectRatio = freezed,
+    Object? askForName = freezed,
   }) {
     return _then(_$AreaPainter(
       name: name == freezed
@@ -2372,6 +2482,10 @@ class __$$AreaPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
           ? _value.constrainedAspectRatio
           : constrainedAspectRatio // ignore: cast_nullable_to_non_nullable
               as double,
+      askForName: askForName == freezed
+          ? _value.askForName
+          : askForName // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -2384,6 +2498,7 @@ class _$AreaPainter implements AreaPainter {
       this.constrainedWidth = 0,
       this.constrainedHeight = 0,
       this.constrainedAspectRatio = 0,
+      this.askForName = false,
       final String? $type})
       : $type = $type ?? 'area';
 
@@ -2402,13 +2517,16 @@ class _$AreaPainter implements AreaPainter {
   @override
   @JsonKey()
   final double constrainedAspectRatio;
+  @override
+  @JsonKey()
+  final bool askForName;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Painter.area(name: $name, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio)';
+    return 'Painter.area(name: $name, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, askForName: $askForName)';
   }
 
   @JsonKey(ignore: true)
@@ -2433,8 +2551,12 @@ class _$AreaPainter implements AreaPainter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -2448,8 +2570,8 @@ class _$AreaPainter implements AreaPainter {
             ShapeProperty property)
         shape,
   }) {
-    return area(
-        name, constrainedWidth, constrainedHeight, constrainedAspectRatio);
+    return area(name, constrainedWidth, constrainedHeight,
+        constrainedAspectRatio, askForName);
   }
 
   @override
@@ -2468,8 +2590,12 @@ class _$AreaPainter implements AreaPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -2483,8 +2609,8 @@ class _$AreaPainter implements AreaPainter {
             ShapeProperty property)?
         shape,
   }) {
-    return area?.call(
-        name, constrainedWidth, constrainedHeight, constrainedAspectRatio);
+    return area?.call(name, constrainedWidth, constrainedHeight,
+        constrainedAspectRatio, askForName);
   }
 
   @override
@@ -2503,8 +2629,12 @@ class _$AreaPainter implements AreaPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -2520,8 +2650,8 @@ class _$AreaPainter implements AreaPainter {
     required TResult orElse(),
   }) {
     if (area != null) {
-      return area(
-          name, constrainedWidth, constrainedHeight, constrainedAspectRatio);
+      return area(name, constrainedWidth, constrainedHeight,
+          constrainedAspectRatio, askForName);
     }
     return orElse();
   }
@@ -2597,7 +2727,8 @@ abstract class AreaPainter implements Painter {
       {final String name,
       final double constrainedWidth,
       final double constrainedHeight,
-      final double constrainedAspectRatio}) = _$AreaPainter;
+      final double constrainedAspectRatio,
+      final bool askForName}) = _$AreaPainter;
 
   factory AreaPainter.fromJson(Map<String, dynamic> json) =
       _$AreaPainter.fromJson;
@@ -2607,6 +2738,7 @@ abstract class AreaPainter implements Painter {
   double get constrainedWidth;
   double get constrainedHeight;
   double get constrainedAspectRatio;
+  bool get askForName;
   @override
   @JsonKey(ignore: true)
   _$$AreaPainterCopyWith<_$AreaPainter> get copyWith =>
@@ -2731,8 +2863,12 @@ class _$LaserPainter implements LaserPainter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -2765,8 +2901,12 @@ class _$LaserPainter implements LaserPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -2799,8 +2939,12 @@ class _$LaserPainter implements LaserPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -3038,8 +3182,12 @@ class _$ShapePainter implements ShapePainter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -3073,8 +3221,12 @@ class _$ShapePainter implements ShapePainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -3108,8 +3260,12 @@ class _$ShapePainter implements ShapePainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
