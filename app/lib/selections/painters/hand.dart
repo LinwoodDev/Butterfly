@@ -1,12 +1,6 @@
-part of 'selection.dart';
+part of '../selection.dart';
 
-class Hand {
-  const Hand();
-}
-
-const kHand = Hand();
-
-class HandSelection extends Selection<Hand> {
+class HandSelection extends PainterSelection<HandPainter> {
   HandSelection(super.selected);
 
   @override
@@ -17,17 +11,17 @@ class HandSelection extends Selection<Hand> {
   buildProperties(BuildContext context) {
     final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return [];
-    final property = state.document.handProperty;
-    void updateProperty(HandProperty property) {
-      context.read<DocumentBloc>().add(HandPropertyChanged(property));
-    }
 
     return [
       CheckboxListTile(
-          value: property.includeEraser,
+          value: selected.first.includeEraser,
           title: Text(AppLocalizations.of(context)!.includeEraser),
-          onChanged: (value) => updateProperty(property.copyWith(
-              includeEraser: value ?? property.includeEraser))),
+          onChanged: (value) => update(
+              context,
+              selected
+                  .map((e) =>
+                      e.copyWith(includeEraser: value ?? e.includeEraser))
+                  .toList())),
     ];
   }
 

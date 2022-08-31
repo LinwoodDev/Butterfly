@@ -4,6 +4,9 @@ class PainterSelection<T extends Painter> extends Selection<T> {
   PainterSelection(super.selected);
 
   factory PainterSelection.from(T selected) {
+    if (selected is HandPainter) {
+      return HandSelection([selected]) as PainterSelection<T>;
+    }
     if (selected is AreaPainter) {
       return AreaPainterSelection([selected]) as PainterSelection<T>;
     }

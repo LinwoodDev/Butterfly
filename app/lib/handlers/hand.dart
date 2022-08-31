@@ -22,7 +22,7 @@ class HandSelectionRenderer extends Renderer<Rect> {
   }
 }
 
-class HandHandler extends Handler<HandProperty> {
+class HandHandler extends Handler<HandPainter> {
   List<Renderer<PadElement>> _movingElements = [];
   List<Renderer<PadElement>> _selected = [];
   Offset? _currentMovePosition;
@@ -234,9 +234,14 @@ class HandHandler extends Handler<HandProperty> {
   }
 
   @override
+  bool canChange(PointerDownEvent event, EventContext eventContext) =>
+      event.buttons != kSecondaryMouseButton;
+
+  @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     final currentIndex = context.getCurrentIndex();
-    if (currentIndex.buttons != kSecondaryButton && details.pointerCount == 1) {
+    if (currentIndex.buttons != kSecondaryMouseButton &&
+        details.pointerCount == 1) {
       final globalPos =
           context.getCameraTransform().localToGlobal(details.localFocalPoint);
       final topLeft = _freeSelection?.topLeft ?? globalPos;

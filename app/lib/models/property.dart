@@ -16,9 +16,6 @@ enum VerticalAlignment { top, center, bottom }
 
 @freezed
 class Property with _$Property {
-  const factory Property.hand({@Default(false) bool includeEraser}) =
-      HandProperty;
-
   const factory Property.label(
       {@Default(12)
           double size,

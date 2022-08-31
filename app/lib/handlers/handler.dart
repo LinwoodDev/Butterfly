@@ -41,7 +41,9 @@ part 'laser.dart';
 part 'layer.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
+part 'redo.dart';
 part 'shape.dart';
+part 'undo.dart';
 
 @immutable
 class EventContext {
@@ -103,6 +105,9 @@ abstract class Handler<T> {
 
   const Handler(this.data);
 
+  bool onSelected(DocumentBloc bloc, CurrentIndexCubit currentIndexCubit) =>
+      true;
+
   List<Renderer> createForegrounds(
           CurrentIndexCubit currentIndexCubit, AppDocument document,
           [Area? currentArea]) =>
@@ -145,6 +150,8 @@ abstract class Handler<T> {
   void onLongPressDown(
       LongPressDownDetails details, EventContext eventContext) {}
 
+  bool canChange(PointerDownEvent event, EventContext eventContext) => true;
+
   int? getColor(DocumentBloc bloc) => null;
 
   T? setColor(DocumentBloc bloc, int color) => null;
@@ -155,6 +162,9 @@ abstract class Handler<T> {
   }
 
   static Handler fromPainter(Painter painter) {
+    if (painter is HandPainter) {
+      return HandHandler(painter);
+    }
     if (painter is PenPainter) {
       return PenHandler(painter);
     }
@@ -179,7 +189,13 @@ abstract class Handler<T> {
     if (painter is LaserPainter) {
       return LaserHandler(painter);
     }
-    return HandHandler(const HandProperty());
+    if (painter is RedoPainter) {
+      return RedoHandler(painter);
+    }
+    if (painter is UndoPainter) {
+      return UndoHandler(painter);
+    }
+    throw Exception('Unknown painter type: ${painter.runtimeType}');
   }
 }
 

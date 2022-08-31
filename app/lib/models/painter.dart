@@ -46,6 +46,19 @@ extension RatioPresetExtension on AspectRatioPreset {
 
 @Freezed(equal: false)
 class Painter with _$Painter {
+  factory Painter.hand({
+    @Default('') String name,
+    @Default(false) bool includeEraser,
+  }) = HandPainter;
+
+  factory Painter.undo({
+    @Default('') String name,
+  }) = UndoPainter;
+
+  factory Painter.redo({
+    @Default('') String name,
+  }) = RedoPainter;
+
   factory Painter.label({
     @Default('') String name,
     @Default(LabelProperty()) LabelProperty property,
