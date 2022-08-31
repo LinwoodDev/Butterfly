@@ -21,7 +21,8 @@ class MainViewViewport extends StatefulWidget {
 
 enum _MouseState { normal, inverse, scale }
 
-class _MainViewViewportState extends State<MainViewViewport> {
+class _MainViewViewportState extends State<MainViewViewport>
+    with WidgetsBindingObserver {
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
   _MouseState _mouseState = _MouseState.normal;
@@ -38,6 +39,15 @@ class _MainViewViewportState extends State<MainViewViewport> {
   void dispose() {
     RawKeyboard.instance.removeListener(_handleKey);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      context.read<DocumentBloc>().refresh();
+    } else {
+      context.read<CurrentIndexCubit>().resetInput();
+    }
   }
 
   void _handleKey(RawKeyEvent event) {

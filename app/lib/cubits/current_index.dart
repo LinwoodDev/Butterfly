@@ -362,4 +362,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
         location: location ?? state.location, saved: saved ?? state.saved));
   }
+
+  void resetInput() {}
 }

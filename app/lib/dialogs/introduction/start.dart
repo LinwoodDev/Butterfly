@@ -6,8 +6,8 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/format_date_time.dart';
@@ -164,7 +164,6 @@ class _CreateStartViewState extends State<_CreateStartView> {
                                   createdAt: DateTime.now(),
                                 );
 
-                                bloc.clearHistory();
                                 transformCubit.reset();
                                 currentIndexCubit.reset(document);
                                 bloc.emit(DocumentLoadSuccess(document,
@@ -175,6 +174,7 @@ class _CreateStartViewState extends State<_CreateStartView> {
                                                 ''),
                                     currentIndexCubit: currentIndexCubit,
                                     settingsCubit: settingsCubit));
+                                bloc.clearHistory();
                                 await bloc.load();
                               });
                         },
