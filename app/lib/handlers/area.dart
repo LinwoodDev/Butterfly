@@ -21,11 +21,20 @@ class AreaHandler extends Handler<AreaPainter> {
       ];
 
   @override
+  void resetInput(DocumentBloc bloc) => currentRect = null;
+
+  @override
   void onPointerDown(
       Size viewportSize, BuildContext context, PointerDownEvent event) {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state as DocumentLoadSuccess;
     final transform = context.read<TransformCubit>().state;
+    final currentIndex = context.read<CurrentIndexCubit>().state;
+    if (currentIndex.moveEnabled) {
+      currentRect = null;
+      bloc.refresh();
+      return;
+    }
     final globalPosition = transform.localToGlobal(event.localPosition);
     final area = state.document.getArea(globalPosition);
     final currentIndexCubit = context.read<CurrentIndexCubit>();

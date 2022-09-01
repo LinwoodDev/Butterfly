@@ -26,7 +26,7 @@ import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme/manager.dart';
 import 'views/main.dart';
 
-const kFileVersion = 5;
+const kFileVersion = 6;
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
 

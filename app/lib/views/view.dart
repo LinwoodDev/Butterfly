@@ -25,6 +25,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
   _MouseState _mouseState = _MouseState.normal;
+  bool _tempKeyTool = false;
 
   @override
   void initState() {
@@ -167,25 +168,33 @@ class _MainViewViewportState extends State<MainViewViewport> {
                 },
                 onPointerDown: (PointerDownEvent event) {
                   cubit.addPointer(event.pointer);
-                  final document = state.document;
-                  final currentArea = state.currentArea;
-                  if (event.buttons == kPrimaryStylusButton) {
-                    cubit.changeTemporaryHandlerHand(document, currentArea);
-                  } else if (event.buttons == kSecondaryStylusButton) {
-                    cubit.changeTemporaryHandlerSecondary(
-                        document, currentArea);
+                  final bloc = context.read<DocumentBloc>();
+                  if (event.kind == PointerDeviceKind.stylus &&
+                      event.buttons == kPrimaryStylusButton) {
+                    cubit.changeTemporaryHandler(
+                        state.document, state.currentArea, 0);
+                    _tempKeyTool = true;
+                  } else if (event.buttons == kSecondaryStylusButton ||
+                      event.buttons == kSecondaryButton) {
+                    cubit.changeTemporaryHandler(
+                        state.document, state.currentArea, 1);
+                    _tempKeyTool = true;
                   }
                   cubit
                       .getHandler()
                       .onPointerDown(constraints.biggest, context, event);
                 },
                 onPointerUp: (PointerUpEvent event) async {
-                  cubit.removePointer(event.pointer);
                   cubit
                       .getHandler()
                       .onPointerUp(constraints.biggest, context, event);
-                  cubit.resetTemporaryHandler(
-                      state.document, state.currentArea);
+                  cubit.removePointer(event.pointer);
+                  if (_tempKeyTool) {
+                    cubit.resetTemporaryHandler(
+                        state.document, state.currentArea);
+                    cubit.refresh(state.document);
+                    _tempKeyTool = false;
+                  }
                 },
                 behavior: HitTestBehavior.translucent,
                 onPointerHover: (event) {
