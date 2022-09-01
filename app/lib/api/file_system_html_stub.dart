@@ -15,7 +15,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentAsset?> getAsset(String path) {
+  Future<AppDocumentEntity?> getAsset(String path) {
     throw UnimplementedError();
   }
 

@@ -95,7 +95,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var store = txn.objectStore('documents');
     await store.put(doc, filePath);
     await txn.completed;
-    return AppDocumentFile(AssetLocation.local(filePath), doc);
+    return AppDocumentFile.fromMap(AssetLocation.local(filePath), doc);
   }
 
   @override
@@ -118,7 +118,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentAsset?> getAsset(String path) async {
+  Future<AppDocumentEntity?> getAsset(String path) async {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
@@ -140,11 +140,11 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var map = Map<String, dynamic>.from(data as Map);
     if (map['type'] == 'file') {
       await txn.completed;
-      return AppDocumentFile(AssetLocation.local(path), map);
+      return AppDocumentFile.fromMap(AssetLocation.local(path), map);
     } else if (map['type'] == 'directory') {
       var cursor = store.openCursor(autoAdvance: true);
       var assets = await Future.wait(
-              await cursor.map<Future<AppDocumentAsset?>>((cursor) async {
+              await cursor.map<Future<AppDocumentEntity?>>((cursor) async {
         // Add leading slash
         var key = cursor.key.toString();
         if (!key.startsWith('/')) {
@@ -156,7 +156,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
             !key.substring(path.length + 1).contains('/')) {
           var data = cursor.value as Map<dynamic, dynamic>;
           if (data['type'] == 'file') {
-            return AppDocumentFile(
+            return AppDocumentFile.fromMap(
                 AssetLocation.local(key), Map<String, dynamic>.from(data));
           } else if (data['type'] == 'directory') {
             return AppDocumentDirectory(AssetLocation.local(key), const []);
@@ -165,12 +165,13 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         }
         return null;
       }).toList())
-          .then((value) => value.whereType<AppDocumentAsset>().toList());
+          .then((value) => value.whereType<AppDocumentEntity>().toList());
       // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
       assets.sort((a, b) => a is AppDocumentDirectory
           ? -1
-          : (a as AppDocumentFile).name.compareTo(
-              b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
+          : (a as AppDocumentFile).fileName.compareTo(b is AppDocumentDirectory
+              ? ''
+              : (b as AppDocumentFile).fileName));
       await txn.completed;
       return AppDocumentDirectory(AssetLocation.local(path), assets.toList());
     }
@@ -211,7 +212,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     doc['type'] = 'file';
     await store.put(doc, path);
     await txn.completed;
-    return AppDocumentFile(AssetLocation.local(path), doc);
+    return AppDocumentFile.fromMap(AssetLocation.local(path), doc);
   }
 
   @override

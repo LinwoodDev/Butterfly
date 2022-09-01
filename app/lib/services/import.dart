@@ -33,7 +33,6 @@ class ImportService {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     final location = state.location;
-    if (!location.absolute || location.remote.isNotEmpty) return;
     Uint8List? bytes;
     if (data is Uint8List) {
       bytes = data;

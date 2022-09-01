@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +86,7 @@ abstract class DavRemoteSystem {
     return null;
   }
 
-  Future<void> cacheContent(String path, String content) async {
+  Future<void> cacheContent(String path, Uint8List content) async {
     var absolutePath = await getAbsoluteCachePath(path);
     var file = File(absolutePath);
     final directory = Directory(absolutePath);
@@ -93,7 +94,11 @@ abstract class DavRemoteSystem {
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
-    await file.writeAsString(content);
+    await file.writeAsBytes(content);
+  }
+
+  Future<void> cacheStringContent(String path, String content) async {
+    return cacheContent(path, Uint8List.fromList(utf8.encode(content)));
   }
 
   Future<void> deleteCachedContent(String path) async {
@@ -250,7 +255,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
   }
 
   @override
-  Future<AppDocumentAsset?> getAsset(String path,
+  Future<AppDocumentEntity?> getAsset(String path,
       {bool forceRemote = false}) async {
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
@@ -315,7 +320,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
           return AppDocumentDirectory(
               AssetLocation(remote: remote.identifier, path: path), const []);
         } else {
-          return AppDocumentFile(
+          return AppDocumentFile.fromMap(
               AssetLocation(remote: remote.identifier, path: path), const {});
         }
       }).toList());
@@ -394,8 +399,8 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       fileName = convertNameToFile('${document.name}_${++counter}');
     }
     if (!forceSync && remote.hasDocumentCached(path)) {
-      cacheContent(path + fileName, json.encode(content));
-      return AppDocumentFile(
+      cacheStringContent(path + fileName, json.encode(content));
+      return AppDocumentFile.fromMap(
           AssetLocation(remote: remote.identifier, path: path + fileName),
           content);
     }
@@ -406,7 +411,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       throw Exception(
           'Failed to import document: ${response.statusCode} ${response.reasonPhrase}');
     }
-    return AppDocumentFile(
+    return AppDocumentFile.fromMap(
         AssetLocation(remote: remote.identifier, path: path + fileName),
         content);
   }
@@ -416,8 +421,8 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       {bool forceSync = false}) async {
     final content = const DocumentJsonConverter().toJson(document);
     if (!forceSync && remote.hasDocumentCached(path)) {
-      cacheContent(path, json.encode(content));
-      return AppDocumentFile(
+      cacheStringContent(path, json.encode(content));
+      return AppDocumentFile.fromMap(
           AssetLocation(remote: remote.identifier, path: path), content);
     }
     final response = await _createRequest(path.split('/'),
@@ -426,7 +431,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       throw Exception(
           'Failed to update document: ${response.statusCode} ${response.reasonPhrase}');
     }
-    return AppDocumentFile(
+    return AppDocumentFile.fromMap(
         AssetLocation(remote: remote.identifier, path: path), content);
   }
 
@@ -488,7 +493,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
         await directory.create(recursive: true);
       }
     } else if (asset is AppDocumentFile) {
-      cacheContent(path, json.encode(asset.json));
+      cacheContent(path, asset.data);
     }
   }
 }
@@ -550,7 +555,7 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
         return null;
       }
       final content = await response.stream.bytesToString();
-      cacheContent(name, content);
+      cacheStringContent(name, content);
       return const TemplateJsonConverter().fromJson(json.decode(content));
     } catch (e) {
       return getCachedTemplate(name);

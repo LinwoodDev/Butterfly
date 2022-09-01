@@ -151,8 +151,12 @@ class _ProjectPageState extends State<ProjectPage> {
     if (widget.location != null) {
       documentOpened = true;
       if (!widget.location!.absolute) {
-        await fileSystem.getAsset(widget.location!.path).then((value) =>
-            document = value is AppDocumentFile ? value.load() : null);
+        await fileSystem.getAsset(widget.location!.path).then((value) {
+          if (value is! AppDocumentFile) {
+            return document = null;
+          }
+          return document = value.getDocumentInfo()?.load();
+        });
       }
     }
     if (!mounted) return;
@@ -266,8 +270,9 @@ class _ProjectPageState extends State<ProjectPage> {
           ],
           child: RepositoryProvider(
             lazy: false,
-            create: (context) =>
-                ImportService(context, widget.type, widget.data),
+            create: (context) {
+              return ImportService(context, widget.type, widget.data);
+            },
             child: Builder(builder: (context) {
               return Shortcuts(
                 shortcuts: {

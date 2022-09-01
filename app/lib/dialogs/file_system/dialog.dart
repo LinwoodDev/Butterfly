@@ -17,7 +17,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-typedef AssetOpenedCallback = void Function(AppDocumentAsset path);
+typedef AssetOpenedCallback = void Function(AppDocumentEntity path);
 
 class FileSystemDialog extends StatefulWidget {
   final DocumentBloc bloc;
@@ -42,10 +42,10 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
     super.initState();
   }
 
-  Future<List<AppDocumentAsset>> _loadDocuments() async {
+  Future<List<AppDocumentEntity>> _loadDocuments() async {
     var documents = await _fileSystem
         .getAsset(_pathController.text)
-        .then<List<AppDocumentAsset>>((value) => (value is AppDocumentDirectory
+        .then<List<AppDocumentEntity>>((value) => (value is AppDocumentDirectory
             ? value.assets
             : value is AppDocumentFile
                 ? [value]
@@ -59,7 +59,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   .toLowerCase()
                   .contains(_searchController.text.toLowerCase()) ||
               (element is AppDocumentFile
-                  ? element.name
+                  ? element.fileName
                       .toLowerCase()
                       .contains(_searchController.text.toLowerCase())
                   : false))
@@ -255,7 +255,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                     }),
                     const Divider(),
                     Flexible(
-                        child: FutureBuilder<List<AppDocumentAsset>>(
+                        child: FutureBuilder<List<AppDocumentEntity>>(
                             future: _loadDocuments(),
                             builder: (context, snapshot) {
                               return BlocBuilder<DocumentBloc, DocumentState>(
@@ -351,7 +351,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
     }
   }
 
-  void _openAsset(AppDocumentAsset asset) {
+  void _openAsset(AppDocumentEntity asset) {
     if (asset is AppDocumentFile) {
       final remote = _fileSystem.remote;
       final state = widget.bloc.state;
@@ -360,10 +360,12 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
       if (lastLocation == asset.location) return;
       if (remote != null) {
         GoRouter.of(context).push(
-            '/remote/${Uri.encodeComponent(remote.identifier)}/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}');
+            '/remote/${Uri.encodeComponent(remote.identifier)}/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}',
+            extra: asset.data);
       } else {
         GoRouter.of(context).push(
-            '/local/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}');
+            '/local/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}',
+            extra: asset.data);
       }
     } else {
       _pathController.text = asset.pathWithLeadingSlash;

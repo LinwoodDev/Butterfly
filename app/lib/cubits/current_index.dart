@@ -168,6 +168,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Handler? changeTemporaryHandlerIndex(DocumentBloc bloc, int index) {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
+    if (index < 0 || index >= blocState.document.painters.length) {
+      return null;
+    }
     final painter = blocState.document.painters[index];
     return changeTemporaryHandler(bloc, painter);
   }

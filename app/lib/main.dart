@@ -159,7 +159,9 @@ class ButterflyApp extends StatelessWidget {
                     ?.split('/')
                     .map((e) => Uri.decodeComponent(e))
                     .join('/');
-                return ProjectPage(location: AssetLocation.local(path ?? ''));
+                return ProjectPage(
+                    data: state.extra,
+                    location: AssetLocation.local(path ?? ''));
               },
             ),
             GoRoute(
@@ -173,6 +175,7 @@ class ButterflyApp extends StatelessWidget {
                     .map((e) => Uri.decodeComponent(e))
                     .join('/');
                 return ProjectPage(
+                    data: state.extra,
                     location: AssetLocation(remote: remote, path: path ?? ''));
               },
             ),

@@ -48,7 +48,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     file = await file.create(recursive: true);
     final data = const DocumentJsonConverter().toJson(document);
     await file.writeAsString(json.encode(data));
-    return AppDocumentFile(
+    return AppDocumentFile.fromMap(
       AssetLocation.local(path == '/' ? '/$name' : '$path/$name'),
       data,
     );
@@ -67,7 +67,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentAsset?> getAsset(String path) async {
+  Future<AppDocumentEntity?> getAsset(String path) async {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
@@ -78,15 +78,15 @@ class IODocumentFileSystem extends DocumentFileSystem {
     // Test if path is a directory
     var directory = Directory(absolutePath);
     if (await file.exists()) {
-      var json = await file.readAsString();
+      var data = await file.readAsBytes();
       try {
-        return AppDocumentFile(AssetLocation.local(path), jsonDecode(json));
+        return AppDocumentFile(AssetLocation.local(path), data);
       } catch (e) {
         return null;
       }
     } else if (await directory.exists()) {
       var files = await directory.list().toList();
-      var assets = <AppDocumentAsset>[];
+      var assets = <AppDocumentEntity>[];
       for (var file in files) {
         try {
           var currentPath =
@@ -107,8 +107,9 @@ class IODocumentFileSystem extends DocumentFileSystem {
       // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
       assets.sort((a, b) => a is AppDocumentDirectory
           ? -1
-          : (a as AppDocumentFile).name.compareTo(
-              b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
+          : (a as AppDocumentFile).fileName.compareTo(b is AppDocumentDirectory
+              ? ''
+              : (b as AppDocumentFile).fileName));
 
       return AppDocumentDirectory(AssetLocation.local(path), assets);
     }
@@ -130,7 +131,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     final data = const DocumentJsonConverter().toJson(document);
     await file.writeAsString(jsonEncode(data));
 
-    return AppDocumentFile(AssetLocation.local(path), data);
+    return AppDocumentFile.fromMap(AssetLocation.local(path), data);
   }
 
   @override
@@ -152,7 +153,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (!(await dir.exists())) {
       await dir.create(recursive: true);
     }
-    var assets = <AppDocumentAsset>[];
+    var assets = <AppDocumentEntity>[];
     var files = await dir.list().toList();
     for (var file in files) {
       var asset = await getAsset(
