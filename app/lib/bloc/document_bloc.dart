@@ -218,6 +218,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           current.currentIndexCubit.updatePainter(
               current.document, current.currentArea, updatedCurrent);
         }
+        final updatedTempCurrent = event.updatedPainters[
+            current.currentIndexCubit.state.temporaryHandler?.data];
+        if (updatedTempCurrent != null) {
+          current.currentIndexCubit.updateTemporaryPainter(
+              current.document, current.currentArea, updatedTempCurrent);
+        }
       }
     });
     on<PaintersRemoved>((event, emit) async {

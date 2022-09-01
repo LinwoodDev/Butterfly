@@ -97,6 +97,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ));
   }
 
+  void updateTemporaryPainter(
+      AppDocument document, Area? currentArea, Painter painter) {
+    final handler = Handler.fromPainter(painter);
+    emit(state.copyWith(
+      temporaryHandler: handler,
+      temporaryForegrounds:
+          handler.createForegrounds(this, document, currentArea),
+    ));
+  }
+
   T? fetchHandler<T extends Handler>({bool disableTemporary = false}) {
     final handler = getHandler(disableTemporary: disableTemporary);
     if (handler is T) return handler;
