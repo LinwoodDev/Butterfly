@@ -211,9 +211,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                       _tempKeyTool = true;
                     }
                   }
-                  handler?.onPointerDown(event, getEventContext());
+                  cubit.getHandler()?.onPointerDown(event, getEventContext());
                 },
                 onPointerUp: (PointerUpEvent event) async {
+                  cubit.getHandler()?.onPointerUp(event, getEventContext());
                   cubit.removePointer(event.pointer);
                   cubit.removeButtons();
                   if (_tempKeyTool) {
@@ -222,7 +223,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                     cubit.refresh(state.document);
                     _tempKeyTool = false;
                   }
-                  cubit.getHandler()?.onPointerUp(event, getEventContext());
                 },
                 behavior: HitTestBehavior.translucent,
                 onPointerHover: (event) {

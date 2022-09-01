@@ -25,6 +25,11 @@ class AreaHandler extends Handler<AreaPainter> {
 
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
+    if (context.getCurrentIndex().moveEnabled) {
+      currentRect = null;
+      context.refresh();
+      return;
+    }
     final bloc = context.getDocumentBloc();
     final state = context.getState();
     final transform = context.getCameraTransform();

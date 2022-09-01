@@ -495,7 +495,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       final areas = current.document.areas.map((e) {
-        if (e.name == event.area.name) {
+        if (e.name == event.name) {
           return event.area;
         }
         return e;
