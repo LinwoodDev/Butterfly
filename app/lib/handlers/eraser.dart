@@ -25,6 +25,13 @@ class EraserHandler extends Handler<EraserPainter> {
   }
 
   @override
+  void resetInput(DocumentBloc bloc) {
+    elements.clear();
+    submittedElements.clear();
+    lastPositions.clear();
+  }
+
+  @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     addPoint(
         context, event.pointer, event.localPosition, event.pressure, event.kind,

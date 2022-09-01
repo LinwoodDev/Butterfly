@@ -17,6 +17,12 @@ class ShapeHandler extends Handler {
   }
 
   @override
+  void resetInput(DocumentBloc bloc) {
+    elements.clear();
+    submittedElements.clear();
+  }
+
+  @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     addShape(context.buildContext, event.pointer, event.localPosition,
         event.pressure, event.kind, false);

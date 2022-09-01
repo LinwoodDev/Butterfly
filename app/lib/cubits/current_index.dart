@@ -429,7 +429,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(buttons: null));
   }
 
-  void resetInput() {
+  void resetInput(DocumentBloc bloc) {
+    state.handler?.resetInput(bloc);
     emit(state.copyWith(buttons: null, pointers: []));
   }
 }

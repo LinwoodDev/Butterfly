@@ -79,6 +79,13 @@ class LaserHandler extends Handler {
       ..addAll(submittedElements.map((e) => PenRenderer(e)));
   }
 
+  @override
+  void resetInput(DocumentBloc bloc) {
+    elements.clear();
+    submittedElements.clear();
+    _stopTimer();
+  }
+
   bool _moving = false;
 
   @override

@@ -143,7 +143,7 @@ abstract class Handler<T> {
 
   void onScaleEnd(ScaleEndDetails details, EventContext context) {}
 
-  void onDoubleTapDown(TapDownDetails details, EventContext eventContext) {}
+  void onDoubleTapDown(TapDownDetails details, EventContext context) {}
 
   void onDoubleTap(EventContext eventContext) {}
 
@@ -155,6 +155,8 @@ abstract class Handler<T> {
   int? getColor(DocumentBloc bloc) => null;
 
   T? setColor(DocumentBloc bloc, int color) => null;
+
+  void resetInput(DocumentBloc bloc) {}
 
   static Handler fromDocument(AppDocument document, int index) {
     final painter = document.painters[index];

@@ -46,10 +46,11 @@ class _MainViewViewportState extends State<MainViewViewport>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    final bloc = context.read<DocumentBloc>();
     if (state == AppLifecycleState.resumed) {
-      context.read<DocumentBloc>().refresh();
+      bloc.refresh();
     } else {
-      context.read<CurrentIndexCubit>().resetInput();
+      context.read<CurrentIndexCubit>().resetInput(bloc);
     }
   }
 

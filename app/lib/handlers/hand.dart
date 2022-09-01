@@ -160,7 +160,7 @@ class HandHandler extends Handler<HandPainter> {
   }
 
   @override
-  void onDoubleTapDown(TapDownDetails details, EventContext eventContext) {
+  void onDoubleTapDown(TapDownDetails details, EventContext context) {
     _contextMenuOffset = details.localPosition;
   }
 
