@@ -231,8 +231,9 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                 builder: (context, state) => Row(
                   children: [
                     if (!kIsWeb && isWindow()) ...[
-                      const VerticalDivider(),
-                      const WindowButtons()
+                      const WindowButtons(
+                        divider: true,
+                      )
                     ]
                   ],
                 ),

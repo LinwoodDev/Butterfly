@@ -9,3 +9,4 @@
   * Add default behavior to not ask for area name
 * Fix gesture issues on area and shape painter
 * Fix area change problem
+* Fix divider on top right in native title bar mode

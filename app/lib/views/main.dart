@@ -408,7 +408,9 @@ class _ProjectPageState extends State<ProjectPage> {
 }
 
 class WindowButtons extends StatefulWidget {
-  const WindowButtons({super.key});
+  final bool divider;
+
+  const WindowButtons({super.key, this.divider = true});
 
   @override
   State<WindowButtons> createState() => _WindowButtonsState();
@@ -477,6 +479,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    if (widget.divider) const VerticalDivider(),
                     if (!fullScreen)
                       IconButton(
                         icon: Icon(alwaysOnTop

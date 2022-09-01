@@ -216,6 +216,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                               leading: Icon(painter.getIcon()),
                                               trailing: IconButton(
                                                 onPressed: () {
+                                                  Navigator.of(context).pop();
                                                   context
                                                       .read<DocumentBloc>()
                                                       .add(PainterCreated(
