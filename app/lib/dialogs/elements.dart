@@ -14,15 +14,11 @@ import '../bloc/document_bloc.dart';
 import '../services/import.dart';
 
 class ElementsDialog extends StatelessWidget {
-  final VoidCallback close;
   final Offset position;
   final List<Renderer<PadElement>> renderers;
 
   const ElementsDialog(
-      {super.key,
-      required this.close,
-      required this.position,
-      required this.renderers});
+      {super.key, required this.position, required this.renderers});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +31,7 @@ class ElementsDialog extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.move),
             leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
             onTap: () {
-              close();
+              Navigator.of(context).pop();
               context
                   .read<CurrentIndexCubit>()
                   .fetchHandler<HandHandler>()
@@ -46,7 +42,7 @@ class ElementsDialog extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.duplicate),
             leading: const Icon(PhosphorIcons.copyLight),
             onTap: () {
-              close();
+              Navigator.of(context).pop();
               context
                   .read<CurrentIndexCubit>()
                   .fetchHandler<HandHandler>()
@@ -55,7 +51,7 @@ class ElementsDialog extends StatelessWidget {
           ),
           ListTile(
               onTap: () {
-                close();
+                Navigator.of(context).pop();
                 context.read<DocumentBloc>().add(
                     ElementsRemoved(renderers.map((r) => r.element).toList()));
               },
@@ -63,7 +59,7 @@ class ElementsDialog extends StatelessWidget {
               leading: const Icon(PhosphorIcons.trashLight)),
           ListTile(
             onTap: () {
-              close();
+              Navigator.of(context).pop();
               final cubit = context.read<CurrentIndexCubit>();
               cubit.changeSelection(renderers.first);
               renderers.sublist(1).forEach((r) => cubit.insertSelection(r));
@@ -80,11 +76,11 @@ class ElementsDialog extends StatelessWidget {
               final actions =
                   context.findAncestorWidgetOfExactType<Actions>()?.actions ??
                       {};
-              close();
+              Navigator.of(context).pop();
               showContextMenu(
                   context: context,
                   position: position,
-                  builder: (ctx, close) => Actions(
+                  builder: (ctx) => Actions(
                         actions: actions,
                         child: MultiBlocProvider(
                             providers: [
@@ -101,7 +97,6 @@ class ElementsDialog extends StatelessWidget {
                             child: RepositoryProvider.value(
                               value: importService,
                               child: BackgroundContextMenu(
-                                close: close,
                                 position: position,
                               ),
                             )),

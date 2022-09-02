@@ -17,9 +17,16 @@ class ShapeHandler extends Handler {
   }
 
   @override
+  void resetInput(DocumentBloc bloc) {
+    elements.clear();
+    submittedElements.clear();
+  }
+
+  @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     addShape(context.buildContext, event.pointer, event.localPosition,
-        event.pressure, event.kind, false);
+        event.pressure, event.kind,
+        refresh: false);
     submitElement(context.viewportSize, context.buildContext, event.pointer);
   }
 
@@ -103,7 +110,7 @@ class ShapeHandler extends Handler {
 
   void addShape(BuildContext context, int pointer, Offset localPosition,
       double pressure, PointerDeviceKind kind,
-      [bool refresh = true]) {
+      {bool refresh = true, bool shouldCreate = false}) {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
@@ -115,7 +122,10 @@ class ShapeHandler extends Handler {
     }
     double zoom = data.zoomDependent ? transform.size : 1;
 
-    if (!elements.containsKey(pointer)) {
+    final createNew = !elements.containsKey(pointer);
+
+    if (createNew && !shouldCreate) return;
+    if (createNew) {
       elements[pointer] = ShapeElement(
         layer: state.currentLayer,
         firstPosition: globalPosition,
@@ -131,8 +141,14 @@ class ShapeHandler extends Handler {
 
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
+    if (context.getCurrentIndex().moveEnabled) {
+      elements.clear();
+      context.refresh();
+      return;
+    }
     addShape(context.buildContext, event.pointer, event.localPosition,
-        event.pressure, event.kind);
+        event.pressure, event.kind,
+        shouldCreate: true);
   }
 
   @override

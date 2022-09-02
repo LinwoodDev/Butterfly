@@ -11,7 +11,7 @@ description: Powerful, minimalistic, cross-platform, opensource note-taking app
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.5.0-alpha.0+41
+version: 1.5.0-alpha.1+42
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -34,14 +34,14 @@ dependencies:
   share_plus: ^4.0.10+1
   package_info_plus: ^1.4.3+1
   idb_shim: ^2.0.1+1
-  go_router: ^4.2.8
+  go_router: ^4.3.0
   xml: ^6.0.1
   collection: ^1.16.0
   bloc_concurrency: ^0.2.0
   camera: ^0.10.0+1
   camera_windows: ^0.2.1+1
-  window_manager: ^0.2.6
-  flex_color_scheme: ^5.1.0
+  window_manager: ^0.2.7
+  flex_color_scheme: ^6.0.0
   freezed_annotation: ^2.1.0
   json_annotation: ^4.6.0
   path: ^1.8.1
@@ -57,6 +57,7 @@ dependencies:
   ffi: ^2.0.1
   connectivity_plus: ^2.3.6+1
   archive: ^3.3.0
+  animations: ^2.0.4
 dev_dependencies:
   flutter_native_splash: ^2.2.8
   flutter_launcher_icons: ^0.10.0
@@ -65,11 +66,11 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  analyzer: ^4.6.0
+  analyzer: ^4.7.0
   freezed: ^2.1.0+1
   build_runner: ^2.2.0
   json_serializable: ^6.3.1
-  espresso: ^0.2.0+3
+  espresso: ^0.2.0+4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

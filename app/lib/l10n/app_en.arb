@@ -376,5 +376,17 @@
   "position": "Position",
   "note": "Note",
   "packs": "Packs",
-  "pack": "Pack"
+  "pack": "Pack",
+  "more": "More",
+  "askForName": "Ask for name",
+  "areaIndex": "Area {index}",
+  "@areaIndex": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "startInFullScreen": "Start in full screen"
 }

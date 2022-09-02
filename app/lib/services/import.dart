@@ -34,7 +34,6 @@ class ImportService {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     final location = state.location;
-    if (!location.absolute || location.remote.isNotEmpty) return;
     Uint8List? bytes;
     if (data is Uint8List) {
       bytes = data;
@@ -186,7 +185,8 @@ class ImportService {
     final viewport = context.read<CurrentIndexCubit>().state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
-        final data = json.encode(state.document.toJson());
+        final data =
+            json.encode(const DocumentJsonConverter().toJson(state.document));
         final bytes = Uint8List.fromList(data.codeUnits);
         DocumentFileSystem.fromPlatform().saveAbsolute(location.path, bytes);
         break;

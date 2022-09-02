@@ -2,6 +2,20 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.5.0-alpha.0 (2022-08-26)
+
+* Add macos support (Thanks to batuhand)
+* Add pdf export support
+    * Add export presets
+* Add mutli selection option
+* Add property view
+* Add native file opener for pdf, image and notes
+* Add export button to data settings
+* Add option to import files from file on pwa
+* Improve context menu (add modal background, add new scale animation)
+* Fix image import bug
+* Use json converters to load/save json (fixes missing type and version info)
+
 ## 1.4.3 (2022-08-20)
 
 * Move directory on document path change and disable document change on android ([#254](https://github.com/LinwoodCloud/Butterfly/issues/254) and [#255](https://github.com/LinwoodCloud/Butterfly/issues/255))

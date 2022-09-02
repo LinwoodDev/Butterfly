@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/background.dart';
@@ -12,7 +13,6 @@ import 'element.dart';
 import 'pack.dart';
 import 'painter.dart';
 import 'palette.dart';
-import 'property.dart';
 import 'waypoint.dart';
 
 part 'document.freezed.dart';
@@ -71,11 +71,11 @@ class AssetLocation with _$AssetLocation {
 }
 
 @immutable
-abstract class AppDocumentAsset {
+abstract class AppDocumentEntity {
   final AssetLocation location;
   final bool cached;
 
-  const AppDocumentAsset(this.location, {this.cached = false});
+  const AppDocumentEntity(this.location, {this.cached = false});
 
   String get fileName => location.path.split('/').last;
 
@@ -98,14 +98,38 @@ abstract class AppDocumentAsset {
 }
 
 @immutable
-class AppDocumentFile extends AppDocumentAsset {
+class AppDocumentFile extends AppDocumentEntity {
+  final Uint8List data;
+
+  const AppDocumentFile(super.path, this.data);
+
+  factory AppDocumentFile.fromMap(
+          AssetLocation path, Map<String, dynamic> map) =>
+      AppDocumentFile(path, Uint8List.fromList(utf8.encode(json.encode(map))));
+
+  AssetFileType? get fileType => location.fileType;
+
+  DocumentInfo? getDocumentInfo() {
+    try {
+      if (fileType == AssetFileType.note) {
+        return DocumentInfo(
+            fileNameWithoutExtension, jsonDecode(utf8.decode(data)));
+      }
+    } catch (_) {}
+
+    return null;
+  }
+}
+
+@immutable
+class DocumentInfo {
   final Map<String, dynamic> json;
+  final String fileName;
 
-  const AppDocumentFile(super.path, this.json);
-
+  const DocumentInfo(this.fileName, this.json);
   int get fileVersion => json['fileVersion'] ?? -1;
 
-  String get name => json['name'] ?? fileNameWithoutExtension;
+  String get name => json['name'] ?? fileName;
 
   String get description => json['description'] ?? '';
 
@@ -119,13 +143,11 @@ class AppDocumentFile extends AppDocumentAsset {
       const DocumentJsonConverter().fromJson(Map<String, dynamic>.from(json));
 
   String get data => jsonEncode(json);
-
-  AssetFileType? get fileType => location.fileType;
 }
 
 @immutable
-class AppDocumentDirectory extends AppDocumentAsset {
-  final List<AppDocumentAsset> assets;
+class AppDocumentDirectory extends AppDocumentEntity {
+  final List<AppDocumentEntity> assets;
 
   const AppDocumentDirectory(super.path, this.assets);
 
@@ -151,7 +173,6 @@ class AppDocument with _$AppDocument {
       @Default([]) List<ExportPreset> exportPresets,
       @Default([]) List<ButterflyPack> packs,
       required DateTime createdAt,
-      @Default(HandProperty()) HandProperty handProperty,
       DateTime? updatedAt,
       @Default([]) List<Painter> painters}) = _AppDocument;
 

@@ -207,7 +207,6 @@ mixin _$AppDocument {
   List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
   List<ButterflyPack> get packs => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
-  HandProperty get handProperty => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   List<Painter> get painters => throw _privateConstructorUsedError;
 
@@ -233,7 +232,6 @@ abstract class $AppDocumentCopyWith<$Res> {
       List<ExportPreset> exportPresets,
       List<ButterflyPack> packs,
       DateTime createdAt,
-      HandProperty handProperty,
       DateTime? updatedAt,
       List<Painter> painters});
 
@@ -260,7 +258,6 @@ class _$AppDocumentCopyWithImpl<$Res> implements $AppDocumentCopyWith<$Res> {
     Object? exportPresets = freezed,
     Object? packs = freezed,
     Object? createdAt = freezed,
-    Object? handProperty = freezed,
     Object? updatedAt = freezed,
     Object? painters = freezed,
   }) {
@@ -305,10 +302,6 @@ class _$AppDocumentCopyWithImpl<$Res> implements $AppDocumentCopyWith<$Res> {
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      handProperty: handProperty == freezed
-          ? _value.handProperty
-          : handProperty // ignore: cast_nullable_to_non_nullable
-              as HandProperty,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -346,7 +339,6 @@ abstract class _$$_AppDocumentCopyWith<$Res>
       List<ExportPreset> exportPresets,
       List<ButterflyPack> packs,
       DateTime createdAt,
-      HandProperty handProperty,
       DateTime? updatedAt,
       List<Painter> painters});
 
@@ -376,7 +368,6 @@ class __$$_AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
     Object? exportPresets = freezed,
     Object? packs = freezed,
     Object? createdAt = freezed,
-    Object? handProperty = freezed,
     Object? updatedAt = freezed,
     Object? painters = freezed,
   }) {
@@ -421,10 +412,6 @@ class __$$_AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      handProperty: handProperty == freezed
-          ? _value.handProperty
-          : handProperty // ignore: cast_nullable_to_non_nullable
-              as HandProperty,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -451,7 +438,6 @@ class _$_AppDocument extends _AppDocument {
       final List<ExportPreset> exportPresets = const [],
       final List<ButterflyPack> packs = const [],
       required this.createdAt,
-      this.handProperty = const HandProperty(),
       this.updatedAt,
       final List<Painter> painters = const []})
       : _content = content,
@@ -525,9 +511,6 @@ class _$_AppDocument extends _AppDocument {
   @override
   final DateTime createdAt;
   @override
-  @JsonKey()
-  final HandProperty handProperty;
-  @override
   final DateTime? updatedAt;
   final List<Painter> _painters;
   @override
@@ -539,7 +522,7 @@ class _$_AppDocument extends _AppDocument {
 
   @override
   String toString() {
-    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, palettes: $palettes, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, handProperty: $handProperty, updatedAt: $updatedAt, painters: $painters)';
+    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, palettes: $palettes, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters)';
   }
 
   @override
@@ -561,8 +544,6 @@ class _$_AppDocument extends _AppDocument {
                 .equals(other._exportPresets, _exportPresets) &&
             const DeepCollectionEquality().equals(other._packs, _packs) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            const DeepCollectionEquality()
-                .equals(other.handProperty, handProperty) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
             const DeepCollectionEquality().equals(other._painters, _painters));
   }
@@ -581,7 +562,6 @@ class _$_AppDocument extends _AppDocument {
       const DeepCollectionEquality().hash(_exportPresets),
       const DeepCollectionEquality().hash(_packs),
       const DeepCollectionEquality().hash(createdAt),
-      const DeepCollectionEquality().hash(handProperty),
       const DeepCollectionEquality().hash(updatedAt),
       const DeepCollectionEquality().hash(_painters));
 
@@ -610,7 +590,6 @@ abstract class _AppDocument extends AppDocument {
       final List<ExportPreset> exportPresets,
       final List<ButterflyPack> packs,
       required final DateTime createdAt,
-      final HandProperty handProperty,
       final DateTime? updatedAt,
       final List<Painter> painters}) = _$_AppDocument;
   const _AppDocument._() : super._();
@@ -638,8 +617,6 @@ abstract class _AppDocument extends AppDocument {
   List<ButterflyPack> get packs;
   @override
   DateTime get createdAt;
-  @override
-  HandProperty get handProperty;
   @override
   DateTime? get updatedAt;
   @override

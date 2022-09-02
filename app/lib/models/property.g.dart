@@ -6,17 +6,6 @@ part of 'property.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$HandProperty _$$HandPropertyFromJson(Map json) => _$HandProperty(
-      includeEraser: json['includeEraser'] as bool? ?? false,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$HandPropertyToJson(_$HandProperty instance) =>
-    <String, dynamic>{
-      'includeEraser': instance.includeEraser,
-      'type': instance.$type,
-    };
-
 _$LabelProperty _$$LabelPropertyFromJson(Map json) => _$LabelProperty(
       size: (json['size'] as num?)?.toDouble() ?? 12,
       color: json['color'] as int? ?? kColorBlack,

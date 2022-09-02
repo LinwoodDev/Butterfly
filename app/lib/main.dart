@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'api/file_system.dart';
+import 'api/full_screen.dart';
 import 'cubits/settings.dart';
 import 'embed/embedding.dart';
 import 'models/converter.dart';
@@ -25,7 +26,7 @@ import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme/manager.dart';
 import 'views/main.dart';
 
-const kFileVersion = 5;
+const kFileVersion = 6;
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -159,7 +160,9 @@ class ButterflyApp extends StatelessWidget {
                     ?.split('/')
                     .map((e) => Uri.decodeComponent(e))
                     .join('/');
-                return ProjectPage(location: AssetLocation.local(path ?? ''));
+                return ProjectPage(
+                    data: state.extra,
+                    location: AssetLocation.local(path ?? ''));
               },
             ),
             GoRoute(
@@ -173,6 +176,7 @@ class ButterflyApp extends StatelessWidget {
                     .map((e) => Uri.decodeComponent(e))
                     .join('/');
                 return ProjectPage(
+                    data: state.extra,
                     location: AssetLocation(remote: remote, path: path ?? ''));
               },
             ),
@@ -221,6 +225,7 @@ class ButterflyApp extends StatelessWidget {
                 ? TitleBarStyle.normal
                 : TitleBarStyle.hidden);
           }
+          setFullScreen(settings.startInFullScreen);
           return RepositoryProvider(
             create: (context) =>
                 SyncService(context, context.read<SettingsCubit>()),

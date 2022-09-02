@@ -5,6 +5,7 @@ import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
@@ -23,10 +24,8 @@ import '../actions/new.dart';
 import '../actions/open.dart';
 import '../actions/pdf_export.dart';
 import '../actions/project.dart';
-import '../actions/redo.dart';
 import '../actions/save.dart';
 import '../actions/settings.dart';
-import '../actions/undo.dart';
 import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/transform.dart';
@@ -59,7 +58,6 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
             toolbarHeight: _height,
             leading: _MainPopupMenu(
               viewportKey: viewportKey,
-              hideUndoRedo: !isMobile,
             ),
             title: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                 builder: (context, currentIndex) =>
@@ -232,32 +230,10 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
               BlocBuilder<DocumentBloc, DocumentState>(
                 builder: (context, state) => Row(
                   children: [
-                    if (!isMobile) ...[
-                      IconButton(
-                        icon: const Icon(
-                            PhosphorIcons.arrowCounterClockwiseLight),
-                        tooltip: AppLocalizations.of(context)!.undo,
-                        onPressed: !bloc.canUndo
-                            ? null
-                            : () {
-                                Actions.maybeInvoke<UndoIntent>(
-                                    context, UndoIntent(context));
-                              },
-                      ),
-                      IconButton(
-                        icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                        tooltip: AppLocalizations.of(context)!.redo,
-                        onPressed: !bloc.canRedo
-                            ? null
-                            : () {
-                                Actions.maybeInvoke<RedoIntent>(
-                                    context, RedoIntent(context));
-                              },
-                      ),
-                    ],
                     if (!kIsWeb && isWindow()) ...[
-                      const VerticalDivider(),
-                      const WindowButtons()
+                      const WindowButtons(
+                        divider: true,
+                      )
                     ]
                   ],
                 ),
@@ -275,9 +251,8 @@ class _MainPopupMenu extends StatelessWidget {
   final TextEditingController _scaleController =
       TextEditingController(text: '100');
   final GlobalKey viewportKey;
-  final bool hideUndoRedo;
 
-  _MainPopupMenu({required this.viewportKey, this.hideUndoRedo = false});
+  _MainPopupMenu({required this.viewportKey});
 
   @override
   Widget build(BuildContext context) {
@@ -293,40 +268,6 @@ class _MainPopupMenu extends StatelessWidget {
         iconSize: 36,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         itemBuilder: (context) => <PopupMenuEntry>[
-          if (!hideUndoRedo)
-            PopupMenuItem(
-              enabled: false,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: IconTheme(
-                data: Theme.of(context).iconTheme,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon:
-                          const Icon(PhosphorIcons.arrowCounterClockwiseLight),
-                      tooltip: AppLocalizations.of(context)!.undo,
-                      onPressed: !bloc.canUndo
-                          ? null
-                          : () {
-                              Actions.maybeInvoke<UndoIntent>(
-                                  context, UndoIntent(context));
-                            },
-                    ),
-                    IconButton(
-                      icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                      tooltip: AppLocalizations.of(context)!.redo,
-                      onPressed: !bloc.canRedo
-                          ? null
-                          : () {
-                              Actions.maybeInvoke<RedoIntent>(
-                                  context, RedoIntent(context));
-                            },
-                    ),
-                  ],
-                ),
-              ),
-            ),
           PopupMenuItem(
               enabled: false,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -666,7 +607,9 @@ class _MainPopupMenu extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).pop();
                       sendEmbedMessage(
-                          'exit', json.encode(state.document.toJson()));
+                          'exit',
+                          json.encode(const DocumentJsonConverter()
+                              .toJson(state.document)));
                     })),
         ],
       );

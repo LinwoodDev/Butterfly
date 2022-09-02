@@ -8,7 +8,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FileSystemGridView extends StatelessWidget {
   final AssetLocation? selectedPath;
-  final List<AppDocumentAsset> assets;
+  final List<AppDocumentEntity> assets;
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
   final DocumentFileSystem fileSystem;
@@ -80,6 +80,7 @@ class FileSystemGridView extends StatelessWidget {
             runSpacing: 8.0,
             children: List.generate(files.length, (index) {
               final file = files[index];
+              final info = file.getDocumentInfo();
               return ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 300),
                   child: Card(
@@ -126,14 +127,16 @@ class FileSystemGridView extends StatelessWidget {
                                       onOpened: onOpened,
                                       onRefreshed: onRefreshed)
                                 ]),
-                                Text(file.name,
+                                Text(info?.name ?? file.fileName,
                                     overflow: TextOverflow.ellipsis,
                                     style:
                                         Theme.of(context).textTheme.subtitle2),
-                                Text(file.description,
-                                    overflow: TextOverflow.ellipsis,
-                                    style:
-                                        Theme.of(context).textTheme.labelSmall),
+                                if (info != null)
+                                  Text(info.description,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall),
                               ],
                             ),
                           ))));

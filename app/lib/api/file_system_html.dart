@@ -13,6 +13,7 @@ import 'package:idb_shim/idb_browser.dart';
 import 'package:js/js.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/converter.dart';
 import 'file_system.dart';
 
 @JS()
@@ -86,14 +87,15 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       filePath = '$path/${convertNameToFile(document.name)}_$counter';
       counter++;
     }
-    var doc = Map<String, dynamic>.from(document.toJson());
+    var doc = Map<String, dynamic>.from(
+        const DocumentJsonConverter().toJson(document));
     doc['type'] = 'file';
     final db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
     await store.put(doc, filePath);
     await txn.completed;
-    return AppDocumentFile(AssetLocation.local(filePath), doc);
+    return AppDocumentFile.fromMap(AssetLocation.local(filePath), doc);
   }
 
   @override
@@ -116,7 +118,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentAsset?> getAsset(String path) async {
+  Future<AppDocumentEntity?> getAsset(String path) async {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
@@ -138,11 +140,11 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var map = Map<String, dynamic>.from(data as Map);
     if (map['type'] == 'file') {
       await txn.completed;
-      return AppDocumentFile(AssetLocation.local(path), map);
+      return AppDocumentFile.fromMap(AssetLocation.local(path), map);
     } else if (map['type'] == 'directory') {
       var cursor = store.openCursor(autoAdvance: true);
       var assets = await Future.wait(
-              await cursor.map<Future<AppDocumentAsset?>>((cursor) async {
+              await cursor.map<Future<AppDocumentEntity?>>((cursor) async {
         // Add leading slash
         var key = cursor.key.toString();
         if (!key.startsWith('/')) {
@@ -154,7 +156,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
             !key.substring(path.length + 1).contains('/')) {
           var data = cursor.value as Map<dynamic, dynamic>;
           if (data['type'] == 'file') {
-            return AppDocumentFile(
+            return AppDocumentFile.fromMap(
                 AssetLocation.local(key), Map<String, dynamic>.from(data));
           } else if (data['type'] == 'directory') {
             return AppDocumentDirectory(AssetLocation.local(key), const []);
@@ -163,12 +165,13 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         }
         return null;
       }).toList())
-          .then((value) => value.whereType<AppDocumentAsset>().toList());
+          .then((value) => value.whereType<AppDocumentEntity>().toList());
       // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
       assets.sort((a, b) => a is AppDocumentDirectory
           ? -1
-          : (a as AppDocumentFile).name.compareTo(
-              b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
+          : (a as AppDocumentFile).fileName.compareTo(b is AppDocumentDirectory
+              ? ''
+              : (b as AppDocumentFile).fileName));
       await txn.completed;
       return AppDocumentDirectory(AssetLocation.local(path), assets.toList());
     }
@@ -205,11 +208,11 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
-    var doc = document.toJson();
+    var doc = const DocumentJsonConverter().toJson(document);
     doc['type'] = 'file';
     await store.put(doc, path);
     await txn.completed;
-    return AppDocumentFile(AssetLocation.local(path), doc);
+    return AppDocumentFile.fromMap(AssetLocation.local(path), doc);
   }
 
   @override
@@ -317,7 +320,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
     }
     var map = Map<String, dynamic>.from(data as Map);
     await txn.completed;
-    return DocumentTemplate.fromJson(map);
+    return const TemplateJsonConverter().fromJson(map);
   }
 
   @override
@@ -325,7 +328,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
     var db = await _getDatabase();
     var txn = db.transaction('templates', 'readwrite');
     var store = txn.objectStore('templates');
-    var doc = template.toJson();
+    var doc = const TemplateJsonConverter().toJson(template);
     await store.put(doc, template.name);
   }
 
@@ -363,8 +366,8 @@ class WebTemplateFileSystem extends TemplateFileSystem {
     await cursor.forEach((cursor) {
       try {
         var map = cursor.value as Map;
-        templates
-            .add(DocumentTemplate.fromJson(Map<String, dynamic>.from(map)));
+        templates.add(const TemplateJsonConverter()
+            .fromJson(Map<String, dynamic>.from(map)));
       } catch (e) {
         if (kDebugMode) {
           print(e);

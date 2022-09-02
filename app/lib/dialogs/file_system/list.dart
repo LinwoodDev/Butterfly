@@ -9,7 +9,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FileSystemListView extends StatelessWidget {
   final AssetLocation? selectedPath;
-  final List<AppDocumentAsset> assets;
+  final List<AppDocumentEntity> assets;
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
   final DocumentFileSystem fileSystem;
@@ -28,9 +28,10 @@ class FileSystemListView extends StatelessWidget {
       itemBuilder: (context, index) {
         var document = assets[index];
         if (document is AppDocumentFile) {
+          final info = document.getDocumentInfo();
           return ListTile(
             leading: Icon(document.fileType.getIcon()),
-            title: Text(document.name),
+            title: Text(info?.name ?? document.fileName),
             selected: document.location == selectedPath,
             subtitle: FileSystemFileRichText(
               file: document,

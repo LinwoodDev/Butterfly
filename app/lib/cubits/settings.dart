@@ -132,6 +132,7 @@ class ButterflySettings with _$ButterflySettings {
       @Default([]) List<RemoteStorage> remotes,
       @Default('') String defaultRemote,
       @Default(false) bool nativeWindowTitleBar,
+      @Default(false) bool startInFullScreen,
       @Default(SyncMode.noMobile) SyncMode syncMode}) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -172,6 +173,7 @@ class ButterflySettings with _$ButterflySettings {
       remotes: remotes,
       defaultRemote: prefs.getString('default_remote') ?? '',
       nativeWindowTitleBar: prefs.getBool('native_window_title_bar') ?? false,
+      startInFullScreen: prefs.getBool('start_in_full_screen') ?? false,
       syncMode:
           SyncMode.values.byName(prefs.getString('sync_mode') ?? 'noMobile'),
     );
@@ -213,6 +215,7 @@ class ButterflySettings with _$ButterflySettings {
         'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
     await prefs.setString('default_remote', defaultRemote);
     await prefs.setBool('native_window_title_bar', nativeWindowTitleBar);
+    await prefs.setBool('start_in_full_screen', startInFullScreen);
   }
 
   RemoteStorage? getRemote(String identifier) {
@@ -383,6 +386,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> resetColorEnabled() => changeColorEnabled(true);
+
+  Future<void> changeStartInFullScreen(bool value) {
+    emit(state.copyWith(startInFullScreen: value));
+    return save();
+  }
 
   bool isFirstStart() {
     return state.lastVersion == null;

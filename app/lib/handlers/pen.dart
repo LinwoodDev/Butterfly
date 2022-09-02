@@ -22,6 +22,13 @@ class PenHandler extends Handler<PenPainter> {
   }
 
   @override
+  void resetInput(DocumentBloc bloc) {
+    elements.clear();
+    submittedElements.clear();
+    lastPosition.clear();
+  }
+
+  @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     addPoint(context.buildContext, event.pointer, event.localPosition,
         event.pressure, event.kind,

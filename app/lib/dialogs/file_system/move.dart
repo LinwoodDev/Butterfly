@@ -9,7 +9,7 @@ enum MoveMode { duplicate, move }
 
 class FileSystemAssetMoveDialog extends StatefulWidget {
   final MoveMode? moveMode;
-  final AppDocumentAsset asset;
+  final AppDocumentEntity asset;
   final DocumentFileSystem fileSystem;
   const FileSystemAssetMoveDialog(
       {super.key,

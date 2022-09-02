@@ -41,7 +41,9 @@ part 'laser.dart';
 part 'layer.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
+part 'redo.dart';
 part 'shape.dart';
+part 'undo.dart';
 
 @immutable
 class EventContext {
@@ -103,6 +105,9 @@ abstract class Handler<T> {
 
   const Handler(this.data);
 
+  bool onSelected(DocumentBloc bloc, CurrentIndexCubit currentIndexCubit) =>
+      true;
+
   List<Renderer> createForegrounds(
           CurrentIndexCubit currentIndexCubit, AppDocument document,
           [Area? currentArea]) =>
@@ -138,16 +143,20 @@ abstract class Handler<T> {
 
   void onScaleEnd(ScaleEndDetails details, EventContext context) {}
 
-  void onDoubleTapDown(TapDownDetails details, EventContext eventContext) {}
+  void onDoubleTapDown(TapDownDetails details, EventContext context) {}
 
   void onDoubleTap(EventContext eventContext) {}
 
   void onLongPressDown(
       LongPressDownDetails details, EventContext eventContext) {}
 
+  bool canChange(PointerDownEvent event, EventContext eventContext) => true;
+
   int? getColor(DocumentBloc bloc) => null;
 
   T? setColor(DocumentBloc bloc, int color) => null;
+
+  void resetInput(DocumentBloc bloc) {}
 
   static Handler fromDocument(AppDocument document, int index) {
     final painter = document.painters[index];
@@ -155,6 +164,9 @@ abstract class Handler<T> {
   }
 
   static Handler fromPainter(Painter painter) {
+    if (painter is HandPainter) {
+      return HandHandler(painter);
+    }
     if (painter is PenPainter) {
       return PenHandler(painter);
     }
@@ -179,7 +191,13 @@ abstract class Handler<T> {
     if (painter is LaserPainter) {
       return LaserHandler(painter);
     }
-    return HandHandler(const HandProperty());
+    if (painter is RedoPainter) {
+      return RedoHandler(painter);
+    }
+    if (painter is UndoPainter) {
+      return UndoHandler(painter);
+    }
+    throw Exception('Unknown painter type: ${painter.runtimeType}');
   }
 }
 
@@ -198,31 +216,36 @@ class _SmallRenderer {
 class _RayCastParams {
   final List<String> invisibleLayers;
   final List<_SmallRenderer> renderers;
-  final Offset globalPosition;
-  final double radius;
+  final Rect rect;
   final double size;
   final bool includeEraser;
 
-  const _RayCastParams(this.invisibleLayers, this.renderers,
-      this.globalPosition, this.radius, this.size, this.includeEraser);
+  const _RayCastParams(this.invisibleLayers, this.renderers, this.rect,
+      this.size, this.includeEraser);
 }
 
 Future<Set<Renderer<PadElement>>> rayCast(
     BuildContext context, Offset localPosition, double radius,
     [bool includeEraser = false]) async {
+  final transform = BlocProvider.of<TransformCubit>(context).state;
+  final globalPosition = transform.localToGlobal(localPosition);
+  return rayCastRect(context,
+      Rect.fromCircle(center: globalPosition, radius: radius), includeEraser);
+}
+
+Future<Set<Renderer<PadElement>>> rayCastRect(BuildContext context, Rect rect,
+    [bool includeEraser = false]) async {
   final bloc = context.read<DocumentBloc>();
   final transform = context.read<TransformCubit>().state;
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return {};
-  final globalPosition = transform.localToGlobal(localPosition);
   final renderers = state.cameraViewport.visibleElements;
   return compute(
           _executeRayCast,
           _RayCastParams(
               state.invisibleLayers,
               renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
-              globalPosition,
-              radius,
+              rect,
               transform.size,
               includeEraser))
       .then((value) => value.map((e) => renderers[e]).toSet());
@@ -233,9 +256,7 @@ Set<int> _executeRayCast(_RayCastParams params) {
       .asMap()
       .entries
       .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
-      .where((e) =>
-          e.value.hitCalculator?.hit(params.globalPosition, params.radius) ??
-          false)
+      .where((e) => e.value.hitCalculator?.hit(params.rect) ?? false)
       .where((e) => params.includeEraser || e.value.element is! EraserElement)
       .map((e) => e.key)
       .toSet();

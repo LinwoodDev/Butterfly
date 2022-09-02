@@ -63,7 +63,7 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     return path;
   }
 
-  Future<AppDocumentAsset?> getAsset(String path);
+  Future<AppDocumentEntity?> getAsset(String path);
 
   Future<AppDocumentDirectory> createDirectory(String name);
 
@@ -83,16 +83,18 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
   Future<AppDocumentFile> importDocument(AppDocument document,
       {String path = '/'});
 
-  Future<AppDocumentAsset?> renameAsset(String path, String newName) async {
+  Future<AppDocumentEntity?> renameAsset(String path, String newName) async {
     // Remove leading slash
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
     final asset = await getAsset(path);
     if (asset == null) return null;
-    AppDocumentAsset? newAsset;
+    AppDocumentEntity? newAsset;
     if (asset is AppDocumentFile) {
-      newAsset = await updateDocument(newName, asset.load());
+      final doc = asset.getDocumentInfo()?.load();
+      if (doc == null) return null;
+      newAsset = await updateDocument(newName, doc);
     } else {
       newAsset = await createDirectory(newName);
       var assets = (asset as AppDocumentDirectory).assets;
@@ -117,11 +119,13 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     }
   }
 
-  Future<AppDocumentAsset?> duplicateAsset(String path, String newPath) async {
+  Future<AppDocumentEntity?> duplicateAsset(String path, String newPath) async {
     var asset = await getAsset(path);
     if (asset == null) return null;
     if (asset is AppDocumentFile) {
-      return updateDocument(newPath, asset.load());
+      final doc = asset.getDocumentInfo()?.load();
+      if (doc == null) return null;
+      return updateDocument(newPath, doc);
     } else {
       var newDirectory = await createDirectory(newPath);
       var assets = (asset as AppDocumentDirectory).assets;
@@ -134,7 +138,7 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     }
   }
 
-  Future<AppDocumentAsset?> moveAsset(String path, String newPath) async {
+  Future<AppDocumentEntity?> moveAsset(String path, String newPath) async {
     var asset = await duplicateAsset(path, newPath);
     if (asset == null) return null;
     if (path != newPath) await deleteAsset(path);
@@ -199,12 +203,11 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
 
 Archive exportDirectory(AppDocumentDirectory directory) {
   final archive = Archive();
-  void addToArchive(AppDocumentAsset asset) {
+  void addToArchive(AppDocumentEntity asset) {
     if (asset is AppDocumentFile) {
       final data = asset.data;
-      final content = data.codeUnits;
-      final size = content.length;
-      final file = ArchiveFile(asset.pathWithoutLeadingSlash, size, content);
+      final size = data.length;
+      final file = ArchiveFile(asset.pathWithoutLeadingSlash, size, data);
       archive.addFile(file);
     } else if (asset is AppDocumentDirectory) {
       var assets = asset.assets;

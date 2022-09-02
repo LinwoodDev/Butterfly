@@ -7,20 +7,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../widgets/context_menu.dart';
 import '../image_export.dart';
 import '../pdf_export.dart';
 
 class AreaContextMenu extends StatelessWidget {
-  final ContextCloseFunction close;
   final Offset position;
   final Area area;
 
   const AreaContextMenu(
-      {super.key,
-      required this.close,
-      required this.position,
-      required this.area});
+      {super.key, required this.position, required this.area});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +40,7 @@ class AreaContextMenu extends StatelessWidget {
                     : AppLocalizations.of(context)!.enterArea,
               ),
               onTap: () {
-                close();
+                Navigator.of(context).pop();
                 if (area.name == state.currentAreaName) {
                   bloc.add(const CurrentAreaChanged.exit());
                 } else {
@@ -61,7 +56,7 @@ class AreaContextMenu extends StatelessWidget {
               onTap: () {
                 final nameController = TextEditingController(text: area.name);
                 final formKey = GlobalKey<FormState>();
-                close();
+                Navigator.of(context).pop();
                 showDialog(
                   context: context,
                   builder: (context) => Form(
@@ -109,7 +104,7 @@ class AreaContextMenu extends StatelessWidget {
               leading: const Icon(PhosphorIcons.exportLight),
               title: Text(AppLocalizations.of(context)!.export),
               onTap: () {
-                close();
+                Navigator.of(context).pop();
                 var bloc = context.read<DocumentBloc>();
                 showDialog(
                   context: context,
@@ -180,7 +175,7 @@ class AreaContextMenu extends StatelessWidget {
               leading: const Icon(PhosphorIcons.trashLight),
               title: Text(AppLocalizations.of(context)!.delete),
               onTap: () {
-                close();
+                Navigator.of(context).pop();
                 var bloc = context.read<DocumentBloc>();
                 var state = bloc.state;
                 if (state is! DocumentLoadSuccess) return;

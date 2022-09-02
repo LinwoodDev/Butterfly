@@ -16,7 +16,6 @@ import '../embed/embedding.dart';
 import '../models/area.dart';
 import '../models/element.dart';
 import '../models/export.dart';
-import '../models/property.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';
 
@@ -111,9 +110,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         current.currentIndexCubit.unbake(unbakedElements: renderers);
         if (oldRenderer == null || newRenderer == null) return;
-        if (await current.currentIndexCubit
-            .getHandler()
-            .onRendererUpdated(current.document, oldRenderer, newRenderer)) {
+        if ((await current.currentIndexCubit.getHandler()?.onRendererUpdated(
+                current.document, oldRenderer, newRenderer)) ??
+            false) {
           refresh();
         }
         final document = current.document;
@@ -213,11 +212,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 return e;
               }
             }).toList())));
-        final updatedCurrent =
-            event.updatedPainters[current.currentIndexCubit.state.handler.data];
+        final updatedCurrent = event
+            .updatedPainters[current.currentIndexCubit.state.handler?.data];
         if (updatedCurrent != null) {
           current.currentIndexCubit.updatePainter(
               current.document, current.currentArea, updatedCurrent);
+        }
+        final updatedTempCurrent = event.updatedPainters[
+            current.currentIndexCubit.state.temporaryHandler?.data];
+        if (updatedTempCurrent != null) {
+          current.currentIndexCubit.updateTemporaryPainter(
+              current.document, current.currentArea, updatedTempCurrent);
         }
       }
     });
@@ -252,16 +257,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         painters.insert(newIndex, item);
         final cubit = current.currentIndexCubit;
         var nextCurrentIndex = cubit.state.index;
-        if (nextCurrentIndex == oldIndex) {
-          nextCurrentIndex = newIndex;
-        } else if (nextCurrentIndex > oldIndex &&
-            nextCurrentIndex <= newIndex) {
-          nextCurrentIndex -= 1;
-        } else if (nextCurrentIndex < oldIndex &&
-            nextCurrentIndex >= newIndex) {
-          nextCurrentIndex += 1;
+        if (nextCurrentIndex != null) {
+          if (nextCurrentIndex == oldIndex) {
+            nextCurrentIndex = newIndex;
+          } else if (nextCurrentIndex > oldIndex &&
+              nextCurrentIndex <= newIndex) {
+            nextCurrentIndex -= 1;
+          } else if (nextCurrentIndex < oldIndex &&
+              nextCurrentIndex >= newIndex) {
+            nextCurrentIndex += 1;
+          }
+          cubit.changeIndex(nextCurrentIndex);
         }
-        cubit.changeIndex(nextCurrentIndex);
         return _saveDocument(
             emit,
             current.copyWith(
@@ -307,17 +314,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 document: current.document.copyWith(
                     waypoints: List<Waypoint>.from(current.document.waypoints)
                       ..removeAt(event.index))));
-      }
-    });
-    on<HandPropertyChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        return _saveDocument(
-            emit,
-            current.copyWith(
-                document:
-                    current.document.copyWith(handProperty: event.property)));
       }
     });
 
@@ -499,7 +495,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       final areas = current.document.areas.map((e) {
-        if (e.name == event.area.name) {
+        if (e.name == event.name) {
           return event.area;
         }
         return e;
@@ -619,6 +615,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   Future<void> load() async {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
-    return current.load();
+    final currentIndexCubit = current.currentIndexCubit;
+    final document = current.document;
+    currentIndexCubit.setSaveState(saved: true);
+    final background = Renderer.fromInstance(document.background);
+    await background.setup(document);
+    final renderers =
+        document.content.map((e) => Renderer.fromInstance(e)).toList();
+    await Future.wait(renderers.map((e) async => await e.setup(document)));
+    currentIndexCubit.unbake(
+        background: background, unbakedElements: renderers);
+    currentIndexCubit.changePainter(this, 0);
   }
 }

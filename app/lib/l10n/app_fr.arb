@@ -374,5 +374,16 @@
   "element": "Élément",
   "painter": "Peintre",
   "position": "Position",
-  "note": "Note"
+  "note": "Note",
+  "more": "En savoir plus",
+  "askForName": "Demander le nom",
+  "areaIndex": "Zone {index}",
+  "@areaIndex": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

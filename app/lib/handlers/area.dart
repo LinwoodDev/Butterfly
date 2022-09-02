@@ -21,7 +21,15 @@ class AreaHandler extends Handler<AreaPainter> {
       ];
 
   @override
+  void resetInput(DocumentBloc bloc) => currentRect = null;
+
+  @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
+    if (context.getCurrentIndex().moveEnabled) {
+      currentRect = null;
+      context.refresh();
+      return;
+    }
     final bloc = context.getDocumentBloc();
     final state = context.getState();
     final transform = context.getCameraTransform();
@@ -32,7 +40,7 @@ class AreaHandler extends Handler<AreaPainter> {
       showContextMenu(
         position: event.position,
         context: context.buildContext,
-        builder: (context, close) => MultiBlocProvider(
+        builder: (context) => MultiBlocProvider(
             providers: [
               BlocProvider<DocumentBloc>.value(
                 value: bloc,
@@ -42,7 +50,6 @@ class AreaHandler extends Handler<AreaPainter> {
               ),
             ],
             child: AreaContextMenu(
-              close: close,
               position: event.localPosition,
               area: (state?.currentArea ?? area)!,
             )),
@@ -69,11 +76,21 @@ class AreaHandler extends Handler<AreaPainter> {
     context.refresh();
   }
 
-  Future<String?> _showAreaLabelDialog(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (_) => BlocProvider.value(
-            value: context.read<DocumentBloc>(), child: AreaLabelDialog()));
+  Future<String?> _showAreaLabelDialog(BuildContext context) async {
+    if (data.askForName) {
+      return showDialog(
+          context: context,
+          builder: (_) => BlocProvider.value(
+              value: context.read<DocumentBloc>(), child: AreaLabelDialog()));
+    }
+    final state = context.read<DocumentBloc>().state;
+    if (state is! DocumentLoadSuccess) return null;
+    var name = '', index = 1;
+    while (name.isEmpty || state.document.getAreaByName(name) != null) {
+      name = AppLocalizations.of(context)!.areaIndex(index);
+      index++;
+    }
+    return name;
   }
 
   void _setRect(AppDocument document, Offset nextPosition) {

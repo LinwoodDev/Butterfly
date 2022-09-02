@@ -374,5 +374,16 @@
   "element": "Elemento",
   "painter": "Pintor",
   "position": "Posición",
-  "note": "Nota"
+  "note": "Nota",
+  "more": "Más",
+  "askForName": "Solicitar nombre",
+  "areaIndex": "Área {index}",
+  "@areaIndex": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

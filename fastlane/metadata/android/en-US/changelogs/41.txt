@@ -6,4 +6,6 @@
 * Add native file opener for pdf, image and notes
 * Add export button to data settings
 * Add option to import files from file on pwa
+* Improve context menu (add modal background, add new scale animation)
 * Fix image import bug
+* Use json converters to load/save json (fixes missing type and version info)

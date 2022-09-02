@@ -36,7 +36,7 @@ part 'painters/pen.dart';
 part 'painters/shape.dart';
 
 part 'area.dart';
-part 'hand.dart';
+part 'painters/hand.dart';
 
 abstract class Selection<T> {
   final List<T> selected;
@@ -49,9 +49,6 @@ abstract class Selection<T> {
     }
     if (selected is Painter) {
       return PainterSelection<Painter>.from(selected) as Selection<T>;
-    }
-    if (selected is Hand) {
-      return HandSelection([selected]) as Selection<T>;
     }
     if (selected is Area) {
       return AreaSelection([selected]) as Selection<T>;

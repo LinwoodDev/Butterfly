@@ -16,8 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 Property _$PropertyFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
-    case 'hand':
-      return HandProperty.fromJson(json);
     case 'label':
       return LabelProperty.fromJson(json);
     case 'eraser':
@@ -37,7 +35,6 @@ Property _$PropertyFromJson(Map<String, dynamic> json) {
 mixin _$Property {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool includeEraser) hand,
     required TResult Function(
             double size,
             int color,
@@ -64,7 +61,6 @@ mixin _$Property {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool includeEraser)? hand,
     TResult Function(
             double size,
             int color,
@@ -89,7 +85,6 @@ mixin _$Property {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool includeEraser)? hand,
     TResult Function(
             double size,
             int color,
@@ -115,7 +110,6 @@ mixin _$Property {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandProperty value) hand,
     required TResult Function(LabelProperty value) label,
     required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
@@ -124,7 +118,6 @@ mixin _$Property {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandProperty value)? hand,
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
@@ -133,7 +126,6 @@ mixin _$Property {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandProperty value)? hand,
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
@@ -157,227 +149,6 @@ class _$PropertyCopyWithImpl<$Res> implements $PropertyCopyWith<$Res> {
   final Property _value;
   // ignore: unused_field
   final $Res Function(Property) _then;
-}
-
-/// @nodoc
-abstract class _$$HandPropertyCopyWith<$Res> {
-  factory _$$HandPropertyCopyWith(
-          _$HandProperty value, $Res Function(_$HandProperty) then) =
-      __$$HandPropertyCopyWithImpl<$Res>;
-  $Res call({bool includeEraser});
-}
-
-/// @nodoc
-class __$$HandPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
-    implements _$$HandPropertyCopyWith<$Res> {
-  __$$HandPropertyCopyWithImpl(
-      _$HandProperty _value, $Res Function(_$HandProperty) _then)
-      : super(_value, (v) => _then(v as _$HandProperty));
-
-  @override
-  _$HandProperty get _value => super._value as _$HandProperty;
-
-  @override
-  $Res call({
-    Object? includeEraser = freezed,
-  }) {
-    return _then(_$HandProperty(
-      includeEraser: includeEraser == freezed
-          ? _value.includeEraser
-          : includeEraser // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$HandProperty implements HandProperty {
-  const _$HandProperty({this.includeEraser = false, final String? $type})
-      : $type = $type ?? 'hand';
-
-  factory _$HandProperty.fromJson(Map<String, dynamic> json) =>
-      _$$HandPropertyFromJson(json);
-
-  @override
-  @JsonKey()
-  final bool includeEraser;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'Property.hand(includeEraser: $includeEraser)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$HandProperty &&
-            const DeepCollectionEquality()
-                .equals(other.includeEraser, includeEraser));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(includeEraser));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$HandPropertyCopyWith<_$HandProperty> get copyWith =>
-      __$$HandPropertyCopyWithImpl<_$HandProperty>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(bool includeEraser) hand,
-    required TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)
-        label,
-    required TResult Function(double strokeWidth, double strokeMultiplier)
-        eraser,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)
-        pen,
-    required TResult Function(double strokeWidth, PathShape shape, int color)
-        shape,
-  }) {
-    return hand(includeEraser);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool includeEraser)? hand,
-    TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)?
-        label,
-    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
-    TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
-        pen,
-    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
-  }) {
-    return hand?.call(includeEraser);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool includeEraser)? hand,
-    TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)?
-        label,
-    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
-    TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
-        pen,
-    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
-    required TResult orElse(),
-  }) {
-    if (hand != null) {
-      return hand(includeEraser);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(HandProperty value) hand,
-    required TResult Function(LabelProperty value) label,
-    required TResult Function(EraserProperty value) eraser,
-    required TResult Function(PenProperty value) pen,
-    required TResult Function(ShapeProperty value) shape,
-  }) {
-    return hand(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandProperty value)? hand,
-    TResult Function(LabelProperty value)? label,
-    TResult Function(EraserProperty value)? eraser,
-    TResult Function(PenProperty value)? pen,
-    TResult Function(ShapeProperty value)? shape,
-  }) {
-    return hand?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandProperty value)? hand,
-    TResult Function(LabelProperty value)? label,
-    TResult Function(EraserProperty value)? eraser,
-    TResult Function(PenProperty value)? pen,
-    TResult Function(ShapeProperty value)? shape,
-    required TResult orElse(),
-  }) {
-    if (hand != null) {
-      return hand(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$HandPropertyToJson(
-      this,
-    );
-  }
-}
-
-abstract class HandProperty implements Property {
-  const factory HandProperty({final bool includeEraser}) = _$HandProperty;
-
-  factory HandProperty.fromJson(Map<String, dynamic> json) =
-      _$HandProperty.fromJson;
-
-  bool get includeEraser;
-  @JsonKey(ignore: true)
-  _$$HandPropertyCopyWith<_$HandProperty> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -609,7 +380,6 @@ class _$LabelProperty implements LabelProperty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool includeEraser) hand,
     required TResult Function(
             double size,
             int color,
@@ -652,7 +422,6 @@ class _$LabelProperty implements LabelProperty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool includeEraser)? hand,
     TResult Function(
             double size,
             int color,
@@ -693,7 +462,6 @@ class _$LabelProperty implements LabelProperty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool includeEraser)? hand,
     TResult Function(
             double size,
             int color,
@@ -738,7 +506,6 @@ class _$LabelProperty implements LabelProperty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandProperty value) hand,
     required TResult Function(LabelProperty value) label,
     required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
@@ -750,7 +517,6 @@ class _$LabelProperty implements LabelProperty {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandProperty value)? hand,
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
@@ -762,7 +528,6 @@ class _$LabelProperty implements LabelProperty {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandProperty value)? hand,
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
@@ -907,7 +672,6 @@ class _$EraserProperty with PathProperty implements EraserProperty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool includeEraser) hand,
     required TResult Function(
             double size,
             int color,
@@ -937,7 +701,6 @@ class _$EraserProperty with PathProperty implements EraserProperty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool includeEraser)? hand,
     TResult Function(
             double size,
             int color,
@@ -965,7 +728,6 @@ class _$EraserProperty with PathProperty implements EraserProperty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool includeEraser)? hand,
     TResult Function(
             double size,
             int color,
@@ -997,7 +759,6 @@ class _$EraserProperty with PathProperty implements EraserProperty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandProperty value) hand,
     required TResult Function(LabelProperty value) label,
     required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
@@ -1009,7 +770,6 @@ class _$EraserProperty with PathProperty implements EraserProperty {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandProperty value)? hand,
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
@@ -1021,7 +781,6 @@ class _$EraserProperty with PathProperty implements EraserProperty {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandProperty value)? hand,
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
@@ -1169,7 +928,6 @@ class _$PenProperty with PathProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool includeEraser) hand,
     required TResult Function(
             double size,
             int color,
@@ -1199,7 +957,6 @@ class _$PenProperty with PathProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool includeEraser)? hand,
     TResult Function(
             double size,
             int color,
@@ -1227,7 +984,6 @@ class _$PenProperty with PathProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool includeEraser)? hand,
     TResult Function(
             double size,
             int color,
@@ -1259,7 +1015,6 @@ class _$PenProperty with PathProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandProperty value) hand,
     required TResult Function(LabelProperty value) label,
     required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
@@ -1271,7 +1026,6 @@ class _$PenProperty with PathProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandProperty value)? hand,
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
@@ -1283,7 +1037,6 @@ class _$PenProperty with PathProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandProperty value)? hand,
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
@@ -1430,7 +1183,6 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool includeEraser) hand,
     required TResult Function(
             double size,
             int color,
@@ -1460,7 +1212,6 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool includeEraser)? hand,
     TResult Function(
             double size,
             int color,
@@ -1488,7 +1239,6 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool includeEraser)? hand,
     TResult Function(
             double size,
             int color,
@@ -1520,7 +1270,6 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandProperty value) hand,
     required TResult Function(LabelProperty value) label,
     required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
@@ -1532,7 +1281,6 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandProperty value)? hand,
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
@@ -1544,7 +1292,6 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandProperty value)? hand,
     TResult Function(LabelProperty value)? label,
     TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,

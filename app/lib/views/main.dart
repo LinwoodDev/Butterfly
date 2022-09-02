@@ -70,9 +70,31 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
-  late CurrentIndexCubit _currentIndexCubit;
   TransformCubit? _transformCubit;
+  CurrentIndexCubit? _currentIndexCubit;
   final GlobalKey _viewportKey = GlobalKey();
+  final actions = <Type, Action<Intent>>{
+    UndoIntent: UndoAction(),
+    RedoIntent: RedoAction(),
+    NewIntent: NewAction(),
+    OpenIntent: OpenAction(),
+    ImportIntent: ImportAction(),
+    SvgExportIntent: SvgExportAction(),
+    ImageExportIntent: ImageExportAction(),
+    PdfExportIntent: PdfExportAction(),
+    ExportIntent: ExportAction(),
+    EditModeIntent: EditModeAction(),
+    SettingsIntent: SettingsAction(),
+    ProjectIntent: ProjectAction(),
+    WaypointsIntent: WaypointsAction(),
+    AreasIntent: AreasAction(),
+    ColorPaletteIntent: ColorPaletteAction(),
+    BackgroundIntent: BackgroundAction(),
+    LayersIntent: LayersAction(),
+    InsertIntent: InsertAction(),
+    ChangePathIntent: ChangePathAction(),
+    SaveIntent: SaveAction(),
+  };
 
   @override
   void initState() {
@@ -104,10 +126,10 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit = CurrentIndexCubit(
-            document, settingsCubit, _transformCubit!, embedding);
+        _currentIndexCubit =
+            CurrentIndexCubit(settingsCubit, _transformCubit!, embedding);
         _bloc = DocumentBloc(
-          _currentIndexCubit,
+          _currentIndexCubit!,
           settingsCubit,
           document,
           widget.location ?? const AssetLocation(path: ''),
@@ -130,8 +152,12 @@ class _ProjectPageState extends State<ProjectPage> {
     if (widget.location != null) {
       documentOpened = true;
       if (!widget.location!.absolute) {
-        await fileSystem.getAsset(widget.location!.path).then((value) =>
-            document = value is AppDocumentFile ? value.load() : null);
+        await fileSystem.getAsset(widget.location!.path).then((value) {
+          if (value is! AppDocumentFile) {
+            return document = null;
+          }
+          return document = value.getDocumentInfo()?.load();
+        });
       }
     }
     if (!mounted) return;
@@ -164,9 +190,9 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit =
-            CurrentIndexCubit(document!, settingsCubit, _transformCubit!, null);
+            CurrentIndexCubit(settingsCubit, _transformCubit!, null);
         _bloc = DocumentBloc(
-            _currentIndexCubit,
+            _currentIndexCubit!,
             settingsCubit,
             document!,
             widget.location ??
@@ -212,7 +238,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   value: settingsCubit,
                 ),
                 BlocProvider<CurrentIndexCubit>.value(
-                  value: _currentIndexCubit,
+                  value: _currentIndexCubit!,
                 ),
               ], child: const StartIntroductionDialog()));
     }
@@ -241,12 +267,13 @@ class _ProjectPageState extends State<ProjectPage> {
           providers: [
             BlocProvider.value(value: _bloc!),
             BlocProvider.value(value: _transformCubit!),
-            BlocProvider.value(value: _currentIndexCubit),
+            BlocProvider.value(value: _currentIndexCubit!),
           ],
           child: RepositoryProvider(
             lazy: false,
-            create: (context) =>
-                ImportService(context, widget.type, widget.data),
+            create: (context) {
+              return ImportService(context, widget.type, widget.data);
+            },
             child: Builder(builder: (context) {
               return Shortcuts(
                 shortcuts: {
@@ -325,91 +352,64 @@ class _ProjectPageState extends State<ProjectPage> {
                   },
                 },
                 child: Actions(
-                    actions: <Type, Action<Intent>>{
-                      UndoIntent: UndoAction(),
-                      RedoIntent: RedoAction(),
-                      NewIntent: NewAction(),
-                      OpenIntent: OpenAction(),
-                      ImportIntent: ImportAction(),
-                      SvgExportIntent: SvgExportAction(),
-                      ImageExportIntent: ImageExportAction(),
-                      PdfExportIntent: PdfExportAction(),
-                      ExportIntent: ExportAction(),
-                      EditModeIntent: EditModeAction(),
-                      SettingsIntent: SettingsAction(),
-                      ProjectIntent: ProjectAction(),
-                      WaypointsIntent: WaypointsAction(),
-                      AreasIntent: AreasAction(),
-                      ColorPaletteIntent: ColorPaletteAction(),
-                      BackgroundIntent: BackgroundAction(),
-                      LayersIntent: LayersAction(),
-                      InsertIntent: InsertAction(),
-                      ChangePathIntent: ChangePathAction(),
-                      SaveIntent: SaveAction(),
-                      PacksIntent: PacksAction(),
-                    },
-                    child: SafeArea(
-                      child: ClipRect(
-                        child: Builder(builder: (context) {
-                          PreferredSizeWidget appBar = PadAppBar(
+                  actions: actions,
+                  child: SafeArea(
+                    child: ClipRect(
+                      child: Focus(
+                        autofocus: true,
+                        child: FocusScope(
+                            child: Scaffold(
+                          appBar: PadAppBar(
                             viewportKey: _viewportKey,
-                          );
-                          return Focus(
-                              autofocus: true,
-                              child: FocusScope(
-                                child: Scaffold(
-                                    appBar: appBar,
-                                    body: LayoutBuilder(
-                                        builder: (context, constraints) {
-                                      final isMobile =
-                                          MediaQuery.of(context).size.width <
-                                              800;
-                                      final isLandscape =
-                                          MediaQuery.of(context).size.height <
-                                              400;
-                                      const property = PropertyView();
-                                      return Stack(
+                          ),
+                          body: Actions(
+                              actions: actions,
+                              child: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                final isMobile =
+                                    MediaQuery.of(context).size.width < 800;
+                                final isLandscape =
+                                    MediaQuery.of(context).size.height < 400;
+                                const property = PropertyView();
+                                return Stack(
+                                  children: [
+                                    Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
                                         children: [
-                                          Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              children: [
-                                                Expanded(
-                                                    key: _viewportKey,
-                                                    child: Stack(
-                                                      children: [
-                                                        const MainViewViewport(),
-                                                        Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: const [
-                                                              ColorView(),
-                                                            ]),
-                                                        if (!isLandscape)
-                                                          property
-                                                      ],
-                                                    )),
-                                                if (isMobile)
-                                                  Align(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: EditToolbar(
-                                                              isMobile:
-                                                                  isMobile))),
-                                              ]),
-                                          if (isLandscape) property
-                                        ],
-                                      );
-                                    })),
-                              ));
-                        }),
+                                          Expanded(
+                                              key: _viewportKey,
+                                              child: Stack(
+                                                children: [
+                                                  const MainViewViewport(),
+                                                  Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: const [
+                                                        ColorView(),
+                                                      ]),
+                                                  if (!isLandscape) property
+                                                ],
+                                              )),
+                                          if (isMobile)
+                                            Align(
+                                                alignment: Alignment.center,
+                                                child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: EditToolbar(
+                                                        isMobile: isMobile))),
+                                        ]),
+                                    if (isLandscape) property
+                                  ],
+                                );
+                              })),
+                        )),
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               );
             }),
           )),
@@ -418,7 +418,9 @@ class _ProjectPageState extends State<ProjectPage> {
 }
 
 class WindowButtons extends StatefulWidget {
-  const WindowButtons({super.key});
+  final bool divider;
+
+  const WindowButtons({super.key, this.divider = true});
 
   @override
   State<WindowButtons> createState() => _WindowButtonsState();
@@ -483,66 +485,70 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
           if (!kIsWeb && isWindow() && !settings.nativeWindowTitleBar) {
             return LayoutBuilder(
               builder: (context, constraints) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    if (!fullScreen)
-                      IconButton(
-                        icon: Icon(alwaysOnTop
-                            ? PhosphorIcons.pushPinFill
-                            : PhosphorIcons.pushPinLight),
-                        tooltip: alwaysOnTop
-                            ? AppLocalizations.of(context)!.exitAlwaysOnTop
-                            : AppLocalizations.of(context)!.alwaysOnTop,
-                        onPressed: () async {
-                          await windowManager.setAlwaysOnTop(!alwaysOnTop);
-                          setState(() => alwaysOnTop = !alwaysOnTop);
-                        },
-                      ),
-                    IconButton(
-                      icon: Icon(fullScreen
-                          ? PhosphorIcons.arrowsInLight
-                          : PhosphorIcons.arrowsOutLight),
-                      tooltip: fullScreen
-                          ? AppLocalizations.of(context)!.exitFullScreen
-                          : AppLocalizations.of(context)!.enterFullScreen,
-                      onPressed: () async {
-                        setState(() => fullScreen = !fullScreen);
-                        await windowManager.setFullScreen(fullScreen);
-                      },
-                    ),
-                    if (!fullScreen) ...[
-                      const VerticalDivider(),
-                      IconButton(
-                        icon: const Icon(PhosphorIcons.minusLight),
-                        tooltip: AppLocalizations.of(context)!.minimize,
-                        iconSize: 16,
-                        splashRadius: 20,
-                        onPressed: () => windowManager.minimize(),
-                      ),
-                      IconButton(
-                        icon: Icon(PhosphorIcons.squareLight,
-                            size: maximized ? 14 : 20),
-                        tooltip: maximized
-                            ? AppLocalizations.of(context)!.restore
-                            : AppLocalizations.of(context)!.maximize,
-                        iconSize: 16,
-                        splashRadius: 20,
-                        onPressed: () async => await windowManager.isMaximized()
-                            ? windowManager.unmaximize()
-                            : windowManager.maximize(),
-                      ),
-                      IconButton(
-                        icon: const Icon(PhosphorIcons.xLight),
-                        tooltip: AppLocalizations.of(context)!.close,
-                        hoverColor: Colors.red,
-                        iconSize: 16,
-                        splashRadius: 20,
-                        onPressed: () => windowManager.close(),
-                      )
-                    ]
-                  ],
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 42),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      if (widget.divider) const VerticalDivider(),
+                      ...[
+                        if (!fullScreen)
+                          IconButton(
+                            icon: Icon(alwaysOnTop
+                                ? PhosphorIcons.pushPinFill
+                                : PhosphorIcons.pushPinLight),
+                            tooltip: alwaysOnTop
+                                ? AppLocalizations.of(context)!.exitAlwaysOnTop
+                                : AppLocalizations.of(context)!.alwaysOnTop,
+                            onPressed: () async {
+                              await windowManager.setAlwaysOnTop(!alwaysOnTop);
+                              setState(() => alwaysOnTop = !alwaysOnTop);
+                            },
+                          ),
+                        IconButton(
+                          icon: Icon(fullScreen
+                              ? PhosphorIcons.arrowsInLight
+                              : PhosphorIcons.arrowsOutLight),
+                          tooltip: fullScreen
+                              ? AppLocalizations.of(context)!.exitFullScreen
+                              : AppLocalizations.of(context)!.enterFullScreen,
+                          onPressed: () async {
+                            setState(() => fullScreen = !fullScreen);
+                            await windowManager.setFullScreen(fullScreen);
+                          },
+                        ),
+                        if (!fullScreen) ...[
+                          const VerticalDivider(),
+                          IconButton(
+                            icon: const Icon(PhosphorIcons.minusLight),
+                            tooltip: AppLocalizations.of(context)!.minimize,
+                            splashRadius: 20,
+                            onPressed: () => windowManager.minimize(),
+                          ),
+                          IconButton(
+                            icon: Icon(PhosphorIcons.squareLight,
+                                size: maximized ? 14 : 20),
+                            tooltip: maximized
+                                ? AppLocalizations.of(context)!.restore
+                                : AppLocalizations.of(context)!.maximize,
+                            splashRadius: 20,
+                            onPressed: () async =>
+                                await windowManager.isMaximized()
+                                    ? windowManager.unmaximize()
+                                    : windowManager.maximize(),
+                          ),
+                          IconButton(
+                            icon: const Icon(PhosphorIcons.xLight),
+                            tooltip: AppLocalizations.of(context)!.close,
+                            hoverColor: Colors.red,
+                            splashRadius: 20,
+                            onPressed: () => windowManager.close(),
+                          )
+                        ]
+                      ].map((e) => AspectRatio(aspectRatio: 1, child: e))
+                    ],
+                  ),
                 ),
               ),
             );
