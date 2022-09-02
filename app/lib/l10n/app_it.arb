@@ -376,7 +376,7 @@
   "position": "Posizione",
   "note": "Nota",
   "more": "Altro",
-  "askForName": "Ask for name",
+  "askForName": "Chiedi nome",
   "areaIndex": "Area {index}",
   "@areaIndex": {
     "placeholders": {
