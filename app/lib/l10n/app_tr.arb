@@ -385,5 +385,6 @@
         "example": "1"
       }
     }
-  }
+  },
+  "startInFullScreen": "Start in full screen"
 }
