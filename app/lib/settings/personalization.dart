@@ -132,6 +132,13 @@ class PersonalizationSettingsPage extends StatelessWidget {
                             .read<SettingsCubit>()
                             .changeColorEnabled(value ?? true),
                       ),
+                      CheckboxListTile(
+                        value: state.startInFullScreen,
+                        onChanged: (value) {},
+                        title: Text(
+                            AppLocalizations.of(context)!.startInFullScreen),
+                        secondary: const Icon(PhosphorIcons.arrowsOutLight),
+                      ),
                     ]),
               ),
             ),
