@@ -11,7 +11,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../actions/areas.dart';
 import '../../actions/color_palette.dart';
-import '../../actions/packs.dart';
 import '../../cubits/transform.dart';
 
 class BackgroundContextMenu extends StatelessWidget {
