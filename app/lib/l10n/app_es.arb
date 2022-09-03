@@ -170,9 +170,6 @@
   "svg": "SVG",
   "sensitivity": "Sensibilidad",
   "sensitivityHint": "Cuanto más alto sea el valor, más sensible será la entrada",
-  "touchSensitivity": "Pulsar sensibilidad",
-  "mouseSensitivity": "Sensibilidad del ratón",
-  "penSensitivity": "Sensibilidad del envase",
   "horizontal": "Horizontal",
   "vertical": "Vertical",
   "plain": "Simple",
@@ -386,5 +383,10 @@
       }
     }
   },
-  "startInFullScreen": "Start in full screen"
+  "startInFullScreen": "Start in full screen",
+  "inputs": "Inputs",
+  "mouse": "Ratón",
+  "touch": "Pulsar",
+  "keyboard": "Keyboard",
+  "shortcuts": "Atajos"
 }
