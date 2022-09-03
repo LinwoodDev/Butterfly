@@ -1,0 +1,1 @@
+* Fix start in full screen settings
