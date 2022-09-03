@@ -1,4 +1,4 @@
-import 'package:butterfly/settings/behaviors.dart';
+import 'package:butterfly/settings/behaviors/home.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/personalization.dart';
 import 'package:butterfly/widgets/header.dart';

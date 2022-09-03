@@ -1,15 +1,16 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly/visualizer/sync.dart';
-import 'package:butterfly/widgets/exact_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class BehaviorsSettingsPage extends StatelessWidget {
   final bool inView;
+
   const BehaviorsSettingsPage({super.key, this.inView = false});
 
   @override
@@ -59,6 +60,42 @@ class BehaviorsSettingsPage extends StatelessWidget {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+                          Text(AppLocalizations.of(context)!.inputs,
+                              style: Theme.of(context).textTheme.headline5),
+                          const SizedBox(height: 16),
+                          ListTile(
+                            leading: const Icon(PhosphorIcons.mouseLight),
+                            title: Text(AppLocalizations.of(context)!.mouse),
+                            onTap: () => GoRouter.of(context)
+                                .go('/settings/behaviors/mouse'),
+                          ),
+                          ListTile(
+                            leading: const Icon(PhosphorIcons.handLight),
+                            title: Text(AppLocalizations.of(context)!.touch),
+                            onTap: () => GoRouter.of(context)
+                                .go('/settings/behaviors/touch'),
+                          ),
+                          ListTile(
+                            leading: const Icon(PhosphorIcons.keyboardLight),
+                            title: Text(AppLocalizations.of(context)!.keyboard),
+                            onTap: () => GoRouter.of(context)
+                                .go('/settings/behaviors/keyboard'),
+                          ),
+                          ListTile(
+                            leading: const Icon(PhosphorIcons.penLight),
+                            title: Text(AppLocalizations.of(context)!.pen),
+                            onTap: () => GoRouter.of(context)
+                                .go('/settings/behaviors/pen'),
+                          ),
+                        ]),
+                  )),
+              Card(
+                  margin: const EdgeInsets.all(8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
                           Text(AppLocalizations.of(context)!.input,
                               style: Theme.of(context).textTheme.headline5),
                           const SizedBox(height: 16),
@@ -78,87 +115,6 @@ class BehaviorsSettingsPage extends StatelessWidget {
                                 .read<SettingsCubit>()
                                 .changeinputGestures(value ?? true),
                           ),
-                        ]),
-                  )),
-              Card(
-                  margin: const EdgeInsets.all(8),
-                  child: Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(AppLocalizations.of(context)!.sensitivity,
-                              style: Theme.of(context).textTheme.headline5),
-                          Text(AppLocalizations.of(context)!.sensitivityHint,
-                              style: Theme.of(context).textTheme.subtitle2),
-                          const SizedBox(height: 16),
-                          Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Column(children: [
-                                ExactSlider(
-                                    min: 0,
-                                    max: 100,
-                                    value: state.touchSensitivity,
-                                    header: Row(children: [
-                                      const Icon(PhosphorIcons.handLight),
-                                      const SizedBox(width: 8),
-                                      Text(AppLocalizations.of(context)!
-                                          .touchSensitivity),
-                                    ]),
-                                    onChanged: (value) {
-                                      final cubit =
-                                          context.read<SettingsCubit>();
-                                      cubit.changeTouchSensitivity(value);
-                                    }),
-                                const SizedBox(height: 16),
-                                ExactSlider(
-                                    min: 0,
-                                    max: 100,
-                                    value: state.mouseSensitivity,
-                                    header: Row(children: [
-                                      const Icon(PhosphorIcons.mouseLight),
-                                      const SizedBox(width: 8),
-                                      Text(AppLocalizations.of(context)!
-                                          .mouseSensitivity),
-                                    ]),
-                                    onChanged: (value) {
-                                      final cubit =
-                                          context.read<SettingsCubit>();
-                                      cubit.changeMouseSensitivity(value);
-                                    }),
-                                const SizedBox(height: 16),
-                                ExactSlider(
-                                    min: 0,
-                                    max: 100,
-                                    value: state.penSensitivity,
-                                    header: Row(children: [
-                                      const Icon(PhosphorIcons.penLight),
-                                      const SizedBox(width: 8),
-                                      Text(AppLocalizations.of(context)!
-                                          .penSensitivity),
-                                    ]),
-                                    onChanged: (value) {
-                                      final cubit =
-                                          context.read<SettingsCubit>();
-                                      cubit.changePenSensitivity(value);
-                                    }),
-                                ExactSlider(
-                                    min: 0,
-                                    max: 50,
-                                    defaultValue: 5,
-                                    value: state.selectSensitivity,
-                                    header: Row(children: [
-                                      const Icon(PhosphorIcons.cursorLight),
-                                      const SizedBox(width: 8),
-                                      Text(AppLocalizations.of(context)!
-                                          .selectSensitivity),
-                                    ]),
-                                    onChanged: (value) {
-                                      final cubit =
-                                          context.read<SettingsCubit>();
-                                      cubit.changeSelectSensitivity(value);
-                                    }),
-                              ])),
                         ]),
                   )),
             ],
