@@ -1,1 +1,2 @@
+* Add option to change painter using control and number
 * Fix start in full screen settings

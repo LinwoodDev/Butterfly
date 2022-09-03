@@ -47,6 +47,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../actions/change_painter.dart';
 import '../models/background.dart';
 import 'view.dart';
 
@@ -93,6 +94,7 @@ class _ProjectPageState extends State<ProjectPage> {
     InsertIntent: InsertAction(),
     ChangePathIntent: ChangePathAction(),
     SaveIntent: SaveAction(),
+    ChangePainterIntent: ChangePainterAction(),
   };
 
   @override
@@ -344,6 +346,20 @@ class _ProjectPageState extends State<ProjectPage> {
                         ChangePathIntent(context),
                     LogicalKeySet(LogicalKeyboardKey.control,
                         LogicalKeyboardKey.keyS): SaveIntent(context),
+                    ...[
+                      LogicalKeyboardKey.digit1,
+                      LogicalKeyboardKey.digit2,
+                      LogicalKeyboardKey.digit3,
+                      LogicalKeyboardKey.digit4,
+                      LogicalKeyboardKey.digit5,
+                      LogicalKeyboardKey.digit6,
+                      LogicalKeyboardKey.digit7,
+                      LogicalKeyboardKey.digit8,
+                      LogicalKeyboardKey.digit9,
+                      LogicalKeyboardKey.digit0
+                    ].asMap().map((k, v) => MapEntry(
+                        LogicalKeySet(LogicalKeyboardKey.control, v),
+                        ChangePainterIntent(context, k))),
                   },
                 },
                 child: Actions(
