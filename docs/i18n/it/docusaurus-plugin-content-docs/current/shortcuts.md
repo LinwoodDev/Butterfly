@@ -29,6 +29,7 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `L`: Apri la finestra dei livelli
 * `Ctrl` + `S`: Salva
 * `Alt` + `S`: Cambia percorso
+* `Ctrl` + (`1` - `0`): Switch to painter
 
 ## Stylus
 
