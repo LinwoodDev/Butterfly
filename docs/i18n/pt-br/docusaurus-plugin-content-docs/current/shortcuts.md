@@ -29,6 +29,7 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 * `Ctrl` + `L`: Abrir caixa de diálogo de camadas
 * `Ctrl` + `S`: Salvar
 * `Alt` + `S`: Mudar caminho
+* `Ctrl` + (`1` - `0`): Switch to painter
 
 ## Stylus
 
