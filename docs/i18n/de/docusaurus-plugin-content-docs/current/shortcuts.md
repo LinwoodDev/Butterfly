@@ -29,6 +29,7 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `L`: Ebenendialog öffnen
 * `Strg` + `S`: Speichern
 * `Alt` + `S`: Pfad ändern
+* `Ctrl` + (`1` - `0`): Switch to painter
 
 ## Stylus
 
