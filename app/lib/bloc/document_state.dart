@@ -91,7 +91,9 @@ class DocumentLoadSuccess extends DocumentState {
   Future<AssetLocation> save() {
     final storage = getRemoteStorage();
     if (embedding != null) return Future.value(AssetLocation.local(''));
-    if (location.path == '' || location.absolute) {
+    if (location.path == '' ||
+        location.absolute ||
+        location.fileType != AssetFileType.note) {
       return DocumentFileSystem.fromPlatform(remote: storage)
           .importDocument(document)
           .then((value) => value.location)

@@ -1,3 +1,4 @@
 * Separate behavior settings for each input type
 * Add option to change painter using control and number
 * Fix start in full screen settings
+* Fix grid view in file system dialogs

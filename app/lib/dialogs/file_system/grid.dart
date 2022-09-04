@@ -6,6 +6,8 @@ import 'package:butterfly/visualizer/asset.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import 'rich_text.dart';
+
 class FileSystemGridView extends StatelessWidget {
   final AssetLocation? selectedPath;
   final List<AppDocumentEntity> assets;
@@ -106,7 +108,7 @@ class FileSystemGridView extends StatelessWidget {
                                   Expanded(
                                     child: Tooltip(
                                       message: file.pathWithoutLeadingSlash,
-                                      child: Text(file.fileNameWithoutExtension,
+                                      child: Text(info?.name ?? file.fileName,
                                           overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
@@ -127,16 +129,10 @@ class FileSystemGridView extends StatelessWidget {
                                       onOpened: onOpened,
                                       onRefreshed: onRefreshed)
                                 ]),
-                                Text(info?.name ?? file.fileName,
-                                    overflow: TextOverflow.ellipsis,
-                                    style:
-                                        Theme.of(context).textTheme.subtitle2),
                                 if (info != null)
-                                  Text(info.description,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelSmall),
+                                  FileSystemFileRichText(
+                                    file: file,
+                                  ),
                               ],
                             ),
                           ))));
