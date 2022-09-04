@@ -15,23 +15,29 @@ class MouseBehaviorSettings extends StatelessWidget {
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.mouse),
         ),
-        body: BlocBuilder<SettingsCubit, ButterflySettings>(
-          builder: (context, state) => ListView(
-            children: [
-              ExactSlider(
-                  min: 0,
-                  max: 100,
-                  value: state.mouseSensitivity,
-                  header: Row(children: [
-                    const Icon(PhosphorIcons.lightningLight),
-                    const SizedBox(width: 8),
-                    Text(AppLocalizations.of(context)!.sensitivity),
-                  ]),
-                  onChanged: (value) {
-                    final cubit = context.read<SettingsCubit>();
-                    cubit.changeMouseSensitivity(value);
-                  }),
-            ],
+        body: Align(
+          alignment: Alignment.center,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: BlocBuilder<SettingsCubit, ButterflySettings>(
+              builder: (context, state) => ListView(
+                children: [
+                  ExactSlider(
+                      min: 0,
+                      max: 100,
+                      value: state.mouseSensitivity,
+                      header: Row(children: [
+                        const Icon(PhosphorIcons.lightningLight),
+                        const SizedBox(width: 8),
+                        Text(AppLocalizations.of(context)!.sensitivity),
+                      ]),
+                      onChangeEnd: (value) {
+                        final cubit = context.read<SettingsCubit>();
+                        cubit.changeMouseSensitivity(value);
+                      }),
+                ],
+              ),
+            ),
           ),
         ));
   }

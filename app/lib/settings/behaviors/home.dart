@@ -89,34 +89,6 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           ),
                         ]),
                   )),
-              Card(
-                  margin: const EdgeInsets.all(8),
-                  child: Padding(
-                    padding: const EdgeInsets.all(32),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(AppLocalizations.of(context)!.input,
-                              style: Theme.of(context).textTheme.headline5),
-                          const SizedBox(height: 16),
-                          CheckboxListTile(
-                            value: state.penOnlyInput,
-                            title: Text(
-                                AppLocalizations.of(context)!.penOnlyInput),
-                            onChanged: (value) => context
-                                .read<SettingsCubit>()
-                                .changepenOnlyInput(value ?? false),
-                          ),
-                          CheckboxListTile(
-                            value: state.inputGestures,
-                            title: Text(
-                                AppLocalizations.of(context)!.inputGestures),
-                            onChanged: (value) => context
-                                .read<SettingsCubit>()
-                                .changeinputGestures(value ?? true),
-                          ),
-                        ]),
-                  )),
             ],
           );
         }));

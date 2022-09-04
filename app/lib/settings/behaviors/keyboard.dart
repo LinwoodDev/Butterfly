@@ -15,14 +15,20 @@ class KeyboardBehaviorSettings extends StatelessWidget {
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.keyboard),
         ),
-        body: BlocBuilder<SettingsCubit, ButterflySettings>(
-          builder: (context, state) => ListView(
-            children: [
-              ListTile(
-                  title: Text(AppLocalizations.of(context)!.shortcuts),
-                  leading: const Icon(PhosphorIcons.keyboardLight),
-                  onTap: () => openHelp(['shortcuts']))
-            ],
+        body: Align(
+          alignment: Alignment.center,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: BlocBuilder<SettingsCubit, ButterflySettings>(
+              builder: (context, state) => ListView(
+                children: [
+                  ListTile(
+                      title: Text(AppLocalizations.of(context)!.shortcuts),
+                      leading: const Icon(PhosphorIcons.keyboardLight),
+                      onTap: () => openHelp(['shortcuts']))
+                ],
+              ),
+            ),
           ),
         ));
   }
