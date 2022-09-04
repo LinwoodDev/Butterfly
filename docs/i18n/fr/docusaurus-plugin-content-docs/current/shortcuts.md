@@ -29,6 +29,7 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 * `Ctrl` + `L`: Ouvrir la boîte de dialogue des calques
 * `Ctrl` + `S`: Enregistrer
 * `Alt` + `S`: Changer le chemin
+* `Ctrl` + (`1` - `0`): Switch to painter
 
 ## Stylus
 
