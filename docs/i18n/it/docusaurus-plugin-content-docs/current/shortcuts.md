@@ -3,9 +3,12 @@ title: "Scorciatoie"
 sidebar_position: 2
 ---
 
+
+## Keyboard
+
 Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scritti sotto i pulsanti.
 
-## Generale
+### Generale
 
 * `Ctrl` + `N`: Nuovo file
 * `Ctrl` + `Maiusc` + `N`: Nuovo file dal modello
@@ -16,7 +19,7 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `Alt` + `E`: Esporta file come svg
 * `Ctrl` + `Alt` + `S`: Apri le impostazioni
 
-## Progetto
+### Progetto
 
 * `Ctrl` + `Z`: Annulla
 * `Ctrl` + `Y`: Ripeti
@@ -35,3 +38,7 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 
 * `Primary button`: Change to hand tool
 * `Pulsante secondario`: Cambia al secondo pittore
+
+## Configure {#configure}
+
+Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert a negative painter to enable moving with this control.
