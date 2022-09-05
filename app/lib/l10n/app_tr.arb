@@ -373,7 +373,7 @@
   "position": "Konum",
   "note": "Not",
   "more": "Daha fazla",
-  "askForName": "Ask for name",
+  "askForName": "Isim sor",
   "areaIndex": "Area {index}",
   "@areaIndex": {
     "placeholders": {
