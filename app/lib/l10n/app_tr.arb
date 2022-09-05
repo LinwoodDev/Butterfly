@@ -67,7 +67,7 @@
   "description": "Tanım",
   "fill": "Dolgu",
   "defaultPalette": "Varsayılan palet",
-  "highlighter": "Vurgulayıcı",
+  "highlighter": "Fosforlu kalem",
   "add": "Ekle",
   "remove": "Kaldır",
   "removeConfirm": "Bunu gerçekten kaldırmak istiyor musunuz?",
@@ -374,7 +374,7 @@
   "note": "Not",
   "more": "Daha fazla",
   "askForName": "Isim sor",
-  "areaIndex": "Area {index}",
+  "areaIndex": "Alan {index}",
   "@areaIndex": {
     "placeholders": {
       "index": {
@@ -383,10 +383,10 @@
       }
     }
   },
-  "startInFullScreen": "Start in full screen",
-  "inputs": "Inputs",
+  "startInFullScreen": "Tam ekran göster",
+  "inputs": "Girdiler",
   "mouse": "Fare",
   "touch": "Dokunma",
-  "keyboard": "Keyboard",
+  "keyboard": "Klavye",
   "shortcuts": "Kısayollar"
 }
