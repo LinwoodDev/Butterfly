@@ -32,13 +32,13 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 * `Ctrl` + `L`: Ouvrir la boîte de dialogue des calques
 * `Ctrl` + `S`: Enregistrer
 * `Alt` + `S`: Changer le chemin
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Ctrl` + (`1` - `0`) : Basculer vers le peintre
 
 ## Stylus
 
 * `Bouton primaire`: Passer à l'outil main
 * `Bouton secondaire`: Passer au second peintre
 
-## Configure {#configure}
+## Configurer {#configure}
 
-Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert a negative painter to enable moving with this control.
+Personnalisez les contrôles en donnant un index peintre à chaque contrôle. L'index du peintre commence à 1 et est ordonné de gauche à droite. Un index de peintre vide désactivera l'interrupteur de peintre sur ce contrôle. Insérez un peintre négatif pour permettre de bouger avec ce contrôle.
