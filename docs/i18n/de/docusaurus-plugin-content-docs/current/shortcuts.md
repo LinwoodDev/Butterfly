@@ -32,13 +32,13 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `L`: Ebenendialog öffnen
 * `Strg` + `S`: Speichern
 * `Alt` + `S`: Pfad ändern
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Strg` + (`1` - `0`): Zum Maler wechseln
 
 ## Stylus
 
 * `Primärer Button`: Zum Handwerkzeug wechseln
 * `Sekundärer Knopf`: Zum zweiten Maler wechseln
 
-## Configure {#configure}
+## Konfigurieren {#configure}
 
-Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert a negative painter to enable moving with this control.
+Passen Sie die Steuerelemente an, indem Sie jeder Kontrolle einen Maler Index geben. Der Maler beginnt bei 1 und wird von links nach rechts sortiert. Ein leerer Maler Index deaktiviert den Maler Schalter auf diesem Steuerelement. Fügen Sie einen negativen Maler ein, um das Verschieben mit diesem Steuerelement zu aktivieren.
