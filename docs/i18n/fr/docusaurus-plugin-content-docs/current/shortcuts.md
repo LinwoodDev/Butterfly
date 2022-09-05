@@ -3,9 +3,12 @@ title: "Raccourcis"
 sidebar_position: 2
 ---
 
+
+## Keyboard
+
 Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d'entre elles sont écrites sous les boutons.
 
-## Généraux
+### Généraux
 
 * `Ctrl` + `N`: Nouveau fichier
 * `Ctrl` + `Maj` + `N`: Nouveau fichier à partir du modèle
@@ -16,7 +19,7 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 * `Ctrl` + `Alt` + `E`: Exporter le fichier en svg
 * `Ctrl` + `Alt` + `S`: Ouvrir les paramètres
 
-## Projet
+### Projet
 
 * `Ctrl` + `Z`: Annuler
 * `Ctrl` + `Y`: Refaire
@@ -35,3 +38,7 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 
 * `Bouton primaire`: Passer à l'outil main
 * `Bouton secondaire`: Passer au second peintre
+
+## Configure {#configure}
+
+Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert a negative painter to enable moving with this control.
