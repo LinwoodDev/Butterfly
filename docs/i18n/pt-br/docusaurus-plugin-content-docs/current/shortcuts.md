@@ -3,9 +3,12 @@ title: "Atalhos"
 sidebar_position: 2
 ---
 
+
+## Keyboard
+
 Existem alguns atalhos que você pode usar no editor. Alguns deles estão escritos abaixo dos botões.
 
-## Gerais
+### Gerais
 
 * `Ctrl` + `N`: Novo arquivo
 * `Ctrl` + `Shift` + `N`: Novo arquivo a partir do modelo
@@ -16,7 +19,7 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 * `Ctrl` + `Alt` + `E`: Exportar o arquivo como svg
 * `Ctrl` + `Alt` + `S`: Abrir configurações
 
-## Projecto
+### Projecto
 
 * `Ctrl` + `Z`: Desfazer
 * `Ctrl` + `Y`: Refazer
@@ -35,3 +38,7 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 
 * `Botão primário`: Alterar para ferramenta da mão
 * `Botão secundário`: Mudar para segundo pintor
+
+## Configure {#configure}
+
+Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert a negative painter to enable moving with this control.
