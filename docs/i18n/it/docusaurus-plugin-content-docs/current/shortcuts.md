@@ -32,13 +32,13 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `L`: Apri la finestra dei livelli
 * `Ctrl` + `S`: Salva
 * `Alt` + `S`: Cambia percorso
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Ctrl` + (`1` - `0`): Passa al pittore
 
 ## Stylus
 
 * `Primary button`: Change to hand tool
 * `Pulsante secondario`: Cambia al secondo pittore
 
-## Configure {#configure}
+## Configura {#configure}
 
-Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert a negative painter to enable moving with this control.
+Personalizza i controlli dando ad ogni controllo un indice pittore. L'indice del pittore inizia da 1 e viene ordinato da sinistra a destra. Un indice di pittore vuoto disabiliterà l'interruttore del pittore su questo controllo. Inserisci un pittore negativo per abilitare lo spostamento con questo controllo.
