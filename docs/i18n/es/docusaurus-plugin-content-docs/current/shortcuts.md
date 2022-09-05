@@ -32,13 +32,13 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `L`: Diálogo de capas abiertas
 * `Ctrl` + `S`: Guardar
 * `Alt` + `S`: Cambiar ruta
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Ctrl` + (`1` - `0`): Cambiar a pintor
 
 ## Stylus
 
 * `Botón primario`: Cambiar a herramienta de mano
 * `Botón secundario`: Cambiar a segundo pintor
 
-## Configure {#configure}
+## Configurar {#configure}
 
-Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert a negative painter to enable moving with this control.
+Personalice los controles dando a cada control un índice de pintor. El índice del pintor comienza en 1 y se ordenan de izquierda a derecha. Un índice de pintor vacío desactivará el interruptor de pintor en este control. Insertar un pintor negativo para permitir el movimiento con este control.
