@@ -388,5 +388,8 @@
   "mouse": "Souris",
   "touch": "Toucher",
   "keyboard": "Keyboard",
-  "shortcuts": "Raccourcis"
+  "shortcuts": "Raccourcis",
+  "middle": "Middle",
+  "first": "First",
+  "second": "Second"
 }
