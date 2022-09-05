@@ -388,5 +388,8 @@
   "mouse": "Mouse",
   "touch": "Toque",
   "keyboard": "Keyboard",
-  "shortcuts": "Atalhos"
+  "shortcuts": "Atalhos",
+  "middle": "Middle",
+  "first": "First",
+  "second": "Second"
 }
