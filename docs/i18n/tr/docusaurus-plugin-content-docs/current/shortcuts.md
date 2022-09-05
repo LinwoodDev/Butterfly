@@ -29,7 +29,7 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 * `Ctrl` + `L`: Katmanlar iletişim kutusunu aç
 * `Ctrl` + `S`: Kaydet
 * `Alt` + `S`: Yolu değiştir
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Ctrl` + (`1` - `0`): Araca geçii yap
 
 ## Kalem
 
