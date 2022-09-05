@@ -388,5 +388,8 @@
   "mouse": "Maus",
   "touch": "Berühren",
   "keyboard": "Keyboard",
-  "shortcuts": "Verknüpfungen"
+  "shortcuts": "Verknüpfungen",
+  "middle": "Middle",
+  "first": "First",
+  "second": "Second"
 }
