@@ -32,13 +32,13 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 * `Ctrl` + `L`: Abrir caixa de diálogo de camadas
 * `Ctrl` + `S`: Salvar
 * `Alt` + `S`: Mudar caminho
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Ctrl` + (`1` - `0`): Mudar para pintor
 
 ## Stylus
 
 * `Botão primário`: Alterar para ferramenta da mão
 * `Botão secundário`: Mudar para segundo pintor
 
-## Configure {#configure}
+## Configurar {#configure}
 
-Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert a negative painter to enable moving with this control.
+Personalize os controles dando a cada controle um índice de pintura. O índice do pintor começa em 1 e é ordenado da esquerda para a direita. Um índice vazio do pintor irá desativar o interruptor do pintor neste controle. Insira um pintor negativo para permitir movimento com este controle.
