@@ -388,5 +388,8 @@
   "mouse": "Fare",
   "touch": "Dokunma",
   "keyboard": "Klavye",
-  "shortcuts": "Kısayollar"
+  "shortcuts": "Kısayollar",
+  "middle": "Middle",
+  "first": "First",
+  "second": "Second"
 }
