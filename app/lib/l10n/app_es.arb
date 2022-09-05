@@ -388,5 +388,8 @@
   "mouse": "Ratón",
   "touch": "Pulsar",
   "keyboard": "Keyboard",
-  "shortcuts": "Atajos"
+  "shortcuts": "Atajos",
+  "middle": "Middle",
+  "first": "First",
+  "second": "Second"
 }
