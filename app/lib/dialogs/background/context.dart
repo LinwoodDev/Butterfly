@@ -2,7 +2,7 @@ import 'package:butterfly/actions/background.dart';
 import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/waypoints.dart';
-import 'package:butterfly/api/shortcut_helper.dart';
+import 'package:butterfly/helpers/shortcut_helper.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

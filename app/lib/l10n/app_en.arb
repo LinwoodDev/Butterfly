@@ -388,5 +388,9 @@
   "mouse": "Mouse",
   "touch": "Touch",
   "keyboard": "Keyboard",
-  "shortcuts": "Shortcuts"
+  "shortcuts": "Shortcuts",
+  "shortcuts": "Shortcuts",
+  "middle": "Middle",
+  "first": "First",
+  "second": "Second"
 }

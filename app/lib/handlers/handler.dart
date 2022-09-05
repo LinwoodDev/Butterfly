@@ -18,9 +18,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../api/rect_helper.dart';
 import '../cubits/current_index.dart';
 import '../dialogs/area/label.dart';
+import '../helpers/rect_helper.dart';
 import '../models/area.dart';
 import '../models/cursor.dart';
 import '../models/document.dart';

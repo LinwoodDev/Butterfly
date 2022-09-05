@@ -33,3 +33,26 @@ Map<String, dynamic> _$$DavRemoteStorageToJson(_$DavRemoteStorage instance) =>
       'icon': const Uint8ListJsonConverter().toJson(instance.icon),
       'lastSynced': instance.lastSynced?.toIso8601String(),
     };
+
+_$_InputConfiguration _$$_InputConfigurationFromJson(Map json) =>
+    _$_InputConfiguration(
+      leftMouse: json['leftMouse'] as int?,
+      middleMouse: json['middleMouse'] as int? ?? 2,
+      rightMouse: json['rightMouse'] as int? ?? 1,
+      pen: json['pen'] as int?,
+      firstPenButton: json['firstPenButton'] as int? ?? 2,
+      secondPenButton: json['secondPenButton'] as int? ?? 1,
+      touch: json['touch'] as int?,
+    );
+
+Map<String, dynamic> _$$_InputConfigurationToJson(
+        _$_InputConfiguration instance) =>
+    <String, dynamic>{
+      'leftMouse': instance.leftMouse,
+      'middleMouse': instance.middleMouse,
+      'rightMouse': instance.rightMouse,
+      'pen': instance.pen,
+      'firstPenButton': instance.firstPenButton,
+      'secondPenButton': instance.secondPenButton,
+      'touch': instance.touch,
+    };

@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/svg_export.dart';
-import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/helpers/shortcut_helper.dart';
 import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';

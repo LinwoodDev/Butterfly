@@ -3,3 +3,4 @@
 * Add move functionality if no painter is selected
 * Fix start in full screen settings
 * Fix grid view in file system dialogs
+* Fix missing save of sync mode in settings
