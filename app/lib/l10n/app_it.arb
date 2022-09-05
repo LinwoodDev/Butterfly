@@ -388,5 +388,8 @@
   "mouse": "Mouse",
   "touch": "Tocco",
   "keyboard": "Keyboard",
-  "shortcuts": "Scorciatoie"
+  "shortcuts": "Scorciatoie",
+  "middle": "Middle",
+  "first": "First",
+  "second": "Second"
 }
