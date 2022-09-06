@@ -3,9 +3,12 @@ title: "Atajos"
 sidebar_position: 2
 ---
 
+
+## Keyboard
+
 Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben debajo de los botones.
 
-## General
+### General
 
 * `Ctrl` + `N`: Nuevo archivo
 * `Ctrl` + `Shift` + `N`: Nuevo archivo de plantilla
@@ -16,7 +19,7 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `Alt` + `E`: Exportar archivo como svg
 * `Ctrl` + `Alt` + `S`: Abrir ajustes
 
-## Projekt
+### Projekt
 
 * `Ctrl` + `Z`: Deshacer
 * `Ctrl` + `Y`: Rehacer
@@ -29,8 +32,13 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `L`: Diálogo de capas abiertas
 * `Ctrl` + `S`: Guardar
 * `Alt` + `S`: Cambiar ruta
+* `Ctrl` + (`1` - `0`): Cambiar a pintor
 
 ## Stylus
 
 * `Botón primario`: Cambiar a herramienta de mano
 * `Botón secundario`: Cambiar a segundo pintor
+
+## Configurar {#configure}
+
+Personalice los controles dando a cada control un índice de pintor. El índice del pintor comienza en 1 y se ordenan de izquierda a derecha. Un índice de pintor vacío desactivará el interruptor de pintor en este control. Insertar un pintor negativo para permitir el movimiento con este control.
