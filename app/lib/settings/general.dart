@@ -133,7 +133,7 @@ class GeneralSettingsPage extends StatelessWidget {
                                   title: Text(AppLocalizations.of(context)!
                                       .usingLatestStable),
                                 ),
-                              if (isNightly)
+                              if (isNightly || isDevelop || isMain)
                                 ListTile(
                                   title: Text(AppLocalizations.of(context)!
                                       .usingLatestNightly),

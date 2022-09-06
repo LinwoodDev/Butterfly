@@ -95,6 +95,42 @@ class _MainViewViewportState extends State<MainViewViewport>
         });
       }
 
+      void changeTemporaryPainter(PointerDeviceKind kind, int buttons) {
+        int? nextPointerIndex;
+        final bloc = context.read<DocumentBloc>();
+        final config = context.read<SettingsCubit>().state.inputConfiguration;
+        switch (kind) {
+          case PointerDeviceKind.touch:
+            nextPointerIndex = config.touch;
+            break;
+          case PointerDeviceKind.mouse:
+            if (buttons == kPrimaryMouseButton) {
+              nextPointerIndex = config.leftMouse;
+            } else if (buttons == kMiddleMouseButton) {
+              nextPointerIndex = config.middleMouse;
+            } else if (buttons == kSecondaryMouseButton) {
+              nextPointerIndex = config.rightMouse;
+            }
+            break;
+          case PointerDeviceKind.stylus:
+            nextPointerIndex = config.pen;
+            if (buttons == kPrimaryStylusButton) {
+              nextPointerIndex = config.firstPenButton;
+            } else if (buttons == kSecondaryStylusButton) {
+              nextPointerIndex = config.secondPenButton;
+            }
+            break;
+          default:
+            return;
+        }
+        if (nextPointerIndex != null) {
+          context
+              .read<CurrentIndexCubit>()
+              .changeTemporaryHandlerIndex(bloc, nextPointerIndex);
+          _tempKeyTool = true;
+        }
+      }
+
       final current = context.read<DocumentBloc>().state;
       if (current is DocumentLoadSuccess &&
           current.cameraViewport.toSize() !=
@@ -207,18 +243,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                 onPointerDown: (PointerDownEvent event) {
                   cubit.addPointer(event.pointer);
                   cubit.setButtons(event.buttons);
-                  final bloc = context.read<DocumentBloc>();
                   final handler = cubit.getHandler();
                   if (handler?.canChange(event, getEventContext()) ?? true) {
-                    if (event.kind == PointerDeviceKind.stylus &&
-                        event.buttons == kPrimaryStylusButton) {
-                      cubit.changeTemporaryHandlerIndex(bloc, 0);
-                      _tempKeyTool = true;
-                    } else if (event.buttons == kSecondaryStylusButton ||
-                        event.buttons == kSecondaryButton) {
-                      cubit.changeTemporaryHandlerIndex(bloc, 1);
-                      _tempKeyTool = true;
-                    }
+                    changeTemporaryPainter(event.kind, event.buttons);
                   }
                   cubit.getHandler()?.onPointerDown(event, getEventContext());
                 },

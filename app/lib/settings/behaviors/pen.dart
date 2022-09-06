@@ -108,8 +108,8 @@ class PenBehaviorSettings extends StatelessWidget {
                                 config.firstPenButton?.add(1)?.toString() ?? '',
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context)!.first,
-                              prefixIcon:
-                                  const Icon(PhosphorIcons.numberOneLight),
+                              prefixIcon: const Icon(
+                                  PhosphorIcons.numberCircleOneLight),
                               suffix: IconButton(
                                   onPressed: () {
                                     final cubit = context.read<SettingsCubit>();
@@ -133,8 +133,8 @@ class PenBehaviorSettings extends StatelessWidget {
                                     '',
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context)!.second,
-                              prefixIcon:
-                                  const Icon(PhosphorIcons.numberTwoLight),
+                              prefixIcon: const Icon(
+                                  PhosphorIcons.numberCircleTwoLight),
                               suffix: IconButton(
                                   onPressed: () {
                                     final cubit = context.read<SettingsCubit>();
