@@ -2,6 +2,15 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.5.0-alpha.2 (2022-09-09)
+
+* Separate behavior settings for each input type
+* Add option to change painter using control and number
+* Add move functionality if no painter is selected
+* Fix start in full screen settings
+* Fix grid view in file system dialogs
+* Fix missing save of sync mode in settings
+
 ## 1.5.0-alpha.1 (2022-09-02)
 
 * Add temporary painter
