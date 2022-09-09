@@ -1,0 +1,1 @@
+* Fix position and size issues when moving elements

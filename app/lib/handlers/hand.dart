@@ -69,13 +69,11 @@ class HandHandler extends Handler<HandPainter> {
             currentIndexCubit.state.settingsCubit.state.design)
         .primaryColor;
     if (_movingElements.isNotEmpty) {
-      final currentElements = _movingElements
+      final renderers = _movingElements
           .map((e) => _currentMovePosition == null
-              ? e.element
-              : e.move(_currentMovePosition!, true))
+              ? e
+              : (e.move(_currentMovePosition!, true) ?? e))
           .toList();
-      final renderers =
-          currentElements.map((e) => Renderer.fromInstance(e)).toList();
       foregrounds.addAll(renderers);
     }
     final selectionRect = getSelectionRect();
@@ -104,8 +102,8 @@ class HandHandler extends Handler<HandPainter> {
   void submitMove(BuildContext context) {
     if (_movingElements.isEmpty) return;
     final current = _movingElements
-        .map((e) =>
-            e.move(_currentMovePosition ?? Offset.zero, true) ?? e.element)
+        .map((e) => e.move(_currentMovePosition ?? Offset.zero, true) ?? e)
+        .map((e) => e.element)
         .toList();
     _currentMovePosition = null;
     _movingElements = [];

@@ -16,6 +16,7 @@ import 'package:xml/xml.dart';
 import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
 import '../models/background.dart';
+import '../models/path_point.dart';
 import '../models/property.dart';
 
 part 'backgrounds/box.dart';
@@ -103,5 +104,5 @@ abstract class Renderer<T> {
     throw Exception('Invalid instance type');
   }
 
-  T? move(Offset position, [bool relative = false]) => null;
+  Renderer<T>? move(Offset position, [bool relative = false]) => null;
 }
