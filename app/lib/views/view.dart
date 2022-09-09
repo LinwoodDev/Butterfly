@@ -53,13 +53,13 @@ class _MainViewViewportState extends State<MainViewViewport> {
   Widget build(BuildContext context) {
     return SizedBox.expand(
         child: ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
-      void _bake() {
+      void bake() {
         context.read<DocumentBloc>().bake(
             viewportSize: constraints.biggest,
             pixelRatio: MediaQuery.of(context).devicePixelRatio);
       }
 
-      void _delayBake() {
+      void delayBake() {
         final transform = context.read<TransformCubit>().state;
         final currentSize = transform.size;
         final currentPosition = transform.position;
@@ -71,7 +71,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
               currentPosition == transform.position &&
               (currentSize != state.cameraViewport.scale ||
                   currentPosition != state.cameraViewport.toOffset())) {
-            _bake();
+            bake();
           }
         });
       }
@@ -81,7 +81,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
           current.cameraViewport.toSize() !=
               Size(constraints.biggest.width.ceilToDouble(),
                   constraints.biggest.height.ceilToDouble())) {
-        _bake();
+        bake();
       }
       return BlocBuilder<DocumentBloc, DocumentState>(
           builder: (context, state) {
@@ -132,7 +132,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
               final currentIndex = context.read<CurrentIndexCubit>();
               if (currentIndex.fetchHandler<HandHandler>() == null &&
                   !cubit.state.moveEnabled) return;
-              _delayBake();
+              delayBake();
             },
             onScaleStart: (details) {
               size = 1;
@@ -162,7 +162,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                             cubit.state.size)
                         ..zoom(scale, pointerSignal.localPosition);
                     }
-                    _delayBake();
+                    delayBake();
                   }
                 },
                 onPointerDown: (PointerDownEvent event) {
@@ -200,7 +200,7 @@ class _MainViewViewportState extends State<MainViewViewport> {
                       final transformCubit = context.read<TransformCubit>();
                       transformCubit
                           .move(event.delta / transformCubit.state.size);
-                      _delayBake();
+                      delayBake();
                     }
                     cubit.getHandler().onPointerGestureMove(
                         constraints.biggest, context, event);

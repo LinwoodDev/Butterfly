@@ -32,4 +32,8 @@ class PenRenderer extends PathRenderer<PenElement> {
     ..color = Color(element.property.color)
     ..style = element.property.fill ? PaintingStyle.fill : PaintingStyle.stroke
     ..strokeCap = StrokeCap.round;
+
+  @override
+  PenRenderer move(Offset position, [bool relative = false]) => PenRenderer(
+      element.copyWith(points: movePoints(position, relative)), rect);
 }

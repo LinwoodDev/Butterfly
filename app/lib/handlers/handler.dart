@@ -42,7 +42,9 @@ abstract class Handler<T> {
 
   const Handler(this.data);
 
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
+  List<Renderer> createForegrounds(
+          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          [Area? currentArea]) =>
       [];
 
   List<Rect> createSelections(AppDocument document, [Area? currentArea]) => [];

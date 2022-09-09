@@ -7,7 +7,9 @@ class ShapeHandler extends Handler {
   ShapeHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
+  List<Renderer> createForegrounds(
+      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      [Area? currentArea]) {
     return elements.values
         .map((e) => ShapeRenderer(e)..setup(document))
         .toList()

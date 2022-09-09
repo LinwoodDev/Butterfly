@@ -1,21 +1,28 @@
 name: Publish to WinGet
 on:
-  workflow_run:
-    workflows: ["Release"]
-    types:
-      - completed
+  release:
+    types: [released, prereleased]
 jobs:
   publish:
     runs-on: windows-latest
     steps:
-      - if: github.ref == 'refs/tags/nightly'
+      - name: Get Version
+        run: |
+          $tag_name = '${{ github.release.tag_name }}'
+          $version = ($tag_name | Select-String -Pattern '(?<=v).*').Matches.Value
+          echo "::set-output name=version::$version"
+        id: get-version
+
+      - if: github.event.action == 'released'
         uses: vedantmgoyal2009/winget-releaser@latest
         with:
           identifier: LinwoodCloud.Butterfly
+          version: ${{ steps.get-version.outputs.version }}
           token: ${{ secrets.CI_PAT }}
-      - if: github.ref == 'refs/tags/stable'
+
+      - if: github.event.action == 'prereleased'
         uses: vedantmgoyal2009/winget-releaser@latest
         with:
           identifier: LinwoodCloud.Butterfly.Nightly
-          version-regex: '(?<=v).*'
+          version: ${{ steps.get-version.outputs.version }}
           token: ${{ secrets.CI_PAT }}

@@ -6,7 +6,9 @@ class AreaHandler extends Handler<AreaPainter> {
   AreaHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) =>
+  List<Renderer> createForegrounds(
+          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          [Area? currentArea]) =>
       [
         if (currentArea == null) ...[
           if (currentRect != null)

@@ -22,13 +22,14 @@ class HandHandler extends Handler<HandProperty> {
   }
 
   @override
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
+  List<Renderer> createForegrounds(
+      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      [Area? currentArea]) {
     if (movingElement != null) {
       final currentElement = currentMovePosition == null
-          ? movingElement!.element
-          : movingElement!.move(currentMovePosition!);
-      final renderer = Renderer.fromInstance(currentElement);
-      return [renderer];
+          ? movingElement!
+          : movingElement!.move(currentMovePosition!) ?? movingElement!;
+      return [currentElement];
     }
     return [];
   }
@@ -50,12 +51,12 @@ class HandHandler extends Handler<HandProperty> {
     }
   }
 
-  void submitMove(BuildContext context, [PadElement? element]) {
-    if (movingElement == null && element == null) return;
-    final current = (element ?? movingElement?.element)!;
-    movingElement = null;
+  void submitMove(BuildContext context) {
+    if (movingElement == null) return;
+    currentMovePosition = null;
     final bloc = context.read<DocumentBloc>();
-    bloc.add(ElementsCreated([current]));
+    bloc.add(ElementsCreated([movingElement!.element]));
+    movingElement = null;
     bloc.refresh();
   }
 
@@ -68,8 +69,7 @@ class HandHandler extends Handler<HandProperty> {
     final transform = context.read<TransformCubit>().state;
     _firstPointer = null;
     if (movingElement != null) {
-      submitMove(context,
-          movingElement?.move(transform.localToGlobal(event.localPosition)));
+      submitMove(context);
       return;
     }
     final bloc = context.read<DocumentBloc>();

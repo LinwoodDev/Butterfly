@@ -23,7 +23,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
+          channel: 'any'
       - name: 📦 Get dependencies
         run: |
           flutter pub get
@@ -34,8 +34,8 @@ jobs:
           KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
         run: |
           cd android
-          echo "$KEY_PROPERTIES" | base64 --decode > key.properties
-          echo "$KEY_JKS" | base64 --decode > key.jks
+          if [[ -n "$KEY_PROPERTIES" ]] ; then echo "$KEY_PROPERTIES" | base64 --decode > key.properties  ; fi
+          if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
       #- run: flutter test
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' }}
@@ -70,7 +70,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
+          channel: 'any'
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
@@ -138,7 +138,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
+          channel: 'any'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
@@ -236,7 +236,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
+          channel: 'any'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
@@ -293,7 +293,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
+          channel: 'any'
       - name: ✅ Enable platforms
         run: flutter config --enable-macos-desktop
       - name: 📦 Get dependencies
@@ -432,10 +432,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
     runs-on: ubuntu-22.04
-    if: startsWith(github.ref, 'refs/tags/')
+    if:  ${{ startsWith(github.ref, 'refs/tags/') }}
     defaults:
       run:
         working-directory: app
+    env:
+      PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -450,10 +452,11 @@ jobs:
           KEY_JKS: ${{ secrets.KEY_JKS }}
           KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
           PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
+        if: ${{ env.PLAY_STORE_CREDENTIALS != '' }}
         run: |
           cd android
-          echo "$KEY_PROPERTIES" | base64 --decode > key.properties
-          echo "$KEY_JKS" | base64 --decode > key.jks
+          if [[ -n "$KEY_PROPERTIES" ]] ; then echo "$KEY_PROPERTIES" | base64 --decode > key.properties  ; fi
+          if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
           echo "$PLAY_STORE_CREDENTIALS" | base64 --decode > play-store-credentials.json
       - name: 🔧 Setup java
         uses: actions/setup-java@v3
@@ -467,7 +470,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable" # or: 'beta' or 'dev'
+          channel: 'any'
       - name: 📦 Get dependencies
         run: |
           flutter pub get
@@ -478,10 +481,14 @@ jobs:
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store
-        if: ${{ github.ref == 'refs/tags/stable' }}
+        if: ${{ github.ref == 'refs/tags/stable' && env.PLAY_STORE_CREDENTIALS != '' }}
+        env:
+          PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
         run: bundle exec fastlane deploy
         working-directory: app/android
       - name: 🚀 Deploy to Play Store
-        if: ${{ github.ref == 'refs/tags/nightly' }}
+        if: ${{ github.ref == 'refs/tags/nightly' && env.PLAY_STORE_CREDENTIALS != '' }}
+        env:
+          PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
         run: bundle exec fastlane beta
         working-directory: app/android

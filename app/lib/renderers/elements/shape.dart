@@ -158,14 +158,23 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   @override
-  ShapeElement move(Offset position) {
+  ShapeRenderer move(Offset position, [bool relative = false]) {
+    if (relative) {
+      return ShapeRenderer(
+          element.copyWith(
+              firstPosition: element.firstPosition + position,
+              secondPosition: element.secondPosition + position),
+          rect);
+    }
     // Center of firstPosition and secondPosition
     final elementPosition =
         Rect.fromPoints(element.firstPosition, element.secondPosition).center;
     final offset = position - elementPosition;
-    return element.copyWith(
-      firstPosition: element.firstPosition + offset,
-      secondPosition: element.secondPosition + offset,
-    );
+    return ShapeRenderer(
+        element.copyWith(
+          firstPosition: element.firstPosition + offset,
+          secondPosition: element.secondPosition + offset,
+        ),
+        rect);
   }
 }

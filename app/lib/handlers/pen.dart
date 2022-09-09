@@ -8,7 +8,9 @@ class PenHandler extends Handler<PenPainter> {
   PenHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
+  List<Renderer> createForegrounds(
+      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      [Area? currentArea]) {
     return elements.values
         .map((e) {
           if (e.points.length > 1) return PenRenderer(e);

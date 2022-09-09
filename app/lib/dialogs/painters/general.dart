@@ -95,7 +95,8 @@ class _GeneralPainterDialogState<T extends Painter>
                       children: [
                         OutlinedButton(
                           style: OutlinedButton.styleFrom(
-                              primary: Theme.of(context).colorScheme.error),
+                              foregroundColor:
+                                  Theme.of(context).colorScheme.error),
                           child: Text(AppLocalizations.of(context)!.delete),
                           onPressed: () {
                             Navigator.of(context).pop();

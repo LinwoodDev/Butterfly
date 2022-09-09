@@ -71,7 +71,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
         index: index,
         handler: handler,
-        foregrounds: handler.createForegrounds(document, currentArea),
+        foregrounds: handler.createForegrounds(this, document, currentArea),
         selections: handler.createSelections(document, currentArea)));
     return handler;
   }
@@ -81,7 +81,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
         index: state.index,
         handler: handler,
-        foregrounds: handler.createForegrounds(document, currentArea),
+        foregrounds: handler.createForegrounds(this, document, currentArea),
         selections: handler.createSelections(document, currentArea)));
   }
 
@@ -95,7 +95,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final handler = state.handler;
     if (!isClosed) {
       emit(state.copyWith(
-          foregrounds: handler.createForegrounds(document, currentArea),
+          foregrounds: handler.createForegrounds(this, document, currentArea),
           selections: handler.createSelections(document, currentArea)));
     }
   }
@@ -148,7 +148,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
         temporaryIndex: index,
         temporaryHandler: handler,
-        foregrounds: handler.createForegrounds(document, currentArea),
+        foregrounds: handler.createForegrounds(this, document, currentArea),
         selections: handler.createSelections(document, currentArea)));
     return handler;
   }
@@ -158,7 +158,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
         temporaryIndex: -1,
         temporaryHandler: handler,
-        foregrounds: handler.createForegrounds(document, currentArea),
+        foregrounds: handler.createForegrounds(this, document, currentArea),
         selections: handler.createSelections(document, currentArea)));
     return handler;
   }
@@ -176,7 +176,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
         temporaryIndex: index,
         temporaryHandler: handler,
-        temporaryForegrounds: handler.createForegrounds(document, currentArea),
+        temporaryForegrounds:
+            handler.createForegrounds(this, document, currentArea),
         temporarySelections: handler.createSelections(document, currentArea)));
     return handler;
   }
