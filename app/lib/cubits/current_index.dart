@@ -363,5 +363,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         location: location ?? state.location, saved: saved ?? state.saved));
   }
 
-  void resetInput() {}
+  void resetInput() {
+    state.temporaryHandler?.resetInput();
+    state.handler.resetInput();
+    emit(state.copyWith(pointers: []));
+  }
 }

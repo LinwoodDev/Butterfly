@@ -17,7 +17,7 @@ class ShapeHandler extends Handler {
   }
 
   @override
-  void resetInput(DocumentBloc bloc) {
+  void resetInput() {
     elements.clear();
     submittedElements.clear();
   }

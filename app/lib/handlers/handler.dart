@@ -82,6 +82,8 @@ abstract class Handler<T> {
   void onLongPressEnd(
       Size viewportSize, BuildContext context, LongPressEndDetails details) {}
 
+  void resetInput() {}
+
   int? getColor(DocumentBloc bloc) => null;
 
   T? setColor(DocumentBloc bloc, int color) => null;

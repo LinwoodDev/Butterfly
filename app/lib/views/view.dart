@@ -178,7 +178,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                 },
                 onPointerDown: (PointerDownEvent event) {
                   cubit.addPointer(event.pointer);
-                  final bloc = context.read<DocumentBloc>();
                   if (event.kind == PointerDeviceKind.stylus &&
                       event.buttons == kPrimaryStylusButton) {
                     cubit.changeTemporaryHandler(

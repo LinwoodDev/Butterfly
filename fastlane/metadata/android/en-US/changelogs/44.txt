@@ -1,3 +1,3 @@
 * Fix position and size issues when moving elements
 * Fix gesture issues on area and shape painter and area change problem
-* 
+* Reset pointer on app hide, see #280

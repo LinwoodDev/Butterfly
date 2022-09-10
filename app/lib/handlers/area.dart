@@ -21,7 +21,7 @@ class AreaHandler extends Handler<AreaPainter> {
       ];
 
   @override
-  void resetInput(DocumentBloc bloc) => currentRect = null;
+  void resetInput() => currentRect = null;
 
   @override
   void onPointerDown(
