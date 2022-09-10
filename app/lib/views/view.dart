@@ -292,7 +292,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                             state.document,
                             Theme.of(context).primaryColor,
                             transform,
-                            cubit.state.selection?.rects ?? [],
+                            cubit.state.selection?.rect,
                           ),
                           painter: ViewPainter(state.document,
                               cameraViewport: currentIndex.cameraViewport,

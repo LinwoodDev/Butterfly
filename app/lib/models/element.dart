@@ -73,8 +73,8 @@ class PadElement with _$PadElement {
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
     @Default(ScaledElementConstraints(1)) ElementConstraints? constraints,
     @Uint8ListJsonConverter() required Uint8List pixels,
-    required int width,
-    required int height,
+    required double width,
+    required double height,
   }) = ImageElement;
 
   const factory PadElement.svg({

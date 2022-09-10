@@ -884,8 +884,8 @@ mixin _$PadElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)
+            double width,
+            double height)
         image,
     required TResult Function(
             String layer,
@@ -919,8 +919,8 @@ mixin _$PadElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -954,8 +954,8 @@ mixin _$PadElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -1146,8 +1146,8 @@ class _$PenElement implements PenElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)
+            double width,
+            double height)
         image,
     required TResult Function(
             String layer,
@@ -1184,8 +1184,8 @@ class _$PenElement implements PenElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -1222,8 +1222,8 @@ class _$PenElement implements PenElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -1423,8 +1423,8 @@ class _$EraserElement implements EraserElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)
+            double width,
+            double height)
         image,
     required TResult Function(
             String layer,
@@ -1461,8 +1461,8 @@ class _$EraserElement implements EraserElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -1499,8 +1499,8 @@ class _$EraserElement implements EraserElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -1727,8 +1727,8 @@ class _$LabelElement implements LabelElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)
+            double width,
+            double height)
         image,
     required TResult Function(
             String layer,
@@ -1765,8 +1765,8 @@ class _$LabelElement implements LabelElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -1803,8 +1803,8 @@ class _$LabelElement implements LabelElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -1915,8 +1915,8 @@ abstract class _$$ImageElementCopyWith<$Res>
       @OffsetJsonConverter() Offset position,
       ElementConstraints? constraints,
       @Uint8ListJsonConverter() Uint8List pixels,
-      int width,
-      int height});
+      double width,
+      double height});
 
   $ElementConstraintsCopyWith<$Res>? get constraints;
 }
@@ -1960,11 +1960,11 @@ class __$$ImageElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
       width: width == freezed
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       height: height == freezed
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
     ));
   }
 
@@ -2010,9 +2010,9 @@ class _$ImageElement implements ImageElement {
   @Uint8ListJsonConverter()
   final Uint8List pixels;
   @override
-  final int width;
+  final double width;
   @override
-  final int height;
+  final double height;
 
   @JsonKey(name: 'type')
   final String $type;
@@ -2048,8 +2048,8 @@ class _$ImageElement implements ImageElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)
+            double width,
+            double height)
         image,
     required TResult Function(
             String layer,
@@ -2086,8 +2086,8 @@ class _$ImageElement implements ImageElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -2124,8 +2124,8 @@ class _$ImageElement implements ImageElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -2206,8 +2206,8 @@ abstract class ImageElement implements PadElement {
       @OffsetJsonConverter() final Offset position,
       final ElementConstraints? constraints,
       @Uint8ListJsonConverter() required final Uint8List pixels,
-      required final int width,
-      required final int height}) = _$ImageElement;
+      required final double width,
+      required final double height}) = _$ImageElement;
 
   factory ImageElement.fromJson(Map<String, dynamic> json) =
       _$ImageElement.fromJson;
@@ -2219,8 +2219,8 @@ abstract class ImageElement implements PadElement {
   ElementConstraints? get constraints;
   @Uint8ListJsonConverter()
   Uint8List get pixels;
-  int get width;
-  int get height;
+  double get width;
+  double get height;
   @override
   @JsonKey(ignore: true)
   _$$ImageElementCopyWith<_$ImageElement> get copyWith =>
@@ -2371,8 +2371,8 @@ class _$SvgElement implements SvgElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)
+            double width,
+            double height)
         image,
     required TResult Function(
             String layer,
@@ -2409,8 +2409,8 @@ class _$SvgElement implements SvgElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -2447,8 +2447,8 @@ class _$SvgElement implements SvgElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -2664,8 +2664,8 @@ class _$ShapeElement implements ShapeElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)
+            double width,
+            double height)
         image,
     required TResult Function(
             String layer,
@@ -2702,8 +2702,8 @@ class _$ShapeElement implements ShapeElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,
@@ -2740,8 +2740,8 @@ class _$ShapeElement implements ShapeElement {
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
-            int width,
-            int height)?
+            double width,
+            double height)?
         image,
     TResult Function(
             String layer,

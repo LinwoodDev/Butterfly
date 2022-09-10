@@ -11,7 +11,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xml/xml.dart';
-//import 'package:pdf/widgets.dart' as pw;
 
 import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
@@ -104,5 +103,10 @@ abstract class Renderer<T> {
     throw Exception('Invalid instance type');
   }
 
-  Renderer<T>? move(Offset position, [bool relative = false]) => null;
+  Renderer<T>? transform(
+          {Offset position = Offset.zero,
+          double scaleX = 1,
+          double scaleY = 1,
+          bool relative = true}) =>
+      null;
 }

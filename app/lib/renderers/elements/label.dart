@@ -162,8 +162,13 @@ class LabelRenderer extends Renderer<LabelElement> {
   }
 
   @override
-  LabelRenderer move(Offset position, [bool relative = false]) => LabelRenderer(
-      element.copyWith(
-          position: relative ? element.position + position : position),
-      rect);
+  LabelRenderer transform(
+          {Offset position = Offset.zero,
+          double scaleX = 1,
+          double scaleY = 1,
+          bool relative = false}) =>
+      LabelRenderer(
+          element.copyWith(
+              position: relative ? element.position + position : position),
+          rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY));
 }

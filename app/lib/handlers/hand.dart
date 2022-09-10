@@ -72,7 +72,8 @@ class HandHandler extends Handler<HandPainter> {
       final renderers = _movingElements
           .map((e) => _currentMovePosition == null
               ? e
-              : (e.move(_currentMovePosition!, true) ?? e))
+              : (e.transform(position: _currentMovePosition!, relative: true) ??
+                  e))
           .toList();
       foregrounds.addAll(renderers);
     }
@@ -102,7 +103,11 @@ class HandHandler extends Handler<HandPainter> {
   void submitMove(BuildContext context) {
     if (_movingElements.isEmpty) return;
     final current = _movingElements
-        .map((e) => e.move(_currentMovePosition ?? Offset.zero, true) ?? e)
+        .map((e) =>
+            e.transform(
+                position: _currentMovePosition ?? Offset.zero,
+                relative: true) ??
+            e)
         .map((e) => e.element)
         .toList();
     _currentMovePosition = null;

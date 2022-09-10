@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/constraints.dart';
 import 'package:butterfly/models/property.dart';
 import 'package:butterfly/visualizer/property.dart';
+import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +63,7 @@ abstract class Selection<T> {
 
   List<Widget> buildProperties(BuildContext context) => [];
 
-  List<Rect> get rects => [];
+  Rect? get rect => null;
 
   @mustCallSuper
   void update(BuildContext context, List<T> selected) {

@@ -11,14 +11,14 @@ class ForegroundPainter extends CustomPainter {
   final AppDocument document;
   final List<Renderer> renderers;
   final CameraTransform transform;
-  final List<Rect> selection;
+  final Rect? selection;
 
   ForegroundPainter(
     this.renderers,
     this.document,
     this.selectionColor, [
     this.transform = const CameraTransform(),
-    this.selection = const [],
+    this.selection,
   ]);
 
   @override
@@ -28,7 +28,7 @@ class ForegroundPainter extends CustomPainter {
     for (var element in renderers) {
       element.build(canvas, size, document, transform, true);
     }
-    for (var rect in selection) {
+    if (selection != null) {
       /*
       final minX =
           -transform.position.dx + 20 / ((transform.size - 1) / 1.5 + 1);
@@ -38,7 +38,7 @@ class ForegroundPainter extends CustomPainter {
       */
       canvas.drawRRect(
           RRect.fromRectAndRadius(
-              rect.inflate(5 / transform.size), const Radius.circular(5)),
+              selection!.inflate(5 / transform.size), const Radius.circular(5)),
           Paint()
             ..style = PaintingStyle.stroke
             ..color = selectionColor

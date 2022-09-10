@@ -149,8 +149,8 @@ _$ImageElement _$$ImageElementFromJson(Map json) => _$ImageElement(
           : ElementConstraints.fromJson(
               Map<String, dynamic>.from(json['constraints'] as Map)),
       pixels: const Uint8ListJsonConverter().fromJson(json['pixels'] as String),
-      width: json['width'] as int,
-      height: json['height'] as int,
+      width: (json['width'] as num).toDouble(),
+      height: (json['height'] as num).toDouble(),
       $type: json['type'] as String?,
     );
 
