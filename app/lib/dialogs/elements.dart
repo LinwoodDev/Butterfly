@@ -50,6 +50,17 @@ class ElementsDialog extends StatelessWidget {
             },
           ),
           ListTile(
+            title: Text(AppLocalizations.of(context)!.scale),
+            leading: const Icon(PhosphorIcons.arrowsOutLight),
+            onTap: () {
+              Navigator.of(context).pop();
+              context
+                  .read<CurrentIndexCubit>()
+                  .fetchHandler<HandHandler>()
+                  ?.setScaleMode(context.read<DocumentBloc>());
+            },
+          ),
+          ListTile(
               onTap: () {
                 Navigator.of(context).pop();
                 context.read<DocumentBloc>().add(
