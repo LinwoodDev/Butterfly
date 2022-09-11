@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:collection/collection.dart';
+
 extension RectHelper on Rect {
   Rect normalized() {
     var firstX = left;
@@ -17,5 +19,15 @@ extension RectHelper on Rect {
       secondY = temp;
     }
     return Rect.fromLTRB(firstX, firstY, secondX, secondY);
+  }
+}
+
+extension RectsHelper on Iterable<Rect> {
+  Rect? expandRects() {
+    var rect = firstOrNull;
+    for (final current in this) {
+      rect = rect?.expandToInclude(current);
+    }
+    return rect;
   }
 }

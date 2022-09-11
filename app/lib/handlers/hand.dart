@@ -1,17 +1,18 @@
 part of 'handler.dart';
 
 class HandSelectionRenderer extends Renderer<Rect> {
-  final Color color;
-  HandSelectionRenderer(super.element, this.color);
+  final ColorScheme scheme;
+  final HandTransformMode? transformMode;
+  HandSelectionRenderer(super.element, this.scheme, [this.transformMode]);
 
   @override
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]) {
     final paint = Paint()
-      ..color = color
+      ..color = scheme.primary
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 4
+      ..strokeWidth = 4 / transform.size
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..isAntiAlias = true
@@ -19,10 +20,52 @@ class HandSelectionRenderer extends Renderer<Rect> {
       ..colorFilter =
           ColorFilter.mode(Colors.grey.withOpacity(0.5), BlendMode.srcATop);
     canvas.drawRect(element, paint);
+    if (transformMode == null) return;
+    final color = transformMode == HandTransformMode.scaleProp
+        ? scheme.primary
+        : scheme.secondary;
+    final transformPaint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2 / transform.size
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..isAntiAlias = true
+      ..filterQuality = FilterQuality.high
+      ..colorFilter =
+          ColorFilter.mode(Colors.grey.withOpacity(0.5), BlendMode.srcATop);
+    final realSize = 16 / transform.size;
+    if (element.width < 2 * realSize || element.height < 2 * realSize) return;
+    final showCenter =
+        element.width > 3 * realSize && element.height > 3 * realSize;
+    void drawCorner(Offset offset) {
+      canvas.drawRect(
+        Rect.fromCenter(
+          center: offset,
+          width: realSize,
+          height: realSize,
+        ),
+        transformPaint,
+      );
+    }
+
+    drawCorner(element.topLeft);
+    drawCorner(element.topRight);
+    if (showCenter) {
+      drawCorner(element.topCenter);
+      drawCorner(element.centerLeft);
+      drawCorner(element.centerRight);
+      drawCorner(element.bottomCenter);
+    }
+    drawCorner(element.bottomLeft);
+    drawCorner(element.bottomRight);
   }
 }
 
+enum HandTransformMode { scale, scaleProp }
+
 class HandHandler extends Handler<HandPainter> {
+  HandTransformMode? _transformMode = HandTransformMode.scale;
   List<Renderer<PadElement>> _movingElements = [];
   List<Renderer<PadElement>> _selected = [];
   Offset? _currentMovePosition;
@@ -65,9 +108,9 @@ class HandHandler extends Handler<HandPainter> {
       CurrentIndexCubit currentIndexCubit, AppDocument document,
       [Area? currentArea]) {
     final foregrounds = <Renderer>[];
-    final color = ThemeManager.getThemeByName(
+    final scheme = ThemeManager.getThemeByName(
             currentIndexCubit.state.settingsCubit.state.design)
-        .primaryColor;
+        .colorScheme;
     if (_movingElements.isNotEmpty) {
       final renderers = _movingElements
           .map((e) => _currentMovePosition == null
@@ -79,10 +122,11 @@ class HandHandler extends Handler<HandPainter> {
     }
     final selectionRect = getSelectionRect();
     if (selectionRect != null) {
-      foregrounds.add(HandSelectionRenderer(selectionRect, color));
+      foregrounds
+          .add(HandSelectionRenderer(selectionRect, scheme, _transformMode));
     }
     if (_freeSelection != null) {
-      foregrounds.add(HandSelectionRenderer(_freeSelection!, color));
+      foregrounds.add(HandSelectionRenderer(_freeSelection!, scheme));
     }
     return foregrounds;
   }
@@ -170,6 +214,39 @@ class HandHandler extends Handler<HandPainter> {
   @override
   void onDoubleTap(EventContext eventContext) {
     _onSelectionContext(eventContext, _contextMenuOffset);
+  }
+
+  void transform(BuildContext context, double x, double y) {
+    switch (_transformMode) {
+      case HandTransformMode.scaleProp:
+        x = min(x, y);
+        y = x;
+        break;
+      default:
+        break;
+    }
+    final rect = _selected.map((e) => e.rect).whereType<Rect>().expandRects();
+    if (rect == null) return;
+    final rectSize = rect.size;
+    final scaledRect =
+        rect.topLeft & Size(rectSize.width * x, rectSize.height * y);
+    final delta = scaledRect.center - rect.center;
+
+    final scaled =
+        Map<Renderer<PadElement>, Renderer<PadElement>>.fromIterable(_selected
+            .map((e) => MapEntry(
+                e,
+                e.transform(
+                      position: delta,
+                      scaleX: x,
+                      scaleY: y,
+                      relative: true,
+                    ) ??
+                    e))
+            .toList());
+    _selected = scaled.values.toList();
+    context.read<DocumentBloc>().add(ElementsChanged(
+        scaled.map((key, value) => MapEntry(key.element, value.element))));
   }
 
   Future<void> _onSelectionContext(
