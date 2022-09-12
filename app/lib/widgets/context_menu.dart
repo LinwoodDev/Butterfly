@@ -116,13 +116,13 @@ class _ContextMenuState extends State<ContextMenu>
   }
 }
 
-Future<void> showContextMenu(
+Future<T?> showContextMenu<T>(
     {required BuildContext context,
     Offset position = Offset.zero,
     required ContextMenuBuilder builder,
     double maxHeight = 400,
     double maxWidth = 300}) async {
-  return showModal(
+  return showModal<T>(
       context: context,
       useRootNavigator: true,
       builder: (context) {

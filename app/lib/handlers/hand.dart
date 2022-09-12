@@ -118,11 +118,12 @@ extension HandTransformCornerExtension on HandTransformCorner {
 }
 
 class HandHandler extends Handler<HandPainter> {
-  HandTransformMode? _transformMode = HandTransformMode.scale;
+  HandTransformMode? _transformMode;
   HandTransformCorner? _transformCorner;
   List<Renderer<PadElement>> _movingElements = [];
   List<Renderer<PadElement>> _selected = [];
   Offset? _currentMovePosition;
+  Offset? _currentTransformOffset;
   Offset _contextMenuOffset = Offset.zero;
   Rect? _freeSelection;
 
@@ -130,6 +131,17 @@ class HandHandler extends Handler<HandPainter> {
 
   void setScaleMode(DocumentBloc bloc) {
     _transformMode = HandTransformMode.scaleProp;
+    bloc.refresh();
+  }
+
+  @override
+  void resetInput(DocumentBloc bloc) {
+    _resetTransform();
+    submitMove(bloc);
+    _movingElements.clear();
+    _selected.clear();
+    _currentMovePosition = null;
+    _freeSelection = null;
     bloc.refresh();
   }
 
@@ -190,20 +202,19 @@ class HandHandler extends Handler<HandPainter> {
     return foregrounds;
   }
 
-  void move(BuildContext context, List<Renderer<PadElement>> next,
+  void move(DocumentBloc bloc, List<Renderer<PadElement>> next,
       [bool duplicate = false]) {
-    submitMove(context);
+    submitMove(bloc);
     _movingElements = next;
     _selected = [];
     _currentMovePosition = null;
     if (!duplicate) {
-      final bloc = context.read<DocumentBloc>();
       bloc.add(ElementsRemoved(next.map((e) => e.element).toList()));
       bloc.refresh();
     }
   }
 
-  void submitMove(BuildContext context) {
+  void submitMove(DocumentBloc bloc) {
     if (_movingElements.isEmpty) return;
     final current = _movingElements
         .map((e) =>
@@ -215,7 +226,6 @@ class HandHandler extends Handler<HandPainter> {
         .toList();
     _currentMovePosition = null;
     _movingElements = [];
-    final bloc = context.read<DocumentBloc>();
     bloc.add(ElementsCreated(current));
     bloc.refresh();
   }
@@ -269,7 +279,14 @@ class HandHandler extends Handler<HandPainter> {
       _selected.clear();
       _selected.add(hit);
     }
+    _resetTransform();
     context.refresh();
+  }
+
+  void _resetTransform() {
+    _transformCorner = null;
+    _transformMode = null;
+    _currentTransformOffset = null;
   }
 
   @override
@@ -285,39 +302,6 @@ class HandHandler extends Handler<HandPainter> {
   @override
   void onDoubleTap(EventContext eventContext) {
     _onSelectionContext(eventContext, _contextMenuOffset);
-  }
-
-  void transform(BuildContext context, double x, double y) {
-    switch (_transformMode) {
-      case HandTransformMode.scaleProp:
-        x = min(x, y);
-        y = x;
-        break;
-      default:
-        break;
-    }
-    final rect = _selected.map((e) => e.rect).whereType<Rect>().expandRects();
-    if (rect == null) return;
-    final rectSize = rect.size;
-    final scaledRect =
-        rect.topLeft & Size(rectSize.width * x, rectSize.height * y);
-    final delta = scaledRect.center - rect.center;
-
-    final scaled =
-        Map<Renderer<PadElement>, Renderer<PadElement>>.fromIterable(_selected
-            .map((e) => MapEntry(
-                e,
-                e.transform(
-                      position: delta,
-                      scaleX: x,
-                      scaleY: y,
-                      relative: true,
-                    ) ??
-                    e))
-            .toList());
-    _selected = scaled.values.toList();
-    context.read<DocumentBloc>().add(ElementsChanged(
-        scaled.map((key, value) => MapEntry(key.element, value.element))));
   }
 
   Future<void> _onSelectionContext(
@@ -357,20 +341,22 @@ class HandHandler extends Handler<HandPainter> {
       );
       return;
     }
-    await showContextMenu(
-        context: context.buildContext,
-        position: localPosition,
-        builder: (ctx) => MultiBlocProvider(
-            providers: context.getProviders(),
-            child: RepositoryProvider.value(
-              value: context.getImportService(),
-              child: Actions(
-                actions: context.getActions(),
-                child: ElementsDialog(
-                    position: localPosition, renderers: _selected),
-              ),
-            )));
-    _selected.clear();
+    if (await showContextMenu<bool>(
+            context: context.buildContext,
+            position: localPosition,
+            builder: (ctx) => MultiBlocProvider(
+                providers: context.getProviders(),
+                child: RepositoryProvider.value(
+                  value: context.getImportService(),
+                  child: Actions(
+                    actions: context.getActions(),
+                    child: ElementsDialog(
+                        position: localPosition, renderers: _selected),
+                  ),
+                ))) ??
+        false) {
+      _selected.clear();
+    }
     context.refresh();
   }
 
@@ -396,13 +382,14 @@ class HandHandler extends Handler<HandPainter> {
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     final currentIndex = context.getCurrentIndex();
+    final globalPos =
+        context.getCameraTransform().localToGlobal(details.localFocalPoint);
     if (_transformMode != null) {
+      _currentTransformOffset = globalPos;
       return;
     }
     if (currentIndex.buttons != kSecondaryMouseButton &&
         details.pointerCount == 1) {
-      final globalPos =
-          context.getCameraTransform().localToGlobal(details.localFocalPoint);
       final topLeft = _freeSelection?.topLeft ?? globalPos;
       _freeSelection =
           Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy);
@@ -424,6 +411,7 @@ class HandHandler extends Handler<HandPainter> {
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
     final freeSelection = _freeSelection?.normalized();
+    if (_handleTransform(context.getDocumentBloc())) return;
     if (freeSelection != null && !freeSelection.isEmpty) {
       _freeSelection = null;
       if (!context.isCtrlPressed) {
@@ -434,10 +422,75 @@ class HandHandler extends Handler<HandPainter> {
       _selected.addAll(hits);
       context.refresh();
     }
-    if (_transformCorner != null) {
-      _transformCorner = null;
-      context.refresh();
+  }
+
+  bool _handleTransform(DocumentBloc bloc) {
+    final selectionRect = getSelectionRect();
+    final corner = _transformCorner;
+    final offset = _currentTransformOffset;
+    if (corner == null || offset == null || selectionRect == null) return false;
+    final previous = corner.getFromRect(selectionRect);
+    var delta = offset - previous;
+    var scaleX = 1.0;
+    var scaleY = 1.0;
+    var position = Offset.zero;
+    switch (corner) {
+      case HandTransformCorner.topLeft:
+        position = delta;
+        scaleX += -delta.dx / selectionRect.size.width;
+        scaleY += -delta.dy / selectionRect.size.height;
+        break;
+      case HandTransformCorner.topCenter:
+        position = Offset(0, delta.dy);
+        scaleY += -delta.dy / selectionRect.size.height;
+        break;
+      case HandTransformCorner.topRight:
+        position = Offset(0, delta.dy);
+        scaleX += delta.dx / selectionRect.size.width;
+        scaleY += -delta.dy / selectionRect.size.height;
+        break;
+      case HandTransformCorner.centerLeft:
+        position = Offset(delta.dx, 0);
+        scaleX += -delta.dx / selectionRect.size.width;
+        break;
+      case HandTransformCorner.centerRight:
+        scaleX += delta.dx / selectionRect.size.width;
+        break;
+      case HandTransformCorner.bottomLeft:
+        position = Offset(delta.dx, 0);
+        scaleX += -delta.dx / selectionRect.size.width;
+        scaleY += delta.dy / selectionRect.size.height;
+        break;
+      case HandTransformCorner.bottomCenter:
+        scaleY += delta.dy / selectionRect.size.height;
+        break;
+      case HandTransformCorner.bottomRight:
+        scaleX += delta.dx / selectionRect.size.width;
+        scaleY += delta.dy / selectionRect.size.height;
+        break;
     }
+    scaleX = scaleX.clamp(0.1, 10.0);
+    scaleY = scaleY.clamp(0.1, 10.0);
+    final updated = Map<Renderer<PadElement>, Renderer<PadElement>>.fromEntries(
+      _selected.map(
+        (e) => MapEntry<Renderer<PadElement>, Renderer<PadElement>>(
+            e,
+            e.transform(
+                    position: position,
+                    scaleX: scaleX,
+                    scaleY: scaleY,
+                    relative: true) ??
+                e),
+      ),
+    );
+    _selected = updated.values.toList();
+    _transformCorner = null;
+    _currentTransformOffset = null;
+    bloc.add(ElementsChanged(
+      updated.map((key, value) => MapEntry(key.element, value.element)),
+    ));
+    bloc.refresh();
+    return true;
   }
 
   @override
@@ -453,7 +506,7 @@ class HandHandler extends Handler<HandPainter> {
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     if (_movingElements.isNotEmpty) {
-      submitMove(context.buildContext);
+      submitMove(context.getDocumentBloc());
     }
   }
 }
