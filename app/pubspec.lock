@@ -835,7 +835,7 @@ packages:
       name: printing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.9.2"
+    version: "5.9.3"
   process:
     dependency: transitive
     description:
