@@ -62,22 +62,31 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   List<PathPoint> movePoints(Offset position, double scaleX, double scaleY,
       [bool relative = false]) {
     var current = element as PathElement;
-    final center = rect.center;
+    final topLeft = rect.topLeft;
     if (relative) {
       return current.points.map((e) {
         final next = e.toOffset() + position;
-        final x = (next.dx - center.dx) * scaleX + center.dx;
-        final y = (next.dy - center.dy) * scaleY + center.dy;
+        final x = (next.dx - topLeft.dx) * scaleX + topLeft.dx;
+        final y = (next.dy - topLeft.dy) * scaleY + topLeft.dy;
         return e.copyWith(x: x, y: y);
       }).toList();
     }
-    var diff = position - center;
+    var diff = position - topLeft;
     var points = current.points.map((element) {
       final next = element.toOffset() + diff;
-      final x = (next.dx - center.dx) * scaleX + center.dx;
-      final y = (next.dy - center.dy) * scaleY + center.dy;
+      final x = (next.dx - topLeft.dx) * scaleX + topLeft.dx;
+      final y = (next.dy - topLeft.dy) * scaleY + topLeft.dy;
       return element.copyWith(x: x, y: y);
     }).toList();
     return points;
+  }
+
+  Rect moveRect(Offset position, double scaleX, double scaleY,
+      [bool relative = false]) {
+    final size = Size(rect.width * scaleX, rect.height * scaleY);
+    if (relative) {
+      return (rect.topLeft + position) & size;
+    }
+    return position & size;
   }
 }

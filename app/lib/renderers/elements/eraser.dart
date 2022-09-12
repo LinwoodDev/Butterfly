@@ -52,5 +52,5 @@ class EraserRenderer extends PathRenderer<EraserElement> {
       EraserRenderer(
           element.copyWith(
               points: movePoints(position, scaleX, scaleY, relative)),
-          rect);
+          moveRect(position, scaleX, scaleY, relative));
 }

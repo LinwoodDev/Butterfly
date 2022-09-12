@@ -264,6 +264,7 @@ class HandHandler extends Handler<HandPainter> {
     if (hits.isEmpty) {
       if (!context.isCtrlPressed) {
         _selected.clear();
+        _resetTransform();
         context.refresh();
       }
       return;
