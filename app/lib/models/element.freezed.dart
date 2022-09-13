@@ -211,7 +211,7 @@ ElementConstraints _$ElementConstraintsFromJson(Map<String, dynamic> json) {
 mixin _$ElementConstraints {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double scale) scaled,
+    required TResult Function(double scaleX, double scaleY) scaled,
     required TResult Function(double height, double width) fixed,
     required TResult Function(
             double height, double width, double aspectRatio, bool includeArea)
@@ -220,7 +220,7 @@ mixin _$ElementConstraints {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(double scale)? scaled,
+    TResult Function(double scaleX, double scaleY)? scaled,
     TResult Function(double height, double width)? fixed,
     TResult Function(
             double height, double width, double aspectRatio, bool includeArea)?
@@ -229,7 +229,7 @@ mixin _$ElementConstraints {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double scale)? scaled,
+    TResult Function(double scaleX, double scaleY)? scaled,
     TResult Function(double height, double width)? fixed,
     TResult Function(
             double height, double width, double aspectRatio, bool includeArea)?
@@ -284,7 +284,7 @@ abstract class _$$ScaledElementConstraintsCopyWith<$Res> {
   factory _$$ScaledElementConstraintsCopyWith(_$ScaledElementConstraints value,
           $Res Function(_$ScaledElementConstraints) then) =
       __$$ScaledElementConstraintsCopyWithImpl<$Res>;
-  $Res call({double scale});
+  $Res call({double scaleX, double scaleY});
 }
 
 /// @nodoc
@@ -301,12 +301,17 @@ class __$$ScaledElementConstraintsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? scale = freezed,
+    Object? scaleX = freezed,
+    Object? scaleY = freezed,
   }) {
     return _then(_$ScaledElementConstraints(
-      scale == freezed
-          ? _value.scale
-          : scale // ignore: cast_nullable_to_non_nullable
+      scaleX: scaleX == freezed
+          ? _value.scaleX
+          : scaleX // ignore: cast_nullable_to_non_nullable
+              as double,
+      scaleY: scaleY == freezed
+          ? _value.scaleY
+          : scaleY // ignore: cast_nullable_to_non_nullable
               as double,
     ));
   }
@@ -315,21 +320,26 @@ class __$$ScaledElementConstraintsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ScaledElementConstraints implements ScaledElementConstraints {
-  const _$ScaledElementConstraints(this.scale, {final String? $type})
+  const _$ScaledElementConstraints(
+      {this.scaleX = 1, this.scaleY = 1, final String? $type})
       : $type = $type ?? 'scaled';
 
   factory _$ScaledElementConstraints.fromJson(Map<String, dynamic> json) =>
       _$$ScaledElementConstraintsFromJson(json);
 
   @override
-  final double scale;
+  @JsonKey()
+  final double scaleX;
+  @override
+  @JsonKey()
+  final double scaleY;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'ElementConstraints.scaled(scale: $scale)';
+    return 'ElementConstraints.scaled(scaleX: $scaleX, scaleY: $scaleY)';
   }
 
   @override
@@ -337,13 +347,16 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ScaledElementConstraints &&
-            const DeepCollectionEquality().equals(other.scale, scale));
+            const DeepCollectionEquality().equals(other.scaleX, scaleX) &&
+            const DeepCollectionEquality().equals(other.scaleY, scaleY));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(scale));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(scaleX),
+      const DeepCollectionEquality().hash(scaleY));
 
   @JsonKey(ignore: true)
   @override
@@ -355,31 +368,31 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double scale) scaled,
+    required TResult Function(double scaleX, double scaleY) scaled,
     required TResult Function(double height, double width) fixed,
     required TResult Function(
             double height, double width, double aspectRatio, bool includeArea)
         dynamic,
   }) {
-    return scaled(scale);
+    return scaled(scaleX, scaleY);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(double scale)? scaled,
+    TResult Function(double scaleX, double scaleY)? scaled,
     TResult Function(double height, double width)? fixed,
     TResult Function(
             double height, double width, double aspectRatio, bool includeArea)?
         dynamic,
   }) {
-    return scaled?.call(scale);
+    return scaled?.call(scaleX, scaleY);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double scale)? scaled,
+    TResult Function(double scaleX, double scaleY)? scaled,
     TResult Function(double height, double width)? fixed,
     TResult Function(
             double height, double width, double aspectRatio, bool includeArea)?
@@ -387,7 +400,7 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
     required TResult orElse(),
   }) {
     if (scaled != null) {
-      return scaled(scale);
+      return scaled(scaleX, scaleY);
     }
     return orElse();
   }
@@ -435,13 +448,14 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
 }
 
 abstract class ScaledElementConstraints implements ElementConstraints {
-  const factory ScaledElementConstraints(final double scale) =
-      _$ScaledElementConstraints;
+  const factory ScaledElementConstraints(
+      {final double scaleX, final double scaleY}) = _$ScaledElementConstraints;
 
   factory ScaledElementConstraints.fromJson(Map<String, dynamic> json) =
       _$ScaledElementConstraints.fromJson;
 
-  double get scale;
+  double get scaleX;
+  double get scaleY;
   @JsonKey(ignore: true)
   _$$ScaledElementConstraintsCopyWith<_$ScaledElementConstraints>
       get copyWith => throw _privateConstructorUsedError;
@@ -533,7 +547,7 @@ class _$FixedElementConstraints implements FixedElementConstraints {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double scale) scaled,
+    required TResult Function(double scaleX, double scaleY) scaled,
     required TResult Function(double height, double width) fixed,
     required TResult Function(
             double height, double width, double aspectRatio, bool includeArea)
@@ -545,7 +559,7 @@ class _$FixedElementConstraints implements FixedElementConstraints {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(double scale)? scaled,
+    TResult Function(double scaleX, double scaleY)? scaled,
     TResult Function(double height, double width)? fixed,
     TResult Function(
             double height, double width, double aspectRatio, bool includeArea)?
@@ -557,7 +571,7 @@ class _$FixedElementConstraints implements FixedElementConstraints {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double scale)? scaled,
+    TResult Function(double scaleX, double scaleY)? scaled,
     TResult Function(double height, double width)? fixed,
     TResult Function(
             double height, double width, double aspectRatio, bool includeArea)?
@@ -742,7 +756,7 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double scale) scaled,
+    required TResult Function(double scaleX, double scaleY) scaled,
     required TResult Function(double height, double width) fixed,
     required TResult Function(
             double height, double width, double aspectRatio, bool includeArea)
@@ -754,7 +768,7 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(double scale)? scaled,
+    TResult Function(double scaleX, double scaleY)? scaled,
     TResult Function(double height, double width)? fixed,
     TResult Function(
             double height, double width, double aspectRatio, bool includeArea)?
@@ -766,7 +780,7 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double scale)? scaled,
+    TResult Function(double scaleX, double scaleY)? scaled,
     TResult Function(double height, double width)? fixed,
     TResult Function(
             double height, double width, double aspectRatio, bool includeArea)?
@@ -1986,7 +2000,7 @@ class _$ImageElement implements ImageElement {
   const _$ImageElement(
       {this.layer = '',
       @OffsetJsonConverter() this.position = Offset.zero,
-      this.constraints = const ScaledElementConstraints(1),
+      this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1),
       @Uint8ListJsonConverter() required this.pixels,
       required this.width,
       required this.height,
@@ -2310,7 +2324,7 @@ class _$SvgElement implements SvgElement {
   const _$SvgElement(
       {this.layer = '',
       @OffsetJsonConverter() this.position = Offset.zero,
-      this.constraints = const ScaledElementConstraints(1),
+      this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1),
       required this.data,
       required this.width,
       required this.height,

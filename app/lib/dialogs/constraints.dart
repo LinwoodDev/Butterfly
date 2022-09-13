@@ -72,15 +72,23 @@ class _ConstraintsViewState extends State<ConstraintsView> {
                   items: [
                     ...[
                       const FixedElementConstraints(0, 0),
-                      const ScaledElementConstraints(1),
+                      const ScaledElementConstraints(scaleX: 1, scaleY: 1),
                       const DynamicElementConstraints()
                     ].map((e) => DropdownMenuItem(
-                        value: e.runtimeType.toString(),
-                        child: Text(
-                          e.getLocalizedName(context),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        )))
+                          value: e.runtimeType.toString(),
+                          child: Text(
+                            e.getLocalizedName(context),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              constraints = e;
+                              opened = false;
+                            });
+                            _onChanged(e);
+                          },
+                        ))
                   ],
                   value: constraints?.runtimeType.toString(),
                   onChanged: (value) {},
@@ -135,14 +143,20 @@ class _ScaledConstraintsContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(shrinkWrap: true, children: [
       ExactSlider(
-        header: Text(AppLocalizations.of(context)!.scale),
+        header: const Text('X'),
         min: 0,
         max: 10,
         defaultValue: 1,
-        value: constraints.scale,
-        onChangeEnd: (value) {
-          onChanged(ScaledElementConstraints(value));
-        },
+        value: constraints.scaleX,
+        onChangeEnd: (value) => onChanged(constraints.copyWith(scaleX: value)),
+      ),
+      ExactSlider(
+        header: const Text('Y'),
+        min: 0,
+        max: 10,
+        defaultValue: 1,
+        value: constraints.scaleY,
+        onChangeEnd: (value) => onChanged(constraints.copyWith(scaleY: value)),
       ),
     ]);
   }

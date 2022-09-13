@@ -146,7 +146,7 @@ class ImportService {
           height: height.toDouble(),
           width: width.toDouble(),
           pixels: png,
-          constraints: ElementConstraints.scaled(scale),
+          constraints: ElementConstraints.scaled(scaleX: scale, scaleY: scale),
           position: Offset(position.dx, y)));
       if (createAreas) {
         areas.add(Area(

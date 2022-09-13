@@ -65,4 +65,33 @@ extension ElementConstraintsVisualizer on ElementConstraints? {
     }
     return AppLocalizations.of(context)!.none;
   }
+
+  ElementConstraints scale(double scaleX, double scaleY) {
+    final constraints = this;
+    if (constraints is ScaledElementConstraints) {
+      return constraints.copyWith(
+        scaleX: constraints.scaleX * scaleX,
+        scaleY: constraints.scaleY * scaleY,
+      );
+    } else if (constraints is FixedElementConstraints) {
+      return constraints.copyWith(
+        width: constraints.width * scaleX,
+        height: constraints.height * scaleY,
+      );
+    } else if (constraints is DynamicElementConstraints) {
+      if (constraints.aspectRatio != 0) {
+        return constraints.copyWith(
+          aspectRatio: constraints.aspectRatio * (scaleX / scaleY),
+          width: constraints.width * scaleX,
+          height: constraints.height * scaleY,
+        );
+      } else {
+        return constraints.copyWith(
+          width: constraints.width * scaleX,
+          height: constraints.height * scaleY,
+        );
+      }
+    }
+    return ScaledElementConstraints(scaleX: scaleX, scaleY: scaleY);
+  }
 }
