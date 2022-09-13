@@ -65,9 +65,9 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     final topLeft = rect.topLeft;
     if (relative) {
       return current.points.map((e) {
-        final next = e.toOffset() + position;
-        final x = (next.dx - topLeft.dx) * scaleX + topLeft.dx;
-        final y = (next.dy - topLeft.dy) * scaleY + topLeft.dy;
+        final next = e.toOffset();
+        final x = (next.dx - topLeft.dx) * scaleX + topLeft.dx + position.dx;
+        final y = (next.dy - topLeft.dy) * scaleY + topLeft.dy + position.dy;
         return e.copyWith(x: x, y: y);
       }).toList();
     }

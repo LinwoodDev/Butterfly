@@ -53,13 +53,15 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
             if (['svg', 'image'].contains(map['type'])) {
               final constraints = map['constraints'];
               if (constraints is Map) {
-                final map = Map<String, dynamic>.from(constraints);
-                if (map['type'] == 'scaled') {
-                  map['scaleX'] = map['scale'];
-                  map['scaleY'] = map['scale'];
+                final current = Map<String, dynamic>.from(constraints);
+                if (current['type'] == 'scaled') {
+                  current['scaleX'] = map['scale'];
+                  current['scaleY'] = map['scale'];
                 }
+                map['constraints'] = current;
               }
             }
+            return map;
           }),
         ];
       }

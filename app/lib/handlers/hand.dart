@@ -474,14 +474,20 @@ class HandHandler extends Handler<HandPainter> {
     scaleY = scaleY.clamp(0.1, 10.0);
     final updated = Map<Renderer<PadElement>, Renderer<PadElement>>.fromEntries(
       _selected.map(
-        (e) => MapEntry<Renderer<PadElement>, Renderer<PadElement>>(
-            e,
-            e.transform(
-                    position: position,
-                    scaleX: scaleX,
-                    scaleY: scaleY,
-                    relative: true) ??
-                e),
+        (e) {
+          var offset = e.rect?.topLeft ?? Offset.zero;
+          offset -= selectionRect.topLeft;
+          offset = offset.scale(scaleX - 1, scaleY - 1);
+          offset += position;
+          return MapEntry<Renderer<PadElement>, Renderer<PadElement>>(
+              e,
+              e.transform(
+                      position: offset,
+                      scaleX: scaleX,
+                      scaleY: scaleY,
+                      relative: true) ??
+                  e);
+        },
       ),
     );
     _selected = updated.values.toList();
