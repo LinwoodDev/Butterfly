@@ -68,8 +68,8 @@ dev_dependencies:
     sdk: flutter
   analyzer: ^4.7.0
   freezed: ^2.1.0+1
-  build_runner: ^2.2.0
-  json_serializable: ^6.3.1
+  build_runner: ^2.2.1
+  json_serializable: ^6.3.2
   espresso: ^0.2.0+4
 
 # For information on the generic Dart part of this file, see the
