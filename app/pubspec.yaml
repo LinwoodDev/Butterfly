@@ -28,7 +28,7 @@ dependencies:
   path_provider: ^2.0.11
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.5
-  file_picker: ^5.0.1
+  file_picker: ^5.1.0
   phosphor_flutter: ^1.4.0
   replay_bloc: ^0.2.2
   share_plus: ^4.1.0
@@ -45,7 +45,7 @@ dependencies:
   freezed_annotation: ^2.1.0
   json_annotation: ^4.6.0
   path: ^1.8.1
-  printing: ^5.9.2
+  printing: ^5.9.3
   js: ^0.6.4
   pdf: ^3.8.3
   http: ^0.13.5
@@ -55,9 +55,9 @@ dependencies:
   yaru: ^0.3.3
   rxdart: ^0.27.5
   ffi: ^2.0.1
-  connectivity_plus: ^2.3.6+1
   archive: ^3.3.0
   animations: ^2.0.4
+  connectivity_plus: ^2.3.7
 dev_dependencies:
   flutter_native_splash: ^2.2.9
   flutter_launcher_icons: ^0.10.0

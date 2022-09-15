@@ -210,7 +210,7 @@ packages:
       name: code_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.0"
+    version: "4.3.0"
   collection:
     dependency: "direct main"
     description:
@@ -224,7 +224,7 @@ packages:
       name: connectivity_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.6+1"
+    version: "2.3.7"
   connectivity_plus_linux:
     dependency: transitive
     description:
@@ -273,7 +273,7 @@ packages:
       name: cross_file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.3+1"
+    version: "0.3.3+2"
   crypto:
     dependency: transitive
     description:
@@ -343,7 +343,7 @@ packages:
       name: file_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.1"
+    version: "5.1.0"
   fixnum:
     dependency: transitive
     description:
@@ -1218,7 +1218,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.7.0"
+    version: "3.0.0"
   window_manager:
     dependency: "direct main"
     description:
