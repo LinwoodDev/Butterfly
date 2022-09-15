@@ -130,7 +130,14 @@ class HandHandler extends Handler<HandPainter> {
   HandHandler(super.data);
 
   void setScaleMode(DocumentBloc bloc) {
-    _transformMode = HandTransformMode.scaleProp;
+    _transformMode = HandTransformMode.scale;
+    bloc.refresh();
+  }
+
+  void toggleScaleMode(DocumentBloc bloc) {
+    _transformMode = _transformMode == HandTransformMode.scaleProp
+        ? HandTransformMode.scale
+        : HandTransformMode.scaleProp;
     bloc.refresh();
   }
 
@@ -258,6 +265,16 @@ class HandHandler extends Handler<HandPainter> {
       return;
     }
     final transform = context.getCameraTransform();
+    if (_transformMode != null) {
+      final selectionRect = getSelectionRect();
+      final globalPos = transform.localToGlobal(localPosition);
+      if (selectionRect?.contains(globalPos) ?? false) {
+        toggleScaleMode(context.getDocumentBloc());
+        return;
+      }
+      _resetTransform();
+      return;
+    }
     final settings = context.getSettings();
     final radius = settings.selectSensitivity / transform.size;
     final hits = await rayCast(context.buildContext, localPosition, radius);
@@ -472,6 +489,11 @@ class HandHandler extends Handler<HandPainter> {
     }
     scaleX = scaleX.clamp(0.1, 10.0);
     scaleY = scaleY.clamp(0.1, 10.0);
+    if (_transformMode == HandTransformMode.scaleProp) {
+      final scale = max(scaleX, scaleY);
+      scaleX = scale;
+      scaleY = scale;
+    }
     final updated = Map<Renderer<PadElement>, Renderer<PadElement>>.fromEntries(
       _selected.map(
         (e) {
