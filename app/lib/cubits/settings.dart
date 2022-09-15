@@ -213,6 +213,7 @@ class ButterflySettings with _$ButterflySettings {
         'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
     await prefs.setString('default_remote', defaultRemote);
     await prefs.setBool('native_window_title_bar', nativeWindowTitleBar);
+    await prefs.setString('sync_mode', syncMode.name);
   }
 
   RemoteStorage? getRemote(String identifier) {
