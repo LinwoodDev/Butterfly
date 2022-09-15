@@ -76,12 +76,12 @@ abstract class DavRemoteSystem {
     return p.join(cacheDir, path);
   }
 
-  Future<String?> getCachedContent(String path) async {
+  Future<Uint8List?> getCachedContent(String path) async {
     if (!remote.hasDocumentCached(path)) return null;
     var absolutePath = await getAbsoluteCachePath(path);
     var file = File(absolutePath);
     if (await file.exists()) {
-      return await file.readAsString();
+      return await file.readAsBytes();
     }
     return null;
   }
@@ -266,8 +266,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     final cached = await getCachedContent(path);
     if (cached != null && !forceRemote) {
       return AppDocumentFile(
-          AssetLocation(remote: remote.identifier, path: path),
-          json.decode(cached));
+          AssetLocation(remote: remote.identifier, path: path), cached);
     }
 
     var response = await _createRequest(path.split('/'), method: 'PROPFIND');
@@ -475,8 +474,8 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     if (content == null) {
       return;
     }
-    final document =
-        const DocumentJsonConverter().fromJson(json.decode(content));
+    final document = const DocumentJsonConverter()
+        .fromJson(json.decode(utf8.decode(content)));
     await updateDocument(path, document, forceSync: true);
   }
 
@@ -567,7 +566,8 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
     if (content == null) {
       return null;
     }
-    return const TemplateJsonConverter().fromJson(json.decode(content));
+    return const TemplateJsonConverter()
+        .fromJson(json.decode(utf8.decode(content)));
   }
 
   @override

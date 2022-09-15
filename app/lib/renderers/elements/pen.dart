@@ -40,5 +40,7 @@ class PenRenderer extends PathRenderer<PenElement> {
           double scaleY = 1,
           bool relative = false}) =>
       PenRenderer(
-          element.copyWith(points: movePoints(position, relative)), rect);
+          element.copyWith(
+              points: movePoints(position, scaleX, scaleY, relative)),
+          moveRect(position, scaleX, scaleY, relative));
 }

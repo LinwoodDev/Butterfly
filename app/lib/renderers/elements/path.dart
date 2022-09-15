@@ -59,19 +59,34 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     }
   }
 
-  List<PathPoint> movePoints(Offset position, [bool relative = false]) {
+  List<PathPoint> movePoints(Offset position, double scaleX, double scaleY,
+      [bool relative = false]) {
     var current = element as PathElement;
+    final topLeft = rect.topLeft;
     if (relative) {
-      return current.points
-          .map((e) => e.copyWith(x: e.x + position.dx, y: e.y + position.dy))
-          .toList();
+      return current.points.map((e) {
+        final next = e.toOffset();
+        final x = (next.dx - topLeft.dx) * scaleX + topLeft.dx + position.dx;
+        final y = (next.dy - topLeft.dy) * scaleY + topLeft.dy + position.dy;
+        return e.copyWith(x: x, y: y);
+      }).toList();
     }
-    var center = rect.center;
-    var diff = position - center;
-    var points = current.points
-        .map((element) =>
-            element.copyWith(x: element.x + diff.dx, y: element.y + diff.dy))
-        .toList();
+    var diff = position - topLeft;
+    var points = current.points.map((element) {
+      final next = element.toOffset() + diff;
+      final x = (next.dx - topLeft.dx) * scaleX + topLeft.dx;
+      final y = (next.dy - topLeft.dy) * scaleY + topLeft.dy;
+      return element.copyWith(x: x, y: y);
+    }).toList();
     return points;
+  }
+
+  Rect moveRect(Offset position, double scaleX, double scaleY,
+      [bool relative = false]) {
+    final size = Size(rect.width * scaleX, rect.height * scaleY);
+    if (relative) {
+      return (rect.topLeft + position) & size;
+    }
+    return position & size;
   }
 }

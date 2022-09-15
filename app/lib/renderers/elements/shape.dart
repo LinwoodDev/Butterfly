@@ -165,7 +165,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       bool relative = false}) {
     if (relative) {
       var rect = Rect.fromPoints(
-          element.firstPosition + position, element.secondPosition);
+          element.firstPosition + position, element.secondPosition + position);
+      // Apply scale
       rect = rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY);
       return ShapeRenderer(
           element.copyWith(

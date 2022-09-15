@@ -1,10 +1,6 @@
 part of '../selection.dart';
 
-enum SelectionTransformMode { scale, scaleProp }
-
 class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
-  SelectionTransformMode? transformMode;
-
   ElementSelection(super.selected);
 
   factory ElementSelection.from(Renderer<T> selected) {
@@ -83,7 +79,6 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
     update(context, renderers);
   }
 
-  @override
   Rect? get rect =>
       _expandRects(selected.map((e) => e.rect).whereType<Rect>().toList());
 
@@ -120,35 +115,6 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   @override
   IconData getIcon({bool filled = false}) =>
       filled ? PhosphorIcons.cubeFill : PhosphorIcons.cubeLight;
-
-  void transform(BuildContext context, double x, double y) {
-    switch (transformMode) {
-      case SelectionTransformMode.scaleProp:
-        x = min(x, y);
-        y = x;
-        break;
-      default:
-        break;
-    }
-    final rect = this.rect;
-    if (rect == null) return;
-    final rectSize = rect.size;
-    final scaledRect =
-        rect.topLeft & Size(rectSize.width * x, rectSize.height * y);
-    final delta = scaledRect.center - rect.center;
-
-    final scaled = selected
-        .map((e) =>
-            e.transform(
-              position: delta,
-              scaleX: x,
-              scaleY: y,
-              relative: true,
-            ) ??
-            e)
-        .toList();
-    update(context, scaled);
-  }
 }
 
 class OffsetPropertyView extends StatelessWidget {

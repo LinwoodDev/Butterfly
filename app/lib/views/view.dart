@@ -290,9 +290,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                           foregroundPainter: ForegroundPainter(
                             cubit.foregrounds,
                             state.document,
-                            Theme.of(context).primaryColor,
+                            Theme.of(context).colorScheme.primary,
+                            Theme.of(context).colorScheme.secondary,
                             transform,
-                            cubit.state.selection?.rect,
+                            cubit.state.selection,
                           ),
                           painter: ViewPainter(state.document,
                               cameraViewport: currentIndex.cameraViewport,

@@ -48,7 +48,8 @@ class _ColorViewState extends State<ColorView> {
                 } else if (state is! DocumentLoadSuccess) {
                   _setOpened(false);
                 } else {
-                  final handler = currentIndex.handler;
+                  final handler =
+                      currentIndex.temporaryHandler ?? currentIndex.handler;
                   final bloc = context.read<DocumentBloc>();
                   final color = handler?.getColor(bloc);
                   if (color == null) {

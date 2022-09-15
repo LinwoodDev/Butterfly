@@ -57,9 +57,10 @@ class SvgRenderer extends Renderer<SvgElement> {
     final size =
         svgRoot?.viewport.viewBox ?? Size(element.width, element.height);
     if (constraints is ScaledElementConstraints) {
-      final scale = constraints.scale <= 0 ? 1 : constraints.scale;
+      final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
+      final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
       return Rect.fromLTWH(element.position.dx, element.position.dy,
-          (size.width * scale).toDouble(), (size.height * scale).toDouble());
+          (size.width * scaleX).toDouble(), (size.height * scaleY).toDouble());
     } else if (constraints is FixedElementConstraints) {
       var height = constraints.height;
       var width = constraints.width;
@@ -101,12 +102,10 @@ class SvgRenderer extends Renderer<SvgElement> {
       double scaleY = 1,
       bool relative = false}) {
     if (relative) {
-      final size = svgRoot?.viewport.viewBox;
       return SvgRenderer(
           element.copyWith(
             position: element.position + position,
-            width: (size?.width ?? element.width) * scaleX,
-            height: (size?.height ?? element.height) * scaleY,
+            constraints: element.constraints.scale(scaleX, scaleY),
           ),
           svgRoot);
     }

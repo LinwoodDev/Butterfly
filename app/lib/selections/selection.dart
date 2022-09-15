@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/constraints.dart';
@@ -62,8 +61,6 @@ abstract class Selection<T> {
   IconData getIcon({bool filled = false});
 
   List<Widget> buildProperties(BuildContext context) => [];
-
-  Rect? get rect => null;
 
   @mustCallSuper
   void update(BuildContext context, List<T> selected) {

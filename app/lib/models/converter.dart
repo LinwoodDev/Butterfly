@@ -48,7 +48,21 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
           {'type': 'hand', ...json['handProperty']},
           {'type': 'undo'},
           {'type': 'redo'},
-          ...json['painters']
+          ...(json['painters'] as List).map((e) {
+            var map = Map<String, dynamic>.from(e);
+            if (['svg', 'image'].contains(map['type'])) {
+              final constraints = map['constraints'];
+              if (constraints is Map) {
+                final current = Map<String, dynamic>.from(constraints);
+                if (current['type'] == 'scaled') {
+                  current['scaleX'] = map['scale'];
+                  current['scaleY'] = map['scale'];
+                }
+                map['constraints'] = current;
+              }
+            }
+            return map;
+          }),
         ];
       }
     }
