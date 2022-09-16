@@ -75,6 +75,7 @@ class ShapeHandler extends Handler {
   }
 
   ShapeElement _normalizeElement(ShapeElement element) {
+    if (element.property.shape is LineShape) return element;
     var firstX = element.firstPosition.dx;
     var firstY = element.firstPosition.dy;
     var secondX = element.secondPosition.dx;
