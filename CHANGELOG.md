@@ -2,6 +2,14 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.4.4 (2022-09-16)
+
+* Fix line generation in shape painter
+* Fix position and size issues when moving elements
+* Fix gesture issues on area and shape painter and area change problem
+* Fix sync mode won't be saved
+* Reset pointer on app hide, see #280
+
 ## 1.4.3 (2022-08-20)
 
 * Move directory on document path change and disable document change on android ([#254](https://github.com/LinwoodCloud/Butterfly/issues/254) and [#255](https://github.com/LinwoodCloud/Butterfly/issues/255))
