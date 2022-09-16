@@ -46,7 +46,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        if (!kIsWeb || !Platform.isAndroid)
+                        if (!kIsWeb && !Platform.isAndroid)
                           ListTile(
                             title: Text(AppLocalizations.of(context)!
                                 .documentDirectory),

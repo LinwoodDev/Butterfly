@@ -51,12 +51,12 @@ class HandHandler extends Handler<HandProperty> {
     }
   }
 
-  void submitMove(BuildContext context) {
-    if (movingElement == null) return;
-    currentMovePosition = null;
-    final bloc = context.read<DocumentBloc>();
-    bloc.add(ElementsCreated([movingElement!.element]));
+  void submitMove(BuildContext context, [PadElement? element]) {
+    if (movingElement == null && element == null) return;
+    final current = (element ?? movingElement?.element)!;
     movingElement = null;
+    final bloc = context.read<DocumentBloc>();
+    bloc.add(ElementsCreated([current]));
     bloc.refresh();
   }
 
@@ -69,7 +69,11 @@ class HandHandler extends Handler<HandProperty> {
     final transform = context.read<TransformCubit>().state;
     _firstPointer = null;
     if (movingElement != null) {
-      submitMove(context);
+      submitMove(
+          context,
+          movingElement
+              ?.move(transform.localToGlobal(event.localPosition))
+              ?.element);
       return;
     }
     final bloc = context.read<DocumentBloc>();
