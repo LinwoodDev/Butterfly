@@ -65,8 +65,7 @@ abstract class Renderer<T> {
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]);
-  HitCalculator? get hitCalculator =>
-      rect == null ? null : DefaultHitCalculator(rect!);
+  bool hit(Rect rect) => this.rect?.overlaps(rect) ?? false;
   void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {}
   factory Renderer.fromInstance(T element) {
     // Elements

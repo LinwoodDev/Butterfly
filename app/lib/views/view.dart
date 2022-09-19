@@ -240,7 +240,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                 onPointerDown: (PointerDownEvent event) {
                   cubit.addPointer(event.pointer);
                   cubit.setButtons(event.buttons);
-                  changeTemporaryPainter(event.kind, event.buttons);
+                  final handler = cubit.getHandler();
+                  if (handler?.canChange(event, getEventContext()) ?? true) {
+                    changeTemporaryPainter(event.kind, event.buttons);
+                  }
                   cubit.getHandler()?.onPointerDown(event, getEventContext());
                 },
                 onPointerUp: (PointerUpEvent event) async {

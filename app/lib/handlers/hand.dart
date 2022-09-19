@@ -395,6 +395,7 @@ class HandHandler extends Handler<HandPainter> {
 
   @override
   bool canChange(PointerDownEvent event, EventContext eventContext) =>
+      event.kind == PointerDeviceKind.mouse &&
       event.buttons != kSecondaryMouseButton;
 
   @override
