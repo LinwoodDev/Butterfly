@@ -181,10 +181,8 @@ class _EditToolbarState extends State<EditToolbar> {
                                   tooltip: AppLocalizations.of(context)!.more,
                                   onSelected: (value) {
                                     context
-                                        .read<CurrentIndexCubit>()
-                                        .changeTemporaryHandler(
-                                            context.read<DocumentBloc>(),
-                                            value);
+                                        .read<DocumentBloc>()
+                                        .add(PainterCreated(value));
                                   },
                                   icon: const Icon(PhosphorIcons.listLight),
                                   shape: RoundedRectangleBorder(
@@ -214,17 +212,6 @@ class _EditToolbarState extends State<EditToolbar> {
                                               title: Text(painter
                                                   .getLocalizedName(context)),
                                               leading: Icon(painter.getIcon()),
-                                              trailing: IconButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                  context
-                                                      .read<DocumentBloc>()
-                                                      .add(PainterCreated(
-                                                          painter));
-                                                },
-                                                icon: const Icon(
-                                                    PhosphorIcons.pushPinLight),
-                                              ),
                                             ),
                                           );
                                         })

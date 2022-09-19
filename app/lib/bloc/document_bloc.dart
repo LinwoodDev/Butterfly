@@ -188,11 +188,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is DocumentLoadSuccess) {
         if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(
-            emit,
-            current.copyWith(
-                document: current.document.copyWith(
-                    painters: List.from(current.document.painters)
-                      ..add(event.painter))));
+                emit,
+                current.copyWith(
+                    document: current.document.copyWith(
+                        painters: List.from(current.document.painters)
+                          ..add(event.painter))))
+            .then((value) {
+          current.currentIndexCubit
+              .changePainter(this, current.document.painters.length);
+        });
       }
     });
     on<PaintersChanged>((event, emit) async {

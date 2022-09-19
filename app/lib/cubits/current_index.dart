@@ -194,7 +194,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   List<Renderer> get foregrounds =>
       state.temporaryForegrounds ?? state.foregrounds;
 
-  void resetTemporaryHandler(AppDocument document, Area? currentArea) {
+  void resetTemporaryHandler() {
     if (state.temporaryHandler == null) {
       return;
     }
@@ -405,6 +405,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return;
     }
     changeIndex(index);
+    final selection = state.selection;
+    if (selection?.selected.contains(state.handler?.data) ?? false) {
+      resetSelection();
+    }
   }
 
   void insertSelection(dynamic selected, [bool toggle = true]) {

@@ -26,10 +26,7 @@ class _MainViewViewportState extends State<MainViewViewport>
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
   _MouseState _mouseState = _MouseState.normal;
-  bool _isShiftPressed = false,
-      _isAltPressed = false,
-      _isCtrlPressed = false,
-      _tempKeyTool = false;
+  bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
 
   @override
   void initState() {
@@ -123,11 +120,11 @@ class _MainViewViewportState extends State<MainViewViewport>
           default:
             return;
         }
+        final cubit = context.read<CurrentIndexCubit>();
         if (nextPointerIndex != null) {
-          context
-              .read<CurrentIndexCubit>()
-              .changeTemporaryHandlerIndex(bloc, nextPointerIndex);
-          _tempKeyTool = true;
+          cubit.changeTemporaryHandlerIndex(bloc, nextPointerIndex);
+        } else {
+          cubit.resetTemporaryHandler();
         }
       }
 
@@ -243,22 +240,13 @@ class _MainViewViewportState extends State<MainViewViewport>
                 onPointerDown: (PointerDownEvent event) {
                   cubit.addPointer(event.pointer);
                   cubit.setButtons(event.buttons);
-                  final handler = cubit.getHandler();
-                  if (handler?.canChange(event, getEventContext()) ?? true) {
-                    changeTemporaryPainter(event.kind, event.buttons);
-                  }
+                  changeTemporaryPainter(event.kind, event.buttons);
                   cubit.getHandler()?.onPointerDown(event, getEventContext());
                 },
                 onPointerUp: (PointerUpEvent event) async {
                   cubit.getHandler()?.onPointerUp(event, getEventContext());
                   cubit.removePointer(event.pointer);
                   cubit.removeButtons();
-                  if (_tempKeyTool) {
-                    cubit.resetTemporaryHandler(
-                        state.document, state.currentArea);
-                    cubit.refresh(state.document);
-                    _tempKeyTool = false;
-                  }
                 },
                 behavior: HitTestBehavior.translucent,
                 onPointerHover: (event) {
