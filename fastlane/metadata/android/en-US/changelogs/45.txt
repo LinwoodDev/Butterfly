@@ -1,0 +1,5 @@
+* Add resize feature to selection
+* Fix image open
+* Fix empty background
+* Remove hit calculator, use function insteads
+* Remove temporary painter on creation

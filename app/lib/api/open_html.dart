@@ -1,8 +1,9 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
+import 'dart:async';
 import 'dart:html';
 
-void openImage(List<int> bytes) {
+FutureOr<void> openImage(List<int> bytes) {
   final a = document.createElement('a') as AnchorElement;
   // Create data URL
   final blob = Blob([bytes], 'image/png');
@@ -12,7 +13,7 @@ void openImage(List<int> bytes) {
   a.click();
 }
 
-void openSvg(String data) {
+FutureOr<void> openSvg(String data) {
   final a = document.createElement('a') as AnchorElement;
   // Create data URL
   final blob = Blob([data], 'image/svg+xml');
@@ -22,7 +23,7 @@ void openSvg(String data) {
   a.click();
 }
 
-void openPdf(List<int> bytes) {
+FutureOr<void> openPdf(List<int> bytes) {
   final a = document.createElement('a') as AnchorElement;
   // Create data URL
   final blob = Blob([bytes], 'application/pdf');
@@ -32,7 +33,7 @@ void openPdf(List<int> bytes) {
   a.click();
 }
 
-void openZip(List<int> bytes) {
+FutureOr<void> openZip(List<int> bytes) {
   final a = document.createElement('a') as AnchorElement;
   // Create data URL
   final blob = Blob([bytes], 'application/zip');

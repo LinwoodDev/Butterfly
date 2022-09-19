@@ -189,4 +189,19 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         ),
         rect);
   }
+
+  @override
+  bool hit(Rect rect) {
+    switch (element.property.shape.runtimeType) {
+      case RectangleShape:
+        return this.rect.inflate(element.property.strokeWidth).overlaps(rect) &&
+            !this.rect.deflate(element.property.strokeWidth).overlaps(rect);
+      case CircleShape:
+        return this.rect.overlaps(rect);
+      case LineShape:
+        return this.rect.overlaps(rect);
+      default:
+        return false;
+    }
+  }
 }

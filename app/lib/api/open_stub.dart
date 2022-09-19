@@ -1,4 +1,6 @@
-void openImage(List<int> bytes) {}
-void openSvg(String data) {}
-void openPdf(List<int> bytes) {}
-void openZip(List<int> bytes) {}
+import 'dart:async';
+
+FutureOr<void> openImage(List<int> bytes) {}
+FutureOr<void> openSvg(String data) {}
+FutureOr<void> openPdf(List<int> bytes) {}
+FutureOr<void> openZip(List<int> bytes) {}
