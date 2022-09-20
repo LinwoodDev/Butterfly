@@ -121,10 +121,12 @@ class _MainViewViewportState extends State<MainViewViewport>
             return;
         }
         final cubit = context.read<CurrentIndexCubit>();
-        if (nextPointerIndex != null) {
-          cubit.changeTemporaryHandlerIndex(bloc, nextPointerIndex);
-        } else {
+        if (nextPointerIndex == null) {
           cubit.resetTemporaryHandler();
+        } else if (nextPointerIndex <= 0) {
+          cubit.changeTemporaryHandlerMove();
+        } else {
+          cubit.changeTemporaryHandlerIndex(bloc, nextPointerIndex);
         }
       }
 
@@ -151,24 +153,20 @@ class _MainViewViewportState extends State<MainViewViewport>
 
         return GestureDetector(
             onTapUp: (details) {
-              cubit.getHandler()?.onTapUp(details, getEventContext());
+              cubit.getHandler().onTapUp(details, getEventContext());
             },
             onTapDown: (details) {
-              cubit.getHandler()?.onTapDown(details, getEventContext());
+              cubit.getHandler().onTapDown(details, getEventContext());
             },
             onSecondaryTapUp: (details) {
-              cubit.getHandler()?.onSecondaryTapUp(details, getEventContext());
+              cubit.getHandler().onSecondaryTapUp(details, getEventContext());
             },
             onScaleUpdate: (details) {
               final handler = cubit.getHandler();
-              handler?.onScaleUpdate(details, getEventContext());
+              handler.onScaleUpdate(details, getEventContext());
               final currentIndex = context.read<CurrentIndexCubit>();
               final transformCubit = context.read<TransformCubit>();
               if (details.scale == 1) {
-                if (handler == null) {
-                  transformCubit.move(
-                      details.focalPointDelta / transformCubit.state.size);
-                }
                 return;
               }
               if (openView) openView = details.scale == 1;
@@ -185,29 +183,27 @@ class _MainViewViewportState extends State<MainViewViewport>
               size = details.scale;
             },
             onLongPressEnd: (details) {
-              cubit.getHandler()?.onLongPressEnd(details, getEventContext());
+              cubit.getHandler().onLongPressEnd(details, getEventContext());
             },
             onScaleEnd: (details) {
-              cubit.getHandler()?.onScaleEnd(details, getEventContext());
+              cubit.getHandler().onScaleEnd(details, getEventContext());
               final currentIndex = context.read<CurrentIndexCubit>();
               final handler = currentIndex.getHandler();
-              if (handler is! HandHandler &&
-                  handler != null &&
-                  !cubit.state.moveEnabled) return;
+              if (handler is! HandHandler && !cubit.state.moveEnabled) return;
               delayBake();
             },
             onScaleStart: (details) {
-              cubit.getHandler()?.onScaleStart(details, getEventContext());
+              cubit.getHandler().onScaleStart(details, getEventContext());
               size = 1;
             },
             onDoubleTapDown: (details) {
-              cubit.getHandler()?.onDoubleTapDown(details, getEventContext());
+              cubit.getHandler().onDoubleTapDown(details, getEventContext());
             },
             onDoubleTap: () {
-              cubit.getHandler()?.onDoubleTap(getEventContext());
+              cubit.getHandler().onDoubleTap(getEventContext());
             },
             onLongPressDown: (details) {
-              cubit.getHandler()?.onLongPressDown(details, getEventContext());
+              cubit.getHandler().onLongPressDown(details, getEventContext());
             },
             child: Listener(
                 onPointerSignal: (pointerSignal) {
@@ -241,19 +237,19 @@ class _MainViewViewportState extends State<MainViewViewport>
                   cubit.addPointer(event.pointer);
                   cubit.setButtons(event.buttons);
                   final handler = cubit.getHandler();
-                  if (handler?.canChange(event, getEventContext()) ?? true) {
+                  if (handler.canChange(event, getEventContext())) {
                     changeTemporaryPainter(event.kind, event.buttons);
                   }
-                  cubit.getHandler()?.onPointerDown(event, getEventContext());
+                  cubit.getHandler().onPointerDown(event, getEventContext());
                 },
                 onPointerUp: (PointerUpEvent event) async {
-                  cubit.getHandler()?.onPointerUp(event, getEventContext());
+                  cubit.getHandler().onPointerUp(event, getEventContext());
                   cubit.removePointer(event.pointer);
                   cubit.removeButtons();
                 },
                 behavior: HitTestBehavior.translucent,
                 onPointerHover: (event) {
-                  cubit.getHandler()?.onPointerHover(event, getEventContext());
+                  cubit.getHandler().onPointerHover(event, getEventContext());
                 },
                 onPointerMove: (PointerMoveEvent event) async {
                   if (cubit.state.moveEnabled &&
@@ -266,10 +262,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                     }
                     cubit
                         .getHandler()
-                        ?.onPointerGestureMove(event, getEventContext());
+                        .onPointerGestureMove(event, getEventContext());
                     return;
                   }
-                  cubit.getHandler()?.onPointerMove(event, getEventContext());
+                  cubit.getHandler().onPointerMove(event, getEventContext());
                 },
                 child: BlocBuilder<TransformCubit, CameraTransform>(
                   builder: (context, transform) {

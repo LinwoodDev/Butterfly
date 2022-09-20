@@ -110,9 +110,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         current.currentIndexCubit.unbake(unbakedElements: renderers);
         if (oldRenderer == null || newRenderer == null) return;
-        if ((await current.currentIndexCubit.getHandler()?.onRendererUpdated(
-                current.document, oldRenderer, newRenderer)) ??
-            false) {
+        if (await current.currentIndexCubit
+            .getHandler()
+            .onRendererUpdated(current.document, oldRenderer, newRenderer)) {
           refresh();
         }
         final document = current.document;
@@ -216,8 +216,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 return e;
               }
             }).toList())));
-        final updatedCurrent = event
-            .updatedPainters[current.currentIndexCubit.state.handler?.data];
+        final updatedCurrent =
+            event.updatedPainters[current.currentIndexCubit.state.handler.data];
         if (updatedCurrent != null) {
           current.currentIndexCubit.updatePainter(
               current.document, current.currentArea, updatedCurrent);
