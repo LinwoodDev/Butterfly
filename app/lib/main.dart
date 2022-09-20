@@ -29,13 +29,14 @@ import 'settings/remotes.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme/manager.dart';
 import 'views/main.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 const kFileVersion = 6;
 
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
 
-  GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   await setup();
   var prefs = await SharedPreferences.getInstance();
   var initialLocation = '/';
