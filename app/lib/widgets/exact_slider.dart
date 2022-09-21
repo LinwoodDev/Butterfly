@@ -40,9 +40,11 @@ class _ExactSliderState extends State<ExactSlider> {
     _controller.text = _value.toStringAsFixed(widget.fractionDigits);
   }
 
-  void _changeValue(double value) {
+  void _changeValue(double value, [bool updateText = true]) {
     if (_value != value) {
-      _controller.text = value.toStringAsFixed(widget.fractionDigits);
+      if (updateText) {
+        _controller.text = value.toStringAsFixed(widget.fractionDigits);
+      }
       setState(() {
         _value = value;
       });
@@ -86,8 +88,8 @@ class _ExactSliderState extends State<ExactSlider> {
                       textAlign: TextAlign.center,
                       controller: _controller,
                       onEditingComplete: () => widget.onChangeEnd?.call(_value),
-                      onChanged: (value) =>
-                          _changeValue(double.tryParse(value) ?? _value));
+                      onChanged: (value) => _changeValue(
+                          double.tryParse(value) ?? _value, false));
                   final slider = Slider(
                     value: _value.clamp(widget.min, widget.max),
                     min: widget.min,

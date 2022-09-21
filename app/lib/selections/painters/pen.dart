@@ -1,6 +1,7 @@
 part of '../selection.dart';
 
 class PenPainterSelection extends PainterSelection<PenPainter> {
+  final _propertySelection = PenPropertySelection();
   PenPainterSelection(super.selected);
 
   @override
@@ -10,34 +11,7 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
         context, selected.map((e) => e.copyWith(property: property)).toList());
     return [
       ...super.buildProperties(context),
-      ExactSlider(
-          header: Text(AppLocalizations.of(context)!.strokeWidth),
-          value: property.strokeWidth,
-          min: 0,
-          max: 70,
-          defaultValue: 5,
-          onChangeEnd: (value) =>
-              updateProperty(property.copyWith(strokeWidth: value))),
-      ExactSlider(
-          header: Text(AppLocalizations.of(context)!.strokeMultiplier),
-          value: property.strokeMultiplier,
-          min: 0,
-          max: 70,
-          defaultValue: 5,
-          onChangeEnd: (value) =>
-              updateProperty(property.copyWith(strokeMultiplier: value))),
-      const SizedBox(height: 50),
-      ColorField(
-        value: Color(property.color),
-        onChanged: (value) =>
-            updateProperty(property.copyWith(color: value.value)),
-        title: Text(AppLocalizations.of(context)!.color),
-      ),
-      CheckboxListTile(
-          value: property.fill,
-          title: Text(AppLocalizations.of(context)!.fill),
-          onChanged: (value) =>
-              updateProperty(property.copyWith(fill: value ?? property.fill))),
+      ..._propertySelection.build(context, property, updateProperty),
       const SizedBox(height: 15),
       CheckboxListTile(
           value: selected.first.zoomDependent,

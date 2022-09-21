@@ -50,15 +50,15 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       final outlinePoints = pf.getStroke(
         points.map((e) => e.toPoint()).toList(),
         size: property.strokeWidth,
-        thinning: property.strokeMultiplier,
+        thinning: property.strokeMultiplier.clamp(0, 1),
         simulatePressure: true,
         isComplete: true,
-        smoothing: property.smoothing,
-        streamline: property.streamline,
-        taperStart: property.taperStart,
-        taperEnd: property.taperEnd,
-        capStart: property.capStart,
-        capEnd: property.capEnd,
+        smoothing: property.smoothing.clamp(0, 1),
+        streamline: property.streamline.clamp(0, 1),
+        taperStart: property.taperStart.clamp(0, 1),
+        taperEnd: property.taperEnd.clamp(0, 1),
+        capStart: true,
+        capEnd: true,
       );
 
       if (outlinePoints.isEmpty) {
