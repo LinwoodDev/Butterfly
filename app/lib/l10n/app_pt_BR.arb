@@ -392,8 +392,8 @@
   "middle": "Meio",
   "first": "Primeiro",
   "second": "Segundo",
-  "smoothing": "Smoothing",
-  "streamline": "Streamline",
-  "taperStart": "Taper start",
-  "taperEnd": "Taper end"
+  "smoothing": "Suavização",
+  "streamline": "Simplificar",
+  "taperStart": "Início da Taper",
+  "taperEnd": "Provocação de Taper"
 }
