@@ -41,6 +41,7 @@ class LabelHandler extends Handler<LabelPainter> {
 
 class EditLabelElementDialog extends StatelessWidget {
   final LabelElement element;
+  final _propertySelection = LabelPropertySelection();
   final TextEditingController _textController = TextEditingController();
   EditLabelElementDialog({super.key, this.element = const LabelElement()});
 
@@ -74,10 +75,8 @@ class EditLabelElementDialog extends StatelessWidget {
                     decoration: const InputDecoration(filled: true),
                     onSubmitted: (value) => submit(),
                   ),
-                  LabelPropertyView(
-                    initialValue: property,
-                    onChanged: (value) => property = value,
-                  ),
+                  ..._propertySelection.build(
+                      context, property, (value) => property = value),
                 ])),
                 const Divider(),
                 Row(mainAxisAlignment: MainAxisAlignment.end, children: [

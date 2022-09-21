@@ -35,6 +35,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     final current = element as PathElement;
     final points = current.points;
     final paint = buildPaint(document, foreground);
+    final property = current.property;
     if (points.isNotEmpty) {
       if (paint.style == PaintingStyle.fill) {
         final path = Path();
@@ -46,8 +47,19 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       }
       final path = Path();
       // 1. Get the outline points from the input points
-      final outlinePoints =
-          pf.getStroke(points.map((e) => e.toPoint()).toList());
+      final outlinePoints = pf.getStroke(
+        points.map((e) => e.toPoint()).toList(),
+        size: property.strokeWidth,
+        thinning: property.strokeMultiplier,
+        simulatePressure: true,
+        isComplete: true,
+        smoothing: property.smoothing,
+        streamline: property.streamline,
+        taperStart: property.taperStart,
+        taperEnd: property.taperEnd,
+        capStart: property.capStart,
+        capEnd: property.capEnd,
+      );
 
       if (outlinePoints.isEmpty) {
         // If the list is empty, don't do anything.

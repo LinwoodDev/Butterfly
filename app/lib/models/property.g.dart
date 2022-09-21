@@ -75,6 +75,12 @@ const _$VerticalAlignmentEnumMap = {
 _$EraserProperty _$$EraserPropertyFromJson(Map json) => _$EraserProperty(
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,
+      smoothing: (json['smoothing'] as num?)?.toDouble() ?? 0.5,
+      streamline: (json['streamline'] as num?)?.toDouble() ?? 0.5,
+      taperStart: (json['taperStart'] as num?)?.toDouble() ?? 0,
+      taperEnd: (json['taperEnd'] as num?)?.toDouble() ?? 0,
+      capStart: json['capStart'] as bool? ?? true,
+      capEnd: json['capEnd'] as bool? ?? true,
       $type: json['type'] as String?,
     );
 
@@ -82,6 +88,12 @@ Map<String, dynamic> _$$EraserPropertyToJson(_$EraserProperty instance) =>
     <String, dynamic>{
       'strokeWidth': instance.strokeWidth,
       'strokeMultiplier': instance.strokeMultiplier,
+      'smoothing': instance.smoothing,
+      'streamline': instance.streamline,
+      'taperStart': instance.taperStart,
+      'taperEnd': instance.taperEnd,
+      'capStart': instance.capStart,
+      'capEnd': instance.capEnd,
       'type': instance.$type,
     };
 
@@ -90,6 +102,12 @@ _$PenProperty _$$PenPropertyFromJson(Map json) => _$PenProperty(
       strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,
       color: json['color'] as int? ?? kColorBlack,
       fill: json['fill'] as bool? ?? false,
+      smoothing: (json['smoothing'] as num?)?.toDouble() ?? 0.5,
+      streamline: (json['streamline'] as num?)?.toDouble() ?? 0.5,
+      taperStart: (json['taperStart'] as num?)?.toDouble() ?? 0,
+      taperEnd: (json['taperEnd'] as num?)?.toDouble() ?? 0,
+      capStart: json['capStart'] as bool? ?? true,
+      capEnd: json['capEnd'] as bool? ?? true,
       $type: json['type'] as String?,
     );
 
@@ -99,6 +117,12 @@ Map<String, dynamic> _$$PenPropertyToJson(_$PenProperty instance) =>
       'strokeMultiplier': instance.strokeMultiplier,
       'color': instance.color,
       'fill': instance.fill,
+      'smoothing': instance.smoothing,
+      'streamline': instance.streamline,
+      'taperStart': instance.taperStart,
+      'taperEnd': instance.taperEnd,
+      'capStart': instance.capStart,
+      'capEnd': instance.capEnd,
       'type': instance.$type,
     };
 

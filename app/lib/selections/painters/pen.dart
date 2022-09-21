@@ -33,6 +33,11 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
             updateProperty(property.copyWith(color: value.value)),
         title: Text(AppLocalizations.of(context)!.color),
       ),
+      CheckboxListTile(
+          value: property.fill,
+          title: Text(AppLocalizations.of(context)!.fill),
+          onChanged: (value) =>
+              updateProperty(property.copyWith(fill: value ?? property.fill))),
       const SizedBox(height: 15),
       CheckboxListTile(
           value: selected.first.zoomDependent,
@@ -43,11 +48,6 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
                   .map((e) => e.copyWith(
                       zoomDependent: value ?? selected.first.zoomDependent))
                   .toList())),
-      CheckboxListTile(
-          value: property.fill,
-          title: Text(AppLocalizations.of(context)!.fill),
-          onChanged: (value) =>
-              updateProperty(property.copyWith(fill: value ?? property.fill)))
     ];
   }
 
