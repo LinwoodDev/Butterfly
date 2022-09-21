@@ -391,5 +391,9 @@
   "shortcuts": "Verknüpfungen",
   "middle": "Mitte",
   "first": "Erster",
-  "second": "Zweiter"
+  "second": "Zweiter",
+  "smoothing": "Smoothing",
+  "streamline": "Streamline",
+  "taperStart": "Taper start",
+  "taperEnd": "Taper end"
 }
