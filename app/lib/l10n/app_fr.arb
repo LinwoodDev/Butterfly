@@ -392,8 +392,8 @@
   "middle": "Milieu",
   "first": "Premier",
   "second": "Seconde",
-  "smoothing": "Smoothing",
+  "smoothing": "Lissage",
   "streamline": "Streamline",
-  "taperStart": "Taper start",
-  "taperEnd": "Taper end"
+  "taperStart": "Début du Taper",
+  "taperEnd": "Fin du Taper"
 }
