@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:vector_math/vector_math.dart' show Vector2;
+import 'package:perfect_freehand/perfect_freehand.dart' as pf;
 
 part 'path_point.g.dart';
 part 'path_point.freezed.dart';
@@ -23,4 +24,6 @@ class PathPoint with _$PathPoint {
   Offset toOffset() => Offset(x, y);
 
   Vector2 toVector() => Vector2(x, y);
+
+  pf.Point toPoint() => pf.Point(x, y, pressure);
 }
