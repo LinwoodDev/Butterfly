@@ -392,8 +392,8 @@
   "middle": "Medio",
   "first": "Primero",
   "second": "Segundo",
-  "smoothing": "Smoothing",
+  "smoothing": "Suavizado",
   "streamline": "Streamline",
-  "taperStart": "Taper start",
-  "taperEnd": "Taper end"
+  "taperStart": "Inicio del taller",
+  "taperEnd": "Final del pañuelo"
 }
