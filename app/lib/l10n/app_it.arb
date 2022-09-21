@@ -392,8 +392,8 @@
   "middle": "Centrale",
   "first": "Primo",
   "second": "Secondo",
-  "smoothing": "Smoothing",
-  "streamline": "Streamline",
-  "taperStart": "Taper start",
-  "taperEnd": "Taper end"
+  "smoothing": "Smussamento",
+  "streamline": "Semplifica",
+  "taperStart": "Inizio conico",
+  "taperEnd": "Fine conica"
 }
