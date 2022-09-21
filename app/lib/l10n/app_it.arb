@@ -391,5 +391,9 @@
   "shortcuts": "Scorciatoie",
   "middle": "Centrale",
   "first": "Primo",
-  "second": "Secondo"
+  "second": "Secondo",
+  "smoothing": "Smoothing",
+  "streamline": "Streamline",
+  "taperStart": "Taper start",
+  "taperEnd": "Taper end"
 }
