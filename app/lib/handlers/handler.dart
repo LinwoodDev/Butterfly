@@ -205,12 +205,12 @@ abstract class Handler<T> {
 typedef HitRequest = bool Function(Offset position, [double radius]);
 
 class _SmallRenderer {
-  final bool Function(Rect) hit;
+  final HitCalculator hitCalc;
   final PadElement element;
 
-  _SmallRenderer(this.hit, this.element);
+  _SmallRenderer(this.hitCalc, this.element);
   _SmallRenderer.fromRenderer(Renderer renderer)
-      : hit = renderer.hit,
+      : hitCalc = renderer.getHitCalculator(),
         element = renderer.element;
 }
 
@@ -257,7 +257,7 @@ Set<int> _executeRayCast(_RayCastParams params) {
       .asMap()
       .entries
       .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
-      .where((e) => e.value.hit(params.rect))
+      .where((e) => e.value.hitCalc.hit(params.rect))
       .where((e) => params.includeEraser || e.value.element is! EraserElement)
       .map((e) => e.key)
       .toSet();

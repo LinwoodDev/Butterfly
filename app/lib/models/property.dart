@@ -14,17 +14,6 @@ abstract class PathProperty implements Property {
   double get taperEnd;
   bool get capStart;
   bool get capEnd;
-
-  PathProperty copyWith({
-    double? strokeWidth,
-    double? strokeMultiplier,
-    double? smoothing,
-    double? streamline,
-    double? taperStart,
-    double? taperEnd,
-    bool? capStart,
-    bool? capEnd,
-  });
 }
 
 enum HorizontalAlignment { left, center, right, justify }

@@ -191,6 +191,16 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   @override
+  HitCalculator getHitCalculator() => ShapeHitCalculator(element, rect);
+}
+
+class ShapeHitCalculator extends HitCalculator {
+  final ShapeElement element;
+  final Rect rect;
+
+  ShapeHitCalculator(this.element, this.rect);
+
+  @override
   bool hit(Rect rect) {
     switch (element.property.shape.runtimeType) {
       case RectangleShape:

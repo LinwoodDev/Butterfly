@@ -31,12 +31,12 @@ part 'elements/shape.dart';
 part 'elements/svg.dart';
 
 class DefaultHitCalculator extends HitCalculator {
-  final Rect rect;
+  final Rect? rect;
 
   DefaultHitCalculator(this.rect);
 
   @override
-  bool hit(Rect rect) => this.rect.overlaps(rect);
+  bool hit(Rect rect) => this.rect?.overlaps(rect) ?? false;
 }
 
 abstract class HitCalculator {
@@ -66,7 +66,7 @@ abstract class Renderer<T> {
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]);
-  bool hit(Rect rect) => this.rect?.overlaps(rect) ?? false;
+  HitCalculator getHitCalculator() => DefaultHitCalculator(rect);
   void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {}
   factory Renderer.fromInstance(T element) {
     // Elements

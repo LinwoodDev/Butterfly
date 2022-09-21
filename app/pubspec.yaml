@@ -56,7 +56,7 @@ dependencies:
   rxdart: ^0.27.5
   ffi: ^2.0.1
   archive: ^3.3.0
-  animations: ^2.0.4
+  animations: ^2.0.5
   connectivity_plus: ^2.3.7
   perfect_freehand: ^1.0.4
 dev_dependencies:
