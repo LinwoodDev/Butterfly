@@ -31,7 +31,7 @@ class PenHandler extends Handler<PenPainter> {
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        event.pressure, event.kind,
+        _getPressure(event), event.kind,
         refresh: false);
     submitElement(context.viewportSize, context.buildContext, event.pointer);
   }
@@ -97,14 +97,20 @@ class PenHandler extends Handler<PenPainter> {
     }
     elements.remove(event.pointer);
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        event.pressure, event.kind,
+        _getPressure(event), event.kind,
         shouldCreate: true);
   }
+
+  double _getPressure(PointerEvent event) =>
+      event.kind == PointerDeviceKind.stylus
+          ? (event.pressure - event.pressureMin) /
+              (event.pressureMax - event.pressureMin)
+          : 0.5;
 
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        event.pressure, event.kind);
+        _getPressure(event), event.kind);
   }
 
   @override

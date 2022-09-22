@@ -52,13 +52,13 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
         size: property.strokeWidth,
         thinning: property.strokeMultiplier.clamp(0, 1),
         simulatePressure: true,
-        isComplete: true,
+        isComplete: false,
         smoothing: property.smoothing.clamp(0, 1),
         streamline: property.streamline.clamp(0, 1),
         taperStart: property.taperStart.clamp(0, 1),
         taperEnd: property.taperEnd.clamp(0, 1),
-        capStart: true,
-        capEnd: true,
+        capStart: false,
+        capEnd: false,
       );
 
       if (outlinePoints.isEmpty) {

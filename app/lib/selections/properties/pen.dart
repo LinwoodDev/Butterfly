@@ -11,39 +11,6 @@ class PenPropertySelection extends PathPropertySelection<PenProperty> {
   ) =>
       [
         ...super.build(context, property, onChanged),
-        ExactSlider(
-          value: property.smoothing,
-          min: 0,
-          max: 1,
-          fractionDigits: 2,
-          onChanged: (value) => onChanged(property.copyWith(smoothing: value)),
-          header: Text(AppLocalizations.of(context)!.smoothing),
-        ),
-        ExactSlider(
-          value: property.streamline,
-          min: 0,
-          max: 1,
-          fractionDigits: 2,
-          onChanged: (value) => onChanged(property.copyWith(streamline: value)),
-          header: Text(AppLocalizations.of(context)!.streamline),
-        ),
-        ExactSlider(
-          value: property.taperStart,
-          min: 0,
-          max: 1,
-          fractionDigits: 2,
-          onChanged: (value) => onChanged(property.copyWith(taperStart: value)),
-          header: Text(AppLocalizations.of(context)!.taperStart),
-        ),
-        ExactSlider(
-          value: property.taperEnd,
-          min: 0,
-          max: 1,
-          fractionDigits: 2,
-          onChanged: (value) => onChanged(property.copyWith(taperEnd: value)),
-          header: Text(AppLocalizations.of(context)!.taperEnd),
-        ),
-        const SizedBox(height: 50),
         ColorField(
           value: Color(property.color),
           onChanged: (value) =>
@@ -55,5 +22,42 @@ class PenPropertySelection extends PathPropertySelection<PenProperty> {
             title: Text(AppLocalizations.of(context)!.fill),
             onChanged: (value) =>
                 onChanged(property.copyWith(fill: value ?? property.fill))),
+        const SizedBox(height: 50),
+        ExactSlider(
+          value: property.smoothing,
+          min: 0,
+          max: 1,
+          fractionDigits: 2,
+          defaultValue: 0.5,
+          onChanged: (value) => onChanged(property.copyWith(smoothing: value)),
+          header: Text(AppLocalizations.of(context)!.smoothing),
+        ),
+        ExactSlider(
+          value: property.streamline,
+          min: 0,
+          max: 1,
+          fractionDigits: 2,
+          defaultValue: 0.5,
+          onChanged: (value) => onChanged(property.copyWith(streamline: value)),
+          header: Text(AppLocalizations.of(context)!.streamline),
+        ),
+        ExactSlider(
+          value: property.taperStart,
+          min: 0,
+          max: 1,
+          fractionDigits: 2,
+          defaultValue: 0,
+          onChanged: (value) => onChanged(property.copyWith(taperStart: value)),
+          header: Text(AppLocalizations.of(context)!.taperStart),
+        ),
+        ExactSlider(
+          value: property.taperEnd,
+          min: 0,
+          max: 1,
+          fractionDigits: 2,
+          defaultValue: 0,
+          onChanged: (value) => onChanged(property.copyWith(taperEnd: value)),
+          header: Text(AppLocalizations.of(context)!.taperEnd),
+        ),
       ];
 }

@@ -11,8 +11,6 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
         context, selected.map((e) => e.copyWith(property: property)).toList());
     return [
       ...super.buildProperties(context),
-      ..._propertySelection.build(context, property, updateProperty),
-      const SizedBox(height: 15),
       CheckboxListTile(
           value: selected.first.zoomDependent,
           title: Text(AppLocalizations.of(context)!.zoomDependent),
@@ -22,6 +20,8 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
                   .map((e) => e.copyWith(
                       zoomDependent: value ?? selected.first.zoomDependent))
                   .toList())),
+      const SizedBox(height: 15),
+      ..._propertySelection.build(context, property, updateProperty),
     ];
   }
 
