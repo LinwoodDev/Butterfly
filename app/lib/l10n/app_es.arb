@@ -391,9 +391,5 @@
   "shortcuts": "Atajos",
   "middle": "Medio",
   "first": "Primero",
-  "second": "Segundo",
-  "smoothing": "Suavizado",
-  "streamline": "Streamline",
-  "taperStart": "Inicio del taller",
-  "taperEnd": "Final del pañuelo"
+  "second": "Segundo"
 }
