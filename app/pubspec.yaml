@@ -58,7 +58,6 @@ dependencies:
   archive: ^3.3.0
   animations: ^2.0.5
   connectivity_plus: ^2.3.7
-  perfect_freehand: ^1.0.4
 dev_dependencies:
   flutter_native_splash: ^2.2.9
   flutter_launcher_icons: ^0.10.0

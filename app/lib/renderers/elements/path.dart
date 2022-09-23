@@ -34,8 +34,8 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       [bool foreground = false]) {
     final current = element as PathElement;
     final points = current.points;
-    final paint = buildPaint(document, foreground);
     final property = current.property;
+    final paint = buildPaint(document, foreground);
     if (points.isNotEmpty) {
       if (paint.style == PaintingStyle.fill) {
         final path = Path();
@@ -45,41 +45,17 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
         canvas.drawPath(path, paint);
         return;
       }
-      final path = Path();
-      // 1. Get the outline points from the input points
-      final outlinePoints = pf.getStroke(
-        points.map((e) => e.toPoint()).toList(),
-        size: property.strokeWidth,
-        thinning: property.strokeMultiplier.clamp(0, 1),
-        simulatePressure: true,
-        isComplete: false,
-        smoothing: property.smoothing.clamp(0, 1),
-        streamline: property.streamline.clamp(0, 1),
-        taperStart: property.taperStart.clamp(0, 1),
-        taperEnd: property.taperEnd.clamp(0, 1),
-        capStart: false,
-        capEnd: false,
-      );
-
-      if (outlinePoints.isEmpty) {
-        // If the list is empty, don't do anything.
-        return;
-      } else if (outlinePoints.length < 2) {
-        // If the list only has one point, draw a dot.
-        path.addOval(Rect.fromCircle(
-            center: Offset(outlinePoints[0].x, outlinePoints[0].y), radius: 1));
-      } else {
-        // Otherwise, draw a line that connects each point with a bezier curve segment.
-        path.moveTo(outlinePoints[0].x, outlinePoints[0].y);
-
-        for (int i = 1; i < outlinePoints.length - 1; ++i) {
-          final p0 = outlinePoints[i];
-          final p1 = outlinePoints[i + 1];
-          path.quadraticBezierTo(
-              p0.x, p0.y, (p0.x + p1.x) / 2, (p0.y + p1.y) / 2);
-        }
+      var first = points.first;
+      var previous = first;
+      for (var element in points) {
+        canvas.drawLine(
+            previous.toOffset(),
+            element.toOffset(),
+            paint
+              ..strokeWidth = property.strokeWidth +
+                  element.pressure * property.strokeMultiplier);
+        previous = element;
       }
-      canvas.drawPath(path, paint..style = PaintingStyle.fill);
     }
   }
 

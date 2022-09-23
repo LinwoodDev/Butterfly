@@ -1,5 +1,4 @@
 * Add resize feature to selection
-* Add smooth and fix alpha path, use perfect_freehand
 * Fix image open
 * Fix empty background
 * Remove hit calculator, use function insteads
