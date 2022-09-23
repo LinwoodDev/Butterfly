@@ -391,9 +391,5 @@
   "shortcuts": "Kısayollar",
   "middle": "Orta",
   "first": "İlk",
-  "second": "İkinci",
-  "smoothing": "Smoothing",
-  "streamline": "Streamline",
-  "taperStart": "Taper start",
-  "taperEnd": "Taper end"
+  "second": "İkinci"
 }
