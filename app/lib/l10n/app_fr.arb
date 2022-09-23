@@ -391,9 +391,5 @@
   "shortcuts": "Raccourcis",
   "middle": "Milieu",
   "first": "Premier",
-  "second": "Seconde",
-  "smoothing": "Lissage",
-  "streamline": "Streamline",
-  "taperStart": "Début du Taper",
-  "taperEnd": "Fin du Taper"
+  "second": "Seconde"
 }
