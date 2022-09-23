@@ -8,12 +8,6 @@ part 'property.freezed.dart';
 abstract class PathProperty implements Property {
   double get strokeWidth;
   double get strokeMultiplier;
-  double get smoothing;
-  double get streamline;
-  double get taperStart;
-  double get taperEnd;
-  bool get capStart;
-  bool get capEnd;
 }
 
 enum HorizontalAlignment { left, center, right, justify }
@@ -54,12 +48,6 @@ class Property with _$Property {
   const factory Property.eraser({
     @Default(5) double strokeWidth,
     @Default(10) double strokeMultiplier,
-    @Default(0.5) double smoothing,
-    @Default(0.5) double streamline,
-    @Default(0) double taperStart,
-    @Default(0) double taperEnd,
-    @Default(true) bool capStart,
-    @Default(true) bool capEnd,
   }) = EraserProperty;
 
   @Implements<PathProperty>()
@@ -68,12 +56,6 @@ class Property with _$Property {
     @Default(10) double strokeMultiplier,
     @Default(kColorBlack) int color,
     @Default(false) bool fill,
-    @Default(0.5) double smoothing,
-    @Default(0.5) double streamline,
-    @Default(0) double taperStart,
-    @Default(0) double taperEnd,
-    @Default(true) bool capStart,
-    @Default(true) bool capEnd,
   }) = PenProperty;
 
   const factory Property.shape({

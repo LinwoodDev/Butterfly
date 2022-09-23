@@ -50,27 +50,10 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)
+            double strokeWidth, double strokeMultiplier, int color, bool fill)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
@@ -93,27 +76,9 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
-        eraser,
-    TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
+            double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
   }) =>
@@ -135,27 +100,9 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
-        eraser,
-    TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
+            double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
@@ -448,27 +395,10 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)
+            double strokeWidth, double strokeMultiplier, int color, bool fill)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
@@ -507,27 +437,9 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
-        eraser,
-    TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
+            double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
@@ -565,27 +477,9 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
-        eraser,
-    TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
+            double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
@@ -696,15 +590,7 @@ abstract class _$$EraserPropertyCopyWith<$Res> {
   factory _$$EraserPropertyCopyWith(
           _$EraserProperty value, $Res Function(_$EraserProperty) then) =
       __$$EraserPropertyCopyWithImpl<$Res>;
-  $Res call(
-      {double strokeWidth,
-      double strokeMultiplier,
-      double smoothing,
-      double streamline,
-      double taperStart,
-      double taperEnd,
-      bool capStart,
-      bool capEnd});
+  $Res call({double strokeWidth, double strokeMultiplier});
 }
 
 /// @nodoc
@@ -721,12 +607,6 @@ class __$$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
   $Res call({
     Object? strokeWidth = freezed,
     Object? strokeMultiplier = freezed,
-    Object? smoothing = freezed,
-    Object? streamline = freezed,
-    Object? taperStart = freezed,
-    Object? taperEnd = freezed,
-    Object? capStart = freezed,
-    Object? capEnd = freezed,
   }) {
     return _then(_$EraserProperty(
       strokeWidth: strokeWidth == freezed
@@ -737,30 +617,6 @@ class __$$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
           ? _value.strokeMultiplier
           : strokeMultiplier // ignore: cast_nullable_to_non_nullable
               as double,
-      smoothing: smoothing == freezed
-          ? _value.smoothing
-          : smoothing // ignore: cast_nullable_to_non_nullable
-              as double,
-      streamline: streamline == freezed
-          ? _value.streamline
-          : streamline // ignore: cast_nullable_to_non_nullable
-              as double,
-      taperStart: taperStart == freezed
-          ? _value.taperStart
-          : taperStart // ignore: cast_nullable_to_non_nullable
-              as double,
-      taperEnd: taperEnd == freezed
-          ? _value.taperEnd
-          : taperEnd // ignore: cast_nullable_to_non_nullable
-              as double,
-      capStart: capStart == freezed
-          ? _value.capStart
-          : capStart // ignore: cast_nullable_to_non_nullable
-              as bool,
-      capEnd: capEnd == freezed
-          ? _value.capEnd
-          : capEnd // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -769,15 +625,7 @@ class __$$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
 @JsonSerializable()
 class _$EraserProperty implements EraserProperty {
   const _$EraserProperty(
-      {this.strokeWidth = 5,
-      this.strokeMultiplier = 10,
-      this.smoothing = 0.5,
-      this.streamline = 0.5,
-      this.taperStart = 0,
-      this.taperEnd = 0,
-      this.capStart = true,
-      this.capEnd = true,
-      final String? $type})
+      {this.strokeWidth = 5, this.strokeMultiplier = 10, final String? $type})
       : $type = $type ?? 'eraser';
 
   factory _$EraserProperty.fromJson(Map<String, dynamic> json) =>
@@ -789,31 +637,13 @@ class _$EraserProperty implements EraserProperty {
   @override
   @JsonKey()
   final double strokeMultiplier;
-  @override
-  @JsonKey()
-  final double smoothing;
-  @override
-  @JsonKey()
-  final double streamline;
-  @override
-  @JsonKey()
-  final double taperStart;
-  @override
-  @JsonKey()
-  final double taperEnd;
-  @override
-  @JsonKey()
-  final bool capStart;
-  @override
-  @JsonKey()
-  final bool capEnd;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Property.eraser(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier, smoothing: $smoothing, streamline: $streamline, taperStart: $taperStart, taperEnd: $taperEnd, capStart: $capStart, capEnd: $capEnd)';
+    return 'Property.eraser(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier)';
   }
 
   @override
@@ -824,15 +654,7 @@ class _$EraserProperty implements EraserProperty {
             const DeepCollectionEquality()
                 .equals(other.strokeWidth, strokeWidth) &&
             const DeepCollectionEquality()
-                .equals(other.strokeMultiplier, strokeMultiplier) &&
-            const DeepCollectionEquality().equals(other.smoothing, smoothing) &&
-            const DeepCollectionEquality()
-                .equals(other.streamline, streamline) &&
-            const DeepCollectionEquality()
-                .equals(other.taperStart, taperStart) &&
-            const DeepCollectionEquality().equals(other.taperEnd, taperEnd) &&
-            const DeepCollectionEquality().equals(other.capStart, capStart) &&
-            const DeepCollectionEquality().equals(other.capEnd, capEnd));
+                .equals(other.strokeMultiplier, strokeMultiplier));
   }
 
   @JsonKey(ignore: true)
@@ -840,13 +662,7 @@ class _$EraserProperty implements EraserProperty {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(strokeWidth),
-      const DeepCollectionEquality().hash(strokeMultiplier),
-      const DeepCollectionEquality().hash(smoothing),
-      const DeepCollectionEquality().hash(streamline),
-      const DeepCollectionEquality().hash(taperStart),
-      const DeepCollectionEquality().hash(taperEnd),
-      const DeepCollectionEquality().hash(capStart),
-      const DeepCollectionEquality().hash(capEnd));
+      const DeepCollectionEquality().hash(strokeMultiplier));
 
   @JsonKey(ignore: true)
   @override
@@ -871,33 +687,15 @@ class _$EraserProperty implements EraserProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)
+            double strokeWidth, double strokeMultiplier, int color, bool fill)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
   }) {
-    return eraser(strokeWidth, strokeMultiplier, smoothing, streamline,
-        taperStart, taperEnd, capStart, capEnd);
+    return eraser(strokeWidth, strokeMultiplier);
   }
 
   @override
@@ -918,32 +716,13 @@ class _$EraserProperty implements EraserProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
-        eraser,
-    TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
+            double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
-    return eraser?.call(strokeWidth, strokeMultiplier, smoothing, streamline,
-        taperStart, taperEnd, capStart, capEnd);
+    return eraser?.call(strokeWidth, strokeMultiplier);
   }
 
   @override
@@ -964,34 +743,15 @@ class _$EraserProperty implements EraserProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
-        eraser,
-    TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
+            double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
   }) {
     if (eraser != null) {
-      return eraser(strokeWidth, strokeMultiplier, smoothing, streamline,
-          taperStart, taperEnd, capStart, capEnd);
+      return eraser(strokeWidth, strokeMultiplier);
     }
     return orElse();
   }
@@ -1044,25 +804,13 @@ class _$EraserProperty implements EraserProperty {
 abstract class EraserProperty implements Property, PathProperty {
   const factory EraserProperty(
       {final double strokeWidth,
-      final double strokeMultiplier,
-      final double smoothing,
-      final double streamline,
-      final double taperStart,
-      final double taperEnd,
-      final bool capStart,
-      final bool capEnd}) = _$EraserProperty;
+      final double strokeMultiplier}) = _$EraserProperty;
 
   factory EraserProperty.fromJson(Map<String, dynamic> json) =
       _$EraserProperty.fromJson;
 
   double get strokeWidth;
   double get strokeMultiplier;
-  double get smoothing;
-  double get streamline;
-  double get taperStart;
-  double get taperEnd;
-  bool get capStart;
-  bool get capEnd;
   @JsonKey(ignore: true)
   _$$EraserPropertyCopyWith<_$EraserProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1074,16 +822,7 @@ abstract class _$$PenPropertyCopyWith<$Res> {
           _$PenProperty value, $Res Function(_$PenProperty) then) =
       __$$PenPropertyCopyWithImpl<$Res>;
   $Res call(
-      {double strokeWidth,
-      double strokeMultiplier,
-      int color,
-      bool fill,
-      double smoothing,
-      double streamline,
-      double taperStart,
-      double taperEnd,
-      bool capStart,
-      bool capEnd});
+      {double strokeWidth, double strokeMultiplier, int color, bool fill});
 }
 
 /// @nodoc
@@ -1102,12 +841,6 @@ class __$$PenPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
     Object? strokeMultiplier = freezed,
     Object? color = freezed,
     Object? fill = freezed,
-    Object? smoothing = freezed,
-    Object? streamline = freezed,
-    Object? taperStart = freezed,
-    Object? taperEnd = freezed,
-    Object? capStart = freezed,
-    Object? capEnd = freezed,
   }) {
     return _then(_$PenProperty(
       strokeWidth: strokeWidth == freezed
@@ -1126,30 +859,6 @@ class __$$PenPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
           ? _value.fill
           : fill // ignore: cast_nullable_to_non_nullable
               as bool,
-      smoothing: smoothing == freezed
-          ? _value.smoothing
-          : smoothing // ignore: cast_nullable_to_non_nullable
-              as double,
-      streamline: streamline == freezed
-          ? _value.streamline
-          : streamline // ignore: cast_nullable_to_non_nullable
-              as double,
-      taperStart: taperStart == freezed
-          ? _value.taperStart
-          : taperStart // ignore: cast_nullable_to_non_nullable
-              as double,
-      taperEnd: taperEnd == freezed
-          ? _value.taperEnd
-          : taperEnd // ignore: cast_nullable_to_non_nullable
-              as double,
-      capStart: capStart == freezed
-          ? _value.capStart
-          : capStart // ignore: cast_nullable_to_non_nullable
-              as bool,
-      capEnd: capEnd == freezed
-          ? _value.capEnd
-          : capEnd // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -1162,12 +871,6 @@ class _$PenProperty implements PenProperty {
       this.strokeMultiplier = 10,
       this.color = kColorBlack,
       this.fill = false,
-      this.smoothing = 0.5,
-      this.streamline = 0.5,
-      this.taperStart = 0,
-      this.taperEnd = 0,
-      this.capStart = true,
-      this.capEnd = true,
       final String? $type})
       : $type = $type ?? 'pen';
 
@@ -1186,31 +889,13 @@ class _$PenProperty implements PenProperty {
   @override
   @JsonKey()
   final bool fill;
-  @override
-  @JsonKey()
-  final double smoothing;
-  @override
-  @JsonKey()
-  final double streamline;
-  @override
-  @JsonKey()
-  final double taperStart;
-  @override
-  @JsonKey()
-  final double taperEnd;
-  @override
-  @JsonKey()
-  final bool capStart;
-  @override
-  @JsonKey()
-  final bool capEnd;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Property.pen(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier, color: $color, fill: $fill, smoothing: $smoothing, streamline: $streamline, taperStart: $taperStart, taperEnd: $taperEnd, capStart: $capStart, capEnd: $capEnd)';
+    return 'Property.pen(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier, color: $color, fill: $fill)';
   }
 
   @override
@@ -1223,15 +908,7 @@ class _$PenProperty implements PenProperty {
             const DeepCollectionEquality()
                 .equals(other.strokeMultiplier, strokeMultiplier) &&
             const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality().equals(other.fill, fill) &&
-            const DeepCollectionEquality().equals(other.smoothing, smoothing) &&
-            const DeepCollectionEquality()
-                .equals(other.streamline, streamline) &&
-            const DeepCollectionEquality()
-                .equals(other.taperStart, taperStart) &&
-            const DeepCollectionEquality().equals(other.taperEnd, taperEnd) &&
-            const DeepCollectionEquality().equals(other.capStart, capStart) &&
-            const DeepCollectionEquality().equals(other.capEnd, capEnd));
+            const DeepCollectionEquality().equals(other.fill, fill));
   }
 
   @JsonKey(ignore: true)
@@ -1241,13 +918,7 @@ class _$PenProperty implements PenProperty {
       const DeepCollectionEquality().hash(strokeWidth),
       const DeepCollectionEquality().hash(strokeMultiplier),
       const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(fill),
-      const DeepCollectionEquality().hash(smoothing),
-      const DeepCollectionEquality().hash(streamline),
-      const DeepCollectionEquality().hash(taperStart),
-      const DeepCollectionEquality().hash(taperEnd),
-      const DeepCollectionEquality().hash(capStart),
-      const DeepCollectionEquality().hash(capEnd));
+      const DeepCollectionEquality().hash(fill));
 
   @JsonKey(ignore: true)
   @override
@@ -1272,33 +943,15 @@ class _$PenProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)
+            double strokeWidth, double strokeMultiplier, int color, bool fill)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
   }) {
-    return pen(strokeWidth, strokeMultiplier, color, fill, smoothing,
-        streamline, taperStart, taperEnd, capStart, capEnd);
+    return pen(strokeWidth, strokeMultiplier, color, fill);
   }
 
   @override
@@ -1319,32 +972,13 @@ class _$PenProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
-        eraser,
-    TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
+            double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
-    return pen?.call(strokeWidth, strokeMultiplier, color, fill, smoothing,
-        streamline, taperStart, taperEnd, capStart, capEnd);
+    return pen?.call(strokeWidth, strokeMultiplier, color, fill);
   }
 
   @override
@@ -1365,34 +999,15 @@ class _$PenProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
-        eraser,
-    TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
+            double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
   }) {
     if (pen != null) {
-      return pen(strokeWidth, strokeMultiplier, color, fill, smoothing,
-          streamline, taperStart, taperEnd, capStart, capEnd);
+      return pen(strokeWidth, strokeMultiplier, color, fill);
     }
     return orElse();
   }
@@ -1447,13 +1062,7 @@ abstract class PenProperty implements Property, PathProperty {
       {final double strokeWidth,
       final double strokeMultiplier,
       final int color,
-      final bool fill,
-      final double smoothing,
-      final double streamline,
-      final double taperStart,
-      final double taperEnd,
-      final bool capStart,
-      final bool capEnd}) = _$PenProperty;
+      final bool fill}) = _$PenProperty;
 
   factory PenProperty.fromJson(Map<String, dynamic> json) =
       _$PenProperty.fromJson;
@@ -1462,12 +1071,6 @@ abstract class PenProperty implements Property, PathProperty {
   double get strokeMultiplier;
   int get color;
   bool get fill;
-  double get smoothing;
-  double get streamline;
-  double get taperStart;
-  double get taperEnd;
-  bool get capStart;
-  bool get capEnd;
   @JsonKey(ignore: true)
   _$$PenPropertyCopyWith<_$PenProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1595,27 +1198,10 @@ class _$ShapeProperty implements ShapeProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)
+    required TResult Function(double strokeWidth, double strokeMultiplier)
         eraser,
     required TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)
+            double strokeWidth, double strokeMultiplier, int color, bool fill)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
@@ -1641,27 +1227,9 @@ class _$ShapeProperty implements ShapeProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
-        eraser,
-    TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
+            double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
@@ -1686,27 +1254,9 @@ class _$ShapeProperty implements ShapeProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
+    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
     TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
-        eraser,
-    TResult Function(
-            double strokeWidth,
-            double strokeMultiplier,
-            int color,
-            bool fill,
-            double smoothing,
-            double streamline,
-            double taperStart,
-            double taperEnd,
-            bool capStart,
-            bool capEnd)?
+            double strokeWidth, double strokeMultiplier, int color, bool fill)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
