@@ -2,6 +2,15 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.5.0-beta.0 (2022-09-23)
+
+* Add resize feature to selection
+* Use move if painter index is zero
+* Fix image open
+* Fix empty background
+* Remove hit calculator, use function insteads
+* Remove temporary painter on creation
+
 ## 1.5.0-alpha.2 (2022-09-09)
 
 * Separate behavior settings for each input type
