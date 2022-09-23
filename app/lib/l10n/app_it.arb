@@ -391,9 +391,5 @@
   "shortcuts": "Scorciatoie",
   "middle": "Centrale",
   "first": "Primo",
-  "second": "Secondo",
-  "smoothing": "Smussamento",
-  "streamline": "Semplifica",
-  "taperStart": "Inizio conico",
-  "taperEnd": "Fine conica"
+  "second": "Secondo"
 }
