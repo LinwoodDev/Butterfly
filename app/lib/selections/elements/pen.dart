@@ -1,7 +1,6 @@
 part of '../selection.dart';
 
 class PenElementSelection extends ElementSelection<PenElement> {
-  final _propertySelection = PenPropertySelection();
   PenElementSelection(super.selected);
 
   @override
@@ -9,11 +8,16 @@ class PenElementSelection extends ElementSelection<PenElement> {
     final element = selected.first.element;
     return [
       ...super.buildProperties(context),
-      ..._propertySelection.build(
-          context,
-          element.property,
-          (property) =>
-              elements.map((e) => e.copyWith(property: property)).toList()),
+      ColorField(
+        title: Text(AppLocalizations.of(context)!.color),
+        value: Color(element.property.color),
+        onChanged: (color) => updateElements(
+            context,
+            elements
+                .map((e) => e.copyWith(
+                    property: e.property.copyWith(color: color.value)))
+                .toList()),
+      ),
     ];
   }
 
