@@ -39,6 +39,6 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 * `Primary button`: El aracına geç
 * `Secondary button`: İkinci araca geç
 
-## Configure {#configure}
+## Yapılandır {#configure}
 
 Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert a negative painter to enable moving with this control.
