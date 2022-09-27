@@ -453,6 +453,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void changeTemporaryHandlerMove() {
-    emit(state.copyWith(handler: MoveHandler()));
+    emit(state.copyWith(temporaryHandler: MoveHandler()));
   }
 }
