@@ -1,1 +1,2 @@
 * Fix temporary move handler
+* Fix import on open dialog
