@@ -101,6 +101,8 @@ class EventContext {
   ImportService getImportService() => buildContext.read<ImportService>();
 }
 
+enum PainterStatus { normal, disabled }
+
 abstract class Handler<T> {
   final T data;
 
@@ -158,6 +160,8 @@ abstract class Handler<T> {
   T? setColor(DocumentBloc bloc, int color) => null;
 
   void resetInput(DocumentBloc bloc) {}
+
+  PainterStatus getStatus(DocumentBloc bloc) => PainterStatus.normal;
 
   static Handler fromDocument(AppDocument document, int index) {
     final painter = document.painters[index];

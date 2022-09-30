@@ -67,7 +67,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Handler? changePainter(DocumentBloc bloc, int index) {
+  Handler? changePainter(DocumentBloc bloc, int index, [Handler? handler]) {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.document;
@@ -75,13 +75,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return null;
     }
     final painter = document.painters[index];
-    final handler = Handler.fromPainter(painter);
-    if (handler.onSelected(bloc, this)) {
+    final currentHandler = handler ?? Handler.fromPainter(painter);
+    if (currentHandler.onSelected(bloc, this)) {
       emit(state.copyWith(
         index: index,
-        handler: handler,
-        foregrounds:
-            handler.createForegrounds(this, document, blocState.currentArea),
+        handler: currentHandler,
+        foregrounds: currentHandler.createForegrounds(
+            this, document, blocState.currentArea),
         temporaryForegrounds: null,
         temporaryHandler: null,
       ));
