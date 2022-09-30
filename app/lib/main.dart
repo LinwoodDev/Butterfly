@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:butterfly/services/sync.dart';
+import 'package:butterfly/settings/behaviors/mouse.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
@@ -15,7 +17,10 @@ import 'cubits/settings.dart';
 import 'embed/embedding.dart';
 import 'models/converter.dart';
 import 'models/document.dart';
-import 'settings/behaviors.dart';
+import 'settings/behaviors/home.dart';
+import 'settings/behaviors/keyboard.dart';
+import 'settings/behaviors/pen.dart';
+import 'settings/behaviors/touch.dart';
 import 'settings/data.dart';
 import 'settings/general.dart';
 import 'settings/home.dart';
@@ -27,10 +32,11 @@ import 'theme/manager.dart';
 import 'views/main.dart';
 
 const kFileVersion = 6;
+
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
 
-  GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   await setup();
   var prefs = await SharedPreferences.getInstance();
   var initialLocation = '/';
@@ -127,6 +133,28 @@ class ButterflyApp extends StatelessWidget {
                         path: 'behaviors',
                         builder: (context, state) =>
                             const BehaviorsSettingsPage(),
+                        routes: [
+                          GoRoute(
+                            path: 'mouse',
+                            builder: (context, state) =>
+                                const MouseBehaviorSettings(),
+                          ),
+                          GoRoute(
+                            path: 'pen',
+                            builder: (context, state) =>
+                                const PenBehaviorSettings(),
+                          ),
+                          GoRoute(
+                            path: 'keyboard',
+                            builder: (context, state) =>
+                                const KeyboardBehaviorSettings(),
+                          ),
+                          GoRoute(
+                            path: 'touch',
+                            builder: (context, state) =>
+                                const TouchBehaviorSettings(),
+                          ),
+                        ],
                       ),
                       GoRoute(
                         path: 'personalization',

@@ -5,20 +5,22 @@ import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
 import 'models/area.dart';
+import 'selections/selection.dart';
 
 class ForegroundPainter extends CustomPainter {
-  final Color selectionColor;
+  final Color primary, secondary;
   final AppDocument document;
   final List<Renderer> renderers;
   final CameraTransform transform;
-  final List<Rect> selection;
+  final Selection? selection;
 
   ForegroundPainter(
     this.renderers,
     this.document,
-    this.selectionColor, [
+    this.primary,
+    this.secondary, [
     this.transform = const CameraTransform(),
-    this.selection = const [],
+    this.selection,
   ]);
 
   @override
@@ -28,7 +30,8 @@ class ForegroundPainter extends CustomPainter {
     for (var element in renderers) {
       element.build(canvas, size, document, transform, true);
     }
-    for (var rect in selection) {
+    final selection = this.selection;
+    if (selection is ElementSelection) {
       /*
       final minX =
           -transform.position.dx + 20 / ((transform.size - 1) / 1.5 + 1);
@@ -36,14 +39,20 @@ class ForegroundPainter extends CustomPainter {
       final minY = -transform.position.dy + 20;
       final maxY = minY + size.height / transform.size - 40 / transform.size;
       */
-      canvas.drawRRect(
-          RRect.fromRectAndRadius(
-              rect.inflate(5 / transform.size), const Radius.circular(5)),
-          Paint()
-            ..style = PaintingStyle.stroke
-            ..color = selectionColor
-            ..strokeWidth = 5 / transform.size);
+      _drawSelection(canvas, selection);
     }
+  }
+
+  void _drawSelection(Canvas canvas, ElementSelection selection) {
+    final rect = selection.rect;
+    if (rect == null) return;
+    canvas.drawRRect(
+        RRect.fromRectAndRadius(
+            rect.inflate(5 / transform.size), const Radius.circular(5)),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..color = primary
+          ..strokeWidth = 5 / transform.size);
   }
 
   @override

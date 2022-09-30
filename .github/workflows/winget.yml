@@ -6,14 +6,23 @@ jobs:
   publish:
     runs-on: windows-latest
     steps:
+      - name: Get Version
+        run: |
+          $tag_name = '${{ github.release.tag_name }}'
+          $version = ($tag_name | Select-String -Pattern '(?<=v).*').Matches.Value
+          echo "::set-output name=version::$version"
+        id: get-version
+
       - if: github.event.action == 'released'
         uses: vedantmgoyal2009/winget-releaser@latest
         with:
           identifier: LinwoodCloud.Butterfly
+          version: ${{ steps.get-version.outputs.version }}
           token: ${{ secrets.CI_PAT }}
+
       - if: github.event.action == 'prereleased'
         uses: vedantmgoyal2009/winget-releaser@latest
         with:
           identifier: LinwoodCloud.Butterfly.Nightly
-          version-regex: '(?<=v).*'
+          version: ${{ steps.get-version.outputs.version }}
           token: ${{ secrets.CI_PAT }}

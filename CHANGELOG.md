@@ -2,6 +2,47 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.5.0-beta.1 (2022-09-30)
+
+* Open url externally
+* Fix temporary move handler
+* Fix import on open dialog
+
+## 1.5.0-beta.0 (2022-09-23)
+
+* Add resize feature to selection
+* Use move if painter index is zero
+* Fix image open
+* Fix empty background
+* Remove hit calculator, use function insteads
+* Remove temporary painter on creation
+
+## 1.5.0-alpha.2 (2022-09-09)
+
+* Separate behavior settings for each input type
+* Add option to change painter using control and number
+* Add move functionality if no painter is selected
+* Fix start in full screen settings
+* Fix grid view in file system dialogs
+* Fix missing save of sync mode in settings
+
+## 1.5.0-alpha.1 (2022-09-02)
+
+* Add temporary painter
+* Add new painters
+  * Hand
+  * Undo
+  * Redo
+* Remove hand, undo, redo buttons from general gui
+* Improve UI and UX problems ([#280](https://github.com/LinwoodCloud/Butterfly/issues/280))
+  * Reset pointer on app hide
+  * Add default behavior to not ask for area name
+* Add option to load images, pdfs and svgs from open dialog
+* Add option to start the app in full screen mode
+* Fix gesture issues on area and shape painter
+* Fix area change problem
+* Fix divider on top right in native title bar mode
+
 ## 1.5.0-alpha.0 (2022-08-26)
 
 * Add macos support (Thanks to batuhand)

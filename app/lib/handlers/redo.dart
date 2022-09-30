@@ -9,4 +9,9 @@ class RedoHandler extends Handler<RedoPainter> {
     bloc.load().then((value) => bloc.bake());
     return false;
   }
+
+  @override
+  PainterStatus getStatus(DocumentBloc bloc) {
+    return bloc.canRedo ? PainterStatus.normal : PainterStatus.disabled;
+  }
 }

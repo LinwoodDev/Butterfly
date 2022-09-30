@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'property.g.dart';
 part 'property.freezed.dart';
 
-abstract class PathProperty {
+abstract class PathProperty implements Property {
   double get strokeWidth;
   double get strokeMultiplier;
 }
@@ -44,13 +44,13 @@ class Property with _$Property {
       @Default(VerticalAlignment.top)
           VerticalAlignment verticalAlignment}) = LabelProperty;
 
-  @With<PathProperty>()
+  @Implements<PathProperty>()
   const factory Property.eraser({
     @Default(5) double strokeWidth,
     @Default(10) double strokeMultiplier,
   }) = EraserProperty;
 
-  @With<PathProperty>()
+  @Implements<PathProperty>()
   const factory Property.pen({
     @Default(5) double strokeWidth,
     @Default(10) double strokeMultiplier,

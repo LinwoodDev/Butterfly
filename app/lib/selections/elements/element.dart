@@ -45,7 +45,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
           updateElements(
               context,
               selected
-                  .map((e) => e.move(value, multi))
+                  .map((e) => e.transform(position: value, relative: multi))
                   .whereType<T>()
                   .toList());
         },
@@ -79,9 +79,19 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
     update(context, renderers);
   }
 
-  @override
-  List<Rect> get rects =>
-      selected.map((e) => e.rect).whereType<Rect>().toList();
+  Rect? get rect =>
+      _expandRects(selected.map((e) => e.rect).whereType<Rect>().toList());
+
+  Rect? _expandRects(List<Rect> rects) {
+    var rect = rects.firstOrNull;
+    for (final current in selected.sublist(1)) {
+      final currentRect = current.rect;
+      if (currentRect != null) {
+        rect = rect?.expandToInclude(currentRect);
+      }
+    }
+    return rect;
+  }
 
   @override
   void onDelete(BuildContext context) {

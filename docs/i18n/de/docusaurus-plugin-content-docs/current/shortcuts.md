@@ -3,9 +3,12 @@ title: "Verknüpfungen"
 sidebar_position: 2
 ---
 
+
+## Keyboard
+
 Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige davon sind unter den Buttons geschrieben.
 
-## Allgemein
+### Allgemein
 
 * `Strg` + `N`: Neue Datei
 * `Strg` + `Umschalt` + `N`: Neue Datei aus Vorlage
@@ -16,7 +19,7 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `Alt` + `E`: Datei als svg exportieren
 * `Strg` + `Alt` + `S`: Einstellungen öffnen
 
-## Projekt
+### Projekt
 
 * `Strg` + `Z`: Rückgängig
 * `Strg` + `Y`: Erneut
@@ -29,8 +32,13 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `L`: Ebenendialog öffnen
 * `Strg` + `S`: Speichern
 * `Alt` + `S`: Pfad ändern
+* `Strg` + (`1` - `0`): Zum Maler wechseln
 
 ## Stylus
 
 * `Primärer Button`: Zum Handwerkzeug wechseln
 * `Sekundärer Knopf`: Zum zweiten Maler wechseln
+
+## Konfigurieren {#configure}
+
+Passen Sie die Steuerelemente an, indem Sie jeder Kontrolle einen Maler Index geben. Der Maler beginnt bei 1 und wird von links nach rechts sortiert. Ein leerer Maler Index deaktiviert den Maler Schalter auf diesem Steuerelement. Fügen Sie einen negativen Maler ein, um das Verschieben mit diesem Steuerelement zu aktivieren.

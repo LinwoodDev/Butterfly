@@ -25,12 +25,14 @@ class _PropertyViewState extends State<PropertyView>
     begin: Offset.zero,
     end: const Offset(1.5, 0.0),
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.bounceInOut));
+  final _scrollController = ScrollController();
 
   double size = 500;
 
   @override
   void dispose() {
     _controller.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -150,6 +152,7 @@ class _PropertyViewState extends State<PropertyView>
                                     horizontal: 16, vertical: 16),
                                 child: ListView(
                                     shrinkWrap: true,
+                                    primary: true,
                                     children:
                                         selection.buildProperties(context)),
                               ),

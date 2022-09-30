@@ -1,0 +1,6 @@
+* Add resize feature to selection
+* Use move if painter index is zero
+* Fix image open
+* Fix empty background
+* Remove hit calculator, use function insteads
+* Remove temporary painter on creation

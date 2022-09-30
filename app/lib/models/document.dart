@@ -82,10 +82,8 @@ abstract class AppDocumentEntity {
   String get fileExtension =>
       fileName.contains('.') ? fileName.split('.').last : '';
 
-  String get fileNameWithoutExtension => fileName.substring(
-      0,
-      fileName.length -
-          (fileName.contains('.') ? fileExtension.length - 1 : 0));
+  String get fileNameWithoutExtension => fileName.substring(0,
+      fileName.contains('.') ? fileName.lastIndexOf('.') : fileName.length - 1);
 
   String get pathWithLeadingSlash => location.pathWithLeadingSlash;
 

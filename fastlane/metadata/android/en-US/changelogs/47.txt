@@ -1,0 +1,2 @@
+* Add disabled colors to redo and undo painter
+* Fix errors with move handler

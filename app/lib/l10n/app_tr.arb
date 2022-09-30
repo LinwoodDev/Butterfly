@@ -67,7 +67,7 @@
   "description": "Tanım",
   "fill": "Dolgu",
   "defaultPalette": "Varsayılan palet",
-  "highlighter": "Vurgulayıcı",
+  "highlighter": "Fosforlu kalem",
   "add": "Ekle",
   "remove": "Kaldır",
   "removeConfirm": "Bunu gerçekten kaldırmak istiyor musunuz?",
@@ -170,9 +170,6 @@
   "svg": "SVG",
   "sensitivity": "Hassasiyet",
   "sensitivityHint": "Değer arttıkça hassasiyet artar",
-  "touchSensitivity": "Dokunma hassasiyeti",
-  "mouseSensitivity": "Fare hassasiyeti",
-  "penSensitivity": "Kalem hassasiyeti",
   "horizontal": "Yatay",
   "vertical": "Dikey",
   "plain": "Sade",
@@ -376,8 +373,8 @@
   "position": "Konum",
   "note": "Not",
   "more": "Daha fazla",
-  "askForName": "Ask for name",
-  "areaIndex": "Area {index}",
+  "askForName": "Isim sor",
+  "areaIndex": "Alan {index}",
   "@areaIndex": {
     "placeholders": {
       "index": {
@@ -385,5 +382,14 @@
         "example": "1"
       }
     }
-  }
+  },
+  "startInFullScreen": "Tam ekran göster",
+  "inputs": "Girdiler",
+  "mouse": "Fare",
+  "touch": "Dokunma",
+  "keyboard": "Klavye",
+  "shortcuts": "Kısayollar",
+  "middle": "Orta",
+  "first": "İlk",
+  "second": "İkinci"
 }

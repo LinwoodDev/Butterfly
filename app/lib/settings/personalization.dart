@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:butterfly/main.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/main.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly/visualizer/string.dart';
 import 'package:flutter/foundation.dart';
@@ -134,7 +134,9 @@ class PersonalizationSettingsPage extends StatelessWidget {
                       ),
                       CheckboxListTile(
                         value: state.startInFullScreen,
-                        onChanged: (value) {},
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeStartInFullScreen(value ?? true),
                         title: Text(
                             AppLocalizations.of(context)!.startInFullScreen),
                         secondary: const Icon(PhosphorIcons.arrowsOutLight),

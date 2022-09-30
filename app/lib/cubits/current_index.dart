@@ -1,10 +1,11 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:butterfly/api/xml_helper.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/handlers/move.dart';
+import 'package:butterfly/helpers/xml_helper.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/export.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -33,7 +34,7 @@ class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
   const factory CurrentIndex(
     int? index,
-    Handler? handler,
+    Handler handler,
     SettingsCubit settingsCubit,
     TransformCubit transformCubit, {
     Handler? temporaryHandler,
@@ -55,10 +56,10 @@ class CurrentIndex with _$CurrentIndex {
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
   CurrentIndexCubit(SettingsCubit settingsCubit, TransformCubit transformCubit,
       Embedding? embedding)
-      : super(CurrentIndex(null, null, settingsCubit, transformCubit,
+      : super(CurrentIndex(null, MoveHandler(), settingsCubit, transformCubit,
             embedding: embedding));
 
-  Handler? getHandler({bool disableTemporary = false}) {
+  Handler getHandler({bool disableTemporary = false}) {
     if (disableTemporary) {
       return state.handler;
     } else {
@@ -66,7 +67,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Handler? changePainter(DocumentBloc bloc, int index) {
+  Handler? changePainter(DocumentBloc bloc, int index, [Handler? handler]) {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.document;
@@ -74,13 +75,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return null;
     }
     final painter = document.painters[index];
-    final handler = Handler.fromPainter(painter);
-    if (handler.onSelected(bloc, this)) {
+    final currentHandler = handler ?? Handler.fromPainter(painter);
+    if (currentHandler.onSelected(bloc, this)) {
       emit(state.copyWith(
         index: index,
-        handler: handler,
-        foregrounds:
-            handler.createForegrounds(this, document, blocState.currentArea),
+        handler: currentHandler,
+        foregrounds: currentHandler.createForegrounds(
+            this, document, blocState.currentArea),
         temporaryForegrounds: null,
         temporaryHandler: null,
       ));
@@ -119,7 +120,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         temporaryForegrounds: state.temporaryHandler
             ?.createForegrounds(this, document, currentArea),
         foregrounds:
-            state.handler?.createForegrounds(this, document, currentArea) ?? [],
+            state.handler.createForegrounds(this, document, currentArea),
       ));
     }
   }
@@ -146,7 +147,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void reset(AppDocument document) {
     emit(state.copyWith(
       index: null,
-      handler: null,
+      handler: MoveHandler(),
       foregrounds: [],
       temporaryHandler: null,
       temporaryForegrounds: null,
@@ -194,7 +195,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   List<Renderer> get foregrounds =>
       state.temporaryForegrounds ?? state.foregrounds;
 
-  void resetTemporaryHandler(AppDocument document, Area? currentArea) {
+  void resetTemporaryHandler() {
     if (state.temporaryHandler == null) {
       return;
     }
@@ -396,7 +397,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void updateIndex(AppDocument document) {
-    final index = document.painters.indexOf(state.handler?.data);
+    final index = document.painters.indexOf(state.handler.data);
     if (index < 0) {
       reset(document);
       return;
@@ -405,6 +406,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return;
     }
     changeIndex(index);
+    final selection = state.selection;
+    if (selection?.selected.contains(state.handler.data) ?? false) {
+      resetSelection();
+    }
   }
 
   void insertSelection(dynamic selected, [bool toggle = true]) {
@@ -443,7 +448,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void resetInput(DocumentBloc bloc) {
-    state.handler?.resetInput(bloc);
+    state.handler.resetInput(bloc);
     emit(state.copyWith(buttons: null, pointers: []));
+  }
+
+  void changeTemporaryHandlerMove() {
+    emit(state.copyWith(temporaryHandler: MoveHandler()));
   }
 }

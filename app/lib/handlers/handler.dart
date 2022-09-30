@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -18,9 +19,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../api/rect_helper.dart';
 import '../cubits/current_index.dart';
 import '../dialogs/area/label.dart';
+import '../helpers/rect_helper.dart';
 import '../models/area.dart';
 import '../models/cursor.dart';
 import '../models/document.dart';
@@ -100,6 +101,8 @@ class EventContext {
   ImportService getImportService() => buildContext.read<ImportService>();
 }
 
+enum PainterStatus { normal, disabled }
+
 abstract class Handler<T> {
   final T data;
 
@@ -158,6 +161,8 @@ abstract class Handler<T> {
 
   void resetInput(DocumentBloc bloc) {}
 
+  PainterStatus getStatus(DocumentBloc bloc) => PainterStatus.normal;
+
   static Handler fromDocument(AppDocument document, int index) {
     final painter = document.painters[index];
     return Handler.fromPainter(painter);
@@ -204,12 +209,12 @@ abstract class Handler<T> {
 typedef HitRequest = bool Function(Offset position, [double radius]);
 
 class _SmallRenderer {
-  final HitCalculator? hitCalculator;
+  final HitCalculator hitCalc;
   final PadElement element;
 
-  _SmallRenderer(this.hitCalculator, this.element);
+  _SmallRenderer(this.hitCalc, this.element);
   _SmallRenderer.fromRenderer(Renderer renderer)
-      : hitCalculator = renderer.hitCalculator,
+      : hitCalc = renderer.getHitCalculator(),
         element = renderer.element;
 }
 
@@ -256,7 +261,7 @@ Set<int> _executeRayCast(_RayCastParams params) {
       .asMap()
       .entries
       .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
-      .where((e) => e.value.hitCalculator?.hit(params.rect) ?? false)
+      .where((e) => e.value.hitCalc.hit(params.rect))
       .where((e) => params.includeEraser || e.value.element is! EraserElement)
       .map((e) => e.key)
       .toSet();

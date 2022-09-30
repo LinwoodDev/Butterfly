@@ -31,27 +31,38 @@ class ElementsDialog extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.move),
             leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(true);
               context
                   .read<CurrentIndexCubit>()
                   .fetchHandler<HandHandler>()
-                  ?.move(context, renderers, false);
+                  ?.move(context.read<DocumentBloc>(), renderers, false);
             },
           ),
           ListTile(
             title: Text(AppLocalizations.of(context)!.duplicate),
             leading: const Icon(PhosphorIcons.copyLight),
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(true);
               context
                   .read<CurrentIndexCubit>()
                   .fetchHandler<HandHandler>()
-                  ?.move(context, renderers, true);
+                  ?.move(context.read<DocumentBloc>(), renderers, true);
+            },
+          ),
+          ListTile(
+            title: Text(AppLocalizations.of(context)!.scale),
+            leading: const Icon(PhosphorIcons.arrowsOutLight),
+            onTap: () {
+              Navigator.of(context).pop(false);
+              context
+                  .read<CurrentIndexCubit>()
+                  .fetchHandler<HandHandler>()
+                  ?.setScaleMode(context.read<DocumentBloc>());
             },
           ),
           ListTile(
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(true);
                 context.read<DocumentBloc>().add(
                     ElementsRemoved(renderers.map((r) => r.element).toList()));
               },
@@ -59,7 +70,7 @@ class ElementsDialog extends StatelessWidget {
               leading: const Icon(PhosphorIcons.trashLight)),
           ListTile(
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(true);
               final cubit = context.read<CurrentIndexCubit>();
               cubit.changeSelection(renderers.first);
               renderers.sublist(1).forEach((r) => cubit.insertSelection(r));
@@ -76,7 +87,7 @@ class ElementsDialog extends StatelessWidget {
               final actions =
                   context.findAncestorWidgetOfExactType<Actions>()?.actions ??
                       {};
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(true);
               showContextMenu(
                   context: context,
                   position: position,

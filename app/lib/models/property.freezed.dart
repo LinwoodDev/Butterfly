@@ -623,7 +623,7 @@ class __$$EraserPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EraserProperty with PathProperty implements EraserProperty {
+class _$EraserProperty implements EraserProperty {
   const _$EraserProperty(
       {this.strokeWidth = 5, this.strokeMultiplier = 10, final String? $type})
       : $type = $type ?? 'eraser';
@@ -865,7 +865,7 @@ class __$$PenPropertyCopyWithImpl<$Res> extends _$PropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PenProperty with PathProperty implements PenProperty {
+class _$PenProperty implements PenProperty {
   const _$PenProperty(
       {this.strokeWidth = 5,
       this.strokeMultiplier = 10,

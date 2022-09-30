@@ -4,6 +4,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/constraints.dart';
 import 'package:butterfly/models/property.dart';
 import 'package:butterfly/visualizer/property.dart';
+import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,12 @@ part 'painters/path_eraser.dart';
 part 'painters/pen.dart';
 part 'painters/shape.dart';
 
+part 'properties/property.dart';
+part 'properties/eraser.dart';
+part 'properties/label.dart';
+part 'properties/path.dart';
+part 'properties/pen.dart';
+
 part 'area.dart';
 part 'painters/hand.dart';
 
@@ -60,8 +67,6 @@ abstract class Selection<T> {
   IconData getIcon({bool filled = false});
 
   List<Widget> buildProperties(BuildContext context) => [];
-
-  List<Rect> get rects => [];
 
   @mustCallSuper
   void update(BuildContext context, List<T> selected) {

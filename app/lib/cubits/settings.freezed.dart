@@ -460,6 +460,280 @@ abstract class DavRemoteStorage extends RemoteStorage {
       throw _privateConstructorUsedError;
 }
 
+InputConfiguration _$InputConfigurationFromJson(Map<String, dynamic> json) {
+  return _InputConfiguration.fromJson(json);
+}
+
+/// @nodoc
+mixin _$InputConfiguration {
+  int? get leftMouse => throw _privateConstructorUsedError;
+  int? get middleMouse => throw _privateConstructorUsedError;
+  int? get rightMouse => throw _privateConstructorUsedError;
+  int? get pen => throw _privateConstructorUsedError;
+  int? get firstPenButton => throw _privateConstructorUsedError;
+  int? get secondPenButton => throw _privateConstructorUsedError;
+  int? get touch => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $InputConfigurationCopyWith<InputConfiguration> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $InputConfigurationCopyWith<$Res> {
+  factory $InputConfigurationCopyWith(
+          InputConfiguration value, $Res Function(InputConfiguration) then) =
+      _$InputConfigurationCopyWithImpl<$Res>;
+  $Res call(
+      {int? leftMouse,
+      int? middleMouse,
+      int? rightMouse,
+      int? pen,
+      int? firstPenButton,
+      int? secondPenButton,
+      int? touch});
+}
+
+/// @nodoc
+class _$InputConfigurationCopyWithImpl<$Res>
+    implements $InputConfigurationCopyWith<$Res> {
+  _$InputConfigurationCopyWithImpl(this._value, this._then);
+
+  final InputConfiguration _value;
+  // ignore: unused_field
+  final $Res Function(InputConfiguration) _then;
+
+  @override
+  $Res call({
+    Object? leftMouse = freezed,
+    Object? middleMouse = freezed,
+    Object? rightMouse = freezed,
+    Object? pen = freezed,
+    Object? firstPenButton = freezed,
+    Object? secondPenButton = freezed,
+    Object? touch = freezed,
+  }) {
+    return _then(_value.copyWith(
+      leftMouse: leftMouse == freezed
+          ? _value.leftMouse
+          : leftMouse // ignore: cast_nullable_to_non_nullable
+              as int?,
+      middleMouse: middleMouse == freezed
+          ? _value.middleMouse
+          : middleMouse // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rightMouse: rightMouse == freezed
+          ? _value.rightMouse
+          : rightMouse // ignore: cast_nullable_to_non_nullable
+              as int?,
+      pen: pen == freezed
+          ? _value.pen
+          : pen // ignore: cast_nullable_to_non_nullable
+              as int?,
+      firstPenButton: firstPenButton == freezed
+          ? _value.firstPenButton
+          : firstPenButton // ignore: cast_nullable_to_non_nullable
+              as int?,
+      secondPenButton: secondPenButton == freezed
+          ? _value.secondPenButton
+          : secondPenButton // ignore: cast_nullable_to_non_nullable
+              as int?,
+      touch: touch == freezed
+          ? _value.touch
+          : touch // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_InputConfigurationCopyWith<$Res>
+    implements $InputConfigurationCopyWith<$Res> {
+  factory _$$_InputConfigurationCopyWith(_$_InputConfiguration value,
+          $Res Function(_$_InputConfiguration) then) =
+      __$$_InputConfigurationCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int? leftMouse,
+      int? middleMouse,
+      int? rightMouse,
+      int? pen,
+      int? firstPenButton,
+      int? secondPenButton,
+      int? touch});
+}
+
+/// @nodoc
+class __$$_InputConfigurationCopyWithImpl<$Res>
+    extends _$InputConfigurationCopyWithImpl<$Res>
+    implements _$$_InputConfigurationCopyWith<$Res> {
+  __$$_InputConfigurationCopyWithImpl(
+      _$_InputConfiguration _value, $Res Function(_$_InputConfiguration) _then)
+      : super(_value, (v) => _then(v as _$_InputConfiguration));
+
+  @override
+  _$_InputConfiguration get _value => super._value as _$_InputConfiguration;
+
+  @override
+  $Res call({
+    Object? leftMouse = freezed,
+    Object? middleMouse = freezed,
+    Object? rightMouse = freezed,
+    Object? pen = freezed,
+    Object? firstPenButton = freezed,
+    Object? secondPenButton = freezed,
+    Object? touch = freezed,
+  }) {
+    return _then(_$_InputConfiguration(
+      leftMouse: leftMouse == freezed
+          ? _value.leftMouse
+          : leftMouse // ignore: cast_nullable_to_non_nullable
+              as int?,
+      middleMouse: middleMouse == freezed
+          ? _value.middleMouse
+          : middleMouse // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rightMouse: rightMouse == freezed
+          ? _value.rightMouse
+          : rightMouse // ignore: cast_nullable_to_non_nullable
+              as int?,
+      pen: pen == freezed
+          ? _value.pen
+          : pen // ignore: cast_nullable_to_non_nullable
+              as int?,
+      firstPenButton: firstPenButton == freezed
+          ? _value.firstPenButton
+          : firstPenButton // ignore: cast_nullable_to_non_nullable
+              as int?,
+      secondPenButton: secondPenButton == freezed
+          ? _value.secondPenButton
+          : secondPenButton // ignore: cast_nullable_to_non_nullable
+              as int?,
+      touch: touch == freezed
+          ? _value.touch
+          : touch // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_InputConfiguration implements _InputConfiguration {
+  const _$_InputConfiguration(
+      {this.leftMouse,
+      this.middleMouse = 2,
+      this.rightMouse = 1,
+      this.pen,
+      this.firstPenButton = 2,
+      this.secondPenButton = 1,
+      this.touch});
+
+  factory _$_InputConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$$_InputConfigurationFromJson(json);
+
+  @override
+  final int? leftMouse;
+  @override
+  @JsonKey()
+  final int? middleMouse;
+  @override
+  @JsonKey()
+  final int? rightMouse;
+  @override
+  final int? pen;
+  @override
+  @JsonKey()
+  final int? firstPenButton;
+  @override
+  @JsonKey()
+  final int? secondPenButton;
+  @override
+  final int? touch;
+
+  @override
+  String toString() {
+    return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_InputConfiguration &&
+            const DeepCollectionEquality().equals(other.leftMouse, leftMouse) &&
+            const DeepCollectionEquality()
+                .equals(other.middleMouse, middleMouse) &&
+            const DeepCollectionEquality()
+                .equals(other.rightMouse, rightMouse) &&
+            const DeepCollectionEquality().equals(other.pen, pen) &&
+            const DeepCollectionEquality()
+                .equals(other.firstPenButton, firstPenButton) &&
+            const DeepCollectionEquality()
+                .equals(other.secondPenButton, secondPenButton) &&
+            const DeepCollectionEquality().equals(other.touch, touch));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(leftMouse),
+      const DeepCollectionEquality().hash(middleMouse),
+      const DeepCollectionEquality().hash(rightMouse),
+      const DeepCollectionEquality().hash(pen),
+      const DeepCollectionEquality().hash(firstPenButton),
+      const DeepCollectionEquality().hash(secondPenButton),
+      const DeepCollectionEquality().hash(touch));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_InputConfigurationCopyWith<_$_InputConfiguration> get copyWith =>
+      __$$_InputConfigurationCopyWithImpl<_$_InputConfiguration>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_InputConfigurationToJson(
+      this,
+    );
+  }
+}
+
+abstract class _InputConfiguration implements InputConfiguration {
+  const factory _InputConfiguration(
+      {final int? leftMouse,
+      final int? middleMouse,
+      final int? rightMouse,
+      final int? pen,
+      final int? firstPenButton,
+      final int? secondPenButton,
+      final int? touch}) = _$_InputConfiguration;
+
+  factory _InputConfiguration.fromJson(Map<String, dynamic> json) =
+      _$_InputConfiguration.fromJson;
+
+  @override
+  int? get leftMouse;
+  @override
+  int? get middleMouse;
+  @override
+  int? get rightMouse;
+  @override
+  int? get pen;
+  @override
+  int? get firstPenButton;
+  @override
+  int? get secondPenButton;
+  @override
+  int? get touch;
+  @override
+  @JsonKey(ignore: true)
+  _$$_InputConfigurationCopyWith<_$_InputConfiguration> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 /// @nodoc
 mixin _$ButterflySettings {
   ThemeMode get theme => throw _privateConstructorUsedError;
@@ -482,6 +756,8 @@ mixin _$ButterflySettings {
   bool get nativeWindowTitleBar => throw _privateConstructorUsedError;
   bool get startInFullScreen => throw _privateConstructorUsedError;
   SyncMode get syncMode => throw _privateConstructorUsedError;
+  InputConfiguration get inputConfiguration =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -513,7 +789,10 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       String defaultRemote,
       bool nativeWindowTitleBar,
       bool startInFullScreen,
-      SyncMode syncMode});
+      SyncMode syncMode,
+      InputConfiguration inputConfiguration});
+
+  $InputConfigurationCopyWith<$Res> get inputConfiguration;
 }
 
 /// @nodoc
@@ -547,6 +826,7 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? nativeWindowTitleBar = freezed,
     Object? startInFullScreen = freezed,
     Object? syncMode = freezed,
+    Object? inputConfiguration = freezed,
   }) {
     return _then(_value.copyWith(
       theme: theme == freezed
@@ -629,7 +909,19 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _value.syncMode
           : syncMode // ignore: cast_nullable_to_non_nullable
               as SyncMode,
+      inputConfiguration: inputConfiguration == freezed
+          ? _value.inputConfiguration
+          : inputConfiguration // ignore: cast_nullable_to_non_nullable
+              as InputConfiguration,
     ));
+  }
+
+  @override
+  $InputConfigurationCopyWith<$Res> get inputConfiguration {
+    return $InputConfigurationCopyWith<$Res>(_value.inputConfiguration,
+        (value) {
+      return _then(_value.copyWith(inputConfiguration: value));
+    });
   }
 }
 
@@ -660,7 +952,11 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       String defaultRemote,
       bool nativeWindowTitleBar,
       bool startInFullScreen,
-      SyncMode syncMode});
+      SyncMode syncMode,
+      InputConfiguration inputConfiguration});
+
+  @override
+  $InputConfigurationCopyWith<$Res> get inputConfiguration;
 }
 
 /// @nodoc
@@ -696,6 +992,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? nativeWindowTitleBar = freezed,
     Object? startInFullScreen = freezed,
     Object? syncMode = freezed,
+    Object? inputConfiguration = freezed,
   }) {
     return _then(_$_ButterflySettings(
       theme: theme == freezed
@@ -778,6 +1075,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.syncMode
           : syncMode // ignore: cast_nullable_to_non_nullable
               as SyncMode,
+      inputConfiguration: inputConfiguration == freezed
+          ? _value.inputConfiguration
+          : inputConfiguration // ignore: cast_nullable_to_non_nullable
+              as InputConfiguration,
     ));
   }
 }
@@ -805,7 +1106,8 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.defaultRemote = '',
       this.nativeWindowTitleBar = false,
       this.startInFullScreen = false,
-      this.syncMode = SyncMode.noMobile})
+      this.syncMode = SyncMode.noMobile,
+      this.inputConfiguration = const InputConfiguration()})
       : _history = history,
         _remotes = remotes,
         super._();
@@ -879,10 +1181,13 @@ class _$_ButterflySettings extends _ButterflySettings {
   @override
   @JsonKey()
   final SyncMode syncMode;
+  @override
+  @JsonKey()
+  final InputConfiguration inputConfiguration;
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration)';
   }
 
   @override
@@ -923,7 +1228,9 @@ class _$_ButterflySettings extends _ButterflySettings {
                 .equals(other.nativeWindowTitleBar, nativeWindowTitleBar) &&
             const DeepCollectionEquality()
                 .equals(other.startInFullScreen, startInFullScreen) &&
-            const DeepCollectionEquality().equals(other.syncMode, syncMode));
+            const DeepCollectionEquality().equals(other.syncMode, syncMode) &&
+            const DeepCollectionEquality()
+                .equals(other.inputConfiguration, inputConfiguration));
   }
 
   @override
@@ -948,7 +1255,8 @@ class _$_ButterflySettings extends _ButterflySettings {
         const DeepCollectionEquality().hash(defaultRemote),
         const DeepCollectionEquality().hash(nativeWindowTitleBar),
         const DeepCollectionEquality().hash(startInFullScreen),
-        const DeepCollectionEquality().hash(syncMode)
+        const DeepCollectionEquality().hash(syncMode),
+        const DeepCollectionEquality().hash(inputConfiguration)
       ]);
 
   @JsonKey(ignore: true)
@@ -979,7 +1287,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final String defaultRemote,
       final bool nativeWindowTitleBar,
       final bool startInFullScreen,
-      final SyncMode syncMode}) = _$_ButterflySettings;
+      final SyncMode syncMode,
+      final InputConfiguration inputConfiguration}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
@@ -1022,6 +1331,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   bool get startInFullScreen;
   @override
   SyncMode get syncMode;
+  @override
+  InputConfiguration get inputConfiguration;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>

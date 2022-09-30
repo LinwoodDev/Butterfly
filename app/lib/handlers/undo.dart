@@ -9,4 +9,9 @@ class UndoHandler extends Handler<UndoPainter> {
     bloc.load().then((value) => bloc.bake());
     return false;
   }
+
+  @override
+  PainterStatus getStatus(DocumentBloc bloc) {
+    return bloc.canUndo ? PainterStatus.normal : PainterStatus.disabled;
+  }
 }

@@ -55,12 +55,13 @@ class ImageRenderer extends Renderer<ImageElement> {
   Rect get rect {
     final constraints = element.constraints;
     if (constraints is ScaledElementConstraints) {
-      final scale = constraints.scale <= 0 ? 1 : constraints.scale;
+      final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
+      final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
       return Rect.fromLTWH(
           element.position.dx,
           element.position.dy,
-          (element.width * scale).toDouble(),
-          (element.height * scale).toDouble());
+          (element.width * scaleX).toDouble(),
+          (element.height * scaleY).toDouble());
     } else if (constraints is FixedElementConstraints) {
       var height = constraints.height;
       var width = constraints.width;
@@ -96,9 +97,18 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  ImageElement move(Offset position, [bool relative = false]) =>
-      element.copyWith(
+  ImageRenderer transform(
+      {Offset position = Offset.zero,
+      double scaleX = 1,
+      double scaleY = 1,
+      bool relative = false}) {
+    return ImageRenderer(
+        element.copyWith(
           position: relative
               ? element.position + position
-              : position - Offset(rect.width / 2, rect.height / 2));
+              : position - Offset(rect.width / 2, rect.height / 2),
+          constraints: element.constraints.scale(scaleX, scaleY),
+        ),
+        image);
+  }
 }

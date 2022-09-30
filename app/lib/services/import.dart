@@ -98,8 +98,8 @@ class ImportService {
     if (state is! DocumentLoadSuccess) return;
     _submit([
       ImageElement(
-          height: image.height,
-          width: image.width,
+          height: image.height.toDouble(),
+          width: image.width.toDouble(),
           layer: state.currentLayer,
           pixels: newBytes?.buffer.asUint8List() ?? Uint8List(0),
           position: position)
@@ -156,10 +156,10 @@ class ImportService {
       final height = page.height;
       final width = page.width;
       selectedElements.add(ImageElement(
-          height: height,
-          width: width,
+          height: height.toDouble(),
+          width: width.toDouble(),
           pixels: png,
-          constraints: ElementConstraints.scaled(scale),
+          constraints: ElementConstraints.scaled(scaleX: scale, scaleY: scale),
           position: Offset(position.dx, y)));
       if (createAreas) {
         areas.add(Area(

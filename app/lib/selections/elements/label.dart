@@ -3,6 +3,8 @@ part of '../selection.dart';
 class LabelElementSelection extends ElementSelection<LabelElement> {
   LabelElementSelection(super.selected);
 
+  final _propertySelection = LabelPropertySelection();
+
   @override
   List<Widget> buildProperties(BuildContext context) {
     final element = selected.first.element;
@@ -18,9 +20,10 @@ class LabelElementSelection extends ElementSelection<LabelElement> {
         onFieldSubmitted: (value) => updateElements(
             context, elements.map((e) => e.copyWith(text: value)).toList()),
       ),
-      LabelPropertyView(
-        initialValue: element.property,
-        onChanged: (value) => updateElements(
+      ..._propertySelection.build(
+        context,
+        element.property,
+        (value) => updateElements(
             context, elements.map((e) => e.copyWith(property: value)).toList()),
       ),
       ConstraintView(

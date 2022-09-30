@@ -158,19 +158,60 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   @override
-  ShapeElement move(Offset position, [bool relative = false]) {
+  ShapeRenderer transform(
+      {Offset position = Offset.zero,
+      double scaleX = 1,
+      double scaleY = 1,
+      bool relative = false}) {
     if (relative) {
-      return element.copyWith(
-          firstPosition: element.firstPosition + position,
-          secondPosition: element.secondPosition + position);
+      var rect = Rect.fromPoints(
+          element.firstPosition + position, element.secondPosition + position);
+      // Apply scale
+      rect = rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY);
+      return ShapeRenderer(
+          element.copyWith(
+            firstPosition: rect.topLeft,
+            secondPosition: rect.bottomRight,
+          ),
+          rect);
     }
     // Center of firstPosition and secondPosition
     final elementPosition =
         Rect.fromPoints(element.firstPosition, element.secondPosition).center;
     final offset = position - elementPosition;
-    return element.copyWith(
-      firstPosition: element.firstPosition + offset,
-      secondPosition: element.secondPosition + offset,
-    );
+    var rect = Rect.fromPoints(
+        element.firstPosition + offset, element.secondPosition + offset);
+    rect = rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY);
+    return ShapeRenderer(
+        element.copyWith(
+          firstPosition: rect.topLeft,
+          secondPosition: rect.topRight,
+        ),
+        rect);
+  }
+
+  @override
+  HitCalculator getHitCalculator() => ShapeHitCalculator(element, rect);
+}
+
+class ShapeHitCalculator extends HitCalculator {
+  final ShapeElement element;
+  final Rect rect;
+
+  ShapeHitCalculator(this.element, this.rect);
+
+  @override
+  bool hit(Rect rect) {
+    switch (element.property.shape.runtimeType) {
+      case RectangleShape:
+        return this.rect.inflate(element.property.strokeWidth).overlaps(rect) &&
+            !this.rect.deflate(element.property.strokeWidth).overlaps(rect);
+      case CircleShape:
+        return this.rect.overlaps(rect);
+      case LineShape:
+        return this.rect.overlaps(rect);
+      default:
+        return false;
+    }
   }
 }

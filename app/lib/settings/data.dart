@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/main.dart';
@@ -46,7 +48,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        if (!kIsWeb)
+                        if (!kIsWeb && !Platform.isAndroid)
                           ListTile(
                             title: Text(AppLocalizations.of(context)!
                                 .documentDirectory),

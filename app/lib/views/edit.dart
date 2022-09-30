@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../handlers/handler.dart';
+
 class EditToolbar extends StatefulWidget {
   final bool isMobile;
 
@@ -53,6 +55,11 @@ class _EditToolbarState extends State<EditToolbar> {
         child: SizedBox(
           height: 50,
           child: BlocBuilder<DocumentBloc, DocumentState>(
+            buildWhen: (previous, current) =>
+                previous is! DocumentLoadSuccess ||
+                current is! DocumentLoadSuccess ||
+                previous.painter != current.painter ||
+                previous.document.painters != current.document.painters,
             builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
               var painters = state.document.painters;
@@ -71,6 +78,7 @@ class _EditToolbarState extends State<EditToolbar> {
                       iconFilled = tempData.getIcon(filled: true);
                     }
                   }
+                  tooltip ??= '';
 
                   return Material(
                     color: Colors.transparent,
@@ -97,6 +105,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                       .read<CurrentIndexCubit>()
                                       .changeSelection(tempData),
                                   onPressed: () {
+                                    if (tempData == null) return;
                                     if (_mouseState == _MouseState.multi) {
                                       context
                                           .read<CurrentIndexCubit>()
@@ -130,6 +139,14 @@ class _EditToolbarState extends State<EditToolbar> {
                                       tooltip = e.getLocalizedName(context);
                                     }
 
+                                    final handler = Handler.fromPainter(e);
+
+                                    final color = handler.getStatus(
+                                                context.read<DocumentBloc>()) ==
+                                            PainterStatus.disabled
+                                        ? Theme.of(context).disabledColor
+                                        : null;
+
                                     Widget toolWidget = Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 4.0),
@@ -140,10 +157,14 @@ class _EditToolbarState extends State<EditToolbar> {
                                                 .insertSelection(e, true),
                                             selected: selected,
                                             highlighted: highlighted,
-                                            selectedIcon:
-                                                Icon(e.getIcon(filled: true)),
-                                            icon:
-                                                Icon(e.getIcon(filled: false)),
+                                            selectedIcon: Icon(
+                                              e.getIcon(filled: true),
+                                              color: color,
+                                            ),
+                                            icon: Icon(
+                                              e.getIcon(filled: false),
+                                              color: color,
+                                            ),
                                             onPressed: () {
                                               if (_mouseState ==
                                                   _MouseState.multi) {
@@ -160,7 +181,8 @@ class _EditToolbarState extends State<EditToolbar> {
                                                     .changePainter(
                                                         context.read<
                                                             DocumentBloc>(),
-                                                        i);
+                                                        i,
+                                                        handler);
                                               } else {
                                                 context
                                                     .read<CurrentIndexCubit>()
@@ -181,10 +203,8 @@ class _EditToolbarState extends State<EditToolbar> {
                                   tooltip: AppLocalizations.of(context)!.more,
                                   onSelected: (value) {
                                     context
-                                        .read<CurrentIndexCubit>()
-                                        .changeTemporaryHandler(
-                                            context.read<DocumentBloc>(),
-                                            value);
+                                        .read<DocumentBloc>()
+                                        .add(PainterCreated(value));
                                   },
                                   icon: const Icon(PhosphorIcons.listLight),
                                   shape: RoundedRectangleBorder(
@@ -214,17 +234,6 @@ class _EditToolbarState extends State<EditToolbar> {
                                               title: Text(painter
                                                   .getLocalizedName(context)),
                                               leading: Icon(painter.getIcon()),
-                                              trailing: IconButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                  context
-                                                      .read<DocumentBloc>()
-                                                      .add(PainterCreated(
-                                                          painter));
-                                                },
-                                                icon: const Icon(
-                                                    PhosphorIcons.pushPinLight),
-                                              ),
                                             ),
                                           );
                                         })
