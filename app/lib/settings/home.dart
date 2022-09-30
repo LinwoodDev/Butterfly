@@ -144,11 +144,12 @@ class _SettingsPageState extends State<SettingsPage> {
                         Padding(
                             padding: const EdgeInsets.all(5),
                             child: InkWell(
-                                onTap: () => launchUrl(Uri.https(
-                                        'vercel.com', '', {
+                                onTap: () => launchUrl(
+                                    Uri.https('vercel.com', '', {
                                       'utm_source': 'Linwood',
                                       'utm_campaign': 'oss'
-                                    })),
+                                    }),
+                                    mode: LaunchMode.externalApplication),
                                 child: Material(
                                   color: Colors.transparent,
                                   child: SizedBox(

@@ -30,7 +30,6 @@ import 'settings/remotes.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme/manager.dart';
 import 'views/main.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
 
 const kFileVersion = 6;
 
