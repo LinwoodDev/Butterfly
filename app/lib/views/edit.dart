@@ -105,6 +105,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                       .read<CurrentIndexCubit>()
                                       .changeSelection(tempData),
                                   onPressed: () {
+                                    if (tempData == null) return;
                                     if (_mouseState == _MouseState.multi) {
                                       context
                                           .read<CurrentIndexCubit>()
