@@ -115,6 +115,25 @@ jobs:
         run: |
           git tag -fa nightly -m "Find all nightly releases here"
           git push origin nightly -f
+  publish-winget:
+    needs: [ release ]
+    runs-on: windows-latest
+    steps:
+      - if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
+        uses: vedantmgoyal2009/winget-releaser@v1
+        with:
+          identifier: LinwoodCloud.Butterfly
+          version: ${{ env.BUTTERFLY_VERSION }}
+          release-tag: v${{ env.BUTTERFLY_VERSION }}
+          token: ${{ secrets.CI_PAT }}
+
+      - if: ${{ github.event.inputs.stable == 'false' && github.ref == 'refs/heads/develop' }}
+        uses: vedantmgoyal2009/winget-releaser@v1
+        with:
+          identifier: LinwoodCloud.Butterfly.Nightly
+          version: ${{ env.BUTTERFLY_VERSION }}
+          release-tag: v${{ env.BUTTERFLY_VERSION }}
+          token: ${{ secrets.CI_PAT }}
   set-next-version:
     runs-on: ubuntu-22.04
     needs:
