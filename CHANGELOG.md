@@ -2,6 +2,12 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.5.0-beta.1 (2022-09-30)
+
+* Open url externally
+* Fix temporary move handler
+* Fix import on open dialog
+
 ## 1.5.0-beta.0 (2022-09-23)
 
 * Add resize feature to selection
