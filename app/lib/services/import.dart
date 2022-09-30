@@ -80,7 +80,11 @@ class ImportService {
         .map((e) => e.copyWith(position: e.position + position))
         .toList();
     final content = doc.content
-        .map((e) => Renderer.fromInstance(e).move(position, true) ?? e)
+        .map((e) =>
+            Renderer.fromInstance(e)
+                .transform(position: position, relative: true)
+                ?.element ??
+            e)
         .toList();
     bloc
       ..add(AreasCreated(areas))

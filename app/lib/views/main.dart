@@ -12,7 +12,6 @@ import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/open.dart';
-import 'package:butterfly/actions/packs.dart';
 import 'package:butterfly/actions/pdf_export.dart';
 import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
