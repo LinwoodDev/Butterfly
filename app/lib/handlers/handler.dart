@@ -108,7 +108,8 @@ abstract class Handler<T> {
 
   const Handler(this.data);
 
-  bool onSelected(DocumentBloc bloc, CurrentIndexCubit currentIndexCubit) =>
+  bool onSelected(DocumentBloc bloc, CurrentIndexCubit currentIndexCubit,
+          bool justAdded) =>
       true;
 
   List<Renderer> createForegrounds(

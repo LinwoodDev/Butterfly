@@ -163,47 +163,125 @@ class _ColorViewState extends State<ColorView> {
                                 ),
                               ]),
                         )),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (state.document.palettes.length > 1)
-                              PopupMenuButton(
-                                icon: const Icon(PhosphorIcons.listLight),
-                                itemBuilder: (context) => <PopupMenuEntry>[
-                                  for (final palette in state.document.palettes)
-                                    PopupMenuItem(
-                                      value: palette.name,
-                                      textStyle: palette.name == currentPalette
-                                          ? Theme.of(context)
-                                              .textTheme
-                                              .subtitle1
-                                              ?.copyWith(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                              )
-                                          : null,
-                                      child: Text(palette.name),
-                                      onTap: () {
-                                        setState(() {
-                                          currentPalette = palette.name;
-                                        });
-                                      },
-                                    ),
-                                  const PopupMenuDivider(),
-                                  PopupMenuItem(
-                                    padding: EdgeInsets.zero,
-                                    child: ListTile(
-                                      mouseCursor: MouseCursor.defer,
-                                      leading:
-                                          const Icon(PhosphorIcons.plusLight),
-                                      title: Text(
-                                          AppLocalizations.of(context)!.add),
-                                    ),
+                        if (state.document.palettes.length > 1)
+                          PopupMenuButton(
+                            icon: const Icon(PhosphorIcons.listLight),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16)),
+                            itemBuilder: (context) => <PopupMenuEntry>[
+                              for (final palette in state.document.palettes)
+                                PopupMenuItem(
+                                  padding: EdgeInsets.zero,
+                                  value: palette.name,
+                                  child: ListTile(
+                                    mouseCursor: MouseCursor.defer,
+                                    title: Text(palette.name),
+                                    onTap: () {
+                                      setState(() {
+                                        currentPalette = palette.name;
+                                      });
+                                    },
                                   ),
-                                ],
-                              )
+                                ),
+                              const PopupMenuDivider(),
+                              PopupMenuItem(
+                                padding: EdgeInsets.zero,
+                                child: ListTile(
+                                  mouseCursor: MouseCursor.defer,
+                                  leading: const Icon(PhosphorIcons.plusLight),
+                                  title:
+                                      Text(AppLocalizations.of(context)!.add),
+                                ),
+                              ),
+                            ],
+                          ),
+                        PopupMenuButton(
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: ListTile(
+                                mouseCursor: MouseCursor.defer,
+                                title: const Text('Rename'),
+                                leading: Icon(PhosphorIcons.pencilLight,
+                                    color: Theme.of(context).iconTheme.color),
+                                onTap: () async {
+                                  final nameController = TextEditingController(
+                                      text: currentPalette);
+                                  showDialog(
+                                      context: context,
+                                      builder: (ctx) => AlertDialog(
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.of(context)
+                                                            .pop(),
+                                                    child: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .cancel)),
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      final newPalettes =
+                                                          List<ColorPalette>.from(
+                                                                  state.document
+                                                                      .palettes)
+                                                              .map((e) {
+                                                        if (e.name ==
+                                                            currentPalette) {
+                                                          return e.copyWith(
+                                                              name:
+                                                                  nameController
+                                                                      .text);
+                                                        }
+                                                        return e;
+                                                      }).toList();
+                                                      context
+                                                          .read<DocumentBloc>()
+                                                          .add(
+                                                              DocumentPaletteChanged(
+                                                                  newPalettes));
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .ok)),
+                                              ],
+                                              title: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .enterName),
+                                              content: TextField(
+                                                  decoration: InputDecoration(
+                                                      filled: true,
+                                                      hintText:
+                                                          AppLocalizations.of(
+                                                                  context)!
+                                                              .name),
+                                                  autofocus: true,
+                                                  controller: nameController)));
+                                },
+                              ),
+                            ),
+                            PopupMenuItem(
+                              child: ListTile(
+                                mouseCursor: MouseCursor.defer,
+                                title: const Text('Delete'),
+                                leading: Icon(PhosphorIcons.trashLight,
+                                    color: Theme.of(context).iconTheme.color),
+                                onTap: () {
+                                  final newPalettes = List<ColorPalette>.from(
+                                          state.document.palettes)
+                                      .where((e) => e.name != currentPalette)
+                                      .toList();
+                                  context
+                                      .read<DocumentBloc>()
+                                      .add(DocumentPaletteChanged(newPalettes));
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ),
                           ],
-                        )
+                        ),
                       ],
                     );
                   }
