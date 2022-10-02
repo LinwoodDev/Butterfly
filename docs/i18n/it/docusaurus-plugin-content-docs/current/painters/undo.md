@@ -1,7 +1,7 @@
 ---
-title: "Undo painter"
+title: "Annulla pittore"
 sidebar_label: "Annulla"
 sidebar_position: 2
 ---
 
-When clicking on this painter you can undo your last action. See the [redo painter](redo) for redoing your last action.
+Quando fai clic su questo pittore puoi annullare la tua ultima azione. Vedi il [redo painter](redo) per rifare la tua ultima azione.
