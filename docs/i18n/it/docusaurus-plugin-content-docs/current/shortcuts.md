@@ -41,4 +41,4 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 
 ## Configura {#configure}
 
-Personalizza i controlli dando ad ogni controllo un indice pittore. L'indice del pittore inizia da 1 e viene ordinato da sinistra a destra. Un indice di pittore vuoto disabiliterà l'interruttore del pittore su questo controllo. Insert `0` to enable moving with this control.
+Personalizza i controlli dando ad ogni controllo un indice pittore. L'indice del pittore inizia da 1 e viene ordinato da sinistra a destra. Un indice di pittore vuoto disabiliterà l'interruttore del pittore su questo controllo. Inserisci `0` per abilitare lo spostamento con questo controllo.
