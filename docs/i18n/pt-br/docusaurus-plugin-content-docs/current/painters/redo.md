@@ -1,7 +1,7 @@
 ---
-title: "Redo painter"
+title: "Refazer pintor"
 sidebar_label: "Refazer"
 sidebar_position: 2
 ---
 
-When clicking on this painter you can redo your last action. See the [undo painter](redo) for undoing your last action.
+Ao clicar neste pintor, você pode refazer sua última ação. Veja o [pintor de desfazer](redo) por desfazer sua última ação.
