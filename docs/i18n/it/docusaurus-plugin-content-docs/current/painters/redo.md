@@ -1,7 +1,7 @@
 ---
-title: "Redo painter"
+title: "Rifai pittore"
 sidebar_label: "Ripristina"
 sidebar_position: 2
 ---
 
-When clicking on this painter you can redo your last action. See the [undo painter](redo) for undoing your last action.
+Quando si fa clic su questo pittore è possibile ripetere l'ultima azione. Vedi il [annulla il pittore](redo) per annullare la tua ultima azione.
