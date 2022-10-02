@@ -1,2 +1,3 @@
 * Add disabled colors to redo and undo painter
+* Update color view
 * Fix errors with move handler

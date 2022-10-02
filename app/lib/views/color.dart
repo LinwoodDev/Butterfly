@@ -5,9 +5,11 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../cubits/settings.dart';
 import '../dialogs/color_pick.dart';
+import '../models/palette.dart';
 
 class ColorView extends StatefulWidget {
   const ColorView({super.key});
@@ -67,53 +69,107 @@ class _ColorViewState extends State<ColorView> {
                       children: [
                         if (!(palette?.colors.contains(color) ?? false)) ...[
                           _ColorButton(
-                              current: color,
-                              color: color,
-                              bloc: bloc,
-                              painterIndex: currentIndex.index),
+                            current: color,
+                            color: color,
+                            bloc: bloc,
+                            onChanged: (value) {
+                              handler.setColor(bloc, value);
+                            },
+                          ),
                           const VerticalDivider(),
                         ],
                         Expanded(
                             child: Scrollbar(
                           controller: _scrollController,
-                          child: ListView.builder(
+                          child: ListView(
                               controller: _scrollController,
                               scrollDirection: Axis.horizontal,
-                              itemCount: palette?.colors.length ?? 0,
-                              itemBuilder: (context, index) {
-                                final current = palette?.colors[index];
-                                if (current == null) return Container();
-                                return _ColorButton(
+                              children: [
+                                ...List.generate(palette?.colors.length ?? 0,
+                                    (index) {
+                                  final current = palette!.colors[index];
+                                  return _ColorButton(
                                     bloc: bloc,
-                                    painterIndex: currentIndex.index,
                                     color: color,
                                     current: current,
-                                    handler: handler);
-                              }),
+                                    handler: handler,
+                                    onChanged: (value) {
+                                      if (color == current) {
+                                        final newPainter =
+                                            handler.setColor(bloc, value);
+                                        if (newPainter == null) return;
+                                        context.read<DocumentBloc>().add(
+                                            PaintersChanged(
+                                                {handler.data: newPainter}));
+                                      }
+                                      var newPalettes = List<ColorPalette>.from(
+                                              state.document.palettes)
+                                          .map((e) {
+                                        if (e.name == currentPalette) {
+                                          return e.copyWith(
+                                            colors: List<int>.from(e.colors)
+                                              ..[index] = value,
+                                          );
+                                        }
+                                        return e;
+                                      }).toList();
+                                      bloc.add(
+                                          DocumentPaletteChanged(newPalettes));
+                                    },
+                                  );
+                                }),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      final response =
+                                          await showDialog<ColorPickerResponse>(
+                                        context: context,
+                                        builder: (context) => CustomColorPicker(
+                                          defaultColor: Color(color),
+                                          pinOption: true,
+                                        ),
+                                      );
+                                      if (response != null) {
+                                        final newPainter = handler.setColor(
+                                            bloc, response.color);
+                                        if (newPainter == null) return;
+                                        bloc.add(PaintersChanged(
+                                            {handler.data: newPainter}));
+                                        if (response.pin) {
+                                          var newPalettes =
+                                              List<ColorPalette>.from(
+                                                      state.document.palettes)
+                                                  .map((e) {
+                                            if (e.name == currentPalette) {
+                                              return e.copyWith(colors: [
+                                                ...e.colors,
+                                                response.color
+                                              ]);
+                                            }
+                                            return e;
+                                          }).toList();
+                                          bloc.add(DocumentPaletteChanged(
+                                              newPalettes));
+                                        }
+                                      }
+                                    },
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: const AspectRatio(
+                                      aspectRatio: 1,
+                                      child: Icon(PhosphorIcons.plusLight),
+                                    ),
+                                  ),
+                                ),
+                              ]),
                         )),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            IconButton(
-                              icon: const Icon(PhosphorIcons.penLight),
-                              onPressed: () async {
-                                final nextColor = await showDialog(
-                                    context: context,
-                                    builder: (context) => CustomColorPicker(
-                                        defaultColor: Color(color))) as int?;
-                                if (nextColor != null) {
-                                  final newPainter =
-                                      handler.setColor(bloc, nextColor);
-                                  if (newPainter == null) return;
-                                  bloc.add(PaintersChanged(
-                                      {handler.data: newPainter}));
-                                }
-                              },
-                            ),
                             if (state.document.palettes.length > 1)
                               PopupMenuButton(
                                 icon: const Icon(PhosphorIcons.listLight),
-                                itemBuilder: (context) => [
+                                itemBuilder: (context) => <PopupMenuEntry>[
                                   for (final palette in state.document.palettes)
                                     PopupMenuItem(
                                       value: palette.name,
@@ -133,6 +189,17 @@ class _ColorViewState extends State<ColorView> {
                                         });
                                       },
                                     ),
+                                  const PopupMenuDivider(),
+                                  PopupMenuItem(
+                                    padding: EdgeInsets.zero,
+                                    child: ListTile(
+                                      mouseCursor: MouseCursor.defer,
+                                      leading:
+                                          const Icon(PhosphorIcons.plusLight),
+                                      title: Text(
+                                          AppLocalizations.of(context)!.add),
+                                    ),
+                                  ),
                                 ],
                               )
                           ],
@@ -159,13 +226,14 @@ class _ColorButton extends StatelessWidget {
   final Handler? handler;
   final int current, color;
   final DocumentBloc bloc;
-  final int? painterIndex;
-  const _ColorButton(
-      {this.handler,
-      required this.current,
-      required this.color,
-      required this.bloc,
-      required this.painterIndex});
+  final ValueChanged<int> onChanged;
+  const _ColorButton({
+    this.handler,
+    required this.current,
+    required this.color,
+    required this.bloc,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -178,6 +246,16 @@ class _ColorButton extends StatelessWidget {
           context
               .read<DocumentBloc>()
               .add(PaintersChanged({handler?.data: newPainter}));
+        },
+        onLongPress: () async {
+          final newColor = await showDialog<ColorPickerResponse>(
+            context: context,
+            builder: (context) => CustomColorPicker(
+              defaultColor: Color(current),
+            ),
+          );
+          if (newColor == null) return;
+          onChanged(newColor.color);
         },
         borderRadius: BorderRadius.circular(12),
         child: AspectRatio(

@@ -10,6 +10,5 @@ public class MainActivity extends FlutterActivity {
     @Override
     public void configureFlutterEngine(io.flutter.embedding.engine.FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
-        new Mess
     }
 }
