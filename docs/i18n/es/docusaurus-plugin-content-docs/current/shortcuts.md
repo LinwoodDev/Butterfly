@@ -41,4 +41,4 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 
 ## Configurar {#configure}
 
-Personalice los controles dando a cada control un índice de pintor. El índice del pintor comienza en 1 y se ordenan de izquierda a derecha. Un índice de pintor vacío desactivará el interruptor de pintor en este control. Insert `0` to enable moving with this control.
+Personalice los controles dando a cada control un índice de pintor. El índice del pintor comienza en 1 y se ordenan de izquierda a derecha. Un índice de pintor vacío desactivará el interruptor de pintor en este control. Inserta `0` para activar el movimiento con este control.
