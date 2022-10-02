@@ -1,7 +1,7 @@
 ---
-title: "Undo painter"
+title: "Maler zurücknehmen"
 sidebar_label: "Rückgängig"
 sidebar_position: 2
 ---
 
-When clicking on this painter you can undo your last action. See the [redo painter](redo) for redoing your last action.
+Wenn Sie auf diesen Maler klicken, können Sie Ihre letzte Aktion rückgängig machen. Schau dir den [Redo Maler](redo) an, um deine letzte Aktion zu wiederholen.
