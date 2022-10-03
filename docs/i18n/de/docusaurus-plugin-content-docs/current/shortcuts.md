@@ -41,4 +41,4 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 
 ## Konfigurieren {#configure}
 
-Passen Sie die Steuerelemente an, indem Sie jeder Kontrolle einen Maler Index geben. Der Maler beginnt bei 1 und wird von links nach rechts sortiert. Ein leerer Maler Index deaktiviert den Maler Schalter auf diesem Steuerelement. Fügen Sie einen negativen Maler ein, um das Verschieben mit diesem Steuerelement zu aktivieren.
+Passen Sie die Steuerelemente an, indem Sie jeder Kontrolle einen Maler Index geben. Der Maler beginnt bei 1 und wird von links nach rechts sortiert. Ein leerer Maler Index deaktiviert den Maler Schalter auf diesem Steuerelement. Fügen Sie `0` ein, um das Verschieben mit diesem Steuerelement zu aktivieren.

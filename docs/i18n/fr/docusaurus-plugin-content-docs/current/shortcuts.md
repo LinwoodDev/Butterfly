@@ -41,4 +41,4 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 
 ## Configurer {#configure}
 
-Personnalisez les contrôles en donnant un index peintre à chaque contrôle. L'index du peintre commence à 1 et est ordonné de gauche à droite. Un index de peintre vide désactivera l'interrupteur de peintre sur ce contrôle. Insérez un peintre négatif pour permettre de bouger avec ce contrôle.
+Personnalisez les contrôles en donnant un index peintre à chaque contrôle. L'index du peintre commence à 1 et est ordonné de gauche à droite. Un index de peintre vide désactivera l'interrupteur de peintre sur ce contrôle. Insérez `0` pour activer le déplacement avec ce contrôle.
