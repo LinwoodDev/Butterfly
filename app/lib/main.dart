@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors/mouse.dart';
 import 'package:flutter/foundation.dart';
@@ -64,6 +65,11 @@ Future<void> main([List<String> args = const []]) async {
           'path': file.path,
         }).toString();
       }
+    }
+  }
+  if (!kIsWeb && Platform.isAndroid) {
+    if (await getIntentType() != null) {
+      initialLocation = '/native';
     }
   }
 

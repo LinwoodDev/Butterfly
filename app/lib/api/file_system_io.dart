@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/foundation.dart';
@@ -200,6 +201,11 @@ class IODocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<Uint8List?> loadAbsolute(String path) async {
+    if (Platform.isAndroid) {
+      final type = await getIntentType();
+      final data = await getIntentData();
+      print('Intent type: $type, data: $data');
+    }
     var file = File(path);
     if (await file.exists()) {
       return await file.readAsBytes();
