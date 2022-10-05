@@ -31,6 +31,7 @@ import 'settings/remotes.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme/manager.dart';
 import 'views/main.dart';
+import 'views/window.dart';
 
 const kFileVersion = 6;
 

@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
 import '../api/open_release_notes.dart';
-import '../views/main.dart';
+import '../views/window.dart';
 
 @immutable
 class Meta {

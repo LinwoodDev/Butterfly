@@ -22,6 +22,7 @@ import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
+import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -30,6 +31,7 @@ import 'package:butterfly/dialogs/introduction/app.dart';
 import 'package:butterfly/dialogs/introduction/start.dart';
 import 'package:butterfly/dialogs/introduction/update.dart';
 import 'package:butterfly/embed/embedding.dart';
+import 'package:butterfly/helpers/document_helper.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -42,17 +44,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:window_manager/window_manager.dart';
 
 import '../actions/change_painter.dart';
 import '../models/background.dart';
 import 'view.dart';
-
-bool isWindow() =>
-    !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
 
 class ProjectPage extends StatefulWidget {
   final AssetLocation? location;
@@ -67,7 +63,7 @@ class ProjectPage extends StatefulWidget {
   _ProjectPageState createState() => _ProjectPageState();
 }
 
-class _ProjectPageState extends State<ProjectPage> {
+class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
   // ignore: closeSinks
   DocumentBloc? _bloc;
   TransformCubit? _transformCubit;
@@ -97,10 +93,32 @@ class _ProjectPageState extends State<ProjectPage> {
     ChangePainterIntent: ChangePainterAction(),
   };
 
+  ImportService? _importService;
+
   @override
   void initState() {
     super.initState();
+    _importService = ImportService(context, widget.type, widget.data);
     load();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.resumed) {
+      if (!kIsWeb && Platform.isAndroid) {
+        final intentType = await getIntentType();
+        final intentData = await getIntentData();
+        if (intentType != null && intentData != null) {
+          final assetType = AssetFileTypeHelper.fromMime(intentType);
+          if (assetType == null) return;
+          _importService!
+              .import(assetType, Uint8List.fromList(intentData.codeUnits));
+        }
+      }
+    }
   }
 
   @override
@@ -248,6 +266,7 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void dispose() {
     super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     widget.embedding?.handler.unregister();
   }
 
@@ -272,7 +291,7 @@ class _ProjectPageState extends State<ProjectPage> {
           ],
           child: Builder(builder: (context) {
             return RepositoryProvider.value(
-              value: ImportService(context, widget.type, widget.data),
+              value: _importService,
               child: Builder(builder: (context) {
                 return Shortcuts(
                   shortcuts: {
@@ -419,146 +438,5 @@ class _ProjectPageState extends State<ProjectPage> {
             );
           })),
     );
-  }
-}
-
-class WindowButtons extends StatefulWidget {
-  final bool divider;
-
-  const WindowButtons({super.key, this.divider = true});
-
-  @override
-  State<WindowButtons> createState() => _WindowButtonsState();
-}
-
-class _WindowButtonsState extends State<WindowButtons> with WindowListener {
-  bool maximized = false, alwaysOnTop = false, fullScreen = false;
-
-  @override
-  void initState() {
-    windowManager.addListener(this);
-    super.initState();
-    updateStates();
-  }
-
-  @override
-  void dispose() {
-    windowManager.removeListener(this);
-    super.dispose();
-  }
-
-  Future<void> updateStates() async {
-    final nextMaximized = await windowManager.isMaximized();
-    final nextAlwaysOnTop = await windowManager.isAlwaysOnTop();
-    final nextFullScreen = await windowManager.isFullScreen();
-    if (mounted) {
-      setState(() {
-        maximized = nextMaximized;
-        alwaysOnTop = nextAlwaysOnTop;
-        fullScreen = nextFullScreen;
-      });
-    }
-  }
-
-  @override
-  void onWindowUnmaximize() {
-    setState(() => maximized = false);
-  }
-
-  @override
-  void onWindowMaximize() {
-    setState(() => maximized = true);
-  }
-
-  @override
-  void onWindowEnterFullScreen() {
-    setState(() => fullScreen = true);
-  }
-
-  @override
-  void onWindowLeaveFullScreen() {
-    setState(() => fullScreen = false);
-  }
-
-  @override
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, ButterflySettings>(
-        buildWhen: (previous, current) =>
-            previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
-        builder: (context, settings) {
-          if (!kIsWeb && isWindow() && !settings.nativeWindowTitleBar) {
-            return LayoutBuilder(
-              builder: (context, constraints) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 42),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      if (widget.divider) const VerticalDivider(),
-                      ...[
-                        if (!fullScreen)
-                          IconButton(
-                            icon: Icon(alwaysOnTop
-                                ? PhosphorIcons.pushPinFill
-                                : PhosphorIcons.pushPinLight),
-                            tooltip: alwaysOnTop
-                                ? AppLocalizations.of(context)!.exitAlwaysOnTop
-                                : AppLocalizations.of(context)!.alwaysOnTop,
-                            onPressed: () async {
-                              await windowManager.setAlwaysOnTop(!alwaysOnTop);
-                              setState(() => alwaysOnTop = !alwaysOnTop);
-                            },
-                          ),
-                        IconButton(
-                          icon: Icon(fullScreen
-                              ? PhosphorIcons.arrowsInLight
-                              : PhosphorIcons.arrowsOutLight),
-                          tooltip: fullScreen
-                              ? AppLocalizations.of(context)!.exitFullScreen
-                              : AppLocalizations.of(context)!.enterFullScreen,
-                          onPressed: () async {
-                            setState(() => fullScreen = !fullScreen);
-                            await windowManager.setFullScreen(fullScreen);
-                          },
-                        ),
-                        if (!fullScreen) ...[
-                          const VerticalDivider(),
-                          IconButton(
-                            icon: const Icon(PhosphorIcons.minusLight),
-                            tooltip: AppLocalizations.of(context)!.minimize,
-                            splashRadius: 20,
-                            onPressed: () => windowManager.minimize(),
-                          ),
-                          IconButton(
-                            icon: Icon(PhosphorIcons.squareLight,
-                                size: maximized ? 14 : 20),
-                            tooltip: maximized
-                                ? AppLocalizations.of(context)!.restore
-                                : AppLocalizations.of(context)!.maximize,
-                            splashRadius: 20,
-                            onPressed: () async =>
-                                await windowManager.isMaximized()
-                                    ? windowManager.unmaximize()
-                                    : windowManager.maximize(),
-                          ),
-                          IconButton(
-                            icon: const Icon(PhosphorIcons.xLight),
-                            tooltip: AppLocalizations.of(context)!.close,
-                            hoverColor: Colors.red,
-                            splashRadius: 20,
-                            onPressed: () => windowManager.close(),
-                          )
-                        ]
-                      ].map((e) => AspectRatio(aspectRatio: 1, child: e))
-                    ],
-                  ),
-                ),
-              ),
-            );
-          }
-          return Container();
-        });
   }
 }

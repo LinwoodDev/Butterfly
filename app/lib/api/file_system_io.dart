@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/converter.dart';
 import 'file_system.dart';
+import 'intent.dart';
 
 Future<String> getButterflyDirectory() async {
   var prefs = await SharedPreferences.getInstance();
@@ -200,11 +201,11 @@ class IODocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<Uint8List?> loadAbsolute(String path) async {
-    /*if (Platform.isAndroid) {
-      final type = await getIntentType();
+    if (Platform.isAndroid) {
       final data = await getIntentData();
-      print('Intent type: $type, data: $data');
-    }*/
+      if (data == null) return null;
+      return Uint8List.fromList(data.codeUnits);
+    }
     var file = File(path);
     if (await file.exists()) {
       return await file.readAsBytes();

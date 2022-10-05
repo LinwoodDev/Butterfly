@@ -45,12 +45,12 @@ class ImportService {
     final fileType =
         type.isNotEmpty ? AssetFileType.values.byName(type) : location.fileType;
     if (bytes == null || fileType == null) return;
-    await import(fileType, location.fileName, bytes);
+    await import(fileType, bytes);
   }
 
   DocumentBloc get bloc => context.read<DocumentBloc>();
 
-  Future<void> import(AssetFileType type, String name, Uint8List bytes) async {
+  Future<void> import(AssetFileType type, Uint8List bytes) async {
     switch (type) {
       case AssetFileType.note:
         return importNote(bytes);
