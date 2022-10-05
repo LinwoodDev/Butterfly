@@ -4027,9 +4027,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001407":
-  version: 1.0.30001415
-  resolution: "caniuse-lite@npm:1.0.30001415"
-  checksum: cd7ca55243a2d556aed2c2da4638643b032f88bbbd745ba7cdaf72fb2131812c63816f615dec704762ab385364387ce885953fa3a4d7555ea219336303dcc06f
+  version: 1.0.30001416
+  resolution: "caniuse-lite@npm:1.0.30001416"
+  checksum: 4d93f449aeb3527877892647beb53a01b71eef6d63907b65ed2f6d07b2fb2a9b739ebbb60adc02baa16df26fba81be9f207312159a1cf864251ad79b884db0a3
   languageName: node
   linkType: hard
 
@@ -5097,9 +5097,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.251":
-  version: 1.4.271
-  resolution: "electron-to-chromium@npm:1.4.271"
-  checksum: 8fcba3bb2001694f3a3d8639247866d05fbf1017fd48b294606b722e1e3379999e663163685ac1332d7c1a2b291950f46e4aba06e5c61b8300dce509ae06c6c7
+  version: 1.4.272
+  resolution: "electron-to-chromium@npm:1.4.272"
+  checksum: 61774a483072bf96d6badd653a8a094d2aa56d9ec7f6475dfbb3540d2c80fe3f21bdbaa9cecf8b200174c43f63ec4ba2dc56c335af006b38c0a844be9a23e5f7
   languageName: node
   linkType: hard
 
@@ -9915,13 +9915,13 @@ __metadata:
   linkType: hard
 
 "semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7":
-  version: 7.3.7
-  resolution: "semver@npm:7.3.7"
+  version: 7.3.8
+  resolution: "semver@npm:7.3.8"
   dependencies:
     lru-cache: ^6.0.0
   bin:
     semver: bin/semver.js
-  checksum: 2fa3e877568cd6ce769c75c211beaed1f9fce80b28338cadd9d0b6c40f2e2862bafd62c19a6cff42f3d54292b7c623277bcab8816a2b5521cf15210d43e75232
+  checksum: ba9c7cbbf2b7884696523450a61fee1a09930d888b7a8d7579025ad93d459b2d1949ee5bbfeb188b2be5f4ac163544c5e98491ad6152df34154feebc2cc337c1
   languageName: node
   linkType: hard
 
@@ -10627,8 +10627,8 @@ __metadata:
   linkType: hard
 
 "terser@npm:^5.0.0, terser@npm:^5.10.0, terser@npm:^5.14.1":
-  version: 5.15.0
-  resolution: "terser@npm:5.15.0"
+  version: 5.15.1
+  resolution: "terser@npm:5.15.1"
   dependencies:
     "@jridgewell/source-map": ^0.3.2
     acorn: ^8.5.0
@@ -10636,7 +10636,7 @@ __metadata:
     source-map-support: ~0.5.20
   bin:
     terser: bin/terser
-  checksum: b2358c989fcb76b4a1c265f60e175c950d3f776e5f619a9f58f54e8d2d792cd6b4cca86071834075f3b9943556d695357bafdd4ee2390de2fc9fd96ba3efa8c8
+  checksum: 9880a1e0956983a1ce5de204ea35121c0009fa41d582a6904ae850e1953a1a2cc021168439565280c5a8eee67c85a874175627e24989b046c7a72589b81c3979
   languageName: node
   linkType: hard
 
@@ -11016,8 +11016,8 @@ __metadata:
   linkType: hard
 
 "update-browserslist-db@npm:^1.0.9":
-  version: 1.0.9
-  resolution: "update-browserslist-db@npm:1.0.9"
+  version: 1.0.10
+  resolution: "update-browserslist-db@npm:1.0.10"
   dependencies:
     escalade: ^3.1.1
     picocolors: ^1.0.0
@@ -11025,7 +11025,7 @@ __metadata:
     browserslist: ">= 4.21.0"
   bin:
     browserslist-lint: cli.js
-  checksum: f625899b236f6a4d7f62b56be1b8da230c5563d1fef84d3ef148f2e1a3f11a5a4b3be4fd7e3703e51274c116194017775b10afb4de09eb2c0d09d36b90f1f578
+  checksum: 12db73b4f63029ac407b153732e7cd69a1ea8206c9100b482b7d12859cd3cd0bc59c602d7ae31e652706189f1acb90d42c53ab24a5ba563ed13aebdddc5561a0
   languageName: node
   linkType: hard
 
