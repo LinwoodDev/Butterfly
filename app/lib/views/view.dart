@@ -1,13 +1,19 @@
+import 'dart:io';
+
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly/services/import.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../api/intent.dart';
+import '../helpers/document_helper.dart';
 import '../view_painter.dart';
 
 const kSecondaryStylusButton = 0x20;
@@ -31,20 +37,32 @@ class _MainViewViewportState extends State<MainViewViewport>
   @override
   void initState() {
     super.initState();
-
     RawKeyboard.instance.addListener(_handleKey);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     RawKeyboard.instance.removeListener(_handleKey);
     super.dispose();
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
     final bloc = context.read<DocumentBloc>();
     if (state == AppLifecycleState.resumed) {
+      /*if (!kIsWeb && Platform.isAndroid) {
+        final intentType = await getIntentType();
+        final intentData = await getIntentData();
+        if (intentType != null && intentData != null) {
+          final assetType = AssetFileTypeHelper.fromMime(intentType);
+          if (assetType == null) return;
+          if (mounted) {
+            context.read<ImportService>().import(assetType, intentData);
+          }
+        }
+      }*/
       bloc.refresh();
     } else {
       context.read<CurrentIndexCubit>().resetInput(bloc);

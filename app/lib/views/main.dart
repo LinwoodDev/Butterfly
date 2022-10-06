@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:butterfly/actions/areas.dart';
 import 'package:butterfly/actions/background.dart';
 import 'package:butterfly/actions/change_path.dart';
@@ -22,7 +20,6 @@ import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/format_date_time.dart';
-import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -31,7 +28,6 @@ import 'package:butterfly/dialogs/introduction/app.dart';
 import 'package:butterfly/dialogs/introduction/start.dart';
 import 'package:butterfly/dialogs/introduction/update.dart';
 import 'package:butterfly/embed/embedding.dart';
-import 'package:butterfly/helpers/document_helper.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -40,7 +36,6 @@ import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/color.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/property.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,7 +58,7 @@ class ProjectPage extends StatefulWidget {
   _ProjectPageState createState() => _ProjectPageState();
 }
 
-class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
+class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
   TransformCubit? _transformCubit;
@@ -93,32 +88,10 @@ class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
     ChangePainterIntent: ChangePainterAction(),
   };
 
-  ImportService? _importService;
-
   @override
   void initState() {
     super.initState();
-    _importService = ImportService(context, widget.type, widget.data);
     load();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    super.didChangeAppLifecycleState(state);
-
-    if (state == AppLifecycleState.resumed) {
-      if (!kIsWeb && Platform.isAndroid) {
-        final intentType = await getIntentType();
-        final intentData = await getIntentData();
-        if (intentType != null && intentData != null) {
-          final assetType = AssetFileTypeHelper.fromMime(intentType);
-          if (assetType == null) return;
-          _importService!
-              .import(assetType, Uint8List.fromList(intentData.codeUnits));
-        }
-      }
-    }
   }
 
   @override
@@ -266,7 +239,6 @@ class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
     widget.embedding?.handler.unregister();
   }
 
@@ -291,7 +263,7 @@ class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
           ],
           child: Builder(builder: (context) {
             return RepositoryProvider.value(
-              value: _importService,
+              value: ImportService(context, widget.type, widget.data),
               child: Builder(builder: (context) {
                 return Shortcuts(
                   shortcuts: {

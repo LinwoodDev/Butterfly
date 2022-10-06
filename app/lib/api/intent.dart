@@ -8,7 +8,7 @@ Future<String?> getIntentType() async {
   return result;
 }
 
-Future<String?> getIntentData() async {
-  final String? result = await platform.invokeMethod('getIntentData');
+Future<Uint8List?> getIntentData() async {
+  final Uint8List? result = await platform.invokeMethod('getIntentData');
   return result;
 }

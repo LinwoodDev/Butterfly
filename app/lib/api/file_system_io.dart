@@ -201,11 +201,6 @@ class IODocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<Uint8List?> loadAbsolute(String path) async {
-    if (Platform.isAndroid) {
-      final data = await getIntentData();
-      if (data == null) return null;
-      return Uint8List.fromList(data.codeUnits);
-    }
     var file = File(path);
     if (await file.exists()) {
       return await file.readAsBytes();
