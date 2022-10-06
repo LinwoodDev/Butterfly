@@ -11,7 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/converter.dart';
 import 'file_system.dart';
-import 'intent.dart';
 
 Future<String> getButterflyDirectory() async {
   var prefs = await SharedPreferences.getInstance();
