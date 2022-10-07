@@ -265,89 +265,91 @@ class _ProjectPageState extends State<ProjectPage> {
             return RepositoryProvider.value(
               value: ImportService(context, widget.type, widget.data),
               child: Builder(builder: (context) {
-                return Shortcuts(
-                  shortcuts: {
-                    LogicalKeySet(LogicalKeyboardKey.control,
-                        LogicalKeyboardKey.keyZ): UndoIntent(context),
-                    LogicalKeySet(LogicalKeyboardKey.control,
-                        LogicalKeyboardKey.keyY): RedoIntent(context),
-                    LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyN):
-                        NewIntent(context, fromTemplate: false),
-                    LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.shift, LogicalKeyboardKey.keyN):
-                        NewIntent(context, fromTemplate: true),
-                    LogicalKeySet(LogicalKeyboardKey.tab):
-                        EditModeIntent(context),
-                    LogicalKeySet(
-                        LogicalKeyboardKey.control,
-                        LogicalKeyboardKey.shift,
-                        LogicalKeyboardKey.keyP): WaypointsIntent(context),
-                    LogicalKeySet(
-                        LogicalKeyboardKey.control,
-                        LogicalKeyboardKey.alt,
-                        LogicalKeyboardKey.shift,
-                        LogicalKeyboardKey.keyS): ProjectIntent(context),
-                    LogicalKeySet(LogicalKeyboardKey.control,
-                        LogicalKeyboardKey.keyP): ColorPaletteIntent(context),
-                    LogicalKeySet(LogicalKeyboardKey.control,
-                        LogicalKeyboardKey.keyB): BackgroundIntent(context),
-                    LogicalKeySet(
-                        LogicalKeyboardKey.control,
-                        LogicalKeyboardKey.shift,
-                        LogicalKeyboardKey.keyA): AreasIntent(context),
-                    LogicalKeySet(LogicalKeyboardKey.control,
-                        LogicalKeyboardKey.keyL): LayersIntent(context),
-                    LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt, LogicalKeyboardKey.keyN):
-                        InsertIntent(context, Offset.zero),
-                    if (widget.embedding == null) ...{
+                return Actions(
+                  actions: actions,
+                  child: Shortcuts(
+                    shortcuts: {
                       LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyO): OpenIntent(context),
+                          LogicalKeyboardKey.keyZ): UndoIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyI): ImportIntent(context),
+                          LogicalKeyboardKey.keyY): RedoIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyE): ExportIntent(context),
+                              LogicalKeyboardKey.keyN):
+                          NewIntent(context, fromTemplate: false),
+                      LogicalKeySet(
+                              LogicalKeyboardKey.control,
+                              LogicalKeyboardKey.shift,
+                              LogicalKeyboardKey.keyN):
+                          NewIntent(context, fromTemplate: true),
+                      LogicalKeySet(LogicalKeyboardKey.tab):
+                          EditModeIntent(context),
                       LogicalKeySet(
                           LogicalKeyboardKey.control,
                           LogicalKeyboardKey.shift,
-                          LogicalKeyboardKey.keyE): ImageExportIntent(context),
+                          LogicalKeyboardKey.keyP): WaypointsIntent(context),
                       LogicalKeySet(
                           LogicalKeyboardKey.control,
                           LogicalKeyboardKey.alt,
                           LogicalKeyboardKey.shift,
-                          LogicalKeyboardKey.keyE): PdfExportIntent(context),
-                      LogicalKeySet(
-                          LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.alt,
-                          LogicalKeyboardKey.keyE): SvgExportIntent(context),
-                      LogicalKeySet(
-                          LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.alt,
-                          LogicalKeyboardKey.keyS): SettingsIntent(context),
-                      LogicalKeySet(
-                              LogicalKeyboardKey.alt, LogicalKeyboardKey.keyS):
-                          ChangePathIntent(context),
+                          LogicalKeyboardKey.keyS): ProjectIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyS): SaveIntent(context),
-                      ...[
-                        LogicalKeyboardKey.digit1,
-                        LogicalKeyboardKey.digit2,
-                        LogicalKeyboardKey.digit3,
-                        LogicalKeyboardKey.digit4,
-                        LogicalKeyboardKey.digit5,
-                        LogicalKeyboardKey.digit6,
-                        LogicalKeyboardKey.digit7,
-                        LogicalKeyboardKey.digit8,
-                        LogicalKeyboardKey.digit9,
-                        LogicalKeyboardKey.digit0
-                      ].asMap().map((k, v) => MapEntry(
-                          LogicalKeySet(LogicalKeyboardKey.control, v),
-                          ChangePainterIntent(context, k))),
+                          LogicalKeyboardKey.keyP): ColorPaletteIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.keyB): BackgroundIntent(context),
+                      LogicalKeySet(
+                          LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.shift,
+                          LogicalKeyboardKey.keyA): AreasIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.keyL): LayersIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.control,
+                              LogicalKeyboardKey.alt, LogicalKeyboardKey.keyN):
+                          InsertIntent(context, Offset.zero),
+                      if (widget.embedding == null) ...{
+                        LogicalKeySet(LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.keyO): OpenIntent(context),
+                        LogicalKeySet(LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.keyI): ImportIntent(context),
+                        LogicalKeySet(LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.keyE): ExportIntent(context),
+                        LogicalKeySet(
+                                LogicalKeyboardKey.control,
+                                LogicalKeyboardKey.shift,
+                                LogicalKeyboardKey.keyE):
+                            ImageExportIntent(context),
+                        LogicalKeySet(
+                            LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.alt,
+                            LogicalKeyboardKey.shift,
+                            LogicalKeyboardKey.keyE): PdfExportIntent(context),
+                        LogicalKeySet(
+                            LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.alt,
+                            LogicalKeyboardKey.keyE): SvgExportIntent(context),
+                        LogicalKeySet(
+                            LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.alt,
+                            LogicalKeyboardKey.keyS): SettingsIntent(context),
+                        LogicalKeySet(LogicalKeyboardKey.alt,
+                            LogicalKeyboardKey.keyS): ChangePathIntent(context),
+                        LogicalKeySet(LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.keyS): SaveIntent(context),
+                        ...[
+                          LogicalKeyboardKey.digit1,
+                          LogicalKeyboardKey.digit2,
+                          LogicalKeyboardKey.digit3,
+                          LogicalKeyboardKey.digit4,
+                          LogicalKeyboardKey.digit5,
+                          LogicalKeyboardKey.digit6,
+                          LogicalKeyboardKey.digit7,
+                          LogicalKeyboardKey.digit8,
+                          LogicalKeyboardKey.digit9,
+                          LogicalKeyboardKey.digit0
+                        ].asMap().map((k, v) => MapEntry(
+                            LogicalKeySet(LogicalKeyboardKey.control, v),
+                            ChangePainterIntent(context, k))),
+                      },
                     },
-                  },
-                  child: Actions(
-                    actions: actions,
                     child: SafeArea(
                       child: ClipRect(
                         child: Focus(
