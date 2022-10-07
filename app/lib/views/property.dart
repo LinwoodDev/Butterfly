@@ -73,7 +73,7 @@ class _PropertyViewState extends State<PropertyView>
               },
             ),
             Align(
-              alignment: Alignment.bottomRight,
+              alignment: Alignment.topRight,
               child: SlideTransition(
                 position: _offsetAnimation,
                 child: Container(
