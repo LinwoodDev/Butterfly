@@ -92,7 +92,7 @@ class _EditToolbarState extends State<EditToolbar> {
                           shrinkWrap: true,
                           children: [
                             if (state.embedding?.editable ?? true) ...[
-                              if (temp != null) ...[
+                              if (temp != null && tempData != null) ...[
                                 OptionButton(
                                   tooltip: tooltip,
                                   selected: true,
