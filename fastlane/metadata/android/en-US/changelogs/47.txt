@@ -2,3 +2,4 @@
 * Update color view
 * Fix errors with move handler
 * Fix issues when trying to add undo/redo painters
+* Fix opening of exported pdfs and zips

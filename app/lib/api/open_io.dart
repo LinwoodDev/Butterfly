@@ -31,7 +31,7 @@ FutureOr<void> openSvg(String svg) async {
 }
 
 FutureOr<void> openPdf(List<int> bytes) async {
-  final dir = getButterflyDirectory();
+  final dir = await getButterflyDirectory();
   var file = File('$dir/Temp/export.pdf');
   file.create(recursive: true);
   await file.writeAsBytes(bytes);
@@ -43,9 +43,9 @@ FutureOr<void> openPdf(List<int> bytes) async {
 }
 
 FutureOr<void> openZip(List<int> bytes) async {
-  final dir = getButterflyDirectory();
+  final dir = await getButterflyDirectory();
   var file = File('$dir/Temp/export.zip');
-  file.create(recursive: true);
+  await file.create(recursive: true);
   await file.writeAsBytes(bytes);
   if (Platform.isAndroid || Platform.isIOS) {
     Share.shareXFiles([XFile(file.path, mimeType: 'application/zip')]);

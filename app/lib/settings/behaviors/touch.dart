@@ -37,6 +37,7 @@ class TouchBehaviorSettings extends StatelessWidget {
                               min: 0,
                               max: 100,
                               value: state.touchSensitivity,
+                              defaultValue: 1,
                               header: Row(children: [
                                 const Icon(PhosphorIcons.lightningLight),
                                 const SizedBox(width: 8),
