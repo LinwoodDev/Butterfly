@@ -2,6 +2,17 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.5.0-beta.2 (2022-10-07)
+
+* Add disabled colors to redo and undo painter
+* Update color view
+* Move property view to the top right corner
+* Fix issues when trying to add undo/redo painters
+* Fix opening of exported pdfs and zips
+* Fix shortcuts
+* Hide move handler
+* Remove unused permissions on android
+
 ## 1.5.0-beta.1 (2022-09-30)
 
 * Open url externally
