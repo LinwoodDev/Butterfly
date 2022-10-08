@@ -1,0 +1,1 @@
+* Fix reset button in input controls customization

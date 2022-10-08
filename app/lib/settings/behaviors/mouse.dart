@@ -1,5 +1,6 @@
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/helpers/int_helper.dart';
+import 'package:butterfly/widgets/advanced_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -73,22 +74,11 @@ class MouseBehaviorSettings extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          TextFormField(
+                          AdvancedTextField(
                             initialValue:
                                 config.leftMouse?.add(1)?.toString() ?? '',
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.left,
-                              prefixIcon:
-                                  const Icon(PhosphorIcons.arrowLeftLight),
-                              suffix: IconButton(
-                                  onPressed: () {
-                                    final cubit = context.read<SettingsCubit>();
-                                    cubit.changeInputConfiguration(
-                                        config.copyWith(leftMouse: null));
-                                  },
-                                  icon: const Icon(
-                                      PhosphorIcons.clockClockwiseLight)),
-                            ),
+                            label: AppLocalizations.of(context)!.left,
+                            icon: const Icon(PhosphorIcons.arrowLeftLight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
@@ -96,22 +86,11 @@ class MouseBehaviorSettings extends StatelessWidget {
                             },
                           ),
                           const SizedBox(height: 8),
-                          TextFormField(
+                          AdvancedTextField(
                             initialValue:
                                 config.middleMouse?.add(1)?.toString() ?? '',
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.middle,
-                              prefixIcon:
-                                  const Icon(PhosphorIcons.arrowUpLight),
-                              suffix: IconButton(
-                                  onPressed: () {
-                                    final cubit = context.read<SettingsCubit>();
-                                    cubit.changeInputConfiguration(
-                                        config.copyWith(middleMouse: 2));
-                                  },
-                                  icon: const Icon(
-                                      PhosphorIcons.clockClockwiseLight)),
-                            ),
+                            label: AppLocalizations.of(context)!.middle,
+                            icon: const Icon(PhosphorIcons.arrowUpLight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
@@ -120,22 +99,11 @@ class MouseBehaviorSettings extends StatelessWidget {
                             },
                           ),
                           const SizedBox(height: 8),
-                          TextFormField(
+                          AdvancedTextField(
                             initialValue:
                                 config.rightMouse?.add(1)?.toString() ?? '',
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.right,
-                              prefixIcon:
-                                  const Icon(PhosphorIcons.arrowRightLight),
-                              suffix: IconButton(
-                                  onPressed: () {
-                                    final cubit = context.read<SettingsCubit>();
-                                    cubit.changeInputConfiguration(
-                                        config.copyWith(rightMouse: 1));
-                                  },
-                                  icon: const Icon(
-                                      PhosphorIcons.clockClockwiseLight)),
-                            ),
+                            label: AppLocalizations.of(context)!.right,
+                            icon: const Icon(PhosphorIcons.arrowRightLight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
