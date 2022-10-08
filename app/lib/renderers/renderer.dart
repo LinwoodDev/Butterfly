@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui' show Image;
 
+import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/element.dart';

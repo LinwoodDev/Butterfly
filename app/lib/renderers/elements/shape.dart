@@ -202,16 +202,30 @@ class ShapeHitCalculator extends HitCalculator {
 
   @override
   bool hit(Rect rect) {
-    switch (element.property.shape.runtimeType) {
-      case RectangleShape:
-        return this.rect.inflate(element.property.strokeWidth).overlaps(rect) &&
-            !this.rect.deflate(element.property.strokeWidth).overlaps(rect);
-      case CircleShape:
-        return this.rect.overlaps(rect);
-      case LineShape:
-        return this.rect.overlaps(rect);
-      default:
-        return false;
+    if (!this.rect.inflate(element.property.strokeWidth).overlaps(rect)) {
+      return false;
     }
+    final shape = element.property.shape;
+    if (shape is RectangleShape) {
+      return !this.rect.deflate(element.property.strokeWidth).overlaps(rect);
+    }
+    if (shape is CircleShape) {
+      // Test if rect is inside circle
+      final circleRect = this.rect.inflate(element.property.strokeWidth);
+      final circleCenter = circleRect.center;
+      final circleRadius = circleRect.width / 2;
+      final topLeft = rect.topLeft;
+      final topRight = rect.topRight;
+      final bottomLeft = rect.bottomLeft;
+      final bottomRight = rect.bottomRight;
+      return (topLeft - circleCenter).distance <= circleRadius &&
+          (topRight - circleCenter).distance <= circleRadius &&
+          (bottomLeft - circleCenter).distance <= circleRadius &&
+          (bottomRight - circleCenter).distance <= circleRadius;
+    }
+    if (shape is LineShape) {
+      return rect.containsLine(element.firstPosition, element.secondPosition);
+    }
+    return false;
   }
 }

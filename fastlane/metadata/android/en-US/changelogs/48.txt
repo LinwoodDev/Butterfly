@@ -1,2 +1,3 @@
-* Change path hit calculator to reflect the real path
+* Update hit calculator to reflect element exactly (path and shape)
+* Update performance of path eraser
 * Fix reset button in input controls customization
