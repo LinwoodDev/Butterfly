@@ -119,6 +119,19 @@ jobs:
     needs: [ release ]
     runs-on: windows-latest
     steps:
+      - name: Setup git
+        id: setup
+        shell: bash
+        run: |
+          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
+          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
+          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
+          echo "::set-output name=build_number::${BUTTERFLY_BUILD_NUMBER}"
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
       - if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
         uses: vedantmgoyal2009/winget-releaser@v1
         with:

@@ -1,1 +1,2 @@
+* Change path hit calculator to reflect the real path
 * Fix reset button in input controls customization
