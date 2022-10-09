@@ -522,16 +522,21 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 class ColorPickerResponse {
   final int color;
   final bool pin;
+  final bool delete;
 
-  const ColorPickerResponse(this.color, [this.pin = false]);
+  const ColorPickerResponse(this.color,
+      [this.pin = false, this.delete = false]);
 }
 
 class CustomColorPicker extends StatefulWidget {
   final Color defaultColor;
-  final bool pinOption;
+  final bool pinOption, deleteOption;
 
   const CustomColorPicker(
-      {super.key, this.defaultColor = Colors.white, this.pinOption = false});
+      {super.key,
+      this.defaultColor = Colors.white,
+      this.pinOption = false,
+      this.deleteOption = false});
 
   @override
   _CustomColorPickerState createState() => _CustomColorPickerState();
@@ -596,23 +601,44 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                                           child: _buildProperties()))
                                 ])),
                       const Divider(),
-                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                        TextButton(
-                            child: Text(AppLocalizations.of(context)!.cancel),
-                            onPressed: () => Navigator.of(context).pop()),
-                        const SizedBox(width: 8),
-                        if (widget.pinOption) ...[
-                          OutlinedButton(
-                              child: Text(AppLocalizations.of(context)!.pin),
-                              onPressed: () => Navigator.of(context)
-                                  .pop(ColorPickerResponse(color.value, true))),
-                          const SizedBox(width: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (widget.deleteOption) ...[
+                            MaterialButton(
+                                onPressed: () => Navigator.of(context).pop(
+                                    ColorPickerResponse(
+                                        color.value, false, true)),
+                                child:
+                                    Text(AppLocalizations.of(context)!.delete)),
+                          ] else ...[
+                            Container(),
+                          ],
+                          Row(children: [
+                            TextButton(
+                                child:
+                                    Text(AppLocalizations.of(context)!.cancel),
+                                onPressed: () => Navigator.of(context).pop()),
+                            const SizedBox(width: 8),
+                            if (widget.pinOption) ...[
+                              OutlinedButton(
+                                  child: Text(AppLocalizations.of(context)!.ok),
+                                  onPressed: () => Navigator.of(context).pop(
+                                      ColorPickerResponse(color.value, false))),
+                              const SizedBox(width: 8),
+                              ElevatedButton(
+                                  child:
+                                      Text(AppLocalizations.of(context)!.pin),
+                                  onPressed: () => Navigator.of(context).pop(
+                                      ColorPickerResponse(color.value, true))),
+                            ] else
+                              ElevatedButton(
+                                  child: Text(AppLocalizations.of(context)!.ok),
+                                  onPressed: () => Navigator.of(context).pop(
+                                      ColorPickerResponse(color.value, false))),
+                          ]),
                         ],
-                        ElevatedButton(
-                            child: Text(AppLocalizations.of(context)!.ok),
-                            onPressed: () => Navigator.of(context)
-                                .pop(ColorPickerResponse(color.value, false))),
-                      ])
+                      )
                     ],
                   );
                 }),

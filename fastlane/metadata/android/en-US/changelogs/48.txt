@@ -1,3 +1,4 @@
+* Add delete button to color view
 * Update hit calculator to reflect element exactly (path and shape)
 * Update performance of path eraser
 * Fix reset button in input controls customization
