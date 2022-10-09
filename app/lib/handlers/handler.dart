@@ -246,6 +246,7 @@ Future<Set<Renderer<PadElement>>> rayCastRect(BuildContext context, Rect rect,
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return {};
   final renderers = state.cameraViewport.visibleElements;
+  rect = rect.normalized();
   return compute(
           _executeRayCast,
           _RayCastParams(

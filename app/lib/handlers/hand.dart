@@ -327,13 +327,12 @@ class HandHandler extends Handler<HandPainter> {
     if (_movingElements.isNotEmpty) {
       return;
     }
+    final position = context.getCameraTransform().localToGlobal(localPosition);
     final providers = context.getProviders();
     final hits = await rayCast(context.buildContext, localPosition, 0.0);
     final hit = hits.firstOrNull;
     final rect = hit?.rect;
-    if ((hit == null ||
-            rect == null ||
-            !(getSelectionRect()?.overlaps(rect) ?? false)) &&
+    if ((rect != null && !(getSelectionRect()?.contains(position) ?? false)) &&
         !context.isCtrlPressed) {
       _selected.clear();
       if (hit != null) _selected.add(hit);

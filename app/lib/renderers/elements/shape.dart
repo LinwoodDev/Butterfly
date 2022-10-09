@@ -164,23 +164,34 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       double scaleY = 1,
       bool relative = false}) {
     if (relative) {
-      var rect = Rect.fromPoints(
-          element.firstPosition + position, element.secondPosition + position);
+      var newFirstPos = element.firstPosition + position;
+      var newSecondPos = element.secondPosition + position;
       // Apply scale
+      if (newFirstPos.dx > newSecondPos.dx) {
+        newFirstPos = Offset(newFirstPos.dx * scaleX, newFirstPos.dy);
+      } else {
+        newSecondPos = Offset(newSecondPos.dx * scaleX, newSecondPos.dy);
+      }
+      if (newFirstPos.dy > newSecondPos.dy) {
+        newFirstPos = Offset(newFirstPos.dx, newFirstPos.dy * scaleY);
+      } else {
+        newSecondPos = Offset(newSecondPos.dx, newSecondPos.dy * scaleY);
+      }
+      var rect = Rect.fromPoints(newFirstPos, newSecondPos).normalized();
       rect = rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY);
       return ShapeRenderer(
           element.copyWith(
-            firstPosition: rect.topLeft,
-            secondPosition: rect.bottomRight,
+            firstPosition: element.firstPosition + position,
+            secondPosition: element.secondPosition + position,
           ),
           rect);
     }
     // Center of firstPosition and secondPosition
-    final elementPosition =
-        Rect.fromPoints(element.firstPosition, element.secondPosition).center;
-    final offset = position - elementPosition;
-    var rect = Rect.fromPoints(
-        element.firstPosition + offset, element.secondPosition + offset);
+    final center = (element.firstPosition + element.secondPosition) / 2;
+    // Apply scale
+    final newFirstPos = (element.firstPosition - center) * scaleX + center;
+    final newSecondPos = (element.secondPosition - center) * scaleY + center;
+    var rect = Rect.fromPoints(newFirstPos, newSecondPos).normalized();
     rect = rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY);
     return ShapeRenderer(
         element.copyWith(
@@ -224,7 +235,13 @@ class ShapeHitCalculator extends HitCalculator {
           (bottomRight - circleCenter).distance <= circleRadius;
     }
     if (shape is LineShape) {
-      return rect.containsLine(element.firstPosition, element.secondPosition);
+      final firstX = min(element.firstPosition.dx, element.secondPosition.dx);
+      final firstY = min(element.firstPosition.dy, element.secondPosition.dy);
+      final secondX = max(element.firstPosition.dx, element.secondPosition.dx);
+      final secondY = max(element.firstPosition.dy, element.secondPosition.dy);
+      final firstPos = Offset(firstX, firstY);
+      final secondPos = Offset(secondX, secondY);
+      return rect.containsLine(firstPos, secondPos);
     }
     return false;
   }
