@@ -17,15 +17,15 @@ Ecco alcune domande frequenti.
 
 ~~> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)~~
 
-~~Currently decoding images does not work with canvaskit.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!~~
+~~Attualmente la decodifica delle immagini non funziona con canvaskit.~~ ~~Si prega di votare [questo problema](https://github.com/flutter/flutter/issues/102683) se si desidera questa opzione!~~
 
-Fixed in 1.5
+Fissato al punto 1.5
 
-### Crashes on Z Fold 3 when holding side button of S Pen
+### Crash su Z Fold 3 tenendo premuto il pulsante laterale della penna S
 
 > [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
 
-This is a known issue with flutter and the Samsung Z Fold 3. Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!
+Questo è un problema noto con flutter e il Samsung Z Fold 3. Si prega di votare [questo problema](https://github.com/flutter/flutter/issues/111068) per risolvere questo problema!
 
 ## Desktop
 
