@@ -4,7 +4,7 @@ sidebar_label: "Mano"
 ---
 
 
-With this tool you can select elements and access the background context menu to access the [insert menu](../insert).
+Con esta herramienta puede seleccionar elementos y acceder al menú contextual de fondo para acceder al [menú de inserción](../insert).
 
 ## Configuración
 
