@@ -4,7 +4,7 @@ sidebar_label: "Main"
 ---
 
 
-With this tool you can select elements and access the background context menu to access the [insert menu](../insert).
+Avec cet outil, vous pouvez sélectionner des éléments et accéder au menu contextuel d'arrière-plan pour accéder au [menu d'insertion](../insert).
 
 ## Configuration
 
