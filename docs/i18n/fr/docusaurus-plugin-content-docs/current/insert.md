@@ -5,10 +5,10 @@ slug: "/insert"
 sidebar_position: 3
 ---
 
-You can insert different things in your notes:
+Vous pouvez insérer différentes choses dans vos notes :
 
-* Images (from the gallery or the camera)
-* PDFs
-* SVGs
+* Images (à partir de la galerie ou de la caméra)
+* FPS
+* SVG
 
-To access the insert menu, use the hand tool and double tap on the place where you want to insert something. Click on "Insert" to open the menu.
+Pour accéder au menu d'insertion, utilisez l'outil main et appuyez deux fois sur l'endroit où vous voulez insérer quelque chose. Cliquez sur "Insert" pour ouvrir le menu.
