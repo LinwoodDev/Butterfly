@@ -4,7 +4,7 @@ sidebar_label: "Hand"
 ---
 
 
-This is a special tool to move the camera.
+With this tool you can select elements and access the background context menu to access the [insert menu](../insert).
 
 ## Configuration
 
