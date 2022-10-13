@@ -17,15 +17,15 @@ Sie können die Web-Version installieren, indem Sie auf den Installations-Button
 
 ~~> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)~~
 
-~~Currently decoding images does not work with canvaskit.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!~~
+~~~Derzeit funktioniert das Dekodieren von Bildern nicht mit Canvaskit.~~ ~~Bitte bewerte [dieses Problem](https://github.com/flutter/flutter/issues/102683) wenn du diese Option möchtest!~~
 
-Fixed in 1.5
+Behoben in 1.5
 
-### Crashes on Z Fold 3 when holding side button of S Pen
+### Abstürze bei Z Fold 3, wenn die Seitentaste von S Pen gedrückt wird
 
 > [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
 
-This is a known issue with flutter and the Samsung Z Fold 3. Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!
+Dies ist ein bekanntes Problem mit Flutter und der Samsung Z Fold 3. Bitte bewerte [dieses Ticket](https://github.com/flutter/flutter/issues/111068) um das Problem zu beheben!
 
 ## Desktop
 
