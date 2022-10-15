@@ -312,7 +312,7 @@ jobs:
             app/build/macos/Build/Products/Release/butterfly.app
   deploy:
     runs-on: ubuntu-22.04
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && secrets.CI_PAT != ''
     needs:
       - build-apk
       - build-windows

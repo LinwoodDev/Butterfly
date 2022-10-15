@@ -15,9 +15,9 @@ Ecco alcune domande frequenti.
 
 ### Impossibile inserire immagini nel web
 
-~~> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)~~
+> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
 
-~~Attualmente la decodifica delle immagini non funziona con canvaskit.~~ ~~Si prega di votare [questo problema](https://github.com/flutter/flutter/issues/102683) se si desidera questa opzione!~~
+Attualmente la decodifica delle immagini non funziona con canvaskit. Si prega di votare [questo problema](https://github.com/flutter/flutter/issues/102683) se si desidera questa opzione!
 
 Fissato al punto 1.5
 

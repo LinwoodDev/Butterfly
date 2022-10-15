@@ -114,7 +114,7 @@ enum SyncMode { always, noMobile, manual }
 class InputConfiguration with _$InputConfiguration {
   const factory InputConfiguration({
     int? leftMouse,
-    @Default(2) int? middleMouse,
+    @Default(0) int? middleMouse,
     @Default(1) int? rightMouse,
     int? pen,
     @Default(2) int? firstPenButton,
