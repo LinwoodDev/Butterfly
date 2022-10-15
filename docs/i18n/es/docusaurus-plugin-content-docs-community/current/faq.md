@@ -17,7 +17,7 @@ Puede instalar la versión web haciendo clic en el botón instalar en la barra d
 
 > [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
 
-Currently decoding images does not work with canvaskit. Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!
+Actualmente las imágenes de decodificación no funcionan con canvaskit. ¡Por favor, vota [este problema](https://github.com/flutter/flutter/issues/102683) si quieres esta opción!
 
 ### Se bloquea en Z Fold 3 al mantener pulsado el botón lateral de S Pen
 
