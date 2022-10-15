@@ -15,9 +15,17 @@ Puede instalar la versión web haciendo clic en el botón instalar en la barra d
 
 ### No se pueden insertar imágenes en la web
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+~~> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)~~
 
-Actualmente las imágenes de decodificación no funcionan con canvaskit. ¡Por favor, vota [este problema](https://github.com/flutter/flutter/issues/102683) si quieres esta opción!
+~~~decodificación actual de imágenes no funciona con canvaskit.~~ ~~Por favor vota [este problema](https://github.com/flutter/flutter/issues/102683) si quieres esta opción!~~
+
+Fijado en 1.5
+
+### Se bloquea en Z Fold 3 al mantener pulsado el botón lateral de S Pen
+
+> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+
+Este es un problema conocido con flutter y la Samsung Z Fold 3. ¡Por favor, vota [este problema](https://github.com/flutter/flutter/issues/111068) para arreglarlo!
 
 ## Escritorio
 

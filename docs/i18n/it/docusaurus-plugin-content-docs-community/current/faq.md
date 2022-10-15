@@ -15,9 +15,17 @@ Ecco alcune domande frequenti.
 
 ### Impossibile inserire immagini nel web
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+~~> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)~~
 
-Attualmente la decodifica delle immagini non funziona con canvaskit. Si prega di votare [questo numero](https://github.com/flutter/flutter/issues/102683) se si desidera questa opzione!
+~~Attualmente la decodifica delle immagini non funziona con canvaskit.~~ ~~Si prega di votare [questo problema](https://github.com/flutter/flutter/issues/102683) se si desidera questa opzione!~~
+
+Fissato al punto 1.5
+
+### Crash su Z Fold 3 tenendo premuto il pulsante laterale della penna S
+
+> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+
+Questo è un problema noto con flutter e il Samsung Z Fold 3. Si prega di votare [questo problema](https://github.com/flutter/flutter/issues/111068) per risolvere questo problema!
 
 ## Desktop
 

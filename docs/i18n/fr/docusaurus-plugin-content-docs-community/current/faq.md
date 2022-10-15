@@ -15,9 +15,17 @@ Vous pouvez installer la version web en cliquant sur le bouton d'installation da
 
 ### Impossible d'insérer des images sur le web
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+~~> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)~~
 
-Actuellement, le décodage des images ne fonctionne pas avec canvaskit. Veuillez voter pour [ce problème](https://github.com/flutter/flutter/issues/102683) si vous voulez cette option !
+~~Les images actuellement décodage ne fonctionnent pas avec canvaskit.~~ ~~Veuillez voter pour [ce problème](https://github.com/flutter/flutter/issues/102683) si vous voulez cette option !~~
+
+Fixé dans 1,5
+
+### Crashes sur Z Fold 3 en maintenant appuyé le bouton latéral du S Stylo
+
+> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+
+C'est un problème connu avec flotteur et le Samsung Z Fold 3. Veuillez voter pour [ce problème](https://github.com/flutter/flutter/issues/111068) pour résoudre ce problème !
 
 ## Bureau
 

@@ -15,9 +15,17 @@ Başlık çubuğundaki yükle düğmesine tıklayarak web sürümünü yükleyeb
 
 ### Web'deyken resim eklenemiyor
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+~~> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)~~
 
-Şu anda görüntülerin kodunu çözme "canvaskit" ile çalışmıyor. Eğer bu seçeneği istiyorsanız [this issue](https://github.com/flutter/flutter/issues/102683)  lütfen oylayın.
+~~Currently decoding images does not work with canvaskit.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!~~
+
+Fixed in 1.5
+
+### Crashes on Z Fold 3 when holding side button of S Pen
+
+> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+
+This is a known issue with flutter and the Samsung Z Fold 3. Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!
 
 ## Masaüstü
 
