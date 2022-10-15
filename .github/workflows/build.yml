@@ -312,7 +312,7 @@ jobs:
             app/build/macos/Build/Products/Release/butterfly.app
   deploy:
     runs-on: ubuntu-22.04
-    if: github.event_name == 'push' && ${{ secrets.CI_PAT != '' }}
+    if: github.event_name == 'push'
     needs:
       - build-apk
       - build-windows
@@ -322,8 +322,10 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
+        env:
+          CI_PAT: ${{ secrets.CI_PAT }}
         with:
-          token: ${{ secrets.CI_PAT }}
+          token: ${{ env.CI_PAT }}
       - name: Setup git
         run: |
           git config --global user.email "ci@linwood.dev"
