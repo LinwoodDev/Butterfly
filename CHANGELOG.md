@@ -2,6 +2,16 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.5.0-rc.0 (2022-10-15)
+
+* Add delete button to color view
+* Update hit calculator to reflect element exactly (path and shape)
+* Update performance of path eraser
+* Fix reset button in input controls customization
+* Fix line shape transform
+* Fix context menu handling on selection in hand painter
+* Fix image export
+
 ## 1.5.0-beta.2 (2022-10-07)
 
 * Add disabled colors to redo and undo painter
