@@ -17,7 +17,7 @@ Você pode instalar a versão web clicando no botão de instalação na barra do
 
 > [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
 
-Atualmente decodificando imagens não funciona com canvaskit. Por favor, upvote [esta questão](https://github.com/flutter/flutter/issues/102683) se você quiser esta opção!
+Currently decoding images does not work with canvaskit. Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!
 
 ### Quebra em Z Fold 3 ao segurar o botão lateral da caneta S
 
