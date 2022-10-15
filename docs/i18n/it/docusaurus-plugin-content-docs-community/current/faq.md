@@ -17,7 +17,7 @@ Ecco alcune domande frequenti.
 
 > [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
 
-Currently decoding images does not work with canvaskit. Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!
+Attualmente la decodifica delle immagini non funziona con canvaskit. Si prega di votare [questo numero](https://github.com/flutter/flutter/issues/102683) se si desidera questa opzione!
 
 ### Crash su Z Fold 3 tenendo premuto il pulsante laterale della penna S
 
