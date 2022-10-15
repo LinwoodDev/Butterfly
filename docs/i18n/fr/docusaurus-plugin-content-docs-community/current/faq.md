@@ -17,7 +17,7 @@ Vous pouvez installer la version web en cliquant sur le bouton d'installation da
 
 > [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
 
-Les images actuellement décodage ne fonctionnent pas avec canvaskit. Veuillez voter pour [ce problème](https://github.com/flutter/flutter/issues/102683) si vous voulez cette option !
+Actuellement, le décodage des images ne fonctionne pas avec canvaskit. Veuillez voter pour [ce problème](https://github.com/flutter/flutter/issues/102683) si vous voulez cette option !
 
 ### Crashes sur Z Fold 3 en maintenant appuyé le bouton latéral du S Stylo
 

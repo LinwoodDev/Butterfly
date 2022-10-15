@@ -17,7 +17,7 @@ Başlık çubuğundaki yükle düğmesine tıklayarak web sürümünü yükleyeb
 
 > [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
 
-Currently decoding images does not work with canvaskit. Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!
+Şu anda görüntülerin kodunu çözme "canvaskit" ile çalışmıyor. Eğer bu seçeneği istiyorsanız [this issue](https://github.com/flutter/flutter/issues/102683)  lütfen oylayın.
 
 ### Crashes on Z Fold 3 when holding side button of S Pen
 
