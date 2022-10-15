@@ -7,9 +7,9 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 FutureOr<void> openImage(List<int> bytes) async {
-  final dir = getButterflyDirectory();
+  final dir = await getButterflyDirectory();
   var file = File('$dir/Temp/export.png');
-  file.create(recursive: true);
+  await file.create(recursive: true);
   await file.writeAsBytes(bytes);
   if (Platform.isAndroid || Platform.isIOS) {
     Share.shareXFiles([XFile(file.path, mimeType: 'image/png')]);
@@ -21,7 +21,7 @@ FutureOr<void> openImage(List<int> bytes) async {
 FutureOr<void> openSvg(String svg) async {
   final dir = await getButterflyDirectory();
   var file = File('$dir/Temp/export.svg');
-  file.create(recursive: true);
+  await file.create(recursive: true);
   await file.writeAsString(svg);
   if (Platform.isAndroid || Platform.isIOS) {
     Share.shareXFiles([XFile(file.path, mimeType: 'image/svg+xml')]);
@@ -33,7 +33,7 @@ FutureOr<void> openSvg(String svg) async {
 FutureOr<void> openPdf(List<int> bytes) async {
   final dir = await getButterflyDirectory();
   var file = File('$dir/Temp/export.pdf');
-  file.create(recursive: true);
+  await file.create(recursive: true);
   await file.writeAsBytes(bytes);
   if (Platform.isAndroid || Platform.isIOS) {
     Share.shareXFiles([XFile(file.path, mimeType: 'application/pdf')]);

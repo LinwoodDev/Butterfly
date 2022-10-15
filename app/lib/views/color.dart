@@ -179,6 +179,8 @@ class _ColorViewState extends State<ColorView> {
                               ]),
                         )),
                         PopupMenuButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
                           itemBuilder: (context) {
                             final palettes = state.document.palettes;
                             return <PopupMenuEntry>[

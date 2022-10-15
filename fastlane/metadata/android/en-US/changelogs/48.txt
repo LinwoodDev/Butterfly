@@ -4,3 +4,4 @@
 * Fix reset button in input controls customization
 * Fix line shape transform
 * Fix context menu handling on selection in hand painter
+* Fix image export
