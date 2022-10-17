@@ -2,6 +2,29 @@ import 'dart:ui';
 
 import 'package:collection/collection.dart';
 
+bool lineIntersectsLine(Offset l1p1, Offset l1p2, Offset l2p1, Offset l2p2) {
+  var q = (l1p1.dx - l2p1.dy) * (l2p2.dx - l2p1.dx) -
+      (l1p1.dx - l2p1.dx) * (l2p2.dy - l2p1.dy);
+  final d = (l1p2.dx - l1p1.dx) * (l2p2.dy - l2p1.dy) -
+      (l1p2.dy - l1p1.dy) * (l2p2.dx - l2p1.dx);
+
+  if (d == 0) {
+    return false;
+  }
+
+  final r = q / d;
+
+  q = (l1p1.dy - l2p1.dy) * (l1p2.dx - l1p1.dx) -
+      (l1p1.dx - l2p1.dx) * (l1p2.dy - l1p1.dy);
+  final s = q / d;
+
+  if (r < 0 || r > 1 || s < 0 || s > 1) {
+    return false;
+  }
+
+  return true;
+}
+
 extension RectHelper on Rect {
   Rect normalized() {
     var firstX = left;
@@ -23,24 +46,15 @@ extension RectHelper on Rect {
 
   bool containsLine(Offset first, Offset second) {
     final normalizedRect = normalized();
-
-    final firstX = first.dx;
-    final firstY = first.dy;
-    final secondX = second.dx;
-    final secondY = second.dy;
-    final rectFirstX = normalizedRect.left;
-    final rectFirstY = normalizedRect.top;
-    final rectSecondX = normalizedRect.right;
-    final rectSecondY = normalizedRect.bottom;
-    final uA = ((secondX - firstX) * (rectFirstY - firstY) -
-            (secondY - firstY) * (rectFirstX - firstX)) /
-        ((secondY - firstY) * (rectSecondX - rectFirstX) -
-            (secondX - firstX) * (rectSecondY - rectFirstY));
-    final uB = ((rectSecondX - rectFirstX) * (rectFirstY - firstY) -
-            (rectSecondY - rectFirstY) * (rectFirstX - firstX)) /
-        ((secondY - firstY) * (rectSecondX - rectFirstX) -
-            (secondX - firstX) * (rectSecondY - rectFirstY));
-    return uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1;
+    final topLeft = normalizedRect.topLeft;
+    final topRight = normalizedRect.topRight;
+    final bottomLeft = normalizedRect.bottomLeft;
+    final bottomRight = normalizedRect.bottomRight;
+    return lineIntersectsLine(topLeft, topRight, first, second) ||
+        lineIntersectsLine(topRight, bottomRight, first, second) ||
+        lineIntersectsLine(bottomRight, bottomLeft, first, second) ||
+        lineIntersectsLine(bottomLeft, topLeft, first, second) ||
+        (normalizedRect.contains(first) && normalizedRect.contains(second));
   }
 }
 

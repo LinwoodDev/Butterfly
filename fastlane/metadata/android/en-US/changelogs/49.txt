@@ -1,1 +1,2 @@
 * Add painters to default document
+* Fix rect shape hit calculation

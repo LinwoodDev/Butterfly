@@ -218,7 +218,23 @@ class ShapeHitCalculator extends HitCalculator {
     }
     final shape = element.property.shape;
     if (shape is RectangleShape) {
-      return !this.rect.deflate(element.property.strokeWidth).overlaps(rect);
+      final lrt = rect.containsLine(
+        Offset(this.rect.left, this.rect.top),
+        Offset(this.rect.right, this.rect.top),
+      );
+      final tbr = rect.containsLine(
+        Offset(this.rect.right, this.rect.top),
+        Offset(this.rect.right, this.rect.bottom),
+      );
+      final lrb = rect.containsLine(
+        Offset(this.rect.left, this.rect.bottom),
+        Offset(this.rect.right, this.rect.bottom),
+      );
+      final tbl = rect.containsLine(
+        Offset(this.rect.left, this.rect.top),
+        Offset(this.rect.left, this.rect.bottom),
+      );
+      return lrt || tbr || lrb || tbl;
     }
     if (shape is CircleShape) {
       // Test if rect is inside circle
