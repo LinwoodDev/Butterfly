@@ -5,5 +5,5 @@ Exec=butterfly %f
 Icon=dev.linwood.butterfly
 Terminal=false
 Type=Application
-Categories=Productivity;
+Categories=Productivity;Office;
 MimeType=application/x-butterfly;image/bmp;image/gif;image/jpeg;image/jpg;image/png;image/svg+xml;image/svg+xml-compressed;image/x-ico;application/pdf;
