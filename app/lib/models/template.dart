@@ -1,14 +1,11 @@
-import 'package:butterfly/models/colors.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
-import 'package:butterfly/models/property.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'background.dart';
 import 'converter.dart';
-import 'painter.dart';
 
 part 'template.g.dart';
 part 'template.freezed.dart';
@@ -29,18 +26,14 @@ class DocumentTemplate with _$DocumentTemplate {
             document: AppDocument(
                 name: AppLocalizations.of(context)!.plain,
                 createdAt: DateTime.now(),
+                painters: createDefaultPainters(),
                 palettes: ColorPalette.getMaterialPalette(context),
                 background: BackgroundTemplate.plain.create())),
         DocumentTemplate(
             document: AppDocument(
                 name: AppLocalizations.of(context)!.plainDark,
                 createdAt: DateTime.now(),
-                painters: [
-                  PenPainter(property: const PenProperty(color: kColorWhite)),
-                  PathEraserPainter(),
-                  LabelPainter(
-                      property: const LabelProperty(color: kColorWhite)),
-                ],
+                painters: createDefaultPainters(),
                 palettes: ColorPalette.getMaterialPalette(context),
                 background: BackgroundTemplate.plainDark.create()))
       ];

@@ -34,6 +34,7 @@ class NewAction extends Action<NewIntent> {
         name: await formatCurrentDateTime(
             intent.context.read<SettingsCubit>().state.locale),
         createdAt: DateTime.now(),
+        painters: createDefaultPainters(),
         palettes: ColorPalette.getMaterialPalette(intent.context));
     final prefs = await SharedPreferences.getInstance();
     final remote = settings.getDefaultRemote();

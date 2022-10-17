@@ -108,7 +108,11 @@ class _ProjectPageState extends State<ProjectPage> {
     final settingsCubit = context.read<SettingsCubit>();
     final embedding = widget.embedding;
     if (embedding != null) {
-      final document = AppDocument(createdAt: DateTime.now(), name: '');
+      final document = AppDocument(
+          createdAt: DateTime.now(),
+          painters: createDefaultPainters(),
+          palettes: ColorPalette.getMaterialPalette(context),
+          name: '');
       var language = embedding.language;
       if (language == 'system') {
         language = '';
@@ -171,6 +175,7 @@ class _ProjectPageState extends State<ProjectPage> {
       document ??= AppDocument(
           name: name,
           createdAt: DateTime.now(),
+          painters: createDefaultPainters(),
           palettes: ColorPalette.getMaterialPalette(context));
     }
     if (document != null) {

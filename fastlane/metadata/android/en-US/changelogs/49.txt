@@ -1,0 +1,1 @@
+* Add painters to default document
