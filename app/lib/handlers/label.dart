@@ -32,6 +32,26 @@ class LabelHandler extends Handler<LabelPainter> {
   }
 
   @override
+  void onLongPressEnd(LongPressEndDetails details, EventContext context) async {
+    final position =
+        context.getCameraTransform().localToGlobal(details.localPosition);
+    final elements = await rayCast(position, context.buildContext, 0.0);
+    final label = elements.whereType<LabelRenderer>().firstOrNull?.element;
+    if (label == null) {
+      return;
+    }
+    final bloc = context.getDocumentBloc();
+    final newElement = await showDialog(
+        context: context.buildContext,
+        builder: (_) => BlocProvider.value(
+            value: bloc, child: EditLabelElementDialog(element: label)));
+    if (newElement == null) {
+      return;
+    }
+    bloc.add(ElementsChanged({label: newElement}));
+  }
+
+  @override
   int? getColor(DocumentBloc bloc) => data.property.color;
 
   @override

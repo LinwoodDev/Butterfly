@@ -1,2 +1,3 @@
 * Add painters to default document
+* Enable label editing when long pressing on a label
 * Fix rect shape hit calculation
