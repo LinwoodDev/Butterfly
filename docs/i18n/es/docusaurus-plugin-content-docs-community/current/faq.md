@@ -19,11 +19,11 @@ Puede instalar la versión web haciendo clic en el botón instalar en la barra d
 
 Actualmente las imágenes de decodificación no funcionan con canvaskit. ¡Por favor, vota [este problema](https://github.com/flutter/flutter/issues/102683) si quieres esta opción!
 
-### Butterfly does not load on Brave
+### La mariposa no se carga en Brave
 
-Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggrestive, need to change it to 'Standard' or just plain 'Block Fingerprinting'. Click on the shield icon in the address bar to change the setting. Try updating your browser to the latest version.
+Los usuarios que han configurado el escudo 'Bloquear la huella dactilar' en Agresivo, necesitan cambiarlo a 'Estándar' o simplemente 'Bloquear la huella dactilar'. Haga clic en el icono de escudo en la barra de direcciones para cambiar la configuración. Intenta actualizar tu navegador a la última versión.
 
-## Mobile
+## Móvil
 
 ### Se bloquea en Z Fold 3 al mantener pulsado el botón lateral de S Pen
 
