@@ -19,11 +19,11 @@ Ecco alcune domande frequenti.
 
 Attualmente la decodifica delle immagini non funziona con canvaskit. Si prega di votare [questo numero](https://github.com/flutter/flutter/issues/102683) se si desidera questa opzione!
 
-### Butterfly does not load on Brave
+### La farfalla non carica su Brave
 
-Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggrestive, need to change it to 'Standard' or just plain 'Block Fingerprinting'. Click on the shield icon in the address bar to change the setting. Try updating your browser to the latest version.
+Gli utenti coraggiosi che hanno impostato l'impostazione 'Block Fingerprinting' Shield a Aggrestive, devono cambiarlo in 'Standard' o semplicemente 'Block Fingerprinting'. Fare clic sull'icona dello scudo nella barra degli indirizzi per modificare l'impostazione. Prova ad aggiornare il tuo browser all'ultima versione.
 
-## Mobile
+## Cellulare
 
 ### Crash su Z Fold 3 tenendo premuto il pulsante laterale della penna S
 
