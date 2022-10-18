@@ -19,6 +19,12 @@ Sie können die Web-Version installieren, indem Sie auf den Installations-Button
 
 Zur Zeit funktioniert das Dekodieren von Bildern nicht mit Canvaskit. Bitte bewerte [dieses Ticket](https://github.com/flutter/flutter/issues/102683) wenn du diese Option möchtest!
 
+### Butterfly does not load on Brave
+
+Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggrestive, need to change it to 'Standard' or just plain 'Block Fingerprinting'. Click on the shield icon in the address bar to change the setting. Try updating your browser to the latest version.
+
+## Mobile
+
 ### Abstürze bei Z Fold 3, wenn die Seitentaste von S Pen gedrückt wird
 
 > [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
