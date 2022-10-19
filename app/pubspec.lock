@@ -91,7 +91,7 @@ packages:
       name: build_config
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   build_daemon:
     dependency: transitive
     description:
@@ -112,14 +112,14 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.0"
+    version: "2.3.2"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.2.4"
+    version: "7.2.6"
   built_collection:
     dependency: transitive
     description:
@@ -226,14 +226,12 @@ packages:
     source: hosted
     version: "3.0.0"
   connectivity_plus_platform_interface:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
-      path: "packages/connectivity_plus/connectivity_plus_platform_interface"
-      ref: "6009f7b304f96c3e3e456bdabd6a840ebc172269"
-      resolved-ref: "6009f7b304f96c3e3e456bdabd6a840ebc172269"
-      url: "https://github.com/fluttercommunity/plus_plugins.git"
-    source: git
-    version: "1.2.1"
+      name: connectivity_plus_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.2"
   convert:
     dependency: transitive
     description:
@@ -468,7 +466,7 @@ packages:
       name: frontend_server_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.3"
+    version: "3.0.0"
   fuchsia_remote_debug_protocol:
     dependency: transitive
     description: flutter
@@ -487,7 +485,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.1.0"
+    version: "5.1.1"
   graphs:
     dependency: transitive
     description:
@@ -571,7 +569,7 @@ packages:
       name: json_serializable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.5.2"
+    version: "6.5.3"
   lints:
     dependency: transitive
     description:

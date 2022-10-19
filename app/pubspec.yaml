@@ -34,7 +34,7 @@ dependencies:
   share_plus: ^6.0.0
   package_info_plus: ^2.0.0
   idb_shim: ^2.0.1+1
-  go_router: ^5.1.0
+  go_router: ^5.1.1
   xml: ^6.0.1
   collection: ^1.16.0
   bloc_concurrency: ^0.2.0
@@ -69,16 +69,9 @@ dev_dependencies:
     sdk: flutter
   analyzer: ^5.1.0
   freezed: ^2.2.0
-  build_runner: ^2.3.0
-  json_serializable: ^6.5.2
+  build_runner: ^2.3.2
+  json_serializable: ^6.5.3
   espresso: ^0.2.0+4
-dependency_overrides:
-  connectivity_plus_platform_interface:
-    git:
-      url: https://github.com/fluttercommunity/plus_plugins.git
-      path: packages/connectivity_plus/connectivity_plus_platform_interface
-      ref: 6009f7b304f96c3e3e456bdabd6a840ebc172269
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.

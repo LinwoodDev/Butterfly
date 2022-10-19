@@ -47,7 +47,10 @@
   },
   "packageManager": "yarn@3.2.4",
   "devDependencies": {
-    "markdownlint-cli2": "^0.5.1"
+    "@docusaurus/module-type-aliases": "^2.1.0",
+    "@tsconfig/docusaurus": "^1.0.6",
+    "markdownlint-cli2": "^0.5.1",
+    "typescript": "^4.8.4"
   },
   "dependenciesMeta": {
     "react@17.0.2": {

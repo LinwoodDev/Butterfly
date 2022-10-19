@@ -28,7 +28,7 @@ function HomepageHeader() {
     <header className={clsx('hero shadow--lw', styles.heroBanner)}>
       <div className="container">
         <div className="row">
-          <div class={clsx("col col--6", styles.center)}>
+          <div className={clsx("col col--6", styles.center)}>
             <h1 data-aos="fade-up" className="hero__title">
               {siteConfig.title}
             </h1>
@@ -46,9 +46,9 @@ function HomepageHeader() {
                 </Link>
               </AnimationOnScroll>
               <AnimationOnScroll animateIn="animate__fadeInUp">
-                <div class="dropdown dropdown--hoverable">
-                  <a href="/downloads" class={clsx("button button--primary button--lg", styles.button)}>Download</a>
-                  <ul class="dropdown__menu">
+                <div className="dropdown dropdown--hoverable">
+                  <a href="/downloads" className={clsx("button button--primary button--lg", styles.button)}>Download</a>
+                  <ul className="dropdown__menu">
                     <li>
                       {platform === 'Windows' &&
                         <Link

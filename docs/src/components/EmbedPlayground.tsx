@@ -25,10 +25,10 @@ export default function EmbedPlayground() {
         <input className="input" type="text" value={language} id="language" onChange={(e) => setLanguage(e.target.value)} />
       </div>
       <h2 className="padding-top--lg padding-bottom--sm">Preview</h2>
-      <iframe src={url} width="100%" height="500px" allowtransparency="true"></iframe>
+      <iframe src={url} width="100%" height="500px" allowTransparency={true}></iframe>
       <div className="input-group">
         <label htmlFor="url">Generated url</label>
-        <input className="input" readonly type="text" value={url} id="url" />
+        <input className="input" readOnly type="text" value={url} id="url" />
       </div>
     </div>
   )
