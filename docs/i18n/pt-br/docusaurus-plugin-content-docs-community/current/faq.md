@@ -21,7 +21,7 @@ Atualmente, a decodificação de imagens não funciona com o canvaskit. Por favo
 
 ### Borboleta não carrega no Brave
 
-Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'. Clique no ícone do escudo na barra de endereços para alterar a configuração. Tente atualizar seu navegador para a versão mais recente.
+Usuários corajosos que definiram a opção 'Bloquear impressão digital' para Agressivo, precisam alterá-la para 'Padrão' ou apenas para 'Bloquear impressão digital'. Clique no ícone do escudo na barra de endereços para alterar a configuração. Tente atualizar seu navegador para a versão mais recente.
 
 ## Celular
 
