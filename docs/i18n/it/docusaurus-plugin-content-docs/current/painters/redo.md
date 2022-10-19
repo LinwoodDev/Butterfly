@@ -4,4 +4,4 @@ sidebar_label: "Ripristina"
 sidebar_position: 2
 ---
 
-Quando si fa clic su questo pittore è possibile ripetere l'ultima azione. See the [undo painter](undo) for undoing your last action.
+Quando si fa clic su questo pittore è possibile ripetere l'ultima azione. Vedi il [annulla il pittore](undo) per annullare la tua ultima azione.
