@@ -12,6 +12,11 @@ on:
         description: "Is this version stable?"
         type: boolean
         required: false
+      only_winget:
+        default: false
+        description: "Only update the winget manifest?"
+        type: boolean
+        required: false
 
 jobs:
   update-changelog:
@@ -41,6 +46,7 @@ jobs:
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Update changelog
+        if: ${{ github.event.inputs.only_winget != 'true' }}
         run: |
           git fetch
           git pull origin
@@ -50,7 +56,7 @@ jobs:
           git commit -m "Add changelog of v${{ env.BUTTERFLY_VERSION }}"
           git push origin
       - name: Merge in develop
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' && github.event.inputs.only_winget != 'true' }}
         run: |
           git fetch
           git checkout develop
@@ -62,7 +68,8 @@ jobs:
     needs:
       - update-changelog
     outputs:
-      build_number: ${{ steps.setup.outputs.build_number }}
+      version: ${{ steps.setup.outputs.BUTTERFLY_VERSION }}
+      build_number: ${{ steps.setup.outputs.BUTTERFLY_BUILD_NUMBER }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -84,12 +91,15 @@ jobs:
           [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
           BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
           echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_OUTPUT
           BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_OUTPUT
           echo "::set-output name=build_number::${BUTTERFLY_BUILD_NUMBER}"
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Create tag
+        if: ${{ github.event.inputs.only_winget != 'true' }}
         run: |
           BUTTERFLY_VERSION="${{ env.BUTTERFLY_VERSION }}"
           git tag -fa v${{ env.BUTTERFLY_VERSION }} -m "Release ${BUTTERFLY_VERSION}"
@@ -98,6 +108,7 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
       - name: Create release
+        if: ${{ github.event.inputs.only_winget != 'true' }}
         uses: softprops/action-gh-release@v1
         with:
           prerelease: ${{ github.event.inputs.stable != 'true' }}
@@ -106,12 +117,12 @@ jobs:
           token: ${{ secrets.CI_PAT }}
           body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
       - name: Retag stable
-        if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
+        if: ${{ (github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main') && github.event.inputs.only_winget != 'true' }}
         run: |
           git tag -fa stable -m "Find all stable releases here"
           git push origin stable -f
       - name: Retag nightly
-        if: ${{ github.event.inputs.stable != 'true' && github.ref == 'refs/heads/develop' }}
+        if: ${{ (github.event.inputs.stable != 'true' && github.ref == 'refs/heads/develop') && github.event.inputs.only_winget != 'true' }}
         run: |
           git tag -fa nightly -m "Find all nightly releases here"
           git push origin nightly -f
@@ -123,36 +134,23 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
           ref: ${{ github.ref }}
-      - name: Setup git
-        id: setup
-        shell: bash
-        run: |
-          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
-          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
-          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
-          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
-          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
-          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
-          echo "::set-output name=build_number::${BUTTERFLY_BUILD_NUMBER}"
-          git config --global user.email "ci@linwood.dev"
-          git config --global user.name "Linwood CI"
       - if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
         uses: vedantmgoyal2009/winget-releaser@v1
         with:
           identifier: LinwoodCloud.Butterfly
-          version: ${{ env.BUTTERFLY_VERSION }}
-          release-tag: v${{ env.BUTTERFLY_VERSION }}
+          version: ${{ needs.release.outputs.version }}
+          release-tag: v${{ needs.release.outputs.version }}
           token: ${{ secrets.CI_PAT }}
-
       - if: ${{ github.event.inputs.stable == 'false' && github.ref == 'refs/heads/develop' }}
         uses: vedantmgoyal2009/winget-releaser@v1
         with:
           identifier: LinwoodCloud.Butterfly.Nightly
-          version: ${{ env.BUTTERFLY_VERSION }}
-          release-tag: v${{ env.BUTTERFLY_VERSION }}
+          version: ${{ needs.release.outputs.version }}
+          release-tag: v${{ needs.release.outputs.version }}
           token: ${{ secrets.CI_PAT }}
   set-next-version:
     runs-on: ubuntu-22.04
+    if: ${{ github.event.inputs.only_winget != 'true' }}
     needs:
       - update-changelog
       - release
@@ -199,6 +197,7 @@ jobs:
           git push origin develop
   bump-version:
     runs-on: ubuntu-22.04
+    if: ${{ github.event.inputs.only_winget != 'true' }}
     needs:
       - update-changelog
       - release
@@ -256,6 +255,7 @@ jobs:
           git push origin develop
   notify:
     runs-on: ubuntu-22.04
+    if: ${{ github.event.inputs.only_winget != 'true' }}
     needs: [release]
     steps:
       - uses: actions/checkout@v3
