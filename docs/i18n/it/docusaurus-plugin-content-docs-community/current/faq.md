@@ -21,7 +21,7 @@ Attualmente la decodifica delle immagini non funziona con canvaskit. Si prega di
 
 ### La farfalla non carica su Brave
 
-Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'. Fare clic sull'icona dello scudo nella barra degli indirizzi per modificare l'impostazione. Prova ad aggiornare il tuo browser all'ultima versione.
+Gli utenti coraggiosi che hanno impostato l'impostazione dello scudo 'Block Fingerprinting' in Aggressive, devono cambiarlo in 'Standard' o semplicemente 'Block Fingerprinting'. Fare clic sull'icona dello scudo nella barra degli indirizzi per modificare l'impostazione. Prova ad aggiornare il tuo browser all'ultima versione.
 
 ## Cellulare
 
