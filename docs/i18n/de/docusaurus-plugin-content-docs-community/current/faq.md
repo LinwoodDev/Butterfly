@@ -21,7 +21,7 @@ Zur Zeit funktioniert das Dekodieren von Bildern nicht mit Canvaskit. Bitte bewe
 
 ### Schmetterling lädt nicht auf Brave
 
-Mutige Benutzer, die die 'Fingerabdruck blockieren'-Einstellung auf 'Aggressiv' gesetzt haben, müssen diese in 'Standard' oder einfach nur 'Fingerabdruckblock' ändern. Klicken Sie auf das Schildsymbol in der Adressleiste, um die Einstellung zu ändern. Versuchen Sie, Ihren Browser auf die neueste Version zu aktualisieren.
+Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'. Klicken Sie auf das Schildsymbol in der Adressleiste, um die Einstellung zu ändern. Versuchen Sie, Ihren Browser auf die neueste Version zu aktualisieren.
 
 ## Mobil
 
