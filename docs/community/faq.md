@@ -23,7 +23,7 @@ Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if 
 
 ### Butterfly does not load on Brave
 
-Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggrestive, need to change it to 'Standard' or just plain 'Block Fingerprinting'.
+Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'.
 Click on the shield icon in the address bar to change the setting.
 Try updating your browser to the latest version.
 

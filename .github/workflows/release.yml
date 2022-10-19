@@ -28,7 +28,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'any'
+          channel: "any"
       - name: Setup git
         id: setup
         run: |
@@ -75,7 +75,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'any'
+          channel: "any"
       - name: Setup git
         id: setup
         shell: bash
@@ -116,9 +116,13 @@ jobs:
           git tag -fa nightly -m "Find all nightly releases here"
           git push origin nightly -f
   publish-winget:
-    needs: [ release ]
+    needs: [release]
     runs-on: windows-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+          ref: ${{ github.ref }}
       - name: Setup git
         id: setup
         shell: bash
@@ -164,7 +168,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'any'
+          channel: "any"
       - name: Setup git
         id: setup
         run: |
@@ -232,7 +236,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'any'
+          channel: "any"
       - name: Bump version
         run: |
           git fetch
@@ -252,6 +256,7 @@ jobs:
           git push origin develop
   notify:
     runs-on: ubuntu-22.04
+    needs: [release]
     steps:
       - uses: actions/checkout@v3
         with:
