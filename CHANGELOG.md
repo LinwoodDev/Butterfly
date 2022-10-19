@@ -2,6 +2,12 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.5.0-rc.1 (2022-10-19)
+
+* Add painters to default document
+* Enable label editing when long pressing on a label
+* Fix rect shape hit calculation
+
 ## 1.5.0-rc.0 (2022-10-15)
 
 * Add delete button to color view
