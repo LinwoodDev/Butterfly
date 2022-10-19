@@ -95,7 +95,6 @@ jobs:
           BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_OUTPUT
-          echo "::set-output name=build_number::${BUTTERFLY_BUILD_NUMBER}"
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Create tag
@@ -134,14 +133,14 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
           ref: ${{ github.ref }}
-      - if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
+      - if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/stable' }}
         uses: vedantmgoyal2009/winget-releaser@v1
         with:
           identifier: LinwoodCloud.Butterfly
           version: ${{ needs.release.outputs.version }}
           release-tag: v${{ needs.release.outputs.version }}
           token: ${{ secrets.CI_PAT }}
-      - if: ${{ github.event.inputs.stable == 'false' && github.ref == 'refs/heads/develop' }}
+      - if: ${{ github.event.inputs.stable == 'false' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/nightly') }}
         uses: vedantmgoyal2009/winget-releaser@v1
         with:
           identifier: LinwoodCloud.Butterfly.Nightly
