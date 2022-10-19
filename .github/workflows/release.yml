@@ -119,12 +119,12 @@ jobs:
         if: ${{ (github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main') && github.event.inputs.only_winget != 'true' }}
         run: |
           git tag -fa stable -m "Find all stable releases here"
-          git push origin stable -f
+          git push origin HEAD:stable -f
       - name: Retag nightly
         if: ${{ (github.event.inputs.stable != 'true' && github.ref == 'refs/heads/develop') && github.event.inputs.only_winget != 'true' }}
         run: |
           git tag -fa nightly -m "Find all nightly releases here"
-          git push origin nightly -f
+          git push origin HEAD:nightly -f
   publish-winget:
     needs: [release]
     runs-on: windows-latest
@@ -133,14 +133,14 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
           ref: ${{ github.ref }}
-      - if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/stable' }}
+      - if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' || github.ref == 'refs/tags/stable' }}
         uses: vedantmgoyal2009/winget-releaser@v1
         with:
           identifier: LinwoodCloud.Butterfly
           version: ${{ needs.release.outputs.version }}
           release-tag: v${{ needs.release.outputs.version }}
           token: ${{ secrets.CI_PAT }}
-      - if: ${{ github.event.inputs.stable == 'false' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/nightly') }}
+      - if: ${{ github.event.inputs.stable == 'false' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/tags/nightly') }}
         uses: vedantmgoyal2009/winget-releaser@v1
         with:
           identifier: LinwoodCloud.Butterfly.Nightly
