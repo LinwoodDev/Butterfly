@@ -19,6 +19,12 @@ Você pode instalar a versão web clicando no botão de instalação na barra do
 
 Atualmente, a decodificação de imagens não funciona com o canvaskit. Por favor, vote [nesta issue](https://github.com/flutter/flutter/issues/102683) se você quiser esta opção!
 
+### Borboleta não carrega no Brave
+
+Usuários corajosos que definiram a opção 'Bloquear impressão digital' para Agressiva, precisam alterá-la para 'Padrão' ou apenas para 'Bloquear impressão digital'. Clique no ícone do escudo na barra de endereços para alterar a configuração. Tente atualizar seu navegador para a versão mais recente.
+
+## Celular
+
 ### Quebra em Z Fold 3 ao segurar o botão lateral da caneta S
 
 > [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)

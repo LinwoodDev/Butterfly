@@ -19,6 +19,12 @@ Puede instalar la versión web haciendo clic en el botón instalar en la barra d
 
 Actualmente las imágenes de decodificación no funcionan con canvaskit. ¡Por favor, vota [este problema](https://github.com/flutter/flutter/issues/102683) si quieres esta opción!
 
+### La mariposa no se carga en Brave
+
+Los usuarios que han configurado el escudo 'Bloquear la huella dactilar' en Agresivo, necesitan cambiarlo a 'Estándar' o simplemente 'Bloquear la huella dactilar'. Haga clic en el icono de escudo en la barra de direcciones para cambiar la configuración. Intenta actualizar tu navegador a la última versión.
+
+## Móvil
+
 ### Se bloquea en Z Fold 3 al mantener pulsado el botón lateral de S Pen
 
 > [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)

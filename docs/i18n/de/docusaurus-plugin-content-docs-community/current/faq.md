@@ -19,6 +19,12 @@ Sie können die Web-Version installieren, indem Sie auf den Installations-Button
 
 Zur Zeit funktioniert das Dekodieren von Bildern nicht mit Canvaskit. Bitte bewerte [dieses Ticket](https://github.com/flutter/flutter/issues/102683) wenn du diese Option möchtest!
 
+### Schmetterling lädt nicht auf Brave
+
+Mutige Benutzer, die die 'Fingerabdruck blockieren'-Einstellung auf 'Aggressiv' gesetzt haben, müssen diese in 'Standard' oder einfach nur 'Fingerabdruckblock' ändern. Klicken Sie auf das Schildsymbol in der Adressleiste, um die Einstellung zu ändern. Versuchen Sie, Ihren Browser auf die neueste Version zu aktualisieren.
+
+## Mobil
+
 ### Abstürze bei Z Fold 3, wenn die Seitentaste von S Pen gedrückt wird
 
 > [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)

@@ -19,6 +19,12 @@ Başlık çubuğundaki yükle düğmesine tıklayarak web sürümünü yükleyeb
 
 Şu anda görüntülerin kodunu çözme "canvaskit" ile çalışmıyor. Eğer bu seçeneği istiyorsanız [this issue](https://github.com/flutter/flutter/issues/102683)  lütfen oylayın.
 
+### Butterfly does not load on Brave
+
+Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggrestive, need to change it to 'Standard' or just plain 'Block Fingerprinting'. Click on the shield icon in the address bar to change the setting. Try updating your browser to the latest version.
+
+## Mobile
+
 ### Crashes on Z Fold 3 when holding side button of S Pen
 
 > [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)

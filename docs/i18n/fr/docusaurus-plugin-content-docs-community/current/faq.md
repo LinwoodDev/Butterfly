@@ -19,6 +19,12 @@ Vous pouvez installer la version web en cliquant sur le bouton d'installation da
 
 Actuellement, le décodage des images ne fonctionne pas avec canvaskit. Veuillez voter pour [ce problème](https://github.com/flutter/flutter/issues/102683) si vous voulez cette option !
 
+### Le papillon ne se charge pas sur Brave
+
+Les utilisateurs courageux qui ont défini le paramètre de bouclier "Bloquer l'empreinte digitale" sur "Agressif", doivent le changer en "Standard" ou simplement en "Block Empreinte digitale". Cliquez sur l'icône du bouclier dans la barre d'adresse pour modifier le paramètre. Essayez de mettre à jour votre navigateur vers la dernière version.
+
+## Téléphone mobile
+
 ### Crashes sur Z Fold 3 en maintenant appuyé le bouton latéral du S Stylo
 
 > [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
