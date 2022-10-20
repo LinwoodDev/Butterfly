@@ -7,6 +7,7 @@ import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/element.dart';
+import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/int.dart';
 import 'package:collection/collection.dart';
@@ -29,6 +30,7 @@ part 'elements/path.dart';
 part 'elements/pen.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
+part 'tool.dart';
 
 class DefaultHitCalculator extends HitCalculator {
   final Rect? rect;
@@ -99,6 +101,10 @@ abstract class Renderer<T> {
       if (element is BoxBackground) {
         return BoxBackgroundRenderer(element) as Renderer<T>;
       }
+    }
+
+    if (element is ToolState) {
+      return ToolRenderer(element) as Renderer<T>;
     }
 
     throw Exception('Invalid instance type');

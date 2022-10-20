@@ -42,6 +42,15 @@ class ToolSelection extends Selection<ToolState> {
                   toolOption.copyWith(gridXSize: value.dx, gridYSize: value.dy),
                 )),
       ),
+      const SizedBox(height: 8),
+      ColorField(
+        title: Text(AppLocalizations.of(context)!.color),
+        value: Color(toolOption.gridColor),
+        onChanged: (value) =>
+            context.read<DocumentBloc>().add(ToolChanged.option(
+                  toolOption.copyWith(gridColor: value.value),
+                )),
+      ),
       const SizedBox(height: 32),
       CheckboxListTile(
         title: Text(AppLocalizations.of(context)!.ruler),

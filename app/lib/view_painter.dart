@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
 import 'models/area.dart';
+import 'models/tool.dart';
 import 'selections/selection.dart';
 
 class ForegroundPainter extends CustomPainter {
@@ -13,15 +14,10 @@ class ForegroundPainter extends CustomPainter {
   final List<Renderer> renderers;
   final CameraTransform transform;
   final Selection? selection;
+  final Renderer<ToolState>? tool;
 
-  ForegroundPainter(
-    this.renderers,
-    this.document,
-    this.primary,
-    this.secondary, [
-    this.transform = const CameraTransform(),
-    this.selection,
-  ]);
+  ForegroundPainter(this.renderers, this.document, this.primary, this.secondary,
+      [this.transform = const CameraTransform(), this.selection, this.tool]);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -41,6 +37,9 @@ class ForegroundPainter extends CustomPainter {
       */
       _drawSelection(canvas, selection);
     }
+    if (tool != null) {
+      tool!.build(canvas, size, document, transform, true);
+    }
   }
 
   void _drawSelection(Canvas canvas, ElementSelection selection) {
@@ -59,7 +58,8 @@ class ForegroundPainter extends CustomPainter {
   bool shouldRepaint(ForegroundPainter oldDelegate) =>
       oldDelegate.renderers != renderers ||
       oldDelegate.transform != transform ||
-      oldDelegate.selection != selection;
+      oldDelegate.selection != selection ||
+      oldDelegate.tool != tool;
 }
 
 class ViewPainter extends CustomPainter {

@@ -54,6 +54,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ToolChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
+      await current.currentIndexCubit
+          .updateTool(current.document, event.state ?? current.toolState);
       return _saveDocument(
         emit,
         current.copyWith(
@@ -638,11 +640,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     currentIndexCubit.setSaveState(saved: true);
     final background = Renderer.fromInstance(document.background);
     await background.setup(document);
+    final tool = Renderer.fromInstance(current.toolState);
+    await tool.setup(document);
     final renderers =
         document.content.map((e) => Renderer.fromInstance(e)).toList();
     await Future.wait(renderers.map((e) async => await e.setup(document)));
     currentIndexCubit.unbake(
-        background: background, unbakedElements: renderers);
+        background: background, tool: tool, unbakedElements: renderers);
     currentIndexCubit.changePainter(this, 0);
   }
 }

@@ -6,11 +6,13 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import 'element.dart';
+import 'tool.dart';
 
 @immutable
 class CameraViewport extends Equatable {
   final ui.Image? image;
   final Renderer<Background>? background;
+  final Renderer<ToolState>? tool;
   final List<Renderer<PadElement>> bakedElements,
       unbakedElements,
       visibleElements;
@@ -21,6 +23,7 @@ class CameraViewport extends Equatable {
 
   const CameraViewport.unbaked(
       [this.background,
+      this.tool,
       this.unbakedElements = const [],
       List<Renderer<PadElement>>? visibleElements])
       : image = null,
@@ -35,6 +38,7 @@ class CameraViewport extends Equatable {
 
   const CameraViewport.baked(
       {this.background,
+      this.tool,
       required this.image,
       required this.width,
       required this.height,
@@ -65,6 +69,7 @@ class CameraViewport extends Equatable {
           width: width,
           height: height,
           scale: scale,
+          tool: tool,
           unbakedElements: unbakedElements,
           bakedElements: bakedElements,
           pixelRatio: pixelRatio,
@@ -75,11 +80,13 @@ class CameraViewport extends Equatable {
 
   CameraViewport unbake({
     Renderer<Background>? background,
+    Renderer<ToolState>? tool,
     List<Renderer<PadElement>>? unbakedElements,
     List<Renderer<PadElement>>? visibleElements,
   }) =>
       CameraViewport.unbaked(
           background ?? this.background,
+          tool ?? this.tool,
           unbakedElements ??
               (List<Renderer<PadElement>>.from(this.unbakedElements)
                 ..addAll(bakedElements)),
@@ -102,6 +109,7 @@ class CameraViewport extends Equatable {
   }) =>
       CameraViewport.baked(
           background: background,
+          tool: tool,
           image: image,
           width: width,
           height: height,
@@ -113,8 +121,24 @@ class CameraViewport extends Equatable {
           y: y,
           visibleElements: visibleElements);
 
-  withBackground(Renderer<Background> background) => CameraViewport.baked(
+  CameraViewport withBackground(Renderer<Background> background) =>
+      CameraViewport.baked(
+          background: background,
+          tool: tool,
+          pixelRatio: pixelRatio,
+          image: image,
+          width: width,
+          height: height,
+          scale: scale,
+          bakedElements: bakedElements,
+          unbakedElements: unbakedElements,
+          x: x,
+          y: y,
+          visibleElements: visibleElements);
+
+  CameraViewport withTool(Renderer<ToolState> tool) => CameraViewport.baked(
       background: background,
+      tool: tool,
       pixelRatio: pixelRatio,
       image: image,
       width: width,
@@ -138,6 +162,7 @@ class CameraViewport extends Equatable {
         x,
         y,
         pixelRatio,
-        visibleElements
+        visibleElements,
+        tool,
       ];
 }
