@@ -237,8 +237,14 @@ class _EditToolbarState extends State<EditToolbar> {
                                             ),
                                           );
                                         })
-                                      ])
-                            ]
+                                      ]),
+                              IconButton(
+                                icon: const Icon(PhosphorIcons.wrenchLight),
+                                onPressed: () => context
+                                    .read<CurrentIndexCubit>()
+                                    .changeSelection(state.toolState),
+                              ),
+                            ],
                           ]),
                     ),
                   );

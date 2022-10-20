@@ -391,5 +391,9 @@
   "shortcuts": "Shortcuts",
   "middle": "Middle",
   "first": "First",
-  "second": "Second"
+  "second": "Second",
+  "tools": "Tools",
+  "showGrid": "Show grid",
+  "grid": "Grid",
+  "ruler": "Ruler"
 }

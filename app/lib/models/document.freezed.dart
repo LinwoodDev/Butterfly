@@ -34,39 +34,42 @@ mixin _$AssetLocation {
 abstract class $AssetLocationCopyWith<$Res> {
   factory $AssetLocationCopyWith(
           AssetLocation value, $Res Function(AssetLocation) then) =
-      _$AssetLocationCopyWithImpl<$Res>;
+      _$AssetLocationCopyWithImpl<$Res, AssetLocation>;
+  @useResult
   $Res call({String remote, String path, bool absolute});
 }
 
 /// @nodoc
-class _$AssetLocationCopyWithImpl<$Res>
+class _$AssetLocationCopyWithImpl<$Res, $Val extends AssetLocation>
     implements $AssetLocationCopyWith<$Res> {
   _$AssetLocationCopyWithImpl(this._value, this._then);
 
-  final AssetLocation _value;
   // ignore: unused_field
-  final $Res Function(AssetLocation) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? remote = freezed,
-    Object? path = freezed,
-    Object? absolute = freezed,
+    Object? remote = null,
+    Object? path = null,
+    Object? absolute = null,
   }) {
     return _then(_value.copyWith(
-      remote: remote == freezed
+      remote: null == remote
           ? _value.remote
           : remote // ignore: cast_nullable_to_non_nullable
               as String,
-      path: path == freezed
+      path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
-      absolute: absolute == freezed
+      absolute: null == absolute
           ? _value.absolute
           : absolute // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -77,36 +80,35 @@ abstract class _$$_AssetLocationCopyWith<$Res>
           _$_AssetLocation value, $Res Function(_$_AssetLocation) then) =
       __$$_AssetLocationCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String remote, String path, bool absolute});
 }
 
 /// @nodoc
 class __$$_AssetLocationCopyWithImpl<$Res>
-    extends _$AssetLocationCopyWithImpl<$Res>
+    extends _$AssetLocationCopyWithImpl<$Res, _$_AssetLocation>
     implements _$$_AssetLocationCopyWith<$Res> {
   __$$_AssetLocationCopyWithImpl(
       _$_AssetLocation _value, $Res Function(_$_AssetLocation) _then)
-      : super(_value, (v) => _then(v as _$_AssetLocation));
+      : super(_value, _then);
 
-  @override
-  _$_AssetLocation get _value => super._value as _$_AssetLocation;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? remote = freezed,
-    Object? path = freezed,
-    Object? absolute = freezed,
+    Object? remote = null,
+    Object? path = null,
+    Object? absolute = null,
   }) {
     return _then(_$_AssetLocation(
-      remote: remote == freezed
+      remote: null == remote
           ? _value.remote
           : remote // ignore: cast_nullable_to_non_nullable
               as String,
-      path: path == freezed
+      path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
-      absolute: absolute == freezed
+      absolute: null == absolute
           ? _value.absolute
           : absolute // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -143,21 +145,19 @@ class _$_AssetLocation extends _AssetLocation {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AssetLocation &&
-            const DeepCollectionEquality().equals(other.remote, remote) &&
-            const DeepCollectionEquality().equals(other.path, path) &&
-            const DeepCollectionEquality().equals(other.absolute, absolute));
+            (identical(other.remote, remote) || other.remote == remote) &&
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.absolute, absolute) ||
+                other.absolute == absolute));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(remote),
-      const DeepCollectionEquality().hash(path),
-      const DeepCollectionEquality().hash(absolute));
+  int get hashCode => Object.hash(runtimeType, remote, path, absolute);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AssetLocationCopyWith<_$_AssetLocation> get copyWith =>
       __$$_AssetLocationCopyWithImpl<_$_AssetLocation>(this, _$identity);
 
@@ -208,6 +208,7 @@ mixin _$AppDocument {
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   List<Painter> get painters => throw _privateConstructorUsedError;
+  ToolOption get tool => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -219,7 +220,8 @@ mixin _$AppDocument {
 abstract class $AppDocumentCopyWith<$Res> {
   factory $AppDocumentCopyWith(
           AppDocument value, $Res Function(AppDocument) then) =
-      _$AppDocumentCopyWithImpl<$Res>;
+      _$AppDocumentCopyWithImpl<$Res, AppDocument>;
+  @useResult
   $Res call(
       {String name,
       String description,
@@ -231,85 +233,104 @@ abstract class $AppDocumentCopyWith<$Res> {
       List<ExportPreset> exportPresets,
       DateTime createdAt,
       DateTime? updatedAt,
-      List<Painter> painters});
+      List<Painter> painters,
+      ToolOption tool});
 
   $BackgroundCopyWith<$Res> get background;
+  $ToolOptionCopyWith<$Res> get tool;
 }
 
 /// @nodoc
-class _$AppDocumentCopyWithImpl<$Res> implements $AppDocumentCopyWith<$Res> {
+class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
+    implements $AppDocumentCopyWith<$Res> {
   _$AppDocumentCopyWithImpl(this._value, this._then);
 
-  final AppDocument _value;
   // ignore: unused_field
-  final $Res Function(AppDocument) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? content = freezed,
-    Object? background = freezed,
-    Object? palettes = freezed,
-    Object? waypoints = freezed,
-    Object? areas = freezed,
-    Object? exportPresets = freezed,
-    Object? createdAt = freezed,
+    Object? name = null,
+    Object? description = null,
+    Object? content = null,
+    Object? background = null,
+    Object? palettes = null,
+    Object? waypoints = null,
+    Object? areas = null,
+    Object? exportPresets = null,
+    Object? createdAt = null,
     Object? updatedAt = freezed,
-    Object? painters = freezed,
+    Object? painters = null,
+    Object? tool = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as List<PadElement>,
-      background: background == freezed
+      background: null == background
           ? _value.background
           : background // ignore: cast_nullable_to_non_nullable
               as Background,
-      palettes: palettes == freezed
+      palettes: null == palettes
           ? _value.palettes
           : palettes // ignore: cast_nullable_to_non_nullable
               as List<ColorPalette>,
-      waypoints: waypoints == freezed
+      waypoints: null == waypoints
           ? _value.waypoints
           : waypoints // ignore: cast_nullable_to_non_nullable
               as List<Waypoint>,
-      areas: areas == freezed
+      areas: null == areas
           ? _value.areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>,
-      exportPresets: exportPresets == freezed
+      exportPresets: null == exportPresets
           ? _value.exportPresets
           : exportPresets // ignore: cast_nullable_to_non_nullable
               as List<ExportPreset>,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      updatedAt: updatedAt == freezed
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      painters: painters == freezed
+      painters: null == painters
           ? _value.painters
           : painters // ignore: cast_nullable_to_non_nullable
               as List<Painter>,
-    ));
+      tool: null == tool
+          ? _value.tool
+          : tool // ignore: cast_nullable_to_non_nullable
+              as ToolOption,
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BackgroundCopyWith<$Res> get background {
     return $BackgroundCopyWith<$Res>(_value.background, (value) {
-      return _then(_value.copyWith(background: value));
+      return _then(_value.copyWith(background: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ToolOptionCopyWith<$Res> get tool {
+    return $ToolOptionCopyWith<$Res>(_value.tool, (value) {
+      return _then(_value.copyWith(tool: value) as $Val);
     });
   }
 }
@@ -321,6 +342,7 @@ abstract class _$$_AppDocumentCopyWith<$Res>
           _$_AppDocument value, $Res Function(_$_AppDocument) then) =
       __$$_AppDocumentCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       String description,
@@ -332,81 +354,88 @@ abstract class _$$_AppDocumentCopyWith<$Res>
       List<ExportPreset> exportPresets,
       DateTime createdAt,
       DateTime? updatedAt,
-      List<Painter> painters});
+      List<Painter> painters,
+      ToolOption tool});
 
   @override
   $BackgroundCopyWith<$Res> get background;
+  @override
+  $ToolOptionCopyWith<$Res> get tool;
 }
 
 /// @nodoc
-class __$$_AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
+class __$$_AppDocumentCopyWithImpl<$Res>
+    extends _$AppDocumentCopyWithImpl<$Res, _$_AppDocument>
     implements _$$_AppDocumentCopyWith<$Res> {
   __$$_AppDocumentCopyWithImpl(
       _$_AppDocument _value, $Res Function(_$_AppDocument) _then)
-      : super(_value, (v) => _then(v as _$_AppDocument));
+      : super(_value, _then);
 
-  @override
-  _$_AppDocument get _value => super._value as _$_AppDocument;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? content = freezed,
-    Object? background = freezed,
-    Object? palettes = freezed,
-    Object? waypoints = freezed,
-    Object? areas = freezed,
-    Object? exportPresets = freezed,
-    Object? createdAt = freezed,
+    Object? name = null,
+    Object? description = null,
+    Object? content = null,
+    Object? background = null,
+    Object? palettes = null,
+    Object? waypoints = null,
+    Object? areas = null,
+    Object? exportPresets = null,
+    Object? createdAt = null,
     Object? updatedAt = freezed,
-    Object? painters = freezed,
+    Object? painters = null,
+    Object? tool = null,
   }) {
     return _then(_$_AppDocument(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value._content
           : content // ignore: cast_nullable_to_non_nullable
               as List<PadElement>,
-      background: background == freezed
+      background: null == background
           ? _value.background
           : background // ignore: cast_nullable_to_non_nullable
               as Background,
-      palettes: palettes == freezed
+      palettes: null == palettes
           ? _value._palettes
           : palettes // ignore: cast_nullable_to_non_nullable
               as List<ColorPalette>,
-      waypoints: waypoints == freezed
+      waypoints: null == waypoints
           ? _value._waypoints
           : waypoints // ignore: cast_nullable_to_non_nullable
               as List<Waypoint>,
-      areas: areas == freezed
+      areas: null == areas
           ? _value._areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>,
-      exportPresets: exportPresets == freezed
+      exportPresets: null == exportPresets
           ? _value._exportPresets
           : exportPresets // ignore: cast_nullable_to_non_nullable
               as List<ExportPreset>,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      updatedAt: updatedAt == freezed
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      painters: painters == freezed
+      painters: null == painters
           ? _value._painters
           : painters // ignore: cast_nullable_to_non_nullable
               as List<Painter>,
+      tool: null == tool
+          ? _value.tool
+          : tool // ignore: cast_nullable_to_non_nullable
+              as ToolOption,
     ));
   }
 }
@@ -425,7 +454,8 @@ class _$_AppDocument extends _AppDocument {
       final List<ExportPreset> exportPresets = const [],
       required this.createdAt,
       this.updatedAt,
-      final List<Painter> painters = const []})
+      final List<Painter> painters = const [],
+      this.tool = const ToolOption()})
       : _content = content,
         _palettes = palettes,
         _waypoints = waypoints,
@@ -498,8 +528,12 @@ class _$_AppDocument extends _AppDocument {
   }
 
   @override
+  @JsonKey()
+  final ToolOption tool;
+
+  @override
   String toString() {
-    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, palettes: $palettes, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters)';
+    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, palettes: $palettes, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
   }
 
   @override
@@ -507,41 +541,46 @@ class _$_AppDocument extends _AppDocument {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AppDocument &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             const DeepCollectionEquality().equals(other._content, _content) &&
-            const DeepCollectionEquality()
-                .equals(other.background, background) &&
+            (identical(other.background, background) ||
+                other.background == background) &&
             const DeepCollectionEquality().equals(other._palettes, _palettes) &&
             const DeepCollectionEquality()
                 .equals(other._waypoints, _waypoints) &&
             const DeepCollectionEquality().equals(other._areas, _areas) &&
             const DeepCollectionEquality()
                 .equals(other._exportPresets, _exportPresets) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
-            const DeepCollectionEquality().equals(other._painters, _painters));
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            const DeepCollectionEquality().equals(other._painters, _painters) &&
+            (identical(other.tool, tool) || other.tool == tool));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description),
+      name,
+      description,
       const DeepCollectionEquality().hash(_content),
-      const DeepCollectionEquality().hash(background),
+      background,
       const DeepCollectionEquality().hash(_palettes),
       const DeepCollectionEquality().hash(_waypoints),
       const DeepCollectionEquality().hash(_areas),
       const DeepCollectionEquality().hash(_exportPresets),
-      const DeepCollectionEquality().hash(createdAt),
-      const DeepCollectionEquality().hash(updatedAt),
-      const DeepCollectionEquality().hash(_painters));
+      createdAt,
+      updatedAt,
+      const DeepCollectionEquality().hash(_painters),
+      tool);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AppDocumentCopyWith<_$_AppDocument> get copyWith =>
       __$$_AppDocumentCopyWithImpl<_$_AppDocument>(this, _$identity);
 
@@ -565,7 +604,8 @@ abstract class _AppDocument extends AppDocument {
       final List<ExportPreset> exportPresets,
       required final DateTime createdAt,
       final DateTime? updatedAt,
-      final List<Painter> painters}) = _$_AppDocument;
+      final List<Painter> painters,
+      final ToolOption tool}) = _$_AppDocument;
   const _AppDocument._() : super._();
 
   factory _AppDocument.fromJson(Map<String, dynamic> json) =
@@ -593,6 +633,8 @@ abstract class _AppDocument extends AppDocument {
   DateTime? get updatedAt;
   @override
   List<Painter> get painters;
+  @override
+  ToolOption get tool;
   @override
   @JsonKey(ignore: true)
   _$$_AppDocumentCopyWith<_$_AppDocument> get copyWith =>

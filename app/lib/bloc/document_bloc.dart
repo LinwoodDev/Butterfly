@@ -5,6 +5,7 @@ import 'package:butterfly/models/background.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/models/waypoint.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -49,6 +50,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         clearHistory();
         await load();
       }
+    });
+    on<ToolChanged>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      return _saveDocument(
+        emit,
+        current.copyWith(
+          toolState: event.state,
+          document: current.document.copyWith(
+            tool: event.option ?? current.document.tool,
+          ),
+        ),
+      );
     });
     on<ElementsCreated>((event, emit) async {
       final current = state;

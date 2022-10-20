@@ -33,38 +33,42 @@ mixin _$PathPoint {
 /// @nodoc
 abstract class $PathPointCopyWith<$Res> {
   factory $PathPointCopyWith(PathPoint value, $Res Function(PathPoint) then) =
-      _$PathPointCopyWithImpl<$Res>;
+      _$PathPointCopyWithImpl<$Res, PathPoint>;
+  @useResult
   $Res call({double x, double y, double pressure});
 }
 
 /// @nodoc
-class _$PathPointCopyWithImpl<$Res> implements $PathPointCopyWith<$Res> {
+class _$PathPointCopyWithImpl<$Res, $Val extends PathPoint>
+    implements $PathPointCopyWith<$Res> {
   _$PathPointCopyWithImpl(this._value, this._then);
 
-  final PathPoint _value;
   // ignore: unused_field
-  final $Res Function(PathPoint) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? x = freezed,
-    Object? y = freezed,
-    Object? pressure = freezed,
+    Object? x = null,
+    Object? y = null,
+    Object? pressure = null,
   }) {
     return _then(_value.copyWith(
-      x: x == freezed
+      x: null == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as double,
-      y: y == freezed
+      y: null == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as double,
-      pressure: pressure == freezed
+      pressure: null == pressure
           ? _value.pressure
           : pressure // ignore: cast_nullable_to_non_nullable
               as double,
-    ));
+    ) as $Val);
   }
 }
 
@@ -74,35 +78,35 @@ abstract class _$$_PathPointCopyWith<$Res> implements $PathPointCopyWith<$Res> {
           _$_PathPoint value, $Res Function(_$_PathPoint) then) =
       __$$_PathPointCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({double x, double y, double pressure});
 }
 
 /// @nodoc
-class __$$_PathPointCopyWithImpl<$Res> extends _$PathPointCopyWithImpl<$Res>
+class __$$_PathPointCopyWithImpl<$Res>
+    extends _$PathPointCopyWithImpl<$Res, _$_PathPoint>
     implements _$$_PathPointCopyWith<$Res> {
   __$$_PathPointCopyWithImpl(
       _$_PathPoint _value, $Res Function(_$_PathPoint) _then)
-      : super(_value, (v) => _then(v as _$_PathPoint));
+      : super(_value, _then);
 
-  @override
-  _$_PathPoint get _value => super._value as _$_PathPoint;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? x = freezed,
-    Object? y = freezed,
-    Object? pressure = freezed,
+    Object? x = null,
+    Object? y = null,
+    Object? pressure = null,
   }) {
     return _then(_$_PathPoint(
-      x == freezed
+      null == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as double,
-      y == freezed
+      null == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as double,
-      pressure == freezed
+      null == pressure
           ? _value.pressure
           : pressure // ignore: cast_nullable_to_non_nullable
               as double,
@@ -136,21 +140,19 @@ class _$_PathPoint extends _PathPoint {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PathPoint &&
-            const DeepCollectionEquality().equals(other.x, x) &&
-            const DeepCollectionEquality().equals(other.y, y) &&
-            const DeepCollectionEquality().equals(other.pressure, pressure));
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y) &&
+            (identical(other.pressure, pressure) ||
+                other.pressure == pressure));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(x),
-      const DeepCollectionEquality().hash(y),
-      const DeepCollectionEquality().hash(pressure));
+  int get hashCode => Object.hash(runtimeType, x, y, pressure);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PathPointCopyWith<_$_PathPoint> get copyWith =>
       __$$_PathPointCopyWithImpl<_$_PathPoint>(this, _$identity);
 

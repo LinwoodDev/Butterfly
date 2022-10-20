@@ -12,6 +12,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'element.dart';
 import 'painter.dart';
 import 'palette.dart';
+import 'tool.dart';
 import 'waypoint.dart';
 
 part 'document.freezed.dart';
@@ -167,18 +168,20 @@ List<Painter> createDefaultPainters() => [
 class AppDocument with _$AppDocument {
   const AppDocument._();
 
-  const factory AppDocument(
-      {required String name,
-      @Default('') String description,
-      @Default([]) List<PadElement> content,
-      @Default(Background.empty()) Background background,
-      @Default([]) List<ColorPalette> palettes,
-      @Default([]) List<Waypoint> waypoints,
-      @Default([]) List<Area> areas,
-      @Default([]) List<ExportPreset> exportPresets,
-      required DateTime createdAt,
-      DateTime? updatedAt,
-      @Default([]) List<Painter> painters}) = _AppDocument;
+  const factory AppDocument({
+    required String name,
+    @Default('') String description,
+    @Default([]) List<PadElement> content,
+    @Default(Background.empty()) Background background,
+    @Default([]) List<ColorPalette> palettes,
+    @Default([]) List<Waypoint> waypoints,
+    @Default([]) List<Area> areas,
+    @Default([]) List<ExportPreset> exportPresets,
+    required DateTime createdAt,
+    DateTime? updatedAt,
+    @Default([]) List<Painter> painters,
+    @Default(ToolOption()) ToolOption tool,
+  }) = _AppDocument;
 
   factory AppDocument.fromJson(Map<String, dynamic> json) =>
       _$AppDocumentFromJson(json);
