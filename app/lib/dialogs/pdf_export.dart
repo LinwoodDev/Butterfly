@@ -93,9 +93,9 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                child: SingleChildScrollView(
-                  child: Column(mainAxisSize: MainAxisSize.min, children: [
-                    Flexible(
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
+                  Flexible(
+                    child: SingleChildScrollView(
                       child: Wrap(
                         alignment: WrapAlignment.center,
                         crossAxisAlignment: WrapCrossAlignment.center,
@@ -129,51 +129,51 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                         }).toList(),
                       ),
                     ),
-                    const Divider(),
-                    Row(
-                      children: [
-                        Expanded(child: Container()),
-                        TextButton(
-                          child: Text(AppLocalizations.of(context)!.cancel),
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
-                        ElevatedButton(
-                          child: Text(AppLocalizations.of(context)!.export),
-                          onPressed: () async {
-                            final localization = AppLocalizations.of(context)!;
-                            Navigator.of(context).pop();
-                            final document = await currentIndex
-                                .renderPDF(state.document, areas: areas);
-                            final data = await document.save();
-                            if (!kIsWeb &&
-                                (Platform.isWindows ||
-                                    Platform.isLinux ||
-                                    Platform.isMacOS)) {
-                              var path = await FilePicker.platform.saveFile(
-                                type: FileType.custom,
-                                allowedExtensions: ['pdf'],
-                                fileName: 'export.pdf',
-                                dialogTitle: localization.export,
-                              );
-                              if (path != null) {
-                                var file = File(path);
-                                if (!(await file.exists())) {
-                                  file.create(recursive: true);
-                                }
-                                await file
-                                    .writeAsBytes(data.buffer.asUint8List());
+                  ),
+                  const Divider(),
+                  Row(
+                    children: [
+                      Expanded(child: Container()),
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.cancel),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                      ElevatedButton(
+                        child: Text(AppLocalizations.of(context)!.export),
+                        onPressed: () async {
+                          final localization = AppLocalizations.of(context)!;
+                          Navigator.of(context).pop();
+                          final document = await currentIndex
+                              .renderPDF(state.document, areas: areas);
+                          final data = await document.save();
+                          if (!kIsWeb &&
+                              (Platform.isWindows ||
+                                  Platform.isLinux ||
+                                  Platform.isMacOS)) {
+                            var path = await FilePicker.platform.saveFile(
+                              type: FileType.custom,
+                              allowedExtensions: ['pdf'],
+                              fileName: 'export.pdf',
+                              dialogTitle: localization.export,
+                            );
+                            if (path != null) {
+                              var file = File(path);
+                              if (!(await file.exists())) {
+                                file.create(recursive: true);
                               }
-                            } else {
-                              openPdf(data.buffer.asUint8List());
+                              await file
+                                  .writeAsBytes(data.buffer.asUint8List());
                             }
-                          },
-                        ),
-                      ],
-                    )
-                  ]),
-                ),
+                          } else {
+                            openPdf(data.buffer.asUint8List());
+                          }
+                        },
+                      ),
+                    ],
+                  )
+                ]),
               ),
-            )
+            ),
           ]);
         }),
       ),

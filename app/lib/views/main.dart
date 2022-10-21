@@ -63,6 +63,7 @@ class _ProjectPageState extends State<ProjectPage> {
   DocumentBloc? _bloc;
   TransformCubit? _transformCubit;
   CurrentIndexCubit? _currentIndexCubit;
+  late final ImportService _importService;
   final GlobalKey _viewportKey = GlobalKey();
   final actions = <Type, Action<Intent>>{
     UndoIntent: UndoAction(),
@@ -132,6 +133,7 @@ class _ProjectPageState extends State<ProjectPage> {
           BoxBackgroundRenderer(const BoxBackground()),
           [],
         );
+        _importService = ImportService(_bloc!, context);
         _bloc?.load();
         embedding.handler.register(_bloc!);
       });
@@ -197,6 +199,8 @@ class _ProjectPageState extends State<ProjectPage> {
             background,
             renderers);
         _bloc?.load();
+        _importService = ImportService(_bloc!, context);
+        _importService.load(widget.type, widget.data);
       });
     }
     if (!(widget.location?.absolute ?? false)) {
@@ -268,7 +272,7 @@ class _ProjectPageState extends State<ProjectPage> {
           ],
           child: Builder(builder: (context) {
             return RepositoryProvider.value(
-              value: ImportService(context, widget.type, widget.data),
+              value: _importService,
               child: Builder(builder: (context) {
                 return Actions(
                   actions: actions,
