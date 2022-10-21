@@ -23,9 +23,16 @@ Map<String, dynamic> _$$_ToolOptionToJson(_$_ToolOption instance) =>
 
 _$_ToolState _$$_ToolStateFromJson(Map json) => _$_ToolState(
       rulerEnabled: json['rulerEnabled'] as bool? ?? false,
+      rulerPosition: json['rulerPosition'] == null
+          ? Offset.zero
+          : const OffsetJsonConverter().fromJson(json['rulerPosition'] as Map),
+      rulerAngle: (json['rulerAngle'] as num?)?.toDouble() ?? 0,
     );
 
 Map<String, dynamic> _$$_ToolStateToJson(_$_ToolState instance) =>
     <String, dynamic>{
       'rulerEnabled': instance.rulerEnabled,
+      'rulerPosition':
+          const OffsetJsonConverter().toJson(instance.rulerPosition),
+      'rulerAngle': instance.rulerAngle,
     };

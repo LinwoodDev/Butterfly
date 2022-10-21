@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:butterfly/models/converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'tool.freezed.dart';
@@ -20,6 +23,8 @@ class ToolOption with _$ToolOption {
 class ToolState with _$ToolState {
   const factory ToolState({
     @Default(false) bool rulerEnabled,
+    @Default(Offset.zero) @OffsetJsonConverter() Offset rulerPosition,
+    @Default(0) double rulerAngle,
   }) = _ToolState;
 
   factory ToolState.fromJson(Map<String, dynamic> json) =>

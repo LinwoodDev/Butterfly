@@ -3,6 +3,16 @@ part of 'renderer.dart';
 class ToolRenderer extends Renderer<ToolState> {
   ToolRenderer(super.element);
 
+  Rect getRulerRect(Size size) {
+    const rulerSize = 100.0;
+    return Rect.fromLTWH(
+      -size.width / 2,
+      0,
+      size.width * 2,
+      rulerSize,
+    );
+  }
+
   @override
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
@@ -35,7 +45,6 @@ class ToolRenderer extends Renderer<ToolState> {
       }
     }
     if (element.rulerEnabled) {
-      final rulerSize = 100 / transform.size;
       const rulerColor = Colors.grey;
       final rulerBackgroundColor = Colors.grey.withAlpha(150);
       final rulerPaint = Paint()
@@ -46,64 +55,78 @@ class ToolRenderer extends Renderer<ToolState> {
       final rulerBackgroundPaint = Paint()
         ..color = rulerBackgroundColor
         ..style = PaintingStyle.fill;
+      final rulerRect = getRulerRect(size);
 
-      var step = 10;
-      while (step < 40 / transform.size) {
-        step += 10;
+      var stepExp = 1, step = 1;
+      while (step < 200 / transform.size) {
+        stepExp += 1;
+        step = pow(10, stepExp).toInt();
       }
-      while (step > 80 / transform.size) {
-        step -= 10;
+      while (step > 200 / transform.size && stepExp > 1) {
+        stepExp -= 1;
+        step = pow(10, stepExp).toInt();
       }
 
       // Paint ruler background
-      canvas.drawRect(
-          Rect.fromLTWH(
-              -transform.position.dx,
-              -transform.position.dy +
-                  size.height / transform.size / 2 -
-                  rulerSize / 2,
-              size.width / transform.size,
-              rulerSize),
-          rulerBackgroundPaint);
+      canvas.save();
+      canvas.translate(-transform.position.dx, -transform.position.dy);
+      canvas.scale(1 / transform.size, 1 / transform.size);
+      canvas.translate(size.width / 2 + element.rulerPosition.dx,
+          size.height / 2 + element.rulerPosition.dy);
+      canvas.rotate(element.rulerAngle * pi / 180);
+      canvas.drawRect(rulerRect, rulerBackgroundPaint);
+      canvas.drawLine(
+        Offset(rulerRect.left, rulerRect.top),
+        Offset(rulerRect.right, rulerRect.top),
+        rulerPaint,
+      );
+      canvas.drawLine(
+        Offset(rulerRect.left, rulerRect.bottom),
+        Offset(rulerRect.right, rulerRect.bottom),
+        rulerPaint,
+      );
 
       // Paint ruler lines
       int x = 0;
       var placeTextBottom = false;
-      while (x < size.width / transform.size) {
+      while (x < size.width) {
+        final realX = x +
+            (transform.position.dx * transform.size) % step -
+            size.width / 2;
         canvas.drawLine(
+          Offset(realX, rulerRect.top),
           Offset(
-              x - transform.position.dx + transform.position.dx % step,
-              -transform.position.dy +
-                  size.height / transform.size / 2 -
-                  rulerSize / 2),
-          Offset(
-              x - transform.position.dx + transform.position.dx % step,
-              -transform.position.dy +
-                  size.height / transform.size / 2 -
-                  (placeTextBottom ? rulerSize / 8 : rulerSize / 4)),
+              realX,
+              rulerRect.top +
+                  (placeTextBottom
+                      ? rulerRect.height / 8
+                      : rulerRect.height / 4)),
           rulerPaint,
         );
         final textPainter = TextPainter(
           textDirection: TextDirection.ltr,
           textAlign: TextAlign.center,
-          textScaleFactor: 1 / transform.size,
           text: TextSpan(
-              text: x.toString(), style: const TextStyle(color: rulerColor)),
+              text: x.toString(), style: const TextStyle(color: Colors.white)),
         );
         textPainter.layout();
         textPainter.paint(
             canvas,
             Offset(
-                x -
-                    transform.position.dx +
-                    transform.position.dx % step -
-                    textPainter.width / 2,
-                -transform.position.dy +
-                    size.height / transform.size / 2 +
-                    (placeTextBottom ? -rulerSize / 8 : -rulerSize / 4)));
+                realX - textPainter.width / 2,
+                rulerRect.top +
+                    10 / transform.size +
+                    (placeTextBottom
+                        ? rulerRect.height / 8
+                        : rulerRect.height / 4)));
         placeTextBottom = !placeTextBottom;
         x += step;
       }
+      canvas.restore();
     }
+  }
+
+  Offset getPointerPosition(Offset position, CurrentIndexCubit cubit) {
+    return position;
   }
 }

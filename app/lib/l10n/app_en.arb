@@ -395,5 +395,6 @@
   "tools": "Tools",
   "showGrid": "Show grid",
   "grid": "Grid",
-  "ruler": "Ruler"
+  "ruler": "Ruler",
+  "angle": "Angle"
 }

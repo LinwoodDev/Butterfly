@@ -58,6 +58,23 @@ class ToolSelection extends Selection<ToolState> {
         onChanged: (value) => updateState(
             context, selected.first.copyWith(rulerEnabled: value ?? false)),
       ),
+      const SizedBox(height: 8),
+      OffsetPropertyView(
+        title: Text(AppLocalizations.of(context)!.position),
+        onChanged: (value) =>
+            updateState(context, selected.first.copyWith(rulerPosition: value)),
+        value: selected.first.rulerPosition,
+      ),
+      const SizedBox(height: 8),
+      ExactSlider(
+        header: Text(AppLocalizations.of(context)!.angle),
+        value: selected.first.rulerAngle,
+        defaultValue: 0,
+        min: 0,
+        max: 360,
+        onChangeEnd: (value) =>
+            updateState(context, selected.first.copyWith(rulerAngle: value)),
+      ),
     ];
   }
 

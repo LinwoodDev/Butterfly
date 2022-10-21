@@ -15,6 +15,7 @@ import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xml/xml.dart';
 
+import '../cubits/current_index.dart';
 import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
 import '../models/background.dart';

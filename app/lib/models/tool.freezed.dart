@@ -222,6 +222,9 @@ ToolState _$ToolStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ToolState {
   bool get rulerEnabled => throw _privateConstructorUsedError;
+  @OffsetJsonConverter()
+  Offset get rulerPosition => throw _privateConstructorUsedError;
+  double get rulerAngle => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -234,7 +237,10 @@ abstract class $ToolStateCopyWith<$Res> {
   factory $ToolStateCopyWith(ToolState value, $Res Function(ToolState) then) =
       _$ToolStateCopyWithImpl<$Res, ToolState>;
   @useResult
-  $Res call({bool rulerEnabled});
+  $Res call(
+      {bool rulerEnabled,
+      @OffsetJsonConverter() Offset rulerPosition,
+      double rulerAngle});
 }
 
 /// @nodoc
@@ -251,12 +257,22 @@ class _$ToolStateCopyWithImpl<$Res, $Val extends ToolState>
   @override
   $Res call({
     Object? rulerEnabled = null,
+    Object? rulerPosition = null,
+    Object? rulerAngle = null,
   }) {
     return _then(_value.copyWith(
       rulerEnabled: null == rulerEnabled
           ? _value.rulerEnabled
           : rulerEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      rulerPosition: null == rulerPosition
+          ? _value.rulerPosition
+          : rulerPosition // ignore: cast_nullable_to_non_nullable
+              as Offset,
+      rulerAngle: null == rulerAngle
+          ? _value.rulerAngle
+          : rulerAngle // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -268,7 +284,10 @@ abstract class _$$_ToolStateCopyWith<$Res> implements $ToolStateCopyWith<$Res> {
       __$$_ToolStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool rulerEnabled});
+  $Res call(
+      {bool rulerEnabled,
+      @OffsetJsonConverter() Offset rulerPosition,
+      double rulerAngle});
 }
 
 /// @nodoc
@@ -283,12 +302,22 @@ class __$$_ToolStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? rulerEnabled = null,
+    Object? rulerPosition = null,
+    Object? rulerAngle = null,
   }) {
     return _then(_$_ToolState(
       rulerEnabled: null == rulerEnabled
           ? _value.rulerEnabled
           : rulerEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      rulerPosition: null == rulerPosition
+          ? _value.rulerPosition
+          : rulerPosition // ignore: cast_nullable_to_non_nullable
+              as Offset,
+      rulerAngle: null == rulerAngle
+          ? _value.rulerAngle
+          : rulerAngle // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -296,7 +325,10 @@ class __$$_ToolStateCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ToolState implements _ToolState {
-  const _$_ToolState({this.rulerEnabled = false});
+  const _$_ToolState(
+      {this.rulerEnabled = false,
+      @OffsetJsonConverter() this.rulerPosition = Offset.zero,
+      this.rulerAngle = 0});
 
   factory _$_ToolState.fromJson(Map<String, dynamic> json) =>
       _$$_ToolStateFromJson(json);
@@ -304,10 +336,17 @@ class _$_ToolState implements _ToolState {
   @override
   @JsonKey()
   final bool rulerEnabled;
+  @override
+  @JsonKey()
+  @OffsetJsonConverter()
+  final Offset rulerPosition;
+  @override
+  @JsonKey()
+  final double rulerAngle;
 
   @override
   String toString() {
-    return 'ToolState(rulerEnabled: $rulerEnabled)';
+    return 'ToolState(rulerEnabled: $rulerEnabled, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
   }
 
   @override
@@ -316,12 +355,17 @@ class _$_ToolState implements _ToolState {
         (other.runtimeType == runtimeType &&
             other is _$_ToolState &&
             (identical(other.rulerEnabled, rulerEnabled) ||
-                other.rulerEnabled == rulerEnabled));
+                other.rulerEnabled == rulerEnabled) &&
+            (identical(other.rulerPosition, rulerPosition) ||
+                other.rulerPosition == rulerPosition) &&
+            (identical(other.rulerAngle, rulerAngle) ||
+                other.rulerAngle == rulerAngle));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, rulerEnabled);
+  int get hashCode =>
+      Object.hash(runtimeType, rulerEnabled, rulerPosition, rulerAngle);
 
   @JsonKey(ignore: true)
   @override
@@ -338,13 +382,21 @@ class _$_ToolState implements _ToolState {
 }
 
 abstract class _ToolState implements ToolState {
-  const factory _ToolState({final bool rulerEnabled}) = _$_ToolState;
+  const factory _ToolState(
+      {final bool rulerEnabled,
+      @OffsetJsonConverter() final Offset rulerPosition,
+      final double rulerAngle}) = _$_ToolState;
 
   factory _ToolState.fromJson(Map<String, dynamic> json) =
       _$_ToolState.fromJson;
 
   @override
   bool get rulerEnabled;
+  @override
+  @OffsetJsonConverter()
+  Offset get rulerPosition;
+  @override
+  double get rulerAngle;
   @override
   @JsonKey(ignore: true)
   _$$_ToolStateCopyWith<_$_ToolState> get copyWith =>
