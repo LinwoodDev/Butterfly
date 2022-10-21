@@ -2,6 +2,10 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.5.0 (2022-10-21)
+
+Read the whole 1.5 changelog at https://go.linwood.dev/butterfly/1-5
+
 ## 1.5.0-rc.1 (2022-10-19)
 
 * Add painters to default document
