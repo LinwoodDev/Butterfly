@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:butterfly/actions/areas.dart';
 import 'package:butterfly/actions/background.dart';
 import 'package:butterfly/actions/change_path.dart';
@@ -12,6 +10,7 @@ import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/open.dart';
+import 'package:butterfly/actions/pdf_export.dart';
 import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/save.dart';
@@ -32,29 +31,28 @@ import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/color.dart';
 import 'package:butterfly/views/edit.dart';
-import 'package:flutter/foundation.dart';
+import 'package:butterfly/views/property.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:window_manager/window_manager.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../actions/change_painter.dart';
 import '../models/background.dart';
 import 'view.dart';
-
-bool isWindow() =>
-    !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
 
 class ProjectPage extends StatefulWidget {
   final AssetLocation? location;
   final Embedding? embedding;
+  final String type;
+  final Object? data;
 
-  const ProjectPage({super.key, this.location, this.embedding});
+  const ProjectPage(
+      {super.key, this.location, this.embedding, this.type = '', this.data});
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
@@ -63,9 +61,32 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   // ignore: closeSinks
   DocumentBloc? _bloc;
-  late CurrentIndexCubit _currentIndexCubit;
   TransformCubit? _transformCubit;
+  CurrentIndexCubit? _currentIndexCubit;
   final GlobalKey _viewportKey = GlobalKey();
+  final actions = <Type, Action<Intent>>{
+    UndoIntent: UndoAction(),
+    RedoIntent: RedoAction(),
+    NewIntent: NewAction(),
+    OpenIntent: OpenAction(),
+    ImportIntent: ImportAction(),
+    SvgExportIntent: SvgExportAction(),
+    ImageExportIntent: ImageExportAction(),
+    PdfExportIntent: PdfExportAction(),
+    ExportIntent: ExportAction(),
+    EditModeIntent: EditModeAction(),
+    SettingsIntent: SettingsAction(),
+    ProjectIntent: ProjectAction(),
+    WaypointsIntent: WaypointsAction(),
+    AreasIntent: AreasAction(),
+    ColorPaletteIntent: ColorPaletteAction(),
+    BackgroundIntent: BackgroundAction(),
+    LayersIntent: LayersAction(),
+    InsertIntent: InsertAction(),
+    ChangePathIntent: ChangePathAction(),
+    SaveIntent: SaveAction(),
+    ChangePainterIntent: ChangePainterAction(),
+  };
 
   @override
   void initState() {
@@ -87,7 +108,11 @@ class _ProjectPageState extends State<ProjectPage> {
     final settingsCubit = context.read<SettingsCubit>();
     final embedding = widget.embedding;
     if (embedding != null) {
-      final document = AppDocument(createdAt: DateTime.now(), name: '');
+      final document = AppDocument(
+          createdAt: DateTime.now(),
+          painters: createDefaultPainters(),
+          palettes: ColorPalette.getMaterialPalette(context),
+          name: '');
       var language = embedding.language;
       if (language == 'system') {
         language = '';
@@ -97,10 +122,10 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit = CurrentIndexCubit(
-            document, settingsCubit, _transformCubit!, embedding);
+        _currentIndexCubit =
+            CurrentIndexCubit(settingsCubit, _transformCubit!, embedding);
         _bloc = DocumentBloc(
-          _currentIndexCubit,
+          _currentIndexCubit!,
           settingsCubit,
           document,
           widget.location ?? const AssetLocation(path: ''),
@@ -122,25 +147,35 @@ class _ProjectPageState extends State<ProjectPage> {
     AppDocument? document;
     if (widget.location != null) {
       documentOpened = true;
-      await fileSystem.getAsset(widget.location!.path).then(
-          (value) => document = value is AppDocumentFile ? value.load() : null);
+      if (!widget.location!.absolute) {
+        await fileSystem.getAsset(widget.location!.path).then((value) {
+          if (value is! AppDocumentFile) {
+            return document = null;
+          }
+          return document = value.getDocumentInfo()?.load();
+        });
+      }
     }
+    if (!mounted) return;
+    final name = (widget.location?.absolute ?? false)
+        ? widget.location!.fileName
+        : await formatCurrentDateTime(
+            context.read<SettingsCubit>().state.locale);
     if (document == null && prefs.containsKey('default_template')) {
       var template = await TemplateFileSystem.fromPlatform(remote: remote)
           .getTemplate(prefs.getString('default_template')!);
       if (template != null && mounted) {
         document = template.document.copyWith(
-          name: await formatCurrentDateTime(
-              context.read<SettingsCubit>().state.locale),
+          name: name,
           createdAt: DateTime.now(),
         );
       }
     }
     if (mounted) {
       document ??= AppDocument(
-          name: await formatCurrentDateTime(
-              context.read<SettingsCubit>().state.locale),
+          name: name,
           createdAt: DateTime.now(),
+          painters: createDefaultPainters(),
           palettes: ColorPalette.getMaterialPalette(context));
     }
     if (document != null) {
@@ -152,9 +187,9 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit =
-            CurrentIndexCubit(document!, settingsCubit, _transformCubit!, null);
+            CurrentIndexCubit(settingsCubit, _transformCubit!, null);
         _bloc = DocumentBloc(
-            _currentIndexCubit,
+            _currentIndexCubit!,
             settingsCubit,
             document!,
             widget.location ??
@@ -164,7 +199,9 @@ class _ProjectPageState extends State<ProjectPage> {
         _bloc?.load();
       });
     }
-    _showIntroduction(documentOpened);
+    if (!(widget.location?.absolute ?? false)) {
+      _showIntroduction(documentOpened);
+    }
   }
 
   Future<void> _showIntroduction([bool documentOpened = false]) async {
@@ -198,7 +235,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   value: settingsCubit,
                 ),
                 BlocProvider<CurrentIndexCubit>.value(
-                  value: _currentIndexCubit,
+                  value: _currentIndexCubit!,
                 ),
               ], child: const StartIntroductionDialog()));
     }
@@ -225,287 +262,160 @@ class _ProjectPageState extends State<ProjectPage> {
       },
       child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (_) => _bloc!),
-            BlocProvider(create: (_) => _transformCubit!),
-            BlocProvider(create: (_) => _currentIndexCubit),
+            BlocProvider.value(value: _bloc!),
+            BlocProvider.value(value: _transformCubit!),
+            BlocProvider.value(value: _currentIndexCubit!),
           ],
           child: Builder(builder: (context) {
-            return Shortcuts(
-              shortcuts: {
-                LogicalKeySet(
-                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
-                    UndoIntent(context),
-                LogicalKeySet(
-                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
-                    RedoIntent(context),
-                LogicalKeySet(
-                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyN):
-                    NewIntent(context, fromTemplate: false),
-                LogicalKeySet(LogicalKeyboardKey.control,
-                        LogicalKeyboardKey.shift, LogicalKeyboardKey.keyN):
-                    NewIntent(context, fromTemplate: true),
-                LogicalKeySet(LogicalKeyboardKey.tab): EditModeIntent(context),
-                LogicalKeySet(
-                    LogicalKeyboardKey.control,
-                    LogicalKeyboardKey.shift,
-                    LogicalKeyboardKey.keyP): WaypointsIntent(context),
-                LogicalKeySet(
-                    LogicalKeyboardKey.control,
-                    LogicalKeyboardKey.alt,
-                    LogicalKeyboardKey.shift,
-                    LogicalKeyboardKey.keyS): ProjectIntent(context),
-                LogicalKeySet(
-                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
-                    ColorPaletteIntent(context),
-                LogicalKeySet(
-                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyB):
-                    BackgroundIntent(context),
-                LogicalKeySet(
-                    LogicalKeyboardKey.control,
-                    LogicalKeyboardKey.shift,
-                    LogicalKeyboardKey.keyA): AreasIntent(context),
-                LogicalKeySet(
-                        LogicalKeyboardKey.control, LogicalKeyboardKey.keyL):
-                    LayersIntent(context),
-                LogicalKeySet(LogicalKeyboardKey.control,
-                        LogicalKeyboardKey.alt, LogicalKeyboardKey.keyN):
-                    InsertIntent(context, Offset.zero),
-                if (widget.embedding == null) ...{
-                  LogicalKeySet(
-                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyO):
-                      OpenIntent(context),
-                  LogicalKeySet(
-                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyI):
-                      ImportIntent(context),
-                  LogicalKeySet(
-                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
-                      ExportIntent(context),
-                  LogicalKeySet(
-                      LogicalKeyboardKey.control,
-                      LogicalKeyboardKey.shift,
-                      LogicalKeyboardKey.keyE): ImageExportIntent(context),
-                  LogicalKeySet(
-                      LogicalKeyboardKey.control,
-                      LogicalKeyboardKey.alt,
-                      LogicalKeyboardKey.keyE): SvgExportIntent(context),
-                  LogicalKeySet(
-                      LogicalKeyboardKey.control,
-                      LogicalKeyboardKey.alt,
-                      LogicalKeyboardKey.keyS): SettingsIntent(context),
-                  LogicalKeySet(
-                          LogicalKeyboardKey.alt, LogicalKeyboardKey.keyS):
-                      ChangePathIntent(context),
-                  LogicalKeySet(
-                          LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
-                      SaveIntent(context),
-                },
-              },
-              child: Actions(
-                  actions: <Type, Action<Intent>>{
-                    UndoIntent: UndoAction(),
-                    RedoIntent: RedoAction(),
-                    NewIntent: NewAction(),
-                    OpenIntent: OpenAction(),
-                    ImportIntent: ImportAction(),
-                    SvgExportIntent: SvgExportAction(),
-                    ImageExportIntent: ImageExportAction(),
-                    ExportIntent: ExportAction(),
-                    EditModeIntent: EditModeAction(),
-                    SettingsIntent: SettingsAction(),
-                    ProjectIntent: ProjectAction(),
-                    WaypointsIntent: WaypointsAction(),
-                    AreasIntent: AreasAction(),
-                    ColorPaletteIntent: ColorPaletteAction(),
-                    BackgroundIntent: BackgroundAction(),
-                    LayersIntent: LayersAction(),
-                    InsertIntent: InsertAction(),
-                    ChangePathIntent: ChangePathAction(),
-                    SaveIntent: SaveAction(),
-                  },
-                  child: SafeArea(
-                    child: ClipRect(
-                      child: Builder(builder: (context) {
-                        PreferredSizeWidget appBar = PadAppBar(
-                          viewportKey: _viewportKey,
-                        );
-                        return Focus(
-                            autofocus: true,
-                            child: FocusScope(
+            return RepositoryProvider.value(
+              value: ImportService(context, widget.type, widget.data),
+              child: Builder(builder: (context) {
+                return Actions(
+                  actions: actions,
+                  child: Shortcuts(
+                    shortcuts: {
+                      LogicalKeySet(LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.keyZ): UndoIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.keyY): RedoIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.control,
+                              LogicalKeyboardKey.keyN):
+                          NewIntent(context, fromTemplate: false),
+                      LogicalKeySet(
+                              LogicalKeyboardKey.control,
+                              LogicalKeyboardKey.shift,
+                              LogicalKeyboardKey.keyN):
+                          NewIntent(context, fromTemplate: true),
+                      LogicalKeySet(LogicalKeyboardKey.tab):
+                          EditModeIntent(context),
+                      LogicalKeySet(
+                          LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.shift,
+                          LogicalKeyboardKey.keyP): WaypointsIntent(context),
+                      LogicalKeySet(
+                          LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.alt,
+                          LogicalKeyboardKey.shift,
+                          LogicalKeyboardKey.keyS): ProjectIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.keyP): ColorPaletteIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.keyB): BackgroundIntent(context),
+                      LogicalKeySet(
+                          LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.shift,
+                          LogicalKeyboardKey.keyA): AreasIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.control,
+                          LogicalKeyboardKey.keyL): LayersIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.control,
+                              LogicalKeyboardKey.alt, LogicalKeyboardKey.keyN):
+                          InsertIntent(context, Offset.zero),
+                      if (widget.embedding == null) ...{
+                        LogicalKeySet(LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.keyO): OpenIntent(context),
+                        LogicalKeySet(LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.keyI): ImportIntent(context),
+                        LogicalKeySet(LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.keyE): ExportIntent(context),
+                        LogicalKeySet(
+                                LogicalKeyboardKey.control,
+                                LogicalKeyboardKey.shift,
+                                LogicalKeyboardKey.keyE):
+                            ImageExportIntent(context),
+                        LogicalKeySet(
+                            LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.alt,
+                            LogicalKeyboardKey.shift,
+                            LogicalKeyboardKey.keyE): PdfExportIntent(context),
+                        LogicalKeySet(
+                            LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.alt,
+                            LogicalKeyboardKey.keyE): SvgExportIntent(context),
+                        LogicalKeySet(
+                            LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.alt,
+                            LogicalKeyboardKey.keyS): SettingsIntent(context),
+                        LogicalKeySet(LogicalKeyboardKey.alt,
+                            LogicalKeyboardKey.keyS): ChangePathIntent(context),
+                        LogicalKeySet(LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.keyS): SaveIntent(context),
+                        ...[
+                          LogicalKeyboardKey.digit1,
+                          LogicalKeyboardKey.digit2,
+                          LogicalKeyboardKey.digit3,
+                          LogicalKeyboardKey.digit4,
+                          LogicalKeyboardKey.digit5,
+                          LogicalKeyboardKey.digit6,
+                          LogicalKeyboardKey.digit7,
+                          LogicalKeyboardKey.digit8,
+                          LogicalKeyboardKey.digit9,
+                          LogicalKeyboardKey.digit0
+                        ].asMap().map((k, v) => MapEntry(
+                            LogicalKeySet(LogicalKeyboardKey.control, v),
+                            ChangePainterIntent(context, k))),
+                      },
+                    },
+                    child: SafeArea(
+                      child: ClipRect(
+                        child: Focus(
+                          autofocus: true,
+                          child: FocusScope(
                               child: Scaffold(
-                                  appBar: appBar,
-                                  body: LayoutBuilder(
-                                      builder: (context, constraints) {
-                                    final isMobile =
-                                        MediaQuery.of(context).size.width < 800;
-                                    return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          Expanded(
-                                              key: _viewportKey,
-                                              child: Stack(
-                                                children: [
-                                                  const MainViewViewport(),
-                                                  Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: const [
-                                                        ColorView(),
-                                                      ]),
-                                                ],
-                                              )),
-                                          if (isMobile)
-                                            Align(
-                                                alignment: Alignment.center,
-                                                child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: EditToolbar(
-                                                        isMobile: isMobile))),
-                                        ]);
-                                  })),
-                            ));
-                      }),
+                            appBar: PadAppBar(
+                              viewportKey: _viewportKey,
+                            ),
+                            body: Actions(
+                                actions: actions,
+                                child: LayoutBuilder(
+                                    builder: (context, constraints) {
+                                  final isMobile =
+                                      MediaQuery.of(context).size.width < 800;
+                                  final isLandscape =
+                                      MediaQuery.of(context).size.height < 400;
+                                  const property = PropertyView();
+                                  return Stack(
+                                    children: [
+                                      Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            Expanded(
+                                                key: _viewportKey,
+                                                child: Stack(
+                                                  children: [
+                                                    const MainViewViewport(),
+                                                    Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: const [
+                                                          ColorView(),
+                                                        ]),
+                                                    if (!isLandscape) property
+                                                  ],
+                                                )),
+                                            if (isMobile)
+                                              Align(
+                                                  alignment: Alignment.center,
+                                                  child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: EditToolbar(
+                                                          isMobile: isMobile))),
+                                          ]),
+                                      if (isLandscape) property
+                                    ],
+                                  );
+                                })),
+                          )),
+                        ),
+                      ),
                     ),
-                  )),
+                  ),
+                );
+              }),
             );
           })),
     );
-  }
-}
-
-class WindowButtons extends StatefulWidget {
-  const WindowButtons({super.key});
-
-  @override
-  State<WindowButtons> createState() => _WindowButtonsState();
-}
-
-class _WindowButtonsState extends State<WindowButtons> with WindowListener {
-  bool maximized = false, alwaysOnTop = false, fullScreen = false;
-
-  @override
-  void initState() {
-    windowManager.addListener(this);
-    super.initState();
-    updateStates();
-  }
-
-  @override
-  void dispose() {
-    windowManager.removeListener(this);
-    super.dispose();
-  }
-
-  Future<void> updateStates() async {
-    final nextMaximized = await windowManager.isMaximized();
-    final nextAlwaysOnTop = await windowManager.isAlwaysOnTop();
-    final nextFullScreen = await windowManager.isFullScreen();
-    if (mounted) {
-      setState(() {
-        maximized = nextMaximized;
-        alwaysOnTop = nextAlwaysOnTop;
-        fullScreen = nextFullScreen;
-      });
-    }
-  }
-
-  @override
-  void onWindowUnmaximize() {
-    setState(() => maximized = false);
-  }
-
-  @override
-  void onWindowMaximize() {
-    setState(() => maximized = true);
-  }
-
-  @override
-  void onWindowEnterFullScreen() {
-    setState(() => fullScreen = true);
-  }
-
-  @override
-  void onWindowLeaveFullScreen() {
-    setState(() => fullScreen = false);
-  }
-
-  @override
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, ButterflySettings>(
-        buildWhen: (previous, current) =>
-            previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
-        builder: (context, settings) {
-          if (!kIsWeb && isWindow() && !settings.nativeWindowTitleBar) {
-            return LayoutBuilder(
-              builder: (context, constraints) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    if (!fullScreen)
-                      IconButton(
-                        icon: Icon(alwaysOnTop
-                            ? PhosphorIcons.pushPinFill
-                            : PhosphorIcons.pushPinLight),
-                        tooltip: alwaysOnTop
-                            ? AppLocalizations.of(context)!.exitAlwaysOnTop
-                            : AppLocalizations.of(context)!.alwaysOnTop,
-                        onPressed: () async {
-                          await windowManager.setAlwaysOnTop(!alwaysOnTop);
-                          setState(() => alwaysOnTop = !alwaysOnTop);
-                        },
-                      ),
-                    IconButton(
-                      icon: Icon(fullScreen
-                          ? PhosphorIcons.arrowsInLight
-                          : PhosphorIcons.arrowsOutLight),
-                      tooltip: fullScreen
-                          ? AppLocalizations.of(context)!.exitFullScreen
-                          : AppLocalizations.of(context)!.enterFullScreen,
-                      onPressed: () async {
-                        setState(() => fullScreen = !fullScreen);
-                        await windowManager.setFullScreen(fullScreen);
-                      },
-                    ),
-                    if (!fullScreen) ...[
-                      const VerticalDivider(),
-                      IconButton(
-                        icon: const Icon(PhosphorIcons.minusLight),
-                        tooltip: AppLocalizations.of(context)!.minimize,
-                        iconSize: 16,
-                        splashRadius: 20,
-                        onPressed: () => windowManager.minimize(),
-                      ),
-                      IconButton(
-                        icon: Icon(PhosphorIcons.squareLight,
-                            size: maximized ? 14 : 20),
-                        tooltip: maximized
-                            ? AppLocalizations.of(context)!.restore
-                            : AppLocalizations.of(context)!.maximize,
-                        iconSize: 16,
-                        splashRadius: 20,
-                        onPressed: () async => await windowManager.isMaximized()
-                            ? windowManager.unmaximize()
-                            : windowManager.maximize(),
-                      ),
-                      IconButton(
-                        icon: const Icon(PhosphorIcons.xLight),
-                        tooltip: AppLocalizations.of(context)!.close,
-                        hoverColor: Colors.red,
-                        iconSize: 16,
-                        splashRadius: 20,
-                        onPressed: () => windowManager.close(),
-                      )
-                    ]
-                  ],
-                ),
-              ),
-            );
-          }
-          return Container();
-        });
   }
 }

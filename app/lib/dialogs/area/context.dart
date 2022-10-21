@@ -7,19 +7,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../widgets/context_menu.dart';
 import '../image_export.dart';
+import '../pdf_export.dart';
 
 class AreaContextMenu extends StatelessWidget {
-  final ContextCloseFunction close;
   final Offset position;
   final Area area;
 
   const AreaContextMenu(
-      {super.key,
-      required this.close,
-      required this.position,
-      required this.area});
+      {super.key, required this.position, required this.area});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +23,6 @@ class AreaContextMenu extends StatelessWidget {
       builder: (context, state) {
         var bloc = context.read<DocumentBloc>();
         if (state is! DocumentLoadSuccess) return Container();
-        var index = state.document.areas.indexOf(area);
         return ListView(
           shrinkWrap: true,
           children: [
@@ -36,20 +31,20 @@ class AreaContextMenu extends StatelessWidget {
               child: Center(child: Icon(PhosphorIcons.monitorLight, size: 36)),
             ),
             ListTile(
-              leading: index == state.currentAreaIndex
+              leading: area.name == state.currentAreaName
                   ? const Icon(PhosphorIcons.signInLight)
                   : const Icon(PhosphorIcons.signOutLight),
               title: Text(
-                index == state.currentAreaIndex
+                area.name == state.currentAreaName
                     ? AppLocalizations.of(context)!.exitArea
                     : AppLocalizations.of(context)!.enterArea,
               ),
               onTap: () {
-                close();
-                if (index == state.currentAreaIndex) {
+                Navigator.of(context).pop();
+                if (area.name == state.currentAreaName) {
                   bloc.add(const CurrentAreaChanged.exit());
                 } else {
-                  bloc.add(CurrentAreaChanged(index));
+                  bloc.add(CurrentAreaChanged(area.name));
                 }
                 context.read<CurrentIndexCubit>().reset(state.document);
               },
@@ -61,7 +56,7 @@ class AreaContextMenu extends StatelessWidget {
               onTap: () {
                 final nameController = TextEditingController(text: area.name);
                 final formKey = GlobalKey<FormState>();
-                close();
+                Navigator.of(context).pop();
                 showDialog(
                   context: context,
                   builder: (context) => Form(
@@ -93,7 +88,7 @@ class AreaContextMenu extends StatelessWidget {
                             Navigator.pop(context);
                             bloc.add(
                               AreaChanged(
-                                index,
+                                area.name,
                                 area.copyWith(name: nameController.text),
                               ),
                             );
@@ -109,7 +104,7 @@ class AreaContextMenu extends StatelessWidget {
               leading: const Icon(PhosphorIcons.exportLight),
               title: Text(AppLocalizations.of(context)!.export),
               onTap: () {
-                close();
+                Navigator.of(context).pop();
                 var bloc = context.read<DocumentBloc>();
                 showDialog(
                   context: context,
@@ -152,6 +147,17 @@ class AreaContextMenu extends StatelessWidget {
                                     )),
                                 context: context);
                           },
+                        ),
+                        ListTile(
+                          title: Text(AppLocalizations.of(context)!.pdf),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            showDialog(
+                                builder: (context) => BlocProvider.value(
+                                    value: bloc,
+                                    child: PdfExportDialog(areas: [area.name])),
+                                context: context);
+                          },
                         )
                       ],
                     ),
@@ -169,11 +175,11 @@ class AreaContextMenu extends StatelessWidget {
               leading: const Icon(PhosphorIcons.trashLight),
               title: Text(AppLocalizations.of(context)!.delete),
               onTap: () {
-                close();
+                Navigator.of(context).pop();
                 var bloc = context.read<DocumentBloc>();
                 var state = bloc.state;
                 if (state is! DocumentLoadSuccess) return;
-                bloc.add(AreaRemoved(index));
+                bloc.add(AreasRemoved([area.name]));
               },
             )
           ],

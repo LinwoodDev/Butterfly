@@ -170,9 +170,6 @@
   "svg": "SVG",
   "sensitivity": "Sensitivity",
   "sensitivityHint": "The higher the value, the more sensitive the input",
-  "touchSensitivity": "Touch sensitivity",
-  "mouseSensitivity": "Mouse sensitivity",
-  "penSensitivity": "Pen sensitivity",
   "horizontal": "Horizontal",
   "vertical": "Vertical",
   "plain": "Plain",
@@ -231,9 +228,9 @@
   },
   "releaseNotes": "Release notes",
   "constraints": "Constraints",
-  "scaledConstraints": "Scaled constraints",
-  "fixedConstraints": "Fixed constraints",
-  "dynamicConstraints": "Dynamic constraints",
+  "scaled": "Scaled",
+  "fixed": "Fixed",
+  "dynamicContent": "Dynamic",
   "none": "None",
   "includeArea": "Include area",
   "verticalAlignment": "Vertical alignment",
@@ -289,6 +286,7 @@
   "laser": "Laser",
   "duration": "Duration",
   "quality": "Quality",
+  "exportPdf": "Export PDF",
   "local": "Local",
   "addRemote": "Add remote",
   "remotes": "Remotes",
@@ -365,5 +363,33 @@
   "connection": "Connection",
   "always": "Always",
   "noMobile": "No mobile",
-  "manual": "Manual"
+  "manual": "Manual",
+  "search": "Search",
+  "properties": "Properties",
+  "pin": "Pin",
+  "unpin": "Unpin",
+  "element": "Element",
+  "painter": "Painter",
+  "position": "Position",
+  "note": "Note",
+  "more": "More",
+  "askForName": "Ask for name",
+  "areaIndex": "Area {index}",
+  "@areaIndex": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "startInFullScreen": "Start in full screen",
+  "inputs": "Inputs",
+  "mouse": "Mouse",
+  "touch": "Touch",
+  "keyboard": "Keyboard",
+  "shortcuts": "Shortcuts",
+  "middle": "Middle",
+  "first": "First",
+  "second": "Second"
 }

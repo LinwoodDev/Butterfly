@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:butterfly/api/open_help.dart';
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/views/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../views/window.dart';
 import '../widgets/header.dart';
 
 class RemotesSettingsPage extends StatelessWidget {
@@ -66,6 +66,7 @@ class RemotesSettingsPage extends StatelessWidget {
               );
             }
             return Material(
+              color: Colors.transparent,
               child: ListView.builder(
                   itemCount: state.remotes.length,
                   itemBuilder: (context, index) {

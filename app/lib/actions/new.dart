@@ -34,6 +34,7 @@ class NewAction extends Action<NewIntent> {
         name: await formatCurrentDateTime(
             intent.context.read<SettingsCubit>().state.locale),
         createdAt: DateTime.now(),
+        painters: createDefaultPainters(),
         palettes: ColorPalette.getMaterialPalette(intent.context));
     final prefs = await SharedPreferences.getInstance();
     final remote = settings.getDefaultRemote();
@@ -81,7 +82,7 @@ class NewAction extends Action<NewIntent> {
           : AssetLocation(remote: remote.identifier, path: ''),
       settingsCubit: settingsCubit,
     );
-    await state.load();
+    await bloc.load();
     bloc.emit(state);
   }
 }

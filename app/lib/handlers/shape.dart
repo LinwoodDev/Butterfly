@@ -17,18 +17,17 @@ class ShapeHandler extends Handler {
   }
 
   @override
-  void resetInput() {
+  void resetInput(DocumentBloc bloc) {
     elements.clear();
     submittedElements.clear();
   }
 
   @override
-  void onPointerUp(
-      Size viewportSize, BuildContext context, PointerUpEvent event) {
-    addShape(
-        context, event.pointer, event.localPosition, event.pressure, event.kind,
+  void onPointerUp(PointerUpEvent event, EventContext context) {
+    addShape(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind,
         refresh: false);
-    submitElement(viewportSize, context, event.pointer);
+    submitElement(context.viewportSize, context.buildContext, event.pointer);
   }
 
   void _setRect(Offset nextPosition, int index) {
@@ -142,25 +141,24 @@ class ShapeHandler extends Handler {
   }
 
   @override
-  void onPointerDown(
-      Size viewportSize, BuildContext context, PointerDownEvent event) {
-    final currentIndex = context.read<CurrentIndexCubit>().state;
-    final bloc = context.read<DocumentBloc>();
-    if (currentIndex.moveEnabled) {
+  void onPointerDown(PointerDownEvent event, EventContext context) {
+    if (context.getCurrentIndex().moveEnabled) {
       elements.clear();
-      bloc.refresh();
+      context.refresh();
       return;
     }
-    addShape(
-        context, event.pointer, event.localPosition, event.pressure, event.kind,
+    addShape(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind,
         shouldCreate: true);
   }
 
   @override
-  void onPointerMove(
-          Size viewportSize, BuildContext context, PointerMoveEvent event) =>
-      addShape(context, event.pointer, event.localPosition, event.pressure,
-          event.kind);
+  void onPointerMove(PointerMoveEvent event, EventContext context) => addShape(
+      context.buildContext,
+      event.pointer,
+      event.localPosition,
+      event.pressure,
+      event.kind);
 
   @override
   int? getColor(DocumentBloc bloc) => data.property.color;

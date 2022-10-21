@@ -10,13 +10,14 @@ import 'package:butterfly/dialogs/file_system/sync.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/widgets/header.dart';
 import 'package:butterfly/widgets/remote_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-typedef AssetOpenedCallback = void Function(AppDocumentAsset path);
+typedef AssetOpenedCallback = void Function(AppDocumentEntity path);
 
 class FileSystemDialog extends StatefulWidget {
   final DocumentBloc bloc;
@@ -28,7 +29,7 @@ class FileSystemDialog extends StatefulWidget {
 }
 
 class _FileSystemDialogState extends State<FileSystemDialog> {
-  bool gridView = true;
+  bool _gridView = true, _notes = false;
   late DocumentFileSystem _fileSystem;
   final TextEditingController _pathController =
       TextEditingController(text: '/');
@@ -41,10 +42,10 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
     super.initState();
   }
 
-  Future<List<AppDocumentAsset>> _loadDocuments() async {
+  Future<List<AppDocumentEntity>> _loadDocuments() async {
     var documents = await _fileSystem
         .getAsset(_pathController.text)
-        .then<List<AppDocumentAsset>>((value) => (value is AppDocumentDirectory
+        .then<List<AppDocumentEntity>>((value) => (value is AppDocumentDirectory
             ? value.assets
             : value is AppDocumentFile
                 ? [value]
@@ -58,7 +59,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   .toLowerCase()
                   .contains(_searchController.text.toLowerCase()) ||
               (element is AppDocumentFile
-                  ? element.name
+                  ? element.fileName
                       .toLowerCase()
                       .contains(_searchController.text.toLowerCase())
                   : false))
@@ -88,10 +89,11 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       icon: const Icon(PhosphorIcons.arrowClockwiseLight),
                     ),
                     IconButton(
-                        icon: Icon(gridView
+                        icon: Icon(_gridView
                             ? PhosphorIcons.listLight
                             : PhosphorIcons.gridFourLight),
-                        onPressed: () => setState(() => gridView = !gridView)),
+                        onPressed: () =>
+                            setState(() => _gridView = !_gridView)),
                     IconButton(
                       tooltip: AppLocalizations.of(context)!.create,
                       icon: const Icon(PhosphorIcons.plusLight),
@@ -193,6 +195,13 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                         ],
                       );
                       var searchInput = Row(children: [
+                        if (!kIsWeb)
+                          IconButton(
+                            onPressed: () => setState(() => _notes = !_notes),
+                            icon: _notes
+                                ? const Icon(PhosphorIcons.noteFill)
+                                : const Icon(PhosphorIcons.noteLight),
+                          ),
                         Flexible(
                           child: ConstrainedBox(
                             constraints: const BoxConstraints(minWidth: 300),
@@ -246,7 +255,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                     }),
                     const Divider(),
                     Flexible(
-                        child: FutureBuilder<List<AppDocumentAsset>>(
+                        child: FutureBuilder<List<AppDocumentEntity>>(
                             future: _loadDocuments(),
                             builder: (context, snapshot) {
                               return BlocBuilder<DocumentBloc, DocumentState>(
@@ -279,12 +288,29 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                         ),
                                       ]);
                                     }
-                                    final assets = snapshot.data ?? [];
+                                    var assets = snapshot.data ?? [];
+                                    if (_notes) {
+                                      assets = assets.where((asset) {
+                                        if (asset is! AppDocumentFile) {
+                                          return true;
+                                        }
+                                        return asset.fileType ==
+                                            AssetFileType.note;
+                                      }).toList();
+                                    }
+                                    if (!kIsWeb) {
+                                      assets = assets.where((asset) {
+                                        if (asset is! AppDocumentFile) {
+                                          return true;
+                                        }
+                                        return asset.fileType != null;
+                                      }).toList();
+                                    }
                                     void onRefreshed() {
                                       setState(() {});
                                     }
 
-                                    return gridView
+                                    return _gridView
                                         ? FileSystemGridView(
                                             selectedPath: selectedPath,
                                             assets: assets,
@@ -325,7 +351,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
     }
   }
 
-  void _openAsset(AppDocumentAsset asset) {
+  void _openAsset(AppDocumentEntity asset) {
     if (asset is AppDocumentFile) {
       final remote = _fileSystem.remote;
       final state = widget.bloc.state;
@@ -334,10 +360,12 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
       if (lastLocation == asset.location) return;
       if (remote != null) {
         GoRouter.of(context).push(
-            '/remote/${Uri.encodeComponent(remote.identifier)}/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}');
+            '/remote/${Uri.encodeComponent(remote.identifier)}/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}',
+            extra: asset.data);
       } else {
         GoRouter.of(context).push(
-            '/local/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}');
+            '/local/${Uri.encodeComponent(asset.pathWithoutLeadingSlash)}',
+            extra: asset.data);
       }
     } else {
       _pathController.text = asset.pathWithLeadingSlash;

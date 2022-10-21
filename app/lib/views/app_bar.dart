@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/svg_export.dart';
-import 'package:butterfly/api/shortcut_helper.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/helpers/shortcut_helper.dart';
+import 'package:butterfly/models/converter.dart';
+import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
+import 'package:butterfly/visualizer/asset.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,16 +22,15 @@ import '../actions/image_export.dart';
 import '../actions/import.dart';
 import '../actions/new.dart';
 import '../actions/open.dart';
+import '../actions/pdf_export.dart';
 import '../actions/project.dart';
-import '../actions/redo.dart';
 import '../actions/save.dart';
 import '../actions/settings.dart';
-import '../actions/undo.dart';
 import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/transform.dart';
 import '../embed/action.dart';
-import 'main.dart';
+import 'window.dart';
 
 class PadAppBar extends StatelessWidget with PreferredSizeWidget {
   static const double _height = 70;
@@ -56,7 +58,6 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
             toolbarHeight: _height,
             leading: _MainPopupMenu(
               viewportKey: viewportKey,
-              hideUndoRedo: !isMobile,
             ),
             title: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                 builder: (context, currentIndex) =>
@@ -70,8 +71,8 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                           current is! DocumentLoadSuccess) {
                         return true;
                       }
-                      return previous.currentAreaIndex !=
-                              current.currentAreaIndex ||
+                      return previous.currentAreaName !=
+                              current.currentAreaName ||
                           previous.hasAutosave() != current.hasAutosave();
                     }, builder: (context, state) {
                       final title = Row(
@@ -82,8 +83,8 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                               final area = state is DocumentLoadSuccess
                                   ? state.currentArea
                                   : null;
-                              final areaIndex = state is DocumentLoadSuccess
-                                  ? state.currentAreaIndex
+                              final areaName = state is DocumentLoadSuccess
+                                  ? state.currentAreaName
                                   : null;
                               _nameController.text =
                                   state is DocumentLoadSuccess
@@ -133,12 +134,12 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                                 .headline4,
                                         onChanged: (value) {
                                           if (area == null ||
-                                              areaIndex == null) {
+                                              areaName == null) {
                                             bloc.add(DocumentDescriptorChanged(
                                                 name: value));
                                           } else {
                                             bloc.add(AreaChanged(
-                                              areaIndex,
+                                              areaName,
                                               area.copyWith(name: value),
                                             ));
                                           }
@@ -162,30 +163,55 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                     if (currentIndex.location.path != '' &&
                                         area == null)
                                       Text(
-                                        currentIndex.location.identifier,
-                                        style:
-                                            Theme.of(context).textTheme.caption,
+                                        ((currentIndex.location.absolute &&
+                                                    currentIndex
+                                                        .location.path.isEmpty)
+                                                ? currentIndex.location.fileType
+                                                    ?.getLocalizedName(context)
+                                                : currentIndex
+                                                    .location.identifier) ??
+                                            AppLocalizations.of(context)!
+                                                .document,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .caption
+                                            ?.copyWith(
+                                              decoration:
+                                                  currentIndex.location.absolute
+                                                      ? TextDecoration.underline
+                                                      : TextDecoration.none,
+                                            ),
                                         textAlign: TextAlign.center,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                   ]);
                               return title;
                             })),
-                            if (state is DocumentLoadSuccess &&
-                                !state.hasAutosave())
-                              IconButton(
-                                icon: currentIndex.saved
-                                    ? const Icon(PhosphorIcons.floppyDiskFill)
-                                    : const Icon(PhosphorIcons.floppyDiskLight),
-                                tooltip: AppLocalizations.of(context)!.save,
-                                onPressed: () {
-                                  Actions.maybeInvoke<SaveIntent>(
-                                      context, SaveIntent(context));
-                                },
-                              ),
+                            if (state is DocumentLoadSuccess) ...[
+                              if (!state.hasAutosave())
+                                IconButton(
+                                  icon: state.saved
+                                      ? const Icon(PhosphorIcons.floppyDiskFill)
+                                      : const Icon(
+                                          PhosphorIcons.floppyDiskLight),
+                                  tooltip: AppLocalizations.of(context)!.save,
+                                  onPressed: () {
+                                    Actions.maybeInvoke<SaveIntent>(
+                                        context, SaveIntent(context));
+                                  },
+                                ),
+                              if (state.location.absolute)
+                                IconButton(
+                                    icon:
+                                        Icon(state.location.fileType.getIcon()),
+                                    tooltip:
+                                        AppLocalizations.of(context)!.export,
+                                    onPressed: () =>
+                                        context.read<ImportService>().export())
+                            ],
                             const SizedBox(width: 8),
                             if (!isMobile)
-                              Flexible(
+                              const Flexible(
                                   child: EditToolbar(
                                 isMobile: false,
                               )),
@@ -204,32 +230,10 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
               BlocBuilder<DocumentBloc, DocumentState>(
                 builder: (context, state) => Row(
                   children: [
-                    if (!isMobile) ...[
-                      IconButton(
-                        icon: const Icon(
-                            PhosphorIcons.arrowCounterClockwiseLight),
-                        tooltip: AppLocalizations.of(context)!.undo,
-                        onPressed: !bloc.canUndo
-                            ? null
-                            : () {
-                                Actions.maybeInvoke<UndoIntent>(
-                                    context, UndoIntent(context));
-                              },
-                      ),
-                      IconButton(
-                        icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                        tooltip: AppLocalizations.of(context)!.redo,
-                        onPressed: !bloc.canRedo
-                            ? null
-                            : () {
-                                Actions.maybeInvoke<RedoIntent>(
-                                    context, RedoIntent(context));
-                              },
-                      ),
-                    ],
                     if (!kIsWeb && isWindow()) ...[
-                      const VerticalDivider(),
-                      const WindowButtons()
+                      const WindowButtons(
+                        divider: true,
+                      )
                     ]
                   ],
                 ),
@@ -247,9 +251,8 @@ class _MainPopupMenu extends StatelessWidget {
   final TextEditingController _scaleController =
       TextEditingController(text: '100');
   final GlobalKey viewportKey;
-  final bool hideUndoRedo;
 
-  _MainPopupMenu({required this.viewportKey, this.hideUndoRedo = false});
+  _MainPopupMenu({required this.viewportKey});
 
   @override
   Widget build(BuildContext context) {
@@ -265,40 +268,6 @@ class _MainPopupMenu extends StatelessWidget {
         iconSize: 36,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         itemBuilder: (context) => <PopupMenuEntry>[
-          if (!hideUndoRedo)
-            PopupMenuItem(
-              enabled: false,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: IconTheme(
-                data: Theme.of(context).iconTheme,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon:
-                          const Icon(PhosphorIcons.arrowCounterClockwiseLight),
-                      tooltip: AppLocalizations.of(context)!.undo,
-                      onPressed: !bloc.canUndo
-                          ? null
-                          : () {
-                              Actions.maybeInvoke<UndoIntent>(
-                                  context, UndoIntent(context));
-                            },
-                    ),
-                    IconButton(
-                      icon: const Icon(PhosphorIcons.arrowClockwiseLight),
-                      tooltip: AppLocalizations.of(context)!.redo,
-                      onPressed: !bloc.canRedo
-                          ? null
-                          : () {
-                              Actions.maybeInvoke<RedoIntent>(
-                                  context, RedoIntent(context));
-                            },
-                    ),
-                  ],
-                ),
-              ),
-            ),
           PopupMenuItem(
               enabled: false,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -568,6 +537,21 @@ class _MainPopupMenu extends StatelessWidget {
                                     Actions.maybeInvoke<ImageExportIntent>(
                                         context, ImageExportIntent(context));
                                   })),
+                          PopupMenuItem(
+                              padding: EdgeInsets.zero,
+                              child: ListTile(
+                                  leading:
+                                      const Icon(PhosphorIcons.filePdfLight),
+                                  title:
+                                      Text(AppLocalizations.of(context)!.pdf),
+                                  subtitle: Text(context.getShortcut('E',
+                                      shiftKey: true, altKey: true)),
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                    Actions.maybeInvoke<PdfExportIntent>(
+                                        context, PdfExportIntent(context));
+                                  })),
                         ],
                     tooltip: '',
                     child: ListTile(
@@ -623,7 +607,9 @@ class _MainPopupMenu extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).pop();
                       sendEmbedMessage(
-                          'exit', json.encode(state.document.toJson()));
+                          'exit',
+                          json.encode(const DocumentJsonConverter()
+                              .toJson(state.document)));
                     })),
         ],
       );

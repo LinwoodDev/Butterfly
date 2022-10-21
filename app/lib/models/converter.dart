@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/template.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -42,6 +43,28 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
         json['background'] = Map<String, dynamic>.from(json['background'] ?? {})
           ..['type'] = 'box';
       }
+      if (fileVersion < 6) {
+        json['painters'] = [
+          {'type': 'hand', ...json['handProperty']},
+          {'type': 'undo'},
+          {'type': 'redo'},
+          ...(json['painters'] as List).map((e) {
+            var map = Map<String, dynamic>.from(e);
+            if (['svg', 'image'].contains(map['type'])) {
+              final constraints = map['constraints'];
+              if (constraints is Map) {
+                final current = Map<String, dynamic>.from(constraints);
+                if (current['type'] == 'scaled') {
+                  current['scaleX'] = map['scale'];
+                  current['scaleY'] = map['scale'];
+                }
+                map['constraints'] = current;
+              }
+            }
+            return map;
+          }),
+        ];
+      }
     }
     if (json['background']?['type'] == null) {
       json['background'] = {'type': 'empty'};
@@ -51,7 +74,29 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
 
   @override
   Map<String, dynamic> toJson(AppDocument object) {
-    return {'fileVersion': kFileVersion}..addAll(object.toJson());
+    return {
+      ...object.toJson(),
+      'fileVersion': kFileVersion,
+      'type': 'document',
+    };
+  }
+}
+
+class TemplateJsonConverter extends JsonConverter<DocumentTemplate, Map> {
+  const TemplateJsonConverter();
+
+  @override
+  DocumentTemplate fromJson(Map json) {
+    return DocumentTemplate.fromJson(Map<String, dynamic>.from(json));
+  }
+
+  @override
+  Map<String, dynamic> toJson(DocumentTemplate object) {
+    return {
+      ...object.toJson(),
+      'fileVersion': kFileVersion,
+      'type': 'template',
+    };
   }
 }
 

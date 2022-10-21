@@ -15,7 +15,7 @@ import 'dialog.dart';
 class FileSystemAssetMenu extends StatelessWidget {
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
-  final AppDocumentAsset asset;
+  final AppDocumentEntity asset;
   final DocumentFileSystem fileSystem;
   final AssetLocation? selectedPath;
 

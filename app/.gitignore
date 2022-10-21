@@ -30,9 +30,9 @@
 .pub-cache/
 .pub/
 /build/
+/butterfly.app/
 
 # Web related
-lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
@@ -58,3 +58,4 @@ appimage-builder-cache
 /linwood-butterfly.desktop
 /export/
 /linwood-butterfly-linux.flatpak
+.vercel

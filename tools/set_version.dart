@@ -53,7 +53,6 @@ Future<void> main(List<String> args) async {
 
   await updateAppImageVersion(version);
   await updateDebianVersion(version);
-  await updateWindowsVersion(version);
   await updateSnapcraftVersion(version);
   if (results['changelog']) {
     var changelogFile =
@@ -82,15 +81,6 @@ Future<void> updateDebianVersion(String version) async {
   lines.add('');
   await file.writeAsString(lines.join('\r\n'));
   print('Successfully updated debian version to $version');
-}
-
-Future<void> updateWindowsVersion(String version) async {
-  var file = File('app/windows/runner/Runner.rc');
-  var lines = await file.readAsLines();
-  lines[71] = '#define VERSION_AS_STRING "$version"';
-  lines.add('');
-  await file.writeAsString(lines.join('\r\n'));
-  print('Successfully updated windows version to $version');
 }
 
 Future<void> updateSnapcraftVersion(String version) async {

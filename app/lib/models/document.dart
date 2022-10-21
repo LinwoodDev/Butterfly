@@ -1,25 +1,34 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/background.dart';
 import 'package:butterfly/models/converter.dart';
+import 'package:butterfly/models/export.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:collection/collection.dart';
 
 import 'element.dart';
 import 'painter.dart';
 import 'palette.dart';
-import 'property.dart';
 import 'waypoint.dart';
 
-part 'document.g.dart';
 part 'document.freezed.dart';
+part 'document.g.dart';
+
+enum AssetFileType { note, image, pdf, svg }
 
 @freezed
 class AssetLocation with _$AssetLocation {
-  const factory AssetLocation(
-      {@Default('') String remote, required String path}) = _AssetLocation;
+  const factory AssetLocation({
+    @Default('') String remote,
+    required String path,
+    @Default(false) bool absolute,
+  }) = _AssetLocation;
 
-  factory AssetLocation.local(String path) => AssetLocation(path: path);
+  factory AssetLocation.local(String path, [bool absolute = false]) =>
+      AssetLocation(path: path, absolute: absolute);
 
   factory AssetLocation.fromJson(Map<String, dynamic> json) =>
       _$AssetLocationFromJson(json);
@@ -28,29 +37,55 @@ class AssetLocation with _$AssetLocation {
 
   String get identifier =>
       remote == '' ? pathWithLeadingSlash : '$remote@$pathWithLeadingSlash';
+
   String get pathWithLeadingSlash => path.startsWith('/') ? path : '/$path';
+
   String get pathWithoutLeadingSlash =>
       path.startsWith('/') ? path.substring(1) : path;
+
+  AssetFileType? get fileType {
+    final ext = path.split('.').last;
+    switch (ext) {
+      case 'png':
+      case 'jpg':
+      case 'jpeg':
+      case 'gif':
+      case 'bmp':
+      case 'ico':
+        return AssetFileType.image;
+      case 'pdf':
+        return AssetFileType.pdf;
+      case 'svg':
+        return AssetFileType.svg;
+      case 'bfly':
+      case 'json':
+      case '':
+        return AssetFileType.note;
+      default:
+        return null;
+    }
+  }
+
+  String get fileName => path.split('/').last.split('.').first;
 }
 
 @immutable
-abstract class AppDocumentAsset {
+abstract class AppDocumentEntity {
   final AssetLocation location;
   final bool cached;
 
-  const AppDocumentAsset(this.location, {this.cached = false});
+  const AppDocumentEntity(this.location, {this.cached = false});
 
   String get fileName => location.path.split('/').last;
 
   String get fileExtension =>
       fileName.contains('.') ? fileName.split('.').last : '';
 
-  String get fileNameWithoutExtension => fileName.substring(
-      0,
-      fileName.length -
-          (fileName.contains('.') ? fileExtension.length - 1 : 0));
+  String get fileNameWithoutExtension => fileName.substring(0,
+      fileName.contains('.') ? fileName.lastIndexOf('.') : fileName.length - 1);
 
   String get pathWithLeadingSlash => location.pathWithLeadingSlash;
+
   String get pathWithoutLeadingSlash => location.pathWithoutLeadingSlash;
 
   String get parent => pathWithLeadingSlash
@@ -60,14 +95,38 @@ abstract class AppDocumentAsset {
 }
 
 @immutable
-class AppDocumentFile extends AppDocumentAsset {
+class AppDocumentFile extends AppDocumentEntity {
+  final Uint8List data;
+
+  const AppDocumentFile(super.path, this.data);
+
+  factory AppDocumentFile.fromMap(
+          AssetLocation path, Map<String, dynamic> map) =>
+      AppDocumentFile(path, Uint8List.fromList(utf8.encode(json.encode(map))));
+
+  AssetFileType? get fileType => location.fileType;
+
+  DocumentInfo? getDocumentInfo() {
+    try {
+      if (fileType == AssetFileType.note) {
+        return DocumentInfo(
+            fileNameWithoutExtension, jsonDecode(utf8.decode(data)));
+      }
+    } catch (_) {}
+
+    return null;
+  }
+}
+
+@immutable
+class DocumentInfo {
   final Map<String, dynamic> json;
+  final String fileName;
 
-  const AppDocumentFile(super.path, this.json);
-
+  const DocumentInfo(this.fileName, this.json);
   int get fileVersion => json['fileVersion'] ?? -1;
 
-  String get name => json['name'] ?? fileNameWithoutExtension;
+  String get name => json['name'] ?? fileName;
 
   String get description => json['description'] ?? '';
 
@@ -79,47 +138,47 @@ class AppDocumentFile extends AppDocumentAsset {
 
   AppDocument load() =>
       const DocumentJsonConverter().fromJson(Map<String, dynamic>.from(json));
+
+  String get data => jsonEncode(json);
 }
 
 @immutable
-class AppDocumentDirectory extends AppDocumentAsset {
-  final List<AppDocumentAsset> assets;
+class AppDocumentDirectory extends AppDocumentEntity {
+  final List<AppDocumentEntity> assets;
 
   const AppDocumentDirectory(super.path, this.assets);
 
   @override
   String get fileNameWithoutExtension => fileName;
+
   @override
   String get fileExtension => '';
 }
 
+List<Painter> createDefaultPainters() => [
+      HandPainter(),
+      PenPainter(),
+      PathEraserPainter(),
+      UndoPainter(),
+      RedoPainter()
+    ];
+
 @freezed
 class AppDocument with _$AppDocument {
   const AppDocument._();
+
   const factory AppDocument(
       {required String name,
-      @Default('')
-          String description,
-      @Default([])
-          List<PadElement> content,
-      @Default(Background.empty())
-          Background background,
-      @Default([])
-          List<ColorPalette> palettes,
-      @Default([])
-          List<Waypoint> waypoints,
-      @Default([])
-          List<Area> areas,
+      @Default('') String description,
+      @Default([]) List<PadElement> content,
+      @Default(Background.empty()) Background background,
+      @Default([]) List<ColorPalette> palettes,
+      @Default([]) List<Waypoint> waypoints,
+      @Default([]) List<Area> areas,
+      @Default([]) List<ExportPreset> exportPresets,
       required DateTime createdAt,
-      @Default(HandProperty())
-          HandProperty handProperty,
       DateTime? updatedAt,
-      @Default([
-        PenPainter(),
-        PathEraserPainter(),
-        LabelPainter(),
-      ])
-          List<Painter> painters}) = _AppDocument;
+      @Default([]) List<Painter> painters}) = _AppDocument;
 
   factory AppDocument.fromJson(Map<String, dynamic> json) =>
       _$AppDocumentFromJson(json);
@@ -146,5 +205,9 @@ class AppDocument with _$AppDocument {
 
   ColorPalette? getPalette(String name) {
     return palettes.firstWhereOrNull((e) => e.name == name);
+  }
+
+  ExportPreset? getExportPreset(String name) {
+    return exportPresets.firstWhereOrNull((e) => e.name == name);
   }
 }

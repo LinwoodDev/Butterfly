@@ -26,27 +26,40 @@ class _MainViewViewportState extends State<MainViewViewport>
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
   _MouseState _mouseState = _MouseState.normal;
-  bool _tempKeyTool = false;
+  bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
 
   @override
   void initState() {
     super.initState();
-
     RawKeyboard.instance.addListener(_handleKey);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     RawKeyboard.instance.removeListener(_handleKey);
     super.dispose();
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    final bloc = context.read<DocumentBloc>();
     if (state == AppLifecycleState.resumed) {
-      context.read<DocumentBloc>().refresh();
+      /*if (!kIsWeb && Platform.isAndroid) {
+        final intentType = await getIntentType();
+        final intentData = await getIntentData();
+        if (intentType != null && intentData != null) {
+          final assetType = AssetFileTypeHelper.fromMime(intentType);
+          if (assetType == null) return;
+          if (mounted) {
+            context.read<ImportService>().import(assetType, intentData);
+          }
+        }
+      }*/
+      bloc.refresh();
     } else {
-      context.read<CurrentIndexCubit>().resetInput();
+      context.read<CurrentIndexCubit>().resetInput(bloc);
     }
   }
 
@@ -58,6 +71,10 @@ class _MainViewViewportState extends State<MainViewViewport>
     } else {
       _mouseState = _MouseState.normal;
     }
+
+    _isShiftPressed = event.data.isShiftPressed;
+    _isAltPressed = event.data.isAltPressed;
+    _isCtrlPressed = event.data.isControlPressed;
   }
 
   @override
@@ -87,6 +104,44 @@ class _MainViewViewportState extends State<MainViewViewport>
         });
       }
 
+      void changeTemporaryPainter(PointerDeviceKind kind, int buttons) {
+        int? nextPointerIndex;
+        final bloc = context.read<DocumentBloc>();
+        final config = context.read<SettingsCubit>().state.inputConfiguration;
+        switch (kind) {
+          case PointerDeviceKind.touch:
+            nextPointerIndex = config.touch;
+            break;
+          case PointerDeviceKind.mouse:
+            if (buttons == kPrimaryMouseButton) {
+              nextPointerIndex = config.leftMouse;
+            } else if (buttons == kMiddleMouseButton) {
+              nextPointerIndex = config.middleMouse;
+            } else if (buttons == kSecondaryMouseButton) {
+              nextPointerIndex = config.rightMouse;
+            }
+            break;
+          case PointerDeviceKind.stylus:
+            nextPointerIndex = config.pen;
+            if (buttons == kPrimaryStylusButton) {
+              nextPointerIndex = config.firstPenButton;
+            } else if (buttons == kSecondaryStylusButton) {
+              nextPointerIndex = config.secondPenButton;
+            }
+            break;
+          default:
+            return;
+        }
+        final cubit = context.read<CurrentIndexCubit>();
+        if (nextPointerIndex == null) {
+          cubit.resetTemporaryHandler();
+        } else if (nextPointerIndex <= 0) {
+          cubit.changeTemporaryHandlerMove();
+        } else {
+          cubit.changeTemporaryHandlerIndex(bloc, nextPointerIndex);
+        }
+      }
+
       final current = context.read<DocumentBloc>().state;
       if (current is DocumentLoadSuccess &&
           current.cameraViewport.toSize() !=
@@ -103,25 +158,30 @@ class _MainViewViewportState extends State<MainViewViewport>
         var openView = false;
         final CurrentIndexCubit cubit = context.read<CurrentIndexCubit>();
 
+        EventContext getEventContext() {
+          return EventContext(context, constraints.biggest, _isShiftPressed,
+              _isAltPressed, _isCtrlPressed);
+        }
+
         return GestureDetector(
             onTapUp: (details) {
-              cubit.getHandler().onTapUp(constraints.biggest, context, details);
+              cubit.getHandler().onTapUp(details, getEventContext());
             },
             onTapDown: (details) {
-              cubit
-                  .getHandler()
-                  .onTapDown(constraints.biggest, context, details);
+              cubit.getHandler().onTapDown(details, getEventContext());
             },
             onSecondaryTapUp: (details) {
-              cubit
-                  .getHandler()
-                  .onSecondaryTapUp(constraints.biggest, context, details);
+              cubit.getHandler().onSecondaryTapUp(details, getEventContext());
             },
             onScaleUpdate: (details) {
-              if (details.scale == 1) return;
-              if (openView) openView = details.scale == 1;
-              final transformCubit = context.read<TransformCubit>();
+              final handler = cubit.getHandler();
+              handler.onScaleUpdate(details, getEventContext());
               final currentIndex = context.read<CurrentIndexCubit>();
+              final transformCubit = context.read<TransformCubit>();
+              if (details.scale == 1) {
+                return;
+              }
+              if (openView) openView = details.scale == 1;
               final settings = context.read<SettingsCubit>().state;
               if (currentIndex.fetchHandler<HandHandler>() == null &&
                   !settings.inputGestures) return;
@@ -135,18 +195,27 @@ class _MainViewViewportState extends State<MainViewViewport>
               size = details.scale;
             },
             onLongPressEnd: (details) {
-              cubit
-                  .getHandler()
-                  .onLongPressEnd(constraints.biggest, context, details);
+              cubit.getHandler().onLongPressEnd(details, getEventContext());
             },
             onScaleEnd: (details) {
+              cubit.getHandler().onScaleEnd(details, getEventContext());
               final currentIndex = context.read<CurrentIndexCubit>();
-              if (currentIndex.fetchHandler<HandHandler>() == null &&
-                  !cubit.state.moveEnabled) return;
+              final handler = currentIndex.getHandler();
+              if (handler is! HandHandler && !cubit.state.moveEnabled) return;
               delayBake();
             },
             onScaleStart: (details) {
+              cubit.getHandler().onScaleStart(details, getEventContext());
               size = 1;
+            },
+            onDoubleTapDown: (details) {
+              cubit.getHandler().onDoubleTapDown(details, getEventContext());
+            },
+            onDoubleTap: () {
+              cubit.getHandler().onDoubleTap(getEventContext());
+            },
+            onLongPressDown: (details) {
+              cubit.getHandler().onLongPressDown(details, getEventContext());
             },
             child: Listener(
                 onPointerSignal: (pointerSignal) {
@@ -178,38 +247,21 @@ class _MainViewViewportState extends State<MainViewViewport>
                 },
                 onPointerDown: (PointerDownEvent event) {
                   cubit.addPointer(event.pointer);
-                  if (event.kind == PointerDeviceKind.stylus &&
-                      event.buttons == kPrimaryStylusButton) {
-                    cubit.changeTemporaryHandler(
-                        state.document, state.currentArea, 0);
-                    _tempKeyTool = true;
-                  } else if (event.buttons == kSecondaryStylusButton ||
-                      event.buttons == kSecondaryButton) {
-                    cubit.changeTemporaryHandler(
-                        state.document, state.currentArea, 1);
-                    _tempKeyTool = true;
+                  cubit.setButtons(event.buttons);
+                  final handler = cubit.getHandler();
+                  if (handler.canChange(event, getEventContext())) {
+                    changeTemporaryPainter(event.kind, event.buttons);
                   }
-                  cubit
-                      .getHandler()
-                      .onPointerDown(constraints.biggest, context, event);
+                  cubit.getHandler().onPointerDown(event, getEventContext());
                 },
                 onPointerUp: (PointerUpEvent event) async {
-                  cubit
-                      .getHandler()
-                      .onPointerUp(constraints.biggest, context, event);
+                  cubit.getHandler().onPointerUp(event, getEventContext());
                   cubit.removePointer(event.pointer);
-                  if (_tempKeyTool) {
-                    cubit.resetTemporaryHandler(
-                        state.document, state.currentArea);
-                    cubit.refresh(state.document);
-                    _tempKeyTool = false;
-                  }
+                  cubit.removeButtons();
                 },
                 behavior: HitTestBehavior.translucent,
                 onPointerHover: (event) {
-                  cubit
-                      .getHandler()
-                      .onPointerHover(constraints.biggest, context, event);
+                  cubit.getHandler().onPointerHover(event, getEventContext());
                 },
                 onPointerMove: (PointerMoveEvent event) async {
                   if (cubit.state.moveEnabled &&
@@ -220,13 +272,12 @@ class _MainViewViewportState extends State<MainViewViewport>
                           .move(event.delta / transformCubit.state.size);
                       delayBake();
                     }
-                    cubit.getHandler().onPointerGestureMove(
-                        constraints.biggest, context, event);
+                    cubit
+                        .getHandler()
+                        .onPointerGestureMove(event, getEventContext());
                     return;
                   }
-                  cubit
-                      .getHandler()
-                      .onPointerMove(constraints.biggest, context, event);
+                  cubit.getHandler().onPointerMove(event, getEventContext());
                 },
                 child: BlocBuilder<TransformCubit, CameraTransform>(
                   builder: (context, transform) {
@@ -238,8 +289,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                           foregroundPainter: ForegroundPainter(
                             cubit.foregrounds,
                             state.document,
+                            Theme.of(context).colorScheme.primary,
+                            Theme.of(context).colorScheme.secondary,
                             transform,
-                            cubit.selections,
+                            cubit.state.selection,
                           ),
                           painter: ViewPainter(state.document,
                               cameraViewport: currentIndex.cameraViewport,

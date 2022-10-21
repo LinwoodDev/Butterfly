@@ -3,17 +3,19 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui' show Image;
 
+import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/element.dart';
+import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/int.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xml/xml.dart';
 
-import '../api/xml_helper.dart';
 import '../cubits/transform.dart';
+import '../helpers/xml_helper.dart';
 import '../models/background.dart';
 import '../models/path_point.dart';
 import '../models/property.dart';
@@ -29,17 +31,16 @@ part 'elements/shape.dart';
 part 'elements/svg.dart';
 
 class DefaultHitCalculator extends HitCalculator {
-  final Rect rect;
+  final Rect? rect;
 
   DefaultHitCalculator(this.rect);
 
   @override
-  bool hit(Offset position, [double radius = 1]) =>
-      rect.inflate(radius).contains(position);
+  bool hit(Rect rect) => this.rect?.overlaps(rect) ?? false;
 }
 
 abstract class HitCalculator {
-  bool hit(Offset position, [double radius = 1]);
+  bool hit(Rect rect);
 }
 
 abstract class Renderer<T> {
@@ -65,8 +66,7 @@ abstract class Renderer<T> {
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]);
-  HitCalculator? get hitCalculator =>
-      rect == null ? null : DefaultHitCalculator(rect!);
+  HitCalculator getHitCalculator() => DefaultHitCalculator(rect);
   void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {}
   factory Renderer.fromInstance(T element) {
     // Elements
@@ -104,5 +104,10 @@ abstract class Renderer<T> {
     throw Exception('Invalid instance type');
   }
 
-  Renderer<T>? move(Offset position, [bool relative = false]) => null;
+  Renderer<T>? transform(
+          {Offset position = Offset.zero,
+          double scaleX = 1,
+          double scaleY = 1,
+          bool relative = true}) =>
+      null;
 }

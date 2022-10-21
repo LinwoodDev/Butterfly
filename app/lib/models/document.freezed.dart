@@ -22,6 +22,7 @@ AssetLocation _$AssetLocationFromJson(Map<String, dynamic> json) {
 mixin _$AssetLocation {
   String get remote => throw _privateConstructorUsedError;
   String get path => throw _privateConstructorUsedError;
+  bool get absolute => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $AssetLocationCopyWith<$Res> {
   factory $AssetLocationCopyWith(
           AssetLocation value, $Res Function(AssetLocation) then) =
       _$AssetLocationCopyWithImpl<$Res>;
-  $Res call({String remote, String path});
+  $Res call({String remote, String path, bool absolute});
 }
 
 /// @nodoc
@@ -50,6 +51,7 @@ class _$AssetLocationCopyWithImpl<$Res>
   $Res call({
     Object? remote = freezed,
     Object? path = freezed,
+    Object? absolute = freezed,
   }) {
     return _then(_value.copyWith(
       remote: remote == freezed
@@ -60,6 +62,10 @@ class _$AssetLocationCopyWithImpl<$Res>
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
+      absolute: absolute == freezed
+          ? _value.absolute
+          : absolute // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -71,7 +77,7 @@ abstract class _$$_AssetLocationCopyWith<$Res>
           _$_AssetLocation value, $Res Function(_$_AssetLocation) then) =
       __$$_AssetLocationCopyWithImpl<$Res>;
   @override
-  $Res call({String remote, String path});
+  $Res call({String remote, String path, bool absolute});
 }
 
 /// @nodoc
@@ -89,6 +95,7 @@ class __$$_AssetLocationCopyWithImpl<$Res>
   $Res call({
     Object? remote = freezed,
     Object? path = freezed,
+    Object? absolute = freezed,
   }) {
     return _then(_$_AssetLocation(
       remote: remote == freezed
@@ -99,6 +106,10 @@ class __$$_AssetLocationCopyWithImpl<$Res>
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
+      absolute: absolute == freezed
+          ? _value.absolute
+          : absolute // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -106,7 +117,9 @@ class __$$_AssetLocationCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AssetLocation extends _AssetLocation {
-  const _$_AssetLocation({this.remote = '', required this.path}) : super._();
+  const _$_AssetLocation(
+      {this.remote = '', required this.path, this.absolute = false})
+      : super._();
 
   factory _$_AssetLocation.fromJson(Map<String, dynamic> json) =>
       _$$_AssetLocationFromJson(json);
@@ -116,10 +129,13 @@ class _$_AssetLocation extends _AssetLocation {
   final String remote;
   @override
   final String path;
+  @override
+  @JsonKey()
+  final bool absolute;
 
   @override
   String toString() {
-    return 'AssetLocation(remote: $remote, path: $path)';
+    return 'AssetLocation(remote: $remote, path: $path, absolute: $absolute)';
   }
 
   @override
@@ -128,7 +144,8 @@ class _$_AssetLocation extends _AssetLocation {
         (other.runtimeType == runtimeType &&
             other is _$_AssetLocation &&
             const DeepCollectionEquality().equals(other.remote, remote) &&
-            const DeepCollectionEquality().equals(other.path, path));
+            const DeepCollectionEquality().equals(other.path, path) &&
+            const DeepCollectionEquality().equals(other.absolute, absolute));
   }
 
   @JsonKey(ignore: true)
@@ -136,7 +153,8 @@ class _$_AssetLocation extends _AssetLocation {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(remote),
-      const DeepCollectionEquality().hash(path));
+      const DeepCollectionEquality().hash(path),
+      const DeepCollectionEquality().hash(absolute));
 
   @JsonKey(ignore: true)
   @override
@@ -153,7 +171,9 @@ class _$_AssetLocation extends _AssetLocation {
 
 abstract class _AssetLocation extends AssetLocation {
   const factory _AssetLocation(
-      {final String remote, required final String path}) = _$_AssetLocation;
+      {final String remote,
+      required final String path,
+      final bool absolute}) = _$_AssetLocation;
   const _AssetLocation._() : super._();
 
   factory _AssetLocation.fromJson(Map<String, dynamic> json) =
@@ -163,6 +183,8 @@ abstract class _AssetLocation extends AssetLocation {
   String get remote;
   @override
   String get path;
+  @override
+  bool get absolute;
   @override
   @JsonKey(ignore: true)
   _$$_AssetLocationCopyWith<_$_AssetLocation> get copyWith =>
@@ -182,8 +204,8 @@ mixin _$AppDocument {
   List<ColorPalette> get palettes => throw _privateConstructorUsedError;
   List<Waypoint> get waypoints => throw _privateConstructorUsedError;
   List<Area> get areas => throw _privateConstructorUsedError;
+  List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
-  HandProperty get handProperty => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   List<Painter> get painters => throw _privateConstructorUsedError;
 
@@ -206,8 +228,8 @@ abstract class $AppDocumentCopyWith<$Res> {
       List<ColorPalette> palettes,
       List<Waypoint> waypoints,
       List<Area> areas,
+      List<ExportPreset> exportPresets,
       DateTime createdAt,
-      HandProperty handProperty,
       DateTime? updatedAt,
       List<Painter> painters});
 
@@ -231,8 +253,8 @@ class _$AppDocumentCopyWithImpl<$Res> implements $AppDocumentCopyWith<$Res> {
     Object? palettes = freezed,
     Object? waypoints = freezed,
     Object? areas = freezed,
+    Object? exportPresets = freezed,
     Object? createdAt = freezed,
-    Object? handProperty = freezed,
     Object? updatedAt = freezed,
     Object? painters = freezed,
   }) {
@@ -265,14 +287,14 @@ class _$AppDocumentCopyWithImpl<$Res> implements $AppDocumentCopyWith<$Res> {
           ? _value.areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>,
+      exportPresets: exportPresets == freezed
+          ? _value.exportPresets
+          : exportPresets // ignore: cast_nullable_to_non_nullable
+              as List<ExportPreset>,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      handProperty: handProperty == freezed
-          ? _value.handProperty
-          : handProperty // ignore: cast_nullable_to_non_nullable
-              as HandProperty,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -307,8 +329,8 @@ abstract class _$$_AppDocumentCopyWith<$Res>
       List<ColorPalette> palettes,
       List<Waypoint> waypoints,
       List<Area> areas,
+      List<ExportPreset> exportPresets,
       DateTime createdAt,
-      HandProperty handProperty,
       DateTime? updatedAt,
       List<Painter> painters});
 
@@ -335,8 +357,8 @@ class __$$_AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
     Object? palettes = freezed,
     Object? waypoints = freezed,
     Object? areas = freezed,
+    Object? exportPresets = freezed,
     Object? createdAt = freezed,
-    Object? handProperty = freezed,
     Object? updatedAt = freezed,
     Object? painters = freezed,
   }) {
@@ -369,14 +391,14 @@ class __$$_AppDocumentCopyWithImpl<$Res> extends _$AppDocumentCopyWithImpl<$Res>
           ? _value._areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>,
+      exportPresets: exportPresets == freezed
+          ? _value._exportPresets
+          : exportPresets // ignore: cast_nullable_to_non_nullable
+              as List<ExportPreset>,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      handProperty: handProperty == freezed
-          ? _value.handProperty
-          : handProperty // ignore: cast_nullable_to_non_nullable
-              as HandProperty,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -400,18 +422,15 @@ class _$_AppDocument extends _AppDocument {
       final List<ColorPalette> palettes = const [],
       final List<Waypoint> waypoints = const [],
       final List<Area> areas = const [],
+      final List<ExportPreset> exportPresets = const [],
       required this.createdAt,
-      this.handProperty = const HandProperty(),
       this.updatedAt,
-      final List<Painter> painters = const [
-        PenPainter(),
-        PathEraserPainter(),
-        LabelPainter()
-      ]})
+      final List<Painter> painters = const []})
       : _content = content,
         _palettes = palettes,
         _waypoints = waypoints,
         _areas = areas,
+        _exportPresets = exportPresets,
         _painters = painters,
         super._();
 
@@ -458,11 +477,16 @@ class _$_AppDocument extends _AppDocument {
     return EqualUnmodifiableListView(_areas);
   }
 
-  @override
-  final DateTime createdAt;
+  final List<ExportPreset> _exportPresets;
   @override
   @JsonKey()
-  final HandProperty handProperty;
+  List<ExportPreset> get exportPresets {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_exportPresets);
+  }
+
+  @override
+  final DateTime createdAt;
   @override
   final DateTime? updatedAt;
   final List<Painter> _painters;
@@ -475,7 +499,7 @@ class _$_AppDocument extends _AppDocument {
 
   @override
   String toString() {
-    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, palettes: $palettes, waypoints: $waypoints, areas: $areas, createdAt: $createdAt, handProperty: $handProperty, updatedAt: $updatedAt, painters: $painters)';
+    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, palettes: $palettes, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters)';
   }
 
   @override
@@ -493,9 +517,9 @@ class _$_AppDocument extends _AppDocument {
             const DeepCollectionEquality()
                 .equals(other._waypoints, _waypoints) &&
             const DeepCollectionEquality().equals(other._areas, _areas) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality()
-                .equals(other.handProperty, handProperty) &&
+                .equals(other._exportPresets, _exportPresets) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
             const DeepCollectionEquality().equals(other._painters, _painters));
   }
@@ -511,8 +535,8 @@ class _$_AppDocument extends _AppDocument {
       const DeepCollectionEquality().hash(_palettes),
       const DeepCollectionEquality().hash(_waypoints),
       const DeepCollectionEquality().hash(_areas),
+      const DeepCollectionEquality().hash(_exportPresets),
       const DeepCollectionEquality().hash(createdAt),
-      const DeepCollectionEquality().hash(handProperty),
       const DeepCollectionEquality().hash(updatedAt),
       const DeepCollectionEquality().hash(_painters));
 
@@ -538,8 +562,8 @@ abstract class _AppDocument extends AppDocument {
       final List<ColorPalette> palettes,
       final List<Waypoint> waypoints,
       final List<Area> areas,
+      final List<ExportPreset> exportPresets,
       required final DateTime createdAt,
-      final HandProperty handProperty,
       final DateTime? updatedAt,
       final List<Painter> painters}) = _$_AppDocument;
   const _AppDocument._() : super._();
@@ -562,9 +586,9 @@ abstract class _AppDocument extends AppDocument {
   @override
   List<Area> get areas;
   @override
-  DateTime get createdAt;
+  List<ExportPreset> get exportPresets;
   @override
-  HandProperty get handProperty;
+  DateTime get createdAt;
   @override
   DateTime? get updatedAt;
   @override

@@ -31,13 +31,12 @@ class ElementsReplaced extends DocumentEvent {
   List<Object?> get props => [replacedElements];
 }
 
-class ElementChanged extends DocumentEvent {
-  final PadElement old;
-  final PadElement updated;
-  const ElementChanged(this.old, this.updated);
+class ElementsChanged extends DocumentEvent {
+  final Map<PadElement, PadElement> changedElements;
+  const ElementsChanged(this.changedElements);
 
   @override
-  List<Object?> get props => [old, updated];
+  List<Object?> get props => [changedElements];
 }
 
 class ElementsRemoved extends DocumentEvent {
@@ -89,23 +88,22 @@ class PainterCreated extends DocumentEvent {
   List<Object?> get props => [painter];
 }
 
-class PainterChanged extends DocumentEvent {
-  final Painter painter;
-  final int index;
+class PaintersChanged extends DocumentEvent {
+  final Map<Painter, Painter> updatedPainters;
 
-  const PainterChanged(this.painter, this.index);
+  const PaintersChanged(this.updatedPainters);
 
   @override
-  List<Object?> get props => [painter, index];
+  List<Object?> get props => [updatedPainters];
 }
 
-class PainterRemoved extends DocumentEvent {
-  final int index;
+class PaintersRemoved extends DocumentEvent {
+  final List<Painter> painters;
 
-  const PainterRemoved(this.index);
+  const PaintersRemoved(this.painters);
 
   @override
-  List<Object?> get props => [index];
+  List<Object?> get props => [painters];
 }
 
 class PainterReordered extends DocumentEvent {
@@ -142,15 +140,6 @@ class WaypointRemoved extends DocumentEvent {
 
   @override
   List<Object?> get props => [index];
-}
-
-class HandPropertyChanged extends DocumentEvent {
-  final HandProperty property;
-
-  const HandPropertyChanged(this.property);
-
-  @override
-  List<Object?> get props => [property];
 }
 
 class LayerRenamed extends DocumentEvent {
@@ -217,39 +206,68 @@ class TemplateCreated extends DocumentEvent {
   List<Object?> get props => [deleteDocument];
 }
 
-class AreaCreated extends DocumentEvent {
-  final Area area;
+class AreasCreated extends DocumentEvent {
+  final List<Area> areas;
 
-  const AreaCreated(this.area);
+  const AreasCreated(this.areas);
 
   @override
-  List<Object?> get props => [area];
+  List<Object?> get props => [areas];
 }
 
-class AreaRemoved extends DocumentEvent {
-  final int index;
+class AreasRemoved extends DocumentEvent {
+  final List<String> areas;
 
-  const AreaRemoved(this.index);
+  const AreasRemoved(this.areas);
 
   @override
-  List<Object?> get props => [index];
+  List<Object?> get props => [areas];
 }
 
 class AreaChanged extends DocumentEvent {
   final Area area;
-  final int index;
-  const AreaChanged(this.index, this.area);
+  final String name;
+  const AreaChanged(this.name, this.area);
 
   @override
-  List<Object?> get props => [area, index];
+  List<Object?> get props => [area, name];
 }
 
 class CurrentAreaChanged extends DocumentEvent {
-  final int area;
+  final String area;
 
   const CurrentAreaChanged(this.area);
-  const CurrentAreaChanged.exit() : area = -1;
+  const CurrentAreaChanged.exit() : area = '';
 
   @override
   List<Object?> get props => [area];
+}
+
+class ExportPresetCreated extends DocumentEvent {
+  final String name;
+  final List<AreaPreset> areas;
+
+  ExportPresetCreated(this.name, this.areas);
+
+  @override
+  List<Object?> get props => [name, areas];
+}
+
+class ExportPresetUpdated extends DocumentEvent {
+  final String name;
+  final List<AreaPreset> areas;
+
+  ExportPresetUpdated(this.name, this.areas);
+
+  @override
+  List<Object?> get props => [name, areas];
+}
+
+class ExportPresetRemoved extends DocumentEvent {
+  final String name;
+
+  ExportPresetRemoved(this.name);
+
+  @override
+  List<Object?> get props => [name];
 }

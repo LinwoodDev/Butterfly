@@ -158,23 +158,107 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   @override
-  ShapeRenderer move(Offset position, [bool relative = false]) {
+  ShapeRenderer transform(
+      {Offset position = Offset.zero,
+      double scaleX = 1,
+      double scaleY = 1,
+      bool relative = false}) {
     if (relative) {
+      var newFirstPos = element.firstPosition + position;
+      var newSecondPos = element.secondPosition + position;
+      // Apply scale
+      if (newFirstPos.dx > newSecondPos.dx) {
+        newFirstPos = Offset(newFirstPos.dx * scaleX, newFirstPos.dy);
+      } else {
+        newSecondPos = Offset(newSecondPos.dx * scaleX, newSecondPos.dy);
+      }
+      if (newFirstPos.dy > newSecondPos.dy) {
+        newFirstPos = Offset(newFirstPos.dx, newFirstPos.dy * scaleY);
+      } else {
+        newSecondPos = Offset(newSecondPos.dx, newSecondPos.dy * scaleY);
+      }
+      var rect = Rect.fromPoints(newFirstPos, newSecondPos).normalized();
+      rect = rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY);
       return ShapeRenderer(
           element.copyWith(
-              firstPosition: element.firstPosition + position,
-              secondPosition: element.secondPosition + position),
+            firstPosition: element.firstPosition + position,
+            secondPosition: element.secondPosition + position,
+          ),
           rect);
     }
     // Center of firstPosition and secondPosition
-    final elementPosition =
-        Rect.fromPoints(element.firstPosition, element.secondPosition).center;
-    final offset = position - elementPosition;
+    final center = (element.firstPosition + element.secondPosition) / 2;
+    // Apply scale
+    final newFirstPos = (element.firstPosition - center) * scaleX + center;
+    final newSecondPos = (element.secondPosition - center) * scaleY + center;
+    var rect = Rect.fromPoints(newFirstPos, newSecondPos).normalized();
+    rect = rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY);
     return ShapeRenderer(
         element.copyWith(
-          firstPosition: element.firstPosition + offset,
-          secondPosition: element.secondPosition + offset,
+          firstPosition: rect.topLeft,
+          secondPosition: rect.topRight,
         ),
         rect);
+  }
+
+  @override
+  HitCalculator getHitCalculator() => ShapeHitCalculator(element, rect);
+}
+
+class ShapeHitCalculator extends HitCalculator {
+  final ShapeElement element;
+  final Rect rect;
+
+  ShapeHitCalculator(this.element, this.rect);
+
+  @override
+  bool hit(Rect rect) {
+    if (!this.rect.inflate(element.property.strokeWidth).overlaps(rect)) {
+      return false;
+    }
+    final shape = element.property.shape;
+    if (shape is RectangleShape) {
+      final lrt = rect.containsLine(
+        Offset(this.rect.left, this.rect.top),
+        Offset(this.rect.right, this.rect.top),
+      );
+      final tbr = rect.containsLine(
+        Offset(this.rect.right, this.rect.top),
+        Offset(this.rect.right, this.rect.bottom),
+      );
+      final lrb = rect.containsLine(
+        Offset(this.rect.left, this.rect.bottom),
+        Offset(this.rect.right, this.rect.bottom),
+      );
+      final tbl = rect.containsLine(
+        Offset(this.rect.left, this.rect.top),
+        Offset(this.rect.left, this.rect.bottom),
+      );
+      return lrt || tbr || lrb || tbl;
+    }
+    if (shape is CircleShape) {
+      // Test if rect is inside circle
+      final circleRect = this.rect.inflate(element.property.strokeWidth);
+      final circleCenter = circleRect.center;
+      final circleRadius = circleRect.width / 2;
+      final topLeft = rect.topLeft;
+      final topRight = rect.topRight;
+      final bottomLeft = rect.bottomLeft;
+      final bottomRight = rect.bottomRight;
+      return (topLeft - circleCenter).distance <= circleRadius &&
+          (topRight - circleCenter).distance <= circleRadius &&
+          (bottomLeft - circleCenter).distance <= circleRadius &&
+          (bottomRight - circleCenter).distance <= circleRadius;
+    }
+    if (shape is LineShape) {
+      final firstX = min(element.firstPosition.dx, element.secondPosition.dx);
+      final firstY = min(element.firstPosition.dy, element.secondPosition.dy);
+      final secondX = max(element.firstPosition.dx, element.secondPosition.dx);
+      final secondY = max(element.firstPosition.dy, element.secondPosition.dy);
+      final firstPos = Offset(firstX, firstY);
+      final secondPos = Offset(secondX, secondY);
+      return rect.containsLine(firstPos, secondPos);
+    }
+    return false;
   }
 }

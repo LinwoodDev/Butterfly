@@ -25,8 +25,9 @@ class ElementConstraint with _$ElementConstraint {
 @freezed
 @immutable
 class ElementConstraints with _$ElementConstraints {
-  const factory ElementConstraints.scaled(double scale) =
-      ScaledElementConstraints;
+  const factory ElementConstraints.scaled(
+      {@Default(1) double scaleX,
+      @Default(1) double scaleY}) = ScaledElementConstraints;
   const factory ElementConstraints.fixed(double height, double width) =
       FixedElementConstraints;
   const factory ElementConstraints.dynamic({
@@ -45,8 +46,7 @@ abstract class PathElement {
   PathProperty get property;
 }
 
-@freezed
-@immutable
+@Freezed(equal: false)
 class PadElement with _$PadElement {
   @Implements<PathElement>()
   const factory PadElement.pen(
@@ -72,16 +72,18 @@ class PadElement with _$PadElement {
   const factory PadElement.image({
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
-    @Default(ScaledElementConstraints(1)) ElementConstraints? constraints,
+    @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
+        ElementConstraints? constraints,
     @Uint8ListJsonConverter() required Uint8List pixels,
-    required int width,
-    required int height,
+    required double width,
+    required double height,
   }) = ImageElement;
 
   const factory PadElement.svg({
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
-    @Default(ScaledElementConstraints(1)) ElementConstraints? constraints,
+    @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
+        ElementConstraints? constraints,
     required String data,
     required double width,
     required double height,

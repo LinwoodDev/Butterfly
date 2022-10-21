@@ -9,6 +9,15 @@ import '../models/painter.dart';
 
 extension PainterVisualizer on Painter {
   String getLocalizedName(BuildContext context) {
+    if (this is HandPainter) {
+      return AppLocalizations.of(context)!.hand;
+    }
+    if (this is UndoPainter) {
+      return AppLocalizations.of(context)!.undo;
+    }
+    if (this is RedoPainter) {
+      return AppLocalizations.of(context)!.redo;
+    }
     if (this is PenPainter) {
       return AppLocalizations.of(context)!.pen;
     }
@@ -40,6 +49,19 @@ extension PainterVisualizer on Painter {
   }
 
   IconData getIcon({bool filled = false}) {
+    if (this is HandPainter) {
+      return filled ? PhosphorIcons.handFill : PhosphorIcons.hand;
+    }
+    if (this is UndoPainter) {
+      return filled
+          ? PhosphorIcons.arrowCounterClockwiseFill
+          : PhosphorIcons.arrowCounterClockwiseLight;
+    }
+    if (this is RedoPainter) {
+      return filled
+          ? PhosphorIcons.arrowClockwiseFill
+          : PhosphorIcons.arrowClockwiseLight;
+    }
     if (this is PenPainter) {
       return filled ? PhosphorIcons.penFill : PhosphorIcons.penLight;
     }

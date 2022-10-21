@@ -4,7 +4,7 @@ sidebar_position: 2
 ---
 
 ```mdx-code-block
-import DownloadButton from '@site/src/components/DownloadButton.js';
+import DownloadButton from '@site/src/components/DownloadButton.tsx';
 ```
 
 ![Stable Release-Version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nachts Release Version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
@@ -53,35 +53,35 @@ Lesen Sie mehr über die nächtliche Version von Butterfly [hier](/nightly).
 ## Mit winget installieren
 
 ```powershell
-winget Installation von LinwoodCloud.Butterfly
+winget install LinwoodCloud.Butterfly
 ```
 
 Um das winget-Paket zu aktualisieren, führe aus:
 
 ```powershell
-winget Upgrade LinwoodCloud.Schmetterling
+winget upgrade LinwoodCloud.Butterfly
 ```
 
 Um das winget-Paket zu deinstallieren, ausführen:
 
 ```powershell
-winget deinstallieren LinwoodCloud.Butterfly
+winget uninstall LinwoodCloud.Butterfly
 ```
 
 ### Nachtversion
 
 ```powershell
-winget Installation LinwoodCloud.Butterfly.Nachts
+winget install LinwoodCloud.Butterfly.Nightly
 ```
 
 Um das winget-Paket zu aktualisieren, führe aus:
 
 ```powershell
-winget Upgrade LinwoodCloud.Butterfly.Nachts
+winget upgrade LinwoodCloud.Butterfly.Nightly
 ```
 
 Um das winget-Paket zu deinstallieren, ausführen:
 
 ```powershell
-winget deinstallieren LinwoodCloud.Butterfly.Nachts
+winget uninstall LinwoodCloud.Butterfly.Nightly
 ```

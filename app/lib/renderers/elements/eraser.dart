@@ -44,7 +44,13 @@ class EraserRenderer extends PathRenderer<EraserElement> {
   }
 
   @override
-  EraserRenderer move(Offset position, [bool relative = false]) =>
+  EraserRenderer transform(
+          {Offset position = Offset.zero,
+          double scaleX = 1,
+          double scaleY = 1,
+          bool relative = false}) =>
       EraserRenderer(
-          element.copyWith(points: movePoints(position, relative)), rect);
+          element.copyWith(
+              points: movePoints(position, scaleX, scaleY, relative)),
+          moveRect(position, scaleX, scaleY, relative));
 }

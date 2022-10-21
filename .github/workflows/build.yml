@@ -322,8 +322,10 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
+        env:
+          CI_PAT: ${{ secrets.CI_PAT }}
         with:
-          token: ${{ secrets.CI_PAT }}
+          token: ${{ env.CI_PAT }}
       - name: Setup git
         run: |
           git config --global user.email "ci@linwood.dev"

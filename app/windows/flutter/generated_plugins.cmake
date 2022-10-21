@@ -4,10 +4,11 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   camera_windows
-  connectivity_plus_windows
+  connectivity_plus
   flutter_secure_storage_windows
   printing
   screen_retriever
+  share_plus
   url_launcher_windows
   window_manager
 )
