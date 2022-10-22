@@ -23,13 +23,12 @@ import '../models/converter.dart';
 import '../models/document.dart';
 
 class ImportService {
+  final DocumentBloc bloc;
   final BuildContext context;
 
-  ImportService(this.context, [String type = '', Object? data]) {
-    _load(type, data);
-  }
+  ImportService(this.bloc, this.context);
 
-  Future<void> _load([String type = '', Object? data]) async {
+  Future<void> load([String type = '', Object? data]) async {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     final location = state.location;
@@ -47,8 +46,6 @@ class ImportService {
     if (bytes == null || fileType == null) return;
     await import(fileType, bytes);
   }
-
-  DocumentBloc get bloc => context.read<DocumentBloc>();
 
   Future<void> import(AssetFileType type, Uint8List bytes) async {
     switch (type) {
