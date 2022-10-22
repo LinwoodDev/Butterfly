@@ -377,8 +377,17 @@ class HandHandler extends Handler<HandPainter> {
     context.refresh();
   }
 
+  bool _ruler = false;
+
   @override
   void onScaleStart(ScaleStartDetails details, EventContext context) {
+    final viewport = context.getCameraViewport();
+    if (viewport.tool?.hitRuler(details.localFocalPoint, viewport.toSize()) ??
+        false) {
+      print('hit ruler');
+      _ruler = true;
+      return;
+    }
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
     if (_movingElements.isNotEmpty) {
@@ -402,6 +411,18 @@ class HandHandler extends Handler<HandPainter> {
     final currentIndex = context.getCurrentIndex();
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
+    if (_ruler) {
+      final state = context.getState();
+      if (state == null) return;
+      var toolState = context.getCameraViewport().tool?.element;
+      if (toolState == null) return;
+      print(toolState.rulerPosition + details.focalPointDelta);
+      toolState = toolState.copyWith(
+          rulerPosition: toolState.rulerPosition.translate(
+              details.focalPointDelta.dx, details.focalPointDelta.dy));
+      context.getCurrentIndexCubit().updateTool(state.document, toolState);
+      return;
+    }
     if (_transformMode != null) {
       _currentTransformOffset = globalPos;
       return;
@@ -430,6 +451,7 @@ class HandHandler extends Handler<HandPainter> {
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
     final freeSelection = _freeSelection?.normalized();
     if (_handleTransform(context.getDocumentBloc())) return;
+    _ruler = false;
     if (freeSelection != null && !freeSelection.isEmpty) {
       _freeSelection = null;
       if (!context.isCtrlPressed) {

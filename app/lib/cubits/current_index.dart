@@ -349,7 +349,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void unbake(
       {Renderer<Background>? background,
-      Renderer<ToolState>? tool,
+      ToolRenderer? tool,
       List<Renderer<PadElement>>? unbakedElements}) {
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.unbake(
@@ -463,7 +463,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   FutureOr<void> updateTool(AppDocument document, ToolState toolState) async {
-    final renderer = Renderer.fromInstance(toolState);
+    final renderer = ToolRenderer(toolState);
     await renderer.setup(document);
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.withTool(renderer)));

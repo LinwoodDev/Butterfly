@@ -6,13 +6,12 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import 'element.dart';
-import 'tool.dart';
 
 @immutable
 class CameraViewport extends Equatable {
   final ui.Image? image;
   final Renderer<Background>? background;
-  final Renderer<ToolState>? tool;
+  final ToolRenderer? tool;
   final List<Renderer<PadElement>> bakedElements,
       unbakedElements,
       visibleElements;
@@ -80,7 +79,7 @@ class CameraViewport extends Equatable {
 
   CameraViewport unbake({
     Renderer<Background>? background,
-    Renderer<ToolState>? tool,
+    ToolRenderer? tool,
     List<Renderer<PadElement>>? unbakedElements,
     List<Renderer<PadElement>>? visibleElements,
   }) =>
@@ -136,7 +135,7 @@ class CameraViewport extends Equatable {
           y: y,
           visibleElements: visibleElements);
 
-  CameraViewport withTool(Renderer<ToolState> tool) => CameraViewport.baked(
+  CameraViewport withTool(ToolRenderer tool) => CameraViewport.baked(
       background: background,
       tool: tool,
       pixelRatio: pixelRatio,

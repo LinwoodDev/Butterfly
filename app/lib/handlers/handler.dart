@@ -27,6 +27,7 @@ import '../models/cursor.dart';
 import '../models/document.dart';
 import '../models/path_point.dart';
 import '../models/property.dart';
+import '../models/viewport.dart';
 import '../renderers/cursors/eraser.dart';
 import '../renderers/renderer.dart';
 import '../selections/selection.dart';
@@ -99,6 +100,10 @@ class EventContext {
       buildContext.findAncestorWidgetOfExactType<Actions>()?.actions ?? {};
 
   ImportService getImportService() => buildContext.read<ImportService>();
+
+  CameraViewport getCameraViewport() => getCurrentIndex().cameraViewport;
+
+  AppDocument? getDocument() => getState()?.document;
 }
 
 enum PainterStatus { normal, disabled }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
@@ -54,12 +56,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ToolChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      await current.currentIndexCubit
-          .updateTool(current.document, event.state ?? current.toolState);
+      await current.currentIndexCubit.updateTool(
+          current.document,
+          event.state ??
+              current.cameraViewport.tool?.element ??
+              const ToolState());
       return _saveDocument(
         emit,
         current.copyWith(
-          toolState: event.state,
           document: current.document.copyWith(
             tool: event.option ?? current.document.tool,
           ),
@@ -640,7 +644,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     currentIndexCubit.setSaveState(saved: true);
     final background = Renderer.fromInstance(document.background);
     await background.setup(document);
-    final tool = Renderer.fromInstance(current.toolState);
+    final tool = ToolRenderer(const ToolState());
     await tool.setup(document);
     final renderers =
         document.content.map((e) => Renderer.fromInstance(e)).toList();

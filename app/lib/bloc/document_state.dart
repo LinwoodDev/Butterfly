@@ -22,7 +22,6 @@ class DocumentLoadSuccess extends DocumentState {
   final List<String> invisibleLayers;
   final SettingsCubit settingsCubit;
   final CurrentIndexCubit currentIndexCubit;
-  final ToolState toolState;
 
   DocumentLoadSuccess(this.document,
       {AssetLocation? location,
@@ -31,7 +30,6 @@ class DocumentLoadSuccess extends DocumentState {
       required this.currentIndexCubit,
       this.currentAreaName = '',
       this.currentLayer = '',
-      this.toolState = const ToolState(),
       this.invisibleLayers = const []}) {
     if (location != null) {
       currentIndexCubit.setSaveState(location: location);
@@ -46,7 +44,6 @@ class DocumentLoadSuccess extends DocumentState {
         currentAreaName,
         settingsCubit,
         currentIndexCubit,
-        toolState,
       ];
 
   Area? get currentArea {
@@ -68,7 +65,6 @@ class DocumentLoadSuccess extends DocumentState {
     String? currentLayer,
     String? currentAreaName,
     List<String>? invisibleLayers,
-    ToolState? toolState,
   }) =>
       DocumentLoadSuccess(
         document ?? this.document,
@@ -78,7 +74,6 @@ class DocumentLoadSuccess extends DocumentState {
         settingsCubit: settingsCubit,
         currentIndexCubit: currentIndexCubit,
         location: location,
-        toolState: toolState ?? this.toolState,
       );
 
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
