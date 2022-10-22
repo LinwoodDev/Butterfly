@@ -125,28 +125,14 @@ jobs:
         run: |
           git tag -fa nightly -m "Find all nightly releases here"
           git push origin HEAD:nightly -f
-  publish-winget:
-    needs: [release]
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.CI_PAT }}
-          ref: ${{ github.ref }}
-      - if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' || github.ref == 'refs/tags/stable' }}
-        uses: vedantmgoyal2009/winget-releaser@v1
-        with:
-          identifier: LinwoodCloud.Butterfly
-          version: ${{ needs.release.outputs.version }}
-          release-tag: v${{ needs.release.outputs.version }}
-          token: ${{ secrets.CI_PAT }}
-      - if: ${{ github.event.inputs.stable == 'false' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/tags/nightly') }}
-        uses: vedantmgoyal2009/winget-releaser@v1
-        with:
-          identifier: LinwoodCloud.Butterfly.Nightly
-          version: ${{ needs.release.outputs.version }}
-          release-tag: v${{ needs.release.outputs.version }}
-          token: ${{ secrets.CI_PAT }}
+      - name: Merge in main
+        if: ${{ github.ref == 'refs/heads/develop' && github.event.inputs.only_winget != 'true' && github.event.inputs.stable == 'true' }}
+        run: |
+          git fetch
+          git checkout main
+          git pull origin main
+          git merge develop --strategy-option ours
+          git push origin main
   set-next-version:
     runs-on: ubuntu-22.04
     if: ${{ github.event.inputs.only_winget != 'true' }}

@@ -95,37 +95,39 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: Column(mainAxisSize: MainAxisSize.min, children: [
                   Flexible(
-                    child: Wrap(
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: areas.mapIndexed((i, e) {
-                        final area = state.document.getAreaByName(e.name);
-                        if (area == null) {
-                          return Container();
-                        }
-                        return FutureBuilder<ByteData?>(
-                          future: currentIndex.render(state.document,
-                              width: area.width.ceil(),
-                              height: area.height.ceil(),
-                              x: area.position.dx,
-                              y: area.position.dy),
-                          builder: (context, snapshot) => _AreaPreview(
-                            area: area,
-                            quality: e.quality,
-                            onRemove: () {
-                              setState(() {
-                                areas.removeAt(i);
-                              });
-                            },
-                            onQualityChanged: (value) {
-                              setState(() {
-                                areas[i] = e.copyWith(quality: value);
-                              });
-                            },
-                            image: snapshot.data?.buffer.asUint8List(),
-                          ),
-                        );
-                      }).toList(),
+                    child: SingleChildScrollView(
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: areas.mapIndexed((i, e) {
+                          final area = state.document.getAreaByName(e.name);
+                          if (area == null) {
+                            return Container();
+                          }
+                          return FutureBuilder<ByteData?>(
+                            future: currentIndex.render(state.document,
+                                width: area.width.ceil(),
+                                height: area.height.ceil(),
+                                x: area.position.dx,
+                                y: area.position.dy),
+                            builder: (context, snapshot) => _AreaPreview(
+                              area: area,
+                              quality: e.quality,
+                              onRemove: () {
+                                setState(() {
+                                  areas.removeAt(i);
+                                });
+                              },
+                              onQualityChanged: (value) {
+                                setState(() {
+                                  areas[i] = e.copyWith(quality: value);
+                                });
+                              },
+                              image: snapshot.data?.buffer.asUint8List(),
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
                   const Divider(),
@@ -171,7 +173,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                   )
                 ]),
               ),
-            )
+            ),
           ]);
         }),
       ),
@@ -315,6 +317,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                         content: TextFormField(
                           controller: nameController,
                           decoration: InputDecoration(
+                            filled: true,
                             labelText: AppLocalizations.of(ctx)!.name,
                           ),
                           validator: (value) {
