@@ -12,11 +12,6 @@ on:
         description: "Is this version stable?"
         type: boolean
         required: false
-      only_winget:
-        default: false
-        description: "Only update the winget manifest?"
-        type: boolean
-        required: false
 
 jobs:
   update-changelog:
@@ -46,7 +41,6 @@ jobs:
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Update changelog
-        if: ${{ github.event.inputs.only_winget != 'true' }}
         run: |
           git fetch
           git pull origin
@@ -56,7 +50,7 @@ jobs:
           git commit -m "Add changelog of v${{ env.BUTTERFLY_VERSION }}"
           git push origin
       - name: Merge in develop
-        if: ${{ github.ref == 'refs/heads/main' && github.event.inputs.only_winget != 'true' }}
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           git fetch
           git checkout develop
@@ -98,7 +92,6 @@ jobs:
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Create tag
-        if: ${{ github.event.inputs.only_winget != 'true' }}
         run: |
           BUTTERFLY_VERSION="${{ env.BUTTERFLY_VERSION }}"
           git tag -fa v${{ env.BUTTERFLY_VERSION }} -m "Release ${BUTTERFLY_VERSION}"
@@ -107,7 +100,6 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
       - name: Create release
-        if: ${{ github.event.inputs.only_winget != 'true' }}
         uses: softprops/action-gh-release@v1
         with:
           prerelease: ${{ github.event.inputs.stable != 'true' }}
@@ -116,48 +108,25 @@ jobs:
           token: ${{ secrets.CI_PAT }}
           body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
       - name: Retag stable
-        if: ${{ (github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main') && github.event.inputs.only_winget != 'true' }}
+        if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
         run: |
           git tag -fa stable -m "Find all stable releases here"
           git push origin HEAD:stable -f
       - name: Retag nightly
-        if: ${{ (github.event.inputs.stable != 'true' && github.ref == 'refs/heads/develop') && github.event.inputs.only_winget != 'true' }}
+        if: ${{ github.event.inputs.stable != 'true' && github.ref == 'refs/heads/develop' }}
         run: |
           git tag -fa nightly -m "Find all nightly releases here"
           git push origin HEAD:nightly -f
       - name: Merge in main
-        if: ${{ github.ref == 'refs/heads/develop' && github.event.inputs.only_winget != 'true' && github.event.inputs.stable == 'true' }}
+        if: ${{ github.ref == 'refs/heads/develop' && github.event.inputs.stable == 'true' }}
         run: |
           git fetch
           git checkout main
           git pull origin main
           git merge develop --strategy-option ours
           git push origin main
-  publish-winget:
-    needs: [release]
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.CI_PAT }}
-          ref: ${{ github.ref }}
-      - if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' || github.ref == 'refs/tags/stable' }}
-        uses: vedantmgoyal2009/winget-releaser@v1
-        with:
-          identifier: LinwoodCloud.Butterfly
-          version: ${{ needs.release.outputs.version }}
-          release-tag: v${{ needs.release.outputs.version }}
-          token: ${{ secrets.CI_PAT }}
-      - if: ${{ github.event.inputs.stable == 'false' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/tags/nightly') }}
-        uses: vedantmgoyal2009/winget-releaser@v1
-        with:
-          identifier: LinwoodCloud.Butterfly.Nightly
-          version: ${{ needs.release.outputs.version }}
-          release-tag: v${{ needs.release.outputs.version }}
-          token: ${{ secrets.CI_PAT }}
   set-next-version:
     runs-on: ubuntu-22.04
-    if: ${{ github.event.inputs.only_winget != 'true' }}
     needs:
       - update-changelog
       - release
@@ -204,7 +173,6 @@ jobs:
           git push origin develop
   bump-version:
     runs-on: ubuntu-22.04
-    if: ${{ github.event.inputs.only_winget != 'true' }}
     needs:
       - update-changelog
       - release
@@ -262,7 +230,6 @@ jobs:
           git push origin develop
   notify:
     runs-on: ubuntu-22.04
-    if: ${{ github.event.inputs.only_winget != 'true' }}
     needs: [release]
     steps:
       - uses: actions/checkout@v3

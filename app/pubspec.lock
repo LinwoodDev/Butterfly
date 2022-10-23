@@ -140,7 +140,7 @@ packages:
       name: camera
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.0+3"
+    version: "0.10.0+4"
   camera_android:
     dependency: transitive
     description:

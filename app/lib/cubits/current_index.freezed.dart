@@ -41,7 +41,8 @@ mixin _$CurrentIndex {
 abstract class $CurrentIndexCopyWith<$Res> {
   factory $CurrentIndexCopyWith(
           CurrentIndex value, $Res Function(CurrentIndex) then) =
-      _$CurrentIndexCopyWithImpl<$Res>;
+      _$CurrentIndexCopyWithImpl<$Res, CurrentIndex>;
+  @useResult
   $Res call(
       {int? index,
       Handler<dynamic> handler,
@@ -62,94 +63,98 @@ abstract class $CurrentIndexCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
+class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
+    implements $CurrentIndexCopyWith<$Res> {
   _$CurrentIndexCopyWithImpl(this._value, this._then);
 
-  final CurrentIndex _value;
   // ignore: unused_field
-  final $Res Function(CurrentIndex) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? index = freezed,
-    Object? handler = freezed,
-    Object? settingsCubit = freezed,
-    Object? transformCubit = freezed,
+    Object? handler = null,
+    Object? settingsCubit = null,
+    Object? transformCubit = null,
     Object? temporaryHandler = freezed,
-    Object? foregrounds = freezed,
+    Object? foregrounds = null,
     Object? selection = freezed,
     Object? temporaryForegrounds = freezed,
-    Object? pointers = freezed,
+    Object? pointers = null,
     Object? buttons = freezed,
-    Object? cameraViewport = freezed,
-    Object? location = freezed,
+    Object? cameraViewport = null,
+    Object? location = null,
     Object? embedding = freezed,
-    Object? saved = freezed,
+    Object? saved = null,
   }) {
     return _then(_value.copyWith(
-      index: index == freezed
+      index: freezed == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int?,
-      handler: handler == freezed
+      handler: null == handler
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
               as Handler<dynamic>,
-      settingsCubit: settingsCubit == freezed
+      settingsCubit: null == settingsCubit
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
               as SettingsCubit,
-      transformCubit: transformCubit == freezed
+      transformCubit: null == transformCubit
           ? _value.transformCubit
           : transformCubit // ignore: cast_nullable_to_non_nullable
               as TransformCubit,
-      temporaryHandler: temporaryHandler == freezed
+      temporaryHandler: freezed == temporaryHandler
           ? _value.temporaryHandler
           : temporaryHandler // ignore: cast_nullable_to_non_nullable
               as Handler<dynamic>?,
-      foregrounds: foregrounds == freezed
+      foregrounds: null == foregrounds
           ? _value.foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>,
-      selection: selection == freezed
+      selection: freezed == selection
           ? _value.selection
           : selection // ignore: cast_nullable_to_non_nullable
               as Selection<dynamic>?,
-      temporaryForegrounds: temporaryForegrounds == freezed
+      temporaryForegrounds: freezed == temporaryForegrounds
           ? _value.temporaryForegrounds
           : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>?,
-      pointers: pointers == freezed
+      pointers: null == pointers
           ? _value.pointers
           : pointers // ignore: cast_nullable_to_non_nullable
               as List<int>,
-      buttons: buttons == freezed
+      buttons: freezed == buttons
           ? _value.buttons
           : buttons // ignore: cast_nullable_to_non_nullable
               as int?,
-      cameraViewport: cameraViewport == freezed
+      cameraViewport: null == cameraViewport
           ? _value.cameraViewport
           : cameraViewport // ignore: cast_nullable_to_non_nullable
               as CameraViewport,
-      location: location == freezed
+      location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as AssetLocation,
-      embedding: embedding == freezed
+      embedding: freezed == embedding
           ? _value.embedding
           : embedding // ignore: cast_nullable_to_non_nullable
               as Embedding?,
-      saved: saved == freezed
+      saved: null == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AssetLocationCopyWith<$Res> get location {
     return $AssetLocationCopyWith<$Res>(_value.location, (value) {
-      return _then(_value.copyWith(location: value));
+      return _then(_value.copyWith(location: value) as $Val);
     });
   }
 }
@@ -161,6 +166,7 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
           _$_CurrentIndex value, $Res Function(_$_CurrentIndex) then) =
       __$$_CurrentIndexCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int? index,
       Handler<dynamic> handler,
@@ -183,86 +189,84 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
 
 /// @nodoc
 class __$$_CurrentIndexCopyWithImpl<$Res>
-    extends _$CurrentIndexCopyWithImpl<$Res>
+    extends _$CurrentIndexCopyWithImpl<$Res, _$_CurrentIndex>
     implements _$$_CurrentIndexCopyWith<$Res> {
   __$$_CurrentIndexCopyWithImpl(
       _$_CurrentIndex _value, $Res Function(_$_CurrentIndex) _then)
-      : super(_value, (v) => _then(v as _$_CurrentIndex));
+      : super(_value, _then);
 
-  @override
-  _$_CurrentIndex get _value => super._value as _$_CurrentIndex;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? index = freezed,
-    Object? handler = freezed,
-    Object? settingsCubit = freezed,
-    Object? transformCubit = freezed,
+    Object? handler = null,
+    Object? settingsCubit = null,
+    Object? transformCubit = null,
     Object? temporaryHandler = freezed,
-    Object? foregrounds = freezed,
+    Object? foregrounds = null,
     Object? selection = freezed,
     Object? temporaryForegrounds = freezed,
-    Object? pointers = freezed,
+    Object? pointers = null,
     Object? buttons = freezed,
-    Object? cameraViewport = freezed,
-    Object? location = freezed,
+    Object? cameraViewport = null,
+    Object? location = null,
     Object? embedding = freezed,
-    Object? saved = freezed,
+    Object? saved = null,
   }) {
     return _then(_$_CurrentIndex(
-      index == freezed
+      freezed == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int?,
-      handler == freezed
+      null == handler
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
               as Handler<dynamic>,
-      settingsCubit == freezed
+      null == settingsCubit
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
               as SettingsCubit,
-      transformCubit == freezed
+      null == transformCubit
           ? _value.transformCubit
           : transformCubit // ignore: cast_nullable_to_non_nullable
               as TransformCubit,
-      temporaryHandler: temporaryHandler == freezed
+      temporaryHandler: freezed == temporaryHandler
           ? _value.temporaryHandler
           : temporaryHandler // ignore: cast_nullable_to_non_nullable
               as Handler<dynamic>?,
-      foregrounds: foregrounds == freezed
+      foregrounds: null == foregrounds
           ? _value._foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>,
-      selection: selection == freezed
+      selection: freezed == selection
           ? _value.selection
           : selection // ignore: cast_nullable_to_non_nullable
               as Selection<dynamic>?,
-      temporaryForegrounds: temporaryForegrounds == freezed
+      temporaryForegrounds: freezed == temporaryForegrounds
           ? _value._temporaryForegrounds
           : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>?,
-      pointers: pointers == freezed
+      pointers: null == pointers
           ? _value._pointers
           : pointers // ignore: cast_nullable_to_non_nullable
               as List<int>,
-      buttons: buttons == freezed
+      buttons: freezed == buttons
           ? _value.buttons
           : buttons // ignore: cast_nullable_to_non_nullable
               as int?,
-      cameraViewport: cameraViewport == freezed
+      cameraViewport: null == cameraViewport
           ? _value.cameraViewport
           : cameraViewport // ignore: cast_nullable_to_non_nullable
               as CameraViewport,
-      location: location == freezed
+      location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as AssetLocation,
-      embedding: embedding == freezed
+      embedding: freezed == embedding
           ? _value.embedding
           : embedding // ignore: cast_nullable_to_non_nullable
               as Embedding?,
-      saved: saved == freezed
+      saved: null == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -351,48 +355,52 @@ class _$_CurrentIndex extends _CurrentIndex {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CurrentIndex &&
-            const DeepCollectionEquality().equals(other.index, index) &&
-            const DeepCollectionEquality().equals(other.handler, handler) &&
-            const DeepCollectionEquality()
-                .equals(other.settingsCubit, settingsCubit) &&
-            const DeepCollectionEquality()
-                .equals(other.transformCubit, transformCubit) &&
-            const DeepCollectionEquality()
-                .equals(other.temporaryHandler, temporaryHandler) &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.handler, handler) || other.handler == handler) &&
+            (identical(other.settingsCubit, settingsCubit) ||
+                other.settingsCubit == settingsCubit) &&
+            (identical(other.transformCubit, transformCubit) ||
+                other.transformCubit == transformCubit) &&
+            (identical(other.temporaryHandler, temporaryHandler) ||
+                other.temporaryHandler == temporaryHandler) &&
             const DeepCollectionEquality()
                 .equals(other._foregrounds, _foregrounds) &&
-            const DeepCollectionEquality().equals(other.selection, selection) &&
+            (identical(other.selection, selection) ||
+                other.selection == selection) &&
             const DeepCollectionEquality()
                 .equals(other._temporaryForegrounds, _temporaryForegrounds) &&
             const DeepCollectionEquality().equals(other._pointers, _pointers) &&
-            const DeepCollectionEquality().equals(other.buttons, buttons) &&
-            const DeepCollectionEquality()
-                .equals(other.cameraViewport, cameraViewport) &&
-            const DeepCollectionEquality().equals(other.location, location) &&
-            const DeepCollectionEquality().equals(other.embedding, embedding) &&
-            const DeepCollectionEquality().equals(other.saved, saved));
+            (identical(other.buttons, buttons) || other.buttons == buttons) &&
+            (identical(other.cameraViewport, cameraViewport) ||
+                other.cameraViewport == cameraViewport) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.embedding, embedding) ||
+                other.embedding == embedding) &&
+            (identical(other.saved, saved) || other.saved == saved));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(index),
-      const DeepCollectionEquality().hash(handler),
-      const DeepCollectionEquality().hash(settingsCubit),
-      const DeepCollectionEquality().hash(transformCubit),
-      const DeepCollectionEquality().hash(temporaryHandler),
+      index,
+      handler,
+      settingsCubit,
+      transformCubit,
+      temporaryHandler,
       const DeepCollectionEquality().hash(_foregrounds),
-      const DeepCollectionEquality().hash(selection),
+      selection,
       const DeepCollectionEquality().hash(_temporaryForegrounds),
       const DeepCollectionEquality().hash(_pointers),
-      const DeepCollectionEquality().hash(buttons),
-      const DeepCollectionEquality().hash(cameraViewport),
-      const DeepCollectionEquality().hash(location),
-      const DeepCollectionEquality().hash(embedding),
-      const DeepCollectionEquality().hash(saved));
+      buttons,
+      cameraViewport,
+      location,
+      embedding,
+      saved);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CurrentIndexCopyWith<_$_CurrentIndex> get copyWith =>
       __$$_CurrentIndexCopyWithImpl<_$_CurrentIndex>(this, _$identity);
 }

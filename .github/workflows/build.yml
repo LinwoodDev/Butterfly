@@ -313,6 +313,9 @@ jobs:
   deploy:
     runs-on: ubuntu-22.04
     if: github.event_name == 'push'
+    outputs:
+      version: ${{ steps.setup.outputs.BUTTERFLY_VERSION }}
+      build_number: ${{ steps.setup.outputs.BUTTERFLY_BUILD_NUMBER }}
     needs:
       - build-apk
       - build-windows
@@ -327,7 +330,16 @@ jobs:
         with:
           token: ${{ env.CI_PAT }}
       - name: Setup git
+        id: setup
         run: |
+          BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
+          BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_OUTPUT
+          BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_OUTPUT
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - uses: actions/download-artifact@v3
@@ -494,3 +506,24 @@ jobs:
           PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
         run: bundle exec fastlane beta
         working-directory: app/android
+  publish-winget:
+    needs: [deploy]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+      - if: ${{ github.ref == 'refs/tags/stable' }}
+        uses: vedantmgoyal2009/winget-releaser@v1
+        with:
+          identifier: LinwoodCloud.Butterfly
+          version: ${{ needs.deploy.outputs.version }}
+          release-tag: v${{ needs.deploy.outputs.version }}
+          token: ${{ secrets.CI_PAT }}
+      - if: ${{ github.ref == 'refs/tags/nightly' }}
+        uses: vedantmgoyal2009/winget-releaser@v1
+        with:
+          identifier: LinwoodCloud.Butterfly.Nightly
+          version: ${{ needs.deploy.outputs.version }}
+          release-tag: v${{ needs.deploy.outputs.version }}
+          token: ${{ secrets.CI_PAT }}

@@ -34,39 +34,42 @@ mixin _$ElementConstraint {
 abstract class $ElementConstraintCopyWith<$Res> {
   factory $ElementConstraintCopyWith(
           ElementConstraint value, $Res Function(ElementConstraint) then) =
-      _$ElementConstraintCopyWithImpl<$Res>;
+      _$ElementConstraintCopyWithImpl<$Res, ElementConstraint>;
+  @useResult
   $Res call({double size, double length, bool includeArea});
 }
 
 /// @nodoc
-class _$ElementConstraintCopyWithImpl<$Res>
+class _$ElementConstraintCopyWithImpl<$Res, $Val extends ElementConstraint>
     implements $ElementConstraintCopyWith<$Res> {
   _$ElementConstraintCopyWithImpl(this._value, this._then);
 
-  final ElementConstraint _value;
   // ignore: unused_field
-  final $Res Function(ElementConstraint) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? size = freezed,
-    Object? length = freezed,
-    Object? includeArea = freezed,
+    Object? size = null,
+    Object? length = null,
+    Object? includeArea = null,
   }) {
     return _then(_value.copyWith(
-      size: size == freezed
+      size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
               as double,
-      length: length == freezed
+      length: null == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
               as double,
-      includeArea: includeArea == freezed
+      includeArea: null == includeArea
           ? _value.includeArea
           : includeArea // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -77,36 +80,35 @@ abstract class _$$_ElementConstraintCopyWith<$Res>
           $Res Function(_$_ElementConstraint) then) =
       __$$_ElementConstraintCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({double size, double length, bool includeArea});
 }
 
 /// @nodoc
 class __$$_ElementConstraintCopyWithImpl<$Res>
-    extends _$ElementConstraintCopyWithImpl<$Res>
+    extends _$ElementConstraintCopyWithImpl<$Res, _$_ElementConstraint>
     implements _$$_ElementConstraintCopyWith<$Res> {
   __$$_ElementConstraintCopyWithImpl(
       _$_ElementConstraint _value, $Res Function(_$_ElementConstraint) _then)
-      : super(_value, (v) => _then(v as _$_ElementConstraint));
+      : super(_value, _then);
 
-  @override
-  _$_ElementConstraint get _value => super._value as _$_ElementConstraint;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? size = freezed,
-    Object? length = freezed,
-    Object? includeArea = freezed,
+    Object? size = null,
+    Object? length = null,
+    Object? includeArea = null,
   }) {
     return _then(_$_ElementConstraint(
-      size: size == freezed
+      size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
               as double,
-      length: length == freezed
+      length: null == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
               as double,
-      includeArea: includeArea == freezed
+      includeArea: null == includeArea
           ? _value.includeArea
           : includeArea // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -143,22 +145,19 @@ class _$_ElementConstraint implements _ElementConstraint {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ElementConstraint &&
-            const DeepCollectionEquality().equals(other.size, size) &&
-            const DeepCollectionEquality().equals(other.length, length) &&
-            const DeepCollectionEquality()
-                .equals(other.includeArea, includeArea));
+            (identical(other.size, size) || other.size == size) &&
+            (identical(other.length, length) || other.length == length) &&
+            (identical(other.includeArea, includeArea) ||
+                other.includeArea == includeArea));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(size),
-      const DeepCollectionEquality().hash(length),
-      const DeepCollectionEquality().hash(includeArea));
+  int get hashCode => Object.hash(runtimeType, size, length, includeArea);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ElementConstraintCopyWith<_$_ElementConstraint> get copyWith =>
       __$$_ElementConstraintCopyWithImpl<_$_ElementConstraint>(
           this, _$identity);
@@ -220,9 +219,9 @@ mixin _$ElementConstraints {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(double scaleX, double scaleY)? scaled,
-    TResult Function(double height, double width)? fixed,
-    TResult Function(
+    TResult? Function(double scaleX, double scaleY)? scaled,
+    TResult? Function(double height, double width)? fixed,
+    TResult? Function(
             double height, double width, double aspectRatio, bool includeArea)?
         dynamic,
   }) =>
@@ -246,9 +245,9 @@ mixin _$ElementConstraints {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ScaledElementConstraints value)? scaled,
-    TResult Function(FixedElementConstraints value)? fixed,
-    TResult Function(DynamicElementConstraints value)? dynamic,
+    TResult? Function(ScaledElementConstraints value)? scaled,
+    TResult? Function(FixedElementConstraints value)? fixed,
+    TResult? Function(DynamicElementConstraints value)? dynamic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -266,17 +265,18 @@ mixin _$ElementConstraints {
 abstract class $ElementConstraintsCopyWith<$Res> {
   factory $ElementConstraintsCopyWith(
           ElementConstraints value, $Res Function(ElementConstraints) then) =
-      _$ElementConstraintsCopyWithImpl<$Res>;
+      _$ElementConstraintsCopyWithImpl<$Res, ElementConstraints>;
 }
 
 /// @nodoc
-class _$ElementConstraintsCopyWithImpl<$Res>
+class _$ElementConstraintsCopyWithImpl<$Res, $Val extends ElementConstraints>
     implements $ElementConstraintsCopyWith<$Res> {
   _$ElementConstraintsCopyWithImpl(this._value, this._then);
 
-  final ElementConstraints _value;
   // ignore: unused_field
-  final $Res Function(ElementConstraints) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -284,32 +284,30 @@ abstract class _$$ScaledElementConstraintsCopyWith<$Res> {
   factory _$$ScaledElementConstraintsCopyWith(_$ScaledElementConstraints value,
           $Res Function(_$ScaledElementConstraints) then) =
       __$$ScaledElementConstraintsCopyWithImpl<$Res>;
+  @useResult
   $Res call({double scaleX, double scaleY});
 }
 
 /// @nodoc
 class __$$ScaledElementConstraintsCopyWithImpl<$Res>
-    extends _$ElementConstraintsCopyWithImpl<$Res>
+    extends _$ElementConstraintsCopyWithImpl<$Res, _$ScaledElementConstraints>
     implements _$$ScaledElementConstraintsCopyWith<$Res> {
   __$$ScaledElementConstraintsCopyWithImpl(_$ScaledElementConstraints _value,
       $Res Function(_$ScaledElementConstraints) _then)
-      : super(_value, (v) => _then(v as _$ScaledElementConstraints));
+      : super(_value, _then);
 
-  @override
-  _$ScaledElementConstraints get _value =>
-      super._value as _$ScaledElementConstraints;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? scaleX = freezed,
-    Object? scaleY = freezed,
+    Object? scaleX = null,
+    Object? scaleY = null,
   }) {
     return _then(_$ScaledElementConstraints(
-      scaleX: scaleX == freezed
+      scaleX: null == scaleX
           ? _value.scaleX
           : scaleX // ignore: cast_nullable_to_non_nullable
               as double,
-      scaleY: scaleY == freezed
+      scaleY: null == scaleY
           ? _value.scaleY
           : scaleY // ignore: cast_nullable_to_non_nullable
               as double,
@@ -347,19 +345,17 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ScaledElementConstraints &&
-            const DeepCollectionEquality().equals(other.scaleX, scaleX) &&
-            const DeepCollectionEquality().equals(other.scaleY, scaleY));
+            (identical(other.scaleX, scaleX) || other.scaleX == scaleX) &&
+            (identical(other.scaleY, scaleY) || other.scaleY == scaleY));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(scaleX),
-      const DeepCollectionEquality().hash(scaleY));
+  int get hashCode => Object.hash(runtimeType, scaleX, scaleY);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ScaledElementConstraintsCopyWith<_$ScaledElementConstraints>
       get copyWith =>
           __$$ScaledElementConstraintsCopyWithImpl<_$ScaledElementConstraints>(
@@ -380,9 +376,9 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(double scaleX, double scaleY)? scaled,
-    TResult Function(double height, double width)? fixed,
-    TResult Function(
+    TResult? Function(double scaleX, double scaleY)? scaled,
+    TResult? Function(double height, double width)? fixed,
+    TResult? Function(
             double height, double width, double aspectRatio, bool includeArea)?
         dynamic,
   }) {
@@ -418,9 +414,9 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ScaledElementConstraints value)? scaled,
-    TResult Function(FixedElementConstraints value)? fixed,
-    TResult Function(DynamicElementConstraints value)? dynamic,
+    TResult? Function(ScaledElementConstraints value)? scaled,
+    TResult? Function(FixedElementConstraints value)? fixed,
+    TResult? Function(DynamicElementConstraints value)? dynamic,
   }) {
     return scaled?.call(this);
   }
@@ -466,32 +462,30 @@ abstract class _$$FixedElementConstraintsCopyWith<$Res> {
   factory _$$FixedElementConstraintsCopyWith(_$FixedElementConstraints value,
           $Res Function(_$FixedElementConstraints) then) =
       __$$FixedElementConstraintsCopyWithImpl<$Res>;
+  @useResult
   $Res call({double height, double width});
 }
 
 /// @nodoc
 class __$$FixedElementConstraintsCopyWithImpl<$Res>
-    extends _$ElementConstraintsCopyWithImpl<$Res>
+    extends _$ElementConstraintsCopyWithImpl<$Res, _$FixedElementConstraints>
     implements _$$FixedElementConstraintsCopyWith<$Res> {
   __$$FixedElementConstraintsCopyWithImpl(_$FixedElementConstraints _value,
       $Res Function(_$FixedElementConstraints) _then)
-      : super(_value, (v) => _then(v as _$FixedElementConstraints));
+      : super(_value, _then);
 
-  @override
-  _$FixedElementConstraints get _value =>
-      super._value as _$FixedElementConstraints;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? height = freezed,
-    Object? width = freezed,
+    Object? height = null,
+    Object? width = null,
   }) {
     return _then(_$FixedElementConstraints(
-      height == freezed
+      null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
               as double,
-      width == freezed
+      null == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as double,
@@ -527,19 +521,17 @@ class _$FixedElementConstraints implements FixedElementConstraints {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FixedElementConstraints &&
-            const DeepCollectionEquality().equals(other.height, height) &&
-            const DeepCollectionEquality().equals(other.width, width));
+            (identical(other.height, height) || other.height == height) &&
+            (identical(other.width, width) || other.width == width));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(height),
-      const DeepCollectionEquality().hash(width));
+  int get hashCode => Object.hash(runtimeType, height, width);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$FixedElementConstraintsCopyWith<_$FixedElementConstraints> get copyWith =>
       __$$FixedElementConstraintsCopyWithImpl<_$FixedElementConstraints>(
           this, _$identity);
@@ -559,9 +551,9 @@ class _$FixedElementConstraints implements FixedElementConstraints {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(double scaleX, double scaleY)? scaled,
-    TResult Function(double height, double width)? fixed,
-    TResult Function(
+    TResult? Function(double scaleX, double scaleY)? scaled,
+    TResult? Function(double height, double width)? fixed,
+    TResult? Function(
             double height, double width, double aspectRatio, bool includeArea)?
         dynamic,
   }) {
@@ -597,9 +589,9 @@ class _$FixedElementConstraints implements FixedElementConstraints {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ScaledElementConstraints value)? scaled,
-    TResult Function(FixedElementConstraints value)? fixed,
-    TResult Function(DynamicElementConstraints value)? dynamic,
+    TResult? Function(ScaledElementConstraints value)? scaled,
+    TResult? Function(FixedElementConstraints value)? fixed,
+    TResult? Function(DynamicElementConstraints value)? dynamic,
   }) {
     return fixed?.call(this);
   }
@@ -646,43 +638,41 @@ abstract class _$$DynamicElementConstraintsCopyWith<$Res> {
           _$DynamicElementConstraints value,
           $Res Function(_$DynamicElementConstraints) then) =
       __$$DynamicElementConstraintsCopyWithImpl<$Res>;
+  @useResult
   $Res call(
       {double height, double width, double aspectRatio, bool includeArea});
 }
 
 /// @nodoc
 class __$$DynamicElementConstraintsCopyWithImpl<$Res>
-    extends _$ElementConstraintsCopyWithImpl<$Res>
+    extends _$ElementConstraintsCopyWithImpl<$Res, _$DynamicElementConstraints>
     implements _$$DynamicElementConstraintsCopyWith<$Res> {
   __$$DynamicElementConstraintsCopyWithImpl(_$DynamicElementConstraints _value,
       $Res Function(_$DynamicElementConstraints) _then)
-      : super(_value, (v) => _then(v as _$DynamicElementConstraints));
+      : super(_value, _then);
 
-  @override
-  _$DynamicElementConstraints get _value =>
-      super._value as _$DynamicElementConstraints;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? height = freezed,
-    Object? width = freezed,
-    Object? aspectRatio = freezed,
-    Object? includeArea = freezed,
+    Object? height = null,
+    Object? width = null,
+    Object? aspectRatio = null,
+    Object? includeArea = null,
   }) {
     return _then(_$DynamicElementConstraints(
-      height: height == freezed
+      height: null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
               as double,
-      width: width == freezed
+      width: null == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as double,
-      aspectRatio: aspectRatio == freezed
+      aspectRatio: null == aspectRatio
           ? _value.aspectRatio
           : aspectRatio // ignore: cast_nullable_to_non_nullable
               as double,
-      includeArea: includeArea == freezed
+      includeArea: null == includeArea
           ? _value.includeArea
           : includeArea // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -730,25 +720,22 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DynamicElementConstraints &&
-            const DeepCollectionEquality().equals(other.height, height) &&
-            const DeepCollectionEquality().equals(other.width, width) &&
-            const DeepCollectionEquality()
-                .equals(other.aspectRatio, aspectRatio) &&
-            const DeepCollectionEquality()
-                .equals(other.includeArea, includeArea));
+            (identical(other.height, height) || other.height == height) &&
+            (identical(other.width, width) || other.width == width) &&
+            (identical(other.aspectRatio, aspectRatio) ||
+                other.aspectRatio == aspectRatio) &&
+            (identical(other.includeArea, includeArea) ||
+                other.includeArea == includeArea));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(height),
-      const DeepCollectionEquality().hash(width),
-      const DeepCollectionEquality().hash(aspectRatio),
-      const DeepCollectionEquality().hash(includeArea));
+  int get hashCode =>
+      Object.hash(runtimeType, height, width, aspectRatio, includeArea);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$DynamicElementConstraintsCopyWith<_$DynamicElementConstraints>
       get copyWith => __$$DynamicElementConstraintsCopyWithImpl<
           _$DynamicElementConstraints>(this, _$identity);
@@ -768,9 +755,9 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(double scaleX, double scaleY)? scaled,
-    TResult Function(double height, double width)? fixed,
-    TResult Function(
+    TResult? Function(double scaleX, double scaleY)? scaled,
+    TResult? Function(double height, double width)? fixed,
+    TResult? Function(
             double height, double width, double aspectRatio, bool includeArea)?
         dynamic,
   }) {
@@ -806,9 +793,9 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ScaledElementConstraints value)? scaled,
-    TResult Function(FixedElementConstraints value)? fixed,
-    TResult Function(DynamicElementConstraints value)? dynamic,
+    TResult? Function(ScaledElementConstraints value)? scaled,
+    TResult? Function(FixedElementConstraints value)? fixed,
+    TResult? Function(DynamicElementConstraints value)? dynamic,
   }) {
     return dynamic?.call(this);
   }
@@ -919,16 +906,16 @@ mixin _$PadElement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, PenProperty property)?
         pen,
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -936,7 +923,7 @@ mixin _$PadElement {
             double width,
             double height)?
         image,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -944,7 +931,7 @@ mixin _$PadElement {
             double width,
             double height)?
         svg,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
@@ -1000,12 +987,12 @@ mixin _$PadElement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
-    TResult Function(LabelElement value)? label,
-    TResult Function(ImageElement value)? image,
-    TResult Function(SvgElement value)? svg,
-    TResult Function(ShapeElement value)? shape,
+    TResult? Function(PenElement value)? pen,
+    TResult? Function(EraserElement value)? eraser,
+    TResult? Function(LabelElement value)? label,
+    TResult? Function(ImageElement value)? image,
+    TResult? Function(SvgElement value)? svg,
+    TResult? Function(ShapeElement value)? shape,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1029,28 +1016,32 @@ mixin _$PadElement {
 abstract class $PadElementCopyWith<$Res> {
   factory $PadElementCopyWith(
           PadElement value, $Res Function(PadElement) then) =
-      _$PadElementCopyWithImpl<$Res>;
+      _$PadElementCopyWithImpl<$Res, PadElement>;
+  @useResult
   $Res call({String layer});
 }
 
 /// @nodoc
-class _$PadElementCopyWithImpl<$Res> implements $PadElementCopyWith<$Res> {
+class _$PadElementCopyWithImpl<$Res, $Val extends PadElement>
+    implements $PadElementCopyWith<$Res> {
   _$PadElementCopyWithImpl(this._value, this._then);
 
-  final PadElement _value;
   // ignore: unused_field
-  final $Res Function(PadElement) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? layer = freezed,
+    Object? layer = null,
   }) {
     return _then(_value.copyWith(
-      layer: layer == freezed
+      layer: null == layer
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1061,35 +1052,35 @@ abstract class _$$PenElementCopyWith<$Res>
           _$PenElement value, $Res Function(_$PenElement) then) =
       __$$PenElementCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String layer, List<PathPoint> points, PenProperty property});
 }
 
 /// @nodoc
-class __$$PenElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
+class __$$PenElementCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$PenElement>
     implements _$$PenElementCopyWith<$Res> {
   __$$PenElementCopyWithImpl(
       _$PenElement _value, $Res Function(_$PenElement) _then)
-      : super(_value, (v) => _then(v as _$PenElement));
+      : super(_value, _then);
 
-  @override
-  _$PenElement get _value => super._value as _$PenElement;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? layer = freezed,
-    Object? points = freezed,
-    Object? property = freezed,
+    Object? layer = null,
+    Object? points = null,
+    Object? property = null,
   }) {
     return _then(_$PenElement(
-      layer: layer == freezed
+      layer: null == layer
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      points: points == freezed
+      points: null == points
           ? _value._points
           : points // ignore: cast_nullable_to_non_nullable
               as List<PathPoint>,
-      property: property == freezed
+      property: null == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as PenProperty,
@@ -1136,6 +1127,7 @@ class _$PenElement implements PenElement {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$PenElementCopyWith<_$PenElement> get copyWith =>
       __$$PenElementCopyWithImpl<_$PenElement>(this, _$identity);
 
@@ -1184,16 +1176,16 @@ class _$PenElement implements PenElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, PenProperty property)?
         pen,
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -1201,7 +1193,7 @@ class _$PenElement implements PenElement {
             double width,
             double height)?
         image,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -1209,7 +1201,7 @@ class _$PenElement implements PenElement {
             double width,
             double height)?
         svg,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
@@ -1277,12 +1269,12 @@ class _$PenElement implements PenElement {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
-    TResult Function(LabelElement value)? label,
-    TResult Function(ImageElement value)? image,
-    TResult Function(SvgElement value)? svg,
-    TResult Function(ShapeElement value)? shape,
+    TResult? Function(PenElement value)? pen,
+    TResult? Function(EraserElement value)? eraser,
+    TResult? Function(LabelElement value)? label,
+    TResult? Function(ImageElement value)? image,
+    TResult? Function(SvgElement value)? svg,
+    TResult? Function(ShapeElement value)? shape,
   }) {
     return pen?.call(this);
   }
@@ -1338,35 +1330,35 @@ abstract class _$$EraserElementCopyWith<$Res>
           _$EraserElement value, $Res Function(_$EraserElement) then) =
       __$$EraserElementCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String layer, List<PathPoint> points, EraserProperty property});
 }
 
 /// @nodoc
-class __$$EraserElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
+class __$$EraserElementCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$EraserElement>
     implements _$$EraserElementCopyWith<$Res> {
   __$$EraserElementCopyWithImpl(
       _$EraserElement _value, $Res Function(_$EraserElement) _then)
-      : super(_value, (v) => _then(v as _$EraserElement));
+      : super(_value, _then);
 
-  @override
-  _$EraserElement get _value => super._value as _$EraserElement;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? layer = freezed,
-    Object? points = freezed,
-    Object? property = freezed,
+    Object? layer = null,
+    Object? points = null,
+    Object? property = null,
   }) {
     return _then(_$EraserElement(
-      layer: layer == freezed
+      layer: null == layer
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      points: points == freezed
+      points: null == points
           ? _value._points
           : points // ignore: cast_nullable_to_non_nullable
               as List<PathPoint>,
-      property: property == freezed
+      property: null == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as EraserProperty,
@@ -1413,6 +1405,7 @@ class _$EraserElement implements EraserElement {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$EraserElementCopyWith<_$EraserElement> get copyWith =>
       __$$EraserElementCopyWithImpl<_$EraserElement>(this, _$identity);
 
@@ -1461,16 +1454,16 @@ class _$EraserElement implements EraserElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, PenProperty property)?
         pen,
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -1478,7 +1471,7 @@ class _$EraserElement implements EraserElement {
             double width,
             double height)?
         image,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -1486,7 +1479,7 @@ class _$EraserElement implements EraserElement {
             double width,
             double height)?
         svg,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
@@ -1554,12 +1547,12 @@ class _$EraserElement implements EraserElement {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
-    TResult Function(LabelElement value)? label,
-    TResult Function(ImageElement value)? image,
-    TResult Function(SvgElement value)? svg,
-    TResult Function(ShapeElement value)? shape,
+    TResult? Function(PenElement value)? pen,
+    TResult? Function(EraserElement value)? eraser,
+    TResult? Function(LabelElement value)? label,
+    TResult? Function(ImageElement value)? image,
+    TResult? Function(SvgElement value)? svg,
+    TResult? Function(ShapeElement value)? shape,
   }) {
     return eraser?.call(this);
   }
@@ -1615,6 +1608,7 @@ abstract class _$$LabelElementCopyWith<$Res>
           _$LabelElement value, $Res Function(_$LabelElement) then) =
       __$$LabelElementCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String layer,
       @OffsetJsonConverter() Offset position,
@@ -1626,41 +1620,40 @@ abstract class _$$LabelElementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$LabelElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
+class __$$LabelElementCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$LabelElement>
     implements _$$LabelElementCopyWith<$Res> {
   __$$LabelElementCopyWithImpl(
       _$LabelElement _value, $Res Function(_$LabelElement) _then)
-      : super(_value, (v) => _then(v as _$LabelElement));
+      : super(_value, _then);
 
-  @override
-  _$LabelElement get _value => super._value as _$LabelElement;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? layer = freezed,
-    Object? position = freezed,
-    Object? text = freezed,
-    Object? property = freezed,
-    Object? constraint = freezed,
+    Object? layer = null,
+    Object? position = null,
+    Object? text = null,
+    Object? property = null,
+    Object? constraint = null,
   }) {
     return _then(_$LabelElement(
-      layer: layer == freezed
+      layer: null == layer
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      position: position == freezed
+      position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Offset,
-      text: text == freezed
+      text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      property: property == freezed
+      property: null == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as LabelProperty,
-      constraint: constraint == freezed
+      constraint: null == constraint
           ? _value.constraint
           : constraint // ignore: cast_nullable_to_non_nullable
               as ElementConstraint,
@@ -1668,6 +1661,7 @@ class __$$LabelElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ElementConstraintCopyWith<$Res> get constraint {
     return $ElementConstraintCopyWith<$Res>(_value.constraint, (value) {
       return _then(_value.copyWith(constraint: value));
@@ -1717,6 +1711,7 @@ class _$LabelElement implements LabelElement {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$LabelElementCopyWith<_$LabelElement> get copyWith =>
       __$$LabelElementCopyWithImpl<_$LabelElement>(this, _$identity);
 
@@ -1765,16 +1760,16 @@ class _$LabelElement implements LabelElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, PenProperty property)?
         pen,
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -1782,7 +1777,7 @@ class _$LabelElement implements LabelElement {
             double width,
             double height)?
         image,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -1790,7 +1785,7 @@ class _$LabelElement implements LabelElement {
             double width,
             double height)?
         svg,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
@@ -1858,12 +1853,12 @@ class _$LabelElement implements LabelElement {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
-    TResult Function(LabelElement value)? label,
-    TResult Function(ImageElement value)? image,
-    TResult Function(SvgElement value)? svg,
-    TResult Function(ShapeElement value)? shape,
+    TResult? Function(PenElement value)? pen,
+    TResult? Function(EraserElement value)? eraser,
+    TResult? Function(LabelElement value)? label,
+    TResult? Function(ImageElement value)? image,
+    TResult? Function(SvgElement value)? svg,
+    TResult? Function(ShapeElement value)? shape,
   }) {
     return label?.call(this);
   }
@@ -1924,6 +1919,7 @@ abstract class _$$ImageElementCopyWith<$Res>
           _$ImageElement value, $Res Function(_$ImageElement) then) =
       __$$ImageElementCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String layer,
       @OffsetJsonConverter() Offset position,
@@ -1936,46 +1932,45 @@ abstract class _$$ImageElementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ImageElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
+class __$$ImageElementCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$ImageElement>
     implements _$$ImageElementCopyWith<$Res> {
   __$$ImageElementCopyWithImpl(
       _$ImageElement _value, $Res Function(_$ImageElement) _then)
-      : super(_value, (v) => _then(v as _$ImageElement));
+      : super(_value, _then);
 
-  @override
-  _$ImageElement get _value => super._value as _$ImageElement;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? layer = freezed,
-    Object? position = freezed,
+    Object? layer = null,
+    Object? position = null,
     Object? constraints = freezed,
-    Object? pixels = freezed,
-    Object? width = freezed,
-    Object? height = freezed,
+    Object? pixels = null,
+    Object? width = null,
+    Object? height = null,
   }) {
     return _then(_$ImageElement(
-      layer: layer == freezed
+      layer: null == layer
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      position: position == freezed
+      position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Offset,
-      constraints: constraints == freezed
+      constraints: freezed == constraints
           ? _value.constraints
           : constraints // ignore: cast_nullable_to_non_nullable
               as ElementConstraints?,
-      pixels: pixels == freezed
+      pixels: null == pixels
           ? _value.pixels
           : pixels // ignore: cast_nullable_to_non_nullable
               as Uint8List,
-      width: width == freezed
+      width: null == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as double,
-      height: height == freezed
+      height: null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
               as double,
@@ -1983,6 +1978,7 @@ class __$$ImageElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ElementConstraintsCopyWith<$Res>? get constraints {
     if (_value.constraints == null) {
       return null;
@@ -2038,6 +2034,7 @@ class _$ImageElement implements ImageElement {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ImageElementCopyWith<_$ImageElement> get copyWith =>
       __$$ImageElementCopyWithImpl<_$ImageElement>(this, _$identity);
 
@@ -2086,16 +2083,16 @@ class _$ImageElement implements ImageElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, PenProperty property)?
         pen,
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -2103,7 +2100,7 @@ class _$ImageElement implements ImageElement {
             double width,
             double height)?
         image,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -2111,7 +2108,7 @@ class _$ImageElement implements ImageElement {
             double width,
             double height)?
         svg,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
@@ -2179,12 +2176,12 @@ class _$ImageElement implements ImageElement {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
-    TResult Function(LabelElement value)? label,
-    TResult Function(ImageElement value)? image,
-    TResult Function(SvgElement value)? svg,
-    TResult Function(ShapeElement value)? shape,
+    TResult? Function(PenElement value)? pen,
+    TResult? Function(EraserElement value)? eraser,
+    TResult? Function(LabelElement value)? label,
+    TResult? Function(ImageElement value)? image,
+    TResult? Function(SvgElement value)? svg,
+    TResult? Function(ShapeElement value)? shape,
   }) {
     return image?.call(this);
   }
@@ -2248,6 +2245,7 @@ abstract class _$$SvgElementCopyWith<$Res>
           _$SvgElement value, $Res Function(_$SvgElement) then) =
       __$$SvgElementCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String layer,
       @OffsetJsonConverter() Offset position,
@@ -2260,46 +2258,45 @@ abstract class _$$SvgElementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$SvgElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
+class __$$SvgElementCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$SvgElement>
     implements _$$SvgElementCopyWith<$Res> {
   __$$SvgElementCopyWithImpl(
       _$SvgElement _value, $Res Function(_$SvgElement) _then)
-      : super(_value, (v) => _then(v as _$SvgElement));
+      : super(_value, _then);
 
-  @override
-  _$SvgElement get _value => super._value as _$SvgElement;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? layer = freezed,
-    Object? position = freezed,
+    Object? layer = null,
+    Object? position = null,
     Object? constraints = freezed,
-    Object? data = freezed,
-    Object? width = freezed,
-    Object? height = freezed,
+    Object? data = null,
+    Object? width = null,
+    Object? height = null,
   }) {
     return _then(_$SvgElement(
-      layer: layer == freezed
+      layer: null == layer
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      position: position == freezed
+      position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Offset,
-      constraints: constraints == freezed
+      constraints: freezed == constraints
           ? _value.constraints
           : constraints // ignore: cast_nullable_to_non_nullable
               as ElementConstraints?,
-      data: data == freezed
+      data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as String,
-      width: width == freezed
+      width: null == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as double,
-      height: height == freezed
+      height: null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
               as double,
@@ -2307,6 +2304,7 @@ class __$$SvgElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ElementConstraintsCopyWith<$Res>? get constraints {
     if (_value.constraints == null) {
       return null;
@@ -2361,6 +2359,7 @@ class _$SvgElement implements SvgElement {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SvgElementCopyWith<_$SvgElement> get copyWith =>
       __$$SvgElementCopyWithImpl<_$SvgElement>(this, _$identity);
 
@@ -2409,16 +2408,16 @@ class _$SvgElement implements SvgElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, PenProperty property)?
         pen,
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -2426,7 +2425,7 @@ class _$SvgElement implements SvgElement {
             double width,
             double height)?
         image,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -2434,7 +2433,7 @@ class _$SvgElement implements SvgElement {
             double width,
             double height)?
         svg,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
@@ -2502,12 +2501,12 @@ class _$SvgElement implements SvgElement {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
-    TResult Function(LabelElement value)? label,
-    TResult Function(ImageElement value)? image,
-    TResult Function(SvgElement value)? svg,
-    TResult Function(ShapeElement value)? shape,
+    TResult? Function(PenElement value)? pen,
+    TResult? Function(EraserElement value)? eraser,
+    TResult? Function(LabelElement value)? label,
+    TResult? Function(ImageElement value)? image,
+    TResult? Function(SvgElement value)? svg,
+    TResult? Function(ShapeElement value)? shape,
   }) {
     return svg?.call(this);
   }
@@ -2570,6 +2569,7 @@ abstract class _$$ShapeElementCopyWith<$Res>
           _$ShapeElement value, $Res Function(_$ShapeElement) then) =
       __$$ShapeElementCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String layer,
       @OffsetJsonConverter() Offset firstPosition,
@@ -2578,36 +2578,35 @@ abstract class _$$ShapeElementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ShapeElementCopyWithImpl<$Res> extends _$PadElementCopyWithImpl<$Res>
+class __$$ShapeElementCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$ShapeElement>
     implements _$$ShapeElementCopyWith<$Res> {
   __$$ShapeElementCopyWithImpl(
       _$ShapeElement _value, $Res Function(_$ShapeElement) _then)
-      : super(_value, (v) => _then(v as _$ShapeElement));
+      : super(_value, _then);
 
-  @override
-  _$ShapeElement get _value => super._value as _$ShapeElement;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? layer = freezed,
-    Object? firstPosition = freezed,
-    Object? secondPosition = freezed,
-    Object? property = freezed,
+    Object? layer = null,
+    Object? firstPosition = null,
+    Object? secondPosition = null,
+    Object? property = null,
   }) {
     return _then(_$ShapeElement(
-      layer: layer == freezed
+      layer: null == layer
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      firstPosition: firstPosition == freezed
+      firstPosition: null == firstPosition
           ? _value.firstPosition
           : firstPosition // ignore: cast_nullable_to_non_nullable
               as Offset,
-      secondPosition: secondPosition == freezed
+      secondPosition: null == secondPosition
           ? _value.secondPosition
           : secondPosition // ignore: cast_nullable_to_non_nullable
               as Offset,
-      property: property == freezed
+      property: null == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as ShapeProperty,
@@ -2654,6 +2653,7 @@ class _$ShapeElement implements ShapeElement {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ShapeElementCopyWith<_$ShapeElement> get copyWith =>
       __$$ShapeElementCopyWithImpl<_$ShapeElement>(this, _$identity);
 
@@ -2702,16 +2702,16 @@ class _$ShapeElement implements ShapeElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, PenProperty property)?
         pen,
-    TResult Function(
+    TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
         eraser,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
+    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -2719,7 +2719,7 @@ class _$ShapeElement implements ShapeElement {
             double width,
             double height)?
         image,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             ElementConstraints? constraints,
@@ -2727,7 +2727,7 @@ class _$ShapeElement implements ShapeElement {
             double width,
             double height)?
         svg,
-    TResult Function(
+    TResult? Function(
             String layer,
             @OffsetJsonConverter() Offset firstPosition,
             @OffsetJsonConverter() Offset secondPosition,
@@ -2795,12 +2795,12 @@ class _$ShapeElement implements ShapeElement {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
-    TResult Function(LabelElement value)? label,
-    TResult Function(ImageElement value)? image,
-    TResult Function(SvgElement value)? svg,
-    TResult Function(ShapeElement value)? shape,
+    TResult? Function(PenElement value)? pen,
+    TResult? Function(EraserElement value)? eraser,
+    TResult? Function(LabelElement value)? label,
+    TResult? Function(ImageElement value)? image,
+    TResult? Function(SvgElement value)? svg,
+    TResult? Function(ShapeElement value)? shape,
   }) {
     return shape?.call(this);
   }
