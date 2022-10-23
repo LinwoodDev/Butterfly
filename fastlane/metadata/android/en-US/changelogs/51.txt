@@ -1,2 +1,3 @@
 * Fix missing scroll in pdf export dialog
 * Fix error while importing files in web
+* Fix updater message
