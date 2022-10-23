@@ -95,9 +95,9 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                 Column(children: [
                   CheckboxListTile(
                     title: Text(AppLocalizations.of(context)!.showGrid),
-                    value: widget.option.showGrid,
-                    onChanged: (value) => widget.onToolChanged(
-                      widget.option.copyWith(showGrid: value ?? false),
+                    value: widget.state.gridEnabled,
+                    onChanged: (value) => widget.onStateChanged(
+                      widget.state.copyWith(gridEnabled: value ?? false),
                     ),
                   ),
                   const SizedBox(height: 8),

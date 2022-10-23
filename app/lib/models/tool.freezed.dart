@@ -20,7 +20,6 @@ ToolOption _$ToolOptionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ToolOption {
-  bool get showGrid => throw _privateConstructorUsedError;
   int get gridColor => throw _privateConstructorUsedError;
   double get gridXSize => throw _privateConstructorUsedError;
   double get gridYSize => throw _privateConstructorUsedError;
@@ -37,7 +36,7 @@ abstract class $ToolOptionCopyWith<$Res> {
           ToolOption value, $Res Function(ToolOption) then) =
       _$ToolOptionCopyWithImpl<$Res, ToolOption>;
   @useResult
-  $Res call({bool showGrid, int gridColor, double gridXSize, double gridYSize});
+  $Res call({int gridColor, double gridXSize, double gridYSize});
 }
 
 /// @nodoc
@@ -53,16 +52,11 @@ class _$ToolOptionCopyWithImpl<$Res, $Val extends ToolOption>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? showGrid = null,
     Object? gridColor = null,
     Object? gridXSize = null,
     Object? gridYSize = null,
   }) {
     return _then(_value.copyWith(
-      showGrid: null == showGrid
-          ? _value.showGrid
-          : showGrid // ignore: cast_nullable_to_non_nullable
-              as bool,
       gridColor: null == gridColor
           ? _value.gridColor
           : gridColor // ignore: cast_nullable_to_non_nullable
@@ -87,7 +81,7 @@ abstract class _$$_ToolOptionCopyWith<$Res>
       __$$_ToolOptionCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool showGrid, int gridColor, double gridXSize, double gridYSize});
+  $Res call({int gridColor, double gridXSize, double gridYSize});
 }
 
 /// @nodoc
@@ -101,16 +95,11 @@ class __$$_ToolOptionCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? showGrid = null,
     Object? gridColor = null,
     Object? gridXSize = null,
     Object? gridYSize = null,
   }) {
     return _then(_$_ToolOption(
-      showGrid: null == showGrid
-          ? _value.showGrid
-          : showGrid // ignore: cast_nullable_to_non_nullable
-              as bool,
       gridColor: null == gridColor
           ? _value.gridColor
           : gridColor // ignore: cast_nullable_to_non_nullable
@@ -131,17 +120,11 @@ class __$$_ToolOptionCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ToolOption implements _ToolOption {
   const _$_ToolOption(
-      {this.showGrid = false,
-      this.gridColor = 0,
-      this.gridXSize = 20,
-      this.gridYSize = 20});
+      {this.gridColor = 0, this.gridXSize = 20, this.gridYSize = 20});
 
   factory _$_ToolOption.fromJson(Map<String, dynamic> json) =>
       _$$_ToolOptionFromJson(json);
 
-  @override
-  @JsonKey()
-  final bool showGrid;
   @override
   @JsonKey()
   final int gridColor;
@@ -154,7 +137,7 @@ class _$_ToolOption implements _ToolOption {
 
   @override
   String toString() {
-    return 'ToolOption(showGrid: $showGrid, gridColor: $gridColor, gridXSize: $gridXSize, gridYSize: $gridYSize)';
+    return 'ToolOption(gridColor: $gridColor, gridXSize: $gridXSize, gridYSize: $gridYSize)';
   }
 
   @override
@@ -162,8 +145,6 @@ class _$_ToolOption implements _ToolOption {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ToolOption &&
-            (identical(other.showGrid, showGrid) ||
-                other.showGrid == showGrid) &&
             (identical(other.gridColor, gridColor) ||
                 other.gridColor == gridColor) &&
             (identical(other.gridXSize, gridXSize) ||
@@ -174,8 +155,7 @@ class _$_ToolOption implements _ToolOption {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, showGrid, gridColor, gridXSize, gridYSize);
+  int get hashCode => Object.hash(runtimeType, gridColor, gridXSize, gridYSize);
 
   @JsonKey(ignore: true)
   @override
@@ -193,16 +173,13 @@ class _$_ToolOption implements _ToolOption {
 
 abstract class _ToolOption implements ToolOption {
   const factory _ToolOption(
-      {final bool showGrid,
-      final int gridColor,
+      {final int gridColor,
       final double gridXSize,
       final double gridYSize}) = _$_ToolOption;
 
   factory _ToolOption.fromJson(Map<String, dynamic> json) =
       _$_ToolOption.fromJson;
 
-  @override
-  bool get showGrid;
   @override
   int get gridColor;
   @override
@@ -222,6 +199,7 @@ ToolState _$ToolStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ToolState {
   bool get rulerEnabled => throw _privateConstructorUsedError;
+  bool get gridEnabled => throw _privateConstructorUsedError;
   @OffsetJsonConverter()
   Offset get rulerPosition => throw _privateConstructorUsedError;
   double get rulerAngle => throw _privateConstructorUsedError;
@@ -239,6 +217,7 @@ abstract class $ToolStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool rulerEnabled,
+      bool gridEnabled,
       @OffsetJsonConverter() Offset rulerPosition,
       double rulerAngle});
 }
@@ -257,6 +236,7 @@ class _$ToolStateCopyWithImpl<$Res, $Val extends ToolState>
   @override
   $Res call({
     Object? rulerEnabled = null,
+    Object? gridEnabled = null,
     Object? rulerPosition = null,
     Object? rulerAngle = null,
   }) {
@@ -264,6 +244,10 @@ class _$ToolStateCopyWithImpl<$Res, $Val extends ToolState>
       rulerEnabled: null == rulerEnabled
           ? _value.rulerEnabled
           : rulerEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      gridEnabled: null == gridEnabled
+          ? _value.gridEnabled
+          : gridEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       rulerPosition: null == rulerPosition
           ? _value.rulerPosition
@@ -286,6 +270,7 @@ abstract class _$$_ToolStateCopyWith<$Res> implements $ToolStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool rulerEnabled,
+      bool gridEnabled,
       @OffsetJsonConverter() Offset rulerPosition,
       double rulerAngle});
 }
@@ -302,6 +287,7 @@ class __$$_ToolStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? rulerEnabled = null,
+    Object? gridEnabled = null,
     Object? rulerPosition = null,
     Object? rulerAngle = null,
   }) {
@@ -309,6 +295,10 @@ class __$$_ToolStateCopyWithImpl<$Res>
       rulerEnabled: null == rulerEnabled
           ? _value.rulerEnabled
           : rulerEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      gridEnabled: null == gridEnabled
+          ? _value.gridEnabled
+          : gridEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       rulerPosition: null == rulerPosition
           ? _value.rulerPosition
@@ -327,6 +317,7 @@ class __$$_ToolStateCopyWithImpl<$Res>
 class _$_ToolState implements _ToolState {
   const _$_ToolState(
       {this.rulerEnabled = false,
+      this.gridEnabled = false,
       @OffsetJsonConverter() this.rulerPosition = Offset.zero,
       this.rulerAngle = 0});
 
@@ -338,6 +329,9 @@ class _$_ToolState implements _ToolState {
   final bool rulerEnabled;
   @override
   @JsonKey()
+  final bool gridEnabled;
+  @override
+  @JsonKey()
   @OffsetJsonConverter()
   final Offset rulerPosition;
   @override
@@ -346,7 +340,7 @@ class _$_ToolState implements _ToolState {
 
   @override
   String toString() {
-    return 'ToolState(rulerEnabled: $rulerEnabled, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
+    return 'ToolState(rulerEnabled: $rulerEnabled, gridEnabled: $gridEnabled, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
   }
 
   @override
@@ -356,6 +350,8 @@ class _$_ToolState implements _ToolState {
             other is _$_ToolState &&
             (identical(other.rulerEnabled, rulerEnabled) ||
                 other.rulerEnabled == rulerEnabled) &&
+            (identical(other.gridEnabled, gridEnabled) ||
+                other.gridEnabled == gridEnabled) &&
             (identical(other.rulerPosition, rulerPosition) ||
                 other.rulerPosition == rulerPosition) &&
             (identical(other.rulerAngle, rulerAngle) ||
@@ -364,8 +360,8 @@ class _$_ToolState implements _ToolState {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, rulerEnabled, rulerPosition, rulerAngle);
+  int get hashCode => Object.hash(
+      runtimeType, rulerEnabled, gridEnabled, rulerPosition, rulerAngle);
 
   @JsonKey(ignore: true)
   @override
@@ -384,6 +380,7 @@ class _$_ToolState implements _ToolState {
 abstract class _ToolState implements ToolState {
   const factory _ToolState(
       {final bool rulerEnabled,
+      final bool gridEnabled,
       @OffsetJsonConverter() final Offset rulerPosition,
       final double rulerAngle}) = _$_ToolState;
 
@@ -392,6 +389,8 @@ abstract class _ToolState implements ToolState {
 
   @override
   bool get rulerEnabled;
+  @override
+  bool get gridEnabled;
   @override
   @OffsetJsonConverter()
   Offset get rulerPosition;

@@ -189,14 +189,16 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     // Center of firstPosition and secondPosition
     final center = (element.firstPosition + element.secondPosition) / 2;
     // Apply scale
-    final newFirstPos = (element.firstPosition - center) * scaleX + center;
-    final newSecondPos = (element.secondPosition - center) * scaleY + center;
+    final newFirstPos = (element.firstPosition - center).scale(scaleX, scaleY);
+    final newSecondPos =
+        (element.secondPosition - center).scale(scaleX, scaleY);
     var rect = Rect.fromPoints(newFirstPos, newSecondPos).normalized();
-    rect = rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY);
+    rect = (rect.center + position) & Size(rect.width, rect.height);
+    rect.normalized();
     return ShapeRenderer(
         element.copyWith(
           firstPosition: rect.topLeft,
-          secondPosition: rect.topRight,
+          secondPosition: rect.bottomRight,
         ),
         rect);
   }

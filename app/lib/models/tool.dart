@@ -9,7 +9,6 @@ part 'tool.g.dart';
 @freezed
 class ToolOption with _$ToolOption {
   const factory ToolOption({
-    @Default(false) bool showGrid,
     @Default(0) int gridColor,
     @Default(20) double gridXSize,
     @Default(20) double gridYSize,
@@ -23,6 +22,7 @@ class ToolOption with _$ToolOption {
 class ToolState with _$ToolState {
   const factory ToolState({
     @Default(false) bool rulerEnabled,
+    @Default(false) bool gridEnabled,
     @Default(Offset.zero) @OffsetJsonConverter() Offset rulerPosition,
     @Default(0) double rulerAngle,
   }) = _ToolState;

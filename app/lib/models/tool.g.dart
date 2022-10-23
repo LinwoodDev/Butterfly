@@ -7,7 +7,6 @@ part of 'tool.dart';
 // **************************************************************************
 
 _$_ToolOption _$$_ToolOptionFromJson(Map json) => _$_ToolOption(
-      showGrid: json['showGrid'] as bool? ?? false,
       gridColor: json['gridColor'] as int? ?? 0,
       gridXSize: (json['gridXSize'] as num?)?.toDouble() ?? 20,
       gridYSize: (json['gridYSize'] as num?)?.toDouble() ?? 20,
@@ -15,7 +14,6 @@ _$_ToolOption _$$_ToolOptionFromJson(Map json) => _$_ToolOption(
 
 Map<String, dynamic> _$$_ToolOptionToJson(_$_ToolOption instance) =>
     <String, dynamic>{
-      'showGrid': instance.showGrid,
       'gridColor': instance.gridColor,
       'gridXSize': instance.gridXSize,
       'gridYSize': instance.gridYSize,
@@ -23,6 +21,7 @@ Map<String, dynamic> _$$_ToolOptionToJson(_$_ToolOption instance) =>
 
 _$_ToolState _$$_ToolStateFromJson(Map json) => _$_ToolState(
       rulerEnabled: json['rulerEnabled'] as bool? ?? false,
+      gridEnabled: json['gridEnabled'] as bool? ?? false,
       rulerPosition: json['rulerPosition'] == null
           ? Offset.zero
           : const OffsetJsonConverter().fromJson(json['rulerPosition'] as Map),
@@ -32,6 +31,7 @@ _$_ToolState _$$_ToolStateFromJson(Map json) => _$_ToolState(
 Map<String, dynamic> _$$_ToolStateToJson(_$_ToolState instance) =>
     <String, dynamic>{
       'rulerEnabled': instance.rulerEnabled,
+      'gridEnabled': instance.gridEnabled,
       'rulerPosition':
           const OffsetJsonConverter().toJson(instance.rulerPosition),
       'rulerAngle': instance.rulerAngle,

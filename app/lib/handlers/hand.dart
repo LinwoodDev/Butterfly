@@ -190,12 +190,13 @@ class HandHandler extends Handler<HandPainter> {
             currentIndexCubit.state.settingsCubit.state.design)
         .colorScheme;
     if (_movingElements.isNotEmpty) {
-      final renderers = _movingElements
-          .map((e) => _currentMovePosition == null
-              ? e
-              : (e.transform(position: _currentMovePosition!, relative: true) ??
-                  e))
-          .toList();
+      final renderers = _movingElements.map((e) {
+        final position =
+            (e.rect?.topLeft ?? Offset.zero) + _currentMovePosition!;
+        return _currentMovePosition == null
+            ? e
+            : (e.transform(position: position, relative: false) ?? e);
+      }).toList();
       foregrounds.addAll(renderers);
     }
     final selectionRect = getSelectionRect();
@@ -223,12 +224,19 @@ class HandHandler extends Handler<HandPainter> {
 
   void submitMove(DocumentBloc bloc) {
     if (_movingElements.isEmpty) return;
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final document = state.document;
+    final cubit = state.currentIndexCubit;
+    final tool = cubit.state.cameraViewport.tool;
     final current = _movingElements
-        .map((e) =>
-            e.transform(
-                position: _currentMovePosition ?? Offset.zero,
-                relative: true) ??
-            e)
+        .map((e) {
+          var position = (e.rect?.topLeft ?? Offset.zero) +
+              (_currentMovePosition ?? Offset.zero);
+          position =
+              tool?.getGridPosition(position, document, cubit) ?? position;
+          return e.transform(position: position, relative: false) ?? e;
+        })
         .map((e) => e.element)
         .toList();
     _currentMovePosition = null;

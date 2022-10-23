@@ -28,7 +28,7 @@ class ToolRenderer extends Renderer<ToolState> {
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [bool foreground = false]) {
     final option = document.tool;
-    if (option.showGrid) {
+    if (element.gridEnabled) {
       double x = 0;
       while (x < size.width / transform.size) {
         canvas.drawLine(
@@ -140,6 +140,40 @@ class ToolRenderer extends Renderer<ToolState> {
   }
 
   Offset getPointerPosition(Offset position, CurrentIndexCubit cubit) {
+    if (!element.rulerEnabled) return position;
+    final size = cubit.state.cameraViewport.toSize();
+    final rulerRect = getRulerRect(size).translate(
+        size.width / 2 + element.rulerPosition.dx,
+        size.height / 2 + element.rulerPosition.dy);
+    final pivot =
+        element.rulerPosition.translate(size.width / 2, size.height / 2);
+    final angle = element.rulerAngle * pi / 180;
+
+    final rotatedPosition = position.rotate(pivot, -angle);
+    final firstHalf =
+        rulerRect.topLeft & Size(rulerRect.width, rulerRect.height / 2);
+    final secondHalf = firstHalf.translate(0, rulerRect.height / 2);
+    final firstHalfHit = firstHalf.contains(rotatedPosition);
+    final secondHalfHit = secondHalf.contains(rotatedPosition);
+    // If the pointer is in the first half of the ruler, set the y to the top
+    // If the pointer is in the second half of the ruler, set the y to the bottom
+
+    if (firstHalfHit) {
+      return Offset(rotatedPosition.dx, rulerRect.top)
+          .rotate(rulerRect.topCenter, angle);
+    } else if (secondHalfHit) {
+      return Offset(rotatedPosition.dx, rulerRect.bottom)
+          .rotate(rulerRect.bottomCenter, angle);
+    }
     return position;
+  }
+
+  Offset getGridPosition(
+      Offset position, AppDocument document, CurrentIndexCubit cubit) {
+    if (!element.gridEnabled) return position;
+    final option = document.tool;
+    final x = (position.dx ~/ option.gridXSize) * option.gridXSize;
+    final y = (position.dy ~/ option.gridYSize) * option.gridYSize;
+    return Offset(x, y);
   }
 }
