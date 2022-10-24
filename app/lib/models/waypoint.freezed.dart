@@ -34,39 +34,43 @@ mixin _$Waypoint {
 /// @nodoc
 abstract class $WaypointCopyWith<$Res> {
   factory $WaypointCopyWith(Waypoint value, $Res Function(Waypoint) then) =
-      _$WaypointCopyWithImpl<$Res>;
+      _$WaypointCopyWithImpl<$Res, Waypoint>;
+  @useResult
   $Res call(
       {String name, @OffsetJsonConverter() Offset position, double? scale});
 }
 
 /// @nodoc
-class _$WaypointCopyWithImpl<$Res> implements $WaypointCopyWith<$Res> {
+class _$WaypointCopyWithImpl<$Res, $Val extends Waypoint>
+    implements $WaypointCopyWith<$Res> {
   _$WaypointCopyWithImpl(this._value, this._then);
 
-  final Waypoint _value;
   // ignore: unused_field
-  final $Res Function(Waypoint) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? position = freezed,
+    Object? name = null,
+    Object? position = null,
     Object? scale = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      position: position == freezed
+      position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Offset,
-      scale: scale == freezed
+      scale: freezed == scale
           ? _value.scale
           : scale // ignore: cast_nullable_to_non_nullable
               as double?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -76,36 +80,36 @@ abstract class _$$_WaypointCopyWith<$Res> implements $WaypointCopyWith<$Res> {
           _$_Waypoint value, $Res Function(_$_Waypoint) then) =
       __$$_WaypointCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name, @OffsetJsonConverter() Offset position, double? scale});
 }
 
 /// @nodoc
-class __$$_WaypointCopyWithImpl<$Res> extends _$WaypointCopyWithImpl<$Res>
+class __$$_WaypointCopyWithImpl<$Res>
+    extends _$WaypointCopyWithImpl<$Res, _$_Waypoint>
     implements _$$_WaypointCopyWith<$Res> {
   __$$_WaypointCopyWithImpl(
       _$_Waypoint _value, $Res Function(_$_Waypoint) _then)
-      : super(_value, (v) => _then(v as _$_Waypoint));
+      : super(_value, _then);
 
-  @override
-  _$_Waypoint get _value => super._value as _$_Waypoint;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? position = freezed,
+    Object? name = null,
+    Object? position = null,
     Object? scale = freezed,
   }) {
     return _then(_$_Waypoint(
-      name == freezed
+      null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      position == freezed
+      null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Offset,
-      scale == freezed
+      freezed == scale
           ? _value.scale
           : scale // ignore: cast_nullable_to_non_nullable
               as double?,
@@ -140,21 +144,19 @@ class _$_Waypoint implements _Waypoint {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Waypoint &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.position, position) &&
-            const DeepCollectionEquality().equals(other.scale, scale));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.position, position) ||
+                other.position == position) &&
+            (identical(other.scale, scale) || other.scale == scale));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(position),
-      const DeepCollectionEquality().hash(scale));
+  int get hashCode => Object.hash(runtimeType, name, position, scale);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_WaypointCopyWith<_$_Waypoint> get copyWith =>
       __$$_WaypointCopyWithImpl<_$_Waypoint>(this, _$identity);
 

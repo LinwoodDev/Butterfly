@@ -49,8 +49,8 @@ mixin _$Background {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? empty,
-    TResult Function(
+    TResult? Function()? empty,
+    TResult? Function(
             double boxWidth,
             double boxHeight,
             int boxXCount,
@@ -92,8 +92,8 @@ mixin _$Background {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(EmptyBackground value)? empty,
-    TResult Function(BoxBackground value)? box,
+    TResult? Function(EmptyBackground value)? empty,
+    TResult? Function(BoxBackground value)? box,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -110,16 +110,18 @@ mixin _$Background {
 abstract class $BackgroundCopyWith<$Res> {
   factory $BackgroundCopyWith(
           Background value, $Res Function(Background) then) =
-      _$BackgroundCopyWithImpl<$Res>;
+      _$BackgroundCopyWithImpl<$Res, Background>;
 }
 
 /// @nodoc
-class _$BackgroundCopyWithImpl<$Res> implements $BackgroundCopyWith<$Res> {
+class _$BackgroundCopyWithImpl<$Res, $Val extends Background>
+    implements $BackgroundCopyWith<$Res> {
   _$BackgroundCopyWithImpl(this._value, this._then);
 
-  final Background _value;
   // ignore: unused_field
-  final $Res Function(Background) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -131,14 +133,11 @@ abstract class _$$EmptyBackgroundCopyWith<$Res> {
 
 /// @nodoc
 class __$$EmptyBackgroundCopyWithImpl<$Res>
-    extends _$BackgroundCopyWithImpl<$Res>
+    extends _$BackgroundCopyWithImpl<$Res, _$EmptyBackground>
     implements _$$EmptyBackgroundCopyWith<$Res> {
   __$$EmptyBackgroundCopyWithImpl(
       _$EmptyBackground _value, $Res Function(_$EmptyBackground) _then)
-      : super(_value, (v) => _then(v as _$EmptyBackground));
-
-  @override
-  _$EmptyBackground get _value => super._value as _$EmptyBackground;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -191,8 +190,8 @@ class _$EmptyBackground implements EmptyBackground {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? empty,
-    TResult Function(
+    TResult? Function()? empty,
+    TResult? Function(
             double boxWidth,
             double boxHeight,
             int boxXCount,
@@ -246,8 +245,8 @@ class _$EmptyBackground implements EmptyBackground {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(EmptyBackground value)? empty,
-    TResult Function(BoxBackground value)? box,
+    TResult? Function(EmptyBackground value)? empty,
+    TResult? Function(BoxBackground value)? box,
   }) {
     return empty?.call(this);
   }
@@ -285,6 +284,7 @@ abstract class _$$BoxBackgroundCopyWith<$Res> {
   factory _$$BoxBackgroundCopyWith(
           _$BoxBackground value, $Res Function(_$BoxBackground) then) =
       __$$BoxBackgroundCopyWithImpl<$Res>;
+  @useResult
   $Res call(
       {double boxWidth,
       double boxHeight,
@@ -300,71 +300,70 @@ abstract class _$$BoxBackgroundCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$BoxBackgroundCopyWithImpl<$Res> extends _$BackgroundCopyWithImpl<$Res>
+class __$$BoxBackgroundCopyWithImpl<$Res>
+    extends _$BackgroundCopyWithImpl<$Res, _$BoxBackground>
     implements _$$BoxBackgroundCopyWith<$Res> {
   __$$BoxBackgroundCopyWithImpl(
       _$BoxBackground _value, $Res Function(_$BoxBackground) _then)
-      : super(_value, (v) => _then(v as _$BoxBackground));
+      : super(_value, _then);
 
-  @override
-  _$BoxBackground get _value => super._value as _$BoxBackground;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? boxWidth = freezed,
-    Object? boxHeight = freezed,
-    Object? boxXCount = freezed,
-    Object? boxYCount = freezed,
-    Object? boxXSpace = freezed,
-    Object? boxYSpace = freezed,
-    Object? boxXColor = freezed,
-    Object? boxYColor = freezed,
-    Object? boxColor = freezed,
-    Object? boxXStroke = freezed,
-    Object? boxYStroke = freezed,
+    Object? boxWidth = null,
+    Object? boxHeight = null,
+    Object? boxXCount = null,
+    Object? boxYCount = null,
+    Object? boxXSpace = null,
+    Object? boxYSpace = null,
+    Object? boxXColor = null,
+    Object? boxYColor = null,
+    Object? boxColor = null,
+    Object? boxXStroke = null,
+    Object? boxYStroke = null,
   }) {
     return _then(_$BoxBackground(
-      boxWidth: boxWidth == freezed
+      boxWidth: null == boxWidth
           ? _value.boxWidth
           : boxWidth // ignore: cast_nullable_to_non_nullable
               as double,
-      boxHeight: boxHeight == freezed
+      boxHeight: null == boxHeight
           ? _value.boxHeight
           : boxHeight // ignore: cast_nullable_to_non_nullable
               as double,
-      boxXCount: boxXCount == freezed
+      boxXCount: null == boxXCount
           ? _value.boxXCount
           : boxXCount // ignore: cast_nullable_to_non_nullable
               as int,
-      boxYCount: boxYCount == freezed
+      boxYCount: null == boxYCount
           ? _value.boxYCount
           : boxYCount // ignore: cast_nullable_to_non_nullable
               as int,
-      boxXSpace: boxXSpace == freezed
+      boxXSpace: null == boxXSpace
           ? _value.boxXSpace
           : boxXSpace // ignore: cast_nullable_to_non_nullable
               as double,
-      boxYSpace: boxYSpace == freezed
+      boxYSpace: null == boxYSpace
           ? _value.boxYSpace
           : boxYSpace // ignore: cast_nullable_to_non_nullable
               as double,
-      boxXColor: boxXColor == freezed
+      boxXColor: null == boxXColor
           ? _value.boxXColor
           : boxXColor // ignore: cast_nullable_to_non_nullable
               as int,
-      boxYColor: boxYColor == freezed
+      boxYColor: null == boxYColor
           ? _value.boxYColor
           : boxYColor // ignore: cast_nullable_to_non_nullable
               as int,
-      boxColor: boxColor == freezed
+      boxColor: null == boxColor
           ? _value.boxColor
           : boxColor // ignore: cast_nullable_to_non_nullable
               as int,
-      boxXStroke: boxXStroke == freezed
+      boxXStroke: null == boxXStroke
           ? _value.boxXStroke
           : boxXStroke // ignore: cast_nullable_to_non_nullable
               as double,
-      boxYStroke: boxYStroke == freezed
+      boxYStroke: null == boxYStroke
           ? _value.boxYStroke
           : boxYStroke // ignore: cast_nullable_to_non_nullable
               as double,
@@ -440,39 +439,49 @@ class _$BoxBackground implements BoxBackground {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BoxBackground &&
-            const DeepCollectionEquality().equals(other.boxWidth, boxWidth) &&
-            const DeepCollectionEquality().equals(other.boxHeight, boxHeight) &&
-            const DeepCollectionEquality().equals(other.boxXCount, boxXCount) &&
-            const DeepCollectionEquality().equals(other.boxYCount, boxYCount) &&
-            const DeepCollectionEquality().equals(other.boxXSpace, boxXSpace) &&
-            const DeepCollectionEquality().equals(other.boxYSpace, boxYSpace) &&
-            const DeepCollectionEquality().equals(other.boxXColor, boxXColor) &&
-            const DeepCollectionEquality().equals(other.boxYColor, boxYColor) &&
-            const DeepCollectionEquality().equals(other.boxColor, boxColor) &&
-            const DeepCollectionEquality()
-                .equals(other.boxXStroke, boxXStroke) &&
-            const DeepCollectionEquality()
-                .equals(other.boxYStroke, boxYStroke));
+            (identical(other.boxWidth, boxWidth) ||
+                other.boxWidth == boxWidth) &&
+            (identical(other.boxHeight, boxHeight) ||
+                other.boxHeight == boxHeight) &&
+            (identical(other.boxXCount, boxXCount) ||
+                other.boxXCount == boxXCount) &&
+            (identical(other.boxYCount, boxYCount) ||
+                other.boxYCount == boxYCount) &&
+            (identical(other.boxXSpace, boxXSpace) ||
+                other.boxXSpace == boxXSpace) &&
+            (identical(other.boxYSpace, boxYSpace) ||
+                other.boxYSpace == boxYSpace) &&
+            (identical(other.boxXColor, boxXColor) ||
+                other.boxXColor == boxXColor) &&
+            (identical(other.boxYColor, boxYColor) ||
+                other.boxYColor == boxYColor) &&
+            (identical(other.boxColor, boxColor) ||
+                other.boxColor == boxColor) &&
+            (identical(other.boxXStroke, boxXStroke) ||
+                other.boxXStroke == boxXStroke) &&
+            (identical(other.boxYStroke, boxYStroke) ||
+                other.boxYStroke == boxYStroke));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(boxWidth),
-      const DeepCollectionEquality().hash(boxHeight),
-      const DeepCollectionEquality().hash(boxXCount),
-      const DeepCollectionEquality().hash(boxYCount),
-      const DeepCollectionEquality().hash(boxXSpace),
-      const DeepCollectionEquality().hash(boxYSpace),
-      const DeepCollectionEquality().hash(boxXColor),
-      const DeepCollectionEquality().hash(boxYColor),
-      const DeepCollectionEquality().hash(boxColor),
-      const DeepCollectionEquality().hash(boxXStroke),
-      const DeepCollectionEquality().hash(boxYStroke));
+      boxWidth,
+      boxHeight,
+      boxXCount,
+      boxYCount,
+      boxXSpace,
+      boxYSpace,
+      boxXColor,
+      boxYColor,
+      boxColor,
+      boxXStroke,
+      boxYStroke);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$BoxBackgroundCopyWith<_$BoxBackground> get copyWith =>
       __$$BoxBackgroundCopyWithImpl<_$BoxBackground>(this, _$identity);
 
@@ -501,8 +510,8 @@ class _$BoxBackground implements BoxBackground {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? empty,
-    TResult Function(
+    TResult? Function()? empty,
+    TResult? Function(
             double boxWidth,
             double boxHeight,
             int boxXCount,
@@ -558,8 +567,8 @@ class _$BoxBackground implements BoxBackground {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(EmptyBackground value)? empty,
-    TResult Function(BoxBackground value)? box,
+    TResult? Function(EmptyBackground value)? empty,
+    TResult? Function(BoxBackground value)? box,
   }) {
     return box?.call(this);
   }
