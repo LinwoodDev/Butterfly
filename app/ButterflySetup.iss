@@ -60,6 +60,22 @@ Source: "{#BaseDirRelease}\*"; DestDir: "{app}"; Flags: ignoreversion recursesub
 
 
 [Registry]
+
+Root: HKLM; Subkey: "Software\LinwoodCloud"; Flags: uninsdeletekeyifempty
+Root: HKLM; Subkey: "Software\LinwoodCloud\Butterfly"; Flags: uninsdeletekeyifempty
+Root: HKLM; Subkey: "Software\LinwoodCloud\Butterfly\Capability"; ValueType: string; ValueName: "ApplicationDescription"; ValueData: "Powerful, minimalistic, cross-platform, opensource note-taking app."; Flags: uninsdeletevalue
+Root: HKLM; Subkey: "Software\LinwoodCloud\Butterfly\Capability"; ValueType: string; ValueName: "ApplicationName"; ValueData: "Butterfly"; Flags: uninsdeletevalue
+Root: HKLM; Subkey: "Software\RegisteredApplications"; ValueType: string; ValueName: "Butterfly"; ValueData: "Software\LinwoodCloud\Butterfly\Capability"; Flags: uninsdeletevalue
+
+Root: HKLM; Subkey: "Software\LinwoodCloud\Butterfly\Capability\FileAssociations"; ValueType: string; ValueName: ".bfly"; ValueData: "Butterfly.bfly"; Flags: uninsdeletevalue
+Root: HKLM; Subkey: "Software\LinwoodCloud\Butterfly\Capability\FileAssociations"; ValueType: string; ValueName: ".jpg"; ValueData: "Butterfly.jpg"; Flags: uninsdeletevalue
+Root: HKLM; Subkey: "Software\LinwoodCloud\Butterfly\Capability\FileAssociations"; ValueType: string; ValueName: ".jpeg"; ValueData: "Butterfly.jpeg"; Flags: uninsdeletevalue
+Root: HKLM; Subkey: "Software\LinwoodCloud\Butterfly\Capability\FileAssociations"; ValueType: string; ValueName: ".png"; ValueData: "Butterfly.png"; Flags: uninsdeletevalue
+Root: HKLM; Subkey: "Software\LinwoodCloud\Butterfly\Capability\FileAssociations"; ValueType: string; ValueName: ".gif"; ValueData: "Butterfly.gif"; Flags: uninsdeletevalue
+Root: HKLM; Subkey: "Software\LinwoodCloud\Butterfly\Capability\FileAssociations"; ValueType: string; ValueName: ".bmp"; ValueData: "Butterfly.bmp"; Flags: uninsdeletevalue
+Root: HKLM; Subkey: "Software\LinwoodCloud\Butterfly\Capability\FileAssociations"; ValueType: string; ValueName: ".ico"; ValueData: "Butterfly.ico"; Flags: uninsdeletevalue
+
+
 Root: HKCR; Subkey: ".bfly"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-File"; Tasks: bfly; Flags: uninsdeletevalue
 Root: HKCR; Subkey: "{#MyAppName}-File"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-File"; Tasks: bfly; Flags: uninsdeletekey
 Root: HKCR; Subkey: "{#MyAppName}-File\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"
