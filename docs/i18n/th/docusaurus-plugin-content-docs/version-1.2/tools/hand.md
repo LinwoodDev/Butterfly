@@ -9,4 +9,4 @@ This is a special tool to move the camera.
 
 |       Property | Default | Description                                                             |
 | --------------:|:-------:|:----------------------------------------------------------------------- |
-| Include eraser |  false  | This setting controls if you can click on the eraser layer and edit it. |
+| Include eraser | ไม่จริง | This setting controls if you can click on the eraser layer and edit it. |
