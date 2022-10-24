@@ -47,12 +47,12 @@ dependencies:
   path: ^1.8.1
   printing: ^5.9.3
   js: ^0.6.4
-  pdf: ^3.8.3
+  pdf: ^3.8.4
   http: ^0.13.5
   flutter_secure_storage: ^6.0.0
   equatable: ^2.0.5
   adwaita: ^0.5.2
-  yaru: ^0.4.2
+  yaru: ^0.4.3
   rxdart: ^0.27.5
   ffi: ^2.0.1
   archive: ^3.3.0
@@ -60,7 +60,7 @@ dependencies:
   connectivity_plus: ^3.0.2
   cross_file: ^0.3.3+2
 dev_dependencies:
-  flutter_native_splash: ^2.2.11
+  flutter_native_splash: ^2.2.12
   flutter_launcher_icons: ^0.10.0
   flutter_lints: ^2.0.1
   flutter_test:
