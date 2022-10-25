@@ -38,12 +38,12 @@ const FeatureList = [
     ),
   },
   {
-    title: (<Translate description="Features local title">Your data will be saved locally</Translate>),
+    title: (<Translate description="Features local title">Choose where your data is stored</Translate>),
     Svg: require('../../static/img/undraw_sweet_home_dkhr.svg').default,
     description: (
       <Translate description="Features local description">
-          Everything will be saved local on your computer.
-          Export the notes as image or as json files which can be opened on a different device.
+          You can choose to store your data locally or in your favorite cloud (webdav).
+          You can also export your data to a file and import it again.
       </Translate>
     ),
   },
