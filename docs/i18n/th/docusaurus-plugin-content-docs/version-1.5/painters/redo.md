@@ -1,6 +1,6 @@
 ---
 title: "Redo painter"
-sidebar_label: "Redo"
+sidebar_label: "ทำใหม่"
 sidebar_position: 2
 ---
 
