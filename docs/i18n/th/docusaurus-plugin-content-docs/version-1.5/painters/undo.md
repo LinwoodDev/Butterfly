@@ -1,6 +1,6 @@
 ---
 title: "Undo painter"
-sidebar_label: "Undo"
+sidebar_label: "ย้อนกลับ"
 sidebar_position: 2
 ---
 
