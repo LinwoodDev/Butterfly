@@ -1,6 +1,6 @@
 ---
 title: "Label painter"
-sidebar_label: "Label"
+sidebar_label: "ป้ายกำกับ"
 sidebar_position: 5
 ---
 
