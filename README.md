@@ -35,13 +35,13 @@ Butterfly is a note taking app where your ideas come first. You can paint, add t
 * **📱 Works on every device:** The app is available for android, windows, linux, and in the web. You can use it on your phone, tablet, or computer.
 * **💻 Choose where your data is stored:** You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.
 * **🌐 Available in many languages:** The app is available in many languages. Help us to translate this app to your language.
-* **�📚 FOSS:** The app is open source and free. You can contribute to the project and help to make it better.
+* **📚 FOSS:** The app is open source and free. You can contribute to the project and help to make it better.
 * **🔋 Use it offline:** You can use the app offline. You can draw, paint, and export your notes without an internet connection.
 * **🖊️ Use your favorite stylus:** The app supports stylus and touch devices. You can draw and paint with your favorite stylus.
 * **📜 Write text:** You can write text on your notes. You can change the font, size, and color.
 * **📸 Take photos:** You can take photos and add them to your notes. You can also import photos from your gallery.
 * **⚙️ Editable:** You can change the size, color, and position of every element after you added it to your note.
-* **🟦 Add shapes:** You can add shapes to your notes. You can choose between a rectangle, circle, and triangle.
+* **🟦 Add shapes:** You can add shapes to your notes. You can choose between a rectangle, circle and line.
 * **🔳 Structure your notes:** Add areas and waypoints to your notes to keep them organized.
 
 Try it [now](http://docs.butterfly.linwood.dev/downloads)!
