@@ -5,3 +5,4 @@
 * Fix pdf import ([#302](https://github.com/LinwoodCloud/Butterfly/issues/302))
 * Fix scaling of shape element
 * Fix classic theme
+* Fix missing laser painter and missing functionality
