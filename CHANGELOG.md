@@ -2,6 +2,17 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.5.1 (2022-10-28)
+
+* Add error view
+* Fix missing scroll in pdf export dialog
+* Fix error while importing files in web
+* Fix updater message
+* Fix pdf import ([#302](https://github.com/LinwoodCloud/Butterfly/issues/302))
+* Fix scaling of shape element
+* Fix classic theme
+* Fix missing laser painter and missing functionality
+
 ## 1.5.0 (2022-10-21)
 
 Read the whole 1.5 changelog at https://go.linwood.dev/butterfly/1-5
