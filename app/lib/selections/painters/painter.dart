@@ -16,6 +16,9 @@ class PainterSelection<T extends Painter> extends Selection<T> {
     if (selected is LabelPainter) {
       return LabelPainterSelection([selected]) as PainterSelection<T>;
     }
+    if (selected is LaserPainter) {
+      return LaserPainterSelection([selected]) as PainterSelection<T>;
+    }
     if (selected is LayerPainter) {
       return LayerPainterSelection([selected]) as PainterSelection<T>;
     }
