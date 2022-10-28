@@ -163,35 +163,35 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       double scaleX = 1,
       double scaleY = 1,
       bool relative = false}) {
+    var rect = this.rect;
     if (relative) {
       var newFirstPos = element.firstPosition + position;
       var newSecondPos = element.secondPosition + position;
-      // Apply scale
-      if (newFirstPos.dx > newSecondPos.dx) {
-        newFirstPos = Offset(newFirstPos.dx * scaleX, newFirstPos.dy);
-      } else {
-        newSecondPos = Offset(newSecondPos.dx * scaleX, newSecondPos.dy);
-      }
-      if (newFirstPos.dy > newSecondPos.dy) {
-        newFirstPos = Offset(newFirstPos.dx, newFirstPos.dy * scaleY);
-      } else {
-        newSecondPos = Offset(newSecondPos.dx, newSecondPos.dy * scaleY);
-      }
-      var rect = Rect.fromPoints(newFirstPos, newSecondPos).normalized();
-      rect = rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY);
+      var newRect = rect.translate(position.dx, position.dy);
+      final topLeft = newRect.topLeft;
+
+      newFirstPos = topLeft + (newFirstPos - topLeft).scale(scaleX, scaleY);
+      newSecondPos = topLeft + (newSecondPos - topLeft).scale(scaleX, scaleY);
+
+      newRect = newRect.topLeft &
+          Size(
+            newRect.width * scaleX,
+            newRect.height * scaleY,
+          );
       return ShapeRenderer(
-          element.copyWith(
-            firstPosition: element.firstPosition + position,
-            secondPosition: element.secondPosition + position,
-          ),
-          rect);
+        element.copyWith(
+          firstPosition: newFirstPos,
+          secondPosition: newSecondPos,
+        ),
+        newRect,
+      );
     }
     // Center of firstPosition and secondPosition
     final center = (element.firstPosition + element.secondPosition) / 2;
     // Apply scale
     final newFirstPos = (element.firstPosition - center) * scaleX + center;
     final newSecondPos = (element.secondPosition - center) * scaleY + center;
-    var rect = Rect.fromPoints(newFirstPos, newSecondPos).normalized();
+    rect = Rect.fromPoints(newFirstPos, newSecondPos).normalized();
     rect = rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY);
     return ShapeRenderer(
         element.copyWith(

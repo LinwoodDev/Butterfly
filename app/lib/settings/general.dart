@@ -128,22 +128,22 @@ class GeneralSettingsPage extends StatelessWidget {
                                 subtitle: Text(currentVersion),
                               ),
                               const Divider(),
-                              if (isStable)
+                              if (isStable) ...[
                                 ListTile(
                                   title: Text(AppLocalizations.of(context)!
                                       .usingLatestStable),
                                 ),
-                              if (isNightly || isDevelop || isMain)
+                              ] else if (isNightly || isDevelop || isMain) ...[
                                 ListTile(
                                   title: Text(AppLocalizations.of(context)!
                                       .usingLatestNightly),
-                                ),
-                              if (isError)
+                                )
+                              ] else if (isError) ...[
                                 ListTile(
                                   title:
                                       Text(AppLocalizations.of(context)!.error),
                                 ),
-                              if (isUpdateAvailable)
+                              ] else if (isUpdateAvailable)
                                 ListTile(
                                   title: Text(AppLocalizations.of(context)!
                                       .updateAvailable),
