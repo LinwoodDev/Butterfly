@@ -30,6 +30,7 @@ import 'settings/remote.dart';
 import 'settings/remotes.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme/manager.dart';
+import 'views/error.dart';
 import 'views/main.dart';
 import 'views/window.dart';
 
@@ -119,6 +120,8 @@ class ButterflyApp extends StatelessWidget {
       this.importedLocation = ''})
       : _router = GoRouter(
           initialLocation: initialLocation,
+          errorBuilder: (context, state) =>
+              ErrorPage(message: state.error.toString()),
           routes: [
             GoRoute(
                 name: 'home',
@@ -242,7 +245,7 @@ class ButterflyApp extends StatelessWidget {
                 return ProjectPage(
                     embedding: Embedding.fromQuery(state.queryParams));
               },
-            )
+            ),
           ],
         );
 
