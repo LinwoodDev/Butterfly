@@ -21,7 +21,7 @@ Actualmente las imágenes de decodificación no funcionan con canvaskit. ¡Por f
 
 ### La mariposa no se carga en Brave
 
-Los usuarios que han configurado el escudo 'Bloquear la huella dactilar' en Agresivo, necesitan cambiarlo a 'Estándar' o simplemente 'Bloquear la huella dactilar'. Haga clic en el icono de escudo en la barra de direcciones para cambiar la configuración. Intenta actualizar tu navegador a la última versión.
+Los usuarios que han configurado el escudo 'Bloquear la huella dactilar' a Agresivo, necesitan cambiarlo a 'Estándar' o simplemente 'Bloquear la huella dactilar'. Haga clic en el icono de escudo en la barra de direcciones para cambiar la configuración. Intenta actualizar tu navegador a la última versión.
 
 ## Móvil
 

@@ -54,6 +54,7 @@
   "italian": "Italien",
   "turkish": "Turc",
   "portugueseBrazil": "Portugais (Brésil)",
+  "thai": "Thaï",
   "defaultLocale": "Langue par défaut",
   "information": "Information",
   "license": "Licence",
@@ -392,5 +393,5 @@
   "middle": "Milieu",
   "first": "Premier",
   "second": "Seconde",
-  "report": "Rapport"
+  "report": "Rapporter"
 }
