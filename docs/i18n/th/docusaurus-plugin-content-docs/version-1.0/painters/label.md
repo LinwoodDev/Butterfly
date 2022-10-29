@@ -9,6 +9,6 @@ With this painter you can add text to the paper.
 
 ## Configuration
 
-| Property | Default | Description          |
+| Property | Default | คำอธิบาย             |
 | --------:|:-------:|:-------------------- |
 |     ขนาด |   12    | The size of the text |
