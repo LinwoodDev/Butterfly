@@ -9,7 +9,7 @@ With this painter you can draw on this paper.
 
 ## Configuration
 
-|            Property | Default | Description                                                                      |
+|            Property | Default | คำอธิบาย                                                                         |
 | -------------------:|:-------:|:-------------------------------------------------------------------------------- |
 |                  สี |  Black  | The color that will be drawn                                                     |
 | ความกว้างของเส้นขีด |    5    | The width of the stroke                                                          |
