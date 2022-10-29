@@ -22,9 +22,9 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodCloud/
 
 [SVG](/img/banner.svg) [PNG](/img/banner.png)
 
-## Documentation
+## เอกสาร
 
-![Documentation](/img/docs.svg)
+![เอกสาร](/img/docs.svg)
 
 [SVG](/img/docs.svg) [PNG](/img/docs.png)
 
