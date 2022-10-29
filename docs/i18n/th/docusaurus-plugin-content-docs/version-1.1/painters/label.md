@@ -10,4 +10,4 @@ With this painter you can add text to the paper.
 
 | Property | Default | Description          |
 | --------:|:-------:|:-------------------- |
-|     Size |   12    | The size of the text |
+|     ขนาด |   12    | The size of the text |
