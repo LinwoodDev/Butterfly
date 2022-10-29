@@ -1,5 +1,5 @@
 ---
-sidebar_label: "Area"
+sidebar_label: "พื้นที่"
 title: "Area painter"
 ---
 
@@ -15,7 +15,7 @@ The area painter allows you to create, edit and remove areas.
 
 ## Configuration
 
-|     Property | Default | Description                                                                                                                                      |
+|     Property | Default | คำอธิบาย                                                                                                                                         |
 | ------------:|:-------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
 |    ความกว้าง |    0    | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
 |      ความสูง |    0    | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
