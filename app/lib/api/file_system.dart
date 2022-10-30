@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/pack.dart';
 import 'file_system_io.dart';
 import 'file_system_html_stub.dart'
     if (dart.library.js) 'file_system_html.dart';
@@ -219,4 +220,57 @@ Archive exportDirectory(AppDocumentDirectory directory) {
 
   addToArchive(directory);
   return archive;
+}
+
+abstract class PackFileSystem extends GeneralFileSystem {
+  Future<ButterflyPack?> getPack(String name);
+  Future<ButterflyPack> createPack(
+      {required String name,
+      required String author,
+      required String description}) async {
+    final now = DateTime.now();
+    var newName = name;
+    var attemps = 1;
+    while (await hasPack(newName)) {
+      newName = '$name ($attemps)';
+      attemps++;
+    }
+    final pack = ButterflyPack(
+        name: newName,
+        description: description,
+        author: author,
+        createdAt: now,
+        updatedAt: now);
+    updatePack(pack);
+    return pack;
+  }
+
+  Future<bool> hasPack(String name);
+  Future<void> updatePack(ButterflyPack pack);
+  Future<void> deletePack(String name);
+  Future<List<ButterflyPack>> getPacks();
+
+  Future<ButterflyPack?> renamePack(String path, String newName) async {
+    // Remove leading slash
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
+    final pack = await getPack(path);
+    if (pack == null) return null;
+    await deletePack(path);
+    final newPack = pack.copyWith(name: newName);
+    await updatePack(newPack);
+    return newPack;
+  }
+
+  static PackFileSystem fromPlatform({RemoteStorage? remote}) {
+    if (kIsWeb) {
+      return WebPackFileSystem();
+    } else {
+      if (remote is DavRemoteStorage) {
+        return DavRemotePackFileSystem(remote);
+      }
+      return IOPackFileSystem();
+    }
+  }
 }

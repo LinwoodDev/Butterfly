@@ -4,10 +4,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../widgets/header.dart';
+import '../../widgets/header.dart';
+import 'create.dart';
 
-class PacksDialog extends StatelessWidget {
+class PacksDialog extends StatefulWidget {
   const PacksDialog({super.key});
+
+  @override
+  State<PacksDialog> createState() => _PacksDialogState();
+}
+
+class _PacksDialogState extends State<PacksDialog>
+    with TickerProviderStateMixin {
+  late final TabController _controller;
+
+  @override
+  initState() {
+    _controller = TabController(length: 2, vsync: this);
+    super.initState();
+  }
+
+  @override
+  dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +40,40 @@ class PacksDialog extends StatelessWidget {
             Header(
               title: Text(AppLocalizations.of(context)!.packs),
             ),
+            TabBar(
+              controller: _controller,
+              tabs: [
+                Tab(
+                  icon: const Icon(PhosphorIcons.fileLight),
+                  text: AppLocalizations.of(context)!.document,
+                ),
+                Tab(
+                  icon: const Icon(PhosphorIcons.appWindowLight),
+                  text: AppLocalizations.of(context)!.local,
+                ),
+              ],
+            ),
             Flexible(
               child: BlocBuilder<DocumentBloc, DocumentState>(
                   builder: (context, state) {
                 if (state is! DocumentLoadSuccess) return Container();
                 final packs = state.document.packs;
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: packs.length,
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text(packs[index].name),
+                return TabBarView(controller: _controller, children: [
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: packs.length,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Text(packs[index].name),
+                    ),
                   ),
-                );
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: packs.length,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Text(packs[index].name),
+                    ),
+                  ),
+                ]);
               }),
             ),
           ]),
@@ -62,6 +105,13 @@ class PacksDialog extends StatelessWidget {
                         ListTile(
                           title: Text(AppLocalizations.of(context)!.create),
                           leading: const Icon(PhosphorIcons.plusCircleLight),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            showDialog(
+                              context: context,
+                              builder: (context) => const CreatePackDialog(),
+                            );
+                          },
                         ),
                       ]),
                     ),

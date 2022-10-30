@@ -12,6 +12,7 @@ import 'package:path/path.dart' as p;
 import '../cubits/settings.dart';
 import '../models/converter.dart';
 import '../models/document.dart';
+import '../models/pack.dart';
 import '../models/template.dart';
 import 'file_system.dart';
 import 'file_system_io.dart';
@@ -621,4 +622,110 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
   @override
   Future<String> getRemoteCacheDirectory() async =>
       p.join(await super.getRemoteCacheDirectory(), 'Templates');
+}
+
+class DavRemotePackFileSystem extends PackFileSystem with DavRemoteSystem {
+  @override
+  final DavRemoteStorage remote;
+
+  DavRemotePackFileSystem(this.remote);
+
+  final http.Client client = http.Client();
+  Future<http.StreamedResponse> _createRequest(String path,
+      {String method = 'GET', String? body}) async {
+    final url = remote.buildPacksUri(path: path.split('/'));
+    final request = http.Request(method, url);
+    if (body != null) {
+      request.body = body;
+    }
+    request.headers['Authorization'] =
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getPassword()}'))}';
+    return client.send(request);
+  }
+
+  @override
+  Future<void> deletePack(String name) async {
+    final response = await _createRequest(name, method: 'DELETE');
+    if (response.statusCode != 204) {
+      throw Exception('Failed to delete pack: ${response.statusCode}');
+    }
+  }
+
+  @override
+  Future<ButterflyPack?> getPack(String name) async {
+    if (name.startsWith('/')) {
+      name = name.substring(1);
+    }
+    try {
+      final response = await _createRequest(name);
+      if (response.statusCode != 200) {
+        return null;
+      }
+      final content = await response.stream.bytesToString();
+      cacheStringContent(name, content);
+      return const PackJsonConverter().fromJson(json.decode(content));
+    } catch (e) {
+      return getCachedPack(name);
+    }
+  }
+
+  Future<ButterflyPack?> getCachedPack(String name) async {
+    final content = await getCachedContent(name);
+    if (content == null) {
+      return null;
+    }
+    return const PackJsonConverter()
+        .fromJson(json.decode(utf8.decode(content)));
+  }
+
+  @override
+  Future<List<ButterflyPack>> getPacks() async {
+    try {
+      final response = await _createRequest('', method: 'PROPFIND');
+      if (response.statusCode == 404) {
+        return [];
+      }
+      if (response.statusCode != 207) {
+        throw Exception(
+            'Failed to get packs: ${response.statusCode} ${response.reasonPhrase}');
+      }
+      final content = await response.stream.bytesToString();
+      final xml = XmlDocument.parse(content);
+      clearCachedContent();
+      return (await Future.wait(xml
+              .findAllElements('d:href')
+              .where((element) => element.text.endsWith('.bfly'))
+              .map((e) {
+        var path = e.text.substring(remote.buildPacksUri().path.length);
+        path = Uri.decodeComponent(path);
+        return getPack(path);
+      })))
+          .whereType<ButterflyPack>()
+          .toList();
+    } on SocketException catch (_) {
+      return await getCachedPacks();
+    }
+  }
+
+  @override
+  Future<bool> hasPack(String name) {
+    return _createRequest(name).then((response) => response.statusCode == 200);
+  }
+
+  @override
+  Future<void> updatePack(ButterflyPack pack) {
+    return _createRequest('${pack.name}.bfly',
+        method: 'PUT', body: json.encode(pack));
+  }
+
+  Future<List<ButterflyPack>> getCachedPacks() async {
+    final cachedFiles = await getCachedFiles();
+    return cachedFiles.values
+        .map((value) => const PackJsonConverter().fromJson(json.decode(value)))
+        .toList();
+  }
+
+  @override
+  Future<String> getRemoteCacheDirectory() async =>
+      p.join(await super.getRemoteCacheDirectory(), 'Packs');
 }

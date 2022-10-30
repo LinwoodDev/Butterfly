@@ -25,6 +25,7 @@ mixin _$RemoteStorage {
   String get path => throw _privateConstructorUsedError;
   String get documentsPath => throw _privateConstructorUsedError;
   String get templatesPath => throw _privateConstructorUsedError;
+  String get packsPath => throw _privateConstructorUsedError;
   List<String> get cachedDocuments => throw _privateConstructorUsedError;
   @Uint8ListJsonConverter()
   Uint8List get icon => throw _privateConstructorUsedError;
@@ -37,6 +38,7 @@ mixin _$RemoteStorage {
             String path,
             String documentsPath,
             String templatesPath,
+            String packsPath,
             List<String> cachedDocuments,
             @Uint8ListJsonConverter() Uint8List icon,
             DateTime? lastSynced)
@@ -51,6 +53,7 @@ mixin _$RemoteStorage {
             String path,
             String documentsPath,
             String templatesPath,
+            String packsPath,
             List<String> cachedDocuments,
             @Uint8ListJsonConverter() Uint8List icon,
             DateTime? lastSynced)?
@@ -65,6 +68,7 @@ mixin _$RemoteStorage {
             String path,
             String documentsPath,
             String templatesPath,
+            String packsPath,
             List<String> cachedDocuments,
             @Uint8ListJsonConverter() Uint8List icon,
             DateTime? lastSynced)?
@@ -106,6 +110,7 @@ abstract class $RemoteStorageCopyWith<$Res> {
       String path,
       String documentsPath,
       String templatesPath,
+      String packsPath,
       List<String> cachedDocuments,
       @Uint8ListJsonConverter() Uint8List icon,
       DateTime? lastSynced});
@@ -129,6 +134,7 @@ class _$RemoteStorageCopyWithImpl<$Res, $Val extends RemoteStorage>
     Object? path = null,
     Object? documentsPath = null,
     Object? templatesPath = null,
+    Object? packsPath = null,
     Object? cachedDocuments = null,
     Object? icon = null,
     Object? lastSynced = freezed,
@@ -153,6 +159,10 @@ class _$RemoteStorageCopyWithImpl<$Res, $Val extends RemoteStorage>
       templatesPath: null == templatesPath
           ? _value.templatesPath
           : templatesPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      packsPath: null == packsPath
+          ? _value.packsPath
+          : packsPath // ignore: cast_nullable_to_non_nullable
               as String,
       cachedDocuments: null == cachedDocuments
           ? _value.cachedDocuments
@@ -184,6 +194,7 @@ abstract class _$$DavRemoteStorageCopyWith<$Res>
       String path,
       String documentsPath,
       String templatesPath,
+      String packsPath,
       List<String> cachedDocuments,
       @Uint8ListJsonConverter() Uint8List icon,
       DateTime? lastSynced});
@@ -205,6 +216,7 @@ class __$$DavRemoteStorageCopyWithImpl<$Res>
     Object? path = null,
     Object? documentsPath = null,
     Object? templatesPath = null,
+    Object? packsPath = null,
     Object? cachedDocuments = null,
     Object? icon = null,
     Object? lastSynced = freezed,
@@ -229,6 +241,10 @@ class __$$DavRemoteStorageCopyWithImpl<$Res>
       templatesPath: null == templatesPath
           ? _value.templatesPath
           : templatesPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      packsPath: null == packsPath
+          ? _value.packsPath
+          : packsPath // ignore: cast_nullable_to_non_nullable
               as String,
       cachedDocuments: null == cachedDocuments
           ? _value._cachedDocuments
@@ -255,6 +271,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
       required this.path,
       required this.documentsPath,
       required this.templatesPath,
+      required this.packsPath,
       final List<String> cachedDocuments = const [],
       @Uint8ListJsonConverter() required this.icon,
       this.lastSynced})
@@ -274,6 +291,8 @@ class _$DavRemoteStorage extends DavRemoteStorage {
   final String documentsPath;
   @override
   final String templatesPath;
+  @override
+  final String packsPath;
   final List<String> _cachedDocuments;
   @override
   @JsonKey()
@@ -290,7 +309,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
 
   @override
   String toString() {
-    return 'RemoteStorage.dav(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, cachedDocuments: $cachedDocuments, icon: $icon, lastSynced: $lastSynced)';
+    return 'RemoteStorage.dav(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, icon: $icon, lastSynced: $lastSynced)';
   }
 
   @override
@@ -306,6 +325,8 @@ class _$DavRemoteStorage extends DavRemoteStorage {
                 other.documentsPath == documentsPath) &&
             (identical(other.templatesPath, templatesPath) ||
                 other.templatesPath == templatesPath) &&
+            (identical(other.packsPath, packsPath) ||
+                other.packsPath == packsPath) &&
             const DeepCollectionEquality()
                 .equals(other._cachedDocuments, _cachedDocuments) &&
             const DeepCollectionEquality().equals(other.icon, icon) &&
@@ -322,6 +343,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
       path,
       documentsPath,
       templatesPath,
+      packsPath,
       const DeepCollectionEquality().hash(_cachedDocuments),
       const DeepCollectionEquality().hash(icon),
       lastSynced);
@@ -341,12 +363,13 @@ class _$DavRemoteStorage extends DavRemoteStorage {
             String path,
             String documentsPath,
             String templatesPath,
+            String packsPath,
             List<String> cachedDocuments,
             @Uint8ListJsonConverter() Uint8List icon,
             DateTime? lastSynced)
         dav,
   }) {
-    return dav(username, url, path, documentsPath, templatesPath,
+    return dav(username, url, path, documentsPath, templatesPath, packsPath,
         cachedDocuments, icon, lastSynced);
   }
 
@@ -359,13 +382,14 @@ class _$DavRemoteStorage extends DavRemoteStorage {
             String path,
             String documentsPath,
             String templatesPath,
+            String packsPath,
             List<String> cachedDocuments,
             @Uint8ListJsonConverter() Uint8List icon,
             DateTime? lastSynced)?
         dav,
   }) {
     return dav?.call(username, url, path, documentsPath, templatesPath,
-        cachedDocuments, icon, lastSynced);
+        packsPath, cachedDocuments, icon, lastSynced);
   }
 
   @override
@@ -377,6 +401,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
             String path,
             String documentsPath,
             String templatesPath,
+            String packsPath,
             List<String> cachedDocuments,
             @Uint8ListJsonConverter() Uint8List icon,
             DateTime? lastSynced)?
@@ -384,7 +409,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
     required TResult orElse(),
   }) {
     if (dav != null) {
-      return dav(username, url, path, documentsPath, templatesPath,
+      return dav(username, url, path, documentsPath, templatesPath, packsPath,
           cachedDocuments, icon, lastSynced);
     }
     return orElse();
@@ -433,6 +458,7 @@ abstract class DavRemoteStorage extends RemoteStorage {
       required final String path,
       required final String documentsPath,
       required final String templatesPath,
+      required final String packsPath,
       final List<String> cachedDocuments,
       @Uint8ListJsonConverter() required final Uint8List icon,
       final DateTime? lastSynced}) = _$DavRemoteStorage;
@@ -451,6 +477,8 @@ abstract class DavRemoteStorage extends RemoteStorage {
   String get documentsPath;
   @override
   String get templatesPath;
+  @override
+  String get packsPath;
   @override
   List<String> get cachedDocuments;
   @override

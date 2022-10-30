@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:butterfly/actions/change_path.dart';
+import 'package:butterfly/actions/packs.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -597,8 +598,18 @@ class _MainPopupMenu extends StatelessWidget {
                       Actions.maybeInvoke<SettingsIntent>(
                           context, SettingsIntent(context));
                     })),
-          ],
-          if (state.embedding != null)
+            PopupMenuItem(
+                padding: EdgeInsets.zero,
+                child: ListTile(
+                    leading: const Icon(PhosphorIcons.packageLight),
+                    title: Text(AppLocalizations.of(context)!.packs),
+                    subtitle: Text(context.getShortcut('P', altKey: true)),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Actions.maybeInvoke<PacksIntent>(
+                          context, PacksIntent(context));
+                    })),
+          ] else ...[
             PopupMenuItem(
                 padding: EdgeInsets.zero,
                 child: ListTile(
@@ -611,6 +622,7 @@ class _MainPopupMenu extends StatelessWidget {
                           json.encode(const DocumentJsonConverter()
                               .toJson(state.document)));
                     })),
+          ],
         ],
       );
     });

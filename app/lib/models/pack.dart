@@ -9,6 +9,8 @@ part 'pack.freezed.dart';
 class ButterflyPack with _$ButterflyPack {
   const factory ButterflyPack({
     @Default('') String name,
+    @Default('') String description,
+    @Default('') String author,
     @Default(<ButterflyComponent>[]) List<ButterflyComponent> components,
     @DateTimeJsonConverter() required DateTime createdAt,
     @DateTimeJsonConverter() required DateTime updatedAt,
@@ -22,7 +24,7 @@ class ButterflyPack with _$ButterflyPack {
 class ButterflyComponent with _$ButterflyComponent {
   const factory ButterflyComponent({
     required String name,
-    @Default(<PadElement>[]) List<PadElement> element,
+    @Default(<PadElement>[]) List<PadElement> elements,
   }) = _ButterflyComponent;
 
   factory ButterflyComponent.fromJson(Map<String, dynamic> json) =>

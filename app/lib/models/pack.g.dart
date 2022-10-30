@@ -8,6 +8,8 @@ part of 'pack.dart';
 
 _$_ButterflyPack _$$_ButterflyPackFromJson(Map json) => _$_ButterflyPack(
       name: json['name'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      author: json['author'] as String? ?? '',
       components: (json['components'] as List<dynamic>?)
               ?.map((e) => ButterflyComponent.fromJson(
                   Map<String, dynamic>.from(e as Map)))
@@ -22,6 +24,8 @@ _$_ButterflyPack _$$_ButterflyPackFromJson(Map json) => _$_ButterflyPack(
 Map<String, dynamic> _$$_ButterflyPackToJson(_$_ButterflyPack instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'description': instance.description,
+      'author': instance.author,
       'components': instance.components.map((e) => e.toJson()).toList(),
       'createdAt': const DateTimeJsonConverter().toJson(instance.createdAt),
       'updatedAt': const DateTimeJsonConverter().toJson(instance.updatedAt),
@@ -30,7 +34,7 @@ Map<String, dynamic> _$$_ButterflyPackToJson(_$_ButterflyPack instance) =>
 _$_ButterflyComponent _$$_ButterflyComponentFromJson(Map json) =>
     _$_ButterflyComponent(
       name: json['name'] as String,
-      element: (json['element'] as List<dynamic>?)
+      elements: (json['elements'] as List<dynamic>?)
               ?.map((e) =>
                   PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
@@ -41,7 +45,7 @@ Map<String, dynamic> _$$_ButterflyComponentToJson(
         _$_ButterflyComponent instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'element': instance.element.map((e) => e.toJson()).toList(),
+      'elements': instance.elements.map((e) => e.toJson()).toList(),
     };
 
 _$TextParameter _$$TextParameterFromJson(Map json) => _$TextParameter(

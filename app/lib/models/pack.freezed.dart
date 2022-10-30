@@ -21,6 +21,8 @@ ButterflyPack _$ButterflyPackFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ButterflyPack {
   String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  String get author => throw _privateConstructorUsedError;
   List<ButterflyComponent> get components => throw _privateConstructorUsedError;
   @DateTimeJsonConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -41,6 +43,8 @@ abstract class $ButterflyPackCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
+      String description,
+      String author,
       List<ButterflyComponent> components,
       @DateTimeJsonConverter() DateTime createdAt,
       @DateTimeJsonConverter() DateTime updatedAt});
@@ -60,6 +64,8 @@ class _$ButterflyPackCopyWithImpl<$Res, $Val extends ButterflyPack>
   @override
   $Res call({
     Object? name = null,
+    Object? description = null,
+    Object? author = null,
     Object? components = null,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -68,6 +74,14 @@ class _$ButterflyPackCopyWithImpl<$Res, $Val extends ButterflyPack>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      author: null == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
               as String,
       components: null == components
           ? _value.components
@@ -95,6 +109,8 @@ abstract class _$$_ButterflyPackCopyWith<$Res>
   @useResult
   $Res call(
       {String name,
+      String description,
+      String author,
       List<ButterflyComponent> components,
       @DateTimeJsonConverter() DateTime createdAt,
       @DateTimeJsonConverter() DateTime updatedAt});
@@ -112,6 +128,8 @@ class __$$_ButterflyPackCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? description = null,
+    Object? author = null,
     Object? components = null,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -120,6 +138,14 @@ class __$$_ButterflyPackCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      author: null == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
               as String,
       components: null == components
           ? _value._components
@@ -142,6 +168,8 @@ class __$$_ButterflyPackCopyWithImpl<$Res>
 class _$_ButterflyPack implements _ButterflyPack {
   const _$_ButterflyPack(
       {this.name = '',
+      this.description = '',
+      this.author = '',
       final List<ButterflyComponent> components = const <ButterflyComponent>[],
       @DateTimeJsonConverter() required this.createdAt,
       @DateTimeJsonConverter() required this.updatedAt})
@@ -153,6 +181,12 @@ class _$_ButterflyPack implements _ButterflyPack {
   @override
   @JsonKey()
   final String name;
+  @override
+  @JsonKey()
+  final String description;
+  @override
+  @JsonKey()
+  final String author;
   final List<ButterflyComponent> _components;
   @override
   @JsonKey()
@@ -170,7 +204,7 @@ class _$_ButterflyPack implements _ButterflyPack {
 
   @override
   String toString() {
-    return 'ButterflyPack(name: $name, components: $components, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ButterflyPack(name: $name, description: $description, author: $author, components: $components, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -179,6 +213,9 @@ class _$_ButterflyPack implements _ButterflyPack {
         (other.runtimeType == runtimeType &&
             other is _$_ButterflyPack &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.author, author) || other.author == author) &&
             const DeepCollectionEquality()
                 .equals(other._components, _components) &&
             (identical(other.createdAt, createdAt) ||
@@ -189,7 +226,7 @@ class _$_ButterflyPack implements _ButterflyPack {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name,
+  int get hashCode => Object.hash(runtimeType, name, description, author,
       const DeepCollectionEquality().hash(_components), createdAt, updatedAt);
 
   @JsonKey(ignore: true)
@@ -209,6 +246,8 @@ class _$_ButterflyPack implements _ButterflyPack {
 abstract class _ButterflyPack implements ButterflyPack {
   const factory _ButterflyPack(
           {final String name,
+          final String description,
+          final String author,
           final List<ButterflyComponent> components,
           @DateTimeJsonConverter() required final DateTime createdAt,
           @DateTimeJsonConverter() required final DateTime updatedAt}) =
@@ -219,6 +258,10 @@ abstract class _ButterflyPack implements ButterflyPack {
 
   @override
   String get name;
+  @override
+  String get description;
+  @override
+  String get author;
   @override
   List<ButterflyComponent> get components;
   @override
@@ -240,7 +283,7 @@ ButterflyComponent _$ButterflyComponentFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ButterflyComponent {
   String get name => throw _privateConstructorUsedError;
-  List<PadElement> get element => throw _privateConstructorUsedError;
+  List<PadElement> get elements => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -254,7 +297,7 @@ abstract class $ButterflyComponentCopyWith<$Res> {
           ButterflyComponent value, $Res Function(ButterflyComponent) then) =
       _$ButterflyComponentCopyWithImpl<$Res, ButterflyComponent>;
   @useResult
-  $Res call({String name, List<PadElement> element});
+  $Res call({String name, List<PadElement> elements});
 }
 
 /// @nodoc
@@ -271,16 +314,16 @@ class _$ButterflyComponentCopyWithImpl<$Res, $Val extends ButterflyComponent>
   @override
   $Res call({
     Object? name = null,
-    Object? element = null,
+    Object? elements = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      element: null == element
-          ? _value.element
-          : element // ignore: cast_nullable_to_non_nullable
+      elements: null == elements
+          ? _value.elements
+          : elements // ignore: cast_nullable_to_non_nullable
               as List<PadElement>,
     ) as $Val);
   }
@@ -294,7 +337,7 @@ abstract class _$$_ButterflyComponentCopyWith<$Res>
       __$$_ButterflyComponentCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, List<PadElement> element});
+  $Res call({String name, List<PadElement> elements});
 }
 
 /// @nodoc
@@ -309,16 +352,16 @@ class __$$_ButterflyComponentCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? element = null,
+    Object? elements = null,
   }) {
     return _then(_$_ButterflyComponent(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      element: null == element
-          ? _value._element
-          : element // ignore: cast_nullable_to_non_nullable
+      elements: null == elements
+          ? _value._elements
+          : elements // ignore: cast_nullable_to_non_nullable
               as List<PadElement>,
     ));
   }
@@ -329,25 +372,25 @@ class __$$_ButterflyComponentCopyWithImpl<$Res>
 class _$_ButterflyComponent implements _ButterflyComponent {
   const _$_ButterflyComponent(
       {required this.name,
-      final List<PadElement> element = const <PadElement>[]})
-      : _element = element;
+      final List<PadElement> elements = const <PadElement>[]})
+      : _elements = elements;
 
   factory _$_ButterflyComponent.fromJson(Map<String, dynamic> json) =>
       _$$_ButterflyComponentFromJson(json);
 
   @override
   final String name;
-  final List<PadElement> _element;
+  final List<PadElement> _elements;
   @override
   @JsonKey()
-  List<PadElement> get element {
+  List<PadElement> get elements {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_element);
+    return EqualUnmodifiableListView(_elements);
   }
 
   @override
   String toString() {
-    return 'ButterflyComponent(name: $name, element: $element)';
+    return 'ButterflyComponent(name: $name, elements: $elements)';
   }
 
   @override
@@ -356,13 +399,13 @@ class _$_ButterflyComponent implements _ButterflyComponent {
         (other.runtimeType == runtimeType &&
             other is _$_ButterflyComponent &&
             (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality().equals(other._element, _element));
+            const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, name, const DeepCollectionEquality().hash(_element));
+      runtimeType, name, const DeepCollectionEquality().hash(_elements));
 
   @JsonKey(ignore: true)
   @override
@@ -382,7 +425,7 @@ class _$_ButterflyComponent implements _ButterflyComponent {
 abstract class _ButterflyComponent implements ButterflyComponent {
   const factory _ButterflyComponent(
       {required final String name,
-      final List<PadElement> element}) = _$_ButterflyComponent;
+      final List<PadElement> elements}) = _$_ButterflyComponent;
 
   factory _ButterflyComponent.fromJson(Map<String, dynamic> json) =
       _$_ButterflyComponent.fromJson;
@@ -390,7 +433,7 @@ abstract class _ButterflyComponent implements ButterflyComponent {
   @override
   String get name;
   @override
-  List<PadElement> get element;
+  List<PadElement> get elements;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflyComponentCopyWith<_$_ButterflyComponent> get copyWith =>

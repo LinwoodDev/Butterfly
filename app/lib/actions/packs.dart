@@ -3,7 +3,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../dialogs/packs.dart';
+import '../dialogs/packs/dialog.dart';
 
 class PacksIntent extends Intent {
   final BuildContext context;

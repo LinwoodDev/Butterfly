@@ -395,5 +395,6 @@
   "middle": "Middle",
   "first": "First",
   "second": "Second",
-  "report": "Report"
+  "report": "Report",
+  "createPack": "Create pack"
 }
