@@ -21,7 +21,7 @@ import 'file_system.dart';
 class FileHandlingWindow {}
 
 extension FileHandlingWindowExtension on FileHandlingWindow {
-  external LaunchQueue get launchQueue;
+  external LaunchQueue? get launchQueue;
 }
 
 @JS()
@@ -275,7 +275,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         reader.readAsArrayBuffer(file);
       }
 
-      fileWindow.launchQueue.setConsumer(allowInterop(complete));
+      fileWindow.launchQueue?.setConsumer(allowInterop(complete));
       return completer.future;
     } on NoSuchMethodError catch (e) {
       if (kDebugMode) {

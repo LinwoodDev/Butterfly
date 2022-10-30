@@ -42,7 +42,8 @@ class _ExactSliderState extends State<ExactSlider> {
 
   void _changeValue(double value) {
     if (_value != value) {
-      _controller.text = value.toStringAsFixed(widget.fractionDigits);
+      final text = value.toStringAsFixed(widget.fractionDigits);
+      if (_controller.text.trim() != text) _controller.text = text;
       setState(() {
         _value = value;
       });

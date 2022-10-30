@@ -1,4 +1,5 @@
 import 'package:butterfly/helpers/int_helper.dart';
+import 'package:butterfly/widgets/advanced_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -37,6 +38,7 @@ class TouchBehaviorSettings extends StatelessWidget {
                               min: 0,
                               max: 100,
                               value: state.touchSensitivity,
+                              defaultValue: 1,
                               header: Row(children: [
                                 const Icon(PhosphorIcons.lightningLight),
                                 const SizedBox(width: 8),
@@ -82,21 +84,11 @@ class TouchBehaviorSettings extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          TextFormField(
+                          AdvancedTextField(
                             initialValue:
                                 config.touch?.add(1)?.toString() ?? '',
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.touch,
-                              prefixIcon: const Icon(PhosphorIcons.handLight),
-                              suffix: IconButton(
-                                  onPressed: () {
-                                    final cubit = context.read<SettingsCubit>();
-                                    cubit.changeInputConfiguration(
-                                        config.copyWith(touch: null));
-                                  },
-                                  icon: const Icon(
-                                      PhosphorIcons.clockClockwiseLight)),
-                            ),
+                            label: AppLocalizations.of(context)!.touch,
+                            icon: const Icon(PhosphorIcons.handLight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(

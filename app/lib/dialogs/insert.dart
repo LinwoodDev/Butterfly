@@ -95,7 +95,7 @@ class InsertDialog extends StatelessWidget {
               if (!kIsWeb) {
                 content = await File(e.path ?? '').readAsBytes();
               }
-              importService.importSvg(content, position);
+              importService.importPdf(content, position);
             }),
         ListTile(
             title: Text(AppLocalizations.of(context)!.document),

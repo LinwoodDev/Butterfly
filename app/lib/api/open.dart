@@ -11,7 +11,7 @@ Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
           scheme: 'https',
           host: 'docs.butterfly.linwood.dev',
           fragment: fragment,
-          pathSegments: ['docs', '1.5', ...pageLocation]),
+          pathSegments: ['docs', '1.6', ...pageLocation]),
       mode: LaunchMode.externalApplication);
 }
 

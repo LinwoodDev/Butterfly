@@ -265,9 +265,9 @@ class HandHandler extends Handler<HandPainter> {
       return;
     }
     final transform = context.getCameraTransform();
+    final globalPos = transform.localToGlobal(localPosition);
     if (_transformMode != null) {
       final selectionRect = getSelectionRect();
-      final globalPos = transform.localToGlobal(localPosition);
       if (selectionRect?.contains(globalPos) ?? false) {
         toggleScaleMode(context.getDocumentBloc());
         return;
@@ -277,7 +277,7 @@ class HandHandler extends Handler<HandPainter> {
     }
     final settings = context.getSettings();
     final radius = settings.selectSensitivity / transform.size;
-    final hits = await rayCast(context.buildContext, localPosition, radius);
+    final hits = await rayCast(globalPos, context.buildContext, radius);
     if (hits.isEmpty) {
       if (!context.isCtrlPressed) {
         _selected.clear();
@@ -327,13 +327,12 @@ class HandHandler extends Handler<HandPainter> {
     if (_movingElements.isNotEmpty) {
       return;
     }
+    final position = context.getCameraTransform().localToGlobal(localPosition);
     final providers = context.getProviders();
-    final hits = await rayCast(context.buildContext, localPosition, 0.0);
+    final hits = await rayCast(position, context.buildContext, 0.0);
     final hit = hits.firstOrNull;
     final rect = hit?.rect;
-    if ((hit == null ||
-            rect == null ||
-            !(getSelectionRect()?.overlaps(rect) ?? false)) &&
+    if ((rect != null && !(getSelectionRect()?.contains(position) ?? false)) &&
         !context.isCtrlPressed) {
       _selected.clear();
       if (hit != null) _selected.add(hit);
@@ -437,7 +436,7 @@ class HandHandler extends Handler<HandPainter> {
         _selected.clear();
       }
       final hits = await rayCastRect(
-          context.buildContext, freeSelection, data.includeEraser);
+          freeSelection, context.buildContext, data.includeEraser);
       _selected.addAll(hits);
       context.refresh();
     }

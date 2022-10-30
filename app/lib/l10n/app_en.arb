@@ -54,6 +54,7 @@
   "italian": "Italian",
   "turkish": "Turkish",
   "portugueseBrazil": "Portuguese (Brazil)",
+  "thai": "Thai",
   "defaultLocale": "Default locale",
   "information": "Information",
   "license": "License",
@@ -125,7 +126,7 @@
   "shiftKey": "Shift",
   "altKey": "Alt",
   "copyVersion": "Copy version",
-  "input": "Input", 
+  "input": "Input",
   "behaviors": "Behaviors",
   "documentDirectory": "Document directory",
   "defaultPath": "Default path",
@@ -393,5 +394,6 @@
   "shortcuts": "Shortcuts",
   "middle": "Middle",
   "first": "First",
-  "second": "Second"
+  "second": "Second",
+  "report": "Report"
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors/mouse.dart';
 import 'package:flutter/foundation.dart';
@@ -29,7 +30,9 @@ import 'settings/remote.dart';
 import 'settings/remotes.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme/manager.dart';
+import 'views/error.dart';
 import 'views/main.dart';
+import 'views/window.dart';
 
 const kFileVersion = 6;
 
@@ -64,6 +67,11 @@ Future<void> main([List<String> args = const []]) async {
           'path': file.path,
         }).toString();
       }
+    }
+  }
+  if (!kIsWeb && Platform.isAndroid) {
+    if (await getIntentType() != null) {
+      initialLocation = '/native';
     }
   }
 
@@ -112,6 +120,8 @@ class ButterflyApp extends StatelessWidget {
       this.importedLocation = ''})
       : _router = GoRouter(
           initialLocation: initialLocation,
+          errorBuilder: (context, state) =>
+              ErrorPage(message: state.error.toString()),
           routes: [
             GoRoute(
                 name: 'home',
@@ -235,7 +245,7 @@ class ButterflyApp extends StatelessWidget {
                 return ProjectPage(
                     embedding: Embedding.fromQuery(state.queryParams));
               },
-            )
+            ),
           ],
         );
 

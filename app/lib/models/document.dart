@@ -156,6 +156,14 @@ class AppDocumentDirectory extends AppDocumentEntity {
   String get fileExtension => '';
 }
 
+List<Painter> createDefaultPainters() => [
+      HandPainter(),
+      PenPainter(),
+      PathEraserPainter(),
+      UndoPainter(),
+      RedoPainter()
+    ];
+
 @freezed
 class AppDocument with _$AppDocument {
   const AppDocument._();

@@ -28,7 +28,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'any'
+          channel: "any"
       - name: Setup git
         id: setup
         run: |
@@ -62,7 +62,8 @@ jobs:
     needs:
       - update-changelog
     outputs:
-      build_number: ${{ steps.setup.outputs.build_number }}
+      version: ${{ steps.setup.outputs.BUTTERFLY_VERSION }}
+      build_number: ${{ steps.setup.outputs.BUTTERFLY_BUILD_NUMBER }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -75,7 +76,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'any'
+          channel: "any"
       - name: Setup git
         id: setup
         shell: bash
@@ -84,9 +85,10 @@ jobs:
           [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" app/pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
           BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
           echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_ENV
+          echo "BUTTERFLY_VERSION=${BUTTERFLY_VERSION}" >> $GITHUB_OUTPUT
           BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
-          echo "::set-output name=build_number::${BUTTERFLY_BUILD_NUMBER}"
+          echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_OUTPUT
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Create tag
@@ -109,12 +111,20 @@ jobs:
         if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
         run: |
           git tag -fa stable -m "Find all stable releases here"
-          git push origin stable -f
+          git push origin HEAD:stable -f
       - name: Retag nightly
         if: ${{ github.event.inputs.stable != 'true' && github.ref == 'refs/heads/develop' }}
         run: |
           git tag -fa nightly -m "Find all nightly releases here"
-          git push origin nightly -f
+          git push origin HEAD:nightly -f
+      - name: Merge in main
+        if: ${{ github.ref == 'refs/heads/develop' && github.event.inputs.stable == 'true' }}
+        run: |
+          git fetch
+          git checkout main
+          git pull origin main
+          git merge develop --strategy-option ours
+          git push origin main
   set-next-version:
     runs-on: ubuntu-22.04
     needs:
@@ -132,7 +142,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'any'
+          channel: "any"
       - name: Setup git
         id: setup
         run: |
@@ -200,7 +210,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'any'
+          channel: "any"
       - name: Bump version
         run: |
           git fetch
@@ -220,6 +230,7 @@ jobs:
           git push origin develop
   notify:
     runs-on: ubuntu-22.04
+    needs: [release]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -238,23 +249,25 @@ jobs:
           echo '' >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: Discord Webhook Action
-        uses: tsickert/discord-webhook@v4.0.0
+        uses: tsickert/discord-webhook@v5.3.0
         if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           embed-title: ${{ env.BUTTERFLY_VERSION }}
           embed-description: ${{ env.BUTTERFLY_CHANGELOG }}
+          embed-url: https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
           content: |
             Version ${{ env.BUTTERFLY_VERSION }} released!
             Download it here: https://docs.butterfly.linwood.dev/downloads
             https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
       - name: Discord Webhook Action
-        uses: tsickert/discord-webhook@v4.0.0
+        uses: tsickert/discord-webhook@v5.3.0
         if: ${{ github.event.inputs.stable == 'false' && github.ref == 'refs/heads/develop' }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           embed-title: ${{ env.BUTTERFLY_VERSION }}
           embed-description: ${{ env.BUTTERFLY_CHANGELOG }}
+          embed-url: https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
           content: |
             Pre-release version ${{ env.BUTTERFLY_VERSION }} released!
             Download it here: https://docs.butterfly.linwood.dev/downloads

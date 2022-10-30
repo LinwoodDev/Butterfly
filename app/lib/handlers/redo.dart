@@ -4,7 +4,9 @@ class RedoHandler extends Handler<RedoPainter> {
   RedoHandler(super.data);
 
   @override
-  bool onSelected(DocumentBloc bloc, CurrentIndexCubit currentIndexCubit) {
+  bool onSelected(
+      DocumentBloc bloc, CurrentIndexCubit currentIndexCubit, bool justAdded) {
+    if (justAdded) return false;
     bloc.redo();
     bloc.load().then((value) => bloc.bake());
     return false;

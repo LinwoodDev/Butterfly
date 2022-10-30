@@ -30,7 +30,7 @@ import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/transform.dart';
 import '../embed/action.dart';
-import 'main.dart';
+import 'window.dart';
 
 class PadAppBar extends StatelessWidget with PreferredSizeWidget {
   static const double _height = 70;

@@ -1,4 +1,5 @@
 import 'package:butterfly/helpers/int_helper.dart';
+import 'package:butterfly/widgets/advanced_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -82,20 +83,10 @@ class PenBehaviorSettings extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          TextFormField(
+                          AdvancedTextField(
                             initialValue: config.pen?.add(1)?.toString() ?? '',
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.pen,
-                              prefixIcon: const Icon(PhosphorIcons.penLight),
-                              suffix: IconButton(
-                                  onPressed: () {
-                                    final cubit = context.read<SettingsCubit>();
-                                    cubit.changeInputConfiguration(
-                                        config.copyWith(pen: null));
-                                  },
-                                  icon: const Icon(
-                                      PhosphorIcons.clockClockwiseLight)),
-                            ),
+                            label: AppLocalizations.of(context)!.pen,
+                            icon: const Icon(PhosphorIcons.penLight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
@@ -103,22 +94,12 @@ class PenBehaviorSettings extends StatelessWidget {
                             },
                           ),
                           const SizedBox(height: 8),
-                          TextFormField(
+                          AdvancedTextField(
                             initialValue:
                                 config.firstPenButton?.add(1)?.toString() ?? '',
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.first,
-                              prefixIcon: const Icon(
-                                  PhosphorIcons.numberCircleOneLight),
-                              suffix: IconButton(
-                                  onPressed: () {
-                                    final cubit = context.read<SettingsCubit>();
-                                    cubit.changeInputConfiguration(
-                                        config.copyWith(firstPenButton: 2));
-                                  },
-                                  icon: const Icon(
-                                      PhosphorIcons.clockClockwiseLight)),
-                            ),
+                            label: AppLocalizations.of(context)!.first,
+                            icon:
+                                const Icon(PhosphorIcons.numberCircleOneLight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
@@ -127,23 +108,13 @@ class PenBehaviorSettings extends StatelessWidget {
                             },
                           ),
                           const SizedBox(height: 8),
-                          TextFormField(
+                          AdvancedTextField(
                             initialValue:
                                 config.secondPenButton?.add(1)?.toString() ??
                                     '',
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.second,
-                              prefixIcon: const Icon(
-                                  PhosphorIcons.numberCircleTwoLight),
-                              suffix: IconButton(
-                                  onPressed: () {
-                                    final cubit = context.read<SettingsCubit>();
-                                    cubit.changeInputConfiguration(
-                                        config.copyWith(secondPenButton: 1));
-                                  },
-                                  icon: const Icon(
-                                      PhosphorIcons.clockClockwiseLight)),
-                            ),
+                            label: AppLocalizations.of(context)!.second,
+                            icon:
+                                const Icon(PhosphorIcons.numberCircleTwoLight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(

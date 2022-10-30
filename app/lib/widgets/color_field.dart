@@ -31,12 +31,12 @@ class ColorField extends StatelessWidget {
     return ListTile(
       onTap: () async {
         onOpen?.call();
-        var nextColor = await showDialog(
+        var nextColor = await showDialog<int>(
             context: context,
             builder: (ctx) => BlocProvider.value(
                   value: context.read<DocumentBloc>(),
                   child: ColorPickerDialog(defaultColor: value),
-                )) as int?;
+                ));
         if (nextColor != null) {
           onChanged?.call(Color(nextColor));
         }

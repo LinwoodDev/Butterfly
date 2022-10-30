@@ -194,8 +194,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                         painters: List.from(current.document.painters)
                           ..add(event.painter))))
             .then((value) {
-          current.currentIndexCubit
-              .changePainter(this, current.document.painters.length);
+          current.currentIndexCubit.changePainter(
+              this, current.document.painters.length, null, true);
         });
       }
     });

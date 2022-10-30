@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
 import '../api/open_release_notes.dart';
-import '../views/main.dart';
+import '../views/window.dart';
 
 @immutable
 class Meta {
@@ -128,22 +128,22 @@ class GeneralSettingsPage extends StatelessWidget {
                                 subtitle: Text(currentVersion),
                               ),
                               const Divider(),
-                              if (isStable)
+                              if (isStable) ...[
                                 ListTile(
                                   title: Text(AppLocalizations.of(context)!
                                       .usingLatestStable),
                                 ),
-                              if (isNightly || isDevelop || isMain)
+                              ] else if (isNightly || isDevelop || isMain) ...[
                                 ListTile(
                                   title: Text(AppLocalizations.of(context)!
                                       .usingLatestNightly),
-                                ),
-                              if (isError)
+                                )
+                              ] else if (isError) ...[
                                 ListTile(
                                   title:
                                       Text(AppLocalizations.of(context)!.error),
                                 ),
-                              if (isUpdateAvailable)
+                              ] else if (isUpdateAvailable)
                                 ListTile(
                                   title: Text(AppLocalizations.of(context)!
                                       .updateAvailable),

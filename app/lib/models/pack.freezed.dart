@@ -37,7 +37,8 @@ mixin _$ButterflyPack {
 abstract class $ButterflyPackCopyWith<$Res> {
   factory $ButterflyPackCopyWith(
           ButterflyPack value, $Res Function(ButterflyPack) then) =
-      _$ButterflyPackCopyWithImpl<$Res>;
+      _$ButterflyPackCopyWithImpl<$Res, ButterflyPack>;
+  @useResult
   $Res call(
       {String name,
       List<ButterflyComponent> components,
@@ -46,39 +47,41 @@ abstract class $ButterflyPackCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ButterflyPackCopyWithImpl<$Res>
+class _$ButterflyPackCopyWithImpl<$Res, $Val extends ButterflyPack>
     implements $ButterflyPackCopyWith<$Res> {
   _$ButterflyPackCopyWithImpl(this._value, this._then);
 
-  final ButterflyPack _value;
   // ignore: unused_field
-  final $Res Function(ButterflyPack) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? components = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
+    Object? name = null,
+    Object? components = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      components: components == freezed
+      components: null == components
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
               as List<ButterflyComponent>,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      updatedAt: updatedAt == freezed
+      updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 }
 
@@ -89,6 +92,7 @@ abstract class _$$_ButterflyPackCopyWith<$Res>
           _$_ButterflyPack value, $Res Function(_$_ButterflyPack) then) =
       __$$_ButterflyPackCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       List<ButterflyComponent> components,
@@ -98,36 +102,34 @@ abstract class _$$_ButterflyPackCopyWith<$Res>
 
 /// @nodoc
 class __$$_ButterflyPackCopyWithImpl<$Res>
-    extends _$ButterflyPackCopyWithImpl<$Res>
+    extends _$ButterflyPackCopyWithImpl<$Res, _$_ButterflyPack>
     implements _$$_ButterflyPackCopyWith<$Res> {
   __$$_ButterflyPackCopyWithImpl(
       _$_ButterflyPack _value, $Res Function(_$_ButterflyPack) _then)
-      : super(_value, (v) => _then(v as _$_ButterflyPack));
+      : super(_value, _then);
 
-  @override
-  _$_ButterflyPack get _value => super._value as _$_ButterflyPack;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? components = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
+    Object? name = null,
+    Object? components = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_$_ButterflyPack(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      components: components == freezed
+      components: null == components
           ? _value._components
           : components // ignore: cast_nullable_to_non_nullable
               as List<ButterflyComponent>,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      updatedAt: updatedAt == freezed
+      updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -176,24 +178,23 @@ class _$_ButterflyPack implements _ButterflyPack {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ButterflyPack &&
-            const DeepCollectionEquality().equals(other.name, name) &&
+            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality()
                 .equals(other._components, _components) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(_components),
-      const DeepCollectionEquality().hash(createdAt),
-      const DeepCollectionEquality().hash(updatedAt));
+  int get hashCode => Object.hash(runtimeType, name,
+      const DeepCollectionEquality().hash(_components), createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ButterflyPackCopyWith<_$_ButterflyPack> get copyWith =>
       __$$_ButterflyPackCopyWithImpl<_$_ButterflyPack>(this, _$identity);
 
@@ -251,34 +252,37 @@ mixin _$ButterflyComponent {
 abstract class $ButterflyComponentCopyWith<$Res> {
   factory $ButterflyComponentCopyWith(
           ButterflyComponent value, $Res Function(ButterflyComponent) then) =
-      _$ButterflyComponentCopyWithImpl<$Res>;
+      _$ButterflyComponentCopyWithImpl<$Res, ButterflyComponent>;
+  @useResult
   $Res call({String name, List<PadElement> element});
 }
 
 /// @nodoc
-class _$ButterflyComponentCopyWithImpl<$Res>
+class _$ButterflyComponentCopyWithImpl<$Res, $Val extends ButterflyComponent>
     implements $ButterflyComponentCopyWith<$Res> {
   _$ButterflyComponentCopyWithImpl(this._value, this._then);
 
-  final ButterflyComponent _value;
   // ignore: unused_field
-  final $Res Function(ButterflyComponent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? element = freezed,
+    Object? name = null,
+    Object? element = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      element: element == freezed
+      element: null == element
           ? _value.element
           : element // ignore: cast_nullable_to_non_nullable
               as List<PadElement>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -289,31 +293,30 @@ abstract class _$$_ButterflyComponentCopyWith<$Res>
           $Res Function(_$_ButterflyComponent) then) =
       __$$_ButterflyComponentCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, List<PadElement> element});
 }
 
 /// @nodoc
 class __$$_ButterflyComponentCopyWithImpl<$Res>
-    extends _$ButterflyComponentCopyWithImpl<$Res>
+    extends _$ButterflyComponentCopyWithImpl<$Res, _$_ButterflyComponent>
     implements _$$_ButterflyComponentCopyWith<$Res> {
   __$$_ButterflyComponentCopyWithImpl(
       _$_ButterflyComponent _value, $Res Function(_$_ButterflyComponent) _then)
-      : super(_value, (v) => _then(v as _$_ButterflyComponent));
+      : super(_value, _then);
 
-  @override
-  _$_ButterflyComponent get _value => super._value as _$_ButterflyComponent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? element = freezed,
+    Object? name = null,
+    Object? element = null,
   }) {
     return _then(_$_ButterflyComponent(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      element: element == freezed
+      element: null == element
           ? _value._element
           : element // ignore: cast_nullable_to_non_nullable
               as List<PadElement>,
@@ -352,19 +355,18 @@ class _$_ButterflyComponent implements _ButterflyComponent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ButterflyComponent &&
-            const DeepCollectionEquality().equals(other.name, name) &&
+            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._element, _element));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(_element));
+      runtimeType, name, const DeepCollectionEquality().hash(_element));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ButterflyComponentCopyWith<_$_ButterflyComponent> get copyWith =>
       __$$_ButterflyComponentCopyWithImpl<_$_ButterflyComponent>(
           this, _$identity);
@@ -429,11 +431,11 @@ mixin _$ButterflyParameter {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int child, String name, String value)? text,
-    TResult Function(int child, String name, int value)? color,
-    TResult Function(int child, String name, bool value)? bool,
-    TResult Function(int child, String name, int value)? int,
-    TResult Function(int child, String name, double value)? double,
+    TResult? Function(int child, String name, String value)? text,
+    TResult? Function(int child, String name, int value)? color,
+    TResult? Function(int child, String name, bool value)? bool,
+    TResult? Function(int child, String name, int value)? int,
+    TResult? Function(int child, String name, double value)? double,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -457,11 +459,11 @@ mixin _$ButterflyParameter {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(TextParameter value)? text,
-    TResult Function(ColorParameter value)? color,
-    TResult Function(BoolParameter value)? bool,
-    TResult Function(IntParameter value)? int,
-    TResult Function(DoubleParameter value)? double,
+    TResult? Function(TextParameter value)? text,
+    TResult? Function(ColorParameter value)? color,
+    TResult? Function(BoolParameter value)? bool,
+    TResult? Function(IntParameter value)? int,
+    TResult? Function(DoubleParameter value)? double,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -484,34 +486,37 @@ mixin _$ButterflyParameter {
 abstract class $ButterflyParameterCopyWith<$Res> {
   factory $ButterflyParameterCopyWith(
           ButterflyParameter value, $Res Function(ButterflyParameter) then) =
-      _$ButterflyParameterCopyWithImpl<$Res>;
+      _$ButterflyParameterCopyWithImpl<$Res, ButterflyParameter>;
+  @useResult
   $Res call({int child, String name});
 }
 
 /// @nodoc
-class _$ButterflyParameterCopyWithImpl<$Res>
+class _$ButterflyParameterCopyWithImpl<$Res, $Val extends ButterflyParameter>
     implements $ButterflyParameterCopyWith<$Res> {
   _$ButterflyParameterCopyWithImpl(this._value, this._then);
 
-  final ButterflyParameter _value;
   // ignore: unused_field
-  final $Res Function(ButterflyParameter) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? child = freezed,
-    Object? name = freezed,
+    Object? child = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
-      child: child == freezed
+      child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -522,36 +527,35 @@ abstract class _$$TextParameterCopyWith<$Res>
           _$TextParameter value, $Res Function(_$TextParameter) then) =
       __$$TextParameterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int child, String name, String value});
 }
 
 /// @nodoc
 class __$$TextParameterCopyWithImpl<$Res>
-    extends _$ButterflyParameterCopyWithImpl<$Res>
+    extends _$ButterflyParameterCopyWithImpl<$Res, _$TextParameter>
     implements _$$TextParameterCopyWith<$Res> {
   __$$TextParameterCopyWithImpl(
       _$TextParameter _value, $Res Function(_$TextParameter) _then)
-      : super(_value, (v) => _then(v as _$TextParameter));
+      : super(_value, _then);
 
-  @override
-  _$TextParameter get _value => super._value as _$TextParameter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? child = freezed,
-    Object? name = freezed,
-    Object? value = freezed,
+    Object? child = null,
+    Object? name = null,
+    Object? value = null,
   }) {
     return _then(_$TextParameter(
-      child: child == freezed
+      child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      value: value == freezed
+      value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
@@ -592,21 +596,18 @@ class _$TextParameter implements TextParameter {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TextParameter &&
-            const DeepCollectionEquality().equals(other.child, child) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.value, value));
+            (identical(other.child, child) || other.child == child) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.value, value) || other.value == value));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(child),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(value));
+  int get hashCode => Object.hash(runtimeType, child, name, value);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$TextParameterCopyWith<_$TextParameter> get copyWith =>
       __$$TextParameterCopyWithImpl<_$TextParameter>(this, _$identity);
 
@@ -625,11 +626,11 @@ class _$TextParameter implements TextParameter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int child, String name, String value)? text,
-    TResult Function(int child, String name, int value)? color,
-    TResult Function(int child, String name, bool value)? bool,
-    TResult Function(int child, String name, int value)? int,
-    TResult Function(int child, String name, double value)? double,
+    TResult? Function(int child, String name, String value)? text,
+    TResult? Function(int child, String name, int value)? color,
+    TResult? Function(int child, String name, bool value)? bool,
+    TResult? Function(int child, String name, int value)? int,
+    TResult? Function(int child, String name, double value)? double,
   }) {
     return text?.call(child, name, value);
   }
@@ -665,11 +666,11 @@ class _$TextParameter implements TextParameter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(TextParameter value)? text,
-    TResult Function(ColorParameter value)? color,
-    TResult Function(BoolParameter value)? bool,
-    TResult Function(IntParameter value)? int,
-    TResult Function(DoubleParameter value)? double,
+    TResult? Function(TextParameter value)? text,
+    TResult? Function(ColorParameter value)? color,
+    TResult? Function(BoolParameter value)? bool,
+    TResult? Function(IntParameter value)? int,
+    TResult? Function(DoubleParameter value)? double,
   }) {
     return text?.call(this);
   }
@@ -725,36 +726,35 @@ abstract class _$$ColorParameterCopyWith<$Res>
           _$ColorParameter value, $Res Function(_$ColorParameter) then) =
       __$$ColorParameterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int child, String name, int value});
 }
 
 /// @nodoc
 class __$$ColorParameterCopyWithImpl<$Res>
-    extends _$ButterflyParameterCopyWithImpl<$Res>
+    extends _$ButterflyParameterCopyWithImpl<$Res, _$ColorParameter>
     implements _$$ColorParameterCopyWith<$Res> {
   __$$ColorParameterCopyWithImpl(
       _$ColorParameter _value, $Res Function(_$ColorParameter) _then)
-      : super(_value, (v) => _then(v as _$ColorParameter));
+      : super(_value, _then);
 
-  @override
-  _$ColorParameter get _value => super._value as _$ColorParameter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? child = freezed,
-    Object? name = freezed,
-    Object? value = freezed,
+    Object? child = null,
+    Object? name = null,
+    Object? value = null,
   }) {
     return _then(_$ColorParameter(
-      child: child == freezed
+      child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      value: value == freezed
+      value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int,
@@ -795,21 +795,18 @@ class _$ColorParameter implements ColorParameter {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ColorParameter &&
-            const DeepCollectionEquality().equals(other.child, child) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.value, value));
+            (identical(other.child, child) || other.child == child) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.value, value) || other.value == value));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(child),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(value));
+  int get hashCode => Object.hash(runtimeType, child, name, value);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ColorParameterCopyWith<_$ColorParameter> get copyWith =>
       __$$ColorParameterCopyWithImpl<_$ColorParameter>(this, _$identity);
 
@@ -828,11 +825,11 @@ class _$ColorParameter implements ColorParameter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int child, String name, String value)? text,
-    TResult Function(int child, String name, int value)? color,
-    TResult Function(int child, String name, bool value)? bool,
-    TResult Function(int child, String name, int value)? int,
-    TResult Function(int child, String name, double value)? double,
+    TResult? Function(int child, String name, String value)? text,
+    TResult? Function(int child, String name, int value)? color,
+    TResult? Function(int child, String name, bool value)? bool,
+    TResult? Function(int child, String name, int value)? int,
+    TResult? Function(int child, String name, double value)? double,
   }) {
     return color?.call(child, name, value);
   }
@@ -868,11 +865,11 @@ class _$ColorParameter implements ColorParameter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(TextParameter value)? text,
-    TResult Function(ColorParameter value)? color,
-    TResult Function(BoolParameter value)? bool,
-    TResult Function(IntParameter value)? int,
-    TResult Function(DoubleParameter value)? double,
+    TResult? Function(TextParameter value)? text,
+    TResult? Function(ColorParameter value)? color,
+    TResult? Function(BoolParameter value)? bool,
+    TResult? Function(IntParameter value)? int,
+    TResult? Function(DoubleParameter value)? double,
   }) {
     return color?.call(this);
   }
@@ -928,36 +925,35 @@ abstract class _$$BoolParameterCopyWith<$Res>
           _$BoolParameter value, $Res Function(_$BoolParameter) then) =
       __$$BoolParameterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int child, String name, bool value});
 }
 
 /// @nodoc
 class __$$BoolParameterCopyWithImpl<$Res>
-    extends _$ButterflyParameterCopyWithImpl<$Res>
+    extends _$ButterflyParameterCopyWithImpl<$Res, _$BoolParameter>
     implements _$$BoolParameterCopyWith<$Res> {
   __$$BoolParameterCopyWithImpl(
       _$BoolParameter _value, $Res Function(_$BoolParameter) _then)
-      : super(_value, (v) => _then(v as _$BoolParameter));
+      : super(_value, _then);
 
-  @override
-  _$BoolParameter get _value => super._value as _$BoolParameter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? child = freezed,
-    Object? name = freezed,
-    Object? value = freezed,
+    Object? child = null,
+    Object? name = null,
+    Object? value = null,
   }) {
     return _then(_$BoolParameter(
-      child: child == freezed
+      child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      value: value == freezed
+      value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -998,21 +994,18 @@ class _$BoolParameter implements BoolParameter {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BoolParameter &&
-            const DeepCollectionEquality().equals(other.child, child) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.value, value));
+            (identical(other.child, child) || other.child == child) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.value, value) || other.value == value));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(child),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(value));
+  int get hashCode => Object.hash(runtimeType, child, name, value);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$BoolParameterCopyWith<_$BoolParameter> get copyWith =>
       __$$BoolParameterCopyWithImpl<_$BoolParameter>(this, _$identity);
 
@@ -1031,11 +1024,11 @@ class _$BoolParameter implements BoolParameter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int child, String name, String value)? text,
-    TResult Function(int child, String name, int value)? color,
-    TResult Function(int child, String name, bool value)? bool,
-    TResult Function(int child, String name, int value)? int,
-    TResult Function(int child, String name, double value)? double,
+    TResult? Function(int child, String name, String value)? text,
+    TResult? Function(int child, String name, int value)? color,
+    TResult? Function(int child, String name, bool value)? bool,
+    TResult? Function(int child, String name, int value)? int,
+    TResult? Function(int child, String name, double value)? double,
   }) {
     return bool?.call(child, name, value);
   }
@@ -1071,11 +1064,11 @@ class _$BoolParameter implements BoolParameter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(TextParameter value)? text,
-    TResult Function(ColorParameter value)? color,
-    TResult Function(BoolParameter value)? bool,
-    TResult Function(IntParameter value)? int,
-    TResult Function(DoubleParameter value)? double,
+    TResult? Function(TextParameter value)? text,
+    TResult? Function(ColorParameter value)? color,
+    TResult? Function(BoolParameter value)? bool,
+    TResult? Function(IntParameter value)? int,
+    TResult? Function(DoubleParameter value)? double,
   }) {
     return bool?.call(this);
   }
@@ -1131,36 +1124,35 @@ abstract class _$$IntParameterCopyWith<$Res>
           _$IntParameter value, $Res Function(_$IntParameter) then) =
       __$$IntParameterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int child, String name, int value});
 }
 
 /// @nodoc
 class __$$IntParameterCopyWithImpl<$Res>
-    extends _$ButterflyParameterCopyWithImpl<$Res>
+    extends _$ButterflyParameterCopyWithImpl<$Res, _$IntParameter>
     implements _$$IntParameterCopyWith<$Res> {
   __$$IntParameterCopyWithImpl(
       _$IntParameter _value, $Res Function(_$IntParameter) _then)
-      : super(_value, (v) => _then(v as _$IntParameter));
+      : super(_value, _then);
 
-  @override
-  _$IntParameter get _value => super._value as _$IntParameter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? child = freezed,
-    Object? name = freezed,
-    Object? value = freezed,
+    Object? child = null,
+    Object? name = null,
+    Object? value = null,
   }) {
     return _then(_$IntParameter(
-      child: child == freezed
+      child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      value: value == freezed
+      value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int,
@@ -1201,21 +1193,18 @@ class _$IntParameter implements IntParameter {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$IntParameter &&
-            const DeepCollectionEquality().equals(other.child, child) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.value, value));
+            (identical(other.child, child) || other.child == child) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.value, value) || other.value == value));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(child),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(value));
+  int get hashCode => Object.hash(runtimeType, child, name, value);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$IntParameterCopyWith<_$IntParameter> get copyWith =>
       __$$IntParameterCopyWithImpl<_$IntParameter>(this, _$identity);
 
@@ -1234,11 +1223,11 @@ class _$IntParameter implements IntParameter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int child, String name, String value)? text,
-    TResult Function(int child, String name, int value)? color,
-    TResult Function(int child, String name, bool value)? bool,
-    TResult Function(int child, String name, int value)? int,
-    TResult Function(int child, String name, double value)? double,
+    TResult? Function(int child, String name, String value)? text,
+    TResult? Function(int child, String name, int value)? color,
+    TResult? Function(int child, String name, bool value)? bool,
+    TResult? Function(int child, String name, int value)? int,
+    TResult? Function(int child, String name, double value)? double,
   }) {
     return int?.call(child, name, value);
   }
@@ -1274,11 +1263,11 @@ class _$IntParameter implements IntParameter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(TextParameter value)? text,
-    TResult Function(ColorParameter value)? color,
-    TResult Function(BoolParameter value)? bool,
-    TResult Function(IntParameter value)? int,
-    TResult Function(DoubleParameter value)? double,
+    TResult? Function(TextParameter value)? text,
+    TResult? Function(ColorParameter value)? color,
+    TResult? Function(BoolParameter value)? bool,
+    TResult? Function(IntParameter value)? int,
+    TResult? Function(DoubleParameter value)? double,
   }) {
     return int?.call(this);
   }
@@ -1334,36 +1323,35 @@ abstract class _$$DoubleParameterCopyWith<$Res>
           _$DoubleParameter value, $Res Function(_$DoubleParameter) then) =
       __$$DoubleParameterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int child, String name, double value});
 }
 
 /// @nodoc
 class __$$DoubleParameterCopyWithImpl<$Res>
-    extends _$ButterflyParameterCopyWithImpl<$Res>
+    extends _$ButterflyParameterCopyWithImpl<$Res, _$DoubleParameter>
     implements _$$DoubleParameterCopyWith<$Res> {
   __$$DoubleParameterCopyWithImpl(
       _$DoubleParameter _value, $Res Function(_$DoubleParameter) _then)
-      : super(_value, (v) => _then(v as _$DoubleParameter));
+      : super(_value, _then);
 
-  @override
-  _$DoubleParameter get _value => super._value as _$DoubleParameter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? child = freezed,
-    Object? name = freezed,
-    Object? value = freezed,
+    Object? child = null,
+    Object? name = null,
+    Object? value = null,
   }) {
     return _then(_$DoubleParameter(
-      child: child == freezed
+      child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      value: value == freezed
+      value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as double,
@@ -1404,21 +1392,18 @@ class _$DoubleParameter implements DoubleParameter {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DoubleParameter &&
-            const DeepCollectionEquality().equals(other.child, child) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.value, value));
+            (identical(other.child, child) || other.child == child) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.value, value) || other.value == value));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(child),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(value));
+  int get hashCode => Object.hash(runtimeType, child, name, value);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$DoubleParameterCopyWith<_$DoubleParameter> get copyWith =>
       __$$DoubleParameterCopyWithImpl<_$DoubleParameter>(this, _$identity);
 
@@ -1437,11 +1422,11 @@ class _$DoubleParameter implements DoubleParameter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int child, String name, String value)? text,
-    TResult Function(int child, String name, int value)? color,
-    TResult Function(int child, String name, bool value)? bool,
-    TResult Function(int child, String name, int value)? int,
-    TResult Function(int child, String name, double value)? double,
+    TResult? Function(int child, String name, String value)? text,
+    TResult? Function(int child, String name, int value)? color,
+    TResult? Function(int child, String name, bool value)? bool,
+    TResult? Function(int child, String name, int value)? int,
+    TResult? Function(int child, String name, double value)? double,
   }) {
     return double?.call(child, name, value);
   }
@@ -1477,11 +1462,11 @@ class _$DoubleParameter implements DoubleParameter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(TextParameter value)? text,
-    TResult Function(ColorParameter value)? color,
-    TResult Function(BoolParameter value)? bool,
-    TResult Function(IntParameter value)? int,
-    TResult Function(DoubleParameter value)? double,
+    TResult? Function(TextParameter value)? text,
+    TResult? Function(ColorParameter value)? color,
+    TResult? Function(BoolParameter value)? bool,
+    TResult? Function(IntParameter value)? int,
+    TResult? Function(DoubleParameter value)? double,
   }) {
     return double?.call(this);
   }

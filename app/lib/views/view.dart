@@ -31,20 +31,32 @@ class _MainViewViewportState extends State<MainViewViewport>
   @override
   void initState() {
     super.initState();
-
     RawKeyboard.instance.addListener(_handleKey);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     RawKeyboard.instance.removeListener(_handleKey);
     super.dispose();
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
     final bloc = context.read<DocumentBloc>();
     if (state == AppLifecycleState.resumed) {
+      /*if (!kIsWeb && Platform.isAndroid) {
+        final intentType = await getIntentType();
+        final intentData = await getIntentData();
+        if (intentType != null && intentData != null) {
+          final assetType = AssetFileTypeHelper.fromMime(intentType);
+          if (assetType == null) return;
+          if (mounted) {
+            context.read<ImportService>().import(assetType, intentData);
+          }
+        }
+      }*/
       bloc.refresh();
     } else {
       context.read<CurrentIndexCubit>().resetInput(bloc);

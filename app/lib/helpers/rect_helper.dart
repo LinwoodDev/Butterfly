@@ -2,6 +2,23 @@ import 'dart:ui';
 
 import 'package:collection/collection.dart';
 
+bool lineIntersectsLine(Offset l1p1, Offset l1p2, Offset l2p1, Offset l2p2) {
+  final demon = (l2p2.dy - l2p1.dy) * (l1p2.dx - l1p1.dx) -
+      (l2p2.dx - l2p1.dx) * (l1p2.dy - l1p1.dy);
+  if (demon == 0) {
+    return false;
+  }
+  final ua = ((l2p2.dx - l2p1.dx) * (l1p1.dy - l2p1.dy) -
+              (l2p2.dy - l2p1.dy) * (l1p1.dx - l2p1.dx))
+          .toDouble() /
+      demon;
+  final ub = ((l1p2.dx - l1p1.dx) * (l1p1.dy - l2p1.dy) -
+              (l1p2.dy - l1p1.dy) * (l1p1.dx - l2p1.dx))
+          .toDouble() /
+      demon;
+  return ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1;
+}
+
 extension RectHelper on Rect {
   Rect normalized() {
     var firstX = left;
@@ -19,6 +36,20 @@ extension RectHelper on Rect {
       secondY = temp;
     }
     return Rect.fromLTRB(firstX, firstY, secondX, secondY);
+  }
+
+  bool containsLine(Offset first, Offset second) {
+    final normalizedRect = normalized();
+    final topLeft = normalizedRect.topLeft;
+    final topRight = normalizedRect.topRight;
+    final bottomLeft = normalizedRect.bottomLeft;
+    final bottomRight = normalizedRect.bottomRight;
+    return lineIntersectsLine(topLeft, topRight, first, second) ||
+        lineIntersectsLine(topRight, bottomRight, first, second) ||
+        lineIntersectsLine(bottomRight, bottomLeft, first, second) ||
+        lineIntersectsLine(bottomLeft, topLeft, first, second) ||
+        normalizedRect.contains(first) ||
+        normalizedRect.contains(second);
   }
 }
 

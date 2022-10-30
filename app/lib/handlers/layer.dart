@@ -7,8 +7,8 @@ class LayerHandler extends Handler {
   Future<void> onPointerMove(
       PointerMoveEvent event, EventContext context) async {
     final transform = context.getCameraTransform();
-    final hits = await rayCast(context.buildContext, event.localPosition,
-        data.strokeWidth / transform.size);
+    final hits = await rayCast(transform.localToGlobal(event.localPosition),
+        context.buildContext, data.strokeWidth / transform.size);
     context.addDocumentEvent(
         ElementsLayerChanged(data.layer, hits.map((e) => e.element).toList()));
   }

@@ -89,4 +89,52 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     }
     return position & size;
   }
+
+  @override
+  PathHitCalculator getHitCalculator() =>
+      PathHitCalculator(rect, (element as PathElement).points);
+}
+
+class PathHitCalculator extends HitCalculator {
+  final Rect elementRect;
+  final List<PathPoint> points;
+
+  PathHitCalculator(this.elementRect, this.points);
+
+  List<PathPoint> _interpolate(PathPoint a, PathPoint b) {
+    final result = <PathPoint>[];
+
+    final distanceX = b.x - a.x;
+    final distanceY = b.y - a.y;
+    final distance = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+
+    result.add(a);
+
+    for (int i = 1; i <= distance; i++) {
+      result.add(PathPoint(a.x + (distanceX / distance * i).floor(),
+          a.y + (distanceY / distance * i).floor()));
+    }
+
+    result.add(b);
+    return result;
+  }
+
+  List<PathPoint> _getInterpolatedPoints(List<PathPoint> points) {
+    final result = <PathPoint>[];
+
+    for (int i = 0; i < points.length - 1; i++) {
+      result.addAll(_interpolate(points[i], points[i + 1]));
+    }
+
+    return result;
+  }
+
+  @override
+  bool hit(Rect rect) {
+    if (!elementRect.overlaps(rect)) {
+      return false;
+    }
+    return _getInterpolatedPoints(points)
+        .any((point) => rect.contains(point.toOffset()));
+  }
 }

@@ -92,7 +92,7 @@ class _EditToolbarState extends State<EditToolbar> {
                           shrinkWrap: true,
                           children: [
                             if (state.embedding?.editable ?? true) ...[
-                              if (temp != null) ...[
+                              if (temp != null && tempData != null) ...[
                                 OptionButton(
                                   tooltip: tooltip,
                                   selected: true,
@@ -217,11 +217,12 @@ class _EditToolbarState extends State<EditToolbar> {
                                           null,
                                           Painter.pen,
                                           Painter.shape,
+                                          Painter.laser,
                                           Painter.pathEraser,
                                           Painter.label,
                                           Painter.eraser,
                                           Painter.layer,
-                                          Painter.area
+                                          Painter.area,
                                         ].map((e) {
                                           if (e == null) {
                                             return const PopupMenuDivider();

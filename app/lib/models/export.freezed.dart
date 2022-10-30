@@ -33,33 +33,37 @@ mixin _$ExportPreset {
 abstract class $ExportPresetCopyWith<$Res> {
   factory $ExportPresetCopyWith(
           ExportPreset value, $Res Function(ExportPreset) then) =
-      _$ExportPresetCopyWithImpl<$Res>;
+      _$ExportPresetCopyWithImpl<$Res, ExportPreset>;
+  @useResult
   $Res call({String name, List<AreaPreset> areas});
 }
 
 /// @nodoc
-class _$ExportPresetCopyWithImpl<$Res> implements $ExportPresetCopyWith<$Res> {
+class _$ExportPresetCopyWithImpl<$Res, $Val extends ExportPreset>
+    implements $ExportPresetCopyWith<$Res> {
   _$ExportPresetCopyWithImpl(this._value, this._then);
 
-  final ExportPreset _value;
   // ignore: unused_field
-  final $Res Function(ExportPreset) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? areas = freezed,
+    Object? name = null,
+    Object? areas = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      areas: areas == freezed
+      areas: null == areas
           ? _value.areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<AreaPreset>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -70,31 +74,30 @@ abstract class _$$_ExportPresetCopyWith<$Res>
           _$_ExportPreset value, $Res Function(_$_ExportPreset) then) =
       __$$_ExportPresetCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, List<AreaPreset> areas});
 }
 
 /// @nodoc
 class __$$_ExportPresetCopyWithImpl<$Res>
-    extends _$ExportPresetCopyWithImpl<$Res>
+    extends _$ExportPresetCopyWithImpl<$Res, _$_ExportPreset>
     implements _$$_ExportPresetCopyWith<$Res> {
   __$$_ExportPresetCopyWithImpl(
       _$_ExportPreset _value, $Res Function(_$_ExportPreset) _then)
-      : super(_value, (v) => _then(v as _$_ExportPreset));
+      : super(_value, _then);
 
-  @override
-  _$_ExportPreset get _value => super._value as _$_ExportPreset;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? areas = freezed,
+    Object? name = null,
+    Object? areas = null,
   }) {
     return _then(_$_ExportPreset(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      areas: areas == freezed
+      areas: null == areas
           ? _value._areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<AreaPreset>,
@@ -133,19 +136,18 @@ class _$_ExportPreset implements _ExportPreset {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ExportPreset &&
-            const DeepCollectionEquality().equals(other.name, name) &&
+            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(_areas));
+      runtimeType, name, const DeepCollectionEquality().hash(_areas));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ExportPresetCopyWith<_$_ExportPreset> get copyWith =>
       __$$_ExportPresetCopyWithImpl<_$_ExportPreset>(this, _$identity);
 
@@ -193,33 +195,37 @@ mixin _$AreaPreset {
 abstract class $AreaPresetCopyWith<$Res> {
   factory $AreaPresetCopyWith(
           AreaPreset value, $Res Function(AreaPreset) then) =
-      _$AreaPresetCopyWithImpl<$Res>;
+      _$AreaPresetCopyWithImpl<$Res, AreaPreset>;
+  @useResult
   $Res call({String name, double quality});
 }
 
 /// @nodoc
-class _$AreaPresetCopyWithImpl<$Res> implements $AreaPresetCopyWith<$Res> {
+class _$AreaPresetCopyWithImpl<$Res, $Val extends AreaPreset>
+    implements $AreaPresetCopyWith<$Res> {
   _$AreaPresetCopyWithImpl(this._value, this._then);
 
-  final AreaPreset _value;
   // ignore: unused_field
-  final $Res Function(AreaPreset) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? quality = freezed,
+    Object? name = null,
+    Object? quality = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      quality: quality == freezed
+      quality: null == quality
           ? _value.quality
           : quality // ignore: cast_nullable_to_non_nullable
               as double,
-    ));
+    ) as $Val);
   }
 }
 
@@ -230,30 +236,30 @@ abstract class _$$_AreaPresetCopyWith<$Res>
           _$_AreaPreset value, $Res Function(_$_AreaPreset) then) =
       __$$_AreaPresetCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, double quality});
 }
 
 /// @nodoc
-class __$$_AreaPresetCopyWithImpl<$Res> extends _$AreaPresetCopyWithImpl<$Res>
+class __$$_AreaPresetCopyWithImpl<$Res>
+    extends _$AreaPresetCopyWithImpl<$Res, _$_AreaPreset>
     implements _$$_AreaPresetCopyWith<$Res> {
   __$$_AreaPresetCopyWithImpl(
       _$_AreaPreset _value, $Res Function(_$_AreaPreset) _then)
-      : super(_value, (v) => _then(v as _$_AreaPreset));
+      : super(_value, _then);
 
-  @override
-  _$_AreaPreset get _value => super._value as _$_AreaPreset;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? quality = freezed,
+    Object? name = null,
+    Object? quality = null,
   }) {
     return _then(_$_AreaPreset(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      quality: quality == freezed
+      quality: null == quality
           ? _value.quality
           : quality // ignore: cast_nullable_to_non_nullable
               as double,
@@ -286,19 +292,17 @@ class _$_AreaPreset implements _AreaPreset {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AreaPreset &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.quality, quality));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.quality, quality) || other.quality == quality));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(quality));
+  int get hashCode => Object.hash(runtimeType, name, quality);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AreaPresetCopyWith<_$_AreaPreset> get copyWith =>
       __$$_AreaPresetCopyWithImpl<_$_AreaPreset>(this, _$identity);
 

@@ -108,7 +108,8 @@ abstract class Handler<T> {
 
   const Handler(this.data);
 
-  bool onSelected(DocumentBloc bloc, CurrentIndexCubit currentIndexCubit) =>
+  bool onSelected(DocumentBloc bloc, CurrentIndexCubit currentIndexCubit,
+          bool justAdded) =>
       true;
 
   List<Renderer> createForegrounds(
@@ -230,21 +231,20 @@ class _RayCastParams {
 }
 
 Future<Set<Renderer<PadElement>>> rayCast(
-    BuildContext context, Offset localPosition, double radius,
+    Offset globalPosition, BuildContext context, double radius,
     [bool includeEraser = false]) async {
-  final transform = BlocProvider.of<TransformCubit>(context).state;
-  final globalPosition = transform.localToGlobal(localPosition);
-  return rayCastRect(context,
-      Rect.fromCircle(center: globalPosition, radius: radius), includeEraser);
+  return rayCastRect(Rect.fromCircle(center: globalPosition, radius: radius),
+      context, includeEraser);
 }
 
-Future<Set<Renderer<PadElement>>> rayCastRect(BuildContext context, Rect rect,
+Future<Set<Renderer<PadElement>>> rayCastRect(Rect rect, BuildContext context,
     [bool includeEraser = false]) async {
   final bloc = context.read<DocumentBloc>();
   final transform = context.read<TransformCubit>().state;
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return {};
   final renderers = state.cameraViewport.visibleElements;
+  rect = rect.normalized();
   return compute(
           _executeRayCast,
           _RayCastParams(

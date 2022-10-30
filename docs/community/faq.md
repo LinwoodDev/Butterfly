@@ -21,6 +21,21 @@ After that you can use this app offline.
 Currently decoding images does not work with canvaskit.
 Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!
 
+### Butterfly does not load on Brave
+
+Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'.
+Click on the shield icon in the address bar to change the setting.
+Try updating your browser to the latest version.
+
+## Mobile
+
+### Crashes on Z Fold 3 when holding side button of S Pen
+
+> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+
+This is a known issue with flutter and the Samsung Z Fold 3.
+Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!
+
 ## Desktop
 
 ### Stylus input are not recognized

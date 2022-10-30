@@ -145,7 +145,8 @@ class LaserHandler extends Handler {
       return;
     }
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        event.pressure, event.kind);
+        event.pressure, event.kind,
+        forceCreate: true);
   }
 
   @override

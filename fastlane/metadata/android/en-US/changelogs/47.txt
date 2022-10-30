@@ -1,2 +1,8 @@
 * Add disabled colors to redo and undo painter
-* Fix errors with move handler
+* Update color view
+* Move property view to the top right corner
+* Fix issues when trying to add undo/redo painters
+* Fix opening of exported pdfs and zips
+* Fix shortcuts
+* Hide move handler
+* Remove unused permissions on android

@@ -89,30 +89,30 @@ mixin _$Painter {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(
+    TResult? Function(
             String name,
             double constrainedWidth,
             double constrainedHeight,
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -120,7 +120,7 @@ mixin _$Painter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult? Function(String name)? stamp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -178,18 +178,18 @@ mixin _$Painter {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -217,28 +217,32 @@ mixin _$Painter {
 /// @nodoc
 abstract class $PainterCopyWith<$Res> {
   factory $PainterCopyWith(Painter value, $Res Function(Painter) then) =
-      _$PainterCopyWithImpl<$Res>;
+      _$PainterCopyWithImpl<$Res, Painter>;
+  @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class _$PainterCopyWithImpl<$Res> implements $PainterCopyWith<$Res> {
+class _$PainterCopyWithImpl<$Res, $Val extends Painter>
+    implements $PainterCopyWith<$Res> {
   _$PainterCopyWithImpl(this._value, this._then);
 
-  final Painter _value;
   // ignore: unused_field
-  final $Res Function(Painter) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -248,30 +252,30 @@ abstract class _$$HandPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
           _$HandPainter value, $Res Function(_$HandPainter) then) =
       __$$HandPainterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, bool includeEraser});
 }
 
 /// @nodoc
-class __$$HandPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+class __$$HandPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$HandPainter>
     implements _$$HandPainterCopyWith<$Res> {
   __$$HandPainterCopyWithImpl(
       _$HandPainter _value, $Res Function(_$HandPainter) _then)
-      : super(_value, (v) => _then(v as _$HandPainter));
+      : super(_value, _then);
 
-  @override
-  _$HandPainter get _value => super._value as _$HandPainter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? includeEraser = freezed,
+    Object? name = null,
+    Object? includeEraser = null,
   }) {
     return _then(_$HandPainter(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      includeEraser: includeEraser == freezed
+      includeEraser: null == includeEraser
           ? _value.includeEraser
           : includeEraser // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -306,6 +310,7 @@ class _$HandPainter implements HandPainter {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$HandPainterCopyWith<_$HandPainter> get copyWith =>
       __$$HandPainterCopyWithImpl<_$HandPainter>(this, _$identity);
 
@@ -344,6 +349,7 @@ class _$HandPainter implements HandPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
+    required TResult Function(String name) stamp,
   }) {
     return hand(name, includeEraser);
   }
@@ -351,30 +357,30 @@ class _$HandPainter implements HandPainter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(
+    TResult? Function(
             String name,
             double constrainedWidth,
             double constrainedHeight,
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -382,6 +388,7 @@ class _$HandPainter implements HandPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
+    TResult? Function(String name)? stamp,
   }) {
     return hand?.call(name, includeEraser);
   }
@@ -420,6 +427,7 @@ class _$HandPainter implements HandPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
+    TResult Function(String name)? stamp,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -442,6 +450,7 @@ class _$HandPainter implements HandPainter {
     required TResult Function(AreaPainter value) area,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
+    required TResult Function(StampPainter value) stamp,
   }) {
     return hand(this);
   }
@@ -449,17 +458,18 @@ class _$HandPainter implements HandPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) {
     return hand?.call(this);
   }
@@ -478,6 +488,7 @@ class _$HandPainter implements HandPainter {
     TResult Function(AreaPainter value)? area,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
+    TResult Function(StampPainter value)? stamp,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -516,25 +527,25 @@ abstract class _$$UndoPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
           _$UndoPainter value, $Res Function(_$UndoPainter) then) =
       __$$UndoPainterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$UndoPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+class __$$UndoPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$UndoPainter>
     implements _$$UndoPainterCopyWith<$Res> {
   __$$UndoPainterCopyWithImpl(
       _$UndoPainter _value, $Res Function(_$UndoPainter) _then)
-      : super(_value, (v) => _then(v as _$UndoPainter));
+      : super(_value, _then);
 
-  @override
-  _$UndoPainter get _value => super._value as _$UndoPainter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
   }) {
     return _then(_$UndoPainter(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
@@ -565,6 +576,7 @@ class _$UndoPainter implements UndoPainter {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$UndoPainterCopyWith<_$UndoPainter> get copyWith =>
       __$$UndoPainterCopyWithImpl<_$UndoPainter>(this, _$identity);
 
@@ -603,6 +615,7 @@ class _$UndoPainter implements UndoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
+    required TResult Function(String name) stamp,
   }) {
     return undo(name);
   }
@@ -610,30 +623,30 @@ class _$UndoPainter implements UndoPainter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(
+    TResult? Function(
             String name,
             double constrainedWidth,
             double constrainedHeight,
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -641,6 +654,7 @@ class _$UndoPainter implements UndoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
+    TResult? Function(String name)? stamp,
   }) {
     return undo?.call(name);
   }
@@ -679,6 +693,7 @@ class _$UndoPainter implements UndoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
+    TResult Function(String name)? stamp,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -701,6 +716,7 @@ class _$UndoPainter implements UndoPainter {
     required TResult Function(AreaPainter value) area,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
+    required TResult Function(StampPainter value) stamp,
   }) {
     return undo(this);
   }
@@ -708,17 +724,18 @@ class _$UndoPainter implements UndoPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) {
     return undo?.call(this);
   }
@@ -737,6 +754,7 @@ class _$UndoPainter implements UndoPainter {
     TResult Function(AreaPainter value)? area,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
+    TResult Function(StampPainter value)? stamp,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -773,25 +791,25 @@ abstract class _$$RedoPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
           _$RedoPainter value, $Res Function(_$RedoPainter) then) =
       __$$RedoPainterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$RedoPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+class __$$RedoPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$RedoPainter>
     implements _$$RedoPainterCopyWith<$Res> {
   __$$RedoPainterCopyWithImpl(
       _$RedoPainter _value, $Res Function(_$RedoPainter) _then)
-      : super(_value, (v) => _then(v as _$RedoPainter));
+      : super(_value, _then);
 
-  @override
-  _$RedoPainter get _value => super._value as _$RedoPainter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
   }) {
     return _then(_$RedoPainter(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
@@ -822,6 +840,7 @@ class _$RedoPainter implements RedoPainter {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$RedoPainterCopyWith<_$RedoPainter> get copyWith =>
       __$$RedoPainterCopyWithImpl<_$RedoPainter>(this, _$identity);
 
@@ -860,6 +879,7 @@ class _$RedoPainter implements RedoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
+    required TResult Function(String name) stamp,
   }) {
     return redo(name);
   }
@@ -867,30 +887,30 @@ class _$RedoPainter implements RedoPainter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(
+    TResult? Function(
             String name,
             double constrainedWidth,
             double constrainedHeight,
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -898,6 +918,7 @@ class _$RedoPainter implements RedoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
+    TResult? Function(String name)? stamp,
   }) {
     return redo?.call(name);
   }
@@ -936,6 +957,7 @@ class _$RedoPainter implements RedoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
+    TResult Function(String name)? stamp,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -958,6 +980,7 @@ class _$RedoPainter implements RedoPainter {
     required TResult Function(AreaPainter value) area,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
+    required TResult Function(StampPainter value) stamp,
   }) {
     return redo(this);
   }
@@ -965,17 +988,18 @@ class _$RedoPainter implements RedoPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) {
     return redo?.call(this);
   }
@@ -994,6 +1018,7 @@ class _$RedoPainter implements RedoPainter {
     TResult Function(AreaPainter value)? area,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
+    TResult Function(StampPainter value)? stamp,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -1030,30 +1055,30 @@ abstract class _$$LabelPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
           _$LabelPainter value, $Res Function(_$LabelPainter) then) =
       __$$LabelPainterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, LabelProperty property});
 }
 
 /// @nodoc
-class __$$LabelPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+class __$$LabelPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$LabelPainter>
     implements _$$LabelPainterCopyWith<$Res> {
   __$$LabelPainterCopyWithImpl(
       _$LabelPainter _value, $Res Function(_$LabelPainter) _then)
-      : super(_value, (v) => _then(v as _$LabelPainter));
+      : super(_value, _then);
 
-  @override
-  _$LabelPainter get _value => super._value as _$LabelPainter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? property = freezed,
+    Object? name = null,
+    Object? property = null,
   }) {
     return _then(_$LabelPainter(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      property: property == freezed
+      property: null == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as LabelProperty,
@@ -1090,6 +1115,7 @@ class _$LabelPainter implements LabelPainter {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$LabelPainterCopyWith<_$LabelPainter> get copyWith =>
       __$$LabelPainterCopyWithImpl<_$LabelPainter>(this, _$identity);
 
@@ -1136,30 +1162,30 @@ class _$LabelPainter implements LabelPainter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(
+    TResult? Function(
             String name,
             double constrainedWidth,
             double constrainedHeight,
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -1167,7 +1193,7 @@ class _$LabelPainter implements LabelPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult? Function(String name)? stamp,
   }) {
     return label?.call(name, property);
   }
@@ -1237,18 +1263,18 @@ class _$LabelPainter implements LabelPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) {
     return label?.call(this);
   }
@@ -1306,35 +1332,35 @@ abstract class _$$PenPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
           _$PenPainter value, $Res Function(_$PenPainter) then) =
       __$$PenPainterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, bool zoomDependent, PenProperty property});
 }
 
 /// @nodoc
-class __$$PenPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+class __$$PenPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$PenPainter>
     implements _$$PenPainterCopyWith<$Res> {
   __$$PenPainterCopyWithImpl(
       _$PenPainter _value, $Res Function(_$PenPainter) _then)
-      : super(_value, (v) => _then(v as _$PenPainter));
+      : super(_value, _then);
 
-  @override
-  _$PenPainter get _value => super._value as _$PenPainter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? zoomDependent = freezed,
-    Object? property = freezed,
+    Object? name = null,
+    Object? zoomDependent = null,
+    Object? property = null,
   }) {
     return _then(_$PenPainter(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      zoomDependent: zoomDependent == freezed
+      zoomDependent: null == zoomDependent
           ? _value.zoomDependent
           : zoomDependent // ignore: cast_nullable_to_non_nullable
               as bool,
-      property: property == freezed
+      property: null == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as PenProperty,
@@ -1375,6 +1401,7 @@ class _$PenPainter implements PenPainter {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$PenPainterCopyWith<_$PenPainter> get copyWith =>
       __$$PenPainterCopyWithImpl<_$PenPainter>(this, _$identity);
 
@@ -1421,30 +1448,30 @@ class _$PenPainter implements PenPainter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(
+    TResult? Function(
             String name,
             double constrainedWidth,
             double constrainedHeight,
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -1452,7 +1479,7 @@ class _$PenPainter implements PenPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult? Function(String name)? stamp,
   }) {
     return pen?.call(name, zoomDependent, property);
   }
@@ -1522,18 +1549,18 @@ class _$PenPainter implements PenPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) {
     return pen?.call(this);
   }
@@ -1595,30 +1622,30 @@ abstract class _$$EraserPainterCopyWith<$Res>
           _$EraserPainter value, $Res Function(_$EraserPainter) then) =
       __$$EraserPainterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, EraserProperty property});
 }
 
 /// @nodoc
-class __$$EraserPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+class __$$EraserPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$EraserPainter>
     implements _$$EraserPainterCopyWith<$Res> {
   __$$EraserPainterCopyWithImpl(
       _$EraserPainter _value, $Res Function(_$EraserPainter) _then)
-      : super(_value, (v) => _then(v as _$EraserPainter));
+      : super(_value, _then);
 
-  @override
-  _$EraserPainter get _value => super._value as _$EraserPainter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? property = freezed,
+    Object? name = null,
+    Object? property = null,
   }) {
     return _then(_$EraserPainter(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      property: property == freezed
+      property: null == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as EraserProperty,
@@ -1655,6 +1682,7 @@ class _$EraserPainter implements EraserPainter {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$EraserPainterCopyWith<_$EraserPainter> get copyWith =>
       __$$EraserPainterCopyWithImpl<_$EraserPainter>(this, _$identity);
 
@@ -1701,30 +1729,30 @@ class _$EraserPainter implements EraserPainter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(
+    TResult? Function(
             String name,
             double constrainedWidth,
             double constrainedHeight,
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -1732,7 +1760,7 @@ class _$EraserPainter implements EraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult? Function(String name)? stamp,
   }) {
     return eraser?.call(name, property);
   }
@@ -1802,18 +1830,18 @@ class _$EraserPainter implements EraserPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) {
     return eraser?.call(this);
   }
@@ -1872,6 +1900,7 @@ abstract class _$$PathEraserPainterCopyWith<$Res>
           _$PathEraserPainter value, $Res Function(_$PathEraserPainter) then) =
       __$$PathEraserPainterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       double strokeWidth,
@@ -1881,36 +1910,34 @@ abstract class _$$PathEraserPainterCopyWith<$Res>
 
 /// @nodoc
 class __$$PathEraserPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$PathEraserPainter>
     implements _$$PathEraserPainterCopyWith<$Res> {
   __$$PathEraserPainterCopyWithImpl(
       _$PathEraserPainter _value, $Res Function(_$PathEraserPainter) _then)
-      : super(_value, (v) => _then(v as _$PathEraserPainter));
+      : super(_value, _then);
 
-  @override
-  _$PathEraserPainter get _value => super._value as _$PathEraserPainter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? strokeWidth = freezed,
-    Object? includeEraser = freezed,
-    Object? deleteWholeStroke = freezed,
+    Object? name = null,
+    Object? strokeWidth = null,
+    Object? includeEraser = null,
+    Object? deleteWholeStroke = null,
   }) {
     return _then(_$PathEraserPainter(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      strokeWidth: strokeWidth == freezed
+      strokeWidth: null == strokeWidth
           ? _value.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
               as double,
-      includeEraser: includeEraser == freezed
+      includeEraser: null == includeEraser
           ? _value.includeEraser
           : includeEraser // ignore: cast_nullable_to_non_nullable
               as bool,
-      deleteWholeStroke: deleteWholeStroke == freezed
+      deleteWholeStroke: null == deleteWholeStroke
           ? _value.deleteWholeStroke
           : deleteWholeStroke // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -1955,6 +1982,7 @@ class _$PathEraserPainter implements PathEraserPainter {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$PathEraserPainterCopyWith<_$PathEraserPainter> get copyWith =>
       __$$PathEraserPainterCopyWithImpl<_$PathEraserPainter>(this, _$identity);
 
@@ -2001,30 +2029,30 @@ class _$PathEraserPainter implements PathEraserPainter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(
+    TResult? Function(
             String name,
             double constrainedWidth,
             double constrainedHeight,
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -2032,7 +2060,7 @@ class _$PathEraserPainter implements PathEraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult? Function(String name)? stamp,
   }) {
     return pathEraser?.call(
         name, strokeWidth, includeEraser, deleteWholeStroke);
@@ -2103,18 +2131,18 @@ class _$PathEraserPainter implements PathEraserPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) {
     return pathEraser?.call(this);
   }
@@ -2177,41 +2205,41 @@ abstract class _$$LayerPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
           _$LayerPainter value, $Res Function(_$LayerPainter) then) =
       __$$LayerPainterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name, double strokeWidth, String layer, bool includeEraser});
 }
 
 /// @nodoc
-class __$$LayerPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+class __$$LayerPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$LayerPainter>
     implements _$$LayerPainterCopyWith<$Res> {
   __$$LayerPainterCopyWithImpl(
       _$LayerPainter _value, $Res Function(_$LayerPainter) _then)
-      : super(_value, (v) => _then(v as _$LayerPainter));
+      : super(_value, _then);
 
-  @override
-  _$LayerPainter get _value => super._value as _$LayerPainter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? strokeWidth = freezed,
-    Object? layer = freezed,
-    Object? includeEraser = freezed,
+    Object? name = null,
+    Object? strokeWidth = null,
+    Object? layer = null,
+    Object? includeEraser = null,
   }) {
     return _then(_$LayerPainter(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      strokeWidth: strokeWidth == freezed
+      strokeWidth: null == strokeWidth
           ? _value.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
               as double,
-      layer: layer == freezed
+      layer: null == layer
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      includeEraser: includeEraser == freezed
+      includeEraser: null == includeEraser
           ? _value.includeEraser
           : includeEraser // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -2256,6 +2284,7 @@ class _$LayerPainter implements LayerPainter {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$LayerPainterCopyWith<_$LayerPainter> get copyWith =>
       __$$LayerPainterCopyWithImpl<_$LayerPainter>(this, _$identity);
 
@@ -2302,30 +2331,30 @@ class _$LayerPainter implements LayerPainter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(
+    TResult? Function(
             String name,
             double constrainedWidth,
             double constrainedHeight,
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -2333,7 +2362,7 @@ class _$LayerPainter implements LayerPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult? Function(String name)? stamp,
   }) {
     return layer?.call(name, strokeWidth, this.layer, includeEraser);
   }
@@ -2403,18 +2432,18 @@ class _$LayerPainter implements LayerPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) {
     return layer?.call(this);
   }
@@ -2477,6 +2506,7 @@ abstract class _$$AreaPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
           _$AreaPainter value, $Res Function(_$AreaPainter) then) =
       __$$AreaPainterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       double constrainedWidth,
@@ -2486,41 +2516,40 @@ abstract class _$$AreaPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$AreaPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+class __$$AreaPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$AreaPainter>
     implements _$$AreaPainterCopyWith<$Res> {
   __$$AreaPainterCopyWithImpl(
       _$AreaPainter _value, $Res Function(_$AreaPainter) _then)
-      : super(_value, (v) => _then(v as _$AreaPainter));
+      : super(_value, _then);
 
-  @override
-  _$AreaPainter get _value => super._value as _$AreaPainter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? constrainedWidth = freezed,
-    Object? constrainedHeight = freezed,
-    Object? constrainedAspectRatio = freezed,
-    Object? askForName = freezed,
+    Object? name = null,
+    Object? constrainedWidth = null,
+    Object? constrainedHeight = null,
+    Object? constrainedAspectRatio = null,
+    Object? askForName = null,
   }) {
     return _then(_$AreaPainter(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      constrainedWidth: constrainedWidth == freezed
+      constrainedWidth: null == constrainedWidth
           ? _value.constrainedWidth
           : constrainedWidth // ignore: cast_nullable_to_non_nullable
               as double,
-      constrainedHeight: constrainedHeight == freezed
+      constrainedHeight: null == constrainedHeight
           ? _value.constrainedHeight
           : constrainedHeight // ignore: cast_nullable_to_non_nullable
               as double,
-      constrainedAspectRatio: constrainedAspectRatio == freezed
+      constrainedAspectRatio: null == constrainedAspectRatio
           ? _value.constrainedAspectRatio
           : constrainedAspectRatio // ignore: cast_nullable_to_non_nullable
               as double,
-      askForName: askForName == freezed
+      askForName: null == askForName
           ? _value.askForName
           : askForName // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -2569,6 +2598,7 @@ class _$AreaPainter implements AreaPainter {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$AreaPainterCopyWith<_$AreaPainter> get copyWith =>
       __$$AreaPainterCopyWithImpl<_$AreaPainter>(this, _$identity);
 
@@ -2616,30 +2646,30 @@ class _$AreaPainter implements AreaPainter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(
+    TResult? Function(
             String name,
             double constrainedWidth,
             double constrainedHeight,
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -2647,7 +2677,7 @@ class _$AreaPainter implements AreaPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult? Function(String name)? stamp,
   }) {
     return area?.call(name, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -2719,18 +2749,18 @@ class _$AreaPainter implements AreaPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) {
     return area?.call(this);
   }
@@ -2795,6 +2825,7 @@ abstract class _$$LaserPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
           _$LaserPainter value, $Res Function(_$LaserPainter) then) =
       __$$LaserPainterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       double duration,
@@ -2804,41 +2835,40 @@ abstract class _$$LaserPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$LaserPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+class __$$LaserPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$LaserPainter>
     implements _$$LaserPainterCopyWith<$Res> {
   __$$LaserPainterCopyWithImpl(
       _$LaserPainter _value, $Res Function(_$LaserPainter) _then)
-      : super(_value, (v) => _then(v as _$LaserPainter));
+      : super(_value, _then);
 
-  @override
-  _$LaserPainter get _value => super._value as _$LaserPainter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? duration = freezed,
-    Object? strokeWidth = freezed,
-    Object? strokeMultiplier = freezed,
-    Object? color = freezed,
+    Object? name = null,
+    Object? duration = null,
+    Object? strokeWidth = null,
+    Object? strokeMultiplier = null,
+    Object? color = null,
   }) {
     return _then(_$LaserPainter(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      duration: duration == freezed
+      duration: null == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as double,
-      strokeWidth: strokeWidth == freezed
+      strokeWidth: null == strokeWidth
           ? _value.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
               as double,
-      strokeMultiplier: strokeMultiplier == freezed
+      strokeMultiplier: null == strokeMultiplier
           ? _value.strokeMultiplier
           : strokeMultiplier // ignore: cast_nullable_to_non_nullable
               as double,
-      color: color == freezed
+      color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as int,
@@ -2887,6 +2917,7 @@ class _$LaserPainter implements LaserPainter {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$LaserPainterCopyWith<_$LaserPainter> get copyWith =>
       __$$LaserPainterCopyWithImpl<_$LaserPainter>(this, _$identity);
 
@@ -2933,30 +2964,30 @@ class _$LaserPainter implements LaserPainter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(
+    TResult? Function(
             String name,
             double constrainedWidth,
             double constrainedHeight,
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -2964,7 +2995,7 @@ class _$LaserPainter implements LaserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult? Function(String name)? stamp,
   }) {
     return laser?.call(name, duration, strokeWidth, strokeMultiplier, color);
   }
@@ -3034,18 +3065,18 @@ class _$LaserPainter implements LaserPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) {
     return laser?.call(this);
   }
@@ -3110,6 +3141,7 @@ abstract class _$$ShapePainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
           _$ShapePainter value, $Res Function(_$ShapePainter) then) =
       __$$ShapePainterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       bool zoomDependent,
@@ -3120,46 +3152,45 @@ abstract class _$$ShapePainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ShapePainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+class __$$ShapePainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$ShapePainter>
     implements _$$ShapePainterCopyWith<$Res> {
   __$$ShapePainterCopyWithImpl(
       _$ShapePainter _value, $Res Function(_$ShapePainter) _then)
-      : super(_value, (v) => _then(v as _$ShapePainter));
+      : super(_value, _then);
 
-  @override
-  _$ShapePainter get _value => super._value as _$ShapePainter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? zoomDependent = freezed,
-    Object? constrainedWidth = freezed,
-    Object? constrainedHeight = freezed,
-    Object? constrainedAspectRatio = freezed,
-    Object? property = freezed,
+    Object? name = null,
+    Object? zoomDependent = null,
+    Object? constrainedWidth = null,
+    Object? constrainedHeight = null,
+    Object? constrainedAspectRatio = null,
+    Object? property = null,
   }) {
     return _then(_$ShapePainter(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      zoomDependent: zoomDependent == freezed
+      zoomDependent: null == zoomDependent
           ? _value.zoomDependent
           : zoomDependent // ignore: cast_nullable_to_non_nullable
               as bool,
-      constrainedWidth: constrainedWidth == freezed
+      constrainedWidth: null == constrainedWidth
           ? _value.constrainedWidth
           : constrainedWidth // ignore: cast_nullable_to_non_nullable
               as double,
-      constrainedHeight: constrainedHeight == freezed
+      constrainedHeight: null == constrainedHeight
           ? _value.constrainedHeight
           : constrainedHeight // ignore: cast_nullable_to_non_nullable
               as double,
-      constrainedAspectRatio: constrainedAspectRatio == freezed
+      constrainedAspectRatio: null == constrainedAspectRatio
           ? _value.constrainedAspectRatio
           : constrainedAspectRatio // ignore: cast_nullable_to_non_nullable
               as double,
-      property: property == freezed
+      property: null == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as ShapeProperty,
@@ -3212,6 +3243,7 @@ class _$ShapePainter implements ShapePainter {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ShapePainterCopyWith<_$ShapePainter> get copyWith =>
       __$$ShapePainterCopyWithImpl<_$ShapePainter>(this, _$identity);
 
@@ -3259,30 +3291,30 @@ class _$ShapePainter implements ShapePainter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(
+    TResult? Function(
             String name,
             double constrainedWidth,
             double constrainedHeight,
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -3290,7 +3322,7 @@ class _$ShapePainter implements ShapePainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult? Function(String name)? stamp,
   }) {
     return shape?.call(name, zoomDependent, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, property);
@@ -3362,18 +3394,18 @@ class _$ShapePainter implements ShapePainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) {
     return shape?.call(this);
   }
@@ -3440,25 +3472,25 @@ abstract class _$$StampPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
           _$StampPainter value, $Res Function(_$StampPainter) then) =
       __$$StampPainterCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$StampPainterCopyWithImpl<$Res> extends _$PainterCopyWithImpl<$Res>
+class __$$StampPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$StampPainter>
     implements _$$StampPainterCopyWith<$Res> {
   __$$StampPainterCopyWithImpl(
       _$StampPainter _value, $Res Function(_$StampPainter) _then)
-      : super(_value, (v) => _then(v as _$StampPainter));
+      : super(_value, _then);
 
-  @override
-  _$StampPainter get _value => super._value as _$StampPainter;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
   }) {
     return _then(_$StampPainter(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
@@ -3489,12 +3521,16 @@ class _$StampPainter implements StampPainter {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$StampPainterCopyWith<_$StampPainter> get copyWith =>
       __$$StampPainterCopyWithImpl<_$StampPainter>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, bool includeEraser) hand,
+    required TResult Function(String name) undo,
+    required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -3506,8 +3542,12 @@ class _$StampPainter implements StampPainter {
     required TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)
         layer,
-    required TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
         area,
     required TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)
@@ -3528,23 +3568,30 @@ class _$StampPainter implements StampPainter {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name, LabelProperty property)? label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
+    TResult? Function(String name, bool includeEraser)? hand,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
-    TResult Function(String name, EraserProperty property)? eraser,
-    TResult Function(String name, double strokeWidth, bool includeEraser,
+    TResult? Function(String name, EraserProperty property)? eraser,
+    TResult? Function(String name, double strokeWidth, bool includeEraser,
             bool deleteWholeStroke)?
         pathEraser,
-    TResult Function(
+    TResult? Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult? Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
-    TResult Function(String name, double duration, double strokeWidth,
+    TResult? Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
         laser,
-    TResult Function(
+    TResult? Function(
             String name,
             bool zoomDependent,
             double constrainedWidth,
@@ -3552,7 +3599,7 @@ class _$StampPainter implements StampPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult? Function(String name)? stamp,
   }) {
     return stamp?.call(name);
   }
@@ -3560,6 +3607,9 @@ class _$StampPainter implements StampPainter {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, bool includeEraser)? hand,
+    TResult Function(String name)? undo,
+    TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3570,8 +3620,12 @@ class _$StampPainter implements StampPainter {
     TResult Function(
             String name, double strokeWidth, String layer, bool includeEraser)?
         layer,
-    TResult Function(String name, double constrainedWidth,
-            double constrainedHeight, double constrainedAspectRatio)?
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
         area,
     TResult Function(String name, double duration, double strokeWidth,
             double strokeMultiplier, int color)?
@@ -3596,6 +3650,9 @@ class _$StampPainter implements StampPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(HandPainter value) hand,
+    required TResult Function(UndoPainter value) undo,
+    required TResult Function(RedoPainter value) redo,
     required TResult Function(LabelPainter value) label,
     required TResult Function(PenPainter value) pen,
     required TResult Function(EraserPainter value) eraser,
@@ -3612,15 +3669,18 @@ class _$StampPainter implements StampPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
   }) {
     return stamp?.call(this);
   }
@@ -3628,6 +3688,9 @@ class _$StampPainter implements StampPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(HandPainter value)? hand,
+    TResult Function(UndoPainter value)? undo,
+    TResult Function(RedoPainter value)? redo,
     TResult Function(LabelPainter value)? label,
     TResult Function(PenPainter value)? pen,
     TResult Function(EraserPainter value)? eraser,
