@@ -54,6 +54,7 @@
   "italian": "İtalyanca",
   "turkish": "Türkçe",
   "portugueseBrazil": "Portekizce (Brezilya)",
+  "thai": "Thai",
   "defaultLocale": "Varsayılan Dil",
   "information": "Bilgilendirme",
   "license": "Lisans",
@@ -391,5 +392,6 @@
   "shortcuts": "Kısayollar",
   "middle": "Orta",
   "first": "İlk",
-  "second": "İkinci"
+  "second": "İkinci",
+  "report": "Report"
 }

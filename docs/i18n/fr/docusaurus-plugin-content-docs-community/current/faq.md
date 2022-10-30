@@ -21,7 +21,7 @@ Actuellement, le décodage des images ne fonctionne pas avec canvaskit. Veuillez
 
 ### Le papillon ne se charge pas sur Brave
 
-Les utilisateurs courageux qui ont défini le paramètre de bouclier "Bloquer l'empreinte digitale" sur "Agressif", doivent le changer en "Standard" ou simplement en "Block Empreinte digitale". Cliquez sur l'icône du bouclier dans la barre d'adresse pour modifier le paramètre. Essayez de mettre à jour votre navigateur vers la dernière version.
+Les utilisateurs courageux qui ont défini le paramètre de bouclier « Bloc Empreinte digitale » sur « Agressive », doivent le changer en « Standard » ou simplement « Bloc Empreinte digitale ». Cliquez sur l'icône du bouclier dans la barre d'adresse pour modifier le paramètre. Essayez de mettre à jour votre navigateur vers la dernière version.
 
 ## Téléphone mobile
 

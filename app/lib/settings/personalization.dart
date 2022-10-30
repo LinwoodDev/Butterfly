@@ -45,6 +45,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
         return AppLocalizations.of(context)!.portugueseBrazil;
       case 'tr':
         return AppLocalizations.of(context)!.turkish;
+      case 'th':
+        return AppLocalizations.of(context)!.thai;
       case '':
         return AppLocalizations.of(context)!.defaultLocale;
       default:

@@ -392,7 +392,6 @@ class HandHandler extends Handler<HandPainter> {
     final viewport = context.getCameraViewport();
     if (viewport.tool?.hitRuler(details.localFocalPoint, viewport.toSize()) ??
         false) {
-      print('hit ruler');
       _ruler = true;
       return;
     }
@@ -424,7 +423,6 @@ class HandHandler extends Handler<HandPainter> {
       if (state == null) return;
       var toolState = context.getCameraViewport().tool?.element;
       if (toolState == null) return;
-      print(toolState.rulerPosition + details.focalPointDelta);
       toolState = toolState.copyWith(
           rulerPosition: toolState.rulerPosition.translate(
               details.focalPointDelta.dx, details.focalPointDelta.dy));

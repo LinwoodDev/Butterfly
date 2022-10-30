@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:butterfly/api/file_system_io.dart';
-import 'package:cross_file/cross_file.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 

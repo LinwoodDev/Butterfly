@@ -54,6 +54,7 @@
   "italian": "Italiano",
   "turkish": "Turco",
   "portugueseBrazil": "Portugués (Brasil)",
+  "thai": "Tailandés",
   "defaultLocale": "Idioma por defecto",
   "information": "Información",
   "license": "Licencia",
@@ -391,5 +392,6 @@
   "shortcuts": "Atajos",
   "middle": "Medio",
   "first": "Primero",
-  "second": "Segundo"
+  "second": "Segundo",
+  "report": "Reporte"
 }

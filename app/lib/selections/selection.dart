@@ -33,6 +33,7 @@ part 'painters/hand.dart';
 part 'painters/area.dart';
 part 'painters/eraser.dart';
 part 'painters/label.dart';
+part 'painters/laser.dart';
 part 'painters/layer.dart';
 part 'painters/path_eraser.dart';
 part 'painters/pen.dart';
