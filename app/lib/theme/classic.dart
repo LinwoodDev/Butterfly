@@ -46,6 +46,12 @@ ThemeData getClassicTheme({bool dark = false}) {
           borderRadius: BorderRadius.circular(8),
         ),
       ),
+      popupMenuTheme: PopupMenuThemeData(
+        color: colorStronger,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.resolveWith(
