@@ -1,1 +1,4 @@
 * Add laser painter selection view
+* Improve windows setup
+    * Add dialog to decide if the program should be installed for all users or just the current user
+    * Add icon for the uninstall window in the windows control panel
