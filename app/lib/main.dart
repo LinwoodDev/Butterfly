@@ -259,11 +259,15 @@ class ButterflyApp extends StatelessWidget {
             previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
         builder: (context, settings) {
           if (!kIsWeb && isWindow()) {
-            windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
-                ? TitleBarStyle.normal
-                : TitleBarStyle.hidden);
+            windowManager.waitUntilReadyToShow().then((_) async {
+              windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
+                  ? TitleBarStyle.normal
+                  : TitleBarStyle.hidden);
+              windowManager.setFullScreen(settings.startInFullScreen);
+            });
+          } else {
+            setFullScreen(settings.startInFullScreen);
           }
-          setFullScreen(settings.startInFullScreen);
           return RepositoryProvider(
             create: (context) =>
                 SyncService(context, context.read<SettingsCubit>()),
