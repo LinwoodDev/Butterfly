@@ -7,7 +7,6 @@ import 'package:butterfly/models/template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart' as path;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'file_system_io.dart';
 import 'file_system_html_stub.dart'
@@ -15,6 +14,8 @@ import 'file_system_html_stub.dart'
 import 'file_system_remote.dart';
 
 abstract class GeneralFileSystem {
+  static String? dataPath;
+
   RemoteStorage? get remote => null;
 
   String convertNameToFile(String name) {
@@ -47,21 +48,7 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
   }
 
   @override
-  FutureOr<String> getDirectory() async {
-    var prefs = await SharedPreferences.getInstance();
-    String? path;
-    if (prefs.containsKey('document_path')) {
-      path = prefs.getString('document_path');
-    }
-    if (path == '') {
-      path = null;
-    }
-    path ??= await getButterflyDirectory();
-    // Convert \ to /
-    path = path.replaceAll('\\', '/');
-    path += '/Templates';
-    return path;
-  }
+  FutureOr<String> getDirectory();
 
   Future<AppDocumentEntity?> getAsset(String path);
 

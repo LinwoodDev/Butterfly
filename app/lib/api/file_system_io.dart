@@ -13,6 +13,10 @@ import '../models/converter.dart';
 import 'file_system.dart';
 
 Future<String> getButterflyDirectory() async {
+  final argPath = GeneralFileSystem.dataPath;
+  if (argPath != null) {
+    return argPath;
+  }
   var prefs = await SharedPreferences.getInstance();
   String? path;
   if (prefs.containsKey('document_path')) {
@@ -212,14 +216,16 @@ class IOTemplateFileSystem extends TemplateFileSystem {
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     var defaults = DocumentTemplate.getDefaults(context);
-    var directory = await getDirectory();
-    if (await Directory(directory).exists()) {
+    final path = await getDirectory();
+    final dir = Directory(path);
+    if (await dir.exists()) {
       if (force) {
-        await Directory(directory).delete(recursive: true);
+        await dir.delete(recursive: true);
       } else {
         return false;
       }
     }
+    await dir.create(recursive: true);
     await Future.wait(defaults.map((e) => updateTemplate(e)));
     return true;
   }

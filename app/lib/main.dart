@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:args/args.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors/mouse.dart';
@@ -90,6 +91,10 @@ Future<void> main([List<String> args = const []]) async {
       await windowManager.focus();
     });
   }
+  final argParser = ArgParser();
+  argParser.addOption('path', abbr: 'p');
+  final result = argParser.parse(args);
+  GeneralFileSystem.dataPath = result['path'];
   runApp(
     MultiRepositoryProvider(providers: [
       RepositoryProvider(
