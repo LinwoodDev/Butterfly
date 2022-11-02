@@ -1,16 +1,16 @@
 ---
-sidebar_label: "Arguments"
-title: Arguments
+sidebar_label: "Argomenti"
+title: Argomenti
 ---
 
-You can start the app with arguments.
+È possibile avviare l'applicazione con argomenti.
 
 `butterfly.exe <Path>`
 
-Path is the path to the file you want to open.
+Il percorso è il percorso del file che si desidera aprire.
 
 ## Opzioni
 
-|        Opzione | Descrizione                                                      |
-| --------------:|:---------------------------------------------------------------- |
-| `--path`, `-p` | Choose the data directory where all data of Butterfly is stored. |
+|        Opzione | Descrizione                                                                        |
+| --------------:|:---------------------------------------------------------------------------------- |
+| `--path`, `-p` | Scegliere la directory dei dati in cui tutti i dati di Butterfly sono memorizzati. |
