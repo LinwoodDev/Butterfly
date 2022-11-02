@@ -1,16 +1,16 @@
 ---
-sidebar_label: "Arguments"
-title: Arguments
+sidebar_label: "Parâmetros"
+title: Parâmetros
 ---
 
-You can start the app with arguments.
+Você pode iniciar o aplicativo com argumentos.
 
-`butterfly.exe <Path>`
+`borboleta.exe <Path>`
 
-Path is the path to the file you want to open.
+O caminho é o caminho para o arquivo que você deseja abrir
 
 ## Opções
 
-|    Alternativa | Descrição:                                                       |
-| --------------:|:---------------------------------------------------------------- |
-| `--path`, `-p` | Choose the data directory where all data of Butterfly is stored. |
+|    Alternativa | Descrição:                                                                     |
+| --------------:|:------------------------------------------------------------------------------ |
+| `--path`, `-p` | Escolha o diretório de dados onde todos os dados da Borboleta são armazenados. |
