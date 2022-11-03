@@ -84,18 +84,16 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
           ]
         ],
         title: Text(title),
+        scrollable: true,
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxWidth: 500, maxHeight: 400),
-                child: SingleChildScrollView(
-                    child: FileSystemDirectoryTreeView(
-                        fileSystem: widget.fileSystem,
-                        path: '/',
-                        onPathSelected: (path) => selectedPath = path,
-                        initialExpanded: true))),
+            FileSystemDirectoryTreeView(
+              fileSystem: widget.fileSystem,
+              path: '/',
+              onPathSelected: (path) => selectedPath = path,
+              initialExpanded: true,
+            ),
             const SizedBox(height: 16),
             TextField(
               decoration: InputDecoration(

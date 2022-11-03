@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../api/file_system.dart';
 import '../../models/document.dart';
@@ -79,9 +80,10 @@ class FileSystemDirectoryTreeViewState
                     ? const Icon(PhosphorIcons.folderOpenLight)
                     : const Icon(PhosphorIcons.folderLight),
                 title: Text(name),
-                trailing: _selected == widget.path
-                    ? const Icon(PhosphorIcons.check)
-                    : null,
+                trailing: IconButton(
+                  icon: const Icon(PhosphorIcons.folderPlusLight),
+                  onPressed: _newFolder,
+                ),
                 onTap: () {
                   if (_selected == widget.path) {
                     setState(() {
@@ -101,6 +103,7 @@ class FileSystemDirectoryTreeViewState
                 Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: List.generate(
                         children.length,
                         (index) {
@@ -123,5 +126,50 @@ class FileSystemDirectoryTreeViewState
           }
           return Container();
         });
+  }
+
+  Future<void> _newFolder() async {
+    final TextEditingController controller = TextEditingController();
+    final success = await showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text(AppLocalizations.of(context)!.newFolder),
+                content: TextField(
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: AppLocalizations.of(context)!.name,
+                  ),
+                  controller: controller,
+                  onSubmitted: (value) {
+                    Navigator.of(context).pop(true);
+                  },
+                ),
+                actions: [
+                  TextButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: Text(AppLocalizations.of(context)!.cancel)),
+                  ElevatedButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: const Text('Create'))
+                ],
+              );
+            }) ??
+        false;
+    if (!success) {
+      return;
+    }
+    final name = controller.text;
+    if (name.isEmpty) {
+      return;
+    }
+    final path = widget.path.endsWith('/')
+        ? '${widget.path}$name'
+        : '${widget.path}/$name';
+    await widget.fileSystem.createDirectory(path);
+    setState(() {
+      _directoryFuture = load();
+    });
   }
 }
