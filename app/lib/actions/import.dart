@@ -13,12 +13,10 @@ class ImportAction extends Action<ImportIntent> {
 
   @override
   Future<void> invoke(ImportIntent intent) async {
-    showDialog(
-            builder: (context) => const ImportDialog(), context: intent.context)
-        .then((content) {
-      if (content == null) return;
-      GoRouter.of(intent.context)
-          .push('/native?name=document.bfly&type=note', extra: content);
-    });
+    final router = GoRouter.of(intent.context);
+    final result = await showDialog<String>(
+        builder: (context) => const ImportDialog(), context: intent.context);
+    if (result == null) return;
+    router.push('/native?name=document.bfly&type=note', extra: result);
   }
 }

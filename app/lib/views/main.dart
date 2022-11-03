@@ -225,21 +225,21 @@ class _ProjectPageState extends State<ProjectPage> {
   Future<void> _showIntroduction([bool documentOpened = false]) async {
     final settingsCubit = context.read<SettingsCubit>();
     if (settingsCubit.isFirstStart()) {
-      await showDialog(
+      await showDialog<void>(
         context: context,
         builder: (context) => const AppIntroductionDialog(),
       );
       await settingsCubit.updateLastVersion();
       await settingsCubit.save();
     } else if (await settingsCubit.hasNewerVersion()) {
-      await showDialog(
+      await showDialog<void>(
           context: context,
           builder: (context) => const UpdateIntroductionDialog());
       await settingsCubit.updateLastVersion();
       await settingsCubit.save();
     }
     if (!documentOpened && settingsCubit.state.startEnabled) {
-      await showDialog(
+      await showDialog<void>(
           context: context,
           builder: (context) => MultiBlocProvider(providers: [
                 if (_bloc != null)

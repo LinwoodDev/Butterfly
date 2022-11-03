@@ -48,7 +48,7 @@ class RemotesSettingsPage extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => showDialog(
+          onPressed: () => showDialog<void>(
               context: context, builder: (context) => const _AddRemoteDialog()),
           label: Text(AppLocalizations.of(context)!.addRemote),
           icon: const Icon(PhosphorIcons.plusLight),
@@ -206,8 +206,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     navigator.pop();
   }
 
-  void _showCreatingError(String error, [dynamic e]) {
-    showDialog(
+  Future<void> _showCreatingError(String error, [dynamic e]) {
+    return showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(
               title:

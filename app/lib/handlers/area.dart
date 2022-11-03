@@ -78,7 +78,7 @@ class AreaHandler extends Handler<AreaPainter> {
 
   Future<String?> _showAreaLabelDialog(BuildContext context) async {
     if (data.askForName) {
-      return showDialog(
+      return showDialog<String>(
           context: context,
           builder: (_) => BlocProvider.value(
               value: context.read<DocumentBloc>(), child: AreaLabelDialog()));

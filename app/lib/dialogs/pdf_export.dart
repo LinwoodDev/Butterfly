@@ -306,58 +306,67 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
           Header(title: Text(AppLocalizations.of(context)!.presets), actions: [
             if (widget.areas != null)
               IconButton(
-                onPressed: () {
+                onPressed: () async {
+                  final bloc = context.read<DocumentBloc>();
                   final nameController = TextEditingController();
                   final formKey = GlobalKey<FormState>();
-                  showDialog(
-                    builder: (ctx) => Form(
-                      key: formKey,
-                      child: AlertDialog(
-                        title: Text(AppLocalizations.of(ctx)!.enterName),
-                        content: TextFormField(
-                          controller: nameController,
-                          decoration: InputDecoration(
-                            filled: true,
-                            labelText: AppLocalizations.of(ctx)!.name,
+                  final success = await showDialog<bool>(
+                        builder: (ctx) => Form(
+                          key: formKey,
+                          child: AlertDialog(
+                            title: Text(AppLocalizations.of(ctx)!.enterName),
+                            content: TextFormField(
+                              controller: nameController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                labelText: AppLocalizations.of(ctx)!.name,
+                              ),
+                              onFieldSubmitted: (value) {
+                                if (formKey.currentState!.validate()) {
+                                  Navigator.of(ctx).pop(true);
+                                }
+                              },
+                              validator: (value) {
+                                if (value?.isEmpty ?? true) {
+                                  return AppLocalizations.of(context)!
+                                      .shouldNotEmpty;
+                                }
+                                final state =
+                                    context.read<DocumentBloc>().state;
+                                if (state is! DocumentLoadSuccess) {
+                                  return AppLocalizations.of(context)!.error;
+                                }
+                                if (state.document.getExportPreset(value!) !=
+                                    null) {
+                                  return AppLocalizations.of(context)!
+                                      .alreadyExists;
+                                }
+                                return null;
+                              },
+                            ),
+                            actions: [
+                              TextButton(
+                                child: Text(AppLocalizations.of(ctx)!.cancel),
+                                onPressed: () => Navigator.of(ctx).pop(false),
+                              ),
+                              ElevatedButton(
+                                child: Text(AppLocalizations.of(ctx)!.create),
+                                onPressed: () {
+                                  if (formKey.currentState?.validate() ??
+                                      false) {
+                                    Navigator.of(ctx).pop(true);
+                                  }
+                                },
+                              )
+                            ],
                           ),
-                          validator: (value) {
-                            if (value?.isEmpty ?? true) {
-                              return AppLocalizations.of(context)!
-                                  .shouldNotEmpty;
-                            }
-                            final state = context.read<DocumentBloc>().state;
-                            if (state is! DocumentLoadSuccess) {
-                              return AppLocalizations.of(context)!.error;
-                            }
-                            if (state.document.getExportPreset(value!) !=
-                                null) {
-                              return AppLocalizations.of(context)!
-                                  .alreadyExists;
-                            }
-                            return null;
-                          },
                         ),
-                        actions: [
-                          TextButton(
-                            child: Text(AppLocalizations.of(ctx)!.cancel),
-                            onPressed: () => Navigator.of(ctx).pop(),
-                          ),
-                          ElevatedButton(
-                            child: Text(AppLocalizations.of(ctx)!.create),
-                            onPressed: () {
-                              if (formKey.currentState?.validate() ?? false) {
-                                Navigator.of(ctx).pop();
-                                context.read<DocumentBloc>().add(
-                                    ExportPresetCreated(
-                                        nameController.text, widget.areas!));
-                              }
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                    context: context,
-                  );
+                        context: context,
+                      ) ??
+                      false;
+                  if (!success) return;
+                  bloc.add(
+                      ExportPresetCreated(nameController.text, widget.areas!));
                 },
                 icon: const Icon(PhosphorIcons.plusLight),
                 tooltip: AppLocalizations.of(context)!.create,

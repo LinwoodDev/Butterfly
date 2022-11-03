@@ -110,7 +110,7 @@ class ImportService {
         ),
       ]);
     } catch (e, stackTrace) {
-      showDialog(
+      showDialog<void>(
           context: context,
           builder: (context) => ErrorDialog(
                 error: e,
@@ -175,7 +175,7 @@ class ImportService {
         DocumentFileSystem.fromPlatform().saveAbsolute(location.path, bytes);
         break;
       case AssetFileType.image:
-        return showDialog(
+        return showDialog<void>(
             context: context,
             builder: (context) => BlocProvider.value(
                 value: bloc,
@@ -187,14 +187,14 @@ class ImportService {
                   y: viewport.y,
                 )));
       case AssetFileType.pdf:
-        return showDialog(
+        return showDialog<void>(
             context: context,
             builder: (context) => BlocProvider.value(
                 value: bloc,
                 child: PdfExportDialog(
                     areas: state.document.getAreaNames().toList())));
       case AssetFileType.svg:
-        return showDialog(
+        return showDialog<void>(
             context: context,
             builder: (context) => BlocProvider.value(
                 value: bloc,

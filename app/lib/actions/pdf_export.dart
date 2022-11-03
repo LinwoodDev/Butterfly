@@ -29,7 +29,7 @@ class PdfExportAction extends Action<PdfExportIntent> {
       if (preset == null) return;
       areas = preset.areas.map((a) => a.name).toList();
     }
-    showDialog(
+    return showDialog<void>(
         builder: (context) => BlocProvider.value(
               value: bloc,
               child: PdfExportDialog(

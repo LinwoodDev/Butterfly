@@ -53,49 +53,59 @@ class AreaContextMenu extends StatelessWidget {
               leading: const Icon(PhosphorIcons.textTLight),
               title: Text(AppLocalizations.of(context)!.name),
               subtitle: Text(area.name),
-              onTap: () {
+              onTap: () async {
                 final nameController = TextEditingController(text: area.name);
                 final formKey = GlobalKey<FormState>();
                 Navigator.of(context).pop();
-                showDialog(
-                  context: context,
-                  builder: (context) => Form(
-                    key: formKey,
-                    child: AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.enterName),
-                      content: TextFormField(
-                        validator: (value) {
-                          if (value?.isEmpty ?? true) {
-                            return AppLocalizations.of(context)!.shouldNotEmpty;
-                          }
-                          if (state.document.getAreaByName(value!) != null) {
-                            return AppLocalizations.of(context)!.alreadyExists;
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(filled: true),
-                        controller: nameController,
-                        autofocus: true,
+                final success = await showDialog<bool>(
+                      context: context,
+                      builder: (context) => Form(
+                        key: formKey,
+                        child: AlertDialog(
+                          title: Text(AppLocalizations.of(context)!.enterName),
+                          content: TextFormField(
+                            validator: (value) {
+                              if (value?.isEmpty ?? true) {
+                                return AppLocalizations.of(context)!
+                                    .shouldNotEmpty;
+                              }
+                              if (state.document.getAreaByName(value!) !=
+                                  null) {
+                                return AppLocalizations.of(context)!
+                                    .alreadyExists;
+                              }
+                              return null;
+                            },
+                            onFieldSubmitted: (value) {
+                              if (formKey.currentState!.validate()) {
+                                Navigator.of(context).pop(true);
+                              }
+                            },
+                            decoration: const InputDecoration(filled: true),
+                            controller: nameController,
+                            autofocus: true,
+                          ),
+                          actions: [
+                            TextButton(
+                              child: Text(AppLocalizations.of(context)!.cancel),
+                              onPressed: () => Navigator.of(context).pop(false),
+                            ),
+                            ElevatedButton(
+                              child: Text(AppLocalizations.of(context)!.ok),
+                              onPressed: () {
+                                Navigator.of(context).pop(true);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                      actions: [
-                        TextButton(
-                          child: Text(AppLocalizations.of(context)!.cancel),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        ElevatedButton(
-                          child: Text(AppLocalizations.of(context)!.ok),
-                          onPressed: () {
-                            Navigator.pop(context);
-                            bloc.add(
-                              AreaChanged(
-                                area.name,
-                                area.copyWith(name: nameController.text),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                    ) ??
+                    false;
+                if (!success) return;
+                bloc.add(
+                  AreaChanged(
+                    area.name,
+                    area.copyWith(name: nameController.text),
                   ),
                 );
               },
@@ -106,7 +116,7 @@ class AreaContextMenu extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pop();
                 var bloc = context.read<DocumentBloc>();
-                showDialog(
+                showDialog<void>(
                   context: context,
                   builder: (context) => AlertDialog(
                     scrollable: true,
@@ -118,7 +128,7 @@ class AreaContextMenu extends StatelessWidget {
                           title: Text(AppLocalizations.of(context)!.image),
                           onTap: () {
                             Navigator.of(context).pop();
-                            showDialog(
+                            showDialog<void>(
                                 builder: (context) => BlocProvider.value(
                                       value: bloc,
                                       child: ImageExportDialog(
@@ -136,7 +146,7 @@ class AreaContextMenu extends StatelessWidget {
                           title: Text(AppLocalizations.of(context)!.svg),
                           onTap: () {
                             Navigator.of(context).pop();
-                            showDialog(
+                            showDialog<void>(
                                 builder: (context) => BlocProvider.value(
                                     value: bloc,
                                     child: SvgExportDialog(
@@ -152,7 +162,7 @@ class AreaContextMenu extends StatelessWidget {
                           title: Text(AppLocalizations.of(context)!.pdf),
                           onTap: () {
                             Navigator.of(context).pop();
-                            showDialog(
+                            showDialog<void>(
                                 builder: (context) => BlocProvider.value(
                                     value: bloc,
                                     child: PdfExportDialog(areas: [area.name])),

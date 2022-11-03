@@ -18,8 +18,8 @@ class InsertAction extends Action<InsertIntent> {
   InsertAction();
 
   @override
-  Future<dynamic> invoke(InsertIntent intent) {
-    return showDialog(
+  Future<void> invoke(InsertIntent intent) {
+    return showDialog<void>(
       context: intent.context,
       builder: (context) => MultiBlocProvider(
           providers: [

@@ -130,7 +130,7 @@ class FileSystemDirectoryTreeViewState
 
   Future<void> _newFolder() async {
     final TextEditingController controller = TextEditingController();
-    final success = await showDialog(
+    final success = await showDialog<bool>(
             context: context,
             builder: (context) {
               return AlertDialog(

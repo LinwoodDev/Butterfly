@@ -1,6 +1,7 @@
 * Add laser painter selection view
 * Add data path argument to the command line
 * Add new folder button to move dialog
+* Add dialog close on text field submit
 * Show error if loading document fails
 * Improve windows setup
     * Add dialog to decide if the program should be installed for all users or just the current user ([#306](https://github.com/LinwoodCloud/Butterfly/issues/306))

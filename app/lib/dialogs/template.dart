@@ -72,8 +72,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                       icon:
                           const Icon(PhosphorIcons.clockCounterClockwiseLight),
                       tooltip: AppLocalizations.of(context)!.defaultTemplate,
-                      onPressed: () async {
-                        showDialog(
+                      onPressed: () {
+                        showDialog<void>(
                           context: context,
                           builder: (context) => AlertDialog(
                             title: Text(
@@ -168,8 +168,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
             )));
   }
 
-  void _showCreateDialog(AppDocument document) {
-    showDialog(
+  Future<void> _showCreateDialog(AppDocument document) {
+    return showDialog<void>(
         context: context,
         builder: (context) {
           return AlertDialog(
@@ -244,33 +244,41 @@ class _TemplateItem extends StatelessWidget {
                   Navigator.of(context).pop();
                   final TextEditingController nameController =
                       TextEditingController(text: template.document.name);
-                  await showDialog<String>(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: Text(AppLocalizations.of(context)!.rename),
-                            content: TextField(
-                                decoration: InputDecoration(
-                                    filled: true,
-                                    hintText:
-                                        AppLocalizations.of(context)!.name),
-                                autofocus: true,
-                                controller: nameController),
-                            actions: [
-                              TextButton(
-                                  child: Text(
-                                      AppLocalizations.of(context)!.cancel),
-                                  onPressed: () => Navigator.of(context).pop()),
-                              ElevatedButton(
-                                  child: Text(AppLocalizations.of(context)!.ok),
-                                  onPressed: () async {
-                                    Navigator.of(context).pop();
-                                    await fileSystem.renameTemplate(
-                                        template.document.name,
-                                        nameController.text);
-                                    onChanged();
-                                  })
-                            ],
-                          ));
+                  final success = await showDialog<bool>(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title:
+                                    Text(AppLocalizations.of(context)!.rename),
+                                content: TextField(
+                                  decoration: InputDecoration(
+                                      filled: true,
+                                      hintText:
+                                          AppLocalizations.of(context)!.name),
+                                  autofocus: true,
+                                  controller: nameController,
+                                  onSubmitted: (value) => Navigator.of(context)
+                                      .pop(value.isNotEmpty),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      child: Text(
+                                          AppLocalizations.of(context)!.cancel),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(true)),
+                                  ElevatedButton(
+                                      child: Text(
+                                          AppLocalizations.of(context)!.ok),
+                                      onPressed: () async =>
+                                          Navigator.of(context).pop(true))
+                                ],
+                              )) ??
+                      false;
+                  if (!success || nameController.text.isEmpty) {
+                    return;
+                  }
+                  await fileSystem.renameTemplate(
+                      template.document.name, nameController.text);
+                  onChanged();
                 }),
           ),
           PopupMenuItem(
@@ -278,10 +286,10 @@ class _TemplateItem extends StatelessWidget {
               child: ListTile(
                   leading: const Icon(PhosphorIcons.clipboardLight),
                   title: Text(AppLocalizations.of(context)!.replace),
-                  onTap: () async {
+                  onTap: () {
                     Navigator.of(context).pop();
                     if (document == null) return;
-                    showDialog(
+                    showDialog<void>(
                       context: context,
                       builder: (context) => AlertDialog(
                         title: Text(AppLocalizations.of(context)!.replace),
@@ -314,7 +322,7 @@ class _TemplateItem extends StatelessWidget {
                   title: Text(AppLocalizations.of(context)!.delete),
                   onTap: () async {
                     Navigator.of(context).pop();
-                    showDialog(
+                    showDialog<void>(
                         context: context,
                         builder: (context) {
                           return AlertDialog(

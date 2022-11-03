@@ -18,7 +18,7 @@ class ImageExportAction extends Action<ImageExportIntent> {
     var bloc = intent.context.read<DocumentBloc>();
     var transform = intent.context.read<TransformCubit>().state;
     var size = MediaQuery.of(intent.context).size;
-    showDialog(
+    return showDialog<void>(
         builder: (context) => BlocProvider.value(
               value: bloc,
               child: ImageExportDialog(

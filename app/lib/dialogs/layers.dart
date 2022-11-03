@@ -30,42 +30,47 @@ class LayersDialog extends StatelessWidget {
                           icon: const Icon(PhosphorIcons.selectionLight),
                           tooltip:
                               AppLocalizations.of(context)!.selectCustomLayer,
-                          onPressed: () {
-                            var nameController = TextEditingController(
-                                text: (context.read<DocumentBloc>().state
-                                        as DocumentLoadSuccess)
-                                    .currentLayer);
-                            showDialog(
-                              context: context,
-                              builder: (ctx) => AlertDialog(
-                                title: Text(AppLocalizations.of(ctx)!
-                                    .selectCustomLayer),
-                                content: TextField(
-                                  controller: nameController,
-                                  autofocus: true,
-                                  decoration: InputDecoration(
-                                      filled: true,
-                                      hintText:
-                                          AppLocalizations.of(context)!.name),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    child:
-                                        Text(AppLocalizations.of(ctx)!.cancel),
-                                    onPressed: () => Navigator.of(ctx).pop(),
+                          onPressed: () async {
+                            final bloc = context.read<DocumentBloc>();
+                            final state = bloc.state as DocumentLoadSuccess;
+                            final nameController =
+                                TextEditingController(text: state.currentLayer);
+                            final success = await showDialog<bool>(
+                                  context: context,
+                                  builder: (ctx) => AlertDialog(
+                                    title: Text(AppLocalizations.of(ctx)!
+                                        .selectCustomLayer),
+                                    content: TextField(
+                                      controller: nameController,
+                                      autofocus: true,
+                                      onSubmitted: (value) =>
+                                          Navigator.of(ctx).pop(true),
+                                      decoration: InputDecoration(
+                                          filled: true,
+                                          hintText:
+                                              AppLocalizations.of(context)!
+                                                  .name),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        child: Text(
+                                            AppLocalizations.of(ctx)!.cancel),
+                                        onPressed: () =>
+                                            Navigator.of(ctx).pop(false),
+                                      ),
+                                      ElevatedButton(
+                                        child:
+                                            Text(AppLocalizations.of(ctx)!.ok),
+                                        onPressed: () {
+                                          Navigator.of(ctx).pop(true);
+                                        },
+                                      ),
+                                    ],
                                   ),
-                                  ElevatedButton(
-                                    child: Text(AppLocalizations.of(ctx)!.ok),
-                                    onPressed: () {
-                                      Navigator.of(ctx).pop();
-                                      BlocProvider.of<DocumentBloc>(context)
-                                          .add(CurrentLayerChanged(
-                                              nameController.text));
-                                    },
-                                  ),
-                                ],
-                              ),
-                            );
+                                ) ??
+                                false;
+                            if (!success) return;
+                            bloc.add(CurrentLayerChanged(nameController.text));
                           })
                     ]),
                 Flexible(
