@@ -118,7 +118,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _iconController = TextEditingController(text: '/favicon.ico'),
       _directoryController = TextEditingController(),
       _documentsDirectoryController = TextEditingController(text: 'Documents'),
-      _templatesDirectoryController = TextEditingController(text: 'Templates');
+      _templatesDirectoryController = TextEditingController(text: 'Templates'),
+      _packsDirectoryController = TextEditingController(text: 'Packs');
   bool _isConnected = false,
       _advanced = false,
       _showPassword = false,
@@ -197,6 +198,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         path: _directoryController.text,
         documentsPath: _documentsDirectoryController.text,
         templatesPath: _templatesDirectoryController.text,
+        packsPath: _packsDirectoryController.text,
         icon: icon,
         cachedDocuments: [if (_syncRootDirectory) '/']);
     await settingsCubit.addRemote(
@@ -213,6 +215,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
               title:
                   Text(AppLocalizations.of(context)!.errorWhileCreatingRemote),
               content: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(error),
                   if (e != null)
@@ -317,6 +320,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                       }
                       _documentsDirectoryController.text = '${prefix}Documents';
                       _templatesDirectoryController.text = '${prefix}Templates';
+                      _packsDirectoryController.text = '${prefix}Packs';
                     },
                     icon: const Icon(PhosphorIcons.folderLight),
                   ),
@@ -348,6 +352,12 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                             label: AppLocalizations.of(context)!
                                 .templatesDirectory,
                             icon: const Icon(PhosphorIcons.fileDottedLight),
+                          ),
+                          const SizedBox(height: 8),
+                          _DirectoryField(
+                            controller: _packsDirectoryController,
+                            label: AppLocalizations.of(context)!.packsDirectory,
+                            icon: const Icon(PhosphorIcons.packageLight),
                           ),
                         ]),
                       ),

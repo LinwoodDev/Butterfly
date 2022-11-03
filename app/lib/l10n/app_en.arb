@@ -396,5 +396,6 @@
   "first": "First",
   "second": "Second",
   "report": "Report",
-  "createPack": "Create pack"
+  "createPack": "Create pack",
+  "packsDirectory": "Packs directory"
 }
