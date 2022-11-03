@@ -3648,8 +3648,8 @@ __metadata:
   linkType: hard
 
 "babel-loader@npm:^8.2.5":
-  version: 8.2.5
-  resolution: "babel-loader@npm:8.2.5"
+  version: 8.3.0
+  resolution: "babel-loader@npm:8.3.0"
   dependencies:
     find-cache-dir: ^3.3.1
     loader-utils: ^2.0.0
@@ -3658,7 +3658,7 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0
     webpack: ">=2"
-  checksum: a6605557885eabbc3250412405f2c63ca87287a95a439c643fdb47d5ea3d5326f72e43ab97be070316998cb685d5dfbc70927ce1abe8be7a6a4f5919287773fb
+  checksum: d48bcf9e030e598656ad3ff5fb85967db2eaaf38af5b4a4b99d25618a2057f9f100e6b231af2a46c1913206db506115ca7a8cbdf52c9c73d767070dae4352ab5
   languageName: node
   linkType: hard
 
@@ -7632,11 +7632,11 @@ __metadata:
   linkType: hard
 
 "memfs@npm:^3.1.2, memfs@npm:^3.4.3":
-  version: 3.4.9
-  resolution: "memfs@npm:3.4.9"
+  version: 3.4.10
+  resolution: "memfs@npm:3.4.10"
   dependencies:
     fs-monkey: ^1.0.3
-  checksum: 575dfde73f4105db42ffc2fdcd06efb9037541de095bd4fe9fb29134a1a775dfe922839b30db632de76cb29354d79d8f82a5e4f5f588e21bc47358b6d058a9c6
+  checksum: bee25e00682a440adedafb81277f1a192c31e27995236d899c5402511648645dec8a0a6c2753c36632d4522bce08ebbaa38dece15753589cbe98223a47aeab4c
   languageName: node
   linkType: hard
 
