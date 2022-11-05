@@ -373,6 +373,8 @@
   "painter": "Pintor",
   "position": "Posición",
   "note": "Nota",
+  "packs": "Packs",
+  "pack": "Pack",
   "more": "Más",
   "askForName": "Solicitar nombre",
   "areaIndex": "Área {index}",
@@ -394,5 +396,28 @@
   "first": "Primero",
   "second": "Segundo",
   "report": "Reporte",
-  "newFolder": "Nueva carpeta"
+  "newFolder": "Nueva carpeta",
+  "createPack": "Create pack",
+  "packsDirectory": "Packs directory",
+  "stamp": "Stamp",
+  "addToPack": "Add to pack",
+  "packDescription": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "@packDescription": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "sureImportPack": "Are you sure you want to import the pack?",
+  "byAuthor": "by {author}",
+  "@byAuthor": {
+    "placeholders": {
+      "author": {
+        "type": "String",
+        "example": "author"
+      }
+    }
+  }
 }
