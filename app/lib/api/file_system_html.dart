@@ -5,6 +5,7 @@ import 'dart:html' as html;
 import 'dart:js_util';
 
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/pack.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -376,5 +377,72 @@ class WebTemplateFileSystem extends TemplateFileSystem {
     });
     await txn.completed;
     return templates;
+  }
+}
+
+class WebPackFileSystem extends PackFileSystem {
+  @override
+  Future<void> deletePack(String name) async {
+    var db = await _getDatabase();
+    var txn = db.transaction('packs', 'readwrite');
+    var store = txn.objectStore('packs');
+    await store.delete(name);
+    await txn.completed;
+  }
+
+  @override
+  Future<ButterflyPack?> getPack(String name) async {
+    var db = await _getDatabase();
+    var txn = db.transaction('packs', 'readonly');
+    var store = txn.objectStore('packs');
+    var data = await store.getObject(name);
+    if (data == null) {
+      await txn.completed;
+      return null;
+    }
+    var map = Map<String, dynamic>.from(data as Map);
+    await txn.completed;
+    return const PackJsonConverter().fromJson(map);
+  }
+
+  @override
+  Future<void> updatePack(ButterflyPack pack) async {
+    var db = await _getDatabase();
+    var txn = db.transaction('packs', 'readwrite');
+    var store = txn.objectStore('packs');
+    var doc = const PackJsonConverter().toJson(pack);
+    await store.put(doc, pack.name);
+  }
+
+  @override
+  Future<bool> hasPack(String name) async {
+    var db = await _getDatabase();
+    var txn = db.transaction('packs', 'readonly');
+    var store = txn.objectStore('packs');
+    var doc = await store.getObject(name);
+    await txn.completed;
+    return doc != null;
+  }
+
+  @override
+  Future<List<ButterflyPack>> getPacks() async {
+    var db = await _getDatabase();
+    var txn = db.transaction('packs', 'readonly');
+    var store = txn.objectStore('packs');
+    var cursor = store.openCursor(autoAdvance: true);
+    var packs = <ButterflyPack>[];
+    await cursor.forEach((cursor) {
+      try {
+        var map = cursor.value as Map;
+        packs.add(
+            const PackJsonConverter().fromJson(Map<String, dynamic>.from(map)));
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
+    });
+    await txn.completed;
+    return packs;
   }
 }

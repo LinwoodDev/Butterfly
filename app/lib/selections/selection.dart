@@ -36,6 +36,7 @@ part 'painters/layer.dart';
 part 'painters/path_eraser.dart';
 part 'painters/pen.dart';
 part 'painters/shape.dart';
+part 'painters/stamp.dart';
 
 part 'properties/property.dart';
 part 'properties/eraser.dart';

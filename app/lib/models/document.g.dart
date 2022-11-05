@@ -50,6 +50,11 @@ _$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
                   ExportPreset.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
+      packs: (json['packs'] as List<dynamic>?)
+              ?.map((e) =>
+                  ButterflyPack.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const [],
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
@@ -71,6 +76,7 @@ Map<String, dynamic> _$$_AppDocumentToJson(_$_AppDocument instance) =>
       'waypoints': instance.waypoints.map((e) => e.toJson()).toList(),
       'areas': instance.areas.map((e) => e.toJson()).toList(),
       'exportPresets': instance.exportPresets.map((e) => e.toJson()).toList(),
+      'packs': instance.packs.map((e) => e.toJson()).toList(),
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
       'painters': instance.painters.map((e) => e.toJson()).toList(),

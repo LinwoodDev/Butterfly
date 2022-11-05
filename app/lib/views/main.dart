@@ -44,6 +44,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../actions/change_painter.dart';
+import '../actions/packs.dart';
 import '../models/background.dart';
 import 'view.dart';
 
@@ -89,6 +90,7 @@ class _ProjectPageState extends State<ProjectPage> {
     ChangePathIntent: ChangePathAction(),
     SaveIntent: SaveAction(),
     ChangePainterIntent: ChangePainterAction(),
+    PacksIntent: PacksAction(),
   };
 
   @override
@@ -361,6 +363,10 @@ class _ProjectPageState extends State<ProjectPage> {
                             LogicalKeyboardKey.keyS): ChangePathIntent(context),
                         LogicalKeySet(LogicalKeyboardKey.control,
                             LogicalKeyboardKey.keyS): SaveIntent(context),
+                        LogicalKeySet(
+                            LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.alt,
+                            LogicalKeyboardKey.keyP): PacksIntent(context),
                         ...[
                           LogicalKeyboardKey.digit1,
                           LogicalKeyboardKey.digit2,

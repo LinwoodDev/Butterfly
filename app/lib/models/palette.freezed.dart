@@ -33,33 +33,37 @@ mixin _$ColorPalette {
 abstract class $ColorPaletteCopyWith<$Res> {
   factory $ColorPaletteCopyWith(
           ColorPalette value, $Res Function(ColorPalette) then) =
-      _$ColorPaletteCopyWithImpl<$Res>;
+      _$ColorPaletteCopyWithImpl<$Res, ColorPalette>;
+  @useResult
   $Res call({String name, List<int> colors});
 }
 
 /// @nodoc
-class _$ColorPaletteCopyWithImpl<$Res> implements $ColorPaletteCopyWith<$Res> {
+class _$ColorPaletteCopyWithImpl<$Res, $Val extends ColorPalette>
+    implements $ColorPaletteCopyWith<$Res> {
   _$ColorPaletteCopyWithImpl(this._value, this._then);
 
-  final ColorPalette _value;
   // ignore: unused_field
-  final $Res Function(ColorPalette) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? colors = freezed,
+    Object? name = null,
+    Object? colors = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      colors: colors == freezed
+      colors: null == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<int>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -70,31 +74,30 @@ abstract class _$$_ColorPaletteCopyWith<$Res>
           _$_ColorPalette value, $Res Function(_$_ColorPalette) then) =
       __$$_ColorPaletteCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, List<int> colors});
 }
 
 /// @nodoc
 class __$$_ColorPaletteCopyWithImpl<$Res>
-    extends _$ColorPaletteCopyWithImpl<$Res>
+    extends _$ColorPaletteCopyWithImpl<$Res, _$_ColorPalette>
     implements _$$_ColorPaletteCopyWith<$Res> {
   __$$_ColorPaletteCopyWithImpl(
       _$_ColorPalette _value, $Res Function(_$_ColorPalette) _then)
-      : super(_value, (v) => _then(v as _$_ColorPalette));
+      : super(_value, _then);
 
-  @override
-  _$_ColorPalette get _value => super._value as _$_ColorPalette;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? colors = freezed,
+    Object? name = null,
+    Object? colors = null,
   }) {
     return _then(_$_ColorPalette(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      colors: colors == freezed
+      colors: null == colors
           ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<int>,
@@ -131,19 +134,18 @@ class _$_ColorPalette implements _ColorPalette {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ColorPalette &&
-            const DeepCollectionEquality().equals(other.name, name) &&
+            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._colors, _colors));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(_colors));
+      runtimeType, name, const DeepCollectionEquality().hash(_colors));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ColorPaletteCopyWith<_$_ColorPalette> get copyWith =>
       __$$_ColorPaletteCopyWithImpl<_$_ColorPalette>(this, _$identity);
 

@@ -271,3 +271,21 @@ class ExportPresetRemoved extends DocumentEvent {
   @override
   List<Object?> get props => [name];
 }
+
+class DocumentPackAdded extends DocumentEvent {
+  final ButterflyPack pack;
+
+  const DocumentPackAdded(this.pack);
+
+  @override
+  List<Object?> get props => [pack];
+}
+
+class DocumentPackRemoved extends DocumentEvent {
+  final String pack;
+
+  const DocumentPackRemoved(this.pack);
+
+  @override
+  List<Object?> get props => [pack];
+}

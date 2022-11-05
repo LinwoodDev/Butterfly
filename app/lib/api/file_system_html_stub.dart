@@ -3,6 +3,8 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/material.dart';
 
+import '../models/pack.dart';
+
 class WebDocumentFileSystem extends DocumentFileSystem {
   @override
   Future<AppDocumentDirectory> createDirectory(String name) {
@@ -64,6 +66,33 @@ class WebTemplateFileSystem extends TemplateFileSystem {
 
   @override
   Future<void> updateTemplate(DocumentTemplate template) {
+    throw UnimplementedError();
+  }
+}
+
+class WebPackFileSystem extends PackFileSystem {
+  @override
+  Future<void> deletePack(String name) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ButterflyPack?> getPack(String name) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<ButterflyPack>> getPacks() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> hasPack(String name) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updatePack(ButterflyPack pack) {
     throw UnimplementedError();
   }
 }

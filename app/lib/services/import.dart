@@ -7,6 +7,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/element.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/parser.dart';
@@ -62,13 +63,29 @@ class ImportService {
     }
   }
 
-  void importNote(Uint8List bytes) {
+  void importNote(Uint8List bytes,
+      [Offset position = Offset.zero, bool meta = true]) {
     final doc = const DocumentJsonConverter().fromJson(
       json.decode(
         String.fromCharCodes(bytes),
       ),
     );
-    bloc.add(DocumentUpdated(doc));
+    if (meta) {
+      bloc.add(DocumentUpdated(doc));
+    }
+    final areas = doc.areas
+        .map((e) => e.copyWith(position: e.position + position))
+        .toList();
+    final content = doc.content
+        .map((e) =>
+            Renderer.fromInstance(e)
+                .transform(position: position, relative: true)
+                ?.element ??
+            e)
+        .toList();
+    bloc
+      ..add(AreasCreated(areas))
+      ..add(ElementsCreated(content));
   }
 
   Future<void> importImage(Uint8List bytes,

@@ -45,6 +45,9 @@ extension PainterVisualizer on Painter {
     if (this is LaserPainter) {
       return AppLocalizations.of(context)!.laser;
     }
+    if (this is StampPainter) {
+      return AppLocalizations.of(context)!.stamp;
+    }
     throw UnimplementedError();
   }
 
@@ -88,6 +91,9 @@ extension PainterVisualizer on Painter {
     }
     if (this is LaserPainter) {
       return filled ? PhosphorIcons.cursorFill : PhosphorIcons.cursorLight;
+    }
+    if (this is StampPainter) {
+      return filled ? PhosphorIcons.stampFill : PhosphorIcons.stampLight;
     }
     throw UnimplementedError();
   }

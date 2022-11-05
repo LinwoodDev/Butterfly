@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../main.dart';
+import 'pack.dart';
 import 'palette.dart';
 
 class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
@@ -100,6 +101,22 @@ class TemplateJsonConverter extends JsonConverter<DocumentTemplate, Map> {
   }
 }
 
+class PackJsonConverter extends JsonConverter<ButterflyPack, Map> {
+  const PackJsonConverter();
+  @override
+  ButterflyPack fromJson(Map json) {
+    return ButterflyPack.fromJson(Map<String, dynamic>.from(json));
+  }
+
+  @override
+  Map<String, dynamic> toJson(ButterflyPack object) {
+    return {
+      ...object.toJson(),
+      'fileVersion': kFileVersion,
+    };
+  }
+}
+
 class OffsetJsonConverter extends JsonConverter<Offset, Map> {
   const OffsetJsonConverter();
 
@@ -133,4 +150,12 @@ class Uint8ListJsonConverter extends JsonConverter<Uint8List, String> {
   Uint8List fromJson(String json) => Uint8List.fromList(base64.decode(json));
   @override
   String toJson(Uint8List object) => base64.encode(object.toList());
+}
+
+class DateTimeJsonConverter extends JsonConverter<DateTime, int> {
+  const DateTimeJsonConverter();
+  @override
+  DateTime fromJson(int json) => DateTime.fromMillisecondsSinceEpoch(json);
+  @override
+  int toJson(DateTime object) => object.millisecondsSinceEpoch;
 }
