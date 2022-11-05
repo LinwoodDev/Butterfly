@@ -1,8 +1,12 @@
+import 'package:butterfly/models/pack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreatePackDialog extends StatelessWidget {
-  const CreatePackDialog({super.key});
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  CreatePackDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +16,7 @@ class CreatePackDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
+            controller: _nameController,
             decoration: InputDecoration(
                 labelText: AppLocalizations.of(context)!.name, filled: true),
           ),
@@ -23,6 +28,7 @@ class CreatePackDialog extends StatelessWidget {
             ),
             minLines: 3,
             maxLines: 5,
+            controller: _descriptionController,
           ),
         ],
       ),
@@ -32,7 +38,12 @@ class CreatePackDialog extends StatelessWidget {
           child: Text(AppLocalizations.of(context)!.cancel),
         ),
         ElevatedButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.of(context).pop(ButterflyPack(
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+            name: _nameController.text,
+            description: _descriptionController.text,
+          )),
           child: Text(AppLocalizations.of(context)!.create),
         ),
       ],
