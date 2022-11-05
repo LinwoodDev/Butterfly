@@ -373,8 +373,8 @@
   "painter": "Maler",
   "position": "Position",
   "note": "Notiz",
-  "packs": "Packs",
-  "pack": "Pack",
+  "packs": "Pakete",
+  "pack": "Packung",
   "more": "Mehr",
   "askForName": "Nach Namen fragen",
   "areaIndex": "Fläche {index}",
@@ -397,11 +397,11 @@
   "second": "Zweiter",
   "report": "Bericht",
   "newFolder": "Neuer Ordner",
-  "createPack": "Create pack",
-  "packsDirectory": "Packs directory",
-  "stamp": "Stamp",
-  "addToPack": "Add to pack",
-  "packDescription": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "createPack": "Paket erstellen",
+  "packsDirectory": "Paketverzeichnis",
+  "stamp": "Stempel",
+  "addToPack": "Zum Paket hinzufügen",
+  "packDescription": "{count,plural, =0{Keine Elemente} =1{1 Element} other{{count} Elemente}}",
   "@packDescription": {
     "placeholders": {
       "count": {
@@ -410,8 +410,8 @@
       }
     }
   },
-  "sureImportPack": "Are you sure you want to import the pack?",
-  "byAuthor": "by {author}",
+  "sureImportPack": "Sind Sie sicher, dass Sie das Paket importieren möchten?",
+  "byAuthor": "von {author}",
   "@byAuthor": {
     "placeholders": {
       "author": {
