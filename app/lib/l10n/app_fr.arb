@@ -373,6 +373,8 @@
   "painter": "Peintre",
   "position": "Position",
   "note": "Note",
+  "packs": "Packs",
+  "pack": "Pack",
   "more": "En savoir plus",
   "askForName": "Demander le nom",
   "areaIndex": "Zone {index}",
@@ -394,5 +396,28 @@
   "first": "Premier",
   "second": "Seconde",
   "report": "Rapporter",
-  "newFolder": "Nouveau dossier"
+  "newFolder": "Nouveau dossier",
+  "createPack": "Create pack",
+  "packsDirectory": "Packs directory",
+  "stamp": "Stamp",
+  "addToPack": "Add to pack",
+  "packDescription": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "@packDescription": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "sureImportPack": "Are you sure you want to import the pack?",
+  "byAuthor": "by {author}",
+  "@byAuthor": {
+    "placeholders": {
+      "author": {
+        "type": "String",
+        "example": "author"
+      }
+    }
+  }
 }
