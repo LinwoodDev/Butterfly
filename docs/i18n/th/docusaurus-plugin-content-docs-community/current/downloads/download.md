@@ -41,7 +41,7 @@ title: Downloads
 
 ## Useful links
 
-- [Changelog](changelog)
+- [บันทึกการเปลี่ยนแปลง](changelog)
 - [Older releases](https://github.com/LinwoodCloud/butterfly/releases)
 - [Latest release](https://github.com/LinwoodCloud/butterfly/releases/latest)
 - [Support](https://discord.linwood.dev)
