@@ -2,6 +2,18 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.6.0-alpha.0 (2022-11-05)
+
+* Add laser painter selection view
+* Add data path argument to the command line
+* Add new folder button to move dialog
+* Add dialog close on text field submit
+* Show error if loading document fails
+* Improve windows setup
+    * Add dialog to decide if the program should be installed for all users or just the current user ([#306](https://github.com/LinwoodCloud/Butterfly/issues/306))
+    * Add icon for the uninstall window in the windows control panel ([#305](https://github.com/LinwoodCloud/Butterfly/issues/305))
+* Fix start in full screen on desktop ([#307](https://github.com/LinwoodCloud/Butterfly/issues/307))
+
 ## 1.5.0 (2022-10-21)
 
 Read the whole 1.5 changelog at https://go.linwood.dev/butterfly/1-5
