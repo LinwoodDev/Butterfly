@@ -373,8 +373,8 @@
   "painter": "Pintor",
   "position": "Posição",
   "note": "Observação",
-  "packs": "Packs",
-  "pack": "Pack",
+  "packs": "Pacotes",
+  "pack": "Pct",
   "more": "MAIS",
   "askForName": "Pergunte o nome",
   "areaIndex": "Área {index}",
@@ -397,11 +397,11 @@
   "second": "Segundo",
   "report": "Denunciar",
   "newFolder": "Adicionar Pasta",
-  "createPack": "Create pack",
-  "packsDirectory": "Packs directory",
-  "stamp": "Stamp",
-  "addToPack": "Add to pack",
-  "packDescription": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "createPack": "Criar pacote",
+  "packsDirectory": "Diretório dos pacotes",
+  "stamp": "Selo",
+  "addToPack": "Adicionar aos pacotes",
+  "packDescription": "{count,plural, =0{Sem elementos} =1{1 elemento} other{{count} elementos}}",
   "@packDescription": {
     "placeholders": {
       "count": {
@@ -410,8 +410,8 @@
       }
     }
   },
-  "sureImportPack": "Are you sure you want to import the pack?",
-  "byAuthor": "by {author}",
+  "sureImportPack": "Tem certeza de que deseja importar o pacote?",
+  "byAuthor": "por {author}",
   "@byAuthor": {
     "placeholders": {
       "author": {
