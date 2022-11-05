@@ -374,7 +374,7 @@
   "position": "Position",
   "note": "Note",
   "packs": "Packs",
-  "pack": "Pack",
+  "pack": "Paquet",
   "more": "En savoir plus",
   "askForName": "Demander le nom",
   "areaIndex": "Zone {index}",
@@ -397,11 +397,11 @@
   "second": "Seconde",
   "report": "Rapporter",
   "newFolder": "Nouveau dossier",
-  "createPack": "Create pack",
-  "packsDirectory": "Packs directory",
-  "stamp": "Stamp",
-  "addToPack": "Add to pack",
-  "packDescription": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "createPack": "Créer un pack",
+  "packsDirectory": "Répertoire des paquets",
+  "stamp": "Médaille",
+  "addToPack": "Ajouter au pack",
+  "packDescription": "{count,plural, =0{Aucun élément} =1{1 élément} other{{count} éléments}}",
   "@packDescription": {
     "placeholders": {
       "count": {
@@ -410,8 +410,8 @@
       }
     }
   },
-  "sureImportPack": "Are you sure you want to import the pack?",
-  "byAuthor": "by {author}",
+  "sureImportPack": "Êtes-vous sûr de vouloir importer le pack ?",
+  "byAuthor": "par {author}",
   "@byAuthor": {
     "placeholders": {
       "author": {
