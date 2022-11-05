@@ -1873,7 +1873,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/plugin-content-docs@npm:2.2.0":
+"@docusaurus/plugin-content-docs@npm:2.2.0, @docusaurus/plugin-content-docs@npm:^2.2.0":
   version: 2.2.0
   resolution: "@docusaurus/plugin-content-docs@npm:2.2.0"
   dependencies:
@@ -2086,7 +2086,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/theme-common@npm:2.2.0":
+"@docusaurus/theme-common@npm:2.2.0, @docusaurus/theme-common@npm:^2.2.0":
   version: 2.2.0
   resolution: "@docusaurus/theme-common@npm:2.2.0"
   dependencies:
@@ -3904,10 +3904,10 @@ __metadata:
     "@docusaurus/core": 2.2.0
     "@docusaurus/module-type-aliases": 2.2.0
     "@docusaurus/plugin-client-redirects": 2.2.0
-    "@docusaurus/plugin-content-docs": 2.2.0
+    "@docusaurus/plugin-content-docs": ^2.2.0
     "@docusaurus/plugin-pwa": 2.2.0
     "@docusaurus/preset-classic": 2.2.0
-    "@docusaurus/theme-common": 2.2.0
+    "@docusaurus/theme-common": ^2.2.0
     "@mdx-js/react": ^1
     "@tsconfig/docusaurus": ^1.0.6
     animate.css: ^4.1.1
