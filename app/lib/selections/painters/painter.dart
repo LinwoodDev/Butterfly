@@ -31,6 +31,9 @@ class PainterSelection<T extends Painter> extends Selection<T> {
     if (selected is ShapePainter) {
       return ShapePainterSelection([selected]) as PainterSelection<T>;
     }
+    if (selected is StampPainter) {
+      return StampPainterSelection([selected]) as PainterSelection<T>;
+    }
     return PainterSelection([selected]);
   }
 

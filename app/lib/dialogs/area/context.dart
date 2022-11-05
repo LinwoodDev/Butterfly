@@ -181,6 +181,13 @@ class AreaContextMenu extends StatelessWidget {
                 if (state is! DocumentLoadSuccess) return;
                 bloc.add(AreasRemoved([area.name]));
               },
+            ),
+            ListTile(
+              leading: const Icon(PhosphorIcons.plusCircleLight),
+              title: Text(AppLocalizations.of(context)!.addToPack),
+              onTap: () {
+                // TODO: implement
+              },
             )
           ],
         );

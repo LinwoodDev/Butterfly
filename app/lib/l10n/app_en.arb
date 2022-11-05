@@ -397,5 +397,7 @@
   "second": "Second",
   "report": "Report",
   "createPack": "Create pack",
-  "packsDirectory": "Packs directory"
+  "packsDirectory": "Packs directory",
+  "stamp": "Stamp",
+  "addToPack": "Add to pack"
 }
