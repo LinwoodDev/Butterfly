@@ -398,6 +398,7 @@
   "report": "Rapporter",
   "newFolder": "Nouveau dossier",
   "createPack": "Créer un pack",
+  "editPack": "Edit pack",
   "packsDirectory": "Répertoire des paquets",
   "stamp": "Médaille",
   "addToPack": "Ajouter au pack",
@@ -419,5 +420,6 @@
         "example": "author"
       }
     }
-  }
+  },
+  "author": "Author"
 }
