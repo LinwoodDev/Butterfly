@@ -398,6 +398,7 @@
   "report": "Reporte",
   "newFolder": "Nueva carpeta",
   "createPack": "Crear paquete",
+  "editPack": "Edit pack",
   "packsDirectory": "Directorio de paquetes",
   "stamp": "Sello",
   "addToPack": "Añadir al paquete",
@@ -419,5 +420,6 @@
         "example": "author"
       }
     }
-  }
+  },
+  "author": "Author"
 }
