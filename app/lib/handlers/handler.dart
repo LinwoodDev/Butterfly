@@ -44,6 +44,7 @@ part 'path_eraser.dart';
 part 'pen.dart';
 part 'redo.dart';
 part 'shape.dart';
+part 'stamp.dart';
 part 'undo.dart';
 
 @immutable
@@ -202,6 +203,9 @@ abstract class Handler<T> {
     }
     if (painter is UndoPainter) {
       return UndoHandler(painter);
+    }
+    if (painter is StampPainter) {
+      return StampHandler(painter);
     }
     throw Exception('Unknown painter type: ${painter.runtimeType}');
   }

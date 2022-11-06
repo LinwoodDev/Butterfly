@@ -572,6 +572,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           packs: List<ButterflyPack>.from(current.document.packs)..add(pack));
       _saveDocument(emit, current.copyWith(document: currentDocument));
     });
+    on<DocumentPackUpdated>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final currentDocument = current.document.copyWith(
+          packs: current.document.packs
+              .map((e) => e.name == event.pack.name ? event.pack : e)
+              .toList());
+      _saveDocument(emit, current.copyWith(document: currentDocument));
+    });
     on<DocumentPackRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;

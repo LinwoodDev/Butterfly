@@ -217,6 +217,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                           null,
                                           Painter.pen,
                                           Painter.shape,
+                                          Painter.stamp,
                                           Painter.laser,
                                           Painter.pathEraser,
                                           Painter.label,

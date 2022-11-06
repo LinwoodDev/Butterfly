@@ -113,6 +113,7 @@ class PackJsonConverter extends JsonConverter<ButterflyPack, Map> {
     return {
       ...object.toJson(),
       'fileVersion': kFileVersion,
+      'type': 'pack',
     };
   }
 }

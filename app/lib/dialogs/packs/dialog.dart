@@ -13,7 +13,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../widgets/header.dart';
 import '../import.dart';
-import 'create.dart';
+import 'pack.dart';
 
 class PacksDialog extends StatefulWidget {
   const PacksDialog({super.key});
@@ -73,66 +73,99 @@ class _PacksDialogState extends State<PacksDialog>
                   ListView.builder(
                     shrinkWrap: true,
                     itemCount: packs.length,
-                    itemBuilder: (context, index) => Dismissible(
-                      key: ValueKey('localpack:${packs[index].name}'),
-                      onDismissed: (direction) {
-                        context
-                            .read<DocumentBloc>()
-                            .add(DocumentPackRemoved(packs[index].name));
-                      },
-                      background: Container(
-                        color: Colors.red,
-                      ),
-                      child: ListTile(
-                        title: Text(packs[index].name),
-                        subtitle: Text(AppLocalizations.of(context)!
-                            .packDescription(packs[index].components.length)),
-                        trailing: PopupMenuButton(
-                          itemBuilder: (context) => [
-                            PopupMenuItem(
-                              padding: EdgeInsets.zero,
-                              child: ListTile(
-                                leading:
-                                    const Icon(PhosphorIcons.appWindowLight),
-                                title:
-                                    Text(AppLocalizations.of(context)!.local),
-                                onTap: () async {
-                                  Navigator.of(context).pop();
-                                  _addPack(packs[index], true);
-                                },
-                              ),
-                            ),
-                            PopupMenuItem(
-                              padding: EdgeInsets.zero,
-                              child: ListTile(
-                                leading:
-                                    const Icon(PhosphorIcons.downloadLight),
-                                title:
-                                    Text(AppLocalizations.of(context)!.export),
-                                onTap: () async {
-                                  Navigator.of(context).pop();
-                                  _exportPack(packs[index]);
-                                },
-                              ),
-                            ),
-                            PopupMenuItem(
-                              padding: EdgeInsets.zero,
-                              child: ListTile(
-                                leading: const Icon(PhosphorIcons.trashLight),
-                                title:
-                                    Text(AppLocalizations.of(context)!.delete),
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                  context.read<DocumentBloc>().add(
-                                      DocumentPackRemoved(packs[index].name));
-                                },
-                              ),
-                            ),
-                          ],
-                          onSelected: (value) {},
+                    itemBuilder: (context, index) {
+                      final pack = packs[index];
+                      return Dismissible(
+                        key: ValueKey('localpack:${pack.name}'),
+                        onDismissed: (direction) {
+                          context
+                              .read<DocumentBloc>()
+                              .add(DocumentPackRemoved(pack.name));
+                        },
+                        background: Container(
+                          color: Colors.red,
                         ),
-                      ),
-                    ),
+                        child: ListTile(
+                          title: Text(pack.name),
+                          isThreeLine: true,
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(AppLocalizations.of(context)!
+                                  .byAuthor(pack.author)),
+                              Text(AppLocalizations.of(context)!
+                                  .packDescription(pack.components.length)),
+                            ],
+                          ),
+                          trailing: PopupMenuButton(
+                            itemBuilder: (context) => [
+                              PopupMenuItem(
+                                padding: EdgeInsets.zero,
+                                child: ListTile(
+                                  leading:
+                                      const Icon(PhosphorIcons.appWindowLight),
+                                  title:
+                                      Text(AppLocalizations.of(context)!.local),
+                                  onTap: () async {
+                                    Navigator.of(context).pop();
+                                    _addPack(pack, true);
+                                  },
+                                ),
+                              ),
+                              PopupMenuItem(
+                                padding: EdgeInsets.zero,
+                                child: ListTile(
+                                  leading:
+                                      const Icon(PhosphorIcons.pencilLight),
+                                  title:
+                                      Text(AppLocalizations.of(context)!.edit),
+                                  onTap: () async {
+                                    final bloc = context.read<DocumentBloc>();
+                                    Navigator.of(context).pop();
+                                    final newPack =
+                                        await showDialog<ButterflyPack>(
+                                            context: context,
+                                            builder: (context) =>
+                                                PackDialog(pack: pack));
+                                    if (newPack == null) return;
+                                    bloc.add(DocumentPackUpdated(
+                                        pack.name, newPack));
+                                  },
+                                ),
+                              ),
+                              PopupMenuItem(
+                                padding: EdgeInsets.zero,
+                                child: ListTile(
+                                  leading:
+                                      const Icon(PhosphorIcons.downloadLight),
+                                  title: Text(
+                                      AppLocalizations.of(context)!.export),
+                                  onTap: () async {
+                                    Navigator.of(context).pop();
+                                    _exportPack(pack);
+                                  },
+                                ),
+                              ),
+                              PopupMenuItem(
+                                padding: EdgeInsets.zero,
+                                child: ListTile(
+                                  leading: const Icon(PhosphorIcons.trashLight),
+                                  title: Text(
+                                      AppLocalizations.of(context)!.delete),
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                    context
+                                        .read<DocumentBloc>()
+                                        .add(DocumentPackRemoved(pack.name));
+                                  },
+                                ),
+                              ),
+                            ],
+                            onSelected: (value) {},
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   FutureBuilder<List<ButterflyPack>>(
                     future: _fileSystem.getPacks(),
@@ -150,70 +183,103 @@ class _PacksDialogState extends State<PacksDialog>
                       return ListView.builder(
                         shrinkWrap: true,
                         itemCount: globalPacks.length,
-                        itemBuilder: (context, index) => Dismissible(
-                          key:
-                              ValueKey('globalpack:${globalPacks[index].name}'),
-                          onDismissed: (direction) async {
-                            await _fileSystem
-                                .deletePack(globalPacks[index].name);
-                            if (mounted) Navigator.of(context).pop();
-                          },
-                          background: Container(
-                            color: Colors.red,
-                          ),
-                          child: ListTile(
-                            title: Text(globalPacks[index].name),
-                            subtitle: Text(AppLocalizations.of(context)!
-                                .packDescription(
-                                    globalPacks[index].components.length)),
-                            trailing: PopupMenuButton(
-                              itemBuilder: (context) => [
-                                PopupMenuItem(
-                                  padding: EdgeInsets.zero,
-                                  child: ListTile(
-                                    leading:
-                                        const Icon(PhosphorIcons.fileLight),
-                                    title: Text(
-                                        AppLocalizations.of(context)!.document),
-                                    onTap: () async {
-                                      Navigator.of(context).pop();
-                                      _addPack(globalPacks[index], false);
-                                    },
-                                  ),
-                                ),
-                                PopupMenuItem(
-                                  padding: EdgeInsets.zero,
-                                  child: ListTile(
-                                    leading:
-                                        const Icon(PhosphorIcons.downloadLight),
-                                    title: Text(
-                                        AppLocalizations.of(context)!.export),
-                                    onTap: () async {
-                                      Navigator.of(context).pop();
-                                      _exportPack(globalPacks[index]);
-                                    },
-                                  ),
-                                ),
-                                PopupMenuItem(
-                                  padding: EdgeInsets.zero,
-                                  child: ListTile(
-                                    leading:
-                                        const Icon(PhosphorIcons.trashLight),
-                                    title: Text(
-                                        AppLocalizations.of(context)!.delete),
-                                    onTap: () async {
-                                      await _fileSystem
-                                          .deletePack(globalPacks[index].name);
-                                      if (mounted) Navigator.of(context).pop();
-                                      setState(() {});
-                                    },
-                                  ),
-                                ),
-                              ],
-                              onSelected: (value) {},
+                        itemBuilder: (context, index) {
+                          final pack = globalPacks[index];
+                          return Dismissible(
+                            key: ValueKey('globalpack:${pack.name}'),
+                            onDismissed: (direction) async {
+                              await _fileSystem.deletePack(pack.name);
+                              if (mounted) Navigator.of(context).pop();
+                            },
+                            background: Container(
+                              color: Colors.red,
                             ),
-                          ),
-                        ),
+                            child: ListTile(
+                              title: Text(pack.name),
+                              isThreeLine: true,
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(AppLocalizations.of(context)!
+                                      .byAuthor(pack.author)),
+                                  Text(AppLocalizations.of(context)!
+                                      .packDescription(pack.components.length)),
+                                ],
+                              ),
+                              trailing: PopupMenuButton(
+                                itemBuilder: (context) => [
+                                  PopupMenuItem(
+                                    padding: EdgeInsets.zero,
+                                    child: ListTile(
+                                      leading:
+                                          const Icon(PhosphorIcons.fileLight),
+                                      title: Text(AppLocalizations.of(context)!
+                                          .document),
+                                      onTap: () async {
+                                        Navigator.of(context).pop();
+                                        _addPack(pack, false);
+                                      },
+                                    ),
+                                  ),
+                                  PopupMenuItem(
+                                    padding: EdgeInsets.zero,
+                                    child: ListTile(
+                                      leading:
+                                          const Icon(PhosphorIcons.pencilLight),
+                                      title: Text(
+                                          AppLocalizations.of(context)!.edit),
+                                      onTap: () async {
+                                        Navigator.of(context).pop();
+                                        final newPack =
+                                            await showDialog<ButterflyPack>(
+                                                context: context,
+                                                builder: (context) =>
+                                                    PackDialog(pack: pack));
+                                        if (newPack == null) return;
+                                        if (pack.name != newPack.name) {
+                                          await _fileSystem
+                                              .deletePack(pack.name);
+                                        }
+                                        await _fileSystem.updatePack(newPack);
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ),
+                                  PopupMenuItem(
+                                    padding: EdgeInsets.zero,
+                                    child: ListTile(
+                                      leading: const Icon(
+                                          PhosphorIcons.downloadLight),
+                                      title: Text(
+                                          AppLocalizations.of(context)!.export),
+                                      onTap: () async {
+                                        Navigator.of(context).pop();
+                                        _exportPack(pack);
+                                      },
+                                    ),
+                                  ),
+                                  PopupMenuItem(
+                                    padding: EdgeInsets.zero,
+                                    child: ListTile(
+                                      leading:
+                                          const Icon(PhosphorIcons.trashLight),
+                                      title: Text(
+                                          AppLocalizations.of(context)!.delete),
+                                      onTap: () async {
+                                        await _fileSystem.deletePack(pack.name);
+                                        if (mounted) {
+                                          Navigator.of(context).pop();
+                                        }
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ),
+                                ],
+                                onSelected: (value) {},
+                              ),
+                            ),
+                          );
+                        },
                       );
                     },
                   ),
@@ -255,7 +321,7 @@ class _PacksDialogState extends State<PacksDialog>
                             final pack = const PackJsonConverter()
                                 .fromJson(json.decode(data));
                             final success = await showDialog<bool>(
-                                  context: context,
+                                  context: this.context,
                                   builder: (context) => AlertDialog(
                                     title: Text(AppLocalizations.of(context)!
                                         .sureImportPack),
@@ -305,7 +371,7 @@ class _PacksDialogState extends State<PacksDialog>
                             Navigator.of(context).pop();
                             final pack = await showDialog<ButterflyPack>(
                               context: context,
-                              builder: (context) => CreatePackDialog(),
+                              builder: (context) => const PackDialog(),
                             );
                             if (pack != null) {
                               _addPack(pack);

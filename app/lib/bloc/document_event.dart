@@ -281,6 +281,16 @@ class DocumentPackAdded extends DocumentEvent {
   List<Object?> get props => [pack];
 }
 
+class DocumentPackUpdated extends DocumentEvent {
+  final String name;
+  final ButterflyPack pack;
+
+  const DocumentPackUpdated(this.name, this.pack);
+
+  @override
+  List<Object?> get props => [name, pack];
+}
+
 class DocumentPackRemoved extends DocumentEvent {
   final String pack;
 
