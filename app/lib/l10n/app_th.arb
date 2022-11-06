@@ -398,6 +398,7 @@
   "report": "Report",
   "newFolder": "New folder",
   "createPack": "Create pack",
+  "editPack": "Edit pack",
   "packsDirectory": "Packs directory",
   "stamp": "Stamp",
   "addToPack": "Add to pack",
@@ -419,5 +420,6 @@
         "example": "author"
       }
     }
-  }
+  },
+  "author": "Author"
 }
