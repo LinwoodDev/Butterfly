@@ -422,5 +422,8 @@
     }
   },
   "author": "Author",
+  "addComponent": "Add component",
+  "editComponent": "Edit component",
+  "scope": "Scope",
   "noPacks": "There are currently no packs available"
 }
