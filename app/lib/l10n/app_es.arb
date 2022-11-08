@@ -398,7 +398,7 @@
   "report": "Reporte",
   "newFolder": "Nueva carpeta",
   "createPack": "Crear paquete",
-  "editPack": "Edit pack",
+  "editPack": "Editar pack",
   "packsDirectory": "Directorio de paquetes",
   "stamp": "Sello",
   "addToPack": "Añadir al paquete",
@@ -421,9 +421,9 @@
       }
     }
   },
-  "author": "Author",
-  "addComponent": "Add component",
-  "editComponent": "Edit component",
-  "scope": "Scope",
-  "noPacks": "There are currently no packs available"
+  "author": "Autor",
+  "addComponent": "Añadir componente",
+  "editComponent": "Editar componente",
+  "scope": "Alcance",
+  "noPacks": "Actualmente no hay paquetes disponibles"
 }
