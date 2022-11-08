@@ -192,11 +192,15 @@ Map<String, dynamic> _$$ShapePainterToJson(_$ShapePainter instance) =>
 
 _$StampPainter _$$StampPainterFromJson(Map json) => _$StampPainter(
       name: json['name'] as String? ?? '',
+      pack: json['pack'] as String? ?? '',
+      component: json['component'] as int? ?? 0,
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$StampPainterToJson(_$StampPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'pack': instance.pack,
+      'component': instance.component,
       'type': instance.$type,
     };
