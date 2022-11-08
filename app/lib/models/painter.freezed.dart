@@ -84,7 +84,7 @@ mixin _$Painter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -120,7 +120,7 @@ mixin _$Painter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -156,7 +156,7 @@ mixin _$Painter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -349,7 +349,7 @@ class _$HandPainter implements HandPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) {
     return hand(name, includeEraser);
   }
@@ -388,7 +388,7 @@ class _$HandPainter implements HandPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) {
     return hand?.call(name, includeEraser);
   }
@@ -427,7 +427,7 @@ class _$HandPainter implements HandPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -615,7 +615,7 @@ class _$UndoPainter implements UndoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) {
     return undo(name);
   }
@@ -654,7 +654,7 @@ class _$UndoPainter implements UndoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) {
     return undo?.call(name);
   }
@@ -693,7 +693,7 @@ class _$UndoPainter implements UndoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -879,7 +879,7 @@ class _$RedoPainter implements RedoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) {
     return redo(name);
   }
@@ -918,7 +918,7 @@ class _$RedoPainter implements RedoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) {
     return redo?.call(name);
   }
@@ -957,7 +957,7 @@ class _$RedoPainter implements RedoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -1154,7 +1154,7 @@ class _$LabelPainter implements LabelPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) {
     return label(name, property);
   }
@@ -1193,7 +1193,7 @@ class _$LabelPainter implements LabelPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) {
     return label?.call(name, property);
   }
@@ -1232,7 +1232,7 @@ class _$LabelPainter implements LabelPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -1440,7 +1440,7 @@ class _$PenPainter implements PenPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) {
     return pen(name, zoomDependent, property);
   }
@@ -1479,7 +1479,7 @@ class _$PenPainter implements PenPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) {
     return pen?.call(name, zoomDependent, property);
   }
@@ -1518,7 +1518,7 @@ class _$PenPainter implements PenPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -1721,7 +1721,7 @@ class _$EraserPainter implements EraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) {
     return eraser(name, property);
   }
@@ -1760,7 +1760,7 @@ class _$EraserPainter implements EraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) {
     return eraser?.call(name, property);
   }
@@ -1799,7 +1799,7 @@ class _$EraserPainter implements EraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -2021,7 +2021,7 @@ class _$PathEraserPainter implements PathEraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) {
     return pathEraser(name, strokeWidth, includeEraser, deleteWholeStroke);
   }
@@ -2060,7 +2060,7 @@ class _$PathEraserPainter implements PathEraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) {
     return pathEraser?.call(
         name, strokeWidth, includeEraser, deleteWholeStroke);
@@ -2100,7 +2100,7 @@ class _$PathEraserPainter implements PathEraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) {
     if (pathEraser != null) {
@@ -2323,7 +2323,7 @@ class _$LayerPainter implements LayerPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) {
     return layer(name, strokeWidth, this.layer, includeEraser);
   }
@@ -2362,7 +2362,7 @@ class _$LayerPainter implements LayerPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) {
     return layer?.call(name, strokeWidth, this.layer, includeEraser);
   }
@@ -2401,7 +2401,7 @@ class _$LayerPainter implements LayerPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) {
     if (layer != null) {
@@ -2637,7 +2637,7 @@ class _$AreaPainter implements AreaPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) {
     return area(name, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -2677,7 +2677,7 @@ class _$AreaPainter implements AreaPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) {
     return area?.call(name, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -2717,7 +2717,7 @@ class _$AreaPainter implements AreaPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) {
     if (area != null) {
@@ -2956,7 +2956,7 @@ class _$LaserPainter implements LaserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) {
     return laser(name, duration, strokeWidth, strokeMultiplier, color);
   }
@@ -2995,7 +2995,7 @@ class _$LaserPainter implements LaserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) {
     return laser?.call(name, duration, strokeWidth, strokeMultiplier, color);
   }
@@ -3034,7 +3034,7 @@ class _$LaserPainter implements LaserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) {
     if (laser != null) {
@@ -3282,7 +3282,7 @@ class _$ShapePainter implements ShapePainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) {
     return shape(name, zoomDependent, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, property);
@@ -3322,7 +3322,7 @@ class _$ShapePainter implements ShapePainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) {
     return shape?.call(name, zoomDependent, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, property);
@@ -3362,7 +3362,7 @@ class _$ShapePainter implements ShapePainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -3473,7 +3473,7 @@ abstract class _$$StampPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
       __$$StampPainterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name});
+  $Res call({String name, String pack, int component});
 }
 
 /// @nodoc
@@ -3488,12 +3488,22 @@ class __$$StampPainterCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? pack = null,
+    Object? component = null,
   }) {
     return _then(_$StampPainter(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      pack: null == pack
+          ? _value.pack
+          : pack // ignore: cast_nullable_to_non_nullable
+              as String,
+      component: null == component
+          ? _value.component
+          : component // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -3501,7 +3511,8 @@ class __$$StampPainterCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$StampPainter implements StampPainter {
-  _$StampPainter({this.name = '', final String? $type})
+  _$StampPainter(
+      {this.name = '', this.pack = '', this.component = 0, final String? $type})
       : $type = $type ?? 'stamp';
 
   factory _$StampPainter.fromJson(Map<String, dynamic> json) =>
@@ -3510,13 +3521,19 @@ class _$StampPainter implements StampPainter {
   @override
   @JsonKey()
   final String name;
+  @override
+  @JsonKey()
+  final String pack;
+  @override
+  @JsonKey()
+  final int component;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Painter.stamp(name: $name)';
+    return 'Painter.stamp(name: $name, pack: $pack, component: $component)';
   }
 
   @JsonKey(ignore: true)
@@ -3560,9 +3577,9 @@ class _$StampPainter implements StampPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name) stamp,
+    required TResult Function(String name, String pack, int component) stamp,
   }) {
-    return stamp(name);
+    return stamp(name, pack, component);
   }
 
   @override
@@ -3599,9 +3616,9 @@ class _$StampPainter implements StampPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name)? stamp,
+    TResult? Function(String name, String pack, int component)? stamp,
   }) {
-    return stamp?.call(name);
+    return stamp?.call(name, pack, component);
   }
 
   @override
@@ -3638,11 +3655,11 @@ class _$StampPainter implements StampPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name)? stamp,
+    TResult Function(String name, String pack, int component)? stamp,
     required TResult orElse(),
   }) {
     if (stamp != null) {
-      return stamp(name);
+      return stamp(name, pack, component);
     }
     return orElse();
   }
@@ -3717,13 +3734,18 @@ class _$StampPainter implements StampPainter {
 }
 
 abstract class StampPainter implements Painter {
-  factory StampPainter({final String name}) = _$StampPainter;
+  factory StampPainter(
+      {final String name,
+      final String pack,
+      final int component}) = _$StampPainter;
 
   factory StampPainter.fromJson(Map<String, dynamic> json) =
       _$StampPainter.fromJson;
 
   @override
   String get name;
+  String get pack;
+  int get component;
   @override
   @JsonKey(ignore: true)
   _$$StampPainterCopyWith<_$StampPainter> get copyWith =>

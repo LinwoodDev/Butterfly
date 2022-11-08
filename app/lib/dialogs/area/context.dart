@@ -1,7 +1,11 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/packs/component.dart';
 import 'package:butterfly/dialogs/svg_export.dart';
 import 'package:butterfly/models/area.dart';
+import 'package:butterfly/models/element.dart';
+import 'package:butterfly/models/pack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -114,8 +118,8 @@ class AreaContextMenu extends StatelessWidget {
               leading: const Icon(PhosphorIcons.exportLight),
               title: Text(AppLocalizations.of(context)!.export),
               onTap: () {
+                final bloc = context.read<DocumentBloc>();
                 Navigator.of(context).pop();
-                var bloc = context.read<DocumentBloc>();
                 showDialog<void>(
                   context: context,
                   builder: (context) => AlertDialog(
@@ -185,10 +189,10 @@ class AreaContextMenu extends StatelessWidget {
               leading: const Icon(PhosphorIcons.trashLight),
               title: Text(AppLocalizations.of(context)!.delete),
               onTap: () {
-                Navigator.of(context).pop();
-                var bloc = context.read<DocumentBloc>();
-                var state = bloc.state;
+                final bloc = context.read<DocumentBloc>();
+                final state = bloc.state;
                 if (state is! DocumentLoadSuccess) return;
+                Navigator.of(context).pop();
                 bloc.add(AreasRemoved([area.name]));
               },
             ),
@@ -196,7 +200,27 @@ class AreaContextMenu extends StatelessWidget {
               leading: const Icon(PhosphorIcons.plusCircleLight),
               title: Text(AppLocalizations.of(context)!.addToPack),
               onTap: () {
-                // TODO: implement
+                final settingsCubit = context.read<SettingsCubit>();
+                final bloc = context.read<DocumentBloc>();
+                final elements = state.renderers
+                    .where((e) => e.area == area)
+                    .map((e) =>
+                        e.transform(position: -area.position, relative: true))
+                    .map((e) => e?.element)
+                    .whereType<PadElement>()
+                    .toList();
+                Navigator.of(context).pop();
+                showDialog<ButterflyComponent>(
+                  context: context,
+                  builder: (context) => MultiBlocProvider(
+                      providers: [
+                        BlocProvider.value(value: bloc),
+                        BlocProvider.value(value: settingsCubit),
+                      ],
+                      child: PackComponentDialog(
+                        elements: elements,
+                      )),
+                );
               },
             )
           ],

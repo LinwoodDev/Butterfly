@@ -421,5 +421,8 @@
       }
     }
   },
-  "author": "Author"
+  "author": "Author",
+  "addComponent": "Add component",
+  "editComponent": "Edit component",
+  "scope": "Scope"
 }
