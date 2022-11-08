@@ -421,5 +421,6 @@
       }
     }
   },
-  "author": "Author"
+  "author": "Author",
+  "noPacks": "There are currently no packs available"
 }
