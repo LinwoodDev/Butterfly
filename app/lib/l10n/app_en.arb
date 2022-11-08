@@ -424,5 +424,6 @@
   "author": "Author",
   "addComponent": "Add component",
   "editComponent": "Edit component",
-  "scope": "Scope"
+  "scope": "Scope",
+  "noPacks": "There are currently no packs available"
 }
