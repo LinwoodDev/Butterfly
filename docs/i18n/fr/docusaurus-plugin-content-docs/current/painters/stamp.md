@@ -4,7 +4,7 @@ sidebar_label: "Forme"
 sidebar_position: 3
 ---
 
-TODO: write docs
+TODO : écrire des docs
 
 ## Configuration
 
