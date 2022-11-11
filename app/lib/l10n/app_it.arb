@@ -373,6 +373,8 @@
   "painter": "Pittore",
   "position": "Posizione",
   "note": "Nota",
+  "packs": "Pacchetti",
+  "pack": "Pacchetto",
   "more": "Altro",
   "askForName": "Chiedi nome",
   "areaIndex": "Area {index}",
@@ -394,5 +396,34 @@
   "first": "Primo",
   "second": "Secondo",
   "report": "Segnala",
-  "newFolder": "Nuova cartella"
+  "newFolder": "Nuova cartella",
+  "createPack": "Crea pacchetto",
+  "editPack": "Modifica pacchetto",
+  "packsDirectory": "Cartella pacchetti",
+  "stamp": "Timbro",
+  "addToPack": "Aggiungi al pacchetto",
+  "packDescription": "{count,plural, =0{Nessun elemento} =1{1 elemento} other{{count} elementi}}",
+  "@packDescription": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "sureImportPack": "Sei sicuro di voler importare il pacchetto?",
+  "byAuthor": "da {author}",
+  "@byAuthor": {
+    "placeholders": {
+      "author": {
+        "type": "String",
+        "example": "author"
+      }
+    }
+  },
+  "author": "Autore",
+  "addComponent": "Aggiungi componente",
+  "editComponent": "Modifica componente",
+  "scope": "Ambito",
+  "noPacks": "Al momento non ci sono pacchetti disponibili"
 }

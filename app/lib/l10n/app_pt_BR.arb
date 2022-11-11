@@ -373,6 +373,8 @@
   "painter": "Pintor",
   "position": "Posição",
   "note": "Observação",
+  "packs": "Pacotes",
+  "pack": "Pct",
   "more": "MAIS",
   "askForName": "Pergunte o nome",
   "areaIndex": "Área {index}",
@@ -394,5 +396,34 @@
   "first": "Primeiro",
   "second": "Segundo",
   "report": "Denunciar",
-  "newFolder": "Adicionar Pasta"
+  "newFolder": "Adicionar Pasta",
+  "createPack": "Criar pacote",
+  "editPack": "Editar pacote",
+  "packsDirectory": "Diretório dos pacotes",
+  "stamp": "Selo",
+  "addToPack": "Adicionar aos pacotes",
+  "packDescription": "{count,plural, =0{Sem elementos} =1{1 elemento} other{{count} elementos}}",
+  "@packDescription": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "sureImportPack": "Tem certeza de que deseja importar o pacote?",
+  "byAuthor": "por {author}",
+  "@byAuthor": {
+    "placeholders": {
+      "author": {
+        "type": "String",
+        "example": "author"
+      }
+    }
+  },
+  "author": "Autor",
+  "addComponent": "Adicionar componente",
+  "editComponent": "Editar componente",
+  "scope": "Escopo",
+  "noPacks": "Não existem pacotes disponíveis no momento"
 }
