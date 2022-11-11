@@ -276,6 +276,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     currentRenderers = currentRenderers
         .whereNot((element) => renderers.contains(element))
         .toList();
+    visibleElements.addAll(currentRenderers);
     emit(state.copyWith(
         cameraViewport: cameraViewport.bake(
             height: size.height.ceil(),

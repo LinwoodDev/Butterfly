@@ -44,11 +44,11 @@ class PenHandler extends Handler<PenPainter> {
     lastPosition.remove(index);
     submittedElements.add(element);
     if (elements.isEmpty) {
-      final current = List<PadElement>.from(submittedElements);
+      final current = submittedElements.reversed.toList();
       submittedElements.clear();
       bloc.add(ElementsCreated(current));
-      await bloc.bake();
       bloc.refresh();
+      await bloc.bake();
     }
   }
 

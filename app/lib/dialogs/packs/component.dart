@@ -98,6 +98,7 @@ class _PackComponentDialogState extends State<PackComponentDialog> {
                 ),
               ),
             ),
+            const SizedBox(height: 16),
           ],
           TextField(
             decoration: InputDecoration(

@@ -10,13 +10,14 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
     if (state is! DocumentLoadSuccess) return [];
     final packs = state.document.packs;
     final currentPack =
-        packs.firstWhereOrNull((e) => e.name == selected.first.name);
+        packs.firstWhereOrNull((e) => e.name == selected.first.pack);
     return [
       ...super.buildProperties(context),
       const SizedBox(height: 16),
-      DropdownButtonFormField<ButterflyPack>(
+      DropdownButtonFormField<String>(
         items: packs
-            .map((e) => DropdownMenuItem<ButterflyPack>(child: Text(e.name)))
+            .map((e) =>
+                DropdownMenuItem<String>(value: e.name, child: Text(e.name)))
             .toList(),
         decoration: InputDecoration(
           labelText: AppLocalizations.of(context)!.pack,
@@ -24,15 +25,29 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
           counterText:
               packs.isEmpty ? AppLocalizations.of(context)!.noPacks : null,
         ),
-        onChanged: (e) {
-          if (e == null) return;
-          update(
-              context, selected.map((e) => e.copyWith(pack: e.name)).toList());
+        value: currentPack?.name,
+        onChanged: (pack) {
+          if (pack == null) return;
+          update(context, selected.map((e) => e.copyWith(pack: pack)).toList());
         },
       ),
+      const SizedBox(height: 8),
+      const Divider(),
+      const SizedBox(height: 8),
       Column(
           children: currentPack?.components
-                  .map((e) => ListTile(title: Text(e.name)))
+                  .asMap()
+                  .entries
+                  .map((component) => ListTile(
+                        title: Text(component.value.name),
+                        selected: component.key == selected.first.component,
+                        onTap: () => update(
+                            context,
+                            selected
+                                .map(
+                                    (e) => e.copyWith(component: component.key))
+                                .toList()),
+                      ))
                   .toList() ??
               []),
     ];

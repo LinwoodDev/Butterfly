@@ -15,7 +15,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../api/open.dart';
 import '../models/area.dart';
 import '../models/element.dart';
-import '../models/pack.dart';
 import '../models/painter.dart';
 import '../renderers/renderer.dart';
 import '../widgets/color_field.dart';
