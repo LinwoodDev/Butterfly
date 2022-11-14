@@ -212,4 +212,8 @@ class AppDocument with _$AppDocument {
   ExportPreset? getExportPreset(String name) {
     return exportPresets.firstWhereOrNull((e) => e.name == name);
   }
+
+  ButterflyPack? getPack(String name) {
+    return packs.firstWhereOrNull((e) => e.name == name);
+  }
 }

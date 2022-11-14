@@ -14,12 +14,14 @@ class DocumentUpdated extends DocumentEvent {
 }
 
 class ElementsCreated extends DocumentEvent {
-  final List<PadElement> elements;
+  final List<PadElement>? elements;
+  final List<Renderer<PadElement>>? renderers;
 
-  const ElementsCreated(this.elements);
+  const ElementsCreated(this.elements) : renderers = null;
+  const ElementsCreated.renderers(this.renderers) : elements = null;
 
   @override
-  List<Object?> get props => [elements];
+  List<Object?> get props => [elements, renderers];
 }
 
 class ElementsReplaced extends DocumentEvent {

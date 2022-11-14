@@ -1,0 +1,4 @@
+* Add packs to storage and document
+* Add packs dialog to top left corner menu
+* Add stamp painter
+* Add "Add to pack" button to area context menu

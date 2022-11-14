@@ -25,6 +25,7 @@ import '../helpers/rect_helper.dart';
 import '../models/area.dart';
 import '../models/cursor.dart';
 import '../models/document.dart';
+import '../models/pack.dart';
 import '../models/path_point.dart';
 import '../models/property.dart';
 import '../renderers/cursors/eraser.dart';

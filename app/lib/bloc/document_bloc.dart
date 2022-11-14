@@ -57,17 +57,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      if (event.elements.isEmpty) return;
-      final renderers =
-          event.elements.map((e) => Renderer.fromInstance(e)).toList();
-      await Future.wait(
-          renderers.map((e) async => await e.setup(current.document)));
+      if ((event.elements?.isEmpty ?? true) &&
+          (event.renderers?.isEmpty ?? true)) return;
+      final renderers = event.renderers ??
+          event.elements?.map((e) => Renderer.fromInstance(e)).toList();
+      if (renderers == null) return;
+      if (event.renderers == null) {
+        await Future.wait(
+            renderers.map((e) async => await e.setup(current.document)));
+      }
       return _saveDocument(
           emit,
           current.copyWith(
               document: current.document.copyWith(
                   content: (List.from(current.document.content)
-                    ..addAll(event.elements)))),
+                    ..addAll(renderers.map((e) => e.element))))),
           renderers);
     }, transformer: sequential());
     on<ElementsReplaced>((event, emit) async {
