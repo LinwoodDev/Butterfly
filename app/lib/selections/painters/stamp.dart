@@ -38,7 +38,18 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
           children: currentPack?.components
                   .asMap()
                   .entries
-                  .map((component) => ListTile(
+                  .map((component) => Dismissible(
+                      key: ValueKey(component.key),
+                      background: Container(color: Colors.red),
+                      onDismissed: (direction) {
+                        final newPack = currentPack.copyWith(
+                          components: List<ButterflyComponent>.from(
+                              currentPack.components)
+                            ..removeAt(component.key),
+                        );
+                        bloc.add(DocumentPackUpdated(newPack.name, newPack));
+                      },
+                      child: ListTile(
                         title: Text(component.value.name),
                         selected: component.key == selected.first.component,
                         onTap: () => update(
@@ -47,7 +58,7 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
                                 .map(
                                     (e) => e.copyWith(component: component.key))
                                 .toList()),
-                      ))
+                      )))
                   .toList() ??
               []),
     ];
