@@ -93,8 +93,10 @@ class _PackComponentDialogState extends State<PackComponentDialog> {
                     _pack = value;
                   });
                 },
-                decoration: const InputDecoration(
-                  labelText: 'Pack',
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.pack,
+                  filled: true,
+                  icon: const Icon(PhosphorIcons.packageLight),
                 ),
               ),
             ),

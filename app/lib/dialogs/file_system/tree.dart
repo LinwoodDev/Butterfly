@@ -152,7 +152,7 @@ class FileSystemDirectoryTreeViewState
                       child: Text(AppLocalizations.of(context)!.cancel)),
                   ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(true),
-                      child: const Text('Create'))
+                      child: Text(AppLocalizations.of(context)!.create))
                 ],
               );
             }) ??
