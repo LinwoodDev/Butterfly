@@ -97,4 +97,11 @@ extension PainterVisualizer on Painter {
     }
     throw UnimplementedError();
   }
+
+  bool isAction() {
+    if (this is UndoPainter || this is RedoPainter) {
+      return true;
+    }
+    return false;
+  }
 }

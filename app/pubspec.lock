@@ -336,7 +336,7 @@ packages:
       name: flex_seed_scheme
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.1.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -360,7 +360,7 @@ packages:
       name: flutter_launcher_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.0"
+    version: "0.11.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -485,7 +485,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.1.7"
+    version: "5.1.10"
   graphs:
     dependency: transitive
     description:
@@ -821,7 +821,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.27.6"
+    version: "0.27.7"
   screen_retriever:
     dependency: transitive
     description:
