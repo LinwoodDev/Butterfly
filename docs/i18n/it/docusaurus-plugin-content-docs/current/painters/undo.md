@@ -4,9 +4,9 @@ sidebar_label: "Annulla"
 sidebar_position: 0
 ---
 
-:::note ⚡ Action painter
+:::note ⚡ Action Painter
 
-This is a special painter. You can't select it and it will run the action if you click on it.
+Questo è un pittore speciale. Non è possibile selezionarlo e verrà eseguita l'azione se si fa clic su di esso.
 
 :::
 
