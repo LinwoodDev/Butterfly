@@ -4,9 +4,9 @@ sidebar_label: "Rehacer"
 sidebar_position: 0
 ---
 
-:::note ⚡ Action painter
+:::note ⚡ Pintor de acciones
 
-This is a special painter. You can't select it and it will run the action if you click on it.
+Se trata de un pintor especial. No puedes seleccionarlo y se ejecutará la acción si haces clic en él.
 
 :::
 
