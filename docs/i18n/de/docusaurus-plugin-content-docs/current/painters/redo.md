@@ -4,9 +4,9 @@ sidebar_label: "Wiederholen"
 sidebar_position: 0
 ---
 
-:::note ⚡ Action painter
+:::note ⚡ Action-Maler
 
-This is a special painter. You can't select it and it will run the action if you click on it.
+Dies ist ein besonderer Maler. Sie können es nicht auswählen und es wird die Aktion ausführen, wenn Sie darauf klicken.
 
 :::
 
