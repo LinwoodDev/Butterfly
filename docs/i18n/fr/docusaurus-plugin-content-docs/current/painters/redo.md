@@ -4,9 +4,9 @@ sidebar_label: "Refaire"
 sidebar_position: 0
 ---
 
-:::note ⚡ Action painter
+:::note ⚡ Peintre d'action
 
-This is a special painter. You can't select it and it will run the action if you click on it.
+C'est un peintre spécial. Vous ne pouvez pas le sélectionner et il exécutera l'action si vous cliquez dessus.
 
 :::
 
