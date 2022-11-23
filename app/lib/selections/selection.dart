@@ -89,8 +89,15 @@ abstract class Selection<T> {
 
   List<String> get help => <String>[];
 
-  Selection remove(T selected) {
-    this.selected.remove(selected);
-    return this;
+  Selection? remove(T selected) {
+    final selections = List.from(this.selected);
+    var success = selections.remove(selected);
+    if (!success) return this;
+    if (selections.isEmpty) return null;
+    var selection = Selection.from(selections.first);
+    for (int i = 1; i < selections.length; i++) {
+      selection = selection.insert(selections[i]);
+    }
+    return selection;
   }
 }
