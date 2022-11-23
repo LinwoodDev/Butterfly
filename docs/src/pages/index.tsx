@@ -26,7 +26,6 @@ function HomepageHeader({
   }, []);
   const {siteConfig} = useDocusaurusContext();
   const version = useDocsVersionCandidates(docsPluginId)[0];
-  console.log(JSON.stringify(version));
   return (
     <header className={clsx('hero shadow--lw', styles.heroBanner)}>
       <div className="container">

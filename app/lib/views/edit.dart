@@ -74,15 +74,16 @@ class _EditToolbarState extends State<EditToolbar> {
                         data,
                         color: color,
                       ),
-                      if (action)
-                        SizedBox(
-                          width: 8,
-                          child: Icon(
-                            PhosphorIcons.playCircleLight,
-                            size: 16,
-                            color: color,
-                          ),
-                        ),
+                      SizedBox(
+                        width: 8,
+                        child: action
+                            ? Icon(
+                                PhosphorIcons.playCircleLight,
+                                size: 16,
+                                color: color,
+                              )
+                            : null,
+                      ),
                     ],
                   );
 

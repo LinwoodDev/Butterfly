@@ -30,7 +30,7 @@ class OptionButton extends StatelessWidget {
               ? BoxDecoration(
                   // Border
                   border: Border.all(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).colorScheme.primary,
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(12),

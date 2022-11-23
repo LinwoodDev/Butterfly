@@ -77,10 +77,22 @@ class PainterSelection<T extends Painter> extends Selection<T> {
   }
 
   @override
-  String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.painter;
+  String getLocalizedName(BuildContext context) {
+    final type = selected.first.runtimeType;
+    if (selected.every((e) => e.runtimeType == type)) {
+      return selected.first.getLocalizedName(context);
+    }
+    return AppLocalizations.of(context)!.painter;
+  }
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.paintRollerFill : PhosphorIcons.paintRollerLight;
+  IconData getIcon({bool filled = false}) {
+    final type = selected.first.runtimeType;
+    if (selected.every((e) => e.runtimeType == type)) {
+      return selected.first.getIcon(filled: filled);
+    }
+    return filled
+        ? PhosphorIcons.paintRollerFill
+        : PhosphorIcons.paintRollerLight;
+  }
 }

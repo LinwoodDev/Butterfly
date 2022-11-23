@@ -420,9 +420,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       emit(state.copyWith(selection: Selection.from(selected)));
       return;
     }
-    Selection next;
+    Selection? next;
     if (selection.selected.contains(selected) && toggle) {
-      next = selection.remove(selected);
+      if (selection.selected.length != 1) {
+        next = selection.remove(selected);
+      }
     } else {
       next = selection.insert(selected);
     }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/constraints.dart';
 import 'package:butterfly/models/property.dart';
+import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
