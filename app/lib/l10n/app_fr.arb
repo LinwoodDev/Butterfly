@@ -425,5 +425,6 @@
   "addComponent": "Ajouter un composant",
   "editComponent": "Modifier le composant",
   "scope": "Périmètre d'application",
-  "noPacks": "Il n'y a actuellement aucun pack disponible"
+  "noPacks": "Il n'y a actuellement aucun pack disponible",
+  "components": "Components"
 }
