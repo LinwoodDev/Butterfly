@@ -425,5 +425,6 @@
   "addComponent": "Aggiungi componente",
   "editComponent": "Modifica componente",
   "scope": "Ambito",
-  "noPacks": "Al momento non ci sono pacchetti disponibili"
+  "noPacks": "Al momento non ci sono pacchetti disponibili",
+  "components": "Componenti"
 }
