@@ -4,3 +4,4 @@
 * Add "Add to pack" button to area context menu
 * Add action painter indicator
 * Update text and icon for generic painter property view
+* Fix remove of selection

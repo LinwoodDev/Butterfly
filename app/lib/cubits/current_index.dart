@@ -433,7 +433,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void changeSelection(dynamic selected, [bool toggle = true]) {
     Selection? selection;
-    if (!toggle || !(selection?.selected.contains(selected) ?? true)) {
+    if (!toggle || !(state.selection?.selected.contains(selected) ?? false)) {
       selection = Selection.from(selected);
     }
     emit(state.copyWith(selection: selection));

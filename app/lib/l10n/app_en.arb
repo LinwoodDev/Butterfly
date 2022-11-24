@@ -425,5 +425,6 @@
   "addComponent": "Add component",
   "editComponent": "Edit component",
   "scope": "Scope",
-  "noPacks": "There are currently no packs available"
+  "noPacks": "There are currently no packs available",
+  "components": "Components"
 }

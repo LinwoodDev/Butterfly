@@ -97,6 +97,15 @@ class _PacksDialogState extends State<PacksDialog>
                                   .packDescription(pack.components.length)),
                             ],
                           ),
+                          onTap: () async {
+                            final bloc = context.read<DocumentBloc>();
+                            Navigator.of(context).pop();
+                            final newPack = await showDialog<ButterflyPack>(
+                                context: context,
+                                builder: (context) => PackDialog(pack: pack));
+                            if (newPack == null) return;
+                            bloc.add(DocumentPackUpdated(pack.name, newPack));
+                          },
                           trailing: PopupMenuButton(
                             itemBuilder: (context) => [
                               PopupMenuItem(
@@ -109,27 +118,6 @@ class _PacksDialogState extends State<PacksDialog>
                                   onTap: () async {
                                     Navigator.of(context).pop();
                                     _addPack(pack, true);
-                                  },
-                                ),
-                              ),
-                              PopupMenuItem(
-                                padding: EdgeInsets.zero,
-                                child: ListTile(
-                                  leading:
-                                      const Icon(PhosphorIcons.pencilLight),
-                                  title:
-                                      Text(AppLocalizations.of(context)!.edit),
-                                  onTap: () async {
-                                    final bloc = context.read<DocumentBloc>();
-                                    Navigator.of(context).pop();
-                                    final newPack =
-                                        await showDialog<ButterflyPack>(
-                                            context: context,
-                                            builder: (context) =>
-                                                PackDialog(pack: pack));
-                                    if (newPack == null) return;
-                                    bloc.add(DocumentPackUpdated(
-                                        pack.name, newPack));
                                   },
                                 ),
                               ),

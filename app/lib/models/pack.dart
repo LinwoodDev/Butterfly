@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'pack.g.dart';
 part 'pack.freezed.dart';
 
-@freezed
+@Freezed(equal: false)
 class ButterflyPack with _$ButterflyPack {
   const factory ButterflyPack({
     @Default('') String name,
@@ -20,7 +20,7 @@ class ButterflyPack with _$ButterflyPack {
       _$ButterflyPackFromJson(json);
 }
 
-@freezed
+@Freezed(equal: false)
 class ButterflyComponent with _$ButterflyComponent {
   const factory ButterflyComponent({
     required String name,
@@ -31,7 +31,7 @@ class ButterflyComponent with _$ButterflyComponent {
       _$ButterflyComponentFromJson(json);
 }
 
-@freezed
+@Freezed(equal: false)
 class ButterflyParameter with _$ButterflyParameter {
   const factory ButterflyParameter.text({
     required int child,

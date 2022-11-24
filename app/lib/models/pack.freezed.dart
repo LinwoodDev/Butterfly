@@ -207,28 +207,6 @@ class _$_ButterflyPack implements _ButterflyPack {
     return 'ButterflyPack(name: $name, description: $description, author: $author, components: $components, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ButterflyPack &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.author, author) || other.author == author) &&
-            const DeepCollectionEquality()
-                .equals(other._components, _components) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, name, description, author,
-      const DeepCollectionEquality().hash(_components), createdAt, updatedAt);
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -392,20 +370,6 @@ class _$_ButterflyComponent implements _ButterflyComponent {
   String toString() {
     return 'ButterflyComponent(name: $name, elements: $elements)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ButterflyComponent &&
-            (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality().equals(other._elements, _elements));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, name, const DeepCollectionEquality().hash(_elements));
 
   @JsonKey(ignore: true)
   @override
@@ -634,20 +598,6 @@ class _$TextParameter implements TextParameter {
     return 'ButterflyParameter.text(child: $child, name: $name, value: $value)';
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$TextParameter &&
-            (identical(other.child, child) || other.child == child) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.value, value) || other.value == value));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, child, name, value);
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -832,20 +782,6 @@ class _$ColorParameter implements ColorParameter {
   String toString() {
     return 'ButterflyParameter.color(child: $child, name: $name, value: $value)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ColorParameter &&
-            (identical(other.child, child) || other.child == child) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.value, value) || other.value == value));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, child, name, value);
 
   @JsonKey(ignore: true)
   @override
@@ -1032,20 +968,6 @@ class _$BoolParameter implements BoolParameter {
     return 'ButterflyParameter.bool(child: $child, name: $name, value: $value)';
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BoolParameter &&
-            (identical(other.child, child) || other.child == child) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.value, value) || other.value == value));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, child, name, value);
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -1231,20 +1153,6 @@ class _$IntParameter implements IntParameter {
     return 'ButterflyParameter.int(child: $child, name: $name, value: $value)';
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$IntParameter &&
-            (identical(other.child, child) || other.child == child) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.value, value) || other.value == value));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, child, name, value);
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -1429,20 +1337,6 @@ class _$DoubleParameter implements DoubleParameter {
   String toString() {
     return 'ButterflyParameter.double(child: $child, name: $name, value: $value)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DoubleParameter &&
-            (identical(other.child, child) || other.child == child) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.value, value) || other.value == value));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, child, name, value);
 
   @JsonKey(ignore: true)
   @override
