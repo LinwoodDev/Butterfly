@@ -450,7 +450,7 @@
     "description": "The placeholder of the input of the DocSearch pop-up modal"
   },
   "theme.tags.tagsPageTitle": {
-    "message": "Tags",
+    "message": "Etiketler",
     "description": "The title of the tag list page"
   }
 }
