@@ -2,6 +2,16 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.6.0-alpha.1 (2022-11-25)
+
+* Add packs to storage and document
+* Add packs dialog to top left corner menu
+* Add stamp painter
+* Add "Add to pack" button to area context menu
+* Add action painter indicator
+* Update text and icon for generic painter property view
+* Fix remove of selection
+
 ## 1.6.0-alpha.0 (2022-11-05)
 
 * Add laser painter selection view
