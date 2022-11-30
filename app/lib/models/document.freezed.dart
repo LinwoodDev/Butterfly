@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'document.dart';
 
@@ -466,6 +466,7 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<PadElement> get content {
+    if (_content is EqualUnmodifiableListView) return _content;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_content);
   }
@@ -477,6 +478,7 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<ColorPalette> get palettes {
+    if (_palettes is EqualUnmodifiableListView) return _palettes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_palettes);
   }
@@ -485,6 +487,7 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<Waypoint> get waypoints {
+    if (_waypoints is EqualUnmodifiableListView) return _waypoints;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_waypoints);
   }
@@ -493,6 +496,7 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<Area> get areas {
+    if (_areas is EqualUnmodifiableListView) return _areas;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_areas);
   }
@@ -501,6 +505,7 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<ExportPreset> get exportPresets {
+    if (_exportPresets is EqualUnmodifiableListView) return _exportPresets;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_exportPresets);
   }
@@ -509,6 +514,7 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<ButterflyPack> get packs {
+    if (_packs is EqualUnmodifiableListView) return _packs;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_packs);
   }
@@ -521,6 +527,7 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<Painter> get painters {
+    if (_painters is EqualUnmodifiableListView) return _painters;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_painters);
   }

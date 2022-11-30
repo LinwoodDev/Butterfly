@@ -39,20 +39,20 @@ class _ConstraintsViewState extends State<ConstraintsView> {
 
   @override
   Widget build(BuildContext context) {
-    Widget? content;
-    if (constraints is FixedElementConstraints) {
-      content = _FixedConstraintsContent(
-          constraints: constraints as FixedElementConstraints,
-          onChanged: _onChanged);
-    } else if (constraints is ScaledElementConstraints) {
-      content = _ScaledConstraintsContent(
-          constraints: constraints as ScaledElementConstraints,
-          onChanged: _onChanged);
-    } else if (constraints is DynamicElementConstraints) {
-      content = _DynamicConstraintsContent(
-          constraints: constraints as DynamicElementConstraints,
-          onChanged: _onChanged);
-    }
+    Widget? content = constraints?.map(
+      scaled: (value) => _ScaledConstraintsContent(
+        constraints: value,
+        onChanged: _onChanged,
+      ),
+      fixed: (value) => _FixedConstraintsContent(
+        constraints: value,
+        onChanged: _onChanged,
+      ),
+      dynamic: (value) => _DynamicConstraintsContent(
+        constraints: value,
+        onChanged: _onChanged,
+      ),
+    );
     return ExpansionPanelList(
       expansionCallback: (panelIndex, isExpanded) => setState(() {
         opened = !isExpanded;

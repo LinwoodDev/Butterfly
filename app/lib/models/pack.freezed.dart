@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'pack.dart';
 
@@ -191,6 +191,7 @@ class _$_ButterflyPack implements _ButterflyPack {
   @override
   @JsonKey()
   List<ButterflyComponent> get components {
+    if (_components is EqualUnmodifiableListView) return _components;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_components);
   }
@@ -362,6 +363,7 @@ class _$_ButterflyComponent implements _ButterflyComponent {
   @override
   @JsonKey()
   List<PadElement> get elements {
+    if (_elements is EqualUnmodifiableListView) return _elements;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_elements);
   }
@@ -427,6 +429,7 @@ ButterflyParameter _$ButterflyParameterFromJson(Map<String, dynamic> json) {
 mixin _$ButterflyParameter {
   int get child => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  Object get value => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int child, String name, String value) text,
@@ -705,6 +708,7 @@ abstract class TextParameter implements ButterflyParameter {
   int get child;
   @override
   String get name;
+  @override
   String get value;
   @override
   @JsonKey(ignore: true)
@@ -890,6 +894,7 @@ abstract class ColorParameter implements ButterflyParameter {
   int get child;
   @override
   String get name;
+  @override
   int get value;
   @override
   @JsonKey(ignore: true)
@@ -1075,6 +1080,7 @@ abstract class BoolParameter implements ButterflyParameter {
   int get child;
   @override
   String get name;
+  @override
   bool get value;
   @override
   @JsonKey(ignore: true)
@@ -1260,6 +1266,7 @@ abstract class IntParameter implements ButterflyParameter {
   int get child;
   @override
   String get name;
+  @override
   int get value;
   @override
   @JsonKey(ignore: true)
@@ -1445,6 +1452,7 @@ abstract class DoubleParameter implements ButterflyParameter {
   int get child;
   @override
   String get name;
+  @override
   double get value;
   @override
   @JsonKey(ignore: true)
