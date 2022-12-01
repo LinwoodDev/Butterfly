@@ -64,6 +64,29 @@ class _EditToolbarState extends State<EditToolbar> {
               if (state is! DocumentLoadSuccess) return Container();
               var painters = state.document.painters;
 
+              Widget buildIcon(IconData data, bool action, [Color? color]) =>
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(width: 8),
+                      Icon(
+                        data,
+                        color: color,
+                      ),
+                      SizedBox(
+                        width: 8,
+                        child: action
+                            ? Icon(
+                                PhosphorIcons.playCircleLight,
+                                size: 16,
+                                color: color,
+                              )
+                            : null,
+                      ),
+                    ],
+                  );
+
               return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                 builder: (context, currentIndex) {
                   final temp = currentIndex.temporaryHandler;
@@ -157,14 +180,14 @@ class _EditToolbarState extends State<EditToolbar> {
                                                 .insertSelection(e, true),
                                             selected: selected,
                                             highlighted: highlighted,
-                                            selectedIcon: Icon(
-                                              e.getIcon(filled: true),
-                                              color: color,
-                                            ),
-                                            icon: Icon(
-                                              e.getIcon(filled: false),
-                                              color: color,
-                                            ),
+                                            selectedIcon: buildIcon(
+                                                e.getIcon(filled: true),
+                                                e.isAction(),
+                                                color),
+                                            icon: buildIcon(
+                                                e.getIcon(filled: false),
+                                                e.isAction(),
+                                                color),
                                             onPressed: () {
                                               if (_mouseState ==
                                                   _MouseState.multi) {
@@ -211,12 +234,13 @@ class _EditToolbarState extends State<EditToolbar> {
                                       borderRadius: BorderRadius.circular(16)),
                                   itemBuilder: (context) => [
                                         ...[
-                                          Painter.hand,
                                           Painter.undo,
                                           Painter.redo,
                                           null,
+                                          Painter.hand,
                                           Painter.pen,
                                           Painter.shape,
+                                          Painter.stamp,
                                           Painter.laser,
                                           Painter.pathEraser,
                                           Painter.label,
@@ -234,7 +258,13 @@ class _EditToolbarState extends State<EditToolbar> {
                                               mouseCursor: MouseCursor.defer,
                                               title: Text(painter
                                                   .getLocalizedName(context)),
-                                              leading: Icon(painter.getIcon()),
+                                              leading: Icon(
+                                                painter.getIcon(),
+                                              ),
+                                              trailing: painter.isAction()
+                                                  ? const Icon(PhosphorIcons
+                                                      .playCircleLight)
+                                                  : null,
                                             ),
                                           );
                                         })

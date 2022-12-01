@@ -25,6 +25,7 @@ class RemoteStorage with _$RemoteStorage {
     required String path,
     required String documentsPath,
     required String templatesPath,
+    required String packsPath,
     @Default([]) List<String> cachedDocuments,
     @Uint8ListJsonConverter() required Uint8List icon,
     DateTime? lastSynced,
@@ -77,6 +78,16 @@ class RemoteStorage with _$RemoteStorage {
   }) {
     return buildUri(
       path: [...templatesPath.split('/'), ...path],
+      query: query,
+    );
+  }
+
+  Uri buildPacksUri({
+    List<String> path = const [],
+    Map<String, String> query = const {},
+  }) {
+    return buildUri(
+      path: [...packsPath.split('/'), ...path],
       query: query,
     );
   }
@@ -155,7 +166,11 @@ class ButterflySettings with _$ButterflySettings {
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final remotes = prefs.getStringList('remotes')?.map((e) {
-          return RemoteStorage.fromJson(json.decode(e));
+          final data = json.decode(e) as Map<String, dynamic>;
+          if (!data.containsKey('packsPath')) {
+            data['packsPath'] = data['path'] + '/Packs';
+          }
+          return RemoteStorage.fromJson(data);
         }).toList() ??
         const [];
     return ButterflySettings(
@@ -240,6 +255,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('sync_mode', syncMode.name);
     await prefs.setString(
         'input_configuration', json.encode(inputConfiguration.toJson()));
+    await prefs.setInt('version', 0);
   }
 
   RemoteStorage? getRemote(String identifier) {

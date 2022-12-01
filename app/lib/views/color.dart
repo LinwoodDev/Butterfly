@@ -265,49 +265,47 @@ class _ColorViewState extends State<ColorView> {
     );
   }
 
-  void _newPalette() {
+  Future<void> _newPalette() async {
     Navigator.of(context).pop();
-    final state = context.read<DocumentBloc>().state;
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     final nameController = TextEditingController();
-    showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-                actions: [
-                  TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text(AppLocalizations.of(context)!.cancel)),
-                  ElevatedButton(
-                      onPressed: () {
-                        final name = nameController.text;
-                        if (state.document.palettes
-                            .any((element) => element.name == name)) return;
-                        final newPalettes =
-                            List<ColorPalette>.from(state.document.palettes)
-                              ..add(ColorPalette(name: name, colors: []));
-                        context
-                            .read<DocumentBloc>()
-                            .add(DocumentPaletteChanged(newPalettes));
-                        setState(() => currentPalette = name);
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(AppLocalizations.of(context)!.ok)),
-                ],
-                title: Text(AppLocalizations.of(context)!.enterName),
-                content: TextField(
-                    decoration: InputDecoration(
-                        filled: true,
-                        hintText: AppLocalizations.of(context)!.name),
-                    autofocus: true,
-                    controller: nameController)));
+    final success = await showDialog<bool>(
+            context: context,
+            builder: (ctx) => AlertDialog(
+                    actions: [
+                      TextButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: Text(AppLocalizations.of(context)!.cancel)),
+                      ElevatedButton(
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: Text(AppLocalizations.of(context)!.ok)),
+                    ],
+                    title: Text(AppLocalizations.of(context)!.enterName),
+                    content: TextField(
+                        decoration: InputDecoration(
+                            filled: true,
+                            hintText: AppLocalizations.of(context)!.name),
+                        autofocus: true,
+                        onSubmitted: (value) => Navigator.of(context).pop(true),
+                        controller: nameController))) ??
+        false;
+    if (!success) return;
+    final name = nameController.text;
+    if (state.document.palettes.any((element) => element.name == name)) return;
+    final newPalettes = List<ColorPalette>.from(state.document.palettes)
+      ..add(ColorPalette(name: name, colors: []));
+    bloc.add(DocumentPaletteChanged(newPalettes));
+    setState(() => currentPalette = name);
   }
 
-  void _renamePalette() {
+  Future<void> _renamePalette() async {
     Navigator.of(context).pop();
     final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return;
     final nameController = TextEditingController(text: currentPalette);
-    showDialog(
+    return showDialog<void>(
         context: context,
         builder: (ctx) => AlertDialog(
                 actions: [

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'document.dart';
 
@@ -205,6 +205,7 @@ mixin _$AppDocument {
   List<Waypoint> get waypoints => throw _privateConstructorUsedError;
   List<Area> get areas => throw _privateConstructorUsedError;
   List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
+  List<ButterflyPack> get packs => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   List<Painter> get painters => throw _privateConstructorUsedError;
@@ -231,6 +232,7 @@ abstract class $AppDocumentCopyWith<$Res> {
       List<Waypoint> waypoints,
       List<Area> areas,
       List<ExportPreset> exportPresets,
+      List<ButterflyPack> packs,
       DateTime createdAt,
       DateTime? updatedAt,
       List<Painter> painters,
@@ -261,6 +263,7 @@ class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
     Object? waypoints = null,
     Object? areas = null,
     Object? exportPresets = null,
+    Object? packs = null,
     Object? createdAt = null,
     Object? updatedAt = freezed,
     Object? painters = null,
@@ -299,6 +302,10 @@ class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
           ? _value.exportPresets
           : exportPresets // ignore: cast_nullable_to_non_nullable
               as List<ExportPreset>,
+      packs: null == packs
+          ? _value.packs
+          : packs // ignore: cast_nullable_to_non_nullable
+              as List<ButterflyPack>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -352,6 +359,7 @@ abstract class _$$_AppDocumentCopyWith<$Res>
       List<Waypoint> waypoints,
       List<Area> areas,
       List<ExportPreset> exportPresets,
+      List<ButterflyPack> packs,
       DateTime createdAt,
       DateTime? updatedAt,
       List<Painter> painters,
@@ -382,6 +390,7 @@ class __$$_AppDocumentCopyWithImpl<$Res>
     Object? waypoints = null,
     Object? areas = null,
     Object? exportPresets = null,
+    Object? packs = null,
     Object? createdAt = null,
     Object? updatedAt = freezed,
     Object? painters = null,
@@ -420,6 +429,10 @@ class __$$_AppDocumentCopyWithImpl<$Res>
           ? _value._exportPresets
           : exportPresets // ignore: cast_nullable_to_non_nullable
               as List<ExportPreset>,
+      packs: null == packs
+          ? _value._packs
+          : packs // ignore: cast_nullable_to_non_nullable
+              as List<ButterflyPack>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -452,6 +465,7 @@ class _$_AppDocument extends _AppDocument {
       final List<Waypoint> waypoints = const [],
       final List<Area> areas = const [],
       final List<ExportPreset> exportPresets = const [],
+      final List<ButterflyPack> packs = const [],
       required this.createdAt,
       this.updatedAt,
       final List<Painter> painters = const [],
@@ -461,6 +475,7 @@ class _$_AppDocument extends _AppDocument {
         _waypoints = waypoints,
         _areas = areas,
         _exportPresets = exportPresets,
+        _packs = packs,
         _painters = painters,
         super._();
 
@@ -476,6 +491,7 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<PadElement> get content {
+    if (_content is EqualUnmodifiableListView) return _content;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_content);
   }
@@ -487,6 +503,7 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<ColorPalette> get palettes {
+    if (_palettes is EqualUnmodifiableListView) return _palettes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_palettes);
   }
@@ -495,6 +512,7 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<Waypoint> get waypoints {
+    if (_waypoints is EqualUnmodifiableListView) return _waypoints;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_waypoints);
   }
@@ -503,6 +521,7 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<Area> get areas {
+    if (_areas is EqualUnmodifiableListView) return _areas;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_areas);
   }
@@ -511,8 +530,18 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<ExportPreset> get exportPresets {
+    if (_exportPresets is EqualUnmodifiableListView) return _exportPresets;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_exportPresets);
+  }
+
+  final List<ButterflyPack> _packs;
+  @override
+  @JsonKey()
+  List<ButterflyPack> get packs {
+    if (_packs is EqualUnmodifiableListView) return _packs;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_packs);
   }
 
   @override
@@ -523,6 +552,7 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   List<Painter> get painters {
+    if (_painters is EqualUnmodifiableListView) return _painters;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_painters);
   }
@@ -533,7 +563,7 @@ class _$_AppDocument extends _AppDocument {
 
   @override
   String toString() {
-    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, palettes: $palettes, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
+    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, palettes: $palettes, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
   }
 
   @override
@@ -553,6 +583,7 @@ class _$_AppDocument extends _AppDocument {
             const DeepCollectionEquality().equals(other._areas, _areas) &&
             const DeepCollectionEquality()
                 .equals(other._exportPresets, _exportPresets) &&
+            const DeepCollectionEquality().equals(other._packs, _packs) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -573,6 +604,7 @@ class _$_AppDocument extends _AppDocument {
       const DeepCollectionEquality().hash(_waypoints),
       const DeepCollectionEquality().hash(_areas),
       const DeepCollectionEquality().hash(_exportPresets),
+      const DeepCollectionEquality().hash(_packs),
       createdAt,
       updatedAt,
       const DeepCollectionEquality().hash(_painters),
@@ -602,6 +634,7 @@ abstract class _AppDocument extends AppDocument {
       final List<Waypoint> waypoints,
       final List<Area> areas,
       final List<ExportPreset> exportPresets,
+      final List<ButterflyPack> packs,
       required final DateTime createdAt,
       final DateTime? updatedAt,
       final List<Painter> painters,
@@ -627,6 +660,8 @@ abstract class _AppDocument extends AppDocument {
   List<Area> get areas;
   @override
   List<ExportPreset> get exportPresets;
+  @override
+  List<ButterflyPack> get packs;
   @override
   DateTime get createdAt;
   @override

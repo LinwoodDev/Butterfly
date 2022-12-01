@@ -8,9 +8,11 @@ import HomepageFeatures from "../components/HomepageFeatures";
 import Translate from '@docusaurus/Translate';
 import "animate.css/animate.min.css";
 import UAParser from 'ua-parser-js';
+import {useDocsVersionCandidates} from '@docusaurus/theme-common/internal';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 
-function HomepageHeader() {
+function HomepageHeader({
+  docsPluginId}) {
   const [platform, setPlatform] = React.useState('');
   React.useEffect(() => {
     const parser = new UAParser();
@@ -22,8 +24,8 @@ function HomepageHeader() {
       setPlatform(uaPlatform);
     }
   }, []);
-  const { siteConfig } = useDocusaurusContext();
-  const Svg = require('../../static/img/logo.svg').default;
+  const {siteConfig} = useDocusaurusContext();
+  const version = useDocsVersionCandidates(docsPluginId)[0];
   return (
     <header className={clsx('hero shadow--lw', styles.heroBanner)}>
       <div className="container">
@@ -39,7 +41,7 @@ function HomepageHeader() {
               <AnimationOnScroll animateIn="animate__fadeInLeft">
                 <Link data-aos="fade-right"
                   className={clsx("button button--lg button--secondary", styles.button)}
-                  to="/docs/1.5/intro">
+                  to={`${version.path}/intro`}>
                   <Translate description="homepage getting started button">
                     Getting started
                   </Translate>
@@ -114,13 +116,13 @@ function HomepageHeader() {
   );
 }
 
-export default function Home() {
+export default function Home({docsPluginId}) {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
       description="Change the world">
-      <HomepageHeader />
+      <HomepageHeader docsPluginId={docsPluginId} />
       <main>
         <HomepageFeatures />
       </main>

@@ -15,10 +15,10 @@ class AreasAction extends Action<AreasIntent> {
   AreasAction();
 
   @override
-  Future<dynamic> invoke(AreasIntent intent) {
+  Future<void> invoke(AreasIntent intent) {
     var bloc = intent.context.read<DocumentBloc>();
     var transformCubit = intent.context.read<TransformCubit>();
-    return showDialog(
+    return showDialog<void>(
       context: intent.context,
       builder: (context) => MultiBlocProvider(providers: [
         BlocProvider.value(value: transformCubit),

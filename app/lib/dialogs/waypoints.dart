@@ -150,7 +150,7 @@ class WaypointsDialog extends StatelessWidget {
   void _showCreateDialog(BuildContext context) {
     var saveScale = true;
     var nameController = TextEditingController();
-    showDialog(
+    showDialog<void>(
         context: context,
         builder: (ctx) => StatefulBuilder(builder: (ctx, setState) {
               return AlertDialog(

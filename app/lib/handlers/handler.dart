@@ -25,6 +25,7 @@ import '../helpers/rect_helper.dart';
 import '../models/area.dart';
 import '../models/cursor.dart';
 import '../models/document.dart';
+import '../models/pack.dart';
 import '../models/path_point.dart';
 import '../models/property.dart';
 import '../models/viewport.dart';
@@ -45,6 +46,7 @@ part 'path_eraser.dart';
 part 'pen.dart';
 part 'redo.dart';
 part 'shape.dart';
+part 'stamp.dart';
 part 'undo.dart';
 
 @immutable
@@ -207,6 +209,9 @@ abstract class Handler<T> {
     }
     if (painter is UndoPainter) {
       return UndoHandler(painter);
+    }
+    if (painter is StampPainter) {
+      return StampHandler(painter);
     }
     throw Exception('Unknown painter type: ${painter.runtimeType}');
   }

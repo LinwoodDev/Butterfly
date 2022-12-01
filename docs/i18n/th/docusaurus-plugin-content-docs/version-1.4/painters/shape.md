@@ -1,6 +1,6 @@
 ---
 title: "Shape painter"
-sidebar_label: "Shape"
+sidebar_label: "รูปร่าง"
 sidebar_position: 3
 ---
 
@@ -9,31 +9,31 @@ Use this painter to draw shapes on the paper. You can draw rectangles, circles, 
 
 ## Configuration
 
-|            Property |  Default  | Description                                                                                                                                      |
-| -------------------:|:---------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
-|               Color |   Black   | The color that will be drawn                                                                                                                     |
-| ความกว้างของเส้นขีด |     5     | The width of the stroke                                                                                                                          |
-|      Zoom dependent |  ไม่จริง  | This will change the stroke width based on the zoom level.                                                                                       |
-|               Shape | rectangle | The shape that will be drawn                                                                                                                     |
-|               Width |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
-|              Height |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
-|        Aspect ratio |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|            Property |  Default   | คำอธิบาย                                                                                                                                         |
+| -------------------:|:----------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
+|                  สี |   Black    | The color that will be drawn                                                                                                                     |
+| ความกว้างของเส้นขีด |     5      | The width of the stroke                                                                                                                          |
+|      Zoom dependent |  ไม่จริง   | This will change the stroke width based on the zoom level.                                                                                       |
+|             รูปร่าง | สี่เหลี่ยม | The shape that will be drawn                                                                                                                     |
+|           ความกว้าง |     0      | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
+|             ความสูง |     0      | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
+|        Aspect ratio |     0      | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
 
 ### Shape types
 
-#### Rectangle
+#### สี่เหลี่ยม
 
-|      Property |   Default   | Description                                       |
+|      Property |   Default   | คำอธิบาย                                          |
 | -------------:|:-----------:|:------------------------------------------------- |
-|          Fill | Transparent | The color that will be drawn inside the rectangle |
+|          เติม | Transparent | The color that will be drawn inside the rectangle |
 | Corner radius | 0, 0, 0, 0  | The radius of the corners of the rectangle        |
 
-#### Circle
+#### วงกลม
 
-| Property |   Default   | Description                                       |
+| Property |   Default   | คำอธิบาย                                          |
 | --------:|:-----------:|:------------------------------------------------- |
-|     Fill | Transparent | The color that will be drawn inside the rectangle |
+|     เติม | Transparent | The color that will be drawn inside the rectangle |
 
-#### Line
+#### เส้น
 
 *No configuration available.*

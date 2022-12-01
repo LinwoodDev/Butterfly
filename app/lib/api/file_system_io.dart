@@ -10,9 +10,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/converter.dart';
+import '../models/pack.dart';
 import 'file_system.dart';
 
 Future<String> getButterflyDirectory() async {
+  final argPath = GeneralFileSystem.dataPath;
+  if (argPath != null) {
+    return argPath;
+  }
   var prefs = await SharedPreferences.getInstance();
   String? path;
   if (prefs.containsKey('document_path')) {
@@ -212,14 +217,16 @@ class IOTemplateFileSystem extends TemplateFileSystem {
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     var defaults = DocumentTemplate.getDefaults(context);
-    var directory = await getDirectory();
-    if (await Directory(directory).exists()) {
+    final path = await getDirectory();
+    final dir = Directory(path);
+    if (await dir.exists()) {
       if (force) {
-        await Directory(directory).delete(recursive: true);
+        await dir.delete(recursive: true);
       } else {
         return false;
       }
     }
+    await dir.create(recursive: true);
     await Future.wait(defaults.map((e) => updateTemplate(e)));
     return true;
   }
@@ -296,5 +303,80 @@ class IOTemplateFileSystem extends TemplateFileSystem {
       }
     }
     return templates;
+  }
+}
+
+class IOPackFileSystem extends PackFileSystem {
+  @override
+  Future<void> deletePack(String name) async {
+    await File(await getAbsolutePath('${escapeName(name)}.bfly')).delete();
+  }
+
+  @override
+  Future<ButterflyPack?> getPack(String name) async {
+    var file = File(await getAbsolutePath('${escapeName(name)}.bfly'));
+    if (await file.exists()) {
+      var json = await file.readAsString();
+      return const PackJsonConverter()
+          .fromJson(Map<String, dynamic>.from(jsonDecode(json)));
+    }
+    return null;
+  }
+
+  @override
+  Future<void> updatePack(ButterflyPack pack) async {
+    final file = File(await getAbsolutePath('${escapeName(pack.name)}.bfly'));
+    if (!(await file.exists())) {
+      await file.create(recursive: true);
+    }
+    final data = const PackJsonConverter().toJson(pack);
+    await file.writeAsString(jsonEncode(data));
+  }
+
+  @override
+  FutureOr<String> getDirectory() async {
+    var prefs = await SharedPreferences.getInstance();
+    String? path;
+    if (prefs.containsKey('document_path')) {
+      path = prefs.getString('document_path');
+    }
+    if (path == '') {
+      path = null;
+    }
+    path ??= await getButterflyDirectory();
+    // Convert \ to /
+    path = path.replaceAll('\\', '/');
+    path += '/Packs';
+    return path;
+  }
+
+  @override
+  Future<bool> hasPack(String name) async {
+    return File(await getAbsolutePath('${escapeName(name)}.bfly')).exists();
+  }
+
+  String escapeName(String name) {
+    // Escape all non-alphanumeric characters
+    return name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
+  }
+
+  @override
+  Future<List<ButterflyPack>> getPacks() async {
+    var directory = Directory(await getDirectory());
+    if (!(await directory.exists())) return const [];
+    var files = await directory.list().toList();
+    var packs = <ButterflyPack>[];
+    for (var file in files) {
+      if (file is! File) continue;
+      try {
+        var json = await file.readAsString();
+        packs.add(const PackJsonConverter().fromJson(jsonDecode(json)));
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
+    }
+    return packs;
   }
 }

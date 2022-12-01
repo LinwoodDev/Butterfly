@@ -278,6 +278,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     currentRenderers = currentRenderers
         .whereNot((element) => renderers.contains(element))
         .toList();
+    visibleElements.addAll(currentRenderers);
     emit(state.copyWith(
         cameraViewport: cameraViewport.bake(
             height: size.height.ceil(),
@@ -424,9 +425,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       emit(state.copyWith(selection: Selection.from(selected)));
       return;
     }
-    Selection next;
+    Selection? next;
     if (selection.selected.contains(selected) && toggle) {
-      next = selection.remove(selected);
+      if (selection.selected.length != 1) {
+        next = selection.remove(selected);
+      }
     } else {
       next = selection.insert(selected);
     }
@@ -434,11 +437,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void changeSelection(dynamic selected, [bool toggle = true]) {
-    emit(state.copyWith(
-        selection:
-            (toggle && (state.selection?.selected.contains(selected) ?? false))
-                ? null
-                : Selection.from(selected)));
+    Selection? selection;
+    if (!toggle || !(state.selection?.selected.contains(selected) ?? false)) {
+      selection = Selection.from(selected);
+    }
+    emit(state.copyWith(selection: selection));
   }
 
   void resetSelection() {

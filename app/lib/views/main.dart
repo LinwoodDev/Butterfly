@@ -35,13 +35,16 @@ import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/color.dart';
 import 'package:butterfly/views/edit.dart';
+import 'package:butterfly/views/error.dart';
 import 'package:butterfly/views/property.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../actions/change_painter.dart';
+import '../actions/packs.dart';
 import '../models/background.dart';
 import 'view.dart';
 
@@ -87,6 +90,7 @@ class _ProjectPageState extends State<ProjectPage> {
     ChangePathIntent: ChangePathAction(),
     SaveIntent: SaveAction(),
     ChangePainterIntent: ChangePainterAction(),
+    PacksIntent: PacksAction(),
   };
 
   @override
@@ -139,93 +143,105 @@ class _ProjectPageState extends State<ProjectPage> {
       });
       return;
     }
-    RemoteStorage? remote;
-    remote = widget.location != null
-        ? settingsCubit.state.getRemote(widget.location!.remote)
-        : settingsCubit.state.getDefaultRemote();
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
-    final prefs = await SharedPreferences.getInstance();
-    var documentOpened = false;
-    AppDocument? document;
-    if (widget.location != null) {
-      documentOpened = true;
-      if (!widget.location!.absolute) {
-        await fileSystem.getAsset(widget.location!.path).then((value) {
-          if (value is! AppDocumentFile) {
-            return document = null;
-          }
-          return document = value.getDocumentInfo()?.load();
+    try {
+      RemoteStorage? remote;
+      remote = widget.location != null
+          ? settingsCubit.state.getRemote(widget.location!.remote)
+          : settingsCubit.state.getDefaultRemote();
+      final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
+      final prefs = await SharedPreferences.getInstance();
+      var documentOpened = false;
+      AppDocument? document;
+      if (widget.location != null) {
+        documentOpened = true;
+        if (!widget.location!.absolute) {
+          await fileSystem.getAsset(widget.location!.path).then((value) {
+            if (value is! AppDocumentFile) {
+              return document = null;
+            }
+            return document = value.getDocumentInfo()?.load();
+          });
+        }
+      }
+      if (!mounted) return;
+      final name = (widget.location?.absolute ?? false)
+          ? widget.location!.fileName
+          : await formatCurrentDateTime(
+              context.read<SettingsCubit>().state.locale);
+      if (document == null && prefs.containsKey('default_template')) {
+        var template = await TemplateFileSystem.fromPlatform(remote: remote)
+            .getTemplate(prefs.getString('default_template')!);
+        if (template != null && mounted) {
+          document = template.document.copyWith(
+            name: name,
+            createdAt: DateTime.now(),
+          );
+        }
+      }
+      if (mounted) {
+        document ??= AppDocument(
+            name: name,
+            createdAt: DateTime.now(),
+            painters: createDefaultPainters(),
+            palettes: ColorPalette.getMaterialPalette(context));
+      }
+      if (document != null) {
+        final renderers =
+            document!.content.map((e) => Renderer.fromInstance(e)).toList();
+        await Future.wait(renderers.map((e) async => await e.setup(document!)));
+        final background = Renderer.fromInstance(document!.background);
+        await background.setup(document!);
+        setState(() {
+          _transformCubit = TransformCubit();
+          _currentIndexCubit =
+              CurrentIndexCubit(settingsCubit, _transformCubit!, null);
+          _bloc = DocumentBloc(
+              _currentIndexCubit!,
+              settingsCubit,
+              document!,
+              widget.location ??
+                  AssetLocation(path: '', remote: remote?.identifier ?? ''),
+              background,
+              renderers);
+          _bloc?.load();
+          _importService = ImportService(_bloc!, context);
+          _importService.load(widget.type, widget.data);
         });
       }
-    }
-    if (!mounted) return;
-    final name = (widget.location?.absolute ?? false)
-        ? widget.location!.fileName
-        : await formatCurrentDateTime(
-            context.read<SettingsCubit>().state.locale);
-    if (document == null && prefs.containsKey('default_template')) {
-      var template = await TemplateFileSystem.fromPlatform(remote: remote)
-          .getTemplate(prefs.getString('default_template')!);
-      if (template != null && mounted) {
-        document = template.document.copyWith(
-          name: name,
-          createdAt: DateTime.now(),
-        );
+      if (!(widget.location?.absolute ?? false)) {
+        _showIntroduction(documentOpened);
       }
-    }
-    if (mounted) {
-      document ??= AppDocument(
-          name: name,
-          createdAt: DateTime.now(),
-          painters: createDefaultPainters(),
-          palettes: ColorPalette.getMaterialPalette(context));
-    }
-    if (document != null) {
-      final renderers =
-          document!.content.map((e) => Renderer.fromInstance(e)).toList();
-      await Future.wait(renderers.map((e) async => await e.setup(document!)));
-      final background = Renderer.fromInstance(document!.background);
-      await background.setup(document!);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit =
             CurrentIndexCubit(settingsCubit, _transformCubit!, null);
-        _bloc = DocumentBloc(
-            _currentIndexCubit!,
-            settingsCubit,
-            document!,
-            widget.location ??
-                AssetLocation(path: '', remote: remote?.identifier ?? ''),
-            background,
-            renderers);
-        _bloc?.load();
-        _importService = ImportService(_bloc!, context);
-        _importService.load(widget.type, widget.data);
+        _bloc = DocumentBloc.error(e.toString());
       });
-    }
-    if (!(widget.location?.absolute ?? false)) {
-      _showIntroduction(documentOpened);
     }
   }
 
   Future<void> _showIntroduction([bool documentOpened = false]) async {
     final settingsCubit = context.read<SettingsCubit>();
     if (settingsCubit.isFirstStart()) {
-      await showDialog(
+      await showDialog<void>(
         context: context,
         builder: (context) => const AppIntroductionDialog(),
       );
       await settingsCubit.updateLastVersion();
       await settingsCubit.save();
     } else if (await settingsCubit.hasNewerVersion()) {
-      await showDialog(
+      await showDialog<void>(
           context: context,
           builder: (context) => const UpdateIntroductionDialog());
       await settingsCubit.updateLastVersion();
       await settingsCubit.save();
     }
     if (!documentOpened && settingsCubit.state.startEnabled) {
-      await showDialog(
+      await showDialog<void>(
           context: context,
           builder: (context) => MultiBlocProvider(providers: [
                 if (_bloc != null)
@@ -255,6 +271,10 @@ class _ProjectPageState extends State<ProjectPage> {
   Widget build(BuildContext context) {
     if (_bloc == null) {
       return const Material(child: Center(child: CircularProgressIndicator()));
+    }
+    final state = _bloc!.state;
+    if (state is DocumentLoadFailure) {
+      return ErrorPage(message: state.message);
     }
     return GestureDetector(
       onTap: () {
@@ -343,6 +363,10 @@ class _ProjectPageState extends State<ProjectPage> {
                             LogicalKeyboardKey.keyS): ChangePathIntent(context),
                         LogicalKeySet(LogicalKeyboardKey.control,
                             LogicalKeyboardKey.keyS): SaveIntent(context),
+                        LogicalKeySet(
+                            LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.alt,
+                            LogicalKeyboardKey.keyP): PacksIntent(context),
                         ...[
                           LogicalKeyboardKey.digit1,
                           LogicalKeyboardKey.digit2,

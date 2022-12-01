@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'element.dart';
+import 'pack.dart';
 import 'painter.dart';
 import 'palette.dart';
 import 'tool.dart';
@@ -177,6 +178,7 @@ class AppDocument with _$AppDocument {
     @Default([]) List<Waypoint> waypoints,
     @Default([]) List<Area> areas,
     @Default([]) List<ExportPreset> exportPresets,
+    @Default([]) List<ButterflyPack> packs,
     required DateTime createdAt,
     DateTime? updatedAt,
     @Default([]) List<Painter> painters,
@@ -212,5 +214,9 @@ class AppDocument with _$AppDocument {
 
   ExportPreset? getExportPreset(String name) {
     return exportPresets.firstWhereOrNull((e) => e.name == name);
+  }
+
+  ButterflyPack? getPack(String name) {
+    return packs.firstWhereOrNull((e) => e.name == name);
   }
 }

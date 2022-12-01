@@ -19,7 +19,7 @@ class LabelHandler extends Handler<LabelPainter> {
       EventContext context, Offset localPosition) async {
     final bloc = context.getDocumentBloc();
     final transform = context.getCameraTransform();
-    return await showDialog(
+    return showDialog<LabelElement>(
         context: context.buildContext,
         builder: (_) => BlocProvider.value(
             value: bloc,
@@ -41,7 +41,7 @@ class LabelHandler extends Handler<LabelPainter> {
       return;
     }
     final bloc = context.getDocumentBloc();
-    final newElement = await showDialog(
+    final newElement = await showDialog<LabelElement>(
         context: context.buildContext,
         builder: (_) => BlocProvider.value(
             value: bloc, child: EditLabelElementDialog(element: label)));

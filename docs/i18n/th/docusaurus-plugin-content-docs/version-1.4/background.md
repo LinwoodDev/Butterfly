@@ -1,7 +1,7 @@
 ---
-sidebar_label: "Background"
+sidebar_label: "พื้นหลัง"
 sidebar_position: 2
-title: Background
+title: พื้นหลัง
 ---
 
 You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.

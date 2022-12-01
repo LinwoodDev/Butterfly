@@ -14,6 +14,15 @@ abstract class DocumentState extends Equatable {
 
 class DocumentLoadInProgress extends DocumentState {}
 
+class DocumentLoadFailure extends DocumentState {
+  final String message;
+
+  const DocumentLoadFailure(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final StorageType storageType;
@@ -116,5 +125,3 @@ class DocumentLoadSuccess extends DocumentState {
 
   Painter? get painter => currentIndexCubit.state.handler.data;
 }
-
-class DocumentLoadFailure extends DocumentState {}

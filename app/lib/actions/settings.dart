@@ -12,7 +12,7 @@ class SettingsAction extends Action<SettingsIntent> {
 
   @override
   Future<dynamic> invoke(SettingsIntent intent) {
-    return showDialog(
+    return showDialog<void>(
         context: intent.context,
         builder: (context) => Dialog(
             child: ConstrainedBox(

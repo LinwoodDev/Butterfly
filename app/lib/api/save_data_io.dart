@@ -29,7 +29,7 @@ Future<void> saveData(BuildContext context, String data) async {
   if (!file.existsSync()) {
     write();
   } else {
-    await showDialog(
+    await showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(
               title: Text(AppLocalizations.of(context)!.areYouSure),

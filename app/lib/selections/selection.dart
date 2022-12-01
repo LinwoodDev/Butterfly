@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/constraints.dart';
 import 'package:butterfly/models/property.dart';
+import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
@@ -15,6 +16,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../api/open.dart';
 import '../models/area.dart';
 import '../models/element.dart';
+import '../models/pack.dart';
 import '../models/painter.dart';
 import '../models/tool.dart';
 import '../renderers/renderer.dart';
@@ -38,6 +40,7 @@ part 'painters/layer.dart';
 part 'painters/path_eraser.dart';
 part 'painters/pen.dart';
 part 'painters/shape.dart';
+part 'painters/stamp.dart';
 
 part 'properties/property.dart';
 part 'properties/eraser.dart';
@@ -91,8 +94,15 @@ abstract class Selection<T> {
 
   List<String> get help => <String>[];
 
-  Selection remove(T selected) {
-    this.selected.remove(selected);
-    return this;
+  Selection? remove(T selected) {
+    final selections = List.from(this.selected);
+    var success = selections.remove(selected);
+    if (!success) return this;
+    if (selections.isEmpty) return null;
+    var selection = Selection.from(selections.first);
+    for (int i = 1; i < selections.length; i++) {
+      selection = selection.insert(selections[i]);
+    }
+    return selection;
   }
 }

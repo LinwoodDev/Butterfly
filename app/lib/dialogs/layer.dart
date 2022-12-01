@@ -41,44 +41,44 @@ class LayerDialog extends StatelessWidget {
         ListTile(
           title: Text(AppLocalizations.of(context)!.rename),
           leading: const Icon(PhosphorIcons.textTLight),
-          onTap: () {
-            var nameController = TextEditingController(text: layer);
-            showDialog(
-                context: context,
-                builder: (ctx) => AlertDialog(
-                      title: Text(AppLocalizations.of(ctx)!.rename),
-                      content: TextField(
-                        controller: nameController,
-                        autofocus: true,
-                        decoration: InputDecoration(
-                            filled: true,
-                            hintText: AppLocalizations.of(context)!.name),
-                      ),
-                      actions: [
-                        TextButton(
-                          child: Text(AppLocalizations.of(ctx)!.cancel),
-                          onPressed: () => Navigator.pop(ctx),
-                        ),
-                        ElevatedButton(
-                          child: Text(AppLocalizations.of(ctx)!.ok),
-                          onPressed: () {
-                            Navigator.pop(ctx);
-                            if (nameController.text != layer) {
-                              context.read<DocumentBloc>().add(
-                                  LayerRenamed(layer, nameController.text));
-                              Navigator.pop(ctx);
-                            }
-                          },
-                        ),
-                      ],
-                    ));
+          onTap: () async {
+            final bloc = context.read<DocumentBloc>();
+            final nameController = TextEditingController(text: layer);
+            final success = await showDialog<bool>(
+                    context: context,
+                    builder: (ctx) => AlertDialog(
+                          title: Text(AppLocalizations.of(ctx)!.rename),
+                          content: TextField(
+                            controller: nameController,
+                            autofocus: true,
+                            onSubmitted: (value) => Navigator.of(ctx).pop(true),
+                            decoration: InputDecoration(
+                                filled: true,
+                                hintText: AppLocalizations.of(context)!.name),
+                          ),
+                          actions: [
+                            TextButton(
+                              child: Text(AppLocalizations.of(ctx)!.cancel),
+                              onPressed: () => Navigator.of(ctx).pop(false),
+                            ),
+                            ElevatedButton(
+                              child: Text(AppLocalizations.of(ctx)!.ok),
+                              onPressed: () => Navigator.of(ctx).pop(true),
+                            ),
+                          ],
+                        )) ??
+                false;
+            if (!success) return;
+            if (nameController.text != layer) {
+              bloc.add(LayerRenamed(layer, nameController.text));
+            }
           },
         ),
         ListTile(
           title: Text(AppLocalizations.of(context)!.deleteElements),
           leading: const Icon(PhosphorIcons.trashLight),
           onTap: () {
-            showDialog(
+            showDialog<void>(
                 context: context,
                 builder: (ctx) => AlertDialog(
                       title: Text(AppLocalizations.of(ctx)!.deleteElements),

@@ -11,7 +11,7 @@ description: Powerful, minimalistic, cross-platform, opensource note-taking app
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.6.0-alpha.0+52
+version: 1.6.0-alpha.2+54
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -27,21 +27,21 @@ dependencies:
   intl: ^0.17.0
   path_provider: ^2.0.11
   shared_preferences: ^2.0.15
-  url_launcher: ^6.1.6
-  file_picker: ^5.2.2
+  url_launcher: ^6.1.7
+  file_picker: ^5.2.3
   phosphor_flutter: ^1.4.0
   replay_bloc: ^0.2.2
-  share_plus: ^6.1.0
-  package_info_plus: ^3.0.1
-  idb_shim: ^2.0.1+1
-  go_router: ^5.1.1
-  xml: ^6.0.1
+  share_plus: ^6.3.0
+  package_info_plus: ^3.0.2
+  idb_shim: ^2.1.0
+  go_router: ^5.2.0
+  xml: ^6.1.0
   collection: ^1.16.0
   bloc_concurrency: ^0.2.0
   camera: ^0.10.0+4
   camera_windows: ^0.2.1+2
   window_manager: ^0.2.6
-  flex_color_scheme: ^6.0.1
+  flex_color_scheme: ^6.1.1
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
   path: ^1.8.1
@@ -49,26 +49,27 @@ dependencies:
   js: ^0.6.4
   pdf: ^3.8.4
   http: ^0.13.5
-  flutter_secure_storage: ^6.0.0
+  flutter_secure_storage: ^6.1.0
   equatable: ^2.0.5
   adwaita: ^0.5.2
-  yaru: ^0.4.3
-  rxdart: ^0.27.5
+  yaru: ^0.4.4
+  rxdart: ^0.27.7
   ffi: ^2.0.1
   archive: ^3.3.0
   animations: ^2.0.7
   connectivity_plus: ^3.0.2
   cross_file: ^0.3.3+2
+  args: ^2.3.1
 dev_dependencies:
-  flutter_native_splash: ^2.2.12
-  flutter_launcher_icons: ^0.10.0
+  flutter_native_splash: ^2.2.16
+  flutter_launcher_icons: ^0.11.0
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
   flutter_driver:
     sdk: flutter
   analyzer: ^5.2.0
-  freezed: ^2.2.1
+  freezed: ^2.3.0
   build_runner: ^2.3.2
   json_serializable: ^6.5.4
   espresso: ^0.2.0+5

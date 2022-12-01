@@ -342,11 +342,12 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
     if (path == '/') {
       path = '';
     }
-    var success = await showDialog(
-        context: context,
-        builder: (context) => FileSystemAssetCreateDialog(
-            isFolder: isFolder, path: path, fileSystem: _fileSystem)) as bool?;
-    if (success ?? false) {
+    var success = await showDialog<bool>(
+            context: context,
+            builder: (context) => FileSystemAssetCreateDialog(
+                isFolder: isFolder, path: path, fileSystem: _fileSystem)) ??
+        false;
+    if (success) {
       setState(() {});
     }
   }

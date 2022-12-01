@@ -1,5 +1,5 @@
 ---
-title: "Insert"
+title: "แทรก"
 id: "insert"
 slug: "/insert"
 sidebar_position: 3

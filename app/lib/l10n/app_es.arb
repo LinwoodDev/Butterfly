@@ -373,6 +373,8 @@
   "painter": "Pintor",
   "position": "Posición",
   "note": "Nota",
+  "packs": "Paquetes",
+  "pack": "Pack",
   "more": "Más",
   "askForName": "Solicitar nombre",
   "areaIndex": "Área {index}",
@@ -393,5 +395,36 @@
   "middle": "Medio",
   "first": "Primero",
   "second": "Segundo",
-  "report": "Reporte"
+  "report": "Reporte",
+  "newFolder": "Nueva carpeta",
+  "createPack": "Crear paquete",
+  "editPack": "Editar pack",
+  "packsDirectory": "Directorio de paquetes",
+  "stamp": "Sello",
+  "addToPack": "Añadir al paquete",
+  "packDescription": "{count,plural, =0{No hay elementos} =1{1 elemento} other{{count} Elementos}}",
+  "@packDescription": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "sureImportPack": "¿Estás seguro de que quieres importar el paquete?",
+  "byAuthor": "por {author}",
+  "@byAuthor": {
+    "placeholders": {
+      "author": {
+        "type": "String",
+        "example": "author"
+      }
+    }
+  },
+  "author": "Autor",
+  "addComponent": "Añadir componente",
+  "editComponent": "Editar componente",
+  "scope": "Alcance",
+  "noPacks": "Actualmente no hay paquetes disponibles",
+  "components": "Componentes"
 }

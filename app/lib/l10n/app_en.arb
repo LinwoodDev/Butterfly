@@ -373,6 +373,8 @@
   "painter": "Painter",
   "position": "Position",
   "note": "Note",
+  "packs": "Packs",
+  "pack": "Pack",
   "more": "More",
   "askForName": "Ask for name",
   "areaIndex": "Area {index}",
@@ -398,5 +400,36 @@
   "grid": "Grid",
   "ruler": "Ruler",
   "angle": "Angle",
-  "report": "Report"
+  "report": "Report",
+  "newFolder": "New folder",
+  "createPack": "Create pack",
+  "editPack": "Edit pack",
+  "packsDirectory": "Packs directory",
+  "stamp": "Stamp",
+  "addToPack": "Add to pack",
+  "packDescription": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "@packDescription": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "sureImportPack": "Are you sure you want to import the pack?",
+  "byAuthor": "by {author}",
+  "@byAuthor": {
+    "placeholders": {
+      "author": {
+        "type": "String",
+        "example": "author"
+      }
+    }
+  },
+  "author": "Author",
+  "addComponent": "Add component",
+  "editComponent": "Edit component",
+  "scope": "Scope",
+  "noPacks": "There are currently no packs available",
+  "components": "Components"
 }

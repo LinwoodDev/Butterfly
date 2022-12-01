@@ -23,12 +23,14 @@ class ToolChanged extends DocumentEvent {
 }
 
 class ElementsCreated extends DocumentEvent {
-  final List<PadElement> elements;
+  final List<PadElement>? elements;
+  final List<Renderer<PadElement>>? renderers;
 
-  const ElementsCreated(this.elements);
+  const ElementsCreated(this.elements) : renderers = null;
+  const ElementsCreated.renderers(this.renderers) : elements = null;
 
   @override
-  List<Object?> get props => [elements];
+  List<Object?> get props => [elements, renderers];
 }
 
 class ElementsReplaced extends DocumentEvent {
@@ -279,4 +281,32 @@ class ExportPresetRemoved extends DocumentEvent {
 
   @override
   List<Object?> get props => [name];
+}
+
+class DocumentPackAdded extends DocumentEvent {
+  final ButterflyPack pack;
+
+  const DocumentPackAdded(this.pack);
+
+  @override
+  List<Object?> get props => [pack];
+}
+
+class DocumentPackUpdated extends DocumentEvent {
+  final String name;
+  final ButterflyPack pack;
+
+  const DocumentPackUpdated(this.name, this.pack);
+
+  @override
+  List<Object?> get props => [name, pack];
+}
+
+class DocumentPackRemoved extends DocumentEvent {
+  final String pack;
+
+  const DocumentPackRemoved(this.pack);
+
+  @override
+  List<Object?> get props => [pack];
 }

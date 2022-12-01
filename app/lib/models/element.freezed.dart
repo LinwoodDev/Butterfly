@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'element.dart';
 
@@ -1069,7 +1069,7 @@ class __$$PenElementCopyWithImpl<$Res>
   $Res call({
     Object? layer = null,
     Object? points = null,
-    Object? property = null,
+    Object? property = freezed,
   }) {
     return _then(_$PenElement(
       layer: null == layer
@@ -1080,7 +1080,7 @@ class __$$PenElementCopyWithImpl<$Res>
           ? _value._points
           : points // ignore: cast_nullable_to_non_nullable
               as List<PathPoint>,
-      property: null == property
+      property: freezed == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as PenProperty,
@@ -1109,6 +1109,7 @@ class _$PenElement implements PenElement {
   @override
   @JsonKey()
   List<PathPoint> get points {
+    if (_points is EqualUnmodifiableListView) return _points;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_points);
   }
@@ -1347,7 +1348,7 @@ class __$$EraserElementCopyWithImpl<$Res>
   $Res call({
     Object? layer = null,
     Object? points = null,
-    Object? property = null,
+    Object? property = freezed,
   }) {
     return _then(_$EraserElement(
       layer: null == layer
@@ -1358,7 +1359,7 @@ class __$$EraserElementCopyWithImpl<$Res>
           ? _value._points
           : points // ignore: cast_nullable_to_non_nullable
               as List<PathPoint>,
-      property: null == property
+      property: freezed == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as EraserProperty,
@@ -1387,6 +1388,7 @@ class _$EraserElement implements EraserElement {
   @override
   @JsonKey()
   List<PathPoint> get points {
+    if (_points is EqualUnmodifiableListView) return _points;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_points);
   }
@@ -1633,7 +1635,7 @@ class __$$LabelElementCopyWithImpl<$Res>
     Object? layer = null,
     Object? position = null,
     Object? text = null,
-    Object? property = null,
+    Object? property = freezed,
     Object? constraint = null,
   }) {
     return _then(_$LabelElement(
@@ -1649,7 +1651,7 @@ class __$$LabelElementCopyWithImpl<$Res>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      property: null == property
+      property: freezed == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as LabelProperty,
@@ -2591,7 +2593,7 @@ class __$$ShapeElementCopyWithImpl<$Res>
     Object? layer = null,
     Object? firstPosition = null,
     Object? secondPosition = null,
-    Object? property = null,
+    Object? property = freezed,
   }) {
     return _then(_$ShapeElement(
       layer: null == layer
@@ -2606,7 +2608,7 @@ class __$$ShapeElementCopyWithImpl<$Res>
           ? _value.secondPosition
           : secondPosition // ignore: cast_nullable_to_non_nullable
               as Offset,
-      property: null == property
+      property: freezed == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as ShapeProperty,

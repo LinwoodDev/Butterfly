@@ -5,6 +5,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/models/background.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/pack.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/models/tool.dart';
@@ -42,6 +43,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     _init();
   }
 
+  DocumentBloc.error(String message) : super(DocumentLoadFailure(message));
+
   void _init() {
     on<DocumentUpdated>((event, emit) async {
       final current = state;
@@ -74,17 +77,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      if (event.elements.isEmpty) return;
-      final renderers =
-          event.elements.map((e) => Renderer.fromInstance(e)).toList();
-      await Future.wait(
-          renderers.map((e) async => await e.setup(current.document)));
+      if ((event.elements?.isEmpty ?? true) &&
+          (event.renderers?.isEmpty ?? true)) return;
+      final renderers = event.renderers ??
+          event.elements?.map((e) => Renderer.fromInstance(e)).toList();
+      if (renderers == null) return;
+      if (event.renderers == null) {
+        await Future.wait(
+            renderers.map((e) async => await e.setup(current.document)));
+      }
       return _saveDocument(
           emit,
           current.copyWith(
               document: current.document.copyWith(
                   content: (List.from(current.document.content)
-                    ..addAll(event.elements)))),
+                    ..addAll(renderers.map((e) => e.element))))),
           renderers);
     }, transformer: sequential());
     on<ElementsReplaced>((event, emit) async {
@@ -573,6 +580,41 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       emit(current.copyWith(currentAreaName: event.area));
+    });
+    on<DocumentPackAdded>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      var name = event.pack.name;
+      var i = 1;
+      while (current.document.packs.any((element) => element.name == name)) {
+        name = '${event.pack.name} ($i)';
+        i++;
+      }
+      final pack = event.pack.copyWith(name: name);
+      final currentDocument = current.document.copyWith(
+          packs: List<ButterflyPack>.from(current.document.packs)..add(pack));
+      _saveDocument(emit, current.copyWith(document: currentDocument));
+    });
+    on<DocumentPackUpdated>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final currentDocument = current.document.copyWith(
+          packs: current.document.packs
+              .map((e) => e.name == event.pack.name ? event.pack : e)
+              .toList());
+      _saveDocument(emit, current.copyWith(document: currentDocument));
+    });
+    on<DocumentPackRemoved>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final currentDocument = current.document.copyWith(
+          packs: current.document.packs
+              .where((element) => element.name != event.pack)
+              .toList());
+      _saveDocument(emit, current.copyWith(document: currentDocument));
     });
     on<DocumentSaved>((event, emit) async {
       final current = state;
