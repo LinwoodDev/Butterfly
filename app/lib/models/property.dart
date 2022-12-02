@@ -8,11 +8,6 @@ part 'property.freezed.dart';
 abstract class PathProperty implements Property {
   double get strokeWidth;
   double get strokeMultiplier;
-
-  PathProperty copyWith({
-    double? strokeWidth,
-    double? strokeMultiplier,
-  });
 }
 
 enum HorizontalAlignment { left, center, right, justify }
