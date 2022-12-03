@@ -69,6 +69,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
+  Offset getGridPosition(Offset position, AppDocument document) {
+    return state.cameraViewport.tool
+            ?.getGridPosition(position, document, this) ??
+        position;
+  }
+
   Handler? changePainter(DocumentBloc bloc, int index,
       [Handler? handler, bool justAdded = false]) {
     final blocState = bloc.state;

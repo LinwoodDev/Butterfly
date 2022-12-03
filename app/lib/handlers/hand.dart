@@ -189,10 +189,11 @@ class HandHandler extends Handler<HandPainter> {
     final scheme = ThemeManager.getThemeByName(
             currentIndexCubit.state.settingsCubit.state.design)
         .colorScheme;
-    if (_movingElements.isNotEmpty) {
+    if (_movingElements.isNotEmpty && _currentMovePosition != null) {
       final renderers = _movingElements.map((e) {
-        final position =
-            (e.rect?.topLeft ?? Offset.zero) + _currentMovePosition!;
+        final position = currentIndexCubit.getGridPosition(
+            (e.rect?.topLeft ?? Offset.zero) + _currentMovePosition!, document);
+
         return _currentMovePosition == null
             ? e
             : (e.transform(position: position, relative: false) ?? e);

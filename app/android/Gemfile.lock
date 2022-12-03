@@ -8,16 +8,16 @@ GEM
     artifactory (3.0.15)
     atomos (0.1.3)
     aws-eventstream (1.2.0)
-    aws-partitions (1.660.0)
-    aws-sdk-core (3.167.0)
+    aws-partitions (1.670.0)
+    aws-sdk-core (3.168.3)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
       aws-sigv4 (~> 1.5)
       jmespath (~> 1, >= 1.6.1)
-    aws-sdk-kms (1.59.0)
+    aws-sdk-kms (1.60.0)
       aws-sdk-core (~> 3, >= 3.165.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.117.1)
+    aws-sdk-s3 (1.117.2)
       aws-sdk-core (~> 3, >= 3.165.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
@@ -148,7 +148,7 @@ GEM
     http-cookie (1.0.5)
       domain_name (~> 0.5)
     httpclient (2.8.3)
-    jmespath (1.6.1)
+    jmespath (1.6.2)
     json (2.6.2)
     jwt (2.5.0)
     memoist (0.16.2)
@@ -220,4 +220,4 @@ DEPENDENCIES
   screengrab
 
 BUNDLED WITH
-   2.3.23
+   2.3.22
