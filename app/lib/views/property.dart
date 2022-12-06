@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,7 @@ class _PropertyViewState extends State<PropertyView>
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.bounceInOut));
   final _scrollController = ScrollController();
 
-  double size = 500;
+  double _size = 500;
 
   @override
   void dispose() {
@@ -40,7 +42,7 @@ class _PropertyViewState extends State<PropertyView>
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      final isMobile = MediaQuery.of(context).size.width < size;
+      final isMobile = MediaQuery.of(context).size.width < _size;
       Selection? lastSelection;
       return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
           builder: (context, state) {
@@ -78,7 +80,7 @@ class _PropertyViewState extends State<PropertyView>
                 position: _offsetAnimation,
                 child: Container(
                   padding: const EdgeInsets.all(8),
-                  constraints: BoxConstraints(maxWidth: size, maxHeight: 500),
+                  constraints: BoxConstraints(maxWidth: _size, maxHeight: 500),
                   child: Material(
                     elevation: 6,
                     shape: const RoundedRectangleBorder(
@@ -93,8 +95,8 @@ class _PropertyViewState extends State<PropertyView>
                             onPanUpdate: (details) {
                               final delta = details.delta.dx;
                               setState(() {
-                                size -= delta;
-                                size = size.clamp(400, 600);
+                                _size -= delta;
+                                _size = max(_size, 300);
                               });
                             },
                           ),
@@ -103,6 +105,7 @@ class _PropertyViewState extends State<PropertyView>
                         final help = selection!.help;
                         return Column(
                           mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Header(
                               title: Text(selection.getLocalizedName(context)),
