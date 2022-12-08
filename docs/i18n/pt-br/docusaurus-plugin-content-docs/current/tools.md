@@ -5,8 +5,8 @@ sidebar_position: 3
 
 ## Grade
 
-The grid allows you to exactly position elements. You can use it to move elements or create shapes.
+A grade permite a você exatamente posicionar os elementos. Você pode usá-lo para mover elementos ou criar formas.
 
 ## Régua
 
-The ruler allows you to measure the distance between two points. Additionally you can use it to create a line with the pen tool.
+O régua permite que você meça a distância entre dois pontos. Além disso, você pode usá-lo para criar uma linha com a ferramenta de caneta.
