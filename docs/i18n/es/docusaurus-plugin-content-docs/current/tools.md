@@ -5,8 +5,8 @@ sidebar_position: 3
 
 ## Rejilla
 
-The grid allows you to exactly position elements. You can use it to move elements or create shapes.
+La cuadrícula le permite posicionar los elementos exactamente. Puedes usarlo para mover elementos o crear formas.
 
 ## Regla
 
-The ruler allows you to measure the distance between two points. Additionally you can use it to create a line with the pen tool.
+La regla le permite medir la distancia entre dos puntos. Además, puede usarlo para crear una línea con la herramienta lápiz.
