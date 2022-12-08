@@ -196,7 +196,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     return ShapeRenderer(
         element.copyWith(
           firstPosition: rect.topLeft,
-          secondPosition: rect.topRight,
+          secondPosition: rect.bottomRight,
         ),
         rect);
   }

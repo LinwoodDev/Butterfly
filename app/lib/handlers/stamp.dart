@@ -57,14 +57,28 @@ class StampHandler extends Handler<StampPainter> {
     }
   }
 
-  @override
-  void onPointerHover(PointerHoverEvent event, EventContext context) {
+  void _moveComponent(EventContext context, Offset offset) {
+    final transform = context.getCameraTransform();
+    final document = context.getDocument();
+    final global = transform.localToGlobal(offset);
+    final grid = document == null
+        ? global
+        : context.getCurrentIndexCubit().getGridPosition(global, document);
+    final local = transform.globalToLocal(grid);
     final state = context.getState();
     if (state == null) return;
     _loadComponent(state.document);
-    _position = event.localPosition;
+    _position = local;
     context.refresh();
   }
+
+  @override
+  void onPointerHover(PointerHoverEvent event, EventContext context) =>
+      _moveComponent(context, event.localPosition);
+
+  @override
+  void onPointerMove(PointerMoveEvent event, EventContext context) =>
+      _moveComponent(context, event.localPosition);
 
   void _stamp(EventContext context) {
     final state = context.getState();

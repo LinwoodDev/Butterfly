@@ -287,12 +287,15 @@ class _MainViewViewportState extends State<MainViewViewport>
                         CustomPaint(
                           size: Size.infinite,
                           foregroundPainter: ForegroundPainter(
-                            cubit.foregrounds,
+                            [
+                              ...cubit.foregrounds,
+                            ],
                             state.document,
                             Theme.of(context).colorScheme.primary,
                             Theme.of(context).colorScheme.secondary,
                             transform,
                             cubit.state.selection,
+                            currentIndex.cameraViewport.tool,
                           ),
                           painter: ViewPainter(state.document,
                               cameraViewport: currentIndex.cameraViewport,

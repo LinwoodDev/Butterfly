@@ -268,8 +268,20 @@ class _EditToolbarState extends State<EditToolbar> {
                                             ),
                                           );
                                         })
-                                      ])
-                            ]
+                                      ]),
+                              IconButton(
+                                icon: const Icon(PhosphorIcons.wrenchLight),
+                                onPressed: () {
+                                  final cubit =
+                                      context.read<CurrentIndexCubit>();
+                                  final state =
+                                      cubit.state.cameraViewport.tool?.element;
+                                  if (state != null) {
+                                    cubit.changeSelection(state);
+                                  }
+                                },
+                              ),
+                            ],
                           ]),
                     ),
                   );

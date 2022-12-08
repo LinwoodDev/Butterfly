@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
@@ -6,6 +8,7 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/pack.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/models/waypoint.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -52,6 +55,23 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         clearHistory();
         await load();
       }
+    });
+    on<ToolChanged>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      await current.currentIndexCubit.updateTool(
+          current.document,
+          event.state ??
+              current.cameraViewport.tool?.element ??
+              const ToolState());
+      return _saveDocument(
+        emit,
+        current.copyWith(
+          document: current.document.copyWith(
+            tool: event.option ?? current.document.tool,
+          ),
+        ),
+      );
     });
     on<ElementsCreated>((event, emit) async {
       final current = state;
@@ -666,11 +686,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     currentIndexCubit.setSaveState(saved: true);
     final background = Renderer.fromInstance(document.background);
     await background.setup(document);
+    final tool = ToolRenderer(const ToolState());
+    await tool.setup(document);
     final renderers =
         document.content.map((e) => Renderer.fromInstance(e)).toList();
     await Future.wait(renderers.map((e) async => await e.setup(document)));
     currentIndexCubit.unbake(
-        background: background, unbakedElements: renderers);
+        background: background, tool: tool, unbakedElements: renderers);
     currentIndexCubit.changePainter(this, 0);
   }
 }

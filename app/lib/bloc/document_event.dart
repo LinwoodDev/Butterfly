@@ -13,6 +13,15 @@ class DocumentUpdated extends DocumentEvent {
   DocumentUpdated(this.document);
 }
 
+class ToolChanged extends DocumentEvent {
+  final ToolOption? option;
+  final ToolState? state;
+
+  ToolChanged({this.option, this.state});
+  ToolChanged.option(this.option) : state = null;
+  ToolChanged.state(this.state) : option = null;
+}
+
 class ElementsCreated extends DocumentEvent {
   final List<PadElement>? elements;
   final List<Renderer<PadElement>>? renderers;

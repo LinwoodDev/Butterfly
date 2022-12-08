@@ -64,6 +64,9 @@ _$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
                   (e) => Painter.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
+      tool: json['tool'] == null
+          ? const ToolOption()
+          : ToolOption.fromJson(Map<String, dynamic>.from(json['tool'] as Map)),
     );
 
 Map<String, dynamic> _$$_AppDocumentToJson(_$_AppDocument instance) =>
@@ -80,4 +83,5 @@ Map<String, dynamic> _$$_AppDocumentToJson(_$_AppDocument instance) =>
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
       'painters': instance.painters.map((e) => e.toJson()).toList(),
+      'tool': instance.tool.toJson(),
     };

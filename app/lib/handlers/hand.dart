@@ -189,13 +189,15 @@ class HandHandler extends Handler<HandPainter> {
     final scheme = ThemeManager.getThemeByName(
             currentIndexCubit.state.settingsCubit.state.design)
         .colorScheme;
-    if (_movingElements.isNotEmpty) {
-      final renderers = _movingElements
-          .map((e) => _currentMovePosition == null
-              ? e
-              : (e.transform(position: _currentMovePosition!, relative: true) ??
-                  e))
-          .toList();
+    if (_movingElements.isNotEmpty && _currentMovePosition != null) {
+      final renderers = _movingElements.map((e) {
+        final position = currentIndexCubit.getGridPosition(
+            (e.rect?.topLeft ?? Offset.zero) + _currentMovePosition!, document);
+
+        return _currentMovePosition == null
+            ? e
+            : (e.transform(position: position, relative: false) ?? e);
+      }).toList();
       foregrounds.addAll(renderers);
     }
     final selectionRect = getSelectionRect();
@@ -223,12 +225,19 @@ class HandHandler extends Handler<HandPainter> {
 
   void submitMove(DocumentBloc bloc) {
     if (_movingElements.isEmpty) return;
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final document = state.document;
+    final cubit = state.currentIndexCubit;
+    final tool = cubit.state.cameraViewport.tool;
     final current = _movingElements
-        .map((e) =>
-            e.transform(
-                position: _currentMovePosition ?? Offset.zero,
-                relative: true) ??
-            e)
+        .map((e) {
+          var position = (e.rect?.topLeft ?? Offset.zero) +
+              (_currentMovePosition ?? Offset.zero);
+          position =
+              tool?.getGridPosition(position, document, cubit) ?? position;
+          return e.transform(position: position, relative: false) ?? e;
+        })
         .map((e) => e.element)
         .toList();
     _currentMovePosition = null;
@@ -377,8 +386,16 @@ class HandHandler extends Handler<HandPainter> {
     context.refresh();
   }
 
+  bool _ruler = false;
+
   @override
   void onScaleStart(ScaleStartDetails details, EventContext context) {
+    final viewport = context.getCameraViewport();
+    if (viewport.tool?.hitRuler(details.localFocalPoint, viewport.toSize()) ??
+        false) {
+      _ruler = true;
+      return;
+    }
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
     if (_movingElements.isNotEmpty) {
@@ -402,6 +419,17 @@ class HandHandler extends Handler<HandPainter> {
     final currentIndex = context.getCurrentIndex();
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
+    if (_ruler) {
+      final state = context.getState();
+      if (state == null) return;
+      var toolState = context.getCameraViewport().tool?.element;
+      if (toolState == null) return;
+      toolState = toolState.copyWith(
+          rulerPosition: toolState.rulerPosition.translate(
+              details.focalPointDelta.dx, details.focalPointDelta.dy));
+      context.getCurrentIndexCubit().updateTool(state.document, toolState);
+      return;
+    }
     if (_transformMode != null) {
       _currentTransformOffset = globalPos;
       return;
@@ -430,6 +458,7 @@ class HandHandler extends Handler<HandPainter> {
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
     final freeSelection = _freeSelection?.normalized();
     if (_handleTransform(context.getDocumentBloc())) return;
+    _ruler = false;
     if (freeSelection != null && !freeSelection.isEmpty) {
       _freeSelection = null;
       if (!context.isCtrlPressed) {

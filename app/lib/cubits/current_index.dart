@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -8,6 +9,7 @@ import 'package:butterfly/handlers/move.dart';
 import 'package:butterfly/helpers/xml_helper.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/export.dart';
+import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +67,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     } else {
       return state.temporaryHandler ?? state.handler;
     }
+  }
+
+  Offset getGridPosition(Offset position, AppDocument document) {
+    return state.cameraViewport.tool
+            ?.getGridPosition(position, document, this) ??
+        position;
   }
 
   Handler? changePainter(DocumentBloc bloc, int index,
@@ -348,10 +356,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void unbake(
       {Renderer<Background>? background,
+      ToolRenderer? tool,
       List<Renderer<PadElement>>? unbakedElements}) {
     emit(state.copyWith(
-        cameraViewport: state.cameraViewport
-            .unbake(unbakedElements: unbakedElements, background: background)));
+        cameraViewport: state.cameraViewport.unbake(
+            unbakedElements: unbakedElements,
+            tool: tool,
+            background: background)));
   }
 
   void withUnbaked(List<Renderer<PadElement>> unbakedElements) {
@@ -458,5 +469,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void changeTemporaryHandlerMove() {
     emit(state.copyWith(temporaryHandler: MoveHandler()));
+  }
+
+  FutureOr<void> updateTool(AppDocument document, ToolState toolState) async {
+    final renderer = ToolRenderer(toolState);
+    await renderer.setup(document);
+    emit(state.copyWith(
+        cameraViewport: state.cameraViewport.withTool(renderer)));
   }
 }

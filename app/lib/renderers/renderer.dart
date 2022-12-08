@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui' show Image;
 
+import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/element.dart';
+import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/int.dart';
 import 'package:collection/collection.dart';
@@ -14,6 +16,7 @@ import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xml/xml.dart';
 
+import '../cubits/current_index.dart';
 import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
 import '../models/background.dart';
@@ -29,6 +32,7 @@ part 'elements/path.dart';
 part 'elements/pen.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
+part 'tool.dart';
 
 class DefaultHitCalculator extends HitCalculator {
   final Rect? rect;
@@ -99,6 +103,10 @@ abstract class Renderer<T> {
       if (element is BoxBackground) {
         return BoxBackgroundRenderer(element) as Renderer<T>;
       }
+    }
+
+    if (element is ToolState) {
+      return ToolRenderer(element) as Renderer<T>;
     }
 
     throw Exception('Invalid instance type');

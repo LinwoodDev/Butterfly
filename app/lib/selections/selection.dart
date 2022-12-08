@@ -18,6 +18,7 @@ import '../models/area.dart';
 import '../models/element.dart';
 import '../models/pack.dart';
 import '../models/painter.dart';
+import '../models/tool.dart';
 import '../renderers/renderer.dart';
 import '../widgets/color_field.dart';
 import '../widgets/exact_slider.dart';
@@ -30,6 +31,7 @@ part 'elements/shape.dart';
 part 'elements/svg.dart';
 
 part 'painters/painter.dart';
+part 'painters/hand.dart';
 part 'painters/area.dart';
 part 'painters/eraser.dart';
 part 'painters/label.dart';
@@ -47,7 +49,7 @@ part 'properties/path.dart';
 part 'properties/pen.dart';
 
 part 'area.dart';
-part 'painters/hand.dart';
+part 'tool.dart';
 
 abstract class Selection<T> {
   final List<T> selected;
@@ -63,6 +65,9 @@ abstract class Selection<T> {
     }
     if (selected is Area) {
       return AreaSelection([selected]) as Selection<T>;
+    }
+    if (selected is ToolState) {
+      return ToolSelection([selected]) as Selection<T>;
     }
     throw UnsupportedError('Unsupported selection type: $T');
   }

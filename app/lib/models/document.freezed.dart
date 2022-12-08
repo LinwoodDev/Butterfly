@@ -209,6 +209,7 @@ mixin _$AppDocument {
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   List<Painter> get painters => throw _privateConstructorUsedError;
+  ToolOption get tool => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -234,9 +235,11 @@ abstract class $AppDocumentCopyWith<$Res> {
       List<ButterflyPack> packs,
       DateTime createdAt,
       DateTime? updatedAt,
-      List<Painter> painters});
+      List<Painter> painters,
+      ToolOption tool});
 
   $BackgroundCopyWith<$Res> get background;
+  $ToolOptionCopyWith<$Res> get tool;
 }
 
 /// @nodoc
@@ -264,6 +267,7 @@ class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
     Object? createdAt = null,
     Object? updatedAt = freezed,
     Object? painters = null,
+    Object? tool = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -314,6 +318,10 @@ class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
           ? _value.painters
           : painters // ignore: cast_nullable_to_non_nullable
               as List<Painter>,
+      tool: null == tool
+          ? _value.tool
+          : tool // ignore: cast_nullable_to_non_nullable
+              as ToolOption,
     ) as $Val);
   }
 
@@ -322,6 +330,14 @@ class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
   $BackgroundCopyWith<$Res> get background {
     return $BackgroundCopyWith<$Res>(_value.background, (value) {
       return _then(_value.copyWith(background: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ToolOptionCopyWith<$Res> get tool {
+    return $ToolOptionCopyWith<$Res>(_value.tool, (value) {
+      return _then(_value.copyWith(tool: value) as $Val);
     });
   }
 }
@@ -346,10 +362,13 @@ abstract class _$$_AppDocumentCopyWith<$Res>
       List<ButterflyPack> packs,
       DateTime createdAt,
       DateTime? updatedAt,
-      List<Painter> painters});
+      List<Painter> painters,
+      ToolOption tool});
 
   @override
   $BackgroundCopyWith<$Res> get background;
+  @override
+  $ToolOptionCopyWith<$Res> get tool;
 }
 
 /// @nodoc
@@ -375,6 +394,7 @@ class __$$_AppDocumentCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = freezed,
     Object? painters = null,
+    Object? tool = null,
   }) {
     return _then(_$_AppDocument(
       name: null == name
@@ -425,6 +445,10 @@ class __$$_AppDocumentCopyWithImpl<$Res>
           ? _value._painters
           : painters // ignore: cast_nullable_to_non_nullable
               as List<Painter>,
+      tool: null == tool
+          ? _value.tool
+          : tool // ignore: cast_nullable_to_non_nullable
+              as ToolOption,
     ));
   }
 }
@@ -444,7 +468,8 @@ class _$_AppDocument extends _AppDocument {
       final List<ButterflyPack> packs = const [],
       required this.createdAt,
       this.updatedAt,
-      final List<Painter> painters = const []})
+      final List<Painter> painters = const [],
+      this.tool = const ToolOption()})
       : _content = content,
         _palettes = palettes,
         _waypoints = waypoints,
@@ -533,8 +558,12 @@ class _$_AppDocument extends _AppDocument {
   }
 
   @override
+  @JsonKey()
+  final ToolOption tool;
+
+  @override
   String toString() {
-    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, palettes: $palettes, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters)';
+    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, palettes: $palettes, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
   }
 
   @override
@@ -559,7 +588,8 @@ class _$_AppDocument extends _AppDocument {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            const DeepCollectionEquality().equals(other._painters, _painters));
+            const DeepCollectionEquality().equals(other._painters, _painters) &&
+            (identical(other.tool, tool) || other.tool == tool));
   }
 
   @JsonKey(ignore: true)
@@ -577,7 +607,8 @@ class _$_AppDocument extends _AppDocument {
       const DeepCollectionEquality().hash(_packs),
       createdAt,
       updatedAt,
-      const DeepCollectionEquality().hash(_painters));
+      const DeepCollectionEquality().hash(_painters),
+      tool);
 
   @JsonKey(ignore: true)
   @override
@@ -606,7 +637,8 @@ abstract class _AppDocument extends AppDocument {
       final List<ButterflyPack> packs,
       required final DateTime createdAt,
       final DateTime? updatedAt,
-      final List<Painter> painters}) = _$_AppDocument;
+      final List<Painter> painters,
+      final ToolOption tool}) = _$_AppDocument;
   const _AppDocument._() : super._();
 
   factory _AppDocument.fromJson(Map<String, dynamic> json) =
@@ -636,6 +668,8 @@ abstract class _AppDocument extends AppDocument {
   DateTime? get updatedAt;
   @override
   List<Painter> get painters;
+  @override
+  ToolOption get tool;
   @override
   @JsonKey(ignore: true)
   _$$_AppDocumentCopyWith<_$_AppDocument> get copyWith =>
