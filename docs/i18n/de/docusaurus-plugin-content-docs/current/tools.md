@@ -5,8 +5,8 @@ sidebar_position: 3
 
 ## Raster
 
-The grid allows you to exactly position elements. You can use it to move elements or create shapes.
+Das Raster ermöglicht die genaue Positionierung von Elementen. Sie können es verwenden, um Elemente zu verschieben oder Formen zu erstellen.
 
 ## Herrscher
 
-The ruler allows you to measure the distance between two points. Additionally you can use it to create a line with the pen tool.
+Mit dem Lineal können Sie den Abstand zwischen zwei Punkten messen. Zusätzlich können Sie damit eine Linie mit dem Stift Tool erstellen.
