@@ -460,3 +460,15 @@ html {
   stroke: var(--ifm-button-color) 1em;
   width: 5em;
 }
+
+main .clean-btn,.navbar-sidebar__back {
+  color: var(--ifm-color-gray-100);
+}
+
+.table-of-contents__link {
+  color: var(--ifm-color-gray-100);
+}
+
+.table-of-contents__link:hover {
+  color: var(--ifm-color-gray-500);
+}
