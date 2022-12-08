@@ -5,8 +5,8 @@ sidebar_position: 3
 
 ## Griglia
 
-The grid allows you to exactly position elements. You can use it to move elements or create shapes.
+La griglia consente di posizionare esattamente gli elementi. Puoi usarlo per spostare elementi o creare forme.
 
 ## Righello
 
-The ruler allows you to measure the distance between two points. Additionally you can use it to create a line with the pen tool.
+Il righello permette di misurare la distanza tra due punti. Inoltre è possibile utilizzarlo per creare una linea con lo strumento penna.
