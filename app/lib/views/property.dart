@@ -96,7 +96,7 @@ class _PropertyViewState extends State<PropertyView>
                               final delta = details.delta.dx;
                               setState(() {
                                 _size -= delta;
-                                _size = max(_size, 300);
+                                _size = max(_size, 450);
                               });
                             },
                           ),

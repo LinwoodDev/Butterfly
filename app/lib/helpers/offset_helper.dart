@@ -3,14 +3,13 @@ import 'dart:ui';
 
 extension OffsetHelper on Offset {
   Offset rotate(Offset pivot, double angle) {
-    final s = sin(angle);
-    final c = cos(angle);
-
-    final translated = translate(-pivot.dx, -pivot.dy);
-
-    final xnew = translated.dx * c + translated.dy * s;
-    final ynew = translated.dx * s + translated.dy * c;
-
-    return Offset(xnew + pivot.dx, ynew + pivot.dy);
+    final x = dx - pivot.dx;
+    final y = dy - pivot.dy;
+    final cosA = cos(angle);
+    final sinA = sin(angle);
+    return Offset(
+      x * cosA - y * sinA + pivot.dx,
+      x * sinA + y * cosA + pivot.dy,
+    );
   }
 }

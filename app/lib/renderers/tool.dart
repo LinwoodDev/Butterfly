@@ -159,11 +159,9 @@ class ToolRenderer extends Renderer<ToolState> {
     // If the pointer is in the second half of the ruler, set the y to the bottom
 
     if (firstHalfHit) {
-      return Offset(rotatedPosition.dx, rulerRect.top)
-          .rotate(rulerRect.topCenter, angle);
+      return Offset(rotatedPosition.dx, rulerRect.top).rotate(pivot, angle);
     } else if (secondHalfHit) {
-      return Offset(rotatedPosition.dx, rulerRect.bottom)
-          .rotate(rulerRect.bottomCenter, angle);
+      return Offset(rotatedPosition.dx, rulerRect.bottom).rotate(pivot, angle);
     }
     return position;
   }
