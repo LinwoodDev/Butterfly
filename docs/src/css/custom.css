@@ -217,6 +217,10 @@ html[data-theme='dark'] .DocSearch {
   border-radius: 10px;
 }
 
+.dropdown__link {
+  padding: 0.5rem 1rem;
+}
+
 .menu__list-item-collapsible {
   text-transform: uppercase;
   font-weight: bold;
