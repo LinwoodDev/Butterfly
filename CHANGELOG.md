@@ -2,6 +2,14 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.6.0-beta.0 (2022-12-09)
+
+* Add tool window
+* Add grid
+    * The grid can be turned on and off
+    * When moving elements, it will snap to the grid
+* Add ruler
+
 ## 1.6.0-alpha.1 (2022-11-25)
 
 * Add packs to storage and document
