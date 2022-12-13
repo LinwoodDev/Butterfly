@@ -8,7 +8,7 @@ class ImageRenderer extends Renderer<ImageElement> {
   @override
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
-      [bool foreground = false]) {
+      [ColorScheme? colorScheme, bool foreground = false]) {
     if (image == null) {
       // Render placeholder
       final paint = Paint()

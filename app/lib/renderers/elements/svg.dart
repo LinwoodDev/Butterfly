@@ -8,7 +8,7 @@ class SvgRenderer extends Renderer<SvgElement> {
   @override
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
-      [bool foreground = false]) {
+      [ColorScheme? colorScheme, bool foreground = false]) {
     final rect = this.rect;
     if (svgRoot == null) {
       // Render placeholder

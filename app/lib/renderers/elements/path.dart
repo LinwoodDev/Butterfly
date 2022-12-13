@@ -31,7 +31,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   @override
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
-      [bool foreground = false]) {
+      [ColorScheme? colorScheme, bool foreground = false]) {
     final current = element as PathElement;
     final points = current.points;
     final property = current.property;

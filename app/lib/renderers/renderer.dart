@@ -69,7 +69,7 @@ abstract class Renderer<T> {
   Rect? get rect => null;
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
-      [bool foreground = false]);
+      [ColorScheme? colorScheme, bool foreground = false]);
   HitCalculator getHitCalculator() => DefaultHitCalculator(rect);
   void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {}
   factory Renderer.fromInstance(T element) {

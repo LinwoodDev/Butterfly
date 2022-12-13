@@ -10,9 +10,9 @@ class EraserCursor extends Renderer<PainterCursor<EraserPainter>> {
   EraserCursor(super.element);
 
   @override
-  void build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
-      [bool foreground = false]) {
+  void build(Canvas canvas, Size size, AppDocument document,
+      CameraTransform transform,
+      [ColorScheme? colorScheme, bool foreground = false]) {
     final radius = element.painter.property.strokeWidth / 2;
     final position = transform.localToGlobal(element.position);
     canvas.drawCircle(

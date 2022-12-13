@@ -26,7 +26,7 @@ class ToolRenderer extends Renderer<ToolState> {
   @override
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
-      [bool foreground = false]) {
+      [ColorScheme? colorScheme, bool foreground = false]) {
     final option = document.tool;
     if (element.gridEnabled) {
       double x = 0;
@@ -55,8 +55,10 @@ class ToolRenderer extends Renderer<ToolState> {
       }
     }
     if (element.rulerEnabled) {
-      const rulerColor = Colors.grey;
-      final rulerBackgroundColor = Colors.grey.withAlpha(150);
+      final rulerColor = colorScheme?.primary ?? Colors.grey;
+      final rulerBackgroundColor =
+          (colorScheme?.primaryContainer ?? Colors.grey).withAlpha(200);
+      final rulerForegroundColor = colorScheme?.onPrimary ?? Colors.white;
       final rulerPaint = Paint()
         ..color = rulerColor
         ..strokeWidth = 1 / transform.size
@@ -65,6 +67,7 @@ class ToolRenderer extends Renderer<ToolState> {
       final rulerBackgroundPaint = Paint()
         ..color = rulerBackgroundColor
         ..style = PaintingStyle.fill;
+      final rulerForegroundPaint = Paint()..color = rulerForegroundColor;
       final rulerRect = getRulerRect(size);
 
       var stepExp = 1, step = 1;
@@ -111,15 +114,16 @@ class ToolRenderer extends Renderer<ToolState> {
                   (placeTextBottom
                       ? rulerRect.height / 8
                       : rulerRect.height / 4)),
-          rulerPaint,
+          rulerForegroundPaint,
         );
         if (realX >= 0 && realX < size.width) {
           final textPainter = TextPainter(
             textDirection: TextDirection.ltr,
             textAlign: TextAlign.center,
             text: TextSpan(
-                text: realX.toString(),
-                style: const TextStyle(color: Colors.white)),
+              text: realX.toString(),
+              style: TextStyle(color: colorScheme?.onPrimary ?? Colors.white),
+            ),
           );
           textPainter.layout();
           textPainter.paint(

@@ -12,14 +12,15 @@ class AreaRenderer extends Renderer<Area> {
   @override
   void build(Canvas canvas, Size size, AppDocument? document,
       CameraTransform transform,
-      [bool foreground = false]) {
+      [ColorScheme? colorScheme, bool foreground = false]) {
     var paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5 / transform.size
-      ..color = Colors.lightBlue;
+      ..color = colorScheme?.primary ?? Colors.blue;
     var backgroundPaint = Paint()
       ..style = PaintingStyle.fill
-      ..color = Colors.blue.withOpacity(0.5);
+      ..color =
+          (colorScheme?.primaryContainer ?? Colors.lightBlue).withOpacity(0.2);
     canvas.drawRRect(
         RRect.fromRectAndRadius(rect.inflate(5 / transform.size),
             Radius.circular(5 / transform.size)),

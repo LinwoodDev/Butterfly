@@ -13,7 +13,7 @@ class HandSelectionRenderer extends Renderer<Rect> {
   @override
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
-      [bool foreground = false]) {
+      [ColorScheme? colorScheme, bool foreground = false]) {
     final paint = Paint()
       ..color = scheme.primary
       ..style = PaintingStyle.stroke
