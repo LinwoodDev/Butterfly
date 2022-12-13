@@ -25,6 +25,9 @@
 
 ---
 
+**1.6 will be released soon...**
+**It would be nice if you help me translating the app: <https://linwood.crowdin.com/butterfly>**
+
 Butterfly is a note taking app where your ideas come first. You can paint, add texts, and export them easily on every device. This app works on android, windows, linux, and in the web.
 
 ## Features
