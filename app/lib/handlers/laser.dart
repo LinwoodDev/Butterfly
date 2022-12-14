@@ -106,10 +106,15 @@ class LaserHandler extends Handler {
       double pressure, PointerDeviceKind kind,
       {bool forceCreate = false}) {
     final bloc = context.read<DocumentBloc>();
+    final currentIndexCubit = context.read<CurrentIndexCubit>();
+    final viewport = currentIndexCubit.state.cameraViewport;
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
+    localPosition =
+        viewport.tool?.getPointerPosition(localPosition, currentIndexCubit) ??
+            localPosition;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }

@@ -30,7 +30,7 @@ class ToolRenderer extends Renderer<ToolState> {
     final option = document.tool;
     if (element.gridEnabled) {
       double x = 0;
-      while (x < size.width / transform.size) {
+      while (x < size.width) {
         canvas.drawLine(
           Offset(x - transform.position.dx, -transform.position.dy),
           Offset(x - transform.position.dx,
@@ -39,10 +39,10 @@ class ToolRenderer extends Renderer<ToolState> {
             ..strokeWidth = 1 / transform.size
             ..color = Color(option.gridColor),
         );
-        x += option.gridXSize * transform.size;
+        x += option.gridXSize / transform.size;
       }
       double y = 0;
-      while (y < size.height / transform.size) {
+      while (y < size.height) {
         canvas.drawLine(
           Offset(-transform.position.dx, -transform.position.dy + y),
           Offset(-transform.position.dx + size.width / transform.size,
@@ -51,7 +51,7 @@ class ToolRenderer extends Renderer<ToolState> {
             ..strokeWidth = 1 / transform.size
             ..color = Color(option.gridColor),
         );
-        y += option.gridYSize * transform.size;
+        y += option.gridYSize / transform.size;
       }
     }
     if (element.rulerEnabled) {

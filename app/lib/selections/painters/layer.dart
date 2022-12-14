@@ -8,6 +8,7 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
     final painter = selected.first;
     return [
       ...super.buildProperties(context),
+            const SizedBox(height: 16),
       TextFormField(
           decoration: InputDecoration(
               filled: true, labelText: AppLocalizations.of(context)!.layer),

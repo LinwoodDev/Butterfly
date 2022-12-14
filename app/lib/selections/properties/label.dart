@@ -27,6 +27,7 @@ class LabelPropertySelection extends PropertySelection<LabelProperty> {
           onChangeEnd: (value) => onChanged(
                 property.copyWith(letterSpacing: value),
               )),
+      const SizedBox(height: 16),
       ToggleButtons(
           isSelected: [
             property.horizontalAlignment == HorizontalAlignment.left,
@@ -70,6 +71,7 @@ class LabelPropertySelection extends PropertySelection<LabelProperty> {
             Icon(PhosphorIcons.alignCenterVerticalLight),
             Icon(PhosphorIcons.alignBottomLight),
           ]),
+      const SizedBox(height: 16),
       ListTile(
           title: Text(AppLocalizations.of(context)!.fontWeight),
           trailing: DropdownButton<FontWeight>(

@@ -115,6 +115,11 @@ class ShapeHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
+    final currentIndexCubit = context.read<CurrentIndexCubit>();
+    final viewport = currentIndexCubit.state.cameraViewport;
+    localPosition = viewport.tool?.getGridPosition(
+            localPosition, state.document, currentIndexCubit) ??
+        localPosition;
     final globalPosition = transform.localToGlobal(localPosition);
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
