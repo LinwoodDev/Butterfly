@@ -26,7 +26,10 @@ class _MainViewViewportState extends State<MainViewViewport>
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
   _MouseState _mouseState = _MouseState.normal;
-  bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
+  bool _isShiftPressed = false,
+      _isAltPressed = false,
+      _isCtrlPressed = false,
+      _isScalingDisabled = false;
 
   @override
   void initState() {
@@ -176,6 +179,7 @@ class _MainViewViewportState extends State<MainViewViewport>
             onScaleUpdate: (details) {
               final handler = cubit.getHandler();
               handler.onScaleUpdate(details, getEventContext());
+              if (_isScalingDisabled) return;
               final currentIndex = context.read<CurrentIndexCubit>();
               final transformCubit = context.read<TransformCubit>();
               if (details.scale == 1) {
@@ -202,10 +206,12 @@ class _MainViewViewportState extends State<MainViewViewport>
               final currentIndex = context.read<CurrentIndexCubit>();
               final handler = currentIndex.getHandler();
               if (handler is! HandHandler && !cubit.state.moveEnabled) return;
-              delayBake();
+              if (!_isScalingDisabled) delayBake();
+              _isScalingDisabled = false;
             },
             onScaleStart: (details) {
-              cubit.getHandler().onScaleStart(details, getEventContext());
+              _isScalingDisabled =
+                  cubit.getHandler().onScaleStart(details, getEventContext());
               size = 1;
             },
             onDoubleTapDown: (details) {

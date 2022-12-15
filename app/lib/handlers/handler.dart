@@ -148,7 +148,7 @@ abstract class Handler<T> {
 
   void onLongPressEnd(LongPressEndDetails details, EventContext context) {}
 
-  void onScaleStart(ScaleStartDetails details, EventContext context) {}
+  bool onScaleStart(ScaleStartDetails details, EventContext context) => false;
 
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {}
 

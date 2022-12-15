@@ -1,4 +1,5 @@
 * Add themed color for ruler color and areas
 * Shape painter will now use the grid
 * Laser painter will now use the ruler
+* Enable changing rotation of ruler with gesture
 * Fix grid to be local to the screen
