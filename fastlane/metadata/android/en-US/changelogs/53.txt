@@ -3,5 +3,6 @@
 * Add stamp painter
 * Add "Add to pack" button to area context menu
 * Add action painter indicator
+* Add camera tab to tools panel
 * Update text and icon for generic painter property view
 * Fix remove of selection

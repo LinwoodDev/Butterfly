@@ -55,7 +55,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
 
     _tabController.addListener(_onTabChange);
 
@@ -78,7 +78,8 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
         controller: _tabController,
         tabs: <List<dynamic>>[
           [PhosphorIcons.gridFourLight, AppLocalizations.of(context)!.grid],
-          [PhosphorIcons.rulerLight, AppLocalizations.of(context)!.ruler]
+          [PhosphorIcons.rulerLight, AppLocalizations.of(context)!.ruler],
+          [PhosphorIcons.cameraLight, AppLocalizations.of(context)!.camera],
         ]
             .map((e) => Tab(
                     child: Row(
@@ -142,6 +143,35 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                     max: 360,
                     onChangeEnd: (value) => widget.onStateChanged(
                         widget.state.copyWith(rulerAngle: value)),
+                  ),
+                ]),
+                Column(children: [
+                  const SizedBox(height: 16),
+                  OffsetPropertyView(
+                    title: Text(AppLocalizations.of(context)!.position),
+                    value: context.read<TransformCubit>().state.position,
+                    round: 2,
+                    onChanged: (value) =>
+                        context.read<TransformCubit>().setPosition(value),
+                  ),
+                  const SizedBox(height: 8),
+                  ExactSlider(
+                    header: Text(AppLocalizations.of(context)!.zoom),
+                    value: context.read<TransformCubit>().state.size,
+                    defaultValue: 1,
+                    min: 0.1,
+                    max: 10,
+                    onChangeEnd: (value) {
+                      final size = context
+                          .read<CurrentIndexCubit>()
+                          .state
+                          .cameraViewport
+                          .toSize();
+                      context
+                          .read<TransformCubit>()
+                          .size(value, Offset(size.width / 2, size.height / 2));
+                      context.read<DocumentBloc>().bake();
+                    },
                   ),
                 ]),
               ][_tabController.index]),

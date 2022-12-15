@@ -31,27 +31,29 @@ class ToolRenderer extends Renderer<ToolState> {
     if (element.gridEnabled) {
       double x = 0;
       while (x < size.width) {
+        final localX = x / transform.size;
         canvas.drawLine(
-          Offset(x - transform.position.dx, -transform.position.dy),
-          Offset(x - transform.position.dx,
+          Offset(localX - transform.position.dx, -transform.position.dy),
+          Offset(localX - transform.position.dx,
               size.height / transform.size - transform.position.dy),
           Paint()
             ..strokeWidth = 1 / transform.size
             ..color = Color(option.gridColor),
         );
-        x += option.gridXSize / transform.size;
+        x += option.gridXSize;
       }
       double y = 0;
       while (y < size.height) {
+        final localY = y / transform.size;
         canvas.drawLine(
-          Offset(-transform.position.dx, -transform.position.dy + y),
+          Offset(-transform.position.dx, -transform.position.dy + localY),
           Offset(-transform.position.dx + size.width / transform.size,
-              -transform.position.dy + y),
+              -transform.position.dy + localY),
           Paint()
             ..strokeWidth = 1 / transform.size
             ..color = Color(option.gridColor),
         );
-        y += option.gridYSize / transform.size;
+        y += option.gridYSize;
       }
     }
     if (element.rulerEnabled) {

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/constraints.dart';
 import 'package:butterfly/models/property.dart';
 import 'package:butterfly/visualizer/painter.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/open.dart';
+import '../cubits/transform.dart';
 import '../models/area.dart';
 import '../models/element.dart';
 import '../models/pack.dart';
