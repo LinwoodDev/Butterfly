@@ -72,15 +72,8 @@ class ToolRenderer extends Renderer<ToolState> {
       final rulerForegroundPaint = Paint()..color = rulerForegroundColor;
       final rulerRect = getRulerRect(size);
 
-      var stepExp = 1, step = 1;
-      while (step < 200 / transform.size) {
-        stepExp += 1;
-        step = pow(10, stepExp).toInt();
-      }
-      while (step > 200 / transform.size && stepExp > 1) {
-        stepExp -= 1;
-        step = pow(10, stepExp).toInt();
-      }
+      // Calculate steps based on zoom level
+      var steps = 10;
 
       // Paint ruler background
       canvas.save();
@@ -105,9 +98,10 @@ class ToolRenderer extends Renderer<ToolState> {
       int x = 0;
       var placeTextBottom = false;
       while (x < size.width * 2) {
-        final realX = x - (size.width / 2 ~/ step) * step;
+        // Disable text for now
+        //final realX = x - (size.width / 2 ~/ steps) * steps;
         final posX =
-            x + (transform.position.dx * transform.size) % step - size.width;
+            x + (transform.position.dx * transform.size) % steps - size.width;
         canvas.drawLine(
           Offset(posX, rulerRect.top),
           Offset(
@@ -118,7 +112,7 @@ class ToolRenderer extends Renderer<ToolState> {
                       : rulerRect.height / 4)),
           rulerForegroundPaint,
         );
-        if (realX >= 0 && realX < size.width) {
+        /*if (realX >= 0 && realX < size.width) {
           final textPainter = TextPainter(
             textDirection: TextDirection.ltr,
             textAlign: TextAlign.center,
@@ -133,13 +127,13 @@ class ToolRenderer extends Renderer<ToolState> {
               Offset(
                   posX - textPainter.width / 2,
                   rulerRect.top +
-                      10 / transform.size +
+                      10 +
                       (placeTextBottom
                           ? rulerRect.height / 8
                           : rulerRect.height / 4)));
-        }
+        }*/
         placeTextBottom = !placeTextBottom;
-        x += step;
+        x += steps;
       }
       canvas.restore();
     }
