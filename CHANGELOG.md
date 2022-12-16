@@ -2,6 +2,16 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.6.0-rc.0 (2022-12-16)
+
+* Add themed color for ruler color and areas
+* Area painter will now use the grid
+* Shape painter will now use the grid
+* Laser painter will now use the ruler
+* Enable changing rotation of ruler with gesture
+* Fix grid to be local to the screen
+* Disable text for ruler for now
+
 ## 1.6.0-beta.0 (2022-12-09)
 
 * Add tool window
