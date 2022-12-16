@@ -131,12 +131,12 @@ class OffsetPropertyView extends StatelessWidget {
       required this.title,
       this.clearValue = false,
       this.value,
-      this.round = 8,
+      this.round = 4,
       required this.onChanged})
-      : _xController =
-            TextEditingController(text: value?.dx.toStringAsFixed(round) ?? ''),
-        _yController =
-            TextEditingController(text: value?.dy.toStringAsFixed(round) ?? '');
+      : _xController = TextEditingController(
+            text: value?.dx.toPrecision(round).toString() ?? ''),
+        _yController = TextEditingController(
+            text: value?.dy.toPrecision(round).toString() ?? '');
 
   @override
   Widget build(BuildContext context) {

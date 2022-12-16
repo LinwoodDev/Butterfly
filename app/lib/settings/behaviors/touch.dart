@@ -1,4 +1,4 @@
-import 'package:butterfly/helpers/int_helper.dart';
+import 'package:butterfly/helpers/num_helper.dart';
 import 'package:butterfly/widgets/advanced_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

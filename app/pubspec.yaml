@@ -70,7 +70,7 @@ dev_dependencies:
     sdk: flutter
   analyzer: ^5.3.1
   freezed: ^2.3.2
-  build_runner: ^2.3.2
+  build_runner: ^2.3.3
   json_serializable: ^6.5.4
   espresso: ^0.2.0+5
 dependency_overrides:

@@ -1,0 +1,1 @@
+* Fix precision of offset property view

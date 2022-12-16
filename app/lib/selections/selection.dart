@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/constraints.dart';
+import 'package:butterfly/helpers/num_helper.dart';
 import 'package:butterfly/models/property.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/visualizer/property.dart';

@@ -9,3 +9,7 @@ extension IntHelper on int? {
     return this! - value;
   }
 }
+
+extension DoubleHelper on double {
+  double toPrecision(int n) => double.parse(toStringAsFixed(n));
+}
