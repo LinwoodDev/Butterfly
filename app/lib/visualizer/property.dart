@@ -5,32 +5,23 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension PathShapeVisualizer on PathShape {
   IconData getIcon({bool filled = false}) {
-    if (this is CircleShape) {
-      return filled ? PhosphorIcons.circleFill : PhosphorIcons.circleLight;
-    }
-    if (this is RectangleShape) {
-      return filled ? PhosphorIcons.squareFill : PhosphorIcons.squareLight;
-    }
-    if (this is LineShape) {
-      return filled
+    return map(
+      circle: (_) =>
+          filled ? PhosphorIcons.circleFill : PhosphorIcons.circleLight,
+      rectangle: (_) =>
+          filled ? PhosphorIcons.squareFill : PhosphorIcons.squareLight,
+      line: (_) => filled
           ? PhosphorIcons.lineSegmentFill
-          : PhosphorIcons.lineSegmentLight;
-    }
-
-    throw UnimplementedError();
+          : PhosphorIcons.lineSegmentLight,
+    );
   }
 
   String getLocalizedName(BuildContext context) {
-    if (this is CircleShape) {
-      return AppLocalizations.of(context)!.circle;
-    }
-    if (this is RectangleShape) {
-      return AppLocalizations.of(context)!.rectangle;
-    }
-    if (this is LineShape) {
-      return AppLocalizations.of(context)!.line;
-    }
-
-    throw UnimplementedError();
+    final loc = AppLocalizations.of(context)!;
+    return map(
+      circle: (_) => loc.circle,
+      rectangle: (_) => loc.rectangle,
+      line: (_) => loc.line,
+    );
   }
 }

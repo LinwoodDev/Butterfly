@@ -7,63 +7,37 @@ import '../models/element.dart';
 
 extension ElementVisualizer on PadElement {
   String getLocalizedName(BuildContext context) {
-    if (this is PenElement) {
-      return AppLocalizations.of(context)!.pen;
-    }
-    if (this is LabelElement) {
-      return AppLocalizations.of(context)!.label;
-    }
-    if (this is EraserElement) {
-      return AppLocalizations.of(context)!.eraser;
-    }
-    if (this is ImageElement) {
-      return AppLocalizations.of(context)!.image;
-    }
-    if (this is ShapeElement) {
-      return AppLocalizations.of(context)!.shape;
-    }
-    if (this is SvgElement) {
-      return AppLocalizations.of(context)!.svg;
-    }
-    throw UnimplementedError();
+    final loc = AppLocalizations.of(context)!;
+    return map(
+      pen: (_) => loc.pen,
+      label: (_) => loc.label,
+      eraser: (_) => loc.eraser,
+      image: (_) => loc.image,
+      shape: (_) => loc.shape,
+      svg: (_) => loc.svg,
+    );
   }
 
   IconData getIcon() {
-    if (this is PenElement) {
-      return PhosphorIcons.penLight;
-    }
-    if (this is LabelElement) {
-      return PhosphorIcons.textTLight;
-    }
-    if (this is EraserElement) {
-      return PhosphorIcons.eraserLight;
-    }
-    if (this is ImageElement) {
-      return PhosphorIcons.imageLight;
-    }
-    if (this is ShapeElement) {
-      final shape = (this as ShapeElement).property.shape;
-      return shape.getIcon();
-    }
-    if (this is SvgElement) {
-      return PhosphorIcons.sunLight;
-    }
-    throw UnimplementedError();
+    return map(
+      pen: (_) => PhosphorIcons.penLight,
+      label: (_) => PhosphorIcons.textTLight,
+      eraser: (_) => PhosphorIcons.eraserLight,
+      image: (_) => PhosphorIcons.imageLight,
+      shape: (element) => element.property.shape.getIcon(),
+      svg: (_) => PhosphorIcons.sunLight,
+    );
   }
 }
 
 extension ElementConstraintsVisualizer on ElementConstraints? {
   String getLocalizedName(BuildContext context) {
-    if (this is FixedElementConstraints) {
-      return AppLocalizations.of(context)!.fixed;
-    }
-    if (this is ScaledElementConstraints) {
-      return AppLocalizations.of(context)!.scaled;
-    }
-    if (this is DynamicElementConstraints) {
-      return AppLocalizations.of(context)!.dynamicContent;
-    }
-    return AppLocalizations.of(context)!.none;
+    return this?.map(
+          fixed: (_) => AppLocalizations.of(context)!.fixed,
+          scaled: (_) => AppLocalizations.of(context)!.scaled,
+          dynamic: (_) => AppLocalizations.of(context)!.dynamicContent,
+        ) ??
+        AppLocalizations.of(context)!.none;
   }
 
   ElementConstraints scale(double scaleX, double scaleY) {
