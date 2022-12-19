@@ -22,7 +22,7 @@ body:
     id: version
     attributes:
       label: Version
-      description: What version of our software are you running?
+      description: What version of our software are you running? You can find it under Settings > General > Current version
     validations:
       required: true
   - type: dropdown
