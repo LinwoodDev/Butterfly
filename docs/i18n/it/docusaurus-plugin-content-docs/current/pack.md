@@ -3,12 +3,12 @@ title: "Pacchetto"
 sidebar_position: 2
 ---
 
-A pack is a collection of components that can be used in the stamp painter. You can create your own pack or import an existing one. For this click on the top left corner and click on "Packs".
+Una confezione è una collezione di componenti che possono essere utilizzati nel pittore timbro. È possibile creare il proprio pacchetto o importare uno esistente. Per questo cliccare sull'angolo in alto a sinistra e cliccare su "Packs".
 
 ## Proprietà
 
-|        Nome | Descrizione               |
-| -----------:|:------------------------- |
-|        Nome | The name of the pack      |
-|      Autore | The author of the pack    |
-| Descrizione | A description of the pack |
+|        Nome | Descrizione                      |
+| -----------:|:-------------------------------- |
+|        Nome | Il nome del pacchetto            |
+|      Autore | L'autore del pacchetto           |
+| Descrizione | Una descrizione della confezione |
