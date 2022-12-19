@@ -3,12 +3,12 @@ title: "Pack"
 sidebar_position: 2
 ---
 
-A pack is a collection of components that can be used in the stamp painter. You can create your own pack or import an existing one. For this click on the top left corner and click on "Packs".
+Un pack es una colección de componentes que se pueden utilizar en el pintor de la estampa. Puede crear su propio paquete o importar uno existente. Para ello haga clic en la esquina superior izquierda y haga clic en "Paquetes".
 
 ## Propiedades
 
-|      Nombre | Descripción               |
-| -----------:|:------------------------- |
-|      Nombre | The name of the pack      |
-|       Autor | The author of the pack    |
-| Descripción | A description of the pack |
+|      Nombre | Descripción                 |
+| -----------:|:--------------------------- |
+|      Nombre | El nombre del paquete       |
+|       Autor | El autor del paquete        |
+| Descripción | Una descripción del paquete |
