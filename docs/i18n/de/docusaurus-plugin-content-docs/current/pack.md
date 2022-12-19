@@ -3,12 +3,12 @@ title: "Packung"
 sidebar_position: 2
 ---
 
-A pack is a collection of components that can be used in the stamp painter. You can create your own pack or import an existing one. For this click on the top left corner and click on "Packs".
+Ein Pack ist eine Sammlung von Komponenten, die im Stempelmaler verwendet werden können. Sie können Ihr eigenes Paket erstellen oder ein bestehendes importieren. Klicken Sie dazu auf die linke obere Ecke und klicken Sie auf "Paket".
 
 ## Eigenschaften
 
-|         Name | Beschreibung              |
-| ------------:|:------------------------- |
-|         Name | The name of the pack      |
-|        Autor | The author of the pack    |
-| Beschreibung | A description of the pack |
+|         Name | Beschreibung                 |
+| ------------:|:---------------------------- |
+|         Name | Der Name des Pakets          |
+|        Autor | Der Autor des Pakets         |
+| Beschreibung | Eine Beschreibung des Pakets |
