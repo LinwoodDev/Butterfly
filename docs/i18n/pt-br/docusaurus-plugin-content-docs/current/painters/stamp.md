@@ -4,11 +4,11 @@ sidebar_label: "Forma"
 sidebar_position: 3
 ---
 
-The stamp painter allows you to add components to your canvas. Use an existing pack, create your own or import a pack to use it. Read more [here](../pack).
+O pintor de selos permite que você adicione componentes à sua tela. Use um pacote existente, crie seu próprio ou importe um pacote para usá-lo. Leia mais [aqui](../pack).
 
 ## Configuração
 
-| Propriedade | Padrão  | Descrição:                                      |
-| -----------:|:-------:|:----------------------------------------------- |
-|         Pct | Nenhuma | The pack where the component is located.        |
-|   Component | Nenhuma | The component that will be added to the canvas. |
+| Propriedade | Padrão  | Descrição:                                  |
+| -----------:|:-------:|:------------------------------------------- |
+|         Pct | Nenhuma | O pacote onde o componente está localizado. |
+|  Componente | Nenhuma | O componente que será adicionado à tela.    |
