@@ -2,6 +2,12 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.6.0-rc.1 (2022-12-19)
+
+* Fix precision of offset property view
+* Fix permission error in windows setup
+* Internal: Use map instead of this is
+
 ## 1.6.0-rc.0 (2022-12-16)
 
 * Add themed color for ruler color and areas
