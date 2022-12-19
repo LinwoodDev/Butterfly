@@ -26,7 +26,9 @@ jobs:
           channel: 'any'
       - name: 📦 Get dependencies
         run: |
+          flutter clean
           flutter pub get
+          flutter doctor -v
       - name: Import files
         if: ${{ github.event_name != 'pull_request' }}
         env:
@@ -40,13 +42,11 @@ jobs:
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
-          flutter doctor -v
           flutter build apk -v --release --flavor development
           cp build/app/outputs/flutter-apk/app-development-release.apk linwood-butterfly-android.apk
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' }}
         run: |
-          flutter doctor -v
           flutter build apk -v --release --flavor production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android.apk
       - name: Archive
@@ -75,12 +75,12 @@ jobs:
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
         run: |
+          flutter clean
           flutter pub get
+          flutter doctor -v
       - name: 🏭 Build
         shell: pwsh
         run: |
-          flutter clean
-          flutter doctor -v
           flutter build windows -v --release
       - name: Build setup
         shell: pwsh
@@ -143,11 +143,11 @@ jobs:
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
+          flutter clean
           flutter pub get
+          flutter doctor -v
       - name: 🏭 Build
         run: |
-          flutter clean
-          flutter doctor -v
           flutter build linux -v --release
       - name: Build .deb executable
         run: |
@@ -241,11 +241,11 @@ jobs:
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
+          flutter clean
           flutter pub get
+          flutter doctor -v
       - name: 🏭 Build
         run: |
-          flutter clean
-          flutter doctor -v
           flutter build linux -v --release
       - name: Copy nessessary files
         run: |
@@ -298,11 +298,11 @@ jobs:
         run: flutter config --enable-macos-desktop
       - name: 📦 Get dependencies
         run: |
+          flutter clean
           flutter pub get
+          flutter doctor -v
       - name: 🏭 Build
         run: |
-          flutter clean
-          flutter doctor -v
           flutter build macos -v
       - name: Archive
         uses: actions/upload-artifact@v3

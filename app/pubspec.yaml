@@ -76,11 +76,7 @@ dev_dependencies:
 dependency_overrides:
   archive: 3.3.5
   collection: 1.17.0
-  flutter_secure_storage_macos:
-    git:
-      url: https://github.com/mogol/flutter_secure_storage
-      ref: 3c25ceb4a1a4a563609f6f8755418fc0cbe08a53
-      path: flutter_secure_storage_macos
+  flutter_secure_storage_macos: 1.1.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
