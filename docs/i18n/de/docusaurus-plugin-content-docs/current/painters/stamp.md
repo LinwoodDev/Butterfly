@@ -4,11 +4,11 @@ sidebar_label: "Form"
 sidebar_position: 3
 ---
 
-The stamp painter allows you to add components to your canvas. Use an existing pack, create your own or import a pack to use it. Read more [here](../pack).
+Der Stempel-Maler erlaubt das Hinzufügen von Komponenten zu Ihrer Leine. Benutze ein bestehendes Paket, erstelle dein eigenes oder importiere ein Paket, um es zu verwenden. Lies mehr [hier](../pack).
 
 ## Konfiguration
 
-|    Objekt | Standard | Beschreibung                                    |
-| ---------:|:--------:|:----------------------------------------------- |
-|   Packung |  Keine   | The pack where the component is located.        |
-| Component |  Keine   | The component that will be added to the canvas. |
+|     Objekt | Standard | Beschreibung                                       |
+| ----------:|:--------:|:-------------------------------------------------- |
+|    Packung |  Keine   | Das Paket, in dem sich die Komponente befindet.    |
+| Komponente |  Keine   | Die Komponente, die der Leinwand hinzugefügt wird. |
