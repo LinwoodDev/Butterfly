@@ -393,7 +393,7 @@ packages:
       name: flutter_secure_storage
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.0"
+    version: "7.0.1"
   flutter_secure_storage_linux:
     dependency: transitive
     description:
@@ -402,12 +402,14 @@ packages:
     source: hosted
     version: "1.1.2"
   flutter_secure_storage_macos:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: flutter_secure_storage_macos
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.2"
+      path: flutter_secure_storage_macos
+      ref: "3c25ceb4a1a4a563609f6f8755418fc0cbe08a53"
+      resolved-ref: "3c25ceb4a1a4a563609f6f8755418fc0cbe08a53"
+      url: "https://github.com/mogol/flutter_secure_storage"
+    source: git
+    version: "2.0.0"
   flutter_secure_storage_platform_interface:
     dependency: transitive
     description:

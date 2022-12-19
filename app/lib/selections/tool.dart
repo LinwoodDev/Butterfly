@@ -84,6 +84,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
             .map((e) => Tab(
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                       Icon(e[0]),
                       const SizedBox(width: 4),
