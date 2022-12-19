@@ -3,12 +3,12 @@ title: "Pct"
 sidebar_position: 2
 ---
 
-A pack is a collection of components that can be used in the stamp painter. You can create your own pack or import an existing one. For this click on the top left corner and click on "Packs".
+Um pacote é uma coleção de componentes que podem ser usados no pintor de selos. Você pode criar seu próprio pacote ou importar um existente. Para este clique no canto superior esquerdo e clique em "Pacotes".
 
 ## propriedades
 
-|      Nome: | Descrição:                |
-| ----------:|:------------------------- |
-|      Nome: | The name of the pack      |
-|      Autor | The author of the pack    |
-| Descrição: | A description of the pack |
+|      Nome: | Descrição:              |
+| ----------:|:----------------------- |
+|      Nome: | O nome do pacote        |
+|      Autor | O autor do pacote       |
+| Descrição: | Uma descrição do pacote |
