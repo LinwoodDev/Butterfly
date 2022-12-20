@@ -11,7 +11,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
 
 :::note
 
-Please use the flatpak version if possible. Otherwise you need to install `libsecret-1-dev` and `libjsoncpp-dev`.
+Por favor, utilice la versión de flatpak si es posible. De lo contrario, necesita instalar `libsecret-1-dev` y `libjsoncpp-dev`.
 
 :::
 
