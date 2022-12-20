@@ -34,7 +34,7 @@ dependencies:
   share_plus: ^6.3.0
   package_info_plus: ^3.0.2
   idb_shim: ^2.1.0
-  go_router: ^5.2.4
+  go_router: ^6.0.0
   xml: ^6.2.2
   collection: ^1.17.0
   bloc_concurrency: ^0.2.0
@@ -49,7 +49,7 @@ dependencies:
   js: ^0.6.4
   pdf: ^3.8.4
   http: ^0.13.5
-  flutter_secure_storage: ^7.0.1
+  flutter_secure_storage: 6.1.0
   equatable: ^2.0.5
   adwaita: ^0.5.2
   yaru: ^0.4.4
@@ -76,7 +76,6 @@ dev_dependencies:
 dependency_overrides:
   archive: 3.3.5
   collection: 1.17.0
-  flutter_secure_storage_macos: 1.1.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

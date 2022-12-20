@@ -45,11 +45,15 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     var bloc = context.read<DocumentBloc>();
     return GestureDetector(onSecondaryTap: () {
-      if (!kIsWeb && isWindow()) {
+      if (!kIsWeb &&
+          isWindow() &&
+          !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
         windowManager.popUpWindowMenu();
       }
     }, onLongPress: () {
-      if (!kIsWeb && isWindow()) {
+      if (!kIsWeb &&
+          isWindow() &&
+          !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
         windowManager.popUpWindowMenu();
       }
     }, child: LayoutBuilder(
