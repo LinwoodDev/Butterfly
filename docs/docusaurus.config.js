@@ -184,6 +184,10 @@ module.exports = {
                     versions: {
                         "current": {
                             label: "Nightly",
+                            path: "2.0",
+                        },
+                        "1.6": {
+                            label: "1.6.0",
                             path: "1.6",
                         },
                         "1.5": {
