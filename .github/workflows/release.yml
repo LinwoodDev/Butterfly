@@ -69,6 +69,7 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
           ref: ${{ github.ref }}
+          fetch-depth: 0
       - name: Get flutter version
         run: |
           FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
