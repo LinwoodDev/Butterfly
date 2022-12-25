@@ -431,5 +431,6 @@
   "editComponent": "Editar componente",
   "scope": "Alcance",
   "noPacks": "Actualmente no hay paquetes disponibles",
-  "components": "Componentes"
+  "components": "Componentes",
+  "waypoint": "Waypoint"
 }
