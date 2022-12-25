@@ -431,5 +431,6 @@
   "editComponent": "Modifier le composant",
   "scope": "Périmètre d'application",
   "noPacks": "Il n'y a actuellement aucun pack disponible",
-  "components": "Composants"
+  "components": "Composants",
+  "waypoint": "Waypoint"
 }
