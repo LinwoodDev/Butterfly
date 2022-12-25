@@ -12,6 +12,7 @@ extension PainterVisualizer on Painter {
     final loc = AppLocalizations.of(context)!;
     return map(
       hand: (_) => loc.hand,
+      import: (_) => loc.import,
       undo: (_) => loc.undo,
       redo: (_) => loc.redo,
       label: (_) => loc.label,
@@ -20,6 +21,7 @@ extension PainterVisualizer on Painter {
       pathEraser: (_) => loc.pathEraser,
       layer: (_) => loc.layer,
       area: (_) => loc.area,
+      waypoint: (_) => loc.waypoint,
       laser: (_) => loc.laser,
       shape: (_) => loc.shape,
       stamp: (_) => loc.stamp,
@@ -28,7 +30,10 @@ extension PainterVisualizer on Painter {
 
   IconData getIcon({bool filled = false}) {
     return map(
-      hand: (_) => filled ? PhosphorIcons.handFill : PhosphorIcons.hand,
+      hand: (_) => filled ? PhosphorIcons.handFill : PhosphorIcons.handLight,
+      import: (_) => filled
+          ? PhosphorIcons.arrowSquareInFill
+          : PhosphorIcons.arrowSquareInLight,
       undo: (_) => filled
           ? PhosphorIcons.arrowCounterClockwiseFill
           : PhosphorIcons.arrowCounterClockwiseLight,
@@ -46,6 +51,8 @@ extension PainterVisualizer on Painter {
           : PhosphorIcons.squaresFourLight,
       area: (_) =>
           filled ? PhosphorIcons.monitorFill : PhosphorIcons.monitorLight,
+      waypoint: (_) =>
+          filled ? PhosphorIcons.mapPinFill : PhosphorIcons.mapPinLight,
       laser: (_) =>
           filled ? PhosphorIcons.cursorFill : PhosphorIcons.cursorLight,
       shape: (painter) => painter.property.shape.getIcon(filled: filled),
@@ -55,6 +62,7 @@ extension PainterVisualizer on Painter {
 
   bool isAction() {
     return maybeMap(
+      import: (_) => true,
       undo: (_) => true,
       redo: (_) => true,
       orElse: () => false,

@@ -51,6 +51,10 @@ class Painter with _$Painter {
     @Default(false) bool includeEraser,
   }) = HandPainter;
 
+  factory Painter.import({
+    @Default('') String name,
+  }) = ImportPainter;
+
   factory Painter.undo({
     @Default('') String name,
   }) = UndoPainter;
@@ -96,6 +100,10 @@ class Painter with _$Painter {
     @Default(0) double constrainedAspectRatio,
     @Default(false) bool askForName,
   }) = AreaPainter;
+
+  factory Painter.waypoint({
+    @Default('') String name,
+  }) = WaypointPainter;
 
   factory Painter.laser({
     @Default('') String name,

@@ -75,34 +75,22 @@ abstract class Renderer<T> {
   factory Renderer.fromInstance(T element) {
     // Elements
     if (element is PadElement) {
-      if (element is PenElement) {
-        return PenRenderer(element) as Renderer<T>;
-      }
-      if (element is ShapeElement) {
-        return ShapeRenderer(element) as Renderer<T>;
-      }
-      if (element is EraserElement) {
-        return EraserRenderer(element) as Renderer<T>;
-      }
-      if (element is LabelElement) {
-        return LabelRenderer(element) as Renderer<T>;
-      }
-      if (element is ImageElement) {
-        return ImageRenderer(element) as Renderer<T>;
-      }
-      if (element is SvgElement) {
-        return SvgRenderer(element) as Renderer<T>;
-      }
+      return element.map(
+        pen: (value) => PenRenderer(value),
+        eraser: (value) => EraserRenderer(value),
+        label: (value) => LabelRenderer(value),
+        image: (value) => ImageRenderer(value),
+        svg: (value) => SvgRenderer(value),
+        shape: (value) => ShapeRenderer(value),
+      ) as Renderer<T>;
     }
 
     // Backgrounds
     if (element is Background) {
-      if (element is EmptyBackground) {
-        return EmptyBackgroundRenderer(element) as Renderer<T>;
-      }
-      if (element is BoxBackground) {
-        return BoxBackgroundRenderer(element) as Renderer<T>;
-      }
+      return element.map(
+        empty: (value) => EmptyBackgroundRenderer(value),
+        box: (value) => BoxBackgroundRenderer(value),
+      ) as Renderer<T>;
     }
 
     if (element is ToolState) {

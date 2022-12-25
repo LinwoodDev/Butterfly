@@ -234,6 +234,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                       borderRadius: BorderRadius.circular(16)),
                                   itemBuilder: (context) => [
                                         ...[
+                                          Painter.import,
                                           Painter.undo,
                                           Painter.redo,
                                           null,
@@ -246,6 +247,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                           Painter.label,
                                           Painter.eraser,
                                           Painter.layer,
+                                          Painter.waypoint,
                                           Painter.area,
                                         ].map((e) {
                                           if (e == null) {

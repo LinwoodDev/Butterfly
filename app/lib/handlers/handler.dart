@@ -39,6 +39,7 @@ import '../widgets/header.dart';
 part 'area.dart';
 part 'eraser.dart';
 part 'hand.dart';
+part 'import.dart';
 part 'label.dart';
 part 'laser.dart';
 part 'layer.dart';
@@ -48,6 +49,7 @@ part 'redo.dart';
 part 'shape.dart';
 part 'stamp.dart';
 part 'undo.dart';
+part 'waypoint.dart';
 
 @immutable
 class EventContext {
@@ -177,43 +179,22 @@ abstract class Handler<T> {
   }
 
   static Handler fromPainter(Painter painter) {
-    if (painter is HandPainter) {
-      return HandHandler(painter);
-    }
-    if (painter is PenPainter) {
-      return PenHandler(painter);
-    }
-    if (painter is ShapePainter) {
-      return ShapeHandler(painter);
-    }
-    if (painter is EraserPainter) {
-      return EraserHandler(painter);
-    }
-    if (painter is LabelPainter) {
-      return LabelHandler(painter);
-    }
-    if (painter is AreaPainter) {
-      return AreaHandler(painter);
-    }
-    if (painter is PathEraserPainter) {
-      return PathEraserHandler(painter);
-    }
-    if (painter is LayerPainter) {
-      return LayerHandler(painter);
-    }
-    if (painter is LaserPainter) {
-      return LaserHandler(painter);
-    }
-    if (painter is RedoPainter) {
-      return RedoHandler(painter);
-    }
-    if (painter is UndoPainter) {
-      return UndoHandler(painter);
-    }
-    if (painter is StampPainter) {
-      return StampHandler(painter);
-    }
-    throw Exception('Unknown painter type: ${painter.runtimeType}');
+    return painter.map(
+      hand: (value) => HandHandler(value),
+      import: (value) => ImportHandler(value),
+      undo: (value) => UndoHandler(value),
+      redo: (value) => RedoHandler(value),
+      label: (value) => LabelHandler(value),
+      pen: (value) => PenHandler(value),
+      eraser: (value) => EraserHandler(value),
+      pathEraser: (value) => PathEraserHandler(value),
+      layer: (value) => LayerHandler(value),
+      area: (value) => AreaHandler(value),
+      waypoint: (value) => WaypointHandler(value),
+      laser: (value) => LaserHandler(value),
+      shape: (value) => ShapeHandler(value),
+      stamp: (value) => StampHandler(value),
+    );
   }
 }
 

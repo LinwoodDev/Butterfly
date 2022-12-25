@@ -19,6 +19,17 @@ Map<String, dynamic> _$$HandPainterToJson(_$HandPainter instance) =>
       'type': instance.$type,
     };
 
+_$ImportPainter _$$ImportPainterFromJson(Map json) => _$ImportPainter(
+      name: json['name'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ImportPainterToJson(_$ImportPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': instance.$type,
+    };
+
 _$UndoPainter _$$UndoPainterFromJson(Map json) => _$UndoPainter(
       name: json['name'] as String? ?? '',
       $type: json['type'] as String?,
@@ -143,6 +154,17 @@ Map<String, dynamic> _$$AreaPainterToJson(_$AreaPainter instance) =>
       'constrainedHeight': instance.constrainedHeight,
       'constrainedAspectRatio': instance.constrainedAspectRatio,
       'askForName': instance.askForName,
+      'type': instance.$type,
+    };
+
+_$WaypointPainter _$$WaypointPainterFromJson(Map json) => _$WaypointPainter(
+      name: json['name'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$WaypointPainterToJson(_$WaypointPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
       'type': instance.$type,
     };
 
