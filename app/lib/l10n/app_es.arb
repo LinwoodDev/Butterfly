@@ -33,7 +33,7 @@
   "yes": "Sí",
   "undo": "Deshacer",
   "redo": "Rehacer",
-  "projectSettings": "Configuración del proyecto",
+  "project": "Projekt",
   "general": "General",
   "copyTitle": "Copiado al portapapeles",
   "copyMessage": "Ahora puedes pegarlo en un editor de texto",
