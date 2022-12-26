@@ -432,5 +432,7 @@
   "scope": "Alcance",
   "noPacks": "Actualmente no hay paquetes disponibles",
   "components": "Componentes",
-  "waypoint": "Waypoint"
+  "waypoint": "Waypoint",
+  "actions": "Acciones",
+  "painters": "Pintores"
 }
