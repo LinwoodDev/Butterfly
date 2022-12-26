@@ -57,7 +57,9 @@ mixin _$Painter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -96,7 +98,8 @@ mixin _$Painter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -134,7 +137,8 @@ mixin _$Painter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -334,7 +338,9 @@ class _$HandPainter implements HandPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -376,7 +382,8 @@ class _$HandPainter implements HandPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -417,7 +424,8 @@ class _$HandPainter implements HandPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -557,7 +565,7 @@ abstract class _$$ImportPainterCopyWith<$Res>
       __$$ImportPainterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name});
+  $Res call({String name, List<PadElement> elements, List<Area> areas});
 }
 
 /// @nodoc
@@ -572,12 +580,22 @@ class __$$ImportPainterCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? elements = null,
+    Object? areas = null,
   }) {
     return _then(_$ImportPainter(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      elements: null == elements
+          ? _value._elements
+          : elements // ignore: cast_nullable_to_non_nullable
+              as List<PadElement>,
+      areas: null == areas
+          ? _value._areas
+          : areas // ignore: cast_nullable_to_non_nullable
+              as List<Area>,
     ));
   }
 }
@@ -585,8 +603,14 @@ class __$$ImportPainterCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ImportPainter implements ImportPainter {
-  _$ImportPainter({this.name = '', final String? $type})
-      : $type = $type ?? 'import';
+  _$ImportPainter(
+      {this.name = '',
+      required final List<PadElement> elements,
+      required final List<Area> areas,
+      final String? $type})
+      : _elements = elements,
+        _areas = areas,
+        $type = $type ?? 'import';
 
   factory _$ImportPainter.fromJson(Map<String, dynamic> json) =>
       _$$ImportPainterFromJson(json);
@@ -594,13 +618,28 @@ class _$ImportPainter implements ImportPainter {
   @override
   @JsonKey()
   final String name;
+  final List<PadElement> _elements;
+  @override
+  List<PadElement> get elements {
+    if (_elements is EqualUnmodifiableListView) return _elements;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_elements);
+  }
+
+  final List<Area> _areas;
+  @override
+  List<Area> get areas {
+    if (_areas is EqualUnmodifiableListView) return _areas;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_areas);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Painter.import(name: $name)';
+    return 'Painter.import(name: $name, elements: $elements, areas: $areas)';
   }
 
   @JsonKey(ignore: true)
@@ -613,7 +652,9 @@ class _$ImportPainter implements ImportPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -648,14 +689,15 @@ class _$ImportPainter implements ImportPainter {
         shape,
     required TResult Function(String name, String pack, int component) stamp,
   }) {
-    return import(name);
+    return import(name, elements, areas);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -689,14 +731,15 @@ class _$ImportPainter implements ImportPainter {
         shape,
     TResult? Function(String name, String pack, int component)? stamp,
   }) {
-    return import?.call(name);
+    return import?.call(name, elements, areas);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -732,7 +775,7 @@ class _$ImportPainter implements ImportPainter {
     required TResult orElse(),
   }) {
     if (import != null) {
-      return import(name);
+      return import(name, elements, areas);
     }
     return orElse();
   }
@@ -813,13 +856,18 @@ class _$ImportPainter implements ImportPainter {
 }
 
 abstract class ImportPainter implements Painter {
-  factory ImportPainter({final String name}) = _$ImportPainter;
+  factory ImportPainter(
+      {final String name,
+      required final List<PadElement> elements,
+      required final List<Area> areas}) = _$ImportPainter;
 
   factory ImportPainter.fromJson(Map<String, dynamic> json) =
       _$ImportPainter.fromJson;
 
   @override
   String get name;
+  List<PadElement> get elements;
+  List<Area> get areas;
   @override
   @JsonKey(ignore: true)
   _$$ImportPainterCopyWith<_$ImportPainter> get copyWith =>
@@ -889,7 +937,9 @@ class _$UndoPainter implements UndoPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -931,7 +981,8 @@ class _$UndoPainter implements UndoPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -972,7 +1023,8 @@ class _$UndoPainter implements UndoPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -1165,7 +1217,9 @@ class _$RedoPainter implements RedoPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -1207,7 +1261,8 @@ class _$RedoPainter implements RedoPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -1248,7 +1303,8 @@ class _$RedoPainter implements RedoPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -1452,7 +1508,9 @@ class _$LabelPainter implements LabelPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -1494,7 +1552,8 @@ class _$LabelPainter implements LabelPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -1535,7 +1594,8 @@ class _$LabelPainter implements LabelPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -1750,7 +1810,9 @@ class _$PenPainter implements PenPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -1792,7 +1854,8 @@ class _$PenPainter implements PenPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -1833,7 +1896,8 @@ class _$PenPainter implements PenPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -2043,7 +2107,9 @@ class _$EraserPainter implements EraserPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -2085,7 +2151,8 @@ class _$EraserPainter implements EraserPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -2126,7 +2193,8 @@ class _$EraserPainter implements EraserPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -2355,7 +2423,9 @@ class _$PathEraserPainter implements PathEraserPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -2397,7 +2467,8 @@ class _$PathEraserPainter implements PathEraserPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -2439,7 +2510,8 @@ class _$PathEraserPainter implements PathEraserPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -2669,7 +2741,9 @@ class _$LayerPainter implements LayerPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -2711,7 +2785,8 @@ class _$LayerPainter implements LayerPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -2752,7 +2827,8 @@ class _$LayerPainter implements LayerPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -2995,7 +3071,9 @@ class _$AreaPainter implements AreaPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -3038,7 +3116,8 @@ class _$AreaPainter implements AreaPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -3080,7 +3159,8 @@ class _$AreaPainter implements AreaPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -3284,7 +3364,9 @@ class _$WaypointPainter implements WaypointPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -3326,7 +3408,8 @@ class _$WaypointPainter implements WaypointPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -3367,7 +3450,8 @@ class _$WaypointPainter implements WaypointPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -3603,7 +3687,9 @@ class _$LaserPainter implements LaserPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -3645,7 +3731,8 @@ class _$LaserPainter implements LaserPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -3686,7 +3773,8 @@ class _$LaserPainter implements LaserPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -3941,7 +4029,9 @@ class _$ShapePainter implements ShapePainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -3984,7 +4074,8 @@ class _$ShapePainter implements ShapePainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -4026,7 +4117,8 @@ class _$ShapePainter implements ShapePainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,
@@ -4248,7 +4340,9 @@ class _$StampPainter implements StampPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, bool includeEraser) hand,
-    required TResult Function(String name) import,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelProperty property) label,
@@ -4290,7 +4384,8 @@ class _$StampPainter implements StampPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, bool includeEraser)? hand,
-    TResult? Function(String name)? import,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelProperty property)? label,
@@ -4331,7 +4426,8 @@ class _$StampPainter implements StampPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, bool includeEraser)? hand,
-    TResult Function(String name)? import,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelProperty property)? label,

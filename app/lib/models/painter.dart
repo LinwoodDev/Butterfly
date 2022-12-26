@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'area.dart';
+import 'element.dart';
 import 'property.dart';
 
 part 'painter.g.dart';
@@ -53,6 +55,8 @@ class Painter with _$Painter {
 
   factory Painter.import({
     @Default('') String name,
+    required List<PadElement> elements,
+    required List<Area> areas,
   }) = ImportPainter;
 
   factory Painter.undo({

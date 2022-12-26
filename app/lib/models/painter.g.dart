@@ -21,12 +21,20 @@ Map<String, dynamic> _$$HandPainterToJson(_$HandPainter instance) =>
 
 _$ImportPainter _$$ImportPainterFromJson(Map json) => _$ImportPainter(
       name: json['name'] as String? ?? '',
+      elements: (json['elements'] as List<dynamic>)
+          .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList(),
+      areas: (json['areas'] as List<dynamic>)
+          .map((e) => Area.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList(),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$ImportPainterToJson(_$ImportPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'elements': instance.elements.map((e) => e.toJson()).toList(),
+      'areas': instance.areas.map((e) => e.toJson()).toList(),
       'type': instance.$type,
     };
 

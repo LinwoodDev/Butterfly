@@ -1,5 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/dialogs/add.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/widgets/option_button.dart';
@@ -222,55 +223,19 @@ class _EditToolbarState extends State<EditToolbar> {
                                     ..add(
                                         PainterReordered(oldIndex, newIndex))),
                               const VerticalDivider(),
-                              PopupMenuButton<Painter>(
-                                  tooltip: AppLocalizations.of(context)!.more,
-                                  onSelected: (value) {
-                                    context
-                                        .read<DocumentBloc>()
-                                        .add(PainterCreated(value));
-                                  },
-                                  icon: const Icon(PhosphorIcons.listLight),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16)),
-                                  itemBuilder: (context) => [
-                                        ...[
-                                          Painter.import,
-                                          Painter.undo,
-                                          Painter.redo,
-                                          null,
-                                          Painter.hand,
-                                          Painter.pen,
-                                          Painter.shape,
-                                          Painter.stamp,
-                                          Painter.laser,
-                                          Painter.pathEraser,
-                                          Painter.label,
-                                          Painter.eraser,
-                                          Painter.layer,
-                                          Painter.waypoint,
-                                          Painter.area,
-                                        ].map((e) {
-                                          if (e == null) {
-                                            return const PopupMenuDivider();
-                                          }
-                                          final painter = e();
-                                          return PopupMenuItem<Painter>(
-                                            value: painter,
-                                            child: ListTile(
-                                              mouseCursor: MouseCursor.defer,
-                                              title: Text(painter
-                                                  .getLocalizedName(context)),
-                                              leading: Icon(
-                                                painter.getIcon(),
-                                              ),
-                                              trailing: painter.isAction()
-                                                  ? const Icon(PhosphorIcons
-                                                      .playCircleLight)
-                                                  : null,
-                                            ),
-                                          );
-                                        })
-                                      ]),
+                              IconButton(
+                                tooltip: AppLocalizations.of(context)!.add,
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (ctx) => BlocProvider.value(
+                                      value: context.read<DocumentBloc>(),
+                                      child: AddDialog(),
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(PhosphorIcons.plusCircleLight),
+                              ),
                               IconButton(
                                 icon: const Icon(PhosphorIcons.wrenchLight),
                                 onPressed: () {

@@ -432,5 +432,7 @@
   "scope": "Scope",
   "noPacks": "There are currently no packs available",
   "components": "Components",
-  "waypoint": "Waypoint"
+  "waypoint": "Waypoint",
+  "actions": "Actions",
+  "painters": "Painters"
 }

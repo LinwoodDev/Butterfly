@@ -4,37 +4,19 @@ class PainterSelection<T extends Painter> extends Selection<T> {
   PainterSelection(super.selected);
 
   factory PainterSelection.from(T selected) {
-    if (selected is HandPainter) {
-      return HandSelection([selected]) as PainterSelection<T>;
-    }
-    if (selected is AreaPainter) {
-      return AreaPainterSelection([selected]) as PainterSelection<T>;
-    }
-    if (selected is EraserPainter) {
-      return EraserPainterSelection([selected]) as PainterSelection<T>;
-    }
-    if (selected is LabelPainter) {
-      return LabelPainterSelection([selected]) as PainterSelection<T>;
-    }
-    if (selected is LaserPainter) {
-      return LaserPainterSelection([selected]) as PainterSelection<T>;
-    }
-    if (selected is LayerPainter) {
-      return LayerPainterSelection([selected]) as PainterSelection<T>;
-    }
-    if (selected is PathEraserPainter) {
-      return PathEraserPainterSelection([selected]) as PainterSelection<T>;
-    }
-    if (selected is PenPainter) {
-      return PenPainterSelection([selected]) as PainterSelection<T>;
-    }
-    if (selected is ShapePainter) {
-      return ShapePainterSelection([selected]) as PainterSelection<T>;
-    }
-    if (selected is StampPainter) {
-      return StampPainterSelection([selected]) as PainterSelection<T>;
-    }
-    return PainterSelection([selected]);
+    return selected.maybeMap(
+      hand: (value) => HandSelection([value]),
+      label: (value) => LabelPainterSelection([value]),
+      pen: (value) => PenPainterSelection([value]),
+      eraser: (value) => EraserPainterSelection([value]),
+      pathEraser: (value) => PathEraserPainterSelection([value]),
+      layer: (value) => LayerPainterSelection([value]),
+      area: (value) => AreaPainterSelection([value]),
+      laser: (value) => LaserPainterSelection([value]),
+      shape: (value) => ShapePainterSelection([value]),
+      stamp: (value) => StampPainterSelection([value]),
+      orElse: () => PainterSelection<T>([selected]),
+    ) as PainterSelection<T>;
   }
 
   @override
