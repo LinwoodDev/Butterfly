@@ -6,7 +6,7 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
   @override
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
-      [bool foreground = false]) {
+      [ColorScheme? colorScheme, bool foreground = false]) {
     canvas.drawColor(Color(element.boxColor), BlendMode.srcOver);
     if (element.boxWidth > 0 && element.boxXCount > 0) {
       var relativeWidth = element.boxWidth * transform.size;

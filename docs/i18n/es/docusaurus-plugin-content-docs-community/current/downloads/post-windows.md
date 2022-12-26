@@ -24,11 +24,11 @@ slug: "/downloads/post-windows"
 
 Windows advierte a los usuarios al instalar software sin un certificado.
 
-![Pantalla inteligente](/img/smart-screen.png).
+![Pantalla inteligente](/img/smart-screen.png)
 
 Para instalar la aplicación, debes hacer clic en "Más información".
 
-![Pantalla inteligente más info](/img/smart-screen-more-info.png).
+![Pantalla inteligente más info](/img/smart-screen-more-info.png)
 
 Luego, haga clic en "Ejecutar de todos modos".
 

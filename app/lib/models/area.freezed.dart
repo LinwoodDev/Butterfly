@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'area.dart';
 
@@ -34,7 +34,8 @@ mixin _$Area {
 /// @nodoc
 abstract class $AreaCopyWith<$Res> {
   factory $AreaCopyWith(Area value, $Res Function(Area) then) =
-      _$AreaCopyWithImpl<$Res>;
+      _$AreaCopyWithImpl<$Res, Area>;
+  @useResult
   $Res call(
       {String name,
       double width,
@@ -43,38 +44,41 @@ abstract class $AreaCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AreaCopyWithImpl<$Res> implements $AreaCopyWith<$Res> {
+class _$AreaCopyWithImpl<$Res, $Val extends Area>
+    implements $AreaCopyWith<$Res> {
   _$AreaCopyWithImpl(this._value, this._then);
 
-  final Area _value;
   // ignore: unused_field
-  final $Res Function(Area) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? width = freezed,
-    Object? height = freezed,
-    Object? position = freezed,
+    Object? name = null,
+    Object? width = null,
+    Object? height = null,
+    Object? position = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      width: width == freezed
+      width: null == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as double,
-      height: height == freezed
+      height: null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
               as double,
-      position: position == freezed
+      position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as ui.Offset,
-    ));
+    ) as $Val);
   }
 }
 
@@ -83,6 +87,7 @@ abstract class _$$_AreaCopyWith<$Res> implements $AreaCopyWith<$Res> {
   factory _$$_AreaCopyWith(_$_Area value, $Res Function(_$_Area) then) =
       __$$_AreaCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       double width,
@@ -91,35 +96,33 @@ abstract class _$$_AreaCopyWith<$Res> implements $AreaCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res>
+class __$$_AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res, _$_Area>
     implements _$$_AreaCopyWith<$Res> {
   __$$_AreaCopyWithImpl(_$_Area _value, $Res Function(_$_Area) _then)
-      : super(_value, (v) => _then(v as _$_Area));
+      : super(_value, _then);
 
-  @override
-  _$_Area get _value => super._value as _$_Area;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? width = freezed,
-    Object? height = freezed,
-    Object? position = freezed,
+    Object? name = null,
+    Object? width = null,
+    Object? height = null,
+    Object? position = null,
   }) {
     return _then(_$_Area(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      width: width == freezed
+      width: null == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as double,
-      height: height == freezed
+      height: null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
               as double,
-      position: position == freezed
+      position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as ui.Offset,
@@ -160,23 +163,20 @@ class _$_Area extends _Area {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Area &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.width, width) &&
-            const DeepCollectionEquality().equals(other.height, height) &&
-            const DeepCollectionEquality().equals(other.position, position));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.width, width) || other.width == width) &&
+            (identical(other.height, height) || other.height == height) &&
+            (identical(other.position, position) ||
+                other.position == position));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(width),
-      const DeepCollectionEquality().hash(height),
-      const DeepCollectionEquality().hash(position));
+  int get hashCode => Object.hash(runtimeType, name, width, height, position);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AreaCopyWith<_$_Area> get copyWith =>
       __$$_AreaCopyWithImpl<_$_Area>(this, _$identity);
 

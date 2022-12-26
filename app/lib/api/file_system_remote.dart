@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,9 @@ import 'package:xml/xml.dart';
 import 'package:path/path.dart' as p;
 
 import '../cubits/settings.dart';
+import '../models/converter.dart';
 import '../models/document.dart';
+import '../models/pack.dart';
 import '../models/template.dart';
 import 'file_system.dart';
 import 'file_system_io.dart';
@@ -74,17 +77,17 @@ abstract class DavRemoteSystem {
     return p.join(cacheDir, path);
   }
 
-  Future<String?> getCachedContent(String path) async {
+  Future<Uint8List?> getCachedContent(String path) async {
     if (!remote.hasDocumentCached(path)) return null;
     var absolutePath = await getAbsoluteCachePath(path);
     var file = File(absolutePath);
     if (await file.exists()) {
-      return await file.readAsString();
+      return await file.readAsBytes();
     }
     return null;
   }
 
-  Future<void> cacheContent(String path, String content) async {
+  Future<void> cacheContent(String path, Uint8List content) async {
     var absolutePath = await getAbsoluteCachePath(path);
     var file = File(absolutePath);
     final directory = Directory(absolutePath);
@@ -92,7 +95,11 @@ abstract class DavRemoteSystem {
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
-    await file.writeAsString(content);
+    await file.writeAsBytes(content);
+  }
+
+  Future<void> cacheStringContent(String path, String content) async {
+    return cacheContent(path, Uint8List.fromList(utf8.encode(content)));
   }
 
   Future<void> deleteCachedContent(String path) async {
@@ -249,7 +256,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
   }
 
   @override
-  Future<AppDocumentAsset?> getAsset(String path,
+  Future<AppDocumentEntity?> getAsset(String path,
       {bool forceRemote = false}) async {
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
@@ -260,8 +267,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     final cached = await getCachedContent(path);
     if (cached != null && !forceRemote) {
       return AppDocumentFile(
-          AssetLocation(remote: remote.identifier, path: path),
-          json.decode(cached));
+          AssetLocation(remote: remote.identifier, path: path), cached);
     }
 
     var response = await _createRequest(path.split('/'), method: 'PROPFIND');
@@ -314,7 +320,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
           return AppDocumentDirectory(
               AssetLocation(remote: remote.identifier, path: path), const []);
         } else {
-          return AppDocumentFile(
+          return AppDocumentFile.fromMap(
               AssetLocation(remote: remote.identifier, path: path), const {});
         }
       }).toList());
@@ -376,7 +382,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       path = path.substring(1);
     }
 
-    final content = document.toJson();
+    final content = const DocumentJsonConverter().toJson(document);
     final has = await hasAsset(path);
     if (!has) {
       await createDirectory(path);
@@ -393,8 +399,8 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       fileName = convertNameToFile('${document.name}_${++counter}');
     }
     if (!forceSync && remote.hasDocumentCached(path)) {
-      cacheContent(path + fileName, json.encode(content));
-      return AppDocumentFile(
+      cacheStringContent(path + fileName, json.encode(content));
+      return AppDocumentFile.fromMap(
           AssetLocation(remote: remote.identifier, path: path + fileName),
           content);
     }
@@ -405,7 +411,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       throw Exception(
           'Failed to import document: ${response.statusCode} ${response.reasonPhrase}');
     }
-    return AppDocumentFile(
+    return AppDocumentFile.fromMap(
         AssetLocation(remote: remote.identifier, path: path + fileName),
         content);
   }
@@ -413,10 +419,10 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
   @override
   Future<AppDocumentFile> updateDocument(String path, AppDocument document,
       {bool forceSync = false}) async {
-    final content = document.toJson();
+    final content = const DocumentJsonConverter().toJson(document);
     if (!forceSync && remote.hasDocumentCached(path)) {
-      cacheContent(path, json.encode(content));
-      return AppDocumentFile(
+      cacheStringContent(path, json.encode(content));
+      return AppDocumentFile.fromMap(
           AssetLocation(remote: remote.identifier, path: path), content);
     }
     final response = await _createRequest(path.split('/'),
@@ -425,7 +431,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       throw Exception(
           'Failed to update document: ${response.statusCode} ${response.reasonPhrase}');
     }
-    return AppDocumentFile(
+    return AppDocumentFile.fromMap(
         AssetLocation(remote: remote.identifier, path: path), content);
   }
 
@@ -469,7 +475,8 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     if (content == null) {
       return;
     }
-    final document = AppDocument.fromJson(json.decode(content));
+    final document = const DocumentJsonConverter()
+        .fromJson(json.decode(utf8.decode(content)));
     await updateDocument(path, document, forceSync: true);
   }
 
@@ -486,7 +493,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
         await directory.create(recursive: true);
       }
     } else if (asset is AppDocumentFile) {
-      cacheContent(path, json.encode(asset.json));
+      cacheContent(path, asset.data);
     }
   }
 }
@@ -548,8 +555,8 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
         return null;
       }
       final content = await response.stream.bytesToString();
-      cacheContent(name, content);
-      return DocumentTemplate.fromJson(json.decode(content));
+      cacheStringContent(name, content);
+      return const TemplateJsonConverter().fromJson(json.decode(content));
     } catch (e) {
       return getCachedTemplate(name);
     }
@@ -560,7 +567,8 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
     if (content == null) {
       return null;
     }
-    return DocumentTemplate.fromJson(json.decode(content));
+    return const TemplateJsonConverter()
+        .fromJson(json.decode(utf8.decode(content)));
   }
 
   @override
@@ -606,11 +614,118 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
   Future<List<DocumentTemplate>> getCachedTemplates() async {
     final cachedFiles = await getCachedFiles();
     return cachedFiles.values
-        .map((value) => DocumentTemplate.fromJson(json.decode(value)))
+        .map((value) =>
+            const TemplateJsonConverter().fromJson(json.decode(value)))
         .toList();
   }
 
   @override
   Future<String> getRemoteCacheDirectory() async =>
       p.join(await super.getRemoteCacheDirectory(), 'Templates');
+}
+
+class DavRemotePackFileSystem extends PackFileSystem with DavRemoteSystem {
+  @override
+  final DavRemoteStorage remote;
+
+  DavRemotePackFileSystem(this.remote);
+
+  final http.Client client = http.Client();
+  Future<http.StreamedResponse> _createRequest(String path,
+      {String method = 'GET', String? body}) async {
+    final url = remote.buildPacksUri(path: path.split('/'));
+    final request = http.Request(method, url);
+    if (body != null) {
+      request.body = body;
+    }
+    request.headers['Authorization'] =
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getPassword()}'))}';
+    return client.send(request);
+  }
+
+  @override
+  Future<void> deletePack(String name) async {
+    final response = await _createRequest(name, method: 'DELETE');
+    if (response.statusCode != 204) {
+      throw Exception('Failed to delete pack: ${response.statusCode}');
+    }
+  }
+
+  @override
+  Future<ButterflyPack?> getPack(String name) async {
+    if (name.startsWith('/')) {
+      name = name.substring(1);
+    }
+    try {
+      final response = await _createRequest(name);
+      if (response.statusCode != 200) {
+        return null;
+      }
+      final content = await response.stream.bytesToString();
+      cacheStringContent(name, content);
+      return const PackJsonConverter().fromJson(json.decode(content));
+    } catch (e) {
+      return getCachedPack(name);
+    }
+  }
+
+  Future<ButterflyPack?> getCachedPack(String name) async {
+    final content = await getCachedContent(name);
+    if (content == null) {
+      return null;
+    }
+    return const PackJsonConverter()
+        .fromJson(json.decode(utf8.decode(content)));
+  }
+
+  @override
+  Future<List<ButterflyPack>> getPacks() async {
+    try {
+      final response = await _createRequest('', method: 'PROPFIND');
+      if (response.statusCode == 404) {
+        return [];
+      }
+      if (response.statusCode != 207) {
+        throw Exception(
+            'Failed to get packs: ${response.statusCode} ${response.reasonPhrase}');
+      }
+      final content = await response.stream.bytesToString();
+      final xml = XmlDocument.parse(content);
+      clearCachedContent();
+      return (await Future.wait(xml
+              .findAllElements('d:href')
+              .where((element) => element.text.endsWith('.bfly'))
+              .map((e) {
+        var path = e.text.substring(remote.buildPacksUri().path.length);
+        path = Uri.decodeComponent(path);
+        return getPack(path);
+      })))
+          .whereType<ButterflyPack>()
+          .toList();
+    } on SocketException catch (_) {
+      return await getCachedPacks();
+    }
+  }
+
+  @override
+  Future<bool> hasPack(String name) {
+    return _createRequest(name).then((response) => response.statusCode == 200);
+  }
+
+  @override
+  Future<void> updatePack(ButterflyPack pack) {
+    return _createRequest('${pack.name}.bfly',
+        method: 'PUT', body: json.encode(pack));
+  }
+
+  Future<List<ButterflyPack>> getCachedPacks() async {
+    final cachedFiles = await getCachedFiles();
+    return cachedFiles.values
+        .map((value) => const PackJsonConverter().fromJson(json.decode(value)))
+        .toList();
+  }
+
+  @override
+  Future<String> getRemoteCacheDirectory() async =>
+      p.join(await super.getRemoteCacheDirectory(), 'Packs');
 }

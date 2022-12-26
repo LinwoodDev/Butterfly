@@ -1,4 +1,5 @@
 import 'package:butterfly/api/file_system_remote.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -63,6 +64,30 @@ extension SyncStatusVisualizer on SyncStatus? {
       case SyncStatus.error:
         return PhosphorIcons.warningLight;
       default:
+        return PhosphorIcons.arrowClockwiseLight;
+    }
+  }
+}
+
+extension SyncModeVisualizer on SyncMode {
+  String getLocalizedName(BuildContext context) {
+    switch (this) {
+      case SyncMode.always:
+        return AppLocalizations.of(context)!.always;
+      case SyncMode.noMobile:
+        return AppLocalizations.of(context)!.noMobile;
+      case SyncMode.manual:
+        return AppLocalizations.of(context)!.manual;
+    }
+  }
+
+  IconData getIcon() {
+    switch (this) {
+      case SyncMode.always:
+        return PhosphorIcons.wifiHighLight;
+      case SyncMode.noMobile:
+        return PhosphorIcons.wifiSlashLight;
+      case SyncMode.manual:
         return PhosphorIcons.arrowClockwiseLight;
     }
   }

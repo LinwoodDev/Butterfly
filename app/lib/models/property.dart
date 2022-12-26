@@ -7,16 +7,13 @@ import 'text.dart';
 part 'property.g.dart';
 part 'property.freezed.dart';
 
-abstract class PathProperty {
+abstract class PathProperty implements Property {
   double get strokeWidth;
   double get strokeMultiplier;
 }
 
 @freezed
 class Property with _$Property {
-  const factory Property.hand({@Default(false) bool includeEraser}) =
-      HandProperty;
-
   const factory Property.label(
       {@Default(12)
           double size,
@@ -45,13 +42,13 @@ class Property with _$Property {
       @Default(VerticalAlignment.top)
           VerticalAlignment verticalAlignment}) = LabelProperty;
 
-  @With<PathProperty>()
+  @Implements<PathProperty>()
   const factory Property.eraser({
     @Default(5) double strokeWidth,
     @Default(10) double strokeMultiplier,
   }) = EraserProperty;
 
-  @With<PathProperty>()
+  @Implements<PathProperty>()
   const factory Property.pen({
     @Default(5) double strokeWidth,
     @Default(10) double strokeMultiplier,

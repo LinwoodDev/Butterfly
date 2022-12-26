@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'current_index.dart';
 
@@ -16,18 +16,17 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CurrentIndex {
-  int get index => throw _privateConstructorUsedError;
+  int? get index => throw _privateConstructorUsedError;
   Handler<dynamic> get handler => throw _privateConstructorUsedError;
   SettingsCubit get settingsCubit => throw _privateConstructorUsedError;
   TransformCubit get transformCubit => throw _privateConstructorUsedError;
-  int? get temporaryIndex => throw _privateConstructorUsedError;
   Handler<dynamic>? get temporaryHandler => throw _privateConstructorUsedError;
   List<Renderer> get foregrounds => throw _privateConstructorUsedError;
-  List<Rect> get selections => throw _privateConstructorUsedError;
+  Selection<dynamic>? get selection => throw _privateConstructorUsedError;
   List<Renderer>? get temporaryForegrounds =>
       throw _privateConstructorUsedError;
-  List<Rect>? get temporarySelections => throw _privateConstructorUsedError;
   List<int> get pointers => throw _privateConstructorUsedError;
+  int? get buttons => throw _privateConstructorUsedError;
   CameraViewport get cameraViewport => throw _privateConstructorUsedError;
   AssetLocation get location => throw _privateConstructorUsedError;
   Embedding? get embedding => throw _privateConstructorUsedError;
@@ -42,19 +41,19 @@ mixin _$CurrentIndex {
 abstract class $CurrentIndexCopyWith<$Res> {
   factory $CurrentIndexCopyWith(
           CurrentIndex value, $Res Function(CurrentIndex) then) =
-      _$CurrentIndexCopyWithImpl<$Res>;
+      _$CurrentIndexCopyWithImpl<$Res, CurrentIndex>;
+  @useResult
   $Res call(
-      {int index,
+      {int? index,
       Handler<dynamic> handler,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
-      int? temporaryIndex,
       Handler<dynamic>? temporaryHandler,
       List<Renderer> foregrounds,
-      List<Rect> selections,
+      Selection<dynamic>? selection,
       List<Renderer>? temporaryForegrounds,
-      List<Rect>? temporarySelections,
       List<int> pointers,
+      int? buttons,
       CameraViewport cameraViewport,
       AssetLocation location,
       Embedding? embedding,
@@ -64,99 +63,98 @@ abstract class $CurrentIndexCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
+class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
+    implements $CurrentIndexCopyWith<$Res> {
   _$CurrentIndexCopyWithImpl(this._value, this._then);
 
-  final CurrentIndex _value;
   // ignore: unused_field
-  final $Res Function(CurrentIndex) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? index = freezed,
-    Object? handler = freezed,
-    Object? settingsCubit = freezed,
-    Object? transformCubit = freezed,
-    Object? temporaryIndex = freezed,
+    Object? handler = null,
+    Object? settingsCubit = null,
+    Object? transformCubit = null,
     Object? temporaryHandler = freezed,
-    Object? foregrounds = freezed,
-    Object? selections = freezed,
+    Object? foregrounds = null,
+    Object? selection = freezed,
     Object? temporaryForegrounds = freezed,
-    Object? temporarySelections = freezed,
-    Object? pointers = freezed,
-    Object? cameraViewport = freezed,
-    Object? location = freezed,
+    Object? pointers = null,
+    Object? buttons = freezed,
+    Object? cameraViewport = null,
+    Object? location = null,
     Object? embedding = freezed,
-    Object? saved = freezed,
+    Object? saved = null,
   }) {
     return _then(_value.copyWith(
-      index: index == freezed
+      index: freezed == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
-              as int,
-      handler: handler == freezed
+              as int?,
+      handler: null == handler
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
               as Handler<dynamic>,
-      settingsCubit: settingsCubit == freezed
+      settingsCubit: null == settingsCubit
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
               as SettingsCubit,
-      transformCubit: transformCubit == freezed
+      transformCubit: null == transformCubit
           ? _value.transformCubit
           : transformCubit // ignore: cast_nullable_to_non_nullable
               as TransformCubit,
-      temporaryIndex: temporaryIndex == freezed
-          ? _value.temporaryIndex
-          : temporaryIndex // ignore: cast_nullable_to_non_nullable
-              as int?,
-      temporaryHandler: temporaryHandler == freezed
+      temporaryHandler: freezed == temporaryHandler
           ? _value.temporaryHandler
           : temporaryHandler // ignore: cast_nullable_to_non_nullable
               as Handler<dynamic>?,
-      foregrounds: foregrounds == freezed
+      foregrounds: null == foregrounds
           ? _value.foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>,
-      selections: selections == freezed
-          ? _value.selections
-          : selections // ignore: cast_nullable_to_non_nullable
-              as List<Rect>,
-      temporaryForegrounds: temporaryForegrounds == freezed
+      selection: freezed == selection
+          ? _value.selection
+          : selection // ignore: cast_nullable_to_non_nullable
+              as Selection<dynamic>?,
+      temporaryForegrounds: freezed == temporaryForegrounds
           ? _value.temporaryForegrounds
           : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>?,
-      temporarySelections: temporarySelections == freezed
-          ? _value.temporarySelections
-          : temporarySelections // ignore: cast_nullable_to_non_nullable
-              as List<Rect>?,
-      pointers: pointers == freezed
+      pointers: null == pointers
           ? _value.pointers
           : pointers // ignore: cast_nullable_to_non_nullable
               as List<int>,
-      cameraViewport: cameraViewport == freezed
+      buttons: freezed == buttons
+          ? _value.buttons
+          : buttons // ignore: cast_nullable_to_non_nullable
+              as int?,
+      cameraViewport: null == cameraViewport
           ? _value.cameraViewport
           : cameraViewport // ignore: cast_nullable_to_non_nullable
               as CameraViewport,
-      location: location == freezed
+      location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as AssetLocation,
-      embedding: embedding == freezed
+      embedding: freezed == embedding
           ? _value.embedding
           : embedding // ignore: cast_nullable_to_non_nullable
               as Embedding?,
-      saved: saved == freezed
+      saved: null == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AssetLocationCopyWith<$Res> get location {
     return $AssetLocationCopyWith<$Res>(_value.location, (value) {
-      return _then(_value.copyWith(location: value));
+      return _then(_value.copyWith(location: value) as $Val);
     });
   }
 }
@@ -168,18 +166,18 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
           _$_CurrentIndex value, $Res Function(_$_CurrentIndex) then) =
       __$$_CurrentIndexCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
-      {int index,
+      {int? index,
       Handler<dynamic> handler,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
-      int? temporaryIndex,
       Handler<dynamic>? temporaryHandler,
       List<Renderer> foregrounds,
-      List<Rect> selections,
+      Selection<dynamic>? selection,
       List<Renderer>? temporaryForegrounds,
-      List<Rect>? temporarySelections,
       List<int> pointers,
+      int? buttons,
       CameraViewport cameraViewport,
       AssetLocation location,
       Embedding? embedding,
@@ -191,91 +189,84 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
 
 /// @nodoc
 class __$$_CurrentIndexCopyWithImpl<$Res>
-    extends _$CurrentIndexCopyWithImpl<$Res>
+    extends _$CurrentIndexCopyWithImpl<$Res, _$_CurrentIndex>
     implements _$$_CurrentIndexCopyWith<$Res> {
   __$$_CurrentIndexCopyWithImpl(
       _$_CurrentIndex _value, $Res Function(_$_CurrentIndex) _then)
-      : super(_value, (v) => _then(v as _$_CurrentIndex));
+      : super(_value, _then);
 
-  @override
-  _$_CurrentIndex get _value => super._value as _$_CurrentIndex;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? index = freezed,
-    Object? handler = freezed,
-    Object? settingsCubit = freezed,
-    Object? transformCubit = freezed,
-    Object? temporaryIndex = freezed,
+    Object? handler = null,
+    Object? settingsCubit = null,
+    Object? transformCubit = null,
     Object? temporaryHandler = freezed,
-    Object? foregrounds = freezed,
-    Object? selections = freezed,
+    Object? foregrounds = null,
+    Object? selection = freezed,
     Object? temporaryForegrounds = freezed,
-    Object? temporarySelections = freezed,
-    Object? pointers = freezed,
-    Object? cameraViewport = freezed,
-    Object? location = freezed,
+    Object? pointers = null,
+    Object? buttons = freezed,
+    Object? cameraViewport = null,
+    Object? location = null,
     Object? embedding = freezed,
-    Object? saved = freezed,
+    Object? saved = null,
   }) {
     return _then(_$_CurrentIndex(
-      index == freezed
+      freezed == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
-              as int,
-      handler == freezed
+              as int?,
+      null == handler
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
               as Handler<dynamic>,
-      settingsCubit == freezed
+      null == settingsCubit
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
               as SettingsCubit,
-      transformCubit == freezed
+      null == transformCubit
           ? _value.transformCubit
           : transformCubit // ignore: cast_nullable_to_non_nullable
               as TransformCubit,
-      temporaryIndex: temporaryIndex == freezed
-          ? _value.temporaryIndex
-          : temporaryIndex // ignore: cast_nullable_to_non_nullable
-              as int?,
-      temporaryHandler: temporaryHandler == freezed
+      temporaryHandler: freezed == temporaryHandler
           ? _value.temporaryHandler
           : temporaryHandler // ignore: cast_nullable_to_non_nullable
               as Handler<dynamic>?,
-      foregrounds: foregrounds == freezed
+      foregrounds: null == foregrounds
           ? _value._foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>,
-      selections: selections == freezed
-          ? _value._selections
-          : selections // ignore: cast_nullable_to_non_nullable
-              as List<Rect>,
-      temporaryForegrounds: temporaryForegrounds == freezed
+      selection: freezed == selection
+          ? _value.selection
+          : selection // ignore: cast_nullable_to_non_nullable
+              as Selection<dynamic>?,
+      temporaryForegrounds: freezed == temporaryForegrounds
           ? _value._temporaryForegrounds
           : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>?,
-      temporarySelections: temporarySelections == freezed
-          ? _value._temporarySelections
-          : temporarySelections // ignore: cast_nullable_to_non_nullable
-              as List<Rect>?,
-      pointers: pointers == freezed
+      pointers: null == pointers
           ? _value._pointers
           : pointers // ignore: cast_nullable_to_non_nullable
               as List<int>,
-      cameraViewport: cameraViewport == freezed
+      buttons: freezed == buttons
+          ? _value.buttons
+          : buttons // ignore: cast_nullable_to_non_nullable
+              as int?,
+      cameraViewport: null == cameraViewport
           ? _value.cameraViewport
           : cameraViewport // ignore: cast_nullable_to_non_nullable
               as CameraViewport,
-      location: location == freezed
+      location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as AssetLocation,
-      embedding: embedding == freezed
+      embedding: freezed == embedding
           ? _value.embedding
           : embedding // ignore: cast_nullable_to_non_nullable
               as Embedding?,
-      saved: saved == freezed
+      saved: null == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -288,26 +279,23 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
 class _$_CurrentIndex extends _CurrentIndex {
   const _$_CurrentIndex(
       this.index, this.handler, this.settingsCubit, this.transformCubit,
-      {this.temporaryIndex,
-      this.temporaryHandler,
+      {this.temporaryHandler,
       final List<Renderer> foregrounds = const [],
-      final List<Rect> selections = const [],
+      this.selection,
       final List<Renderer>? temporaryForegrounds,
-      final List<Rect>? temporarySelections,
       final List<int> pointers = const [],
+      this.buttons,
       this.cameraViewport = const CameraViewport.unbaked(),
       this.location = const AssetLocation(path: ''),
       this.embedding,
       this.saved = false})
       : _foregrounds = foregrounds,
-        _selections = selections,
         _temporaryForegrounds = temporaryForegrounds,
-        _temporarySelections = temporarySelections,
         _pointers = pointers,
         super._();
 
   @override
-  final int index;
+  final int? index;
   @override
   final Handler<dynamic> handler;
   @override
@@ -315,39 +303,25 @@ class _$_CurrentIndex extends _CurrentIndex {
   @override
   final TransformCubit transformCubit;
   @override
-  final int? temporaryIndex;
-  @override
   final Handler<dynamic>? temporaryHandler;
   final List<Renderer> _foregrounds;
   @override
   @JsonKey()
   List<Renderer> get foregrounds {
+    if (_foregrounds is EqualUnmodifiableListView) return _foregrounds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_foregrounds);
   }
 
-  final List<Rect> _selections;
   @override
-  @JsonKey()
-  List<Rect> get selections {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_selections);
-  }
-
+  final Selection<dynamic>? selection;
   final List<Renderer>? _temporaryForegrounds;
   @override
   List<Renderer>? get temporaryForegrounds {
     final value = _temporaryForegrounds;
     if (value == null) return null;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<Rect>? _temporarySelections;
-  @override
-  List<Rect>? get temporarySelections {
-    final value = _temporarySelections;
-    if (value == null) return null;
+    if (_temporaryForegrounds is EqualUnmodifiableListView)
+      return _temporaryForegrounds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -356,10 +330,13 @@ class _$_CurrentIndex extends _CurrentIndex {
   @override
   @JsonKey()
   List<int> get pointers {
+    if (_pointers is EqualUnmodifiableListView) return _pointers;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_pointers);
   }
 
+  @override
+  final int? buttons;
   @override
   @JsonKey()
   final CameraViewport cameraViewport;
@@ -374,7 +351,7 @@ class _$_CurrentIndex extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryIndex: $temporaryIndex, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selections: $selections, temporaryForegrounds: $temporaryForegrounds, temporarySelections: $temporarySelections, pointers: $pointers, cameraViewport: $cameraViewport, location: $location, embedding: $embedding, saved: $saved)';
+    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, temporaryForegrounds: $temporaryForegrounds, pointers: $pointers, buttons: $buttons, cameraViewport: $cameraViewport, location: $location, embedding: $embedding, saved: $saved)';
   }
 
   @override
@@ -382,67 +359,65 @@ class _$_CurrentIndex extends _CurrentIndex {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CurrentIndex &&
-            const DeepCollectionEquality().equals(other.index, index) &&
-            const DeepCollectionEquality().equals(other.handler, handler) &&
-            const DeepCollectionEquality()
-                .equals(other.settingsCubit, settingsCubit) &&
-            const DeepCollectionEquality()
-                .equals(other.transformCubit, transformCubit) &&
-            const DeepCollectionEquality()
-                .equals(other.temporaryIndex, temporaryIndex) &&
-            const DeepCollectionEquality()
-                .equals(other.temporaryHandler, temporaryHandler) &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.handler, handler) || other.handler == handler) &&
+            (identical(other.settingsCubit, settingsCubit) ||
+                other.settingsCubit == settingsCubit) &&
+            (identical(other.transformCubit, transformCubit) ||
+                other.transformCubit == transformCubit) &&
+            (identical(other.temporaryHandler, temporaryHandler) ||
+                other.temporaryHandler == temporaryHandler) &&
             const DeepCollectionEquality()
                 .equals(other._foregrounds, _foregrounds) &&
-            const DeepCollectionEquality()
-                .equals(other._selections, _selections) &&
+            (identical(other.selection, selection) ||
+                other.selection == selection) &&
             const DeepCollectionEquality()
                 .equals(other._temporaryForegrounds, _temporaryForegrounds) &&
-            const DeepCollectionEquality()
-                .equals(other._temporarySelections, _temporarySelections) &&
             const DeepCollectionEquality().equals(other._pointers, _pointers) &&
-            const DeepCollectionEquality()
-                .equals(other.cameraViewport, cameraViewport) &&
-            const DeepCollectionEquality().equals(other.location, location) &&
-            const DeepCollectionEquality().equals(other.embedding, embedding) &&
-            const DeepCollectionEquality().equals(other.saved, saved));
+            (identical(other.buttons, buttons) || other.buttons == buttons) &&
+            (identical(other.cameraViewport, cameraViewport) ||
+                other.cameraViewport == cameraViewport) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.embedding, embedding) ||
+                other.embedding == embedding) &&
+            (identical(other.saved, saved) || other.saved == saved));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(index),
-      const DeepCollectionEquality().hash(handler),
-      const DeepCollectionEquality().hash(settingsCubit),
-      const DeepCollectionEquality().hash(transformCubit),
-      const DeepCollectionEquality().hash(temporaryIndex),
-      const DeepCollectionEquality().hash(temporaryHandler),
+      index,
+      handler,
+      settingsCubit,
+      transformCubit,
+      temporaryHandler,
       const DeepCollectionEquality().hash(_foregrounds),
-      const DeepCollectionEquality().hash(_selections),
+      selection,
       const DeepCollectionEquality().hash(_temporaryForegrounds),
-      const DeepCollectionEquality().hash(_temporarySelections),
       const DeepCollectionEquality().hash(_pointers),
-      const DeepCollectionEquality().hash(cameraViewport),
-      const DeepCollectionEquality().hash(location),
-      const DeepCollectionEquality().hash(embedding),
-      const DeepCollectionEquality().hash(saved));
+      buttons,
+      cameraViewport,
+      location,
+      embedding,
+      saved);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CurrentIndexCopyWith<_$_CurrentIndex> get copyWith =>
       __$$_CurrentIndexCopyWithImpl<_$_CurrentIndex>(this, _$identity);
 }
 
 abstract class _CurrentIndex extends CurrentIndex {
-  const factory _CurrentIndex(final int index, final Handler<dynamic> handler,
+  const factory _CurrentIndex(final int? index, final Handler<dynamic> handler,
       final SettingsCubit settingsCubit, final TransformCubit transformCubit,
-      {final int? temporaryIndex,
-      final Handler<dynamic>? temporaryHandler,
+      {final Handler<dynamic>? temporaryHandler,
       final List<Renderer> foregrounds,
-      final List<Rect> selections,
+      final Selection<dynamic>? selection,
       final List<Renderer>? temporaryForegrounds,
-      final List<Rect>? temporarySelections,
       final List<int> pointers,
+      final int? buttons,
       final CameraViewport cameraViewport,
       final AssetLocation location,
       final Embedding? embedding,
@@ -450,7 +425,7 @@ abstract class _CurrentIndex extends CurrentIndex {
   const _CurrentIndex._() : super._();
 
   @override
-  int get index;
+  int? get index;
   @override
   Handler<dynamic> get handler;
   @override
@@ -458,19 +433,17 @@ abstract class _CurrentIndex extends CurrentIndex {
   @override
   TransformCubit get transformCubit;
   @override
-  int? get temporaryIndex;
-  @override
   Handler<dynamic>? get temporaryHandler;
   @override
   List<Renderer> get foregrounds;
   @override
-  List<Rect> get selections;
+  Selection<dynamic>? get selection;
   @override
   List<Renderer>? get temporaryForegrounds;
   @override
-  List<Rect>? get temporarySelections;
-  @override
   List<int> get pointers;
+  @override
+  int? get buttons;
   @override
   CameraViewport get cameraViewport;
   @override

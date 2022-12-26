@@ -33,7 +33,7 @@
   "yes": "Yes",
   "undo": "Undo",
   "redo": "Redo",
-  "projectSettings": "Project settings",
+  "project": "Project",
   "general": "General",
   "copyTitle": "Copied to clipboard",
   "copyMessage": "You can now paste it into a text editor",
@@ -54,6 +54,7 @@
   "italian": "Italian",
   "turkish": "Turkish",
   "portugueseBrazil": "Portuguese (Brazil)",
+  "thai": "Thai",
   "defaultLocale": "Default locale",
   "information": "Information",
   "license": "License",
@@ -125,7 +126,7 @@
   "shiftKey": "Shift",
   "altKey": "Alt",
   "copyVersion": "Copy version",
-  "input": "Input", 
+  "input": "Input",
   "behaviors": "Behaviors",
   "documentDirectory": "Document directory",
   "defaultPath": "Default path",
@@ -170,9 +171,6 @@
   "svg": "SVG",
   "sensitivity": "Sensitivity",
   "sensitivityHint": "The higher the value, the more sensitive the input",
-  "touchSensitivity": "Touch sensitivity",
-  "mouseSensitivity": "Mouse sensitivity",
-  "penSensitivity": "Pen sensitivity",
   "horizontal": "Horizontal",
   "vertical": "Vertical",
   "plain": "Plain",
@@ -231,9 +229,9 @@
   },
   "releaseNotes": "Release notes",
   "constraints": "Constraints",
-  "scaledConstraints": "Scaled constraints",
-  "fixedConstraints": "Fixed constraints",
-  "dynamicConstraints": "Dynamic constraints",
+  "scaled": "Scaled",
+  "fixed": "Fixed",
+  "dynamicContent": "Dynamic",
   "none": "None",
   "includeArea": "Include area",
   "verticalAlignment": "Vertical alignment",
@@ -289,6 +287,7 @@
   "laser": "Laser",
   "duration": "Duration",
   "quality": "Quality",
+  "exportPdf": "Export PDF",
   "local": "Local",
   "addRemote": "Add remote",
   "remotes": "Remotes",
@@ -360,5 +359,80 @@
   "syncRootDirectory": "Sync root directory",
   "penOnlyInput": "Pen only input",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Native window title bar"
+  "nativeWindowTitleBar": "Native window title bar",
+  "syncMode": "Sync mode",
+  "connection": "Connection",
+  "always": "Always",
+  "noMobile": "No mobile",
+  "manual": "Manual",
+  "search": "Search",
+  "properties": "Properties",
+  "pin": "Pin",
+  "unpin": "Unpin",
+  "element": "Element",
+  "painter": "Painter",
+  "position": "Position",
+  "note": "Note",
+  "packs": "Packs",
+  "pack": "Pack",
+  "more": "More",
+  "askForName": "Ask for name",
+  "areaIndex": "Area {index}",
+  "@areaIndex": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "startInFullScreen": "Start in full screen",
+  "inputs": "Inputs",
+  "mouse": "Mouse",
+  "touch": "Touch",
+  "keyboard": "Keyboard",
+  "shortcuts": "Shortcuts",
+  "middle": "Middle",
+  "first": "First",
+  "second": "Second",
+  "tools": "Tools",
+  "showGrid": "Show grid",
+  "grid": "Grid",
+  "ruler": "Ruler",
+  "angle": "Angle",
+  "report": "Report",
+  "newFolder": "New folder",
+  "createPack": "Create pack",
+  "editPack": "Edit pack",
+  "packsDirectory": "Packs directory",
+  "stamp": "Stamp",
+  "addToPack": "Add to pack",
+  "packDescription": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "@packDescription": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "sureImportPack": "Are you sure you want to import the pack?",
+  "byAuthor": "by {author}",
+  "@byAuthor": {
+    "placeholders": {
+      "author": {
+        "type": "String",
+        "example": "author"
+      }
+    }
+  },
+  "author": "Author",
+  "addComponent": "Add component",
+  "editComponent": "Edit component",
+  "scope": "Scope",
+  "noPacks": "There are currently no packs available",
+  "components": "Components",
+  "waypoint": "Waypoint",
+  "actions": "Actions",
+  "painters": "Painters"
 }

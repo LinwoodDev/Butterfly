@@ -124,6 +124,9 @@ img {
 .menu__list-item-collapsible {
   --ifm-menu-color-active: var(--ifm-color-emphasis-900);
 }
+.menu__list-item-collapsible--active {
+  --ifm-menu-color-active: var(--ifm-color-gray-100);
+}
 .footer {
   --ifm-footer-background-color:var(--ifm-color-emphasis-900);
   --ifm-footer-link-color: var(--ifm-color-emphasis-700);
@@ -212,6 +215,10 @@ html[data-theme='dark'] .DocSearch {
 
 .DocSearch-Button {
   border-radius: 10px;
+}
+
+.dropdown__link {
+  padding: 0.5rem 1rem;
 }
 
 .menu__list-item-collapsible {
@@ -341,7 +348,7 @@ html[data-theme='dark'] .DocSearch {
 }
 .icon-button svg {
   fill: var(--ifm-button-color);
-  stroke: var(--ifm-button-color);
+  stroke: var(--ifm-button-color) 1em;
   width: 1.5rem;
   height: 1.5rem;
   margin-right: 0.5rem;
@@ -354,7 +361,7 @@ html[data-theme='dark'] .DocSearch {
 
 .grid-button:hover svg {
   fill: var(--ifm-link-hover-color);
-  stroke: var(--ifm-link-hover-color);
+  stroke: var(--ifm-link-hover-color) 1em;
 }
 
 .button {
@@ -381,6 +388,10 @@ html[data-theme='dark'] .DocSearch {
 :where(.button--pwa) {
   --ifm-button-background-color: #5A0FC8;
   --ifm-button-border-color: #5A0FC8;
+}
+:where(.button--macos) {
+  --ifm-button-background-color: #000000;
+  --ifm-button-border-color: #000000;
 }
 
 .text-center {
@@ -446,6 +457,18 @@ html {
 }
 .grid-button svg {
   fill: var(--ifm-button-color);
-  stroke: var(--ifm-button-color);
+  stroke: var(--ifm-button-color) 1em;
   width: 5em;
+}
+
+main .clean-btn,.navbar-sidebar__back {
+  color: var(--ifm-color-gray-100);
+}
+
+.table-of-contents__link {
+  color: var(--ifm-color-gray-100);
+}
+
+.table-of-contents__link:hover {
+  color: var(--ifm-color-gray-500);
 }

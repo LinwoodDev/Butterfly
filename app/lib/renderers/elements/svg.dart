@@ -8,7 +8,7 @@ class SvgRenderer extends Renderer<SvgElement> {
   @override
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
-      [bool foreground = false]) {
+      [ColorScheme? colorScheme, bool foreground = false]) {
     final rect = this.rect;
     if (svgRoot == null) {
       // Render placeholder
@@ -57,9 +57,10 @@ class SvgRenderer extends Renderer<SvgElement> {
     final size =
         svgRoot?.viewport.viewBox ?? Size(element.width, element.height);
     if (constraints is ScaledElementConstraints) {
-      final scale = constraints.scale <= 0 ? 1 : constraints.scale;
+      final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
+      final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
       return Rect.fromLTWH(element.position.dx, element.position.dy,
-          (size.width * scale).toDouble(), (size.height * scale).toDouble());
+          (size.width * scaleX).toDouble(), (size.height * scaleY).toDouble());
     } else if (constraints is FixedElementConstraints) {
       var height = constraints.height;
       var width = constraints.width;
@@ -95,13 +96,27 @@ class SvgRenderer extends Renderer<SvgElement> {
   }
 
   @override
-  SvgElement move(Offset position) {
+  SvgRenderer transform(
+      {Offset position = Offset.zero,
+      double scaleX = 1,
+      double scaleY = 1,
+      bool relative = false}) {
+    if (relative) {
+      return SvgRenderer(
+          element.copyWith(
+            position: element.position + position,
+            constraints: element.constraints.scale(scaleX, scaleY),
+          ),
+          svgRoot);
+    }
     final rect = this.rect;
     final size = svgRoot?.viewport.viewBox;
-    return element.copyWith(
-      position: position - Offset(rect.width / 2, rect.height / 2),
-      width: size?.width ?? element.width,
-      height: size?.height ?? element.height,
-    );
+    return SvgRenderer(
+        element.copyWith(
+          position: position - Offset(rect.width / 2, rect.height / 2),
+          width: (size?.width ?? element.width) * scaleX,
+          height: (size?.height ?? element.height) * scaleY,
+        ),
+        svgRoot);
   }
 }

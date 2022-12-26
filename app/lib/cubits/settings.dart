@@ -25,6 +25,7 @@ class RemoteStorage with _$RemoteStorage {
     required String path,
     required String documentsPath,
     required String templatesPath,
+    required String packsPath,
     @Default([]) List<String> cachedDocuments,
     @Uint8ListJsonConverter() required Uint8List icon,
     DateTime? lastSynced,
@@ -81,6 +82,16 @@ class RemoteStorage with _$RemoteStorage {
     );
   }
 
+  Uri buildPacksUri({
+    List<String> path = const [],
+    Map<String, String> query = const {},
+  }) {
+    return buildUri(
+      path: [...packsPath.split('/'), ...path],
+      query: query,
+    );
+  }
+
   String get identifier => '$username@${uri.host}/$path';
 
   Future<String> getPassword() async =>
@@ -108,32 +119,58 @@ class RemoteStorage with _$RemoteStorage {
   }
 }
 
+enum SyncMode { always, noMobile, manual }
+
+@freezed
+class InputConfiguration with _$InputConfiguration {
+  const factory InputConfiguration({
+    int? leftMouse,
+    @Default(0) int? middleMouse,
+    @Default(1) int? rightMouse,
+    int? pen,
+    @Default(2) int? firstPenButton,
+    @Default(1) int? secondPenButton,
+    int? touch,
+  }) = _InputConfiguration;
+
+  factory InputConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$InputConfigurationFromJson(json);
+}
+
 @freezed
 class ButterflySettings with _$ButterflySettings {
   const ButterflySettings._();
-  const factory ButterflySettings(
-      {@Default(ThemeMode.system) ThemeMode theme,
-      @Default('') String localeTag,
-      @Default('') String documentPath,
-      @Default('') String dateFormat,
-      @Default(1) double touchSensitivity,
-      @Default(1) double mouseSensitivity,
-      @Default(1) double penSensitivity,
-      @Default(5) double selectSensitivity,
-      @Default(false) bool penOnlyInput,
-      @Default(true) bool inputGestures,
-      @Default('') String design,
-      @Default([]) List<AssetLocation> history,
-      @Default(true) bool startEnabled,
-      @Default(true) bool colorEnabled,
-      String? lastVersion,
-      @Default([]) List<RemoteStorage> remotes,
-      @Default('') String defaultRemote,
-      @Default(false) bool nativeWindowTitleBar}) = _ButterflySettings;
+  const factory ButterflySettings({
+    @Default(ThemeMode.system) ThemeMode theme,
+    @Default('') String localeTag,
+    @Default('') String documentPath,
+    @Default('') String dateFormat,
+    @Default(1) double touchSensitivity,
+    @Default(1) double mouseSensitivity,
+    @Default(1) double penSensitivity,
+    @Default(5) double selectSensitivity,
+    @Default(false) bool penOnlyInput,
+    @Default(true) bool inputGestures,
+    @Default('') String design,
+    @Default([]) List<AssetLocation> history,
+    @Default(true) bool startEnabled,
+    @Default(true) bool colorEnabled,
+    String? lastVersion,
+    @Default([]) List<RemoteStorage> remotes,
+    @Default('') String defaultRemote,
+    @Default(false) bool nativeWindowTitleBar,
+    @Default(false) bool startInFullScreen,
+    @Default(SyncMode.noMobile) SyncMode syncMode,
+    @Default(InputConfiguration()) InputConfiguration inputConfiguration,
+  }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final remotes = prefs.getStringList('remotes')?.map((e) {
-          return RemoteStorage.fromJson(json.decode(e));
+          final data = json.decode(e) as Map<String, dynamic>;
+          if (!data.containsKey('packsPath')) {
+            data['packsPath'] = data['path'] + '/Packs';
+          }
+          return RemoteStorage.fromJson(data);
         }).toList() ??
         const [];
     return ButterflySettings(
@@ -169,6 +206,12 @@ class ButterflySettings with _$ButterflySettings {
       remotes: remotes,
       defaultRemote: prefs.getString('default_remote') ?? '',
       nativeWindowTitleBar: prefs.getBool('native_window_title_bar') ?? false,
+      startInFullScreen: prefs.getBool('start_in_full_screen') ?? false,
+      syncMode:
+          SyncMode.values.byName(prefs.getString('sync_mode') ?? 'noMobile'),
+      inputConfiguration: InputConfiguration.fromJson(
+        json.decode(prefs.getString('input_configuration') ?? '{}'),
+      ),
     );
   }
 
@@ -208,6 +251,11 @@ class ButterflySettings with _$ButterflySettings {
         'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
     await prefs.setString('default_remote', defaultRemote);
     await prefs.setBool('native_window_title_bar', nativeWindowTitleBar);
+    await prefs.setBool('start_in_full_screen', startInFullScreen);
+    await prefs.setString('sync_mode', syncMode.name);
+    await prefs.setString(
+        'input_configuration', json.encode(inputConfiguration.toJson()));
+    await prefs.setInt('version', 0);
   }
 
   RemoteStorage? getRemote(String identifier) {
@@ -379,6 +427,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> resetColorEnabled() => changeColorEnabled(true);
 
+  Future<void> changeStartInFullScreen(bool value) {
+    emit(state.copyWith(startInFullScreen: value));
+    return save();
+  }
+
   bool isFirstStart() {
     return state.lastVersion == null;
   }
@@ -481,4 +534,14 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> resetNativeWindowTitleBar() => changeNativeWindowTitleBar(false);
+
+  Future<void> changeSyncMode(SyncMode syncMode) {
+    emit(state.copyWith(syncMode: syncMode));
+    return save();
+  }
+
+  Future<void> changeInputConfiguration(InputConfiguration inputConfiguration) {
+    emit(state.copyWith(inputConfiguration: inputConfiguration));
+    return save();
+  }
 }

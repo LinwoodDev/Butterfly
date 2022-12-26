@@ -14,11 +14,20 @@ abstract class DocumentState extends Equatable {
 
 class DocumentLoadInProgress extends DocumentState {}
 
+class DocumentLoadFailure extends DocumentState {
+  final String message;
+
+  const DocumentLoadFailure(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
 class DocumentLoadSuccess extends DocumentState {
   final AppDocument document;
   final StorageType storageType;
   final String currentLayer;
-  final int currentAreaIndex;
+  final String currentAreaName;
   final List<String> invisibleLayers;
   final SettingsCubit settingsCubit;
   final CurrentIndexCubit currentIndexCubit;
@@ -28,7 +37,7 @@ class DocumentLoadSuccess extends DocumentState {
       this.storageType = StorageType.local,
       required this.settingsCubit,
       required this.currentIndexCubit,
-      this.currentAreaIndex = -1,
+      this.currentAreaName = '',
       this.currentLayer = '',
       this.invisibleLayers = const []}) {
     if (location != null) {
@@ -41,16 +50,13 @@ class DocumentLoadSuccess extends DocumentState {
         invisibleLayers,
         document,
         currentLayer,
-        currentAreaIndex,
+        currentAreaName,
         settingsCubit,
         currentIndexCubit,
       ];
 
   Area? get currentArea {
-    if (currentAreaIndex < 0 || currentAreaIndex >= document.areas.length) {
-      return null;
-    }
-    return document.areas[currentAreaIndex];
+    return document.getAreaByName(currentAreaName);
   }
 
   CameraViewport get cameraViewport => currentIndexCubit.state.cameraViewport;
@@ -58,18 +64,7 @@ class DocumentLoadSuccess extends DocumentState {
   List<Renderer<PadElement>> get renderers => currentIndexCubit.renderers;
 
   AssetLocation get location => currentIndexCubit.state.location;
-  bool get saved => currentIndexCubit.state.saved;
-
-  Future<void> load() async {
-    currentIndexCubit.setSaveState(saved: true);
-    final background = Renderer.fromInstance(document.background);
-    await background.setup(document);
-    final renderers =
-        document.content.map((e) => Renderer.fromInstance(e)).toList();
-    await Future.wait(renderers.map((e) async => await e.setup(document)));
-    currentIndexCubit.unbake(
-        background: background, unbakedElements: renderers);
-  }
+  bool get saved => !location.absolute && currentIndexCubit.state.saved;
 
   Embedding? get embedding => currentIndexCubit.state.embedding;
 
@@ -77,14 +72,14 @@ class DocumentLoadSuccess extends DocumentState {
     AppDocument? document,
     bool? editMode,
     String? currentLayer,
-    int? currentAreaIndex,
+    String? currentAreaName,
     List<String>? invisibleLayers,
   }) =>
       DocumentLoadSuccess(
         document ?? this.document,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
-        currentAreaIndex: currentAreaIndex ?? this.currentAreaIndex,
+        currentAreaName: currentAreaName ?? this.currentAreaName,
         settingsCubit: settingsCubit,
         currentIndexCubit: currentIndexCubit,
         location: location,
@@ -95,6 +90,7 @@ class DocumentLoadSuccess extends DocumentState {
   bool hasAutosave() =>
       !(embedding?.save ?? true) ||
       (!kIsWeb &&
+          !location.absolute &&
           (location.remote.isEmpty ||
               (settingsCubit.state
                       .getRemote(location.remote)
@@ -104,7 +100,9 @@ class DocumentLoadSuccess extends DocumentState {
   Future<AssetLocation> save() {
     final storage = getRemoteStorage();
     if (embedding != null) return Future.value(AssetLocation.local(''));
-    if (location.path == '') {
+    if (location.path == '' ||
+        location.absolute ||
+        location.fileType != AssetFileType.note) {
       return DocumentFileSystem.fromPlatform(remote: storage)
           .importDocument(document)
           .then((value) => value.location)
@@ -124,6 +122,6 @@ class DocumentLoadSuccess extends DocumentState {
           {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
       currentIndexCubit.bake(document,
           viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
-}
 
-class DocumentLoadFailure extends DocumentState {}
+  Painter? get painter => currentIndexCubit.state.handler.data;
+}

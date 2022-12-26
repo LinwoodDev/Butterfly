@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:butterfly/api/open_help.dart';
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/views/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../views/window.dart';
 import '../widgets/header.dart';
 
 class RemotesSettingsPage extends StatelessWidget {
@@ -49,7 +48,7 @@ class RemotesSettingsPage extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => showDialog(
+          onPressed: () => showDialog<void>(
               context: context, builder: (context) => const _AddRemoteDialog()),
           label: Text(AppLocalizations.of(context)!.addRemote),
           icon: const Icon(PhosphorIcons.plusLight),
@@ -67,6 +66,7 @@ class RemotesSettingsPage extends StatelessWidget {
               );
             }
             return Material(
+              color: Colors.transparent,
               child: ListView.builder(
                   itemCount: state.remotes.length,
                   itemBuilder: (context, index) {
@@ -118,7 +118,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _iconController = TextEditingController(text: '/favicon.ico'),
       _directoryController = TextEditingController(),
       _documentsDirectoryController = TextEditingController(text: 'Documents'),
-      _templatesDirectoryController = TextEditingController(text: 'Templates');
+      _templatesDirectoryController = TextEditingController(text: 'Templates'),
+      _packsDirectoryController = TextEditingController(text: 'Packs');
   bool _isConnected = false,
       _advanced = false,
       _showPassword = false,
@@ -197,6 +198,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         path: _directoryController.text,
         documentsPath: _documentsDirectoryController.text,
         templatesPath: _templatesDirectoryController.text,
+        packsPath: _packsDirectoryController.text,
         icon: icon,
         cachedDocuments: [if (_syncRootDirectory) '/']);
     await settingsCubit.addRemote(
@@ -206,13 +208,14 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     navigator.pop();
   }
 
-  void _showCreatingError(String error, [dynamic e]) {
-    showDialog(
+  Future<void> _showCreatingError(String error, [dynamic e]) {
+    return showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(
               title:
                   Text(AppLocalizations.of(context)!.errorWhileCreatingRemote),
               content: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(error),
                   if (e != null)
@@ -251,6 +254,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.url,
+                    filled: true,
                     icon: const Icon(PhosphorIcons.linkLight),
                   ),
                 ),
@@ -260,6 +264,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.icon,
+                    filled: true,
                     icon: const Icon(PhosphorIcons.imageLight),
                   ),
                 ),
@@ -271,6 +276,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     controller: _usernameController,
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.username,
+                      filled: true,
                       icon: const Icon(PhosphorIcons.userLight),
                     ),
                   ),
@@ -283,6 +289,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         : TextInputType.text,
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.password,
+                      filled: true,
                       suffixIcon: IconButton(
                         icon: Icon(
                           _showPassword
@@ -313,6 +320,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                       }
                       _documentsDirectoryController.text = '${prefix}Documents';
                       _templatesDirectoryController.text = '${prefix}Templates';
+                      _packsDirectoryController.text = '${prefix}Packs';
                     },
                     icon: const Icon(PhosphorIcons.folderLight),
                   ),
@@ -344,6 +352,12 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                             label: AppLocalizations.of(context)!
                                 .templatesDirectory,
                             icon: const Icon(PhosphorIcons.fileDottedLight),
+                          ),
+                          const SizedBox(height: 8),
+                          _DirectoryField(
+                            controller: _packsDirectoryController,
+                            label: AppLocalizations.of(context)!.packsDirectory,
+                            icon: const Icon(PhosphorIcons.packageLight),
                           ),
                         ]),
                       ),
@@ -401,6 +415,7 @@ class _DirectoryField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         icon: icon,
+        filled: true,
         /*suffixIcon: IconButton(
             icon: const Icon(PhosphorIcons.folderLight),
             onPressed: () async {}),*/

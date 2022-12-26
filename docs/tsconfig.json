@@ -1,0 +1,12 @@
+{
+  "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@docusaurus/theme-common/internal": ["node_modules/@docusaurus/theme-common/src/internal.ts"]
+    }
+  },
+  "include": ["./src/**/*.ts","./src/**/*.tsx"]
+}

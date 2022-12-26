@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'template.dart';
 
@@ -34,42 +34,46 @@ mixin _$DocumentTemplate {
 abstract class $DocumentTemplateCopyWith<$Res> {
   factory $DocumentTemplateCopyWith(
           DocumentTemplate value, $Res Function(DocumentTemplate) then) =
-      _$DocumentTemplateCopyWithImpl<$Res>;
+      _$DocumentTemplateCopyWithImpl<$Res, DocumentTemplate>;
+  @useResult
   $Res call({@DocumentJsonConverter() AppDocument document, String folder});
 
   $AppDocumentCopyWith<$Res> get document;
 }
 
 /// @nodoc
-class _$DocumentTemplateCopyWithImpl<$Res>
+class _$DocumentTemplateCopyWithImpl<$Res, $Val extends DocumentTemplate>
     implements $DocumentTemplateCopyWith<$Res> {
   _$DocumentTemplateCopyWithImpl(this._value, this._then);
 
-  final DocumentTemplate _value;
   // ignore: unused_field
-  final $Res Function(DocumentTemplate) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? document = freezed,
-    Object? folder = freezed,
+    Object? document = null,
+    Object? folder = null,
   }) {
     return _then(_value.copyWith(
-      document: document == freezed
+      document: null == document
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
               as AppDocument,
-      folder: folder == freezed
+      folder: null == folder
           ? _value.folder
           : folder // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AppDocumentCopyWith<$Res> get document {
     return $AppDocumentCopyWith<$Res>(_value.document, (value) {
-      return _then(_value.copyWith(document: value));
+      return _then(_value.copyWith(document: value) as $Val);
     });
   }
 }
@@ -81,6 +85,7 @@ abstract class _$$_DocumentTemplateCopyWith<$Res>
           _$_DocumentTemplate value, $Res Function(_$_DocumentTemplate) then) =
       __$$_DocumentTemplateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({@DocumentJsonConverter() AppDocument document, String folder});
 
   @override
@@ -89,26 +94,24 @@ abstract class _$$_DocumentTemplateCopyWith<$Res>
 
 /// @nodoc
 class __$$_DocumentTemplateCopyWithImpl<$Res>
-    extends _$DocumentTemplateCopyWithImpl<$Res>
+    extends _$DocumentTemplateCopyWithImpl<$Res, _$_DocumentTemplate>
     implements _$$_DocumentTemplateCopyWith<$Res> {
   __$$_DocumentTemplateCopyWithImpl(
       _$_DocumentTemplate _value, $Res Function(_$_DocumentTemplate) _then)
-      : super(_value, (v) => _then(v as _$_DocumentTemplate));
+      : super(_value, _then);
 
-  @override
-  _$_DocumentTemplate get _value => super._value as _$_DocumentTemplate;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? document = freezed,
-    Object? folder = freezed,
+    Object? document = null,
+    Object? folder = null,
   }) {
     return _then(_$_DocumentTemplate(
-      document: document == freezed
+      document: null == document
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
               as AppDocument,
-      folder: folder == freezed
+      folder: null == folder
           ? _value.folder
           : folder // ignore: cast_nullable_to_non_nullable
               as String,
@@ -143,19 +146,18 @@ class _$_DocumentTemplate extends _DocumentTemplate {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DocumentTemplate &&
-            const DeepCollectionEquality().equals(other.document, document) &&
-            const DeepCollectionEquality().equals(other.folder, folder));
+            (identical(other.document, document) ||
+                other.document == document) &&
+            (identical(other.folder, folder) || other.folder == folder));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(document),
-      const DeepCollectionEquality().hash(folder));
+  int get hashCode => Object.hash(runtimeType, document, folder);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DocumentTemplateCopyWith<_$_DocumentTemplate> get copyWith =>
       __$$_DocumentTemplateCopyWithImpl<_$_DocumentTemplate>(this, _$identity);
 

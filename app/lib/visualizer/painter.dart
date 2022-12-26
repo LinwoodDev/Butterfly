@@ -9,64 +9,63 @@ import '../models/painter.dart';
 
 extension PainterVisualizer on Painter {
   String getLocalizedName(BuildContext context) {
-    if (this is PenPainter) {
-      return AppLocalizations.of(context)!.pen;
-    }
-    if (this is ShapePainter) {
-      return AppLocalizations.of(context)!.shape;
-    }
-    if (this is LabelPainter) {
-      return AppLocalizations.of(context)!.label;
-    }
-    if (this is PathEraserPainter) {
-      return AppLocalizations.of(context)!.pathEraser;
-    }
-    if (this is EraserPainter) {
-      return AppLocalizations.of(context)!.eraser;
-    }
-    if (this is AreaPainter) {
-      return AppLocalizations.of(context)!.area;
-    }
-    if (this is AreaPainter) {
-      return AppLocalizations.of(context)!.area;
-    }
-    if (this is LayerPainter) {
-      return AppLocalizations.of(context)!.layer;
-    }
-    if (this is LaserPainter) {
-      return AppLocalizations.of(context)!.laser;
-    }
-    throw UnimplementedError();
+    final loc = AppLocalizations.of(context)!;
+    return map(
+      hand: (_) => loc.hand,
+      import: (_) => loc.import,
+      undo: (_) => loc.undo,
+      redo: (_) => loc.redo,
+      label: (_) => loc.label,
+      pen: (_) => loc.pen,
+      eraser: (_) => loc.eraser,
+      pathEraser: (_) => loc.pathEraser,
+      layer: (_) => loc.layer,
+      area: (_) => loc.area,
+      waypoint: (_) => loc.waypoint,
+      laser: (_) => loc.laser,
+      shape: (_) => loc.shape,
+      stamp: (_) => loc.stamp,
+    );
   }
 
   IconData getIcon({bool filled = false}) {
-    if (this is PenPainter) {
-      return filled ? PhosphorIcons.penFill : PhosphorIcons.penLight;
-    }
-    if (this is ShapePainter) {
-      final shape = (this as ShapePainter).property.shape;
-      return shape.getIcon(filled: filled);
-    }
-    if (this is LabelPainter) {
-      return filled ? PhosphorIcons.textTFill : PhosphorIcons.textTLight;
-    }
-    if (this is PathEraserPainter) {
-      return filled ? PhosphorIcons.pathFill : PhosphorIcons.pathLight;
-    }
-    if (this is EraserPainter) {
-      return filled ? PhosphorIcons.eraserFill : PhosphorIcons.eraserLight;
-    }
-    if (this is AreaPainter) {
-      return filled ? PhosphorIcons.monitorFill : PhosphorIcons.monitorLight;
-    }
-    if (this is LayerPainter) {
-      return filled
+    return map(
+      hand: (_) => filled ? PhosphorIcons.handFill : PhosphorIcons.handLight,
+      import: (_) => filled
+          ? PhosphorIcons.arrowSquareInFill
+          : PhosphorIcons.arrowSquareInLight,
+      undo: (_) => filled
+          ? PhosphorIcons.arrowCounterClockwiseFill
+          : PhosphorIcons.arrowCounterClockwiseLight,
+      redo: (_) => filled
+          ? PhosphorIcons.arrowClockwiseFill
+          : PhosphorIcons.arrowClockwiseLight,
+      label: (_) => filled ? PhosphorIcons.textTFill : PhosphorIcons.textTLight,
+      pen: (_) => filled ? PhosphorIcons.penFill : PhosphorIcons.penLight,
+      eraser: (_) =>
+          filled ? PhosphorIcons.eraserFill : PhosphorIcons.eraserLight,
+      pathEraser: (_) =>
+          filled ? PhosphorIcons.pathFill : PhosphorIcons.pathLight,
+      layer: (_) => filled
           ? PhosphorIcons.squaresFourFill
-          : PhosphorIcons.squaresFourLight;
-    }
-    if (this is LaserPainter) {
-      return filled ? PhosphorIcons.cursorFill : PhosphorIcons.cursorLight;
-    }
-    throw UnimplementedError();
+          : PhosphorIcons.squaresFourLight,
+      area: (_) =>
+          filled ? PhosphorIcons.monitorFill : PhosphorIcons.monitorLight,
+      waypoint: (_) =>
+          filled ? PhosphorIcons.mapPinFill : PhosphorIcons.mapPinLight,
+      laser: (_) =>
+          filled ? PhosphorIcons.cursorFill : PhosphorIcons.cursorLight,
+      shape: (painter) => painter.property.shape.getIcon(filled: filled),
+      stamp: (_) => filled ? PhosphorIcons.stampFill : PhosphorIcons.stampLight,
+    );
+  }
+
+  bool isAction() {
+    return maybeMap(
+      import: (_) => true,
+      undo: (_) => true,
+      redo: (_) => true,
+      orElse: () => false,
+    );
   }
 }

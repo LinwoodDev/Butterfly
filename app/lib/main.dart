@@ -1,21 +1,28 @@
-import 'dart:convert';
 import 'dart:io';
 
+import 'package:args/args.dart';
+import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
+import 'package:butterfly/settings/behaviors/mouse.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'api/file_system.dart';
+import 'api/full_screen.dart';
 import 'cubits/settings.dart';
 import 'embed/embedding.dart';
 import 'models/converter.dart';
 import 'models/document.dart';
-import 'settings/behaviors.dart';
+import 'settings/behaviors/home.dart';
+import 'settings/behaviors/keyboard.dart';
+import 'settings/behaviors/pen.dart';
+import 'settings/behaviors/touch.dart';
 import 'settings/data.dart';
 import 'settings/general.dart';
 import 'settings/home.dart';
@@ -24,13 +31,16 @@ import 'settings/remote.dart';
 import 'settings/remotes.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme/manager.dart';
+import 'views/error.dart';
 import 'views/main.dart';
+import 'views/window.dart';
 
-const kFileVersion = 5;
+const kFileVersion = 6;
+
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
 
-  GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   await setup();
   var prefs = await SharedPreferences.getInstance();
   var initialLocation = '/';
@@ -51,19 +61,18 @@ Future<void> main([List<String> args = const []]) async {
           ],
         ).toString();
       } else {
-        var data = await file.readAsString();
-        var json = Map<String, dynamic>.from(jsonDecode(data));
-        var document = const DocumentJsonConverter().fromJson(json);
-        var newFile =
-            await DocumentFileSystem.fromPlatform().importDocument(document);
-        initialLocation = Uri(
-          pathSegments: [
-            '',
-            'local',
-            ...newFile.pathWithoutLeadingSlash.split('/'),
-          ],
-        ).toString();
+        initialLocation = Uri(pathSegments: [
+          '',
+          'native',
+        ], queryParameters: {
+          'path': file.path,
+        }).toString();
       }
+    }
+  }
+  if (!kIsWeb && Platform.isAndroid) {
+    if (await getIntentType() != null) {
+      initialLocation = '/native';
     }
   }
 
@@ -82,6 +91,10 @@ Future<void> main([List<String> args = const []]) async {
       await windowManager.focus();
     });
   }
+  final argParser = ArgParser();
+  argParser.addOption('path', abbr: 'p');
+  final result = argParser.parse(args);
+  GeneralFileSystem.dataPath = result['path'];
   runApp(
     MultiRepositoryProvider(providers: [
       RepositoryProvider(
@@ -102,11 +115,18 @@ List<Locale> getLocales() =>
 
 class ButterflyApp extends StatelessWidget {
   final String initialLocation;
+  final String importedLocation;
   final SharedPreferences prefs;
 
-  ButterflyApp({super.key, required this.prefs, this.initialLocation = '/'})
+  ButterflyApp(
+      {super.key,
+      required this.prefs,
+      this.initialLocation = '/',
+      this.importedLocation = ''})
       : _router = GoRouter(
           initialLocation: initialLocation,
+          errorBuilder: (context, state) =>
+              ErrorPage(message: state.error.toString()),
           routes: [
             GoRoute(
                 name: 'home',
@@ -128,6 +148,28 @@ class ButterflyApp extends StatelessWidget {
                         path: 'behaviors',
                         builder: (context, state) =>
                             const BehaviorsSettingsPage(),
+                        routes: [
+                          GoRoute(
+                            path: 'mouse',
+                            builder: (context, state) =>
+                                const MouseBehaviorSettings(),
+                          ),
+                          GoRoute(
+                            path: 'pen',
+                            builder: (context, state) =>
+                                const PenBehaviorSettings(),
+                          ),
+                          GoRoute(
+                            path: 'keyboard',
+                            builder: (context, state) =>
+                                const KeyboardBehaviorSettings(),
+                          ),
+                          GoRoute(
+                            path: 'touch',
+                            builder: (context, state) =>
+                                const TouchBehaviorSettings(),
+                          ),
+                        ],
                       ),
                       GoRoute(
                         path: 'personalization',
@@ -161,7 +203,9 @@ class ButterflyApp extends StatelessWidget {
                     ?.split('/')
                     .map((e) => Uri.decodeComponent(e))
                     .join('/');
-                return ProjectPage(location: AssetLocation.local(path ?? ''));
+                return ProjectPage(
+                    data: state.extra,
+                    location: AssetLocation.local(path ?? ''));
               },
             ),
             GoRoute(
@@ -175,7 +219,28 @@ class ButterflyApp extends StatelessWidget {
                     .map((e) => Uri.decodeComponent(e))
                     .join('/');
                 return ProjectPage(
+                    data: state.extra,
                     location: AssetLocation(remote: remote, path: path ?? ''));
+              },
+            ),
+            GoRoute(
+              path: '/native',
+              builder: (context, state) {
+                final type = state.queryParams['type'] ?? '';
+                final path = state.queryParams['path'] ?? '';
+                final data = state.extra;
+                return ProjectPage(
+                  location: AssetLocation.local(path, true),
+                  type: type,
+                  data: data,
+                );
+              },
+            ),
+            GoRoute(
+              path: '/native/:path(.*)',
+              builder: (context, state) {
+                final path = state.params['path'] ?? '';
+                return ProjectPage(location: AssetLocation.local(path, true));
               },
             ),
             GoRoute(
@@ -185,7 +250,7 @@ class ButterflyApp extends StatelessWidget {
                 return ProjectPage(
                     embedding: Embedding.fromQuery(state.queryParams));
               },
-            )
+            ),
           ],
         );
 
@@ -199,9 +264,14 @@ class ButterflyApp extends StatelessWidget {
             previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
         builder: (context, settings) {
           if (!kIsWeb && isWindow()) {
-            windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
-                ? TitleBarStyle.normal
-                : TitleBarStyle.hidden);
+            windowManager.waitUntilReadyToShow().then((_) async {
+              windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
+                  ? TitleBarStyle.normal
+                  : TitleBarStyle.hidden);
+              windowManager.setFullScreen(settings.startInFullScreen);
+            });
+          } else {
+            setFullScreen(settings.startInFullScreen);
           }
           return RepositoryProvider(
             create: (context) =>

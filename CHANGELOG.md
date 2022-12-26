@@ -2,15 +2,177 @@
 
 <!--ENTER CHANGELOG HERE-->
 
-## 1.4.0 (2022-08-05)
+## 1.6.0 (2022-12-24)
 
-Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
+Read the whole 1.6 changelog at https://go.linwood.dev/butterfly/1-6
 
-## 1.4.0 (2022-08-05)
+## 1.6.0-rc.1 (2022-12-19)
 
-Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
+* Fix precision of offset property view
+* Fix permission error in windows setup
+* Internal: Use map instead of this is
 
-## 1.4.0-rc.3 (2022-07-25)
+## 1.6.0-rc.0 (2022-12-16)
+
+* Add themed color for ruler color and areas
+* Area painter will now use the grid
+* Shape painter will now use the grid
+* Laser painter will now use the ruler
+* Enable changing rotation of ruler with gesture
+* Fix grid to be local to the screen
+* Disable text for ruler for now
+
+## 1.6.0-beta.0 (2022-12-09)
+
+* Add tool window
+* Add grid
+    * The grid can be turned on and off
+    * When moving elements, it will snap to the grid
+* Add ruler
+
+## 1.6.0-alpha.1 (2022-11-25)
+
+* Add packs to storage and document
+* Add packs dialog to top left corner menu
+* Add stamp painter
+* Add "Add to pack" button to area context menu
+* Add action painter indicator
+* Update text and icon for generic painter property view
+* Fix remove of selection
+
+## 1.6.0-alpha.0 (2022-11-05)
+
+* Add laser painter selection view
+* Add data path argument to the command line
+* Add new folder button to move dialog
+* Add dialog close on text field submit
+* Show error if loading document fails
+* Improve windows setup
+    * Add dialog to decide if the program should be installed for all users or just the current user ([#306](https://github.com/LinwoodCloud/Butterfly/issues/306))
+    * Add icon for the uninstall window in the windows control panel ([#305](https://github.com/LinwoodCloud/Butterfly/issues/305))
+* Fix start in full screen on desktop ([#307](https://github.com/LinwoodCloud/Butterfly/issues/307))
+
+## 1.5.0 (2022-10-21)
+
+Read the whole 1.5 changelog at https://go.linwood.dev/butterfly/1-5
+
+<details>
+ <summary>1.5 Nightly Changelog</summary>
+
+### 1.5.0-rc.1 (2022-10-19)
+
+* Add painters to default document
+* Enable label editing when long pressing on a label
+* Fix rect shape hit calculation
+
+### 1.5.0-rc.0 (2022-10-15)
+
+* Add delete button to color view
+* Update hit calculator to reflect element exactly (path and shape)
+* Update performance of path eraser
+* Fix reset button in input controls customization
+* Fix line shape transform
+* Fix context menu handling on selection in hand painter
+* Fix image export
+
+### 1.5.0-beta.2 (2022-10-07)
+
+* Add disabled colors to redo and undo painter
+* Update color view
+* Move property view to the top right corner
+* Fix issues when trying to add undo/redo painters
+* Fix opening of exported pdfs and zips
+* Fix shortcuts
+* Hide move handler
+* Remove unused permissions on android
+
+### 1.5.0-beta.1 (2022-09-30)
+
+* Open url externally
+* Fix temporary move handler
+* Fix import on open dialog
+
+### 1.5.0-beta.0 (2022-09-23)
+
+* Add resize feature to selection
+* Use move if painter index is zero
+* Fix image open
+* Fix empty background
+* Remove hit calculator, use function insteads
+* Remove temporary painter on creation
+
+### 1.5.0-alpha.2 (2022-09-09)
+
+* Separate behavior settings for each input type
+* Add option to change painter using control and number
+* Add move functionality if no painter is selected
+* Fix start in full screen settings
+* Fix grid view in file system dialogs
+* Fix missing save of sync mode in settings
+
+### 1.5.0-alpha.1 (2022-09-02)
+
+* Add temporary painter
+* Add new painters
+  * Hand
+  * Undo
+  * Redo
+* Remove hand, undo, redo buttons from general gui
+* Improve UI and UX problems ([#280](https://github.com/LinwoodCloud/Butterfly/issues/280))
+  * Reset pointer on app hide
+  * Add default behavior to not ask for area name
+* Add option to load images, pdfs and svgs from open dialog
+* Add option to start the app in full screen mode
+* Fix gesture issues on area and shape painter
+* Fix area change problem
+* Fix divider on top right in native title bar mode
+
+### 1.5.0-alpha.0 (2022-08-26)
+
+* Add macos support (Thanks to batuhand)
+* Add pdf export support
+    * Add export presets
+* Add mutli selection option
+* Add property view
+* Add native file opener for pdf, image and notes
+* Add export button to data settings
+* Add option to import files from file on pwa
+* Improve context menu (add modal background, add new scale animation)
+* Fix image import bug
+* Use json converters to load/save json (fixes missing type and version info)
+
+</details>
+
+## 1.4.4 (2022-09-16)
+
+* Fix line generation in shape painter
+* Fix position and size issues when moving elements
+* Fix gesture issues on area and shape painter and area change problem
+* Fix sync mode won't be saved
+* Reset pointer on app hide, see #280
+
+## 1.4.3 (2022-08-20)
+
+* Move directory on document path change and disable document change on android ([#254](https://github.com/LinwoodCloud/Butterfly/issues/254) and [#255](https://github.com/LinwoodCloud/Butterfly/issues/255))
+* Fix reappearing strokes after delete ([#265](https://github.com/LinwoodCloud/Butterfly/issues/265))
+* Fix laggy moving ([#266](https://github.com/LinwoodCloud/Butterfly/issues/266))
+* Fix eraser cursor glitches ([#264](https://github.com/LinwoodCloud/Butterfly/issues/264))
+* Fix app bar title
+
+## 1.4.2 (2022-08-12)
+
+* Add sync modes
+* Add cursor for eraser
+* Add oval feature for circle shape
+* Improve creation of shape and area when going in negative
+* Fix area painter
+    * Add name validation
+    * Fix size validationa
+* Fix undo/redo
+* Change text fields to filled in remote create dialog
+* Remove duplicated label element in plus popup menu
+
+## 1.4.1 (2022-08-05)
 
 * Add option to change data directory location on android
 * Add turkish translation (thanks to ilker besken)
@@ -30,8 +192,28 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 
 Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 
+## 1.4.0 (2022-07-26)
+
+Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
+
 <details>
  <summary>1.4 Nightly Changelog</summary>
+
+### 1.4.0-rc.3 (2022-07-25)
+
+* Add option to change data directory location on android
+* Add turkish translation (thanks to ilker besken)
+* Add constraint and export option to svg element context menu
+* Add support for setting locale in embed mode
+* Fix missing svg move indicator
+* Fix exporting of image elements
+* Fix svg renderer rect
+* Fix native window title bar issues
+* Fix performance on large documents when trying to open a context menu of an element
+* Fix render time on large documents
+* Fix slider do not update after changing outside of the slider
+* Fix unintential behavior when deleting all elements in a layer
+* Fix save button in embed mode
 
 ### 1.4.0-rc.3 (2022-07-25)
 

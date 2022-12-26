@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/palette.dart';
@@ -6,13 +7,16 @@ import 'package:butterfly/models/template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart' as path;
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/pack.dart';
 import 'file_system_io.dart';
-import 'file_system_html.dart';
+import 'file_system_html_stub.dart'
+    if (dart.library.js) 'file_system_html.dart';
 import 'file_system_remote.dart';
 
 abstract class GeneralFileSystem {
+  static String? dataPath;
+
   RemoteStorage? get remote => null;
 
   String convertNameToFile(String name) {
@@ -45,23 +49,9 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
   }
 
   @override
-  FutureOr<String> getDirectory() async {
-    var prefs = await SharedPreferences.getInstance();
-    String? path;
-    if (prefs.containsKey('document_path')) {
-      path = prefs.getString('document_path');
-    }
-    if (path == '') {
-      path = null;
-    }
-    path ??= await getButterflyDirectory();
-    // Convert \ to /
-    path = path.replaceAll('\\', '/');
-    path += '/Templates';
-    return path;
-  }
+  FutureOr<String> getDirectory();
 
-  Future<AppDocumentAsset?> getAsset(String path);
+  Future<AppDocumentEntity?> getAsset(String path);
 
   Future<AppDocumentDirectory> createDirectory(String name);
 
@@ -81,16 +71,18 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
   Future<AppDocumentFile> importDocument(AppDocument document,
       {String path = '/'});
 
-  Future<AppDocumentAsset?> renameAsset(String path, String newName) async {
+  Future<AppDocumentEntity?> renameAsset(String path, String newName) async {
     // Remove leading slash
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
     final asset = await getAsset(path);
     if (asset == null) return null;
-    AppDocumentAsset? newAsset;
+    AppDocumentEntity? newAsset;
     if (asset is AppDocumentFile) {
-      newAsset = await updateDocument(newName, asset.load());
+      final doc = asset.getDocumentInfo()?.load();
+      if (doc == null) return null;
+      newAsset = await updateDocument(newName, doc);
     } else {
       newAsset = await createDirectory(newName);
       var assets = (asset as AppDocumentDirectory).assets;
@@ -115,11 +107,13 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     }
   }
 
-  Future<AppDocumentAsset?> duplicateAsset(String path, String newPath) async {
+  Future<AppDocumentEntity?> duplicateAsset(String path, String newPath) async {
     var asset = await getAsset(path);
     if (asset == null) return null;
     if (asset is AppDocumentFile) {
-      return updateDocument(newPath, asset.load());
+      final doc = asset.getDocumentInfo()?.load();
+      if (doc == null) return null;
+      return updateDocument(newPath, doc);
     } else {
       var newDirectory = await createDirectory(newPath);
       var assets = (asset as AppDocumentDirectory).assets;
@@ -132,12 +126,19 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     }
   }
 
-  Future<AppDocumentAsset?> moveAsset(String path, String newPath) async {
+  Future<AppDocumentEntity?> moveAsset(String path, String newPath) async {
     var asset = await duplicateAsset(path, newPath);
     if (asset == null) return null;
     if (path != newPath) await deleteAsset(path);
     return asset;
   }
+
+  Future<bool> moveAbsolute(String oldPath, String newPath) =>
+      Future.value(false);
+
+  Future<Uint8List?> loadAbsolute(String path) => Future.value(null);
+
+  Future<void> saveAbsolute(String path, Uint8List bytes) => Future.value();
 }
 
 abstract class TemplateFileSystem extends GeneralFileSystem {
@@ -184,6 +185,79 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
         return DavRemoteTemplateFileSystem(remote);
       }
       return IOTemplateFileSystem();
+    }
+  }
+}
+
+Archive exportDirectory(AppDocumentDirectory directory) {
+  final archive = Archive();
+  void addToArchive(AppDocumentEntity asset) {
+    if (asset is AppDocumentFile) {
+      final data = asset.data;
+      final size = data.length;
+      final file = ArchiveFile(asset.pathWithoutLeadingSlash, size, data);
+      archive.addFile(file);
+    } else if (asset is AppDocumentDirectory) {
+      var assets = asset.assets;
+      for (var current in assets) {
+        addToArchive(current);
+      }
+    }
+  }
+
+  addToArchive(directory);
+  return archive;
+}
+
+abstract class PackFileSystem extends GeneralFileSystem {
+  Future<ButterflyPack?> getPack(String name);
+  Future<ButterflyPack> createPack(
+      {required String name,
+      required String author,
+      required String description}) async {
+    final now = DateTime.now();
+    var newName = name;
+    var attemps = 1;
+    while (await hasPack(newName)) {
+      newName = '$name ($attemps)';
+      attemps++;
+    }
+    final pack = ButterflyPack(
+        name: newName,
+        description: description,
+        author: author,
+        createdAt: now,
+        updatedAt: now);
+    updatePack(pack);
+    return pack;
+  }
+
+  Future<bool> hasPack(String name);
+  Future<void> updatePack(ButterflyPack pack);
+  Future<void> deletePack(String name);
+  Future<List<ButterflyPack>> getPacks();
+
+  Future<ButterflyPack?> renamePack(String path, String newName) async {
+    // Remove leading slash
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
+    final pack = await getPack(path);
+    if (pack == null) return null;
+    await deletePack(path);
+    final newPack = pack.copyWith(name: newName);
+    await updatePack(newPack);
+    return newPack;
+  }
+
+  static PackFileSystem fromPlatform({RemoteStorage? remote}) {
+    if (kIsWeb) {
+      return WebPackFileSystem();
+    } else {
+      if (remote is DavRemoteStorage) {
+        return DavRemotePackFileSystem(remote);
+      }
+      return IOPackFileSystem();
     }
   }
 }

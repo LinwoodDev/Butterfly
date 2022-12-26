@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:butterfly/main.dart';
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/views/main.dart';
+import 'package:butterfly/main.dart';
 import 'package:butterfly/visualizer/string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../theme/manager.dart';
+import '../views/window.dart';
 
 class PersonalizationSettingsPage extends StatelessWidget {
   final bool inView;
@@ -45,6 +45,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
         return AppLocalizations.of(context)!.portugueseBrazil;
       case 'tr':
         return AppLocalizations.of(context)!.turkish;
+      case 'th':
+        return AppLocalizations.of(context)!.thai;
       case '':
         return AppLocalizations.of(context)!.defaultLocale;
       default:
@@ -131,6 +133,15 @@ class PersonalizationSettingsPage extends StatelessWidget {
                         onChanged: (value) => context
                             .read<SettingsCubit>()
                             .changeColorEnabled(value ?? true),
+                      ),
+                      CheckboxListTile(
+                        value: state.startInFullScreen,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeStartInFullScreen(value ?? true),
+                        title: Text(
+                            AppLocalizations.of(context)!.startInFullScreen),
+                        secondary: const Icon(PhosphorIcons.arrowsOutLight),
                       ),
                     ]),
               ),

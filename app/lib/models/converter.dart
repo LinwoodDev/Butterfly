@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/models/template.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../main.dart';
+import 'pack.dart';
 import 'palette.dart';
 
 class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
@@ -42,6 +44,28 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
         json['background'] = Map<String, dynamic>.from(json['background'] ?? {})
           ..['type'] = 'box';
       }
+      if (fileVersion < 6) {
+        json['painters'] = [
+          {'type': 'hand', ...json['handProperty']},
+          {'type': 'undo'},
+          {'type': 'redo'},
+          ...(json['painters'] as List).map((e) {
+            var map = Map<String, dynamic>.from(e);
+            if (['svg', 'image'].contains(map['type'])) {
+              final constraints = map['constraints'];
+              if (constraints is Map) {
+                final current = Map<String, dynamic>.from(constraints);
+                if (current['type'] == 'scaled') {
+                  current['scaleX'] = map['scale'];
+                  current['scaleY'] = map['scale'];
+                }
+                map['constraints'] = current;
+              }
+            }
+            return map;
+          }),
+        ];
+      }
     }
     if (json['background']?['type'] == null) {
       json['background'] = {'type': 'empty'};
@@ -51,8 +75,46 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
 
   @override
   Map<String, dynamic> toJson(AppDocument object) {
-    return {'fileVersion': kFileVersion, 'type': 'document'}
-      ..addAll(object.toJson());
+    return {
+      ...object.toJson(),
+      'fileVersion': kFileVersion,
+      'type': 'document',
+    };
+  }
+}
+
+class TemplateJsonConverter extends JsonConverter<DocumentTemplate, Map> {
+  const TemplateJsonConverter();
+
+  @override
+  DocumentTemplate fromJson(Map json) {
+    return DocumentTemplate.fromJson(Map<String, dynamic>.from(json));
+  }
+
+  @override
+  Map<String, dynamic> toJson(DocumentTemplate object) {
+    return {
+      ...object.toJson(),
+      'fileVersion': kFileVersion,
+      'type': 'template',
+    };
+  }
+}
+
+class PackJsonConverter extends JsonConverter<ButterflyPack, Map> {
+  const PackJsonConverter();
+  @override
+  ButterflyPack fromJson(Map json) {
+    return ButterflyPack.fromJson(Map<String, dynamic>.from(json));
+  }
+
+  @override
+  Map<String, dynamic> toJson(ButterflyPack object) {
+    return {
+      ...object.toJson(),
+      'fileVersion': kFileVersion,
+      'type': 'pack',
+    };
   }
 }
 
@@ -89,4 +151,12 @@ class Uint8ListJsonConverter extends JsonConverter<Uint8List, String> {
   Uint8List fromJson(String json) => Uint8List.fromList(base64.decode(json));
   @override
   String toJson(Uint8List object) => base64.encode(object.toList());
+}
+
+class DateTimeJsonConverter extends JsonConverter<DateTime, int> {
+  const DateTimeJsonConverter();
+  @override
+  DateTime fromJson(int json) => DateTime.fromMillisecondsSinceEpoch(json);
+  @override
+  int toJson(DateTime object) => object.millisecondsSinceEpoch;
 }

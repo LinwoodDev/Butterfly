@@ -1,4 +1,4 @@
-import 'package:butterfly/api/open_help.dart';
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/widgets/color_field.dart';
 import 'package:butterfly/widgets/exact_slider.dart';

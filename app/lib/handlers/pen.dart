@@ -8,7 +8,9 @@ class PenHandler extends Handler<PenPainter> {
   PenHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
+  List<Renderer> createForegrounds(
+      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      [Area? currentArea]) {
     return elements.values
         .map((e) {
           if (e.points.length > 1) return PenRenderer(e);
@@ -20,12 +22,18 @@ class PenHandler extends Handler<PenPainter> {
   }
 
   @override
-  void onPointerUp(
-      Size viewportSize, BuildContext context, PointerUpEvent event) {
-    addPoint(
-        context, event.pointer, event.localPosition, event.pressure, event.kind,
+  void resetInput(DocumentBloc bloc) {
+    elements.clear();
+    submittedElements.clear();
+    lastPosition.clear();
+  }
+
+  @override
+  void onPointerUp(PointerUpEvent event, EventContext context) {
+    addPoint(context.buildContext, event.pointer, event.localPosition,
+        _getPressure(event), event.kind,
         refresh: false);
-    submitElement(viewportSize, context, event.pointer);
+    submitElement(context.viewportSize, context.buildContext, event.pointer);
   }
 
   Future<void> submitElement(
@@ -36,11 +44,11 @@ class PenHandler extends Handler<PenPainter> {
     lastPosition.remove(index);
     submittedElements.add(element);
     if (elements.isEmpty) {
-      final current = List<PadElement>.from(submittedElements);
-      bloc.add(ElementsCreated(current));
-      await bloc.bake();
-      bloc.refresh();
+      final current = submittedElements.reversed.toList();
       submittedElements.clear();
+      bloc.add(ElementsCreated(current));
+      bloc.refresh();
+      await bloc.bake();
     }
   }
 
@@ -48,10 +56,15 @@ class PenHandler extends Handler<PenPainter> {
       double pressure, PointerDeviceKind kind,
       {bool refresh = true, bool shouldCreate = false}) {
     final bloc = context.read<DocumentBloc>();
+    final currentIndexCubit = context.read<CurrentIndexCubit>();
+    final viewport = currentIndexCubit.state.cameraViewport;
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
+    localPosition =
+        viewport.tool?.getPointerPosition(localPosition, currentIndexCubit) ??
+            localPosition;
     if (lastPosition[pointer] == localPosition) return;
     lastPosition[pointer] = localPosition;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
@@ -77,29 +90,32 @@ class PenHandler extends Handler<PenPainter> {
   }
 
   @override
-  void onTapDown(
-      Size viewportSize, BuildContext context, TapDownDetails details) {}
+  void onTapDown(TapDownDetails details, EventContext context) {}
 
   @override
-  void onPointerDown(
-      Size viewportSize, BuildContext context, PointerDownEvent event) {
-    final cubit = context.read<CurrentIndexCubit>();
-    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+  void onPointerDown(PointerDownEvent event, EventContext context) {
+    final currentIndex = context.getCurrentIndex();
+    if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
-      context.read<DocumentBloc>().refresh();
+      context.refresh();
       return;
     }
     elements.remove(event.pointer);
-    addPoint(
-        context, event.pointer, event.localPosition, event.pressure, event.kind,
+    addPoint(context.buildContext, event.pointer, event.localPosition,
+        _getPressure(event), event.kind,
         shouldCreate: true);
   }
 
+  double _getPressure(PointerEvent event) =>
+      event.kind == PointerDeviceKind.stylus
+          ? (event.pressure - event.pressureMin) /
+              (event.pressureMax - event.pressureMin)
+          : 0.5;
+
   @override
-  void onPointerMove(
-      Size viewportSize, BuildContext context, PointerMoveEvent event) {
-    addPoint(context, event.pointer, event.localPosition, event.pressure,
-        event.kind);
+  void onPointerMove(PointerMoveEvent event, EventContext context) {
+    addPoint(context.buildContext, event.pointer, event.localPosition,
+        _getPressure(event), event.kind);
   }
 
   @override

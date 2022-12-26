@@ -1,0 +1,5 @@
+* Add tool window
+* Add grid
+    * The grid can be turned on and off
+    * When moving elements, it will snap to the grid
+* Add ruler

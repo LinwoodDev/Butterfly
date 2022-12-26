@@ -7,7 +7,9 @@ class ShapeHandler extends Handler {
   ShapeHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(AppDocument document, [Area? currentArea]) {
+  List<Renderer> createForegrounds(
+      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      [Area? currentArea]) {
     return elements.values
         .map((e) => ShapeRenderer(e)..setup(document))
         .toList()
@@ -15,11 +17,17 @@ class ShapeHandler extends Handler {
   }
 
   @override
-  void onPointerUp(
-      Size viewportSize, BuildContext context, PointerUpEvent event) {
-    addShape(context, event.pointer, event.localPosition, event.pressure,
-        event.kind, false);
-    submitElement(viewportSize, context, event.pointer);
+  void resetInput(DocumentBloc bloc) {
+    elements.clear();
+    submittedElements.clear();
+  }
+
+  @override
+  void onPointerUp(PointerUpEvent event, EventContext context) {
+    addShape(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind,
+        refresh: false);
+    submitElement(context.viewportSize, context.buildContext, event.pointer);
   }
 
   void _setRect(Offset nextPosition, int index) {
@@ -58,14 +66,32 @@ class ShapeHandler extends Handler {
         height = nextHeight;
       }
     }
-    final nextRect = Rect.fromLTWH(
-        width < 0 ? currentRect.left + width : currentRect.left,
-        height < 0 ? currentRect.top + height : currentRect.top,
-        width.abs(),
-        height.abs());
+    final secondPosition =
+        Offset(currentRect.left + width, currentRect.top + height);
+
     elements[index] = element.copyWith(
-      firstPosition: nextRect.topLeft,
-      secondPosition: nextRect.bottomRight,
+        firstPosition: element.firstPosition, secondPosition: secondPosition);
+  }
+
+  ShapeElement _normalizeElement(ShapeElement element) {
+    if (element.property.shape is LineShape) return element;
+    var firstX = element.firstPosition.dx;
+    var firstY = element.firstPosition.dy;
+    var secondX = element.secondPosition.dx;
+    var secondY = element.secondPosition.dy;
+    if (firstX > secondX) {
+      final temp = firstX;
+      firstX = secondX;
+      secondX = temp;
+    }
+    if (firstY > secondY) {
+      final temp = firstY;
+      firstY = secondY;
+      secondY = temp;
+    }
+    return element.copyWith(
+      firstPosition: Offset(firstX, firstY),
+      secondPosition: Offset(secondX, secondY),
     );
   }
 
@@ -73,7 +99,7 @@ class ShapeHandler extends Handler {
     final bloc = context.read<DocumentBloc>();
     var element = elements.remove(index);
     if (element == null) return;
-    submittedElements.add(element);
+    submittedElements.add(_normalizeElement(element));
     if (elements.isEmpty) {
       final current = List<PadElement>.from(submittedElements);
       bloc.add(ElementsCreated(current));
@@ -85,10 +111,15 @@ class ShapeHandler extends Handler {
 
   void addShape(BuildContext context, int pointer, Offset localPosition,
       double pressure, PointerDeviceKind kind,
-      [bool refresh = true]) {
+      {bool refresh = true, bool shouldCreate = false}) {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
+    final currentIndexCubit = context.read<CurrentIndexCubit>();
+    final viewport = currentIndexCubit.state.cameraViewport;
+    localPosition = viewport.tool?.getGridPosition(
+            localPosition, state.document, currentIndexCubit) ??
+        localPosition;
     final globalPosition = transform.localToGlobal(localPosition);
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
@@ -97,7 +128,10 @@ class ShapeHandler extends Handler {
     }
     double zoom = data.zoomDependent ? transform.size : 1;
 
-    if (!elements.containsKey(pointer)) {
+    final createNew = !elements.containsKey(pointer);
+
+    if (createNew && !shouldCreate) return;
+    if (createNew) {
       elements[pointer] = ShapeElement(
         layer: state.currentLayer,
         firstPosition: globalPosition,
@@ -112,17 +146,24 @@ class ShapeHandler extends Handler {
   }
 
   @override
-  void onPointerDown(
-      Size viewportSize, BuildContext context, PointerDownEvent event) {
-    addShape(context, event.pointer, event.localPosition, event.pressure,
-        event.kind);
+  void onPointerDown(PointerDownEvent event, EventContext context) {
+    if (context.getCurrentIndex().moveEnabled) {
+      elements.clear();
+      context.refresh();
+      return;
+    }
+    addShape(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind,
+        shouldCreate: true);
   }
 
   @override
-  void onPointerMove(
-          Size viewportSize, BuildContext context, PointerMoveEvent event) =>
-      addShape(context, event.pointer, event.localPosition, event.pressure,
-          event.kind);
+  void onPointerMove(PointerMoveEvent event, EventContext context) => addShape(
+      context.buildContext,
+      event.pointer,
+      event.localPosition,
+      event.pressure,
+      event.kind);
 
   @override
   int? getColor(DocumentBloc bloc) => data.property.color;

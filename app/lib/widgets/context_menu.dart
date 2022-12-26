@@ -1,22 +1,19 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
-typedef ContextMenuBuilder = Widget Function(
-    BuildContext context, ContextCloseFunction close);
-typedef ContextCloseFunction = Future<void> Function();
+typedef ContextMenuBuilder = Widget Function(BuildContext context);
 
 class ContextMenu extends StatefulWidget {
   final Offset position;
   final ContextMenuBuilder builder;
-  final ContextCloseFunction close;
   final double maxWidth, maxHeight;
 
   const ContextMenu(
       {super.key,
       this.position = Offset.zero,
-      required this.close,
       required this.builder,
       this.maxHeight = 300,
       this.maxWidth = 300});
@@ -55,7 +52,7 @@ class _ContextMenuState extends State<ContextMenu>
     if (!mounted) return;
     await _controller.reverse().then<void>((_) async {
       if (!mounted) return;
-      await widget.close();
+      Navigator.of(context).pop();
     });
   }
 
@@ -104,7 +101,7 @@ class _ContextMenuState extends State<ContextMenu>
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: widget.builder(context, _close),
+                          child: widget.builder(context),
                         ),
                       ),
                     ),
@@ -119,27 +116,21 @@ class _ContextMenuState extends State<ContextMenu>
   }
 }
 
-Future<void> showContextMenu(
+Future<T?> showContextMenu<T>(
     {required BuildContext context,
     Offset position = Offset.zero,
     required ContextMenuBuilder builder,
-    double maxHeight = 200,
+    double maxHeight = 400,
     double maxWidth = 300}) async {
-  var completer = Completer<void>();
-  final overlayState = Overlay.of(context);
-  late OverlayEntry overlayEntry;
-  overlayEntry = OverlayEntry(
-      maintainState: true,
-      opaque: false,
-      builder: (context) => ContextMenu(
+  return showModal<T>(
+      context: context,
+      useRootNavigator: true,
+      builder: (context) {
+        return ContextMenu(
           position: position,
-          close: () async {
-            overlayEntry.remove();
-            completer.complete();
-          },
-          builder: builder));
-  overlayState?.insert(overlayEntry);
-  if (overlayState != null) {
-    return completer.future;
-  }
+          builder: builder,
+          maxHeight: maxHeight,
+          maxWidth: maxWidth,
+        );
+      });
 }

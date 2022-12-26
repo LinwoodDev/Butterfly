@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:butterfly/models/converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,7 +22,8 @@ class SaveAction extends Action<SaveIntent> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     if (state.embedding?.save ?? false) {
-      sendEmbedMessage('save', json.encode(state.document.toJson()));
+      sendEmbedMessage('save',
+          json.encode(const DocumentJsonConverter().toJson(state.document)));
       state.currentIndexCubit.setSaveState(saved: true);
     } else {
       final path = await state.save();

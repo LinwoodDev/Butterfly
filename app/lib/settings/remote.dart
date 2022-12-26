@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../views/main.dart';
+import '../views/window.dart';
 
 class RemoteSettingsPage extends StatefulWidget {
   final String remote;
@@ -92,35 +92,38 @@ class _RemoteSettingsPageState extends State<RemoteSettingsPage>
     );
   }
 
-  void _showCreateDialog() {
-    TextEditingController pathController = TextEditingController();
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.createCache),
-        content: TextField(
-          controller: pathController,
-          decoration: InputDecoration(
-            labelText: AppLocalizations.of(context)!.path,
+  Future<void> _showCreateDialog() async {
+    final settingsCubit = context.read<SettingsCubit>();
+    final pathController = TextEditingController();
+    final success = await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(AppLocalizations.of(context)!.createCache),
+            content: TextField(
+              controller: pathController,
+              onSubmitted: (value) => Navigator.of(context).pop(true),
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.path,
+              ),
+            ),
+            actions: [
+              TextButton(
+                child: Text(AppLocalizations.of(context)!.cancel),
+                onPressed: () => Navigator.of(context).pop(false),
+              ),
+              ElevatedButton(
+                child: Text(AppLocalizations.of(context)!.create),
+                onPressed: () => Navigator.of(context).pop(true),
+              ),
+            ],
           ),
-        ),
-        actions: [
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.cancel),
-            onPressed: () => Navigator.pop(context),
-          ),
-          ElevatedButton(
-            child: Text(AppLocalizations.of(context)!.create),
-            onPressed: () {
-              Navigator.pop(context);
-              context.read<SettingsCubit>().addCache(
-                    widget.remote,
-                    pathController.text,
-                  );
-            },
-          ),
-        ],
-      ),
+        ) ??
+        false;
+    if (!success) return;
+
+    settingsCubit.addCache(
+      widget.remote,
+      pathController.text,
     );
   }
 }

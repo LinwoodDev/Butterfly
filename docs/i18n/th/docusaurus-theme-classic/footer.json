@@ -1,0 +1,50 @@
+{
+  "link.title.Community": {
+    "message": "Community",
+    "description": "The title of the footer links column with title=Community in the footer"
+  },
+  "link.title.Source code": {
+    "message": "Source code",
+    "description": "The title of the footer links column with title=Source code in the footer"
+  },
+  "link.title.Legal": {
+    "message": "Legal",
+    "description": "The title of the footer links column with title=Legal in the footer"
+  },
+  "link.item.label.Discord": {
+    "message": "Discord",
+    "description": "The label of footer link with label=Discord linking to https://discord.linwood.dev"
+  },
+  "link.item.label.Twitter": {
+    "message": "Twitter",
+    "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodCloud"
+  },
+  "link.item.label.Contribution guide": {
+    "message": "Contribution guide",
+    "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md"
+  },
+  "link.item.label.App": {
+    "message": "App",
+    "description": "The label of footer link with label=App linking to https://github.com/LinwoodCloud/butterfly/tree/develop/app"
+  },
+  "link.item.label.Docs": {
+    "message": "Docs",
+    "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodCloud/butterfly/tree/develop/docs"
+  },
+  "link.item.label.Imprint": {
+    "message": "Imprint",
+    "description": "The label of footer link with label=Imprint linking to https://go.linwood.dev/imprint"
+  },
+  "copyright": {
+    "message": "Copyright © 2022 LinwoodCloud.",
+    "description": "The footer copyright"
+  },
+  "link.item.label.Privacy Policy of the app": {
+    "message": "Privacy Policy of the app",
+    "description": "The label of footer link with label=Privacy Policy of the app linking to /privacypolicy"
+  },
+  "link.item.label.Privacy Policy of the website": {
+    "message": "Privacy Policy of the website",
+    "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
+  }
+}

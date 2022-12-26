@@ -24,11 +24,11 @@ slug: "/downloads/post-windows"
 
 Windows, sertifika olmadan yazılım yüklerken kullanıcıları uyarır.
 
-![Smart screen](/img/smart-screen.png).
+![Smart screen](/img/smart-screen.png)
 
 Uygulamayı yüklemek için "Daha fazla bilgi"ye tıklamanız gerekir.
 
-![Smart screen daha fazla bilgi](/img/smart-screen-more-info.png).
+![Smart screen daha fazla bilgi](/img/smart-screen-more-info.png)
 
 Ardından, "Yine de çalıştır" ı tıklayın.
 

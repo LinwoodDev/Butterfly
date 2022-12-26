@@ -34,13 +34,14 @@ class NewAction extends Action<NewIntent> {
         name: await formatCurrentDateTime(
             intent.context.read<SettingsCubit>().state.locale),
         createdAt: DateTime.now(),
+        painters: createDefaultPainters(),
         palettes: ColorPalette.getMaterialPalette(intent.context));
     final prefs = await SharedPreferences.getInstance();
     final remote = settings.getDefaultRemote();
     if (intent.fromTemplate) {
       var state = bloc.state;
       if (state is DocumentLoadSuccess) document = state.document;
-      var template = await showDialog(
+      var template = await showDialog<DocumentTemplate>(
           context: intent.context,
           builder: (context) => MultiBlocProvider(
                 providers: [
@@ -53,7 +54,7 @@ class NewAction extends Action<NewIntent> {
                 child: TemplateDialog(
                   currentDocument: document,
                 ),
-              )) as DocumentTemplate?;
+              ));
       if (template == null) return;
       document = template.document.copyWith(
         name: await formatCurrentDateTime(settings.locale),
@@ -81,7 +82,7 @@ class NewAction extends Action<NewIntent> {
           : AssetLocation(remote: remote.identifier, path: ''),
       settingsCubit: settingsCubit,
     );
-    await state.load();
+    await bloc.load();
     bloc.emit(state);
   }
 }

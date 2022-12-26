@@ -21,6 +21,7 @@ lib
 - dialogs
 - embed
 - handlers
+- helpers
 - l10n
 - models
 - services
@@ -37,6 +38,7 @@ lib
 * The `dialogs` directory stores all dialogs that can be opened in the app. For example the file system dialog or the open dialog.
 * The `embed` directory handles all events required for the embedding mode.
 * The `handlers` directory stores all gesture handlers for the painters.
+* The `helpers` directory stores all helper functions (extensions) that simplify the usage of classes.
 * The `l10n` directory stores all the strings and translations that are used in the app.
 * The `models` directory stores all the models that are used in the app. For example the `Document` model or the painters.
 * The `services` directory defines all services that runs in the background while using the app.
@@ -44,3 +46,17 @@ lib
 * The `views` directory stores all the views that are used in the main page. For example the appbar, the toolbar or the main view.
 * The `visualizer` directory stores all converters between the models and the ui.
 * The `widgets` directory stores all general widget that is not specific to the app. For example the `OptionButton` widget.
+
+## Rebuilding assets
+
+To rebuild the icon use:
+
+```bash
+flutter pub run flutter_launcher_icons:main -f flutter_launcher_icons-production.yaml
+```
+
+To rebuild the splash screen use:
+
+```bash
+flutter pub run flutter_native_splash:create --path flutter_native_splash-production.yaml
+```

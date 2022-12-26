@@ -23,14 +23,16 @@ Map<String, dynamic> _$$_ElementConstraintToJson(
 
 _$ScaledElementConstraints _$$ScaledElementConstraintsFromJson(Map json) =>
     _$ScaledElementConstraints(
-      (json['scale'] as num).toDouble(),
+      scaleX: (json['scaleX'] as num?)?.toDouble() ?? 1,
+      scaleY: (json['scaleY'] as num?)?.toDouble() ?? 1,
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$ScaledElementConstraintsToJson(
         _$ScaledElementConstraints instance) =>
     <String, dynamic>{
-      'scale': instance.scale,
+      'scaleX': instance.scaleX,
+      'scaleY': instance.scaleY,
       'type': instance.$type,
     };
 
@@ -145,12 +147,12 @@ _$ImageElement _$$ImageElementFromJson(Map json) => _$ImageElement(
           ? Offset.zero
           : const OffsetJsonConverter().fromJson(json['position'] as Map),
       constraints: json['constraints'] == null
-          ? const ScaledElementConstraints(1)
+          ? const ScaledElementConstraints(scaleX: 1, scaleY: 1)
           : ElementConstraints.fromJson(
               Map<String, dynamic>.from(json['constraints'] as Map)),
       pixels: const Uint8ListJsonConverter().fromJson(json['pixels'] as String),
-      width: json['width'] as int,
-      height: json['height'] as int,
+      width: (json['width'] as num).toDouble(),
+      height: (json['height'] as num).toDouble(),
       $type: json['type'] as String?,
     );
 
@@ -171,7 +173,7 @@ _$SvgElement _$$SvgElementFromJson(Map json) => _$SvgElement(
           ? Offset.zero
           : const OffsetJsonConverter().fromJson(json['position'] as Map),
       constraints: json['constraints'] == null
-          ? const ScaledElementConstraints(1)
+          ? const ScaledElementConstraints(scaleX: 1, scaleY: 1)
           : ElementConstraints.fromJson(
               Map<String, dynamic>.from(json['constraints'] as Map)),
       data: json['data'] as String,

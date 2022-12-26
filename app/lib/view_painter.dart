@@ -1,5 +1,3 @@
-import 'dart:ui' as ui;
-
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -7,28 +5,29 @@ import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
 import 'models/area.dart';
+import 'models/tool.dart';
+import 'selections/selection.dart';
 
 class ForegroundPainter extends CustomPainter {
+  final ColorScheme colorScheme;
   final AppDocument document;
   final List<Renderer> renderers;
   final CameraTransform transform;
-  final List<Rect> selection;
+  final Selection? selection;
+  final Renderer<ToolState>? tool;
 
-  ForegroundPainter(
-    this.renderers,
-    this.document, [
-    this.transform = const CameraTransform(),
-    this.selection = const [],
-  ]);
+  ForegroundPainter(this.renderers, this.document, this.colorScheme,
+      [this.transform = const CameraTransform(), this.selection, this.tool]);
 
   @override
   void paint(Canvas canvas, Size size) {
     canvas.scale(transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var element in renderers) {
-      element.build(canvas, size, document, transform, true);
+      element.build(canvas, size, document, transform, colorScheme, true);
     }
-    for (var rect in selection) {
+    final selection = this.selection;
+    if (selection is ElementSelection) {
       /*
       final minX =
           -transform.position.dx + 20 / ((transform.size - 1) / 1.5 + 1);
@@ -36,25 +35,31 @@ class ForegroundPainter extends CustomPainter {
       final minY = -transform.position.dy + 20;
       final maxY = minY + size.height / transform.size - 40 / transform.size;
       */
-      canvas.drawRRect(
-          RRect.fromRectAndRadius(
-              rect.inflate(5 / transform.size), const Radius.circular(5)),
-          Paint()
-            ..style = PaintingStyle.stroke
-            ..shader = ui.Gradient.linear(
-              rect.topLeft,
-              rect.bottomRight,
-              [Colors.red, Colors.yellow],
-            )
-            ..strokeWidth = 5 / transform.size);
+      _drawSelection(canvas, selection);
     }
+    if (tool != null) {
+      tool!.build(canvas, size, document, transform, colorScheme, true);
+    }
+  }
+
+  void _drawSelection(Canvas canvas, ElementSelection selection) {
+    final rect = selection.rect;
+    if (rect == null) return;
+    canvas.drawRRect(
+        RRect.fromRectAndRadius(
+            rect.inflate(5 / transform.size), const Radius.circular(5)),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..color = colorScheme.primary
+          ..strokeWidth = 5 / transform.size);
   }
 
   @override
   bool shouldRepaint(ForegroundPainter oldDelegate) =>
       oldDelegate.renderers != renderers ||
       oldDelegate.transform != transform ||
-      oldDelegate.selection != selection;
+      oldDelegate.selection != selection ||
+      oldDelegate.tool != tool;
 }
 
 class ViewPainter extends CustomPainter {
@@ -63,6 +68,7 @@ class ViewPainter extends CustomPainter {
   final bool renderBackground, renderBaked;
   final CameraViewport cameraViewport;
   final CameraTransform transform;
+  final ColorScheme? colorScheme;
   final List<String> invisibleLayers;
 
   const ViewPainter(
@@ -72,6 +78,7 @@ class ViewPainter extends CustomPainter {
     this.renderBackground = true,
     this.renderBaked = true,
     required this.cameraViewport,
+    this.colorScheme,
     this.transform = const CameraTransform(),
   });
 
@@ -88,13 +95,14 @@ class ViewPainter extends CustomPainter {
               areaRect.inflate(5), const Radius.circular(5)),
           Paint()
             ..style = PaintingStyle.stroke
-            ..color = Colors.blue
-            ..strokeWidth = 1 * transform.size
+            ..color = colorScheme?.primary ?? Colors.black
+            ..strokeWidth = 5 * transform.size
             ..blendMode = BlendMode.srcOver);
       canvas.clipRect(areaRect.inflate(5));
     }
     if (renderBackground) {
-      cameraViewport.background?.build(canvas, size, document, transform);
+      cameraViewport.background
+          ?.build(canvas, size, document, transform, colorScheme);
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {
@@ -117,7 +125,7 @@ class ViewPainter extends CustomPainter {
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var renderer in cameraViewport.unbakedElements) {
       if (!invisibleLayers.contains(renderer.element.layer)) {
-        renderer.build(canvas, size, document, transform, false);
+        renderer.build(canvas, size, document, transform, colorScheme, false);
       }
     }
     canvas.restore();

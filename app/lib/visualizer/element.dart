@@ -7,47 +7,65 @@ import '../models/element.dart';
 
 extension ElementVisualizer on PadElement {
   String getLocalizedName(BuildContext context) {
-    if (this is PenElement) {
-      return AppLocalizations.of(context)!.pen;
-    }
-    if (this is LabelElement) {
-      return AppLocalizations.of(context)!.label;
-    }
-    if (this is EraserElement) {
-      return AppLocalizations.of(context)!.eraser;
-    }
-    if (this is ImageElement) {
-      return AppLocalizations.of(context)!.image;
-    }
-    if (this is ShapeElement) {
-      return AppLocalizations.of(context)!.shape;
-    }
-    if (this is SvgElement) {
-      return AppLocalizations.of(context)!.svg;
-    }
-    throw UnimplementedError();
+    final loc = AppLocalizations.of(context)!;
+    return map(
+      pen: (_) => loc.pen,
+      label: (_) => loc.label,
+      eraser: (_) => loc.eraser,
+      image: (_) => loc.image,
+      shape: (_) => loc.shape,
+      svg: (_) => loc.svg,
+    );
   }
 
   IconData getIcon() {
-    if (this is PenElement) {
-      return PhosphorIcons.penLight;
+    return map(
+      pen: (_) => PhosphorIcons.penLight,
+      label: (_) => PhosphorIcons.textTLight,
+      eraser: (_) => PhosphorIcons.eraserLight,
+      image: (_) => PhosphorIcons.imageLight,
+      shape: (element) => element.property.shape.getIcon(),
+      svg: (_) => PhosphorIcons.sunLight,
+    );
+  }
+}
+
+extension ElementConstraintsVisualizer on ElementConstraints? {
+  String getLocalizedName(BuildContext context) {
+    return this?.map(
+          fixed: (_) => AppLocalizations.of(context)!.fixed,
+          scaled: (_) => AppLocalizations.of(context)!.scaled,
+          dynamic: (_) => AppLocalizations.of(context)!.dynamicContent,
+        ) ??
+        AppLocalizations.of(context)!.none;
+  }
+
+  ElementConstraints scale(double scaleX, double scaleY) {
+    final constraints = this;
+    if (constraints is ScaledElementConstraints) {
+      return constraints.copyWith(
+        scaleX: constraints.scaleX * scaleX,
+        scaleY: constraints.scaleY * scaleY,
+      );
+    } else if (constraints is FixedElementConstraints) {
+      return constraints.copyWith(
+        width: constraints.width * scaleX,
+        height: constraints.height * scaleY,
+      );
+    } else if (constraints is DynamicElementConstraints) {
+      if (constraints.aspectRatio != 0) {
+        return constraints.copyWith(
+          aspectRatio: constraints.aspectRatio * (scaleX / scaleY),
+          width: constraints.width * scaleX,
+          height: constraints.height * scaleY,
+        );
+      } else {
+        return constraints.copyWith(
+          width: constraints.width * scaleX,
+          height: constraints.height * scaleY,
+        );
+      }
     }
-    if (this is LabelElement) {
-      return PhosphorIcons.textTLight;
-    }
-    if (this is EraserElement) {
-      return PhosphorIcons.eraserLight;
-    }
-    if (this is ImageElement) {
-      return PhosphorIcons.imageLight;
-    }
-    if (this is ShapeElement) {
-      final shape = (this as ShapeElement).property.shape;
-      return shape.getIcon();
-    }
-    if (this is SvgElement) {
-      return PhosphorIcons.sunLight;
-    }
-    throw UnimplementedError();
+    return ScaledElementConstraints(scaleX: scaleX, scaleY: scaleY);
   }
 }

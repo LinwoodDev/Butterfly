@@ -4,7 +4,7 @@ sidebar_position: 2
 ---
 
 ```mdx-code-block
-import DownloadButton from '@site/src/components/DownloadButton.js';
+import DownloadButton from '@site/src/components/DownloadButton.tsx';
 ```
 
 ![Versão de lançamento estável](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Versão de lançamento noturna](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
@@ -59,29 +59,29 @@ winget install LinwoodCloud.Butterfly
 Para atualizar o pacote da parede, execute:
 
 ```powershell
-melhoria das asas LinwoodCloud.Butterfly
+winget upgrade LinwoodCloud.Butterfly
 ```
 
 Para desinstalar o pacote da winget, execute:
 
 ```powershell
-asas desinstalam LinwoodCloud.Butterfly
+winget uninstall LinwoodCloud.Butterfly
 ```
 
 ### Versão noturna
 
 ```powershell
-asas instalam LinwoodCloud.Butterfly.Nightly
+winget install LinwoodCloud.Butterfly.Nightly
 ```
 
 Para atualizar o pacote da parede, execute:
 
 ```powershell
-asas atualizam LinwoodCloud.Butterfly.Nightly
+winget upgrade LinwoodCloud.Butterfly.Nightly
 ```
 
 Para desinstalar o pacote da winget, execute:
 
 ```powershell
-asas desinstalam LinwoodCloud.Butterfly.Noite
+winget uninstall LinwoodCloud.Butterfly.Nightly
 ```

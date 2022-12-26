@@ -13,10 +13,10 @@ class UndoAction extends Action<UndoIntent> {
   UndoAction();
 
   @override
-  void invoke(UndoIntent intent) {
+  Future<void> invoke(UndoIntent intent) async {
     final bloc = intent.context.read<DocumentBloc>();
     bloc.undo();
-    bloc.load();
+    await bloc.load();
     bloc.bake();
   }
 }

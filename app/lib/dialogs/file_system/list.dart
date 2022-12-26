@@ -3,12 +3,13 @@ import 'package:butterfly/dialogs/file_system/dialog.dart';
 import 'package:butterfly/dialogs/file_system/menu.dart';
 import 'package:butterfly/dialogs/file_system/rich_text.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/visualizer/asset.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FileSystemListView extends StatelessWidget {
   final AssetLocation? selectedPath;
-  final List<AppDocumentAsset> assets;
+  final List<AppDocumentEntity> assets;
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
   final DocumentFileSystem fileSystem;
@@ -27,9 +28,10 @@ class FileSystemListView extends StatelessWidget {
       itemBuilder: (context, index) {
         var document = assets[index];
         if (document is AppDocumentFile) {
+          final info = document.getDocumentInfo();
           return ListTile(
-            leading: const Icon(PhosphorIcons.fileLight),
-            title: Text(document.name),
+            leading: Icon(document.fileType.getIcon()),
+            title: Text(info?.name ?? document.fileName),
             selected: document.location == selectedPath,
             subtitle: FileSystemFileRichText(
               file: document,

@@ -21,7 +21,7 @@ class ExportAction extends Action<ExportIntent> {
     var data = json.encode(intent.context
         .read<DocumentJsonConverter>()
         .toJson((bloc.state as DocumentLoadSuccess).document));
-    showDialog(
+    return showDialog<void>(
         context: intent.context,
         builder: (context) => ExportDialog(data: data));
   }

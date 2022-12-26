@@ -20,7 +20,7 @@ class SvgExportAction extends Action<SvgExportIntent> {
     final transform = intent.context.read<TransformCubit>().state;
     final size = MediaQuery.of(intent.context).size;
     var scale = transform.size;
-    showDialog(
+    showDialog<void>(
         builder: (context) => BlocProvider.value(
               value: bloc,
               child: SvgExportDialog(

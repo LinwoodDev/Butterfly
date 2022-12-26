@@ -42,7 +42,10 @@ class _ExactSliderState extends State<ExactSlider> {
 
   void _changeValue(double value) {
     if (_value != value) {
-      _controller.text = value.toStringAsFixed(widget.fractionDigits);
+      final text = value.toStringAsFixed(widget.fractionDigits);
+      if (double.tryParse(_controller.text.trim()) != value) {
+        _controller.text = text;
+      }
       setState(() {
         _value = value;
       });
@@ -50,7 +53,6 @@ class _ExactSliderState extends State<ExactSlider> {
     widget.onChanged?.call(value);
   }
 
-  @override
   @override
   void didUpdateWidget(covariant ExactSlider oldWidget) {
     super.didUpdateWidget(oldWidget);

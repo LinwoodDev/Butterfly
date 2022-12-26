@@ -2,12 +2,15 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/dialogs/file_system/dialog.dart';
 import 'package:butterfly/dialogs/file_system/menu.dart';
 import 'package:butterfly/models/document.dart';
+import 'package:butterfly/visualizer/asset.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import 'rich_text.dart';
+
 class FileSystemGridView extends StatelessWidget {
   final AssetLocation? selectedPath;
-  final List<AppDocumentAsset> assets;
+  final List<AppDocumentEntity> assets;
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
   final DocumentFileSystem fileSystem;
@@ -79,6 +82,7 @@ class FileSystemGridView extends StatelessWidget {
             runSpacing: 8.0,
             children: List.generate(files.length, (index) {
               final file = files[index];
+              final info = file.getDocumentInfo();
               return ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 300),
                   child: Card(
@@ -94,17 +98,17 @@ class FileSystemGridView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Row(children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(right: 8.0),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
                                     child: Icon(
-                                      PhosphorIcons.fileLight,
+                                      file.fileType.getIcon(),
                                       size: 32,
                                     ),
                                   ),
                                   Expanded(
                                     child: Tooltip(
                                       message: file.pathWithoutLeadingSlash,
-                                      child: Text(file.fileNameWithoutExtension,
+                                      child: Text(info?.name ?? file.fileName,
                                           overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
@@ -125,14 +129,10 @@ class FileSystemGridView extends StatelessWidget {
                                       onOpened: onOpened,
                                       onRefreshed: onRefreshed)
                                 ]),
-                                Text(file.name,
-                                    overflow: TextOverflow.ellipsis,
-                                    style:
-                                        Theme.of(context).textTheme.subtitle2),
-                                Text(file.description,
-                                    overflow: TextOverflow.ellipsis,
-                                    style:
-                                        Theme.of(context).textTheme.labelSmall),
+                                if (info != null)
+                                  FileSystemFileRichText(
+                                    file: file,
+                                  ),
                               ],
                             ),
                           ))));

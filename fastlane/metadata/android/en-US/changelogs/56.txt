@@ -1,0 +1,3 @@
+* Fix precision of offset property view
+* Fix permission error in windows setup
+* Internal: Use map instead of this is

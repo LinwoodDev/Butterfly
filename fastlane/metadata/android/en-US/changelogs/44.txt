@@ -1,0 +1,5 @@
+* Fix line generation in shape painter
+* Fix position and size issues when moving elements
+* Fix gesture issues on area and shape painter and area change problem
+* Fix sync mode won't be saved
+* Reset pointer on app hide, see #280

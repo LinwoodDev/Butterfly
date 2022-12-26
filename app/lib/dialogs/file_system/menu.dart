@@ -15,7 +15,7 @@ import 'dialog.dart';
 class FileSystemAssetMenu extends StatelessWidget {
   final AssetOpenedCallback onOpened;
   final VoidCallback onRefreshed;
-  final AppDocumentAsset asset;
+  final AppDocumentEntity asset;
   final DocumentFileSystem fileSystem;
   final AssetLocation? selectedPath;
 
@@ -27,55 +27,67 @@ class FileSystemAssetMenu extends StatelessWidget {
       required this.fileSystem,
       required this.onRefreshed});
 
-  void _showRenameDialog(BuildContext context, String path) {
+  Future<void> _showRenameDialog(BuildContext context, String path) async {
     final fileName = path.split('/').last;
     final parent = path.substring(0, path.length - fileName.length - 1);
     final nameController = TextEditingController(
         text: fileName.substring(0, fileName.length - '.bfly'.length));
     final bloc = context.read<DocumentBloc>();
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text(AppLocalizations.of(context)!.rename),
-              content: TextFormField(
-                decoration: InputDecoration(
-                    filled: true,
-                    labelText: AppLocalizations.of(context)!.name),
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return AppLocalizations.of(context)!.shouldNotEmpty;
-                  }
-                  return null;
-                },
-                controller: nameController,
-                autofocus: true,
-              ),
-              actions: [
-                TextButton(
-                  child: Text(AppLocalizations.of(context)!.cancel),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                ElevatedButton(
-                  child: Text(AppLocalizations.of(context)!.rename),
-                  onPressed: () async {
-                    Navigator.of(context).pop();
-                    if (nameController.text !=
-                        selectedPath?.pathWithLeadingSlash) {
-                      var document = await fileSystem.renameAsset(
-                          path, '$parent/${nameController.text}.bfly');
-                      var state = bloc.state;
-                      if (state is! DocumentLoadSuccess) return;
-                      if (document != null && state.location.path == path) {
-                        state.currentIndexCubit.setSaveState(
-                            location: AssetLocation(
-                                remote: state.location.remote, path: path));
-                      }
-                      onRefreshed();
-                    }
-                  },
-                ),
-              ],
-            ));
+    final formKey = GlobalKey<FormState>();
+    final success = await showDialog<bool>(
+            context: context,
+            builder: (context) => Form(
+                  key: formKey,
+                  child: AlertDialog(
+                    title: Text(AppLocalizations.of(context)!.rename),
+                    content: TextFormField(
+                      decoration: InputDecoration(
+                          filled: true,
+                          labelText: AppLocalizations.of(context)!.name),
+                      validator: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return AppLocalizations.of(context)!.shouldNotEmpty;
+                        }
+                        return null;
+                      },
+                      onFieldSubmitted: (value) {
+                        if (formKey.currentState!.validate()) {
+                          Navigator.of(context).pop(true);
+                        }
+                      },
+                      controller: nameController,
+                      autofocus: true,
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.cancel),
+                        onPressed: () => Navigator.of(context).pop(false),
+                      ),
+                      ElevatedButton(
+                        child: Text(AppLocalizations.of(context)!.rename),
+                        onPressed: () async {
+                          if (!(formKey.currentState?.validate() ?? false)) {
+                            return;
+                          }
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  ),
+                )) ??
+        false;
+    if (!success) return;
+    if (nameController.text != selectedPath?.pathWithLeadingSlash) {
+      var document = await fileSystem.renameAsset(
+          path, '$parent/${nameController.text}.bfly');
+      var state = bloc.state;
+      if (state is! DocumentLoadSuccess) return;
+      if (document != null && state.location.path == path) {
+        state.currentIndexCubit.setSaveState(
+            location: AssetLocation(remote: state.location.remote, path: path));
+      }
+      onRefreshed();
+    }
   }
 
   @override
@@ -141,13 +153,13 @@ class FileSystemAssetMenu extends StatelessWidget {
                 title: Text(AppLocalizations.of(context)!.duplicate),
                 onTap: () async {
                   Navigator.of(context).pop();
-                  var newPath = await showDialog(
+                  var newPath = await showDialog<String>(
                     context: context,
                     builder: (context) => FileSystemAssetMoveDialog(
                         fileSystem: fileSystem,
                         asset: asset,
                         moveMode: MoveMode.duplicate),
-                  ) as String?;
+                  );
                   if (newPath == null) return;
                   onRefreshed();
                 }),
@@ -160,13 +172,13 @@ class FileSystemAssetMenu extends StatelessWidget {
                 onTap: () async {
                   final bloc = context.read<DocumentBloc>();
                   Navigator.of(context).pop();
-                  final newPath = await showDialog(
+                  final newPath = await showDialog<String>(
                     context: context,
                     builder: (context) => FileSystemAssetMoveDialog(
                         fileSystem: fileSystem,
                         asset: asset,
                         moveMode: MoveMode.move),
-                  ) as String?;
+                  );
                   if (newPath == null) return;
                   onRefreshed();
                   // Change path if current document is moved
@@ -196,12 +208,12 @@ class FileSystemAssetMenu extends StatelessWidget {
               title: Text(AppLocalizations.of(context)!.delete),
               onTap: () async {
                 Navigator.of(context).pop();
-                var success = await showDialog(
+                var success = await showDialog<bool>(
                     context: context,
                     builder: (context) => FileSystemAssetDeleteDialog(
                           path: asset.pathWithLeadingSlash,
                           fileSystem: fileSystem,
-                        )) as bool?;
+                        ));
                 if (success ?? false) {
                   onRefreshed();
                 }

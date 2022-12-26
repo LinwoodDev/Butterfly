@@ -11,11 +11,11 @@ Yerleştirme işlemi, uygulamayı web sitenize dahil etmenin basit bir yoludur. 
 
 ## Şeçenekler
 
-| Seçenek  | Tür                        | Varsayılan | Tanım                                                                                                                                       |
-| -------- | -------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)      | true       | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir                                                |
-| editable | Boolean (true, false)      | true       | Düzenlemeyi etkinleştir. Eğer devre dışı bırakılırsa, belge salt okunur olur                                                                |
-| language | String (..., system, user) | system     | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
+| Seçenek  | Tür                        | Varsayılan | Tanım                                                                                                                             |
+| -------- | -------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| save     | Boolean (true, false)      | true       | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir                                      |
+| editable | Boolean (true, false)      | true       | Düzenlemeyi etkinleştir. Eğer devre dışı bırakılırsa, belge salt okunur olur                                                      |
+| language | String (..., system, user) | system     | Belge dili. Eğer sistem ise, dil tarayıcıdan algılanacaktır. Eğer kullanıcı ise, dil kullanıcıların tercihine göre ayarlanacaktır |
 
 ## Etkinlikler
 

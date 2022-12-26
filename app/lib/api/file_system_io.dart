@@ -9,9 +9,15 @@ import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/converter.dart';
+import '../models/pack.dart';
 import 'file_system.dart';
 
 Future<String> getButterflyDirectory() async {
+  final argPath = GeneralFileSystem.dataPath;
+  if (argPath != null) {
+    return argPath;
+  }
   var prefs = await SharedPreferences.getInstance();
   String? path;
   if (prefs.containsKey('document_path')) {
@@ -45,10 +51,12 @@ class IODocumentFileSystem extends DocumentFileSystem {
     }
     var file = File('${await getDirectory()}$path/$name');
     file = await file.create(recursive: true);
-    await file.writeAsString(json.encode(document.toJson()));
-    return AppDocumentFile(
-        AssetLocation.local(path == '/' ? '/$name' : '$path/$name'),
-        document.toJson());
+    final data = const DocumentJsonConverter().toJson(document);
+    await file.writeAsString(json.encode(data));
+    return AppDocumentFile.fromMap(
+      AssetLocation.local(path == '/' ? '/$name' : '$path/$name'),
+      data,
+    );
   }
 
   @override
@@ -64,7 +72,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentAsset?> getAsset(String path) async {
+  Future<AppDocumentEntity?> getAsset(String path) async {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
@@ -75,15 +83,15 @@ class IODocumentFileSystem extends DocumentFileSystem {
     // Test if path is a directory
     var directory = Directory(absolutePath);
     if (await file.exists()) {
-      var json = await file.readAsString();
+      var data = await file.readAsBytes();
       try {
-        return AppDocumentFile(AssetLocation.local(path), jsonDecode(json));
+        return AppDocumentFile(AssetLocation.local(path), data);
       } catch (e) {
         return null;
       }
     } else if (await directory.exists()) {
       var files = await directory.list().toList();
-      var assets = <AppDocumentAsset>[];
+      var assets = <AppDocumentEntity>[];
       for (var file in files) {
         try {
           var currentPath =
@@ -104,8 +112,9 @@ class IODocumentFileSystem extends DocumentFileSystem {
       // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
       assets.sort((a, b) => a is AppDocumentDirectory
           ? -1
-          : (a as AppDocumentFile).name.compareTo(
-              b is AppDocumentDirectory ? '' : (b as AppDocumentFile).name));
+          : (a as AppDocumentFile).fileName.compareTo(b is AppDocumentDirectory
+              ? ''
+              : (b as AppDocumentFile).fileName));
 
       return AppDocumentDirectory(AssetLocation.local(path), assets);
     }
@@ -124,9 +133,10 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
-    await file.writeAsString(jsonEncode(document.toJson()));
+    final data = const DocumentJsonConverter().toJson(document);
+    await file.writeAsString(jsonEncode(data));
 
-    return AppDocumentFile(AssetLocation.local(path), document.toJson());
+    return AppDocumentFile.fromMap(AssetLocation.local(path), data);
   }
 
   @override
@@ -148,7 +158,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (!(await dir.exists())) {
       await dir.create(recursive: true);
     }
-    var assets = <AppDocumentAsset>[];
+    var assets = <AppDocumentEntity>[];
     var files = await dir.list().toList();
     for (var file in files) {
       var asset = await getAsset(
@@ -159,20 +169,64 @@ class IODocumentFileSystem extends DocumentFileSystem {
     }
     return AppDocumentDirectory(AssetLocation.local(name), assets);
   }
+
+  @override
+  Future<bool> moveAbsolute(String oldPath, String newPath) async {
+    if (oldPath.isEmpty) {
+      oldPath = await getButterflyDirectory();
+    }
+    if (newPath.isEmpty) {
+      newPath = await getButterflyDirectory();
+    }
+    if (oldPath == newPath) {
+      return false;
+    }
+    if (Platform.isAndroid) {
+      return false;
+    }
+    var oldDirectory = Directory(oldPath);
+    if (await oldDirectory.exists()) {
+      var files = await oldDirectory.list().toList();
+      for (final file in files) {
+        if (file is File) {
+          var newFile = File('$newPath/${file.path.split('/').last}');
+          final content = await file.readAsBytes();
+          await newFile.create(recursive: true);
+          await newFile.writeAsBytes(content);
+          await file.delete();
+        } else if (file is Directory) {
+          await moveAbsolute(
+              file.path, '$newPath/${file.path.split('/').last}');
+        }
+      }
+    }
+    return true;
+  }
+
+  @override
+  Future<Uint8List?> loadAbsolute(String path) async {
+    var file = File(path);
+    if (await file.exists()) {
+      return await file.readAsBytes();
+    }
+    return null;
+  }
 }
 
 class IOTemplateFileSystem extends TemplateFileSystem {
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     var defaults = DocumentTemplate.getDefaults(context);
-    var directory = await getDirectory();
-    if (await Directory(directory).exists()) {
+    final path = await getDirectory();
+    final dir = Directory(path);
+    if (await dir.exists()) {
       if (force) {
-        await Directory(directory).delete(recursive: true);
+        await dir.delete(recursive: true);
       } else {
         return false;
       }
     }
+    await dir.create(recursive: true);
     await Future.wait(defaults.map((e) => updateTemplate(e)));
     return true;
   }
@@ -187,19 +241,21 @@ class IOTemplateFileSystem extends TemplateFileSystem {
     var file = File(await getAbsolutePath('${escapeName(name)}.bfly'));
     if (await file.exists()) {
       var json = await file.readAsString();
-      return DocumentTemplate.fromJson(
-          Map<String, dynamic>.from(jsonDecode(json)));
+      return const TemplateJsonConverter()
+          .fromJson(Map<String, dynamic>.from(jsonDecode(json)));
     }
     return null;
   }
 
   @override
   Future<void> updateTemplate(DocumentTemplate template) async {
-    var file = File(await getAbsolutePath('${escapeName(template.name)}.bfly'));
+    final file =
+        File(await getAbsolutePath('${escapeName(template.name)}.bfly'));
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
-    await file.writeAsString(jsonEncode(template.toJson()));
+    final data = const TemplateJsonConverter().toJson(template);
+    await file.writeAsString(jsonEncode(data));
   }
 
   @override
@@ -239,7 +295,7 @@ class IOTemplateFileSystem extends TemplateFileSystem {
       if (file is! File) continue;
       try {
         var json = await file.readAsString();
-        templates.add(DocumentTemplate.fromJson(jsonDecode(json)));
+        templates.add(const TemplateJsonConverter().fromJson(jsonDecode(json)));
       } catch (e) {
         if (kDebugMode) {
           print(e);
@@ -247,5 +303,80 @@ class IOTemplateFileSystem extends TemplateFileSystem {
       }
     }
     return templates;
+  }
+}
+
+class IOPackFileSystem extends PackFileSystem {
+  @override
+  Future<void> deletePack(String name) async {
+    await File(await getAbsolutePath('${escapeName(name)}.bfly')).delete();
+  }
+
+  @override
+  Future<ButterflyPack?> getPack(String name) async {
+    var file = File(await getAbsolutePath('${escapeName(name)}.bfly'));
+    if (await file.exists()) {
+      var json = await file.readAsString();
+      return const PackJsonConverter()
+          .fromJson(Map<String, dynamic>.from(jsonDecode(json)));
+    }
+    return null;
+  }
+
+  @override
+  Future<void> updatePack(ButterflyPack pack) async {
+    final file = File(await getAbsolutePath('${escapeName(pack.name)}.bfly'));
+    if (!(await file.exists())) {
+      await file.create(recursive: true);
+    }
+    final data = const PackJsonConverter().toJson(pack);
+    await file.writeAsString(jsonEncode(data));
+  }
+
+  @override
+  FutureOr<String> getDirectory() async {
+    var prefs = await SharedPreferences.getInstance();
+    String? path;
+    if (prefs.containsKey('document_path')) {
+      path = prefs.getString('document_path');
+    }
+    if (path == '') {
+      path = null;
+    }
+    path ??= await getButterflyDirectory();
+    // Convert \ to /
+    path = path.replaceAll('\\', '/');
+    path += '/Packs';
+    return path;
+  }
+
+  @override
+  Future<bool> hasPack(String name) async {
+    return File(await getAbsolutePath('${escapeName(name)}.bfly')).exists();
+  }
+
+  String escapeName(String name) {
+    // Escape all non-alphanumeric characters
+    return name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
+  }
+
+  @override
+  Future<List<ButterflyPack>> getPacks() async {
+    var directory = Directory(await getDirectory());
+    if (!(await directory.exists())) return const [];
+    var files = await directory.list().toList();
+    var packs = <ButterflyPack>[];
+    for (var file in files) {
+      if (file is! File) continue;
+      try {
+        var json = await file.readAsString();
+        packs.add(const PackJsonConverter().fromJson(jsonDecode(json)));
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
+    }
+    return packs;
   }
 }

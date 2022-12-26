@@ -79,7 +79,7 @@ class LabelRenderer extends Renderer<LabelElement> {
   @override
   FutureOr<void> build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
-      [bool foreground = false]) {
+      [ColorScheme? colorScheme, bool foreground = false]) {
     final tp = _createPainter();
     tp.layout(maxWidth: rect.width);
     var current = element.position;
@@ -162,5 +162,13 @@ class LabelRenderer extends Renderer<LabelElement> {
   }
 
   @override
-  LabelElement move(Offset position) => element.copyWith(position: position);
+  LabelRenderer transform(
+      {Offset position = Offset.zero,
+      double scaleX = 1,
+      double scaleY = 1,
+      bool relative = false}) {
+    final size = Size(rect.width * scaleX, rect.height * scaleY);
+    final next = relative ? element.position + position : position;
+    return LabelRenderer(element.copyWith(position: next), next & size);
+  }
 }

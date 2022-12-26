@@ -6,6 +6,60 @@ part of 'painter.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$HandPainter _$$HandPainterFromJson(Map json) => _$HandPainter(
+      name: json['name'] as String? ?? '',
+      includeEraser: json['includeEraser'] as bool? ?? false,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$HandPainterToJson(_$HandPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'includeEraser': instance.includeEraser,
+      'type': instance.$type,
+    };
+
+_$ImportPainter _$$ImportPainterFromJson(Map json) => _$ImportPainter(
+      name: json['name'] as String? ?? '',
+      elements: (json['elements'] as List<dynamic>)
+          .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList(),
+      areas: (json['areas'] as List<dynamic>)
+          .map((e) => Area.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList(),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ImportPainterToJson(_$ImportPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'elements': instance.elements.map((e) => e.toJson()).toList(),
+      'areas': instance.areas.map((e) => e.toJson()).toList(),
+      'type': instance.$type,
+    };
+
+_$UndoPainter _$$UndoPainterFromJson(Map json) => _$UndoPainter(
+      name: json['name'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$UndoPainterToJson(_$UndoPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': instance.$type,
+    };
+
+_$RedoPainter _$$RedoPainterFromJson(Map json) => _$RedoPainter(
+      name: json['name'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$RedoPainterToJson(_$RedoPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': instance.$type,
+    };
+
 _$LabelPainter _$$LabelPainterFromJson(Map json) => _$LabelPainter(
       name: json['name'] as String? ?? '',
       property: json['property'] == null
@@ -97,6 +151,7 @@ _$AreaPainter _$$AreaPainterFromJson(Map json) => _$AreaPainter(
       constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
       constrainedAspectRatio:
           (json['constrainedAspectRatio'] as num?)?.toDouble() ?? 0,
+      askForName: json['askForName'] as bool? ?? false,
       $type: json['type'] as String?,
     );
 
@@ -106,6 +161,18 @@ Map<String, dynamic> _$$AreaPainterToJson(_$AreaPainter instance) =>
       'constrainedWidth': instance.constrainedWidth,
       'constrainedHeight': instance.constrainedHeight,
       'constrainedAspectRatio': instance.constrainedAspectRatio,
+      'askForName': instance.askForName,
+      'type': instance.$type,
+    };
+
+_$WaypointPainter _$$WaypointPainterFromJson(Map json) => _$WaypointPainter(
+      name: json['name'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$WaypointPainterToJson(_$WaypointPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
       'type': instance.$type,
     };
 
@@ -150,5 +217,20 @@ Map<String, dynamic> _$$ShapePainterToJson(_$ShapePainter instance) =>
       'constrainedHeight': instance.constrainedHeight,
       'constrainedAspectRatio': instance.constrainedAspectRatio,
       'property': instance.property.toJson(),
+      'type': instance.$type,
+    };
+
+_$StampPainter _$$StampPainterFromJson(Map json) => _$StampPainter(
+      name: json['name'] as String? ?? '',
+      pack: json['pack'] as String? ?? '',
+      component: json['component'] as int? ?? 0,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$StampPainterToJson(_$StampPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'pack': instance.pack,
+      'component': instance.component,
       'type': instance.$type,
     };

@@ -448,5 +448,9 @@
   "theme.SearchModal.placeholder": {
     "message": "Cerca documenti",
     "description": "The placeholder of the input of the DocSearch pop-up modal"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "Etichette",
+    "description": "The title of the tag list page"
   }
 }

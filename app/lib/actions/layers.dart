@@ -13,8 +13,8 @@ class LayersAction extends Action<LayersIntent> {
   LayersAction();
 
   @override
-  Future<dynamic> invoke(LayersIntent intent) {
-    return showDialog(
+  Future<void> invoke(LayersIntent intent) {
+    return showDialog<void>(
       context: intent.context,
       builder: (context) => BlocProvider.value(
           value: intent.context.read<DocumentBloc>(), child: LayersDialog()),

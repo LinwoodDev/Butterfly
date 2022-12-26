@@ -39,7 +39,8 @@ class UpdateIntroductionDialog extends StatelessWidget {
                       const SizedBox(height: 10),
                       TextButton(
                           onPressed: () => launchUrl(
-                              Uri.https('docs.butterfly.linwood.dev', '')),
+                              Uri.https('docs.butterfly.linwood.dev', ''),
+                              mode: LaunchMode.externalApplication),
                           child: Text(
                               AppLocalizations.of(context)!.documentation)),
                     ]),

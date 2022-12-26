@@ -3,7 +3,7 @@
   "redirects": [
     {
       "source":"/docs/latest/:path*",
-      "destination":"/docs/1.3/:path*"
+      "destination":"/docs/1.5/:path*"
     },
     {
       "source": "/docs/1.0.0/:path*",

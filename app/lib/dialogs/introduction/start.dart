@@ -6,8 +6,8 @@ import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/format_date_time.dart';
@@ -104,36 +104,34 @@ class _CreateStartViewState extends State<_CreateStartView> {
                                 AppLocalizations.of(context)!.defaultTemplate),
                             icon: const Icon(
                                 PhosphorIcons.clockCounterClockwiseLight),
-                            onPressed: () async {
-                              showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  title: Text(AppLocalizations.of(context)!
-                                      .defaultTemplate),
-                                  content: Text(AppLocalizations.of(context)!
-                                      .reallyReset),
-                                  actions: [
-                                    TextButton(
-                                      child: Text(
-                                          AppLocalizations.of(context)!.cancel),
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
-                                    ),
-                                    TextButton(
-                                      child: Text(
-                                          AppLocalizations.of(context)!.ok),
-                                      onPressed: () async {
-                                        final navigator = Navigator.of(context);
-                                        await templateSystem.createDefault(
-                                            this.context,
-                                            force: true);
-                                        navigator.pop();
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
+                            onPressed: () => showDialog<void>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text(AppLocalizations.of(context)!
+                                    .defaultTemplate),
+                                content: Text(
+                                    AppLocalizations.of(context)!.reallyReset),
+                                actions: [
+                                  TextButton(
+                                    child: Text(
+                                        AppLocalizations.of(context)!.cancel),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ),
+                                  TextButton(
+                                    child:
+                                        Text(AppLocalizations.of(context)!.ok),
+                                    onPressed: () async {
+                                      final navigator = Navigator.of(context);
+                                      await templateSystem.createDefault(
+                                          this.context,
+                                          force: true);
+                                      navigator.pop();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       );
@@ -164,7 +162,6 @@ class _CreateStartViewState extends State<_CreateStartView> {
                                   createdAt: DateTime.now(),
                                 );
 
-                                bloc.clearHistory();
                                 transformCubit.reset();
                                 currentIndexCubit.reset(document);
                                 bloc.emit(DocumentLoadSuccess(document,
@@ -175,6 +172,7 @@ class _CreateStartViewState extends State<_CreateStartView> {
                                                 ''),
                                     currentIndexCubit: currentIndexCubit,
                                     settingsCubit: settingsCubit));
+                                bloc.clearHistory();
                                 await bloc.load();
                               });
                         },
