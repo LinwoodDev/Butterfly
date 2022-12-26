@@ -33,7 +33,7 @@
   "yes": "ใช่",
   "undo": "ย้อนกลับ",
   "redo": "ทำใหม่",
-  "projectSettings": "การตั้งค่าโครงการ",
+  "project": "Project",
   "general": "ทั่วไป",
   "copyTitle": "คัดลอกไปยังคลิปบอร์ดแล้ว",
   "copyMessage": "You can now paste it into a text editor",
