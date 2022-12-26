@@ -50,10 +50,10 @@ class ImportService {
   }
 
   Future<void> import(AssetFileType type, Uint8List bytes,
-      [Offset? position]) async {
+      {Offset? position, bool meta = true}) async {
     switch (type) {
       case AssetFileType.note:
-        return importNote(bytes, position);
+        return importNote(bytes, position, meta);
       case AssetFileType.image:
         return importImage(bytes, position);
       case AssetFileType.svg:
@@ -235,8 +235,9 @@ class ImportService {
     List<Area> areas = const [],
     bool choosePosition = false,
   }) {
-    if (choosePosition) {
-      context.read<CurrentIndexCubit>().changeTemporaryHandler(
+    final state = bloc.state;
+    if (choosePosition && state is DocumentLoadSuccess) {
+      state.currentIndexCubit.changeTemporaryHandler(
           bloc, ImportPainter(elements: elements, areas: areas));
     } else {
       bloc

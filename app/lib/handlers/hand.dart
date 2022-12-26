@@ -328,8 +328,8 @@ class HandHandler extends Handler<HandPainter> {
   }
 
   @override
-  void onDoubleTap(EventContext eventContext) {
-    _onSelectionContext(eventContext, _contextMenuOffset);
+  void onDoubleTap(EventContext context) {
+    _onSelectionContext(context, _contextMenuOffset);
   }
 
   Future<void> _onSelectionContext(
@@ -413,7 +413,7 @@ class HandHandler extends Handler<HandPainter> {
   }
 
   @override
-  bool canChange(PointerDownEvent event, EventContext eventContext) =>
+  bool canChange(PointerDownEvent event, EventContext context) =>
       event.kind == PointerDeviceKind.mouse &&
       event.buttons != kSecondaryMouseButton;
 

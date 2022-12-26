@@ -158,12 +158,11 @@ abstract class Handler<T> {
 
   void onDoubleTapDown(TapDownDetails details, EventContext context) {}
 
-  void onDoubleTap(EventContext eventContext) {}
+  void onDoubleTap(EventContext context) {}
 
-  void onLongPressDown(
-      LongPressDownDetails details, EventContext eventContext) {}
+  void onLongPressDown(LongPressDownDetails details, EventContext context) {}
 
-  bool canChange(PointerDownEvent event, EventContext eventContext) => true;
+  bool canChange(PointerDownEvent event, EventContext context) => true;
 
   int? getColor(DocumentBloc bloc) => null;
 

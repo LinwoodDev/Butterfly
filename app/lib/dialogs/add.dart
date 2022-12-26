@@ -13,6 +13,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../bloc/document_bloc.dart';
 import '../models/painter.dart';
 import '../widgets/box_tile.dart';
+import 'camera.dart';
 
 class AddDialog extends StatelessWidget {
   final ScrollController _importScrollController = ScrollController(),
@@ -28,7 +29,7 @@ class AddDialog extends StatelessWidget {
     }
 
     void importAsset(AssetFileType type, Uint8List bytes) {
-      context.read<ImportService>().import(type, bytes, null);
+      context.read<ImportService>().import(type, bytes, meta: false);
       Navigator.of(context).pop();
     }
 
@@ -65,7 +66,6 @@ class AddDialog extends StatelessWidget {
                         title: Text(AppLocalizations.of(context)!.image),
                         icon: const Icon(PhosphorIcons.imageLight),
                         onTap: () async {
-                          Navigator.of(context).pop();
                           var files = await FilePicker.platform.pickFiles(
                               type: FileType.image,
                               allowMultiple: false,
@@ -79,22 +79,75 @@ class AddDialog extends StatelessWidget {
                           importAsset(AssetFileType.image, content);
                         },
                       ),
-                      BoxTile(
-                        title: Text(AppLocalizations.of(context)!.camera),
-                        icon: const Icon(PhosphorIcons.cameraLight),
-                      ),
+                      if (kIsWeb ||
+                          Platform.isWindows ||
+                          Platform.isAndroid ||
+                          Platform.isIOS)
+                        BoxTile(
+                          title: Text(AppLocalizations.of(context)!.camera),
+                          icon: const Icon(PhosphorIcons.cameraLight),
+                          onTap: () async {
+                            var content = await showDialog<Uint8List>(
+                              context: context,
+                              builder: (context) => const CameraDialog(),
+                            );
+                            if (content == null) return;
+                            importAsset(AssetFileType.image, content);
+                          },
+                        ),
                       BoxTile(
                         title: Text(AppLocalizations.of(context)!.svg),
                         icon: const Icon(PhosphorIcons.sunLight),
+                        onTap: () async {
+                          final files = await FilePicker.platform.pickFiles(
+                              type: FileType.custom,
+                              allowedExtensions: ['svg'],
+                              allowMultiple: false,
+                              withData: true);
+                          if (files?.files.isEmpty ?? true) return;
+                          final e = files!.files.first;
+                          var content = e.bytes ?? Uint8List(0);
+                          if (!kIsWeb) {
+                            content = await File(e.path ?? '').readAsBytes();
+                          }
+                          importAsset(AssetFileType.svg, content);
+                        },
                       ),
                       BoxTile(
                         title: Text(AppLocalizations.of(context)!.pdf),
                         icon: const Icon(PhosphorIcons.filePdfLight),
+                        onTap: () async {
+                          final files = await FilePicker.platform.pickFiles(
+                              type: FileType.custom,
+                              allowedExtensions: ['pdf'],
+                              allowMultiple: false,
+                              withData: true);
+                          if (files?.files.isEmpty ?? true) return;
+                          final e = files!.files.first;
+                          var content = e.bytes ?? Uint8List(0);
+                          if (!kIsWeb) {
+                            content = await File(e.path ?? '').readAsBytes();
+                          }
+                          importAsset(AssetFileType.pdf, content);
+                        },
                       ),
                       BoxTile(
-                        title: Text(AppLocalizations.of(context)!.document),
-                        icon: const Icon(PhosphorIcons.fileTextLight),
-                      ),
+                          title: Text(AppLocalizations.of(context)!.document),
+                          icon: const Icon(PhosphorIcons.fileTextLight),
+                          onTap: () async {
+                            final files = await FilePicker.platform.pickFiles(
+                                type: FileType.custom,
+                                allowedExtensions: ['bfly', 'json'],
+                                allowMultiple: false,
+                                withData: true);
+                            if (files?.files.isEmpty ?? true) return;
+                            var e = files!.files.first;
+                            var content = e.bytes ?? Uint8List(0);
+                            if (!kIsWeb) {
+                              content = await File(e.path ?? '').readAsBytes();
+                            }
+                            importAsset(AssetFileType.note, content);
+                          }),
                     ],
                   ),
                 ),

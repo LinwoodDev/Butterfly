@@ -2,18 +2,9 @@ part of 'handler.dart';
 
 class ImportHandler extends Handler<ImportPainter> {
   Offset _position = Offset.zero;
-  final List<Renderer<PadElement>> _renderers;
+  List<Renderer<PadElement>>? _renderers;
 
-  ImportHandler(super.data)
-      : _renderers =
-            data.elements.map((e) => Renderer.fromInstance(e)).toList();
-
-  @override
-  bool onSelected(
-      DocumentBloc bloc, CurrentIndexCubit currentIndexCubit, bool justAdded) {
-    if (justAdded) return false;
-    return false;
-  }
+  ImportHandler(super.data);
 
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
@@ -22,21 +13,38 @@ class ImportHandler extends Handler<ImportPainter> {
   }
 
   @override
-  void onPointerHover(PointerHoverEvent event, EventContext context) {
+  Future<void> onPointerHover(
+      PointerHoverEvent event, EventContext context) async {
     _position = context.getCameraTransform().localToGlobal(event.localPosition);
+    await _load(context.getDocument());
     context.refresh();
   }
 
   @override
-  void onPointerDown(PointerDownEvent event, EventContext context) {
+  Future<void> onPointerDown(
+      PointerDownEvent event, EventContext context) async {
     _position = context.getCameraTransform().localToGlobal(event.localPosition);
+    await _load(context.getDocument());
     context.refresh();
   }
+
+  Future<void> _load(AppDocument? document) async {
+    if (document == null || _renderers != null) return;
+    _renderers = await Future.wait(data.elements.map((e) async {
+      final renderer = Renderer.fromInstance(e);
+      await renderer.setup(document);
+      return renderer;
+    }).toList());
+  }
+
+  @override
+  bool canChange(PointerDownEvent event, EventContext context) => false;
 
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
-    context.addDocumentEvent(ElementsCreated.renderers(
-        _renderers.map((e) => e.transform(position: _position) ?? e).toList()));
+    context.addDocumentEvent(ElementsCreated.renderers(_renderers
+        ?.map((e) => e.transform(position: _position) ?? e)
+        .toList()));
     context.addDocumentEvent(AreasCreated(data.areas
         .map((e) => e.copyWith(
               position: e.position + _position,
@@ -51,5 +59,6 @@ class ImportHandler extends Handler<ImportPainter> {
   List<Renderer> createForegrounds(
           CurrentIndexCubit currentIndexCubit, AppDocument document,
           [Area? currentArea]) =>
-      _renderers.map((e) => e.transform(position: _position) ?? e).toList();
+      _renderers?.map((e) => e.transform(position: _position) ?? e).toList() ??
+      [];
 }

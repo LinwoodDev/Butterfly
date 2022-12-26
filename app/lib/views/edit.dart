@@ -2,6 +2,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/add.dart';
 import 'package:butterfly/models/painter.dart';
+import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/widgets/option_button.dart';
 import 'package:flutter/material.dart';
@@ -228,9 +229,20 @@ class _EditToolbarState extends State<EditToolbar> {
                                 onPressed: () {
                                   showDialog(
                                     context: context,
-                                    builder: (ctx) => BlocProvider.value(
-                                      value: context.read<DocumentBloc>(),
-                                      child: AddDialog(),
+                                    builder: (ctx) => MultiBlocProvider(
+                                      providers: [
+                                        BlocProvider.value(
+                                          value: context.read<DocumentBloc>(),
+                                        ),
+                                        BlocProvider.value(
+                                          value:
+                                              context.read<CurrentIndexCubit>(),
+                                        ),
+                                      ],
+                                      child: RepositoryProvider.value(
+                                        value: context.read<ImportService>(),
+                                        child: AddDialog(),
+                                      ),
                                     ),
                                   );
                                 },
