@@ -74,8 +74,8 @@ Map<String, dynamic> _$$UndefinedSpanPropertyToJson(
       'type': instance.$type,
     };
 
-_$DefinedAbstractProperty _$$DefinedAbstractPropertyFromJson(Map json) =>
-    _$DefinedAbstractProperty(
+_$DefinedParagraphProperty _$$DefinedParagraphPropertyFromJson(Map json) =>
+    _$DefinedParagraphProperty(
       spanProperty: json['spanProperty'] == null
           ? const SpanProperty.undefined()
           : SpanProperty.fromJson(
@@ -86,8 +86,8 @@ _$DefinedAbstractProperty _$$DefinedAbstractPropertyFromJson(Map json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$DefinedAbstractPropertyToJson(
-        _$DefinedAbstractProperty instance) =>
+Map<String, dynamic> _$$DefinedParagraphPropertyToJson(
+        _$DefinedParagraphProperty instance) =>
     <String, dynamic>{
       'spanProperty': instance.spanProperty.toJson(),
       'alignment': _$HorizontalAlignmentEnumMap[instance.alignment]!,
@@ -101,36 +101,36 @@ const _$HorizontalAlignmentEnumMap = {
   HorizontalAlignment.justify: 'justify',
 };
 
-_$NamedAbstractProperty _$$NamedAbstractPropertyFromJson(Map json) =>
-    _$NamedAbstractProperty(
+_$NamedParagraphProperty _$$NamedParagraphPropertyFromJson(Map json) =>
+    _$NamedParagraphProperty(
       json['name'] as String,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$NamedAbstractPropertyToJson(
-        _$NamedAbstractProperty instance) =>
+Map<String, dynamic> _$$NamedParagraphPropertyToJson(
+        _$NamedParagraphProperty instance) =>
     <String, dynamic>{
       'name': instance.name,
       'type': instance.$type,
     };
 
-_$UndefinedAbstractProperty _$$UndefinedAbstractPropertyFromJson(Map json) =>
-    _$UndefinedAbstractProperty(
+_$UndefinedParagraphProperty _$$UndefinedParagraphPropertyFromJson(Map json) =>
+    _$UndefinedParagraphProperty(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$UndefinedAbstractPropertyToJson(
-        _$UndefinedAbstractProperty instance) =>
+Map<String, dynamic> _$$UndefinedParagraphPropertyToJson(
+        _$UndefinedParagraphProperty instance) =>
     <String, dynamic>{
       'type': instance.$type,
     };
 
 _$DefinedAreaProperty _$$DefinedAreaPropertyFromJson(Map json) =>
     _$DefinedAreaProperty(
-      abstractProperty: json['abstractProperty'] == null
-          ? const AbstractProperty.undefined()
-          : AbstractProperty.fromJson(
-              Map<String, dynamic>.from(json['abstractProperty'] as Map)),
+      paragraphProperty: json['paragraphProperty'] == null
+          ? const ParagraphProperty.undefined()
+          : ParagraphProperty.fromJson(
+              Map<String, dynamic>.from(json['paragraphProperty'] as Map)),
       verticalAlignment: $enumDecodeNullable(
               _$VerticalAlignmentEnumMap, json['verticalAlignment']) ??
           VerticalAlignment.top,
@@ -140,7 +140,7 @@ _$DefinedAreaProperty _$$DefinedAreaPropertyFromJson(Map json) =>
 Map<String, dynamic> _$$DefinedAreaPropertyToJson(
         _$DefinedAreaProperty instance) =>
     <String, dynamic>{
-      'abstractProperty': instance.abstractProperty.toJson(),
+      'paragraphProperty': instance.paragraphProperty.toJson(),
       'verticalAlignment':
           _$VerticalAlignmentEnumMap[instance.verticalAlignment]!,
       'type': instance.$type,
@@ -189,11 +189,11 @@ Map<String, dynamic> _$$_TextSpanToJson(_$_TextSpan instance) =>
       'property': instance.property.toJson(),
     };
 
-_$_AbstractProperty _$$_AbstractPropertyFromJson(Map json) =>
-    _$_AbstractProperty(
+_$_ParagraphProperty _$$_ParagraphPropertyFromJson(Map json) =>
+    _$_ParagraphProperty(
       textProperty: json['textProperty'] == null
-          ? const AbstractProperty.undefined()
-          : AbstractProperty.fromJson(
+          ? const ParagraphProperty.undefined()
+          : ParagraphProperty.fromJson(
               Map<String, dynamic>.from(json['textProperty'] as Map)),
       textSpans: (json['textSpans'] as List<dynamic>?)
               ?.map(
@@ -202,7 +202,8 @@ _$_AbstractProperty _$$_AbstractPropertyFromJson(Map json) =>
           const [],
     );
 
-Map<String, dynamic> _$$_AbstractPropertyToJson(_$_AbstractProperty instance) =>
+Map<String, dynamic> _$$_ParagraphPropertyToJson(
+        _$_ParagraphProperty instance) =>
     <String, dynamic>{
       'textProperty': instance.textProperty.toJson(),
       'textSpans': instance.textSpans.map((e) => e.toJson()).toList(),
@@ -213,9 +214,9 @@ _$_TextArea _$$_TextAreaFromJson(Map json) => _$_TextArea(
           ? const AreaProperty.undefined()
           : AreaProperty.fromJson(
               Map<String, dynamic>.from(json['areaProperty'] as Map)),
-      textAbstracts: (json['textAbstracts'] as List<dynamic>?)
+      textParagraphs: (json['textParagraphs'] as List<dynamic>?)
               ?.map((e) =>
-                  TextAbstract.fromJson(Map<String, dynamic>.from(e as Map)))
+                  TextParagraph.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
     );
@@ -223,11 +224,10 @@ _$_TextArea _$$_TextAreaFromJson(Map json) => _$_TextArea(
 Map<String, dynamic> _$$_TextAreaToJson(_$_TextArea instance) =>
     <String, dynamic>{
       'areaProperty': instance.areaProperty.toJson(),
-      'textAbstracts': instance.textAbstracts.map((e) => e.toJson()).toList(),
+      'textParagraphs': instance.textParagraphs.map((e) => e.toJson()).toList(),
     };
 
-_$_TextPropertyCollection _$$_TextPropertyCollectionFromJson(Map json) =>
-    _$_TextPropertyCollection(
+_$_RichStyleSheet _$$_RichStyleSheetFromJson(Map json) => _$_RichStyleSheet(
       name: json['name'] as String? ?? '',
       spanProperties: (json['spanProperties'] as Map?)?.map(
             (k, e) => MapEntry(
@@ -236,21 +236,106 @@ _$_TextPropertyCollection _$$_TextPropertyCollectionFromJson(Map json) =>
                     Map<String, dynamic>.from(e as Map))),
           ) ??
           const [],
-      abstractProperties: (json['abstractProperties'] as Map?)?.map(
+      paragraphProperties: (json['paragraphProperties'] as Map?)?.map(
             (k, e) => MapEntry(
                 k as String,
-                DefinedAbstractProperty.fromJson(
+                DefinedParagraphProperty.fromJson(
                     Map<String, dynamic>.from(e as Map))),
           ) ??
           const [],
     );
 
-Map<String, dynamic> _$$_TextPropertyCollectionToJson(
-        _$_TextPropertyCollection instance) =>
+Map<String, dynamic> _$$_RichStyleSheetToJson(_$_RichStyleSheet instance) =>
     <String, dynamic>{
       'name': instance.name,
       'spanProperties':
           instance.spanProperties.map((k, e) => MapEntry(k, e.toJson())),
-      'abstractProperties':
-          instance.abstractProperties.map((k, e) => MapEntry(k, e.toJson())),
+      'paragraphProperties':
+          instance.paragraphProperties.map((k, e) => MapEntry(k, e.toJson())),
+    };
+
+_$_MarkdownStyleSheet _$$_MarkdownStyleSheetFromJson(Map json) =>
+    _$_MarkdownStyleSheet(
+      name: json['name'] as String? ?? '',
+      h1: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['h1'] as Map)),
+      h2: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['h2'] as Map)),
+      h3: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['h3'] as Map)),
+      h4: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['h4'] as Map)),
+      h5: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['h5'] as Map)),
+      h6: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['h6'] as Map)),
+      p: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['p'] as Map)),
+      blockquote: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['blockquote'] as Map)),
+      code: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['code'] as Map)),
+      pre: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['pre'] as Map)),
+      ol: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['ol'] as Map)),
+      ul: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['ul'] as Map)),
+      li: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['li'] as Map)),
+      table: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['table'] as Map)),
+      thead: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['thead'] as Map)),
+      tbody: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['tbody'] as Map)),
+      tr: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['tr'] as Map)),
+      th: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['th'] as Map)),
+      td: DefinedParagraphProperty.fromJson(
+          Map<String, dynamic>.from(json['td'] as Map)),
+      em: DefinedSpanProperty.fromJson(
+          Map<String, dynamic>.from(json['em'] as Map)),
+      strong: DefinedSpanProperty.fromJson(
+          Map<String, dynamic>.from(json['strong'] as Map)),
+      codeSpan: DefinedSpanProperty.fromJson(
+          Map<String, dynamic>.from(json['codeSpan'] as Map)),
+      del: DefinedSpanProperty.fromJson(
+          Map<String, dynamic>.from(json['del'] as Map)),
+      a: DefinedSpanProperty.fromJson(
+          Map<String, dynamic>.from(json['a'] as Map)),
+      img: DefinedSpanProperty.fromJson(
+          Map<String, dynamic>.from(json['img'] as Map)),
+    );
+
+Map<String, dynamic> _$$_MarkdownStyleSheetToJson(
+        _$_MarkdownStyleSheet instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'h1': instance.h1.toJson(),
+      'h2': instance.h2.toJson(),
+      'h3': instance.h3.toJson(),
+      'h4': instance.h4.toJson(),
+      'h5': instance.h5.toJson(),
+      'h6': instance.h6.toJson(),
+      'p': instance.p.toJson(),
+      'blockquote': instance.blockquote.toJson(),
+      'code': instance.code.toJson(),
+      'pre': instance.pre.toJson(),
+      'ol': instance.ol.toJson(),
+      'ul': instance.ul.toJson(),
+      'li': instance.li.toJson(),
+      'table': instance.table.toJson(),
+      'thead': instance.thead.toJson(),
+      'tbody': instance.tbody.toJson(),
+      'tr': instance.tr.toJson(),
+      'th': instance.th.toJson(),
+      'td': instance.td.toJson(),
+      'em': instance.em.toJson(),
+      'strong': instance.strong.toJson(),
+      'codeSpan': instance.codeSpan.toJson(),
+      'del': instance.del.toJson(),
+      'a': instance.a.toJson(),
+      'img': instance.img.toJson(),
     };

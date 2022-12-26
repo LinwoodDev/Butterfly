@@ -35,22 +35,22 @@ class SpanProperty with _$SpanProperty {
 }
 
 @freezed
-class AbstractProperty with _$AbstractProperty {
-  const factory AbstractProperty.defined({
+class ParagraphProperty with _$ParagraphProperty {
+  const factory ParagraphProperty.defined({
     @Default(SpanProperty.undefined()) SpanProperty spanProperty,
     @Default(HorizontalAlignment.left) HorizontalAlignment alignment,
-  }) = DefinedAbstractProperty;
-  const factory AbstractProperty.named(String name) = NamedAbstractProperty;
-  const factory AbstractProperty.undefined() = UndefinedAbstractProperty;
+  }) = DefinedParagraphProperty;
+  const factory ParagraphProperty.named(String name) = NamedParagraphProperty;
+  const factory ParagraphProperty.undefined() = UndefinedParagraphProperty;
 
-  factory AbstractProperty.fromJson(Map<String, dynamic> json) =>
-      _$AbstractPropertyFromJson(json);
+  factory ParagraphProperty.fromJson(Map<String, dynamic> json) =>
+      _$ParagraphPropertyFromJson(json);
 }
 
 @freezed
 class AreaProperty with _$AreaProperty {
   const factory AreaProperty.defined({
-    @Default(AbstractProperty.undefined()) AbstractProperty abstractProperty,
+    @Default(ParagraphProperty.undefined()) ParagraphProperty paragraphProperty,
     @Default(VerticalAlignment.top) VerticalAlignment verticalAlignment,
   }) = DefinedAreaProperty;
   const factory AreaProperty.named(String name) = NamedAreaProperty;
@@ -71,33 +71,67 @@ class TextSpan with _$TextSpan {
 }
 
 @freezed
-class TextAbstract with _$TextAbstract {
-  const factory TextAbstract({
-    @Default(AbstractProperty.undefined()) AbstractProperty textProperty,
+class TextParagraph with _$TextParagraph {
+  const factory TextParagraph({
+    @Default(ParagraphProperty.undefined()) ParagraphProperty textProperty,
     @Default([]) List<TextSpan> textSpans,
-  }) = _AbstractProperty;
+  }) = _ParagraphProperty;
 
-  factory TextAbstract.fromJson(Map<String, dynamic> json) =>
-      _$TextAbstractFromJson(json);
+  factory TextParagraph.fromJson(Map<String, dynamic> json) =>
+      _$TextParagraphFromJson(json);
 }
 
 @freezed
 class TextArea with _$TextArea {
   const factory TextArea({
     @Default(AreaProperty.undefined()) AreaProperty areaProperty,
-    @Default([]) List<TextAbstract> textAbstracts,
+    @Default([]) List<TextParagraph> textParagraphs,
   }) = _TextArea;
   factory TextArea.fromJson(Map<String, dynamic> json) =>
       _$TextAreaFromJson(json);
 }
 
 @freezed
-class TextPropertyCollection with _$TextPropertyCollection {
-  const factory TextPropertyCollection({
+class RichStyleSheet with _$RichStyleSheet {
+  const factory RichStyleSheet({
     @Default('') String name,
     @Default([]) Map<String, DefinedSpanProperty> spanProperties,
-    @Default([]) Map<String, DefinedAbstractProperty> abstractProperties,
-  }) = _TextPropertyCollection;
-  factory TextPropertyCollection.fromJson(Map<String, dynamic> json) =>
-      _$TextPropertyCollectionFromJson(json);
+    @Default([]) Map<String, DefinedParagraphProperty> paragraphProperties,
+  }) = _RichStyleSheet;
+  factory RichStyleSheet.fromJson(Map<String, dynamic> json) =>
+      _$RichStyleSheetFromJson(json);
+}
+
+@freezed
+class MarkdownStyleSheet with _$MarkdownStyleSheet {
+  const factory MarkdownStyleSheet({
+    @Default('') String name,
+    required DefinedParagraphProperty h1,
+    required DefinedParagraphProperty h2,
+    required DefinedParagraphProperty h3,
+    required DefinedParagraphProperty h4,
+    required DefinedParagraphProperty h5,
+    required DefinedParagraphProperty h6,
+    required DefinedParagraphProperty p,
+    required DefinedParagraphProperty blockquote,
+    required DefinedParagraphProperty code,
+    required DefinedParagraphProperty pre,
+    required DefinedParagraphProperty ol,
+    required DefinedParagraphProperty ul,
+    required DefinedParagraphProperty li,
+    required DefinedParagraphProperty table,
+    required DefinedParagraphProperty thead,
+    required DefinedParagraphProperty tbody,
+    required DefinedParagraphProperty tr,
+    required DefinedParagraphProperty th,
+    required DefinedParagraphProperty td,
+    required DefinedSpanProperty em,
+    required DefinedSpanProperty strong,
+    required DefinedSpanProperty codeSpan,
+    required DefinedSpanProperty del,
+    required DefinedSpanProperty a,
+    required DefinedSpanProperty img,
+  }) = _MarkdownStyleSheet;
+  factory MarkdownStyleSheet.fromJson(Map<String, dynamic> json) =>
+      _$MarkdownStyleSheetFromJson(json);
 }
