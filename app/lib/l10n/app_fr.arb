@@ -432,5 +432,7 @@
   "scope": "Périmètre d'application",
   "noPacks": "Il n'y a actuellement aucun pack disponible",
   "components": "Composants",
-  "waypoint": "Point de repère"
+  "waypoint": "Point de repère",
+  "actions": "Actions",
+  "painters": "Peintres"
 }
