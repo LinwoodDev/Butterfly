@@ -432,5 +432,7 @@
   "scope": "Escopo",
   "noPacks": "Não existem pacotes disponíveis no momento",
   "components": "Componentes",
-  "waypoint": "Ponto"
+  "waypoint": "Ponto",
+  "actions": "Ações.",
+  "painters": "Pintores"
 }
