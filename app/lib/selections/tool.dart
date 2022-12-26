@@ -55,7 +55,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
 
     _tabController.addListener(_onTabChange);
 
@@ -73,10 +73,14 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.read<DocumentBloc>().state;
+    if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
     return Column(children: [
       TabBar(
         controller: _tabController,
+        isScrollable: true,
         tabs: <List<dynamic>>[
+          [PhosphorIcons.gearLight, AppLocalizations.of(context)!.project],
           [PhosphorIcons.gridFourLight, AppLocalizations.of(context)!.grid],
           [PhosphorIcons.rulerLight, AppLocalizations.of(context)!.ruler],
           [PhosphorIcons.cameraLight, AppLocalizations.of(context)!.camera],
@@ -94,6 +98,44 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
       ),
       Builder(
           builder: (context) => [
+                Column(
+                  children: [
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      validator: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return AppLocalizations.of(context)!.shouldNotEmpty;
+                        }
+                        return null;
+                      },
+                      initialValue: state.document.name,
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.name,
+                        filled: true,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      minLines: 3,
+                      maxLines: 5,
+                      initialValue: state.document.description,
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.description,
+                        border: const OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    ListTile(
+                      leading: const Icon(PhosphorIcons.imageLight),
+                      title: Text(AppLocalizations.of(context)!.background),
+                      subtitle: Text(context.getShortcut('B')),
+                      onTap: () {
+                        Actions.maybeInvoke<BackgroundIntent>(
+                            context, BackgroundIntent(context));
+                      },
+                    ),
+                  ],
+                ),
                 Column(children: [
                   CheckboxListTile(
                     title: Text(AppLocalizations.of(context)!.showGrid),

@@ -24,7 +24,6 @@ import '../actions/import.dart';
 import '../actions/new.dart';
 import '../actions/open.dart';
 import '../actions/pdf_export.dart';
-import '../actions/project.dart';
 import '../actions/save.dart';
 import '../actions/settings.dart';
 import '../api/full_screen.dart';
@@ -565,18 +564,6 @@ class _MainPopupMenu extends StatelessWidget {
                         trailing: const Icon(PhosphorIcons.caretRightLight),
                         title: Text(AppLocalizations.of(context)!.export)))),
           ],
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Actions.maybeInvoke<ProjectIntent>(
-                        context, ProjectIntent(context));
-                  },
-                  subtitle: Text(
-                      context.getShortcut('S', shiftKey: true, altKey: true)),
-                  leading: const Icon(PhosphorIcons.wrenchLight),
-                  title: Text(AppLocalizations.of(context)!.projectSettings))),
           const PopupMenuDivider(),
           if (state.embedding == null && (kIsWeb || !isWindow())) ...[
             PopupMenuItem(

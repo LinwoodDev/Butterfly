@@ -11,7 +11,6 @@ import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/open.dart';
 import 'package:butterfly/actions/pdf_export.dart';
-import 'package:butterfly/actions/project.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/save.dart';
 import 'package:butterfly/actions/settings.dart';
@@ -80,7 +79,6 @@ class _ProjectPageState extends State<ProjectPage> {
     ExportIntent: ExportAction(),
     EditModeIntent: EditModeAction(),
     SettingsIntent: SettingsAction(),
-    ProjectIntent: ProjectAction(),
     WaypointsIntent: WaypointsAction(),
     AreasIntent: AreasAction(),
     ColorPaletteIntent: ColorPaletteAction(),
@@ -316,11 +314,6 @@ class _ProjectPageState extends State<ProjectPage> {
                           LogicalKeyboardKey.control,
                           LogicalKeyboardKey.shift,
                           LogicalKeyboardKey.keyP): WaypointsIntent(context),
-                      LogicalKeySet(
-                          LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.alt,
-                          LogicalKeyboardKey.shift,
-                          LogicalKeyboardKey.keyS): ProjectIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.control,
                           LogicalKeyboardKey.keyP): ColorPaletteIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.control,

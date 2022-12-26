@@ -4,6 +4,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/constraints.dart';
 import 'package:butterfly/helpers/num_helper.dart';
+import 'package:butterfly/helpers/shortcut_helper.dart';
 import 'package:butterfly/models/property.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/visualizer/property.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../actions/background.dart';
 import '../api/open.dart';
 import '../cubits/transform.dart';
 import '../models/area.dart';

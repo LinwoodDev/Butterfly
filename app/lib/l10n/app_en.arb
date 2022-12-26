@@ -33,7 +33,7 @@
   "yes": "Yes",
   "undo": "Undo",
   "redo": "Redo",
-  "projectSettings": "Project settings",
+  "project": "Project",
   "general": "General",
   "copyTitle": "Copied to clipboard",
   "copyMessage": "You can now paste it into a text editor",

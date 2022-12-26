@@ -5,6 +5,6 @@ Future<bool> openReleaseNotes() {
       Uri(
           scheme: 'https',
           host: 'go.linwood.dev',
-          pathSegments: ['butterfly', '1-6']),
+          pathSegments: ['butterfly', '2.0']),
       mode: LaunchMode.externalApplication);
 }
