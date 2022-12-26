@@ -432,5 +432,7 @@
   "scope": "Bereich",
   "noPacks": "Derzeit sind keine Pakete verfügbar",
   "components": "Komponenten",
-  "waypoint": "Wegpunkt"
+  "waypoint": "Wegpunkt",
+  "actions": "Aktionen",
+  "painters": "Maler"
 }
