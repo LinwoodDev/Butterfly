@@ -329,7 +329,7 @@ packages:
       name: flex_color_scheme
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.1"
+    version: "6.1.2"
   flex_seed_scheme:
     dependency: transitive
     description:
@@ -393,7 +393,7 @@ packages:
       name: flutter_secure_storage
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.0"
+    version: "7.0.1"
   flutter_secure_storage_linux:
     dependency: transitive
     description:
@@ -407,7 +407,7 @@ packages:
       name: flutter_secure_storage_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.2"
+    version: "2.0.1"
   flutter_secure_storage_platform_interface:
     dependency: transitive
     description:

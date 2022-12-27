@@ -87,6 +87,10 @@ module.exports = {
                             href: 'https://twitter.com/LinwoodCloud',
                         },
                         {
+                            label: 'Mastodon',
+                            href: 'https://floss.social/@linwood',
+                        },
+                        {
                             label: 'License',
                             href: 'https://go.linwood.dev/butterfly/license',
                         }

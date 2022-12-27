@@ -11,6 +11,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/file_system.dart';
 import '../api/open.dart';
+import '../dialogs/packs/dialog.dart';
 import '../views/window.dart';
 
 class DataSettingsPage extends StatefulWidget {
@@ -118,6 +119,22 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             if (newFormat != null) {
                               settingsCubit.changeDateFormat(newFormat);
                             }
+                          },
+                        ),
+                        ListTile(
+                          title: Text(AppLocalizations.of(context)!.packs),
+                          leading: const Icon(PhosphorIcons.packageLight),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => MultiBlocProvider(
+                                providers: [
+                                  BlocProvider.value(
+                                      value: context.read<SettingsCubit>()),
+                                ],
+                                child: const PacksDialog(showDocument: false),
+                              ),
+                            );
                           },
                         ),
                         ListTile(

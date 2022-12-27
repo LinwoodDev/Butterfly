@@ -24,6 +24,13 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
           filled: true,
           counterText:
               packs.isEmpty ? AppLocalizations.of(context)!.noPacks : null,
+          suffixIcon: IconButton(
+            icon: const Icon(PhosphorIcons.packageLight),
+            tooltip: AppLocalizations.of(context)!.packs,
+            onPressed: () {
+              Actions.maybeInvoke<PacksIntent>(context, PacksIntent(context));
+            },
+          ),
         ),
         value: currentPack?.name,
         onChanged: (pack) {

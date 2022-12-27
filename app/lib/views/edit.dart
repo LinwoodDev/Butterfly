@@ -241,7 +241,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                       ],
                                       child: RepositoryProvider.value(
                                         value: context.read<ImportService>(),
-                                        child: AddDialog(),
+                                        child: const AddDialog(),
                                       ),
                                     ),
                                   );
