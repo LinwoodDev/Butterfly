@@ -44,7 +44,7 @@ class AddDialog extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 AppLocalizations.of(context)!.import,
@@ -52,7 +52,7 @@ class AddDialog extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Wrap(
-                alignment: WrapAlignment.center,
+                alignment: WrapAlignment.start,
                 children: [
                   BoxTile(
                     title: Text(AppLocalizations.of(context)!.image),
@@ -149,7 +149,7 @@ class AddDialog extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Wrap(
-                alignment: WrapAlignment.center,
+                alignment: WrapAlignment.start,
                 children: [
                   Painter.hand,
                   Painter.pen,
@@ -180,7 +180,7 @@ class AddDialog extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Wrap(
-                alignment: WrapAlignment.center,
+                alignment: WrapAlignment.start,
                 children: [
                   Painter.undo,
                   Painter.redo,

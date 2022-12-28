@@ -6,8 +6,103 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
   @override
   List<Widget> buildProperties(BuildContext context) {
     final painter = selected.first;
+    final searchController = TextEditingController();
     return [
       ...super.buildProperties(context),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextField(
+          decoration: const InputDecoration(
+            filled: true,
+            prefixIcon: Icon(PhosphorIcons.magnifyingGlassLight),
+          ),
+          textAlignVertical: TextAlignVertical.center,
+          controller: searchController,
+          autofocus: true,
+        ),
+      ),
+      const Divider(),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        child: ValueListenableBuilder(
+          valueListenable: searchController,
+          builder: (context, value, child) =>
+              BlocBuilder<DocumentBloc, DocumentState>(
+                  buildWhen: (previous, current) {
+            var prev = previous as DocumentLoadSuccess;
+            var curr = current as DocumentLoadSuccess;
+            return curr.document.content != curr.document.content ||
+                curr.invisibleLayers.length != prev.invisibleLayers.length ||
+                curr.currentLayer != prev.currentLayer;
+          }, builder: (context, state) {
+            if (state is! DocumentLoadSuccess) {
+              return Container();
+            }
+            var layers = state.document.content
+                .map((e) => e.layer)
+                .where((element) => element.contains(searchController.text))
+                .toSet()
+                .toList();
+            layers.remove('');
+            return Column(children: [
+              ListTile(
+                  onTap: () {
+                    context
+                        .read<DocumentBloc>()
+                        .add(const CurrentLayerChanged(''));
+                  },
+                  selected: state.currentLayer.isEmpty,
+                  leading: IconButton(
+                    icon: Icon(state.isLayerVisible('')
+                        ? PhosphorIcons.eyeLight
+                        : PhosphorIcons.eyeSlashLight),
+                    onPressed: () {
+                      context
+                          .read<DocumentBloc>()
+                          .add(const LayerVisibilityChanged(''));
+                    },
+                  ),
+                  title: Text(AppLocalizations.of(context)!.defaultLayer)),
+              const Divider(),
+              ...List.generate(
+                  layers.length,
+                  (index) => Dismissible(
+                        key: ObjectKey(layers[index]),
+                        background: Container(color: Colors.red),
+                        onDismissed: (direction) {
+                          context
+                              .read<DocumentBloc>()
+                              .add(LayerRemoved(layers[index]));
+                        },
+                        child: ListTile(
+                            onTap: () {
+                              context
+                                  .read<DocumentBloc>()
+                                  .add(CurrentLayerChanged(layers[index]));
+                            },
+                            selected: layers[index] == state.currentLayer,
+                            leading: IconButton(
+                              icon: Icon(state.isLayerVisible(layers[index])
+                                  ? PhosphorIcons.eyeLight
+                                  : PhosphorIcons.eyeSlashLight),
+                              onPressed: () {
+                                context
+                                    .read<DocumentBloc>()
+                                    .add(LayerVisibilityChanged(layers[index]));
+                              },
+                            ),
+                            trailing: IconTheme.merge(
+                                data: Theme.of(context).iconTheme,
+                                child: LayerDialog(
+                                  popupMenu: true,
+                                  layer: layers[index],
+                                )),
+                            title: Text(layers[index])),
+                      ))
+            ]);
+          }),
+        ),
+      ),
       const SizedBox(height: 16),
       TextFormField(
           decoration: InputDecoration(
