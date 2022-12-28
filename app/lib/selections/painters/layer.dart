@@ -5,121 +5,176 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final painter = selected.first;
     final searchController = TextEditingController();
+    var opened = false;
     return [
       ...super.buildProperties(context),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TextField(
-          decoration: const InputDecoration(
-            filled: true,
-            prefixIcon: Icon(PhosphorIcons.magnifyingGlassLight),
-          ),
-          textAlignVertical: TextAlignVertical.center,
-          controller: searchController,
-          autofocus: true,
-        ),
-      ),
-      const Divider(),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        child: ValueListenableBuilder(
-          valueListenable: searchController,
-          builder: (context, value, child) =>
-              BlocBuilder<DocumentBloc, DocumentState>(
-                  buildWhen: (previous, current) {
-            var prev = previous as DocumentLoadSuccess;
-            var curr = current as DocumentLoadSuccess;
-            return curr.document.content != curr.document.content ||
-                curr.invisibleLayers.length != prev.invisibleLayers.length ||
-                curr.currentLayer != prev.currentLayer;
-          }, builder: (context, state) {
-            if (state is! DocumentLoadSuccess) {
-              return Container();
-            }
-            var layers = state.document.content
-                .map((e) => e.layer)
-                .where((element) => element.contains(searchController.text))
-                .toSet()
-                .toList();
-            layers.remove('');
-            return Column(children: [
-              ListTile(
-                  onTap: () {
-                    context
-                        .read<DocumentBloc>()
-                        .add(const CurrentLayerChanged(''));
-                  },
-                  selected: state.currentLayer.isEmpty,
-                  leading: IconButton(
-                    icon: Icon(state.isLayerVisible('')
-                        ? PhosphorIcons.eyeLight
-                        : PhosphorIcons.eyeSlashLight),
-                    onPressed: () {
-                      context
-                          .read<DocumentBloc>()
-                          .add(const LayerVisibilityChanged(''));
-                    },
+      const SizedBox(height: 8),
+      StatefulBuilder(
+        builder: (context, setState) => ExpansionPanelList(
+          expansionCallback: (index, isExpanded) {
+            setState(() {
+              opened = !opened;
+            });
+          },
+          children: [
+            ExpansionPanel(
+              isExpanded: opened,
+              headerBuilder: (context, isExpanded) => ListTile(
+                  title: Text(AppLocalizations.of(context)!.layers),
+                  trailing: IconButton(
+                      icon: const Icon(PhosphorIcons.selectionLight),
+                      tooltip: AppLocalizations.of(context)!.selectCustomLayer,
+                      onPressed: () async {
+                        final bloc = context.read<DocumentBloc>();
+                        final state = bloc.state as DocumentLoadSuccess;
+                        final nameController =
+                            TextEditingController(text: state.currentLayer);
+                        final success = await showDialog<bool>(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                title: Text(AppLocalizations.of(ctx)!
+                                    .selectCustomLayer),
+                                content: TextField(
+                                  controller: nameController,
+                                  autofocus: true,
+                                  onSubmitted: (value) =>
+                                      Navigator.of(ctx).pop(true),
+                                  decoration: InputDecoration(
+                                      filled: true,
+                                      hintText:
+                                          AppLocalizations.of(context)!.name),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child:
+                                        Text(AppLocalizations.of(ctx)!.cancel),
+                                    onPressed: () =>
+                                        Navigator.of(ctx).pop(false),
+                                  ),
+                                  ElevatedButton(
+                                    child: Text(AppLocalizations.of(ctx)!.ok),
+                                    onPressed: () {
+                                      Navigator.of(ctx).pop(true);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ) ??
+                            false;
+                        if (!success) return;
+                        bloc.add(CurrentLayerChanged(nameController.text));
+                      })),
+              body: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        filled: true,
+                        prefixIcon: Icon(PhosphorIcons.magnifyingGlassLight),
+                      ),
+                      textAlignVertical: TextAlignVertical.center,
+                      controller: searchController,
+                      autofocus: true,
+                    ),
                   ),
-                  title: Text(AppLocalizations.of(context)!.defaultLayer)),
-              const Divider(),
-              ...List.generate(
-                  layers.length,
-                  (index) => Dismissible(
-                        key: ObjectKey(layers[index]),
-                        background: Container(color: Colors.red),
-                        onDismissed: (direction) {
-                          context
-                              .read<DocumentBloc>()
-                              .add(LayerRemoved(layers[index]));
-                        },
-                        child: ListTile(
-                            onTap: () {
-                              context
-                                  .read<DocumentBloc>()
-                                  .add(CurrentLayerChanged(layers[index]));
-                            },
-                            selected: layers[index] == state.currentLayer,
-                            leading: IconButton(
-                              icon: Icon(state.isLayerVisible(layers[index])
-                                  ? PhosphorIcons.eyeLight
-                                  : PhosphorIcons.eyeSlashLight),
-                              onPressed: () {
+                  const Divider(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
+                    child: ValueListenableBuilder(
+                      valueListenable: searchController,
+                      builder: (context, value, child) =>
+                          BlocBuilder<DocumentBloc, DocumentState>(
+                              buildWhen: (previous, current) {
+                        var prev = previous as DocumentLoadSuccess;
+                        var curr = current as DocumentLoadSuccess;
+                        return curr.document.content != curr.document.content ||
+                            curr.invisibleLayers.length !=
+                                prev.invisibleLayers.length ||
+                            curr.currentLayer != prev.currentLayer;
+                      }, builder: (context, state) {
+                        if (state is! DocumentLoadSuccess) {
+                          return Container();
+                        }
+                        var layers = {
+                          ...state.document.content.map((e) => e.layer),
+                          state.currentLayer,
+                        }
+                            .where((element) =>
+                                element.contains(searchController.text))
+                            .toSet()
+                            .toList();
+                        layers.remove('');
+                        return Column(children: [
+                          ListTile(
+                              onTap: () {
                                 context
                                     .read<DocumentBloc>()
-                                    .add(LayerVisibilityChanged(layers[index]));
+                                    .add(const CurrentLayerChanged(''));
                               },
-                            ),
-                            trailing: IconTheme.merge(
-                                data: Theme.of(context).iconTheme,
-                                child: LayerDialog(
-                                  popupMenu: true,
-                                  layer: layers[index],
-                                )),
-                            title: Text(layers[index])),
-                      ))
-            ]);
-          }),
+                              selected: state.currentLayer.isEmpty,
+                              leading: IconButton(
+                                icon: Icon(state.isLayerVisible('')
+                                    ? PhosphorIcons.eyeLight
+                                    : PhosphorIcons.eyeSlashLight),
+                                onPressed: () {
+                                  context
+                                      .read<DocumentBloc>()
+                                      .add(const LayerVisibilityChanged(''));
+                                },
+                              ),
+                              title: Text(
+                                  AppLocalizations.of(context)!.defaultLayer)),
+                          const Divider(),
+                          ...List.generate(
+                              layers.length,
+                              (index) => Dismissible(
+                                    key: ObjectKey(layers[index]),
+                                    background: Container(color: Colors.red),
+                                    onDismissed: (direction) {
+                                      context
+                                          .read<DocumentBloc>()
+                                          .add(LayerRemoved(layers[index]));
+                                    },
+                                    child: ListTile(
+                                        onTap: () {
+                                          context.read<DocumentBloc>().add(
+                                              CurrentLayerChanged(
+                                                  layers[index]));
+                                        },
+                                        selected:
+                                            layers[index] == state.currentLayer,
+                                        leading: IconButton(
+                                          icon: Icon(state
+                                                  .isLayerVisible(layers[index])
+                                              ? PhosphorIcons.eyeLight
+                                              : PhosphorIcons.eyeSlashLight),
+                                          onPressed: () {
+                                            context.read<DocumentBloc>().add(
+                                                LayerVisibilityChanged(
+                                                    layers[index]));
+                                          },
+                                        ),
+                                        trailing: IconTheme.merge(
+                                            data: Theme.of(context).iconTheme,
+                                            child: LayerDialog(
+                                              popupMenu: true,
+                                              layer: layers[index],
+                                            )),
+                                        title: Text(layers[index])),
+                                  ))
+                        ]);
+                      }),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
-      const SizedBox(height: 16),
-      TextFormField(
-          decoration: InputDecoration(
-              filled: true, labelText: AppLocalizations.of(context)!.layer),
-          initialValue: painter.layer,
-          onChanged: (value) => update(
-              context, selected.map((e) => e.copyWith(layer: value)).toList())),
-      const SizedBox(height: 10),
-      CheckboxListTile(
-          value: painter.includeEraser,
-          title: Text(AppLocalizations.of(context)!.includeEraser),
-          onChanged: (value) => update(
-              context,
-              selected
-                  .map((e) =>
-                      e.copyWith(includeEraser: value ?? painter.includeEraser))
-                  .toList())),
     ];
   }
 
