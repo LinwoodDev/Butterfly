@@ -46,5 +46,9 @@
   "item.label.Matrix": {
     "message": "Matriz",
     "description": "Navbar item with label Matrix"
+  },
+  "item.label.Mastodon": {
+    "message": "Mastodon",
+    "description": "Navbar item with label Mastodon"
   }
 }

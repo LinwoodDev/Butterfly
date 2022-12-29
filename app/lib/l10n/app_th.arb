@@ -33,7 +33,7 @@
   "yes": "ใช่",
   "undo": "ย้อนกลับ",
   "redo": "ทำใหม่",
-  "projectSettings": "การตั้งค่าโครงการ",
+  "project": "Project",
   "general": "ทั่วไป",
   "copyTitle": "คัดลอกไปยังคลิปบอร์ดแล้ว",
   "copyMessage": "You can now paste it into a text editor",
@@ -431,5 +431,8 @@
   "editComponent": "Edit component",
   "scope": "Scope",
   "noPacks": "There are currently no packs available",
-  "components": "Components"
+  "components": "Components",
+  "waypoint": "Waypoint",
+  "actions": "Actions",
+  "painters": "Painters"
 }

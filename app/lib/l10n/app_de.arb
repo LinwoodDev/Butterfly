@@ -33,7 +33,7 @@
   "yes": "Ja",
   "undo": "Rückgängig",
   "redo": "Wiederholen",
-  "projectSettings": "Projekteinstellungen",
+  "project": "Projekt",
   "general": "Allgemein",
   "copyTitle": "In Zwischenablage kopiert",
   "copyMessage": "Sie können es jetzt in einen Texteditor einfügen",
@@ -431,5 +431,8 @@
   "editComponent": "Komponente bearbeiten",
   "scope": "Bereich",
   "noPacks": "Derzeit sind keine Pakete verfügbar",
-  "components": "Komponenten"
+  "components": "Komponenten",
+  "waypoint": "Wegpunkt",
+  "actions": "Aktionen",
+  "painters": "Maler"
 }

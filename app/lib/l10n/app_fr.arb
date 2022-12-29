@@ -33,7 +33,7 @@
   "yes": "Oui",
   "undo": "Annuler",
   "redo": "Refaire",
-  "projectSettings": "Paramètres du projet",
+  "project": "Projet",
   "general": "Généraux",
   "copyTitle": "Copié dans le presse-papiers",
   "copyMessage": "Vous pouvez maintenant le coller dans un éditeur de texte",
@@ -431,5 +431,8 @@
   "editComponent": "Modifier le composant",
   "scope": "Périmètre d'application",
   "noPacks": "Il n'y a actuellement aucun pack disponible",
-  "components": "Composants"
+  "components": "Composants",
+  "waypoint": "Point de repère",
+  "actions": "Actions",
+  "painters": "Peintres"
 }

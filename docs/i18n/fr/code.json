@@ -452,5 +452,21 @@
   "theme.tags.tagsPageTitle": {
     "message": "Tags",
     "description": "The title of the tag list page"
+  },
+  "Choose where your data is stored": {
+    "message": "Choisissez où vos données sont stockées",
+    "description": "Features local title"
+  },
+  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
+    "message": "Vous pouvez choisir de stocker vos données localement ou dans votre cloud préféré (webdav). Vous pouvez également exporter vos données vers un fichier et l'importer à nouveau.",
+    "description": "Features local description"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "Fermer la barre de navigation",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "Basculer la barre de navigation",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
   }
 }
