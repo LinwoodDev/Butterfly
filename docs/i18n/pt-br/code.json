@@ -454,19 +454,19 @@
     "description": "The title of the tag list page"
   },
   "Choose where your data is stored": {
-    "message": "Choose where your data is stored",
+    "message": "Escolha onde seus dados são armazenados",
     "description": "Features local title"
   },
   "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.",
+    "message": "Você pode optar por armazenar seus dados localmente ou em sua nuvem favorita (webdav). Você também pode exportar seus dados para um arquivo e importá-lo novamente.",
     "description": "Features local description"
   },
   "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
-    "message": "Close navigation bar",
+    "message": "Fechar barra de navegação",
     "description": "The ARIA label for close button of mobile sidebar"
   },
   "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
-    "message": "Toggle navigation bar",
+    "message": "Alternar barra de navegação",
     "description": "The ARIA label for hamburger menu button of mobile navigation"
   }
 }
