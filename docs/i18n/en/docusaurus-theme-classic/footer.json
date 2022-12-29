@@ -46,5 +46,13 @@
   "link.item.label.Privacy Policy of the website": {
     "message": "Privacy Policy of the website",
     "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
+  },
+  "link.item.label.Matrix": {
+    "message": "Matrix",
+    "description": "The label of footer link with label=Matrix linking to https://linwood.dev/matrix"
+  },
+  "link.item.label.Mastodon": {
+    "message": "Mastodon",
+    "description": "The label of footer link with label=Mastodon linking to https://floss.social/@linwood"
   }
 }

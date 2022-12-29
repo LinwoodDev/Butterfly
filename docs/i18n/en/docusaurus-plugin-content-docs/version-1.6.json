@@ -1,7 +1,7 @@
 {
   "version.label": {
-    "message": "Nightly",
-    "description": "The label for version current"
+    "message": "1.6.0",
+    "description": "The label for version 1.6"
   },
   "sidebar.sidebar.category.Painters": {
     "message": "Painters",
