@@ -45,17 +45,38 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
         canvas.drawPath(path, paint);
         return;
       }
-      var first = points.first;
-      var previous = first;
-      for (var element in points) {
-        canvas.drawLine(
-            previous.toOffset(),
-            element.toOffset(),
-            paint
-              ..strokeWidth = property.strokeWidth +
-                  element.pressure * property.strokeMultiplier);
-        previous = element;
+      // 1. Get the outline points from the input points
+      final outlinePoints = getStroke(
+        points
+            .map((e) => e.toFreehandPoint(property.strokeMultiplier))
+            .toList(),
+        size: property.strokeWidth,
+      );
+
+      // 2. Render the points as a path
+      final path = Path();
+
+      if (outlinePoints.isEmpty) {
+        // If the list is empty, don't do anything.
+        return;
+      } else if (outlinePoints.length < 2) {
+        // If the list only has one point, draw a dot.
+        path.addOval(Rect.fromCircle(
+            center: Offset(outlinePoints[0].x, outlinePoints[0].y), radius: 1));
+      } else {
+        // Otherwise, draw a line that connects each point with a bezier curve segment.
+        path.moveTo(outlinePoints[0].x, outlinePoints[0].y);
+
+        for (int i = 1; i < outlinePoints.length - 1; ++i) {
+          final p0 = outlinePoints[i];
+          final p1 = outlinePoints[i + 1];
+          path.quadraticBezierTo(
+              p0.x, p0.y, (p0.x + p1.x) / 2, (p0.y + p1.y) / 2);
+        }
       }
+
+      // 3. Draw the path to the canvas
+      canvas.drawPath(path, paint..style = PaintingStyle.fill);
     }
   }
 
