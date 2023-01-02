@@ -36,7 +36,7 @@ import 'views/main.dart';
 import 'views/window.dart';
 
 const kFileVersion = 7;
-const kBreakingChangesVersion = 6;
+const kBreakingChangesVersion = 7;
 
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -144,15 +144,14 @@ class _ProjectPageState extends State<ProjectPage> {
     }
     try {
       RemoteStorage? remote;
-      remote = widget.location != null
-          ? settingsCubit.state.getRemote(widget.location!.remote)
+      var location = widget.location;
+      remote = location != null
+          ? settingsCubit.state.getRemote(location.remote)
           : settingsCubit.state.getDefaultRemote();
       final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
       final prefs = await SharedPreferences.getInstance();
-      var documentOpened = false;
       AppDocument? document;
       if (widget.location != null) {
-        documentOpened = true;
         if (!widget.location!.absolute) {
           final asset = await fileSystem.getAsset(widget.location!.path);
           if (!mounted) return;
@@ -164,6 +163,10 @@ class _ProjectPageState extends State<ProjectPage> {
           ? widget.location!.fileName
           : await formatCurrentDateTime(
               context.read<SettingsCubit>().state.locale);
+      var documentOpened = document != null;
+      if (documentOpened) {
+        location = null;
+      }
       if (document == null && prefs.containsKey('default_template')) {
         var template = await TemplateFileSystem.fromPlatform(remote: remote)
             .getTemplate(prefs.getString('default_template')!);
@@ -174,36 +177,30 @@ class _ProjectPageState extends State<ProjectPage> {
           );
         }
       }
-      if (mounted) {
-        document ??= AppDocument(
-            name: name,
-            createdAt: DateTime.now(),
-            painters: createDefaultPainters(),
-            palettes: ColorPalette.getMaterialPalette(context));
+      if (!mounted) {
+        return;
       }
-      if (document != null) {
-        final renderers =
-            document.content.map((e) => Renderer.fromInstance(e)).toList();
-        await Future.wait(renderers.map((e) async => await e.setup(document!)));
-        final background = Renderer.fromInstance(document.background);
-        await background.setup(document);
-        setState(() {
-          _transformCubit = TransformCubit();
-          _currentIndexCubit =
-              CurrentIndexCubit(settingsCubit, _transformCubit!, null);
-          _bloc = DocumentBloc(
-              _currentIndexCubit!,
-              settingsCubit,
-              document!,
-              widget.location ??
-                  AssetLocation(path: '', remote: remote?.identifier ?? ''),
-              background,
-              renderers);
-          _bloc?.load();
-          _importService = ImportService(_bloc!, context);
-          _importService.load(widget.type, widget.data);
-        });
-      }
+      document ??= AppDocument(
+          name: name,
+          createdAt: DateTime.now(),
+          painters: createDefaultPainters(),
+          palettes: ColorPalette.getMaterialPalette(context));
+      final renderers =
+          document.content.map((e) => Renderer.fromInstance(e)).toList();
+      await Future.wait(renderers.map((e) async => await e.setup(document!)));
+      final background = Renderer.fromInstance(document.background);
+      await background.setup(document);
+      location ??= AssetLocation(path: '', remote: remote?.identifier ?? '');
+      setState(() {
+        _transformCubit = TransformCubit();
+        _currentIndexCubit =
+            CurrentIndexCubit(settingsCubit, _transformCubit!, null);
+        _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
+            location!, background, renderers);
+        _bloc?.load();
+        _importService = ImportService(_bloc!, context);
+        _importService.load(widget.type, widget.data);
+      });
       if (!(widget.location?.absolute ?? false)) {
         _showIntroduction(documentOpened);
       }

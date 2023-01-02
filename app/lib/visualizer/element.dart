@@ -11,7 +11,6 @@ extension ElementVisualizer on PadElement {
     return map(
       pen: (_) => loc.pen,
       label: (_) => loc.label,
-      eraser: (_) => loc.eraser,
       image: (_) => loc.image,
       shape: (_) => loc.shape,
       svg: (_) => loc.svg,
@@ -22,7 +21,6 @@ extension ElementVisualizer on PadElement {
     return map(
       pen: (_) => PhosphorIcons.penLight,
       label: (_) => PhosphorIcons.textTLight,
-      eraser: (_) => PhosphorIcons.eraserLight,
       image: (_) => PhosphorIcons.imageLight,
       shape: (element) => element.property.shape.getIcon(),
       svg: (_) => PhosphorIcons.sunLight,

@@ -15,22 +15,26 @@ FutureOr<AppDocument?> checkFileChanges(
   final version = info.fileVersion;
   if (version >= 0 &&
       (version > kFileVersion || version < kBreakingChangesVersion)) {
-    final result = await showDialog(
+    final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context)!.breakingChangesTitle),
         scrollable: true,
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(AppLocalizations.of(context)!
-                .breakingChangesMessage(version, kFileVersion)),
-            OutlinedButton.icon(
-              label: Text(AppLocalizations.of(context)!.documentation),
-              icon: const Icon(PhosphorIcons.bookOpenLight),
-              onPressed: () => openHelp(['migrating']),
-            ),
-          ],
+        content: SizedBox(
+          width: 400,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(AppLocalizations.of(context)!
+                  .breakingChangesMessage(version, kFileVersion)),
+              const SizedBox(height: 8),
+              OutlinedButton.icon(
+                label: Text(AppLocalizations.of(context)!.documentation),
+                icon: const Icon(PhosphorIcons.bookOpenLight),
+                onPressed: () => openHelp(['migrating']),
+              ),
+            ],
+          ),
         ),
         actions: [
           TextButton(
@@ -42,7 +46,7 @@ FutureOr<AppDocument?> checkFileChanges(
         ],
       ),
     );
-    if (result == null) return null;
+    if (result != true) return null;
   }
   return info.load();
 }

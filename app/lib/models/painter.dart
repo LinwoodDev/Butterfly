@@ -50,7 +50,6 @@ extension RatioPresetExtension on AspectRatioPreset {
 class Painter with _$Painter {
   factory Painter.hand({
     @Default('') String name,
-    @Default(false) bool includeEraser,
   }) = HandPainter;
 
   factory Painter.import({
@@ -86,14 +85,12 @@ class Painter with _$Painter {
   factory Painter.pathEraser({
     @Default('') String name,
     @Default(5) double strokeWidth,
-    @Default(false) bool includeEraser,
     @Default(false) bool deleteWholeStroke,
   }) = PathEraserPainter;
 
   factory Painter.layer({
     @Default('') String name,
     @Default(5) double strokeWidth,
-    @Default(false) bool includeEraser,
   }) = LayerPainter;
 
   factory Painter.area({

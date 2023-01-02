@@ -474,8 +474,7 @@ class HandHandler extends Handler<HandPainter> {
       if (!context.isCtrlPressed) {
         _selected.clear();
       }
-      final hits = await rayCastRect(
-          freeSelection, context.buildContext, data.includeEraser);
+      final hits = await rayCastRect(freeSelection, context.buildContext);
       _selected.addAll(hits);
       context.refresh();
     }

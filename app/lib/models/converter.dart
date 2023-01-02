@@ -65,10 +65,15 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
             return map;
           }),
         ];
+        if (json['background']?['type'] == null) {
+          json['background'] = {'type': 'empty'};
+        }
       }
-    }
-    if (json['background']?['type'] == null) {
-      json['background'] = {'type': 'empty'};
+      if (fileVersion < 7) {
+        json['content'] = List.from(json['content'] as List).where((e) {
+          return e['type'] != 'eraser';
+        }).toList();
+      }
     }
     return AppDocument.fromJson(Map<String, dynamic>.from(json));
   }
