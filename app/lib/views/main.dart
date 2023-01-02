@@ -45,6 +45,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../actions/change_painter.dart';
 import '../actions/packs.dart';
 import '../models/background.dart';
+import 'changes.dart';
 import 'view.dart';
 
 class ProjectPage extends StatefulWidget {
@@ -153,12 +154,9 @@ class _ProjectPageState extends State<ProjectPage> {
       if (widget.location != null) {
         documentOpened = true;
         if (!widget.location!.absolute) {
-          await fileSystem.getAsset(widget.location!.path).then((value) {
-            if (value is! AppDocumentFile) {
-              return document = null;
-            }
-            return document = value.getDocumentInfo()?.load();
-          });
+          final asset = await fileSystem.getAsset(widget.location!.path);
+          if (!mounted) return;
+          document = await checkFileChanges(context, asset);
         }
       }
       if (!mounted) return;
@@ -185,10 +183,10 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       if (document != null) {
         final renderers =
-            document!.content.map((e) => Renderer.fromInstance(e)).toList();
+            document.content.map((e) => Renderer.fromInstance(e)).toList();
         await Future.wait(renderers.map((e) async => await e.setup(document!)));
-        final background = Renderer.fromInstance(document!.background);
-        await background.setup(document!);
+        final background = Renderer.fromInstance(document.background);
+        await background.setup(document);
         setState(() {
           _transformCubit = TransformCubit();
           _currentIndexCubit =
