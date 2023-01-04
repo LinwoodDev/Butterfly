@@ -124,7 +124,9 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 8),
+                    const Divider(),
+                    const SizedBox(height: 8),
                     ListTile(
                       leading: const Icon(PhosphorIcons.imageLight),
                       title: Text(AppLocalizations.of(context)!.background),
@@ -134,6 +136,15 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                             context, BackgroundIntent(context));
                       },
                     ),
+                    if (state.embedding?.editable ?? true)
+                      ListTile(
+                          leading: const Icon(PhosphorIcons.paletteLight),
+                          title: Text(AppLocalizations.of(context)!.color),
+                          subtitle: Text(context.getShortcut('P')),
+                          onTap: () {
+                            Actions.maybeInvoke<ColorPaletteIntent>(
+                                context, ColorPaletteIntent(context));
+                          }),
                   ],
                 ),
                 Column(children: [

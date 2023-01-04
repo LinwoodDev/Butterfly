@@ -1,5 +1,5 @@
 ---
-sidebar_label: "Zone de stockage"
+sidebar_label: "Zone"
 title: "Peintre de zone"
 ---
 

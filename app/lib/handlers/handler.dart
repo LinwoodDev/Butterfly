@@ -7,6 +7,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/background/context.dart';
 import 'package:butterfly/dialogs/elements.dart';
+import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/renderers/area.dart';
@@ -23,7 +24,6 @@ import '../cubits/current_index.dart';
 import '../dialogs/area/label.dart';
 import '../helpers/rect_helper.dart';
 import '../models/area.dart';
-import '../models/cursor.dart';
 import '../models/document.dart';
 import '../models/pack.dart';
 import '../models/path_point.dart';
@@ -214,21 +214,26 @@ class _RayCastParams {
   final List<_SmallRenderer> renderers;
   final Rect rect;
   final double size;
-  final bool includeEraser;
 
-  const _RayCastParams(this.invisibleLayers, this.renderers, this.rect,
-      this.size, this.includeEraser);
+  const _RayCastParams(
+      this.invisibleLayers, this.renderers, this.rect, this.size);
 }
 
 Future<Set<Renderer<PadElement>>> rayCast(
-    Offset globalPosition, BuildContext context, double radius,
-    [bool includeEraser = false]) async {
-  return rayCastRect(Rect.fromCircle(center: globalPosition, radius: radius),
-      context, includeEraser);
+  Offset globalPosition,
+  BuildContext context,
+  double radius,
+) async {
+  return rayCastRect(
+    Rect.fromCircle(center: globalPosition, radius: radius),
+    context,
+  );
 }
 
-Future<Set<Renderer<PadElement>>> rayCastRect(Rect rect, BuildContext context,
-    [bool includeEraser = false]) async {
+Future<Set<Renderer<PadElement>>> rayCastRect(
+  Rect rect,
+  BuildContext context,
+) async {
   final bloc = context.read<DocumentBloc>();
   final transform = context.read<TransformCubit>().state;
   final state = bloc.state;
@@ -236,14 +241,14 @@ Future<Set<Renderer<PadElement>>> rayCastRect(Rect rect, BuildContext context,
   final renderers = state.cameraViewport.visibleElements;
   rect = rect.normalized();
   return compute(
-          _executeRayCast,
-          _RayCastParams(
-              state.invisibleLayers,
-              renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
-              rect,
-              transform.size,
-              includeEraser))
-      .then((value) => value.map((e) => renderers[e]).toSet());
+    _executeRayCast,
+    _RayCastParams(
+      state.invisibleLayers,
+      renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
+      rect,
+      transform.size,
+    ),
+  ).then((value) => value.map((e) => renderers[e]).toSet());
 }
 
 Set<int> _executeRayCast(_RayCastParams params) {
@@ -252,7 +257,6 @@ Set<int> _executeRayCast(_RayCastParams params) {
       .entries
       .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
       .where((e) => e.value.hitCalc.hit(params.rect))
-      .where((e) => params.includeEraser || e.value.element is! EraserElement)
       .map((e) => e.key)
       .toSet();
 }

@@ -6,9 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../dialogs/packs/dialog.dart';
 
 class PacksIntent extends Intent {
+  final bool showDocument;
   final BuildContext context;
 
-  const PacksIntent(this.context);
+  const PacksIntent(this.context, [this.showDocument = true]);
 }
 
 class PacksAction extends Action<PacksIntent> {
@@ -23,7 +24,7 @@ class PacksAction extends Action<PacksIntent> {
       builder: (context) => MultiBlocProvider(providers: [
         BlocProvider.value(value: transformCubit),
         BlocProvider.value(value: bloc),
-      ], child: const PacksDialog()),
+      ], child: PacksDialog(showDocument: intent.showDocument)),
     );
   }
 }

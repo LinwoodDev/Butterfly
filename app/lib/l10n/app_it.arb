@@ -33,7 +33,7 @@
   "yes": "Sì",
   "undo": "Annulla",
   "redo": "Ripristina",
-  "projectSettings": "Impostazioni progetto",
+  "project": "Progetto",
   "general": "Generale",
   "copyTitle": "Copiato negli appunti",
   "copyMessage": "Ora puoi incollarlo in un editor di testo",
@@ -431,5 +431,8 @@
   "editComponent": "Modifica componente",
   "scope": "Ambito",
   "noPacks": "Al momento non ci sono pacchetti disponibili",
-  "components": "Componenti"
+  "components": "Componenti",
+  "waypoint": "Waypoint",
+  "actions": "Azioni",
+  "painters": "Pittori"
 }

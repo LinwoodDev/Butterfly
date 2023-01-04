@@ -87,6 +87,10 @@ module.exports = {
                             href: 'https://twitter.com/LinwoodCloud',
                         },
                         {
+                            label: 'Mastodon',
+                            href: 'https://floss.social/@linwood',
+                        },
+                        {
                             label: 'License',
                             href: 'https://go.linwood.dev/butterfly/license',
                         }
@@ -102,6 +106,7 @@ module.exports = {
                 {
                     type: 'localeDropdown',
                     position: 'right',
+                    dropdownItemsAfter: [{ to: 'https://translate.linwood.dev/butterfly', label: 'Help translate' }],
                 }
             ],
         },
@@ -116,17 +121,21 @@ module.exports = {
                             href: 'https://discord.linwood.dev',
                         },
                         {
+                            label: 'Matrix',
+                            href: 'https://linwood.dev/matrix',
+                        },
+                        {
                             label: 'Twitter',
                             href: 'https://twitter.com/LinwoodCloud',
                         },
                         {
-                            label: 'Contribution guide',
-                            href: 'https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md',
+                            label: 'Mastodon',
+                            href: 'https://floss.social/@linwood',
                         },
                         {
                             html: `
-                <a href="https://vercel.com?utm_source=Linwood&utm_campaign=oss" target="_blank" rel="noreferrer noopener" aria-label="Deploys by Netlify">
-                  <img src="/img/powered-by-vercel.svg" alt="Deploys by Netlify" />
+                <a href="https://vercel.com?utm_source=Linwood&utm_campaign=oss" target="_blank" rel="noreferrer noopener" aria-label="Deploys by Vercel">
+                  <img src="/img/powered-by-vercel.svg" alt="Deploys by Vercel" />
                 </a>
               `,
                         },
@@ -142,7 +151,11 @@ module.exports = {
                         {
                             label: 'Docs',
                             href: 'https://github.com/LinwoodCloud/butterfly/tree/develop/docs',
-                        }
+                        },
+                        {
+                            label: 'Contribution guide',
+                            href: 'https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md',
+                        },
                     ],
                 },
                 {

@@ -17,8 +17,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../actions/background.dart';
+import '../actions/color_palette.dart';
+import '../actions/packs.dart';
 import '../api/open.dart';
 import '../cubits/transform.dart';
+import '../dialogs/layer.dart';
 import '../models/area.dart';
 import '../models/element.dart';
 import '../models/pack.dart';

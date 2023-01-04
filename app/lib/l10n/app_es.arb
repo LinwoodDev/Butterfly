@@ -33,7 +33,7 @@
   "yes": "Sí",
   "undo": "Deshacer",
   "redo": "Rehacer",
-  "projectSettings": "Configuración del proyecto",
+  "project": "Projekt",
   "general": "General",
   "copyTitle": "Copiado al portapapeles",
   "copyMessage": "Ahora puedes pegarlo en un editor de texto",
@@ -431,5 +431,8 @@
   "editComponent": "Editar componente",
   "scope": "Alcance",
   "noPacks": "Actualmente no hay paquetes disponibles",
-  "components": "Componentes"
+  "components": "Componentes",
+  "waypoint": "Waypoint",
+  "actions": "Acciones",
+  "painters": "Pintores"
 }

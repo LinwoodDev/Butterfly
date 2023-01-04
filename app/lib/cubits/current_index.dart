@@ -160,6 +160,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       foregrounds: [],
       temporaryHandler: null,
       temporaryForegrounds: null,
+      cameraViewport: const CameraViewport.unbaked(),
     ));
   }
 
@@ -325,23 +326,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       double y = 0,
       bool renderBackground = true}) {
     final xml = XmlDocument();
-    final svg = xml.createElement('svg', attributes: {
+    xml.createElement('svg', attributes: {
       'xmlns': 'http://www.w3.org/2000/svg',
       'xmlns:xlink': 'http://www.w3.org/1999/xlink',
       'version': '1.1',
       'width': '${width}px',
       'height': '${height}px',
       'viewBox': '$x $y $width $height',
-    });
-    svg
-        .createElement('defs')
-        .createElement('mask', id: 'eraser-mask')
-        .createElement('rect', attributes: {
-      'x': '${x}px',
-      'y': '${y}px',
-      'width': '${width}px',
-      'height': '${height}px',
-      'fill': 'white',
     });
 
     final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());

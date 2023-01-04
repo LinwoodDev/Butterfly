@@ -11,10 +11,10 @@ class PathEraserHandler extends Handler<PathEraserPainter> {
     final transform = context.getCameraTransform();
     _removeRunning = true;
     final hits = await rayCast(
-        transform.localToGlobal(event.localPosition),
-        context.buildContext,
-        data.strokeWidth / transform.size,
-        data.includeEraser);
+      transform.localToGlobal(event.localPosition),
+      context.buildContext,
+      data.strokeWidth / transform.size,
+    );
     context
         .addDocumentEvent(ElementsRemoved(hits.map((e) => e.element).toList()));
     _removeRunning = false;

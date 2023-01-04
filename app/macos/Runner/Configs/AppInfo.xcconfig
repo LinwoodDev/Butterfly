@@ -11,4 +11,4 @@ PRODUCT_NAME = butterfly
 PRODUCT_BUNDLE_IDENTIFIER = dev.linwood.butterfly
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2021 dev.linwood.butterfly. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2022 dev.linwood. All rights reserved.

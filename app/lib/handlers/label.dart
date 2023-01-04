@@ -48,7 +48,9 @@ class LabelHandler extends Handler<LabelPainter> {
     if (newElement == null) {
       return;
     }
-    bloc.add(ElementsChanged({label: newElement}));
+    bloc.add(ElementsChanged({
+      label: [newElement]
+    }));
   }
 
   @override
