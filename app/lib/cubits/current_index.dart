@@ -160,6 +160,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       foregrounds: [],
       temporaryHandler: null,
       temporaryForegrounds: null,
+      cameraViewport: const CameraViewport.unbaked(),
     ));
   }
 
