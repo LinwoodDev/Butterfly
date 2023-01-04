@@ -1,61 +1,76 @@
 part of 'handler.dart';
 
 class EraserHandler extends Handler<EraserPainter> {
-  PenElement? _element;
-  List<PenElement> _changed = const [];
+  Map<PenElement, List<PenElement>> _elements = {};
+  bool _currentlyErasing = false;
+  Offset? _currentPos;
   EraserHandler(super.data);
 
   @override
   Future<void> onPointerDown(
       PointerDownEvent event, EventContext context) async {
-    _element = (await rayCast(
-      context.getCameraTransform().localToGlobal(event.localPosition),
-      context.buildContext,
-      1,
-    ))
-        .whereType<Renderer<PenElement>>()
-        .firstOrNull
-        ?.element;
-    if (_element != null) {
-      _changed = [_element!];
-    }
-  }
-
-  @override
-  void onPointerMove(PointerMoveEvent event, EventContext context) {
     _changeElement(event.localPosition, context);
   }
 
-  void _changeElement(Offset position, EventContext context) {
+  @override
+  List<Renderer> createForegrounds(
+          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          [Area? currentArea]) =>
+      [
+        if (_currentPos != null) EraserCursor(PainterCursor(data, _currentPos!))
+      ];
+
+  @override
+  void onPointerMove(PointerMoveEvent event, EventContext context) {
+    _currentPos = event.localPosition;
+    context.refresh();
+    _changeElement(event.localPosition, context);
+  }
+
+  @override
+  void onPointerHover(PointerHoverEvent event, EventContext context) {
+    _currentPos = event.localPosition;
+    context.refresh();
+  }
+
+  Future<void> _changeElement(Offset position, EventContext context) async {
     final globalPos = context.getCameraTransform().localToGlobal(position);
-    _changed = _changed.expand((element) {
-      final pointIndex = element.points
-          .indexWhere((point) => (point.toOffset() - globalPos).distance == 0);
-      if (pointIndex != -1) {
-        // Split in two elements
-        final newFirst = element.copyWith(
-          points: element.points.sublist(0, pointIndex),
-        );
-        final newSecond = element.copyWith(
-          points: element.points.sublist(pointIndex + 1),
-        );
-        return [
-          if (newFirst.points.isNotEmpty) newFirst,
-          if (newSecond.points.isNotEmpty) newSecond,
-        ];
-      }
-      return [element];
-    }).toList();
+    final size = data.property.strokeWidth;
+    if (!_currentlyErasing) {
+      _currentlyErasing = true;
+      // Raycast
+      final ray = await rayCast(globalPos, context.buildContext, size);
+      final newElements = ray
+          .map((e) => e.element)
+          .whereType<PenElement>()
+          .where((element) => !_elements.containsKey(element));
+      _elements
+          .addAll(Map.fromEntries(newElements.map((e) => MapEntry(e, [e]))));
+      _currentlyErasing = false;
+    }
+    _elements = _elements.map((key, value) {
+      return MapEntry<PenElement, List<PenElement>>(
+          key,
+          value.expand((element) {
+            List<List<PathPoint>> paths = [[]];
+            for (final point in element.points) {
+              if ((point.toOffset() - globalPos).distance > size) {
+                // If so, add to last path
+                paths.last.add(point);
+              } else if (paths.last.isNotEmpty) {
+                paths.add([]);
+              }
+            }
+            return paths
+                .where((element) => element.isNotEmpty)
+                .map((e) => element.copyWith(points: e));
+          }).toList());
+    });
   }
 
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
-    if (_element != null) {
-      context.addDocumentEvent(ElementsChanged({
-        _element!: _changed,
-      }));
-    }
-    _element = null;
-    _changed = const [];
+    _changeElement(event.localPosition, context);
+    context.addDocumentEvent(ElementsChanged(_elements));
   }
 }
