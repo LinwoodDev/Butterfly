@@ -435,8 +435,8 @@
   "waypoint": "Waypoint",
   "actions": "Acciones",
   "painters": "Pintores",
-  "breakingChangesTitle": "Breaking changes",
-  "breakingChangesMessage": "There are breaking changes in this version. Please read the changelog before updating. The current file version is {version}, the new version is {newVersion}.",
+  "breakingChangesTitle": "Cambios de ruptura",
+  "breakingChangesMessage": "Hay cambios que se están rompiendo en esta versión. Por favor, lea el registro de cambios antes de actualizar. La versión actual del archivo es {version}, la nueva versión es {newVersion}.",
   "@breakingChangesMessage": {
     "placeholders": {
       "version": {
