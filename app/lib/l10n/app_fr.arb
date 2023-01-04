@@ -435,8 +435,8 @@
   "waypoint": "Point de repère",
   "actions": "Actions",
   "painters": "Peintres",
-  "breakingChangesTitle": "Breaking changes",
-  "breakingChangesMessage": "There are breaking changes in this version. Please read the changelog before updating. The current file version is {version}, the new version is {newVersion}.",
+  "breakingChangesTitle": "Changements en cours",
+  "breakingChangesMessage": "Il y a des modifications cassées dans cette version. Veuillez lire le journal des modifications avant de mettre à jour. La version actuelle du fichier est {version}, la nouvelle version est {newVersion}.",
   "@breakingChangesMessage": {
     "placeholders": {
       "version": {
