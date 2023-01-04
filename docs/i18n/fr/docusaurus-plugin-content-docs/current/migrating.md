@@ -5,6 +5,14 @@ sidebar_position: 2
 
 Ce guide vous montrera comment migrer vers la dernière version.
 
-## 1.0.0-beta.0
+## 7 (Breaking change) {#7}
 
-Cela fonctionne automatiquement. Pour ajouter la palette de couleurs par défaut, cliquez simplement sur le bouton de réinitialisation dans la boîte de dialogue de couleur.
+**Version: 2.0**
+
+### Breaking changes
+
+The eraser layer will be removed. On migration, the eraser layer will be removed.
+
+## Older versions
+
+All migrations before will be done automatically. Read the full migration in code [here](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
