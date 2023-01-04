@@ -7,12 +7,12 @@ Questa guida ti mostrerà come migrare all'ultima versione.
 
 ## 7 (Breaking change) {#7}
 
-**Version: 2.0**
+**Versione: 2.0**
 
-### Breaking changes
+### Cambiamenti di rottura
 
-The eraser layer will be removed. On migration, the eraser layer will be removed.
+Il livello della gomma verrà rimosso. Durante la migrazione, il livello della gomma verrà rimosso.
 
-## Older versions
+## Versioni più vecchie
 
-All migrations before will be done automatically. Read the full migration in code [here](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Tutte le migrazioni prima saranno effettuate automaticamente. Leggi la migrazione completa nel codice [qui](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
