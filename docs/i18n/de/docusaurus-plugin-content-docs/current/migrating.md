@@ -9,10 +9,10 @@ Diese Anleitung zeigt Ihnen, wie Sie zur neuesten Version migrieren.
 
 **Version: 2.0**
 
-### Breaking changes
+### Änderungen brechen
 
-The eraser layer will be removed. On migration, the eraser layer will be removed.
+Die Radierschicht wird entfernt. Bei der Migration wird die Löschschschicht entfernt.
 
-## Older versions
+## Ältere Versionen
 
-All migrations before will be done automatically. Read the full migration in code [here](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Alle vorher durchgeführten Migrationen werden automatisch durchgeführt. Lesen Sie die vollständige Migration im Code [hier](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
