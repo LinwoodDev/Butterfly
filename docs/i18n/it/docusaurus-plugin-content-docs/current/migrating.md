@@ -5,6 +5,14 @@ sidebar_position: 2
 
 Questa guida ti mostrerà come migrare all'ultima versione.
 
-## 1,0,0-beta.0
+## 7 (Breaking change) {#7}
 
-Funziona automaticamente. Per aggiungere la tavolozza di colori predefinita, fare clic sul pulsante reset nella finestra di dialogo dei colori.
+**Version: 2.0**
+
+### Breaking changes
+
+The eraser layer will be removed. On migration, the eraser layer will be removed.
+
+## Older versions
+
+All migrations before will be done automatically. Read the full migration in code [here](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
