@@ -434,5 +434,19 @@
   "components": "Komponenten",
   "waypoint": "Wegpunkt",
   "actions": "Aktionen",
-  "painters": "Maler"
+  "painters": "Maler",
+  "breakingChangesTitle": "Breaking changes",
+  "breakingChangesMessage": "There are breaking changes in this version. Please read the changelog before updating. The current file version is {version}, the new version is {newVersion}.",
+  "@breakingChangesMessage": {
+    "placeholders": {
+      "version": {
+        "type": "int",
+        "example": "1"
+      },
+      "newVersion": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  }
 }
