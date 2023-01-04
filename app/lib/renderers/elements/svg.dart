@@ -41,7 +41,6 @@ class SvgRenderer extends Renderer<SvgElement> {
       'width': '${rect.width}px',
       'height': '${rect.height}px',
       'xlink:href': dataUrl,
-      'mask': 'url(#eraser-mask)',
     });
   }
 
