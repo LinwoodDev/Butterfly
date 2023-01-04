@@ -127,10 +127,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         for (var renderer in current.renderers) {
           final updated = event.changedElements[renderer.element];
           if (updated != null) {
-            newRenderer = Renderer.fromInstance(updated);
-            await newRenderer.setup(current.document);
-            oldRenderer = renderer;
-            renderers.add(newRenderer);
+            for (var element in updated) {
+              newRenderer = Renderer.fromInstance(element);
+              await newRenderer.setup(current.document);
+              oldRenderer = renderer;
+              renderers.add(newRenderer);
+            }
           } else {
             renderers.add(renderer);
           }
@@ -147,12 +149,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             emit,
             current.copyWith(
               document: document.copyWith(
-                content: List<PadElement>.from(document.content).map((e) {
+                content: List<PadElement>.from(document.content).expand((e) {
                   final updated = event.changedElements[e];
                   if (updated != null) {
                     return updated;
                   } else {
-                    return e;
+                    return [e];
                   }
                 }).toList(),
               ),
