@@ -2660,9 +2660,9 @@ class __$$_RichStyleSheetCopyWithImpl<$Res>
 class _$_RichStyleSheet implements _RichStyleSheet {
   const _$_RichStyleSheet(
       {this.name = '',
-      final Map<String, DefinedSpanProperty> spanProperties = const [],
+      final Map<String, DefinedSpanProperty> spanProperties = const {},
       final Map<String, DefinedParagraphProperty> paragraphProperties =
-          const []})
+          const {}})
       : _spanProperties = spanProperties,
         _paragraphProperties = paragraphProperties;
 

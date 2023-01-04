@@ -95,8 +95,8 @@ class TextArea with _$TextArea {
 class RichStyleSheet with _$RichStyleSheet {
   const factory RichStyleSheet({
     @Default('') String name,
-    @Default([]) Map<String, DefinedSpanProperty> spanProperties,
-    @Default([]) Map<String, DefinedParagraphProperty> paragraphProperties,
+    @Default({}) Map<String, DefinedSpanProperty> spanProperties,
+    @Default({}) Map<String, DefinedParagraphProperty> paragraphProperties,
   }) = _RichStyleSheet;
   factory RichStyleSheet.fromJson(Map<String, dynamic> json) =>
       _$RichStyleSheetFromJson(json);

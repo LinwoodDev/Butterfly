@@ -72,19 +72,6 @@ const _$VerticalAlignmentEnumMap = {
   VerticalAlignment.bottom: 'bottom',
 };
 
-_$EraserProperty _$$EraserPropertyFromJson(Map json) => _$EraserProperty(
-      strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
-      strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$EraserPropertyToJson(_$EraserProperty instance) =>
-    <String, dynamic>{
-      'strokeWidth': instance.strokeWidth,
-      'strokeMultiplier': instance.strokeMultiplier,
-      'type': instance.$type,
-    };
-
 _$PenProperty _$$PenPropertyFromJson(Map json) => _$PenProperty(
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,

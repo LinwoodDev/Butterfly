@@ -79,7 +79,7 @@ class Painter with _$Painter {
 
   factory Painter.eraser({
     @Default('') String name,
-    @Default(EraserProperty()) EraserProperty property,
+    @Default(5) double strokeWidth,
   }) = EraserPainter;
 
   factory Painter.pathEraser({

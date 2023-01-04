@@ -235,14 +235,14 @@ _$_RichStyleSheet _$$_RichStyleSheetFromJson(Map json) => _$_RichStyleSheet(
                 DefinedSpanProperty.fromJson(
                     Map<String, dynamic>.from(e as Map))),
           ) ??
-          const [],
+          const {},
       paragraphProperties: (json['paragraphProperties'] as Map?)?.map(
             (k, e) => MapEntry(
                 k as String,
                 DefinedParagraphProperty.fromJson(
                     Map<String, dynamic>.from(e as Map))),
           ) ??
-          const [],
+          const {},
     );
 
 Map<String, dynamic> _$$_RichStyleSheetToJson(_$_RichStyleSheet instance) =>
