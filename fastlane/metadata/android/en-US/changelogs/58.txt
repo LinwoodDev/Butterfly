@@ -1,1 +1,2 @@
 * Fix new button
+* Fix ruler gestures
