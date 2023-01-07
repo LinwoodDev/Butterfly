@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:butterfly/models/converter.dart';
+import 'package:butterfly/models/pack.dart';
+import 'package:butterfly/models/text.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -54,13 +56,14 @@ class PadElement with _$PadElement {
       @Default([]) List<PathPoint> points,
       @Default(PenProperty()) PenProperty property}) = PenElement;
 
-  const factory PadElement.label({
+  const factory PadElement.text({
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
     @Default('') String text,
-    @Default(LabelProperty()) LabelProperty property,
+    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    @Default(AreaProperty()) AreaProperty property,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
-  }) = LabelElement;
+  }) = TextElement;
 
   const factory PadElement.image({
     @Default('') String layer,

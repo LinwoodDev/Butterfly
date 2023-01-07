@@ -27,7 +27,7 @@ import '../models/text.dart' as text;
 part 'backgrounds/box.dart';
 part 'backgrounds/empty.dart';
 part 'elements/image.dart';
-part 'elements/label.dart';
+part 'elements/text.dart';
 part 'elements/path.dart';
 part 'elements/pen.dart';
 part 'elements/shape.dart';
@@ -77,7 +77,7 @@ abstract class Renderer<T> {
     if (element is PadElement) {
       return element.map(
         pen: (value) => PenRenderer(value),
-        label: (value) => LabelRenderer(value),
+        text: (value) => LabelRenderer(value),
         image: (value) => ImageRenderer(value),
         svg: (value) => SvgRenderer(value),
         shape: (value) => ShapeRenderer(value),

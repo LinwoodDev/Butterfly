@@ -1,5 +1,6 @@
 import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/models/element.dart';
+import 'package:butterfly/models/text.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'pack.g.dart';
@@ -12,6 +13,7 @@ class ButterflyPack with _$ButterflyPack {
     @Default('') String description,
     @Default('') String author,
     @Default(<ButterflyComponent>[]) List<ButterflyComponent> components,
+    @Default(<TextStyleSheet>[]) List<TextStyleSheet> styles,
     @DateTimeJsonConverter() required DateTime createdAt,
     @DateTimeJsonConverter() required DateTime updatedAt,
   }) = _ButterflyPack;
@@ -65,4 +67,15 @@ class ButterflyParameter with _$ButterflyParameter {
 
   factory ButterflyParameter.fromJson(Map<String, dynamic> json) =>
       _$ButterflyParameterFromJson(json);
+}
+
+@freezed
+class PackAssetLocation with _$PackAssetLocation {
+  const factory PackAssetLocation({
+    @Default('') String pack,
+    @Default('') String name,
+  }) = _PackAssetLocation;
+
+  factory PackAssetLocation.fromJson(Map<String, dynamic> json) =>
+      _$PackAssetLocationFromJson(json);
 }

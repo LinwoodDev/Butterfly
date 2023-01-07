@@ -15,6 +15,11 @@ _$_ButterflyPack _$$_ButterflyPackFromJson(Map json) => _$_ButterflyPack(
                   Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const <ButterflyComponent>[],
+      styles: (json['styles'] as List<dynamic>?)
+              ?.map((e) =>
+                  TextStyleSheet.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const <TextStyleSheet>[],
       createdAt:
           const DateTimeJsonConverter().fromJson(json['createdAt'] as int),
       updatedAt:
@@ -27,6 +32,7 @@ Map<String, dynamic> _$$_ButterflyPackToJson(_$_ButterflyPack instance) =>
       'description': instance.description,
       'author': instance.author,
       'components': instance.components.map((e) => e.toJson()).toList(),
+      'styles': instance.styles.map((e) => e.toJson()).toList(),
       'createdAt': const DateTimeJsonConverter().toJson(instance.createdAt),
       'updatedAt': const DateTimeJsonConverter().toJson(instance.updatedAt),
     };
@@ -121,4 +127,17 @@ Map<String, dynamic> _$$DoubleParameterToJson(_$DoubleParameter instance) =>
       'name': instance.name,
       'value': instance.value,
       'type': instance.$type,
+    };
+
+_$_PackAssetLocation _$$_PackAssetLocationFromJson(Map json) =>
+    _$_PackAssetLocation(
+      pack: json['pack'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$$_PackAssetLocationToJson(
+        _$_PackAssetLocation instance) =>
+    <String, dynamic>{
+      'pack': instance.pack,
+      'name': instance.name,
     };

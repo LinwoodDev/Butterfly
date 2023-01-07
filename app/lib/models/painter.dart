@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:butterfly/models/colors.dart';
+import 'package:butterfly/models/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -46,6 +47,23 @@ extension RatioPresetExtension on AspectRatioPreset {
   }
 }
 
+@freezed
+class LabelOption with _$LabelOption {
+  const factory LabelOption.text({
+    @Default(AreaProperty()) AreaProperty property,
+  }) = TextOption;
+  const factory LabelOption.markdown({
+    String? styleSheet,
+  }) = MarkdownOption;
+
+  const factory LabelOption.richText({
+    String? styleSheet,
+  }) = RichTextOption;
+
+  factory LabelOption.fromJson(Map<String, dynamic> json) =>
+      _$LabelOptionFromJson(json);
+}
+
 @Freezed(equal: false)
 class Painter with _$Painter {
   factory Painter.hand({
@@ -68,7 +86,6 @@ class Painter with _$Painter {
 
   factory Painter.label({
     @Default('') String name,
-    @Default(LabelProperty()) LabelProperty property,
   }) = LabelPainter;
 
   factory Painter.pen({

@@ -24,6 +24,7 @@ mixin _$ButterflyPack {
   String get description => throw _privateConstructorUsedError;
   String get author => throw _privateConstructorUsedError;
   List<ButterflyComponent> get components => throw _privateConstructorUsedError;
+  List<TextStyleSheet> get styles => throw _privateConstructorUsedError;
   @DateTimeJsonConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   @DateTimeJsonConverter()
@@ -46,6 +47,7 @@ abstract class $ButterflyPackCopyWith<$Res> {
       String description,
       String author,
       List<ButterflyComponent> components,
+      List<TextStyleSheet> styles,
       @DateTimeJsonConverter() DateTime createdAt,
       @DateTimeJsonConverter() DateTime updatedAt});
 }
@@ -67,6 +69,7 @@ class _$ButterflyPackCopyWithImpl<$Res, $Val extends ButterflyPack>
     Object? description = null,
     Object? author = null,
     Object? components = null,
+    Object? styles = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -87,6 +90,10 @@ class _$ButterflyPackCopyWithImpl<$Res, $Val extends ButterflyPack>
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
               as List<ButterflyComponent>,
+      styles: null == styles
+          ? _value.styles
+          : styles // ignore: cast_nullable_to_non_nullable
+              as List<TextStyleSheet>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -112,6 +119,7 @@ abstract class _$$_ButterflyPackCopyWith<$Res>
       String description,
       String author,
       List<ButterflyComponent> components,
+      List<TextStyleSheet> styles,
       @DateTimeJsonConverter() DateTime createdAt,
       @DateTimeJsonConverter() DateTime updatedAt});
 }
@@ -131,6 +139,7 @@ class __$$_ButterflyPackCopyWithImpl<$Res>
     Object? description = null,
     Object? author = null,
     Object? components = null,
+    Object? styles = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -151,6 +160,10 @@ class __$$_ButterflyPackCopyWithImpl<$Res>
           ? _value._components
           : components // ignore: cast_nullable_to_non_nullable
               as List<ButterflyComponent>,
+      styles: null == styles
+          ? _value._styles
+          : styles // ignore: cast_nullable_to_non_nullable
+              as List<TextStyleSheet>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -171,9 +184,11 @@ class _$_ButterflyPack implements _ButterflyPack {
       this.description = '',
       this.author = '',
       final List<ButterflyComponent> components = const <ButterflyComponent>[],
+      final List<TextStyleSheet> styles = const <TextStyleSheet>[],
       @DateTimeJsonConverter() required this.createdAt,
       @DateTimeJsonConverter() required this.updatedAt})
-      : _components = components;
+      : _components = components,
+        _styles = styles;
 
   factory _$_ButterflyPack.fromJson(Map<String, dynamic> json) =>
       _$$_ButterflyPackFromJson(json);
@@ -196,6 +211,15 @@ class _$_ButterflyPack implements _ButterflyPack {
     return EqualUnmodifiableListView(_components);
   }
 
+  final List<TextStyleSheet> _styles;
+  @override
+  @JsonKey()
+  List<TextStyleSheet> get styles {
+    if (_styles is EqualUnmodifiableListView) return _styles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_styles);
+  }
+
   @override
   @DateTimeJsonConverter()
   final DateTime createdAt;
@@ -205,7 +229,7 @@ class _$_ButterflyPack implements _ButterflyPack {
 
   @override
   String toString() {
-    return 'ButterflyPack(name: $name, description: $description, author: $author, components: $components, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ButterflyPack(name: $name, description: $description, author: $author, components: $components, styles: $styles, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @JsonKey(ignore: true)
@@ -228,6 +252,7 @@ abstract class _ButterflyPack implements ButterflyPack {
           final String description,
           final String author,
           final List<ButterflyComponent> components,
+          final List<TextStyleSheet> styles,
           @DateTimeJsonConverter() required final DateTime createdAt,
           @DateTimeJsonConverter() required final DateTime updatedAt}) =
       _$_ButterflyPack;
@@ -243,6 +268,8 @@ abstract class _ButterflyPack implements ButterflyPack {
   String get author;
   @override
   List<ButterflyComponent> get components;
+  @override
+  List<TextStyleSheet> get styles;
   @override
   @DateTimeJsonConverter()
   DateTime get createdAt;
@@ -1457,5 +1484,161 @@ abstract class DoubleParameter implements ButterflyParameter {
   @override
   @JsonKey(ignore: true)
   _$$DoubleParameterCopyWith<_$DoubleParameter> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PackAssetLocation _$PackAssetLocationFromJson(Map<String, dynamic> json) {
+  return _PackAssetLocation.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PackAssetLocation {
+  String get pack => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PackAssetLocationCopyWith<PackAssetLocation> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PackAssetLocationCopyWith<$Res> {
+  factory $PackAssetLocationCopyWith(
+          PackAssetLocation value, $Res Function(PackAssetLocation) then) =
+      _$PackAssetLocationCopyWithImpl<$Res, PackAssetLocation>;
+  @useResult
+  $Res call({String pack, String name});
+}
+
+/// @nodoc
+class _$PackAssetLocationCopyWithImpl<$Res, $Val extends PackAssetLocation>
+    implements $PackAssetLocationCopyWith<$Res> {
+  _$PackAssetLocationCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? pack = null,
+    Object? name = null,
+  }) {
+    return _then(_value.copyWith(
+      pack: null == pack
+          ? _value.pack
+          : pack // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_PackAssetLocationCopyWith<$Res>
+    implements $PackAssetLocationCopyWith<$Res> {
+  factory _$$_PackAssetLocationCopyWith(_$_PackAssetLocation value,
+          $Res Function(_$_PackAssetLocation) then) =
+      __$$_PackAssetLocationCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String pack, String name});
+}
+
+/// @nodoc
+class __$$_PackAssetLocationCopyWithImpl<$Res>
+    extends _$PackAssetLocationCopyWithImpl<$Res, _$_PackAssetLocation>
+    implements _$$_PackAssetLocationCopyWith<$Res> {
+  __$$_PackAssetLocationCopyWithImpl(
+      _$_PackAssetLocation _value, $Res Function(_$_PackAssetLocation) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? pack = null,
+    Object? name = null,
+  }) {
+    return _then(_$_PackAssetLocation(
+      pack: null == pack
+          ? _value.pack
+          : pack // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_PackAssetLocation implements _PackAssetLocation {
+  const _$_PackAssetLocation({this.pack = '', this.name = ''});
+
+  factory _$_PackAssetLocation.fromJson(Map<String, dynamic> json) =>
+      _$$_PackAssetLocationFromJson(json);
+
+  @override
+  @JsonKey()
+  final String pack;
+  @override
+  @JsonKey()
+  final String name;
+
+  @override
+  String toString() {
+    return 'PackAssetLocation(pack: $pack, name: $name)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PackAssetLocation &&
+            (identical(other.pack, pack) || other.pack == pack) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, pack, name);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_PackAssetLocationCopyWith<_$_PackAssetLocation> get copyWith =>
+      __$$_PackAssetLocationCopyWithImpl<_$_PackAssetLocation>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_PackAssetLocationToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PackAssetLocation implements PackAssetLocation {
+  const factory _PackAssetLocation({final String pack, final String name}) =
+      _$_PackAssetLocation;
+
+  factory _PackAssetLocation.fromJson(Map<String, dynamic> json) =
+      _$_PackAssetLocation.fromJson;
+
+  @override
+  String get pack;
+  @override
+  String get name;
+  @override
+  @JsonKey(ignore: true)
+  _$$_PackAssetLocationCopyWith<_$_PackAssetLocation> get copyWith =>
       throw _privateConstructorUsedError;
 }

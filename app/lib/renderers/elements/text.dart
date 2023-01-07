@@ -1,10 +1,10 @@
 part of '../renderer.dart';
 
-class LabelRenderer extends Renderer<LabelElement> {
+class TextRenderer extends Renderer<TextElement> {
   @override
   Rect rect;
 
-  LabelRenderer(super.element, [this.rect = Rect.zero]);
+  TextRenderer(super.element, [this.rect = Rect.zero]);
 
   TextAlign _convertAlignment(text.HorizontalAlignment alignment) {
     switch (alignment) {

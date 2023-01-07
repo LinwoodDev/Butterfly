@@ -92,15 +92,19 @@ Map<String, dynamic> _$$PenElementToJson(_$PenElement instance) =>
       'type': instance.$type,
     };
 
-_$LabelElement _$$LabelElementFromJson(Map json) => _$LabelElement(
+_$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null
           ? Offset.zero
           : const OffsetJsonConverter().fromJson(json['position'] as Map),
       text: json['text'] as String? ?? '',
+      styleSheet: json['styleSheet'] == null
+          ? const PackAssetLocation()
+          : PackAssetLocation.fromJson(
+              Map<String, dynamic>.from(json['styleSheet'] as Map)),
       property: json['property'] == null
-          ? const LabelProperty()
-          : LabelProperty.fromJson(
+          ? const AreaProperty.undefined()
+          : AreaProperty.fromJson(
               Map<String, dynamic>.from(json['property'] as Map)),
       constraint: json['constraint'] == null
           ? const ElementConstraint(size: 1000)
@@ -109,11 +113,12 @@ _$LabelElement _$$LabelElementFromJson(Map json) => _$LabelElement(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$LabelElementToJson(_$LabelElement instance) =>
+Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
     <String, dynamic>{
       'layer': instance.layer,
       'position': const OffsetJsonConverter().toJson(instance.position),
       'text': instance.text,
+      'styleSheet': instance.styleSheet.toJson(),
       'property': instance.property.toJson(),
       'constraint': instance.constraint.toJson(),
       'type': instance.$type,

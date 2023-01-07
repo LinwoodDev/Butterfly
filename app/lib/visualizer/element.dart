@@ -10,7 +10,7 @@ extension ElementVisualizer on PadElement {
     final loc = AppLocalizations.of(context)!;
     return map(
       pen: (_) => loc.pen,
-      label: (_) => loc.label,
+      text: (_) => loc.text,
       image: (_) => loc.image,
       shape: (_) => loc.shape,
       svg: (_) => loc.svg,
@@ -20,7 +20,7 @@ extension ElementVisualizer on PadElement {
   IconData getIcon() {
     return map(
       pen: (_) => PhosphorIcons.penLight,
-      label: (_) => PhosphorIcons.textTLight,
+      text: (_) => PhosphorIcons.textTLight,
       image: (_) => PhosphorIcons.imageLight,
       shape: (element) => element.property.shape.getIcon(),
       svg: (_) => PhosphorIcons.sunLight,
