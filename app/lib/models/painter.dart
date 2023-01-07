@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:butterfly/models/colors.dart';
+import 'package:butterfly/models/pack.dart';
 import 'package:butterfly/models/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -141,8 +142,7 @@ class Painter with _$Painter {
 
   factory Painter.stamp({
     @Default('') String name,
-    @Default('') String pack,
-    @Default(0) int component,
+    @Default(PackAssetLocation()) PackAssetLocation location,
   }) = StampPainter;
 
   factory Painter.fromJson(Map<String, dynamic> json) =>

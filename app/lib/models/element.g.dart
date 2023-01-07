@@ -103,7 +103,7 @@ _$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
           : PackAssetLocation.fromJson(
               Map<String, dynamic>.from(json['styleSheet'] as Map)),
       property: json['property'] == null
-          ? const AreaProperty.undefined()
+          ? const AreaProperty()
           : AreaProperty.fromJson(
               Map<String, dynamic>.from(json['property'] as Map)),
       constraint: json['constraint'] == null

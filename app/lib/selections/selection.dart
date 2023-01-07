@@ -26,7 +26,6 @@ import '../models/area.dart';
 import '../models/element.dart';
 import '../models/pack.dart';
 import '../models/painter.dart';
-import '../models/text.dart';
 import '../models/tool.dart';
 import '../renderers/renderer.dart';
 import '../widgets/color_field.dart';
@@ -34,7 +33,7 @@ import '../widgets/exact_slider.dart';
 
 part 'elements/element.dart';
 part 'elements/image.dart';
-part 'elements/label.dart';
+part 'elements/text.dart';
 part 'elements/pen.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
@@ -52,7 +51,6 @@ part 'painters/shape.dart';
 part 'painters/stamp.dart';
 
 part 'properties/property.dart';
-part 'properties/label.dart';
 part 'properties/path.dart';
 part 'properties/pen.dart';
 

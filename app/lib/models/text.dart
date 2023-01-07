@@ -1,10 +1,7 @@
-import 'package:butterfly/models/document.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'colors.dart';
-import 'pack.dart';
 
 part 'text.g.dart';
 part 'text.freezed.dart';
@@ -40,7 +37,7 @@ class SpanProperty with _$SpanProperty {
 @freezed
 class ParagraphProperty with _$ParagraphProperty {
   const factory ParagraphProperty.defined({
-    @Default(SpanProperty.undefined()) SpanProperty span,
+    @Default(DefinedSpanProperty()) DefinedSpanProperty span,
     @Default(HorizontalAlignment.left) HorizontalAlignment alignment,
   }) = DefinedParagraphProperty;
   const factory ParagraphProperty.named(String name) = NamedParagraphProperty;
@@ -95,6 +92,8 @@ class TextArea with _$TextArea {
 
 @freezed
 class TextStyleSheet with _$TextStyleSheet {
+  const TextStyleSheet._();
+
   const factory TextStyleSheet({
     @Default('') String name,
     @Default({}) Map<String, DefinedSpanProperty> spanProperties,
@@ -137,13 +136,31 @@ class TextStyleSheet with _$TextStyleSheet {
       'td',
     ];
   }
-}
 
-extension StyleSheetDocumentException on AppDocument {
-  TextStyleSheet? getStyleSheet(PackAssetLocation location) {
-    return packs
-        .map((e) => e.styles)
-        .expand((e) => e)
-        .firstWhereOrNull((e) => e.name == name);
+  DefinedSpanProperty? getSpanProperty(String name) {
+    return spanProperties[name];
+  }
+
+  DefinedParagraphProperty? getParagraphProperty(String name) {
+    return paragraphProperties[name];
+  }
+
+  DefinedSpanProperty resolveSpanProperty(SpanProperty property) {
+    return property.map(
+          defined: (value) => value,
+          named: (value) => spanProperties[value],
+          undefined: (value) => null,
+        ) ??
+        const DefinedSpanProperty();
+  }
+
+  DefinedParagraphProperty resolveParagraphProperty(
+      ParagraphProperty property) {
+    return property.map(
+          defined: (value) => value,
+          named: (value) => paragraphProperties[value],
+          undefined: (value) => null,
+        ) ??
+        const DefinedParagraphProperty();
   }
 }

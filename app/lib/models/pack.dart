@@ -1,13 +1,18 @@
 import 'package:butterfly/models/converter.dart';
 import 'package:butterfly/models/element.dart';
 import 'package:butterfly/models/text.dart';
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'document.dart';
 
 part 'pack.g.dart';
 part 'pack.freezed.dart';
 
 @Freezed(equal: false)
 class ButterflyPack with _$ButterflyPack {
+  const ButterflyPack._();
+
   const factory ButterflyPack({
     @Default('') String name,
     @Default('') String description,
@@ -20,6 +25,14 @@ class ButterflyPack with _$ButterflyPack {
 
   factory ButterflyPack.fromJson(Map<String, dynamic> json) =>
       _$ButterflyPackFromJson(json);
+
+  ButterflyComponent? getComponent(String name) {
+    return components.firstWhereOrNull((e) => e.name == name);
+  }
+
+  TextStyleSheet? getStyle(String name) {
+    return styles.firstWhereOrNull((e) => e.name == name);
+  }
 }
 
 @Freezed(equal: false)
@@ -78,4 +91,14 @@ class PackAssetLocation with _$PackAssetLocation {
 
   factory PackAssetLocation.fromJson(Map<String, dynamic> json) =>
       _$PackAssetLocationFromJson(json);
+}
+
+extension PackDocumentException on AppDocument {
+  ButterflyComponent? getComponent(PackAssetLocation location) {
+    return getPack(location.pack)?.getComponent(location.name);
+  }
+
+  TextStyleSheet? getStyle(PackAssetLocation location) {
+    return getPack(location.pack)?.getStyle(location.name);
+  }
 }

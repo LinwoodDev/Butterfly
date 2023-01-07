@@ -1420,7 +1420,7 @@ class _$TextElement implements TextElement {
       @OffsetJsonConverter() this.position = Offset.zero,
       this.text = '',
       this.styleSheet = const PackAssetLocation(),
-      this.property = const AreaProperty.undefined(),
+      this.property = const AreaProperty(),
       this.constraint = const ElementConstraint(size: 1000),
       final String? $type})
       : $type = $type ?? 'text';

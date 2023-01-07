@@ -178,7 +178,7 @@ class __$$_ButterflyPackCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ButterflyPack implements _ButterflyPack {
+class _$_ButterflyPack extends _ButterflyPack {
   const _$_ButterflyPack(
       {this.name = '',
       this.description = '',
@@ -188,7 +188,8 @@ class _$_ButterflyPack implements _ButterflyPack {
       @DateTimeJsonConverter() required this.createdAt,
       @DateTimeJsonConverter() required this.updatedAt})
       : _components = components,
-        _styles = styles;
+        _styles = styles,
+        super._();
 
   factory _$_ButterflyPack.fromJson(Map<String, dynamic> json) =>
       _$$_ButterflyPackFromJson(json);
@@ -246,7 +247,7 @@ class _$_ButterflyPack implements _ButterflyPack {
   }
 }
 
-abstract class _ButterflyPack implements ButterflyPack {
+abstract class _ButterflyPack extends ButterflyPack {
   const factory _ButterflyPack(
           {final String name,
           final String description,
@@ -256,6 +257,7 @@ abstract class _ButterflyPack implements ButterflyPack {
           @DateTimeJsonConverter() required final DateTime createdAt,
           @DateTimeJsonConverter() required final DateTime updatedAt}) =
       _$_ButterflyPack;
+  const _ButterflyPack._() : super._();
 
   factory _ButterflyPack.fromJson(Map<String, dynamic> json) =
       _$_ButterflyPack.fromJson;

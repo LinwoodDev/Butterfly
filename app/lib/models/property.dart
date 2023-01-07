@@ -1,7 +1,6 @@
 import 'package:butterfly/models/colors.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-
 part 'property.g.dart';
 part 'property.freezed.dart';
 

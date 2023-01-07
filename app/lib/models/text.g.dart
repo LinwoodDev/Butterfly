@@ -77,8 +77,8 @@ Map<String, dynamic> _$$UndefinedSpanPropertyToJson(
 _$DefinedParagraphProperty _$$DefinedParagraphPropertyFromJson(Map json) =>
     _$DefinedParagraphProperty(
       span: json['span'] == null
-          ? const SpanProperty.undefined()
-          : SpanProperty.fromJson(
+          ? const DefinedSpanProperty()
+          : DefinedSpanProperty.fromJson(
               Map<String, dynamic>.from(json['span'] as Map)),
       alignment: $enumDecodeNullable(
               _$HorizontalAlignmentEnumMap, json['alignment']) ??
@@ -183,7 +183,7 @@ Map<String, dynamic> _$$_ParagraphPropertyToJson(
 
 _$_TextArea _$$_TextAreaFromJson(Map json) => _$_TextArea(
       areaProperty: json['areaProperty'] == null
-          ? const AreaProperty.undefined()
+          ? const AreaProperty()
           : AreaProperty.fromJson(
               Map<String, dynamic>.from(json['areaProperty'] as Map)),
       textParagraphs: (json['textParagraphs'] as List<dynamic>?)

@@ -21,17 +21,8 @@ class StampHandler extends Handler<StampPainter> {
         .toList();
   }
 
-  ButterflyComponent? getComponent(AppDocument document) {
-    final pack = document.getPack(data.pack);
-    if (pack == null) return null;
-    final componentId = data.component;
-    if (componentId >= pack.components.length || componentId < 0) return null;
-
-    final component = pack.components[componentId];
-    if (component.elements.isEmpty) return null;
-
-    return component;
-  }
+  ButterflyComponent? getComponent(AppDocument document) =>
+      document.getComponent(data.location);
 
   Future<void> _loadComponent(AppDocument document) async {
     _position = Offset.zero;

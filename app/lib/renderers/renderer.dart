@@ -8,6 +8,7 @@ import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/area.dart';
 import 'package:butterfly/models/document.dart';
 import 'package:butterfly/models/element.dart';
+import 'package:butterfly/models/pack.dart';
 import 'package:butterfly/models/tool.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/int.dart';
@@ -77,7 +78,7 @@ abstract class Renderer<T> {
     if (element is PadElement) {
       return element.map(
         pen: (value) => PenRenderer(value),
-        text: (value) => LabelRenderer(value),
+        text: (value) => TextRenderer(value),
         image: (value) => ImageRenderer(value),
         svg: (value) => SvgRenderer(value),
         shape: (value) => ShapeRenderer(value),

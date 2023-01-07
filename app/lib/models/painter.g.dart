@@ -8,7 +8,7 @@ part of 'painter.dart';
 
 _$TextOption _$$TextOptionFromJson(Map json) => _$TextOption(
       property: json['property'] == null
-          ? const AreaProperty.undefined()
+          ? const AreaProperty()
           : AreaProperty.fromJson(
               Map<String, dynamic>.from(json['property'] as Map)),
       $type: json['type'] as String?,
@@ -242,15 +242,16 @@ Map<String, dynamic> _$$ShapePainterToJson(_$ShapePainter instance) =>
 
 _$StampPainter _$$StampPainterFromJson(Map json) => _$StampPainter(
       name: json['name'] as String? ?? '',
-      pack: json['pack'] as String? ?? '',
-      component: json['component'] as int? ?? 0,
+      location: json['location'] == null
+          ? const PackAssetLocation()
+          : PackAssetLocation.fromJson(
+              Map<String, dynamic>.from(json['location'] as Map)),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$StampPainterToJson(_$StampPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'pack': instance.pack,
-      'component': instance.component,
+      'location': instance.location.toJson(),
       'type': instance.$type,
     };

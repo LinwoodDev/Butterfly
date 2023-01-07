@@ -13,7 +13,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
           as ElementSelection<T>;
     }
     if (selected is Renderer<TextElement>) {
-      return LabelElementSelection([selected as Renderer<TextElement>])
+      return TextElementSelection([selected as Renderer<TextElement>])
           as ElementSelection<T>;
     }
     if (selected is Renderer<PenElement>) {

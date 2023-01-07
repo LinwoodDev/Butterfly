@@ -888,7 +888,8 @@ ParagraphProperty _$ParagraphPropertyFromJson(Map<String, dynamic> json) {
 mixin _$ParagraphProperty {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(SpanProperty span, HorizontalAlignment alignment)
+    required TResult Function(
+            DefinedSpanProperty span, HorizontalAlignment alignment)
         defined,
     required TResult Function(String name) named,
     required TResult Function() undefined,
@@ -896,7 +897,7 @@ mixin _$ParagraphProperty {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SpanProperty span, HorizontalAlignment alignment)?
+    TResult? Function(DefinedSpanProperty span, HorizontalAlignment alignment)?
         defined,
     TResult? Function(String name)? named,
     TResult? Function()? undefined,
@@ -904,7 +905,8 @@ mixin _$ParagraphProperty {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SpanProperty span, HorizontalAlignment alignment)? defined,
+    TResult Function(DefinedSpanProperty span, HorizontalAlignment alignment)?
+        defined,
     TResult Function(String name)? named,
     TResult Function()? undefined,
     required TResult orElse(),
@@ -959,9 +961,7 @@ abstract class _$$DefinedParagraphPropertyCopyWith<$Res> {
           $Res Function(_$DefinedParagraphProperty) then) =
       __$$DefinedParagraphPropertyCopyWithImpl<$Res>;
   @useResult
-  $Res call({SpanProperty span, HorizontalAlignment alignment});
-
-  $SpanPropertyCopyWith<$Res> get span;
+  $Res call({DefinedSpanProperty span, HorizontalAlignment alignment});
 }
 
 /// @nodoc
@@ -975,27 +975,19 @@ class __$$DefinedParagraphPropertyCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? span = null,
+    Object? span = freezed,
     Object? alignment = null,
   }) {
     return _then(_$DefinedParagraphProperty(
-      span: null == span
+      span: freezed == span
           ? _value.span
           : span // ignore: cast_nullable_to_non_nullable
-              as SpanProperty,
+              as DefinedSpanProperty,
       alignment: null == alignment
           ? _value.alignment
           : alignment // ignore: cast_nullable_to_non_nullable
               as HorizontalAlignment,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $SpanPropertyCopyWith<$Res> get span {
-    return $SpanPropertyCopyWith<$Res>(_value.span, (value) {
-      return _then(_value.copyWith(span: value));
-    });
   }
 }
 
@@ -1003,7 +995,7 @@ class __$$DefinedParagraphPropertyCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DefinedParagraphProperty implements DefinedParagraphProperty {
   const _$DefinedParagraphProperty(
-      {this.span = const SpanProperty.undefined(),
+      {this.span = const DefinedSpanProperty(),
       this.alignment = HorizontalAlignment.left,
       final String? $type})
       : $type = $type ?? 'defined';
@@ -1013,7 +1005,7 @@ class _$DefinedParagraphProperty implements DefinedParagraphProperty {
 
   @override
   @JsonKey()
-  final SpanProperty span;
+  final DefinedSpanProperty span;
   @override
   @JsonKey()
   final HorizontalAlignment alignment;
@@ -1031,14 +1023,15 @@ class _$DefinedParagraphProperty implements DefinedParagraphProperty {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DefinedParagraphProperty &&
-            (identical(other.span, span) || other.span == span) &&
+            const DeepCollectionEquality().equals(other.span, span) &&
             (identical(other.alignment, alignment) ||
                 other.alignment == alignment));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, span, alignment);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(span), alignment);
 
   @JsonKey(ignore: true)
   @override
@@ -1051,7 +1044,8 @@ class _$DefinedParagraphProperty implements DefinedParagraphProperty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(SpanProperty span, HorizontalAlignment alignment)
+    required TResult Function(
+            DefinedSpanProperty span, HorizontalAlignment alignment)
         defined,
     required TResult Function(String name) named,
     required TResult Function() undefined,
@@ -1062,7 +1056,7 @@ class _$DefinedParagraphProperty implements DefinedParagraphProperty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SpanProperty span, HorizontalAlignment alignment)?
+    TResult? Function(DefinedSpanProperty span, HorizontalAlignment alignment)?
         defined,
     TResult? Function(String name)? named,
     TResult? Function()? undefined,
@@ -1073,7 +1067,8 @@ class _$DefinedParagraphProperty implements DefinedParagraphProperty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SpanProperty span, HorizontalAlignment alignment)? defined,
+    TResult Function(DefinedSpanProperty span, HorizontalAlignment alignment)?
+        defined,
     TResult Function(String name)? named,
     TResult Function()? undefined,
     required TResult orElse(),
@@ -1128,13 +1123,13 @@ class _$DefinedParagraphProperty implements DefinedParagraphProperty {
 
 abstract class DefinedParagraphProperty implements ParagraphProperty {
   const factory DefinedParagraphProperty(
-      {final SpanProperty span,
+      {final DefinedSpanProperty span,
       final HorizontalAlignment alignment}) = _$DefinedParagraphProperty;
 
   factory DefinedParagraphProperty.fromJson(Map<String, dynamic> json) =
       _$DefinedParagraphProperty.fromJson;
 
-  SpanProperty get span;
+  DefinedSpanProperty get span;
   HorizontalAlignment get alignment;
   @JsonKey(ignore: true)
   _$$DefinedParagraphPropertyCopyWith<_$DefinedParagraphProperty>
@@ -1214,7 +1209,8 @@ class _$NamedParagraphProperty implements NamedParagraphProperty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(SpanProperty span, HorizontalAlignment alignment)
+    required TResult Function(
+            DefinedSpanProperty span, HorizontalAlignment alignment)
         defined,
     required TResult Function(String name) named,
     required TResult Function() undefined,
@@ -1225,7 +1221,7 @@ class _$NamedParagraphProperty implements NamedParagraphProperty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SpanProperty span, HorizontalAlignment alignment)?
+    TResult? Function(DefinedSpanProperty span, HorizontalAlignment alignment)?
         defined,
     TResult? Function(String name)? named,
     TResult? Function()? undefined,
@@ -1236,7 +1232,8 @@ class _$NamedParagraphProperty implements NamedParagraphProperty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SpanProperty span, HorizontalAlignment alignment)? defined,
+    TResult Function(DefinedSpanProperty span, HorizontalAlignment alignment)?
+        defined,
     TResult Function(String name)? named,
     TResult Function()? undefined,
     required TResult orElse(),
@@ -1351,7 +1348,8 @@ class _$UndefinedParagraphProperty implements UndefinedParagraphProperty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(SpanProperty span, HorizontalAlignment alignment)
+    required TResult Function(
+            DefinedSpanProperty span, HorizontalAlignment alignment)
         defined,
     required TResult Function(String name) named,
     required TResult Function() undefined,
@@ -1362,7 +1360,7 @@ class _$UndefinedParagraphProperty implements UndefinedParagraphProperty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SpanProperty span, HorizontalAlignment alignment)?
+    TResult? Function(DefinedSpanProperty span, HorizontalAlignment alignment)?
         defined,
     TResult? Function(String name)? named,
     TResult? Function()? undefined,
@@ -1373,7 +1371,8 @@ class _$UndefinedParagraphProperty implements UndefinedParagraphProperty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SpanProperty span, HorizontalAlignment alignment)? defined,
+    TResult Function(DefinedSpanProperty span, HorizontalAlignment alignment)?
+        defined,
     TResult Function(String name)? named,
     TResult Function()? undefined,
     required TResult orElse(),
@@ -2060,7 +2059,7 @@ class __$$_TextAreaCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TextArea implements _TextArea {
   const _$_TextArea(
-      {this.areaProperty = const AreaProperty.undefined(),
+      {this.areaProperty = const AreaProperty(),
       final List<TextParagraph> textParagraphs = const []})
       : _textParagraphs = textParagraphs;
 
@@ -2243,14 +2242,15 @@ class __$$_TextStyleSheetCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TextStyleSheet implements _TextStyleSheet {
+class _$_TextStyleSheet extends _TextStyleSheet {
   const _$_TextStyleSheet(
       {this.name = '',
       final Map<String, DefinedSpanProperty> spanProperties = const {},
       final Map<String, DefinedParagraphProperty> paragraphProperties =
           const {}})
       : _spanProperties = spanProperties,
-        _paragraphProperties = paragraphProperties;
+        _paragraphProperties = paragraphProperties,
+        super._();
 
   factory _$_TextStyleSheet.fromJson(Map<String, dynamic> json) =>
       _$$_TextStyleSheetFromJson(json);
@@ -2316,12 +2316,13 @@ class _$_TextStyleSheet implements _TextStyleSheet {
   }
 }
 
-abstract class _TextStyleSheet implements TextStyleSheet {
+abstract class _TextStyleSheet extends TextStyleSheet {
   const factory _TextStyleSheet(
           {final String name,
           final Map<String, DefinedSpanProperty> spanProperties,
           final Map<String, DefinedParagraphProperty> paragraphProperties}) =
       _$_TextStyleSheet;
+  const _TextStyleSheet._() : super._();
 
   factory _TextStyleSheet.fromJson(Map<String, dynamic> json) =
       _$_TextStyleSheet.fromJson;

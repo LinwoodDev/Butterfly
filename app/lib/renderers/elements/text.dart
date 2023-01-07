@@ -19,44 +19,50 @@ class TextRenderer extends Renderer<TextElement> {
     }
   }
 
-  TextPainter _createPainter() => TextPainter(
-      text: TextSpan(
-          style: TextStyle(
-              fontSize: element.property.size,
-              fontFamily: 'Roboto',
-              fontStyle:
-                  element.property.italic ? FontStyle.italic : FontStyle.normal,
-              color: Color(element.property.color),
-              fontWeight: FontWeight.values[element.property.fontWeight],
-              letterSpacing: element.property.letterSpacing,
-              decorationColor: Color(element.property.decorationColor),
-              decorationStyle: element.property.decorationStyle,
-              decorationThickness: element.property.decorationThickness,
-              decoration: TextDecoration.combine([
-                if (element.property.underline) TextDecoration.underline,
-                if (element.property.lineThrough) TextDecoration.lineThrough,
-                if (element.property.overline) TextDecoration.overline,
-              ])),
-          text: element.text),
-      textAlign: _convertAlignment(element.property.horizontalAlignment),
-      textDirection: TextDirection.ltr,
-      textScaleFactor: 1.0);
+  TextPainter _createPainter(AppDocument document) {
+    final styleSheet = document.getStyle(element.styleSheet);
+    final style =
+        styleSheet?.resolveParagraphProperty(element.property.paragraph) ??
+            const text.DefinedParagraphProperty();
+    final span = style.span;
+    return TextPainter(
+        text: TextSpan(
+            style: TextStyle(
+                fontSize: span.size,
+                fontFamily: 'Roboto',
+                fontStyle: span.italic ? FontStyle.italic : FontStyle.normal,
+                color: Color(span.color),
+                fontWeight: FontWeight.values[span.fontWeight],
+                letterSpacing: span.letterSpacing,
+                decorationColor: Color(span.decorationColor),
+                decorationStyle: span.decorationStyle,
+                decorationThickness: span.decorationThickness,
+                decoration: TextDecoration.combine([
+                  if (span.underline) TextDecoration.underline,
+                  if (span.lineThrough) TextDecoration.lineThrough,
+                  if (span.overline) TextDecoration.overline,
+                ])),
+            text: element.text),
+        textAlign: _convertAlignment(style.alignment),
+        textDirection: TextDirection.ltr,
+        textScaleFactor: 1.0);
+  }
 
   @override
   FutureOr<void> setup(AppDocument document) async {
-    _updateRect();
+    _updateRect(document);
     await super.setup(document);
-    _updateRect();
+    _updateRect(document);
   }
 
   @override
   FutureOr<bool> onAreaUpdate(AppDocument document, Area? area) async {
     await super.onAreaUpdate(document, area);
-    _updateRect();
+    _updateRect(document);
     return true;
   }
 
-  void _updateRect() {
+  void _updateRect(AppDocument document) {
     var maxWidth = double.infinity;
     final constraints = element.constraint;
     if (constraints.size > 0) maxWidth = constraints.size;
@@ -64,7 +70,7 @@ class TextRenderer extends Renderer<TextElement> {
       maxWidth = min(maxWidth + element.position.dx, area!.rect.right) -
           element.position.dx;
     }
-    final tp = _createPainter();
+    final tp = _createPainter(document);
     tp.layout(maxWidth: maxWidth);
     var height = tp.height;
     if (height < constraints.length) {
@@ -80,11 +86,11 @@ class TextRenderer extends Renderer<TextElement> {
   FutureOr<void> build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    final tp = _createPainter();
+    final tp = _createPainter(document);
     tp.layout(maxWidth: rect.width);
     var current = element.position;
     // Change vertical alignment
-    final align = element.property.verticalAlignment;
+    final align = element.property.alignment;
     switch (align) {
       case text.VerticalAlignment.top:
         current = current.translate(0, 0);
@@ -102,13 +108,17 @@ class TextRenderer extends Renderer<TextElement> {
   @override
   void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
-    final property = element.property;
+    final styleSheet = document.getStyle(element.styleSheet);
+    final style =
+        styleSheet?.resolveParagraphProperty(element.property.paragraph) ??
+            const text.DefinedParagraphProperty();
+    final span = style.span;
     String textDecoration = '';
-    if (property.underline) textDecoration += 'underline ';
-    if (property.lineThrough) textDecoration += 'line-through ';
-    if (property.overline) textDecoration += 'overline ';
+    if (span.underline) textDecoration += 'underline ';
+    if (span.lineThrough) textDecoration += 'line-through ';
+    if (span.overline) textDecoration += 'overline ';
     textDecoration +=
-        '${property.decorationStyle.name} ${property.decorationThickness}px ${property.decorationColor.toHexColor()}';
+        '${span.decorationStyle.name} ${span.decorationThickness}px ${span.decorationColor.toHexColor()}';
     final foreignObject =
         xml.getElement('svg')?.createElement('foreignObject', attributes: {
       'x': '${rect.left}px',
@@ -117,7 +127,7 @@ class TextRenderer extends Renderer<TextElement> {
       'height': '${min(rect.height, rect.bottom)}px',
     });
     String alignItems = 'center';
-    switch (element.property.verticalAlignment) {
+    switch (element.property.alignment) {
       case text.VerticalAlignment.top:
         alignItems = 'flex-start';
         break;
@@ -129,7 +139,7 @@ class TextRenderer extends Renderer<TextElement> {
         break;
     }
     String alignContent = 'center';
-    switch (element.property.horizontalAlignment) {
+    switch (style.alignment) {
       case text.HorizontalAlignment.left:
         alignContent = 'flex-start';
         break;
@@ -144,12 +154,12 @@ class TextRenderer extends Renderer<TextElement> {
         break;
     }
     final div = foreignObject?.createElement('div', attributes: {
-      'style': 'font-size: ${property.size}px;'
-          'font-style: ${property.italic ? 'italic' : 'normal'};'
-          'font-weight: ${property.fontWeight};'
+      'style': 'font-size: ${span.size}px;'
+          'font-style: ${span.italic ? 'italic' : 'normal'};'
+          'font-weight: ${span.fontWeight};'
           'font-family: Roboto;'
-          'letter-spacing: ${property.letterSpacing}px;'
-          'color: #${property.color.toHexColor()};'
+          'letter-spacing: ${span.letterSpacing}px;'
+          'color: #${span.color.toHexColor()};'
           'text-decoration: $textDecoration;'
           'display: flex;'
           'align-items: $alignItems;'
@@ -162,13 +172,13 @@ class TextRenderer extends Renderer<TextElement> {
   }
 
   @override
-  LabelRenderer transform(
+  TextRenderer transform(
       {Offset position = Offset.zero,
       double scaleX = 1,
       double scaleY = 1,
       bool relative = false}) {
     final size = Size(rect.width * scaleX, rect.height * scaleY);
     final next = relative ? element.position + position : position;
-    return LabelRenderer(element.copyWith(position: next), next & size);
+    return TextRenderer(element.copyWith(position: next), next & size);
   }
 }

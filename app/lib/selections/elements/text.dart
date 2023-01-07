@@ -1,9 +1,7 @@
 part of '../selection.dart';
 
-class LabelElementSelection extends ElementSelection<LabelElement> {
-  LabelElementSelection(super.selected);
-
-  final _propertySelection = LabelPropertySelection();
+class TextElementSelection extends ElementSelection<TextElement> {
+  TextElementSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
@@ -20,12 +18,6 @@ class LabelElementSelection extends ElementSelection<LabelElement> {
         onFieldSubmitted: (value) => updateElements(
             context, elements.map((e) => e.copyWith(text: value)).toList()),
       ),
-      ..._propertySelection.build(
-        context,
-        element.property,
-        (value) => updateElements(
-            context, elements.map((e) => e.copyWith(property: value)).toList()),
-      ),
       ConstraintView(
         initialConstraint: element.constraint,
         onChanged: (constraint) => updateElements(context,
@@ -36,8 +28,8 @@ class LabelElementSelection extends ElementSelection<LabelElement> {
 
   @override
   Selection insert(element) {
-    if (element is Renderer<LabelElement>) {
-      return LabelElementSelection([...selected, element]);
+    if (element is Renderer<TextElement>) {
+      return TextElementSelection([...selected, element]);
     }
     return super.insert(element);
   }
