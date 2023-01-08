@@ -1,7 +1,10 @@
+import 'package:butterfly/dialogs/packs/general.dart';
 import 'package:butterfly/models/pack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import 'components.dart';
 
 class PackDialog extends StatefulWidget {
   final ButterflyPack? pack;
@@ -13,20 +16,22 @@ class PackDialog extends StatefulWidget {
 }
 
 class _PackDialogState extends State<PackDialog> {
-  late final TextEditingController _nameController;
-  late final TextEditingController _authorController;
-  late final TextEditingController _descriptionController;
-  late final List<ButterflyComponent> _components;
+  late ButterflyPack pack;
 
   @override
   void initState() {
     super.initState();
+    pack = widget.pack ??
+        ButterflyPack(
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        );
+  }
 
-    _nameController = TextEditingController(text: widget.pack?.name);
-    _authorController = TextEditingController(text: widget.pack?.author);
-    _descriptionController =
-        TextEditingController(text: widget.pack?.description);
-    _components = List.from(widget.pack?.components ?? []);
+  void _onChanged(ButterflyPack pack) {
+    setState(() {
+      this.pack = pack.copyWith(updatedAt: DateTime.now());
+    });
   }
 
   @override
@@ -69,62 +74,9 @@ class _PackDialogState extends State<PackDialog> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TextField(
-                          controller: _nameController,
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.name,
-                            icon: const Icon(Icons.title_outlined),
-                            filled: true,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        TextField(
-                          controller: _authorController,
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.author,
-                            icon: const Icon(Icons.person_outline),
-                            filled: true,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        TextField(
-                          decoration: InputDecoration(
-                            labelText:
-                                AppLocalizations.of(context)!.description,
-                            icon: const Icon(Icons.description_outlined),
-                            border: const OutlineInputBorder(),
-                          ),
-                          minLines: 3,
-                          maxLines: 5,
-                          controller: _descriptionController,
-                        ),
-                      ],
-                    ),
+                    GeneralPackView(pack: pack, onChanged: _onChanged),
                     if (widget.pack != null)
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: (widget.pack?.components ?? [])
-                            .asMap()
-                            .entries
-                            .where((e) => _components.contains(e.value))
-                            .map(
-                              (e) => Dismissible(
-                                key: ValueKey(e.key),
-                                onDismissed: (direction) {
-                                  setState(() {
-                                    _components.remove(e.value);
-                                  });
-                                },
-                                child: ListTile(
-                                  title: Text(e.value.name),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
+                      ComponentsPackView(pack: pack, onChanged: _onChanged),
                   ],
                 ),
               ),
@@ -138,14 +90,7 @@ class _PackDialogState extends State<PackDialog> {
           child: Text(AppLocalizations.of(context)!.cancel),
         ),
         ElevatedButton(
-          onPressed: () => Navigator.of(context).pop(ButterflyPack(
-            createdAt: DateTime.now(),
-            updatedAt: DateTime.now(),
-            name: _nameController.text,
-            author: _authorController.text,
-            description: _descriptionController.text,
-            components: _components,
-          )),
+          onPressed: () => Navigator.of(context).pop(pack),
           child: Text(widget.pack == null
               ? AppLocalizations.of(context)!.create
               : AppLocalizations.of(context)!.save),
