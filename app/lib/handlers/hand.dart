@@ -429,12 +429,17 @@ class HandHandler extends Handler<HandPainter> {
       if (toolState == null) return;
       final currentRotation = details.rotation * 180 / pi * details.scale;
       final delta = currentRotation - _rotation;
+      var angle = toolState.rulerAngle + delta;
+      while (angle < 0) {
+        angle += 360;
+      }
+      angle %= 360;
       toolState = toolState.copyWith(
         rulerPosition: toolState.rulerPosition.translate(
           details.focalPointDelta.dx,
           details.focalPointDelta.dy,
         ),
-        rulerAngle: toolState.rulerAngle + delta,
+        rulerAngle: angle,
       );
       _rotation = currentRotation;
       context.getCurrentIndexCubit().updateTool(state.document, toolState);
@@ -467,8 +472,11 @@ class HandHandler extends Handler<HandPainter> {
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
     final freeSelection = _freeSelection?.normalized();
+    if (_ruler) {
+      _ruler = false;
+      return;
+    }
     if (_handleTransform(context.getDocumentBloc())) return;
-    _ruler = false;
     if (freeSelection != null && !freeSelection.isEmpty) {
       _freeSelection = null;
       if (!context.isCtrlPressed) {
