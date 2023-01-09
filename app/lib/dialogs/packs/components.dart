@@ -22,7 +22,6 @@ class ComponentsPackView extends StatelessWidget {
           children: pack.components
               .asMap()
               .entries
-              .where((e) => pack.components.contains(e.value))
               .map(
                 (e) => Dismissible(
                   key: ValueKey(e.key),

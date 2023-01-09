@@ -449,5 +449,6 @@
       }
     }
   },
-  "styles": "Styles"
+  "styles": "Styles",
+  "paragraph": "Paragraph"
 }

@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'components.dart';
+import 'styles/view.dart';
 
 class PackDialog extends StatefulWidget {
   final ButterflyPack? pack;
@@ -82,7 +83,7 @@ class _PackDialogState extends State<PackDialog> {
                     GeneralPackView(pack: pack, onChanged: _onChanged),
                     if (widget.pack != null) ...[
                       ComponentsPackView(pack: pack, onChanged: _onChanged),
-                      ComponentsPackView(pack: pack, onChanged: _onChanged),
+                      StylesPackView(pack: pack, onChanged: _onChanged),
                     ],
                   ],
                 ),
