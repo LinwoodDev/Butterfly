@@ -50,11 +50,11 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
           final currentIndex = state.currentIndexCubit;
           return Column(mainAxisSize: MainAxisSize.min, children: [
             Header(
-              title: Text(AppLocalizations.of(context)!.exportPdf),
+              title: Text(AppLocalizations.of(context).exportPdf),
               actions: [
                 IconButton(
                   icon: const Icon(PhosphorIcons.listLight),
-                  tooltip: AppLocalizations.of(context)!.presets,
+                  tooltip: AppLocalizations.of(context).presets,
                   onPressed: () async {
                     final preset = await showDialog<ExportPreset>(
                         context: context,
@@ -85,7 +85,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                     }
                   },
                   icon: const Icon(PhosphorIcons.plusLight),
-                  tooltip: AppLocalizations.of(context)!.add,
+                  tooltip: AppLocalizations.of(context).add,
                 )
               ],
             ),
@@ -135,13 +135,13 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                     children: [
                       Expanded(child: Container()),
                       TextButton(
-                        child: Text(AppLocalizations.of(context)!.cancel),
+                        child: Text(AppLocalizations.of(context).cancel),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       ElevatedButton(
-                        child: Text(AppLocalizations.of(context)!.export),
+                        child: Text(AppLocalizations.of(context).export),
                         onPressed: () async {
-                          final localization = AppLocalizations.of(context)!;
+                          final localization = AppLocalizations.of(context);
                           Navigator.of(context).pop();
                           final document = await currentIndex
                               .renderPDF(state.document, areas: areas);
@@ -214,11 +214,11 @@ class _AreaPreview extends StatelessWidget {
               min: 1,
               max: 10,
               onChanged: onQualityChanged,
-              label: AppLocalizations.of(context)!.quality,
+              label: AppLocalizations.of(context).quality,
             ),
             OutlinedButton(
                 onPressed: onRemove,
-                child: Text(AppLocalizations.of(context)!.remove)),
+                child: Text(AppLocalizations.of(context).remove)),
           ]),
         ),
       ),
@@ -244,12 +244,12 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxHeight: 500, maxWidth: 300),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Header(title: Text(AppLocalizations.of(context)!.selectArea)),
+          Header(title: Text(AppLocalizations.of(context).selectArea)),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.search,
+                labelText: AppLocalizations.of(context).search,
                 filled: true,
               ),
               onChanged: (value) {
@@ -275,7 +275,7 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
-              child: Text(AppLocalizations.of(context)!.cancel),
+              child: Text(AppLocalizations.of(context).cancel),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),
@@ -303,7 +303,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxHeight: 500, maxWidth: 300),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Header(title: Text(AppLocalizations.of(context)!.presets), actions: [
+          Header(title: Text(AppLocalizations.of(context).presets), actions: [
             if (widget.areas != null)
               IconButton(
                 onPressed: () async {
@@ -314,12 +314,12 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                         builder: (ctx) => Form(
                           key: formKey,
                           child: AlertDialog(
-                            title: Text(AppLocalizations.of(ctx)!.enterName),
+                            title: Text(AppLocalizations.of(ctx).enterName),
                             content: TextFormField(
                               controller: nameController,
                               decoration: InputDecoration(
                                 filled: true,
-                                labelText: AppLocalizations.of(ctx)!.name,
+                                labelText: AppLocalizations.of(ctx).name,
                               ),
                               onFieldSubmitted: (value) {
                                 if (formKey.currentState!.validate()) {
@@ -328,29 +328,27 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                               },
                               validator: (value) {
                                 if (value?.isEmpty ?? true) {
-                                  return AppLocalizations.of(context)!
-                                      .shouldNotEmpty;
+                                  return AppLocalizations.of(context).shouldNotEmpty;
                                 }
                                 final state =
                                     context.read<DocumentBloc>().state;
                                 if (state is! DocumentLoadSuccess) {
-                                  return AppLocalizations.of(context)!.error;
+                                  return AppLocalizations.of(context).error;
                                 }
                                 if (state.document.getExportPreset(value!) !=
                                     null) {
-                                  return AppLocalizations.of(context)!
-                                      .alreadyExists;
+                                  return AppLocalizations.of(context).alreadyExists;
                                 }
                                 return null;
                               },
                             ),
                             actions: [
                               TextButton(
-                                child: Text(AppLocalizations.of(ctx)!.cancel),
+                                child: Text(AppLocalizations.of(ctx).cancel),
                                 onPressed: () => Navigator.of(ctx).pop(false),
                               ),
                               ElevatedButton(
-                                child: Text(AppLocalizations.of(ctx)!.create),
+                                child: Text(AppLocalizations.of(ctx).create),
                                 onPressed: () {
                                   if (formKey.currentState?.validate() ??
                                       false) {
@@ -369,14 +367,14 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                       ExportPresetCreated(nameController.text, widget.areas!));
                 },
                 icon: const Icon(PhosphorIcons.plusLight),
-                tooltip: AppLocalizations.of(context)!.create,
+                tooltip: AppLocalizations.of(context).create,
               )
           ]),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.search,
+                labelText: AppLocalizations.of(context).search,
                 filled: true,
               ),
               onChanged: (value) {
@@ -409,7 +407,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                 }).toList(),
                 if (widget.areas == null)
                   ListTile(
-                    title: Text(AppLocalizations.of(context)!.newContent),
+                    title: Text(AppLocalizations.of(context).newContent),
                     onTap: () =>
                         Navigator.of(context).pop(const ExportPreset()),
                   )
@@ -419,7 +417,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
-              child: Text(AppLocalizations.of(context)!.cancel),
+              child: Text(AppLocalizations.of(context).cancel),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),

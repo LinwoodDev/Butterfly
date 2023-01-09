@@ -7,7 +7,7 @@ import '../models/element.dart';
 
 extension ElementVisualizer on PadElement {
   String getLocalizedName(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context);
     return map(
       pen: (_) => loc.pen,
       text: (_) => loc.text,
@@ -31,11 +31,11 @@ extension ElementVisualizer on PadElement {
 extension ElementConstraintsVisualizer on ElementConstraints? {
   String getLocalizedName(BuildContext context) {
     return this?.map(
-          fixed: (_) => AppLocalizations.of(context)!.fixed,
-          scaled: (_) => AppLocalizations.of(context)!.scaled,
-          dynamic: (_) => AppLocalizations.of(context)!.dynamicContent,
+          fixed: (_) => AppLocalizations.of(context).fixed,
+          scaled: (_) => AppLocalizations.of(context).scaled,
+          dynamic: (_) => AppLocalizations.of(context).dynamicContent,
         ) ??
-        AppLocalizations.of(context)!.none;
+        AppLocalizations.of(context).none;
   }
 
   ElementConstraints scale(double scaleX, double scaleY) {

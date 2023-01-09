@@ -27,7 +27,7 @@ class StartIntroductionDialog extends StatelessWidget {
             final isMobile = constraints.maxWidth < 600;
             return Column(mainAxisSize: MainAxisSize.min, children: [
               Text(
-                AppLocalizations.of(context)!.start,
+                AppLocalizations.of(context).start,
                 style: Theme.of(context).textTheme.headline5,
               ),
               const SizedBox(height: 16),
@@ -77,7 +77,7 @@ class _CreateStartViewState extends State<_CreateStartView> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              AppLocalizations.of(context)!.create,
+              AppLocalizations.of(context).create,
               style: Theme.of(context).textTheme.headline6,
             ),
             Flexible(
@@ -92,7 +92,7 @@ class _CreateStartViewState extends State<_CreateStartView> {
                       return ListView(
                         children: [
                           Text(
-                            AppLocalizations.of(context)!.error,
+                            AppLocalizations.of(context).error,
                             style: Theme.of(context).textTheme.headline6,
                           ),
                           Text(
@@ -101,26 +101,25 @@ class _CreateStartViewState extends State<_CreateStartView> {
                           ),
                           OutlinedButton.icon(
                             label: Text(
-                                AppLocalizations.of(context)!.defaultTemplate),
+                                AppLocalizations.of(context).defaultTemplate),
                             icon: const Icon(
                                 PhosphorIcons.clockCounterClockwiseLight),
                             onPressed: () => showDialog<void>(
                               context: context,
                               builder: (context) => AlertDialog(
-                                title: Text(AppLocalizations.of(context)!
-                                    .defaultTemplate),
+                                title: Text(AppLocalizations.of(context).defaultTemplate),
                                 content: Text(
-                                    AppLocalizations.of(context)!.reallyReset),
+                                    AppLocalizations.of(context).reallyReset),
                                 actions: [
                                   TextButton(
                                     child: Text(
-                                        AppLocalizations.of(context)!.cancel),
+                                        AppLocalizations.of(context).cancel),
                                     onPressed: () =>
                                         Navigator.of(context).pop(),
                                   ),
                                   TextButton(
                                     child:
-                                        Text(AppLocalizations.of(context)!.ok),
+                                        Text(AppLocalizations.of(context).ok),
                                     onPressed: () async {
                                       final navigator = Navigator.of(context);
                                       await templateSystem.createDefault(
@@ -207,7 +206,7 @@ class _RecentStartView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              AppLocalizations.of(context)!.recentFiles,
+              AppLocalizations.of(context).recentFiles,
               style: Theme.of(context).textTheme.headline6,
             ),
             Flexible(
@@ -216,7 +215,7 @@ class _RecentStartView extends StatelessWidget {
                 child: recents.isEmpty
                     ? Center(
                         child: Text(
-                        AppLocalizations.of(context)!.noRecentFiles,
+                        AppLocalizations.of(context).noRecentFiles,
                         style: Theme.of(context).textTheme.bodyText2,
                       ))
                     : ListView(

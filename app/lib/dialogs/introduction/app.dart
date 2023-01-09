@@ -20,23 +20,23 @@ class AppIntroductionDialog extends StatelessWidget {
             Flexible(
               child: ListView(shrinkWrap: true, children: [
                 Image.asset('images/logo.png', height: 150),
-                Text(AppLocalizations.of(context)!.welcome,
+                Text(AppLocalizations.of(context).welcome,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline6),
                 const SizedBox(height: 10),
                 const Divider(),
                 const SizedBox(height: 10),
-                Text(AppLocalizations.of(context)!.welcomeContent),
+                Text(AppLocalizations.of(context).welcomeContent),
                 const SizedBox(height: 10),
                 const Divider(),
                 TextButton(
                     onPressed: () => openReleaseNotes(),
-                    child: Text(AppLocalizations.of(context)!.releaseNotes)),
+                    child: Text(AppLocalizations.of(context).releaseNotes)),
                 TextButton(
                     onPressed: () => launchUrl(
                         Uri.https('docs.butterfly.linwood.dev', ''),
                         mode: LaunchMode.externalApplication),
-                    child: Text(AppLocalizations.of(context)!.documentation)),
+                    child: Text(AppLocalizations.of(context).documentation)),
               ]),
             ),
             const SizedBox(height: 20),
@@ -45,7 +45,7 @@ class AppIntroductionDialog extends StatelessWidget {
               children: [
                 ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text(AppLocalizations.of(context)!.ok)),
+                    child: Text(AppLocalizations.of(context).ok)),
               ],
             )
           ],

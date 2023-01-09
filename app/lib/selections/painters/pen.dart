@@ -13,7 +13,7 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
       ...super.buildProperties(context),
       CheckboxListTile(
           value: selected.first.zoomDependent,
-          title: Text(AppLocalizations.of(context)!.zoomDependent),
+          title: Text(AppLocalizations.of(context).zoomDependent),
           onChanged: (value) => update(
               context,
               selected
@@ -35,7 +35,7 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.pen;
+      AppLocalizations.of(context).pen;
 
   @override
   IconData getIcon({bool filled = false}) =>

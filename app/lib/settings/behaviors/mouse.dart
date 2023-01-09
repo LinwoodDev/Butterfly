@@ -16,7 +16,7 @@ class MouseBehaviorSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.mouse),
+        title: Text(AppLocalizations.of(context).mouse),
       ),
       body: Align(
         alignment: Alignment.center,
@@ -41,7 +41,7 @@ class MouseBehaviorSettings extends StatelessWidget {
                               header: Row(children: [
                                 const Icon(PhosphorIcons.lightningLight),
                                 const SizedBox(width: 8),
-                                Text(AppLocalizations.of(context)!.sensitivity),
+                                Text(AppLocalizations.of(context).sensitivity),
                               ]),
                               onChangeEnd: (value) {
                                 final cubit = context.read<SettingsCubit>();
@@ -62,7 +62,7 @@ class MouseBehaviorSettings extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                AppLocalizations.of(context)!.shortcuts,
+                                AppLocalizations.of(context).shortcuts,
                                 style: Theme.of(context).textTheme.headline5,
                               ),
                               IconButton(
@@ -77,7 +77,7 @@ class MouseBehaviorSettings extends StatelessWidget {
                           AdvancedTextField(
                             initialValue:
                                 config.leftMouse?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context)!.left,
+                            label: AppLocalizations.of(context).left,
                             icon: const Icon(PhosphorIcons.arrowLeftLight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
@@ -89,7 +89,7 @@ class MouseBehaviorSettings extends StatelessWidget {
                           AdvancedTextField(
                             initialValue:
                                 config.middleMouse?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context)!.middle,
+                            label: AppLocalizations.of(context).middle,
                             icon: const Icon(PhosphorIcons.arrowUpLight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
@@ -102,7 +102,7 @@ class MouseBehaviorSettings extends StatelessWidget {
                           AdvancedTextField(
                             initialValue:
                                 config.rightMouse?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context)!.right,
+                            label: AppLocalizations.of(context).right,
                             icon: const Icon(PhosphorIcons.arrowRightLight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();

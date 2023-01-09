@@ -29,7 +29,7 @@ class WaypointsDialog extends StatelessWidget {
                   return Column(
                     children: [
                       Header(
-                          title: Text(AppLocalizations.of(context)!.waypoints),
+                          title: Text(AppLocalizations.of(context).waypoints),
                           leading: IconButton(
                             icon: const Icon(PhosphorIcons.xLight),
                             onPressed: () => Navigator.of(context).pop(),
@@ -38,7 +38,7 @@ class WaypointsDialog extends StatelessWidget {
                             if (state.embedding?.editable ?? true)
                               IconButton(
                                 onPressed: () => _showCreateDialog(context),
-                                tooltip: AppLocalizations.of(context)!.create,
+                                tooltip: AppLocalizations.of(context).create,
                                 icon: const Icon(PhosphorIcons.plusLight),
                               )
                           ]),
@@ -90,8 +90,7 @@ class WaypointsDialog extends StatelessWidget {
                                               Navigator.of(context).pop(true);
                                             },
                                             title: Text(
-                                                AppLocalizations.of(context)!
-                                                    .origin)),
+                                                AppLocalizations.of(context).origin)),
                                         if (currentArea != null)
                                           ListTile(
                                               onTap: () {
@@ -103,8 +102,7 @@ class WaypointsDialog extends StatelessWidget {
                                                 Navigator.of(context).pop(true);
                                               },
                                               title: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .currentArea)),
+                                                  AppLocalizations.of(context).currentArea)),
                                         const Divider(),
                                         ...List.generate(
                                             waypoints.length,
@@ -154,18 +152,18 @@ class WaypointsDialog extends StatelessWidget {
         context: context,
         builder: (ctx) => StatefulBuilder(builder: (ctx, setState) {
               return AlertDialog(
-                title: Text(AppLocalizations.of(context)!.create),
+                title: Text(AppLocalizations.of(context).create),
                 content: Column(mainAxisSize: MainAxisSize.min, children: [
                   TextField(
                     controller: nameController,
                     autofocus: true,
                     decoration: InputDecoration(
                         filled: true,
-                        labelText: AppLocalizations.of(context)!.name),
+                        labelText: AppLocalizations.of(context).name),
                   ),
                   const SizedBox(height: 10),
                   CheckboxListTile(
-                      title: Text(AppLocalizations.of(context)!.scale),
+                      title: Text(AppLocalizations.of(context).scale),
                       value: saveScale,
                       controlAffinity: ListTileControlAffinity.leading,
                       onChanged: (value) =>
@@ -174,7 +172,7 @@ class WaypointsDialog extends StatelessWidget {
                 actions: [
                   TextButton(
                       onPressed: () => Navigator.of(ctx).pop(),
-                      child: Text(AppLocalizations.of(context)!.cancel)),
+                      child: Text(AppLocalizations.of(context).cancel)),
                   ElevatedButton(
                       onPressed: () {
                         context.read<DocumentBloc>().add(WaypointCreated(
@@ -186,7 +184,7 @@ class WaypointsDialog extends StatelessWidget {
                                     : null)));
                         Navigator.of(ctx).pop();
                       },
-                      child: Text(AppLocalizations.of(context)!.create)),
+                      child: Text(AppLocalizations.of(context).create)),
                 ],
               );
             }));

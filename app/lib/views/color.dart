@@ -207,7 +207,7 @@ class _ColorViewState extends State<ColorView> {
                                   mouseCursor: MouseCursor.defer,
                                   leading: const Icon(PhosphorIcons.plusLight),
                                   title:
-                                      Text(AppLocalizations.of(context)!.add),
+                                      Text(AppLocalizations.of(context).add),
                                   onTap: _newPalette,
                                 ),
                               ),
@@ -277,16 +277,16 @@ class _ColorViewState extends State<ColorView> {
                     actions: [
                       TextButton(
                           onPressed: () => Navigator.of(context).pop(false),
-                          child: Text(AppLocalizations.of(context)!.cancel)),
+                          child: Text(AppLocalizations.of(context).cancel)),
                       ElevatedButton(
                           onPressed: () => Navigator.of(context).pop(true),
-                          child: Text(AppLocalizations.of(context)!.ok)),
+                          child: Text(AppLocalizations.of(context).ok)),
                     ],
-                    title: Text(AppLocalizations.of(context)!.enterName),
+                    title: Text(AppLocalizations.of(context).enterName),
                     content: TextField(
                         decoration: InputDecoration(
                             filled: true,
-                            hintText: AppLocalizations.of(context)!.name),
+                            hintText: AppLocalizations.of(context).name),
                         autofocus: true,
                         onSubmitted: (value) => Navigator.of(context).pop(true),
                         controller: nameController))) ??
@@ -311,7 +311,7 @@ class _ColorViewState extends State<ColorView> {
                 actions: [
                   TextButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: Text(AppLocalizations.of(context)!.cancel)),
+                      child: Text(AppLocalizations.of(context).cancel)),
                   ElevatedButton(
                       onPressed: () {
                         final name = nameController.text;
@@ -333,13 +333,13 @@ class _ColorViewState extends State<ColorView> {
                             .add(DocumentPaletteChanged(newPalettes));
                         Navigator.of(context).pop();
                       },
-                      child: Text(AppLocalizations.of(context)!.ok)),
+                      child: Text(AppLocalizations.of(context).ok)),
                 ],
-                title: Text(AppLocalizations.of(context)!.enterName),
+                title: Text(AppLocalizations.of(context).enterName),
                 content: TextField(
                     decoration: InputDecoration(
                         filled: true,
-                        hintText: AppLocalizations.of(context)!.name),
+                        hintText: AppLocalizations.of(context).name),
                     autofocus: true,
                     controller: nameController)));
   }

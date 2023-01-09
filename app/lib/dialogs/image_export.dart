@@ -114,7 +114,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
           child: Column(
             children: [
               Header(
-                title: Text(AppLocalizations.of(context)!.export),
+                title: Text(AppLocalizations.of(context).export),
                 leading: const Icon(PhosphorIcons.exportLight),
               ),
               Flexible(
@@ -150,14 +150,14 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                         children: [
                           Expanded(child: Container()),
                           TextButton(
-                            child: Text(AppLocalizations.of(context)!.cancel),
+                            child: Text(AppLocalizations.of(context).cancel),
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                           ElevatedButton(
-                            child: Text(AppLocalizations.of(context)!.export),
+                            child: Text(AppLocalizations.of(context).export),
                             onPressed: () async {
                               final localization =
-                                  AppLocalizations.of(context)!;
+                                  AppLocalizations.of(context);
                               final state = context.read<DocumentBloc>().state;
                               Navigator.of(context).pop();
                               if (state is! DocumentLoadSuccess) {
@@ -246,17 +246,17 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
         TextField(
             controller: _widthController,
             decoration:
-                InputDecoration(labelText: AppLocalizations.of(context)!.width),
+                InputDecoration(labelText: AppLocalizations.of(context).width),
             onChanged: (value) => width = int.tryParse(value) ?? width,
             onSubmitted: (value) => _regeneratePreviewImage()),
         TextField(
             controller: _heightController,
             decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.height),
+                labelText: AppLocalizations.of(context).height),
             onChanged: (value) => height = int.tryParse(value) ?? height,
             onSubmitted: (value) => _regeneratePreviewImage()),
         ExactSlider(
-            header: Text(AppLocalizations.of(context)!.scale),
+            header: Text(AppLocalizations.of(context).scale),
             min: 0.1,
             max: 10,
             value: scale,
@@ -267,7 +267,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
             }),
         CheckboxListTile(
             value: _renderBackground,
-            title: Text(AppLocalizations.of(context)!.background),
+            title: Text(AppLocalizations.of(context).background),
             onChanged: (value) {
               setState(() => _renderBackground = value ?? _renderBackground);
               _regeneratePreviewImage();

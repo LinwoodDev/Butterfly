@@ -97,7 +97,7 @@ class AreaHandler extends Handler<AreaPainter> {
     if (state is! DocumentLoadSuccess) return null;
     var name = '', index = 1;
     while (name.isEmpty || state.document.getAreaByName(name) != null) {
-      name = AppLocalizations.of(context)!.areaIndex(index);
+      name = AppLocalizations.of(context).areaIndex(index);
       index++;
     }
     return name;

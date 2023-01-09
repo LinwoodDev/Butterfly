@@ -13,7 +13,7 @@ class KeyboardBehaviorSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.keyboard),
+          title: Text(AppLocalizations.of(context).keyboard),
         ),
         body: Align(
           alignment: Alignment.center,
@@ -23,7 +23,7 @@ class KeyboardBehaviorSettings extends StatelessWidget {
               builder: (context, state) => ListView(
                 children: [
                   ListTile(
-                      title: Text(AppLocalizations.of(context)!.shortcuts),
+                      title: Text(AppLocalizations.of(context).shortcuts),
                       leading: const Icon(PhosphorIcons.keyboardLight),
                       onTap: () => openHelp(['shortcuts'], 'keyboard')),
                 ],

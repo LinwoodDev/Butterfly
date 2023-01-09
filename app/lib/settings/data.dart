@@ -30,7 +30,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
         appBar: AppBar(
           automaticallyImplyLeading: !widget.inView,
           backgroundColor: widget.inView ? Colors.transparent : null,
-          title: Text(AppLocalizations.of(context)!.data),
+          title: Text(AppLocalizations.of(context).data),
           actions: [
             if (!widget.inView && !kIsWeb && isWindow()) ...[
               const VerticalDivider(),
@@ -51,12 +51,11 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                       children: [
                         if (!kIsWeb && !Platform.isAndroid)
                           ListTile(
-                            title: Text(AppLocalizations.of(context)!
-                                .documentDirectory),
+                            title: Text(AppLocalizations.of(context).documentDirectory),
                             leading: const Icon(PhosphorIcons.folderLight),
                             subtitle: Text(state.documentPath.isNotEmpty
                                 ? state.documentPath
-                                : AppLocalizations.of(context)!.defaultPath),
+                                : AppLocalizations.of(context).defaultPath),
                             onTap: () async {
                               final settingsCubit =
                                   context.read<SettingsCubit>();
@@ -75,7 +74,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                 : null,
                           ),
                         ListTile(
-                          title: Text(AppLocalizations.of(context)!.dateFormat),
+                          title: Text(AppLocalizations.of(context).dateFormat),
                           leading: const Icon(PhosphorIcons.calendarLight),
                           subtitle: Text(state.dateFormat),
                           onTap: () async {
@@ -87,27 +86,26 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                               context: context,
                               builder: (context) => AlertDialog(
                                 title: Text(
-                                    AppLocalizations.of(context)!.dateFormat),
+                                    AppLocalizations.of(context).dateFormat),
                                 content: TextField(
                                   controller: controller,
                                   autofocus: true,
                                   decoration: InputDecoration(
                                     hintText: 'yyyy-MM-dd',
                                     filled: true,
-                                    labelText: AppLocalizations.of(context)!
-                                        .dateFormat,
+                                    labelText: AppLocalizations.of(context).dateFormat,
                                   ),
                                 ),
                                 actions: [
                                   TextButton(
                                     child: Text(
-                                        AppLocalizations.of(context)!.cancel),
+                                        AppLocalizations.of(context).cancel),
                                     onPressed: () =>
                                         Navigator.of(context).pop(),
                                   ),
                                   ElevatedButton(
                                     child:
-                                        Text(AppLocalizations.of(context)!.ok),
+                                        Text(AppLocalizations.of(context).ok),
                                     onPressed: () {
                                       Navigator.of(context)
                                           .pop(controller.text);
@@ -122,7 +120,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           },
                         ),
                         ListTile(
-                          title: Text(AppLocalizations.of(context)!.packs),
+                          title: Text(AppLocalizations.of(context).packs),
                           leading: const Icon(PhosphorIcons.packageLight),
                           onTap: () {
                             showDialog(
@@ -138,7 +136,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           },
                         ),
                         ListTile(
-                          title: Text(AppLocalizations.of(context)!.export),
+                          title: Text(AppLocalizations.of(context).export),
                           leading: const Icon(PhosphorIcons.exportLight),
                           onTap: () async {
                             final fileSystem =

@@ -16,9 +16,10 @@ class GeneralPackView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
+        const SizedBox(height: 8),
         TextFormField(
           decoration: InputDecoration(
-            labelText: AppLocalizations.of(context)!.name,
+            labelText: AppLocalizations.of(context).name,
             icon: const Icon(Icons.title_outlined),
             filled: true,
           ),
@@ -28,7 +29,7 @@ class GeneralPackView extends StatelessWidget {
         const SizedBox(height: 8),
         TextFormField(
           decoration: InputDecoration(
-            labelText: AppLocalizations.of(context)!.author,
+            labelText: AppLocalizations.of(context).author,
             icon: const Icon(Icons.person_outline),
             filled: true,
           ),
@@ -38,7 +39,7 @@ class GeneralPackView extends StatelessWidget {
         const SizedBox(height: 8),
         TextFormField(
           decoration: InputDecoration(
-            labelText: AppLocalizations.of(context)!.description,
+            labelText: AppLocalizations.of(context).description,
             icon: const Icon(Icons.description_outlined),
             border: const OutlineInputBorder(),
           ),

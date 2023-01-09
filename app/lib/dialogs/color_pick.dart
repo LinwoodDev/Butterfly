@@ -57,7 +57,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           child: ListView(children: [
                         ListTile(
                             leading: const Icon(PhosphorIcons.penLight),
-                            title: Text(AppLocalizations.of(context)!.edit),
+                            title: Text(AppLocalizations.of(context).edit),
                             onTap: () async {
                               final bloc = context.read<DocumentBloc>();
                               final value =
@@ -74,27 +74,23 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             }),
                         ListTile(
                           leading: const Icon(PhosphorIcons.trashLight),
-                          title: Text(AppLocalizations.of(context)!.delete),
+                          title: Text(AppLocalizations.of(context).delete),
                           onTap: () {
                             showDialog<void>(
                                 context: context,
                                 builder: (ctx) => AlertDialog(
-                                      title: Text(AppLocalizations.of(context)!
-                                          .areYouSure),
+                                      title: Text(AppLocalizations.of(context).areYouSure),
                                       content: Text(
-                                          AppLocalizations.of(context)!
-                                              .reallyDelete),
+                                          AppLocalizations.of(context).reallyDelete),
                                       actions: [
                                         TextButton(
                                             child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .no),
+                                                AppLocalizations.of(context).no),
                                             onPressed: () =>
                                                 Navigator.of(ctx).pop()),
                                         ElevatedButton(
                                             child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .yes),
+                                                AppLocalizations.of(context).yes),
                                             onPressed: () {
                                               Navigator.of(ctx).pop();
                                               Navigator.of(ctx).pop();
@@ -190,23 +186,20 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                           ),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context)!
-                                                      .add,
+                                                  AppLocalizations.of(context).add,
                                               icon: const Icon(
                                                   PhosphorIcons.plusLight),
                                               onPressed: _createPalette),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context)!
-                                                      .edit,
+                                                  AppLocalizations.of(context).edit,
                                               icon: const Icon(
                                                   PhosphorIcons.penLight),
                                               onPressed:
                                                   empty ? null : _editPalette),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context)!
-                                                      .remove,
+                                                  AppLocalizations.of(context).remove,
                                               icon: const Icon(
                                                   PhosphorIcons.minusLight),
                                               onPressed: empty
@@ -224,38 +217,33 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                           const VerticalDivider(),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context)!
-                                                      .import,
+                                                  AppLocalizations.of(context).import,
                                               icon: const Icon(PhosphorIcons
                                                   .arrowSquareInLight),
                                               onPressed: _importPalette),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context)!
-                                                      .export,
+                                                  AppLocalizations.of(context).export,
                                               icon: const Icon(
                                                   PhosphorIcons.exportLight),
                                               onPressed: _exportPalette),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context)!
-                                                      .help,
+                                                  AppLocalizations.of(context).help,
                                               icon: const Icon(PhosphorIcons
                                                   .circleWavyQuestionLight),
                                               onPressed: () =>
                                                   openHelp(['color_picker'])),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context)!
-                                                      .resetPalette,
+                                                  AppLocalizations.of(context).resetPalette,
                                               icon: const Icon(PhosphorIcons
                                                   .clockClockwiseLight),
                                               onPressed: _resetPalette),
                                           const VerticalDivider(),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context)!
-                                                      .close,
+                                                  AppLocalizations.of(context).close,
                                               icon: const Icon(
                                                   PhosphorIcons.xLight),
                                               onPressed: () =>
@@ -356,7 +344,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                 defaultColor: widget.defaultColor));
                         if (value != null) navigator.pop(value.color);
                       },
-                      child: Text(AppLocalizations.of(context)!.custom)),
+                      child: Text(AppLocalizations.of(context).custom)),
               ],
             ),
           ),
@@ -397,15 +385,15 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             actions: [
               TextButton(
                   onPressed: () => Navigator.of(ctx).pop(false),
-                  child: Text(AppLocalizations.of(context)!.cancel)),
+                  child: Text(AppLocalizations.of(context).cancel)),
               ElevatedButton(
                   onPressed: () => Navigator.of(ctx).pop(true),
-                  child: Text(AppLocalizations.of(context)!.create)),
+                  child: Text(AppLocalizations.of(context).create)),
             ],
-            title: Text(AppLocalizations.of(context)!.enterName),
+            title: Text(AppLocalizations.of(context).enterName),
             content: TextField(
               decoration: InputDecoration(
-                  filled: true, hintText: AppLocalizations.of(context)!.name),
+                  filled: true, hintText: AppLocalizations.of(context).name),
               autofocus: true,
               controller: nameController,
               onSubmitted: (value) => Navigator.of(ctx).pop(true),
@@ -434,15 +422,15 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             actions: [
               TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: Text(AppLocalizations.of(context)!.cancel)),
+                  child: Text(AppLocalizations.of(context).cancel)),
               ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(true),
-                  child: Text(AppLocalizations.of(context)!.ok)),
+                  child: Text(AppLocalizations.of(context).ok)),
             ],
-            title: Text(AppLocalizations.of(context)!.enterName),
+            title: Text(AppLocalizations.of(context).enterName),
             content: TextField(
               decoration: InputDecoration(
-                  filled: true, hintText: AppLocalizations.of(context)!.name),
+                  filled: true, hintText: AppLocalizations.of(context).name),
               autofocus: true,
               controller: nameController,
               onSubmitted: (value) => Navigator.of(ctx).pop(true),
@@ -463,12 +451,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     return showDialog<void>(
         context: context,
         builder: (ctx) => AlertDialog(
-              title: Text(AppLocalizations.of(context)!.areYouSure),
-              content: Text(AppLocalizations.of(context)!.reallyDelete),
+              title: Text(AppLocalizations.of(context).areYouSure),
+              content: Text(AppLocalizations.of(context).reallyDelete),
               actions: [
                 TextButton(
                     onPressed: () => Navigator.of(ctx).pop(),
-                    child: Text(AppLocalizations.of(context)!.no)),
+                    child: Text(AppLocalizations.of(context).no)),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.of(ctx).pop();
@@ -482,7 +470,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         selected = newPalettes.length - 1;
                       }
                     },
-                    child: Text(AppLocalizations.of(context)!.yes)),
+                    child: Text(AppLocalizations.of(context).yes)),
               ],
             ));
   }
@@ -491,12 +479,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     return showDialog<void>(
         context: context,
         builder: (ctx) => AlertDialog(
-                title: Text(AppLocalizations.of(ctx)!.areYouSure),
-                content: Text(AppLocalizations.of(ctx)!.reallyReset),
+                title: Text(AppLocalizations.of(ctx).areYouSure),
+                content: Text(AppLocalizations.of(ctx).reallyReset),
                 actions: [
                   TextButton(
                       onPressed: () => Navigator.of(ctx).pop(),
-                      child: Text(AppLocalizations.of(ctx)!.no)),
+                      child: Text(AppLocalizations.of(ctx).no)),
                   ElevatedButton(
                       onPressed: () {
                         selected = 0;
@@ -504,7 +492,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             ColorPalette.getMaterialPalette(context)));
                         Navigator.of(ctx).pop();
                       },
-                      child: Text(AppLocalizations.of(context)!.yes))
+                      child: Text(AppLocalizations.of(context).yes))
                 ]));
   }
 }
@@ -560,7 +548,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
         child: Column(
           children: [
             Header(
-              title: Text(AppLocalizations.of(context)!.color),
+              title: Text(AppLocalizations.of(context).color),
               leading: const Icon(PhosphorIcons.paletteLight),
             ),
             Flexible(
@@ -600,30 +588,30 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                                     ColorPickerResponse(
                                         color.value, false, true)),
                                 child:
-                                    Text(AppLocalizations.of(context)!.delete)),
+                                    Text(AppLocalizations.of(context).delete)),
                           ] else ...[
                             Container(),
                           ],
                           Row(children: [
                             TextButton(
                                 child:
-                                    Text(AppLocalizations.of(context)!.cancel),
+                                    Text(AppLocalizations.of(context).cancel),
                                 onPressed: () => Navigator.of(context).pop()),
                             const SizedBox(width: 8),
                             if (widget.pinOption) ...[
                               OutlinedButton(
-                                  child: Text(AppLocalizations.of(context)!.ok),
+                                  child: Text(AppLocalizations.of(context).ok),
                                   onPressed: () => Navigator.of(context).pop(
                                       ColorPickerResponse(color.value, false))),
                               const SizedBox(width: 8),
                               ElevatedButton(
                                   child:
-                                      Text(AppLocalizations.of(context)!.pin),
+                                      Text(AppLocalizations.of(context).pin),
                                   onPressed: () => Navigator.of(context).pop(
                                       ColorPickerResponse(color.value, true))),
                             ] else
                               ElevatedButton(
-                                  child: Text(AppLocalizations.of(context)!.ok),
+                                  child: Text(AppLocalizations.of(context).ok),
                                   onPressed: () => Navigator.of(context).pop(
                                       ColorPickerResponse(color.value, false))),
                           ]),
@@ -691,7 +679,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
 
   Widget _buildProperties() => Column(children: [
         ExactSlider(
-          header: Text(AppLocalizations.of(context)!.red),
+          header: Text(AppLocalizations.of(context).red),
           fractionDigits: 0,
           defaultValue: 255,
           min: 0,
@@ -701,7 +689,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           onChanged: (value) => _changeColor(red: value.toInt()),
         ),
         ExactSlider(
-          header: Text(AppLocalizations.of(context)!.green),
+          header: Text(AppLocalizations.of(context).green),
           fractionDigits: 0,
           defaultValue: 255,
           min: 0,
@@ -711,7 +699,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           onChanged: (value) => _changeColor(green: value.toInt()),
         ),
         ExactSlider(
-          header: Text(AppLocalizations.of(context)!.blue),
+          header: Text(AppLocalizations.of(context).blue),
           fractionDigits: 0,
           defaultValue: 255,
           min: 0,
@@ -721,7 +709,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           onChanged: (value) => _changeColor(blue: value.toInt()),
         ),
         ExactSlider(
-          header: Text(AppLocalizations.of(context)!.alpha),
+          header: Text(AppLocalizations.of(context).alpha),
           fractionDigits: 0,
           defaultValue: 255,
           min: 0,

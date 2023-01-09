@@ -20,7 +20,7 @@ class LayersDialog extends StatelessWidget {
             child: Column(
               children: [
                 Header(
-                    title: Text(AppLocalizations.of(context)!.layers),
+                    title: Text(AppLocalizations.of(context).layers),
                     leading: IconButton(
                       icon: const Icon(PhosphorIcons.xLight),
                       onPressed: () => Navigator.of(context).pop(),
@@ -29,7 +29,7 @@ class LayersDialog extends StatelessWidget {
                       IconButton(
                           icon: const Icon(PhosphorIcons.selectionLight),
                           tooltip:
-                              AppLocalizations.of(context)!.selectCustomLayer,
+                              AppLocalizations.of(context).selectCustomLayer,
                           onPressed: () async {
                             final bloc = context.read<DocumentBloc>();
                             final state = bloc.state as DocumentLoadSuccess;
@@ -38,8 +38,7 @@ class LayersDialog extends StatelessWidget {
                             final success = await showDialog<bool>(
                                   context: context,
                                   builder: (ctx) => AlertDialog(
-                                    title: Text(AppLocalizations.of(ctx)!
-                                        .selectCustomLayer),
+                                    title: Text(AppLocalizations.of(ctx).selectCustomLayer),
                                     content: TextField(
                                       controller: nameController,
                                       autofocus: true,
@@ -48,19 +47,18 @@ class LayersDialog extends StatelessWidget {
                                       decoration: InputDecoration(
                                           filled: true,
                                           hintText:
-                                              AppLocalizations.of(context)!
-                                                  .name),
+                                              AppLocalizations.of(context).name),
                                     ),
                                     actions: [
                                       TextButton(
                                         child: Text(
-                                            AppLocalizations.of(ctx)!.cancel),
+                                            AppLocalizations.of(ctx).cancel),
                                         onPressed: () =>
                                             Navigator.of(ctx).pop(false),
                                       ),
                                       ElevatedButton(
                                         child:
-                                            Text(AppLocalizations.of(ctx)!.ok),
+                                            Text(AppLocalizations.of(ctx).ok),
                                         onPressed: () {
                                           Navigator.of(ctx).pop(true);
                                         },
@@ -134,8 +132,7 @@ class LayersDialog extends StatelessWidget {
                                           const LayerVisibilityChanged(''));
                                     },
                                   ),
-                                  title: Text(AppLocalizations.of(context)!
-                                      .defaultLayer)),
+                                  title: Text(AppLocalizations.of(context).defaultLayer)),
                               const Divider(),
                               ...List.generate(
                                   layers.length,

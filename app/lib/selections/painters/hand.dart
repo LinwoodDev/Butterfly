@@ -5,7 +5,7 @@ class HandSelection extends PainterSelection<HandPainter> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.hand;
+      AppLocalizations.of(context).hand;
 
   @override
   List<Widget> buildProperties(BuildContext context) {

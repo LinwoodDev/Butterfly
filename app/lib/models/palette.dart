@@ -29,10 +29,10 @@ class ColorPalette with _$ColorPalette {
   ];
   static List<ColorPalette> getMaterialPalette(BuildContext context) => [
         ColorPalette(
-            name: AppLocalizations.of(context)!.defaultPalette,
+            name: AppLocalizations.of(context).defaultPalette,
             colors: materialColors.map((e) => e.value).toList()),
         ColorPalette(
-            name: AppLocalizations.of(context)!.highlighter,
+            name: AppLocalizations.of(context).highlighter,
             colors:
                 materialColors.map((e) => e.withOpacity(0.25).value).toList())
       ];

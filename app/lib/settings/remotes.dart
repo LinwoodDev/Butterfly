@@ -23,7 +23,7 @@ class RemotesSettingsPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.remotes),
+          title: Text(AppLocalizations.of(context).remotes),
           backgroundColor: inView ? Colors.transparent : null,
           automaticallyImplyLeading: !inView,
           actions: [
@@ -50,19 +50,19 @@ class RemotesSettingsPage extends StatelessWidget {
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () => showDialog<void>(
               context: context, builder: (context) => const _AddRemoteDialog()),
-          label: Text(AppLocalizations.of(context)!.addRemote),
+          label: Text(AppLocalizations.of(context).addRemote),
           icon: const Icon(PhosphorIcons.plusLight),
         ),
         body: Builder(builder: (context) {
           if (kIsWeb) {
             return Center(
-                child: Text(AppLocalizations.of(context)!.webNotSupported));
+                child: Text(AppLocalizations.of(context).webNotSupported));
           }
           return BlocBuilder<SettingsCubit, ButterflySettings>(
               builder: (context, state) {
             if (state.remotes.isEmpty) {
               return Center(
-                child: Text(AppLocalizations.of(context)!.noRemotes),
+                child: Text(AppLocalizations.of(context).noRemotes),
               );
             }
             return Material(
@@ -127,7 +127,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
 
   void _connect() async {
     try {
-      final loc = AppLocalizations.of(context)!;
+      final loc = AppLocalizations.of(context);
       final url = Uri.tryParse(_urlController.text.trim());
       if (_urlController.text.isEmpty || url == null) {
         _showCreatingError(loc.urlNotValid);
@@ -145,7 +145,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       setState(() => _isConnected = true);
     } catch (e) {
       _showCreatingError(
-          AppLocalizations.of(context)!.cannotConnectToRemote, e);
+          AppLocalizations.of(context).cannotConnectToRemote, e);
     }
   }
 
@@ -182,7 +182,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       if (kDebugMode) {
         print(e);
         _showCreatingError(
-            AppLocalizations.of(context)!.cannotConnectToRemote, e);
+            AppLocalizations.of(context).cannotConnectToRemote, e);
       }
     }
     return Uint8List(0);
@@ -213,7 +213,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         context: context,
         builder: (context) => AlertDialog(
               title:
-                  Text(AppLocalizations.of(context)!.errorWhileCreatingRemote),
+                  Text(AppLocalizations.of(context).errorWhileCreatingRemote),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -228,7 +228,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: Text(AppLocalizations.of(context)!.ok),
+                  child: Text(AppLocalizations.of(context).ok),
                 ),
               ],
             ));
@@ -243,7 +243,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
           padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
           child: Column(children: [
             Header(
-              title: Text(AppLocalizations.of(context)!.addRemote),
+              title: Text(AppLocalizations.of(context).addRemote),
             ),
             const SizedBox(height: 16.0),
             Flexible(
@@ -253,7 +253,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   readOnly: _isConnected,
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.url,
+                    labelText: AppLocalizations.of(context).url,
                     filled: true,
                     icon: const Icon(PhosphorIcons.linkLight),
                   ),
@@ -263,7 +263,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   controller: _iconController,
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.icon,
+                    labelText: AppLocalizations.of(context).icon,
                     filled: true,
                     icon: const Icon(PhosphorIcons.imageLight),
                   ),
@@ -275,7 +275,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   TextField(
                     controller: _usernameController,
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.username,
+                      labelText: AppLocalizations.of(context).username,
                       filled: true,
                       icon: const Icon(PhosphorIcons.userLight),
                     ),
@@ -288,7 +288,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         ? TextInputType.visiblePassword
                         : TextInputType.text,
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.password,
+                      labelText: AppLocalizations.of(context).password,
                       filled: true,
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -308,11 +308,11 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     onChanged: (value) => setState(
                         () => _syncRootDirectory = value ?? _syncRootDirectory),
                     title:
-                        Text(AppLocalizations.of(context)!.syncRootDirectory),
+                        Text(AppLocalizations.of(context).syncRootDirectory),
                   ),
                   _DirectoryField(
                     controller: _directoryController,
-                    label: AppLocalizations.of(context)!.directory,
+                    label: AppLocalizations.of(context).directory,
                     onChanged: (value) {
                       var prefix = value;
                       if (prefix.isNotEmpty) {
@@ -333,7 +333,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         headerBuilder: ((context, isExpanded) => Align(
                               alignment: Alignment.center,
                               child: Text(
-                                  AppLocalizations.of(context)!.advanced,
+                                  AppLocalizations.of(context).advanced,
                                   style: Theme.of(context).textTheme.headline6,
                                   textAlign: TextAlign.center),
                             )),
@@ -342,21 +342,19 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         body: Column(children: [
                           _DirectoryField(
                             controller: _documentsDirectoryController,
-                            label: AppLocalizations.of(context)!
-                                .documentsDirectory,
+                            label: AppLocalizations.of(context).documentsDirectory,
                             icon: const Icon(PhosphorIcons.fileLight),
                           ),
                           const SizedBox(height: 8),
                           _DirectoryField(
                             controller: _templatesDirectoryController,
-                            label: AppLocalizations.of(context)!
-                                .templatesDirectory,
+                            label: AppLocalizations.of(context).templatesDirectory,
                             icon: const Icon(PhosphorIcons.fileDottedLight),
                           ),
                           const SizedBox(height: 8),
                           _DirectoryField(
                             controller: _packsDirectoryController,
-                            label: AppLocalizations.of(context)!.packsDirectory,
+                            label: AppLocalizations.of(context).packsDirectory,
                             icon: const Icon(PhosphorIcons.packageLight),
                           ),
                         ]),
@@ -378,17 +376,17 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     }
                     Navigator.of(context).pop();
                   },
-                  child: Text(AppLocalizations.of(context)!.cancel),
+                  child: Text(AppLocalizations.of(context).cancel),
                 ),
                 if (_isConnected) ...[
                   ElevatedButton(
                     onPressed: _create,
-                    child: Text(AppLocalizations.of(context)!.create),
+                    child: Text(AppLocalizations.of(context).create),
                   ),
                 ] else ...[
                   ElevatedButton(
                     onPressed: _connect,
-                    child: Text(AppLocalizations.of(context)!.connect),
+                    child: Text(AppLocalizations.of(context).connect),
                   ),
                 ]
               ],

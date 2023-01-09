@@ -15,11 +15,11 @@ class PenPropertySelection extends PathPropertySelection<PenProperty> {
           value: Color(property.color),
           onChanged: (value) =>
               onChanged(property.copyWith(color: value.value)),
-          title: Text(AppLocalizations.of(context)!.color),
+          title: Text(AppLocalizations.of(context).color),
         ),
         CheckboxListTile(
             value: property.fill,
-            title: Text(AppLocalizations.of(context)!.fill),
+            title: Text(AppLocalizations.of(context).fill),
             onChanged: (value) =>
                 onChanged(property.copyWith(fill: value ?? property.fill))),
       ];

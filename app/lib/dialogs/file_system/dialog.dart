@@ -78,7 +78,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
           child: Column(
             children: [
               Header(
-                  title: Text(AppLocalizations.of(context)!.open),
+                  title: Text(AppLocalizations.of(context).open),
                   leading: IconButton(
                     icon: const Icon(PhosphorIcons.xLight),
                     onPressed: () => Navigator.of(context).pop(),
@@ -95,7 +95,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                         onPressed: () =>
                             setState(() => _gridView = !_gridView)),
                     IconButton(
-                      tooltip: AppLocalizations.of(context)!.create,
+                      tooltip: AppLocalizations.of(context).create,
                       icon: const Icon(PhosphorIcons.plusLight),
                       onPressed: () async {
                         await showModalBottomSheet<ThemeMode>(
@@ -108,7 +108,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 20),
                                       child: Text(
-                                        AppLocalizations.of(context)!.create,
+                                        AppLocalizations.of(context).create,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline5,
@@ -117,7 +117,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                     ),
                                     ListTile(
                                         title: Text(
-                                            AppLocalizations.of(context)!.file),
+                                            AppLocalizations.of(context).file),
                                         leading:
                                             const Icon(PhosphorIcons.fileLight),
                                         onTap: () {
@@ -126,8 +126,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                         }),
                                     ListTile(
                                         title: Text(
-                                            AppLocalizations.of(context)!
-                                                .folder),
+                                            AppLocalizations.of(context).folder),
                                         leading: const Icon(
                                             PhosphorIcons.folderLight),
                                         onTap: () {
@@ -275,7 +274,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                     if (snapshot.hasError) {
                                       return ListView(children: [
                                         Text(
-                                          AppLocalizations.of(context)!.error,
+                                          AppLocalizations.of(context).error,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline6,

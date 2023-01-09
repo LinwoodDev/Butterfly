@@ -16,6 +16,7 @@ class ComponentsPackView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
+        const SizedBox(height: 8),
         Column(
           mainAxisSize: MainAxisSize.min,
           children: pack.components

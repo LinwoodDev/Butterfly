@@ -9,7 +9,7 @@ import '../models/painter.dart';
 
 extension PainterVisualizer on Painter {
   String getLocalizedName(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context);
     return map(
       hand: (_) => loc.hand,
       import: (_) => loc.import,

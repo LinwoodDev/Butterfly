@@ -129,7 +129,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
         type: FileType.custom,
         allowedExtensions: ['svg'],
         fileName: 'export.svg',
-        dialogTitle: AppLocalizations.of(context)!.export,
+        dialogTitle: AppLocalizations.of(context).export,
       );
       if (path != null) {
         var file = File(path);
@@ -153,7 +153,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
           child: Column(
             children: [
               Header(
-                title: Text(AppLocalizations.of(context)!.exportSvg),
+                title: Text(AppLocalizations.of(context).exportSvg),
                 leading: const Icon(PhosphorIcons.exportLight),
               ),
               Flexible(
@@ -189,11 +189,11 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
                         children: [
                           Expanded(child: Container()),
                           TextButton(
-                            child: Text(AppLocalizations.of(context)!.cancel),
+                            child: Text(AppLocalizations.of(context).cancel),
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                           ElevatedButton(
-                            child: Text(AppLocalizations.of(context)!.export),
+                            child: Text(AppLocalizations.of(context).export),
                             onPressed: () async {
                               Navigator.of(context).pop();
                               _exportSvg();
@@ -252,18 +252,18 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
         TextField(
             controller: _widthController,
             decoration:
-                InputDecoration(labelText: AppLocalizations.of(context)!.width),
+                InputDecoration(labelText: AppLocalizations.of(context).width),
             onChanged: (value) => width = int.tryParse(value) ?? width,
             onSubmitted: (value) => _regeneratePreviewImage()),
         TextField(
             controller: _heightController,
             decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.height),
+                labelText: AppLocalizations.of(context).height),
             onChanged: (value) => height = int.tryParse(value) ?? height,
             onSubmitted: (value) => _regeneratePreviewImage()),
         CheckboxListTile(
             value: _renderBackground,
-            title: Text(AppLocalizations.of(context)!.background),
+            title: Text(AppLocalizations.of(context).background),
             onChanged: (value) {
               setState(() => _renderBackground = value ?? _renderBackground);
               _regeneratePreviewImage();

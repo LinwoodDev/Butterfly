@@ -17,7 +17,7 @@ extension PathShapeVisualizer on PathShape {
   }
 
   String getLocalizedName(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context);
     return map(
       circle: (_) => loc.circle,
       rectangle: (_) => loc.rectangle,

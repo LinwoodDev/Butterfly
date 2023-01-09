@@ -38,27 +38,32 @@ class _PackDialogState extends State<PackDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(widget.pack == null
-          ? AppLocalizations.of(context)!.createPack
-          : AppLocalizations.of(context)!.editPack),
+          ? AppLocalizations.of(context).createPack
+          : AppLocalizations.of(context).editPack),
       content: SizedBox(
-        width: 400,
-        height: 400,
+        width: 600,
+        height: 600,
         child: DefaultTabController(
-          length: widget.pack == null ? 1 : 2,
+          length: widget.pack == null ? 1 : 3,
           child: Column(
             children: [
               if (widget.pack != null)
                 TabBar(
+                    isScrollable: true,
                     tabs: <dynamic>[
-                  [
-                    PhosphorIcons.gearLight,
-                    AppLocalizations.of(context)!.general
-                  ],
-                  [
-                    PhosphorIcons.puzzlePieceLight,
-                    AppLocalizations.of(context)!.components
-                  ]
-                ]
+                      [
+                        PhosphorIcons.gearLight,
+                        AppLocalizations.of(context).general
+                      ],
+                      [
+                        PhosphorIcons.puzzlePieceLight,
+                        AppLocalizations.of(context).components
+                      ],
+                      [
+                        PhosphorIcons.pencilCircleLight,
+                        AppLocalizations.of(context).styles
+                      ]
+                    ]
                         .map((e) => Tab(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +75,7 @@ class _PackDialogState extends State<PackDialog> {
                               ),
                             ))
                         .toList()),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               Expanded(
                 child: TabBarView(
                   children: [
@@ -87,13 +92,13 @@ class _PackDialogState extends State<PackDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(pack),
           child: Text(widget.pack == null
-              ? AppLocalizations.of(context)!.create
-              : AppLocalizations.of(context)!.save),
+              ? AppLocalizations.of(context).create
+              : AppLocalizations.of(context).save),
         ),
       ],
     );

@@ -20,7 +20,7 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.label;
+      AppLocalizations.of(context).label;
 
   @override
   IconData getIcon({bool filled = false}) =>

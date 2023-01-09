@@ -26,8 +26,7 @@ class UpdateIntroductionDialog extends StatelessWidget {
                     child: ListView(shrinkWrap: true, children: [
                       Image.asset('images/logo.png', height: 150),
                       Text(
-                          AppLocalizations.of(context)!
-                              .updated(snapshot.data?.version ?? ''),
+                          AppLocalizations.of(context).updated(snapshot.data?.version ?? ''),
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headline6),
                       const SizedBox(height: 10),
@@ -35,14 +34,14 @@ class UpdateIntroductionDialog extends StatelessWidget {
                       TextButton(
                           onPressed: () => openReleaseNotes(),
                           child:
-                              Text(AppLocalizations.of(context)!.releaseNotes)),
+                              Text(AppLocalizations.of(context).releaseNotes)),
                       const SizedBox(height: 10),
                       TextButton(
                           onPressed: () => launchUrl(
                               Uri.https('docs.butterfly.linwood.dev', ''),
                               mode: LaunchMode.externalApplication),
                           child: Text(
-                              AppLocalizations.of(context)!.documentation)),
+                              AppLocalizations.of(context).documentation)),
                     ]),
                   ),
                   const SizedBox(height: 20),
@@ -51,7 +50,7 @@ class UpdateIntroductionDialog extends StatelessWidget {
                     children: [
                       ElevatedButton(
                           onPressed: () => Navigator.of(context).pop(),
-                          child: Text(AppLocalizations.of(context)!.ok)),
+                          child: Text(AppLocalizations.of(context).ok)),
                     ],
                   )
                 ],

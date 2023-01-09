@@ -43,10 +43,10 @@ class _PagesDialogState extends State<PagesDialog> {
         children: [
           Header(
             title:
-                Text(AppLocalizations.of(context)!.countPages(selected.length)),
+                Text(AppLocalizations.of(context).countPages(selected.length)),
             actions: [
               IconButton(
-                  tooltip: AppLocalizations.of(context)!.invertSelection,
+                  tooltip: AppLocalizations.of(context).invertSelection,
                   icon: const Icon(PhosphorIcons.selectionInverseLight),
                   onPressed: () {
                     setState(() {
@@ -98,7 +98,7 @@ class _PagesDialogState extends State<PagesDialog> {
             value: quality,
             max: 10,
             min: 0.5,
-            label: AppLocalizations.of(context)!.quality,
+            label: AppLocalizations.of(context).quality,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -106,11 +106,11 @@ class _PagesDialogState extends State<PagesDialog> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  child: Text(AppLocalizations.of(context)!.cancel),
+                  child: Text(AppLocalizations.of(context).cancel),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 ElevatedButton(
-                  child: Text(AppLocalizations.of(context)!.ok),
+                  child: Text(AppLocalizations.of(context).ok),
                   onPressed: () => Navigator.of(context)
                       .pop(PageDialogCallback(selected, quality)),
                 ),

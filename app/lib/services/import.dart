@@ -142,7 +142,7 @@ class ImportService {
       [Offset? position, bool createAreas = false]) async {
     final firstPos = position ?? Offset.zero;
     final elements = <Uint8List>[];
-    final localizations = AppLocalizations.of(context)!;
+    final localizations = AppLocalizations.of(context);
     await for (var page in Printing.raster(bytes)) {
       final png = await page.toPng();
       elements.add(png);

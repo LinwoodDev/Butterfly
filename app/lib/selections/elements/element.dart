@@ -39,7 +39,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       ...super.buildProperties(context),
       OffsetPropertyView(
         value: position,
-        title: Text(AppLocalizations.of(context)!.position),
+        title: Text(AppLocalizations.of(context).position),
         clearValue: selected.length > 1,
         onChanged: (value) {
           updateElements(
@@ -110,7 +110,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.element;
+      AppLocalizations.of(context).element;
 
   @override
   IconData getIcon({bool filled = false}) =>
