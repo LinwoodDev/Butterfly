@@ -25,7 +25,8 @@ FutureOr<AppDocument?> checkFileChanges(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(AppLocalizations.of(context).breakingChangesMessage(version, kFileVersion)),
+              Text(AppLocalizations.of(context)
+                  .breakingChangesMessage(version, kFileVersion)),
               const SizedBox(height: 8),
               OutlinedButton.icon(
                 label: Text(AppLocalizations.of(context).documentation),

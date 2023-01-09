@@ -144,8 +144,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       }
       setState(() => _isConnected = true);
     } catch (e) {
-      _showCreatingError(
-          AppLocalizations.of(context).cannotConnectToRemote, e);
+      _showCreatingError(AppLocalizations.of(context).cannotConnectToRemote, e);
     }
   }
 
@@ -307,8 +306,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     value: _syncRootDirectory,
                     onChanged: (value) => setState(
                         () => _syncRootDirectory = value ?? _syncRootDirectory),
-                    title:
-                        Text(AppLocalizations.of(context).syncRootDirectory),
+                    title: Text(AppLocalizations.of(context).syncRootDirectory),
                   ),
                   _DirectoryField(
                     controller: _directoryController,
@@ -332,8 +330,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                       ExpansionPanel(
                         headerBuilder: ((context, isExpanded) => Align(
                               alignment: Alignment.center,
-                              child: Text(
-                                  AppLocalizations.of(context).advanced,
+                              child: Text(AppLocalizations.of(context).advanced,
                                   style: Theme.of(context).textTheme.headline6,
                                   textAlign: TextAlign.center),
                             )),
@@ -342,13 +339,15 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         body: Column(children: [
                           _DirectoryField(
                             controller: _documentsDirectoryController,
-                            label: AppLocalizations.of(context).documentsDirectory,
+                            label:
+                                AppLocalizations.of(context).documentsDirectory,
                             icon: const Icon(PhosphorIcons.fileLight),
                           ),
                           const SizedBox(height: 8),
                           _DirectoryField(
                             controller: _templatesDirectoryController,
-                            label: AppLocalizations.of(context).templatesDirectory,
+                            label:
+                                AppLocalizations.of(context).templatesDirectory,
                             icon: const Icon(PhosphorIcons.fileDottedLight),
                           ),
                           const SizedBox(height: 8),

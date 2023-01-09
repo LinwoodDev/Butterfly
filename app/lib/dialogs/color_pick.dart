@@ -79,18 +79,21 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             showDialog<void>(
                                 context: context,
                                 builder: (ctx) => AlertDialog(
-                                      title: Text(AppLocalizations.of(context).areYouSure),
-                                      content: Text(
-                                          AppLocalizations.of(context).reallyDelete),
+                                      title: Text(AppLocalizations.of(context)
+                                          .areYouSure),
+                                      content: Text(AppLocalizations.of(context)
+                                          .reallyDelete),
                                       actions: [
                                         TextButton(
                                             child: Text(
-                                                AppLocalizations.of(context).no),
+                                                AppLocalizations.of(context)
+                                                    .no),
                                             onPressed: () =>
                                                 Navigator.of(ctx).pop()),
                                         ElevatedButton(
                                             child: Text(
-                                                AppLocalizations.of(context).yes),
+                                                AppLocalizations.of(context)
+                                                    .yes),
                                             onPressed: () {
                                               Navigator.of(ctx).pop();
                                               Navigator.of(ctx).pop();
@@ -186,20 +189,23 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                           ),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context).add,
+                                                  AppLocalizations.of(context)
+                                                      .add,
                                               icon: const Icon(
                                                   PhosphorIcons.plusLight),
                                               onPressed: _createPalette),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context).edit,
+                                                  AppLocalizations.of(context)
+                                                      .edit,
                                               icon: const Icon(
                                                   PhosphorIcons.penLight),
                                               onPressed:
                                                   empty ? null : _editPalette),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context).remove,
+                                                  AppLocalizations.of(context)
+                                                      .remove,
                                               icon: const Icon(
                                                   PhosphorIcons.minusLight),
                                               onPressed: empty
@@ -217,33 +223,38 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                           const VerticalDivider(),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context).import,
+                                                  AppLocalizations.of(context)
+                                                      .import,
                                               icon: const Icon(PhosphorIcons
                                                   .arrowSquareInLight),
                                               onPressed: _importPalette),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context).export,
+                                                  AppLocalizations.of(context)
+                                                      .export,
                                               icon: const Icon(
                                                   PhosphorIcons.exportLight),
                                               onPressed: _exportPalette),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context).help,
+                                                  AppLocalizations.of(context)
+                                                      .help,
                                               icon: const Icon(PhosphorIcons
                                                   .circleWavyQuestionLight),
                                               onPressed: () =>
                                                   openHelp(['color_picker'])),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context).resetPalette,
+                                                  AppLocalizations.of(context)
+                                                      .resetPalette,
                                               icon: const Icon(PhosphorIcons
                                                   .clockClockwiseLight),
                                               onPressed: _resetPalette),
                                           const VerticalDivider(),
                                           IconButton(
                                               tooltip:
-                                                  AppLocalizations.of(context).close,
+                                                  AppLocalizations.of(context)
+                                                      .close,
                                               icon: const Icon(
                                                   PhosphorIcons.xLight),
                                               onPressed: () =>
@@ -605,8 +616,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                                       ColorPickerResponse(color.value, false))),
                               const SizedBox(width: 8),
                               ElevatedButton(
-                                  child:
-                                      Text(AppLocalizations.of(context).pin),
+                                  child: Text(AppLocalizations.of(context).pin),
                                   onPressed: () => Navigator.of(context).pop(
                                       ColorPickerResponse(color.value, true))),
                             ] else

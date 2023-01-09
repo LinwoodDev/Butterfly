@@ -111,7 +111,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
                       if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
                         CheckboxListTile(
                           value: state.nativeWindowTitleBar,
-                          title: Text(AppLocalizations.of(context).nativeWindowTitleBar),
+                          title: Text(AppLocalizations.of(context)
+                              .nativeWindowTitleBar),
                           secondary: const Icon(PhosphorIcons.appWindowLight),
                           onChanged: (value) => context
                               .read<SettingsCubit>()

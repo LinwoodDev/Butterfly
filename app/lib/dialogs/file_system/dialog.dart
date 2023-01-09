@@ -125,8 +125,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                           _createAsset();
                                         }),
                                     ListTile(
-                                        title: Text(
-                                            AppLocalizations.of(context).folder),
+                                        title: Text(AppLocalizations.of(context)
+                                            .folder),
                                         leading: const Icon(
                                             PhosphorIcons.folderLight),
                                         onTap: () {

@@ -90,7 +90,8 @@ class WaypointsDialog extends StatelessWidget {
                                               Navigator.of(context).pop(true);
                                             },
                                             title: Text(
-                                                AppLocalizations.of(context).origin)),
+                                                AppLocalizations.of(context)
+                                                    .origin)),
                                         if (currentArea != null)
                                           ListTile(
                                               onTap: () {
@@ -102,7 +103,8 @@ class WaypointsDialog extends StatelessWidget {
                                                 Navigator.of(context).pop(true);
                                               },
                                               title: Text(
-                                                  AppLocalizations.of(context).currentArea)),
+                                                  AppLocalizations.of(context)
+                                                      .currentArea)),
                                         const Divider(),
                                         ...List.generate(
                                             waypoints.length,

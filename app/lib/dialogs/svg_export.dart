@@ -257,8 +257,8 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
             onSubmitted: (value) => _regeneratePreviewImage()),
         TextField(
             controller: _heightController,
-            decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).height),
+            decoration:
+                InputDecoration(labelText: AppLocalizations.of(context).height),
             onChanged: (value) => height = int.tryParse(value) ?? height,
             onSubmitted: (value) => _regeneratePreviewImage()),
         CheckboxListTile(

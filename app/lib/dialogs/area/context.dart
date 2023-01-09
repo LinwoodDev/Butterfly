@@ -70,11 +70,13 @@ class AreaContextMenu extends StatelessWidget {
                           content: TextFormField(
                             validator: (value) {
                               if (value?.isEmpty ?? true) {
-                                return AppLocalizations.of(context).shouldNotEmpty;
+                                return AppLocalizations.of(context)
+                                    .shouldNotEmpty;
                               }
                               if (state.document.getAreaByName(value!) !=
                                   null) {
-                                return AppLocalizations.of(context).alreadyExists;
+                                return AppLocalizations.of(context)
+                                    .alreadyExists;
                               }
                               return null;
                             },

@@ -206,8 +206,7 @@ class _ColorViewState extends State<ColorView> {
                                 child: ListTile(
                                   mouseCursor: MouseCursor.defer,
                                   leading: const Icon(PhosphorIcons.plusLight),
-                                  title:
-                                      Text(AppLocalizations.of(context).add),
+                                  title: Text(AppLocalizations.of(context).add),
                                   onTap: _newPalette,
                                 ),
                               ),

@@ -328,7 +328,8 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                               },
                               validator: (value) {
                                 if (value?.isEmpty ?? true) {
-                                  return AppLocalizations.of(context).shouldNotEmpty;
+                                  return AppLocalizations.of(context)
+                                      .shouldNotEmpty;
                                 }
                                 final state =
                                     context.read<DocumentBloc>().state;
@@ -337,7 +338,8 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                                 }
                                 if (state.document.getExportPreset(value!) !=
                                     null) {
-                                  return AppLocalizations.of(context).alreadyExists;
+                                  return AppLocalizations.of(context)
+                                      .alreadyExists;
                                 }
                                 return null;
                               },

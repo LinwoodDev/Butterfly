@@ -123,17 +123,20 @@ class GeneralSettingsPage extends StatelessWidget {
                                 subtitle: Text(nightlyVersion),
                               ),
                               ListTile(
-                                title: Text(AppLocalizations.of(context).currentVersion),
+                                title: Text(AppLocalizations.of(context)
+                                    .currentVersion),
                                 subtitle: Text(currentVersion),
                               ),
                               const Divider(),
                               if (isStable) ...[
                                 ListTile(
-                                  title: Text(AppLocalizations.of(context).usingLatestStable),
+                                  title: Text(AppLocalizations.of(context)
+                                      .usingLatestStable),
                                 ),
                               ] else if (isNightly || isDevelop || isMain) ...[
                                 ListTile(
-                                  title: Text(AppLocalizations.of(context).usingLatestNightly),
+                                  title: Text(AppLocalizations.of(context)
+                                      .usingLatestNightly),
                                 )
                               ] else if (isError) ...[
                                 ListTile(
@@ -142,7 +145,8 @@ class GeneralSettingsPage extends StatelessWidget {
                                 ),
                               ] else if (isUpdateAvailable)
                                 ListTile(
-                                  title: Text(AppLocalizations.of(context).updateAvailable),
+                                  title: Text(AppLocalizations.of(context)
+                                      .updateAvailable),
                                   subtitle: Text(
                                       AppLocalizations.of(context).updateNow),
                                   leading:
@@ -169,8 +173,7 @@ class GeneralSettingsPage extends StatelessWidget {
                   children: [
                     ListTile(
                         leading: const Icon(PhosphorIcons.articleLight),
-                        title:
-                            Text(AppLocalizations.of(context).documentation),
+                        title: Text(AppLocalizations.of(context).documentation),
                         onTap: () => launchUrl(
                             Uri.https('docs.butterfly.linwood.dev', ''),
                             mode: LaunchMode.externalApplication)),
@@ -235,15 +238,14 @@ class GeneralSettingsPage extends StatelessWidget {
                             mode: LaunchMode.externalApplication)),
                     ListTile(
                         leading: const Icon(PhosphorIcons.shieldLight),
-                        title:
-                            Text(AppLocalizations.of(context).privacypolicy),
+                        title: Text(AppLocalizations.of(context).privacypolicy),
                         onTap: () => launchUrl(
                             Uri.https(
                                 'docs.butterfly.linwood.dev', 'privacypolicy'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
-                      title: Text(
-                          AppLocalizations.of(context).thirdPartyLicenses),
+                      title:
+                          Text(AppLocalizations.of(context).thirdPartyLicenses),
                       leading: const Icon(PhosphorIcons.fileLight),
                       onTap: () => showLicensePage(context: context),
                     )

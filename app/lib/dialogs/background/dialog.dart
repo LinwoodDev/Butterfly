@@ -180,7 +180,8 @@ class BackgroundDialog extends StatelessWidget {
                                                     children: [
                                                       Text(
                                                           AppLocalizations.of(
-                                                                  context).horizontal,
+                                                                  context)
+                                                              .horizontal,
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -197,7 +198,8 @@ class BackgroundDialog extends StatelessWidget {
                                                         .boxXColor),
                                                     title: Text(
                                                         AppLocalizations.of(
-                                                                context).color),
+                                                                context)
+                                                            .color),
                                                     onChanged: (value) => setState(() =>
                                                         background = (background
                                                                 as BoxBackground)
@@ -216,7 +218,8 @@ class BackgroundDialog extends StatelessWidget {
                                                       },
                                                       header: Text(
                                                           AppLocalizations.of(
-                                                                  context).width,
+                                                                  context)
+                                                              .width,
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -236,9 +239,10 @@ class BackgroundDialog extends StatelessWidget {
                                                                       .round()),
                                                       header: Text(
                                                           AppLocalizations.of(
-                                                                  context).count,
-                                                          style: Theme
-                                                                  .of(context)
+                                                                  context)
+                                                              .count,
+                                                          style: Theme.of(
+                                                                  context)
                                                               .textTheme
                                                               .titleLarge),
                                                       value: (background
@@ -258,7 +262,8 @@ class BackgroundDialog extends StatelessWidget {
                                                                       value),
                                                       header: Text(
                                                           AppLocalizations.of(
-                                                                  context).space,
+                                                                  context)
+                                                              .space,
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -286,7 +291,8 @@ class BackgroundDialog extends StatelessWidget {
                                                     children: [
                                                       Text(
                                                           AppLocalizations.of(
-                                                                  context).vertical,
+                                                                  context)
+                                                              .vertical,
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -300,7 +306,8 @@ class BackgroundDialog extends StatelessWidget {
                                                   ColorField(
                                                     title: Text(
                                                         AppLocalizations.of(
-                                                                context).color),
+                                                                context)
+                                                            .color),
                                                     value: Color((background
                                                             as BoxBackground)
                                                         .boxYColor),
@@ -322,7 +329,8 @@ class BackgroundDialog extends StatelessWidget {
                                                       },
                                                       header: Text(
                                                           AppLocalizations.of(
-                                                                  context).width,
+                                                                  context)
+                                                              .width,
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -342,9 +350,10 @@ class BackgroundDialog extends StatelessWidget {
                                                                       .round()),
                                                       header: Text(
                                                           AppLocalizations.of(
-                                                                  context).count,
-                                                          style: Theme
-                                                                  .of(context)
+                                                                  context)
+                                                              .count,
+                                                          style: Theme.of(
+                                                                  context)
                                                               .textTheme
                                                               .titleLarge),
                                                       value: (background
@@ -364,7 +373,8 @@ class BackgroundDialog extends StatelessWidget {
                                                                       value),
                                                       header: Text(
                                                           AppLocalizations.of(
-                                                                  context).space,
+                                                                  context)
+                                                              .space,
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -384,8 +394,8 @@ class BackgroundDialog extends StatelessWidget {
                               children: [
                                 Expanded(child: Container()),
                                 TextButton(
-                                  child: Text(
-                                      AppLocalizations.of(context).cancel),
+                                  child:
+                                      Text(AppLocalizations.of(context).cancel),
                                   onPressed: () => Navigator.of(context).pop(),
                                 ),
                                 ElevatedButton(

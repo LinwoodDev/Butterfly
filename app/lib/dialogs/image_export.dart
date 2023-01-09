@@ -156,8 +156,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                           ElevatedButton(
                             child: Text(AppLocalizations.of(context).export),
                             onPressed: () async {
-                              final localization =
-                                  AppLocalizations.of(context);
+                              final localization = AppLocalizations.of(context);
                               final state = context.read<DocumentBloc>().state;
                               Navigator.of(context).pop();
                               if (state is! DocumentLoadSuccess) {
@@ -251,8 +250,8 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
             onSubmitted: (value) => _regeneratePreviewImage()),
         TextField(
             controller: _heightController,
-            decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).height),
+            decoration:
+                InputDecoration(labelText: AppLocalizations.of(context).height),
             onChanged: (value) => height = int.tryParse(value) ?? height,
             onSubmitted: (value) => _regeneratePreviewImage()),
         ExactSlider(

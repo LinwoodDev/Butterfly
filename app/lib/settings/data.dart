@@ -51,7 +51,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                       children: [
                         if (!kIsWeb && !Platform.isAndroid)
                           ListTile(
-                            title: Text(AppLocalizations.of(context).documentDirectory),
+                            title: Text(
+                                AppLocalizations.of(context).documentDirectory),
                             leading: const Icon(PhosphorIcons.folderLight),
                             subtitle: Text(state.documentPath.isNotEmpty
                                 ? state.documentPath
@@ -93,7 +94,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                   decoration: InputDecoration(
                                     hintText: 'yyyy-MM-dd',
                                     filled: true,
-                                    labelText: AppLocalizations.of(context).dateFormat,
+                                    labelText:
+                                        AppLocalizations.of(context).dateFormat,
                                   ),
                                 ),
                                 actions: [

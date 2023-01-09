@@ -50,8 +50,8 @@ class PenBehaviorSettings extends StatelessWidget {
                           const SizedBox(height: 8),
                           CheckboxListTile(
                             value: state.penOnlyInput,
-                            title: Text(
-                                AppLocalizations.of(context).penOnlyInput),
+                            title:
+                                Text(AppLocalizations.of(context).penOnlyInput),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
                                 .changepenOnlyInput(value ?? false),

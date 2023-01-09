@@ -38,7 +38,8 @@ class LayersDialog extends StatelessWidget {
                             final success = await showDialog<bool>(
                                   context: context,
                                   builder: (ctx) => AlertDialog(
-                                    title: Text(AppLocalizations.of(ctx).selectCustomLayer),
+                                    title: Text(AppLocalizations.of(ctx)
+                                        .selectCustomLayer),
                                     content: TextField(
                                       controller: nameController,
                                       autofocus: true,
@@ -46,8 +47,8 @@ class LayersDialog extends StatelessWidget {
                                           Navigator.of(ctx).pop(true),
                                       decoration: InputDecoration(
                                           filled: true,
-                                          hintText:
-                                              AppLocalizations.of(context).name),
+                                          hintText: AppLocalizations.of(context)
+                                              .name),
                                     ),
                                     actions: [
                                       TextButton(
@@ -132,7 +133,8 @@ class LayersDialog extends StatelessWidget {
                                           const LayerVisibilityChanged(''));
                                     },
                                   ),
-                                  title: Text(AppLocalizations.of(context).defaultLayer)),
+                                  title: Text(AppLocalizations.of(context)
+                                      .defaultLayer)),
                               const Divider(),
                               ...List.generate(
                                   layers.length,

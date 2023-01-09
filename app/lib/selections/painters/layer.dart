@@ -33,7 +33,8 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
                         final success = await showDialog<bool>(
                               context: context,
                               builder: (ctx) => AlertDialog(
-                                title: Text(AppLocalizations.of(ctx).selectCustomLayer),
+                                title: Text(
+                                    AppLocalizations.of(ctx).selectCustomLayer),
                                 content: TextField(
                                   controller: nameController,
                                   autofocus: true,

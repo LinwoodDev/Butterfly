@@ -1,5 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/dialogs/packs/pack.dart';
 import 'package:butterfly/models/pack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +33,7 @@ class _PackComponentDialogState extends State<PackComponentDialog> {
   late final PackFileSystem _fileSystem;
   String? _pack;
   late ButterflyComponent _component;
-  late final Future<List<ButterflyPack>> _packFuture;
+  late Future<List<ButterflyPack>> _packFuture;
   List<ButterflyPack> _documentPacks = [];
 
   @override
@@ -69,35 +70,58 @@ class _PackComponentDialogState extends State<PackComponentDialog> {
           if (widget.pack == null) ...[
             FutureBuilder<List<ButterflyPack>>(
               future: _packFuture,
-              builder: (context, snapshot) => DropdownButtonFormField<String>(
-                value: _pack,
-                items: <String>[
-                  ..._documentPacks.map((e) => 'document:${e.name}'),
-                  ...snapshot.data?.map((e) => 'local:${e.name}').toList() ??
-                      [],
-                ]
-                    .map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Row(
-                          children: [
-                            Icon(e.startsWith('local')
-                                ? PhosphorIcons.appWindowLight
-                                : PhosphorIcons.fileLight),
-                            const SizedBox(width: 8),
-                            Text(e.substring(e.indexOf(':') + 1)),
-                          ],
-                        )))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _pack = value;
-                  });
-                },
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context).pack,
-                  filled: true,
-                  icon: const Icon(PhosphorIcons.packageLight),
-                ),
+              builder: (context, snapshot) => Row(
+                children: [
+                  Flexible(
+                    child: DropdownButtonFormField<String>(
+                      value: _pack,
+                      items: <String>[
+                        ..._documentPacks.map((e) => 'document:${e.name}'),
+                        ...snapshot.data
+                                ?.map((e) => 'local:${e.name}')
+                                .toList() ??
+                            [],
+                      ]
+                          .map((e) => DropdownMenuItem(
+                              value: e,
+                              child: Row(
+                                children: [
+                                  Icon(e.startsWith('local')
+                                      ? PhosphorIcons.appWindowLight
+                                      : PhosphorIcons.fileLight),
+                                  const SizedBox(width: 8),
+                                  Text(e.substring(e.indexOf(':') + 1)),
+                                ],
+                              )))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _pack = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context).pack,
+                        filled: true,
+                        icon: const Icon(PhosphorIcons.packageLight),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton(
+                    icon: const Icon(PhosphorIcons.plusCircleLight),
+                    onPressed: () async {
+                      final pack = await showDialog<ButterflyPack>(
+                          context: context,
+                          builder: (context) => const PackDialog());
+                      if (pack == null) return;
+                      await _fileSystem.updatePack(pack);
+                      setState(() {
+                        _documentPacks = [..._documentPacks, pack];
+                        _pack = pack.name;
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 16),

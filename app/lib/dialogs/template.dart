@@ -266,8 +266,8 @@ class _TemplateItem extends StatelessWidget {
                                       onPressed: () =>
                                           Navigator.of(context).pop(true)),
                                   ElevatedButton(
-                                      child: Text(
-                                          AppLocalizations.of(context).ok),
+                                      child:
+                                          Text(AppLocalizations.of(context).ok),
                                       onPressed: () async =>
                                           Navigator.of(context).pop(true))
                                 ],
@@ -327,8 +327,8 @@ class _TemplateItem extends StatelessWidget {
                         builder: (context) {
                           return AlertDialog(
                             title: Text(AppLocalizations.of(context).delete),
-                            content: Text(
-                                AppLocalizations.of(context).reallyDelete),
+                            content:
+                                Text(AppLocalizations.of(context).reallyDelete),
                             actions: <Widget>[
                               TextButton(
                                 child:

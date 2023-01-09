@@ -264,8 +264,7 @@ class _ConstraintViewState extends State<ConstraintView> {
             const SizedBox(height: 8),
             TextFormField(
               decoration: InputDecoration(
-                  filled: true,
-                  labelText: AppLocalizations.of(context).length),
+                  filled: true, labelText: AppLocalizations.of(context).length),
               keyboardType: TextInputType.number,
               onFieldSubmitted: (value) {
                 _onChanged(constraint.copyWith(length: double.parse(value)));

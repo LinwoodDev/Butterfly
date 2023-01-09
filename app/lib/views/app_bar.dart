@@ -149,8 +149,8 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                         },
                                         decoration: InputDecoration(
                                           contentPadding: EdgeInsets.zero,
-                                          hintText:
-                                              AppLocalizations.of(context).untitled,
+                                          hintText: AppLocalizations.of(context)
+                                              .untitled,
                                           hintStyle: area == null
                                               ? Theme.of(context)
                                                   .textTheme
@@ -172,7 +172,8 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                                     ?.getLocalizedName(context)
                                                 : currentIndex
                                                     .location.identifier) ??
-                                            AppLocalizations.of(context).document,
+                                            AppLocalizations.of(context)
+                                                .document,
                                         style: Theme.of(context)
                                             .textTheme
                                             .caption
@@ -500,8 +501,7 @@ class _MainPopupMenu extends StatelessWidget {
                               padding: EdgeInsets.zero,
                               child: ListTile(
                                   leading: const Icon(PhosphorIcons.sunLight),
-                                  title:
-                                      Text(AppLocalizations.of(context).svg),
+                                  title: Text(AppLocalizations.of(context).svg),
                                   subtitle: Text(
                                       context.getShortcut('E', altKey: true)),
                                   onTap: () async {
@@ -543,8 +543,7 @@ class _MainPopupMenu extends StatelessWidget {
                               child: ListTile(
                                   leading:
                                       const Icon(PhosphorIcons.filePdfLight),
-                                  title:
-                                      Text(AppLocalizations.of(context).pdf),
+                                  title: Text(AppLocalizations.of(context).pdf),
                                   subtitle: Text(context.getShortcut('E',
                                       shiftKey: true, altKey: true)),
                                   onTap: () {

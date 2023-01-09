@@ -107,7 +107,8 @@ class _CreateStartViewState extends State<_CreateStartView> {
                             onPressed: () => showDialog<void>(
                               context: context,
                               builder: (context) => AlertDialog(
-                                title: Text(AppLocalizations.of(context).defaultTemplate),
+                                title: Text(AppLocalizations.of(context)
+                                    .defaultTemplate),
                                 content: Text(
                                     AppLocalizations.of(context).reallyReset),
                                 actions: [
