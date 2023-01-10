@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: LinwoodCloud Support
+  - name: LinwoodCloud Matrix
     url: https://go.linwood.dev/discord
-    about: Please ask and answer questions here.
+    about: Please ask and answer questions here. Synced with discord.
+  - name: LinwoodCloud Discord
+    url: https://go.linwood.dev/discord
+    about: Please ask and answer questions here. Synced with matrix.
