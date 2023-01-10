@@ -4,12 +4,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../models/text.dart';
 
 class GeneralStyleView extends StatelessWidget {
-  final TextStyleSheet styleSheet;
+  final TextStyleSheet value;
   final ValueChanged<TextStyleSheet> onChanged;
 
   const GeneralStyleView({
     super.key,
-    required this.styleSheet,
+    required this.value,
     required this.onChanged,
   });
 
@@ -24,8 +24,8 @@ class GeneralStyleView extends StatelessWidget {
             icon: const Icon(Icons.title_outlined),
             filled: true,
           ),
-          initialValue: styleSheet.name,
-          onChanged: (value) => onChanged(styleSheet.copyWith(name: value)),
+          initialValue: value.name,
+          onChanged: (name) => onChanged(value.copyWith(name: name)),
         ),
       ],
     );

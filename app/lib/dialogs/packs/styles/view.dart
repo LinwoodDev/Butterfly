@@ -7,12 +7,12 @@ import '../../../models/pack.dart';
 import '../../../models/text.dart';
 
 class StylesPackView extends StatelessWidget {
-  final ButterflyPack pack;
+  final ButterflyPack value;
   final ValueChanged<ButterflyPack> onChanged;
 
   const StylesPackView({
     super.key,
-    required this.pack,
+    required this.value,
     required this.onChanged,
   });
 
@@ -27,15 +27,15 @@ class StylesPackView extends StatelessWidget {
               const SizedBox(height: 8),
               Column(
                 mainAxisSize: MainAxisSize.min,
-                children: pack.styles
+                children: value.styles
                     .asMap()
                     .entries
                     .map(
                       (e) => Dismissible(
                         key: ValueKey(e.key),
                         onDismissed: (direction) {
-                          onChanged(pack.copyWith(
-                            components: pack.components..remove(e.value),
+                          onChanged(value.copyWith(
+                            components: value.components..remove(e.value),
                           ));
                         },
                         child: ListTile(
@@ -45,7 +45,7 @@ class StylesPackView extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (context) => StyleDialog(
-                                styleSheet: styleSheet,
+                                value: styleSheet,
                                 onChanged: (value) {
                                   styleSheet = value;
                                 },
@@ -67,7 +67,7 @@ class StylesPackView extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (context) => StyleDialog(
-                    styleSheet: styleSheet,
+                    value: styleSheet,
                     onChanged: (value) {
                       styleSheet = value;
                     },

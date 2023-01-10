@@ -7,12 +7,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class StyleDialog extends StatefulWidget {
-  final TextStyleSheet styleSheet;
+  final TextStyleSheet value;
   final ValueChanged<TextStyleSheet> onChanged;
 
   const StyleDialog({
     super.key,
-    required this.styleSheet,
+    required this.value,
     required this.onChanged,
   });
 
@@ -27,15 +27,15 @@ class _StyleDialogState extends State<StyleDialog> {
   void initState() {
     super.initState();
 
-    _style = widget.styleSheet;
+    _style = widget.value;
   }
 
   @override
   void didUpdateWidget(covariant StyleDialog oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.styleSheet != widget.styleSheet) {
-      _onChanged(widget.styleSheet);
+    if (oldWidget.value != widget.value) {
+      _onChanged(widget.value);
     }
   }
 
@@ -83,10 +83,9 @@ class _StyleDialogState extends State<StyleDialog> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    GeneralStyleView(styleSheet: _style, onChanged: _onChanged),
-                    ParagraphsStyleView(
-                        styleSheet: _style, onChanged: _onChanged),
-                    TextsStyleView(styleSheet: _style, onChanged: _onChanged),
+                    GeneralStyleView(value: _style, onChanged: _onChanged),
+                    ParagraphsStyleView(value: _style, onChanged: _onChanged),
+                    TextsStyleView(value: _style, onChanged: _onChanged),
                   ],
                 ),
               ),

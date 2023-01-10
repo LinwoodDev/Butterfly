@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GeneralPackView extends StatelessWidget {
-  final ButterflyPack pack;
+  final ButterflyPack value;
   final ValueChanged<ButterflyPack> onChanged;
 
   const GeneralPackView({
     super.key,
-    required this.pack,
+    required this.value,
     required this.onChanged,
   });
 
@@ -23,8 +23,8 @@ class GeneralPackView extends StatelessWidget {
             icon: const Icon(Icons.title_outlined),
             filled: true,
           ),
-          initialValue: pack.name,
-          onChanged: (value) => onChanged(pack.copyWith(name: value)),
+          initialValue: value.name,
+          onChanged: (name) => onChanged(value.copyWith(name: name)),
         ),
         const SizedBox(height: 8),
         TextFormField(
@@ -33,8 +33,8 @@ class GeneralPackView extends StatelessWidget {
             icon: const Icon(Icons.person_outline),
             filled: true,
           ),
-          initialValue: pack.author,
-          onChanged: (value) => onChanged(pack.copyWith(author: value)),
+          initialValue: value.author,
+          onChanged: (author) => onChanged(value.copyWith(author: author)),
         ),
         const SizedBox(height: 8),
         TextFormField(
@@ -45,8 +45,9 @@ class GeneralPackView extends StatelessWidget {
           ),
           minLines: 3,
           maxLines: 5,
-          initialValue: pack.description,
-          onChanged: (value) => onChanged(pack.copyWith(description: value)),
+          initialValue: value.description,
+          onChanged: (description) =>
+              onChanged(value.copyWith(description: description)),
         ),
       ],
     );

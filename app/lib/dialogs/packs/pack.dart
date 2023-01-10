@@ -80,10 +80,10 @@ class _PackDialogState extends State<PackDialog> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    GeneralPackView(pack: pack, onChanged: _onChanged),
+                    GeneralPackView(value: pack, onChanged: _onChanged),
                     if (widget.pack != null) ...[
-                      ComponentsPackView(pack: pack, onChanged: _onChanged),
-                      StylesPackView(pack: pack, onChanged: _onChanged),
+                      ComponentsPackView(value: pack, onChanged: _onChanged),
+                      StylesPackView(value: pack, onChanged: _onChanged),
                     ],
                   ],
                 ),
