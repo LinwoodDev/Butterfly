@@ -44,6 +44,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../actions/change_painter.dart';
 import '../actions/packs.dart';
+import '../main.dart';
 import '../models/background.dart';
 import 'changes.dart';
 import 'view.dart';
@@ -385,7 +386,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                 child: LayoutBuilder(
                                     builder: (context, constraints) {
                                   final isMobile =
-                                      MediaQuery.of(context).size.width < 800;
+                                      MediaQuery.of(context).size.width <
+                                          kMobileWidth;
                                   final isLandscape =
                                       MediaQuery.of(context).size.height < 400;
                                   const property = PropertyView();

@@ -37,6 +37,7 @@ import 'views/window.dart';
 
 const kFileVersion = 7;
 const kBreakingChangesVersion = 7;
+const kMobileWidth = 600.0;
 
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();

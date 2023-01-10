@@ -1,8 +1,10 @@
+import 'package:butterfly/dialogs/packs/styles/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../models/pack.dart';
+import '../../../models/text.dart';
 
 class StylesPackView extends StatelessWidget {
   final ButterflyPack pack;
@@ -38,6 +40,18 @@ class StylesPackView extends StatelessWidget {
                         },
                         child: ListTile(
                           title: Text(e.value.name),
+                          onTap: () {
+                            var styleSheet = e.value;
+                            showDialog(
+                              context: context,
+                              builder: (context) => StyleDialog(
+                                styleSheet: styleSheet,
+                                onChanged: (value) {
+                                  styleSheet = value;
+                                },
+                              ),
+                            );
+                          },
                         ),
                       ),
                     )
@@ -48,7 +62,18 @@ class StylesPackView extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: FloatingActionButton.extended(
-              onPressed: () {},
+              onPressed: () {
+                var styleSheet = const TextStyleSheet();
+                showDialog(
+                  context: context,
+                  builder: (context) => StyleDialog(
+                    styleSheet: styleSheet,
+                    onChanged: (value) {
+                      styleSheet = value;
+                    },
+                  ),
+                );
+              },
               icon: const Icon(PhosphorIcons.plusLight),
               label: Text(AppLocalizations.of(context).create),
             ),

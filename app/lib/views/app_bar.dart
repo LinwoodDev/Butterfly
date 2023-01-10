@@ -29,6 +29,7 @@ import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/transform.dart';
 import '../embed/action.dart';
+import '../main.dart';
 import 'window.dart';
 
 class PadAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -56,7 +57,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
       }
     }, child: LayoutBuilder(
       builder: (context, constraints) {
-        final isMobile = MediaQuery.of(context).size.width < 800;
+        final isMobile = MediaQuery.of(context).size.width < kMobileWidth;
         return AppBar(
             toolbarHeight: _height,
             leading: _MainPopupMenu(
