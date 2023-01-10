@@ -35,14 +35,15 @@ class StylesPackView extends StatelessWidget {
                         key: ValueKey(e.key),
                         onDismissed: (direction) {
                           onChanged(value.copyWith(
-                            components: value.components..remove(e.value),
+                            styles: List<TextStyleSheet>.from(value.styles)
+                              ..remove(e.value),
                           ));
                         },
                         child: ListTile(
                           title: Text(e.value.name),
-                          onTap: () {
+                          onTap: () async {
                             var styleSheet = e.value;
-                            showDialog(
+                            final result = await showDialog<bool>(
                               context: context,
                               builder: (context) => StyleDialog(
                                 value: styleSheet,
@@ -51,6 +52,11 @@ class StylesPackView extends StatelessWidget {
                                 },
                               ),
                             );
+                            if (result != true) return;
+                            onChanged(value.copyWith(
+                              styles: List<TextStyleSheet>.from(value.styles)
+                                ..[e.key] = styleSheet,
+                            ));
                           },
                         ),
                       ),
@@ -62,9 +68,9 @@ class StylesPackView extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: FloatingActionButton.extended(
-              onPressed: () {
+              onPressed: () async {
                 var styleSheet = const TextStyleSheet();
-                showDialog(
+                final result = await showDialog<bool>(
                   context: context,
                   builder: (context) => StyleDialog(
                     value: styleSheet,
@@ -73,6 +79,11 @@ class StylesPackView extends StatelessWidget {
                     },
                   ),
                 );
+                if (result != true) return;
+                onChanged(value.copyWith(
+                  styles: List<TextStyleSheet>.from(value.styles)
+                    ..add(styleSheet),
+                ));
               },
               icon: const Icon(PhosphorIcons.plusLight),
               label: Text(AppLocalizations.of(context).create),

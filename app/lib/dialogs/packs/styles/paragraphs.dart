@@ -1,11 +1,12 @@
 import 'package:butterfly/models/text.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'paragraph.dart';
 
-class ParagraphsStyleView extends StatelessWidget {
+class ParagraphsStyleView extends StatefulWidget {
   final TextStyleSheet value;
   final ValueChanged<TextStyleSheet> onChanged;
 
@@ -16,8 +17,34 @@ class ParagraphsStyleView extends StatelessWidget {
   });
 
   @override
+  State<ParagraphsStyleView> createState() => _ParagraphsStyleViewState();
+}
+
+class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
+  String? currentStyle;
+
+  @override
+  void initState() {
+    super.initState();
+
+    currentStyle = widget.value.paragraphProperties.keys.firstOrNull;
+  }
+
+  @override
+  void didUpdateWidget(covariant ParagraphsStyleView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.value != widget.value) {
+      if (widget.value.paragraphProperties.containsKey(currentStyle)) {
+        setState(() {});
+      } else {
+        currentStyle = widget.value.paragraphProperties.keys.firstOrNull;
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String? currentStyle;
     return StatefulBuilder(
         builder: (context, setState) => Column(
               children: [
@@ -28,7 +55,7 @@ class ParagraphsStyleView extends StatelessWidget {
                       Flexible(
                         child: DropdownButtonFormField<String?>(
                           items: [
-                            ...value.paragraphProperties.entries.map(
+                            ...widget.value.paragraphProperties.entries.map(
                               (style) => DropdownMenuItem(
                                 value: style.key,
                                 child: Text(style.key),
@@ -63,7 +90,7 @@ class ParagraphsStyleView extends StatelessWidget {
                                         AppLocalizations.of(context).name,
                                   ),
                                   validator: (name) {
-                                    if (value.paragraphProperties
+                                    if (widget.value.paragraphProperties
                                         .containsKey(name)) {
                                       return AppLocalizations.of(context)
                                           .alreadyExists;
@@ -97,9 +124,9 @@ class ParagraphsStyleView extends StatelessWidget {
                           if (result != true) {
                             return;
                           }
-                          onChanged(value.copyWith(
+                          widget.onChanged(widget.value.copyWith(
                             paragraphProperties: {
-                              ...value.paragraphProperties,
+                              ...widget.value.paragraphProperties,
                               name: const DefinedParagraphProperty(),
                             },
                           ));
@@ -126,8 +153,8 @@ class ParagraphsStyleView extends StatelessWidget {
                                           AppLocalizations.of(context).name,
                                     ),
                                     validator: (name) {
-                                      if (value.paragraphProperties
-                                          .containsKey(value)) {
+                                      if (widget.value.paragraphProperties
+                                          .containsKey(widget.value)) {
                                         return AppLocalizations.of(context)
                                             .alreadyExists;
                                       }
@@ -162,13 +189,13 @@ class ParagraphsStyleView extends StatelessWidget {
                             }
                             final lastStyle = currentStyle;
                             currentStyle = name;
-                            onChanged(value.copyWith(
+                            widget.onChanged(widget.value.copyWith(
                               paragraphProperties:
                                   Map<String, DefinedParagraphProperty>.from(
-                                      value.paragraphProperties)
+                                      widget.value.paragraphProperties)
                                     ..remove(lastStyle)
-                                    ..[name] =
-                                        value.paragraphProperties[lastStyle]!,
+                                    ..[name] = widget
+                                        .value.paragraphProperties[lastStyle]!,
                             ));
                           },
                         ),
@@ -205,10 +232,10 @@ class ParagraphsStyleView extends StatelessWidget {
                             }
                             final lastStyle = currentStyle;
                             currentStyle = null;
-                            onChanged(value.copyWith(
+                            widget.onChanged(widget.value.copyWith(
                               paragraphProperties:
                                   Map<String, DefinedParagraphProperty>.from(
-                                      value.paragraphProperties)
+                                      widget.value.paragraphProperties)
                                     ..remove(lastStyle),
                             ));
                           },
@@ -221,7 +248,7 @@ class ParagraphsStyleView extends StatelessWidget {
                   child: Builder(
                     builder: (context) {
                       final currentParagraph =
-                          value.paragraphProperties[currentStyle];
+                          widget.value.paragraphProperties[currentStyle];
                       if (currentParagraph == null) {
                         return const SizedBox();
                       }
@@ -229,9 +256,9 @@ class ParagraphsStyleView extends StatelessWidget {
                         child: ParagraphStyleView(
                           value: currentParagraph,
                           onChanged: (paragraph) {
-                            onChanged(value.copyWith(
+                            widget.onChanged(widget.value.copyWith(
                               paragraphProperties: {
-                                ...value.paragraphProperties,
+                                ...widget.value.paragraphProperties,
                                 currentStyle!: paragraph,
                               },
                             ));
