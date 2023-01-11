@@ -3,8 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'colors.dart';
 
-part 'text.g.dart';
 part 'text.freezed.dart';
+part 'text.g.dart';
 
 enum HorizontalAlignment { left, center, right, justify }
 
@@ -184,5 +184,6 @@ class TextContext with _$TextContext {
       }
       index = endIndex;
     }
+    return paragraphs;
   }
 }

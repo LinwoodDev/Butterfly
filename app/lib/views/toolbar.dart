@@ -15,11 +15,11 @@ class ToolbarView extends StatefulWidget {
 class _ToolbarViewState extends State<ToolbarView> {
   String? currentPalette;
   final GlobalKey _animatedKey = GlobalKey();
-  double _height = 50;
+  double _height = 75;
 
   void _setOpened(bool opened) {
     if (opened && _height == 0) {
-      _height = 50;
+      _height = 75;
     }
     if (!opened && _height != 0) {
       _height = 0;
