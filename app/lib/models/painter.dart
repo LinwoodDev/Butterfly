@@ -87,6 +87,7 @@ class Painter with _$Painter {
 
   factory Painter.label({
     @Default('') String name,
+    @Default('') String pack,
   }) = LabelPainter;
 
   factory Painter.pen({

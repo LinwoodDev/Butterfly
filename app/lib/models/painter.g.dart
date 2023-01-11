@@ -96,12 +96,14 @@ Map<String, dynamic> _$$RedoPainterToJson(_$RedoPainter instance) =>
 
 _$LabelPainter _$$LabelPainterFromJson(Map json) => _$LabelPainter(
       name: json['name'] as String? ?? '',
+      pack: json['pack'] as String? ?? '',
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$LabelPainterToJson(_$LabelPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'pack': instance.pack,
       'type': instance.$type,
     };
 

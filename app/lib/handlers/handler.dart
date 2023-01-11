@@ -31,6 +31,7 @@ import '../models/viewport.dart';
 import '../renderers/cursors/eraser.dart';
 import '../renderers/renderer.dart';
 import '../services/import.dart';
+import '../views/toolbars/color.dart';
 import '../widgets/context_menu.dart';
 
 part 'area.dart';
@@ -161,10 +162,6 @@ abstract class Handler<T> {
 
   bool canChange(PointerDownEvent event, EventContext context) => true;
 
-  int? getColor(DocumentBloc bloc) => null;
-
-  T? setColor(DocumentBloc bloc, int color) => null;
-
   void resetInput(DocumentBloc bloc) {}
 
   PainterStatus getStatus(DocumentBloc bloc) => PainterStatus.normal;
@@ -192,6 +189,8 @@ abstract class Handler<T> {
       stamp: (value) => StampHandler(value),
     );
   }
+
+  Widget? getToolbar(BuildContext context) => null;
 }
 
 typedef HitRequest = bool Function(Offset position, [double radius]);

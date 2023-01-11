@@ -31,10 +31,4 @@ class LabelHandler extends Handler<LabelPainter> {
               ),
             )));*/
   }
-
-  @override
-  int? getColor(DocumentBloc bloc) => null;
-
-  @override
-  LabelPainter? setColor(DocumentBloc bloc, int color) => null;
 }

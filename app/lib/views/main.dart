@@ -32,7 +32,7 @@ import 'package:butterfly/models/palette.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
-import 'package:butterfly/views/color.dart';
+import 'package:butterfly/views/toolbar.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/error.dart';
 import 'package:butterfly/views/property.dart';
@@ -406,7 +406,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                         mainAxisSize:
                                                             MainAxisSize.min,
                                                         children: const [
-                                                          ColorView(),
+                                                          ToolbarView(),
                                                         ]),
                                                     if (!isLandscape) property
                                                   ],
