@@ -60,7 +60,7 @@ class AreaProperty with _$AreaProperty {
 
 @freezed
 class TextSpan with _$TextSpan {
-  const factory TextSpan({
+  const factory TextSpan.text({
     @Default('') String text,
     @Default(SpanProperty.undefined()) SpanProperty property,
   }) = _TextSpan;
@@ -71,7 +71,7 @@ class TextSpan with _$TextSpan {
 
 @freezed
 class TextParagraph with _$TextParagraph {
-  const factory TextParagraph({
+  const factory TextParagraph.text({
     @Default(ParagraphProperty.undefined()) ParagraphProperty textProperty,
     @Default([]) List<TextSpan> textSpans,
   }) = _ParagraphProperty;
@@ -162,5 +162,27 @@ class TextStyleSheet with _$TextStyleSheet {
           undefined: (value) => null,
         ) ??
         const DefinedParagraphProperty();
+  }
+}
+
+@freezed
+class TextContext with _$TextContext {
+  const TextContext._();
+  const factory TextContext(TextArea area, int index, [int? length]) =
+      _TextContext;
+
+  int get endIndex => index + (length ?? 0);
+
+  List<TextParagraph> getParagraphs() {
+    // Get the paragraphs based on the index and length
+    final paragraphs = <TextParagraph>[];
+    var index = 0;
+    for (final paragraph in area.textParagraphs) {
+      final endIndex = index + paragraph.textSpans.length;
+      if (endIndex > this.index) {
+        paragraphs.add(paragraph);
+      }
+      index = endIndex;
+    }
   }
 }

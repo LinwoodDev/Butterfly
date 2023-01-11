@@ -31,4 +31,7 @@ class LabelHandler extends Handler<LabelPainter> {
               ),
             )));*/
   }
+
+  @override
+  Widget? getToolbar(BuildContext context) => const LabelToolbarView();
 }

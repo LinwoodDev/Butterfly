@@ -1613,7 +1613,38 @@ TextSpan _$TextSpanFromJson(Map<String, dynamic> json) {
 mixin _$TextSpan {
   String get text => throw _privateConstructorUsedError;
   SpanProperty get property => throw _privateConstructorUsedError;
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String text, SpanProperty property) text,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String text, SpanProperty property)? text,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String text, SpanProperty property)? text,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_TextSpan value) text,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_TextSpan value)? text,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_TextSpan value)? text,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TextSpanCopyWith<TextSpan> get copyWith =>
@@ -1725,7 +1756,7 @@ class _$_TextSpan implements _TextSpan {
 
   @override
   String toString() {
-    return 'TextSpan(text: $text, property: $property)';
+    return 'TextSpan.text(text: $text, property: $property)';
   }
 
   @override
@@ -1747,6 +1778,62 @@ class _$_TextSpan implements _TextSpan {
   @pragma('vm:prefer-inline')
   _$$_TextSpanCopyWith<_$_TextSpan> get copyWith =>
       __$$_TextSpanCopyWithImpl<_$_TextSpan>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String text, SpanProperty property) text,
+  }) {
+    return text(this.text, property);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String text, SpanProperty property)? text,
+  }) {
+    return text?.call(this.text, property);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String text, SpanProperty property)? text,
+    required TResult orElse(),
+  }) {
+    if (text != null) {
+      return text(this.text, property);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_TextSpan value) text,
+  }) {
+    return text(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_TextSpan value)? text,
+  }) {
+    return text?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_TextSpan value)? text,
+    required TResult orElse(),
+  }) {
+    if (text != null) {
+      return text(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -1780,7 +1867,42 @@ TextParagraph _$TextParagraphFromJson(Map<String, dynamic> json) {
 mixin _$TextParagraph {
   ParagraphProperty get textProperty => throw _privateConstructorUsedError;
   List<TextSpan> get textSpans => throw _privateConstructorUsedError;
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            ParagraphProperty textProperty, List<TextSpan> textSpans)
+        text,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ParagraphProperty textProperty, List<TextSpan> textSpans)?
+        text,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ParagraphProperty textProperty, List<TextSpan> textSpans)?
+        text,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ParagraphProperty value) text,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ParagraphProperty value)? text,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ParagraphProperty value)? text,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TextParagraphCopyWith<TextParagraph> get copyWith =>
@@ -1901,7 +2023,7 @@ class _$_ParagraphProperty implements _ParagraphProperty {
 
   @override
   String toString() {
-    return 'TextParagraph(textProperty: $textProperty, textSpans: $textSpans)';
+    return 'TextParagraph.text(textProperty: $textProperty, textSpans: $textSpans)';
   }
 
   @override
@@ -1926,6 +2048,66 @@ class _$_ParagraphProperty implements _ParagraphProperty {
   _$$_ParagraphPropertyCopyWith<_$_ParagraphProperty> get copyWith =>
       __$$_ParagraphPropertyCopyWithImpl<_$_ParagraphProperty>(
           this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            ParagraphProperty textProperty, List<TextSpan> textSpans)
+        text,
+  }) {
+    return text(textProperty, textSpans);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ParagraphProperty textProperty, List<TextSpan> textSpans)?
+        text,
+  }) {
+    return text?.call(textProperty, textSpans);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ParagraphProperty textProperty, List<TextSpan> textSpans)?
+        text,
+    required TResult orElse(),
+  }) {
+    if (text != null) {
+      return text(textProperty, textSpans);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ParagraphProperty value) text,
+  }) {
+    return text(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ParagraphProperty value)? text,
+  }) {
+    return text?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ParagraphProperty value)? text,
+    required TResult orElse(),
+  }) {
+    if (text != null) {
+      return text(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -2336,5 +2518,169 @@ abstract class _TextStyleSheet extends TextStyleSheet {
   @override
   @JsonKey(ignore: true)
   _$$_TextStyleSheetCopyWith<_$_TextStyleSheet> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$TextContext {
+  TextArea get area => throw _privateConstructorUsedError;
+  int get index => throw _privateConstructorUsedError;
+  int? get length => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $TextContextCopyWith<TextContext> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TextContextCopyWith<$Res> {
+  factory $TextContextCopyWith(
+          TextContext value, $Res Function(TextContext) then) =
+      _$TextContextCopyWithImpl<$Res, TextContext>;
+  @useResult
+  $Res call({TextArea area, int index, int? length});
+
+  $TextAreaCopyWith<$Res> get area;
+}
+
+/// @nodoc
+class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
+    implements $TextContextCopyWith<$Res> {
+  _$TextContextCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? area = null,
+    Object? index = null,
+    Object? length = freezed,
+  }) {
+    return _then(_value.copyWith(
+      area: null == area
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as TextArea,
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      length: freezed == length
+          ? _value.length
+          : length // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TextAreaCopyWith<$Res> get area {
+    return $TextAreaCopyWith<$Res>(_value.area, (value) {
+      return _then(_value.copyWith(area: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$_TextContextCopyWith<$Res>
+    implements $TextContextCopyWith<$Res> {
+  factory _$$_TextContextCopyWith(
+          _$_TextContext value, $Res Function(_$_TextContext) then) =
+      __$$_TextContextCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({TextArea area, int index, int? length});
+
+  @override
+  $TextAreaCopyWith<$Res> get area;
+}
+
+/// @nodoc
+class __$$_TextContextCopyWithImpl<$Res>
+    extends _$TextContextCopyWithImpl<$Res, _$_TextContext>
+    implements _$$_TextContextCopyWith<$Res> {
+  __$$_TextContextCopyWithImpl(
+      _$_TextContext _value, $Res Function(_$_TextContext) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? area = null,
+    Object? index = null,
+    Object? length = freezed,
+  }) {
+    return _then(_$_TextContext(
+      null == area
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as TextArea,
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      freezed == length
+          ? _value.length
+          : length // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_TextContext extends _TextContext {
+  const _$_TextContext(this.area, this.index, [this.length]) : super._();
+
+  @override
+  final TextArea area;
+  @override
+  final int index;
+  @override
+  final int? length;
+
+  @override
+  String toString() {
+    return 'TextContext(area: $area, index: $index, length: $length)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_TextContext &&
+            (identical(other.area, area) || other.area == area) &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.length, length) || other.length == length));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, area, index, length);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_TextContextCopyWith<_$_TextContext> get copyWith =>
+      __$$_TextContextCopyWithImpl<_$_TextContext>(this, _$identity);
+}
+
+abstract class _TextContext extends TextContext {
+  const factory _TextContext(final TextArea area, final int index,
+      [final int? length]) = _$_TextContext;
+  const _TextContext._() : super._();
+
+  @override
+  TextArea get area;
+  @override
+  int get index;
+  @override
+  int? get length;
+  @override
+  @JsonKey(ignore: true)
+  _$$_TextContextCopyWith<_$_TextContext> get copyWith =>
       throw _privateConstructorUsedError;
 }
