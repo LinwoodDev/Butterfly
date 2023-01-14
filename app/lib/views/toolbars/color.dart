@@ -73,9 +73,6 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                       color: widget.color,
                       current: current,
                       onChanged: (value) {
-                        if (widget.color == current) {
-                          widget.onChanged(value);
-                        }
                         var newPalettes =
                             List<ColorPalette>.from(state.document.palettes)
                                 .map((e) {
@@ -87,6 +84,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                           return e;
                         }).toList();
                         bloc.add(DocumentPaletteChanged(newPalettes));
+                        widget.onChanged(value);
                       },
                       onDeleted: () {
                         var newPalettes =
@@ -308,7 +306,7 @@ class _ColorButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () => onChanged(color),
+        onTap: () => onChanged(current),
         onLongPress: () async {
           final newColor = await showDialog<ColorPickerResponse>(
             context: context,

@@ -49,7 +49,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               ),
                             ],
                             onChanged: (value) {},
-                            decoration: const InputDecoration(suffixText: "*"),
+                            decoration: const InputDecoration(suffixText: '*'),
                           ),
                         ),
                       ],
@@ -110,12 +110,12 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           children: [
                             GestureDetector(
                               child: const Icon(PhosphorIcons.textBolderLight),
-                              onLongPress: () => print("SUS"),
+                              onLongPress: () {},
                             ),
                             const Icon(PhosphorIcons.textItalicLight),
                             const Icon(PhosphorIcons.textUnderlineLight),
                           ],
-                          onPressed: (value) => print(value),
+                          onPressed: (value) {},
                         ),
                       ],
                     ),
