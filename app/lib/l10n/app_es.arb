@@ -434,5 +434,19 @@
   "components": "Componentes",
   "waypoint": "Waypoint",
   "actions": "Acciones",
-  "painters": "Pintores"
+  "painters": "Pintores",
+  "breakingChangesTitle": "Cambios de ruptura",
+  "breakingChangesMessage": "Hay cambios que se están rompiendo en esta versión. Por favor, lea el registro de cambios antes de actualizar. La versión actual del archivo es {version}, la nueva versión es {newVersion}.",
+  "@breakingChangesMessage": {
+    "placeholders": {
+      "version": {
+        "type": "int",
+        "example": "1"
+      },
+      "newVersion": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  }
 }

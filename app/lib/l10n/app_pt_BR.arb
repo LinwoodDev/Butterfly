@@ -434,5 +434,19 @@
   "components": "Componentes",
   "waypoint": "Ponto",
   "actions": "Ações.",
-  "painters": "Pintores"
+  "painters": "Pintores",
+  "breakingChangesTitle": "Quebrar alterações",
+  "breakingChangesMessage": "Há quebras de alterações nesta versão. Por favor, leia o log de mudanças antes de atualizar. A versão atual do arquivo é {version}, a nova versão é {newVersion}.",
+  "@breakingChangesMessage": {
+    "placeholders": {
+      "version": {
+        "type": "int",
+        "example": "1"
+      },
+      "newVersion": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  }
 }
