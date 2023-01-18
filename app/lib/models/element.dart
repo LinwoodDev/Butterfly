@@ -61,7 +61,7 @@ class PadElement with _$PadElement {
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
     @Default('') String text,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
-    @Default(AreaProperty()) AreaProperty property,
+    required TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
   }) = TextElement;
 

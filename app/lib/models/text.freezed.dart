@@ -1438,7 +1438,6 @@ AreaProperty _$AreaPropertyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AreaProperty {
-  ParagraphProperty get paragraph => throw _privateConstructorUsedError;
   VerticalAlignment get alignment => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1453,9 +1452,7 @@ abstract class $AreaPropertyCopyWith<$Res> {
           AreaProperty value, $Res Function(AreaProperty) then) =
       _$AreaPropertyCopyWithImpl<$Res, AreaProperty>;
   @useResult
-  $Res call({ParagraphProperty paragraph, VerticalAlignment alignment});
-
-  $ParagraphPropertyCopyWith<$Res> get paragraph;
+  $Res call({VerticalAlignment alignment});
 }
 
 /// @nodoc
@@ -1471,27 +1468,14 @@ class _$AreaPropertyCopyWithImpl<$Res, $Val extends AreaProperty>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? paragraph = null,
     Object? alignment = null,
   }) {
     return _then(_value.copyWith(
-      paragraph: null == paragraph
-          ? _value.paragraph
-          : paragraph // ignore: cast_nullable_to_non_nullable
-              as ParagraphProperty,
       alignment: null == alignment
           ? _value.alignment
           : alignment // ignore: cast_nullable_to_non_nullable
               as VerticalAlignment,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ParagraphPropertyCopyWith<$Res> get paragraph {
-    return $ParagraphPropertyCopyWith<$Res>(_value.paragraph, (value) {
-      return _then(_value.copyWith(paragraph: value) as $Val);
-    });
   }
 }
 
@@ -1503,10 +1487,7 @@ abstract class _$$_AreaPropertyCopyWith<$Res>
       __$$_AreaPropertyCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ParagraphProperty paragraph, VerticalAlignment alignment});
-
-  @override
-  $ParagraphPropertyCopyWith<$Res> get paragraph;
+  $Res call({VerticalAlignment alignment});
 }
 
 /// @nodoc
@@ -1520,14 +1501,9 @@ class __$$_AreaPropertyCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? paragraph = null,
     Object? alignment = null,
   }) {
     return _then(_$_AreaProperty(
-      paragraph: null == paragraph
-          ? _value.paragraph
-          : paragraph // ignore: cast_nullable_to_non_nullable
-              as ParagraphProperty,
       alignment: null == alignment
           ? _value.alignment
           : alignment // ignore: cast_nullable_to_non_nullable
@@ -1539,23 +1515,18 @@ class __$$_AreaPropertyCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AreaProperty implements _AreaProperty {
-  const _$_AreaProperty(
-      {this.paragraph = const ParagraphProperty.undefined(),
-      this.alignment = VerticalAlignment.top});
+  const _$_AreaProperty({this.alignment = VerticalAlignment.top});
 
   factory _$_AreaProperty.fromJson(Map<String, dynamic> json) =>
       _$$_AreaPropertyFromJson(json);
 
   @override
   @JsonKey()
-  final ParagraphProperty paragraph;
-  @override
-  @JsonKey()
   final VerticalAlignment alignment;
 
   @override
   String toString() {
-    return 'AreaProperty(paragraph: $paragraph, alignment: $alignment)';
+    return 'AreaProperty(alignment: $alignment)';
   }
 
   @override
@@ -1563,15 +1534,13 @@ class _$_AreaProperty implements _AreaProperty {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AreaProperty &&
-            (identical(other.paragraph, paragraph) ||
-                other.paragraph == paragraph) &&
             (identical(other.alignment, alignment) ||
                 other.alignment == alignment));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, paragraph, alignment);
+  int get hashCode => Object.hash(runtimeType, alignment);
 
   @JsonKey(ignore: true)
   @override
@@ -1588,15 +1557,12 @@ class _$_AreaProperty implements _AreaProperty {
 }
 
 abstract class _AreaProperty implements AreaProperty {
-  const factory _AreaProperty(
-      {final ParagraphProperty paragraph,
-      final VerticalAlignment alignment}) = _$_AreaProperty;
+  const factory _AreaProperty({final VerticalAlignment alignment}) =
+      _$_AreaProperty;
 
   factory _AreaProperty.fromJson(Map<String, dynamic> json) =
       _$_AreaProperty.fromJson;
 
-  @override
-  ParagraphProperty get paragraph;
   @override
   VerticalAlignment get alignment;
   @override
@@ -2142,7 +2108,7 @@ TextArea _$TextAreaFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TextArea {
   AreaProperty get areaProperty => throw _privateConstructorUsedError;
-  List<TextParagraph> get textParagraphs => throw _privateConstructorUsedError;
+  TextParagraph get paragraph => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2155,9 +2121,10 @@ abstract class $TextAreaCopyWith<$Res> {
   factory $TextAreaCopyWith(TextArea value, $Res Function(TextArea) then) =
       _$TextAreaCopyWithImpl<$Res, TextArea>;
   @useResult
-  $Res call({AreaProperty areaProperty, List<TextParagraph> textParagraphs});
+  $Res call({AreaProperty areaProperty, TextParagraph paragraph});
 
   $AreaPropertyCopyWith<$Res> get areaProperty;
+  $TextParagraphCopyWith<$Res> get paragraph;
 }
 
 /// @nodoc
@@ -2174,17 +2141,17 @@ class _$TextAreaCopyWithImpl<$Res, $Val extends TextArea>
   @override
   $Res call({
     Object? areaProperty = null,
-    Object? textParagraphs = null,
+    Object? paragraph = null,
   }) {
     return _then(_value.copyWith(
       areaProperty: null == areaProperty
           ? _value.areaProperty
           : areaProperty // ignore: cast_nullable_to_non_nullable
               as AreaProperty,
-      textParagraphs: null == textParagraphs
-          ? _value.textParagraphs
-          : textParagraphs // ignore: cast_nullable_to_non_nullable
-              as List<TextParagraph>,
+      paragraph: null == paragraph
+          ? _value.paragraph
+          : paragraph // ignore: cast_nullable_to_non_nullable
+              as TextParagraph,
     ) as $Val);
   }
 
@@ -2193,6 +2160,14 @@ class _$TextAreaCopyWithImpl<$Res, $Val extends TextArea>
   $AreaPropertyCopyWith<$Res> get areaProperty {
     return $AreaPropertyCopyWith<$Res>(_value.areaProperty, (value) {
       return _then(_value.copyWith(areaProperty: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TextParagraphCopyWith<$Res> get paragraph {
+    return $TextParagraphCopyWith<$Res>(_value.paragraph, (value) {
+      return _then(_value.copyWith(paragraph: value) as $Val);
     });
   }
 }
@@ -2204,10 +2179,12 @@ abstract class _$$_TextAreaCopyWith<$Res> implements $TextAreaCopyWith<$Res> {
       __$$_TextAreaCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AreaProperty areaProperty, List<TextParagraph> textParagraphs});
+  $Res call({AreaProperty areaProperty, TextParagraph paragraph});
 
   @override
   $AreaPropertyCopyWith<$Res> get areaProperty;
+  @override
+  $TextParagraphCopyWith<$Res> get paragraph;
 }
 
 /// @nodoc
@@ -2222,17 +2199,17 @@ class __$$_TextAreaCopyWithImpl<$Res>
   @override
   $Res call({
     Object? areaProperty = null,
-    Object? textParagraphs = null,
+    Object? paragraph = null,
   }) {
     return _then(_$_TextArea(
       areaProperty: null == areaProperty
           ? _value.areaProperty
           : areaProperty // ignore: cast_nullable_to_non_nullable
               as AreaProperty,
-      textParagraphs: null == textParagraphs
-          ? _value._textParagraphs
-          : textParagraphs // ignore: cast_nullable_to_non_nullable
-              as List<TextParagraph>,
+      paragraph: null == paragraph
+          ? _value.paragraph
+          : paragraph // ignore: cast_nullable_to_non_nullable
+              as TextParagraph,
     ));
   }
 }
@@ -2241,9 +2218,7 @@ class __$$_TextAreaCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TextArea implements _TextArea {
   const _$_TextArea(
-      {this.areaProperty = const AreaProperty(),
-      final List<TextParagraph> textParagraphs = const []})
-      : _textParagraphs = textParagraphs;
+      {this.areaProperty = const AreaProperty(), required this.paragraph});
 
   factory _$_TextArea.fromJson(Map<String, dynamic> json) =>
       _$$_TextAreaFromJson(json);
@@ -2251,18 +2226,12 @@ class _$_TextArea implements _TextArea {
   @override
   @JsonKey()
   final AreaProperty areaProperty;
-  final List<TextParagraph> _textParagraphs;
   @override
-  @JsonKey()
-  List<TextParagraph> get textParagraphs {
-    if (_textParagraphs is EqualUnmodifiableListView) return _textParagraphs;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_textParagraphs);
-  }
+  final TextParagraph paragraph;
 
   @override
   String toString() {
-    return 'TextArea(areaProperty: $areaProperty, textParagraphs: $textParagraphs)';
+    return 'TextArea(areaProperty: $areaProperty, paragraph: $paragraph)';
   }
 
   @override
@@ -2272,14 +2241,13 @@ class _$_TextArea implements _TextArea {
             other is _$_TextArea &&
             (identical(other.areaProperty, areaProperty) ||
                 other.areaProperty == areaProperty) &&
-            const DeepCollectionEquality()
-                .equals(other._textParagraphs, _textParagraphs));
+            (identical(other.paragraph, paragraph) ||
+                other.paragraph == paragraph));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, areaProperty,
-      const DeepCollectionEquality().hash(_textParagraphs));
+  int get hashCode => Object.hash(runtimeType, areaProperty, paragraph);
 
   @JsonKey(ignore: true)
   @override
@@ -2298,14 +2266,14 @@ class _$_TextArea implements _TextArea {
 abstract class _TextArea implements TextArea {
   const factory _TextArea(
       {final AreaProperty areaProperty,
-      final List<TextParagraph> textParagraphs}) = _$_TextArea;
+      required final TextParagraph paragraph}) = _$_TextArea;
 
   factory _TextArea.fromJson(Map<String, dynamic> json) = _$_TextArea.fromJson;
 
   @override
   AreaProperty get areaProperty;
   @override
-  List<TextParagraph> get textParagraphs;
+  TextParagraph get paragraph;
   @override
   @JsonKey(ignore: true)
   _$$_TextAreaCopyWith<_$_TextArea> get copyWith =>
@@ -2518,169 +2486,5 @@ abstract class _TextStyleSheet extends TextStyleSheet {
   @override
   @JsonKey(ignore: true)
   _$$_TextStyleSheetCopyWith<_$_TextStyleSheet> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$TextContext {
-  TextArea get area => throw _privateConstructorUsedError;
-  int get index => throw _privateConstructorUsedError;
-  int? get length => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $TextContextCopyWith<TextContext> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $TextContextCopyWith<$Res> {
-  factory $TextContextCopyWith(
-          TextContext value, $Res Function(TextContext) then) =
-      _$TextContextCopyWithImpl<$Res, TextContext>;
-  @useResult
-  $Res call({TextArea area, int index, int? length});
-
-  $TextAreaCopyWith<$Res> get area;
-}
-
-/// @nodoc
-class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
-    implements $TextContextCopyWith<$Res> {
-  _$TextContextCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? area = null,
-    Object? index = null,
-    Object? length = freezed,
-  }) {
-    return _then(_value.copyWith(
-      area: null == area
-          ? _value.area
-          : area // ignore: cast_nullable_to_non_nullable
-              as TextArea,
-      index: null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
-      length: freezed == length
-          ? _value.length
-          : length // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $TextAreaCopyWith<$Res> get area {
-    return $TextAreaCopyWith<$Res>(_value.area, (value) {
-      return _then(_value.copyWith(area: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$_TextContextCopyWith<$Res>
-    implements $TextContextCopyWith<$Res> {
-  factory _$$_TextContextCopyWith(
-          _$_TextContext value, $Res Function(_$_TextContext) then) =
-      __$$_TextContextCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({TextArea area, int index, int? length});
-
-  @override
-  $TextAreaCopyWith<$Res> get area;
-}
-
-/// @nodoc
-class __$$_TextContextCopyWithImpl<$Res>
-    extends _$TextContextCopyWithImpl<$Res, _$_TextContext>
-    implements _$$_TextContextCopyWith<$Res> {
-  __$$_TextContextCopyWithImpl(
-      _$_TextContext _value, $Res Function(_$_TextContext) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? area = null,
-    Object? index = null,
-    Object? length = freezed,
-  }) {
-    return _then(_$_TextContext(
-      null == area
-          ? _value.area
-          : area // ignore: cast_nullable_to_non_nullable
-              as TextArea,
-      null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
-      freezed == length
-          ? _value.length
-          : length // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_TextContext extends _TextContext {
-  const _$_TextContext(this.area, this.index, [this.length]) : super._();
-
-  @override
-  final TextArea area;
-  @override
-  final int index;
-  @override
-  final int? length;
-
-  @override
-  String toString() {
-    return 'TextContext(area: $area, index: $index, length: $length)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_TextContext &&
-            (identical(other.area, area) || other.area == area) &&
-            (identical(other.index, index) || other.index == index) &&
-            (identical(other.length, length) || other.length == length));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, area, index, length);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_TextContextCopyWith<_$_TextContext> get copyWith =>
-      __$$_TextContextCopyWithImpl<_$_TextContext>(this, _$identity);
-}
-
-abstract class _TextContext extends TextContext {
-  const factory _TextContext(final TextArea area, final int index,
-      [final int? length]) = _$_TextContext;
-  const _TextContext._() : super._();
-
-  @override
-  TextArea get area;
-  @override
-  int get index;
-  @override
-  int? get length;
-  @override
-  @JsonKey(ignore: true)
-  _$$_TextContextCopyWith<_$_TextContext> get copyWith =>
       throw _privateConstructorUsedError;
 }

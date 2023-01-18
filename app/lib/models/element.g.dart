@@ -102,10 +102,7 @@ _$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
               Map<String, dynamic>.from(json['styleSheet'] as Map)),
-      property: json['property'] == null
-          ? const AreaProperty()
-          : AreaProperty.fromJson(
-              Map<String, dynamic>.from(json['property'] as Map)),
+      area: TextArea.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
       constraint: json['constraint'] == null
           ? const ElementConstraint(size: 1000)
           : ElementConstraint.fromJson(
@@ -119,7 +116,7 @@ Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
       'position': const OffsetJsonConverter().toJson(instance.position),
       'text': instance.text,
       'styleSheet': instance.styleSheet.toJson(),
-      'property': instance.property.toJson(),
+      'area': instance.area.toJson(),
       'constraint': instance.constraint.toJson(),
       'type': instance.$type,
     };

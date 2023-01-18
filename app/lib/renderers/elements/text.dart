@@ -20,32 +20,62 @@ class TextRenderer extends Renderer<TextElement> {
   }
 
   TextPainter _createPainter(AppDocument document) {
+    final paragraph = element.area.paragraph;
     final styleSheet = document.getStyle(element.styleSheet);
     final style =
-        styleSheet?.resolveParagraphProperty(element.property.paragraph) ??
+        styleSheet?.resolveParagraphProperty(paragraph.textProperty) ??
             const text.DefinedParagraphProperty();
-    final span = style.span;
     return TextPainter(
-        text: TextSpan(
-            style: TextStyle(
-                fontSize: span.size,
-                fontFamily: 'Roboto',
-                fontStyle: span.italic ? FontStyle.italic : FontStyle.normal,
-                color: Color(span.color),
-                fontWeight: FontWeight.values[span.fontWeight],
-                letterSpacing: span.letterSpacing,
-                decorationColor: Color(span.decorationColor),
-                decorationStyle: span.decorationStyle,
-                decorationThickness: span.decorationThickness,
-                decoration: TextDecoration.combine([
-                  if (span.underline) TextDecoration.underline,
-                  if (span.lineThrough) TextDecoration.lineThrough,
-                  if (span.overline) TextDecoration.overline,
-                ])),
-            text: element.text),
-        textAlign: _convertAlignment(style.alignment),
-        textDirection: TextDirection.ltr,
-        textScaleFactor: 1.0);
+      text: _createParagraphSpan(document, paragraph),
+      textDirection: TextDirection.ltr,
+      textScaleFactor: 1.0,
+      textAlign: _convertAlignment(style.alignment),
+    );
+  }
+
+  TextSpan _createParagraphSpan(
+      AppDocument document, text.TextParagraph paragraph) {
+    final styleSheet = document.getStyle(element.styleSheet);
+    final style =
+        styleSheet?.resolveParagraphProperty(paragraph.textProperty) ??
+            const text.DefinedParagraphProperty();
+    return paragraph.map(
+      text: (p) => TextSpan(
+        children: p.textSpans.map((e) => _createSpan(document, e)).toList(),
+        style: _buildSpanStyle(style.span),
+      ),
+    );
+  }
+
+  text.TextStyleSheet? _getStyle(AppDocument document) =>
+      document.getStyle(element.styleSheet);
+
+  InlineSpan _createSpan(AppDocument document, text.TextSpan span) {
+    final styleSheet = _getStyle(document);
+    final style = styleSheet?.resolveSpanProperty(span.property);
+    return TextSpan(
+      text: span.text,
+      style: style == null ? null : _buildSpanStyle(style),
+    );
+  }
+
+  TextStyle _buildSpanStyle(text.DefinedSpanProperty property) {
+    return TextStyle(
+      fontSize: property.size,
+      color: Color(property.color),
+      fontFamily: 'Roboto',
+      fontStyle: property.italic ? FontStyle.italic : FontStyle.normal,
+      fontWeight: FontWeight.values[property.fontWeight],
+      letterSpacing: property.letterSpacing,
+      decorationColor: Color(property.decorationColor),
+      decorationStyle: property.decorationStyle,
+      decorationThickness: property.decorationThickness,
+      decoration: TextDecoration.combine([
+        if (property.underline) TextDecoration.underline,
+        if (property.lineThrough) TextDecoration.lineThrough,
+        if (property.overline) TextDecoration.overline,
+      ]),
+    );
   }
 
   @override
@@ -90,7 +120,7 @@ class TextRenderer extends Renderer<TextElement> {
     tp.layout(maxWidth: rect.width);
     var current = element.position;
     // Change vertical alignment
-    final align = element.property.alignment;
+    final align = element.area.areaProperty.alignment;
     switch (align) {
       case text.VerticalAlignment.top:
         current = current.translate(0, 0);
@@ -108,11 +138,11 @@ class TextRenderer extends Renderer<TextElement> {
   @override
   void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
-    final styleSheet = document.getStyle(element.styleSheet);
-    final style =
-        styleSheet?.resolveParagraphProperty(element.property.paragraph) ??
+    final style = _getStyle(document);
+    final property =
+        style?.resolveParagraphProperty(element.area.paragraph.textProperty) ??
             const text.DefinedParagraphProperty();
-    final span = style.span;
+    final span = property.span;
     String textDecoration = '';
     if (span.underline) textDecoration += 'underline ';
     if (span.lineThrough) textDecoration += 'line-through ';
@@ -127,7 +157,7 @@ class TextRenderer extends Renderer<TextElement> {
       'height': '${min(rect.height, rect.bottom)}px',
     });
     String alignItems = 'center';
-    switch (element.property.alignment) {
+    switch (element.area.areaProperty.alignment) {
       case text.VerticalAlignment.top:
         alignItems = 'flex-start';
         break;
@@ -139,7 +169,7 @@ class TextRenderer extends Renderer<TextElement> {
         break;
     }
     String alignContent = 'center';
-    switch (style.alignment) {
+    switch (property.alignment) {
       case text.HorizontalAlignment.left:
         alignContent = 'flex-start';
         break;

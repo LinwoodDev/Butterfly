@@ -50,7 +50,6 @@ class ParagraphProperty with _$ParagraphProperty {
 @freezed
 class AreaProperty with _$AreaProperty {
   const factory AreaProperty({
-    @Default(ParagraphProperty.undefined()) ParagraphProperty paragraph,
     @Default(VerticalAlignment.top) VerticalAlignment alignment,
   }) = _AreaProperty;
 
@@ -84,7 +83,7 @@ class TextParagraph with _$TextParagraph {
 class TextArea with _$TextArea {
   const factory TextArea({
     @Default(AreaProperty()) AreaProperty areaProperty,
-    @Default([]) List<TextParagraph> textParagraphs,
+    required TextParagraph paragraph,
   }) = _TextArea;
   factory TextArea.fromJson(Map<String, dynamic> json) =>
       _$TextAreaFromJson(json);
@@ -145,45 +144,20 @@ class TextStyleSheet with _$TextStyleSheet {
     return paragraphProperties[name];
   }
 
-  DefinedSpanProperty resolveSpanProperty(SpanProperty property) {
+  DefinedSpanProperty? resolveSpanProperty(SpanProperty property) {
     return property.map(
-          defined: (value) => value,
-          named: (value) => spanProperties[value],
-          undefined: (value) => null,
-        ) ??
-        const DefinedSpanProperty();
+      defined: (value) => value,
+      named: (value) => spanProperties[value],
+      undefined: (value) => null,
+    );
   }
 
-  DefinedParagraphProperty resolveParagraphProperty(
+  DefinedParagraphProperty? resolveParagraphProperty(
       ParagraphProperty property) {
     return property.map(
-          defined: (value) => value,
-          named: (value) => paragraphProperties[value],
-          undefined: (value) => null,
-        ) ??
-        const DefinedParagraphProperty();
-  }
-}
-
-@freezed
-class TextContext with _$TextContext {
-  const TextContext._();
-  const factory TextContext(TextArea area, int index, [int? length]) =
-      _TextContext;
-
-  int get endIndex => index + (length ?? 0);
-
-  List<TextParagraph> getParagraphs() {
-    // Get the paragraphs based on the index and length
-    final paragraphs = <TextParagraph>[];
-    var index = 0;
-    for (final paragraph in area.textParagraphs) {
-      final endIndex = index + paragraph.textSpans.length;
-      if (endIndex > this.index) {
-        paragraphs.add(paragraph);
-      }
-      index = endIndex;
-    }
-    return paragraphs;
+      defined: (value) => value,
+      named: (value) => paragraphProperties[value],
+      undefined: (value) => null,
+    );
   }
 }

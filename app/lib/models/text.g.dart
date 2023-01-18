@@ -126,10 +126,6 @@ Map<String, dynamic> _$$UndefinedParagraphPropertyToJson(
     };
 
 _$_AreaProperty _$$_AreaPropertyFromJson(Map json) => _$_AreaProperty(
-      paragraph: json['paragraph'] == null
-          ? const ParagraphProperty.undefined()
-          : ParagraphProperty.fromJson(
-              Map<String, dynamic>.from(json['paragraph'] as Map)),
       alignment:
           $enumDecodeNullable(_$VerticalAlignmentEnumMap, json['alignment']) ??
               VerticalAlignment.top,
@@ -137,7 +133,6 @@ _$_AreaProperty _$$_AreaPropertyFromJson(Map json) => _$_AreaProperty(
 
 Map<String, dynamic> _$$_AreaPropertyToJson(_$_AreaProperty instance) =>
     <String, dynamic>{
-      'paragraph': instance.paragraph.toJson(),
       'alignment': _$VerticalAlignmentEnumMap[instance.alignment]!,
     };
 
@@ -186,17 +181,14 @@ _$_TextArea _$$_TextAreaFromJson(Map json) => _$_TextArea(
           ? const AreaProperty()
           : AreaProperty.fromJson(
               Map<String, dynamic>.from(json['areaProperty'] as Map)),
-      textParagraphs: (json['textParagraphs'] as List<dynamic>?)
-              ?.map((e) =>
-                  TextParagraph.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
+      paragraph: TextParagraph.fromJson(
+          Map<String, dynamic>.from(json['paragraph'] as Map)),
     );
 
 Map<String, dynamic> _$$_TextAreaToJson(_$_TextArea instance) =>
     <String, dynamic>{
       'areaProperty': instance.areaProperty.toJson(),
-      'textParagraphs': instance.textParagraphs.map((e) => e.toJson()).toList(),
+      'paragraph': instance.paragraph.toJson(),
     };
 
 _$_TextStyleSheet _$$_TextStyleSheetFromJson(Map json) => _$_TextStyleSheet(
