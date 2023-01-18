@@ -1,15 +1,15 @@
 part of '../renderer.dart';
 
 class ImageRenderer extends Renderer<ImageElement> {
-  Image? image;
+  Image? _image;
 
-  ImageRenderer(super.element, [this.image]);
+  ImageRenderer(super.element, [this._image]);
 
   @override
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    if (image == null) {
+    if (_image == null) {
       // Render placeholder
       final paint = Paint()
         ..color = Colors.grey
@@ -20,7 +20,7 @@ class ImageRenderer extends Renderer<ImageElement> {
     var paint = Paint();
 
     canvas.drawImageRect(
-      image!.clone(),
+      _image!.clone(),
       Rect.fromLTWH(0, 0, element.width.toDouble(), element.height.toDouble()),
       rect,
       paint,
@@ -46,7 +46,7 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   FutureOr<void> setup(AppDocument document) async {
-    image = await decodeImageFromList(element.pixels);
+    _image = await decodeImageFromList(element.pixels);
     super.setup(document);
   }
 
@@ -108,6 +108,11 @@ class ImageRenderer extends Renderer<ImageElement> {
               : position - Offset(rect.width / 2, rect.height / 2),
           constraints: element.constraints.scale(scaleX, scaleY),
         ),
-        image);
+        _image);
+  }
+
+  @override
+  void dispose() {
+    _image?.dispose();
   }
 }

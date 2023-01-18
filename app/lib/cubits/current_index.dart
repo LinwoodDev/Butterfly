@@ -154,6 +154,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void reset(AppDocument document) {
+    for (final r in renderers) {
+      r.dispose();
+    }
     emit(state.copyWith(
       index: null,
       handler: MoveHandler(),

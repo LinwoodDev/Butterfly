@@ -82,10 +82,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final renderers = event.renderers ??
           event.elements?.map((e) => Renderer.fromInstance(e)).toList();
       if (renderers == null) return;
-      if (event.renderers == null) {
-        await Future.wait(
-            renderers.map((e) async => await e.setup(current.document)));
-      }
       return _saveDocument(
           emit,
           current.copyWith(
@@ -105,6 +101,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           if (index == null) {
             renderers.addAll(current);
           } else {
+            renderers[index].dispose();
             renderers.removeAt(index);
             renderers.insertAll(index, current);
           }
@@ -131,6 +128,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               newRenderer = Renderer.fromInstance(element);
               await newRenderer.setup(current.document);
               oldRenderer = renderer;
+              oldRenderer.dispose();
               renderers.add(newRenderer);
             }
           } else {
@@ -172,11 +170,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final document = current.document;
         final renderers = current.renderers;
         current.currentIndexCubit.unbake(
-          unbakedElements: renderers
-              .where((element) => !event.elements.contains(
-                    element.element,
-                  ))
-              .toList(),
+          unbakedElements: renderers.where((element) {
+            final remaining = !event.elements.contains(
+              element.element,
+            );
+            if (!remaining) element.dispose();
+            return remaining;
+          }).toList(),
         );
         await _saveDocument(
             emit,

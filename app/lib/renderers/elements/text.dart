@@ -3,6 +3,7 @@ part of '../renderer.dart';
 class TextRenderer extends Renderer<TextElement> {
   @override
   Rect rect;
+  TextPainter? _tp;
 
   TextRenderer(super.element, [this.rect = Rect.zero]);
 
@@ -80,6 +81,7 @@ class TextRenderer extends Renderer<TextElement> {
 
   @override
   FutureOr<void> setup(AppDocument document) async {
+    _tp = _createPainter(document);
     _updateRect(document);
     await super.setup(document);
     _updateRect(document);
@@ -100,24 +102,22 @@ class TextRenderer extends Renderer<TextElement> {
       maxWidth = min(maxWidth + element.position.dx, area!.rect.right) -
           element.position.dx;
     }
-    final tp = _createPainter(document);
-    tp.layout(maxWidth: maxWidth);
-    var height = tp.height;
+    _tp?.layout(maxWidth: maxWidth);
+    var height = _tp?.height ?? 0;
     if (height < constraints.length) {
       height = constraints.length;
     } else if (constraints.includeArea && area != null) {
       height = max(height, area!.rect.bottom - element.position.dy);
     }
     rect = Rect.fromLTWH(
-        element.position.dx, element.position.dy, tp.width, height);
+        element.position.dx, element.position.dy, _tp?.width ?? 0, height);
   }
 
   @override
   FutureOr<void> build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    final tp = _createPainter(document);
-    tp.layout(maxWidth: rect.width);
+    _tp?.layout(maxWidth: rect.width);
     var current = element.position;
     // Change vertical alignment
     final align = element.area.areaProperty.alignment;
@@ -126,13 +126,13 @@ class TextRenderer extends Renderer<TextElement> {
         current = current.translate(0, 0);
         break;
       case text.VerticalAlignment.bottom:
-        current = current.translate(0, rect.height - tp.height);
+        current = current.translate(0, rect.height - (_tp?.height ?? 0));
         break;
       case text.VerticalAlignment.center:
-        current = current.translate(0, (rect.height - tp.height) / 2);
+        current = current.translate(0, (rect.height - (_tp?.height ?? 0)) / 2);
         break;
     }
-    tp.paint(canvas, current);
+    _tp?.paint(canvas, current);
   }
 
   @override
@@ -211,4 +211,7 @@ class TextRenderer extends Renderer<TextElement> {
     final next = relative ? element.position + position : position;
     return TextRenderer(element.copyWith(position: next), next & size);
   }
+
+  @override
+  void dispose() {}
 }

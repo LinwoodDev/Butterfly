@@ -57,6 +57,8 @@ abstract class Renderer<T> {
   @mustCallSuper
   FutureOr<void> setup(AppDocument document) async => _updateArea(document);
 
+  void dispose() {}
+
   void _updateArea(AppDocument document) => area = rect == null
       ? null
       : document.areas.firstWhereOrNull((area) => area.rect.overlaps(rect!));
