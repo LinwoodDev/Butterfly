@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 
 @immutable
-class PainterCursor<T extends Painter> {
+class PainterCursorData<T extends Painter> {
   final T painter;
   final Offset position;
 
-  const PainterCursor(this.painter, this.position);
+  const PainterCursorData(this.painter, this.position);
 }

@@ -27,8 +27,11 @@ import '../models/document.dart';
 import '../models/pack.dart';
 import '../models/path_point.dart';
 import '../models/property.dart';
+import '../models/text.dart' as text;
+import '../models/text.dart';
 import '../models/viewport.dart';
 import '../renderers/cursors/eraser.dart';
+import '../renderers/cursors/text.dart';
 import '../renderers/renderer.dart';
 import '../services/import.dart';
 import '../views/toolbars/color.dart';
@@ -192,6 +195,38 @@ abstract class Handler<T> {
   }
 
   Widget? getToolbar(BuildContext context) => null;
+}
+
+mixin HandlerWithCursor<T> on Handler<T> {
+  Offset? _currentPos;
+
+  Renderer createCursor(Offset position);
+
+  @mustCallSuper
+  @override
+  List<Renderer> createForegrounds(
+      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      [Area? currentArea]) {
+    final renderers = super.createForegrounds(currentIndexCubit, document);
+    if (_currentPos != null) {
+      renderers.add(createCursor(_currentPos!));
+    }
+    return renderers;
+  }
+
+  @mustCallSuper
+  @override
+  void onPointerMove(PointerMoveEvent event, EventContext context) {
+    _currentPos = event.localPosition;
+    context.refresh();
+  }
+
+  @mustCallSuper
+  @override
+  void onPointerHover(PointerHoverEvent event, EventContext context) {
+    _currentPos = event.localPosition;
+    context.refresh();
+  }
 }
 
 typedef HitRequest = bool Function(Offset position, [double radius]);

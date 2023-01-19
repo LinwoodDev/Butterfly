@@ -213,5 +213,7 @@ class TextRenderer extends Renderer<TextElement> {
   }
 
   @override
-  void dispose() {}
+  void dispose() {
+    // Add _tp.dispose() after flutter upgrade
+  }
 }

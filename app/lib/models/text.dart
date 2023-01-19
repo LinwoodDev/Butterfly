@@ -1,7 +1,9 @@
+import 'package:butterfly/models/pack.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'colors.dart';
+import 'document.dart';
 
 part 'text.freezed.dart';
 part 'text.g.dart';
@@ -160,4 +162,34 @@ class TextStyleSheet with _$TextStyleSheet {
       undefined: (value) => null,
     );
   }
+}
+
+@freezed
+class TextContext with _$TextContext {
+  const TextContext._();
+  const factory TextContext(
+      {required PackAssetLocation styleSheet,
+      required TextArea area,
+      required TextPainter painter,
+      required TextSelection selection,
+      SpanProperty? forcedProperty,
+      bool? forceParagraph}) = _TextContext;
+
+  int length() => painter.text?.toPlainText().length ?? 0;
+
+  bool isParagraph() =>
+      forceParagraph ?? (selection.start <= 0 && selection.end >= length());
+
+  SpanProperty getProperty(AppDocument document) =>
+      forcedProperty ??
+      (document
+              .getStyle(styleSheet)
+              ?.resolveParagraphProperty(area.paragraph.textProperty)
+              ?.span ??
+          const SpanProperty.undefined());
+
+  DefinedSpanProperty? getDefinedProperty(AppDocument document) => document
+      .getStyle(styleSheet)
+      ?.resolveParagraphProperty(area.paragraph.textProperty)
+      ?.span;
 }

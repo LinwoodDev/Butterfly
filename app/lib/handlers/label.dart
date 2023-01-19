@@ -1,6 +1,8 @@
 part of 'handler.dart';
 
-class LabelHandler extends Handler<LabelPainter> {
+class LabelHandler extends Handler<LabelPainter> with HandlerWithCursor {
+  text.TextContext? _context;
+
   LabelHandler(super.data);
 
   @override
@@ -33,5 +35,15 @@ class LabelHandler extends Handler<LabelPainter> {
   }
 
   @override
-  Widget? getToolbar(BuildContext context) => const LabelToolbarView();
+  Widget? getToolbar(BuildContext context) {
+    return LabelToolbarView(
+      value: _context,
+      onChanged: (TextContext value) {},
+    );
+  }
+
+  @override
+  Renderer createCursor(Offset position) {
+    return TextCursor(TextCursorData(data, position, _context));
+  }
 }

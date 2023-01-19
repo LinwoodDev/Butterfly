@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../models/text.dart' as text;
+
 class LabelToolbarView extends StatefulWidget {
-  const LabelToolbarView({super.key});
+  final text.TextContext? value;
+  final ValueChanged<text.TextContext> onChanged;
+
+  const LabelToolbarView({
+    super.key,
+    required this.value,
+    required this.onChanged,
+  });
 
   @override
   State<LabelToolbarView> createState() => _LabelToolbarViewState();
@@ -11,7 +20,18 @@ class LabelToolbarView extends StatefulWidget {
 
 class _LabelToolbarViewState extends State<LabelToolbarView> {
   final ScrollController _scrollController = ScrollController();
-  bool _paragraphMode = false;
+  late text.TextContext? _value;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = widget.value;
+  }
+
+  void _changeValue(text.TextContext value) {
+    setState(() => _value = value);
+    widget.onChanged(value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +55,11 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                       children: [
                         IconButton(
                           icon: const Icon(PhosphorIcons.articleLight),
-                          isSelected: _paragraphMode,
-                          onPressed: () =>
-                              setState(() => _paragraphMode = !_paragraphMode),
+                          isSelected: _value?.isParagraph(),
+                          onPressed: _value == null
+                              ? null
+                              : () => _changeValue(_value!.copyWith(
+                                  forceParagraph: !_value!.isParagraph())),
                         ),
                         const SizedBox(width: 8),
                         SizedBox(
@@ -48,7 +70,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 child: Text('Heading 1'),
                               ),
                             ],
-                            onChanged: (value) {},
+                            onChanged: _value == null ? null : (value) {},
                             decoration: const InputDecoration(suffixText: '*'),
                           ),
                         ),

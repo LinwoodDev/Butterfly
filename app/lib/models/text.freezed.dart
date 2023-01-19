@@ -2488,3 +2488,270 @@ abstract class _TextStyleSheet extends TextStyleSheet {
   _$$_TextStyleSheetCopyWith<_$_TextStyleSheet> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+mixin _$TextContext {
+  PackAssetLocation get styleSheet => throw _privateConstructorUsedError;
+  TextArea get area => throw _privateConstructorUsedError;
+  TextPainter get painter => throw _privateConstructorUsedError;
+  TextSelection get selection => throw _privateConstructorUsedError;
+  SpanProperty? get forcedProperty => throw _privateConstructorUsedError;
+  bool? get forceParagraph => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $TextContextCopyWith<TextContext> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TextContextCopyWith<$Res> {
+  factory $TextContextCopyWith(
+          TextContext value, $Res Function(TextContext) then) =
+      _$TextContextCopyWithImpl<$Res, TextContext>;
+  @useResult
+  $Res call(
+      {PackAssetLocation styleSheet,
+      TextArea area,
+      TextPainter painter,
+      TextSelection selection,
+      SpanProperty? forcedProperty,
+      bool? forceParagraph});
+
+  $PackAssetLocationCopyWith<$Res> get styleSheet;
+  $TextAreaCopyWith<$Res> get area;
+  $SpanPropertyCopyWith<$Res>? get forcedProperty;
+}
+
+/// @nodoc
+class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
+    implements $TextContextCopyWith<$Res> {
+  _$TextContextCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? styleSheet = null,
+    Object? area = null,
+    Object? painter = null,
+    Object? selection = null,
+    Object? forcedProperty = freezed,
+    Object? forceParagraph = freezed,
+  }) {
+    return _then(_value.copyWith(
+      styleSheet: null == styleSheet
+          ? _value.styleSheet
+          : styleSheet // ignore: cast_nullable_to_non_nullable
+              as PackAssetLocation,
+      area: null == area
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as TextArea,
+      painter: null == painter
+          ? _value.painter
+          : painter // ignore: cast_nullable_to_non_nullable
+              as TextPainter,
+      selection: null == selection
+          ? _value.selection
+          : selection // ignore: cast_nullable_to_non_nullable
+              as TextSelection,
+      forcedProperty: freezed == forcedProperty
+          ? _value.forcedProperty
+          : forcedProperty // ignore: cast_nullable_to_non_nullable
+              as SpanProperty?,
+      forceParagraph: freezed == forceParagraph
+          ? _value.forceParagraph
+          : forceParagraph // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PackAssetLocationCopyWith<$Res> get styleSheet {
+    return $PackAssetLocationCopyWith<$Res>(_value.styleSheet, (value) {
+      return _then(_value.copyWith(styleSheet: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TextAreaCopyWith<$Res> get area {
+    return $TextAreaCopyWith<$Res>(_value.area, (value) {
+      return _then(_value.copyWith(area: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SpanPropertyCopyWith<$Res>? get forcedProperty {
+    if (_value.forcedProperty == null) {
+      return null;
+    }
+
+    return $SpanPropertyCopyWith<$Res>(_value.forcedProperty!, (value) {
+      return _then(_value.copyWith(forcedProperty: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$_TextContextCopyWith<$Res>
+    implements $TextContextCopyWith<$Res> {
+  factory _$$_TextContextCopyWith(
+          _$_TextContext value, $Res Function(_$_TextContext) then) =
+      __$$_TextContextCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {PackAssetLocation styleSheet,
+      TextArea area,
+      TextPainter painter,
+      TextSelection selection,
+      SpanProperty? forcedProperty,
+      bool? forceParagraph});
+
+  @override
+  $PackAssetLocationCopyWith<$Res> get styleSheet;
+  @override
+  $TextAreaCopyWith<$Res> get area;
+  @override
+  $SpanPropertyCopyWith<$Res>? get forcedProperty;
+}
+
+/// @nodoc
+class __$$_TextContextCopyWithImpl<$Res>
+    extends _$TextContextCopyWithImpl<$Res, _$_TextContext>
+    implements _$$_TextContextCopyWith<$Res> {
+  __$$_TextContextCopyWithImpl(
+      _$_TextContext _value, $Res Function(_$_TextContext) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? styleSheet = null,
+    Object? area = null,
+    Object? painter = null,
+    Object? selection = null,
+    Object? forcedProperty = freezed,
+    Object? forceParagraph = freezed,
+  }) {
+    return _then(_$_TextContext(
+      styleSheet: null == styleSheet
+          ? _value.styleSheet
+          : styleSheet // ignore: cast_nullable_to_non_nullable
+              as PackAssetLocation,
+      area: null == area
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as TextArea,
+      painter: null == painter
+          ? _value.painter
+          : painter // ignore: cast_nullable_to_non_nullable
+              as TextPainter,
+      selection: null == selection
+          ? _value.selection
+          : selection // ignore: cast_nullable_to_non_nullable
+              as TextSelection,
+      forcedProperty: freezed == forcedProperty
+          ? _value.forcedProperty
+          : forcedProperty // ignore: cast_nullable_to_non_nullable
+              as SpanProperty?,
+      forceParagraph: freezed == forceParagraph
+          ? _value.forceParagraph
+          : forceParagraph // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_TextContext extends _TextContext {
+  const _$_TextContext(
+      {required this.styleSheet,
+      required this.area,
+      required this.painter,
+      required this.selection,
+      this.forcedProperty,
+      this.forceParagraph})
+      : super._();
+
+  @override
+  final PackAssetLocation styleSheet;
+  @override
+  final TextArea area;
+  @override
+  final TextPainter painter;
+  @override
+  final TextSelection selection;
+  @override
+  final SpanProperty? forcedProperty;
+  @override
+  final bool? forceParagraph;
+
+  @override
+  String toString() {
+    return 'TextContext(styleSheet: $styleSheet, area: $area, painter: $painter, selection: $selection, forcedProperty: $forcedProperty, forceParagraph: $forceParagraph)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_TextContext &&
+            (identical(other.styleSheet, styleSheet) ||
+                other.styleSheet == styleSheet) &&
+            (identical(other.area, area) || other.area == area) &&
+            (identical(other.painter, painter) || other.painter == painter) &&
+            (identical(other.selection, selection) ||
+                other.selection == selection) &&
+            (identical(other.forcedProperty, forcedProperty) ||
+                other.forcedProperty == forcedProperty) &&
+            (identical(other.forceParagraph, forceParagraph) ||
+                other.forceParagraph == forceParagraph));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, styleSheet, area, painter,
+      selection, forcedProperty, forceParagraph);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_TextContextCopyWith<_$_TextContext> get copyWith =>
+      __$$_TextContextCopyWithImpl<_$_TextContext>(this, _$identity);
+}
+
+abstract class _TextContext extends TextContext {
+  const factory _TextContext(
+      {required final PackAssetLocation styleSheet,
+      required final TextArea area,
+      required final TextPainter painter,
+      required final TextSelection selection,
+      final SpanProperty? forcedProperty,
+      final bool? forceParagraph}) = _$_TextContext;
+  const _TextContext._() : super._();
+
+  @override
+  PackAssetLocation get styleSheet;
+  @override
+  TextArea get area;
+  @override
+  TextPainter get painter;
+  @override
+  TextSelection get selection;
+  @override
+  SpanProperty? get forcedProperty;
+  @override
+  bool? get forceParagraph;
+  @override
+  @JsonKey(ignore: true)
+  _$$_TextContextCopyWith<_$_TextContext> get copyWith =>
+      throw _privateConstructorUsedError;
+}
