@@ -163,7 +163,7 @@ class _CreateStartViewState extends State<_CreateStartView> {
                                 );
 
                                 transformCubit.reset();
-                                currentIndexCubit.reset(document);
+                                currentIndexCubit.reset(bloc);
                                 bloc.emit(DocumentLoadSuccess(document,
                                     location: AssetLocation(
                                         path: '',

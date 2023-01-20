@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'colors.dart';
 import 'document.dart';
+import 'element.dart';
 
 part 'text.freezed.dart';
 part 'text.g.dart';
@@ -169,16 +170,21 @@ class TextContext with _$TextContext {
   const TextContext._();
   const factory TextContext(
       {required PackAssetLocation styleSheet,
-      required TextArea area,
+      required TextElement element,
       required TextPainter painter,
       required TextSelection selection,
+      @Default(false) bool isCreating,
       SpanProperty? forcedProperty,
       bool? forceParagraph}) = _TextContext;
+
+  TextArea get area => element.area;
 
   int length() => painter.text?.toPlainText().length ?? 0;
 
   bool isParagraph() =>
       forceParagraph ?? (selection.start <= 0 && selection.end >= length());
+
+  bool get isEmpty => element.text.isEmpty;
 
   SpanProperty getProperty(AppDocument document) =>
       forcedProperty ??

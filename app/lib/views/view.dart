@@ -137,7 +137,7 @@ class _MainViewViewportState extends State<MainViewViewport>
         }
         final cubit = context.read<CurrentIndexCubit>();
         if (nextPointerIndex == null) {
-          cubit.resetTemporaryHandler();
+          cubit.resetTemporaryHandler(bloc);
         } else if (nextPointerIndex <= 0) {
           cubit.changeTemporaryHandlerMove();
         } else {

@@ -2492,9 +2492,10 @@ abstract class _TextStyleSheet extends TextStyleSheet {
 /// @nodoc
 mixin _$TextContext {
   PackAssetLocation get styleSheet => throw _privateConstructorUsedError;
-  TextArea get area => throw _privateConstructorUsedError;
+  TextElement get element => throw _privateConstructorUsedError;
   TextPainter get painter => throw _privateConstructorUsedError;
   TextSelection get selection => throw _privateConstructorUsedError;
+  bool get isCreating => throw _privateConstructorUsedError;
   SpanProperty? get forcedProperty => throw _privateConstructorUsedError;
   bool? get forceParagraph => throw _privateConstructorUsedError;
 
@@ -2511,14 +2512,14 @@ abstract class $TextContextCopyWith<$Res> {
   @useResult
   $Res call(
       {PackAssetLocation styleSheet,
-      TextArea area,
+      TextElement element,
       TextPainter painter,
       TextSelection selection,
+      bool isCreating,
       SpanProperty? forcedProperty,
       bool? forceParagraph});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
-  $TextAreaCopyWith<$Res> get area;
   $SpanPropertyCopyWith<$Res>? get forcedProperty;
 }
 
@@ -2536,9 +2537,10 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
   @override
   $Res call({
     Object? styleSheet = null,
-    Object? area = null,
+    Object? element = freezed,
     Object? painter = null,
     Object? selection = null,
+    Object? isCreating = null,
     Object? forcedProperty = freezed,
     Object? forceParagraph = freezed,
   }) {
@@ -2547,10 +2549,10 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
               as PackAssetLocation,
-      area: null == area
-          ? _value.area
-          : area // ignore: cast_nullable_to_non_nullable
-              as TextArea,
+      element: freezed == element
+          ? _value.element
+          : element // ignore: cast_nullable_to_non_nullable
+              as TextElement,
       painter: null == painter
           ? _value.painter
           : painter // ignore: cast_nullable_to_non_nullable
@@ -2559,6 +2561,10 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
           ? _value.selection
           : selection // ignore: cast_nullable_to_non_nullable
               as TextSelection,
+      isCreating: null == isCreating
+          ? _value.isCreating
+          : isCreating // ignore: cast_nullable_to_non_nullable
+              as bool,
       forcedProperty: freezed == forcedProperty
           ? _value.forcedProperty
           : forcedProperty // ignore: cast_nullable_to_non_nullable
@@ -2575,14 +2581,6 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
   $PackAssetLocationCopyWith<$Res> get styleSheet {
     return $PackAssetLocationCopyWith<$Res>(_value.styleSheet, (value) {
       return _then(_value.copyWith(styleSheet: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $TextAreaCopyWith<$Res> get area {
-    return $TextAreaCopyWith<$Res>(_value.area, (value) {
-      return _then(_value.copyWith(area: value) as $Val);
     });
   }
 
@@ -2609,16 +2607,15 @@ abstract class _$$_TextContextCopyWith<$Res>
   @useResult
   $Res call(
       {PackAssetLocation styleSheet,
-      TextArea area,
+      TextElement element,
       TextPainter painter,
       TextSelection selection,
+      bool isCreating,
       SpanProperty? forcedProperty,
       bool? forceParagraph});
 
   @override
   $PackAssetLocationCopyWith<$Res> get styleSheet;
-  @override
-  $TextAreaCopyWith<$Res> get area;
   @override
   $SpanPropertyCopyWith<$Res>? get forcedProperty;
 }
@@ -2635,9 +2632,10 @@ class __$$_TextContextCopyWithImpl<$Res>
   @override
   $Res call({
     Object? styleSheet = null,
-    Object? area = null,
+    Object? element = freezed,
     Object? painter = null,
     Object? selection = null,
+    Object? isCreating = null,
     Object? forcedProperty = freezed,
     Object? forceParagraph = freezed,
   }) {
@@ -2646,10 +2644,10 @@ class __$$_TextContextCopyWithImpl<$Res>
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
               as PackAssetLocation,
-      area: null == area
-          ? _value.area
-          : area // ignore: cast_nullable_to_non_nullable
-              as TextArea,
+      element: freezed == element
+          ? _value.element
+          : element // ignore: cast_nullable_to_non_nullable
+              as TextElement,
       painter: null == painter
           ? _value.painter
           : painter // ignore: cast_nullable_to_non_nullable
@@ -2658,6 +2656,10 @@ class __$$_TextContextCopyWithImpl<$Res>
           ? _value.selection
           : selection // ignore: cast_nullable_to_non_nullable
               as TextSelection,
+      isCreating: null == isCreating
+          ? _value.isCreating
+          : isCreating // ignore: cast_nullable_to_non_nullable
+              as bool,
       forcedProperty: freezed == forcedProperty
           ? _value.forcedProperty
           : forcedProperty // ignore: cast_nullable_to_non_nullable
@@ -2675,9 +2677,10 @@ class __$$_TextContextCopyWithImpl<$Res>
 class _$_TextContext extends _TextContext {
   const _$_TextContext(
       {required this.styleSheet,
-      required this.area,
+      required this.element,
       required this.painter,
       required this.selection,
+      this.isCreating = false,
       this.forcedProperty,
       this.forceParagraph})
       : super._();
@@ -2685,11 +2688,14 @@ class _$_TextContext extends _TextContext {
   @override
   final PackAssetLocation styleSheet;
   @override
-  final TextArea area;
+  final TextElement element;
   @override
   final TextPainter painter;
   @override
   final TextSelection selection;
+  @override
+  @JsonKey()
+  final bool isCreating;
   @override
   final SpanProperty? forcedProperty;
   @override
@@ -2697,7 +2703,7 @@ class _$_TextContext extends _TextContext {
 
   @override
   String toString() {
-    return 'TextContext(styleSheet: $styleSheet, area: $area, painter: $painter, selection: $selection, forcedProperty: $forcedProperty, forceParagraph: $forceParagraph)';
+    return 'TextContext(styleSheet: $styleSheet, element: $element, painter: $painter, selection: $selection, isCreating: $isCreating, forcedProperty: $forcedProperty, forceParagraph: $forceParagraph)';
   }
 
   @override
@@ -2707,10 +2713,12 @@ class _$_TextContext extends _TextContext {
             other is _$_TextContext &&
             (identical(other.styleSheet, styleSheet) ||
                 other.styleSheet == styleSheet) &&
-            (identical(other.area, area) || other.area == area) &&
+            const DeepCollectionEquality().equals(other.element, element) &&
             (identical(other.painter, painter) || other.painter == painter) &&
             (identical(other.selection, selection) ||
                 other.selection == selection) &&
+            (identical(other.isCreating, isCreating) ||
+                other.isCreating == isCreating) &&
             (identical(other.forcedProperty, forcedProperty) ||
                 other.forcedProperty == forcedProperty) &&
             (identical(other.forceParagraph, forceParagraph) ||
@@ -2718,8 +2726,15 @@ class _$_TextContext extends _TextContext {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, styleSheet, area, painter,
-      selection, forcedProperty, forceParagraph);
+  int get hashCode => Object.hash(
+      runtimeType,
+      styleSheet,
+      const DeepCollectionEquality().hash(element),
+      painter,
+      selection,
+      isCreating,
+      forcedProperty,
+      forceParagraph);
 
   @JsonKey(ignore: true)
   @override
@@ -2731,9 +2746,10 @@ class _$_TextContext extends _TextContext {
 abstract class _TextContext extends TextContext {
   const factory _TextContext(
       {required final PackAssetLocation styleSheet,
-      required final TextArea area,
+      required final TextElement element,
       required final TextPainter painter,
       required final TextSelection selection,
+      final bool isCreating,
       final SpanProperty? forcedProperty,
       final bool? forceParagraph}) = _$_TextContext;
   const _TextContext._() : super._();
@@ -2741,11 +2757,13 @@ abstract class _TextContext extends TextContext {
   @override
   PackAssetLocation get styleSheet;
   @override
-  TextArea get area;
+  TextElement get element;
   @override
   TextPainter get painter;
   @override
   TextSelection get selection;
+  @override
+  bool get isCreating;
   @override
   SpanProperty? get forcedProperty;
   @override

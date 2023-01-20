@@ -50,7 +50,9 @@ class ImportHandler extends Handler<ImportPainter> {
               position: e.position + _position,
             ))
         .toList()));
-    context.getCurrentIndexCubit().resetTemporaryHandler();
+    context
+        .getCurrentIndexCubit()
+        .resetTemporaryHandler(context.getDocumentBloc());
     context.refresh();
     context.bake();
   }

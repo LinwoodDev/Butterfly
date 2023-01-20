@@ -195,6 +195,8 @@ abstract class Handler<T> {
   }
 
   Widget? getToolbar(BuildContext context) => null;
+
+  void dispose(DocumentBloc bloc) {}
 }
 
 mixin HandlerWithCursor<T> on Handler<T> {

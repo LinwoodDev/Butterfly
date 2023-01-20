@@ -248,14 +248,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final updatedCurrent =
             event.updatedPainters[current.currentIndexCubit.state.handler.data];
         if (updatedCurrent != null) {
-          current.currentIndexCubit.updatePainter(
-              current.document, current.currentArea, updatedCurrent);
+          current.currentIndexCubit.updatePainter(this, updatedCurrent);
         }
         final updatedTempCurrent = event.updatedPainters[
             current.currentIndexCubit.state.temporaryHandler?.data];
         if (updatedTempCurrent != null) {
-          current.currentIndexCubit.updateTemporaryPainter(
-              current.document, current.currentArea, updatedTempCurrent);
+          current.currentIndexCubit
+              .updateTemporaryPainter(this, updatedTempCurrent);
         }
       }
     });
@@ -272,7 +271,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                           ..removeWhere(
                               (element) => event.painters.contains(element)))))
             .then((value) {
-          cubit.updateIndex(current.document);
+          cubit.updateIndex(this);
         });
       }
     });
