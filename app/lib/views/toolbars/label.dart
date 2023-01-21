@@ -1,3 +1,4 @@
+import 'package:butterfly/dialogs/color_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,7 +23,7 @@ class LabelToolbarView extends StatefulWidget {
 
 class _LabelToolbarViewState extends State<LabelToolbarView> {
   final ScrollController _scrollController = ScrollController();
-  late text.TextContext? _value;
+  late text.TextContext _value;
 
   @override
   void initState() {
@@ -41,8 +42,9 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return Container();
     final document = state.document;
-    final property = _value?.getDefinedProperty(document) ??
-        const text.DefinedSpanProperty();
+    final property = _value.getDefinedProperty(document) ??
+        const text.DefinedParagraphProperty();
+    final span = property.span;
     return LayoutBuilder(
       builder: (context, constraints) => Scrollbar(
         controller: _scrollController,
@@ -63,11 +65,11 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                       children: [
                         IconButton(
                           icon: const Icon(PhosphorIcons.articleLight),
-                          isSelected: _value?.isParagraph() ?? true,
-                          onPressed: _value == null
+                          isSelected: _value.isParagraph(),
+                          onPressed: _value.area == null
                               ? null
-                              : () => _changeValue(_value!.copyWith(
-                                  forceParagraph: !_value!.isParagraph())),
+                              : () => _changeValue(_value.copyWith(
+                                  forceParagraph: !_value.isParagraph())),
                         ),
                         const SizedBox(width: 8),
                         SizedBox(
@@ -78,7 +80,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 child: Text('Heading 1'),
                               ),
                             ],
-                            onChanged: _value == null ? null : (value) {},
+                            onChanged: (value) {},
                             decoration: const InputDecoration(suffixText: '*'),
                           ),
                         ),
@@ -90,29 +92,36 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                     child: Row(
                       children: [
                         ToggleButtons(
-                          isSelected: const [true, false, false],
+                          isSelected: text.VerticalAlignment.values
+                              .map((e) =>
+                                  e == _value.area?.areaProperty.alignment)
+                              .toList(),
+                          onPressed: _value.area == null ? null : (value) {},
                           children: const [
                             Icon(PhosphorIcons.alignTopLight),
                             Icon(PhosphorIcons.alignCenterVerticalLight),
                             Icon(PhosphorIcons.alignBottomLight),
                           ],
-                          onPressed: (value) {},
                         ),
                         const SizedBox(width: 16),
                         ToggleButtons(
-                          isSelected: const [
-                            true,
-                            false,
-                            false,
-                            false,
-                          ],
+                          isSelected: text.HorizontalAlignment.values
+                              .map((e) => e == property.alignment)
+                              .toList(),
                           children: const [
                             Icon(PhosphorIcons.textAlignLeftLight),
                             Icon(PhosphorIcons.textAlignCenterLight),
                             Icon(PhosphorIcons.textAlignRightLight),
                             Icon(PhosphorIcons.textAlignJustifyLight),
                           ],
-                          onPressed: (value) {},
+                          onPressed: (value) {
+                            _changeValue(_value.copyWith(
+                              forcedProperty: property.copyWith(
+                                alignment:
+                                    text.HorizontalAlignment.values[value],
+                              ),
+                            ));
+                          },
                         ),
                         const SizedBox(width: 32),
                         SizedBox(
@@ -132,15 +141,57 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               filled: true,
                             ),
                             textAlign: TextAlign.center,
-                            initialValue: property.size.toString(),
+                            initialValue: span.size.toString(),
+                            onChanged: (value) => _changeValue(
+                              _value.copyWith(
+                                forcedProperty: property.copyWith(
+                                  span: span.copyWith(
+                                    size: double.tryParse(value) ?? span.size,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
+                        ),
+                        const SizedBox(width: 16),
+                        InkWell(
+                          child: Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                color: Color(span.color),
+                                border: Border.all(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(32))),
+                          ),
+                          onTap: () async {
+                            final result = await showDialog<int>(
+                              context: context,
+                              builder: (_) => BlocProvider.value(
+                                value: context.read<DocumentBloc>(),
+                                child: ColorPickerDialog(
+                                  defaultColor: Color(span.color),
+                                ),
+                              ),
+                            );
+                            if (result == null) return;
+                            _changeValue(_value.copyWith(
+                              forcedProperty: property.copyWith(
+                                span: span.copyWith(
+                                  color: result,
+                                ),
+                              ),
+                            ));
+                          },
                         ),
                         const SizedBox(width: 16),
                         ToggleButtons(
                           isSelected: [
-                            property.fontWeight != text.kFontWeightNormal,
-                            property.italic,
-                            property.underline,
+                            span.fontWeight != text.kFontWeightNormal,
+                            span.italic,
+                            span.underline,
                           ],
                           children: [
                             GestureDetector(
@@ -155,7 +206,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                     details.globalPosition.dy,
                                   ),
                                   initialValue:
-                                      FontWeight.values[property.fontWeight],
+                                      FontWeight.values[span.fontWeight],
                                   items: List.generate(FontWeight.values.length,
                                       (index) {
                                     var text = ((index + 1) * 100).toString();
@@ -180,27 +231,38 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             var next = _value;
                             switch (value) {
                               case 0:
-                                next = next?.copyWith(
+                                next = next.copyWith(
                                   forcedProperty: property.copyWith(
-                                    fontWeight: property.fontWeight ==
-                                            text.kFontWeightNormal
-                                        ? text.kFontWeightBold
-                                        : text.kFontWeightNormal,
+                                    span: span.copyWith(
+                                      fontWeight: span.fontWeight ==
+                                              text.kFontWeightNormal
+                                          ? text.kFontWeightBold
+                                          : text.kFontWeightNormal,
+                                    ),
                                   ),
                                 );
                                 break;
                               case 1:
-                                next = next?.copyWith(
+                                next = next.copyWith(
                                   forcedProperty: property.copyWith(
-                                    italic: !property.italic,
+                                    span: span.copyWith(
+                                      italic: !span.italic,
+                                    ),
+                                  ),
+                                );
+                                break;
+                              case 2:
+                                next = next.copyWith(
+                                  forcedProperty: property.copyWith(
+                                    span: span.copyWith(
+                                      underline: !span.underline,
+                                    ),
                                   ),
                                 );
                                 break;
                             }
 
-                            if (next != null) {
-                              _changeValue(next);
-                            }
+                            _changeValue(next);
                           },
                         ),
                       ],

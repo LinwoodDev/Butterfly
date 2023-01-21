@@ -176,7 +176,7 @@ class TextContext with _$TextContext {
       {required LabelPainter painter,
       TextRenderer? renderer,
       @Default(false) bool isCreating,
-      SpanProperty? forcedProperty,
+      ParagraphProperty? forcedProperty,
       bool? forceParagraph}) = _TextContext;
 
   TextArea? get area => renderer?.element.area;
@@ -194,19 +194,15 @@ class TextContext with _$TextContext {
 
   bool? get isEmpty => renderer?.element.text.isEmpty;
 
-  SpanProperty getProperty(AppDocument document) {
+  ParagraphProperty getProperty(AppDocument document) {
     return forcedProperty ??
-        (document
-                .getStyle(styleSheet)
-                ?.resolveParagraphProperty(area?.paragraph.textProperty)
-                ?.span ??
-            const SpanProperty.undefined());
+        area?.paragraph.textProperty ??
+        const ParagraphProperty.undefined();
   }
 
-  DefinedSpanProperty? getDefinedProperty(AppDocument document) {
+  DefinedParagraphProperty? getDefinedProperty(AppDocument document) {
     final property = getProperty(document);
-    return document.getStyle(styleSheet)?.resolveSpanProperty(property) ??
-        property.maybeMap<DefinedSpanProperty?>(
-            defined: (value) => value, orElse: () => null);
+    return document.getStyle(styleSheet)?.resolveParagraphProperty(property) ??
+        forcedProperty?.maybeMap(defined: (value) => value, orElse: () => null);
   }
 }

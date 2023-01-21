@@ -2494,7 +2494,7 @@ mixin _$TextContext {
   LabelPainter get painter => throw _privateConstructorUsedError;
   TextRenderer? get renderer => throw _privateConstructorUsedError;
   bool get isCreating => throw _privateConstructorUsedError;
-  SpanProperty? get forcedProperty => throw _privateConstructorUsedError;
+  ParagraphProperty? get forcedProperty => throw _privateConstructorUsedError;
   bool? get forceParagraph => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -2512,10 +2512,10 @@ abstract class $TextContextCopyWith<$Res> {
       {LabelPainter painter,
       TextRenderer? renderer,
       bool isCreating,
-      SpanProperty? forcedProperty,
+      ParagraphProperty? forcedProperty,
       bool? forceParagraph});
 
-  $SpanPropertyCopyWith<$Res>? get forcedProperty;
+  $ParagraphPropertyCopyWith<$Res>? get forcedProperty;
 }
 
 /// @nodoc
@@ -2553,7 +2553,7 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
       forcedProperty: freezed == forcedProperty
           ? _value.forcedProperty
           : forcedProperty // ignore: cast_nullable_to_non_nullable
-              as SpanProperty?,
+              as ParagraphProperty?,
       forceParagraph: freezed == forceParagraph
           ? _value.forceParagraph
           : forceParagraph // ignore: cast_nullable_to_non_nullable
@@ -2563,12 +2563,12 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
 
   @override
   @pragma('vm:prefer-inline')
-  $SpanPropertyCopyWith<$Res>? get forcedProperty {
+  $ParagraphPropertyCopyWith<$Res>? get forcedProperty {
     if (_value.forcedProperty == null) {
       return null;
     }
 
-    return $SpanPropertyCopyWith<$Res>(_value.forcedProperty!, (value) {
+    return $ParagraphPropertyCopyWith<$Res>(_value.forcedProperty!, (value) {
       return _then(_value.copyWith(forcedProperty: value) as $Val);
     });
   }
@@ -2586,11 +2586,11 @@ abstract class _$$_TextContextCopyWith<$Res>
       {LabelPainter painter,
       TextRenderer? renderer,
       bool isCreating,
-      SpanProperty? forcedProperty,
+      ParagraphProperty? forcedProperty,
       bool? forceParagraph});
 
   @override
-  $SpanPropertyCopyWith<$Res>? get forcedProperty;
+  $ParagraphPropertyCopyWith<$Res>? get forcedProperty;
 }
 
 /// @nodoc
@@ -2626,7 +2626,7 @@ class __$$_TextContextCopyWithImpl<$Res>
       forcedProperty: freezed == forcedProperty
           ? _value.forcedProperty
           : forcedProperty // ignore: cast_nullable_to_non_nullable
-              as SpanProperty?,
+              as ParagraphProperty?,
       forceParagraph: freezed == forceParagraph
           ? _value.forceParagraph
           : forceParagraph // ignore: cast_nullable_to_non_nullable
@@ -2654,7 +2654,7 @@ class _$_TextContext extends _TextContext {
   @JsonKey()
   final bool isCreating;
   @override
-  final SpanProperty? forcedProperty;
+  final ParagraphProperty? forcedProperty;
   @override
   final bool? forceParagraph;
 
@@ -2700,7 +2700,7 @@ abstract class _TextContext extends TextContext {
       {required final LabelPainter painter,
       final TextRenderer? renderer,
       final bool isCreating,
-      final SpanProperty? forcedProperty,
+      final ParagraphProperty? forcedProperty,
       final bool? forceParagraph}) = _$_TextContext;
   const _TextContext._() : super._();
 
@@ -2711,7 +2711,7 @@ abstract class _TextContext extends TextContext {
   @override
   bool get isCreating;
   @override
-  SpanProperty? get forcedProperty;
+  ParagraphProperty? get forcedProperty;
   @override
   bool? get forceParagraph;
   @override
