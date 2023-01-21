@@ -47,31 +47,31 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
       const Divider(),
       const SizedBox(height: 8),
       Column(
-          children: currentPack?.components
+          children: currentPack?.styles
                   .asMap()
                   .entries
-                  .map((component) => Dismissible(
-                      key: ValueKey(component.key),
+                  .map((style) => Dismissible(
+                      key: ValueKey(style.key),
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
                         final newPack = currentPack.copyWith(
-                          components: List<ButterflyComponent>.from(
-                              currentPack.components)
-                            ..removeAt(component.key),
+                          styles:
+                              List<text.TextStyleSheet>.from(currentPack.styles)
+                                ..removeAt(style.key),
                         );
                         bloc.add(DocumentPackUpdated(newPack.name, newPack));
                       },
                       child: ListTile(
-                        title: Text(component.value.name),
-                        selected: component.value.name ==
-                            selected.first.styleSheet.name,
+                        title: Text(style.value.name),
+                        selected:
+                            style.value.name == selected.first.styleSheet.name,
                         onTap: () => update(
                             context,
                             selected
                                 .map((e) => e.copyWith(
                                         styleSheet: PackAssetLocation(
                                       pack: currentPack.name,
-                                      name: component.value.name,
+                                      name: style.value.name,
                                     )))
                                 .toList()),
                       )))

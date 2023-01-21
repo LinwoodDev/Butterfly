@@ -450,5 +450,6 @@
     }
   },
   "styles": "Styles",
-  "paragraph": "Paragraph"
+  "paragraph": "Paragraph",
+  "fontFamily": "Font family"
 }

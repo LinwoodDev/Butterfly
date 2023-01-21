@@ -26,6 +26,7 @@ import '../models/area.dart';
 import '../models/element.dart';
 import '../models/pack.dart';
 import '../models/painter.dart';
+import '../models/text.dart' as text;
 import '../models/tool.dart';
 import '../renderers/renderer.dart';
 import '../widgets/color_field.dart';

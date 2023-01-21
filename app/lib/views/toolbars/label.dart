@@ -81,7 +81,11 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               ),
                             ],
                             onChanged: (value) {},
-                            decoration: const InputDecoration(suffixText: '*'),
+                            decoration: InputDecoration(
+                              suffixText: '*',
+                              border: const OutlineInputBorder(),
+                              labelText: AppLocalizations.of(context).style,
+                            ),
                           ),
                         ),
                       ],
@@ -126,11 +130,19 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         const SizedBox(width: 32),
                         SizedBox(
                           width: 200,
-                          child: DropdownButtonFormField<String>(items: const [
-                            DropdownMenuItem(
-                              child: Text('Roboto'),
+                          child: DropdownButtonFormField<String>(
+                            items: const [
+                              DropdownMenuItem(
+                                child: Text('Roboto'),
+                              ),
+                            ],
+                            onChanged: (value) {},
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText:
+                                  AppLocalizations.of(context).fontFamily,
                             ),
-                          ], onChanged: (value) {}),
+                          ),
                         ),
                         const SizedBox(width: 8),
                         SizedBox(
@@ -155,16 +167,22 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         ),
                         const SizedBox(width: 16),
                         InkWell(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(32),
+                          ),
                           child: Container(
-                            width: 30,
-                            height: 30,
+                            width: 42,
+                            height: 42,
                             decoration: BoxDecoration(
-                                color: Color(span.color),
-                                border: Border.all(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 2),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(32))),
+                              color: Color(span.color),
+                              border: Border.all(
+                                color: Theme.of(context).primaryColor,
+                                width: 2,
+                              ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(32),
+                              ),
+                            ),
                           ),
                           onTap: () async {
                             final result = await showDialog<int>(
