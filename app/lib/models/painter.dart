@@ -87,7 +87,7 @@ class Painter with _$Painter {
 
   factory Painter.label({
     @Default('') String name,
-    @Default('') String pack,
+    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
   }) = LabelPainter;
 
   factory Painter.pen({
@@ -143,7 +143,7 @@ class Painter with _$Painter {
 
   factory Painter.stamp({
     @Default('') String name,
-    @Default(PackAssetLocation()) PackAssetLocation location,
+    @Default(PackAssetLocation()) PackAssetLocation component,
   }) = StampPainter;
 
   factory Painter.fromJson(Map<String, dynamic> json) =>

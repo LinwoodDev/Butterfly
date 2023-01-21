@@ -1,9 +1,9 @@
 part of 'handler.dart';
 
 class LabelHandler extends Handler<LabelPainter> with HandlerWithCursor {
-  text.TextContext? _context;
+  text.TextContext _context;
 
-  LabelHandler(super.data);
+  LabelHandler(super.data) : _context = text.TextContext(painter: data);
 
   @override
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
@@ -51,7 +51,6 @@ class LabelHandler extends Handler<LabelPainter> with HandlerWithCursor {
   void _change(DocumentBloc bloc, TextContext value) {
     final context = _context;
     _context = value.copyWith();
-    if (context == null) return;
 
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
@@ -73,8 +72,7 @@ class LabelHandler extends Handler<LabelPainter> with HandlerWithCursor {
 
   void _submit(DocumentBloc bloc) {
     final context = _context;
-    if (context == null) return;
-    _context = null;
+    _context = TextContext(painter: data);
     if (context.isEmpty ?? true) return;
     final renderer = context.renderer;
     if (renderer == null) return;

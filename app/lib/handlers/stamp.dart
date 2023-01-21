@@ -22,7 +22,7 @@ class StampHandler extends Handler<StampPainter> {
   }
 
   ButterflyComponent? getComponent(AppDocument document) =>
-      document.getComponent(data.location);
+      document.getComponent(data.component);
 
   Future<void> _loadComponent(AppDocument document) async {
     _position = Offset.zero;

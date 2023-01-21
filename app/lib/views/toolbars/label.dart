@@ -7,7 +7,7 @@ import '../../bloc/document_bloc.dart';
 import '../../models/text.dart' as text;
 
 class LabelToolbarView extends StatefulWidget {
-  final text.TextContext? value;
+  final text.TextContext value;
   final ValueChanged<text.TextContext> onChanged;
 
   const LabelToolbarView({
@@ -141,18 +141,67 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             property.fontWeight != text.kFontWeightNormal,
                             property.italic,
                             property.underline,
-                            property.lineThrough,
                           ],
                           children: [
                             GestureDetector(
                               child: const Icon(PhosphorIcons.textBolderLight),
-                              onLongPress: () {},
+                              onLongPressEnd: (details) {
+                                showMenu(
+                                  context: context,
+                                  position: RelativeRect.fromLTRB(
+                                    details.globalPosition.dx,
+                                    details.globalPosition.dy,
+                                    details.globalPosition.dx,
+                                    details.globalPosition.dy,
+                                  ),
+                                  initialValue:
+                                      FontWeight.values[property.fontWeight],
+                                  items: List.generate(FontWeight.values.length,
+                                      (index) {
+                                    var text = ((index + 1) * 100).toString();
+                                    if (index == 3) {
+                                      text =
+                                          AppLocalizations.of(context).normal;
+                                    } else if (index == 6) {
+                                      text = AppLocalizations.of(context).bold;
+                                    }
+                                    return PopupMenuItem(
+                                      value: FontWeight.values[index],
+                                      child: Text(text),
+                                    );
+                                  }),
+                                );
+                              },
                             ),
                             const Icon(PhosphorIcons.textItalicLight),
                             const Icon(PhosphorIcons.textUnderlineLight),
-                            const Icon(PhosphorIcons.textStrikethroughLight),
                           ],
-                          onPressed: (value) {},
+                          onPressed: (value) {
+                            var next = _value;
+                            switch (value) {
+                              case 0:
+                                next = next?.copyWith(
+                                  forcedProperty: property.copyWith(
+                                    fontWeight: property.fontWeight ==
+                                            text.kFontWeightNormal
+                                        ? text.kFontWeightBold
+                                        : text.kFontWeightNormal,
+                                  ),
+                                );
+                                break;
+                              case 1:
+                                next = next?.copyWith(
+                                  forcedProperty: property.copyWith(
+                                    italic: !property.italic,
+                                  ),
+                                );
+                                break;
+                            }
+
+                            if (next != null) {
+                              _changeValue(next);
+                            }
+                          },
                         ),
                       ],
                     ),

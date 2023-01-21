@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'colors.dart';
 import 'document.dart';
+import 'painter.dart';
 
 part 'text.freezed.dart';
 part 'text.g.dart';
@@ -14,6 +15,7 @@ enum HorizontalAlignment { left, center, right, justify }
 enum VerticalAlignment { top, center, bottom }
 
 const kFontWeightNormal = 3;
+const kFontWeightBold = 2;
 
 @freezed
 class SpanProperty with _$SpanProperty {
@@ -171,13 +173,15 @@ class TextStyleSheet with _$TextStyleSheet {
 class TextContext with _$TextContext {
   const TextContext._();
   const factory TextContext(
-      {required PackAssetLocation styleSheet,
+      {required LabelPainter painter,
       TextRenderer? renderer,
       @Default(false) bool isCreating,
       SpanProperty? forcedProperty,
       bool? forceParagraph}) = _TextContext;
 
   TextArea? get area => renderer?.element.area;
+  PackAssetLocation get styleSheet =>
+      renderer?.element.styleSheet ?? painter.styleSheet;
 
   int? length() => renderer?.span?.toPlainText().length ?? 0;
 
@@ -199,8 +203,10 @@ class TextContext with _$TextContext {
             const SpanProperty.undefined());
   }
 
-  DefinedSpanProperty? getDefinedProperty(AppDocument document) => document
-      .getStyle(styleSheet)
-      ?.resolveParagraphProperty(area?.paragraph.textProperty)
-      ?.span;
+  DefinedSpanProperty? getDefinedProperty(AppDocument document) {
+    final property = getProperty(document);
+    return document.getStyle(styleSheet)?.resolveSpanProperty(property) ??
+        property.maybeMap<DefinedSpanProperty?>(
+            defined: (value) => value, orElse: () => null);
+  }
 }

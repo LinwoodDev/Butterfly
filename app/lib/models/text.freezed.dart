@@ -2491,7 +2491,7 @@ abstract class _TextStyleSheet extends TextStyleSheet {
 
 /// @nodoc
 mixin _$TextContext {
-  PackAssetLocation get styleSheet => throw _privateConstructorUsedError;
+  LabelPainter get painter => throw _privateConstructorUsedError;
   TextRenderer? get renderer => throw _privateConstructorUsedError;
   bool get isCreating => throw _privateConstructorUsedError;
   SpanProperty? get forcedProperty => throw _privateConstructorUsedError;
@@ -2509,13 +2509,12 @@ abstract class $TextContextCopyWith<$Res> {
       _$TextContextCopyWithImpl<$Res, TextContext>;
   @useResult
   $Res call(
-      {PackAssetLocation styleSheet,
+      {LabelPainter painter,
       TextRenderer? renderer,
       bool isCreating,
       SpanProperty? forcedProperty,
       bool? forceParagraph});
 
-  $PackAssetLocationCopyWith<$Res> get styleSheet;
   $SpanPropertyCopyWith<$Res>? get forcedProperty;
 }
 
@@ -2532,17 +2531,17 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? styleSheet = null,
+    Object? painter = freezed,
     Object? renderer = freezed,
     Object? isCreating = null,
     Object? forcedProperty = freezed,
     Object? forceParagraph = freezed,
   }) {
     return _then(_value.copyWith(
-      styleSheet: null == styleSheet
-          ? _value.styleSheet
-          : styleSheet // ignore: cast_nullable_to_non_nullable
-              as PackAssetLocation,
+      painter: freezed == painter
+          ? _value.painter
+          : painter // ignore: cast_nullable_to_non_nullable
+              as LabelPainter,
       renderer: freezed == renderer
           ? _value.renderer
           : renderer // ignore: cast_nullable_to_non_nullable
@@ -2560,14 +2559,6 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
           : forceParagraph // ignore: cast_nullable_to_non_nullable
               as bool?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $PackAssetLocationCopyWith<$Res> get styleSheet {
-    return $PackAssetLocationCopyWith<$Res>(_value.styleSheet, (value) {
-      return _then(_value.copyWith(styleSheet: value) as $Val);
-    });
   }
 
   @override
@@ -2592,14 +2583,12 @@ abstract class _$$_TextContextCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {PackAssetLocation styleSheet,
+      {LabelPainter painter,
       TextRenderer? renderer,
       bool isCreating,
       SpanProperty? forcedProperty,
       bool? forceParagraph});
 
-  @override
-  $PackAssetLocationCopyWith<$Res> get styleSheet;
   @override
   $SpanPropertyCopyWith<$Res>? get forcedProperty;
 }
@@ -2615,17 +2604,17 @@ class __$$_TextContextCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? styleSheet = null,
+    Object? painter = freezed,
     Object? renderer = freezed,
     Object? isCreating = null,
     Object? forcedProperty = freezed,
     Object? forceParagraph = freezed,
   }) {
     return _then(_$_TextContext(
-      styleSheet: null == styleSheet
-          ? _value.styleSheet
-          : styleSheet // ignore: cast_nullable_to_non_nullable
-              as PackAssetLocation,
+      painter: freezed == painter
+          ? _value.painter
+          : painter // ignore: cast_nullable_to_non_nullable
+              as LabelPainter,
       renderer: freezed == renderer
           ? _value.renderer
           : renderer // ignore: cast_nullable_to_non_nullable
@@ -2650,7 +2639,7 @@ class __$$_TextContextCopyWithImpl<$Res>
 
 class _$_TextContext extends _TextContext {
   const _$_TextContext(
-      {required this.styleSheet,
+      {required this.painter,
       this.renderer,
       this.isCreating = false,
       this.forcedProperty,
@@ -2658,7 +2647,7 @@ class _$_TextContext extends _TextContext {
       : super._();
 
   @override
-  final PackAssetLocation styleSheet;
+  final LabelPainter painter;
   @override
   final TextRenderer? renderer;
   @override
@@ -2671,7 +2660,7 @@ class _$_TextContext extends _TextContext {
 
   @override
   String toString() {
-    return 'TextContext(styleSheet: $styleSheet, renderer: $renderer, isCreating: $isCreating, forcedProperty: $forcedProperty, forceParagraph: $forceParagraph)';
+    return 'TextContext(painter: $painter, renderer: $renderer, isCreating: $isCreating, forcedProperty: $forcedProperty, forceParagraph: $forceParagraph)';
   }
 
   @override
@@ -2679,8 +2668,7 @@ class _$_TextContext extends _TextContext {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TextContext &&
-            (identical(other.styleSheet, styleSheet) ||
-                other.styleSheet == styleSheet) &&
+            const DeepCollectionEquality().equals(other.painter, painter) &&
             (identical(other.renderer, renderer) ||
                 other.renderer == renderer) &&
             (identical(other.isCreating, isCreating) ||
@@ -2692,8 +2680,13 @@ class _$_TextContext extends _TextContext {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, styleSheet, renderer, isCreating,
-      forcedProperty, forceParagraph);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(painter),
+      renderer,
+      isCreating,
+      forcedProperty,
+      forceParagraph);
 
   @JsonKey(ignore: true)
   @override
@@ -2704,7 +2697,7 @@ class _$_TextContext extends _TextContext {
 
 abstract class _TextContext extends TextContext {
   const factory _TextContext(
-      {required final PackAssetLocation styleSheet,
+      {required final LabelPainter painter,
       final TextRenderer? renderer,
       final bool isCreating,
       final SpanProperty? forcedProperty,
@@ -2712,7 +2705,7 @@ abstract class _TextContext extends TextContext {
   const _TextContext._() : super._();
 
   @override
-  PackAssetLocation get styleSheet;
+  LabelPainter get painter;
   @override
   TextRenderer? get renderer;
   @override

@@ -5,12 +5,15 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final state = context.read<DocumentBloc>().state;
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
     if (state is! DocumentLoadSuccess) return [];
     final packs = state.document.packs;
-    final currentPack = selected.first.pack;
+    final currentPack =
+        packs.firstWhereOrNull((e) => e.name == selected.first.styleSheet.pack);
     return [
       ...super.buildProperties(context),
+      const SizedBox(height: 16),
       DropdownButtonFormField<String>(
         items: packs
             .map((e) =>
@@ -21,13 +24,59 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
           filled: true,
           counterText:
               packs.isEmpty ? AppLocalizations.of(context).noPacks : null,
+          suffixIcon: IconButton(
+            icon: const Icon(PhosphorIcons.packageLight),
+            tooltip: AppLocalizations.of(context).packs,
+            onPressed: () {
+              Actions.maybeInvoke<PacksIntent>(context, PacksIntent(context));
+            },
+          ),
         ),
-        value: currentPack,
+        value: currentPack?.name,
         onChanged: (pack) {
           if (pack == null) return;
-          update(context, selected.map((e) => e.copyWith(pack: pack)).toList());
+          update(
+              context,
+              selected
+                  .map((e) =>
+                      e.copyWith(styleSheet: PackAssetLocation(pack: pack)))
+                  .toList());
         },
       ),
+      const SizedBox(height: 8),
+      const Divider(),
+      const SizedBox(height: 8),
+      Column(
+          children: currentPack?.components
+                  .asMap()
+                  .entries
+                  .map((component) => Dismissible(
+                      key: ValueKey(component.key),
+                      background: Container(color: Colors.red),
+                      onDismissed: (direction) {
+                        final newPack = currentPack.copyWith(
+                          components: List<ButterflyComponent>.from(
+                              currentPack.components)
+                            ..removeAt(component.key),
+                        );
+                        bloc.add(DocumentPackUpdated(newPack.name, newPack));
+                      },
+                      child: ListTile(
+                        title: Text(component.value.name),
+                        selected: component.value.name ==
+                            selected.first.styleSheet.name,
+                        onTap: () => update(
+                            context,
+                            selected
+                                .map((e) => e.copyWith(
+                                        styleSheet: PackAssetLocation(
+                                      pack: currentPack.name,
+                                      name: component.value.name,
+                                    )))
+                                .toList()),
+                      )))
+                  .toList() ??
+              []),
     ];
   }
 
@@ -46,7 +95,6 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
   @override
   IconData getIcon({bool filled = false}) =>
       filled ? PhosphorIcons.textTFill : PhosphorIcons.textTLight;
-
   @override
   List<String> get help => ['painters', 'label'];
 }

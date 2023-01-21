@@ -96,14 +96,17 @@ Map<String, dynamic> _$$RedoPainterToJson(_$RedoPainter instance) =>
 
 _$LabelPainter _$$LabelPainterFromJson(Map json) => _$LabelPainter(
       name: json['name'] as String? ?? '',
-      pack: json['pack'] as String? ?? '',
+      styleSheet: json['styleSheet'] == null
+          ? const PackAssetLocation()
+          : PackAssetLocation.fromJson(
+              Map<String, dynamic>.from(json['styleSheet'] as Map)),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$LabelPainterToJson(_$LabelPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'pack': instance.pack,
+      'styleSheet': instance.styleSheet.toJson(),
       'type': instance.$type,
     };
 
@@ -244,16 +247,16 @@ Map<String, dynamic> _$$ShapePainterToJson(_$ShapePainter instance) =>
 
 _$StampPainter _$$StampPainterFromJson(Map json) => _$StampPainter(
       name: json['name'] as String? ?? '',
-      location: json['location'] == null
+      component: json['component'] == null
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
-              Map<String, dynamic>.from(json['location'] as Map)),
+              Map<String, dynamic>.from(json['component'] as Map)),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$StampPainterToJson(_$StampPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'location': instance.location.toJson(),
+      'component': instance.component.toJson(),
       'type': instance.$type,
     };

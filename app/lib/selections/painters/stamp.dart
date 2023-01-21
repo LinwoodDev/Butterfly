@@ -10,7 +10,7 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
     if (state is! DocumentLoadSuccess) return [];
     final packs = state.document.packs;
     final currentPack =
-        packs.firstWhereOrNull((e) => e.name == selected.first.location.pack);
+        packs.firstWhereOrNull((e) => e.name == selected.first.component.pack);
     return [
       ...super.buildProperties(context),
       const SizedBox(height: 16),
@@ -39,7 +39,7 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
               context,
               selected
                   .map((e) =>
-                      e.copyWith(location: PackAssetLocation(pack: pack)))
+                      e.copyWith(component: PackAssetLocation(pack: pack)))
                   .toList());
         },
       ),
@@ -64,12 +64,12 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
                       child: ListTile(
                         title: Text(component.value.name),
                         selected: component.value.name ==
-                            selected.first.location.name,
+                            selected.first.component.name,
                         onTap: () => update(
                             context,
                             selected
                                 .map((e) => e.copyWith(
-                                        location: PackAssetLocation(
+                                        component: PackAssetLocation(
                                       pack: currentPack.name,
                                       name: component.value.name,
                                     )))
