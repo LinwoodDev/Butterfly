@@ -48,3 +48,29 @@ class TextCursor extends Renderer<TextCursorData> {
     );
   }
 }
+
+@immutable
+class TextSelectionCursorData extends PainterCursorData<LabelPainter> {
+  final int size;
+
+  const TextSelectionCursorData(super.painter, super.position, this.size);
+}
+
+class TextSelectionCursor extends Renderer<TextSelectionCursorData> {
+  TextSelectionCursor(super.element);
+
+  @override
+  void build(
+      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+      [ColorScheme? colorScheme, bool foreground = false]) {
+    // Paint vertical line
+    final paint = Paint()
+      ..color = colorScheme?.primary ?? Colors.black
+      ..strokeWidth = 1 / transform.size;
+    canvas.drawLine(
+      element.position.translate(0, -element.size.toDouble()),
+      element.position.translate(0, element.size.toDouble()),
+      paint,
+    );
+  }
+}

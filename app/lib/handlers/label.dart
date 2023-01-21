@@ -50,16 +50,18 @@ class LabelHandler extends Handler<LabelPainter> with HandlerWithCursor {
 
   void _change(DocumentBloc bloc, TextContext value) {
     final context = _context;
-    _context = value;
+    _context = value.copyWith();
     if (context == null) return;
 
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    if (context.element == value.element) return;
+    if (context.renderer == value.renderer || value.renderer == null) return;
     state.currentIndexCubit.refresh(state.document);
     if (!value.isCreating) {
       bloc.add(ElementsChanged({
-        value.element: [context.element]
+        value.renderer!.element: [
+          context.renderer?.element ?? value.renderer!.element
+        ]
       }));
     }
   }
@@ -73,9 +75,11 @@ class LabelHandler extends Handler<LabelPainter> with HandlerWithCursor {
     final context = _context;
     if (context == null) return;
     _context = null;
-    if (context.isEmpty) return;
+    if (context.isEmpty ?? true) return;
+    final renderer = context.renderer;
+    if (renderer == null) return;
     if (context.isCreating) {
-      bloc.add(ElementsCreated([context.element]));
+      bloc.add(ElementsCreated.renderers([renderer]));
     }
   }
 }

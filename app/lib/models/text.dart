@@ -1,10 +1,10 @@
 import 'package:butterfly/models/pack.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'colors.dart';
 import 'document.dart';
-import 'element.dart';
 
 part 'text.freezed.dart';
 part 'text.g.dart';
@@ -13,12 +13,14 @@ enum HorizontalAlignment { left, center, right, justify }
 
 enum VerticalAlignment { top, center, bottom }
 
+const kFontWeightNormal = 3;
+
 @freezed
 class SpanProperty with _$SpanProperty {
   const factory SpanProperty.defined({
     @Default(12) double size,
     @Default(kColorBlack) int color,
-    @Default(3) int fontWeight,
+    @Default(kFontWeightNormal) int fontWeight,
     @Default(false) bool lineThrough,
     @Default(false) bool underline,
     @Default(false) bool overline,
@@ -147,8 +149,8 @@ class TextStyleSheet with _$TextStyleSheet {
     return paragraphProperties[name];
   }
 
-  DefinedSpanProperty? resolveSpanProperty(SpanProperty property) {
-    return property.map(
+  DefinedSpanProperty? resolveSpanProperty(SpanProperty? property) {
+    return property?.map(
       defined: (value) => value,
       named: (value) => spanProperties[value],
       undefined: (value) => null,
@@ -156,8 +158,8 @@ class TextStyleSheet with _$TextStyleSheet {
   }
 
   DefinedParagraphProperty? resolveParagraphProperty(
-      ParagraphProperty property) {
-    return property.map(
+      ParagraphProperty? property) {
+    return property?.map(
       defined: (value) => value,
       named: (value) => paragraphProperties[value],
       undefined: (value) => null,
@@ -170,32 +172,35 @@ class TextContext with _$TextContext {
   const TextContext._();
   const factory TextContext(
       {required PackAssetLocation styleSheet,
-      required TextElement element,
-      required TextPainter painter,
-      required TextSelection selection,
+      TextRenderer? renderer,
       @Default(false) bool isCreating,
       SpanProperty? forcedProperty,
       bool? forceParagraph}) = _TextContext;
 
-  TextArea get area => element.area;
+  TextArea? get area => renderer?.element.area;
 
-  int length() => painter.text?.toPlainText().length ?? 0;
+  int? length() => renderer?.span?.toPlainText().length ?? 0;
+
+  TextSelection? get selection => renderer?.selection;
 
   bool isParagraph() =>
-      forceParagraph ?? (selection.start <= 0 && selection.end >= length());
+      forceParagraph ??
+      ((selection?.start ?? 0) <= 0 &&
+          (selection?.end ?? 0) >= (length() ?? 0));
 
-  bool get isEmpty => element.text.isEmpty;
+  bool? get isEmpty => renderer?.element.text.isEmpty;
 
-  SpanProperty getProperty(AppDocument document) =>
-      forcedProperty ??
-      (document
-              .getStyle(styleSheet)
-              ?.resolveParagraphProperty(area.paragraph.textProperty)
-              ?.span ??
-          const SpanProperty.undefined());
+  SpanProperty getProperty(AppDocument document) {
+    return forcedProperty ??
+        (document
+                .getStyle(styleSheet)
+                ?.resolveParagraphProperty(area?.paragraph.textProperty)
+                ?.span ??
+            const SpanProperty.undefined());
+  }
 
   DefinedSpanProperty? getDefinedProperty(AppDocument document) => document
       .getStyle(styleSheet)
-      ?.resolveParagraphProperty(area.paragraph.textProperty)
+      ?.resolveParagraphProperty(area?.paragraph.textProperty)
       ?.span;
 }

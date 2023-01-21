@@ -230,7 +230,7 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
   const _$DefinedSpanProperty(
       {this.size = 12,
       this.color = kColorBlack,
-      this.fontWeight = 3,
+      this.fontWeight = kFontWeightNormal,
       this.lineThrough = false,
       this.underline = false,
       this.overline = false,
@@ -2492,9 +2492,7 @@ abstract class _TextStyleSheet extends TextStyleSheet {
 /// @nodoc
 mixin _$TextContext {
   PackAssetLocation get styleSheet => throw _privateConstructorUsedError;
-  TextElement get element => throw _privateConstructorUsedError;
-  TextPainter get painter => throw _privateConstructorUsedError;
-  TextSelection get selection => throw _privateConstructorUsedError;
+  TextRenderer? get renderer => throw _privateConstructorUsedError;
   bool get isCreating => throw _privateConstructorUsedError;
   SpanProperty? get forcedProperty => throw _privateConstructorUsedError;
   bool? get forceParagraph => throw _privateConstructorUsedError;
@@ -2512,9 +2510,7 @@ abstract class $TextContextCopyWith<$Res> {
   @useResult
   $Res call(
       {PackAssetLocation styleSheet,
-      TextElement element,
-      TextPainter painter,
-      TextSelection selection,
+      TextRenderer? renderer,
       bool isCreating,
       SpanProperty? forcedProperty,
       bool? forceParagraph});
@@ -2537,9 +2533,7 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
   @override
   $Res call({
     Object? styleSheet = null,
-    Object? element = freezed,
-    Object? painter = null,
-    Object? selection = null,
+    Object? renderer = freezed,
     Object? isCreating = null,
     Object? forcedProperty = freezed,
     Object? forceParagraph = freezed,
@@ -2549,18 +2543,10 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
               as PackAssetLocation,
-      element: freezed == element
-          ? _value.element
-          : element // ignore: cast_nullable_to_non_nullable
-              as TextElement,
-      painter: null == painter
-          ? _value.painter
-          : painter // ignore: cast_nullable_to_non_nullable
-              as TextPainter,
-      selection: null == selection
-          ? _value.selection
-          : selection // ignore: cast_nullable_to_non_nullable
-              as TextSelection,
+      renderer: freezed == renderer
+          ? _value.renderer
+          : renderer // ignore: cast_nullable_to_non_nullable
+              as TextRenderer?,
       isCreating: null == isCreating
           ? _value.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
@@ -2607,9 +2593,7 @@ abstract class _$$_TextContextCopyWith<$Res>
   @useResult
   $Res call(
       {PackAssetLocation styleSheet,
-      TextElement element,
-      TextPainter painter,
-      TextSelection selection,
+      TextRenderer? renderer,
       bool isCreating,
       SpanProperty? forcedProperty,
       bool? forceParagraph});
@@ -2632,9 +2616,7 @@ class __$$_TextContextCopyWithImpl<$Res>
   @override
   $Res call({
     Object? styleSheet = null,
-    Object? element = freezed,
-    Object? painter = null,
-    Object? selection = null,
+    Object? renderer = freezed,
     Object? isCreating = null,
     Object? forcedProperty = freezed,
     Object? forceParagraph = freezed,
@@ -2644,18 +2626,10 @@ class __$$_TextContextCopyWithImpl<$Res>
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
               as PackAssetLocation,
-      element: freezed == element
-          ? _value.element
-          : element // ignore: cast_nullable_to_non_nullable
-              as TextElement,
-      painter: null == painter
-          ? _value.painter
-          : painter // ignore: cast_nullable_to_non_nullable
-              as TextPainter,
-      selection: null == selection
-          ? _value.selection
-          : selection // ignore: cast_nullable_to_non_nullable
-              as TextSelection,
+      renderer: freezed == renderer
+          ? _value.renderer
+          : renderer // ignore: cast_nullable_to_non_nullable
+              as TextRenderer?,
       isCreating: null == isCreating
           ? _value.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
@@ -2677,9 +2651,7 @@ class __$$_TextContextCopyWithImpl<$Res>
 class _$_TextContext extends _TextContext {
   const _$_TextContext(
       {required this.styleSheet,
-      required this.element,
-      required this.painter,
-      required this.selection,
+      this.renderer,
       this.isCreating = false,
       this.forcedProperty,
       this.forceParagraph})
@@ -2688,11 +2660,7 @@ class _$_TextContext extends _TextContext {
   @override
   final PackAssetLocation styleSheet;
   @override
-  final TextElement element;
-  @override
-  final TextPainter painter;
-  @override
-  final TextSelection selection;
+  final TextRenderer? renderer;
   @override
   @JsonKey()
   final bool isCreating;
@@ -2703,7 +2671,7 @@ class _$_TextContext extends _TextContext {
 
   @override
   String toString() {
-    return 'TextContext(styleSheet: $styleSheet, element: $element, painter: $painter, selection: $selection, isCreating: $isCreating, forcedProperty: $forcedProperty, forceParagraph: $forceParagraph)';
+    return 'TextContext(styleSheet: $styleSheet, renderer: $renderer, isCreating: $isCreating, forcedProperty: $forcedProperty, forceParagraph: $forceParagraph)';
   }
 
   @override
@@ -2713,10 +2681,8 @@ class _$_TextContext extends _TextContext {
             other is _$_TextContext &&
             (identical(other.styleSheet, styleSheet) ||
                 other.styleSheet == styleSheet) &&
-            const DeepCollectionEquality().equals(other.element, element) &&
-            (identical(other.painter, painter) || other.painter == painter) &&
-            (identical(other.selection, selection) ||
-                other.selection == selection) &&
+            (identical(other.renderer, renderer) ||
+                other.renderer == renderer) &&
             (identical(other.isCreating, isCreating) ||
                 other.isCreating == isCreating) &&
             (identical(other.forcedProperty, forcedProperty) ||
@@ -2726,15 +2692,8 @@ class _$_TextContext extends _TextContext {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      styleSheet,
-      const DeepCollectionEquality().hash(element),
-      painter,
-      selection,
-      isCreating,
-      forcedProperty,
-      forceParagraph);
+  int get hashCode => Object.hash(runtimeType, styleSheet, renderer, isCreating,
+      forcedProperty, forceParagraph);
 
   @JsonKey(ignore: true)
   @override
@@ -2746,9 +2705,7 @@ class _$_TextContext extends _TextContext {
 abstract class _TextContext extends TextContext {
   const factory _TextContext(
       {required final PackAssetLocation styleSheet,
-      required final TextElement element,
-      required final TextPainter painter,
-      required final TextSelection selection,
+      final TextRenderer? renderer,
       final bool isCreating,
       final SpanProperty? forcedProperty,
       final bool? forceParagraph}) = _$_TextContext;
@@ -2757,11 +2714,7 @@ abstract class _TextContext extends TextContext {
   @override
   PackAssetLocation get styleSheet;
   @override
-  TextElement get element;
-  @override
-  TextPainter get painter;
-  @override
-  TextSelection get selection;
+  TextRenderer? get renderer;
   @override
   bool get isCreating;
   @override

@@ -10,7 +10,7 @@ _$DefinedSpanProperty _$$DefinedSpanPropertyFromJson(Map json) =>
     _$DefinedSpanProperty(
       size: (json['size'] as num?)?.toDouble() ?? 12,
       color: json['color'] as int? ?? kColorBlack,
-      fontWeight: json['fontWeight'] as int? ?? 3,
+      fontWeight: json['fontWeight'] as int? ?? kFontWeightNormal,
       lineThrough: json['lineThrough'] as bool? ?? false,
       underline: json['underline'] as bool? ?? false,
       overline: json['overline'] as bool? ?? false,

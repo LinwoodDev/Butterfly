@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../bloc/document_bloc.dart';
 import '../../models/text.dart' as text;
 
 class LabelToolbarView extends StatefulWidget {
@@ -35,6 +37,12 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return Container();
+    final document = state.document;
+    final property = _value?.getDefinedProperty(document) ??
+        const text.DefinedSpanProperty();
     return LayoutBuilder(
       builder: (context, constraints) => Scrollbar(
         controller: _scrollController,
@@ -55,7 +63,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                       children: [
                         IconButton(
                           icon: const Icon(PhosphorIcons.articleLight),
-                          isSelected: _value?.isParagraph(),
+                          isSelected: _value?.isParagraph() ?? true,
                           onPressed: _value == null
                               ? null
                               : () => _changeValue(_value!.copyWith(
@@ -121,14 +129,20 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           child: TextFormField(
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context).size,
+                              filled: true,
                             ),
                             textAlign: TextAlign.center,
-                            initialValue: '12px',
+                            initialValue: property.size.toString(),
                           ),
                         ),
                         const SizedBox(width: 16),
                         ToggleButtons(
-                          isSelected: const [true, false, false],
+                          isSelected: [
+                            property.fontWeight != text.kFontWeightNormal,
+                            property.italic,
+                            property.underline,
+                            property.lineThrough,
+                          ],
                           children: [
                             GestureDetector(
                               child: const Icon(PhosphorIcons.textBolderLight),
@@ -136,6 +150,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             ),
                             const Icon(PhosphorIcons.textItalicLight),
                             const Icon(PhosphorIcons.textUnderlineLight),
+                            const Icon(PhosphorIcons.textStrikethroughLight),
                           ],
                           onPressed: (value) {},
                         ),

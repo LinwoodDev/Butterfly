@@ -4,8 +4,9 @@ class TextRenderer extends Renderer<TextElement> {
   @override
   Rect rect;
   TextPainter? _tp;
+  TextSelection? selection;
 
-  TextRenderer(super.element, [this.rect = Rect.zero]);
+  TextRenderer(super.element, [this.rect = Rect.zero, this.selection]);
 
   TextAlign _convertAlignment(text.HorizontalAlignment alignment) {
     switch (alignment) {
@@ -216,4 +217,6 @@ class TextRenderer extends Renderer<TextElement> {
   void dispose() {
     // Add _tp.dispose() after flutter upgrade
   }
+
+  InlineSpan? get span => _tp?.text;
 }
