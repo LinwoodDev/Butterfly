@@ -88,6 +88,7 @@ android {
             }
         }
     }
+    namespace 'dev.linwood.butterfly'
 }
 
 flutter {
