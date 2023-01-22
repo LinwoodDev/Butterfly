@@ -26,24 +26,24 @@ dependencies:
   image: ^3.3.0
   intl: ^0.17.0
   path_provider: ^2.0.11
-  shared_preferences: ^2.0.15
-  url_launcher: ^6.1.7
+  shared_preferences: ^2.0.17
+  url_launcher: ^6.1.8
   file_picker: ^5.2.5
   phosphor_flutter: ^1.4.0
   replay_bloc: ^0.2.2
   share_plus: ^6.3.0
   package_info_plus: ^3.0.2
-  idb_shim: ^2.2.0+8
+  idb_shim: ^2.3.0+1
   go_router: ^6.0.1
   xml: ^6.2.2
   collection: ^1.17.0
   bloc_concurrency: ^0.2.0
-  camera: ^0.10.1
-  camera_windows: ^0.2.1+3
+  camera: ^0.10.2+1
+  camera_windows: ^0.2.1+4
   window_manager: ^0.3.0
   flex_color_scheme: ^6.1.2
   freezed_annotation: ^2.2.0
-  json_annotation: ^4.7.0
+  json_annotation: ^4.8.0
   path: ^1.8.1
   printing: ^5.9.3
   js: ^0.6.4
@@ -52,14 +52,14 @@ dependencies:
   flutter_secure_storage: ^7.0.1
   equatable: ^2.0.5
   adwaita: ^0.5.2
-  yaru: ^0.4.7
+  yaru: ^0.4.8
   rxdart: ^0.27.7
   ffi: ^2.0.1
   archive: ^3.3.5
   animations: ^2.0.7
   connectivity_plus: ^3.0.2
   cross_file: ^0.3.3+2
-  args: ^2.3.1
+  args: ^2.3.2
 dev_dependencies:
   flutter_native_splash: ^2.2.16
   flutter_launcher_icons: ^0.11.0
@@ -71,8 +71,8 @@ dev_dependencies:
   analyzer: ^5.4.0
   freezed: ^2.3.2
   build_runner: ^2.3.3
-  json_serializable: ^6.5.4
-  espresso: ^0.2.0+5
+  json_serializable: ^6.6.0
+  espresso: ^0.2.0+6
 dependency_overrides:
   archive: 3.3.5
   collection: 1.17.0
