@@ -43,7 +43,7 @@ class ElementsReplaced extends DocumentEvent {
 }
 
 class ElementsChanged extends DocumentEvent {
-  final Map<PadElement, PadElement> changedElements;
+  final Map<PadElement, List<PadElement>> changedElements;
   const ElementsChanged(this.changedElements);
 
   @override

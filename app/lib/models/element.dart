@@ -56,13 +56,6 @@ class PadElement with _$PadElement {
     @Default(PenProperty()) PenProperty property,
   }) = PenElement;
 
-  @Implements<PathElement>()
-  const factory PadElement.eraser({
-    @Default('') String layer,
-    @Default([]) List<PathPoint> points,
-    @Default(EraserProperty()) EraserProperty property,
-  }) = EraserElement;
-
   const factory PadElement.label({
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,

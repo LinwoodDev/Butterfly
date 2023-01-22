@@ -94,28 +94,6 @@ Map<String, dynamic> _$$PenElementToJson(_$PenElement instance) =>
       'type': instance.$type,
     };
 
-_$EraserElement _$$EraserElementFromJson(Map json) => _$EraserElement(
-      layer: json['layer'] as String? ?? '',
-      points: (json['points'] as List<dynamic>?)
-              ?.map((e) =>
-                  PathPoint.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
-      property: json['property'] == null
-          ? const EraserProperty()
-          : EraserProperty.fromJson(
-              Map<String, dynamic>.from(json['property'] as Map)),
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$EraserElementToJson(_$EraserElement instance) =>
-    <String, dynamic>{
-      'layer': instance.layer,
-      'points': instance.points.map((e) => e.toJson()).toList(),
-      'property': instance.property.toJson(),
-      'type': instance.$type,
-    };
-
 _$LabelElement _$$LabelElementFromJson(Map json) => _$LabelElement(
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null

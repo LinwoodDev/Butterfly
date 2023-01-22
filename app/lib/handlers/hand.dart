@@ -474,8 +474,7 @@ class HandHandler extends Handler<HandPainter> {
       if (!context.isCtrlPressed) {
         _selected.clear();
       }
-      final hits = await rayCastRect(
-          freeSelection, context.buildContext, data.includeEraser);
+      final hits = await rayCastRect(freeSelection, context.buildContext);
       _selected.addAll(hits);
       context.refresh();
     }
@@ -555,7 +554,7 @@ class HandHandler extends Handler<HandPainter> {
     _transformCorner = null;
     _currentTransformOffset = null;
     bloc.add(ElementsChanged(
-      updated.map((key, value) => MapEntry(key.element, value.element)),
+      updated.map((key, value) => MapEntry(key.element, [value.element])),
     ));
     bloc.refresh();
     return true;

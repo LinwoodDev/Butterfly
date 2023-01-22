@@ -727,9 +727,11 @@ packages:
   perfect_freehand:
     dependency: "direct main"
     description:
-      name: perfect_freehand
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: "066461ee27342559e5731a03e3371c0537f1abcb"
+      resolved-ref: "066461ee27342559e5731a03e3371c0537f1abcb"
+      url: "https://github.com/CodeDoctorDE/perfect-freehand-dart.git"
+    source: git
     version: "1.0.4"
   petitparser:
     dependency: transitive
@@ -1148,7 +1150,7 @@ packages:
       name: window_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.8"
+    version: "0.2.9"
   xdg_directories:
     dependency: transitive
     description:
@@ -1176,7 +1178,7 @@ packages:
       name: yaru
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.5"
+    version: "0.4.6"
   yaru_color_generator:
     dependency: transitive
     description:

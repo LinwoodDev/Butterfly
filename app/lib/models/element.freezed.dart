@@ -845,8 +845,6 @@ PadElement _$PadElementFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'pen':
       return PenElement.fromJson(json);
-    case 'eraser':
-      return EraserElement.fromJson(json);
     case 'label':
       return LabelElement.fromJson(json);
     case 'image':
@@ -870,9 +868,6 @@ mixin _$PadElement {
     required TResult Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)
         pen,
-    required TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)
-        eraser,
     required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
@@ -909,9 +904,6 @@ mixin _$PadElement {
     TResult? Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult? Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
     TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
@@ -944,9 +936,6 @@ mixin _$PadElement {
     TResult Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
@@ -978,7 +967,6 @@ mixin _$PadElement {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
-    required TResult Function(EraserElement value) eraser,
     required TResult Function(LabelElement value) label,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
@@ -988,7 +976,6 @@ mixin _$PadElement {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
-    TResult? Function(EraserElement value)? eraser,
     TResult? Function(LabelElement value)? label,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
@@ -998,7 +985,6 @@ mixin _$PadElement {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
@@ -1152,9 +1138,6 @@ class _$PenElement implements PenElement {
             PenProperty property)
         pen,
     required TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)
-        eraser,
-    required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             String text,
@@ -1193,9 +1176,6 @@ class _$PenElement implements PenElement {
     TResult? Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult? Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
     TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
@@ -1231,9 +1211,6 @@ class _$PenElement implements PenElement {
     TResult Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
@@ -1271,7 +1248,6 @@ class _$PenElement implements PenElement {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
-    required TResult Function(EraserElement value) eraser,
     required TResult Function(LabelElement value) label,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
@@ -1284,7 +1260,6 @@ class _$PenElement implements PenElement {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
-    TResult? Function(EraserElement value)? eraser,
     TResult? Function(LabelElement value)? label,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
@@ -1297,7 +1272,6 @@ class _$PenElement implements PenElement {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
@@ -1336,285 +1310,6 @@ abstract class PenElement implements PadElement, PathElement {
   @override
   @JsonKey(ignore: true)
   _$$PenElementCopyWith<_$PenElement> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$EraserElementCopyWith<$Res>
-    implements $PadElementCopyWith<$Res> {
-  factory _$$EraserElementCopyWith(
-          _$EraserElement value, $Res Function(_$EraserElement) then) =
-      __$$EraserElementCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String layer, List<PathPoint> points, EraserProperty property});
-}
-
-/// @nodoc
-class __$$EraserElementCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$EraserElement>
-    implements _$$EraserElementCopyWith<$Res> {
-  __$$EraserElementCopyWithImpl(
-      _$EraserElement _value, $Res Function(_$EraserElement) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? layer = null,
-    Object? points = null,
-    Object? property = freezed,
-  }) {
-    return _then(_$EraserElement(
-      layer: null == layer
-          ? _value.layer
-          : layer // ignore: cast_nullable_to_non_nullable
-              as String,
-      points: null == points
-          ? _value._points
-          : points // ignore: cast_nullable_to_non_nullable
-              as List<PathPoint>,
-      property: freezed == property
-          ? _value.property
-          : property // ignore: cast_nullable_to_non_nullable
-              as EraserProperty,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$EraserElement implements EraserElement {
-  const _$EraserElement(
-      {this.layer = '',
-      final List<PathPoint> points = const [],
-      this.property = const EraserProperty(),
-      final String? $type})
-      : _points = points,
-        $type = $type ?? 'eraser';
-
-  factory _$EraserElement.fromJson(Map<String, dynamic> json) =>
-      _$$EraserElementFromJson(json);
-
-  @override
-  @JsonKey()
-  final String layer;
-  final List<PathPoint> _points;
-  @override
-  @JsonKey()
-  List<PathPoint> get points {
-    if (_points is EqualUnmodifiableListView) return _points;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_points);
-  }
-
-  @override
-  @JsonKey()
-  final EraserProperty property;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'PadElement.eraser(layer: $layer, points: $points, property: $property)';
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$EraserElementCopyWith<_$EraserElement> get copyWith =>
-      __$$EraserElementCopyWithImpl<_$EraserElement>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String layer, double zoom, List<PathPoint> points,
-            PenProperty property)
-        pen,
-    required TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)
-        eraser,
-    required TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            String text,
-            LabelProperty property,
-            ElementConstraint constraint)
-        label,
-    required TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
-            double width,
-            double height)
-        image,
-    required TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            ElementConstraints? constraints,
-            String data,
-            double width,
-            double height)
-        svg,
-    required TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
-            ShapeProperty property)
-        shape,
-  }) {
-    return eraser(layer, points, property);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String layer, double zoom, List<PathPoint> points,
-            PenProperty property)?
-        pen,
-    TResult? Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
-    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
-        label,
-    TResult? Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
-            double width,
-            double height)?
-        image,
-    TResult? Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            ElementConstraints? constraints,
-            String data,
-            double width,
-            double height)?
-        svg,
-    TResult? Function(
-            String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
-            ShapeProperty property)?
-        shape,
-  }) {
-    return eraser?.call(layer, points, property);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String layer, double zoom, List<PathPoint> points,
-            PenProperty property)?
-        pen,
-    TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
-        label,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
-            double width,
-            double height)?
-        image,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset position,
-            ElementConstraints? constraints,
-            String data,
-            double width,
-            double height)?
-        svg,
-    TResult Function(
-            String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
-            ShapeProperty property)?
-        shape,
-    required TResult orElse(),
-  }) {
-    if (eraser != null) {
-      return eraser(layer, points, property);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PenElement value) pen,
-    required TResult Function(EraserElement value) eraser,
-    required TResult Function(LabelElement value) label,
-    required TResult Function(ImageElement value) image,
-    required TResult Function(SvgElement value) svg,
-    required TResult Function(ShapeElement value) shape,
-  }) {
-    return eraser(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PenElement value)? pen,
-    TResult? Function(EraserElement value)? eraser,
-    TResult? Function(LabelElement value)? label,
-    TResult? Function(ImageElement value)? image,
-    TResult? Function(SvgElement value)? svg,
-    TResult? Function(ShapeElement value)? shape,
-  }) {
-    return eraser?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
-    TResult Function(LabelElement value)? label,
-    TResult Function(ImageElement value)? image,
-    TResult Function(SvgElement value)? svg,
-    TResult Function(ShapeElement value)? shape,
-    required TResult orElse(),
-  }) {
-    if (eraser != null) {
-      return eraser(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EraserElementToJson(
-      this,
-    );
-  }
-}
-
-abstract class EraserElement implements PadElement, PathElement {
-  const factory EraserElement(
-      {final String layer,
-      final List<PathPoint> points,
-      final EraserProperty property}) = _$EraserElement;
-
-  factory EraserElement.fromJson(Map<String, dynamic> json) =
-      _$EraserElement.fromJson;
-
-  @override
-  String get layer;
-  List<PathPoint> get points;
-  EraserProperty get property;
-  @override
-  @JsonKey(ignore: true)
-  _$$EraserElementCopyWith<_$EraserElement> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1739,9 +1434,6 @@ class _$LabelElement implements LabelElement {
             PenProperty property)
         pen,
     required TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)
-        eraser,
-    required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             String text,
@@ -1780,9 +1472,6 @@ class _$LabelElement implements LabelElement {
     TResult? Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult? Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
     TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
@@ -1818,9 +1507,6 @@ class _$LabelElement implements LabelElement {
     TResult Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
@@ -1858,7 +1544,6 @@ class _$LabelElement implements LabelElement {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
-    required TResult Function(EraserElement value) eraser,
     required TResult Function(LabelElement value) label,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
@@ -1871,7 +1556,6 @@ class _$LabelElement implements LabelElement {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
-    TResult? Function(EraserElement value)? eraser,
     TResult? Function(LabelElement value)? label,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
@@ -1884,7 +1568,6 @@ class _$LabelElement implements LabelElement {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
@@ -2062,9 +1745,6 @@ class _$ImageElement implements ImageElement {
             PenProperty property)
         pen,
     required TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)
-        eraser,
-    required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             String text,
@@ -2103,9 +1783,6 @@ class _$ImageElement implements ImageElement {
     TResult? Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult? Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
     TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
@@ -2141,9 +1818,6 @@ class _$ImageElement implements ImageElement {
     TResult Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
@@ -2181,7 +1855,6 @@ class _$ImageElement implements ImageElement {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
-    required TResult Function(EraserElement value) eraser,
     required TResult Function(LabelElement value) label,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
@@ -2194,7 +1867,6 @@ class _$ImageElement implements ImageElement {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
-    TResult? Function(EraserElement value)? eraser,
     TResult? Function(LabelElement value)? label,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
@@ -2207,7 +1879,6 @@ class _$ImageElement implements ImageElement {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
@@ -2387,9 +2058,6 @@ class _$SvgElement implements SvgElement {
             PenProperty property)
         pen,
     required TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)
-        eraser,
-    required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             String text,
@@ -2428,9 +2096,6 @@ class _$SvgElement implements SvgElement {
     TResult? Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult? Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
     TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
@@ -2466,9 +2131,6 @@ class _$SvgElement implements SvgElement {
     TResult Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
@@ -2506,7 +2168,6 @@ class _$SvgElement implements SvgElement {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
-    required TResult Function(EraserElement value) eraser,
     required TResult Function(LabelElement value) label,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
@@ -2519,7 +2180,6 @@ class _$SvgElement implements SvgElement {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
-    TResult? Function(EraserElement value)? eraser,
     TResult? Function(LabelElement value)? label,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
@@ -2532,7 +2192,6 @@ class _$SvgElement implements SvgElement {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
@@ -2681,9 +2340,6 @@ class _$ShapeElement implements ShapeElement {
             PenProperty property)
         pen,
     required TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)
-        eraser,
-    required TResult Function(
             String layer,
             @OffsetJsonConverter() Offset position,
             String text,
@@ -2722,9 +2378,6 @@ class _$ShapeElement implements ShapeElement {
     TResult? Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult? Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
     TResult? Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
@@ -2760,9 +2413,6 @@ class _$ShapeElement implements ShapeElement {
     TResult Function(String layer, double zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult Function(
-            String layer, List<PathPoint> points, EraserProperty property)?
-        eraser,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
             String text, LabelProperty property, ElementConstraint constraint)?
         label,
@@ -2800,7 +2450,6 @@ class _$ShapeElement implements ShapeElement {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
-    required TResult Function(EraserElement value) eraser,
     required TResult Function(LabelElement value) label,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
@@ -2813,7 +2462,6 @@ class _$ShapeElement implements ShapeElement {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
-    TResult? Function(EraserElement value)? eraser,
     TResult? Function(LabelElement value)? label,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
@@ -2826,7 +2474,6 @@ class _$ShapeElement implements ShapeElement {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
-    TResult Function(EraserElement value)? eraser,
     TResult Function(LabelElement value)? label,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,

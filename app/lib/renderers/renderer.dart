@@ -26,7 +26,6 @@ import '../models/property.dart';
 
 part 'backgrounds/box.dart';
 part 'backgrounds/empty.dart';
-part 'elements/eraser.dart';
 part 'elements/image.dart';
 part 'elements/label.dart';
 part 'elements/path.dart';
@@ -78,7 +77,6 @@ abstract class Renderer<T> {
     if (element is PadElement) {
       return element.map(
         pen: (value) => PenRenderer(value),
-        eraser: (value) => EraserRenderer(value),
         label: (value) => LabelRenderer(value),
         image: (value) => ImageRenderer(value),
         svg: (value) => SvgRenderer(value),
